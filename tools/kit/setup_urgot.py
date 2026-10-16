@@ -53,7 +53,7 @@ TEXT = {
                  A + "{w_t}秒" + E + "：普攻换成机枪连射，每发" + phy("w_dmg", "w_ratio") + "。",
         "skill2": "获得" + phy("e_sh", "e_sh_ratio") + "护盾，冲向敌方英雄，撞上后造成" + phy("e_dmg", "e_ratio") + O + "物理伤害" + E +
                   "、" + R + "晕眩{e_stun}秒" + E + "并把他甩到身后，开启" + O + "净除" + E + "。",
-        "ult": "发射钻头钉住第一个敌方英雄，造成" + phy("r_dmg", "r_ratio") + O + "物理伤害" + E + "并减速，" + A + "{r_t}秒" + E +
+        "ult": "缠斗中连续打中英雄{r_hits}下时，朝他发射钻头钉住第一个敌方英雄，造成" + phy("r_dmg", "r_ratio") + O + "物理伤害" + E + "并减速，" + A + "{r_t}秒" + E +
                "后拽回来处决：造成其{r_ex}%最大生命的" + T + "真实伤害" + E + "；处决成功时周围敌人" + R + "恐惧{r_fear}秒" + E + "。",
         "names": ("腐蚀电荷", "鄙弃", "超越死亡的恐惧"),
     },
@@ -65,7 +65,7 @@ TEXT = {
                  A + "{w_t}秒" + E + "：普攻換成機槍連射，每發" + phy("w_dmg", "w_ratio") + "。",
         "skill2": "獲得" + phy("e_sh", "e_sh_ratio") + "護盾，衝向敵方英雄，撞上後造成" + phy("e_dmg", "e_ratio") + O + "物理傷害" + E +
                   "、" + R + "暈眩{e_stun}秒" + E + "並把他甩到身後，開啟" + O + "殺戮射擊" + E + "。",
-        "ult": "發射鑽頭釘住第一個敵方英雄，造成" + phy("r_dmg", "r_ratio") + O + "物理傷害" + E + "並緩速，" + A + "{r_t}秒" + E +
+        "ult": "纏鬥中連續打中英雄{r_hits}下時，朝他發射鑽頭釘住第一個敵方英雄，造成" + phy("r_dmg", "r_ratio") + O + "物理傷害" + E + "並緩速，" + A + "{r_t}秒" + E +
                "後拽回來處決：造成其{r_ex}%最大生命的" + T + "真實傷害" + E + "；處決成功時周圍敵人" + R + "恐懼{r_fear}秒" + E + "。",
         "names": ("酸性榴彈", "恐怖襲擊", "索命虐殺"),
     },
@@ -80,7 +80,7 @@ TEXT = {
         "skill2": "Gains a " + phy("e_sh", "e_sh_ratio") + " shield and charges an enemy champion: on contact " + phy("e_dmg", "e_ratio") +
                   " " + O + "physical damage" + E + ", a " + R + "{e_stun}s stun" + E + ", and he hurls it behind him, starting " + O +
                   "Purge" + E + ".",
-        "ult": "Fires a drill that impales the first enemy champion for " + phy("r_dmg", "r_ratio") + " " + O + "physical damage" + E +
+        "ult": "On his {r_hits}th hit in a row on champions, fires a drill that impales the first enemy champion for " + phy("r_dmg", "r_ratio") + " " + O + "physical damage" + E +
                " and a slow; after " + A + "{r_t}s" + E + " he reels it in and executes it for {r_ex}% of its max health as " + T +
                "true damage" + E + ". An execution makes nearby enemies " + R + "flee for {r_fear}s" + E + ".",
         "names": ("Corrosive Charge", "Disdain", "Fear Beyond Death"),
@@ -93,7 +93,7 @@ TEXT = {
                  "심판의 원" + E + " " + A + "{w_t}초" + E + ": 기본 공격이 기관총 연사로 바뀌어 발당 " + phy("w_dmg", "w_ratio") + ".",
         "skill2": phy("e_sh", "e_sh_ratio") + "의 보호막을 얻고 적 챔피언에게 돌진, 충돌 시 " + phy("e_dmg", "e_ratio") + "의 " + O + "물리 피해" +
                   E + ", " + R + "{e_stun}초 기절" + E + " 후 뒤로 던지며 " + O + "심판의 원" + E + " 시작.",
-        "ult": "드릴을 쏘아 첫 적 챔피언을 꿰뚫어 " + phy("r_dmg", "r_ratio") + "의 " + O + "물리 피해" + E + "와 둔화, " + A + "{r_t}초" + E +
+        "ult": "챔피언을 연속 {r_hits}회 맞히면 드릴을 쏘아 첫 적 챔피언을 꿰뚫어 " + phy("r_dmg", "r_ratio") + "의 " + O + "물리 피해" + E + "와 둔화, " + A + "{r_t}초" + E +
                " 후 끌어당겨 처형: 최대 체력의 {r_ex}% " + T + "고정 피해" + E + ". 처형 성공 시 주변 적 " + R + "{r_fear}초 공포" + E + ".",
         "names": ("부식성 폭약", "경멸", "불사의 공포"),
     },
@@ -105,7 +105,7 @@ TEXT = {
                  "パージ" + E + "が" + A + "{w_t}秒" + E + "発動：通常攻撃が機関銃の連射になり1発" + phy("w_dmg", "w_ratio") + "。",
         "skill2": phy("e_sh", "e_sh_ratio") + "のシールドを得て敵チャンピオンへ突進、衝突で" + phy("e_dmg", "e_ratio") + "の" + O + "物理ダメージ" +
                   E + "と" + R + "{e_stun}秒スタン" + E + "、背後へ投げ飛ばし" + O + "パージ" + E + "発動。",
-        "ult": "ドリルを撃ち最初の敵チャンピオンを貫き" + phy("r_dmg", "r_ratio") + "の" + O + "物理ダメージ" + E + "とスロウ、" + A + "{r_t}秒" + E +
+        "ult": "チャンピオンに{r_hits}回連続で命中させるとドリルを撃ち最初の敵チャンピオンを貫き" + phy("r_dmg", "r_ratio") + "の" + O + "物理ダメージ" + E + "とスロウ、" + A + "{r_t}秒" + E +
                "後に引き寄せて処刑：最大体力の{r_ex}%の" + T + "確定ダメージ" + E + "。処刑成功で周囲の敵が" + R + "{r_fear}秒恐怖" + E + "。",
         "names": ("コラプトシェル", "ディスデイン", "デスグラインダー"),
     },
@@ -142,7 +142,7 @@ def secs(t):
 
 def values(p):
     v = {k: p[k] for k in ("p_ratio", "p_hp", "q_dmg", "q_ratio", "q_slow", "w_dmg", "w_ratio", "e_sh", "e_sh_ratio",
-                           "e_dmg", "e_ratio", "r_dmg", "r_ratio", "r_ex")}
+                           "e_dmg", "e_ratio", "r_dmg", "r_ratio", "r_ex", "r_hits")}
     for k in ("leg_t", "leg_t0", "w_t", "e_stun", "r_t", "r_fear"):
         v[k] = secs(p[k])
     return v

@@ -71,11 +71,11 @@ P = {
     # R Fear Beyond Death (League: 2500 range, 3200 speed, 100-350 + 50% bonus AD, leash 4 s with a slow to 75%,
     # recast under 25% max hp: a 1.5 s reel-in then the execute, nearby enemies flee 1.5 s, cd 100-70 s)
     "r_cd": 3000, "r_range": 110000, "r_dur": 30, "r_st": 8, "r_aim": 4, "r_speed": 6000, "r_rad": 8000,
-    "r_dmg": 150, "r_ratio": 50, "r_slow": 40, "r_t": 240, "r_reel": 20, "r_ex": 25, "r_fear_r": 40000, "r_fear": 90,
+    "r_dmg": 250, "r_ratio": 50, "r_slow": 40, "r_t": 240, "r_reel": 20, "r_ex": 25, "r_fear_r": 40000, "r_fear": 90,
     # when R fires (the user: 「大招释放逻辑是什么 不会乱放吧」): armed for r_arm ticks; it fires on the r_hits-th of his
     # hits on champions in a row (each within hit_t ticks of the last: a fight he is in), at the champion just hit;
     # unused, the cooldown is mostly given back
-    "r_arm": 1200, "r_reset": 4900, "r_hits": 5, "hit_t": 180,
+    "r_arm": 1200, "r_reset": 4900, "r_hits": 4, "hit_t": 180,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_urgot

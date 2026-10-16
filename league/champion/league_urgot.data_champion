@@ -85,6 +85,401 @@
                   "type": "ViewEffect",
                   "name": "league_urgot_w_hit"
                 }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "RandomTarget",
+                  "range": 3000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": true,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_urgot_h3",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_urgot_h3"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_urgot_r_arm",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_urgot_r_arm"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 30
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_urgot_r"
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_urgot_vo_cd",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_urgot_vo_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 600
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_urgot_vo_r"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_urgot_r_aim",
+                                  "travel_time": 12,
+                                  "range": 960000,
+                                  "range_effect_name": "",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1
+                                    }
+                                  },
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "LinearProjectile",
+                                      "name": "league_urgot_r_drill",
+                                      "penetrate": false,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Attack",
+                                            "damage": 250,
+                                            "attack_ratio": 50,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_urgot_r_leash",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_urgot_r_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_urgot_r_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Delayed",
+                                            "tick": 240,
+                                            "effects": [
+                                              {
+                                                "type": "Grab",
+                                                "speed": 3000
+                                              },
+                                              {
+                                                "type": "AddCasted",
+                                                "casted_type": "Heal",
+                                                "duration": 1,
+                                                "period": 1,
+                                                "effects": [
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_urgot_r_reel"
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 20,
+                                                "effects": [
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_urgot_r_kill"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_urgot_r_kill",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 40
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "FixedAttack",
+                                                    "damage": 0,
+                                                    "attack_ratio": 0,
+                                                    "hp_ratio": 0,
+                                                    "target_hp_ratio": 25,
+                                                    "attack_effect_type": "Target"
+                                                  },
+                                                  {
+                                                    "type": "AddCasted",
+                                                    "casted_type": "Heal",
+                                                    "duration": 1,
+                                                    "period": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_urgot_r_ex"
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_urgot_r_ex"
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasted",
+                                                        "casted_type": "Heal",
+                                                        "duration": 3,
+                                                        "period": 1,
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_urgot_r_kill"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "target": "AllyOnlySelf",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 24,
+                                                    "effects": [
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_urgot_r_kill",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_urgot_r_kill"
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_urgot_vo_r_kill"
+                                                            },
+                                                            {
+                                                              "type": "CasterViewEffect",
+                                                              "name": "league_urgot_r_fear"
+                                                            },
+                                                            {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 40000
+                                                                }
+                                                              },
+                                                              "target": "EnemyChampion",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "Fear",
+                                                                  "tick": 90
+                                                                },
+                                                                {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_urgot_r_flee",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 90
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": -50
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": [],
+                                      "speed": 6000,
+                                      "range": 110000,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 8000
+                                        }
+                                      },
+                                      "y_offset": -3000
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_urgot_r_fire"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_urgot_h2",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_urgot_h2"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_urgot_h3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 180
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_urgot_h1",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_urgot_h1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_urgot_h2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 180
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_urgot_h1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
               }
             ]
           },
@@ -215,6 +610,401 @@
                 "effect": {
                   "type": "TargetSfx",
                   "name": "league_urgot_a_hit"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "RandomTarget",
+                  "range": 3000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": true,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_urgot_h3",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_urgot_h3"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_urgot_r_arm",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_urgot_r_arm"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 30
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_urgot_r"
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_urgot_vo_cd",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_urgot_vo_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 600
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_urgot_vo_r"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_urgot_r_aim",
+                                  "travel_time": 12,
+                                  "range": 960000,
+                                  "range_effect_name": "",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1
+                                    }
+                                  },
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "LinearProjectile",
+                                      "name": "league_urgot_r_drill",
+                                      "penetrate": false,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Attack",
+                                            "damage": 250,
+                                            "attack_ratio": 50,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_urgot_r_leash",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_urgot_r_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_urgot_r_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Delayed",
+                                            "tick": 240,
+                                            "effects": [
+                                              {
+                                                "type": "Grab",
+                                                "speed": 3000
+                                              },
+                                              {
+                                                "type": "AddCasted",
+                                                "casted_type": "Heal",
+                                                "duration": 1,
+                                                "period": 1,
+                                                "effects": [
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_urgot_r_reel"
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 20,
+                                                "effects": [
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_urgot_r_kill"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_urgot_r_kill",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 40
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "FixedAttack",
+                                                    "damage": 0,
+                                                    "attack_ratio": 0,
+                                                    "hp_ratio": 0,
+                                                    "target_hp_ratio": 25,
+                                                    "attack_effect_type": "Target"
+                                                  },
+                                                  {
+                                                    "type": "AddCasted",
+                                                    "casted_type": "Heal",
+                                                    "duration": 1,
+                                                    "period": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_urgot_r_ex"
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_urgot_r_ex"
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasted",
+                                                        "casted_type": "Heal",
+                                                        "duration": 3,
+                                                        "period": 1,
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_urgot_r_kill"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "target": "AllyOnlySelf",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 24,
+                                                    "effects": [
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_urgot_r_kill",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_urgot_r_kill"
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_urgot_vo_r_kill"
+                                                            },
+                                                            {
+                                                              "type": "CasterViewEffect",
+                                                              "name": "league_urgot_r_fear"
+                                                            },
+                                                            {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 40000
+                                                                }
+                                                              },
+                                                              "target": "EnemyChampion",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "Fear",
+                                                                  "tick": 90
+                                                                },
+                                                                {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_urgot_r_flee",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 90
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": -50
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": [],
+                                      "speed": 6000,
+                                      "range": 110000,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 8000
+                                        }
+                                      },
+                                      "y_offset": -3000
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_urgot_r_fire"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_urgot_h2",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_urgot_h2"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_urgot_h3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 180
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_urgot_h1",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_urgot_h1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_urgot_h2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 180
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_urgot_h1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -479,6 +1269,407 @@
               ]
             },
             {
+              "type": "RangeProjectile",
+              "name": "league_urgot_q_champ",
+              "shape": {
+                "Circle": {
+                  "radius": 21000
+                }
+              },
+              "delay": 12,
+              "apply": 12,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_urgot_h3",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_urgot_h3"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_urgot_r_arm",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_urgot_r_arm"
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
+                                },
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 30
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_urgot_r"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_urgot_vo_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_urgot_vo_cd",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 600
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_urgot_vo_r"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "league_urgot_r_aim",
+                                "travel_time": 12,
+                                "range": 960000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "LinearProjectile",
+                                    "name": "league_urgot_r_drill",
+                                    "penetrate": false,
+                                    "applied_target": "EnemyChampion",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 250,
+                                          "attack_ratio": 50,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_urgot_r_leash",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 240
+                                              }
+                                            },
+                                            "move_speed_mult": -40
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ViewEffect",
+                                          "name": "league_urgot_r_hit"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "TargetSfx",
+                                          "name": "league_urgot_r_hit"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Delayed",
+                                          "tick": 240,
+                                          "effects": [
+                                            {
+                                              "type": "Grab",
+                                              "speed": 3000
+                                            },
+                                            {
+                                              "type": "AddCasted",
+                                              "casted_type": "Heal",
+                                              "duration": 1,
+                                              "period": 1,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_urgot_r_reel"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 20,
+                                              "effects": [
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_urgot_r_kill"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_urgot_r_kill",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 40
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 0,
+                                                  "attack_ratio": 0,
+                                                  "hp_ratio": 0,
+                                                  "target_hp_ratio": 25,
+                                                  "attack_effect_type": "Target"
+                                                },
+                                                {
+                                                  "type": "AddCasted",
+                                                  "casted_type": "Heal",
+                                                  "duration": 1,
+                                                  "period": 1,
+                                                  "effects": [
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_urgot_r_ex"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_urgot_r_ex"
+                                                },
+                                                {
+                                                  "type": "Delayed",
+                                                  "tick": 1,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasted",
+                                                      "casted_type": "Heal",
+                                                      "duration": 3,
+                                                      "period": 1,
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_urgot_r_kill"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "target": "AllyOnlySelf",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "Delayed",
+                                                  "tick": 24,
+                                                  "effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_urgot_r_kill",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_urgot_r_kill"
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_urgot_vo_r_kill"
+                                                          },
+                                                          {
+                                                            "type": "CasterViewEffect",
+                                                            "name": "league_urgot_r_fear"
+                                                          },
+                                                          {
+                                                            "type": "RangeEffect",
+                                                            "shape": {
+                                                              "Circle": {
+                                                                "radius": 40000
+                                                              }
+                                                            },
+                                                            "target": "EnemyChampion",
+                                                            "apply_type": "AroundCaster",
+                                                            "effects": [
+                                                              {
+                                                                "type": "Fear",
+                                                                "tick": 90
+                                                              },
+                                                              {
+                                                                "type": "AddBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_urgot_r_flee",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 90
+                                                                    }
+                                                                  },
+                                                                  "move_speed_mult": -50
+                                                                }
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    "end_effects": [],
+                                    "speed": 6000,
+                                    "range": 110000,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 8000
+                                      }
+                                    },
+                                    "y_offset": -3000
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_urgot_r_fire"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_urgot_h2",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_urgot_h2"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_urgot_h3",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_urgot_h1",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_urgot_h1"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_urgot_h2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 180
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_urgot_h1",
+                            "duration": {
+                              "Time": {
+                                "tick": 180
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
               "type": "Sfx",
               "name": "league_urgot_q_land"
             }
@@ -660,6 +1851,390 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_urgot_h3",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_urgot_h3"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_urgot_r_arm",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_urgot_r_arm"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "target": "AllyOnlySelf",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 30
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_urgot_r"
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_urgot_vo_cd",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_urgot_vo_cd",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 600
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_urgot_vo_r"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_urgot_r_aim",
+                          "travel_time": 12,
+                          "range": 960000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "LinearProjectile",
+                              "name": "league_urgot_r_drill",
+                              "penetrate": false,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 250,
+                                    "attack_ratio": 50,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "league_urgot_r_leash",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      },
+                                      "move_speed_mult": -40
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_urgot_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_urgot_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Delayed",
+                                    "tick": 240,
+                                    "effects": [
+                                      {
+                                        "type": "Grab",
+                                        "speed": 3000
+                                      },
+                                      {
+                                        "type": "AddCasted",
+                                        "casted_type": "Heal",
+                                        "duration": 1,
+                                        "period": 1,
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_urgot_r_reel"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 20,
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_urgot_r_kill"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_urgot_r_kill",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 40
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "FixedAttack",
+                                            "damage": 0,
+                                            "attack_ratio": 0,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 25,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "AddCasted",
+                                            "casted_type": "Heal",
+                                            "duration": 1,
+                                            "period": 1,
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_urgot_r_ex"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "league_urgot_r_ex"
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 1,
+                                            "effects": [
+                                              {
+                                                "type": "AddCasted",
+                                                "casted_type": "Heal",
+                                                "duration": 3,
+                                                "period": 1,
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_urgot_r_kill"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 24,
+                                            "effects": [
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_urgot_r_kill",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_urgot_r_kill"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_urgot_vo_r_kill"
+                                                    },
+                                                    {
+                                                      "type": "CasterViewEffect",
+                                                      "name": "league_urgot_r_fear"
+                                                    },
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 40000
+                                                        }
+                                                      },
+                                                      "target": "EnemyChampion",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "Fear",
+                                                          "tick": 90
+                                                        },
+                                                        {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_urgot_r_flee",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 90
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -50
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ],
+                              "end_effects": [],
+                              "speed": 6000,
+                              "range": 110000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 8000
+                                }
+                              },
+                              "y_offset": -3000
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_urgot_r_fire"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_urgot_h2",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_urgot_h2"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_urgot_h3",
+                        "duration": {
+                          "Time": {
+                            "tick": 180
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_urgot_h1",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_urgot_h1"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_urgot_h2",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_urgot_h1",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                }
+              }
             }
           ]
         }
@@ -667,291 +2242,85 @@
     }
   },
   "ult": {
-    "action_name": "ult",
+    "action_name": "idle",
     "description": "#asset/base/text/champion?description.league_urgot.ult",
-    "duration": 30,
+    "duration": 3,
     "cooltime": 3000,
-    "start_timing": 8,
+    "start_timing": 1,
     "cancelable": false,
-    "range": 110000,
-    "casting_type": "Targeting",
-    "casting_target": "EnemyChampionRecentlyAttacked",
+    "range": 960000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
       "effects": [
         {
-          "type": "Sfx",
-          "name": "league_urgot_r"
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_urgot_vo_cd",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_urgot_vo_cd",
-                  "duration": {
-                    "Time": {
-                      "tick": 600
-                    }
-                  }
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "Sfx",
-                "name": "league_urgot_vo_r"
-              }
-            ]
-          }
-        },
-        {
-          "type": "ParabolicProjectile",
-          "name": "league_urgot_r_aim",
-          "travel_time": 4,
-          "range": 960000,
-          "range_effect_name": "",
-          "shape": {
-            "Circle": {
-              "radius": 1
-            }
-          },
-          "applied_target": "EnemyChampion",
-          "applied_effects": [],
-          "end_effects": [
+          "type": "Combine",
+          "effects": [
             {
-              "type": "LinearProjectile",
-              "name": "league_urgot_r_drill",
-              "penetrate": false,
-              "applied_target": "EnemyChampion",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Attack",
-                    "damage": 150,
-                    "attack_ratio": 50,
-                    "hp_ratio": 0,
-                    "target_hp_ratio": 0,
-                    "attack_effect_type": "Target"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_urgot_r_leash",
-                      "duration": {
-                        "Time": {
-                          "tick": 240
-                        }
-                      },
-                      "move_speed_mult": -40
-                    }
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_urgot_r_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "TargetSfx",
-                    "name": "league_urgot_r_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Delayed",
-                    "tick": 240,
-                    "effects": [
-                      {
-                        "type": "Grab",
-                        "speed": 3000
-                      },
-                      {
-                        "type": "AddCasted",
-                        "casted_type": "Heal",
-                        "duration": 1,
-                        "period": 1,
-                        "effects": [
-                          {
-                            "type": "ViewEffect",
-                            "name": "league_urgot_r_reel"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Delayed",
-                        "tick": 20,
-                        "effects": [
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_urgot_r_kill"
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_urgot_r_kill",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 40
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
-                          },
-                          {
-                            "type": "FixedAttack",
-                            "damage": 0,
-                            "attack_ratio": 0,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 25,
-                            "attack_effect_type": "Target"
-                          },
-                          {
-                            "type": "AddCasted",
-                            "casted_type": "Heal",
-                            "duration": 1,
-                            "period": 1,
-                            "effects": [
-                              {
-                                "type": "ViewEffect",
-                                "name": "league_urgot_r_ex"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "league_urgot_r_ex"
-                          },
-                          {
-                            "type": "Delayed",
-                            "tick": 1,
-                            "effects": [
-                              {
-                                "type": "AddCasted",
-                                "casted_type": "Heal",
-                                "duration": 3,
-                                "period": 1,
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_urgot_r_kill"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1000
-                          }
-                        },
-                        "target": "AllyOnlySelf",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "Delayed",
-                            "tick": 24,
-                            "effects": [
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_urgot_r_kill",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_urgot_r_kill"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_urgot_vo_r_kill"
-                                    },
-                                    {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_urgot_r_fear"
-                                    },
-                                    {
-                                      "type": "RangeEffect",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 40000
-                                        }
-                                      },
-                                      "target": "EnemyChampion",
-                                      "apply_type": "AroundCaster",
-                                      "effects": [
-                                        {
-                                          "type": "Fear",
-                                          "tick": 90
-                                        },
-                                        {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_urgot_r_flee",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 90
-                                              }
-                                            },
-                                            "move_speed_mult": -50
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ],
-              "end_effects": [],
-              "speed": 6000,
-              "range": 110000,
-              "shape": {
-                "Circle": {
-                  "radius": 8000
-                }
-              },
-              "y_offset": -3000
+              "type": "RemoveCasterBuff",
+              "name": "league_urgot_r_arm"
             },
             {
-              "type": "Sfx",
-              "name": "league_urgot_r_fire"
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_urgot_r_arm",
+                "duration": {
+                  "Time": {
+                    "tick": 1205
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 1200,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_urgot_r_arm",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_urgot_r_arm"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_urgot_r_reset",
+                          "duration": {
+                            "Time": {
+                              "tick": 3
+                            }
+                          },
+                          "ult_cooldown_mult": 4900
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
             }
           ]
         }
