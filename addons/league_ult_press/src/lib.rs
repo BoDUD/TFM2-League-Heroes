@@ -25,7 +25,9 @@
 //! - 卡密尔（`league_camille`，E `Targeting EnemyChampion`）：E 好了、`CAMILLE_RANGE`（主包 E 的射程；附加包钩墙版是
 //!   85000，取小的）内有敌方英雄——按 E，目标是最近的那个；钩索、钩墙、冲向敌人由主包 / league_camille_wall 决定。
 //! - 所有近战英雄（主包数据里普攻距离不超过 `MELEE_RANGE`，`MELEE`）和远程的洛、赛娜（`RANGED_HOLDERS`）被停住：游戏的
-//!   AI 常把他们停在敌方英雄跟前（对线时停在 26–32k 外，近战射程 25k）、下令「走到自己脚下」或什么都不下，站着不打。
+//!   AI 常把他们停在敌方英雄跟前（对线时停在 26–32k 外，近战射程 25k）、下令「走到自己脚下」或什么都不下，站着不打；
+//!   也会让他们一直跟着敌方英雄走、不出手（卡兹克）：普攻好了、`HOLD_REACH` 内有敌方英雄、AI 只下走路命令（不是明显往远处撤，
+//!   `walking_away`）连着 `HOLD_WALKING` tick，也算被停住。
 //!   先是卡密尔、瑟提、奥拉夫，之后加上蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜，再加上李青、泰达米尔、塔里克，然后扩到所有近战。
 //!   原地站了 `HOLD_STILL` tick、普攻好了、AI 还让他原地站（`holding`）时，`hold_target` 挑人普攻：
 //!   他生命不低于 `HOLD_MIN_HP`、目标离敌方塔超过 `TOWER_REACH`、目标身边不比他身边人多；打出一下或 `ENGAGE_TICKS` 后重新算，
@@ -184,6 +186,13 @@ pub fn is_holder(name: &str) -> bool {
 }
 /// 原地站了这么多 tick、普攻好了、AI 还在让她原地站（没下命令，或「走到」离她 `HOLD_HERE` 以内的地方）才算被停住。
 pub const HOLD_STILL: usize = 15;
+/// 走着不打（玩家 yodajones12：「Kha'zix sometimes following opponent and not attacking」）：只读观察包里卡兹克身边 50000 内
+/// 有敌方英雄的 3 秒里，AI 下了约 25 次走路命令、0–2 次普攻，最近的敌方英雄在 19–46k（他的普攻射程 23000），原地站着不动只有
+/// 5–7%——`HOLD_STILL` 抓不到。普攻好了、`HOLD_REACH` 内有敌方英雄、AI 只下走路命令或不下命令、不是往远处撤，连着这么多 tick
+/// 也算被停住。
+pub const HOLD_WALKING: usize = 30;
+/// 走路的目的地比他现在离目标远这么多以上，就是在撤（拉开、回撤）：那是 AI 自己的打算，不算被停住。
+pub const HOLD_AWAY: f64 = 10_000.0;
 pub const HOLD_HERE: f64 = 3_000.0;
 /// 这么近的敌方英雄才上去打（观察到的停住距离 26–32k）；打上了之后对方走到 `HOLD_KEEP` 以外就不追。
 pub const HOLD_REACH: f64 = 35_000.0;
@@ -387,6 +396,11 @@ pub fn hold_target(
     (theirs <= ours).then_some(t)
 }
 
+/// 这一步走路是不是在撤：目的地离目标比他现在离目标远 `HOLD_AWAY` 以上。跟着走、斜着走、往前走都不算。
+pub fn walking_away(me: (f64, f64), to: (f64, f64), target: (f64, f64)) -> bool {
+    dist(to, target) > dist(me, target) + HOLD_AWAY
+}
+
 /// 放不出技能的控制。
 const NO_CAST: [CcKindV1; 7] =
     [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockSkill];
@@ -460,6 +474,8 @@ struct UltPress {
     still_ticks: usize,
     engage: Option<(usize, usize)>,
     atk_ready_prev: bool,
+    /// 走着不打：普攻好了、敌方英雄在 `HOLD_REACH` 内、AI 只下走路命令（不是撤）连着几 tick。
+    walk_ticks: usize,
 }
 
 /// AI 这一 tick 是不是在让她原地站：没下命令，或者「走到」她脚下 `HOLD_HERE` 以内。
@@ -513,6 +529,7 @@ impl StablePlayerAi for UltPress {
                 self.volleys = 1.0;
                 self.volley_tick = tick;
                 self.engage = None;
+                self.walk_ticks = 0;
             }
             self.volleys = (self.volleys + (tick - self.volley_tick) as f64 / KOG_VOLLEY_EVERY as f64).min(KOG_VOLLEYS_MAX);
             self.volley_tick = tick;
@@ -614,23 +631,42 @@ impl StablePlayerAi for UltPress {
             }
             if holder && atk_ready {
                 let engaged = self.engage.filter(|&(_, until)| tick <= until).map(|(t, _)| t);
-                if !holding(base, my_at) {
-                    // the AI does something else (an attack, a skill, a walk away): its call
+                // walking with an enemy champion close and not away from him (Kha'Zix follows and never attacks)
+                let near = nearest_in(my_at, HOLD_REACH, &enemies).and_then(|t| enemies.iter().find(|u| u.id == t)).map(|u| u.at);
+                let walking = match (base, near) {
+                    (Some(b), Some(p)) if b.kind == InputKindV1::Move.code() => {
+                        !walking_away(my_at, (b.x as f64, b.y as f64), p)
+                    }
+                    (None, Some(_)) => true,
+                    _ => false,
+                };
+                self.walk_ticks = if walking { self.walk_ticks + 1 } else { 0 };
+                let still_held = holding(base, my_at) && self.still_ticks >= HOLD_STILL;
+                let walk_held = self.walk_ticks >= HOLD_WALKING;
+                if !holding(base, my_at) && !walking {
+                    // the AI does something else (an attack, a skill, a walk away, a recall): its call
                     if base.is_some_and(|b| b.kind == InputKindV1::Move.code()) {
                         self.engage = None;
                     }
-                } else if self.still_ticks >= HOLD_STILL || engaged.is_some() {
+                } else if still_held || walk_held || engaged.is_some() {
                     match hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, engaged) {
                         Some(t) => {
                             if engaged != Some(t) {
                                 self.engage = Some((t, tick + ENGAGE_TICKS));
                             }
                             let d = enemies.iter().find(|u| u.id == t).map_or(f64::NAN, |u| dist(my_at, u.at));
-                            hold = Some((t, format!("held {} ticks, {} {d:.0} away", self.still_ticks, who(&sim, t))));
+                            let how = if still_held || !walk_held {
+                                format!("held {} ticks", self.still_ticks)
+                            } else {
+                                format!("walking without attacking {} ticks", self.walk_ticks)
+                            };
+                            hold = Some((t, format!("{how}, {} {d:.0} away", who(&sim, t))));
                         }
                         None => self.engage = None,
                     }
                 }
+            } else {
+                self.walk_ticks = 0;
             }
             let press = |t: usize| InputV1::action(kind, InputTargetV1::target(t));
             let cands = match name.as_str() {
@@ -917,5 +953,14 @@ mod tests {
         for name in ["league_jinx", "league_lux", "league_urgot", "league_karma"] {
             assert!(!is_holder(name), "{name}");
         }
+    }
+    #[test]
+    fn a_walk_counts_unless_it_clearly_backs_off() {
+        let (me, him) = ((0.0, 0.0), (30_000.0, 0.0));
+        assert!(!walking_away(me, (40_000.0, 0.0), him)); // at him
+        assert!(!walking_away(me, (0.0, 20_000.0), him)); // alongside: 36k from him, within 30k + HOLD_AWAY
+        assert!(!walking_away(me, (-5_000.0, 0.0), him)); // a short step back
+        assert!(walking_away(me, (-20_000.0, 0.0), him)); // backing off
+        assert!(walking_away(me, (-15_000.0, -15_000.0), him)); // backing off on a slant
     }
 }
