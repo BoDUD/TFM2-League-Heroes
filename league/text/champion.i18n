@@ -836,10 +836,10 @@
       },
       "league_renata": {
         "name": "烈娜塔",
-        "attack": "手枪普攻。<#ff9028ff>物尽其用<>：命中英雄时额外造成最大生命<#ffb900ff>2%<><#f5f5f5ff>真实伤害<>并标记；队友在旁攻击时引爆，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法伤害<>。<#ff9028ff>及时救难<>：队友被控或团战时自动施放，攻速+<#ffb900ff>30%<>、移速+<#ffb900ff>20%<>，<#ffb900ff>5秒<>内不会阵亡，结束时回复<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
-        "skill": "发射一对飞弹，命中敌人或飞到尽头时爆炸，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>30%<>；途经的友方英雄获得<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>护盾，持续<#ffb900ff>3秒<>。",
-        "skill2": "射出机械手，抓住第一个敌人，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并禁锢<#ffb900ff>0.83秒<>，随后把它甩向身后；落点周围的敌人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>，甩出的是英雄时还会被眩晕<#ffb900ff>0.5秒<>。",
-        "ult": "附近有2个以上敌方英雄，或敌方英雄被控制时，放出化学波：命中的敌方英雄狂暴<#ffb900ff>1.75秒<>，不能攻击我方、不能施法，每<#ffb900ff>0.5秒<>攻击身边的队友，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。"
+        "attack": "手枪普攻。<#ff9028ff>物尽其用<>：命中英雄时额外造成最大生命<#ffb900ff>2%<><#f5f5f5ff>真实伤害<>并标记；队友在旁攻击时引爆，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法伤害<>。<#ff9028ff>及时救难<>：队友被控或团战时自动施放，攻速+<#ffb900ff>40%<>、移速+<#ffb900ff>20%<>，<#ffb900ff>5秒<>内不会阵亡，结束时回复<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
+        "skill": "发射一对飞弹，命中敌人或飞到尽头时爆炸，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>30%<>；途经的友方英雄获得<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>护盾，持续<#ffb900ff>3秒<>。",
+        "skill2": "射出机械手，抓住第一个敌人，造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法伤害<>并禁锢<#ffb900ff>0.83秒<>，随后把它甩向身后；落点周围的敌人受到<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>，甩出的是英雄时还会被眩晕<#ffb900ff>0.5秒<>。",
+        "ult": "附近有2个以上敌方英雄，或敌方英雄被控制时，放出化学波：命中的敌方英雄狂暴<#ffb900ff>1.75秒<>，不能攻击我方、不能施法，每<#ffb900ff>0.5秒<>攻击身边的队友，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -2282,10 +2282,10 @@
       },
       "league_renata": {
         "name": "睿娜妲",
-        "attack": "手槍普攻。<#ff9028ff>唯利是圖<>：命中英雄時額外造成最大生命<#ffb900ff>2%<><#f5f5f5ff>真實傷害<>並標記；隊友在旁攻擊時引爆，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法傷害<>。<#ff9028ff>急難救助<>：隊友被控或團戰時自動施放，攻速+<#ffb900ff>30%<>、跑速+<#ffb900ff>20%<>，<#ffb900ff>5秒<>內不會陣亡，結束時回復<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
-        "skill": "發射一對飛彈，命中敵人或飛到盡頭時爆炸，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>30%<>；途經的友方英雄獲得<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>護盾，持續<#ffb900ff>3秒<>。",
-        "skill2": "射出機械手，抓住第一個敵人，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並定身<#ffb900ff>0.83秒<>，隨後把它甩向身後；落點周圍的敵人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>，甩出的是英雄時還會被暈眩<#ffb900ff>0.5秒<>。",
-        "ult": "附近有2個以上敵方英雄，或敵方英雄被控制時，放出化學波：命中的敵方英雄狂暴<#ffb900ff>1.75秒<>，不能攻擊我方、不能施法，每<#ffb900ff>0.5秒<>攻擊身邊的隊友，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。"
+        "attack": "手槍普攻。<#ff9028ff>唯利是圖<>：命中英雄時額外造成最大生命<#ffb900ff>2%<><#f5f5f5ff>真實傷害<>並標記；隊友在旁攻擊時引爆，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法傷害<>。<#ff9028ff>急難救助<>：隊友被控或團戰時自動施放，攻速+<#ffb900ff>40%<>、跑速+<#ffb900ff>20%<>，<#ffb900ff>5秒<>內不會陣亡，結束時回復<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
+        "skill": "發射一對飛彈，命中敵人或飛到盡頭時爆炸，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>30%<>；途經的友方英雄獲得<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>護盾，持續<#ffb900ff>3秒<>。",
+        "skill2": "射出機械手，抓住第一個敵人，造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法傷害<>並定身<#ffb900ff>0.83秒<>，隨後把它甩向身後；落點周圍的敵人受到<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>，甩出的是英雄時還會被暈眩<#ffb900ff>0.5秒<>。",
+        "ult": "附近有2個以上敵方英雄，或敵方英雄被控制時，放出化學波：命中的敵方英雄狂暴<#ffb900ff>1.75秒<>，不能攻擊我方、不能施法，每<#ffb900ff>0.5秒<>攻擊身邊的隊友，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -3728,10 +3728,10 @@
       },
       "league_renata": {
         "name": "Renata",
-        "attack": "Pistol attacks. <#ff9028ff>Leverage<>: hits on champions deal <#ffb900ff>2%<> of their max health as <#f5f5f5ff>true damage<> and mark them; an ally attacking beside her pops the mark for <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>. <#ff9028ff>Bailout<>: cast by itself on an ally in crowd control or in a teamfight: +<#ffb900ff>30%<> attack speed, +<#ffb900ff>20%<> move speed, cannot die for <#ffb900ff>5s<>, then heals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
-        "skill": "Fires a pair of missiles that burst on the first enemy or at the end: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and a <#ffb900ff>30%<> slow; allied champions they pass get a <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> shield for <#ffb900ff>3s<>.",
-        "skill2": "Launches a chemtech hand that grabs the first enemy: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and a <#ffb900ff>0.83s<> root, then flings it behind her; enemies where it lands take <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and, if a champion was thrown, a <#ffb900ff>0.5s<> stun.",
-        "ult": "With 2+ enemy champions near, or one in crowd control, sends out a chemical wave: enemy champions hit go berserk for <#ffb900ff>1.75s<>, unable to attack her team or cast, lashing out at their own allies every <#ffb900ff>0.5s<> for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>."
+        "attack": "Pistol attacks. <#ff9028ff>Leverage<>: hits on champions deal <#ffb900ff>2%<> of their max health as <#f5f5f5ff>true damage<> and mark them; an ally attacking beside her pops the mark for <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>. <#ff9028ff>Bailout<>: cast by itself on an ally in crowd control or in a teamfight: +<#ffb900ff>40%<> attack speed, +<#ffb900ff>20%<> move speed, cannot die for <#ffb900ff>5s<>, then heals <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
+        "skill": "Fires a pair of missiles that burst on the first enemy or at the end: <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and a <#ffb900ff>30%<> slow; allied champions they pass get a <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> shield for <#ffb900ff>3s<>.",
+        "skill2": "Launches a chemtech hand that grabs the first enemy: <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> <#a974ffff>magic damage<> and a <#ffb900ff>0.83s<> root, then flings it behind her; enemies where it lands take <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and, if a champion was thrown, a <#ffb900ff>0.5s<> stun.",
+        "ult": "With 2+ enemy champions near, or one in crowd control, sends out a chemical wave: enemy champions hit go berserk for <#ffb900ff>1.75s<>, unable to attack her team or cast, lashing out at their own allies every <#ffb900ff>0.5s<> for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>."
       }
     },
     "skill_name": {
@@ -5174,10 +5174,10 @@
       },
       "league_renata": {
         "name": "레나타",
-        "attack": "권총 공격. <#ff9028ff>영향력<>: 챔피언 적중 시 최대 체력의 <#ffb900ff>2%<> <#f5f5f5ff>고정 피해<>를 주고 표식을 남김. 아군이 곁에서 공격하면 터져 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>의 <#a974ffff>마법 피해<>. <#ff9028ff>긴급 구제<>: 아군이 군중 제어되거나 한타 중이면 자동 시전, 공격 속도 +<#ffb900ff>30%<>, 이동 속도 +<#ffb900ff>20%<>, <#ffb900ff>5초<> 동안 죽지 않고 끝날 때 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 회복.",
-        "skill": "미사일 한 쌍 발사, 첫 적이나 끝에서 폭발해 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>와 <#ffb900ff>30%<> 둔화. 지나간 아군 챔피언은 <#ffb900ff>3초<> 동안 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 보호막.",
-        "skill2": "화공 손을 날려 첫 적을 잡아 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>의 <#a974ffff>마법 피해<>와 <#ffb900ff>0.83초<> 속박, 이어서 뒤로 던짐. 떨어진 곳의 적은 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>, 던진 대상이 챔피언이면 <#ffb900ff>0.5초<> 기절.",
-        "ult": "근처에 적 챔피언이 2명 이상이거나 군중 제어된 적이 있으면 화학 파동 발사: 맞은 적 챔피언은 <#ffb900ff>1.75초<> 동안 광폭해져 우리 편을 공격하거나 스킬을 쓰지 못하고, <#ffb900ff>0.5초<>마다 자기 아군에게 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>."
+        "attack": "권총 공격. <#ff9028ff>영향력<>: 챔피언 적중 시 최대 체력의 <#ffb900ff>2%<> <#f5f5f5ff>고정 피해<>를 주고 표식을 남김. 아군이 곁에서 공격하면 터져 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>의 <#a974ffff>마법 피해<>. <#ff9028ff>긴급 구제<>: 아군이 군중 제어되거나 한타 중이면 자동 시전, 공격 속도 +<#ffb900ff>40%<>, 이동 속도 +<#ffb900ff>20%<>, <#ffb900ff>5초<> 동안 죽지 않고 끝날 때 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 회복.",
+        "skill": "미사일 한 쌍 발사, 첫 적이나 끝에서 폭발해 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<>와 <#ffb900ff>30%<> 둔화. 지나간 아군 챔피언은 <#ffb900ff>3초<> 동안 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 보호막.",
+        "skill2": "화공 손을 날려 첫 적을 잡아 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>의 <#a974ffff>마법 피해<>와 <#ffb900ff>0.83초<> 속박, 이어서 뒤로 던짐. 떨어진 곳의 적은 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>, 던진 대상이 챔피언이면 <#ffb900ff>0.5초<> 기절.",
+        "ult": "근처에 적 챔피언이 2명 이상이거나 군중 제어된 적이 있으면 화학 파동 발사: 맞은 적 챔피언은 <#ffb900ff>1.75초<> 동안 광폭해져 우리 편을 공격하거나 스킬을 쓰지 못하고, <#ffb900ff>0.5초<>마다 자기 아군에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>."
       }
     },
     "skill_name": {
@@ -6620,10 +6620,10 @@
       },
       "league_renata": {
         "name": "レナータ",
-        "attack": "拳銃で通常攻撃。<#ff9028ff>レバレッジ<>：チャンピオンに最大体力の<#ffb900ff>2%<>の<#f5f5f5ff>確定ダメージ<>とマーク。味方がそばで攻撃すると爆発し<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>緊急支援<>：味方が行動妨害中か集団戦で自動発動、攻撃速度+<#ffb900ff>30%<>、移動速度+<#ffb900ff>20%<>、<#ffb900ff>5秒<>倒れず、終了時<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>回復。",
-        "skill": "ミサイル2発を放ち、最初の敵か射程端で爆発して<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>30%<>スロウ。通過した味方チャンピオンに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>のシールド（<#ffb900ff>3秒<>）。",
-        "skill2": "ケミテックの手で最初の敵を掴み<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>0.83秒<>スネア、背後へ投げ飛ばす。落下地点の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、投げたのがチャンピオンなら<#ffb900ff>0.5秒<>スタン。",
-        "ult": "敵チャンピオン2体以上が近いか行動妨害中の敵がいる時、化学波を放つ：命中した敵チャンピオンは<#ffb900ff>1.75秒<>狂乱し、こちらへの攻撃とスキルが不可、<#ffb900ff>0.5秒<>ごとに自分の味方を攻撃して<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。"
+        "attack": "拳銃で通常攻撃。<#ff9028ff>レバレッジ<>：チャンピオンに最大体力の<#ffb900ff>2%<>の<#f5f5f5ff>確定ダメージ<>とマーク。味方がそばで攻撃すると爆発し<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>緊急支援<>：味方が行動妨害中か集団戦で自動発動、攻撃速度+<#ffb900ff>40%<>、移動速度+<#ffb900ff>20%<>、<#ffb900ff>5秒<>倒れず、終了時<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>回復。",
+        "skill": "ミサイル2発を放ち、最初の敵か射程端で爆発して<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>30%<>スロウ。通過した味方チャンピオンに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>のシールド（<#ffb900ff>3秒<>）。",
+        "skill2": "ケミテックの手で最初の敵を掴み<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>0.83秒<>スネア、背後へ投げ飛ばす。落下地点の敵に<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、投げたのがチャンピオンなら<#ffb900ff>0.5秒<>スタン。",
+        "ult": "敵チャンピオン2体以上が近いか行動妨害中の敵がいる時、化学波を放つ：命中した敵チャンピオンは<#ffb900ff>1.75秒<>狂乱し、こちらへの攻撃とスキルが不可、<#ffb900ff>0.5秒<>ごとに自分の味方を攻撃して<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。"
       }
     },
     "skill_name": {

@@ -17,7 +17,7 @@
   "stat": {
     "attack": 80,
     "magic_power": 30,
-    "hp": 900,
+    "hp": 950,
     "defence": 20,
     "magic_resistance": 22,
     "move_speed": 1000,
@@ -296,7 +296,7 @@
                                                           "tick": 300
                                                         }
                                                       },
-                                                      "attack_speed_mult": 30,
+                                                      "attack_speed_mult": 40,
                                                       "move_speed_mult": 20,
                                                       "undying": true
                                                     }
@@ -353,7 +353,7 @@
                                                     "effects": [
                                                       {
                                                         "type": "Heal",
-                                                        "amount": 150,
+                                                        "amount": 200,
                                                         "attack_ratio": 0,
                                                         "ap_ratio": 60,
                                                         "heal_type": "Ally"
@@ -425,7 +425,7 @@
                                                             "tick": 300
                                                           }
                                                         },
-                                                        "attack_speed_mult": 30,
+                                                        "attack_speed_mult": 40,
                                                         "move_speed_mult": 20,
                                                         "undying": true
                                                       }
@@ -482,7 +482,7 @@
                                                       "effects": [
                                                         {
                                                           "type": "Heal",
-                                                          "amount": 150,
+                                                          "amount": 200,
                                                           "attack_ratio": 0,
                                                           "ap_ratio": 60,
                                                           "heal_type": "Ally"
@@ -811,7 +811,7 @@
                                                                                   "casting_type": "Targeting",
                                                                                   "effect": {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 55,
+                                                                                    "damage": 70,
                                                                                     "attack_ratio": 40,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
@@ -980,7 +980,7 @@
                                                                                     "casting_type": "Targeting",
                                                                                     "effect": {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 55,
+                                                                                      "damage": 70,
                                                                                       "attack_ratio": 40,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
@@ -1180,7 +1180,7 @@
                                                                                   "casting_type": "Targeting",
                                                                                   "effect": {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 55,
+                                                                                    "damage": 70,
                                                                                     "attack_ratio": 40,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
@@ -1349,7 +1349,7 @@
                                                                                     "casting_type": "Targeting",
                                                                                     "effect": {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 55,
+                                                                                      "damage": 70,
                                                                                       "attack_ratio": 40,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
@@ -1776,8 +1776,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "ApAttack",
-                                      "damage": 70,
-                                      "attack_ratio": 50,
+                                      "damage": 85,
+                                      "attack_ratio": 60,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     }
@@ -1961,8 +1961,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "ApAttack",
-                                      "damage": 70,
-                                      "attack_ratio": 50,
+                                      "damage": 85,
+                                      "attack_ratio": 60,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     }
@@ -2181,8 +2181,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "ApAttack",
-                                  "damage": 80,
-                                  "attack_ratio": 70,
+                                  "damage": 95,
+                                  "attack_ratio": 85,
                                   "hp_ratio": 0,
                                   "can_crit": false
                                 }
@@ -2303,7 +2303,7 @@
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ApAttack",
-                                                "damage": 60,
+                                                "damage": 75,
                                                 "attack_ratio": 50,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
@@ -2436,8 +2436,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "ApAttack",
-                                  "damage": 80,
-                                  "attack_ratio": 70,
+                                  "damage": 95,
+                                  "attack_ratio": 85,
                                   "hp_ratio": 0,
                                   "can_crit": false
                                 }
@@ -2558,7 +2558,7 @@
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ApAttack",
-                                                "damage": 60,
+                                                "damage": 75,
                                                 "attack_ratio": 50,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
@@ -2895,7 +2895,7 @@
                                                           "tick": 300
                                                         }
                                                       },
-                                                      "attack_speed_mult": 30,
+                                                      "attack_speed_mult": 40,
                                                       "move_speed_mult": 20,
                                                       "undying": true
                                                     }
@@ -2952,7 +2952,7 @@
                                                     "effects": [
                                                       {
                                                         "type": "Heal",
-                                                        "amount": 150,
+                                                        "amount": 200,
                                                         "attack_ratio": 0,
                                                         "ap_ratio": 60,
                                                         "heal_type": "Ally"
@@ -3024,7 +3024,7 @@
                                                             "tick": 300
                                                           }
                                                         },
-                                                        "attack_speed_mult": 30,
+                                                        "attack_speed_mult": 40,
                                                         "move_speed_mult": 20,
                                                         "undying": true
                                                       }
@@ -3081,7 +3081,7 @@
                                                       "effects": [
                                                         {
                                                           "type": "Heal",
-                                                          "amount": 150,
+                                                          "amount": 200,
                                                           "attack_ratio": 0,
                                                           "ap_ratio": 60,
                                                           "heal_type": "Ally"
@@ -3410,7 +3410,7 @@
                                                                                   "casting_type": "Targeting",
                                                                                   "effect": {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 55,
+                                                                                    "damage": 70,
                                                                                     "attack_ratio": 40,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
@@ -3579,7 +3579,7 @@
                                                                                     "casting_type": "Targeting",
                                                                                     "effect": {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 55,
+                                                                                      "damage": 70,
                                                                                       "attack_ratio": 40,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
@@ -3779,7 +3779,7 @@
                                                                                   "casting_type": "Targeting",
                                                                                   "effect": {
                                                                                     "type": "ApAttack",
-                                                                                    "damage": 55,
+                                                                                    "damage": 70,
                                                                                     "attack_ratio": 40,
                                                                                     "hp_ratio": 0,
                                                                                     "can_crit": false
@@ -3948,7 +3948,7 @@
                                                                                     "casting_type": "Targeting",
                                                                                     "effect": {
                                                                                       "type": "ApAttack",
-                                                                                      "damage": 55,
+                                                                                      "damage": 70,
                                                                                       "attack_ratio": 40,
                                                                                       "hp_ratio": 0,
                                                                                       "can_crit": false
@@ -4121,7 +4121,7 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 165,
+                "damage": 210,
                 "attack_ratio": 120,
                 "hp_ratio": 0,
                 "can_crit": false
