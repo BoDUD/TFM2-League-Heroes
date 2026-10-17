@@ -10,9 +10,15 @@ champion in reach; the passive in the main pack; a native add-on for Q on a wall
   attack  The anchor swung, the hit a_st ticks in (the strip's swing frame 4).
   skill   Q Dredge Line (疏通航道): a `Direction` cast on `EnemyChampion` (q_range): on tick q_at the anchor flies
           (q_speed, q_reach) past minions to the first enemy champion (league_amumu Q's bandage, wide: q_rad): q_dmg +
-          q_ratio% AP, and the two are pulled together - the champion dragged toward him (`Grab`, q_pull a tick for q_pull_t
-          ticks) while he hauls himself toward it (`MoveToTarget` a tick later, the skill_pull strip): they meet between.
-          A miss pulls nobody. The hook arms the passive at once (q_land): the next attack roots even while it rests.
+          q_ratio% AP, and the two are pulled together: the champion is dragged toward him (`Grab`, q_pull a tick, no
+          `tick`, so its length is the whole gap) while he hauls on the chain (the skill_pull strip); q_catch ticks
+          later, when the longest drag is over, he dashes onto it (`MoveToTarget` q_dash a tick) to close what the drag
+          left - tenacity cuts a drag short. They meet about halfway. A miss pulls nobody. Until 2026-10-17 the drag
+          lasted 8 ticks (20000) and his dash ran from the first tick: on a long hook he covered about 3/4 of the gap,
+          and once the drag was over the champion could walk or dash off and his dash chased it (12 of 38 hooks in
+          the classic simulation went on past where it had stood; the user: 「有时候他会跟着被拉过来的敌人走」). A dash
+          running together with a drag of the whole gap is no cure: the drag keeps the direction and length it had at
+          the bite, so the two passed through each other (20 of 30 hooks, up to 46000). The hook arms the passive at once (q_land): the next attack roots even while it rests.
           On a wall the anchor pulls him to it and half the cooldown comes back - native, addons/league_nautilus (the copy
           built with native=1 calls its league_nautilus:hook as the anchor flies).
   skill2  W Titan's Wrath (泰坦之怒) + E Riptide (暗流涌动): a `Targeting` cast on `EnemyWithoutTower` (c_range): a shield
@@ -52,7 +58,7 @@ P = {
     "p_dmg": 20, "p_ratio": 30, "p_root": 50, "p_cd": 360,
     # Q Dredge Line (League: 1122 range, 2000 speed, 85-265 + 90% AP, cd 14-10 s)
     "q_cd": 600, "q_range": 75000, "q_dur": 28, "q_at": 14, "q_speed": 6000, "q_reach": 85000, "q_rad": 10000,
-    "q_y": 3000, "q_dmg": 75, "q_ratio": 60, "q_pull": 2500, "q_pull_t": 8, "q_dash": 2500, "q_anim": 24, "q_land": 120,
+    "q_y": 3000, "q_dmg": 75, "q_ratio": 60, "q_pull": 2500, "q_catch": 33, "q_dash": 2500, "q_anim": 24, "q_land": 120,
     # skill2: W Titan's Wrath (League: 45-165 + 8-12% bonus hp shield 6 s, attacks deal 30-110 + 40% AP round the
     # target) + E Riptide (League: 3 waves 55-215 + 50% AP, slow 30-50% decaying over 1.25 s, cd 7-5 s)
     "c_cd": 480, "c_range": 25000, "c_dur": 31, "w_shield": 110, "w_ap": 60, "w_t": 360, "w_dmg": 15, "w_ratio": 20,
@@ -203,11 +209,13 @@ def build(p):
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Dredge Line
-    hooked = [magic(p["q_dmg"], p["q_ratio"]), {"type": "Grab", "speed": p["q_pull"], "tick": p["q_pull_t"]},
+    # no `tick` on the Grab: its length is the gap when the anchor bites. His dash waits q_catch ticks, until the
+    # longest drag (q_reach / q_pull) is over, and closes only what is left
+    hooked = [magic(p["q_dmg"], p["q_ratio"]), {"type": "Grab", "speed": p["q_pull"]},
               view("q_hit"), tsfx("q_hit"), on_me(refresh("q_land", p["q_land"])),
               delayed(1, anim("skill_pull", p["q_anim"]),
-                      {"type": "MoveToTarget", "speed": p["q_dash"], "range": p["q_reach"] + 30000,
-                       "end_effects": []})]
+                      delayed(p["q_catch"], {"type": "MoveToTarget", "speed": p["q_dash"],
+                                             "range": p["q_reach"] + 30000, "end_effects": []}))]
     wall = [{"type": "Native", "effect_ref": "league_nautilus:hook"}] if p["native"] else []
     throw = combine(sfx("q"), voice("vo_q", p),
                     delayed(p["q_at"], sfx("q_fly"),
