@@ -1,0 +1,3340 @@
+{
+  "schema": 1,
+  "effects": [
+    {
+      "file": "yunara_fx_a_bead.png",
+      "frames": 2,
+      "frame_width": 14,
+      "frame_height": 8,
+      "sheet_1x": [
+        28,
+        8
+      ],
+      "sheet_8x": [
+        224,
+        64
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "top_bottom",
+      "palette": [
+        "#F8C244",
+        "#DF9B30",
+        "#A45132",
+        "#5B3335",
+        "#393033",
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC",
+        "#3A2A9E"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_projectiles `league_yunara_a_bead`（朝飞行方向转，画成朝右飞；上下对称）",
+      "game_size_reference": "14 × 8",
+      "raw_file": "raw/yunara_fx_a_bead.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "raw_layout": [
+        1,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            1659,
+            474
+          ],
+          "content_box_in_cell": [
+            380,
+            156,
+            1262,
+            434
+          ],
+          "sample_size": [
+            12,
+            5
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            474,
+            1659,
+            948
+          ],
+          "content_box_in_cell": [
+            385,
+            97,
+            1262,
+            394
+          ],
+          "sample_size": [
+            12,
+            5
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        44,
+        44
+      ],
+      "raw_sha256": "ceaf56281284b57ff3785e6e723c471fd7210412908cab9da23c031a7382d588",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_q_bead.png",
+      "frames": 4,
+      "frame_width": 18,
+      "frame_height": 10,
+      "sheet_1x": [
+        72,
+        10
+      ],
+      "sheet_8x": [
+        576,
+        80
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "top_bottom",
+      "palette": [
+        "#F8C244",
+        "#DF9B30",
+        "#A45132",
+        "#5B3335",
+        "#393033",
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC",
+        "#3A2A9E"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_projectiles `league_yunara_q_bead`（朝飞行方向转，画成朝右飞；上下对称）",
+      "game_size_reference": "18 × 10",
+      "raw_file": "raw/yunara_fx_q_bead.png",
+      "raw_size": [
+        1683,
+        935
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            841,
+            467
+          ],
+          "content_box_in_cell": [
+            124,
+            98,
+            787,
+            456
+          ],
+          "sample_size": [
+            17,
+            8
+          ],
+          "placement": [
+            0,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            841,
+            0,
+            1683,
+            467
+          ],
+          "content_box_in_cell": [
+            87,
+            110,
+            781,
+            450
+          ],
+          "sample_size": [
+            17,
+            8
+          ],
+          "placement": [
+            0,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            467,
+            841,
+            935
+          ],
+          "content_box_in_cell": [
+            137,
+            90,
+            804,
+            412
+          ],
+          "sample_size": [
+            17,
+            8
+          ],
+          "placement": [
+            0,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            841,
+            467,
+            1683,
+            935
+          ],
+          "content_box_in_cell": [
+            188,
+            85,
+            797,
+            414
+          ],
+          "sample_size": [
+            17,
+            8
+          ],
+          "placement": [
+            0,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        56,
+        64,
+        60,
+        64
+      ],
+      "raw_sha256": "60843d58524915a13cc2755a64022d2858891b3c25df5e36d29ff0b33b0103da",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_a_hit.png",
+      "frames": 4,
+      "frame_width": 12,
+      "frame_height": 12,
+      "sheet_1x": [
+        48,
+        12
+      ],
+      "sheet_8x": [
+        384,
+        96
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_a_hit`（跟随，画在人物上面；左右对称）",
+      "game_size_reference": "10",
+      "raw_file": "raw/yunara_fx_a_hit.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            887,
+            443
+          ],
+          "content_box_in_cell": [
+            411,
+            192,
+            477,
+            260
+          ],
+          "sample_size": [
+            2,
+            2
+          ],
+          "placement": [
+            5,
+            5
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            887,
+            0,
+            1774,
+            443
+          ],
+          "content_box_in_cell": [
+            279,
+            73,
+            610,
+            373
+          ],
+          "sample_size": [
+            7,
+            7
+          ],
+          "placement": [
+            2,
+            2
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            443,
+            887,
+            887
+          ],
+          "content_box_in_cell": [
+            230,
+            17,
+            658,
+            423
+          ],
+          "sample_size": [
+            10,
+            10
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            887,
+            443,
+            1774,
+            887
+          ],
+          "content_box_in_cell": [
+            216,
+            81,
+            669,
+            380
+          ],
+          "sample_size": [
+            10,
+            10
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        4,
+        24,
+        36,
+        10
+      ],
+      "raw_sha256": "8064051eb112bed5ca4cff6af7ee1a7ae857350f44260b7a7597e2a872cd6bbc",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_q_hit.png",
+      "frames": 5,
+      "frame_width": 18,
+      "frame_height": 18,
+      "sheet_1x": [
+        90,
+        18
+      ],
+      "sheet_8x": [
+        720,
+        144
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_q_hit`（跟随，画在人物上面；左右对称）",
+      "game_size_reference": "16",
+      "raw_file": "raw/yunara_fx_q_hit.png",
+      "raw_size": [
+        1322,
+        1190
+      ],
+      "raw_layout": [
+        2,
+        3
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            661,
+            403
+          ],
+          "content_box_in_cell": [
+            263,
+            142,
+            440,
+            319
+          ],
+          "sample_size": [
+            4,
+            4
+          ],
+          "placement": [
+            7,
+            7
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            661,
+            0,
+            1322,
+            403
+          ],
+          "content_box_in_cell": [
+            128,
+            40,
+            498,
+            400
+          ],
+          "sample_size": [
+            10,
+            10
+          ],
+          "placement": [
+            4,
+            4
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            403,
+            661,
+            841
+          ],
+          "content_box_in_cell": [
+            121,
+            24,
+            582,
+            435
+          ],
+          "sample_size": [
+            16,
+            16
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            661,
+            403,
+            1322,
+            841
+          ],
+          "content_box_in_cell": [
+            50,
+            55,
+            580,
+            422
+          ],
+          "sample_size": [
+            16,
+            16
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            841,
+            661,
+            1190
+          ],
+          "content_box_in_cell": [
+            119,
+            43,
+            614,
+            302
+          ],
+          "sample_size": [
+            16,
+            16
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        4,
+        26,
+        110,
+        50,
+        20
+      ],
+      "raw_sha256": "bb0f4e7aedbebd71288e6e6d05aeb0bfae650527ec342aac90fce155a179bd34",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_q_sp_hit.png",
+      "frames": 3,
+      "frame_width": 10,
+      "frame_height": 10,
+      "sheet_1x": [
+        30,
+        10
+      ],
+      "sheet_8x": [
+        240,
+        80
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_q_sp_hit`（跟随，画在人物上面；左右对称）",
+      "game_size_reference": "8",
+      "raw_file": "raw/yunara_fx_q_sp_hit.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            887,
+            482
+          ],
+          "content_box_in_cell": [
+            476,
+            211,
+            676,
+            413
+          ],
+          "sample_size": [
+            3,
+            3
+          ],
+          "placement": [
+            3,
+            3
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            887,
+            0,
+            1774,
+            482
+          ],
+          "content_box_in_cell": [
+            73,
+            72,
+            548,
+            482
+          ],
+          "sample_size": [
+            8,
+            8
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            482,
+            887,
+            887
+          ],
+          "content_box_in_cell": [
+            385,
+            136,
+            767,
+            332
+          ],
+          "sample_size": [
+            8,
+            8
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        8,
+        26,
+        10
+      ],
+      "raw_sha256": "7b7383cae95195ba4927a8829b117ca98628e8d5655ec9dcaaae04cff81b7459",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_q_spread.png",
+      "frames": 4,
+      "frame_width": 62,
+      "frame_height": 22,
+      "sheet_1x": [
+        248,
+        22
+      ],
+      "sheet_8x": [
+        1984,
+        176
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_q_spread`（不跟随，地上；左右对称；大图表）",
+      "game_size_reference": "60 × 20",
+      "raw_file": "raw/yunara_fx_q_spread.png",
+      "raw_size": [
+        1040,
+        1513
+      ],
+      "raw_layout": [
+        1,
+        4
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            1040,
+            378
+          ],
+          "content_box_in_cell": [
+            326,
+            126,
+            701,
+            267
+          ],
+          "sample_size": [
+            20,
+            6
+          ],
+          "placement": [
+            21,
+            8
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            378,
+            1040,
+            756
+          ],
+          "content_box_in_cell": [
+            147,
+            84,
+            894,
+            311
+          ],
+          "sample_size": [
+            40,
+            13
+          ],
+          "placement": [
+            11,
+            4
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            756,
+            1040,
+            1135
+          ],
+          "content_box_in_cell": [
+            26,
+            61,
+            1015,
+            345
+          ],
+          "sample_size": [
+            60,
+            20
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            1135,
+            1040,
+            1513
+          ],
+          "content_box_in_cell": [
+            58,
+            61,
+            982,
+            334
+          ],
+          "sample_size": [
+            60,
+            20
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        46,
+        160,
+        226,
+        116
+      ],
+      "raw_sha256": "2332d52db97238eb07eb177db510fa80cc136a88f58437421d08245d3eacc575",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_q_burst.png",
+      "frames": 5,
+      "frame_width": 28,
+      "frame_height": 40,
+      "sheet_1x": [
+        140,
+        40
+      ],
+      "sheet_8x": [
+        1120,
+        320
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_q_burst`（跟随她，画在人物上面；左右对称；大图表）",
+      "game_size_reference": "28 × 40",
+      "raw_file": "raw/yunara_fx_q_burst.png",
+      "raw_size": [
+        1286,
+        1223
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            429,
+            611
+          ],
+          "content_box_in_cell": [
+            66,
+            366,
+            396,
+            565
+          ],
+          "sample_size": [
+            26,
+            6
+          ],
+          "placement": [
+            1,
+            17
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            429,
+            0,
+            857,
+            611
+          ],
+          "content_box_in_cell": [
+            34,
+            186,
+            395,
+            596
+          ],
+          "sample_size": [
+            26,
+            10
+          ],
+          "placement": [
+            1,
+            15
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            857,
+            0,
+            1286,
+            611
+          ],
+          "content_box_in_cell": [
+            11,
+            82,
+            379,
+            596
+          ],
+          "sample_size": [
+            26,
+            20
+          ],
+          "placement": [
+            1,
+            10
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            611,
+            429,
+            1223
+          ],
+          "content_box_in_cell": [
+            61,
+            59,
+            401,
+            559
+          ],
+          "sample_size": [
+            26,
+            30
+          ],
+          "placement": [
+            1,
+            5
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            429,
+            611,
+            857,
+            1223
+          ],
+          "content_box_in_cell": [
+            63,
+            79,
+            366,
+            466
+          ],
+          "sample_size": [
+            26,
+            30
+          ],
+          "placement": [
+            1,
+            5
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        28,
+        38,
+        72,
+        40,
+        16
+      ],
+      "raw_sha256": "f4f68bc10496f0896d4bd309a2708bef371617e049e8d6cf6506bb936f1f9c8a",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_w_bead.png",
+      "frames": 4,
+      "frame_width": 18,
+      "frame_height": 14,
+      "sheet_1x": [
+        72,
+        14
+      ],
+      "sheet_8x": [
+        576,
+        112
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "top_bottom",
+      "palette": [
+        "#F8C244",
+        "#DF9B30",
+        "#A45132",
+        "#5B3335",
+        "#393033",
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC",
+        "#3A2A9E"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_projectiles `league_yunara_w_bead`（朝飞行方向转，画成朝右飞；上下对称）",
+      "game_size_reference": "18 × 14",
+      "raw_file": "raw/yunara_fx_w_bead.png",
+      "raw_size": [
+        1422,
+        1106
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            711,
+            561
+          ],
+          "content_box_in_cell": [
+            58,
+            67,
+            671,
+            558
+          ],
+          "sample_size": [
+            17,
+            14
+          ],
+          "placement": [
+            0,
+            0
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            711,
+            0,
+            1422,
+            561
+          ],
+          "content_box_in_cell": [
+            95,
+            67,
+            672,
+            558
+          ],
+          "sample_size": [
+            17,
+            14
+          ],
+          "placement": [
+            0,
+            0
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            561,
+            711,
+            1106
+          ],
+          "content_box_in_cell": [
+            111,
+            43,
+            669,
+            507
+          ],
+          "sample_size": [
+            17,
+            14
+          ],
+          "placement": [
+            0,
+            0
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            711,
+            561,
+            1422,
+            1106
+          ],
+          "content_box_in_cell": [
+            63,
+            43,
+            672,
+            502
+          ],
+          "sample_size": [
+            17,
+            14
+          ],
+          "placement": [
+            0,
+            0
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        140,
+        152,
+        128,
+        130
+      ],
+      "raw_sha256": "2e608c2ab598487523cc4441afd9ab55d75746bc4dc767c5cfd4671fb1ba827b",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_w_hit.png",
+      "frames": 4,
+      "frame_width": 16,
+      "frame_height": 16,
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "sheet_8x": [
+        512,
+        128
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC",
+        "#F8C244",
+        "#DF9B30",
+        "#A45132"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_w_hit`（跟随，画在人物上面；左右对称）",
+      "game_size_reference": "14",
+      "raw_file": "raw/yunara_fx_w_hit.png",
+      "raw_size": [
+        1261,
+        1247
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            635,
+            623
+          ],
+          "content_box_in_cell": [
+            201,
+            200,
+            450,
+            452
+          ],
+          "sample_size": [
+            4,
+            4
+          ],
+          "placement": [
+            6,
+            6
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            635,
+            0,
+            1261,
+            623
+          ],
+          "content_box_in_cell": [
+            60,
+            48,
+            597,
+            576
+          ],
+          "sample_size": [
+            10,
+            10
+          ],
+          "placement": [
+            3,
+            3
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            623,
+            635,
+            1247
+          ],
+          "content_box_in_cell": [
+            30,
+            40,
+            632,
+            568
+          ],
+          "sample_size": [
+            14,
+            14
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            635,
+            623,
+            1261,
+            1247
+          ],
+          "content_box_in_cell": [
+            52,
+            78,
+            584,
+            516
+          ],
+          "sample_size": [
+            14,
+            14
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        4,
+        26,
+        116,
+        8
+      ],
+      "raw_sha256": "a9722fa07f3e678fb58db60ea5cf1af9bad9563cfff612d0e35c003df27b919d",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_w_end.png",
+      "frames": 6,
+      "frame_width": 20,
+      "frame_height": 16,
+      "sheet_1x": [
+        120,
+        16
+      ],
+      "sheet_8x": [
+        960,
+        128
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#F8C244",
+        "#DF9B30",
+        "#A45132",
+        "#5B3335",
+        "#393033",
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC",
+        "#3A2A9E"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_w_end`（不跟随，地上；左右对称）",
+      "game_size_reference": "20 × 16",
+      "raw_file": "raw/yunara_fx_w_end.png",
+      "raw_size": [
+        1402,
+        1122
+      ],
+      "raw_layout": [
+        2,
+        3
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            701,
+            374
+          ],
+          "content_box_in_cell": [
+            101,
+            97,
+            620,
+            359
+          ],
+          "sample_size": [
+            18,
+            14
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            701,
+            0,
+            1402,
+            374
+          ],
+          "content_box_in_cell": [
+            77,
+            97,
+            594,
+            360
+          ],
+          "sample_size": [
+            18,
+            14
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            374,
+            701,
+            748
+          ],
+          "content_box_in_cell": [
+            101,
+            87,
+            623,
+            340
+          ],
+          "sample_size": [
+            18,
+            14
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            701,
+            374,
+            1402,
+            748
+          ],
+          "content_box_in_cell": [
+            87,
+            81,
+            592,
+            345
+          ],
+          "sample_size": [
+            18,
+            14
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            748,
+            701,
+            1122
+          ],
+          "content_box_in_cell": [
+            101,
+            40,
+            631,
+            334
+          ],
+          "sample_size": [
+            18,
+            14
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            701,
+            748,
+            1402,
+            1122
+          ],
+          "content_box_in_cell": [
+            77,
+            49,
+            599,
+            335
+          ],
+          "sample_size": [
+            18,
+            14
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        132,
+        112,
+        112,
+        112,
+        122,
+        54
+      ],
+      "raw_sha256": "79d6c6beca02fd019e990e9f328a75684967d535bf56a96bd53752eeab5dbe13",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_w_tick.png",
+      "frames": 3,
+      "frame_width": 12,
+      "frame_height": 12,
+      "sheet_1x": [
+        36,
+        12
+      ],
+      "sheet_8x": [
+        288,
+        96
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_w_tick`（不跟随，目标身上；左右对称）",
+      "game_size_reference": "10",
+      "raw_file": "raw/yunara_fx_w_tick.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            887,
+            443
+          ],
+          "content_box_in_cell": [
+            385,
+            177,
+            503,
+            293
+          ],
+          "sample_size": [
+            2,
+            2
+          ],
+          "placement": [
+            5,
+            5
+          ],
+          "tiny_flash_sampling_inset": 0.08
+        },
+        {
+          "cell_box": [
+            887,
+            0,
+            1774,
+            443
+          ],
+          "content_box_in_cell": [
+            104,
+            68,
+            786,
+            421
+          ],
+          "sample_size": [
+            10,
+            5
+          ],
+          "placement": [
+            1,
+            3
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            443,
+            887,
+            887
+          ],
+          "content_box_in_cell": [
+            42,
+            81,
+            847,
+            378
+          ],
+          "sample_size": [
+            10,
+            5
+          ],
+          "placement": [
+            1,
+            3
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        4,
+        22,
+        10
+      ],
+      "raw_sha256": "886fbd7ad29513f6509951e4950f412651716deb8b293c7621a021586c77e2aa",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_rw_charge.png",
+      "frames": 4,
+      "frame_width": 32,
+      "frame_height": 60,
+      "sheet_1x": [
+        128,
+        60
+      ],
+      "sheet_8x": [
+        1024,
+        480
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#FFF7DA",
+        "#FFE48E",
+        "#F8C244",
+        "#DF9B30"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_rw_charge`（跟随她，画在人物上面；左右对称；大图表）",
+      "game_size_reference": "32 × 60",
+      "raw_file": "raw/yunara_fx_rw_charge.png",
+      "raw_size": [
+        1295,
+        1214
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            647,
+            607
+          ],
+          "content_box_in_cell": [
+            305,
+            278,
+            384,
+            362
+          ],
+          "sample_size": [
+            4,
+            4
+          ],
+          "placement": [
+            14,
+            11
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            647,
+            0,
+            1295,
+            607
+          ],
+          "content_box_in_cell": [
+            140,
+            121,
+            502,
+            497
+          ],
+          "sample_size": [
+            24,
+            24
+          ],
+          "placement": [
+            4,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            607,
+            647,
+            1214
+          ],
+          "content_box_in_cell": [
+            96,
+            25,
+            596,
+            523
+          ],
+          "sample_size": [
+            24,
+            24
+          ],
+          "placement": [
+            4,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            647,
+            607,
+            1295,
+            1214
+          ],
+          "content_box_in_cell": [
+            168,
+            141,
+            478,
+            413
+          ],
+          "sample_size": [
+            18,
+            18
+          ],
+          "placement": [
+            7,
+            4
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        12,
+        142,
+        122,
+        128
+      ],
+      "raw_sha256": "010f91ace820a22eed5cb9fbacdc865b38574c720cb379dd459efc5cf3ef453b",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_rw_beam.png",
+      "frames": 6,
+      "frame_width": 120,
+      "frame_height": 18,
+      "sheet_1x": [
+        720,
+        18
+      ],
+      "sheet_8x": [
+        5760,
+        144
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "top_bottom",
+      "palette": [
+        "#FFFFFF",
+        "#FFF7DA",
+        "#FFE48E",
+        "#F8C244",
+        "#DF9B30",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_projectiles `league_yunara_rw_beam`（LineRangeProjectile：画成朝右、从左端施法者处开始；上下对称；大图表）",
+      "game_size_reference": "120 × 18",
+      "raw_file": "raw/yunara_fx_rw_beam.png",
+      "raw_size": [
+        1024,
+        1536
+      ],
+      "raw_layout": [
+        1,
+        6
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            1024,
+            256
+          ],
+          "content_box_in_cell": [
+            162,
+            0,
+            1024,
+            6
+          ],
+          "sample_size": [
+            114,
+            2
+          ],
+          "placement": [
+            6,
+            8
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            256,
+            1024,
+            511
+          ],
+          "content_box_in_cell": [
+            130,
+            0,
+            1024,
+            25
+          ],
+          "sample_size": [
+            114,
+            2
+          ],
+          "placement": [
+            6,
+            8
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            511,
+            1024,
+            720
+          ],
+          "content_box_in_cell": [
+            133,
+            0,
+            1024,
+            38
+          ],
+          "sample_size": [
+            114,
+            2
+          ],
+          "placement": [
+            6,
+            8
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            720,
+            1024,
+            1074
+          ],
+          "content_box_in_cell": [
+            136,
+            0,
+            1024,
+            354
+          ],
+          "sample_size": [
+            114,
+            18
+          ],
+          "placement": [
+            6,
+            0
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            1074,
+            1024,
+            1321
+          ],
+          "content_box_in_cell": [
+            148,
+            18,
+            998,
+            244
+          ],
+          "sample_size": [
+            114,
+            12
+          ],
+          "placement": [
+            6,
+            3
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            1321,
+            1024,
+            1536
+          ],
+          "content_box_in_cell": [
+            165,
+            0,
+            985,
+            7
+          ],
+          "sample_size": [
+            114,
+            2
+          ],
+          "placement": [
+            6,
+            8
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        228,
+        222,
+        218,
+        1002,
+        594,
+        222
+      ],
+      "raw_sha256": "dc4267738d861c8a5dc9a901aa9ca322653b8c6d2817b914df66a42a33dd7a12",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_rw_hit.png",
+      "frames": 5,
+      "frame_width": 20,
+      "frame_height": 20,
+      "sheet_1x": [
+        100,
+        20
+      ],
+      "sheet_8x": [
+        800,
+        160
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#FFF7DA",
+        "#FFE48E",
+        "#F8C244",
+        "#DF9B30",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_rw_hit`（跟随，画在人物上面；左右对称）",
+      "game_size_reference": "18",
+      "raw_file": "raw/yunara_fx_rw_hit.png",
+      "raw_size": [
+        1448,
+        1086
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            483,
+            543
+          ],
+          "content_box_in_cell": [
+            157,
+            189,
+            328,
+            380
+          ],
+          "sample_size": [
+            5,
+            5
+          ],
+          "placement": [
+            7,
+            7
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            483,
+            0,
+            959,
+            543
+          ],
+          "content_box_in_cell": [
+            52,
+            93,
+            429,
+            479
+          ],
+          "sample_size": [
+            12,
+            12
+          ],
+          "placement": [
+            4,
+            4
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            959,
+            0,
+            1448,
+            543
+          ],
+          "content_box_in_cell": [
+            4,
+            54,
+            469,
+            517
+          ],
+          "sample_size": [
+            18,
+            18
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            543,
+            483,
+            1086
+          ],
+          "content_box_in_cell": [
+            18,
+            53,
+            469,
+            467
+          ],
+          "sample_size": [
+            18,
+            18
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            483,
+            543,
+            959,
+            1086
+          ],
+          "content_box_in_cell": [
+            33,
+            65,
+            452,
+            453
+          ],
+          "sample_size": [
+            18,
+            18
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        8,
+        42,
+        146,
+        88,
+        34
+      ],
+      "raw_sha256": "1d8c16f0072afb5eb25a160ae2a3a9de2fcfc49cbaf2f85bc32e777260c473ac",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_e_cast.png",
+      "frames": 5,
+      "frame_width": 30,
+      "frame_height": 12,
+      "sheet_1x": [
+        150,
+        12
+      ],
+      "sheet_8x": [
+        1200,
+        96
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_e_cast`（跟随她，画在人物下面；左右对称）",
+      "game_size_reference": "30 × 12",
+      "raw_file": "raw/yunara_fx_e_cast.png",
+      "raw_size": [
+        971,
+        1620
+      ],
+      "raw_layout": [
+        1,
+        5
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            971,
+            324
+          ],
+          "content_box_in_cell": [
+            328,
+            186,
+            645,
+            256
+          ],
+          "sample_size": [
+            12,
+            4
+          ],
+          "placement": [
+            9,
+            8
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            324,
+            971,
+            648
+          ],
+          "content_box_in_cell": [
+            231,
+            79,
+            742,
+            305
+          ],
+          "sample_size": [
+            24,
+            10
+          ],
+          "placement": [
+            3,
+            2
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            648,
+            971,
+            1008
+          ],
+          "content_box_in_cell": [
+            79,
+            65,
+            892,
+            357
+          ],
+          "sample_size": [
+            30,
+            12
+          ],
+          "placement": [
+            0,
+            0
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            1008,
+            971,
+            1264
+          ],
+          "content_box_in_cell": [
+            94,
+            27,
+            877,
+            256
+          ],
+          "sample_size": [
+            30,
+            12
+          ],
+          "placement": [
+            0,
+            0
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            1264,
+            971,
+            1620
+          ],
+          "content_box_in_cell": [
+            107,
+            0,
+            865,
+            324
+          ],
+          "sample_size": [
+            30,
+            10
+          ],
+          "placement": [
+            0,
+            2
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        36,
+        88,
+        144,
+        30,
+        90
+      ],
+      "raw_sha256": "ad6d21ab01c37518cea7f9f379d6345fc9f41fc5af78dc78c9d203f6833f9d1c",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_re_trail.png",
+      "frames": 5,
+      "frame_width": 40,
+      "frame_height": 44,
+      "sheet_1x": [
+        200,
+        44
+      ],
+      "sheet_8x": [
+        1600,
+        352
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC",
+        "#FFF7DA",
+        "#FFE48E",
+        "#F8C244",
+        "#DF9B30"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_re_trail`（跟随她，画在人物下面；左右对称；大图表）",
+      "game_size_reference": "40 × 44",
+      "raw_file": "raw/yunara_fx_re_trail.png",
+      "raw_size": [
+        1464,
+        1075
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            488,
+            537
+          ],
+          "content_box_in_cell": [
+            40,
+            96,
+            470,
+            490
+          ],
+          "sample_size": [
+            36,
+            36
+          ],
+          "placement": [
+            2,
+            6
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            488,
+            0,
+            976,
+            537
+          ],
+          "content_box_in_cell": [
+            32,
+            89,
+            458,
+            490
+          ],
+          "sample_size": [
+            36,
+            36
+          ],
+          "placement": [
+            2,
+            6
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            976,
+            0,
+            1464,
+            537
+          ],
+          "content_box_in_cell": [
+            8,
+            89,
+            457,
+            490
+          ],
+          "sample_size": [
+            36,
+            36
+          ],
+          "placement": [
+            2,
+            6
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            537,
+            488,
+            1075
+          ],
+          "content_box_in_cell": [
+            26,
+            59,
+            484,
+            458
+          ],
+          "sample_size": [
+            36,
+            36
+          ],
+          "placement": [
+            2,
+            6
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            488,
+            537,
+            976,
+            1075
+          ],
+          "content_box_in_cell": [
+            29,
+            66,
+            459,
+            454
+          ],
+          "sample_size": [
+            36,
+            36
+          ],
+          "placement": [
+            2,
+            6
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        408,
+        340,
+        324,
+        330,
+        108
+      ],
+      "raw_sha256": "d1379ecb44a907bd2ee0103e78f1d26c5504658cb51658c6767d4df51ceb999d",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_r_burst.png",
+      "frames": 6,
+      "frame_width": 56,
+      "frame_height": 64,
+      "sheet_1x": [
+        336,
+        64
+      ],
+      "sheet_8x": [
+        2688,
+        512
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#FFF7DA",
+        "#FFE48E",
+        "#F8C244",
+        "#DF9B30"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_effects `league_yunara_r_burst`（跟随她，画在人物后面；左右对称；大图表）",
+      "game_size_reference": "56 × 64",
+      "raw_file": "raw/yunara_fx_r_burst.png",
+      "raw_size": [
+        1437,
+        1095
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            480,
+            547
+          ],
+          "content_box_in_cell": [
+            168,
+            200,
+            324,
+            375
+          ],
+          "sample_size": [
+            6,
+            6
+          ],
+          "placement": [
+            25,
+            37
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            480,
+            0,
+            958,
+            547
+          ],
+          "content_box_in_cell": [
+            18,
+            55,
+            459,
+            509
+          ],
+          "sample_size": [
+            30,
+            30
+          ],
+          "placement": [
+            13,
+            25
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            958,
+            0,
+            1437,
+            547
+          ],
+          "content_box_in_cell": [
+            28,
+            74,
+            440,
+            495
+          ],
+          "sample_size": [
+            44,
+            44
+          ],
+          "placement": [
+            6,
+            18
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            547,
+            480,
+            1095
+          ],
+          "content_box_in_cell": [
+            40,
+            44,
+            477,
+            465
+          ],
+          "sample_size": [
+            54,
+            54
+          ],
+          "placement": [
+            1,
+            10
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            480,
+            547,
+            958,
+            1095
+          ],
+          "content_box_in_cell": [
+            82,
+            50,
+            394,
+            465
+          ],
+          "sample_size": [
+            54,
+            54
+          ],
+          "placement": [
+            1,
+            10
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            958,
+            547,
+            1437,
+            1095
+          ],
+          "content_box_in_cell": [
+            48,
+            58,
+            412,
+            461
+          ],
+          "sample_size": [
+            54,
+            54
+          ],
+          "placement": [
+            1,
+            10
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        4,
+        104,
+        496,
+        504,
+        356,
+        144
+      ],
+      "raw_sha256": "c1735c583cd59dc3064c2b045b36b859f06c5e200f0b6e96cc44af079b1b20e9",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_q_on.png",
+      "frames": 4,
+      "frame_width": 28,
+      "frame_height": 30,
+      "sheet_1x": [
+        112,
+        30
+      ],
+      "sheet_8x": [
+        896,
+        240
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_buffs `league_yunara_q_on`（跟随她，画在人物上面；左右对称）",
+      "game_size_reference": "28 × 30",
+      "raw_file": "raw/yunara_fx_q_on.png",
+      "raw_size": [
+        1712,
+        919
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            856,
+            459
+          ],
+          "content_box_in_cell": [
+            128,
+            121,
+            773,
+            442
+          ],
+          "sample_size": [
+            26,
+            16
+          ],
+          "placement": [
+            1,
+            3
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            856,
+            0,
+            1712,
+            459
+          ],
+          "content_box_in_cell": [
+            74,
+            88,
+            712,
+            442
+          ],
+          "sample_size": [
+            26,
+            16
+          ],
+          "placement": [
+            1,
+            3
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            459,
+            856,
+            919
+          ],
+          "content_box_in_cell": [
+            117,
+            28,
+            794,
+            381
+          ],
+          "sample_size": [
+            26,
+            16
+          ],
+          "placement": [
+            1,
+            3
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            856,
+            459,
+            1712,
+            919
+          ],
+          "content_box_in_cell": [
+            88,
+            21,
+            715,
+            371
+          ],
+          "sample_size": [
+            26,
+            16
+          ],
+          "placement": [
+            1,
+            3
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        68,
+        56,
+        60,
+        78
+      ],
+      "raw_sha256": "6e4080c4c84433c1f14dcef1414d918f589aff2351b0685d9fe12ce06bbf3861",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_r_on.png",
+      "frames": 4,
+      "frame_width": 36,
+      "frame_height": 48,
+      "sheet_1x": [
+        144,
+        48
+      ],
+      "sheet_8x": [
+        1152,
+        384
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#FFF7DA",
+        "#FFE48E",
+        "#F8C244",
+        "#DF9B30"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_buffs `league_yunara_r_on`（跟随她，画在人物后面；左右对称；大图表）",
+      "game_size_reference": "36 × 48",
+      "raw_file": "raw/yunara_fx_r_on.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "content_box_in_cell": [
+            87,
+            216,
+            704,
+            493
+          ],
+          "sample_size": [
+            32,
+            44
+          ],
+          "placement": [
+            2,
+            4
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            768,
+            0,
+            1536,
+            512
+          ],
+          "content_box_in_cell": [
+            86,
+            168,
+            685,
+            493
+          ],
+          "sample_size": [
+            32,
+            44
+          ],
+          "placement": [
+            2,
+            4
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            512,
+            768,
+            1024
+          ],
+          "content_box_in_cell": [
+            96,
+            47,
+            703,
+            464
+          ],
+          "sample_size": [
+            32,
+            44
+          ],
+          "placement": [
+            2,
+            4
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            768,
+            512,
+            1536,
+            1024
+          ],
+          "content_box_in_cell": [
+            90,
+            42,
+            680,
+            464
+          ],
+          "sample_size": [
+            32,
+            44
+          ],
+          "placement": [
+            2,
+            4
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        300,
+        292,
+        272,
+        296
+      ],
+      "raw_sha256": "182b58a43031e0b925112c5bb82827dae4d08f0c37bf8da2e48a9a01a20ff783",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_e_ms.png",
+      "frames": 4,
+      "frame_width": 24,
+      "frame_height": 8,
+      "sheet_1x": [
+        96,
+        8
+      ],
+      "sheet_8x": [
+        768,
+        64
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.5,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_buffs `league_yunara_e_ms`（跟随她，画在人物下面；左右对称）",
+      "game_size_reference": "24 × 8",
+      "raw_file": "raw/yunara_fx_e_ms.png",
+      "raw_size": [
+        971,
+        1619
+      ],
+      "raw_layout": [
+        1,
+        4
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            971,
+            405
+          ],
+          "content_box_in_cell": [
+            102,
+            123,
+            869,
+            378
+          ],
+          "sample_size": [
+            22,
+            6
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            405,
+            971,
+            809
+          ],
+          "content_box_in_cell": [
+            80,
+            90,
+            892,
+            369
+          ],
+          "sample_size": [
+            22,
+            6
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            809,
+            971,
+            1214
+          ],
+          "content_box_in_cell": [
+            79,
+            50,
+            893,
+            354
+          ],
+          "sample_size": [
+            22,
+            6
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            1214,
+            971,
+            1619
+          ],
+          "content_box_in_cell": [
+            88,
+            55,
+            883,
+            335
+          ],
+          "sample_size": [
+            22,
+            6
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        36,
+        34,
+        30,
+        28
+      ],
+      "raw_sha256": "61afa602b9eb6d6907cb69c3affe2c36a70e17f78dd7f5924b5ab946cd653323",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_w_slow0.png",
+      "frames": 4,
+      "frame_width": 16,
+      "frame_height": 6,
+      "sheet_1x": [
+        64,
+        6
+      ],
+      "sheet_8x": [
+        512,
+        48
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#ECE8FF",
+        "#C3B8FF",
+        "#937FF7",
+        "#6450DC"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.12,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_buffs `league_yunara_w_slow0`（跟随，画在人物下面；左右对称）",
+      "game_size_reference": "16 × 5",
+      "raw_file": "raw/yunara_fx_w_slow0.png",
+      "raw_size": [
+        2048,
+        768
+      ],
+      "raw_layout": [
+        1,
+        4
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            2048,
+            202
+          ],
+          "content_box_in_cell": [
+            758,
+            43,
+            1307,
+            199
+          ],
+          "sample_size": [
+            14,
+            4
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            202,
+            2048,
+            391
+          ],
+          "content_box_in_cell": [
+            741,
+            44,
+            1307,
+            186
+          ],
+          "sample_size": [
+            14,
+            4
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            391,
+            2048,
+            586
+          ],
+          "content_box_in_cell": [
+            757,
+            43,
+            1307,
+            192
+          ],
+          "sample_size": [
+            14,
+            4
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            586,
+            2048,
+            768
+          ],
+          "content_box_in_cell": [
+            741,
+            24,
+            1307,
+            165
+          ],
+          "sample_size": [
+            14,
+            4
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "raw_sha256": "286c8be8a0f113ec21c5967968c7ca44eed673bdea550cb02a80bf1ef54e2ab5",
+      "frame_timing": "preview only; set gameplay timing during import"
+    },
+    {
+      "file": "yunara_fx_rw_slow0.png",
+      "frames": 4,
+      "frame_width": 16,
+      "frame_height": 6,
+      "sheet_1x": [
+        64,
+        6
+      ],
+      "sheet_8x": [
+        512,
+        48
+      ],
+      "layout": "single_horizontal_row",
+      "symmetry": "left_right",
+      "palette": [
+        "#FFFFFF",
+        "#FFF7DA",
+        "#FFE48E",
+        "#F8C244",
+        "#DF9B30"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "foreground_coverage_threshold": 0.12,
+      "color_vote": "majority among segmented foreground samples",
+      "binding_reference": "view_buffs `league_yunara_rw_slow0`（跟随，画在人物下面；左右对称）",
+      "game_size_reference": "16 × 5",
+      "raw_file": "raw/yunara_fx_rw_slow0.png",
+      "raw_size": [
+        2048,
+        768
+      ],
+      "raw_layout": [
+        1,
+        4
+      ],
+      "sampling": [
+        {
+          "cell_box": [
+            0,
+            0,
+            2048,
+            194
+          ],
+          "content_box_in_cell": [
+            698,
+            24,
+            1350,
+            180
+          ],
+          "sample_size": [
+            14,
+            4
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            194,
+            2048,
+            398
+          ],
+          "content_box_in_cell": [
+            698,
+            15,
+            1361,
+            201
+          ],
+          "sample_size": [
+            14,
+            4
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            398,
+            2048,
+            574
+          ],
+          "content_box_in_cell": [
+            698,
+            17,
+            1355,
+            172
+          ],
+          "sample_size": [
+            14,
+            4
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        },
+        {
+          "cell_box": [
+            0,
+            574,
+            2048,
+            768
+          ],
+          "content_box_in_cell": [
+            696,
+            14,
+            1363,
+            194
+          ],
+          "sample_size": [
+            14,
+            4
+          ],
+          "placement": [
+            1,
+            1
+          ],
+          "tiny_flash_sampling_inset": 0
+        }
+      ],
+      "opaque_pixels_per_frame": [
+        26,
+        24,
+        26,
+        22
+      ],
+      "raw_sha256": "c43edf0137585a995ba6be52e886d368488d0fed52a2bda33fe3898eae54d4cc",
+      "frame_timing": "preview only; set gameplay timing during import"
+    }
+  ],
+  "count": 22,
+  "source": "image_gen generated art; majority-vote grid extraction; palette quantization; symmetry merge",
+  "import_ready_geometry": true,
+  "in_game_validation_performed": false
+}

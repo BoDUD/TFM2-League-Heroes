@@ -67,6 +67,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Jax: Codex's redrawn chibi design facing front-right (assets/source/jax/PICTURE_PROMPT.md), posed after League's own
     // clips by tools/art/rig_jax_hd.py (his run league_braum's walk), PPU 1.5 at his old 36 rows, so no SIZES row
     ("league_jax", 1.5, include_str!("../../../league/champions/league_jax#anim.fanim")),
+    // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
+    // (40 game rows ornaments to soles), so no SIZES row
+    ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
