@@ -13,9 +13,9 @@
     "asset/league/icons/league_yunara_ult"
   ],
   "stat": {
-    "attack": 100,
+    "attack": 103,
     "magic_power": 0,
-    "hp": 950,
+    "hp": 1000,
     "defence": 22,
     "magic_resistance": 15,
     "move_speed": 900,

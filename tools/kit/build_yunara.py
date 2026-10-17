@@ -44,11 +44,13 @@ BIG = "asset/league/effects/league_yunara_big"
 # Numbers: the 10-min classic-SDK simulations (Temp/yu_sim, sim/kd.py --lane 3 against gunner, soldier, archer and
 # gambler, three lineups, both sides, 12 seeds each, 2026-10-17): the League-ratio draft y0 (atk 106, Q 45% AS, W 90,
 # laser 200, hp 1000) +2.47; y1 atk 100 + Q 40% +2.72 (noise); y2 + W 70, laser 160 +2.30; y3 + hp 950 +1.73 and +1.48
-# on seeds 13-24 (+1.61 over 24, here); y4 Q 35% + W 60 +1.43 / +0.80.
+# on seeds 13-24 (+1.61 over 24); y4 Q 35% + W 60 +1.43 / +0.80. Timed to the strips (W's bead from a guarded Delayed,
+# R a 3-tick gate) y3 fell to +1.32 / +1.32 (t1); atk 103 +1.49 / +0.93, Q 45% AS +1.57 / +1.05, W 85 + laser 180
+# +0.99 / +2.55 (noise); hp 1000 + atk 103 +1.52 / +1.35 (t4, +1.44 over 24 seeds, here: Aphelios +1.45).
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Yunara: 575 range,
     # 55 AD, 590 +110 hp, 25 armour, 325 move, attack speed 0.65
-    "hp": 950, "hp_g": 90, "atk": 100, "atk_g": 19, "def": 22, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
+    "hp": 1000, "hp_g": 90, "atk": 103, "atk_g": 19, "def": 22, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     "crit": 10,
     # attack: the bead leaves her hand on a_st
     # (the strip: 67 + 66 ms of the beads rising into their arc, the push on frame 3 at 133 ms = tick 8)
