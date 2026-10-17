@@ -44,6 +44,8 @@ pub const NAME: &[u8] = b"league_swain";
 /// 阵亡时 buff 已经没了，倒下的是斯维因。
 pub const FORM_TAGS: [&str; 3] = ["idle", "run", "hit"];
 const PREFIX: &str = "b_";
+/// BUFFS lines per game start.
+const DUMP_CAP: usize = 30;
 
 /// 正在播的动画名 + 是不是恶魔形态 → 该播的名字（不用换就是 None）。形态结束时把本包换上去的 `b_idle` 等换回来。
 pub fn anim_for(cur: &str, foot: bool) -> Option<String> {
@@ -62,9 +64,12 @@ struct Stats {
     last: Option<std::time::Instant>,
     /// 每个（显示世界, 实体号）上次记下的形态：变了才记一行 FORM。
     looks: Vec<(usize, u64, bool)>,
+    /// BUFFS lines written and when the last one was.
+    dumped: usize,
+    last_dump: Option<std::time::Instant>,
 }
 
-static STATS: Mutex<Stats> = Mutex::new(Stats { calls: 0, seen: 0, writes: 0, last: None, looks: Vec::new() });
+static STATS: Mutex<Stats> = Mutex::new(Stats { calls: 0, seen: 0, writes: 0, last: None, looks: Vec::new(), dumped: 0, last_dump: None });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
@@ -152,6 +157,26 @@ unsafe fn dress(world: usize) {
             plausible(p) && n == FORM.len() && std::slice::from_raw_parts(p as *const u8, n) == FORM.as_bytes()
         });
         st.seen += 1;
+        // what the display world holds on him (once every 10 s while the form is off, at most DUMP_CAP lines): the
+        // demon form's buff never showed up here in the first game (2026-10-17), so the names say why
+        if !foot && st.dumped < DUMP_CAP && st.last_dump.is_none_or(|t| now.duration_since(t).as_secs_f64() >= 10.0) {
+            st.last_dump = Some(now);
+            st.dumped += 1;
+            let names: Vec<String> = if plausible(bp) && bn <= 256 {
+                (0..bn).map(|k| {
+                    let b = bp + k * BUFF_SIZE;
+                    let (p, n) = (q(b + 8), q(b + 0x10));
+                    if plausible(p) && (1..=64).contains(&n) {
+                        String::from_utf8_lossy(std::slice::from_raw_parts(p as *const u8, n)).into_owned()
+                    } else {
+                        format!("?{p:#x}/{n}")
+                    }
+                }).collect()
+            } else {
+                Vec::new()
+            };
+            wlog(format!("BUFFS display world {world:#x} Swain: {bn} buffs [{}]", names.join(", ")));
+        }
         let (acap, aptr, alen) = (q(v + ANIM_CAP), q(v + ANIM_PTR), q(v + ANIM_LEN));
         if !(1..=32).contains(&alen) || acap < alen || !plausible(aptr) {
             continue;
