@@ -660,11 +660,69 @@ def casts():
     return out
 
 
+# ------------------------------------------------------------------------------------------------- the folded machine
+# The user, 2026-10-17, after the effects: 「感觉不放大招时候背后没武器有点奇怪啊 和英雄联盟有点不一样」, then 「照原版大小，Codex 画折叠的
+# 机甲，你按原版每帧的位置摆进去」「不对缩小一点」: League's Renata always carries her machine, folded, floating behind and above her
+# head (skin0.bin hides only Wing, Q_Arm, Pocket, Recall_Jacket, Q_Arm_Tubes and Potion at spawn). Codex's folded machine
+# (tools/art/pack_renata_back.py at 80% of League's size, read back by import_renata_back.py: hd/machine_folded.png)
+# stands behind her in every frame but the unfolded ult ones, moved whole: in the idle's first frame where Codex drew it,
+# in every other frame MOTION x League's own move from there (machine_track.json: its anchor from League's head joint
+# per frame of our tags, at our proportions) from her head's place in that frame; in her last two death frames it lies
+# on the ground behind her head (a quarter turn, as League's falls). Nothing before the delivery.
+FOLDED_PNG = os.path.join(SRC, "hd", "machine_folded.png")
+TRACK = os.path.join(SRC, "machine_track.json")
+MOTION = 0.8                           # League's moves at the machine's size (the user: 「缩小一点」)
+FOLDED_MASKS = {}                      # tag -> [the machine's squares on each frame or None], for checks()
+
+
+def add_folded(acts):
+    """The folded machine stamped under every frame (Frame.can replaced in place); {tag: [mask or None]}."""
+    if not os.path.isfile(lp(FOLDED_PNG)):
+        return {}
+    img = load(FOLDED_PNG)
+    with open(lp(FOLDED_PNG[:-4] + ".json"), encoding="utf-8") as f:
+        at = json.load(f)["at_trim"]
+    with open(lp(TRACK), encoding="utf-8") as f:
+        track = json.load(f)["tags"]
+    f0 = acts["idle"][0][0]
+    ys, xs = np.nonzero(f0.can[..., 3] > 0)
+    # Codex placed it from the top-left of her trimmed hd idle: the rig's trimmed idle grown by restyle's outline square
+    base = (int(xs.min()) - 1 + at[0] - f0.x0, int(ys.min()) - 1 + at[1] - f0.y0)
+    i0 = track["idle"][0]
+    masks = {}
+    for tag, fr in acts.items():
+        masks[tag] = []
+        for k, (f, _) in enumerate(fr):
+            if tag == "ult" and k > 0:
+                masks[tag].append(None)
+                continue
+            under = blank()
+            if tag == "dead" and k >= 3:
+                # lying behind her head on the ground (League's falls over: a quarter turn), half under her
+                pic = np.rot90(img, -1).copy()
+                cols = np.nonzero(f.can[SOLE - 6:SOLE + 1, :, 3].any(0))[0]
+                stamp(under, pic, int(cols.min()) - pic.shape[1] // 2, SOLE + 1 - pic.shape[0])
+            else:
+                t = (track.get(tag) or [i0])[min(k, len(track.get(tag) or [i0]) - 1)] if tag != "hit" else i0
+                dx = int(round(MOTION * (t[0] - i0[0])))
+                dy = int(round(MOTION * (t[1] - i0[1])))
+                stamp(under, img, f.x0 + base[0] + dx, f.y0 + base[1] + dy)
+            under[SOLE + 1:] = 0
+            mask = under[..., 3] > 0
+            her = f.can[..., 3] > 0
+            under[her] = f.can[her]
+            f.can = under
+            masks[tag].append(mask & ~her)
+    return masks
+
+
 def actions():
+    global FOLDED_MASKS
     acts = {"idle": [(breathe(b), IDLE_MS) for b in BREATH], "run": run_frames()}
     base = tidy(pose().can)
     acts["hit"] = [(pose(dx=-3), 90), (pose(dx=-1), 120)]
     acts.update(casts())
+    FOLDED_MASKS = add_folded(acts)
     acts = {t: [(f.done(base), ms) for f, ms in fr] for t, fr in acts.items()}
     acts["hit"][0] = (flash(acts["hit"][0][0]), acts["hit"][0][1])
     return acts, base
@@ -747,6 +805,9 @@ def checks(acts, base):
     area against the design's."""
     pal = {tuple(int(v) for v in c) for c in DESIGN[DESIGN[..., 3] > 0][:, :3]}
     pal |= {tuple(int(v) for v in c) for c in MACHINE[MACHINE[..., 3] > 0][:, :3]}
+    if os.path.isfile(lp(FOLDED_PNG)):
+        fold = load(FOLDED_PNG)
+        pal |= {tuple(int(v) for v in c) for c in fold[fold[..., 3] > 0][:, :3]}
     pal.add(OUTLINE)
     _, _, bo, ba = stats(base)
     bad_all = 0
@@ -755,6 +816,11 @@ def checks(acts, base):
         for j, (can, _) in enumerate(fr):
             op = can[..., 3] > 0
             n, _, _, area = stats(can)
+            fm = (FOLDED_MASKS.get(tag) or [None] * len(fr))[j]
+            if fm is not None:
+                # the folded machine floats apart from her: her pieces without it (and the outline round it)
+                fm = ndimage.binary_dilation(fm, structure=np.ones((3, 3)))
+                n = ndimage.label(op & ~fm, structure=np.ones((3, 3)))[1]
             holes = small_holes(can)
             orphan = new_orphans(can, base)
             extra = len({tuple(int(v) for v in c) for c in can[op][:, :3]} - pal)
