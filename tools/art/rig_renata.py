@@ -404,10 +404,21 @@ M_CY, M_CX = float(_my[_mop].mean()), float(_mx[_mop].mean())    # the machine's
 import design_renata_cut as DC  # noqa: E402
 
 TARGET = 54                        # 36 game rows at PPU 1.5
-_keep = {}
+# The first cut (2026-10-17) took all six rows from her legs - two through the crotch - and the user saw the legs run
+# together: 「感觉模型还是有变形」. The lines that carry her shape are kept now: the head and face (rows 0-14), the hips,
+# the crotch and the thighs down past the knees (34-47), the trousers' flared hems and the boots (53-59), and every
+# column from the mechanical arm to the pistol (4-32); the rows go from the cape, the vest and the long hair (15-33) and
+# the plain shins (48-52), the columns from the hair's and the pistol's outer edges.
+HARD_ROWS = set(range(0, 15)) | set(range(34, 48)) | set(range(53, 60))
+HARD_COLS = set(range(4, 33))
 _D60 = DESIGN
-DESIGN = DC.cut(_D60, TARGET / _D60.shape[0], _keep)
-RK, CK = np.array(_keep["rows"]), np.array(_keep["cols"])
+_code = _D60.astype(np.int64) @ np.array([1 << 24, 1 << 16, 1 << 8, 1], np.int64)
+_wt = DC.weights(_D60)
+_rows, _ = DC.DA.dp_keep(list(_code), list(_wt), TARGET, hard=HARD_ROWS)
+_cols, _ = DC.DA.dp_keep(list(_code[_rows].T), list(_wt[_rows].T), round(_D60.shape[1] * TARGET / _D60.shape[0]),
+                         hard=HARD_COLS)
+RK, CK = np.array(_rows), np.array(_cols)
+DESIGN = _D60[np.ix_(RK, CK)]
 SCALE = DESIGN.shape[0] / _D60.shape[0]
 LAB = LAB[np.ix_(RK, CK)]
 HAIR_FILL = (HAIR_FILL[0][np.ix_(RK, CK)], HAIR_FILL[1][np.ix_(RK, CK)])
