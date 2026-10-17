@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.129.0"
+    }
+  ],
+  "description": "Samira's and Twisted Fate's ults for game 0.6.4 (needs League of Legends Heroes): their R slots only arm the ult and the data picks the moment, but the 0.6.4 AI almost never presses such a slot. This add-on presses it for the AI - Samira when an enemy champion is in R's range (at S style the ult fires at once, else it waits armed), Twisted Fate when he is alone and an ally far away is fighting an enemy champion (the main pack then reveals and teleports as before). Nothing of the main pack is replaced. Writes a log for testing.",
+  "last_updated": "2026-10-17",
+  "mod_id": "league_ult_press",
+  "mod_type": "native",
+  "name": "League Heroes: Samira / Twisted Fate ults pressed for the AI",
+  "version": "0.1.0"
+}
