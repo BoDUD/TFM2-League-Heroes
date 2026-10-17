@@ -381,7 +381,7 @@ def build(p):
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_swain:flock",
-                            "params": {k: p[k] for k in ("p_hp", "r_r", "r_range")}}
+                            "params": {k: p[k] for k in ("p_hp", "r_r")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "CC", "Heal"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
