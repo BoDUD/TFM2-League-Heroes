@@ -5076,6 +5076,25 @@ python addons/league_reksai/make_override.py         # 附加包的副本（主�
 | 特效 | 第 3 步 15 张特效（[`tools/art/pack_swain_fx.py`](tools/art/pack_swain_fx.py)，颜色照英雄联盟：恶魔的魂火是深红带白芯，恶魔手和闪电带亮洋红，乌鸦、烟和恶魔的影子是黑紫色，恶魔耀光的内缘是蓝紫色），Codex 画并读回成游戏大小（`assets/source/swain/codex_fx`）。[`tools/art/import_swain_fx.py`](tools/art/import_swain_fx.py)：打中的在身上，禁锢的爪子、帝国视界的眼睛、变身爆发、恶魔耀光的火环在脚下，魂屑是两只乌鸦从两边飞到他胸口；飞行的乌鸦弹、五道闪电、恶魔之手朝方向转（上下对称），其余全部左右对称（游戏不镜像特效图）。写成 `league_swain_fx` 和 `league_swain_big`。用户：「其余特效通过」；乌鸦弹、帝国视界的眼睛、禁锢的爪子三张第一版按游戏大小量过太小太暗（乌鸦弹每帧约 13 个像素、眼睛只有 36 格宽被人挡住、爪子是几粒散点），Codex 重画（`HANDOFF_redo.md`）：实心的亮紫乌鸦带红白魂火、60 × 20 格的眼睛、2–3 格宽的实心爪子 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_swain.py`](tools/lol/extract_swain.py)，23 段）：普攻出手 / 乌鸦弹 / 打中、解脱之触出手 / 闪电 / 命中、永不复行出手 / 飞出 / 飞回 / 禁锢 / 拉拽、帝国视界睁眼 / 爆炸、魂屑、恶魔升华和恶魔现身、恶魔耀光和命中，配音是他的 Q / E / W 台词、变身的笑声和恶魔耀光的台词（中文） |
 | 图标 | 官方技能图标（解脱之触、永不复行、恶魔升华，另有帝国视界、永不复行再次施放、恶魔耀光和被动），从本地客户端取 |
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_swain.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
+python tools/kit/build_swain.py                      # 技能数据，数字都在脚本的参数表 P 里
+python tools/kit/setup_swain.py                      # 五种语言的文字、音效配置、共享文件里他的键（头像点在 VIEW）
+python tools/art/design_swain_cut.py                 # Codex 第 1 步的造型读回（A-1）
+python tools/art/rig_swain.py                        # 1 倍帧和 1.5 的原帧（无损摆姿，平时 / 恶魔，翅膀光环 r_wings）
+python tools/art/ppu_restyle.py --hero swain         # 描边（不要加 --preview）
+python tools/art/ppu_hd.py --hero swain              # hd_ / lo_ 帧
+python tools/art/import_swain_fx.py                  # 特效
+python tools/art/preview_swain.py                    # 预览和演示 GIF
+python addons/league_swain/make_override.py          # 附加包的副本（主包的斯维因改了就重跑）
+```
+
+美术提示词见 [`assets/source/swain/`](assets/source/swain/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
+
+逐帧预览：[`docs/preview/league_swain_frames.png`](docs/preview/league_swain_frames.png?v=1017a)，特效：[`docs/preview/league_swain_effects.png`](docs/preview/league_swain_effects.png?v=1017a)。
+
 ## 英雄：芸阿娜
 
 | 部分 | 内容 |
@@ -5097,21 +5116,6 @@ python addons/league_reksai/make_override.py         # 附加包的副本（主�
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
 ```bash
-python tools/lol/extract_swain.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
-python tools/kit/build_swain.py                      # 技能数据，数字都在脚本的参数表 P 里
-python tools/kit/setup_swain.py                      # 五种语言的文字、音效配置、共享文件里他的键（头像点在 VIEW）
-python tools/art/design_swain_cut.py                 # Codex 第 1 步的造型读回（A-1）
-python tools/art/rig_swain.py                        # 1 倍帧和 1.5 的原帧（无损摆姿，平时 / 恶魔，翅膀光环 r_wings）
-python tools/art/ppu_restyle.py --hero swain         # 描边（不要加 --preview）
-python tools/art/ppu_hd.py --hero swain              # hd_ / lo_ 帧
-python tools/art/import_swain_fx.py                  # 特效
-python tools/art/preview_swain.py                    # 预览和演示 GIF
-python addons/league_swain/make_override.py          # 附加包的副本（主包的斯维因改了就重跑）
-```
-
-美术提示词见 [`assets/source/swain/`](assets/source/swain/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
-
-逐帧预览：[`docs/preview/league_swain_frames.png`](docs/preview/league_swain_frames.png?v=1017a)，特效：[`docs/preview/league_swain_effects.png`](docs/preview/league_swain_effects.png?v=1017a)。
 python tools/lol/extract_yunara.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
 python tools/kit/build_yunara.py                     # 技能数据，数字都在脚本的参数表 P 里
 python tools/kit/setup_yunara.py                     # 五种语言的文字、音效配置、共享文件里她的键（头像点在 VIEW）

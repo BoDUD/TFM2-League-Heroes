@@ -1,6 +1,0 @@
-{
-  "asset/league/champion/league_kayle": {
-    "remapping": "asset/league_kayle/override/league_kayle",
-    "type": "override"
-  }
-}

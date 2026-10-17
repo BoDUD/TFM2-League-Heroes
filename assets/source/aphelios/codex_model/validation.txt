@@ -1,4 +1,0 @@
-aphelios-model-1.png: 1254x1254; alpha0=1239369; alpha255=2323; alpha1to254=330824; bbox(alpha>127)=[409,79,882,1233]
-aphelios-model-2.png: 1254x1254; alpha0=1298578; alpha255=2342; alpha1to254=271596; bbox(alpha>127)=[441,109,842,1204]
-aphelios-weapons-1.png: 1254x1254; alpha0=1062627; alpha255=3886; alpha1to254=506003; bbox(alpha>127)=[26,112,1232,1225]
-aphelios-weapons-2.png: 1254x1254; alpha0=1155379; alpha255=4975; alpha1to254=412162; bbox(alpha>127)=[117,195,1185,1175]
