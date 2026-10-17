@@ -1033,7 +1033,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_anivia.skill",
     "duration": 24,
-    "cooltime": 450,
+    "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
     "range": 95000,

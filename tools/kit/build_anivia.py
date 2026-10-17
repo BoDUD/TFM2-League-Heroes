@@ -60,7 +60,10 @@ BIG = "asset/league/effects/league_anivia_big"
 # white_mage, three lineups, both sides, 8 seeds, 2026-10-17; league_syndra +1.17 / +1.42 on seeds 1-8 / 25-32): the
 # draft (Q 70 + 50%, E 55 + 55%, R 25 + 10%, hp 880) -0.40 / -0.67 (deal 7060-7255); +25% damage +0.70; +40% and Q every
 # 7 s +1.61 / +2.03 (too strong); between (Q 95 + 65%, pass 55 + 32%, E 75 + 65%, R 32 + 13%, hp 900, Q every 7.5 s)
-# +0.90 on 25-32; on seeds 9-16 with Q every 7 s +1.93, every 7.5 s +1.45 (league_syndra +1.22). P = Q every 7.5 s.
+# +0.90 on 25-32; on seeds 9-16 with Q every 7 s +1.93, every 7.5 s +1.45 (league_syndra +1.22). Those had the
+# first wall, which held whoever it rose on for its 5 s (a Pull in a projectile goes through the centre): with the
+# drag-out field Q every 7.5 s fell to +1.08 / +0.81 (seeds 9-16 / 17-24), every 7 s +1.70 / +0.88 (mean +1.29,
+# league_syndra +1.22 on 9-16; League's Flash Frost is 7 s at rank 5). P = Q every 7 s.
 # League units x 100 = ours (attack range 600 -> 55000 like every mid); radii count the unit's collision radius
 # (~15000) on top, so League's 225 blast is q_r 14000.
 P = {
@@ -71,7 +74,7 @@ P = {
     "atk_range": 55000, "atk_dur": 28, "atk_cd": 90, "a_rel": 10, "a_speed": 4500, "f_t": 180,
     # Q Flash Frost (League: 1100 range, speed 950, pass 50-130 +25%, slow 20-40% 3 s, blast 60-200 +45%, stun
     # 1.1-1.5 s r225, cd 11-7)
-    "q_cd": 450, "q_range": 95000, "q_dur": 24, "q_rel": 9, "q_speed": 1600, "q_w": 5000, "q_pass": 55, "q_pass_r": 32,
+    "q_cd": 420, "q_range": 95000, "q_dur": 24, "q_rel": 9, "q_speed": 1600, "q_w": 5000, "q_pass": 55, "q_pass_r": 32,
     "q_slow": 30, "q_slow_t": 180, "q_dmg": 95, "q_ratio": 65, "q_stun": 66, "q_r": 14000,
     # W Crystallize (League: width 400-1000, 5 s, cd 17)
     "w_cd": 900, "w_t": 300, "w_w": 8000, "w_h": 50000, "w_p": 2, "w_slow": 99, "w_out": 24, "w_go": 2500, "w_mode": 0,
