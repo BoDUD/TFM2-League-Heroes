@@ -11,11 +11,12 @@ rows / columns dropped, never the face's): A his idle (38 x 61 squares, hair top
 B is built from A so the two forms wear the same coat: A's body + B-1's two wings behind it (B-1's squares moved by
 B_OFF, the face and the hair set on A's) + the demon arm on his far side + glowing eyes. League's demon arm is his
 LEFT arm - the far side of a sprite facing right (League's casts: the arm the Arm_Mat overlay lights) - and B-1 drew it
-on the near side, so the arm is taken from B's picture mirrored (assets/source/swain/hd/picture_bf.png) and drawn at
-any angle about his far shoulder: the picture's pixels turned and brought to the design's grid (ppu_rig.Design.turned,
-the 2026-10-16 PPU redo's way for limbs - never the coarse squares turned). Everything else moves only losslessly
-(memory no-deformation-lossless-poses): whole squares moved, the upper body over the coat's hem, the boots stepping
-under it, a whole frame a quarter turn for the death.
+on the near side, so the arm is taken from B's picture mirrored (assets/source/swain/hd/picture_bf.png), brought to the
+design's grid ONCE, hanging (ppu_rig.Design.turned at 0), and only ever moved losslessly: quarter turns about his far
+shoulder (ARM_PIVOT: hanging, straight ahead, straight up) and whole squares (`reach`). The first cut drew it again from
+the picture at every angle and the user saw it change shape as it moved (「右手臂移动时候有点变形」, 2026-10-17). Everything
+else moves only losslessly too (memory no-deformation-lossless-poses): whole squares moved, the upper body over the
+coat's hem, the boots stepping under it, a whole frame a quarter turn for the death.
 Parts of A (design squares): the far sleeve (cols 32-37, rows 18-40: taken off while the demon arm casts, its glove
 rows filled with the sleeve's own row 29 repeated, the coat hanging empty), the two legs in the coat's opening (the
 shins and the boots), the coat's near and far panels (over the legs), the upper body (rows 0-40).
@@ -45,6 +46,7 @@ B_OFF = (18, 4)
 ARM_POLY = [(42.5, 26.5), (48.5, 26.5), (49.5, 31), (51, 37), (51, 44), (41, 44), (41, 37), (43, 31)]
 ARM_ABOUT = (46, 27.5)
 SHOULDER = (34, 19.5)                           # A's far shoulder under the pauldron
+ARM_PIVOT = (34.5, 19.5)                        # the quarter turns' centre (both halves: square centres stay centres)
 UPPER_END = 40                                  # the upper body: rows 0..40
 LEG_TOP = 44                                    # the shins show from this row (above: the tassets' dark hem)
 HEM = 50                                        # the coat panels sway from this row down
@@ -210,7 +212,7 @@ class DemonArm:
 # ------------------------------------------------------------------------------------------------- posing
 # the walk (League's Swain_Run: an upright walk, the far leg stepping in the coat's opening, the near panel swinging
 # with the near leg, the boots under the hem): per frame (near boot (columns forward, rows lifted), far leg (...), the
-# upper body's bob, the near panel's hem (columns at its lowest rows), the far sleeve's counter-swing). The boots stay
+# upper body's bob, the near panel's hem (columns at its lowest rows), unused). The boots stay
 # on their own sides - the coat hides the hips.
 WALK = [((-3, 0), (4, 0), 0, -2, -1), ((-2, 1), (2, 0), 1, -1, -1), ((0, 2), (0, 0), 1, 0, 0), ((2, 1), (-2, 0), 0, 1, 1),
         ((3, 0), (-4, 0), 0, 2, 1), ((2, 0), (-2, 1), 1, 1, 1), ((0, 0), (0, 3), 1, 0, 0), ((-2, 0), (2, 1), 0, -1, -1)]
@@ -257,13 +259,14 @@ class Poser:
         self.coats = {k: self.D.layer(k) for k in ("near_coat", "far_coat")}
         self.far_arm = pad(self.D.layer("far_arm"))
 
-    def pose(self, form="A", arm=None, up=(0, 0), whole=(0, 0), near=(0, 0), far=(0, 0), hem=0, swing=0):
-        """form A or B (the demon: the demon arm always out, glowing eyes; the wings are the aura's); arm: degrees the demon arm
-        turns from hanging (counter-clockwise: 90 straight ahead, 180 straight up) - None in A = the far sleeve as
-        drawn; up: the upper body (and the arm) moved over the coat and the legs - rows DOWN only (a crouch: the upper
-        body overlaps the coat; lifted it would open a gap at the waist); whole: the whole figure; near / far: (columns
+    def pose(self, form="A", arm=None, up=(0, 0), whole=(0, 0), near=(0, 0), far=(0, 0), hem=0, reach=(0, 0)):
+        """form A or B (the demon: the demon arm always out, glowing eyes; the wings are the aura's); arm: quarter turns
+        of the demon arm counter-clockwise from hanging, in degrees (90 straight ahead, 180 straight up) - None in A =
+        the far sleeve as drawn; reach: whole squares the turned arm moves (pulled in toward his chest: negative x);
+        up: the upper body (and the arm) moved over the coat and the legs - rows DOWN only (a crouch: the upper body
+        overlaps the coat; lifted it would open a gap at the waist); whole: the whole figure; near / far: (columns
         forward, rows lifted) of a boot and its shin; hem: columns the near panel's hem swings at its lowest row (the
-        far panel half as much); swing: columns the far sleeve swings (A) / degrees the hanging demon arm swings (B)."""
+        far panel half as much)."""
         D = self.D
         wx, wy = whole
         if up[1] < 0:
@@ -285,13 +288,14 @@ class Poser:
                 fill.append((name, (wx, wy)))
         layers.append((self.upper_b if form == "B" else self.upper_a, dict(dx=ux, dy=uy)))
         if form == "A" and arm is None:
-            layers.append((self.far_arm, dict(dx=ux + swing, dy=uy)))
-            if swing:
-                fill.append(("far_arm", (ux, uy)))
+            layers.append((self.far_arm, dict(dx=ux, dy=uy)))
         else:
+            a = arm or 0
+            if a % 90:
+                raise ValueError("the demon arm turns in quarter turns only")
             layers.append((self.sleeve, dict(dx=ux, dy=uy)))
-            a = (arm or 0) + (swing * 4 if form == "B" and arm in (None, 0) else 0)
-            layers.append((self.arm.at(a), dict(dx=ux, dy=uy)))
+            layers.append((self.arm.at(0), dict(dx=ux + reach[0], dy=uy + reach[1], rot=(a // 90) % 4,
+                                                 about=ARM_PIVOT)))
         can = R.compose(self.rig, layers, fill=fill)
         if near != (0, 0) or far != (0, 0):
             # where a shin stood in the coat's opening, now bare: the lining behind it, from the squares round it (the
@@ -325,36 +329,41 @@ def frames(ps):
         rest = None if form == "A" else 0
         bob = [0, 0, 1, 1, 1, 1, 0, 0]
         out[t["idle"]] = [p(arm=rest, up=(0, b)) for b in bob]
-        out[t["run"]] = [p(arm=rest, up=(0, b), near=n, far=f, hem=h, swing=s) for n, f, b, h, s in WALK]
-        # auto attack (League's Swain_Attack1: the demon hand flung forward, the raven bolt leaving it): drawn back,
-        # swung, straight ahead on frame 3 (the release), followed through, back down
-        out[t["attack"]] = [p(arm=a, whole=w) for a, w in
-                            [(-20, (-1, 0)), (40, (0, 0)), (90, (1, 0)), (100, (1, 0)), (60, (0, 0)), (20, (0, 0))]]
+        out[t["run"]] = [p(arm=rest, up=(0, b), near=n, far=f, hem=h) for n, f, b, h, _ in WALK]
+        # auto attack (League's Swain_Attack1: the demon hand flung forward, the raven bolt leaving it): leaning back,
+        # the arm coming out ahead (pulled in), straight out on frame 3 (the release) with a step in, back down
+        IN = (-3, 0)
+        out[t["attack"]] = [p(arm=a, reach=r, whole=w) for a, r, w in
+                            [(0, (0, 0), (-1, 0)), (90, IN, (0, 0)), (90, (0, 0), (1, 0)), (90, (0, 0), (1, 0)),
+                             (90, IN, (0, 0)), (0, (0, 0), (0, 0))]]
         # Q Death's Hand (Swain_Spell1: a wide crouch, the claw thrust out ahead): the bolts leave on frame 3
-        out[t["skill"]] = [p(arm=a, up=(0, c), whole=(w, 0)) for a, c, w in
-                           [(45, 1, 0), (75, 2, 1), (85, 2, 1), (85, 2, 1), (50, 1, 0), (15, 0, 0)]]
+        out[t["skill"]] = [p(arm=a, reach=r, up=(0, c), whole=(w, 0)) for a, r, c, w in
+                           [(0, (0, 0), 1, 0), (90, IN, 2, 0), (90, (0, 0), 2, 1), (90, (0, 0), 2, 1), (90, IN, 1, 0),
+                            (0, (0, 0), 0, 0)]]
         # E Nevermove (Swain_Spell3: the arm raised high, then thrown out ahead): the hand leaves on frame 3
-        out[t["skill2"]] = [p(arm=a, up=(0, c), whole=(w, 0)) for a, c, w in
-                            [(150, 0, 0), (175, 0, -1), (90, 1, 1), (80, 1, 1), (50, 0, 0), (15, 0, 0)]]
+        out[t["skill2"]] = [p(arm=a, reach=r, up=(0, c), whole=(w, 0)) for a, r, c, w in
+                            [(180, (0, 0), 0, 0), (180, (0, 0), 0, -1), (90, (0, 0), 1, 1), (90, (0, 0), 1, 1),
+                             (90, IN, 0, 0), (0, (0, 0), 0, 0)]]
         if form == "A":
             # R Demonic Ascension (Swain_DemonWindup -> Swain_DemonLand): crouch, leap - the demon from frame 4 on (the
             # kit starts the wings' aura at that frame: ULT_WINGS_AT) - land
-            out["ult"] = [ps.pose("A", up=(0, 2)), ps.pose("A", arm=-20, up=(0, 3)),
-                          ps.pose("A", arm=60, whole=(0, -4)), ps.pose("B", arm=120, whole=(0, -7)),
-                          ps.pose("B", arm=150, whole=(0, -5)), ps.pose("B", arm=100, whole=(0, -1)),
-                          ps.pose("B", arm=45, up=(0, 2)), ps.pose("B", arm=0)]
+            out["ult"] = [ps.pose("A", up=(0, 2)), ps.pose("A", arm=0, up=(0, 3)),
+                          ps.pose("A", arm=90, reach=(-3, 0), whole=(0, -4)), ps.pose("B", arm=180, whole=(0, -7)),
+                          ps.pose("B", arm=180, whole=(0, -5)), ps.pose("B", arm=90, whole=(0, -1)),
+                          ps.pose("B", arm=0, up=(0, 2)), ps.pose("B", arm=0)]
             role["ult"] = "ult"
         else:
             # Demonflare: the claw raised, the nova (the effect), the claw down
-            out[t["flare"]] = [p(arm=120), p(arm=165), p(arm=170), p(arm=60)]
+            out[t["flare"]] = [p(arm=90, reach=(-3, 0)), p(arm=180), p(arm=180), p(arm=90, reach=(-3, 0))]
         out[t["hit"]] = [R.flash(p(arm=rest, whole=(-2, 0))), p(arm=rest, whole=(-1, 0))]
         if form == "B":
             continue
         # the death (Swain_Death): he staggers, sinks to his knees with the demon claw raised, falls back
-        knelt = p(arm=150, up=(0, 7), whole=(-2, 0))
+        knelt = p(arm=180, up=(0, 7), whole=(-2, 0))
         # he falls back: the kneeling figure with the arm let fall along his side, a quarter turn onto the ground
         lying = R.lie(ps.rig, p(up=(0, 7), whole=(-2, 0)), k=1, dx=-3)
-        out[t["dead"]] = [p(whole=(-1, 0)), p(arm=120, up=(0, 4), whole=(-1, 0)), p(arm=170, up=(0, 7), whole=(-1, 0)),
+        out[t["dead"]] = [p(whole=(-1, 0)), p(arm=90, reach=(-3, 0), up=(0, 4), whole=(-1, 0)),
+                          p(arm=180, up=(0, 7), whole=(-1, 0)),
                           knelt, lying, lying.copy(), lying.copy(), lying.copy()]
     res = {}
     for tag, fr in out.items():
