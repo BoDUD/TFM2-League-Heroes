@@ -598,53 +598,88 @@ def read_run(F, path):
                 lay[ty, tx] = c[y, x]
         out.append(R.compose(F.rig, [(lay, dict())]))
         print(f"run {form}: {ch} rows, head match {n}/{int(hm.sum())} at x {-hx:+d}, its head {hy:+d} rows from the top")
-    return [F.close_slits(c) for c in steady_staff(F, out)]
+    return [F.close_slits(c) for c in rigid_staff(F, out)]
 
 
-# the staff's end left of the near fist (the spike, the teal shaft, the gold ring), design columns < STAFF_CUT: Codex
-# rocked it about the far hand from frame to frame (the spike 23 -> 28 rows over the soles and back, the slope 0.11 -
-# 0.22), so in the walk it is the design's own, moved with the hands
-STAFF_CUT = {"A": 28, "B": 36}
-TEAL_A = {(1, 98, 102), (2, 116, 118), (1, 137, 141), (1, 59, 65)}
+# The whole staff in the walk is the design's own (the user, 2026-10-17: 「跑步的时候武器变形了吧」): Codex drew it again in every
+# frame - rocked about the far hand (the spike 23 -> 28 rows over the soles), the blade's shape and the shaft's slope
+# (0.11 - 0.22) changing. Per form: the fist boxes (where Codex's hands hold the shaft) and the blade's columns.
+WALK_STAFF = {"A": dict(cut=28, near=(28, 37), far=(53, 59), blade=57, zone=59),
+              "B": dict(cut=36, near=(36, 46), far=(66, 72), blade=71, zone=73)}
 
 
-def steady_staff(F, cans):
-    """Each walking frame's staff end left of the near fist swapped for the design's (lossless, its own slope), set at
-    the height of Codex's shaft where it goes under the fist (the hands' bob), that height smoothed over the cycle
-    (neighbours 1:2:1) so the spike rises and falls with the step instead of jumping."""
+def rigid_staff(F, cans):
+    """Each walking frame with Codex's staff taken out and the design's whole staff put in: Codex's shaft line fitted
+    (its wood and teal squares near the design's line); taken out - everything left of the near fist round that line
+    (the spike end), the shaft's wood / teal / outline squares within 2.5 of it, and the blade right of the far fist
+    (its cream, teal and gem squares, the gold and outline squares beside them); the body behind filled from the
+    squares round it; the design's staff set in at the height of Codex's hands (smoothed over the cycle 1:2:1, so it
+    rises and falls with the step); Codex's two fists (their non-wood squares in the fist boxes) laid back over it."""
+    from scipy import ndimage
     D, rig = F.D, F.rig
     form = "A" if D.H == 53 else "B"
-    cut = STAFF_CUT[form]
+    cfg = WALK_STAFF[form]
     k_d, c_d = D.line
-    exact = D.layer("staff")
-    seg = np.zeros_like(exact)
-    seg[:, :cut] = exact[:, :cut]
-    rgbset = {tuple(c) for c in exact[exact[..., 3] > 0][:, :3].tolist()}
-    heights = []
+    staff_cols = {tuple(c) for c in D.layer("staff")[D.parts["staff"]][:, :3].tolist()}
+    wood = {c for c in staff_cols if c[0] > c[2] + 40 and c[1] < 90}           # the shaft's browns
+    teal = {c for c in staff_cols if c[1] > c[0] + 40 and c[2] > c[0] + 40 and max(c) < 200}
+    bright = {c for c in staff_cols if (c[0] > 240 and c[1] > 240) or (c[1] > 180 and c[2] > 180 and c[0] < 120)}
+    fits, info = [], []
     for c in cans:
-        sub = c[rig.oy:rig.oy + D.H + 6, rig.ox:rig.ox + D.W]
-        op = sub[..., 3] > 0
-        col = np.array([tuple(v) in rgbset for v in sub[..., :3].reshape(-1, 3).tolist()]).reshape(op.shape) & op
-        yy, xx = np.mgrid[0:sub.shape[0], 0:sub.shape[1]]
-        near = col & (np.abs(yy - (k_d * xx + c_d)) <= 6) & (xx < cut + 18)
-        dark = sub[..., :3].astype(int).sum(-1) < 40
-        ys, xs = np.nonzero(near & ~dark)
-        k, c0 = np.polyfit(xs, ys, 1)
-        heights.append((k * (cut - 0.5) + c0) - (k_d * (cut - 0.5) + c_d))
+        rgb = c[..., :3].astype(int)
+        op = c[..., 3] > 0
+        yy, xx = np.mgrid[0:c.shape[0], 0:c.shape[1]]
+        dx_, dy_ = xx - rig.ox, yy - rig.oy
+        cols = [tuple(v) for v in rgb.reshape(-1, 3).tolist()]
+        is_wood = np.array([v in wood for v in cols]).reshape(op.shape) & op
+        is_teal = np.array([v in teal for v in cols]).reshape(op.shape) & op
+        is_bright = np.array([v in bright for v in cols]).reshape(op.shape) & op
+        dark = op & (rgb.sum(-1) < 40)
+        near = (np.abs(dy_ - (k_d * dx_ + c_d)) <= 7) & (dx_ >= 2) & (dx_ <= cfg["blade"] - 2)
+        ys, xs = np.nonzero((is_wood | (is_teal & (dx_ < cfg["cut"]))) & near)
+        k, c0 = np.polyfit(xs - rig.ox, ys - rig.oy, 1)
+        fits.append((k, c0))
+        info.append((rgb, op, dx_, dy_, is_wood, is_teal, is_bright, dark))
+    mid = (cfg["near"][1] + cfg["far"][0]) / 2
+    heights = [(k * mid + c0) - (k_d * mid + c_d) for k, c0 in fits]
     n = len(heights)
     smooth = [round((heights[i - 1] + 2 * heights[i] + heights[(i + 1) % n]) / 4) for i in range(n)]
     out = []
-    for c, dy in zip(cans, smooth):
-        c = c.copy()
-        yy, xx = np.mgrid[0:c.shape[0], 0:c.shape[1]]
-        dx_, dy_ = xx - rig.ox, yy - rig.oy
-        band = (dx_ < cut) & (np.abs(dy_ - dy - (k_d * dx_ + c_d)) <= 6) & (dy_ < D.H - 12)
-        c[band] = 0
-        put = R.compose(rig, [(pad(seg), dict(dy=dy))])
-        m = put[..., 3] > 0
-        c[m] = put[m]
-        out.append(c)
-    print(f"run {form}: the staff's end left of the fist at {[f'{h:+.1f}' for h in heights]} rows -> {smooth}")
+    for c, (k, c0), (rgb, op, dx_, dy_, is_wood, is_teal, is_bright, dark), dy in zip(cans, fits, info, smooth):
+        line = k * dx_ + c0
+        fist = (((dx_ >= cfg["near"][0]) & (dx_ <= cfg["near"][1])) | ((dx_ >= cfg["far"][0]) & (dx_ <= cfg["far"][1]))) &             (np.abs(dy_ - line) <= 4)
+        gone = np.zeros_like(op)
+        gone |= (dx_ < cfg["cut"]) & (np.abs(dy_ - line) <= 7) & (dy_ < D.H - 12)                 # the spike end
+        gone |= (np.abs(dy_ - line) <= 2.5) & (is_wood | is_teal | dark) & (dx_ < cfg["blade"])   # the shaft
+        # the blade: everything right of the far fist (columns >= zone), but a boot stepping in there from the left (its
+        # squares in the lowest 10 rows joined to squares left of the zone)
+        zone = dx_ >= cfg["zone"]
+        low = op & (dy_ >= D.H - 10)
+        lbl, nl = ndimage.label(low, structure=np.ones((3, 3)))
+        boot = np.zeros_like(op)
+        for kk in range(1, nl + 1):
+            m_ = lbl == kk
+            if (m_ & ~zone).any() and (m_ & zone).any():
+                # a piece reaching across: keep only what is not blade-coloured
+                boot |= m_ & zone & ~is_bright & ~is_teal
+        gone |= zone & op & ~boot
+        # Codex's shaft squares the palette snap read as the ear's reds, along the line
+        reds = op & (rgb[..., 0] > rgb[..., 1] + 60) & (rgb[..., 0] > rgb[..., 2] + 60) & (rgb[..., 1] < 70)
+        gone |= reds & (dy_ > D.H * 0.4)          # the ear is the design's only red: below the head it is snap noise
+        keep_fist = fist & op & ~is_wood & ~is_teal & ~reds
+        cut = c.copy()
+        cut[gone & ~keep_fist] = 0
+        # the body behind what was taken out (the loincloth under the shaft), filled from the squares round it
+        inside = ndimage.binary_fill_holes(cut[..., 3] > 0)
+        cut = R.fill_under(cut, gone & inside & (cut[..., 3] == 0))
+        staff = R.compose(rig, [(F.staff_ring, dict(dy=dy))])
+        m = staff[..., 3] > 0
+        cut[m] = staff[m]
+        back = keep_fist & ~m | (keep_fist & m & ~(np.abs(dy_ - (k_d * dx_ + c_d + dy)) <= 1))
+        cut[back] = c[back]
+        out.append(cut)
+    print(f"run {form}: Codex's staff at {[f'{h:+.1f}' for h in heights]} rows (slopes "
+          f"{[f'{k:.2f}' for k, _ in fits]}) -> the design's at {smooth}")
     return [drop_crumbs(c) for c in out]
 
 
