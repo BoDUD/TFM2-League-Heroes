@@ -71,10 +71,59 @@ def face_lines(d):
     return rows, cols
 
 
+# The picks (2026-10-17): A-2 (read 91 x 57) and B-1 (read 46 x 32). Then 「模型有点大」 (2026-10-18): the size is set
+# here in game rows (PPU 1.2), the egg half of hers, both cut from the reads by even_cut, never the face's lines.
+PICK = {"A": "A-2", "B": "B-1"}
+
+
+def cut_to(game_rows):
+    """A and B for A `game_rows` game rows tall (the egg half that) -> {form: (design, kept rows, kept columns)}."""
+    out = {}
+    for form, rows in (("A", round(game_rows * PPU)), ("B", round(game_rows / 2 * PPU))):
+        base = np.asarray(Image.open(lp(os.path.join(SRC, "hd", f"model{PICK[form].replace('-', '')}.png"))).convert("RGBA"))
+        cols = round(base.shape[1] * rows / base.shape[0])
+        out[form] = RC.even_cut(base, rows, cols, face_lines(base), index=True)
+    return out
+
+
+def sizes(game_rows_list, out_dir):
+    """The picked takes at several heights beside the pack's big heroes and mids at game size -> anivia_sizes.png."""
+    cells = []
+    for g in game_rows_list:
+        c = cut_to(g)
+        for form in ("A", "B"):
+            im = Image.fromarray(c[form][0])
+            label = f"{'A' if form == 'A' else 'egg'} at {g if form == 'A' else g / 2:g}"
+            cells.append((label, f"{im.width / PPU:.0f}x{im.height / PPU:.0f}", RS.shown(im, PPU, 3)))
+    for hero in ["darius"] + NEIGHBOURS:
+        im, p = RS.frame0(hero)
+        cells.append((hero, f"{im.width / p:.0f}x{im.height / p:.0f}", RS.shown(im, p, 3)))
+    gap, top = 16, 34
+    W = sum(c[2].width for c in cells) + gap * (len(cells) + 1)
+    H = max(c[2].height for c in cells) + top + gap
+    can = Image.new("RGBA", (W, H), BG)
+    dr = ImageDraw.Draw(can)
+    x = gap
+    for label, size, im in cells:
+        can.alpha_composite(im, (x, H - gap - im.height))
+        dr.text((x, 4), label, fill=(30, 30, 30, 255))
+        dr.text((x, 18), size, fill=(30, 30, 30, 255))
+        x += im.width + gap
+    dr.line([(0, H - gap), (W, H - gap)], fill=(120, 120, 120, 255))
+    os.makedirs(lp(out_dir), exist_ok=True)
+    path = os.path.join(out_dir, "anivia_sizes.png")
+    can.convert("RGB").save(lp(path))
+    print(path, can.size)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(ROOT, "dist", "anivia_packs"))
+    ap.add_argument("--sizes", help="game rows of A, comma-separated: the size review only")
     a = ap.parse_args()
+    if a.sizes:
+        sizes([float(v) for v in a.sizes.split(",")], a.out)
+        return
     cells, closeups = [], []
     os.makedirs(lp(os.path.join(SRC, "hd")), exist_ok=True)
     for take, size in TAKES.items():
