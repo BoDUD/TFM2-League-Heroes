@@ -62,6 +62,9 @@ P = {
     # 3 s later unless a takedown)
     "w_cd": 1500, "w_range": 80000, "w_r2": 60000, "w_t": 300, "w_as": 40, "w_ms": 20,
     "w_heal": 200, "w_heal_ap": 60, "w_anim": 18,
+    # the add-on's Bailout (League's): a lethal hit restores full health, which drains to 1 over w_doom ticks; no
+    # takedown by then, the ally dies
+    "w_doom": 180,
     # skill: E (League: 800 range, 65-245 + 55% AP, slow 30% 2 s, shield 50-230 + 50% AP 3 s, cd 14-10 s)
     # (the strip: 70 ms crouch, 80 ms the arm swept up, the missiles leave as it is thrown forward on frame 3, 150 ms)
     # (the missiles at the mechanical hand's height on frame 3: 13 game px up)
@@ -358,7 +361,8 @@ def build(p):
     if p["native"]:
         extra["passive"] = {"passive_ref": f"{ID}:glasc",
                             "params": {k: p[k] for k in ("p_t", "p_pop", "p_pop_ap", "p_pop_hp", "w_cd", "w_t",
-                                                         "w_as", "w_ms", "r_t", "r_per")}}
+                                                         "w_as", "w_ms", "w_range", "w_r2", "fight_r", "w_anim",
+                                                         "w_doom", "r_t", "r_per")}}
     return {
         "id": ID, "category": "Util", "tags": ["AP", "Magic", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
