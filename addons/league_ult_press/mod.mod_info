@@ -11,10 +11,10 @@
       "version": ">=0.129.0"
     }
   ],
-  "description": "Armed slots pressed for game 0.6.4's AI (needs League of Legends Heroes): Samira's, Twisted Fate's and Kog'Maw's R and Camille's E only arm or wait for a target in the data, and the 0.6.4 AI almost never presses them. This add-on presses them for the AI - Samira when an enemy champion is in R's range, and she also casts E and Q at champions to climb her Style to S; Twisted Fate when he is alone and an ally far away is fighting an enemy champion; Kog'Maw at the lowest-health champion his R may hit; Camille when an enemy champion is in E's range. Nothing of the main pack is replaced. Writes a log for testing. Also, when the AI holds any melee League champion (attack range up to 30000), Rakan or Senna next to an enemy champion without attacking (standing still, or walking along with him), it attacks him for them - only at half health or more, away from his tower and not outnumbered.",
+  "description": "Slots pressed for game 0.6.4's AI (needs League of Legends Heroes). The 0.6.4 AI almost never presses some of the pack's slots, so this add-on presses them at the right moment and the main pack's data does the rest: Samira's R (and E / Q at champions to climb her Style to S), Twisted Fate's R when he is alone and an ally far away is fighting, Kog'Maw's R at the lowest-health champion it may hit, Camille's E in range; Zed's W when his Q is ready, Gwen's, Viego's E and Katarina's W to dash in (at 40% health or more, not under a tower, not outnumbered, the lowest-health target first), Katarina's R on two champions or a low one, Fiddlesticks' R on a crowd, Xerath's and Jhin's R from safety on low or fought champions, Syndra's R on a low, held or crowded target, Janna's R when someone near her is about to fall, Sona's W when someone is hurt, Orianna's and Zilean's E in a fight, Sivir's spell shield when an enemy champion near her just cast, Kalista's rend when her spears are enough, and the armed R of Kayle, Karma, Evelynn, Orianna and Ryze when an enemy champion is near. Nothing of the main pack is replaced. Writes a log for testing. Also, when the AI holds any melee League champion (attack range up to 30000), Rakan or Senna next to an enemy champion without attacking (standing still, or walking along with him), it attacks him for them - only at half health or more, away from his tower and not outnumbered.",
   "last_updated": "2026-10-17",
   "mod_id": "league_ult_press",
   "mod_type": "native",
-  "name": "League Heroes: armed skills pressed and lane holds broken for the AI",
-  "version": "0.2.1"
+  "name": "League Heroes: skills the AI hardly presses, pressed for it; lane holds broken",
+  "version": "0.3.0"
 }
