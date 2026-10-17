@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_nasus": {
+    "remapping": "asset/league_nasus/override/league_nasus",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_nasus/text/champion",
+    "type": "merge"
+  }
+}

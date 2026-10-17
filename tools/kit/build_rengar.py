@@ -271,10 +271,10 @@ def build(p):
         speed = refresh("qe_as", p["qe_as_t"], attack_speed_mult=p["qe_as"]) if emp else \
             refresh("q_as", p["q_as_t"], attack_speed_mult=p["q_as"])
         return combine(anim("skill", p["q_dur"]), sfx("q"), voice("vo_q", p),
-                       delayed(lead + p["q_slam_at"] - 1, homing("q_slam", 100000, 0, "EnemyWithoutTower",
+                       delayed(lead + p["q_slam_at"] - 1, homing("q_slam", 100000, 0, "Enemy",
                                                                   [attack(p["q_s_dmg"], p["q_s_ratio"]), view("q_slam"),
                                                                    tsfx("q_hit")])),
-                       delayed(lead + p["q_rip_at"] - 1, homing("q_rip", 100000, 0, "EnemyWithoutTower",
+                       delayed(lead + p["q_rip_at"] - 1, homing("q_rip", 100000, 0, "Enemy",
                                                                  [attack(dmg, ratio), view("q_rip"),
                                                                   tsfx("q_emp" if emp else "q_hit")]),
                                champ_twin("q_twin", "a", read=False), speed),
@@ -297,7 +297,7 @@ def build(p):
                              champ_twin("l_twin", "a", [lp_open], read=False), cview("l_dust"), gain()))
 
     # ------------------------------------------------------------------ the attack
-    swing = combine(sfx("a_swing"), delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "EnemyWithoutTower",
+    swing = combine(sfx("a_swing"), delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "Enemy",
                                                                  [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
                                          champ_twin("a_twin", "a", read=False)))
     # the triple Q: the Savagery that fills Ferocity keeps its cooldown on `q_hold`, which stops a plain Savagery only,

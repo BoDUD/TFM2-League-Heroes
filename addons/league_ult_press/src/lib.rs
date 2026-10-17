@@ -24,8 +24,11 @@
 //!   生命不到 `KOG_GOOD_HP`、射程内能打的敌方英雄有两个以上，或配额攒满了；一轮开着（`KOG_VOLLEY`）就接着打完。
 //! - 卡密尔（`league_camille`，E `Targeting EnemyChampion`）：E 好了、`CAMILLE_RANGE`（主包 E 的射程；附加包钩墙版是
 //!   85000，取小的）内有敌方英雄——按 E，目标是最近的那个；钩索、钩墙、冲向敌人由主包 / league_camille_wall 决定。
-//! - 卡密尔、瑟提、奥拉夫，之后加上蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜，再加上李青、泰达米尔、塔里克（`HOLDERS`）
-//!   被停住：游戏的 AI 常把他们停在对面英雄 26–32k 外（近战射程 25k）、下令「走到自己脚下」或什么都不下，站着不打。
+//! - 所有近战英雄（主包数据里普攻距离不超过 `MELEE_RANGE`，`MELEE`）和远程的洛、赛娜（`RANGED_HOLDERS`）被停住：游戏的
+//!   AI 常把他们停在敌方英雄跟前（对线时停在 26–32k 外，近战射程 25k）、下令「走到自己脚下」或什么都不下，站着不打；
+//!   也会让他们一直跟着敌方英雄走、不出手（卡兹克）：普攻好了、`HOLD_REACH` 内有敌方英雄、AI 只下走路命令（不是明显往远处撤，
+//!   `walking_away`）连着 `HOLD_WALKING` tick，也算被停住。
+//!   先是卡密尔、瑟提、奥拉夫，之后加上蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜，再加上李青、泰达米尔、塔里克，然后扩到所有近战。
 //!   原地站了 `HOLD_STILL` tick、普攻好了、AI 还让他原地站（`holding`）时，`hold_target` 挑人普攻：
 //!   他生命不低于 `HOLD_MIN_HP`、目标离敌方塔超过 `TOWER_REACH`、目标身边不比他身边人多；打出一下或 `ENGAGE_TICKS` 后重新算，
 //!   AI 自己下了别的命令（普攻、技能、走开）就不管。没有要按的格子时才这样做。
@@ -95,30 +98,102 @@ pub const KOG_GOOD_HP: f64 = 0.5;
 pub const CAMILLE_RANGE: f64 = 60_000.0;
 /// 对线被 AI 停住的近战（用户：「卡密尔、瑟提、奥拉夫对线被 AI 停住时，附加包替她们上去平 A（血量够、不在对面塔下、
 /// 不被以少打多）」）：只读观察包里她们常在对面英雄 26–32k 外（近战射程 25k）被 AI 下令「走到自己脚下」站着。
-pub const SETT: &str = "league_sett";
-pub const OLAF: &str = "league_olaf";
 /// 之后（用户：「站桩的按照之前卡密尔那样改 然后合并」）：观察包里同样被停住的——站着不动 13–36%、其中 5–12% 是 AI 下令
 /// 「走到自己脚下」（盖伦、贾克斯 3–4% / 1%）——蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜。
 /// 再之后（用户：「李青、泰达米尔、塔里克照卡蜜尔的规则加进站桩名单，做完开 PR」）：前十位身边有敌方英雄时站着不动
 /// 瑟提 22.7% → 16.8%、奥拉夫 18.0% → 12.4%、亚托克斯 14.3% → 10.0%，名单外的不变；站着不动 18–23% 的李青、泰达米尔
-/// （其中 9.6% 是「走到自己脚下」）、塔里克（94% 是什么命令都没下）。李青、泰达米尔各自的钩子只改 Q / R 命令，不冲突。
-pub const HOLDERS: [&str; 13] = [
-    CAMILLE,
-    SETT,
-    OLAF,
-    "league_drmundo",
-    "league_xinzhao",
-    "league_kayle",
-    "league_rakan",
+/// （其中 9.6% 是「走到自己脚下」）、塔里克（94% 是什么命令都没下）。
+/// 最后（玩家视频里墨菲特和敌人叠在一起也不出手；用户：「站桩规则扩到所有近战英雄（自己有 AI 钩子的逐个确认）」）：观察包
+/// 第 13–20 轮里名单外的近战一样站着——魔腾 23.1%、墨菲特 19.9%、芮尔 18.0%、德莱厄斯 15.6%、雷克塞 15.3%、阿木木 14.9%、
+/// 永恩 13.7%、蕾欧娜、菲奥娜 13.4%、布里茨 13.0%、莉莉娅 12.1%（盖伦 2.9%、格温 3.0%、劫 3.2%）。所以换成「所有近战」：
+/// 主包数据里普攻距离不超过 `MELEE_RANGE` 的英雄。引擎接口读不到普攻距离，名单照数据写在这里，单元测试
+/// `melee_list_matches_the_data` 逐个对照 league/champion，加了新英雄没补进来就报错。
+/// 自己有 AI 钩子的英雄逐个看过：布隆、伊莉丝、杰斯、奈德丽、尼菈、塔姆、李青、泰达米尔的钩子只改 AI 要放的技能（换目标或
+/// 换时机），艾瑞莉娅的只在 Q 射程里没有敌方英雄时跳小兵，魔腾的鬼影重重只改打向黑暗里的出手，回城日志和米利欧看别人的
+/// 钩子只看不改——AI 让他原地站着时它们都不下命令。德莱厄斯、派克能斩杀时 AI 没想放也按 R：钩子按优先级从低到高
+/// 依次跑、后跑的可以换掉前面的命令（champion-data 第 8 节），他们的钩子后跑就把这里的普攻换成 R，先跑的话这里看到的是 R、
+/// 不算原地站——斩杀照样出手。
+pub const MELEE_RANGE: u64 = 30_000;
+pub const MELEE: [&str; 62] = [
     "league_aatrox",
+    "league_akali",
+    "league_alistar",
+    "league_amumu",
+    "league_blitzcrank",
+    "league_braum",
+    "league_briar",
+    "league_camille",
+    "league_darius",
+    "league_diana",
+    "league_drmundo",
+    "league_ekko",
+    "league_elise",
     "league_evelynn",
-    "league_senna",
+    "league_fiora",
+    "league_fizz",
+    "league_galio",
+    "league_garen",
+    "league_gragas",
+    "league_gwen",
+    "league_hecarim",
+    "league_irelia",
+    "league_jax",
+    "league_jayce",
+    "league_kassadin",
+    "league_katarina",
+    "league_kayle",
+    "league_kayn",
+    "league_khazix",
     "league_leesin",
-    "league_tryndamere",
+    "league_leona",
+    "league_lillia",
+    "league_malphite",
+    "league_masteryi",
+    "league_mordekaiser",
+    "league_nasus",
+    "league_nautilus",
+    "league_nidalee",
+    "league_nilah",
+    "league_nocturne",
+    "league_olaf",
+    "league_pantheon",
+    "league_pyke",
+    "league_reksai",
+    "league_rell",
+    "league_renekton",
+    "league_rengar",
+    "league_riven",
+    "league_sett",
+    "league_shaco",
+    "league_shen",
+    "league_sion",
+    "league_tahmkench",
+    "league_talon",
     "league_taric",
+    "league_tryndamere",
+    "league_vi",
+    "league_viego",
+    "league_xinzhao",
+    "league_yasuo",
+    "league_yone",
+    "league_zed",
 ];
+/// 远程里之前按观察包加进来的：洛（普攻距离 40000）、赛娜（62000），对线时一样被停住。
+pub const RANGED_HOLDERS: [&str; 2] = ["league_rakan", "league_senna"];
+
+/// 交给站桩规则管的英雄：所有近战，加上洛、赛娜。
+pub fn is_holder(name: &str) -> bool {
+    MELEE.contains(&name) || RANGED_HOLDERS.contains(&name)
+}
 /// 原地站了这么多 tick、普攻好了、AI 还在让她原地站（没下命令，或「走到」离她 `HOLD_HERE` 以内的地方）才算被停住。
 pub const HOLD_STILL: usize = 15;
+/// 走着不打（玩家 yodajones12：「Kha'zix sometimes following opponent and not attacking」）：只读观察包里卡兹克身边 50000 内
+/// 有敌方英雄的 3 秒里，AI 下了约 25 次走路命令、0–2 次普攻，最近的敌方英雄在 19–46k（他的普攻射程 23000），原地站着不动只有
+/// 5–7%——`HOLD_STILL` 抓不到。普攻好了、`HOLD_REACH` 内有敌方英雄、AI 只下走路命令或不下命令、不是往远处撤，连着这么多 tick
+/// 也算被停住。
+pub const HOLD_WALKING: usize = 30;
+/// 走路的目的地比他现在离目标远这么多以上，就是在撤（拉开、回撤）：那是 AI 自己的打算，不算被停住。
+pub const HOLD_AWAY: f64 = 10_000.0;
 pub const HOLD_HERE: f64 = 3_000.0;
 /// 这么近的敌方英雄才上去打（观察到的停住距离 26–32k）；打上了之后对方走到 `HOLD_KEEP` 以外就不追。
 pub const HOLD_REACH: f64 = 35_000.0;
@@ -322,6 +397,11 @@ pub fn hold_target(
     (theirs <= ours).then_some(t)
 }
 
+/// 这一步走路是不是在撤：目的地离目标比他现在离目标远 `HOLD_AWAY` 以上。跟着走、斜着走、往前走都不算。
+pub fn walking_away(me: (f64, f64), to: (f64, f64), target: (f64, f64)) -> bool {
+    dist(to, target) > dist(me, target) + HOLD_AWAY
+}
+
 /// 放不出技能的控制。
 const NO_CAST: [CcKindV1; 7] =
     [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockSkill];
@@ -395,6 +475,8 @@ struct UltPress {
     still_ticks: usize,
     engage: Option<(usize, usize)>,
     atk_ready_prev: bool,
+    /// 走着不打：普攻好了、敌方英雄在 `HOLD_REACH` 内、AI 只下走路命令（不是撤）连着几 tick。
+    walk_ticks: usize,
 }
 
 /// AI 这一 tick 是不是在让她原地站：没下命令，或者「走到」她脚下 `HOLD_HERE` 以内。
@@ -419,7 +501,7 @@ impl StablePlayerAi for UltPress {
     }
 
     fn matches(&self, init: &StableAiInit) -> bool {
-        slot_of(&init.champion_name).is_some() || HOLDERS.contains(&init.champion_name.as_str())
+        slot_of(&init.champion_name).is_some() || is_holder(&init.champion_name)
     }
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
@@ -435,7 +517,7 @@ impl StablePlayerAi for UltPress {
             let me = pl.champion()?;
             let (mid, team) = (me.id(), me.team());
             let name = me.name().unwrap_or_default();
-            let holder = HOLDERS.contains(&name.as_str());
+            let holder = is_holder(&name);
             let slot = slot_of(&name);
             if slot.is_none() && !holder {
                 return None;
@@ -448,6 +530,7 @@ impl StablePlayerAi for UltPress {
                 self.volleys = 1.0;
                 self.volley_tick = tick;
                 self.engage = None;
+                self.walk_ticks = 0;
             }
             self.volleys = (self.volleys + (tick - self.volley_tick) as f64 / KOG_VOLLEY_EVERY as f64).min(KOG_VOLLEYS_MAX);
             self.volley_tick = tick;
@@ -549,23 +632,42 @@ impl StablePlayerAi for UltPress {
             }
             if holder && atk_ready {
                 let engaged = self.engage.filter(|&(_, until)| tick <= until).map(|(t, _)| t);
-                if !holding(base, my_at) {
-                    // the AI does something else (an attack, a skill, a walk away): its call
+                // walking with an enemy champion close and not away from him (Kha'Zix follows and never attacks)
+                let near = nearest_in(my_at, HOLD_REACH, &enemies).and_then(|t| enemies.iter().find(|u| u.id == t)).map(|u| u.at);
+                let walking = match (base, near) {
+                    (Some(b), Some(p)) if b.kind == InputKindV1::Move.code() => {
+                        !walking_away(my_at, (b.x as f64, b.y as f64), p)
+                    }
+                    (None, Some(_)) => true,
+                    _ => false,
+                };
+                self.walk_ticks = if walking { self.walk_ticks + 1 } else { 0 };
+                let still_held = holding(base, my_at) && self.still_ticks >= HOLD_STILL;
+                let walk_held = self.walk_ticks >= HOLD_WALKING;
+                if !holding(base, my_at) && !walking {
+                    // the AI does something else (an attack, a skill, a walk away, a recall): its call
                     if base.is_some_and(|b| b.kind == InputKindV1::Move.code()) {
                         self.engage = None;
                     }
-                } else if self.still_ticks >= HOLD_STILL || engaged.is_some() {
+                } else if still_held || walk_held || engaged.is_some() {
                     match hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, engaged) {
                         Some(t) => {
                             if engaged != Some(t) {
                                 self.engage = Some((t, tick + ENGAGE_TICKS));
                             }
                             let d = enemies.iter().find(|u| u.id == t).map_or(f64::NAN, |u| dist(my_at, u.at));
-                            hold = Some((t, format!("held {} ticks, {} {d:.0} away", self.still_ticks, who(&sim, t))));
+                            let how = if still_held || !walk_held {
+                                format!("held {} ticks", self.still_ticks)
+                            } else {
+                                format!("walking without attacking {} ticks", self.walk_ticks)
+                            };
+                            hold = Some((t, format!("{how}, {} {d:.0} away", who(&sim, t))));
                         }
                         None => self.engage = None,
                     }
                 }
+            } else {
+                self.walk_ticks = 0;
             }
             let press = |t: usize| InputV1::action(kind, InputTargetV1::target(t));
             let cands = match name.as_str() {
@@ -670,7 +772,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (presses armed slots for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E; held champions attack: Camille, Sett, Olaf, Dr. Mundo, Xin Zhao, Kayle, Rakan, Aatrox, Evelynn, Senna, Lee Sin, Tryndamere, Taric) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (presses armed slots for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E; held champions attack: the {} melee League champions (attack range up to {}) and Rakan, Senna) loaded: game {}.{}.{} abi {} log={} ===",
+        MELEE.len(),
+        MELEE_RANGE,
         v.major,
         v.minor,
         v.patch,
@@ -803,5 +907,61 @@ mod tests {
         assert!(kog_targets((0.0, 0.0), &[u(3, 140_000.0, 0.0, 0.1)]).is_empty());
         let many: Vec<Unit> = (0..8).map(|i| u(i, 1_000.0 * i as f64, 0.0, 1.0 - 0.1 * i as f64)).collect();
         assert_eq!(kog_targets((0.0, 0.0), &many).len(), KOG_ASK);
+    }
+
+    #[test]
+    fn melee_list_matches_the_data() {
+        // every hero of the main pack whose attack range is at most MELEE_RANGE, and nothing else: a new melee hero
+        // fails this until it is added to MELEE (the engine's API cannot read an attack range at run time)
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
+        let mut found = Vec::new();
+        for entry in std::fs::read_dir(&dir).expect("league/champion") {
+            let path = entry.unwrap().path();
+            if path.extension().and_then(|x| x.to_str()) != Some("data_champion") {
+                continue;
+            }
+            let raw = std::fs::read_to_string(&path).unwrap().replace("\r\n", "\n");
+            let raw = raw.trim_start_matches('\u{feff}');
+            let id = raw
+                .lines()
+                .find_map(|l| l.strip_prefix("  \"id\": \""))
+                .map(|r| r.trim_end_matches(',').trim_end_matches('"').to_string())
+                .expect("id");
+            let range: u64 = raw
+                .lines()
+                .skip_while(|l| *l != "  \"attack\": {")
+                .skip(1)
+                .take_while(|l| !l.starts_with("  }"))
+                .find_map(|l| l.strip_prefix("    \"range\": "))
+                .map(|r| r.trim_end_matches(',').parse().unwrap())
+                .unwrap_or_else(|| panic!("no attack range in {}", path.display()));
+            if range <= MELEE_RANGE {
+                found.push(id);
+            }
+        }
+        assert!(found.len() > 50, "read only {} melee heroes from {}", found.len(), dir.display());
+        found.sort();
+        let mut listed: Vec<String> = MELEE.iter().map(|s| s.to_string()).collect();
+        listed.sort();
+        assert_eq!(listed, found, "MELEE must list every hero of league/champion with an attack range up to {MELEE_RANGE}");
+    }
+
+    #[test]
+    fn melee_and_two_ranged_supports_are_held() {
+        for name in ["league_garen", "league_malphite", "league_darius", "league_rakan", "league_senna", CAMILLE] {
+            assert!(is_holder(name), "{name}");
+        }
+        for name in ["league_jinx", "league_lux", "league_urgot", "league_karma"] {
+            assert!(!is_holder(name), "{name}");
+        }
+    }
+    #[test]
+    fn a_walk_counts_unless_it_clearly_backs_off() {
+        let (me, him) = ((0.0, 0.0), (30_000.0, 0.0));
+        assert!(!walking_away(me, (40_000.0, 0.0), him)); // at him
+        assert!(!walking_away(me, (0.0, 20_000.0), him)); // alongside: 36k from him, within 30k + HOLD_AWAY
+        assert!(!walking_away(me, (-5_000.0, 0.0), him)); // a short step back
+        assert!(walking_away(me, (-20_000.0, 0.0), him)); // backing off
+        assert!(walking_away(me, (-15_000.0, -15_000.0), him)); // backing off on a slant
     }
 }

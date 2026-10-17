@@ -200,9 +200,9 @@ def homing(name, speed, y, target, effects):
             "applied_effects": [T(e) for e in effects]}
 
 
-def splash(name, radius, effects):
+def splash(name, radius, effects, target="EnemyWithoutTower"):
     return {"type": "TargetSplashProjectile", "name": n(name), "speed": 100000, "range": radius, "y_offset": 0,
-            "applied_target": "EnemyWithoutTower", "applied_effects": [T(e) for e in effects]}
+            "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
 def line(name, speed, rng, radius, y, target, penetrate, effects):
@@ -250,13 +250,13 @@ def build(p):
         return [attack(bonus_dmg, ratio), view("q_hit"), tsfx("q_hit")]
 
     plain = combine(sfx("a_swing"), delayed(p["a_hit"] - 1,
-                                            homing("a_hit", 100000, 0, "EnemyWithoutTower",
+                                            homing("a_hit", 100000, 0, "Enemy",
                                                    [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
                                             gain()))
 
     def wrath_attack(nxt):
         return combine(sfx("a_swing"), *rm("q_1", "q_2"), *(flag(nxt, p["q_t"]),) if nxt else (),
-                       delayed(p["a_hit"] - 1, splash("q_splash", p["q_splash"], wrath_hit(0, 100 + p["q_bonus"])),
+                       delayed(p["a_hit"] - 1, splash("q_splash", p["q_splash"], wrath_hit(0, 100 + p["q_bonus"]), "Enemy"),
                                gain()))
 
     bite = combine(anim("bite", p["e_dur"]), sfx("e"), voice("vo_e", p), flag("e_cd", p["e_cd"]),

@@ -62,6 +62,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Renata: posed by tools/art/rig_renata.py at the user's 1.5 squares a game pixel (36 game rows hair to soles; the R
     // machine in her own ult frames), so no SIZES row
     ("league_renata", 1.5, include_str!("../../../league/champions/league_renata#anim.fanim")),
+    // Nasus: posed by tools/art/rig_nasus.py at the user's 1.2 squares a game pixel (44 game rows ear tips to soles; the big
+    // body of Fury of the Sands its own design, 59 rows), so no SIZES row
+    ("league_nasus", 1.2, include_str!("../../../league/champions/league_nasus#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

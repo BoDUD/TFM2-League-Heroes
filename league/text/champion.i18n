@@ -840,6 +840,13 @@
         "skill": "发射一对飞弹，命中敌人或飞到尽头时爆炸，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>30%<>；途经的友方英雄获得<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>护盾，持续<#ffb900ff>3秒<>。",
         "skill2": "射出机械手，抓住第一个敌人，造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法伤害<>并禁锢<#ffb900ff>0.83秒<>，随后把它甩向身后；落点周围的敌人受到<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>，甩出的是英雄时还会被眩晕<#ffb900ff>0.5秒<>。",
         "ult": "附近有2个以上敌方英雄，或敌方英雄被控制时，放出化学波：命中的敌方英雄狂暴<#ffb900ff>1.75秒<>，不能攻击我方、不能施法，每<#ffb900ff>0.5秒<>攻击身边的队友，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。"
+      },
+      "league_nasus": {
+        "name": "内瑟斯",
+        "attack": "法杖重击。<#ff9028ff>吞噬灵魂<>：生命偷取<#ffb900ff>12%<>。<#ff9028ff>枯萎<>：交战时每<#ffb900ff>12秒<>自动衰老一名交战中的敌方英雄<#ffb900ff>5秒<>：<#ef5350ff>减速35%→75%<>，攻速降低25%→49%。",
+        "skill": "法杖重击，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，外加与层数相同的<#a974ffff>魔法伤害<>。击杀单位+<#ffb900ff>4层<>，击杀英雄+<#ffb900ff>10层<>（死后清空）。",
+        "skill2": "在目标处燃起灵魂之火：造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<><#a974ffff>魔法伤害<>，之后<#ffb900ff>5秒<>内每秒<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<>，火中敌人护甲<#ef5350ff>-30%<>。",
+        "ult": "变身<#ffb900ff>15秒<>：生命+300，护甲魔抗+40，攻击距离增加，Q、E冷却减半；沙暴每<#ffb900ff>0.5秒<>造成周围敌人<#ffffffff>2%最大生命真实伤害<>。2名敌方英雄在身边或交战时才放。"
       }
     },
     "skill_name": {
@@ -1442,6 +1449,11 @@
         "skill1": "忠诚激励",
         "skill2": "铁腕竞合",
         "ult": "恶意收购"
+      },
+      "league_nasus": {
+        "skill1": "汲魂痛击",
+        "skill2": "灵魂烈焰",
+        "ult": "死神降临"
       }
     }
   },
@@ -2286,6 +2298,13 @@
         "skill": "發射一對飛彈，命中敵人或飛到盡頭時爆炸，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>30%<>；途經的友方英雄獲得<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>護盾，持續<#ffb900ff>3秒<>。",
         "skill2": "射出機械手，抓住第一個敵人，造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法傷害<>並定身<#ffb900ff>0.83秒<>，隨後把它甩向身後；落點周圍的敵人受到<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>，甩出的是英雄時還會被暈眩<#ffb900ff>0.5秒<>。",
         "ult": "附近有2個以上敵方英雄，或敵方英雄被控制時，放出化學波：命中的敵方英雄狂暴<#ffb900ff>1.75秒<>，不能攻擊我方、不能施法，每<#ffb900ff>0.5秒<>攻擊身邊的隊友，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。"
+      },
+      "league_nasus": {
+        "name": "納瑟斯",
+        "attack": "法杖重擊。<#ff9028ff>食魂者<>：生命竊取<#ffb900ff>12%<>。<#ff9028ff>枯萎<>：交戰時每<#ffb900ff>12秒<>自動衰老一名交戰中的敵方英雄<#ffb900ff>5秒<>：<#ef5350ff>緩速35%→75%<>，攻速降低25%→49%。",
+        "skill": "法杖重擊，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，外加與層數相同的<#a974ffff>魔法傷害<>。擊殺單位+<#ffb900ff>4層<>，擊殺英雄+<#ffb900ff>10層<>（死後清空）。",
+        "skill2": "在目標處燃起靈魂之火：造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<><#a974ffff>魔法傷害<>，之後<#ffb900ff>5秒<>內每秒<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<>，火中敵人護甲<#ef5350ff>-30%<>。",
+        "ult": "變身<#ffb900ff>15秒<>：生命+300，護甲魔抗+40，攻擊距離增加，Q、E冷卻減半；沙暴每<#ffb900ff>0.5秒<>造成周圍敵人<#ffffffff>2%最大生命真實傷害<>。2名敵方英雄在身邊或交戰時才施放。"
       }
     },
     "skill_name": {
@@ -2888,6 +2907,11 @@
         "skill1": "有酬必報",
         "skill2": "霸道手腕",
         "ult": "惡意收購"
+      },
+      "league_nasus": {
+        "skill1": "虹吸打擊",
+        "skill2": "靈魂烈焰",
+        "ult": "死神降臨"
       }
     }
   },
@@ -3732,6 +3756,13 @@
         "skill": "Fires a pair of missiles that burst on the first enemy or at the end: <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and a <#ffb900ff>30%<> slow; allied champions they pass get a <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> shield for <#ffb900ff>3s<>.",
         "skill2": "Launches a chemtech hand that grabs the first enemy: <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> <#a974ffff>magic damage<> and a <#ffb900ff>0.83s<> root, then flings it behind her; enemies where it lands take <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and, if a champion was thrown, a <#ffb900ff>0.5s<> stun.",
         "ult": "With 2+ enemy champions near, or one in crowd control, sends out a chemical wave: enemy champions hit go berserk for <#ffb900ff>1.75s<>, unable to attack her team or cast, lashing out at their own allies every <#ffb900ff>0.5s<> for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>."
+      },
+      "league_nasus": {
+        "name": "Nasus",
+        "attack": "A staff blow. <#ff9028ff>Soul Eater<>: <#ffb900ff>12%<> life steal. <#ff9028ff>Wither<>: in a fight, every <#ffb900ff>12s<> he ages an enemy champion in the fight for <#ffb900ff>5s<>: a <#ef5350ff>slow growing 35% -> 75%<> and attack speed -25% -> -49%.",
+        "skill": "A staff blow for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> plus <#a974ffff>magic damage<> equal to his stacks. A unit it kills gives <#ffb900ff>4 stacks<>, a champion <#ffb900ff>10<> (lost on death).",
+        "skill2": "Spirit fire at the target spot: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<> <#a974ffff>magic damage<>, then <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<> a second for <#ffb900ff>5s<>; enemies in it lose <#ef5350ff>30% armour<>.",
+        "ult": "He grows for <#ffb900ff>15s<>: +300 health, +40 armour and magic resistance, more attack range, Q and E cooldowns halved; the sandstorm deals <#ffffffff>2% of each nearby enemy's max health as true damage<> every <#ffb900ff>0.5s<>. Cast with 2 enemy champions close, or in a fight."
       }
     },
     "skill_name": {
@@ -4334,6 +4365,11 @@
         "skill1": "Loyalty Program",
         "skill2": "Handshake",
         "ult": "Hostile Takeover"
+      },
+      "league_nasus": {
+        "skill1": "Siphoning Strike",
+        "skill2": "Spirit Fire",
+        "ult": "Fury of the Sands"
       }
     }
   },
@@ -5178,6 +5214,13 @@
         "skill": "미사일 한 쌍 발사, 첫 적이나 끝에서 폭발해 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<>와 <#ffb900ff>30%<> 둔화. 지나간 아군 챔피언은 <#ffb900ff>3초<> 동안 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 보호막.",
         "skill2": "화공 손을 날려 첫 적을 잡아 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>의 <#a974ffff>마법 피해<>와 <#ffb900ff>0.83초<> 속박, 이어서 뒤로 던짐. 떨어진 곳의 적은 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>, 던진 대상이 챔피언이면 <#ffb900ff>0.5초<> 기절.",
         "ult": "근처에 적 챔피언이 2명 이상이거나 군중 제어된 적이 있으면 화학 파동 발사: 맞은 적 챔피언은 <#ffb900ff>1.75초<> 동안 광폭해져 우리 편을 공격하거나 스킬을 쓰지 못하고, <#ffb900ff>0.5초<>마다 자기 아군에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>."
+      },
+      "league_nasus": {
+        "name": "나서스",
+        "attack": "지팡이 일격. <#ff9028ff>영혼의 포식자<>: 생명력 흡수 <#ffb900ff>12%<>. <#ff9028ff>쇠약<>: 전투 중 <#ffb900ff>12초<>마다 싸우는 적 챔피언을 <#ffb900ff>5초<>간 늙게 함: <#ef5350ff>둔화 35%→75%<>, 공격 속도 -25%→-49%.",
+        "skill": "지팡이 일격으로 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>와 중첩만큼의 <#a974ffff>마법 피해<>. 처치한 유닛마다 <#ffb900ff>4중첩<>, 챔피언 <#ffb900ff>10중첩<>(사망 시 초기화).",
+        "skill2": "목표 지점에 영혼의 불: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<>의 <#a974ffff>마법 피해<>, 이후 <#ffb900ff>5초<>간 매초 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<>, 불 속의 적 방어력 <#ef5350ff>-30%<>.",
+        "ult": "<#ffb900ff>15초<>간 거대화: 체력 +300, 방어력·마법 저항력 +40, 사거리 증가, Q·E 재사용 대기시간 절반; 모래폭풍이 <#ffb900ff>0.5초<>마다 주변 적에게 최대 체력의 <#ffffffff>2% 고정 피해<>. 적 챔피언 2명이 가까이 있거나 전투 중에 사용."
       }
     },
     "skill_name": {
@@ -5780,6 +5823,11 @@
         "skill1": "충성 고객 우대",
         "skill2": "악수",
         "ult": "적대적 인수"
+      },
+      "league_nasus": {
+        "skill1": "흡수의 일격",
+        "skill2": "영혼의 불길",
+        "ult": "사막의 분노"
       }
     }
   },
@@ -6624,6 +6672,13 @@
         "skill": "ミサイル2発を放ち、最初の敵か射程端で爆発して<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>30%<>スロウ。通過した味方チャンピオンに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>のシールド（<#ffb900ff>3秒<>）。",
         "skill2": "ケミテックの手で最初の敵を掴み<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>0.83秒<>スネア、背後へ投げ飛ばす。落下地点の敵に<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、投げたのがチャンピオンなら<#ffb900ff>0.5秒<>スタン。",
         "ult": "敵チャンピオン2体以上が近いか行動妨害中の敵がいる時、化学波を放つ：命中した敵チャンピオンは<#ffb900ff>1.75秒<>狂乱し、こちらへの攻撃とスキルが不可、<#ffb900ff>0.5秒<>ごとに自分の味方を攻撃して<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。"
+      },
+      "league_nasus": {
+        "name": "ナサス",
+        "attack": "杖の一撃。<#ff9028ff>ソウルイーター<>：ライフスティール<#ffb900ff>12%<>。<#ff9028ff>ウィザー<>：戦闘中<#ffb900ff>12秒<>毎に戦う敵チャンピオンを<#ffb900ff>5秒<>老化：<#ef5350ff>スロウ35%→75%<>、攻撃速度-25%→-49%。",
+        "skill": "杖の一撃で<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>とスタック分の<#a974ffff>魔法ダメージ<>。倒したユニット毎に<#ffb900ff>4スタック<>、チャンピオンは<#ffb900ff>10<>（死亡で消える）。",
+        "skill2": "目標地点に霊魂の炎：<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<>の<#a974ffff>魔法ダメージ<>、その後<#ffb900ff>5秒<>間毎秒<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<>、炎の中の敵は物理防御<#ef5350ff>-30%<>。",
+        "ult": "<#ffb900ff>15秒<>巨大化：体力+300、物理防御・魔法防御+40、射程増加、Q・Eのクールダウン半減。砂嵐が<#ffb900ff>0.5秒<>毎に周囲の敵へ最大体力の<#ffffffff>2%確定ダメージ<>。敵2体が近いか戦闘中に使う。"
       }
     },
     "skill_name": {
@@ -7226,6 +7281,11 @@
         "skill1": "ロイヤリティープログラム",
         "skill2": "手荒い挨拶",
         "ult": "敵対的買収"
+      },
+      "league_nasus": {
+        "skill1": "サイフォンストライク",
+        "skill2": "スピリットファイア",
+        "ult": "アヌビスの怒り"
       }
     }
   }
