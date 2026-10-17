@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_jarvaniv": {
+    "remapping": "asset/league_jarvaniv/override/league_jarvaniv",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_jarvaniv/text/champion",
+    "type": "merge"
+  }
+}

@@ -854,6 +854,13 @@
         "skill": "射出冰球，穿过的敌人受到<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>并<#ef5350ff>减速30%<>；碰到英雄或到达落点时引爆：<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法伤害<>并<#ef5350ff>眩晕1.1秒<>。<#ff9028ff>寒冰屏障<>：晕到英雄时在原地竖起冰墙<#ffb900ff>5秒<>，敌人过不去。",
         "skill2": "冰锥造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法伤害<>；目标被控制时，或冰川风暴成形后，伤害翻倍。",
         "ult": "在敌方英雄处召唤暴风雪<#ffb900ff>6秒<>，逐渐变大；每<#ffb900ff>0.5秒<>造成<#a974ffff>32<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速<>，成形后伤害×<#ffb900ff>3<>。有被控制的敌方英雄或2名敌方英雄在身边时才放。"
+      },
+      "league_jarvaniv": {
+        "name": "嘉文四世",
+        "attack": "骑枪刺击，攻速+20%。<#ff9028ff>战争律动<>：对每名英雄每<#ffb900ff>3秒<>的第一下额外造成其<#ff9028ff>8%最大生命<>伤害。<#ff9028ff>黄金圣盾<>：交战时自动获得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>护盾<#ffb900ff>4秒<>（身边每名敌方英雄+25），身边敌人<#ef5350ff>减速25%<>。",
+        "skill": "掷出军旗：造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>，军旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。随后冲向军旗：沿途和落点的敌人<#ef5350ff>击飞0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>，护甲-20%。",
+        "skill2": "骑枪向前刺出：直线上的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>，护甲<#ef5350ff>-20%<>，持续<#ffb900ff>3秒<>。",
+        "ult": "跃向敌方英雄砸下：周围敌人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>，升起岩墙环将敌方英雄<#ef5350ff>困住3.5秒<>，想跑出去会被拉回。有被击飞的敌人或2名敌方英雄在身边时才放。"
       }
     },
     "skill_name": {
@@ -1466,6 +1473,11 @@
         "skill1": "寒冰闪耀",
         "skill2": "霜寒刺骨",
         "ult": "冰川风暴"
+      },
+      "league_jarvaniv": {
+        "skill1": "德邦军旗",
+        "skill2": "巨龙撞击",
+        "ult": "天崩地裂"
       }
     }
   },
@@ -2324,6 +2336,13 @@
         "skill": "射出冰球，穿過的敵人受到<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>並<#ef5350ff>緩速30%<>；碰到英雄或到達落點時引爆：<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法傷害<>並<#ef5350ff>暈眩1.1秒<>。<#ff9028ff>寒冰屏障<>：暈到英雄時在原地豎起冰牆<#ffb900ff>5秒<>，敵人過不去。",
         "skill2": "冰錐造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法傷害<>；目標被控制時，或冰川風暴成形後，傷害加倍。",
         "ult": "在敵方英雄處召喚暴風雪<#ffb900ff>6秒<>，逐漸變大；每<#ffb900ff>0.5秒<>造成<#a974ffff>32<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速<>，成形後傷害×<#ffb900ff>3<>。有被控制的敵方英雄或2名敵方英雄在身邊時才施放。"
+      },
+      "league_jarvaniv": {
+        "name": "嘉文四世",
+        "attack": "騎槍刺擊，攻速+20%。<#ff9028ff>戰爭律動<>：對每名英雄每<#ffb900ff>3秒<>的第一下額外造成其<#ff9028ff>8%最大生命<>傷害。<#ff9028ff>光盾庇護<>：交戰時自動獲得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>護盾<#ffb900ff>4秒<>（身邊每名敵方英雄+25），身邊敵人<#ef5350ff>緩速25%<>。",
+        "skill": "擲出軍旗：造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>，軍旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。隨後衝向軍旗：沿途和落點的敵人<#ef5350ff>擊飛0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>，護甲-20%。",
+        "skill2": "騎槍向前刺出：直線上的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>，護甲<#ef5350ff>-20%<>，持續<#ffb900ff>3秒<>。",
+        "ult": "躍向敵方英雄砸下：周圍敵人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>，升起岩牆環將敵方英雄<#ef5350ff>困住3.5秒<>，想跑出去會被拉回。有被擊飛的敵人或2名敵方英雄在身邊時才施放。"
       }
     },
     "skill_name": {
@@ -2936,6 +2955,11 @@
         "skill1": "寒冰閃耀",
         "skill2": "霜寒刺骨",
         "ult": "冰川風暴"
+      },
+      "league_jarvaniv": {
+        "skill1": "帝國戰旗",
+        "skill2": "滅龍一擊",
+        "ult": "浩劫降臨"
       }
     }
   },
@@ -3794,6 +3818,13 @@
         "skill": "An ice ball: <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> <#a974ffff>magic damage<> and a <#ef5350ff>30% slow<> to enemies it passes; it bursts on the first champion or at its spot for <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> and a <#ef5350ff>1.1s stun<>. <#ff9028ff>Crystallize<>: a champion stunned, an ice wall rises there for <#ffb900ff>5s<> that enemies cannot cross.",
         "skill2": "An ice shard for <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<>, doubled if the target is crowd controlled or her Glacial Storm has formed.",
         "ult": "A blizzard on an enemy champion for <#ffb900ff>6s<>, growing as it lasts: every <#ffb900ff>0.5s<> <#a974ffff>32<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<> <#a974ffff>magic damage<> and a <#ef5350ff>slow<>, x<#ffb900ff>3<> once formed. Cast on a crowd-controlled champion or with 2 enemy champions near her."
+      },
+      "league_jarvaniv": {
+        "name": "Jarvan IV",
+        "attack": "A lance thrust, +20% attack speed. <#ff9028ff>Martial Cadence<>: his first hit on a champion every <#ffb900ff>3s<> deals <#ff9028ff>8% of its max health<> more. <#ff9028ff>Golden Aegis<>: in fights, a shield of <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> (+25 per enemy champion near) for <#ffb900ff>4s<> and a <#ef5350ff>25% slow<> to enemies near him.",
+        "skill": "Throws his standard for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>; it stands <#ffb900ff>8s<> giving allied champions near it +20% attack speed. Then he charges to it: enemies on the way and where he lands are <#ef5350ff>knocked up 0.75s<>, take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and lose 20% armour.",
+        "skill2": "A lance thrust down a line: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<> and <#ef5350ff>-20% armour<> for <#ffb900ff>3s<>.",
+        "ult": "Leaps onto an enemy champion: <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> around him, and a ring of rock <#ef5350ff>traps enemy champions 3.5s<> - those leaving are pulled back. Cast on a knocked-up enemy or with 2 enemy champions near him."
       }
     },
     "skill_name": {
@@ -4406,6 +4437,11 @@
         "skill1": "Flash Frost",
         "skill2": "Frostbite",
         "ult": "Glacial Storm"
+      },
+      "league_jarvaniv": {
+        "skill1": "Demacian Standard",
+        "skill2": "Dragon Strike",
+        "ult": "Cataclysm"
       }
     }
   },
@@ -5264,6 +5300,13 @@
         "skill": "얼음 구체: 지나간 적에게 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 피해와 <#ef5350ff>30% 둔화<>; 첫 챔피언이나 목표 지점에서 폭발해 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>1.1초 기절<>. <#ff9028ff>결정화<>: 챔피언을 기절시키면 그 자리에 <#ffb900ff>5초<>간 적이 넘을 수 없는 얼음벽.",
         "skill2": "얼음 조각으로 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>의 <#a974ffff>마법 피해<>. 대상이 군중 제어 상태이거나 얼음 폭풍이 완성되면 2배.",
         "ult": "적 챔피언 위치에 <#ffb900ff>6초<>간 점점 커지는 눈보라: <#ffb900ff>0.5초<>마다 <#a974ffff>32<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>둔화<>, 완성되면 <#ffb900ff>3배<>. 군중 제어된 챔피언이나 적 챔피언 2명이 가까울 때 사용."
+      },
+      "league_jarvaniv": {
+        "name": "자르반 4세",
+        "attack": "창 찌르기, 공격 속도 +20%. <#ff9028ff>전장의 군가<>: 챔피언마다 <#ffb900ff>3초<>에 한 번 첫 공격이 <#ff9028ff>최대 체력의 8%<> 추가 피해. <#ff9028ff>황금빛 방패<>: 교전 중 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 보호막(주변 적 챔피언당 +25) <#ffb900ff>4초<>, 주변 적 <#ef5350ff>25% 둔화<>.",
+        "skill": "깃발을 던져 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 깃발은 <#ffb900ff>8초<>간 서서 주변 아군 챔피언 공격 속도 +20%. 이어 깃발로 돌진: 경로와 착지 지점의 적은 <#ef5350ff>0.75초 띄워지고<> <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>의 <#ff9028ff>물리 피해<>, 방어력 -20%.",
+        "skill2": "직선으로 창을 찔러 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>의 <#ff9028ff>물리 피해<>와 <#ffb900ff>3초<>간 <#ef5350ff>방어력 -20%<>.",
+        "ult": "적 챔피언에게 뛰어올라 주변에 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>의 <#ff9028ff>물리 피해<>, 바위 고리가 적 챔피언을 <#ef5350ff>3.5초<> 가두고 빠져나가면 끌어당김. 띄워진 적이나 적 챔피언 2명이 가까울 때 사용."
       }
     },
     "skill_name": {
@@ -5876,6 +5919,11 @@
         "skill1": "냉기 폭발",
         "skill2": "동상",
         "ult": "얼음 폭풍"
+      },
+      "league_jarvaniv": {
+        "skill1": "데마시아의 깃발",
+        "skill2": "용의 일격",
+        "ult": "대격변"
       }
     }
   },
@@ -6734,6 +6782,13 @@
         "skill": "氷の球：通過した敵に<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>と<#ef5350ff>スロウ30%<>。最初のチャンピオンか着弾点で炸裂し<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>スタン1.1秒<>。<#ff9028ff>アイスウォール<>：スタンさせるとそこに<#ffb900ff>5秒<>敵が越えられない氷の壁。",
         "skill2": "氷の欠片で<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の<#a974ffff>魔法ダメージ<>。対象が行動妨害中か、ブリザード完成後は2倍。",
         "ult": "敵チャンピオンの位置に<#ffb900ff>6秒<>広がる吹雪：<#ffb900ff>0.5秒<>毎に<#a974ffff>32<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>スロウ<>、完成後は×<#ffb900ff>3<>。行動妨害中の敵か敵2体が近い時に使う。"
+      },
+      "league_jarvaniv": {
+        "name": "ジャーヴァンⅣ",
+        "attack": "槍の突き、攻撃速度+20%。<#ff9028ff>武魂の律動<>：チャンピオンごとに<#ffb900ff>3秒<>に1度、最初の攻撃が<#ff9028ff>最大体力の8%<>のダメージを追加。<#ff9028ff>ゴールデンイージス<>：交戦中<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>のシールド<#ffb900ff>4秒<>（周囲の敵チャンピオン毎+25）、周囲の敵に<#ef5350ff>スロウ25%<>。",
+        "skill": "旗を投げ<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>、旗は<#ffb900ff>8秒<>立ち周囲の味方の攻撃速度+20%。続けて旗へ突進：経路と着地点の敵を<#ef5350ff>0.75秒打ち上げ<>、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>と物理防御-20%。",
+        "skill2": "直線に槍を突き出し<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>3秒<><#ef5350ff>物理防御-20%<>。",
+        "ult": "敵チャンピオンへ跳びかかり周囲に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>、岩の輪が敵チャンピオンを<#ef5350ff>3.5秒閉じ込め<>、出ようとすると引き戻す。打ち上げた敵か敵2体が近い時に使う。"
       }
     },
     "skill_name": {
@@ -7346,6 +7401,11 @@
         "skill1": "フラッシュフロスト",
         "skill2": "フロストバイト",
         "ult": "ブリザード"
+      },
+      "league_jarvaniv": {
+        "skill1": "デマーシアの旗印",
+        "skill2": "ドラゴンストライク",
+        "ult": "決戦場"
       }
     }
   }

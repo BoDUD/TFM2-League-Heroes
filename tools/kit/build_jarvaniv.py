@@ -13,7 +13,7 @@ TFM2 has three active slots: the E -> Q combo is `skill`, Dragon Strike alone `s
   E passive: +e_as% attack speed (a Permanent caster buff laid at each life's first attack or R press).
   skill   E Demacian Standard -> Q Dragon Strike (德邦军旗 -> 巨龙撞击), `Targeting` on `EnemyWithoutTower` (e_range): on
           e_rel the flag is thrown - a hidden lob landing where the target stood when it left (walking off dodges the
-          drag): e_dmg + e_ratio% AD in e_r (League's magic 80% AP: he has no AP); the standard stands f_t ticks giving
+          drag): e_dmg + e_ratio% AD in e_r (League's magic 80% AP: he has no AP); the standard stands fl_t ticks giving
           every allied champion within f_r (him too) f_as% attack speed. q_gap ticks after the landing the lance
           flies at the flag (q_dmg + q_ratio% AD, armour -q_shred% for q_shred_t) and he dashes after it (`MoveTo` in the
           lob's end_effects: ForceMove steps onto the point), knocking up for q_up ticks every enemy the lance passes and
@@ -36,7 +36,8 @@ TFM2 has three active slots: the E -> Q combo is `skill`, Dragon Strike alone `s
           add-on builds the real ring).
   watch   A life-long `AddCasted` started by his first attack or R press of each life (`init`), every watch_p ticks:
           counts enemy champions within r_cnt (c_e1, c_e2); leaps when the window is open and the moment holds; casts W.
-The add-on copy (--native): see addons/league_jarvaniv.
+The add-on copy (--native): the passive league_jarvaniv:cataclysm raises a real rock ring where he lands (r_r, r_t), so
+the copy has no probe / Grab hold and no arena check (addons/league_jarvaniv).
 """
 import argparse
 import json
@@ -49,13 +50,14 @@ ID = "league_jarvaniv"
 FX = "asset/league/effects/league_jarvaniv_fx"
 BIG = "asset/league/effects/league_jarvaniv_big"
 
-# Timings: placeholders until the strips (tools/art/rig_jarvaniv.py).
+# Timings from the strips (tools/art/rig_jarvaniv.py MS): the thrust's frame 3 from tick 8.4 (a_hit 9), the throw's
+# frame 3 from 7.8 (e_rel 8), Q's thrust frame 4 from 10.8 (q_rel 11), W's frame 3 from 7.2 (w_rel 7), the ult 30.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Jarvan IV:
     # 64 AD +3, 640 +104 hp, 36 armour, 340 move, attack speed 0.658 +2.5%
     "hp": 1000, "hp_g": 104, "atk": 84, "atk_g": 18, "def": 34, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     # attack: the thrust lands on a_hit
-    "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 10, "f_t": 180,
+    "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 9, "f_t": 180,
     # passive Martial Cadence (League: 8% current health, min 20, per target every 6-3 s)
     "p_rest": 180, "p_pct": 8,
     # E passive (League: +20-30% attack speed)
@@ -63,13 +65,13 @@ P = {
     # skill: E -> Q (League: E 860 range, 80-240 + 80% AP, flag 8 s, aura +20-30% attack speed, cd 12-10;
     # Q 770 range, 90-250 + 145% bonus AD, armour -10-26% 3 s, knock-up 0.75 s, cd 10-6)
     "e_cd": 660, "e_range": 55000, "e_dur": 34, "e_rel": 8, "e_travel": 8, "e_r": 16000, "e_dmg": 50, "e_ratio": 40,
-    "f_t": 480, "f_r": 40000, "f_as": 20, "f_p": 30,
+    "fl_t": 480, "f_r": 40000, "f_as": 20, "f_p": 30,
     "q_gap": 2, "q_speed": 4000, "q_line": 6000, "q_w": 9000, "q_up": 45, "q_up_r": 16000,
     "q_dmg": 40, "q_ratio": 90, "q_shred": 20, "q_shred_t": 180,
     # skill2: Q alone
     "q_cd": 480, "q_range": 50000, "q_dur": 26, "q_rel": 11, "q_lock": 8, "q_len": 50000,
     # W Golden Aegis (League: 60-140 + 70% bonus AD shield 4 s, +1.3% max hp a champion, slow 15-35% 2 s, r 600, cd 9)
-    "w_cd": 600, "w_r": 30000, "w_dur": 18, "w_rel": 6, "w_sh": 60, "w_ratio": 40, "w_per": 25, "w_t": 240,
+    "w_cd": 600, "w_r": 30000, "w_dur": 18, "w_rel": 7, "w_sh": 60, "w_ratio": 40, "w_per": 25, "w_t": 240,
     "w_slow": 25, "w_slow_t": 120,
     # ult: R Cataclysm (League: 650 range leap, 200-450 + 180% bonus AD, ring r 350 for 3.5 s, cd 120-90)
     "r_cd": 3600, "r_range": 60000, "r_arm": 600, "r_dur": 30, "r_speed": 4500, "r_r": 36000, "r_t": 210,
@@ -264,7 +266,8 @@ def build(p):
                          target="AllyOnlySelf", first=1))
     land = [*rm("r_on", "r_in"), refresh("r_on", p["r_t"]), refresh("r_in", 6), sfx("r_land"), cview("r_ring"),
             around(p["r_r"], "EnemyWithoutTower", [attack(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit")]),
-            around(p["r_r"], "EnemyChampion", [trap] + marked), arena]
+            *([around(p["r_r"], "EnemyChampion", marked)] if native else
+              [around(p["r_r"], "EnemyChampion", [trap] + marked), arena])]
     leap = combine(*rm("r_arm"), refresh("busy", p["r_dur"]), anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                    flag("r_air", p["r_dur"], cc_immune=True),
                    {"type": "MoveToTarget", "speed": p["r_speed"], "range": 400000, "end_effects": land})
@@ -297,7 +300,7 @@ def build(p):
                 around(p["q_up_r"], "EnemyWithoutTower", [up])]}]
     planted = [view("e_flag"), sfx("e_flag"),
                zone("e_hit", p["e_r"], [attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit")]),
-               field("e_aura", p["f_r"], p["f_t"], p["f_p"],
+               field("e_aura", p["f_r"], p["fl_t"], p["f_p"],
                      [buff("f_as", p["f_p"], attack_speed_mult=p["f_as"])], target="AllyChampion", first=1),
                delayed(p["q_gap"], alive(*drag))]
     skill = action("skill", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",

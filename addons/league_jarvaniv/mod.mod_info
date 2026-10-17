@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.139.0"
+    }
+  ],
+  "description": "Test build of Jarvan IV as in League (needs League of Legends Heroes): replaces the main pack's Jarvan IV so Cataclysm raises a real ring of rock walls where he lands - for its 3.5 s no unit inside can leave and none outside can enter (both teams, him too; the main pack holds enemy champions with a pull back instead). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-18",
+  "mod_id": "league_jarvaniv",
+  "mod_type": "native",
+  "name": "League Heroes: Jarvan IV's real Cataclysm ring (test)",
+  "version": "0.1.0"
+}

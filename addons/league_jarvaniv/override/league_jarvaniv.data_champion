@@ -1,0 +1,3152 @@
+{
+  "id": "league_jarvaniv",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC",
+    "Tank"
+  ],
+  "passive": {
+    "passive_ref": "league_jarvaniv:cataclysm",
+    "params": {
+      "r_r": 36000,
+      "r_t": 210
+    }
+  },
+  "sprite": "asset/league/champions/league_jarvaniv",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_jarvaniv_skill",
+    "asset/league/icons/league_jarvaniv_skill2",
+    "asset/league/icons/league_jarvaniv_ult"
+  ],
+  "stat": {
+    "attack": 84,
+    "magic_power": 0,
+    "hp": 1000,
+    "defence": 34,
+    "magic_resistance": 25,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 104,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_jarvaniv.attack",
+    "duration": 26,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jarvaniv_init",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jarvaniv_init",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jarvaniv_e_as",
+                  "duration": "Permanent",
+                  "attack_speed_mult": 20
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 1000000,
+                    "period": 12,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jarvaniv_c_e1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jarvaniv_c_e2"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 45000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jarvaniv_c_e1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_jarvaniv_c_e2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_jarvaniv_c_e1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_jarvaniv_r_arm",
+                            "effect_buff": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_jarvaniv_c_e2",
+                              "effect_buff": {
+                                "type": "RandomTarget",
+                                "range": 60000,
+                                "casting_target": "EnemyChampionRecentlyAttacked",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_jarvaniv_r_arm"
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_jarvaniv_busy"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_jarvaniv_busy",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "ult",
+                                        "tick": 30
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_jarvaniv_r"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_jarvaniv_vo_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_jarvaniv_vo_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_jarvaniv_vo_r"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_jarvaniv_r_air",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 30
+                                            }
+                                          },
+                                          "cc_immune": true
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "MoveToTarget",
+                                        "speed": 4500,
+                                        "range": 400000,
+                                        "end_effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_jarvaniv_r_on"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_jarvaniv_r_in"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_r_on"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_jarvaniv_r_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 210
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_r_in"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_jarvaniv_r_in",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 6
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_jarvaniv_r_land"
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_jarvaniv_r_ring"
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 36000
+                                              }
+                                            },
+                                            "target": "EnemyWithoutTower",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Attack",
+                                                "damage": 120,
+                                                "attack_ratio": 120,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_jarvaniv_r_hit"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_jarvaniv_r_hit"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 36000
+                                              }
+                                            },
+                                            "target": "EnemyChampion",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_jarvaniv_fight"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_fight",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 180
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jarvaniv_c_e1",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_jarvaniv_fight",
+                                  "effect_buff": {
+                                    "type": "RandomTarget",
+                                    "range": 60000,
+                                    "casting_target": "EnemyChampionRecentlyAttacked",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_jarvaniv_r_arm"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_busy"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_jarvaniv_busy",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 30
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "ult",
+                                            "tick": 30
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_jarvaniv_r"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_jarvaniv_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_jarvaniv_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_jarvaniv_vo_r"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_jarvaniv_r_air",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "cc_immune": true
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "MoveToTarget",
+                                            "speed": 4500,
+                                            "range": 400000,
+                                            "end_effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_r_on"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_r_in"
+                                              },
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_jarvaniv_r_on"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_r_on",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 210
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_jarvaniv_r_in"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_r_in",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 6
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_jarvaniv_r_land"
+                                              },
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_jarvaniv_r_ring"
+                                              },
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 36000
+                                                  }
+                                                },
+                                                "target": "EnemyWithoutTower",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Attack",
+                                                    "damage": 120,
+                                                    "attack_ratio": 120,
+                                                    "hp_ratio": 0,
+                                                    "target_hp_ratio": 0,
+                                                    "attack_effect_type": "Target"
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_jarvaniv_r_hit"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_jarvaniv_r_hit"
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 36000
+                                                  }
+                                                },
+                                                "target": "EnemyChampion",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_jarvaniv_fight"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_jarvaniv_fight",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 180
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_jarvaniv_eq_up",
+                                    "effect_buff": {
+                                      "type": "RandomTarget",
+                                      "range": 60000,
+                                      "casting_target": "EnemyChampionRecentlyAttacked",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_jarvaniv_r_arm"
+                                            },
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jarvaniv_busy"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_jarvaniv_busy",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 30
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "CasterAnimation",
+                                              "name": "ult",
+                                              "tick": 30
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_jarvaniv_r"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_jarvaniv_vo_cd",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_vo_cd",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 600
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_jarvaniv_vo_r"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_jarvaniv_r_air",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 30
+                                                  }
+                                                },
+                                                "cc_immune": true
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "MoveToTarget",
+                                              "speed": 4500,
+                                              "range": 400000,
+                                              "end_effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jarvaniv_r_on"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jarvaniv_r_in"
+                                                },
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_jarvaniv_r_on"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_jarvaniv_r_on",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 210
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_jarvaniv_r_in"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_jarvaniv_r_in",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 6
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_jarvaniv_r_land"
+                                                },
+                                                {
+                                                  "type": "CasterViewEffect",
+                                                  "name": "league_jarvaniv_r_ring"
+                                                },
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 36000
+                                                    }
+                                                  },
+                                                  "target": "EnemyWithoutTower",
+                                                  "apply_type": "AroundCaster",
+                                                  "effects": [
+                                                    {
+                                                      "type": "Attack",
+                                                      "damage": 120,
+                                                      "attack_ratio": 120,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_jarvaniv_r_hit"
+                                                    },
+                                                    {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_jarvaniv_r_hit"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 36000
+                                                    }
+                                                  },
+                                                  "target": "EnemyChampion",
+                                                  "apply_type": "AroundCaster",
+                                                  "effects": [
+                                                    {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_jarvaniv_fight"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_jarvaniv_fight",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 180
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_jarvaniv_w_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_jarvaniv_busy",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jarvaniv_fight",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_jarvaniv_c_e1",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_jarvaniv_w_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "skill_w",
+                                        "tick": 18
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_jarvaniv_w"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_jarvaniv_vo_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_jarvaniv_vo_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_jarvaniv_vo_w"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 6,
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RandomTarget",
+                                                "range": 1,
+                                                "casting_target": "AllyOnlySelf",
+                                                "from_projectile": false,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_lives",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 1
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_jarvaniv_lives",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "CasterViewEffect",
+                                                      "name": "league_jarvaniv_w_cast"
+                                                    },
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 1000
+                                                        }
+                                                      },
+                                                      "target": "AllyOnlySelf",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "Shield",
+                                                          "amount": 60,
+                                                          "attack_ratio": 40,
+                                                          "ap_ratio": 0,
+                                                          "tick": 240
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_jarvaniv_w_on"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_jarvaniv_w_on",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 240
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 30000
+                                                        }
+                                                      },
+                                                      "target": "EnemyWithoutTower",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_jarvaniv_w_slow",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 120
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -25
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_jarvaniv_w_hit"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 30000
+                                                        }
+                                                      },
+                                                      "target": "EnemyChampion",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RangeEffect",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1000
+                                                            }
+                                                          },
+                                                          "target": "AllyOnlySelf",
+                                                          "apply_type": "AroundCaster",
+                                                          "effects": [
+                                                            {
+                                                              "type": "Shield",
+                                                              "amount": 25,
+                                                              "attack_ratio": 0,
+                                                              "ap_ratio": 0,
+                                                              "tick": 240
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_lives"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 8,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_jarvaniv_a_swing"
+                },
+                {
+                  "type": "TargetProjectile",
+                  "name": "league_jarvaniv_a_blow",
+                  "speed": 40000,
+                  "y_offset": 0,
+                  "applied_target": "Enemy",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_jarvaniv_a_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_jarvaniv_a_hit"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "TargetProjectile",
+                  "name": "league_jarvaniv_a_twin",
+                  "speed": 40000,
+                  "y_offset": 0,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jarvaniv_fight"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jarvaniv_fight",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_jarvaniv_p_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jarvaniv_p_cd",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 180
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "Attack",
+                              "damage": 0,
+                              "attack_ratio": 0,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 8,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_jarvaniv_p_hit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_jarvaniv_p_hit"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_jarvaniv.skill",
+    "duration": 34,
+    "cooltime": 660,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jarvaniv_busy"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jarvaniv_busy",
+                "duration": {
+                  "Time": {
+                    "tick": 54
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "skill",
+          "tick": 34
+        },
+        {
+          "type": "Sfx",
+          "name": "league_jarvaniv_e"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jarvaniv_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jarvaniv_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_jarvaniv_vo_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "league_jarvaniv_e_lob",
+              "travel_time": 8,
+              "range": 400000,
+              "range_effect_name": "",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "ViewEffect",
+                  "name": "league_jarvaniv_e_flag"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_jarvaniv_e_flag"
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "league_jarvaniv_e_hit",
+                  "shape": {
+                    "Circle": {
+                      "radius": 16000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 50,
+                        "attack_ratio": 40,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_jarvaniv_e_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_jarvaniv_e_hit"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "RangePeriodProjectile",
+                  "name": "league_jarvaniv_e_aura",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "tick": 480,
+                  "period": 30,
+                  "first_delay": 1,
+                  "applied_target": "AllyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_jarvaniv_f_as",
+                          "duration": {
+                            "Time": {
+                              "tick": 30
+                            }
+                          },
+                          "attack_speed_mult": 20
+                        }
+                      }
+                    }
+                  ],
+                  "end_effects": []
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 2,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jarvaniv_lives",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_jarvaniv_lives",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jarvaniv_busy"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_jarvaniv_busy",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 30
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "CasterAnimation",
+                                "name": "skill_dash",
+                                "tick": 40
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_jarvaniv_q_dash"
+                              },
+                              {
+                                "type": "LinearProjectile",
+                                "name": "league_jarvaniv_eq_line",
+                                "speed": 10000,
+                                "range": 75000,
+                                "y_offset": 5000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 9000
+                                  }
+                                },
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 40,
+                                      "attack_ratio": 90,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_jarvaniv_q_shred",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 180
+                                          }
+                                        },
+                                        "defence_mult": -20
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_jarvaniv_q_hit"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "TargetSfx",
+                                      "name": "league_jarvaniv_q_hit"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Airborne",
+                                      "duration": 45
+                                    }
+                                  }
+                                ],
+                                "end_effects": []
+                              },
+                              {
+                                "type": "LinearProjectile",
+                                "name": "league_jarvaniv_eq_twin",
+                                "speed": 10000,
+                                "range": 75000,
+                                "y_offset": 5000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 9000
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_jarvaniv_fight"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_jarvaniv_fight",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 180
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_jarvaniv_eq_up"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_jarvaniv_eq_up",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 90
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ],
+                                "end_effects": []
+                              },
+                              {
+                                "type": "MoveTo",
+                                "speed": 4000,
+                                "range": 400000,
+                                "end_effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "skill_land",
+                                    "tick": 10
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_jarvaniv_q_land"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_jarvaniv_q_land"
+                                  },
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 16000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "Airborne",
+                                        "duration": 45
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jarvaniv_lives"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_jarvaniv.skill2",
+    "duration": 26,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jarvaniv_busy"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jarvaniv_busy",
+                "duration": {
+                  "Time": {
+                    "tick": 26
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "skill2",
+          "tick": 26
+        },
+        {
+          "type": "Sfx",
+          "name": "league_jarvaniv_q"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jarvaniv_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jarvaniv_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_jarvaniv_vo_q"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 2,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "league_jarvaniv_q_lock",
+              "travel_time": 8,
+              "range": 400000,
+              "range_effect_name": "",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jarvaniv_lives",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_jarvaniv_lives",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "LinearProjectile",
+                            "name": "league_jarvaniv_q_line",
+                            "speed": 10000,
+                            "range": 50000,
+                            "y_offset": 5000,
+                            "penetrate": true,
+                            "shape": {
+                              "Circle": {
+                                "radius": 9000
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 40,
+                                  "attack_ratio": 90,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_jarvaniv_q_shred",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 180
+                                      }
+                                    },
+                                    "defence_mult": -20
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_jarvaniv_q_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_jarvaniv_q_hit"
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "LinearProjectile",
+                            "name": "league_jarvaniv_q_twin",
+                            "speed": 10000,
+                            "range": 50000,
+                            "y_offset": 5000,
+                            "penetrate": true,
+                            "shape": {
+                              "Circle": {
+                                "radius": 9000
+                              }
+                            },
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jarvaniv_fight"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_jarvaniv_fight",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 180
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_jarvaniv_lives"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_jarvaniv_addon.ult",
+    "duration": 3,
+    "cooltime": 3600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jarvaniv_init",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jarvaniv_init",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jarvaniv_e_as",
+                  "duration": "Permanent",
+                  "attack_speed_mult": 20
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 1000000,
+                    "period": 12,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jarvaniv_c_e1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jarvaniv_c_e2"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 45000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jarvaniv_c_e1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_jarvaniv_c_e2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_jarvaniv_c_e1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_jarvaniv_r_arm",
+                            "effect_buff": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_jarvaniv_c_e2",
+                              "effect_buff": {
+                                "type": "RandomTarget",
+                                "range": 60000,
+                                "casting_target": "EnemyChampionRecentlyAttacked",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_jarvaniv_r_arm"
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_jarvaniv_busy"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_jarvaniv_busy",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "ult",
+                                        "tick": 30
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_jarvaniv_r"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_jarvaniv_vo_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_jarvaniv_vo_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_jarvaniv_vo_r"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_jarvaniv_r_air",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 30
+                                            }
+                                          },
+                                          "cc_immune": true
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "MoveToTarget",
+                                        "speed": 4500,
+                                        "range": 400000,
+                                        "end_effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_jarvaniv_r_on"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_jarvaniv_r_in"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_r_on"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_jarvaniv_r_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 210
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_r_in"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_jarvaniv_r_in",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 6
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_jarvaniv_r_land"
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_jarvaniv_r_ring"
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 36000
+                                              }
+                                            },
+                                            "target": "EnemyWithoutTower",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Attack",
+                                                "damage": 120,
+                                                "attack_ratio": 120,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_jarvaniv_r_hit"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_jarvaniv_r_hit"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 36000
+                                              }
+                                            },
+                                            "target": "EnemyChampion",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_jarvaniv_fight"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_fight",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 180
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jarvaniv_c_e1",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_jarvaniv_fight",
+                                  "effect_buff": {
+                                    "type": "RandomTarget",
+                                    "range": 60000,
+                                    "casting_target": "EnemyChampionRecentlyAttacked",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_jarvaniv_r_arm"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_busy"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_jarvaniv_busy",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 30
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "ult",
+                                            "tick": 30
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_jarvaniv_r"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_jarvaniv_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_jarvaniv_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_jarvaniv_vo_r"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_jarvaniv_r_air",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "cc_immune": true
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "MoveToTarget",
+                                            "speed": 4500,
+                                            "range": 400000,
+                                            "end_effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_r_on"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_r_in"
+                                              },
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_jarvaniv_r_on"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_r_on",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 210
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_jarvaniv_r_in"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_r_in",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 6
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_jarvaniv_r_land"
+                                              },
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_jarvaniv_r_ring"
+                                              },
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 36000
+                                                  }
+                                                },
+                                                "target": "EnemyWithoutTower",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Attack",
+                                                    "damage": 120,
+                                                    "attack_ratio": 120,
+                                                    "hp_ratio": 0,
+                                                    "target_hp_ratio": 0,
+                                                    "attack_effect_type": "Target"
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_jarvaniv_r_hit"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_jarvaniv_r_hit"
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 36000
+                                                  }
+                                                },
+                                                "target": "EnemyChampion",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_jarvaniv_fight"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_jarvaniv_fight",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 180
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_jarvaniv_eq_up",
+                                    "effect_buff": {
+                                      "type": "RandomTarget",
+                                      "range": 60000,
+                                      "casting_target": "EnemyChampionRecentlyAttacked",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_jarvaniv_r_arm"
+                                            },
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jarvaniv_busy"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_jarvaniv_busy",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 30
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "CasterAnimation",
+                                              "name": "ult",
+                                              "tick": 30
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_jarvaniv_r"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_jarvaniv_vo_cd",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_vo_cd",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 600
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_jarvaniv_vo_r"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_jarvaniv_r_air",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 30
+                                                  }
+                                                },
+                                                "cc_immune": true
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "MoveToTarget",
+                                              "speed": 4500,
+                                              "range": 400000,
+                                              "end_effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jarvaniv_r_on"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jarvaniv_r_in"
+                                                },
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_jarvaniv_r_on"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_jarvaniv_r_on",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 210
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_jarvaniv_r_in"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_jarvaniv_r_in",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 6
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_jarvaniv_r_land"
+                                                },
+                                                {
+                                                  "type": "CasterViewEffect",
+                                                  "name": "league_jarvaniv_r_ring"
+                                                },
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 36000
+                                                    }
+                                                  },
+                                                  "target": "EnemyWithoutTower",
+                                                  "apply_type": "AroundCaster",
+                                                  "effects": [
+                                                    {
+                                                      "type": "Attack",
+                                                      "damage": 120,
+                                                      "attack_ratio": 120,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_jarvaniv_r_hit"
+                                                    },
+                                                    {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_jarvaniv_r_hit"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 36000
+                                                    }
+                                                  },
+                                                  "target": "EnemyChampion",
+                                                  "apply_type": "AroundCaster",
+                                                  "effects": [
+                                                    {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_jarvaniv_fight"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_jarvaniv_fight",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 180
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_jarvaniv_w_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_jarvaniv_busy",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jarvaniv_fight",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_jarvaniv_c_e1",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_jarvaniv_w_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "skill_w",
+                                        "tick": 18
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_jarvaniv_w"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_jarvaniv_vo_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_jarvaniv_vo_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_jarvaniv_vo_w"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 6,
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RandomTarget",
+                                                "range": 1,
+                                                "casting_target": "AllyOnlySelf",
+                                                "from_projectile": false,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_jarvaniv_lives",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 1
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_jarvaniv_lives",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "CasterViewEffect",
+                                                      "name": "league_jarvaniv_w_cast"
+                                                    },
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 1000
+                                                        }
+                                                      },
+                                                      "target": "AllyOnlySelf",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "Shield",
+                                                          "amount": 60,
+                                                          "attack_ratio": 40,
+                                                          "ap_ratio": 0,
+                                                          "tick": 240
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_jarvaniv_w_on"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_jarvaniv_w_on",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 240
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 30000
+                                                        }
+                                                      },
+                                                      "target": "EnemyWithoutTower",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_jarvaniv_w_slow",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 120
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -25
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_jarvaniv_w_hit"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 30000
+                                                        }
+                                                      },
+                                                      "target": "EnemyChampion",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RangeEffect",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1000
+                                                            }
+                                                          },
+                                                          "target": "AllyOnlySelf",
+                                                          "apply_type": "AroundCaster",
+                                                          "effects": [
+                                                            {
+                                                              "type": "Shield",
+                                                              "amount": 25,
+                                                              "attack_ratio": 0,
+                                                              "ap_ratio": 0,
+                                                              "tick": 240
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_jarvaniv_lives"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jarvaniv_r_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jarvaniv_r_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_jarvaniv_r_x"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jarvaniv_r_arm"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jarvaniv_r_arm",
+                              "duration": {
+                                "Time": {
+                                  "tick": 600
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Delayed",
+                            "tick": 600,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jarvaniv_r_arm",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jarvaniv_r_arm"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_jarvaniv_r_retry",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 3
+                                          }
+                                        },
+                                        "ult_cooldown_mult": 5900
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Attack",
+                "damage": 100,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jarvaniv_r_x"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_a_hit",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_p_hit",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "p_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_q_hit",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_q_land",
+      "anim": "asset/league/effects/league_jarvaniv_big",
+      "tag": "q_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_e_flag",
+      "anim": "asset/league/effects/league_jarvaniv_big",
+      "tag": "e_flag",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_e_hit",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_w_cast",
+      "anim": "asset/league/effects/league_jarvaniv_big",
+      "tag": "w_cast",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_w_hit",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "w_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_r_ring",
+      "anim": "asset/league/effects/league_jarvaniv_big",
+      "tag": "r_ring",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_r_hit",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jarvaniv_r_zap",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "r_zap",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_jarvaniv_w_slow",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "w_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_jarvaniv_w_on",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "w_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_jarvaniv_q_shred",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "q_shred",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_jarvaniv_f_as",
+      "anim": "asset/league/effects/league_jarvaniv_fx",
+      "tag": "f_as",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

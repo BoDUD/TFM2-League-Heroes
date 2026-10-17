@@ -63,8 +63,8 @@ FX = {
     "q_shred": ("core", seq(range(4), [120, 120, 120, 120]), [OVERHEAD]),
     # E -> Q: the shock where he lands at the standard (on the ground, under the units)
     "q_land": (("feet", 6), seq(range(6), [50, 60, 70, 80, 90, 100]), [SOLES]),
-    # the standard where the lob lands: it drops in, stands its f_t ticks (frames 3-6 looped), vanishes
-    "e_flag": (("feet", 2), looped([0, 1], [2, 3, 4, 5], [6, 7], [70, 90], [150, 200], P["f_t"] * MS, 140), [SOLES]),
+    # the standard where the lob lands: it drops in, stands its fl_t ticks (frames 3-6 looped), vanishes
+    "e_flag": (("feet", 2), looped([0, 1], [2, 3, 4, 5], [6, 7], [70, 90], [150, 200], P["fl_t"] * MS, 140), [SOLES]),
     "e_hit": ("core", seq(range(4), [40, 60, 70, 80]), [HIT]),
     # the rally aura at an ally's feet (a buff's loop)
     "f_as": (("feet", 3), seq(range(4), [130, 130, 130, 130]), [SOLES]),
