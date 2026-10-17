@@ -22,7 +22,8 @@ has no slot - the watch casts it on its own (league_swain's W the same way).
           4 x w_da % (five buffs laid a second apart, each lasting to the end).
   ult     R Fury of the Sands (死神降临): the slot (a 3-tick `Targeting` on `EnemyChampion` within r_range) only arms the
           ult for r_arm ticks (league_swain's R); the watch raises it once the moment is right (the user's rule
-          「看好时机」): two enemy champions within r_r, or a duel (`duel`) with an enemy champion within r_r. Unused,
+          「看好时机」): two enemy champions within r_cnt, or a fight (`fight`; `duel` with r_duel) with an enemy
+          champion within r_cnt. Unused,
           the window ends with the cooldown capped at 60 ticks (`r_retry`). r_t ticks of `r_on`: +r_hp health (and as
           much healed), +r_def armour and magic resistance, +r_rng attack range, skill_cooldown_mult 100 (Q's
           cooldown halved; data can't pick one slot, so E's too - the add-on halves only Q), and every r_p ticks
@@ -45,16 +46,24 @@ ID = "league_nasus"
 FX = "asset/league/effects/league_nasus_fx"
 BIG = "asset/league/effects/league_nasus_big"
 
+# Timings from the strips (tools/art/rig_nasus.py): the attack's blow lands on tick 9 (frame 3 from tick 8.4), Q's slam on
+# tick 10 (frame 4 from 9.6), E's staff points on tick 9, W's hand on tick 7, R's big body from tick 12 (frame 4).
+# Numbers = the 10-min classic-SDK simulations (top lane 0 against fighter, executioner, lancer, pole_warrior, knight and
+# berserker, three lineups, both sides, 8 seeds, 2026-10-17): the draft c0 (Q 30 + 100% AD + 3 / 10 stacks, attack 82,
+# hp 1050, R 1% a pulse, R only in a duel) +0.33 (league_darius +1.99 in the same batch); Q 50 + 4 stacks (c1) -0.35;
+# + attack 90, hp 1100 (c2) +0.50; + R 2% and Q every 4 s (c3) +0.98 - but R rose 0-4 times a game (the duel rule too
+# strict); R in any fight (fight flag, r_cnt 40000) with a 10-s window (c4) +1.55, 5 rises a game; c4 + attack 95 and
+# E 70 + 4% (c5) +2.67 (too strong). P = c4.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Nasus:
     # 67 AD +4, 650 +104 hp, 34 armour, 350 move, attack speed 0.638 (slow)
-    "hp": 1050, "hp_g": 110, "atk": 82, "atk_g": 16, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 980, "ms_g": 10,
+    "hp": 1100, "hp_g": 110, "atk": 90, "atk_g": 16, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 980, "ms_g": 10,
     # attack: the blow lands on a_hit
     "atk_range": 26000, "atk_dur": 26, "atk_cd": 72, "a_hit": 9, "f_t": 180, "d_t": 120,
     # passive: Soul Eater (League: 10-20% life steal)
     "p_vamp": 12,
     # skill: Q Siphoning Strike (League: +30-110 + stacks, +50 range, +4 a kill, +10 a champion / large unit, cd 7.5-3.5)
-    "q_cd": 300, "q_range": 31000, "q_dur": 24, "q_hit": 10, "q_dmg": 30, "q_ratio": 100, "q_s": 3, "q_sc": 10,
+    "q_cd": 240, "q_range": 31000, "q_dur": 24, "q_hit": 10, "q_dmg": 50, "q_ratio": 100, "q_s": 4, "q_sc": 10,
     # skill2: E Spirit Fire (League: 650 range, r 400, 50-170 + 60% AP, then 10-34 + 12% AP a second for 5 s, armour
     # -30-50% inside, cd 12)
     "e_cd": 600, "e_range": 50000, "e_dur": 24, "e_rel": 10, "e_travel": 8, "e_r": 28000, "e_dmg": 50, "e_hp": 3,
@@ -63,8 +72,8 @@ P = {
     "w_cd": 720, "w_range": 50000, "w_dur": 18, "w_rel": 7, "w_t": 300, "w_s0": 35, "w_ds": 10, "w_a0": 25, "w_da": 6,
     # ult: R Fury of the Sands (League: 15 s, +300-600 hp, +40-70 armour / MR, +50 range, aura r 400 1.5-2.5% max hp
     # every 0.5 s, Q cd halved, cd 120/100/80)
-    "r_cd": 3600, "r_range": 50000, "r_arm": 360, "r_dur": 30, "r_on_at": 12, "r_r": 30000, "r_t": 900, "r_hp": 300,
-    "r_def": 40, "r_rng": 4000, "r_p": 30, "r_pct": 1,
+    "r_cd": 3600, "r_range": 50000, "r_arm": 600, "r_dur": 30, "r_on_at": 12, "r_r": 30000, "r_t": 900, "r_hp": 300,
+    "r_def": 40, "r_rng": 4000, "r_p": 30, "r_pct": 2, "r_cnt": 40000, "r_duel": 0,
     # the watch
     "watch_p": 12,
     # his spoken lines, at most one every vo_gap ticks
@@ -230,7 +239,8 @@ def build(p):
     for k in range(1, 5):
         w_hit.append(delayed(60 * k, buff(f"w_slow{k}", p["w_t"] - 60 * k, move_speed_mult=-p["w_ds"],
                                           attack_speed_mult=-p["w_da"])))
-    wither = combine(flag("w_cd", p["w_cd"]), anim("skill_w", p["w_dur"]), sfx("w"), voice("vo_w", p),
+    wither = combine(flag("w_cd", p["w_cd"]), sw("r_on", anim("b_skill_w", p["w_dur"]), anim("skill_w", p["w_dur"])),
+                     sfx("w"), voice("vo_w", p),
                      delayed(p["w_rel"] - 1, homing("w_bolt", "EnemyChampion", w_hit, speed=6000)))
 
     # ------------------------------------------------------------------ ult: R Fury of the Sands
@@ -243,10 +253,11 @@ def build(p):
 
     # ------------------------------------------------------------------ the watch (R's moment, W)
     tick = p["watch_p"]
+    p_fight = "duel" if p["r_duel"] else "fight"
     count = combine(*rm("c_e1", "c_e2"),
-                    around(p["r_r"], "EnemyChampion", [sw("c_e1", flag("c_e2", 3), flag("c_e1", 3))]))
+                    around(p["r_cnt"], "EnemyChampion", [sw("c_e1", flag("c_e2", 3), flag("c_e1", 3))]))
     ok = combine(refresh("r_ok", tick + 2), sw("r_arm", flag("r_go", 1)))
-    arm = sw("c_e2", ok, sw("duel", sw("c_e1", ok)))
+    arm = sw("c_e2", ok, sw(p_fight, sw("c_e1", ok)))
     fire = sw("r_go", combine(*rm("r_go", "r_arm"), rise))
     cast_w = sw("w_cd", NONE, sw("fight", pick(p["w_range"], "EnemyChampionRecentlyAttacked", wither)))
     watch = on_me(casted(1000000, tick, count, delayed(1, arm, fire, cast_w)))
