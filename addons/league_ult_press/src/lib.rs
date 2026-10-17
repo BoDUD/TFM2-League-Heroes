@@ -24,6 +24,10 @@
 //!   生命不到 `KOG_GOOD_HP`、射程内能打的敌方英雄有两个以上，或配额攒满了；一轮开着（`KOG_VOLLEY`）就接着打完。
 //! - 卡密尔（`league_camille`，E `Targeting EnemyChampion`）：E 好了、`CAMILLE_RANGE`（主包 E 的射程；附加包钩墙版是
 //!   85000，取小的）内有敌方英雄——按 E，目标是最近的那个；钩索、钩墙、冲向敌人由主包 / league_camille_wall 决定。
+//! - 卡密尔、瑟提、奥拉夫（`HOLDERS`）对线被停住：游戏的 AI 常把他们停在对面英雄 26–32k 外（近战射程 25k）、下令「走到
+//!   自己脚下」站着不打。原地站了 `HOLD_STILL` tick、普攻好了、AI 还让他原地站（`holding`）时，`hold_target` 挑人普攻：
+//!   他生命不低于 `HOLD_MIN_HP`、目标离敌方塔超过 `TOWER_REACH`、目标身边不比他身边人多；打出一下或 `ENGAGE_TICKS` 后重新算，
+//!   AI 自己下了别的命令（普攻、技能、走开）就不管。没有要按的格子时才这样做。
 //! - 被控住（眩晕、击飞、沉默等）、格子在冷却或还没解锁时不按。冷却由钩子自己看（引擎的「输入合法」不看冷却，
 //!   league_pyke 的教训）；引擎不接的命令不下（`is_valid_input`）。
 //!
@@ -88,6 +92,25 @@ pub const KOG_VOLLEYS_MAX: f64 = 2.0;
 pub const KOG_GOOD_HP: f64 = 0.5;
 /// 卡密尔 E：主包的射程（league_camille_wall 的副本是 85000）。
 pub const CAMILLE_RANGE: f64 = 60_000.0;
+/// 对线被 AI 停住的近战（用户：「卡密尔、瑟提、奥拉夫对线被 AI 停住时，附加包替她们上去平 A（血量够、不在对面塔下、
+/// 不被以少打多）」）：只读观察包里她们常在对面英雄 26–32k 外（近战射程 25k）被 AI 下令「走到自己脚下」站着。
+pub const SETT: &str = "league_sett";
+pub const OLAF: &str = "league_olaf";
+pub const HOLDERS: [&str; 3] = [CAMILLE, SETT, OLAF];
+/// 原地站了这么多 tick、普攻好了、AI 还在让她原地站（没下命令，或「走到」离她 `HOLD_HERE` 以内的地方）才算被停住。
+pub const HOLD_STILL: usize = 15;
+pub const HOLD_HERE: f64 = 3_000.0;
+/// 这么近的敌方英雄才上去打（观察到的停住距离 26–32k）；打上了之后对方走到 `HOLD_KEEP` 以外就不追。
+pub const HOLD_REACH: f64 = 35_000.0;
+pub const HOLD_KEEP: f64 = 45_000.0;
+/// 血量够：她的生命比例不低于这个。
+pub const HOLD_MIN_HP: f64 = 0.5;
+/// 不在对面塔下：目标离敌方塔不到这么远就不打（league_irelia / league_kassadin 的塔下范围）。
+pub const TOWER_REACH: f64 = 75_000.0;
+/// 不被以少打多：目标身边这么近的敌方英雄（含目标）不多于她身边的我方英雄（含她）。
+pub const CROWD_R: f64 = 60_000.0;
+/// 上去之后最多替 AI 盯这么多 tick（打出一下就重新算）。
+pub const ENGAGE_TICKS: usize = 90;
 /// 按下后这么多 tick 内冷却开始走，就算按下去了；之后这么多 tick 内看有没有放出真大招 / 传送。
 const ORDER_FRESH: usize = 30;
 const WATCH_AFTER: usize = 700;
@@ -255,6 +278,30 @@ pub fn kog_pick(open: bool, volleys: f64, valid: &[(f64, bool)]) -> Option<(usiz
     (volleys >= KOG_VOLLEYS_MAX).then_some((0, "volleys saved up"))
 }
 
+/// 被停住的近战打谁（不打就 `None`）：她生命不低于 `HOLD_MIN_HP`；目标是正在盯的那个（还在 `HOLD_KEEP` 内）或
+/// `HOLD_REACH` 内最近的敌方英雄；目标离敌方塔超过 `TOWER_REACH`；目标身边 `CROWD_R` 内的敌方英雄不多于她身边的我方英雄（含她）。
+pub fn hold_target(
+    me: (f64, f64),
+    hp: f64,
+    allies: &[Unit],
+    enemies: &[Unit],
+    towers: &[(f64, f64)],
+    engaged: Option<usize>,
+) -> Option<usize> {
+    if hp < HOLD_MIN_HP {
+        return None;
+    }
+    let kept = engaged.filter(|t| enemies.iter().any(|u| u.id == *t && dist(me, u.at) <= HOLD_KEEP));
+    let t = kept.or_else(|| nearest_in(me, HOLD_REACH, enemies))?;
+    let p = enemies.iter().find(|u| u.id == t)?.at;
+    if towers.iter().any(|&w| dist(w, p) <= TOWER_REACH) {
+        return None;
+    }
+    let theirs = enemies.iter().filter(|u| dist(p, u.at) <= CROWD_R).count();
+    let ours = 1 + allies.iter().filter(|u| dist(me, u.at) <= CROWD_R).count();
+    (theirs <= ours).then_some(t)
+}
+
 /// 放不出技能的控制。
 const NO_CAST: [CcKindV1; 7] =
     [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockSkill];
@@ -324,6 +371,18 @@ struct UltPress {
     volleys: f64,
     volley_tick: usize,
     vol_prev: bool,
+    /// 被停住的近战：原地站了几 tick、正在盯的目标和盯到哪一 tick、上一 tick 普攻好了没有。
+    still_ticks: usize,
+    engage: Option<(usize, usize)>,
+    atk_ready_prev: bool,
+}
+
+/// AI 这一 tick 是不是在让她原地站：没下命令，或者「走到」她脚下 `HOLD_HERE` 以内。
+fn holding(base: Option<InputV1>, me: (f64, f64)) -> bool {
+    match base {
+        None => true,
+        Some(b) => b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), me) <= HOLD_HERE,
+    }
 }
 
 impl StablePlayerAi for UltPress {
@@ -340,26 +399,35 @@ impl StablePlayerAi for UltPress {
     }
 
     fn matches(&self, init: &StableAiInit) -> bool {
-        slot_of(&init.champion_name).is_some()
+        slot_of(&init.champion_name).is_some() || HOLDERS.contains(&init.champion_name.as_str())
     }
 
-    fn think(&mut self, ctx: &mut StableAiContext<'_>, _base: Option<InputV1>) -> Option<InputV1> {
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let player = ctx.player_id();
         let tick = ctx.tick();
         // Kog'Maw: a volley open, his saved volleys, and each candidate's (health share, controlled)
         let mut kog: Option<(bool, f64, Vec<(f64, bool)>)> = None;
+        // a melee champion the AI holds in lane: the enemy champion to attack, and why
+        let mut hold: Option<(usize, String)> = None;
         let (main_key, cands): (&'static str, Vec<(InputV1, &'static str, String)>) = {
             let sim = ctx.sim()?;
             let pl = sim.get_player(player)?;
             let me = pl.champion()?;
             let (mid, team) = (me.id(), me.team());
             let name = me.name().unwrap_or_default();
-            let (slot, kind, key) = slot_of(&name)?;
+            let holder = HOLDERS.contains(&name.as_str());
+            let slot = slot_of(&name);
+            if slot.is_none() && !holder {
+                return None;
+            }
             let my_at = at(&me);
+            let still = self.last_pos == Some(my_at);
+            self.still_ticks = if still { self.still_ticks + 1 } else { 0 };
             if tick < self.last_tick || self.volley_tick > tick {
                 self.best_grade = 0;
                 self.volleys = 1.0;
                 self.volley_tick = tick;
+                self.engage = None;
             }
             self.volleys = (self.volleys + (tick - self.volley_tick) as f64 / KOG_VOLLEY_EVERY as f64).min(KOG_VOLLEYS_MAX);
             self.volley_tick = tick;
@@ -374,27 +442,29 @@ impl StablePlayerAi for UltPress {
                     }
                 }
             }
-            // the slot went out when its cooldown starts: the press behind it, or the AI's own
-            let cd = me.cooldown(slot);
-            let remaining = cd.map(|c| c.remaining);
-            if let (Some(0), Some(c)) = (self.last_cd, remaining) {
-                if c > 0 {
-                    let why = match self.order.take().filter(|o| tick <= o.tick + ORDER_FRESH) {
-                        Some(o) => format!("pressed {} ticks before: {}", tick - o.tick, o.why),
-                        None => "by the AI itself".to_string(),
-                    };
-                    let style = if name == SAMIRA { format!(" [style {}]", grade_name(grade)) } else { String::new() };
-                    if let Some(k) = counted(format!("{name} cast")) {
-                        wlog(format!("{} {key} CAST {why}{style} #{k}", head(&sim, mid)));
-                    }
-                    self.cast_at = Some(tick);
-                    // Kog'Maw's first shell opens a volley: one saved volley spent
-                    if name == KOGMAW && !self.vol_prev {
-                        self.volleys = (self.volleys - 1.0).max(0.0);
+            let (kind, key) = slot.map_or((InputKindV1::Attack, "A"), |(_, k, key)| (k, key));
+            if let Some((slot, _, _)) = slot {
+                // the slot went out when its cooldown starts: the press behind it, or the AI's own
+                let remaining = me.cooldown(slot).map(|c| c.remaining);
+                if let (Some(0), Some(c)) = (self.last_cd, remaining) {
+                    if c > 0 {
+                        let why = match self.order.take().filter(|o| tick <= o.tick + ORDER_FRESH) {
+                            Some(o) => format!("pressed {} ticks before: {}", tick - o.tick, o.why),
+                            None => "by the AI itself".to_string(),
+                        };
+                        let style = if name == SAMIRA { format!(" [style {}]", grade_name(grade)) } else { String::new() };
+                        if let Some(k) = counted(format!("{name} cast")) {
+                            wlog(format!("{} {key} CAST {why}{style} #{k}", head(&sim, mid)));
+                        }
+                        self.cast_at = Some(tick);
+                        // Kog'Maw's first shell opens a volley: one saved volley spent
+                        if name == KOGMAW && !self.vol_prev {
+                            self.volleys = (self.volleys - 1.0).max(0.0);
+                        }
                     }
                 }
+                self.last_cd = remaining;
             }
-            self.last_cd = remaining;
             self.vol_prev = vol_open;
             // what the press led to: Samira's real R (S grade), Twisted Fate's jump
             if let Some(t0) = self.cast_at {
@@ -418,17 +488,33 @@ impl StablePlayerAi for UltPress {
             self.r_on = name == SAMIRA && has_buff(&me, SAMIRA_R_ON);
             self.last_pos = Some(my_at);
             let ready_of = |s: SkillSlotV1| me.cooldown(s).is_some_and(|c| c.unlocked && c.remaining == 0);
-            let ready = ready_of(slot);
-            // Samira presses E / Q too, so her R need not be ready
-            if !me.is_alive() || controlled(&me) || (!ready && name != SAMIRA) {
+            let ready = slot.is_some_and(|(s, _, _)| ready_of(s));
+            // a held melee champion's attack went out: what she was told to do is done
+            let atk_ready = ready_of(SkillSlotV1::Attack);
+            if self.atk_ready_prev && !atk_ready {
+                self.engage = None;
+            }
+            self.atk_ready_prev = atk_ready;
+            // Samira presses E / Q too, so her R need not be ready; a held melee champion may attack
+            if !me.is_alive() || controlled(&me) || (!ready && name != SAMIRA && !holder) {
                 return None;
             }
             let mut allies = Vec::new();
             let mut enemies = Vec::new();
             let mut held = Vec::new();
+            let mut towers = Vec::new();
             for i in 0..sim.entity_count() {
                 let Some(e) = sim.entity_at(i) else { continue };
-                if !e.is_champion() || !e.is_alive() || !e.is_targetable() || e.id() == mid {
+                if !e.is_alive() || e.id() == mid {
+                    continue;
+                }
+                if e.is_tower() {
+                    if e.team() != team {
+                        towers.push(at(&e));
+                    }
+                    continue;
+                }
+                if !e.is_champion() || !e.is_targetable() {
                     continue;
                 }
                 let u = Unit { id: e.id(), at: at(&e), hp: hp_share(e.hp()) };
@@ -438,6 +524,26 @@ impl StablePlayerAi for UltPress {
                     enemies.push(u);
                     if controlled(&e) {
                         held.push(e.id());
+                    }
+                }
+            }
+            if holder && atk_ready {
+                let engaged = self.engage.filter(|&(_, until)| tick <= until).map(|(t, _)| t);
+                if !holding(base, my_at) {
+                    // the AI does something else (an attack, a skill, a walk away): its call
+                    if base.is_some_and(|b| b.kind == InputKindV1::Move.code()) {
+                        self.engage = None;
+                    }
+                } else if self.still_ticks >= HOLD_STILL || engaged.is_some() {
+                    match hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, engaged) {
+                        Some(t) => {
+                            if engaged != Some(t) {
+                                self.engage = Some((t, tick + ENGAGE_TICKS));
+                            }
+                            let d = enemies.iter().find(|u| u.id == t).map_or(f64::NAN, |u| dist(my_at, u.at));
+                            hold = Some((t, format!("held {} ticks, {} {d:.0} away", self.still_ticks, who(&sim, t))));
+                        }
+                        None => self.engage = None,
                     }
                 }
             }
@@ -464,9 +570,9 @@ impl StablePlayerAi for UltPress {
                     }
                     v
                 }
-                CAMILLE => match nearest_in(my_at, CAMILLE_RANGE, &enemies) {
+                CAMILLE if ready => match nearest_in(my_at, CAMILLE_RANGE, &enemies) {
                     Some(t) => vec![(press(t), key, format!("{} within {CAMILLE_RANGE:.0}", who(&sim, t)))],
-                    None => return None,
+                    None => Vec::new(),
                 },
                 KOGMAW => {
                     let v = kog_targets(my_at, &enemies);
@@ -485,27 +591,42 @@ impl StablePlayerAi for UltPress {
                     kog = Some((vol_open, self.volleys, info));
                     c
                 }
-                _ => match tf_fight(my_at, hp_share(me.hp()), &allies, &enemies) {
+                TF => match tf_fight(my_at, hp_share(me.hp()), &allies, &enemies) {
                     Some((e, a)) => {
                         let far = allies.iter().find(|u| u.id == a).map_or(f64::NAN, |u| dist(my_at, u.at));
                         vec![(press(e), key, format!("{} fighting {} {far:.0} away, nobody near him", who(&sim, a), who(&sim, e)))]
                     }
-                    None => return None,
+                    None => Vec::new(),
                 },
+                _ => Vec::new(),
             };
             (key, cands)
         };
         // the first press the engine takes (Kog'Maw's R: only champions his side hit lately; Samira: R, else E, else Q)
-        let (input, key, why) = match kog {
+        let pressed = match kog {
             // Kog'Maw: the targets the engine takes, then the pacing (kog_pick) picks one - or none yet
             Some((open, volleys, info)) => {
                 let ok: Vec<usize> = (0..cands.len()).filter(|&i| ctx.is_valid_input(&cands[i].0)).collect();
                 let valid: Vec<(f64, bool)> = ok.iter().map(|&i| info[i]).collect();
-                let (j, reason) = kog_pick(open, volleys, &valid)?;
-                let (input, key, why) = cands.into_iter().nth(ok[j])?;
-                (input, key, format!("{why} - {reason} ({volleys:.1} volleys saved)"))
+                kog_pick(open, volleys, &valid).and_then(|(j, reason)| {
+                    let (input, key, why) = cands.into_iter().nth(ok[j])?;
+                    Some((input, key, format!("{why} - {reason} ({volleys:.1} volleys saved)")))
+                })
             }
-            None => cands.into_iter().find(|(i, _, _)| ctx.is_valid_input(i))?,
+            None => cands.into_iter().find(|(i, _, _)| ctx.is_valid_input(i)),
+        };
+        // nothing to press: a held melee champion attacks the enemy champion in front of her
+        let (input, key, why) = match pressed {
+            Some(p) => p,
+            None => {
+                let (t, why) = hold?;
+                let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
+                if !ctx.is_valid_input(&attack) {
+                    self.engage = None;
+                    return None;
+                }
+                (attack, "A", why)
+            }
         };
         if key == main_key && self.order.as_ref().is_none_or(|o| tick > o.tick + ORDER_FRESH) {
             self.order = Some(Order { tick, why: why.clone() });
@@ -529,7 +650,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (presses armed slots for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (presses armed slots for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E; held melee attack in lane: Camille, Sett, Olaf) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -607,6 +728,33 @@ mod tests {
         // out of E's reach (65000), in Q's (70000)
         assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[u(1, 65_000.0, 0.0, 1.0)]), vec![('Q', 1)]);
         assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[]), vec![]);
+    }
+
+    #[test]
+    fn a_held_melee_champion_attacks_only_when_safe() {
+        let lane = [u(1, 29_000.0, 0.0, 0.9)];
+        // the lane opponent 29k away, she is healthy, no tower, 1 v 1: attack him
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &lane, &[], None), Some(1));
+        // low on health
+        assert_eq!(hold_target((0.0, 0.0), 0.4, &[], &lane, &[], None), None);
+        // he stands under his tower
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &lane, &[(90_000.0, 0.0)], None), None);
+        // two enemy champions round him and she is alone; with an ally by her it is even
+        let two = [u(1, 29_000.0, 0.0, 0.9), u(2, 60_000.0, 0.0, 0.9)];
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &two, &[], None), None);
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[u(9, -10_000.0, 0.0, 1.0)], &two, &[], None), Some(1));
+        // out of reach (40k); the one she is on is kept up to 45k
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 40_000.0, 0.0, 0.9)], &[], None), None);
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 40_000.0, 0.0, 0.9)], &[], Some(1)), Some(1));
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 50_000.0, 0.0, 0.9)], &[], Some(1)), None);
+    }
+
+    #[test]
+    fn the_ai_holds_her_with_no_order_or_a_walk_to_her_own_spot() {
+        assert!(holding(None, (100_000.0, 100_000.0)));
+        assert!(holding(Some(InputV1::move_to(101_000, 100_000)), (100_000.0, 100_000.0)));
+        assert!(!holding(Some(InputV1::move_to(130_000, 100_000)), (100_000.0, 100_000.0)));
+        assert!(!holding(Some(InputV1::action(InputKindV1::Attack, InputTargetV1::target(3))), (100_000.0, 100_000.0)));
     }
 
     #[test]
