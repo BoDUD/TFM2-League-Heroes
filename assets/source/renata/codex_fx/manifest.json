@@ -1,0 +1,482 @@
+[
+  {
+    "name": "renata_fx_a_shot",
+    "file": "renata_fx_a_shot.png",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      6
+    ],
+    "symmetry": "top_bottom",
+    "title": "普攻：手枪射出的化学子弹（飞行，循环），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_a_shot.png",
+    "binding": "view_projectiles `league_renata_a_shot`（朝目标飞，画面随方向转；上下对称）",
+    "runtime_size_note": "10 × 4",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_a_flash",
+    "file": "renata_fx_a_flash.png",
+    "frames": 3,
+    "cell_1x": [
+      10,
+      9
+    ],
+    "symmetry": "top_bottom",
+    "title": "普攻：枪口火光（画进她的普攻帧，**按她的细格子画**），3 帧",
+    "raw_layout": [
+      3,
+      1
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_a_flash.png",
+    "binding": "不进特效表：Claude 画进她自己的 attack 第 3、4 帧（枪口；跟着她翻面）",
+    "runtime_size_note": "10 × 9（她的细格子）",
+    "atlas": "embedded_attack"
+  },
+  {
+    "name": "renata_fx_a_hit",
+    "file": "renata_fx_a_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left_right",
+    "title": "普攻命中（目标身上），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_a_hit.png",
+    "binding": "view_effects `league_renata_a_hit`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "12",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_p_mark",
+    "file": "renata_fx_p_mark.png",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      14
+    ],
+    "symmetry": "left_right",
+    "title": "被动 物尽其用：头顶的化学印记（敌方英雄身上，循环），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_p_mark.png",
+    "binding": "view_buffs `league_renata_p_mark`（跟随，头顶上方；左右对称）",
+    "runtime_size_note": "12 × 13",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_p_pop",
+    "file": "renata_fx_p_pop.png",
+    "frames": 5,
+    "cell_1x": [
+      18,
+      18
+    ],
+    "symmetry": "left_right",
+    "title": "被动引爆：印记炸开（敌方英雄身上），5 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_p_pop.png",
+    "binding": "view_effects `league_renata_p_pop`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "16",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_e_missile",
+    "file": "renata_fx_e_missile.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      12
+    ],
+    "symmetry": "top_bottom",
+    "title": "E 忠诚激励：两枚并排的化学飞弹（飞行，循环），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_e_missile.png",
+    "binding": "view_projectiles `league_renata_e_missile`（朝目标飞，画面随方向转；上下对称）",
+    "runtime_size_note": "14 × 10",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_e_boom",
+    "file": "renata_fx_e_boom.png",
+    "frames": 6,
+    "cell_1x": [
+      26,
+      18
+    ],
+    "symmetry": "left_right",
+    "title": "E 爆炸（飞弹的落点，地上，不跟随），6 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_e_boom.png",
+    "binding": "view_effects `league_renata_e_boom`（不跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "26 × 16",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_e_hit",
+    "file": "renata_fx_e_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left_right",
+    "title": "E 命中（目标身上），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_e_hit.png",
+    "binding": "view_effects `league_renata_e_hit`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "12",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_e_slow",
+    "file": "renata_fx_e_slow.png",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      8
+    ],
+    "symmetry": "left_right",
+    "title": "E 减速：脚下一摊化学药剂（目标身上，循环），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_e_slow.png",
+    "binding": "view_buffs `league_renata_e_slow`（跟随，画在人物下面；左右对称）",
+    "runtime_size_note": "16 × 6",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_e_shield",
+    "file": "renata_fx_e_shield.png",
+    "frames": 6,
+    "cell_1x": [
+      26,
+      38
+    ],
+    "symmetry": "left_right",
+    "title": "E：队友身上的化学泡泡护盾（队友身上，跟随），6 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_e_shield.png",
+    "binding": "view_effects `league_renata_e_shield`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "26 × 36",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_q_hand",
+    "file": "renata_fx_q_hand.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      13
+    ],
+    "symmetry": "top_bottom",
+    "title": "Q 铁腕竞合：飞出去的化学之手（飞行，循环），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_q_hand.png",
+    "binding": "view_projectiles `league_renata_q_hand`（朝目标飞，画面随方向转；上下对称）",
+    "runtime_size_note": "14 × 11",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_q_hit",
+    "file": "renata_fx_q_hit.png",
+    "frames": 6,
+    "cell_1x": [
+      26,
+      32
+    ],
+    "symmetry": "left_right",
+    "title": "Q 抓住：化学之手攥住目标（目标身上，跟随），6 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_q_hit.png",
+    "binding": "view_effects `league_renata_q_hit`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "24 × 30",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_q_fling",
+    "file": "renata_fx_q_fling.png",
+    "frames": 4,
+    "cell_1x": [
+      24,
+      30
+    ],
+    "symmetry": "left_right",
+    "title": "Q 甩人：被拽着甩出去的一瞬间（目标身上，跟随），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_q_fling.png",
+    "binding": "view_effects `league_renata_q_fling`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "22 × 28",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_q_land",
+    "file": "renata_fx_q_land.png",
+    "frames": 6,
+    "cell_1x": [
+      30,
+      16
+    ],
+    "symmetry": "left_right",
+    "title": "Q 落地：被甩的人砸到地上（地上，不跟随），6 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_q_land.png",
+    "binding": "view_effects `league_renata_q_land`（不跟随，画在人物下面；左右对称）",
+    "runtime_size_note": "30 × 14",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_q_crash_hit",
+    "file": "renata_fx_q_crash_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left_right",
+    "title": "Q 落地命中（目标身上），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_q_crash_hit.png",
+    "binding": "view_effects `league_renata_q_crash_hit`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "12",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_w_cast",
+    "file": "renata_fx_w_cast.png",
+    "frames": 6,
+    "cell_1x": [
+      28,
+      36
+    ],
+    "symmetry": "left_right",
+    "title": "W 及时救难：给队友打一针（队友身上，跟随），6 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_w_cast.png",
+    "binding": "view_effects `league_renata_w_cast`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "28 × 34",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_w_buff",
+    "file": "renata_fx_w_buff.png",
+    "frames": 4,
+    "cell_1x": [
+      22,
+      12
+    ],
+    "symmetry": "left_right",
+    "title": "W 期间：队友脚下的增益光环（队友身上，循环），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_w_buff.png",
+    "binding": "view_buffs `league_renata_w_buff`（跟随，画在人物下面；左右对称）",
+    "runtime_size_note": "22 × 10",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_w_save",
+    "file": "renata_fx_w_save.png",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      40
+    ],
+    "symmetry": "left_right",
+    "title": "W 结束：队友回一口血（队友身上，跟随），6 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_w_save.png",
+    "binding": "view_effects `league_renata_w_save`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "24 × 38",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_r_cast",
+    "file": "renata_fx_r_cast.png",
+    "frames": 6,
+    "cell_1x": [
+      64,
+      32
+    ],
+    "symmetry": "left_right",
+    "title": "R 恶意收购：召出机甲、喷出化学毒气（她身上，画在她下面），6 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_r_cast.png",
+    "binding": "view_effects `league_renata_r_cast`（她身上播一次，跟随，画在她和机甲下面；左右对称；大图表）",
+    "runtime_size_note": "64 × 30",
+    "atlas": "league_renata_big"
+  },
+  {
+    "name": "renata_fx_r_wave",
+    "file": "renata_fx_r_wave.png",
+    "frames": 4,
+    "cell_1x": [
+      20,
+      34
+    ],
+    "symmetry": "top_bottom",
+    "title": "R：涌出去的化学毒气浪（飞行，循环），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_r_wave.png",
+    "binding": "view_projectiles `league_renata_r_wave`（朝目标飞，画面随方向转；上下对称；大图表）",
+    "runtime_size_note": "18 × 32",
+    "atlas": "league_renata_big"
+  },
+  {
+    "name": "renata_fx_r_hit",
+    "file": "renata_fx_r_hit.png",
+    "frames": 6,
+    "cell_1x": [
+      20,
+      22
+    ],
+    "symmetry": "left_right",
+    "title": "R 命中：被毒气浪扫中、陷入狂暴（目标身上，跟随），6 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_r_hit.png",
+    "binding": "view_effects `league_renata_r_hit`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "18 × 20",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_r_berserk",
+    "file": "renata_fx_r_berserk.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      12
+    ],
+    "symmetry": "left_right",
+    "title": "R 狂暴中：头顶的小毒气云（目标身上，循环），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_r_berserk.png",
+    "binding": "view_buffs `league_renata_r_berserk`（跟随，头顶上方；左右对称）",
+    "runtime_size_note": "14 × 10",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_r_lash",
+    "file": "renata_fx_r_lash.png",
+    "frames": 6,
+    "cell_1x": [
+      52,
+      16
+    ],
+    "symmetry": "left_right",
+    "title": "R 狂暴发作：被控制的人朝身边自己人乱打（地上，不跟随），6 帧",
+    "raw_layout": [
+      3,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_r_lash.png",
+    "binding": "view_effects `league_renata_r_lash`（不跟随，画在人物下面；左右对称）",
+    "runtime_size_note": "50 × 14",
+    "atlas": "league_renata_fx"
+  },
+  {
+    "name": "renata_fx_r_lash_hit",
+    "file": "renata_fx_r_lash_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left_right",
+    "title": "R 狂暴发作命中（目标身上），4 帧",
+    "raw_layout": [
+      2,
+      2
+    ],
+    "preview_scale": 8,
+    "pixel_file": "pixel_1x/renata_fx_r_lash_hit.png",
+    "binding": "view_effects `league_renata_r_lash_hit`（跟随，画在人物上面；左右对称）",
+    "runtime_size_note": "12",
+    "atlas": "league_renata_fx"
+  }
+]

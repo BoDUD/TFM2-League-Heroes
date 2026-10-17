@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_renata": {
+    "remapping": "asset/league_renata/override/league_renata",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_renata/text/champion",
+    "type": "merge"
+  }
+}

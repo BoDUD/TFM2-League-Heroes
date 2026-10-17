@@ -59,6 +59,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Swain: posed by tools/art/rig_swain.py at the user's 1.5 squares a game pixel (40 game rows hair to soles; the demon
     // form's tags on the same body), so no SIZES row
     ("league_swain", 1.5, include_str!("../../../league/champions/league_swain#anim.fanim")),
+    // Renata: posed by tools/art/rig_renata.py at the user's 1.5 squares a game pixel (36 game rows hair to soles; the R
+    // machine in her own ult frames), so no SIZES row
+    ("league_renata", 1.5, include_str!("../../../league/champions/league_renata#anim.fanim")),
     // Nasus: posed by tools/art/rig_nasus.py at the user's 1.2 squares a game pixel (44 game rows ear tips to soles; the big
     // body of Fury of the Sands its own design, 59 rows), so no SIZES row
     ("league_nasus", 1.2, include_str!("../../../league/champions/league_nasus#anim.fanim")),
