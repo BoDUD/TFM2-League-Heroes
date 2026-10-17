@@ -4,7 +4,7 @@
 
 Writes (in league/): text/champion.i18n (league_renata in every language, description + skill_name),
 sound/sfx/league_renata_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre and
-the ban/pick card's point), mod.mod_info (0.133.0, Renata named). Only her keys change in the shared files. JSON:
+the ban/pick card's point), mod.mod_info (0.136.0, Renata named). Only her keys change in the shared files. JSON:
 indent 2, CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX.
 Names: Data Dragon 16.20.1 (zh_CN 炼金男爵 烈娜塔 · 戈拉斯克 - the client swaps name and title: 烈娜塔; 物尽其用, 铁腕竞合,
 及时救难, 忠诚激励, 恶意收购; zh_TW 睿娜妲, 唯利是圖, 霸道手腕, 急難救助, 有酬必報, 惡意收購; ja レナータ, レバレッジ,
@@ -26,7 +26,7 @@ from build_renata import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_renata"
-VERSION = "0.133.0"
+VERSION = "0.136.0"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names
