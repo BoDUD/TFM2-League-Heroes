@@ -323,7 +323,8 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("a_bead"), P_("q_bead"), P_("w_bead"), P_("rw_beam", BIG, 3)]
+    # the laser's picture plays once over its line's life (the aiming line, then the blast)
+    views_p = [P_("a_bead"), P_("q_bead"), P_("w_bead"), dict(P_("rw_beam", BIG, 3), repeat=False)]
     views_e = [E("a_hit"), E("q_hit"), E("q_sp_hit"), E("q_spread", BIG, -1, **LATE), E("q_burst", BIG, 3),
                E("w_hit"), E("w_end", FX, -1, **LATE), E("w_tick", FX, 2, **LATE), E("rw_charge", BIG, 3),
                E("rw_hit"), E("e_cast", FX, -1), E("re_trail", BIG, -1), E("r_burst", BIG, -1)]

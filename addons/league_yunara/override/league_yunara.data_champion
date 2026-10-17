@@ -2123,7 +2123,7 @@
       "name": "league_yunara_rw_beam",
       "anim": "asset/league/effects/league_yunara_big",
       "tag": "rw_beam",
-      "repeat": true,
+      "repeat": false,
       "z": 3
     }
   ],
