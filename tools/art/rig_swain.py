@@ -310,6 +310,53 @@ class Poser:
         return can
 
 
+# the walk: Codex's skin swap over oppi's Swain run (the user, 2026-10-17: 「斯维因走路没有明显的换腿感觉」「看起来平移」 -
+# the boots under the long coat only slid; 「用 oppi 斯维因的走路当骨架、我们的造型当皮」): assets/source/swain/codex_run,
+# 8 frames 80 x 72 squares on a 6 px grid, the coat thrown back, both legs out front in a scissor stride. Read square by
+# square, keyed, set on his standing point (the soles on the design's, the head where its own frames put it); the demon's
+# walk is the same frames with the demon arm (one picture, hanging) on the far shoulder and the lit eyes, moved with
+# each frame's head.
+RUN_SRC = os.path.join(os.path.dirname(os.path.dirname(HERE)), "assets", "source", "swain", "codex_run", "swain_run_swap.png")
+RUN_GRID, RUN_CELL = 6, (72, 80)
+
+
+def codex_run(D):
+    """[(padded design-sized layer, (dx, dy) of the head against the design)] for the 8 walking frames."""
+    a = np.asarray(Image.open(lp(RUN_SRC)).convert("RGB"))[RUN_GRID // 2::RUN_GRID, RUN_GRID // 2::RUN_GRID]
+    key = (a[..., 0] < 40) & (a[..., 1] > 215) & (a[..., 2] < 40)
+    rgba = np.dstack([a, np.where(key, 0, 255).astype(np.uint8)])
+    rgba[key] = 0
+    ch, cw = RUN_CELL
+    cells = [rgba[(k // 4) * ch:(k // 4 + 1) * ch, (k % 4) * cw:(k % 4 + 1) * cw] for k in range(8)]
+    head = D.d[:20]
+    hm = head[..., 3] > 0
+    out = []
+    for c in cells:
+        sole = int(np.nonzero(c[..., 3])[0].max())
+        best = (-1, 0, 0)
+        for dy in range(-3, 4):
+            y0 = sole - (D.H - 1) + dy
+            for dx in range(0, cw - D.W + 1):
+                sub = c[y0:y0 + 20, dx:dx + D.W]
+                if sub.shape[:2] != head.shape[:2]:
+                    continue
+                n = int((hm & (sub[..., 3] > 0) & (np.abs(sub[..., :3].astype(int) - head[..., :3]).sum(-1) < 24)).sum())
+                if n > best[0]:
+                    best = (n, dx, dy)
+        out.append((c, sole, best))
+    gx = int(np.median([b[1] for _, _, b in out]))
+    res = []
+    for c, sole, (n, dx, dy) in out:
+        lay = np.zeros((D.H + 2 * P, D.W + 2 * P, 4), np.uint8)
+        top = sole - (D.H - 1)                    # the cell row of the design's row 0 (soles on the design's)
+        for y, x in zip(*np.nonzero(c[..., 3])):
+            ty, tx = P + y - top, P + x - gx
+            if 0 <= ty < lay.shape[0] and 0 <= tx < lay.shape[1]:
+                lay[ty, tx] = c[y, x]
+        res.append((lay, (dx - gx, dy), n))
+    return res
+
+
 MS = {"idle": [140] * 8, "run": [125] * 8, "attack": [60, 60, 80, 90, 70, 73], "skill": [70, 80, 70, 70, 60, 50],
       "skill2": [70, 80, 70, 80, 70, 63], "ult": [60, 60, 60, 60, 60, 70, 70, 60], "hit": [100, 100],
       "dead": [100, 100, 120, 120, 120, 150, 150, 500], "flare": [60, 70, 70, 67]}
@@ -320,7 +367,24 @@ TAGS = {"A": dict(idle="idle", run="run", attack="attack", skill="skill", skill2
 # (no b_dead: Demonic Ascension ends with his life - the form's buff dies with him and the add-on shows A's death)
 
 
+def walk_frame(ps, lay, off, form):
+    """A walking frame from Codex's swap; the demon's: the demon arm hanging on the far shoulder and the eyes lit, where
+    this frame's head is."""
+    layers = [(lay, dict())]
+    if form == "B":
+        layers.append((ps.arm.at(0), dict(dx=off[0], dy=off[1])))
+    can = R.compose(ps.rig, layers)
+    if form == "B":
+        for (y, x), c in EYES.items():
+            cy, cx = ps.rig.oy + y + off[1], ps.rig.ox + x + off[0]
+            if can[cy, cx, 3]:
+                can[cy, cx, :3] = c
+    return can
+
+
 def frames(ps):
+    global RUN
+    RUN = codex_run(ps.D)
     out, role = {}, {}
     for form in ("A", "B"):
         t = TAGS[form]
@@ -329,7 +393,7 @@ def frames(ps):
         rest = None if form == "A" else 0
         bob = [0, 0, 1, 1, 1, 1, 0, 0]
         out[t["idle"]] = [p(arm=rest, up=(0, b)) for b in bob]
-        out[t["run"]] = [p(arm=rest, up=(0, b), near=n, far=f, hem=h) for n, f, b, h, _ in WALK]
+        out[t["run"]] = [walk_frame(ps, lay, off, form) for lay, off, _ in RUN]
         # auto attack (League's Swain_Attack1: the demon hand flung forward, the raven bolt leaving it): leaning back,
         # the arm coming out ahead (pulled in), straight out on frame 3 (the release) with a step in, back down
         IN = (-3, 0)
