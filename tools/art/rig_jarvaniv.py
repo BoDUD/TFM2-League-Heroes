@@ -117,6 +117,13 @@ FAR_LEG = {54: (20, 27), 55: (20, 27), 56: (20, 27), 57: (20, 27), **{y: (17, 27
            **{y: (14, 27) for y in range(59, 73)}}
 
 
+def navy(d):
+    """The skirt's cloth (dark navy-violet), not the knee guards' blue gems."""
+    r, g, b = (d[..., i].astype(int) for i in range(3))
+    gem = (b > 150) & (r < 90)
+    return (d[..., 3] > 0) & (b > r + 10) & (b > g + 10) & ~gem
+
+
 def design():
     d = load("design.png")
     D = CutDesign(d, px=14)
@@ -126,10 +133,26 @@ def design():
     D.part("far_arm", D.rows(FAR_ARM) | fist)
     D.part("near_arm", D.rows(NEAR_ARM))
     D.part("upper", D.rows({y: (0, 33) for y in range(UPPER_END + 1)}) & D.rest())
-    D.part("near_leg", D.rows(NEAR_LEG) & D.rest())
-    D.part("far_leg", D.rows(FAR_LEG) & D.rest())
+    # each leg its own gold / brown / blue squares and outline - never the skirt's navy cloth hanging between them
+    # (the first cut carried a square or two of it, so the skirt's hem moved with the legs)
+    cloth = navy(d)
+    D.part("near_leg", D.rows(NEAR_LEG) & D.rest() & ~cloth)
+    D.part("far_leg", D.rows(FAR_LEG) & D.rest() & ~cloth)
     D.part("skirt", D.rest())
     return D
+
+
+def leg_layer(D, name):
+    """A leg with its own whole outline: the outline squares it shares with the skirt (the knee guard's top edge is the
+    skirt's hem line) copied into it, so moved it keeps its edge; the skirt keeps them too (at home they coincide)."""
+    leg = D.parts[name]
+    dark = (D.d[..., :3].astype(int).sum(-1) < 70) & (D.d[..., 3] > 0)
+    near = ndimage.binary_dilation(leg & ~dark, structure=R.CROSS)
+    shared = near & dark & D.parts["skirt"]
+    out = np.zeros_like(D.d)
+    m = leg | shared
+    out[m] = D.d[m]
+    return out
 
 
 def whole_lance(D):
@@ -174,8 +197,8 @@ class Form:
         self.near = pad(D.layer("near_arm"))
         self.upper = pad(D.layer("upper"))
         self.skirt = pad(D.layer("skirt"))
-        self.near_leg = pad(D.layer("near_leg"))
-        self.far_leg = pad(D.layer("far_leg"))
+        self.near_leg = pad(leg_layer(D, "near_leg"))
+        self.far_leg = pad(leg_layer(D, "far_leg"))
         self.ref_holes = None
 
     def grip_at(self, far=0, far_reach=(0, 0), U=(0, 0)):
@@ -208,8 +231,9 @@ class Form:
         if lance_l and not lance_front:
             layers.append(lance_l)
         layers += [far_l,
-                   (self.far_leg, dict(dx=wx + flx, dy=wy + fly)), (self.near_leg, dict(dx=wx + nlx, dy=wy + nly)),
-                   (self.skirt, dict(dx=wx, dy=wy)), (self.upper, dict(dx=U[0], dy=U[1]))]
+                   (self.far_leg, dict(dx=wx + flx, dy=wy + fly)), (self.skirt, dict(dx=wx, dy=wy)),
+                   # the near leg in front of the skirt's hem: lifted or stepping in, its knee guard stays whole
+                   (self.near_leg, dict(dx=wx + nlx, dy=wy + nly)), (self.upper, dict(dx=U[0], dy=U[1]))]
         if lance_l and lance_front:
             layers += [lance_l, (self.fist_only(), far_l[1])]
         layers.append((self.near, dict(dx=U[0] + near_reach[0], dy=U[1] + near_reach[1], rot=near, about=NEAR_PIVOT)))
@@ -342,14 +366,19 @@ def frames_all(F):
 
 
 # ------------------------------------------------------------------------------------------------- the walk
-def _steps(stride, lifts):
+def _steps(stride, lifts, far_lifts=None):
     """rig_nasus._steps: each leg planted five frames sliding back, then lifted and swung forward in three, the far leg
-    four frames after the near one; the body a row down as each foot lands."""
+    four frames after the near one; the body a row down as each foot lands. Each foot keeps to the inner side of its own
+    place (the near one between home and stride columns forward, the far one between stride columns back and home):
+    outward a leg would leave the skirt's hanging middle flap alone between the knees with no edge - the user's
+    「走路时腿部有点变形啊」 on the first walk (feet 3 columns out each way). far_lifts: the far leg's own lifts (lifted it
+    slides up behind the skirt, so lifted as high as the near one its knee guard would vanish under the hem)."""
     near = [round(stride * (1 - k / 4) + 1e-9) for k in range(5)]
     swing = [1, stride - 1 - (stride > 4), stride]
     dx = near + swing
     up = [0] * 5 + list(lifts)
-    return dict(near=list(zip(dx, up)), far=[(dx[(i + 4) % 8] - stride, up[(i + 4) % 8]) for i in range(8)],
+    fup = [0] * 5 + list(far_lifts or lifts)
+    return dict(near=list(zip(dx, up)), far=[(dx[(i + 4) % 8] - stride, fup[(i + 4) % 8]) for i in range(8)],
                 bob=[1, 0, 0, 0, 1, 0, 0, 0])
 
 
@@ -366,7 +395,7 @@ def _own_sides(stride, lifts):
                 bob=[1, 0, 0, 0, 1, 0, 0, 0])
 
 
-WALK_STEP = _own_sides(6, (2, 3, 2))
+WALK_STEP = _steps(4, (2, 3, 2), far_lifts=(1, 2, 1))
 # League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
 # the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
 CARRY = dict(far=1, lance="BACK", slide=4)
