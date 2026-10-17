@@ -1016,7 +1016,8 @@ class Driver:
     League's lower foot; the weapon arm turned with League's shoulder-to-hand, the weapon with League's weapon, the
     upper body leaning `lean` of League's chest-over-pelvis shift. Nothing of the body itself turns (memory
     no-deformation-lossless-poses: a turned torso read as deformed).
-    legs: [dict(name, hip, knee, sole, side "near" | "far")] - "near" takes League's leg nearer the camera.
+    legs: [dict(name, hip, knee, sole, side "near" | "far", rigid)] - "near" takes League's leg nearer the camera; rigid:
+    a short leg - the thigh stays, the shin swings about the knee by League's thigh turn.
     arm: dict(name, shoulder, hand, over_weapon, relative, short, league_hand) or None - turned to League's own
     direction on screen (absolute: League's idle often holds the arm unlike the design), or by the change from League's
     design pose (relative: a design drawn after League's idle, league_jax / league_darius); short: League's arm seen
@@ -1032,8 +1033,9 @@ class Driver:
     by a League joint (moved as it moves against the chest, max_move squares at most, turned at most max_turn).
     A part goes behind the body when League's went back from where it is in the design pose by depth_margin (world
     units) - the pictures draw arms and weapons in front. A frame override `keep` holds the arm and the weapons as drawn
-    (an idle drawn unlike League's); the others: dx, dy, lean, arm, weapon (degrees added), rise, extra(j, ux, dy) ->
-    (back, front), after. Pieces under `crumb` squares left apart from the figure go."""
+    (an idle drawn unlike League's); `walk` (hx, dy) -> leg layers drawn instead of the turned legs, the figure then on
+    the design's ground moved by dy alone; the others: dx, dy, lean, arm, weapon (degrees added), rise, extra(j, ux, dy)
+    -> (back, front), after. Pieces under `crumb` squares left apart from the figure go."""
 
     def __init__(self, rig, joints, spec_height, rows, legs=(), arm=None, weapons=(), upper="upper", lunge=0.7,
                  lean=0.8, src=None, depth_margin=15.0, attach=(), leg_max=None, crumb=12):
@@ -1073,12 +1075,18 @@ class Driver:
         lean = ((j["chest"][0] - j["pelvis"][0]) - (d["chest"][0] - d["pelvis"][0])) * s * self.lean
         layers_legs, soles = [], []
         hx = int(round(dx))
+        ux = hx + int(round(max(-5, min(5, lean)))) + o.get("lean", 0)
         for lg in self.legs:
             sd = self.side[lg["side"]]
             hip, knee, sole = (np.array(v, float) for v in (lg["hip"], lg["knee"], lg["sole"]))
             if f"{sd}_hip" in j:
                 r1 = round(self.delta(j, f"{sd}_hip", f"{sd}_knee") / 2) * 2
                 r2 = round(self.delta(j, f"{sd}_knee", f"{sd}_foot") / 2) * 2
+                if lg.get("rigid"):
+                    # a short leg: the stub of thigh stays under the robe and the shin (greave and boot, one piece)
+                    # swings about the knee as League's thigh turns (league_jax: turned at a knee cut through the greave
+                    # it broke the greave and twisted the boot; turned whole about the hip, the trousers stuck out)
+                    r1, r2 = 0, r1
                 if self.leg_max is not None:
                     # a body that never turns cannot cross its legs as League's spin does (league_riven's attack: the
                     # legs crossed under a front-facing body read as broken): each piece turned at most leg_max
@@ -1086,12 +1094,13 @@ class Driver:
                     r2 = max(-self.leg_max, min(self.leg_max, r2))
             else:
                 r1 = r2 = 0
-            k_at = turn_pt(knee, hip, r1) + (hx, 0)
+            lx = ux if lg.get("rigid") else hx         # a stub of thigh under the robe moves with the body
+            k_at = turn_pt(knee, hip, r1) + (lx, 0)
             kx, ky = int(round(k_at[0] - knee[0])), int(round(k_at[1] - knee[1]))
             s_at = turn_pt(sole, knee, r2) + (kx, ky)
             soles.append(s_at)
             layers_legs.append([(lg["name"] + "_shin", dict(dx=kx, dy=ky, angle=r2, about=tuple(knee), src=self.src)),
-                                (lg["name"] + "_thigh", dict(dx=hx, dy=0, angle=r1, about=tuple(hip), src=self.src))])
+                                (lg["name"] + "_thigh", dict(dx=lx, dy=0, angle=r1, about=tuple(hip), src=self.src))])
         # ground: the lower sole raised as much as League's lower foot joint is above where it is in the design pose
         # (the joint is the ankle, never on the floor itself)
         if soles:
@@ -1103,14 +1112,19 @@ class Driver:
         else:
             dy = int(round((j["pelvis"][1] - d["pelvis"][1]) * s * o.get("rise", 1.0)))
         dy += o.get("dy", 0)
-        ux = hx + int(round(max(-5, min(5, lean)))) + o.get("lean", 0)
-        layers = []
-        order = sorted(range(len(self.legs)), key=lambda i: self.legs[i]["side"] != "far")   # the far leg first
-        for i in order:
-            for name, opt in layers_legs[i]:
-                opt = dict(opt)
-                opt["dy"] += dy
-                layers.append((name, opt))
+        if o.get("walk") is not None:
+            # the legs the caller draws (a walk: the design's own legs stepped, never turned - league_jax's run), the
+            # figure on the design's ground moved only by the caller's dy (its rise)
+            dy = o.get("dy", 0)
+            layers = list(o["walk"](hx, dy))
+        else:
+            layers = []
+            order = sorted(range(len(self.legs)), key=lambda i: self.legs[i]["side"] != "far")   # the far leg first
+            for i in order:
+                for name, opt in layers_legs[i]:
+                    opt = dict(opt)
+                    opt["dy"] += dy
+                    layers.append((name, opt))
         front, back = [], []
         chest_z = j["chest"][2]
 
