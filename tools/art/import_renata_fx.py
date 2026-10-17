@@ -76,7 +76,9 @@ FX = {
     # round a unit, standing on its soles
     "w_cast": (("feet", 3), seq(range(6), [50, 60, 70, 80, 90, 100]), [SOLES]),
     "w_save": (("feet", 3), seq(range(6), [50, 60, 70, 80, 90, 110]), [SOLES]),
-    "e_shield": (("feet", 2), seq(range(6), [40, 60, 80, 120, 120, 100]), [SOLES]),
+    # (its second cell is the small rim round the chest that the delivery's body-zone clearing left as two specks:
+    # skipped, the flash straight into the bubble)
+    "e_shield": (("feet", 2), seq([0, 2, 3, 4, 5], [60, 80, 120, 120, 100]), [SOLES]),
     # the grip closes, then holds for the root
     "q_hit": (("feet", 2), seq([0, 1, 2] + [3, 4, 5] * 3, [40, 60, 80] + [grip_k] * 9), [SOLES]),
     "q_fling": (("feet", 2), seq(range(4), [40, 60, 70, 80]), [SOLES]),
@@ -119,6 +121,20 @@ def anchor(cell, kind):
     return [(w - 1) / 2, h - 1 - kind[1]]
 
 
+def manifest():
+    """The delivery's entries by effect name: Codex's manifest.json is a list (or {"effects": [...]}) whose names may
+    carry the file prefix (renata_fx_a_shot)."""
+    path = os.path.join(SRC, "manifest.json")
+    if not os.path.isfile(lp(path)):
+        return None
+    d = json.load(open(lp(path), encoding="utf-8-sig"))
+    out = {}
+    for e in (d["effects"] if isinstance(d, dict) else d):
+        name = e["name"][len("renata_fx_"):] if e["name"].startswith("renata_fx_") else e["name"]
+        out[name] = e
+    return out
+
+
 def brightness(cs):
     """Mean and 90th-percentile luminance of a picture's squares (memory effects-match-league: a sheet under ~100 /
     ~170 reads dark on the arena)."""
@@ -129,11 +145,8 @@ def brightness(cs):
 
 def flash_cells():
     """a_flash's frames (her fine squares) for rig_renata.py, or None before the delivery."""
-    path = os.path.join(SRC, "manifest.json")
-    if not os.path.isfile(lp(path)):
-        return None
-    meta = {e["name"]: e for e in json.load(open(lp(path), encoding="utf-8-sig"))["effects"]}
-    return cells("a_flash", meta["a_flash"]) if "a_flash" in meta else None
+    meta = manifest()
+    return cells("a_flash", meta["a_flash"]) if meta and "a_flash" in meta else None
 
 
 def main():
@@ -144,7 +157,7 @@ def main():
     a = ap.parse_args()
     global SRC, MOD
     SRC, MOD = a.src or SRC, a.mod or MOD
-    meta = {e["name"]: e for e in json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))["effects"]}
+    meta = manifest()
     if set(meta) != set(FX) | BAKED:
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(set(FX) | BAKED)}")
     allc = {n: cells(n, meta[n]) for n in list(FX) + sorted(BAKED)}

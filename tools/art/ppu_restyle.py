@@ -234,8 +234,10 @@ RESTYLE = {
     "swain": dict(ppu=1.5, edge=1, face_to=(-1, -39)),
     # league_renata (#120): posed by tools/art/rig_renata.py from Codex's step-1 take 1 cut to 60 rows, then to 54 (36 game
     # rows at 1.5, the user's 「模型太大」; the R machine in her own ult frames); no proportion or density change here; the
-    # outer outline grown a square like the others; the face point at her crown (tfm2_ase.py face: 36 px over the soles)
-    "renata": dict(ppu=1.5, edge=1, face_to=(1, -36)),
+    # outer outline grown a square like the others; the pistol's muzzle flash (Codex's a_flash, rig_renata.py,
+    # orig/renata_attack.over.png) laid on after the outline (fx); the face point at her crown (tfm2_ase.py face: 36 px
+    # over the soles)
+    "renata": dict(ppu=1.5, edge=1, face_to=(1, -36), fx=True),
     # the 2026-10-16 redo from Codex's pictures, posed by tools/art/rig_<hero>_hd.py (tools/art/ppu_rig.py) at PPU 1.5 -
     # Nami after League's own clips (tools/lol/league_joints.py): only the outer outline grown a square, the face point
     # at the new head

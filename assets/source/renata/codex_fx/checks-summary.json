@@ -1,0 +1,10 @@
+{
+  "effects": 24,
+  "frames": 114,
+  "all_nonempty": true,
+  "all_alpha_binary": true,
+  "all_frames_exactly_symmetric": true,
+  "all_8x_previews_exact_nearest_neighbor": true,
+  "all_raw_byte_identical_to_generator": true,
+  "in_game_tested": false
+}

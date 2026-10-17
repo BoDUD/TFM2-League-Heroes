@@ -672,40 +672,51 @@ def actions():
 
 # ------------------------------------------------------------------------------------------------- the muzzle flash
 # Codex's a_flash (tools/art/pack_renata_fx.py: on her own fine squares, pointing forward, symmetric top to bottom;
-# the delivery's pixel_1x, read by import_renata_fx.flash_cells) laid over the finished shot frames - after finish(), so
-# no outline closes round the light - its root (the cell's left edge, middle row) a square past the barrel's end. A
-# picture with a front rides in her own frames and turns with her (memory red-side-caster-pictures). Flash frames 1-3
-# on attack frames 3-5 (the shot on a_st, the recoil, the gun still out); nothing before the delivery.
+# the delivery's pixel_1x, read by import_renata_fx.flash_cells) on the shot frames, its root (the cell's left edge,
+# middle row) a square past the barrel's end. A picture with a front rides in her own frames and turns with her (memory
+# red-side-caster-pictures). It is an overlay (rig_urgot.py's way): in the 1x frames laid on as drawn, in the PPU frames
+# written to orig/renata_attack.over.png and laid on by ppu_restyle.py after the outline (fx) - no outline round the
+# light. Flash frames 1-3 on attack frames 3-5 (the shot on a_st, the recoil, the gun still out); nothing before the
+# delivery.
 FLASH_ON = {2: 0, 3: 1, 4: 2}          # attack frame (0-based) -> flash frame
 
 
-def with_flash(can, f):
-    """The frame with the flash f rooted a square past the muzzle: the rightmost square within 4 rows of the elbow's
-    row (the pistol points forward at the elbow's height), the flash's middle row on the barrel's middle."""
+def flash_overlay(can, f):
+    """A canvas holding only the flash f rooted a square past the muzzle of the frame can: the rightmost square within
+    4 rows of the elbow's row (the pistol points forward at the elbow's height), the flash's middle row on the barrel's
+    middle."""
     r0 = OY + ELBOW[0]
     lo = max(0, r0 - 4)
     band = can[lo:r0 + 5, :, 3] > 0
     c = int(np.nonzero(band.any(0))[0].max())
     rows = np.nonzero(band[:, c])[0] + lo
     top = int(round((rows.min() + rows.max()) / 2 - (f.shape[0] - 1) / 2))
-    out = can.copy()
+    out = np.zeros_like(can)
     ys, xs = np.nonzero(f[..., 3] > 0)
     out[top + ys, c + 1 + xs] = f[ys, xs]
     return out
 
 
 def add_flash(acts):
+    """The overlays: {tag: [overlay canvas or None per frame]} - the attack's shot frames; {} before the delivery."""
     try:
         import import_renata_fx as F
         cells = F.flash_cells()
     except (OSError, KeyError, ValueError, SystemExit) as e:
         print("no muzzle flash:", e)
-        return acts
+        return {}
     if cells is None:
-        return acts
-    out = dict(acts)
-    out["attack"] = [(with_flash(f, cells[FLASH_ON[j]]) if j in FLASH_ON else f, ms)
-                     for j, (f, ms) in enumerate(acts["attack"])]
+        return {}
+    return {"attack": [flash_overlay(f, cells[FLASH_ON[j]]) if j in FLASH_ON else None
+                       for j, (f, _) in enumerate(acts["attack"])]}
+
+
+def with_over(can, ov):
+    if ov is None:
+        return can
+    out = can.copy()
+    m = ov[..., 3] > 0
+    out[m] = ov[m]
     return out
 
 
@@ -840,16 +851,25 @@ def crop_hd(can, px, py, W, H):
     return hd
 
 
-def down(can):
-    """(the 1x frame centred on the pivot, the PPU frame round(PPU x its size) round the pivot). The pivot: the pivot
-    column, FEET 1x rows above the ground line."""
+def down(can, ov=None):
+    """(the 1x frame centred on the pivot, the PPU frame round(PPU x its size) round the pivot, the overlay's PPU frame
+    cut alike or None). The pivot: the pivot column, FEET 1x rows above the ground line. An overlay (the muzzle flash)
+    is in the box too; the 1x frame gets its 1x picture on top (no outline round the light) - rig_urgot.down."""
     px, py = CORNER[0], CORNER[1] - FEET * PPU
-    ys, xs = np.nonzero(can[..., 3] > 0)
+    both = can[..., 3] > 0
+    if ov is not None:
+        both = both | (ov[..., 3] > 0)
+    ys, xs = np.nonzero(both)
     hw = int(np.ceil(max(px - xs.min(), xs.max() + 1 - px) / PPU - 0.5))
     hh = int(np.ceil(max(py - ys.min(), ys.max() + 1 - py) / PPU - 0.5))
     one = G.complete_outline(one_of(can, px, py, hw, hh), color=OUTLINE)[0]
     W, H = round((2 * hw + 1) * PPU), round((2 * hh + 1) * PPU)
-    return one, crop_hd(can, px, py, W, H)
+    if ov is None:
+        return one, crop_hd(can, px, py, W, H), None
+    f1 = one_of(ov, px, py, hw, hh, need=0.3)
+    m = f1[..., 3] > 0
+    one[m] = f1[m]
+    return one, crop_hd(can, px, py, W, H), crop_hd(ov, px, py, W, H)
 
 
 def strip_of(frames):
@@ -862,17 +882,24 @@ def strip_of(frames):
     return strip
 
 
-def export(acts):
+def export(acts, over):
     sheet = {}
     os.makedirs(lp(ORIG), exist_ok=True)
     for tag in ORDER:
-        ones, hds = [], []
-        for can, t in acts[tag]:
-            one, hd = down(can)
+        ones, hds, ovs = [], [], []
+        tag_ov = over.get(tag) or [None] * len(acts[tag])
+        for (can, t), ov in zip(acts[tag], tag_ov):
+            one, hd, o = down(can, ov)
             ones.append((one, float(t)))
             hds.append(hd)
+            ovs.append(o if o is not None else np.zeros_like(hd))
         sheet[tag] = ones
         Image.fromarray(strip_of(hds)).save(lp(os.path.join(ORIG, f"renata_{tag}.png")))
+        over_png = lp(os.path.join(ORIG, f"renata_{tag}.over.png"))
+        if any(ov is not None for ov in tag_ov):
+            Image.fromarray(strip_of(ovs)).save(over_png)
+        elif os.path.isfile(over_png):
+            os.remove(over_png)
         with open(lp(os.path.join(ORIG, f"renata_{tag}.json")), "w", encoding="utf-8", newline="\n") as f:
             json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds], "ppu": PPU}, f)
     w, h = G.write_sheet(lp(STEM), sheet)
@@ -889,11 +916,12 @@ def main():
         return
     acts, base = actions()
     checks(acts, base)
-    acts = add_flash(acts)             # after the checks: the light is not her palette and stands apart
+    over = add_flash(acts)             # not in the checks: the light is not her palette and stands apart
     if a.review:
-        review(acts, a.review)
+        review({t: [(with_over(f, ov), ms) for (f, ms), ov in zip(fr, over.get(t) or [None] * len(fr))]
+                for t, fr in acts.items()}, a.review)
         return
-    export(acts)
+    export(acts, over)
 
 
 if __name__ == "__main__":
