@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_yunara": {
+        "skill2": "【附加包】附近有敌方英雄时，移速+<#ffb900ff>40%<>，朝敌方英雄跑时+<#ffb900ff>60%<>，持续<#ffb900ff>1.5秒<>。<#ff9028ff>超凡形态<>：冲刺，被贴身或残血时往后，追残血时往前。",
+        "ult": "【附加包】附近有2个以上敌方英雄、目标被控制、有敌方英雄残血（40%以下）或她自己残血（50%以下）被近身时，进入超凡形态<#ffb900ff>15秒<>：灵蕴拳持续开启，善恶轮变为射线，明踪步变为冲刺，两者冷却立刻减少80%；站着跑着都是金光中的她。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_yunara": {
+        "skill2": "【擴充包】附近有敵方英雄時，跑速+<#ffb900ff>40%<>，朝敵方英雄跑時+<#ffb900ff>60%<>，持續<#ffb900ff>1.5秒<>。<#ff9028ff>超凡形態<>：衝刺，被貼身或殘血時往後，追殘血時往前。",
+        "ult": "【擴充包】附近有2個以上敵方英雄、目標被控制、有敵方英雄殘血（40%以下）或她自己殘血（50%以下）被近身時，進入超凡形態<#ffb900ff>15秒<>：靈心修真持續開啟，審判靈珠變為射線，感銘迅步變為衝刺，兩者冷卻立刻減少80%；站著跑著都是金光中的她。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_yunara": {
+        "skill2": "[Add-on] With an enemy champion near, gains <#ffb900ff>40%<> move speed, <#ffb900ff>60%<> while running at one, for <#ffb900ff>1.5s<>. <#ff9028ff>Transcendent<>: a dash - back when an enemy champion closes in or she is low, forward after a low one slipping away.",
+        "ult": "[Add-on] With 2+ enemy champions near, the target in CC, an enemy champion below 40% health, or herself below 50% with one in range, enters her Transcendent State for <#ffb900ff>15s<>: Cultivation of Spirit stays on, Arc of Judgment becomes a laser, Kanmei's Steps a dash, both cooldowns drop by 80%; she glows gold standing and running."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_yunara": {
+        "skill2": "[확장] 근처에 적 챔피언이 있으면 <#ffb900ff>1.5초<> 동안 이동 속도 +<#ffb900ff>40%<>, 적 챔피언에게 달려가면 +<#ffb900ff>60%<>. <#ff9028ff>초월 상태<>: 돌진 - 붙거나 체력이 낮으면 뒤로, 도망치는 빈사의 적에게는 앞으로.",
+        "ult": "[확장] 적 챔피언 2명 이상, 대상이 군중 제어 상태, 체력 40% 이하인 적 챔피언, 또는 자신이 50% 이하로 근접당하면 <#ffb900ff>15초<> 동안 초월 상태: 영혼 단련 유지, 심판의 궤적은 광선, 칸메이의 발자취는 돌진, 두 재사용 대기시간 80% 감소; 서 있거나 달릴 때 금빛."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_yunara": {
+        "skill2": "【拡張】近くに敵チャンピオンがいると<#ffb900ff>1.5秒<>移動速度+<#ffb900ff>40%<>、敵チャンピオンへ走ると+<#ffb900ff>60%<>。<#ff9028ff>超越状態<>：ダッシュ。迫られたか瀕死なら後方、逃げる瀕死の敵には前方。",
+        "ult": "【拡張】敵チャンピオン2体以上、対象が行動妨害中、体力40%以下の敵チャンピオン、または自身50%以下で接近されたら<#ffb900ff>15秒<>超越状態：精神修養が続き、裁きの弧は光線、カンメイの歩みはダッシュ、両方のCDが80%短縮。立ち姿と走りも金色に輝く。"
+      }
+    }
+  }
+}

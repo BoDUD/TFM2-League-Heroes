@@ -819,6 +819,13 @@
         "skill": "抛出电荷，落地后爆炸，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理伤害<>并减速45%。命中后开启<#ff9028ff>净除<><#ffb900ff>4秒<>：普攻换成机枪连射，每发<#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>。",
         "skill2": "获得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>护盾，冲向敌方英雄，撞上后造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、<#ef5350ff>晕眩1秒<>并把他甩到身后，开启<#ff9028ff>净除<>。",
         "ult": "缠斗中连续打中英雄4下时，朝他发射钻头钉住第一个敌方英雄，造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>并减速，<#ffb900ff>4秒<>后拽回来处决：造成其25%最大生命的<#ffffffff>真实伤害<>；处决成功时周围敌人<#ef5350ff>恐惧1.5秒<>。"
+      },
+      "league_yunara": {
+        "name": "芸阿娜",
+        "attack": "念珠普攻附带<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法伤害<>。<#ff9028ff>初生之誓<>：这段伤害也会暴击（基础暴击<#ffb900ff>10%<>）。<#ff9028ff>灵蕴拳<>：普攻攒灵蕴，满了自动开启<#ffb900ff>5秒<>：攻速+<#ffb900ff>40%<>，多附带<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法伤害<>，并溅射周围敌人<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>。",
+        "skill": "掷出旋转念珠，对路径上的敌人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理伤害<>和衰减减速，终点再旋转<#ffb900ff>1秒<>。<#ff9028ff>超凡形态<>：改为射线，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>。",
+        "skill2": "附近有敌方英雄时，移速+<#ffb900ff>40%<>（追击时+<#ffb900ff>60%<>），持续<#ffb900ff>1.5秒<>。<#ff9028ff>超凡形态<>：敌方英雄贴近时改为向后冲刺。",
+        "ult": "附近有2个以上敌方英雄或目标被控制时，进入超凡形态<#ffb900ff>15秒<>：灵蕴拳持续开启，善恶轮变为射线，明踪步变为冲刺，两者冷却立刻减少80%。"
       }
     },
     "skill_name": {
@@ -1406,6 +1413,11 @@
         "skill1": "腐蚀电荷",
         "skill2": "鄙弃",
         "ult": "超越死亡的恐惧"
+      },
+      "league_yunara": {
+        "skill1": "善恶轮",
+        "skill2": "明踪步",
+        "ult": "定圣诀"
       }
     }
   },
@@ -2229,6 +2241,13 @@
         "skill": "拋出榴彈，落地後爆炸，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理傷害<>並緩速45%。命中後開啟<#ff9028ff>殺戮射擊<><#ffb900ff>4秒<>：普攻換成機槍連射，每發<#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>。",
         "skill2": "獲得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>護盾，衝向敵方英雄，撞上後造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、<#ef5350ff>暈眩1秒<>並把他甩到身後，開啟<#ff9028ff>殺戮射擊<>。",
         "ult": "纏鬥中連續打中英雄4下時，朝他發射鑽頭釘住第一個敵方英雄，造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>並緩速，<#ffb900ff>4秒<>後拽回來處決：造成其25%最大生命的<#ffffffff>真實傷害<>；處決成功時周圍敵人<#ef5350ff>恐懼1.5秒<>。"
+      },
+      "league_yunara": {
+        "name": "尤娜拉",
+        "attack": "念珠普攻附帶<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法傷害<>。<#ff9028ff>淨土之誓<>：這段傷害也會暴擊（基礎暴擊<#ffb900ff>10%<>）。<#ff9028ff>靈心修真<>：普攻累積靈蘊，滿了自動開啟<#ffb900ff>5秒<>：攻速+<#ffb900ff>40%<>，多附帶<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法傷害<>，並濺射周圍敵人<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>。",
+        "skill": "擲出旋轉念珠，對路徑上的敵人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理傷害<>和衰減緩速，終點再旋轉<#ffb900ff>1秒<>。<#ff9028ff>超凡形態<>：改為射線，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>。",
+        "skill2": "附近有敵方英雄時，跑速+<#ffb900ff>40%<>（追擊時+<#ffb900ff>60%<>），持續<#ffb900ff>1.5秒<>。<#ff9028ff>超凡形態<>：敵方英雄貼近時改為向後衝刺。",
+        "ult": "附近有2個以上敵方英雄或目標被控制時，進入超凡形態<#ffb900ff>15秒<>：靈心修真持續開啟，審判靈珠變為射線，感銘迅步變為衝刺，兩者冷卻立刻減少80%。"
       }
     },
     "skill_name": {
@@ -2816,6 +2835,11 @@
         "skill1": "酸性榴彈",
         "skill2": "恐怖襲擊",
         "ult": "索命虐殺"
+      },
+      "league_yunara": {
+        "skill1": "審判靈珠",
+        "skill2": "感銘迅步",
+        "ult": "超逸絕塵"
       }
     }
   },
@@ -3639,6 +3663,13 @@
         "skill": "Fires a charge that explodes where it lands, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>physical damage<> and slowing 45%. A hit starts <#ff9028ff>Purge<> for <#ffb900ff>4s<>: his attacks become machine-gun shots of <#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>.",
         "skill2": "Gains a <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> shield and charges an enemy champion: on contact <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, a <#ef5350ff>1s stun<>, and he hurls it behind him, starting <#ff9028ff>Purge<>.",
         "ult": "On his 4th hit in a row on champions, fires a drill that impales the first enemy champion for <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> and a slow; after <#ffb900ff>4s<> he reels it in and executes it for 25% of its max health as <#ffffffff>true damage<>. An execution makes nearby enemies <#ef5350ff>flee for 1.5s<>."
+      },
+      "league_yunara": {
+        "name": "Yunara",
+        "attack": "Her bead attacks add <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>. <#ff9028ff>Vow of the First Lands<>: that damage can crit too (base crit <#ffb900ff>10%<>). <#ff9028ff>Cultivation of Spirit<>: attacks build Unleash; when full she gains <#ffb900ff>40%<> attack speed for <#ffb900ff>5s<>, adds <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<> and her attacks spread <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<> to nearby enemies.",
+        "skill": "Lets rip a spinning bead: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> <#ff9028ff>physical damage<> and a decaying slow to every enemy on its path; it keeps spinning for <#ffb900ff>1s<> where it stops. <#ff9028ff>Transcendent<>: a laser instead, <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<>.",
+        "skill2": "With an enemy champion near, gains <#ffb900ff>40%<> move speed (<#ffb900ff>60%<> when chasing) for <#ffb900ff>1.5s<>. <#ff9028ff>Transcendent<>: dashes back when an enemy champion closes in.",
+        "ult": "With 2+ enemy champions near or the target in CC, enters her Transcendent State for <#ffb900ff>15s<>: Cultivation of Spirit stays on, Arc of Judgment becomes a laser, Kanmei's Steps a dash, and both cooldowns drop by 80%."
       }
     },
     "skill_name": {
@@ -4226,6 +4257,11 @@
         "skill1": "Corrosive Charge",
         "skill2": "Disdain",
         "ult": "Fear Beyond Death"
+      },
+      "league_yunara": {
+        "skill1": "Arc of Judgment",
+        "skill2": "Kanmei's Steps",
+        "ult": "Transcend One's Self"
       }
     }
   },
@@ -5049,6 +5085,13 @@
         "skill": "폭약을 던져 떨어진 곳에서 폭발, <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>의 <#ff9028ff>물리 피해<>와 45% 둔화. 적중 시 <#ff9028ff>심판의 원<> <#ffb900ff>4초<>: 기본 공격이 기관총 연사로 바뀌어 발당 <#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>.",
         "skill2": "<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 보호막을 얻고 적 챔피언에게 돌진, 충돌 시 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>, <#ef5350ff>1초 기절<> 후 뒤로 던지며 <#ff9028ff>심판의 원<> 시작.",
         "ult": "챔피언을 연속 4회 맞히면 드릴을 쏘아 첫 적 챔피언을 꿰뚫어 <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 <#ff9028ff>물리 피해<>와 둔화, <#ffb900ff>4초<> 후 끌어당겨 처형: 최대 체력의 25% <#ffffffff>고정 피해<>. 처형 성공 시 주변 적 <#ef5350ff>1.5초 공포<>."
+      },
+      "league_yunara": {
+        "name": "유나라",
+        "attack": "염주 기본 공격에 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>의 <#a974ffff>마법 피해<> 추가. <#ff9028ff>최초의 땅의 맹세<>: 이 피해도 치명타 가능(기본 치명타 <#ffb900ff>10%<>). <#ff9028ff>영혼 단련<>: 공격으로 기운을 모아 가득 차면 <#ffb900ff>5초<> 동안 공격 속도 +<#ffb900ff>40%<>, <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>의 <#a974ffff>마법 피해<> 추가, 주변 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>의 <#ff9028ff>물리 피해<>.",
+        "skill": "회전하는 염주를 던져 경로의 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>의 <#ff9028ff>물리 피해<>와 점점 약해지는 둔화. 멈춘 곳에서 <#ffb900ff>1초<> 더 회전. <#ff9028ff>초월 상태<>: 광선으로 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>의 <#ff9028ff>물리 피해<>.",
+        "skill2": "근처에 적 챔피언이 있으면 <#ffb900ff>1.5초<> 동안 이동 속도 +<#ffb900ff>40%<>(추격 시 +<#ffb900ff>60%<>). <#ff9028ff>초월 상태<>: 적 챔피언이 다가오면 뒤로 돌진.",
+        "ult": "적 챔피언 2명 이상이 근처에 있거나 대상이 군중 제어 상태면 <#ffb900ff>15초<> 동안 초월 상태: 영혼 단련 유지, 심판의 궤적은 광선, 칸메이의 발자취는 돌진으로 바뀌고 두 재사용 대기시간 80% 감소."
       }
     },
     "skill_name": {
@@ -5636,6 +5679,11 @@
         "skill1": "부식성 폭약",
         "skill2": "경멸",
         "ult": "불사의 공포"
+      },
+      "league_yunara": {
+        "skill1": "심판의 궤적",
+        "skill2": "칸메이의 발자취",
+        "ult": "자기 초월"
       }
     }
   },
@@ -6459,6 +6507,13 @@
         "skill": "炸裂弾を放ち、着弾地点で爆発して<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の<#ff9028ff>物理ダメージ<>と45%スロウ。命中すると<#ff9028ff>パージ<>が<#ffb900ff>4秒<>発動：通常攻撃が機関銃の連射になり1発<#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>。",
         "skill2": "<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>のシールドを得て敵チャンピオンへ突進、衝突で<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>1秒スタン<>、背後へ投げ飛ばし<#ff9028ff>パージ<>発動。",
         "ult": "チャンピオンに4回連続で命中させるとドリルを撃ち最初の敵チャンピオンを貫き<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>とスロウ、<#ffb900ff>4秒<>後に引き寄せて処刑：最大体力の25%の<#ffffffff>確定ダメージ<>。処刑成功で周囲の敵が<#ef5350ff>1.5秒恐怖<>。"
+      },
+      "league_yunara": {
+        "name": "ユナラ",
+        "attack": "数珠の通常攻撃に<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>始まりの地への誓い<>：これもクリティカル（基本<#ffb900ff>10%<>）。<#ff9028ff>精神修養<>：攻撃で気を溜め、満タンで<#ffb900ff>5秒<>攻撃速度+<#ffb900ff>40%<>、<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の<#a974ffff>魔法ダメージ<>追加、周囲に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill": "回転する数珠を放ち、通り道の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>の<#ff9028ff>物理ダメージ<>と減衰スロウ。止まった所で<#ffb900ff>1秒<>回転。<#ff9028ff>超越状態<>：光線になり<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "近くに敵チャンピオンがいると<#ffb900ff>1.5秒<>移動速度+<#ffb900ff>40%<>（追撃時+<#ffb900ff>60%<>）。<#ff9028ff>超越状態<>：敵チャンピオンが迫ると後方へダッシュ。",
+        "ult": "敵チャンピオンが2体以上近くにいるか対象が行動妨害中なら<#ffb900ff>15秒<>超越状態：精神修養が続き、裁きの弧は光線、カンメイの歩みはダッシュになり、両方のCDが80%短縮。"
       }
     },
     "skill_name": {
@@ -7046,6 +7101,11 @@
         "skill1": "コラプトシェル",
         "skill2": "ディスデイン",
         "ult": "デスグラインダー"
+      },
+      "league_yunara": {
+        "skill1": "裁きの弧",
+        "skill2": "カンメイの歩み",
+        "ult": "自己超越"
       }
     }
   }
