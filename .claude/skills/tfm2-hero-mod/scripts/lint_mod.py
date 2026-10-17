@@ -381,6 +381,29 @@ def withself_unit_effects(node, inside=False):
     return found
 
 
+TOWER_TARGETS = {"Enemy", "Both"}
+DAMAGE_EFFECTS = {"Attack", "ApAttack", "FixedAttack"}
+
+
+def damage_reaches_tower(node, ok=True):
+    """Can a damage effect in this tree land on a tower? A tower is the action's own target when it is cast on
+    Enemy; a projectile, a pick or a zone re-aims at what its applied_target / casting_target / target lets in, so a
+    hit carried by a TargetProjectile on EnemyWithoutTower never reaches the tower that was attacked (league_zed,
+    league_talon, league_reksai, league_rengar until 2026-10-17, a player: 「劫的平A没办法攻击防御塔」)."""
+    if isinstance(node, list):
+        return any(damage_reaches_tower(v, ok) for v in node)
+    if not isinstance(node, dict):
+        return False
+    if ok and node.get("type") in DAMAGE_EFFECTS:
+        return True
+    for key in ("applied_target", "casting_target"):
+        if isinstance(node.get(key), str):
+            ok = ok and node[key] in TOWER_TARGETS
+    if node.get("type") == "RangeEffect" and isinstance(node.get("target"), str):
+        ok = ok and node["target"] in TOWER_TARGETS
+    return any(damage_reaches_tower(v, ok) for v in node.values() if isinstance(v, (dict, list)))
+
+
 def check_face(rep, where, sprite_stem, face):
     """champion_view `face` against the sprite's idle head (tfm2_ase.suggest_face: base champions
     put it at the crown, ~1.5 px ahead of the head centre). A point above the head makes every
@@ -732,6 +755,11 @@ def main(argv=None):
             if slot in ("skill", "skill2") and a.get("casting_target") == "EnemyChampion":
                 rep.info(WA, "cast only on enemy champions: the AI never uses it on minions or jungle monsters "
                              "(EnemyWithoutTower clears waves and camps too; keep EnemyChampion for pulls and engages)")
+            if slot == "attack" and a.get("casting_target") in TOWER_TARGETS and isinstance(a.get("effect"), dict) \
+                    and not damage_reaches_tower(a["effect"]):
+                rep.warn(WA, "no damage of the attack can land on a tower: every hit rides a projectile, pick or zone "
+                             "on targets without towers (EnemyWithoutTower...), so he swings at towers for nothing - "
+                             "put the attack's own hit on Enemy")
             if a.get("attack_type") not in ATTACK_TYPES:
                 rep.error(WA, f"attack_type must be BaseAttack or Skill")
             if isinstance(a.get("duration"), int) and isinstance(a.get("start_timing"), int) \
