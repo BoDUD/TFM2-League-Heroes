@@ -327,16 +327,17 @@ def frames_all(F):
                   p(crouch=2, lance="DOWN", lance_shift=(1, -15)), p(crouch=2, lance="DOWN", lance_shift=(1, -15)),
                   p(crouch=1, lance="DOWN", lance_shift=(1, -14))]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
-    # the death (League's jarvanIV_death: down on his knees, the lance dropped, falls forward): staggers, sinks, the lance
-    # on the ground, lies face down
-    ground = lance_on_ground(F, dx=-4)
-    kneel = p(crouch=2, whole=(-1, 0), lance=None)
+    # the death (League's jarvanIV_death: down on his knees, the lance dropped, falls forward): staggers, sinks letting
+    # the lance fall level, the lance on the ground and the empty hand down, then face down behind the lance
+    ground = lance_on_ground(F, dx=6)
+    sink = p(crouch=2, whole=(-1, 0), far=3, lance=None)
     kg = ground.copy()
-    kg[kneel[..., 3] > 0] = kneel[kneel[..., 3] > 0]
-    lying = R.lie(F.rig, kneel, k=3, dx=2)
+    kg[sink[..., 3] > 0] = sink[sink[..., 3] > 0]
+    lying = R.lie(F.rig, p(crouch=2, lance=None), k=3, dx=-8)
     ly = ground.copy()
     ly[lying[..., 3] > 0] = lying[lying[..., 3] > 0]
-    out["dead"] = [p(whole=(-1, 0)), p(crouch=1, whole=(-1, 0)), kg, kg.copy(), ly] + [ly.copy() for _ in range(3)]
+    out["dead"] = [p(whole=(-1, 0)), p(crouch=1, whole=(-1, 0), lance="FWD", slide=-4),
+                   kg, kg.copy(), ly] + [ly.copy() for _ in range(3)]
     return out
 
 
@@ -352,7 +353,20 @@ def _steps(stride, lifts):
                 bob=[1, 0, 0, 0, 1, 0, 0, 0])
 
 
-WALK_STEP = _steps(5, (3, 4, 3))
+def _own_sides(stride, lifts):
+    """Each foot steps on its own side (oppi's front-ish runs: the feet never cross, they open and close): planted ahead
+    at +stride/2 and sliding back to -stride/2 in five frames, lifted and carried forward in three, the far foot half a
+    cycle later - so the feet are close (the near one forward, the far one back) and wide apart in turn."""
+    a = stride / 2
+    planted = [int(round(a - stride * k / 4)) for k in range(5)]
+    swing = [int(round(-a + stride * k / 4)) for k in (1, 2, 3)]
+    dx = planted + swing
+    up = [0] * 5 + list(lifts)
+    return dict(near=list(zip(dx, up)), far=[(dx[(i + 4) % 8], up[(i + 4) % 8]) for i in range(8)],
+                bob=[1, 0, 0, 0, 1, 0, 0, 0])
+
+
+WALK_STEP = _own_sides(6, (2, 3, 2))
 # League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
 # the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
 CARRY = dict(far=1, lance="BACK", slide=4)
@@ -363,10 +377,12 @@ def walk(F, steps=None, carry=None):
     back, lifted and carried forward), the body a row down as each foot lands, the near arm swinging a column against
     the near leg, the lance carried (CARRY). -> canvases."""
     st = steps or WALK_STEP
-    stride = max(dx for dx, _ in st["near"])
+    back = min(dx for dx, _ in st["near"])
     out = []
     for (ndx, nup), (fdx, fup), bob in zip(st["near"], st["far"], st["bob"]):
-        arm = int(np.clip(round((stride / 2 - ndx) / (stride / 2)), -1, 1))
+        # the near arm swings forward (over the body) while the near foot is back; it never moves back off the body
+        # (that would open a slot between the arm and the breastplate)
+        arm = 1 if ndx <= back + 1 and not nup else 0
         out.append(F.pose(crouch=bob, legs=((ndx, -nup), (fdx, -fup)), near_reach=(arm, 0), **(carry or CARRY)))
     return out
 
