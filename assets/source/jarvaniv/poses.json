@@ -1,0 +1,60 @@
+{
+ "hero": "jarvaniv",
+ "champ": "JarvanIV",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  200,
+  160,
+  30
+ ],
+ "design": "jarvanIV_idle1@0",
+ "weapon": "^Weapon$",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "jarvanIV_run@0",
+     125
+    ],
+    [
+     "jarvanIV_run@125",
+     125
+    ],
+    [
+     "jarvanIV_run@250",
+     125
+    ],
+    [
+     "jarvanIV_run@375",
+     125
+    ],
+    [
+     "jarvanIV_run@500",
+     125
+    ],
+    [
+     "jarvanIV_run@625",
+     125
+    ],
+    [
+     "jarvanIV_run@750",
+     125
+    ],
+    [
+     "jarvanIV_run@875",
+     125
+    ]
+   ]
+  }
+ }
+}

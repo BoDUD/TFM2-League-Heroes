@@ -384,36 +384,95 @@ def frames_all(F):
 
 
 # ------------------------------------------------------------------------------------------------- the walk
-# The design's own legs moved whole (every square the design's), behind the skirt's hem as the design draws them.
-# What the user turned down on the way (2026-10-17), so the next try does not repeat it:
-#   - feet 3 columns out each way: the skirt's hanging middle flap left alone between the knees (「腿部有点变形」);
-#   - feet stepping inward 4 columns: Jarvan's shins stand only 2 columns apart, so the near leg lay over the far one
-#     (one thick leg) and, drawn over the hem when lifted, covered the skirt's edge (「变形严重」);
-#   - stepping in place / legs only parting: 「这两个都不对 也不自然」;
-#   - league_shen's knee blocks (the lifted lower leg slid up behind its knee guard, the knee guards bobbing over the
-#     shins): 「膝盖那里怎么会缩进去啊」.
-# Now: the feet trade the lead within 2 columns (the near foot planted frames 1-4 sliding back from 2 to 0, lifted and
-# carried forward 5-8; the far foot half a cycle later, from 0 back to -2), the swinging leg lifted WHOLE a row (its knee
-# guard's top edge slips behind the hem, nothing else changes), the body bob only the upper body settling a row onto
-# the skirt (the idle's breath) for the two frames after each landing, the near arm a column forward (over the body,
-# never back off it) while the near foot is back, the lance carried (CARRY).
-WALK_STEP = dict(near=[(2, 0), (1, 0), (1, 0), (0, 0), (0, 0), (1, 1), (2, 1), (2, 0)],
-                 far=[(-2, 0), (-1, 1), (0, 1), (0, 0), (0, 0), (-1, 0), (-1, 0), (-2, 0)],
-                 bob=[1, 1, 0, 0, 1, 1, 0, 0],
-                 arm=[0, 0, 1, 1, 1, 0, 0, 0])
+# league_nautilus's / league_braum's walk, the one the user named for armoured heroes: 「你不要向前冲刺交叉腿 你按照泰坦布隆
+# 那种走路方式这种腿就不会变形」「你向前那样冲刺模型永远会变形」 (league_galio; also league_jax's PPU walk, league_sion's).
+# The body as it stands - head, arms, the lance carried on the shoulder as League carries it (CARRY), belt and skirt -
+# and the design's own two legs; in each frame a leg is lifted by losing `lift` rows and moved forward, the legs take
+# turns, and the whole figure rises a little; nothing turned, sheared or drawn again (rig_galio.walk_frame).
+# Braum's legs lose their top rows (a thigh under the hip band, turned toward us); Jarvan's legs start at the knee guard
+# right under the skirt's hem, so the knee guard and the boot stay whole and the lifted leg loses rows of its greave
+# instead (LIFT_ROWS: rows as wide as the row above them, so the outline runs on unbroken) - a shin swung forward.
+# Both legs over the skirt's hanging middle flap (a knee stepping forward passes in front of it; under it the flap cut
+# the knee guard), under everything else of the body.
+# Turned down on the way (2026-10-17), so it is not tried again: whole straight legs slid apart (「腿部有点变形」), slid
+# together over each other (「变形严重」), stepping in place / legs only parting (「这两个都不对 也不自然」), the lower leg
+# tucked behind the knee guard (「膝盖那里怎么会缩进去啊」), legs slid under / over the hem (「感觉还是变形啊」).
+LIFT_ROWS = {"near_leg": (62, 60, 65), "far_leg": (61, 65, 62)}
+# per frame: the near leg's (columns forward, rows lifted), the far leg's, the figure's rise (league_nautilus's 1x steps)
+WALK = [((0, 0), (0, 2), 1), ((0, 0), (2, 3), 2), ((0, 0), (2, 1), 1), ((0, 0), (2, 0), 0),
+        ((0, 2), (0, 0), 1), ((2, 3), (0, 0), 2), ((2, 1), (0, 0), 1), ((2, 0), (0, 0), 0)]
+CRACK = 3                        # bare squares a step opens, this many columns wide at most: a crack, outlined
+FLAP_FROM = 54                   # the skirt's rows from here down: the middle flap hanging between the knees
 # League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
 # the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
 CARRY = dict(far=1, lance="BACK", slide=4)
 
 
-def walk(F, steps=None, carry=None):
-    """The walk: a frame per WALK_STEP entry. -> canvases."""
-    st = steps or WALK_STEP
-    out = []
-    for (ndx, nup), (fdx, fup), bob, arm in zip(st["near"], st["far"], st["bob"], st["arm"]):
-        out.append(F.pose(crouch=bob, legs=((ndx, -nup), (fdx, -fup)), near_reach=(arm, 0), legs_front=True,
-                          **(carry or CARRY)))
+def lifted(leg, rows, lift):
+    """A canvas leg with `lift` of its rows (canvas rows, in that order of choice) taken out and the rows under them
+    moved up to close the gap - the knee guard above them and the boot below unchanged."""
+    gone = sorted(rows[:lift])
+    out = np.zeros_like(leg)
+    for y in range(leg.shape[0]):
+        if y not in gone:
+            out[y - sum(1 for g in gone if g < y)] = leg[y]
     return out
+
+
+def walk_frame(F, near_step, far_step, rise, carry=None):
+    """The standing frame (the lance carried) with the legs stepping. -> canvas."""
+    r, D = F.rig, F.D
+    base = F.pose(**(carry or CARRY))
+    H, W = base.shape[:2]
+    op = base[..., 3] > 0
+    at = np.zeros((H, W), bool)
+    near_m, far_m, flap_m = at.copy(), at.copy(), at.copy()
+    near_m[r.oy:r.oy + D.H, r.ox:r.ox + D.W] = D.parts["near_leg"]
+    far_m[r.oy:r.oy + D.H, r.ox:r.ox + D.W] = D.parts["far_leg"]
+    flap_m[r.oy + FLAP_FROM:r.oy + D.H, r.ox:r.ox + D.W] = D.parts["skirt"][FLAP_FROM:]
+    flap = R.compose(r, [(F.skirt, {})])
+    flap[:r.oy + FLAP_FROM] = 0
+    body = base.copy()
+    body[near_m | far_m | flap_m] = 0
+    out = np.zeros_like(base)
+    m = flap[..., 3] > 0
+    out[m] = flap[m]
+    ground = np.zeros((H, W), bool)
+    for name, layer, (dx, lift) in (("far_leg", F.far_leg, far_step), ("near_leg", F.near_leg, near_step)):
+        leg = R.compose(r, [(layer, {})])
+        leg = lifted(leg, [r.oy + y for y in LIFT_ROWS[name]], lift)
+        ys, xs = np.nonzero(leg[..., 3] > 0)
+        ok = xs + dx < W
+        out[ys[ok], xs[ok] + dx] = leg[ys[ok], xs[ok]]
+        if lift:                                   # the ground the lifted foot left: never a crack
+            ys0, xs0 = np.nonzero(D.parts[name])
+            ground[r.oy + ys0.max() - lift + 1:r.oy + ys0.max() + 1, r.ox + xs0.min():r.ox + xs0.max() + dx + 1] = True
+    m = body[..., 3] > 0
+    out[m] = body[m]
+    # cracks a step opens take the outline (rig_galio.walk_frame): new enclosed gaps, in runs of at most CRACK columns
+    # (or rows) - not the gaps the standing frame itself shows. Unlike Galio's legs, the room a leg leaves when it
+    # steps forward is open background here (no body behind it): outlined, it read as a black slab beside the leg.
+    own = ndimage.binary_fill_holes(op) & ~op
+    for _ in range(3):
+        wop = out[..., 3] > 0
+        crack = ndimage.binary_fill_holes(wop) & ~wop & ~own & ~ground
+        fill = np.zeros_like(crack)
+        for a in (crack, crack.T):
+            f = fill if a is crack else fill.T
+            for y in np.nonzero(a.any(1))[0]:
+                xs = np.nonzero(a[y])[0]
+                for run in np.split(xs, np.nonzero(np.diff(xs) > 1)[0] + 1):
+                    if len(run) <= CRACK:
+                        f[y, run] = True
+        if not fill.any():
+            break
+        out[fill] = (*D.outline, 255)
+    return np.roll(out, -rise, axis=0)
+
+
+def walk(F, steps=None, carry=None):
+    """The walk: a frame per WALK entry. -> canvases."""
+    return [walk_frame(F, n, f, rise, carry) for n, f, rise in (steps or WALK)]
 
 
 def frames(F):
