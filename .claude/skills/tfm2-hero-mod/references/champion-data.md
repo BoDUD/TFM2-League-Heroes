@@ -348,7 +348,13 @@ so the target stops at the caster wherever it started (league_darius E). A `Stun
 same hit both hold: the stunned target is dragged in at 1500 units a tick until the bodies touch (about
 10000 between the centres); the drag heads for wherever the caster is, but its length was fixed when it
 started, so a caster who walks off meanwhile leaves the target short of him (20000 in one game) *(measured
-for league_thresh Q in the SDK simulation, 2026-09-29)*.
+for league_thresh Q in the SDK simulation, 2026-09-29)*. A `Grab` without `tick` also keeps the direction it
+had at the bite: with the caster's own `MoveToTarget` running at the same time the two passed through each other
+(league_nautilus Q, 20 of 30 hooks, up to 46000 past each other), and tenacity cuts it short (a 76000 hook left a
+median 29000 between them). league_nautilus now drags the whole gap and dashes `q_catch` ticks later onto what is
+left: no pass-through, 34 of 41 hooks end touching, and he no longer chases a champion that walks or dashes off
+once an 8-tick drag is over (12 of 38 hooks before; the user: 「有时候他会跟着被拉过来的敌人走」) *(classic
+simulation, 2026-10-17, with a logger that prints the `ForceMove` events: forced moves send no `EntityMove`)*.
 
 **Movement**
 | Type | Fields | Meaning |
