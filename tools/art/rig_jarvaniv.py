@@ -18,8 +18,8 @@ shaft), the near arm (the elbow, the gauntlet and the hand hanging under the nea
 pauldrons, breastplate, belt), the skirt and the two legs. The lance turns as a whole in the lossless ways about the
 fist (upright as drawn; a quarter turn clockwise: level, the spearhead forward - League's thrusts; counter-clockwise:
 level, the spearhead back - carried; half a turn: point down - Cataclysm's landing); the arms turn in quarter turns about
-their shoulders; a crouch sets the upper body down over the skirt (never lifted off it). The run is the carry pose
-with Codex's legs under the skirt's hem (League's run skeleton: the run block below).
+their shoulders; a crouch sets the upper body down over the skirt (never lifted off it). The walk moves each leg whole,
+drawn over the skirt, a stride centred on the stance (the walk block below).
 """
 import argparse
 import os
@@ -383,124 +383,50 @@ def frames_all(F):
     return out
 
 
-# ------------------------------------------------------------------------------------------------- the run
-# Codex's legs on League's run. Walks posed from the design's own straight legs were turned down six times on
-# 2026-10-17 (legs slid apart 「腿部有点变形」, slid together 「变形严重」, stepping in place / only parting 「这两个都不对 也不
-# 自然」, the lower leg tucked behind the knee guard 「膝盖那里怎么会缩进去啊」, legs slid under / over the hem 「感觉还是变形啊」,
-# the Braum / Nautilus walk 「不对 让codex帮忙把」), so the run is league_pantheon's: tools/art/pack_jarvaniv_run.py's pack
-# (assets/source/jarvaniv/RUN_LEGS.md) - every frame the carry pose (CARRY) with only the legs under the skirt's hem
-# redrawn by Codex along League's jarvanIV_run skeleton, delivered on the pack's 128-square canvas
-# (assets/source/jarvaniv/codex_run). Above the hem every square is this rig's pose; under it Codex's squares, placed
-# as delivered - but for three legs it drew thin (below).
+# ------------------------------------------------------------------------------------------------- the walk
+# The design's own legs moved whole (every square the design's), drawn over the skirt (legs_front: the hem and the
+# middle flap never cut a knee guard). What the user turned down on the way (2026-10-17), so the next try does not
+# repeat it:
+#   - feet 3 columns out each way: the skirt's hanging middle flap left alone between the knees (「腿部有点变形」);
+#   - feet stepping inward 4 columns: Jarvan's shins stand only 2 columns apart, so the near leg lay over the far one
+#     (one thick leg) and, drawn over the hem when lifted, covered the skirt's edge (「变形严重」);
+#   - stepping in place / legs only parting: 「这两个都不对 也不自然」;
+#   - league_shen's knee blocks (the lifted lower leg slid up behind its knee guard, the knee guards bobbing over the
+#     shins): 「膝盖那里怎么会缩进去啊」.
+# Then: whole legs drawn over the skirt (ae5a431a, 「感觉还是变形啊」); a Braum / Nautilus walk with greave rows taken out
+# (「不对」); Codex's legs on League's run (「腿部不还是变形？」) and a Codex redesign with the legs apart (「这腿感觉画的不对啊」).
+# The user, 2026-10-18, on ae5a431a's walk: 「用之前这个在这个基础上略微修复到完美看不出严重的变形不就好了吗」.
+# Now (that walk, polished): the feet trade the lead within 2 columns (the near foot planted frames 1-4 sliding back,
+# lifted and carried forward 5-8; the far foot half a cycle later), the swinging leg lifted WHOLE a row (its knee
+# guard's top edge over the hem, nothing else changes), the body bob only the upper body settling a row onto the skirt
+# (the idle's breath) for the two frames after each landing, the near arm a column forward (over the body, never back
+# off it) while the near foot is back, the lance carried (CARRY). The fix: the stride centred on the stance - ae5a431a
+# stepped only inward (near 0..+2, far -2..0), so with the shins 2 columns apart frames 1 and 8 laid the near shin
+# over 7 squares of the far one (the two legs one block); now near -1..+1 and far +1..-1: the shins at most touch
+# (gap 0..4 columns, never over each other) and the far leg is whole in every frame.
+WALK_STEP = dict(near=[(1, 0), (0, 0), (0, 0), (-1, 0), (-1, 0), (0, 1), (1, 1), (1, 0)],
+                 far=[(-1, 0), (0, 1), (1, 1), (1, 0), (1, 0), (0, 0), (0, 0), (-1, 0)],
+                 bob=[1, 1, 0, 0, 1, 1, 0, 0],
+                 arm=[0, 0, 1, 1, 1, 0, 0, 0])
 # League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
 # the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
 CARRY = dict(far=1, lance="BACK", slide=4)
-RUN_SRC = os.path.join(R.ROOT, "assets", "source", "jarvaniv", "codex_run")
-RUN_CELLS, RUN_SOLE = 128, 116          # the pack's canvas (squares a side) and the row the soles stand on
-HEM = 53                                # the skirt's bottom edge (design row): Codex drew the rows under it
-RUN_ORDER = list(range(1, 9))           # League's 8 frames, 125 ms each (jarvanIV_run: 1.0 s)
 
 
-def run_spans(d):
-    """{pack row: (x0, x1)} inclusive -> a pack-canvas mask."""
-    m = np.zeros((RUN_CELLS, RUN_CELLS), bool)
-    for y, (x0, x1) in d.items():
-        m[y, x0:x1 + 1] = True
-    return m
-
-
-def _rows(y0, y1, x0, x1):
-    return {y: (x0, x1) for y in range(y0, y1 + 1)}
-
-
-# Codex's frames 2, 3 and 6 came back with a leg 3-5 squares wide from knee to boot (the design's: knee guard 9-10,
-# shin 5-7, boot 8-11; its HANDOFF: 「第 2、3、6 帧在交错与遮挡处腿甲偏细」). That leg is the one standing on the ground,
-# and Codex drew the same standing leg whole in the frame before: frame 1's far leg (2, 3) and frame 5's near leg (6).
-# Each thin leg is taken out (THIN) and that whole leg put in its place, moved back by whole squares as League's planted
-# foot slides back under the body (jarvanIV_run's far ankle 75 -> 71 -> 66, near 73 -> 68 squares) - nothing drawn
-# again. In 2 and 3 it goes behind the near leg (the near leg's coloured squares keep an outline over it); in 6 it is
-# the only leg (the far one is folded up under the skirt there, League's far foot above the hem). Pack squares.
-FAR_1 = {98: (71, 75), 99: (70, 75), 100: (70, 75), 101: (67, 75), 102: (67, 75), 103: (66, 74), **_rows(104, 116, 65, 83)}
-NEAR_5 = {98: (69, 73), 99: (69, 74), 100: (67, 74), 101: (68, 74), 102: (67, 73), 103: (66, 73), 104: (66, 72),
-          **_rows(105, 116, 66, 83)}
-THIN = {2: {98: (71, 74), 99: (70, 74), 100: (69, 74), 101: (70, 75), 102: (70, 76), 103: (71, 76), 104: (71, 75),
-            105: (71, 75), 106: (70, 74), 107: (70, 74), **_rows(108, 116, 69, 76)},
-        3: {102: (69, 71), 103: (69, 72), 104: (69, 72), 105: (69, 72), 106: (68, 71), 107: (67, 70), 108: (67, 70),
-            109: (66, 69), 110: (66, 69), 111: (66, 68), **_rows(112, 116, 65, 71)},
-        6: _rows(98, 127, 0, 127)}
-# frame: (the frame the whole leg comes from, its squares, columns moved)
-WHOLE_LEG = {2: (1, FAR_1, -4), 3: (1, FAR_1, -5), 6: (5, NEAR_5, -7)}
-# Frame 7's planted near leg stood 5 squares further back than League's (near ankle 73 -> 68 -> 60 -> 54 over frames
-# 5-8): from frame 6 it slid 11 squares in one frame while on the ground. It moves 3 forward (it touches nothing there).
-LEG_MOVES = {7: (_rows(98, 116, 44, 65), 3)}
-
-
-def codex_run_frame(k, outline):
-    """Codex's run frame k on the pack canvas, its thin leg replaced (WHOLE_LEG); a sole square left uncovered on the
-    ground row takes the outline (the outline is never added under the ground)."""
-    def load_(n):
-        return np.asarray(Image.open(lp(os.path.join(RUN_SRC, f"jarvaniv_run_{n}_1x.png"))).convert("RGBA")).copy()
-
-    a = load_(k)
-    if k in WHOLE_LEG:
-        src, spans, dx = WHOLE_LEG[k]
-        s = load_(src)
-        back = np.zeros_like(s)
-        ys, xs = np.nonzero(run_spans(spans) & (s[..., 3] > 0))
-        back[ys, xs + dx] = s[ys, xs]
-        a[run_spans(THIN[k])] = 0
-        fop = a[..., 3] > 0
-        dark = fop & (np.abs(a[..., :3].astype(int) - np.array(outline)).sum(-1) < 30)
-        ring = ndimage.binary_dilation(fop & ~dark, structure=R.CROSS) & ~fop & (back[..., 3] > 0)
-        m = (back[..., 3] > 0) & ~fop
-        a[m] = back[m]
-        a[ring] = (*outline, 255)
-    if k in LEG_MOVES:
-        spans, dx = LEG_MOVES[k]
-        sel = run_spans(spans) & (a[..., 3] > 0)
-        ys, xs = np.nonzero(sel)
-        leg = a[ys, xs].copy()
-        a[sel] = 0
-        under = a[ys, xs + dx]
-        if ((under[:, 3] > 0) & (np.abs(under[:, :3].astype(int) - np.array(outline)).sum(-1) >= 30)).any():
-            raise ValueError(f"run {k}: the moved leg would cover coloured squares")
-        a[ys, xs + dx] = leg
-    op = a[..., 3] > 0
-    dark = op & (np.abs(a[..., :3].astype(int) - np.array(outline)).sum(-1) < 30)
-    a[RUN_SOLE][op[RUN_SOLE] & ~dark[RUN_SOLE]] = (*outline, 255)
-    return a
-
-
-def codex_legs(F, k):
-    """Codex's run frame k: its squares under the hem on a rig canvas."""
-    r = F.rig
-    a = codex_run_frame(k, F.D.outline)
-    ox, oy = RUN_CELLS // 2 - r.CX, RUN_SOLE - (r.GY - 1)       # pack square = rig square + (ox, oy)
-    out = r.canvas()
-    ys, xs = np.nonzero(a[..., 3] > 0)
-    keep = ys - oy > r.oy + HEM
-    out[ys[keep] - oy, xs[keep] - ox] = a[ys[keep], xs[keep]]
-    return out
-
-
-def run(F, order=None):
-    """The run: the carry pose down to the hem, Codex's legs under it. -> canvases."""
-    base = F.pose(**CARRY)
-    base[F.rig.oy + HEM + 1:] = 0
+def walk(F, steps=None, carry=None):
+    """The walk: a frame per WALK_STEP entry. -> canvases."""
+    st = steps or WALK_STEP
     out = []
-    for k in order or RUN_ORDER:
-        can = base.copy()
-        legs = codex_legs(F, k)
-        m = legs[..., 3] > 0
-        can[m] = legs[m]
-        out.append(can)
+    for (ndx, nup), (fdx, fup), bob, arm in zip(st["near"], st["far"], st["bob"], st["arm"]):
+        out.append(F.pose(crouch=bob, legs=((ndx, -nup), (fdx, -fup)), near_reach=(arm, 0), legs_front=True,
+                          **(carry or CARRY)))
     return out
 
 
 def frames(F):
     """{tag: [(canvas, ms)]} in the sheet's order."""
     a = frames_all(F)
-    a = {"idle": a["idle"], "run": run(F), **{k: v for k, v in a.items() if k != "idle"}}
+    a = {"idle": a["idle"], "run": walk(F), **{k: v for k, v in a.items() if k != "idle"}}
     out = {}
     for tag, cans in a.items():
         ms = MS[tag]
