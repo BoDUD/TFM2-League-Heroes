@@ -34,9 +34,10 @@ M = "<#a974ffff>"      # magic
 TR = "<#f5f5f5ff>"     # true damage
 A = "<#ffb900ff>"      # durations, counts, percents
 E = "<>"
-# champion_view: the face at her crown (tfm2_ase.py face: 36 px over the feet); the idle tops 25 px over the pivot, under
-# -28, so no banpick_center (the card rule: the card then places her like every hero that fits)
-VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -11}}
+# champion_view: the face at her crown (tfm2_ase.py face: 36 px over the feet); with League's folded machine floating
+# over her head (the user, 2026-10-17: 「背后没武器有点奇怪」) the idle tops 37.5 px over the pivot, above -28, so the card
+# rule's banpick_center y = -39 - top = -2 (the machine's top just under the card's top edge, her feet behind the name)
+VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -2}}
 
 
 def mag(d, r):

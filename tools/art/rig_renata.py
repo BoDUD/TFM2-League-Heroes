@@ -672,6 +672,10 @@ def casts():
 FOLDED_PNG = os.path.join(SRC, "hd", "machine_folded.png")
 TRACK = os.path.join(SRC, "machine_track.json")
 MOTION = 0.8                           # League's moves at the machine's size (the user: 「缩小一点」)
+# League's machine dives beside and in front of her in her W (Spell2_Idle 0 / 350 ms, 26-30 squares under its idle
+# place): behind her it vanished, over her it sat on her chest as a jumble - so a machine that would show less than
+# SHOW of itself behind her rises (never above where it would be) until that much of it shows
+SHOW = 0.4
 FOLDED_MASKS = {}                      # tag -> [the machine's squares on each frame or None], for checks()
 
 
@@ -706,7 +710,14 @@ def add_folded(acts):
                 t = (track.get(tag) or [i0])[min(k, len(track.get(tag) or [i0]) - 1)] if tag != "hit" else i0
                 dx = int(round(MOTION * (t[0] - i0[0])))
                 dy = int(round(MOTION * (t[1] - i0[1])))
-                stamp(under, img, f.x0 + base[0] + dx, f.y0 + base[1] + dy)
+                her = f.can[..., 3] > 0
+                while True:
+                    under = blank()
+                    stamp(under, img, f.x0 + base[0] + dx, f.y0 + base[1] + dy)
+                    m = under[..., 3] > 0
+                    if dy <= 0 or (m & ~her).sum() >= SHOW * m.sum():
+                        break
+                    dy -= 1
             under[SOLE + 1:] = 0
             mask = under[..., 3] > 0
             her = f.can[..., 3] > 0
