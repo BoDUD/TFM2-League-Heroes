@@ -81,7 +81,8 @@ empty tooltip). That is why the linter exists - run it after every edit.
    champion-data section 9) first shows every cast with its target kind and
    the end-of-game statistics (porting-heroes.md "Balance check"). Then
    install into `<game>/mods/<mod_id>/` (in the league repo: `tools/package_mod.py --hero <id> --install`,
-   which ships MP3 clips, packed sheets and minified JSON - the game reads every mod file at start-up),
+   which ships MP3 clips under `sound/bgm/`, packed sheets and minified JSON - the game reads every mod file
+   at start-up except `/sound/bgm/` audio; see the rule "Clips ship under sound/bgm" below),
    enable in the Mods menu, watch each action, compare the hero's height with a base champion.
    Details: `references/mod-structure.md` ("Loading cost").
 8. **Publish** - upload the packed copy (`tools/package_mod.py --out <folder>`) with `TFM2ModUploader.exe`
@@ -98,6 +99,19 @@ empty tooltip). That is why the linter exists - run it after every edit.
 - Time is ticks: 60 ticks = 1 s. Ratios are percent (`attack_ratio: 120` = 120% AD).
 - `text/champion` and `style/champion_view` are `merge` overrides - never `override`.
 - Custom sounds need override entries for both the sound name and its clip.
+- **Clips ship under `sound/bgm/` (league, every hero from 2026-10-17; the user: 「以后新英雄都要这样 规矩写进skill」).**
+  The game opens a mod's `.mp3`/`.wav` under `/sound/bgm/` only when it plays, and reads every other file at
+  start-up; start-up costs per file (a seek on a hard disk, a Defender scan after each update), and the clips were
+  40% of the files (league `docs/perf.md` section 7: a scattered cold start 88 -> 51 s). So for a new hero:
+  keep each clip next to its `.sound_info` in the sources (`league/sound/sfx/`) with both override entries
+  as usual (event -> `sound/sfx/<event>`, clip -> `sound/sfx/<clip>`); install and upload **only** through
+  `tools/package_mod.py` from a branch with main 0.134.0 or later (PR #318): it moves the clip to
+  `sound/bgm/<clip>` and points the clip's entry there. Never copy a clip into an install's or an upload's
+  `sound/sfx/` by hand. A clip name never equals an event name (one override key each). The game opens a clip on
+  the main thread the first time it plays, so `league.dll` must keep `addons/league_main/src/warm.rs` (it reads
+  `sound/bgm/` into the OS cache after the title) - build it from that main too, and merge main before a hero
+  branch installs its own `league.dll`. Seeding a worktree's audio from the install: copy
+  `<install>/sound/bgm/*.mp3` into `league/sound/sfx/`.
 - Do not use `Native`, `ShrinkingBarrier`, `AddStatScaledBuff` or `Rush` - base-only effects.
 - Never translate stat-icon ids inside `<i#...:ad_0>` tags.
 - **Both sides: the client never mirrors an effect picture - only the hero's own frames.** A `ViewEffect` or

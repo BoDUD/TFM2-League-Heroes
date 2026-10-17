@@ -29,7 +29,7 @@
 
 ## 在游戏里测
 
-1. 主包（League of Legends Heroes 0.134.0 以上）要装着并启用。
+1. 主包（League of Legends Heroes 0.135.0 以上）要装着并启用。
 2. 用附加包合集 `league_addons`（里面已经包含本包），或者把整个 `league_nasus` 文件夹放进 `<游戏目录>\mods\`（文件夹里要有 `league_nasus.dll`、`mod.mod_info`、
    `mod.override_info`、`override\`、`text\`）。
 3. 进游戏，鼠标停在内瑟斯的 Q 或大招上，说明开头是【附加包】就说明副本生效了；打一局后看日志里的 STACK / KEEP / RISE / QCD / FORM。

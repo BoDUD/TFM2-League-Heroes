@@ -592,8 +592,13 @@ def main(argv=None):
             if not clip:
                 rep.error(mod.rel(p), "play without 'clip'")
                 continue
-            if not any(os.path.isfile(os.path.join(sfx_dir, clip + e)) for e in AUDIO_EXT):
-                rep.error(mod.rel(p), f"clip '{clip}' has no audio file ({'/'.join(AUDIO_EXT)}) next to it")
+            # a packed league build keeps its clips in sound/bgm/ (streamed when played), found through the entry
+            entry = mod.override.get(f"asset/base/sound/sfx/{clip}")
+            target = entry.get("remapping") if isinstance(entry, dict) else None
+            if not any(os.path.isfile(os.path.join(sfx_dir, clip + e)) for e in AUDIO_EXT) and \
+                    not (target and mod.find_file(target, AUDIO_EXT)):
+                rep.error(mod.rel(p), f"clip '{clip}' has no audio file ({'/'.join(AUDIO_EXT)}) next to it "
+                                      f"or where its override entry points")
             elif f"asset/base/sound/sfx/{clip}" not in mod.override:
                 rep.info(mod.rel(p), f"clip '{clip}' has no override entry (published packs add one per clip too)")
 
