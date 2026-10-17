@@ -9,12 +9,18 @@
 //! - **及时救难**（英雄联盟的规则）：她活着、W 不在冷却时每 WATCH tick 看一次，w_range 内的队友（不算她自己）身边 DANGER_NEAR 内
 //!   有敌方英雄、又被硬控或生命不到 DANGER_HP，就挑生命比例最低的那个：攻速 +w_as%、移速 +w_ms%、w_t tick 不死（主包的 buff
 //!   `league_renata_w_buff`，画面照主包）。期间受到致命伤害（生命到 1、身上没有别人的「不死」）就回满生命，再在 w_doom tick 内流失到
-//!   1；这期间他参与击杀（击杀或助攻数变多）就保住、不再流失，没参与就阵亡（算离他最近的敌方英雄的）。主包的数据版是「不会阵亡、结束时
-//!   回血」。
+//!   1；这期间他参与击杀（击杀或助攻数变多，和致命一击同一 tick 的也算）就保住、不再流失，没参与就阵亡（算离他最近的敌方英雄的，
+//!   附近没有敌方英雄才算最近的敌方单位）。主包的数据版是「不会阵亡、结束时回血」。
 //! - **恶意收购**：被化学波扫中的敌方英雄（主包的 `league_renata_r_berserk`，数据已禁攻击、禁技能）真的转身打自己人：AI 钩子
 //!   （`league_renata:berserk`，所有玩家）让他走向最近的队友，到 LASH_REACH 内就站住；本包按他自己的攻击间隔、用他自己的攻击力打那个
-//!   队友（`deal_damage_typed`；引擎不认同队伤害就算在烈娜塔头上），挥一下（Animation "attack"）、播主包的 r_lash_hit。主包的数据版是
-//!   「每 r_per 秒对身边的队友造成魔法伤害」。
+//!   队友，挥一下（Animation "attack"）、播主包的 r_lash_hit。这一下算烈娜塔出手（`deal_damage_typed` 的攻击者是她），和英雄联盟一样
+//!   击杀、助攻记在她头上：0.6.4 引擎照收同队伤害（宿主不查阵营、只要两边实体还在就返回 true），可死者的击杀者取的是最近一次伤他的
+//!   英雄，同队的人打死他，个人击杀、赏金和助攻就落到狂暴的那个敌人自己的玩家身上（只有团队比分照样记给死者的对面），0.1.0 的
+//!   「算他自己的」就是这样。主包的数据版是「每 r_per 秒对身边的队友造成魔法伤害」。
+//!
+//! 引擎细节（反汇编 0.6.4，2026-10-17）：`deal_damage_typed` 只把伤害效果排进当 tick 的效果队列，返回 true 不代表已经扣血，出手后
+//! 马上读生命读不到变化；击杀、助攻计数在单位死亡结算的那一步里加（和击杀记录、团队比分同一处），被动每 tick 读，及时救难的
+//! w_doom tick 来得及。
 //!
 //! 被动在玩家身上、每份模拟各一份，她死了也照样每 tick 跑（救难、狂暴不因她阵亡停下）。日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_renata.log`，每次启动游戏重写，上一次的留在 .prev.log：`POP`、`BAILOUT`、
@@ -30,7 +36,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_renata";
 /// Written out (in the bundle `env!("CARGO_PKG_VERSION")` would be league_addons').
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 /// 物尽其用的印记（主包数据：她打中敌方英雄时挂上）。
 pub const MARK: &str = "league_renata_p_mark";
 /// 及时救难（主包数据的 buff 名：画面绑在它上面）。
@@ -246,6 +252,14 @@ pub fn drain_step(max: usize, doom: usize) -> usize {
     (max / doom.max(1)).max(1)
 }
 
+/// 流失到头、没参与击杀的人算谁打死的：候选 (id, 距离, 是不是英雄) 里最近的敌方英雄，没有英雄才是最近的单位。
+pub fn pick_doom_killer(cands: &[(usize, f64, bool)]) -> Option<usize> {
+    let nearest = |champ_only: bool| {
+        cands.iter().filter(|c| !champ_only || c.2).min_by(|a, b| a.1.total_cmp(&b.1)).map(|c| c.0)
+    };
+    nearest(true).or_else(|| nearest(false))
+}
+
 /// 队友这次出手是哪种：普攻冷却跳起（Some(true)）、技能冷却跳起（Some(false)）、没出手（None）。冷却跳起 = 比上一 tick 多 5 以上。
 pub fn swung(was: (usize, usize, usize, usize), now: (usize, usize, usize, usize)) -> Option<bool> {
     if now.0 > was.0 + 5 {
@@ -311,6 +325,22 @@ fn nearest_foe(sim: &StableSim<'_>, team: usize, at: (f64, f64), reach: f64) -> 
     best.map(|b| (b.0, b.1))
 }
 
+/// 及时救难没保住的人（在 `team`、`at`）算谁打死的：`reach` 内最近的敌方英雄，没有就是最近的敌方单位（不算塔）。
+fn doom_killer(sim: &StableSim<'_>, team: usize, at: (f64, f64), reach: f64) -> Option<usize> {
+    let mut cands = Vec::new();
+    for i in 0..sim.entity_count() {
+        let Some(u) = sim.entity_at(i) else { continue };
+        if u.team() == team || !u.is_alive() || u.is_tower() {
+            continue;
+        }
+        let d = dist(at, fpos(u.pos()));
+        if d <= reach {
+            cands.push((u.id(), d, u.is_champion()));
+        }
+    }
+    pick_doom_killer(&cands)
+}
+
 /// 离 `at` 最近的带印记的敌方英雄（`team` 以外），`reach` 以内。
 fn nearest_marked(sim: &StableSim<'_>, team: usize, at: (f64, f64), reach: f64) -> Option<usize> {
     let mut best: Option<(usize, f64)> = None;
@@ -354,11 +384,13 @@ fn nearest_friend(sim: &StableSim<'_>, me: usize, team: usize, at: (f64, f64), r
 
 // ===================== 被动：杠杆（引爆、救难、狂暴） =====================
 
-/// 一次及时救难：队友、他的玩家、结束的 tick，被救下后的流失（结束的 tick、击杀 + 助攻、最大生命）。
+/// 一次及时救难：队友、结束的 tick、上一 tick 他的击杀 + 助攻（致命一击那一 tick 的击杀也算参与），被救下后的流失（结束的 tick、
+/// 击杀 + 助攻、最大生命）。
 #[derive(Clone, Copy, Debug)]
 struct Bail {
     ally: usize,
     until: usize,
+    td_last: usize,
     doom: Option<(usize, usize, usize)>,
 }
 
@@ -479,7 +511,8 @@ impl Glasc {
         anim.set_name("skill_w");
         sim.apply_cc(me, &anim);
         self.w_ready = now + self.p.w_cd;
-        self.bail = Some(Bail { ally, until: now + self.p.w_t, doom: None });
+        let td_last = takedowns(sim, ally).map_or(0, |t| t.1);
+        self.bail = Some(Bail { ally, until: now + self.p.w_t, td_last, doom: None });
         if let Some(k) = counted("bailout") {
             let a = allies.iter().find(|a| a.id == ally).copied().unwrap_or_default();
             wlog(format!("{} BAILOUT #{k} on {} (hp {:.0}%{})", head(sim, me), who(sim, ally), a.hp * 100.0,
@@ -507,6 +540,7 @@ impl Glasc {
                     return None;
                 }
                 if hp > 1 || other_undying(sim, b.ally) {
+                    b.td_last = takedowns(sim, b.ally).map_or(b.td_last, |t| t.1);
                     return Some(b);
                 }
                 // the lethal hit: full health that drains away over w_doom ticks, still undying meanwhile
@@ -519,11 +553,14 @@ impl Glasc {
                 sim.add_buff(b.ally, &buff);
                 sim.play_view_effect(&rn("w_save"), me, &on, 0, 0, 0);
                 sim.play_sfx(&rn("w_save"), me, &on);
-                let td = takedowns(sim, b.ally).map_or(0, |t| t.1);
+                // the count before this tick: a takedown on the lethal tick itself (a trade) still saves him
+                let td = b.td_last;
+                let td_now = takedowns(sim, b.ally).map_or(td, |t| t.1);
                 b.doom = Some((now + self.p.w_doom, td, max));
                 if let Some(k) = counted("revive") {
-                    wlog(format!("{} REVIVE #{k}: {} caught at 1 hp -> {max}, drains over {} ticks ({td} takedowns so far)",
-                                 head(sim, me), who(sim, b.ally), self.p.w_doom));
+                    wlog(format!("{} REVIVE #{k}: {} caught at 1 hp -> {max}, drains over {} ticks ({td} takedowns before{})",
+                                 head(sim, me), who(sim, b.ally), self.p.w_doom,
+                                 if td_now > td { ", one on this tick" } else { "" }));
                 }
                 Some(b)
             }
@@ -541,12 +578,12 @@ impl Glasc {
                 }
                 if now >= until {
                     sim.entity_remove_buff(b.ally, W_BUFF);
-                    let killer = nearest_foe(sim, team, at, 200000.0).map_or(b.ally, |(f, _)| f);
+                    let killer = doom_killer(sim, team, at, 200000.0).unwrap_or(b.ally);
                     let left = sim.get_entity(b.ally).map_or(hp, |e| e.hp().0);
-                    sim.deal_damage_typed(killer, b.ally, left + 1000, DamageTypeV1::Fixed, AttackTypeV1::Skill);
+                    let dealt = sim.deal_damage_typed(killer, b.ally, left + 1000, DamageTypeV1::Fixed, AttackTypeV1::Skill);
                     if let Some(k) = counted("doomed") {
-                        wlog(format!("{} DOOMED #{k}: {} got no takedown, killed by {}", head(sim, me), who(sim, b.ally),
-                                     who(sim, killer)));
+                        wlog(format!("{} DOOMED #{k}: {} got no takedown, killed by {}{}", head(sim, me), who(sim, b.ally),
+                                     who(sim, killer), if dealt { "" } else { " (refused)" }));
                     }
                     return None;
                 }
@@ -556,7 +593,8 @@ impl Glasc {
         }
     }
 
-    /// 狂暴的敌方英雄按自己的攻击间隔、用自己的攻击力打 LASH_REACH 内最近的自己人（走过去是 AI 钩子的事）。
+    /// 狂暴的敌方英雄按自己的攻击间隔、用自己的攻击力打 LASH_REACH 内最近的自己人（走过去是 AI 钩子的事）；算她出手，击杀和助攻
+    /// 记在她头上（英雄联盟的规则；引擎会把同队打死的击杀、赏金和助攻给狂暴的那个人自己）。
     fn berserk(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, now: usize) {
         let mut mad = Vec::new();
         for i in 0..sim.entity_count() {
@@ -574,18 +612,16 @@ impl Glasc {
             let Some(e) = sim.get_entity(u) else { continue };
             let (st, interval, at, side) = (e.stat(), e.attack_interval(), fpos(e.pos()), e.team());
             let Some((victim, _, _)) = nearest_friend(sim, u, side, at, LASH_REACH) else { continue };
-            let theirs = sim.deal_damage_typed(u, victim, st.attack, DamageTypeV1::Ad, AttackTypeV1::BaseAttack);
-            if !theirs {
-                sim.deal_damage_typed(me, victim, st.attack, DamageTypeV1::Ad, AttackTypeV1::BaseAttack);
-            }
+            // his attack, her hit: the engine credits a death to the last champion that hit the victim, team or not
+            let dealt = sim.deal_damage_typed(me, victim, st.attack, DamageTypeV1::Ad, AttackTypeV1::BaseAttack);
             let mut anim = CcV1::of_kind(CcKindV1::Animation, SWING_ANIM);
             anim.set_name("attack");
             sim.apply_cc(u, &anim);
             sim.play_view_effect(&rn("r_lash_hit"), me, &InputTargetV1::target(victim), 0, 0, 0);
             self.lash.insert(u, now + if interval > 0 { interval } else { SWING });
             if let Some(k) = counted("lash") {
-                wlog(format!("{} LASH #{k}: berserk {} hits its own {} for {} ({}){}", head(sim, me), who(sim, u),
-                             who(sim, victim), st.attack, if theirs { "its own hit" } else { "credited to her" },
+                wlog(format!("{} LASH #{k}: berserk {} hits its own {} for {} (credited to her){}{}", head(sim, me),
+                             who(sim, u), who(sim, victim), st.attack, if dealt { "" } else { ", refused" },
                              if interval > 0 { String::new() } else { format!(", interval unknown -> {SWING}") }));
             }
         }
@@ -749,6 +785,15 @@ mod tests {
         assert_eq!(drain_step(1800, 180), 10);
         assert_eq!(drain_step(100, 180), 1);
         assert_eq!(drain_step(1000, 0), 1000);
+    }
+
+    #[test]
+    fn the_doom_is_credited_to_an_enemy_champion() {
+        // a minion closer than the champions: the nearest champion gets the kill
+        assert_eq!(pick_doom_killer(&[(7, 5000.0, false), (3, 90000.0, true), (4, 120000.0, true)]), Some(3));
+        // no enemy champion near: the nearest unit
+        assert_eq!(pick_doom_killer(&[(7, 5000.0, false), (8, 3000.0, false)]), Some(8));
+        assert_eq!(pick_doom_killer(&[]), None);
     }
 
     #[test]

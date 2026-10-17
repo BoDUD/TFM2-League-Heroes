@@ -24,15 +24,37 @@
 //!   生命不到 `KOG_GOOD_HP`、射程内能打的敌方英雄有两个以上，或配额攒满了；一轮开着（`KOG_VOLLEY`）就接着打完。
 //! - 卡密尔（`league_camille`，E `Targeting EnemyChampion`）：E 好了、`CAMILLE_RANGE`（主包 E 的射程；附加包钩墙版是
 //!   85000，取小的）内有敌方英雄——按 E，目标是最近的那个；钩索、钩墙、冲向敌人由主包 / league_camille_wall 决定。
-//! - 所有近战英雄（主包数据里普攻距离不超过 `MELEE_RANGE`，`MELEE`）和远程的洛、赛娜（`RANGED_HOLDERS`）被停住：游戏的
-//!   AI 常把他们停在敌方英雄跟前（对线时停在 26–32k 外，近战射程 25k）、下令「走到自己脚下」或什么都不下，站着不打；
-//!   也会让他们一直跟着敌方英雄走、不出手（卡兹克）：普攻好了、`HOLD_REACH` 内有敌方英雄、AI 只下走路命令（不是明显往远处撤，
-//!   `walking_away`）连着 `HOLD_WALKING` tick，也算被停住。
-//!   先是卡密尔、瑟提、奥拉夫，之后加上蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜，再加上李青、泰达米尔、塔里克，然后扩到所有近战。
+//! - AI 很少按的小技能和大招（用户：「有问题的英雄全部改成rust」）：只读观察包 21 轮里这些格子好着、身边有敌方英雄时
+//!   AI 几乎不按——每 10 分钟迦娜 R 0 次（113 局）、奥莉安娜 R 0.5、辛德拉 0.7、泽拉斯 0.8、凯尔 0.9、烬 1.1、卡尔玛 1.2、
+//!   伊芙琳 1.5、卡特琳娜 1.5、费德提克 1.6、瑞兹 1.7（多数英雄 3.5–6 次）；格温 E、佛耶戈 E 一次都没放，奥莉安娜 E 0.8、
+//!   卡莉丝塔 E 1.6、希维尔 E 2.5、娑娜 W 3.0、基兰 E 5.0、劫 W 5.5（劫的 W 只有 Q、E 都好着时 AI 才看得到伤害）。
+//!   `plan` 按局面替 AI 按，按下去以后的事全是主包的数据：
+//!   - 冲上去的（劫 W 还要 Q 好着、格温 E、佛耶戈 E、卡特琳娜 W）：他生命不低于 `ENGAGE_HP`；目标不在敌方塔下（生命
+//!     `DIVE_HP` 以下的除外）、目标身边的敌方英雄不比他身边的我方英雄（含他）多，挑生命比例最低的。AI 正往远处撤时不按。
+//!   - 卡特琳娜 R：她生命不低于 `KAT_R_HP`、自己不在敌方塔下，`KAT_R_REACH` 内的敌方英雄、`KAT_R_RING` 内有两个以上或
+//!     目标生命不到 `KAT_R_LOW`。费德提克 R：`FIDDLE_R_RANGE` 内一处 `FIDDLE_STORM` 内有两个以上敌方英雄（或单个生命
+//!     不到 `FIDDLE_LOW`）、不在敌方塔下、那里的敌方英雄最多比那里的我方英雄（含他）多一个，朝那里放。
+//!   - 远处引导的（泽拉斯 R、烬 R）：身边 `CHANNEL_SAFE` 内没有敌方英雄、生命不低于 `CHANNEL_HP`，射程内生命不到
+//!     `CHANNEL_LOW` 的或我方有人贴着在打的，挑生命比例最低的。辛德拉 R：目标生命不到 `SYNDRA_LOW`、被控住，或射程内
+//!     两个以上（主包再按法球数和控制决定立刻放还是待命）。
+//!   - 备好式的（凯尔、卡尔玛、伊芙琳、奥莉安娜的 R：主包待命一段时间等时机，没用上退还冷却）：`*_NEAR` 内有敌方英雄就按。
+//!     瑞兹 R（也是备好式，主包判断追还是逃）：生命不到 `RYZE_FLEE` 而 `RYZE_THREAT` 内有敌方英雄，或照崔斯特的规则。
+//!   - 迦娜 R：她或身边 `JANNA_R_RANGE` 内的队友生命不到 `JANNA_SAVE` 而 `JANNA_THREAT` 内有敌方英雄，或两人以上生命不到
+//!     `JANNA_TEAM` 而她身边有敌方英雄。娑娜 W：她或 `SONA_HEAL_R` 内的队友生命不到 `SONA_HURT`。
+//!   - 奥莉安娜 E、基兰 E：我方有人（她或射程内的队友）`FIGHT_CONTACT` 内贴着敌方英雄；基兰 E 也追射程内生命不到
+//!     `CHASE_LOW` 的。希维尔 E（法术护盾）：`SIVIR_WATCH` 内的敌方英雄 `SIVIR_FRESH` tick 内刚放了技能（冷却开始走），
+//!     或她生命不到 `SIVIR_LOW` 而 `SIVIR_CLOSE` 内有敌方英雄。卡莉丝塔 E：主包的「矛够了」标记在、撕裂不在冷却。
+//! - 主包所有英雄（`ATTACK_RANGE`）被停住：游戏的 AI 常把他们停在敌方英雄跟前（近战对线时停在 26–32k 外，近战射程 25k；
+//!   远程的敌方英雄就在普攻距离内）、下令「走到自己脚下」或什么都不下，站着不打；也会让他们一直跟着敌方英雄走、不出手
+//!   （卡兹克）：普攻好了、够得着的敌方英雄（`hold_reach`：近战 `HOLD_REACH`，远程自己的普攻距离）在、AI 只下走路命令
+//!   （不是明显往远处撤，`walking_away`）连着 `HOLD_WALKING` tick，也算被停住。
+//!   先是卡密尔、瑟提、奥拉夫，之后加上蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜，再加上李青、泰达米尔、塔里克，然后扩到所有近战，
+//!   最后扩到远程（用户：「远程英雄也补上吧 我发现德莱文这种也有问题」）。
 //!   原地站了 `HOLD_STILL` tick、普攻好了、AI 还让他原地站（`holding`）时，`hold_target` 挑人普攻：
 //!   他生命不低于 `HOLD_MIN_HP`、目标离敌方塔超过 `TOWER_REACH`、目标身边不比他身边人多；打出一下或 `ENGAGE_TICKS` 后重新算，
 //!   AI 自己下了别的命令（普攻、技能、走开）就不管。没有要按的格子时才这样做。
-//! - 被控住（眩晕、击飞、沉默等）、格子在冷却或还没解锁时不按。冷却由钩子自己看（引擎的「输入合法」不看冷却，
+//! - 被控住（眩晕、击飞、沉默等）、正在放技能（施法动作还在播，`busy`：引导中的大招人站着不动、普攻又是好的）、被强制
+//!   位移（冲刺、德莱文跑去接斧头）时什么都不做；格子在冷却或还没解锁时不按。冷却由钩子自己看（引擎的「输入合法」不看冷却，
 //!   league_pyke 的教训）；引擎不接的命令不下（`is_valid_input`）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ult_press.log`，每次启动游戏重写，上一次的留在 .prev.log。
@@ -96,6 +118,100 @@ pub const KOG_VOLLEYS_MAX: f64 = 2.0;
 pub const KOG_GOOD_HP: f64 = 0.5;
 /// 卡密尔 E：主包的射程（league_camille_wall 的副本是 85000）。
 pub const CAMILLE_RANGE: f64 = 60_000.0;
+
+// AI 很少按的小技能和大招（射程都照主包数据的格子）
+pub const ZED: &str = "league_zed";
+pub const GWEN: &str = "league_gwen";
+pub const VIEGO: &str = "league_viego";
+pub const KATARINA: &str = "league_katarina";
+pub const ORIANNA: &str = "league_orianna";
+pub const SIVIR: &str = "league_sivir";
+pub const SONA: &str = "league_sona";
+pub const ZILEAN: &str = "league_zilean";
+pub const KALISTA: &str = "league_kalista";
+pub const JANNA: &str = "league_janna";
+pub const SYNDRA: &str = "league_syndra";
+pub const XERATH: &str = "league_xerath";
+pub const KAYLE: &str = "league_kayle";
+pub const JHIN: &str = "league_jhin";
+pub const KARMA: &str = "league_karma";
+pub const EVELYNN: &str = "league_evelynn";
+pub const FIDDLESTICKS: &str = "league_fiddlesticks";
+pub const RYZE: &str = "league_ryze";
+pub const APHELIOS: &str = "league_aphelios";
+pub const VLADIMIR: &str = "league_vladimir";
+/// 冲上去的技能：他生命不低于这个才冲；目标在敌方塔下也冲的残血线。
+pub const ENGAGE_HP: f64 = 0.4;
+pub const DIVE_HP: f64 = 0.25;
+/// 劫 W：Q 不在冷却（主包标记 `league_zed_q_cd` 不在）才按，W-E-Q 一起出手（主包最初的设计「W 只在 Q 好着时」）。
+pub const ZED_W_RANGE: f64 = 55_000.0;
+pub const ZED_Q_CD: &str = "league_zed_q_cd";
+pub const GWEN_E_RANGE: f64 = 45_000.0;
+pub const VIEGO_E_RANGE: f64 = 46_000.0;
+/// 卡特琳娜 W（`EnemyChampionRecentlyAttacked`：引擎只接最近被我方打过的）。
+pub const KATARINA_W_RANGE: f64 = 55_000.0;
+/// 卡特琳娜 R（射程 30000，旋转时刀飞向 50000 内每个敌方英雄）。
+pub const KAT_R_REACH: f64 = 25_000.0;
+pub const KAT_R_RING: f64 = 50_000.0;
+pub const KAT_R_LOW: f64 = 0.5;
+pub const KAT_R_HP: f64 = 0.3;
+/// 奥莉安娜 E 的射程；R 待命 6 秒（球附近有敌方英雄就放），这么近有敌方英雄就按。
+pub const ORI_E_RANGE: f64 = 75_000.0;
+pub const ORI_R_NEAR: f64 = 60_000.0;
+/// 在打架：我方有人离敌方英雄这么近。
+pub const FIGHT_CONTACT: f64 = 40_000.0;
+/// 希维尔 E（法术护盾，射程 65000）。
+pub const SIVIR_E_RANGE: f64 = 65_000.0;
+pub const SIVIR_WATCH: f64 = 60_000.0;
+pub const SIVIR_FRESH: usize = 20;
+pub const SIVIR_LOW: f64 = 0.4;
+pub const SIVIR_CLOSE: f64 = 40_000.0;
+/// 娑娜 W（射程 80000，治疗她和 60000 内一名队友）。
+pub const SONA_W_RANGE: f64 = 80_000.0;
+pub const SONA_HEAL_R: f64 = 60_000.0;
+pub const SONA_HURT: f64 = 0.7;
+/// 基兰 E 的射程；追：射程内生命比例不到这个的敌方英雄。
+pub const ZILEAN_E_RANGE: f64 = 70_000.0;
+pub const CHASE_LOW: f64 = 0.4;
+/// 卡莉丝塔 E（`EnemyChampionRecentlyAttacked`）：主包「矛够了」的标记、撕裂的冷却标记。
+pub const KALISTA_E_RANGE: f64 = 100_000.0;
+pub const KALISTA_E_OK: &str = "league_kalista_e_ok";
+pub const KALISTA_E_CD: &str = "league_kalista_e_cd";
+/// 迦娜 R（`AllyChampion` 40000，治疗她身边 40000 内的友方英雄）。
+pub const JANNA_R_RANGE: f64 = 40_000.0;
+pub const JANNA_SAVE: f64 = 0.35;
+pub const JANNA_TEAM: f64 = 0.6;
+pub const JANNA_THREAT: f64 = 50_000.0;
+/// 辛德拉 R 的射程。
+pub const SYNDRA_R_RANGE: f64 = 75_000.0;
+pub const SYNDRA_LOW: f64 = 0.6;
+/// 远处引导的大招（泽拉斯 R 220000、烬 R 180000，站着引导 5–6 秒，被控就断）。
+pub const CHANNEL_SAFE: f64 = 45_000.0;
+pub const CHANNEL_HP: f64 = 0.4;
+pub const CHANNEL_LOW: f64 = 0.5;
+pub const XERATH_R_REACH: f64 = 160_000.0;
+pub const JHIN_R_REACH: f64 = 140_000.0;
+/// 备好式的大招：这么近有敌方英雄就按（凯尔 R 射程 50000、卡尔玛 70000、伊芙琳的扇形半径 45000）。
+pub const KAYLE_R_NEAR: f64 = 50_000.0;
+pub const KARMA_R_NEAR: f64 = 70_000.0;
+pub const EVELYNN_R_NEAR: f64 = 45_000.0;
+/// 备好式大招按下后看这么久：冷却一下掉了很多就是退还了，没掉就是用掉了（最长的凯尔待命 900 tick）。
+pub const ARM_WATCH: usize = 960;
+/// 费德提克 R（`Position` 80000，引导 1 秒后传过去，鸦群打 45000 内的敌人）。
+pub const FIDDLE_R_RANGE: f64 = 80_000.0;
+pub const FIDDLE_STORM: f64 = 45_000.0;
+pub const FIDDLE_LOW: f64 = 0.4;
+/// 瑞兹 R（备好式，主包每 10 tick 判断传去打架还是逃命）：逃命的生命线和威胁距离；去打架照崔斯特（`tf_fight`）。
+pub const RYZE_FLEE: f64 = 0.35;
+pub const RYZE_THREAT: f64 = 60_000.0;
+/// 厄斐琉斯 R（备好式，冷却 25 秒：主包待命 6 秒，正被我方打的敌方英雄身边还有别人、或被控住才放，没用上缩短冷却）：
+/// 这么近有敌方英雄就按。观察包里每 10 分钟只按 3.2 次。
+pub const APHELIOS_R_NEAR: f64 = 90_000.0;
+/// 弗拉基米尔 R（`EnemyChampionRecentlyAttacked` 60000，血云半径 26000）：目标生命不到 `VLAD_R_LOW`，或血云里能罩住两个以上
+/// 敌方英雄。观察包里每 10 分钟 3.8 次。
+pub const VLAD_R_RANGE: f64 = 60_000.0;
+pub const VLAD_R_CLOUD: f64 = 26_000.0;
+pub const VLAD_R_LOW: f64 = 0.5;
 /// 对线被 AI 停住的近战（用户：「卡密尔、瑟提、奥拉夫对线被 AI 停住时，附加包替她们上去平 A（血量够、不在对面塔下、
 /// 不被以少打多）」）：只读观察包里她们常在对面英雄 26–32k 外（近战射程 25k）被 AI 下令「走到自己脚下」站着。
 /// 之后（用户：「站桩的按照之前卡密尔那样改 然后合并」）：观察包里同样被停住的——站着不动 13–36%、其中 5–12% 是 AI 下令
@@ -106,84 +222,163 @@ pub const CAMILLE_RANGE: f64 = 60_000.0;
 /// 最后（玩家视频里墨菲特和敌人叠在一起也不出手；用户：「站桩规则扩到所有近战英雄（自己有 AI 钩子的逐个确认）」）：观察包
 /// 第 13–20 轮里名单外的近战一样站着——魔腾 23.1%、墨菲特 19.9%、芮尔 18.0%、德莱厄斯 15.6%、雷克塞 15.3%、阿木木 14.9%、
 /// 永恩 13.7%、蕾欧娜、菲奥娜 13.4%、布里茨 13.0%、莉莉娅 12.1%（盖伦 2.9%、格温 3.0%、劫 3.2%）。所以换成「所有近战」：
-/// 主包数据里普攻距离不超过 `MELEE_RANGE` 的英雄。引擎接口读不到普攻距离，名单照数据写在这里，单元测试
-/// `melee_list_matches_the_data` 逐个对照 league/champion，加了新英雄没补进来就报错。
+/// 主包数据里普攻距离不超过 `MELEE_RANGE` 的英雄。
 /// 自己有 AI 钩子的英雄逐个看过：布隆、伊莉丝、杰斯、奈德丽、尼菈、塔姆、李青、泰达米尔的钩子只改 AI 要放的技能（换目标或
 /// 换时机），艾瑞莉娅的只在 Q 射程里没有敌方英雄时跳小兵，魔腾的鬼影重重只改打向黑暗里的出手，回城日志和米利欧看别人的
 /// 钩子只看不改——AI 让他原地站着时它们都不下命令。德莱厄斯、派克能斩杀时 AI 没想放也按 R：钩子按优先级从低到高
 /// 依次跑、后跑的可以换掉前面的命令（champion-data 第 8 节），他们的钩子后跑就把这里的普攻换成 R，先跑的话这里看到的是 R、
 /// 不算原地站——斩杀照样出手。
+/// 再之后（用户：「远程英雄也补上吧 我发现德莱文这种也有问题」「大招这种可能也是」）：远程一样被停住——观察包里卡尔玛身边
+/// 28–39k 有敌方英雄（她的普攻距离 55k）、普攻好着，AI 下令「走到自己脚下」或什么都不下，和近战一样；德莱文每分钟只平 A
+/// 7.9 次（其他射手 14–17 次）。所以换成主包所有英雄：近战照旧打 `HOLD_REACH` 内的，远程只打自己普攻距离内的（站着就打得到，
+/// 不往前走），盯住的目标走出普攻距离 `RANGED_KEEP` 以外就不追。远程英雄自己的 AI 钩子：巴德、伊莉丝、杰斯、卡莉丝塔、
+/// 千珏、奈德丽只改自己要放的技能，米利欧看别人的钩子只看不改；烈娜塔的狂暴钩子优先级 1000000、最后跑，被她大招扫中的人
+/// 照样由它控制。引擎接口读不到普攻距离，表照数据写在这里，单元测试 `attack_ranges_match_the_data` 逐个对照
+/// league/champion，加了新英雄没补进来就报错。
 pub const MELEE_RANGE: u64 = 30_000;
-pub const MELEE: [&str; 62] = [
-    "league_aatrox",
-    "league_akali",
-    "league_alistar",
-    "league_amumu",
-    "league_blitzcrank",
-    "league_braum",
-    "league_briar",
-    "league_camille",
-    "league_darius",
-    "league_diana",
-    "league_drmundo",
-    "league_ekko",
-    "league_elise",
-    "league_evelynn",
-    "league_fiora",
-    "league_fizz",
-    "league_galio",
-    "league_garen",
-    "league_gragas",
-    "league_gwen",
-    "league_hecarim",
-    "league_irelia",
-    "league_jax",
-    "league_jayce",
-    "league_kassadin",
-    "league_katarina",
-    "league_kayle",
-    "league_kayn",
-    "league_khazix",
-    "league_leesin",
-    "league_leona",
-    "league_lillia",
-    "league_malphite",
-    "league_masteryi",
-    "league_mordekaiser",
-    "league_nasus",
-    "league_nautilus",
-    "league_nidalee",
-    "league_nilah",
-    "league_nocturne",
-    "league_olaf",
-    "league_pantheon",
-    "league_pyke",
-    "league_reksai",
-    "league_rell",
-    "league_renekton",
-    "league_rengar",
-    "league_riven",
-    "league_sett",
-    "league_shaco",
-    "league_shen",
-    "league_sion",
-    "league_tahmkench",
-    "league_talon",
-    "league_taric",
-    "league_tryndamere",
-    "league_vi",
-    "league_viego",
-    "league_xinzhao",
-    "league_yasuo",
-    "league_yone",
-    "league_zed",
+pub const ATTACK_RANGE: [(&str, u64); 122] = [
+    ("league_aatrox", 26000),
+    ("league_ahri", 55000),
+    ("league_akali", 24000),
+    ("league_alistar", 25000),
+    ("league_amumu", 25000),
+    ("league_anivia", 55000),
+    ("league_annie", 60000),
+    ("league_aphelios", 55000),
+    ("league_ashe", 60000),
+    ("league_bard", 52000),
+    ("league_blitzcrank", 25000),
+    ("league_brand", 52000),
+    ("league_braum", 25000),
+    ("league_briar", 24000),
+    ("league_caitlyn", 65000),
+    ("league_camille", 25000),
+    ("league_corki", 55000),
+    ("league_darius", 25000),
+    ("league_diana", 24000),
+    ("league_draven", 55000),
+    ("league_drmundo", 25000),
+    ("league_ekko", 24000),
+    ("league_elise", 23000),
+    ("league_evelynn", 24000),
+    ("league_ezreal", 55000),
+    ("league_fiddlesticks", 50000),
+    ("league_fiora", 25000),
+    ("league_fizz", 24000),
+    ("league_galio", 25000),
+    ("league_garen", 25000),
+    ("league_gragas", 25000),
+    ("league_gwen", 24000),
+    ("league_hecarim", 25000),
+    ("league_irelia", 25000),
+    ("league_janna", 60000),
+    ("league_jax", 25000),
+    ("league_jayce", 25000),
+    ("league_jhin", 55000),
+    ("league_jinx", 64500),
+    ("league_kaisa", 55000),
+    ("league_kalista", 52500),
+    ("league_karma", 55000),
+    ("league_kassadin", 24000),
+    ("league_katarina", 23000),
+    ("league_kayle", 25000),
+    ("league_kayn", 24000),
+    ("league_kennen", 55000),
+    ("league_khazix", 23000),
+    ("league_kindred", 55000),
+    ("league_kogmaw", 55000),
+    ("league_leblanc", 52500),
+    ("league_leesin", 23000),
+    ("league_leona", 25000),
+    ("league_lillia", 25000),
+    ("league_lissandra", 55000),
+    ("league_lucian", 55000),
+    ("league_lulu", 55000),
+    ("league_lux", 55000),
+    ("league_malphite", 25000),
+    ("league_malzahar", 52000),
+    ("league_masteryi", 25000),
+    ("league_milio", 53000),
+    ("league_missfortune", 55000),
+    ("league_mordekaiser", 25000),
+    ("league_morgana", 50000),
+    ("league_nami", 55000),
+    ("league_nasus", 26000),
+    ("league_nautilus", 25000),
+    ("league_nidalee", 23000),
+    ("league_nilah", 30000),
+    ("league_nocturne", 23000),
+    ("league_olaf", 25000),
+    ("league_orianna", 55000),
+    ("league_pantheon", 27000),
+    ("league_pyke", 24000),
+    ("league_rakan", 40000),
+    ("league_reksai", 26000),
+    ("league_rell", 25000),
+    ("league_renata", 55000),
+    ("league_renekton", 25000),
+    ("league_rengar", 23000),
+    ("league_riven", 25000),
+    ("league_ryze", 55000),
+    ("league_samira", 55000),
+    ("league_senna", 62000),
+    ("league_seraphine", 55000),
+    ("league_sett", 25000),
+    ("league_shaco", 23000),
+    ("league_shen", 25000),
+    ("league_sion", 25000),
+    ("league_sivir", 55000),
+    ("league_smolder", 55000),
+    ("league_sona", 55000),
+    ("league_soraka", 60000),
+    ("league_swain", 52000),
+    ("league_syndra", 55000),
+    ("league_tahmkench", 28000),
+    ("league_talon", 23000),
+    ("league_taric", 25000),
+    ("league_teemo", 50000),
+    ("league_thresh", 48000),
+    ("league_tristana", 55000),
+    ("league_tryndamere", 25000),
+    ("league_twistedfate", 57500),
+    ("league_twitch", 55000),
+    ("league_urgot", 38000),
+    ("league_varus", 57500),
+    ("league_vayne", 55000),
+    ("league_veigar", 55000),
+    ("league_vi", 24000),
+    ("league_viego", 26000),
+    ("league_viktor", 55000),
+    ("league_vladimir", 48000),
+    ("league_xayah", 57500),
+    ("league_xerath", 55000),
+    ("league_xinzhao", 26000),
+    ("league_yasuo", 25000),
+    ("league_yone", 25000),
+    ("league_yunara", 57500),
+    ("league_zed", 23000),
+    ("league_zeri", 60000),
+    ("league_zilean", 55000),
 ];
-/// 远程里之前按观察包加进来的：洛（普攻距离 40000）、赛娜（62000），对线时一样被停住。
-pub const RANGED_HOLDERS: [&str; 2] = ["league_rakan", "league_senna"];
+/// 远程：盯住的目标走出普攻距离这么多就不追。
+pub const RANGED_KEEP: f64 = 10_000.0;
 
-/// 交给站桩规则管的英雄：所有近战，加上洛、赛娜。
+/// 主包数据里的普攻距离（不是主包的英雄就 `None`）。
+pub fn attack_range(name: &str) -> Option<u64> {
+    ATTACK_RANGE.iter().find(|(n, _)| *n == name).map(|&(_, r)| r)
+}
+
+/// 交给站桩规则管的英雄：主包所有英雄。
 pub fn is_holder(name: &str) -> bool {
-    MELEE.contains(&name) || RANGED_HOLDERS.contains(&name)
+    attack_range(name).is_some()
+}
+
+/// 被停住时打多远内的敌方英雄、盯住以后走出多远就不追：近战 `HOLD_REACH` / `HOLD_KEEP`；远程是自己的普攻距离、再加 `RANGED_KEEP`。
+pub fn hold_reach(name: &str) -> (f64, f64) {
+    match attack_range(name) {
+        Some(r) if r > MELEE_RANGE => (r as f64, r as f64 + RANGED_KEEP),
+        _ => (HOLD_REACH, HOLD_KEEP),
+    }
 }
 /// 原地站了这么多 tick、普攻好了、AI 还在让她原地站（没下命令，或「走到」离她 `HOLD_HERE` 以内的地方）才算被停住。
 pub const HOLD_STILL: usize = 15;
@@ -195,7 +390,7 @@ pub const HOLD_WALKING: usize = 30;
 /// 走路的目的地比他现在离目标远这么多以上，就是在撤（拉开、回撤）：那是 AI 自己的打算，不算被停住。
 pub const HOLD_AWAY: f64 = 10_000.0;
 pub const HOLD_HERE: f64 = 3_000.0;
-/// 这么近的敌方英雄才上去打（观察到的停住距离 26–32k）；打上了之后对方走到 `HOLD_KEEP` 以外就不追。
+/// 近战：这么近的敌方英雄才上去打（观察到的停住距离 26–32k）；打上了之后对方走到 `HOLD_KEEP` 以外就不追。
 pub const HOLD_REACH: f64 = 35_000.0;
 pub const HOLD_KEEP: f64 = 45_000.0;
 /// 血量够：她的生命比例不低于这个。
@@ -373,21 +568,22 @@ pub fn kog_pick(open: bool, volleys: f64, valid: &[(f64, bool)]) -> Option<(usiz
     (volleys >= KOG_VOLLEYS_MAX).then_some((0, "volleys saved up"))
 }
 
-/// 被停住的近战打谁（不打就 `None`）：她生命不低于 `HOLD_MIN_HP`；目标是正在盯的那个（还在 `HOLD_KEEP` 内）或
-/// `HOLD_REACH` 内最近的敌方英雄；目标离敌方塔超过 `TOWER_REACH`；目标身边 `CROWD_R` 内的敌方英雄不多于她身边的我方英雄（含她）。
+/// 被停住的英雄打谁（不打就 `None`）：她生命不低于 `HOLD_MIN_HP`；目标是正在盯的那个（还在 `keep` 内）或 `reach` 内最近的
+/// 敌方英雄（`hold_reach`）；目标离敌方塔超过 `TOWER_REACH`；目标身边 `CROWD_R` 内的敌方英雄不多于她身边的我方英雄（含她）。
 pub fn hold_target(
     me: (f64, f64),
     hp: f64,
     allies: &[Unit],
     enemies: &[Unit],
     towers: &[(f64, f64)],
+    (reach, keep): (f64, f64),
     engaged: Option<usize>,
 ) -> Option<usize> {
     if hp < HOLD_MIN_HP {
         return None;
     }
-    let kept = engaged.filter(|t| enemies.iter().any(|u| u.id == *t && dist(me, u.at) <= HOLD_KEEP));
-    let t = kept.or_else(|| nearest_in(me, HOLD_REACH, enemies))?;
+    let kept = engaged.filter(|t| enemies.iter().any(|u| u.id == *t && dist(me, u.at) <= keep));
+    let t = kept.or_else(|| nearest_in(me, reach, enemies))?;
     let p = enemies.iter().find(|u| u.id == t)?.at;
     if towers.iter().any(|&w| dist(w, p) <= TOWER_REACH) {
         return None;
@@ -402,12 +598,297 @@ pub fn walking_away(me: (f64, f64), to: (f64, f64), target: (f64, f64)) -> bool 
     dist(to, target) > dist(me, target) + HOLD_AWAY
 }
 
+/// 他眼前的局面：他的位置、编号、生命比例，我方英雄（不含他），看得见、选得中的敌方英雄，敌方塔，被控住的敌方英雄。
+pub struct Scene<'a> {
+    pub me: (f64, f64),
+    pub id: usize,
+    pub hp: f64,
+    pub allies: &'a [Unit],
+    pub enemies: &'a [Unit],
+    pub towers: &'a [(f64, f64)],
+    pub held: &'a [usize],
+}
+
+impl Scene<'_> {
+    fn foes_within(&self, p: (f64, f64), r: f64) -> usize {
+        self.enemies.iter().filter(|u| dist(p, u.at) <= r).count()
+    }
+
+    fn under_tower(&self, p: (f64, f64)) -> bool {
+        self.towers.iter().any(|&w| dist(w, p) <= TOWER_REACH)
+    }
+
+    /// 打 `p` 那里是以少打多：那里 `CROWD_R` 内的敌方英雄多于他身边 `CROWD_R` 内的我方英雄（含他）。
+    fn outnumbered_at(&self, p: (f64, f64)) -> bool {
+        self.foes_within(p, CROWD_R) > 1 + self.allies.iter().filter(|u| dist(self.me, u.at) <= CROWD_R).count()
+    }
+
+    /// 在打架：他，或他 `reach` 内的队友，`FIGHT_CONTACT` 内有敌方英雄。
+    fn in_contact(&self, reach: f64) -> bool {
+        self.foes_within(self.me, FIGHT_CONTACT) > 0
+            || self.allies.iter().any(|a| dist(self.me, a.at) <= reach && self.foes_within(a.at, FIGHT_CONTACT) > 0)
+    }
+
+    /// `range` 内的敌方英雄，由近到远。
+    fn by_distance(&self, range: f64) -> Vec<usize> {
+        let mut v: Vec<&Unit> = self.enemies.iter().filter(|u| dist(self.me, u.at) <= range).collect();
+        v.sort_by(|a, b| dist(self.me, a.at).total_cmp(&dist(self.me, b.at)));
+        v.into_iter().map(|u| u.id).collect()
+    }
+}
+
+/// 生命比例从低到高（一样的离他近的在前）。
+fn lowest_first(s: &Scene, mut v: Vec<&Unit>) -> Vec<usize> {
+    v.sort_by(|a, b| a.hp.total_cmp(&b.hp).then(dist(s.me, a.at).total_cmp(&dist(s.me, b.at))));
+    v.into_iter().map(|u| u.id).collect()
+}
+
+/// 冲上去的技能打谁（劫 W、格温 E、佛耶戈 E、卡特琳娜 W），先后顺序：他生命不低于 `ENGAGE_HP`；`range` 内、不在敌方塔下
+/// （生命 `DIVE_HP` 以下的除外）、身边不以少打多的敌方英雄，生命比例最低的在前。
+pub fn engage_targets(s: &Scene, range: f64) -> Vec<usize> {
+    if s.hp < ENGAGE_HP {
+        return Vec::new();
+    }
+    let v = s
+        .enemies
+        .iter()
+        .filter(|u| dist(s.me, u.at) <= range && (u.hp <= DIVE_HP || !s.under_tower(u.at)) && !s.outnumbered_at(u.at))
+        .collect();
+    lowest_first(s, v)
+}
+
+/// 卡特琳娜 R：她生命不低于 `KAT_R_HP`、站的地方不在敌方塔下（目标残血除外）；`KAT_R_REACH` 内的敌方英雄，
+/// `KAT_R_RING` 内有两个以上，或目标生命不到 `KAT_R_LOW`。由近到远（格子射程 30000）。
+pub fn katarina_r(s: &Scene) -> Vec<usize> {
+    if s.hp < KAT_R_HP {
+        return Vec::new();
+    }
+    let crowd = s.foes_within(s.me, KAT_R_RING) >= 2;
+    let tower = s.under_tower(s.me);
+    s.by_distance(KAT_R_REACH)
+        .into_iter()
+        .filter(|t| s.enemies.iter().any(|u| u.id == *t && (crowd || u.hp <= KAT_R_LOW) && (!tower || u.hp <= DIVE_HP)))
+        .collect()
+}
+
+/// 费德提克 R 朝哪里放：`FIDDLE_R_RANGE` 内的敌方英雄脚下，`FIDDLE_STORM` 内敌方英雄最多的一处（一样多挑生命低的）；
+/// 只有一个的话他生命要不到 `FIDDLE_LOW`。他生命不低于 `ENGAGE_HP`；那里不在敌方塔下；那里 `CROWD_R` 内的敌方英雄最多比
+/// 那里的我方英雄（加上传过去的他）多一个。-> `(他, 那一点, 那里的敌方英雄数)`
+pub fn fiddle_r(s: &Scene) -> Option<(usize, (f64, f64), usize)> {
+    if s.hp < ENGAGE_HP {
+        return None;
+    }
+    let mut best: Option<(&Unit, usize)> = None;
+    for u in s.enemies.iter().filter(|u| dist(s.me, u.at) <= FIDDLE_R_RANGE) {
+        let n = s.foes_within(u.at, FIDDLE_STORM);
+        if (n < 2 && u.hp > FIDDLE_LOW) || s.under_tower(u.at) {
+            continue;
+        }
+        let ours = 1 + s.allies.iter().filter(|a| dist(u.at, a.at) <= CROWD_R).count();
+        if s.foes_within(u.at, CROWD_R) > ours + 1 {
+            continue;
+        }
+        if best.is_none_or(|(b, bn)| n > bn || (n == bn && u.hp < b.hp)) {
+            best = Some((u, n));
+        }
+    }
+    best.map(|(u, n)| (u.id, u.at, n))
+}
+
+/// 远处引导的大招（泽拉斯 R、烬 R）打谁：他身边 `CHANNEL_SAFE` 内没有敌方英雄、生命不低于 `CHANNEL_HP`；`reach` 内
+/// 生命不到 `CHANNEL_LOW` 的，或我方有人 `FIGHT_CONTACT` 内贴着的敌方英雄，生命比例最低的在前。
+pub fn channel_targets(s: &Scene, reach: f64) -> Vec<usize> {
+    if s.hp < CHANNEL_HP || s.foes_within(s.me, CHANNEL_SAFE) > 0 {
+        return Vec::new();
+    }
+    let v = s
+        .enemies
+        .iter()
+        .filter(|u| {
+            dist(s.me, u.at) <= reach
+                && (u.hp <= CHANNEL_LOW || s.allies.iter().any(|a| dist(a.at, u.at) <= FIGHT_CONTACT))
+        })
+        .collect();
+    lowest_first(s, v)
+}
+
+/// 辛德拉 R 打谁：射程内的敌方英雄，生命不到 `SYNDRA_LOW` 的、被控住的，或射程内有两个以上时任何一个；生命比例最低的在前。
+pub fn syndra_r(s: &Scene) -> Vec<usize> {
+    let all: Vec<&Unit> = s.enemies.iter().filter(|u| dist(s.me, u.at) <= SYNDRA_R_RANGE).collect();
+    let crowd = all.len() >= 2;
+    let v = all.into_iter().filter(|u| crowd || u.hp <= SYNDRA_LOW || s.held.contains(&u.id)).collect();
+    lowest_first(s, v)
+}
+
+/// 迦娜 R 对谁放（`AllyChampion`，治疗的是她身边一圈，对谁都一样）：她或 `JANNA_R_RANGE` 内的队友生命不到 `JANNA_SAVE`
+/// 而 `JANNA_THREAT` 内有敌方英雄，或两人以上生命不到 `JANNA_TEAM` 而她身边 `JANNA_THREAT` 内有敌方英雄。生命最低的在前（含她）。
+pub fn janna_r(s: &Scene) -> Vec<usize> {
+    let mut team = vec![(s.id, s.me, s.hp)];
+    team.extend(s.allies.iter().filter(|u| dist(s.me, u.at) <= JANNA_R_RANGE).map(|u| (u.id, u.at, u.hp)));
+    let threatened = |p: (f64, f64)| s.foes_within(p, JANNA_THREAT) > 0;
+    let save = team.iter().any(|&(_, p, hp)| hp < JANNA_SAVE && threatened(p));
+    let hurt = team.iter().filter(|t| t.2 < JANNA_TEAM).count();
+    if !(save || (hurt >= 2 && threatened(s.me))) {
+        return Vec::new();
+    }
+    team.sort_by(|a, b| a.2.total_cmp(&b.2));
+    team.into_iter().map(|t| t.0).collect()
+}
+
+/// 娑娜 W：她或 `SONA_HEAL_R` 内的队友生命不到 `SONA_HURT`，射程内的敌方英雄由近到远（格子要一个敌方英雄）。
+pub fn sona_w(s: &Scene) -> Vec<usize> {
+    let hurt = s.hp < SONA_HURT || s.allies.iter().any(|a| dist(s.me, a.at) <= SONA_HEAL_R && a.hp < SONA_HURT);
+    if hurt {
+        s.by_distance(SONA_W_RANGE)
+    } else {
+        Vec::new()
+    }
+}
+
+/// 基兰 E：在打架（`Scene::in_contact`）时射程内由近到远；不打架时追射程内生命不到 `CHASE_LOW` 的（最低的在前）。
+pub fn zilean_e(s: &Scene) -> Vec<usize> {
+    if s.in_contact(ZILEAN_E_RANGE) {
+        return s.by_distance(ZILEAN_E_RANGE);
+    }
+    let v = s.enemies.iter().filter(|u| dist(s.me, u.at) <= ZILEAN_E_RANGE && u.hp < CHASE_LOW).collect();
+    lowest_first(s, v)
+}
+
+/// 希维尔 E：`SIVIR_WATCH` 内有刚放了技能的敌方英雄（`fresh`），或她生命不到 `SIVIR_LOW` 而 `SIVIR_CLOSE` 内有敌方英雄。
+/// 射程内的敌方英雄，刚放技能的在前、再由近到远。
+pub fn sivir_e(s: &Scene, fresh: &[usize]) -> Vec<usize> {
+    let spell = s.enemies.iter().any(|u| fresh.contains(&u.id) && dist(s.me, u.at) <= SIVIR_WATCH);
+    let desperate = s.hp < SIVIR_LOW && s.foes_within(s.me, SIVIR_CLOSE) > 0;
+    if !spell && !desperate {
+        return Vec::new();
+    }
+    let mut v = s.by_distance(SIVIR_E_RANGE);
+    v.sort_by_key(|t| !fresh.contains(t));
+    v
+}
+
+/// 弗拉基米尔 R 打谁：射程内生命不到 `VLAD_R_LOW` 的，或身边 `VLAD_R_CLOUD` 内有两个以上敌方英雄（含他）的，生命比例最低的在前。
+pub fn vladimir_r(s: &Scene) -> Vec<usize> {
+    let v = s
+        .enemies
+        .iter()
+        .filter(|u| dist(s.me, u.at) <= VLAD_R_RANGE && (u.hp < VLAD_R_LOW || s.foes_within(u.at, VLAD_R_CLOUD) >= 2))
+        .collect();
+    lowest_first(s, v)
+}
+
+/// 瑞兹 R（备好式）：逃命——生命不到 `RYZE_FLEE` 而 `RYZE_THREAT` 内有敌方英雄（最近的那个）；去打架——崔斯特的规则。
+pub fn ryze_r(s: &Scene) -> Option<(usize, &'static str)> {
+    if s.hp < RYZE_FLEE {
+        return s.by_distance(RYZE_THREAT).first().map(|&t| (t, "low on health"));
+    }
+    tf_fight(s.me, s.hp, s.allies, s.enemies).map(|(e, _)| (e, "an ally fights far away"))
+}
+
+/// 打的是谁：一个单位，或地上一点（`Position` 施放）。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Aim {
+    Unit(usize),
+    Spot((f64, f64)),
+}
+
+/// 一次要按的：日志里的键名、哪个格子、对着谁、为什么；`dive` = 冲上去的（AI 正往远处撤时不按）。
+#[derive(Clone, Debug, PartialEq)]
+pub struct Plan {
+    pub key: &'static str,
+    pub slot: SkillSlotV1,
+    pub aim: Aim,
+    pub why: String,
+    pub dive: bool,
+}
+
+/// 他身上的几个主包标记：劫的 Q 好着（没有 `ZED_Q_CD`）、卡莉丝塔能撕裂（`KALISTA_E_OK` 在、`KALISTA_E_CD` 不在）；
+/// 刚放了技能的敌方英雄（希维尔）。
+#[derive(Clone, Debug, Default)]
+pub struct Marks {
+    pub zed_q_ready: bool,
+    pub kalista_rend: bool,
+    pub fresh: Vec<usize>,
+}
+
+/// 这一 tick 替这位英雄按什么，先后顺序（引擎接哪个就是哪个）。`ready` 按 `SkillSlotV1` 的编号（普攻、技能1、技能2、大招）。
+/// 只管 `slots_of` 新加的这些英雄；莎弥拉、崔斯特、克格莫、卡密尔照旧在 `think` 里。
+pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
+    let (q, w, r) = (ready[1], ready[2], ready[3]);
+    let mut out = Vec::new();
+    let mut push = |key: &'static str, slot: SkillSlotV1, ids: Vec<usize>, why: &str, dive: bool| {
+        out.extend(ids.into_iter().map(|t| Plan { key, slot, aim: Aim::Unit(t), why: why.to_string(), dive }));
+    };
+    use SkillSlotV1::{Skill, Skill2, Ult};
+    match name {
+        ZED if q && m.zed_q_ready => push("W", Skill, engage_targets(s, ZED_W_RANGE), "W-E-Q (Q ready)", true),
+        GWEN if w => push("E", Skill2, engage_targets(s, GWEN_E_RANGE), "dash in", true),
+        VIEGO if w => push("E", Skill2, engage_targets(s, VIEGO_E_RANGE), "mist and dash in", true),
+        KATARINA => {
+            if r {
+                push("R", Ult, katarina_r(s), "lotus", false);
+            }
+            if w {
+                push("W", Skill2, engage_targets(s, KATARINA_W_RANGE), "shunpo in", true);
+            }
+        }
+        ORIANNA => {
+            if r {
+                push("R", Ult, s.by_distance(ORI_R_NEAR), "arm the shockwave", false);
+            }
+            if w && s.in_contact(ORI_E_RANGE) {
+                push("E", Skill2, s.by_distance(ORI_E_RANGE), "fight on: shield", false);
+            }
+        }
+        SIVIR if w => push("E", Skill2, sivir_e(s, &m.fresh), "spell shield", false),
+        SONA if w => push("W", Skill2, sona_w(s), "someone hurt: heal", false),
+        ZILEAN if w => push("E", Skill2, zilean_e(s), "slow / haste", false),
+        KALISTA if w && m.kalista_rend => push("E", Skill2, s.by_distance(KALISTA_E_RANGE), "spears enough: rend", false),
+        JANNA if r => push("R", Ult, janna_r(s), "monsoon heal", false),
+        SYNDRA if r => push("R", Ult, syndra_r(s), "unleashed power", false),
+        XERATH if r => push("R", Ult, channel_targets(s, XERATH_R_REACH), "rite from afar", false),
+        JHIN if r => push("R", Ult, channel_targets(s, JHIN_R_REACH), "curtain call from afar", false),
+        KAYLE if r => push("R", Ult, s.by_distance(KAYLE_R_NEAR), "arm", false),
+        KARMA if r => push("R", Ult, s.by_distance(KARMA_R_NEAR), "mantra", false),
+        EVELYNN if r => push("R", Ult, s.by_distance(EVELYNN_R_NEAR), "arm", false),
+        APHELIOS if r => push("R", Ult, s.by_distance(APHELIOS_R_NEAR), "arm", false),
+        VLADIMIR if r => push("R", Ult, vladimir_r(s), "hemoplague", false),
+        RYZE if r => {
+            if let Some((t, why)) = ryze_r(s) {
+                push("R", Ult, vec![t], why, false);
+            }
+        }
+        FIDDLESTICKS if r => {
+            if let Some((t, at, n)) = fiddle_r(s) {
+                let why = format!("crowstorm on {n}");
+                out.push(Plan { key: "R", slot: Ult, aim: Aim::Spot(at), why: why.clone(), dive: true });
+                out.push(Plan { key: "R", slot: Ult, aim: Aim::Unit(t), why, dive: true });
+            }
+        }
+        _ => {}
+    }
+    out
+}
+
+/// 备好式的大招（主包待命一段时间等时机，没用上退还冷却）：按下以后看它退没退。
+pub fn is_armed_ult(name: &str) -> bool {
+    matches!(name, ORIANNA | SYNDRA | KAYLE | KARMA | EVELYNN | RYZE | APHELIOS)
+}
+
 /// 放不出技能的控制。
 const NO_CAST: [CcKindV1; 7] =
     [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockSkill];
 
 fn controlled(e: &StableEntity<'_, '_>) -> bool {
     (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| NO_CAST.iter().any(|k| k.code() == c.kind)))
+}
+
+/// 正在放技能（施法动作还在播，游戏 0.6.4 记成 `Animation`）或被强制位移（`ForceMove`：冲刺、德莱文跑去接斧头）：
+/// 不替 AI 按，也不算被停住——引导中的大招（卡特琳娜 R、烬 R）人站着不动、普攻又是好的，这时按普攻会打断它。
+const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
+
+fn busy(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| BUSY.iter().any(|k| k.code() == c.kind)))
 }
 
 fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
@@ -437,14 +918,44 @@ fn at(e: &StableEntity<'_, '_>) -> (f64, f64) {
 
 // ===================== AI 钩子 =====================
 
-/// 每个英雄按哪个格子、日志里叫什么。
-fn slot_of(name: &str) -> Option<(SkillSlotV1, InputKindV1, &'static str)> {
+/// 一个替 AI 按的格子：哪个格子、日志里叫什么。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct PressSlot {
+    pub slot: SkillSlotV1,
+    pub key: &'static str,
+}
+
+const P_R: PressSlot = PressSlot { slot: SkillSlotV1::Ult, key: "R" };
+const P_E2: PressSlot = PressSlot { slot: SkillSlotV1::Skill2, key: "E" };
+const P_W2: PressSlot = PressSlot { slot: SkillSlotV1::Skill2, key: "W" };
+const P_W1: PressSlot = PressSlot { slot: SkillSlotV1::Skill, key: "W" };
+
+/// 每个英雄替 AI 按哪些格子（它们的冷却开始走就记一行 CAST）。
+pub fn slots_of(name: &str) -> &'static [PressSlot] {
     match name {
-        SAMIRA | TF | KOGMAW => Some((SkillSlotV1::Ult, InputKindV1::Ult, "R")),
-        CAMILLE => Some((SkillSlotV1::Skill2, InputKindV1::Skill2, "E")),
-        _ => None,
+        SAMIRA | TF | KOGMAW | JANNA | SYNDRA | XERATH | KAYLE | JHIN | KARMA | EVELYNN | FIDDLESTICKS | RYZE | APHELIOS
+        | VLADIMIR => &[P_R],
+        CAMILLE | GWEN | VIEGO | SIVIR | ZILEAN | KALISTA => &[P_E2],
+        ORIANNA => &[P_R, P_E2],
+        KATARINA => &[P_R, P_W2],
+        SONA => &[P_W2],
+        ZED => &[P_W1],
+        _ => &[],
     }
 }
+
+/// 格子 -> 引擎的命令种类。
+fn input_kind(slot: SkillSlotV1) -> InputKindV1 {
+    match slot {
+        SkillSlotV1::Attack => InputKindV1::Attack,
+        SkillSlotV1::Skill => InputKindV1::Skill,
+        SkillSlotV1::Skill2 => InputKindV1::Skill2,
+        SkillSlotV1::Ult => InputKindV1::Ult,
+    }
+}
+
+/// 一个候选命令：命令、日志里的键名、它从哪个被看着的格子出（`SkillSlotV1` 的编号）、为什么。
+type Cand = (InputV1, &'static str, Option<usize>, String);
 
 #[derive(Clone, Debug)]
 struct Order {
@@ -454,11 +965,14 @@ struct Order {
 
 #[derive(Clone, Default)]
 struct UltPress {
-    /// 最近一次按（`ORDER_FRESH` tick 内冷却开始走就算是它）。
-    order: Option<Order>,
-    /// 上一次看到的剩余冷却。
-    last_cd: Option<usize>,
-    /// 按下去的那一 tick（之后 `WATCH_AFTER` tick 内看结果）。
+    /// 每个格子（`SkillSlotV1` 的编号）最近一次按（`ORDER_FRESH` tick 内冷却开始走就算是它）、上一次看到的剩余冷却、
+    /// 备好式大招按下去的那一 tick（`ARM_WATCH` tick 内看退没退冷却）。
+    orders: [Option<Order>; 4],
+    last_cds: [Option<usize>; 4],
+    armed_at: Option<usize>,
+    /// 希维尔看的：每个敌方英雄三个技能格上次的剩余冷却、最近一次开始走冷却的 tick。
+    foe_cds: HashMap<usize, ([usize; 3], Option<usize>)>,
+    /// 莎弥拉 / 崔斯特的 R 按下去的那一 tick（之后 `WATCH_AFTER` tick 内看结果）。
     cast_at: Option<usize>,
     last_pos: Option<(f64, f64)>,
     r_on: bool,
@@ -501,7 +1015,7 @@ impl StablePlayerAi for UltPress {
     }
 
     fn matches(&self, init: &StableAiInit) -> bool {
-        slot_of(&init.champion_name).is_some() || is_holder(&init.champion_name)
+        !slots_of(&init.champion_name).is_empty() || is_holder(&init.champion_name)
     }
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
@@ -511,15 +1025,16 @@ impl StablePlayerAi for UltPress {
         let mut kog: Option<(bool, f64, Vec<(f64, bool)>)> = None;
         // a melee champion the AI holds in lane: the enemy champion to attack, and why
         let mut hold: Option<(usize, String)> = None;
-        let (main_key, cands): (&'static str, Vec<(InputV1, &'static str, String)>) = {
+        // the presses in order: the input, its key, the watched slot it goes out of (its SkillSlotV1 code), why
+        let (name, cands): (String, Vec<Cand>) = {
             let sim = ctx.sim()?;
             let pl = sim.get_player(player)?;
             let me = pl.champion()?;
             let (mid, team) = (me.id(), me.team());
             let name = me.name().unwrap_or_default();
             let holder = is_holder(&name);
-            let slot = slot_of(&name);
-            if slot.is_none() && !holder {
+            let slots = slots_of(&name);
+            if slots.is_empty() && !holder {
                 return None;
             }
             let my_at = at(&me);
@@ -531,6 +1046,8 @@ impl StablePlayerAi for UltPress {
                 self.volley_tick = tick;
                 self.engage = None;
                 self.walk_ticks = 0;
+                self.armed_at = None;
+                self.foe_cds.clear();
             }
             self.volleys = (self.volleys + (tick - self.volley_tick) as f64 / KOG_VOLLEY_EVERY as f64).min(KOG_VOLLEYS_MAX);
             self.volley_tick = tick;
@@ -545,28 +1062,45 @@ impl StablePlayerAi for UltPress {
                     }
                 }
             }
-            let (kind, key) = slot.map_or((InputKindV1::Attack, "A"), |(_, k, key)| (k, key));
-            if let Some((slot, _, _)) = slot {
-                // the slot went out when its cooldown starts: the press behind it, or the AI's own
-                let remaining = me.cooldown(slot).map(|c| c.remaining);
-                if let (Some(0), Some(c)) = (self.last_cd, remaining) {
-                    if c > 0 {
-                        let why = match self.order.take().filter(|o| tick <= o.tick + ORDER_FRESH) {
+            // a watched slot went out when its cooldown starts: the press behind it, or the AI's own
+            for ps in slots {
+                let i = ps.slot.code() as usize;
+                let remaining = me.cooldown(ps.slot).map(|c| c.remaining);
+                if let (Some(prev), Some(c)) = (self.last_cds[i], remaining) {
+                    if prev == 0 && c > 0 {
+                        let why = match self.orders[i].take().filter(|o| tick <= o.tick + ORDER_FRESH) {
                             Some(o) => format!("pressed {} ticks before: {}", tick - o.tick, o.why),
                             None => "by the AI itself".to_string(),
                         };
                         let style = if name == SAMIRA { format!(" [style {}]", grade_name(grade)) } else { String::new() };
-                        if let Some(k) = counted(format!("{name} cast")) {
-                            wlog(format!("{} {key} CAST {why}{style} #{k}", head(&sim, mid)));
+                        if let Some(k) = counted(format!("{name} {} cast", ps.key)) {
+                            wlog(format!("{} {} CAST {why}{style} #{k}", head(&sim, mid), ps.key));
                         }
-                        self.cast_at = Some(tick);
-                        // Kog'Maw's first shell opens a volley: one saved volley spent
-                        if name == KOGMAW && !self.vol_prev {
-                            self.volleys = (self.volleys - 1.0).max(0.0);
+                        if ps.slot == SkillSlotV1::Ult {
+                            if name == SAMIRA || name == TF {
+                                self.cast_at = Some(tick);
+                            }
+                            // Kog'Maw's first shell opens a volley: one saved volley spent
+                            if name == KOGMAW && !self.vol_prev {
+                                self.volleys = (self.volleys - 1.0).max(0.0);
+                            }
+                            if is_armed_ult(&name) {
+                                self.armed_at = Some(tick);
+                            }
+                        }
+                    } else if let Some(t0) = self.armed_at.filter(|_| ps.slot == SkillSlotV1::Ult) {
+                        // an armed ult the data did not use gives its cooldown back at once (a 3-tick cooldown buff)
+                        let refunded = prev > c + 10;
+                        if refunded || tick > t0 + ARM_WATCH {
+                            let what = if refunded { "refunded (not used)" } else { "kept (used)" };
+                            if let Some(k) = counted(format!("{name} arm {what}")) {
+                                wlog(format!("{} R ARMED {} ticks before: {what} #{k}", head(&sim, mid), tick - t0));
+                            }
+                            self.armed_at = None;
                         }
                     }
                 }
-                self.last_cd = remaining;
+                self.last_cds[i] = remaining;
             }
             self.vol_prev = vol_open;
             // what the press led to: Samira's real R (S grade), Twisted Fate's jump
@@ -591,21 +1125,30 @@ impl StablePlayerAi for UltPress {
             self.r_on = name == SAMIRA && has_buff(&me, SAMIRA_R_ON);
             self.last_pos = Some(my_at);
             let ready_of = |s: SkillSlotV1| me.cooldown(s).is_some_and(|c| c.unlocked && c.remaining == 0);
-            let ready = slot.is_some_and(|(s, _, _)| ready_of(s));
+            let ready = [SkillSlotV1::Attack, SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult].map(ready_of);
+            let any_ready = slots.iter().any(|ps| ready[ps.slot.code() as usize]);
             // a held melee champion's attack went out: what she was told to do is done
-            let atk_ready = ready_of(SkillSlotV1::Attack);
+            let atk_ready = ready[0];
             if self.atk_ready_prev && !atk_ready {
                 self.engage = None;
             }
             self.atk_ready_prev = atk_ready;
-            // Samira presses E / Q too, so her R need not be ready; a held melee champion may attack
-            if !me.is_alive() || controlled(&me) || (!ready && name != SAMIRA && !holder) {
+            // casting or being moved: nothing to press, and standing in a channel is no hold
+            if busy(&me) {
+                self.still_ticks = 0;
+                self.walk_ticks = 0;
+                return None;
+            }
+            // Samira presses E / Q too, so her R need not be ready; a held champion may attack
+            if !me.is_alive() || controlled(&me) || (!any_ready && name != SAMIRA && !holder) {
                 return None;
             }
             let mut allies = Vec::new();
             let mut enemies = Vec::new();
             let mut held = Vec::new();
             let mut towers = Vec::new();
+            // Sivir's spell shield waits for an enemy champion's cast: a skill cooldown that starts
+            let watch_casts = name == SIVIR;
             for i in 0..sim.entity_count() {
                 let Some(e) = sim.entity_at(i) else { continue };
                 if !e.is_alive() || e.id() == mid {
@@ -628,12 +1171,28 @@ impl StablePlayerAi for UltPress {
                     if controlled(&e) {
                         held.push(e.id());
                     }
+                    if watch_casts {
+                        let cds = [SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult]
+                            .map(|s| e.cooldown(s).map_or(0, |c| c.remaining));
+                        let seen = self.foe_cds.entry(e.id()).or_insert((cds, None));
+                        if cds.iter().zip(seen.0.iter()).any(|(now, was)| *now > *was + 3) {
+                            seen.1 = Some(tick);
+                        }
+                        seen.0 = cds;
+                    }
                 }
             }
+            let fresh: Vec<usize> = self
+                .foe_cds
+                .iter()
+                .filter(|(_, v)| v.1.is_some_and(|t0| tick.saturating_sub(t0) <= SIVIR_FRESH))
+                .map(|(id, _)| *id)
+                .collect();
             if holder && atk_ready {
                 let engaged = self.engage.filter(|&(_, until)| tick <= until).map(|(t, _)| t);
-                // walking with an enemy champion close and not away from him (Kha'Zix follows and never attacks)
-                let near = nearest_in(my_at, HOLD_REACH, &enemies).and_then(|t| enemies.iter().find(|u| u.id == t)).map(|u| u.at);
+                let reach = hold_reach(&name);
+                // walking with an enemy champion in reach and not away from him (Kha'Zix follows and never attacks)
+                let near = nearest_in(my_at, reach.0, &enemies).and_then(|t| enemies.iter().find(|u| u.id == t)).map(|u| u.at);
                 let walking = match (base, near) {
                     (Some(b), Some(p)) if b.kind == InputKindV1::Move.code() => {
                         !walking_away(my_at, (b.x as f64, b.y as f64), p)
@@ -650,7 +1209,7 @@ impl StablePlayerAi for UltPress {
                         self.engage = None;
                     }
                 } else if still_held || walk_held || engaged.is_some() {
-                    match hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, engaged) {
+                    match hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, reach, engaged) {
                         Some(t) => {
                             if engaged != Some(t) {
                                 self.engage = Some((t, tick + ENGAGE_TICKS));
@@ -669,31 +1228,32 @@ impl StablePlayerAi for UltPress {
             } else {
                 self.walk_ticks = 0;
             }
-            let press = |t: usize| InputV1::action(kind, InputTargetV1::target(t));
-            let cands = match name.as_str() {
+            let press = |kind: InputKindV1, t: usize| InputV1::action(kind, InputTargetV1::target(t));
+            let (ult, skill2) = (Some(SkillSlotV1::Ult.code() as usize), Some(SkillSlotV1::Skill2.code() as usize));
+            let mut cands = match name.as_str() {
                 SAMIRA => {
-                    let ready3 = [ready_of(SkillSlotV1::Skill), ready_of(SkillSlotV1::Skill2), ready];
+                    let ready3 = [ready[1], ready[2], ready[3]];
                     let plan = samira_plan(my_at, hp_share(me.hp()), ready3, has_buff(&me, SAMIRA_LAST_Q), &enemies);
                     let mut v = Vec::new();
                     for (k, t) in plan {
                         let why = format!("{} [style {}]", who(&sim, t), grade_name(grade));
                         match k {
-                            'R' => v.push((InputV1::action(InputKindV1::Ult, InputTargetV1::target(t)), "R", why)),
-                            'E' => v.push((InputV1::action(InputKindV1::Skill2, InputTargetV1::target(t)), "E", why)),
+                            'R' => v.push((press(InputKindV1::Ult, t), "R", ult, why)),
+                            'E' => v.push((press(InputKindV1::Skill2, t), "E", None, why)),
                             _ => {
                                 // Q is a Direction cast: at him, else at his spot, else toward him
                                 let p = enemies.iter().find(|u| u.id == t).map_or(my_at, |u| u.at);
                                 let q = |target| InputV1::action(InputKindV1::Skill, target);
-                                v.push((q(InputTargetV1::target(t)), "Q", why.clone()));
-                                v.push((q(InputTargetV1::pos(p.0.max(0.0) as u64, p.1.max(0.0) as u64)), "Q", why.clone()));
-                                v.push((q(InputTargetV1::dir((p.0 - my_at.0) as i64, (p.1 - my_at.1) as i64)), "Q", why));
+                                v.push((q(InputTargetV1::target(t)), "Q", None, why.clone()));
+                                v.push((q(InputTargetV1::pos(p.0.max(0.0) as u64, p.1.max(0.0) as u64)), "Q", None, why.clone()));
+                                v.push((q(InputTargetV1::dir((p.0 - my_at.0) as i64, (p.1 - my_at.1) as i64)), "Q", None, why));
                             }
                         }
                     }
                     v
                 }
-                CAMILLE if ready => match nearest_in(my_at, CAMILLE_RANGE, &enemies) {
-                    Some(t) => vec![(press(t), key, format!("{} within {CAMILLE_RANGE:.0}", who(&sim, t)))],
+                CAMILLE if ready[2] => match nearest_in(my_at, CAMILLE_RANGE, &enemies) {
+                    Some(t) => vec![(press(InputKindV1::Skill2, t), "E", skill2, format!("{} within {CAMILLE_RANGE:.0}", who(&sim, t)))],
                     None => Vec::new(),
                 },
                 KOGMAW => {
@@ -707,7 +1267,7 @@ impl StablePlayerAi for UltPress {
                         .zip(&info)
                         .map(|(&t, &(hp, cc))| {
                             let ctl = if cc { ", in crowd control" } else { "" };
-                            (press(t), key, format!("{} at {:.0}%{ctl}", who(&sim, t), hp * 100.0))
+                            (press(InputKindV1::Ult, t), "R", ult, format!("{} at {:.0}%{ctl}", who(&sim, t), hp * 100.0))
                         })
                         .collect();
                     kog = Some((vol_open, self.volleys, info));
@@ -716,13 +1276,58 @@ impl StablePlayerAi for UltPress {
                 TF => match tf_fight(my_at, hp_share(me.hp()), &allies, &enemies) {
                     Some((e, a)) => {
                         let far = allies.iter().find(|u| u.id == a).map_or(f64::NAN, |u| dist(my_at, u.at));
-                        vec![(press(e), key, format!("{} fighting {} {far:.0} away, nobody near him", who(&sim, a), who(&sim, e)))]
+                        vec![(press(InputKindV1::Ult, e), "R", ult, format!("{} fighting {} {far:.0} away, nobody near him", who(&sim, a), who(&sim, e)))]
                     }
                     None => Vec::new(),
                 },
                 _ => Vec::new(),
             };
-            (key, cands)
+            // the slots the AI hardly presses (plan): not while it recalls, not over its own cast of that slot, no dive
+            // while it walks away from the target
+            if base.is_none_or(|b| b.kind != InputKindV1::Return.code()) {
+                let scene = Scene {
+                    me: my_at,
+                    id: mid,
+                    hp: hp_share(me.hp()),
+                    allies: &allies,
+                    enemies: &enemies,
+                    towers: &towers,
+                    held: &held,
+                };
+                let marks = Marks {
+                    zed_q_ready: !has_buff(&me, ZED_Q_CD),
+                    kalista_rend: has_buff(&me, KALISTA_E_OK) && !has_buff(&me, KALISTA_E_CD),
+                    fresh,
+                };
+                let unit_of = |t: usize| enemies.iter().chain(allies.iter()).find(|u| u.id == t).copied();
+                for p in plan(&name, &scene, ready, &marks) {
+                    let kind = input_kind(p.slot);
+                    if base.is_some_and(|b| b.kind == kind.code()) {
+                        continue;
+                    }
+                    let spot = match p.aim {
+                        Aim::Unit(t) => unit_of(t).map(|u| u.at),
+                        Aim::Spot(at) => Some(at),
+                    };
+                    if let (true, Some(b), Some(to)) = (p.dive, base, spot) {
+                        if b.kind == InputKindV1::Move.code() && walking_away(my_at, (b.x as f64, b.y as f64), to) {
+                            continue;
+                        }
+                    }
+                    let (input, about) = match p.aim {
+                        Aim::Unit(t) => {
+                            let hp = unit_of(t).map_or(hp_share(me.hp()), |u| u.hp);
+                            (press(kind, t), format!("{} at {:.0}%", who(&sim, t), hp * 100.0))
+                        }
+                        Aim::Spot((x, y)) => (
+                            InputV1::action(kind, InputTargetV1::pos(x.max(0.0) as u64, y.max(0.0) as u64)),
+                            format!("the spot ({x:.0}, {y:.0})"),
+                        ),
+                    };
+                    cands.push((input, p.key, Some(p.slot.code() as usize), format!("{about} - {}", p.why)));
+                }
+            }
+            (name, cands)
         };
         // the first press the engine takes (Kog'Maw's R: only champions his side hit lately; Samira: R, else E, else Q)
         let pressed = match kog {
@@ -731,14 +1336,14 @@ impl StablePlayerAi for UltPress {
                 let ok: Vec<usize> = (0..cands.len()).filter(|&i| ctx.is_valid_input(&cands[i].0)).collect();
                 let valid: Vec<(f64, bool)> = ok.iter().map(|&i| info[i]).collect();
                 kog_pick(open, volleys, &valid).and_then(|(j, reason)| {
-                    let (input, key, why) = cands.into_iter().nth(ok[j])?;
-                    Some((input, key, format!("{why} - {reason} ({volleys:.1} volleys saved)")))
+                    let (input, key, slot, why) = cands.into_iter().nth(ok[j])?;
+                    Some((input, key, slot, format!("{why} - {reason} ({volleys:.1} volleys saved)")))
                 })
             }
-            None => cands.into_iter().find(|(i, _, _)| ctx.is_valid_input(i)),
+            None => cands.into_iter().find(|(i, _, _, _)| ctx.is_valid_input(i)),
         };
         // nothing to press: a held melee champion attacks the enemy champion in front of her
-        let (input, key, why) = match pressed {
+        let (input, key, slot, why) = match pressed {
             Some(p) => p,
             None => {
                 let (t, why) = hold?;
@@ -747,16 +1352,18 @@ impl StablePlayerAi for UltPress {
                     self.engage = None;
                     return None;
                 }
-                (attack, "A", why)
+                (attack, "A", None, why)
             }
         };
-        if key == main_key && self.order.as_ref().is_none_or(|o| tick > o.tick + ORDER_FRESH) {
-            self.order = Some(Order { tick, why: why.clone() });
+        if let Some(i) = slot {
+            if self.orders[i].as_ref().is_none_or(|o| tick > o.tick + ORDER_FRESH) {
+                self.orders[i] = Some(Order { tick, why: why.clone() });
+            }
         }
         // one ORDER line a burst (the engine may take a few ticks; the hook presses again every tick meanwhile)
         if self.last_order.is_none_or(|(k0, t0)| k0 != key || tick > t0 + ORDER_FRESH) {
             if let Some(k) = counted(format!("player {player} {key} order")) {
-                wlog(format!("t={tick} player {player} {key} ORDER: {why} #{k}"));
+                wlog(format!("t={tick} player {player} {name} {key} ORDER: {why} #{k}"));
             }
         }
         self.last_order = Some((key, tick));
@@ -772,9 +1379,10 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (presses armed slots for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E; held champions attack: the {} melee League champions (attack range up to {}) and Rakan, Senna) loaded: game {}.{}.{} abi {} log={} ===",
-        MELEE.len(),
-        MELEE_RANGE,
+        "=== {ID} v{VERSION} (presses for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E, Zed W, Gwen E, Viego E, Katarina W and R, Orianna E and R, Sivir E, Sona W, Zilean E, Kalista E, the R of Janna, Syndra, Xerath, Kayle, Jhin, Karma, Evelynn, Fiddlesticks, Ryze, Aphelios and Vladimir; held champions attack: all {} League champions, the {} melee within {}, the ranged within their own attack range; nothing while casting or moved) loaded: game {}.{}.{} abi {} log={} ===",
+        ATTACK_RANGE.len(),
+        ATTACK_RANGE.iter().filter(|(_, r)| *r <= MELEE_RANGE).count(),
+        HOLD_REACH,
         v.major,
         v.minor,
         v.patch,
@@ -782,7 +1390,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_player_input_ai(UltPress::default());
-    host.log(LogLevel::Info, "league_ult_press loaded (presses Samira's, Twisted Fate's and Kog'Maw's R and Camille's E).");
+    host.log(LogLevel::Info, "league_ult_press loaded (presses the slots game 0.6.4's AI hardly presses, for 24 heroes; breaks holds for every champion).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -858,19 +1466,25 @@ mod tests {
     fn a_held_melee_champion_attacks_only_when_safe() {
         let lane = [u(1, 29_000.0, 0.0, 0.9)];
         // the lane opponent 29k away, she is healthy, no tower, 1 v 1: attack him
-        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &lane, &[], None), Some(1));
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &lane, &[], (HOLD_REACH, HOLD_KEEP), None), Some(1));
         // low on health
-        assert_eq!(hold_target((0.0, 0.0), 0.4, &[], &lane, &[], None), None);
+        assert_eq!(hold_target((0.0, 0.0), 0.4, &[], &lane, &[], (HOLD_REACH, HOLD_KEEP), None), None);
         // he stands under his tower
-        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &lane, &[(90_000.0, 0.0)], None), None);
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &lane, &[(90_000.0, 0.0)], (HOLD_REACH, HOLD_KEEP), None), None);
         // two enemy champions round him and she is alone; with an ally by her it is even
         let two = [u(1, 29_000.0, 0.0, 0.9), u(2, 60_000.0, 0.0, 0.9)];
-        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &two, &[], None), None);
-        assert_eq!(hold_target((0.0, 0.0), 0.8, &[u(9, -10_000.0, 0.0, 1.0)], &two, &[], None), Some(1));
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &two, &[], (HOLD_REACH, HOLD_KEEP), None), None);
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[u(9, -10_000.0, 0.0, 1.0)], &two, &[], (HOLD_REACH, HOLD_KEEP), None), Some(1));
         // out of reach (40k); the one she is on is kept up to 45k
-        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 40_000.0, 0.0, 0.9)], &[], None), None);
-        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 40_000.0, 0.0, 0.9)], &[], Some(1)), Some(1));
-        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 50_000.0, 0.0, 0.9)], &[], Some(1)), None);
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 40_000.0, 0.0, 0.9)], &[], (HOLD_REACH, HOLD_KEEP), None), None);
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 40_000.0, 0.0, 0.9)], &[], (HOLD_REACH, HOLD_KEEP), Some(1)), Some(1));
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 50_000.0, 0.0, 0.9)], &[], (HOLD_REACH, HOLD_KEEP), Some(1)), None);
+        // a ranged champion (Draven, 55000): the lane opponent 50k off is in reach, 60k off is not unless she is on him
+        let ranged = hold_reach("league_draven");
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 50_000.0, 0.0, 0.9)], &[], ranged, None), Some(1));
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 60_000.0, 0.0, 0.9)], &[], ranged, None), None);
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 60_000.0, 0.0, 0.9)], &[], ranged, Some(1)), Some(1));
+        assert_eq!(hold_target((0.0, 0.0), 0.8, &[], &[u(1, 70_000.0, 0.0, 0.9)], &[], ranged, Some(1)), None);
     }
 
     #[test]
@@ -910,9 +1524,9 @@ mod tests {
     }
 
     #[test]
-    fn melee_list_matches_the_data() {
-        // every hero of the main pack whose attack range is at most MELEE_RANGE, and nothing else: a new melee hero
-        // fails this until it is added to MELEE (the engine's API cannot read an attack range at run time)
+    fn attack_ranges_match_the_data() {
+        // every hero of the main pack with its attack range, and nothing else: a new hero fails this until it is added to
+        // ATTACK_RANGE (the engine's API cannot read an attack range at run time)
         let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
         let mut found = Vec::new();
         for entry in std::fs::read_dir(&dir).expect("league/champion") {
@@ -935,25 +1549,29 @@ mod tests {
                 .find_map(|l| l.strip_prefix("    \"range\": "))
                 .map(|r| r.trim_end_matches(',').parse().unwrap())
                 .unwrap_or_else(|| panic!("no attack range in {}", path.display()));
-            if range <= MELEE_RANGE {
-                found.push(id);
-            }
+            found.push((id, range));
         }
-        assert!(found.len() > 50, "read only {} melee heroes from {}", found.len(), dir.display());
+        assert!(found.len() > 100, "read only {} heroes from {}", found.len(), dir.display());
         found.sort();
-        let mut listed: Vec<String> = MELEE.iter().map(|s| s.to_string()).collect();
+        let mut listed: Vec<(String, u64)> = ATTACK_RANGE.iter().map(|&(n, r)| (n.to_string(), r)).collect();
         listed.sort();
-        assert_eq!(listed, found, "MELEE must list every hero of league/champion with an attack range up to {MELEE_RANGE}");
+        assert_eq!(listed, found, "ATTACK_RANGE must list every hero of league/champion with its attack range");
     }
 
     #[test]
-    fn melee_and_two_ranged_supports_are_held() {
-        for name in ["league_garen", "league_malphite", "league_darius", "league_rakan", "league_senna", CAMILLE] {
+    fn every_league_champion_is_held_within_its_reach() {
+        for name in ["league_garen", "league_malphite", "league_rakan", "league_senna", "league_draven", "league_karma", CAMILLE] {
             assert!(is_holder(name), "{name}");
         }
-        for name in ["league_jinx", "league_lux", "league_urgot", "league_karma"] {
+        for name in ["priest", "monk", "league_nobody"] {
             assert!(!is_holder(name), "{name}");
         }
+        // melee step up to HOLD_REACH; the ranged shoot from where they stand, within their own attack range
+        assert_eq!(hold_reach("league_garen"), (HOLD_REACH, HOLD_KEEP));
+        assert_eq!(hold_reach("league_draven"), (55_000.0, 65_000.0));
+        assert_eq!(hold_reach("league_rakan"), (40_000.0, 50_000.0));
+        assert_eq!(hold_reach("league_jinx"), (64_500.0, 74_500.0));
+        assert_eq!(hold_reach("monk"), (HOLD_REACH, HOLD_KEEP));
     }
     #[test]
     fn a_walk_counts_unless_it_clearly_backs_off() {
@@ -963,5 +1581,239 @@ mod tests {
         assert!(!walking_away(me, (-5_000.0, 0.0), him)); // a short step back
         assert!(walking_away(me, (-20_000.0, 0.0), him)); // backing off
         assert!(walking_away(me, (-15_000.0, -15_000.0), him)); // backing off on a slant
+    }
+
+    /// A scene at the origin: he is #100 with `hp`.
+    fn scene<'a>(hp: f64, allies: &'a [Unit], enemies: &'a [Unit], towers: &'a [(f64, f64)], held: &'a [usize]) -> Scene<'a> {
+        Scene { me: (0.0, 0.0), id: 100, hp, allies, enemies, towers, held }
+    }
+
+    #[test]
+    fn engage_picks_the_lowest_safe_target_in_range() {
+        // #1 and #2 on either side of him (70k apart: each alone); #3 is out of W's range
+        let foes = [u(1, 30_000.0, 0.0, 0.9), u(2, -40_000.0, 0.0, 0.5), u(3, 70_000.0, 0.0, 0.1)];
+        // #2 is lower than #1
+        assert_eq!(engage_targets(&scene(0.8, &[], &foes[..2], &[], &[]), ZED_W_RANGE), vec![2, 1]);
+        assert_eq!(engage_targets(&scene(0.8, &[], &[foes[2]], &[], &[]), ZED_W_RANGE), Vec::<usize>::new());
+        // too hurt to go in
+        assert!(engage_targets(&scene(0.3, &[], &foes, &[], &[]), ZED_W_RANGE).is_empty());
+        // under his tower only when nearly dead
+        let tower = [(40_000.0, 50_000.0)];
+        assert_eq!(engage_targets(&scene(0.8, &[], &[u(2, 40_000.0, 0.0, 0.5)], &tower, &[]), ZED_W_RANGE), Vec::<usize>::new());
+        assert_eq!(engage_targets(&scene(0.8, &[], &[u(2, 40_000.0, 0.0, 0.2)], &tower, &[]), ZED_W_RANGE), vec![2]);
+        // two of them together against him alone: no; with an ally by him: yes
+        let pair = [u(1, 40_000.0, 0.0, 0.6), u(2, 45_000.0, 10_000.0, 0.7)];
+        assert!(engage_targets(&scene(0.8, &[], &pair, &[], &[]), ZED_W_RANGE).is_empty());
+        assert_eq!(engage_targets(&scene(0.8, &[u(9, 5_000.0, 0.0, 1.0)], &pair, &[], &[]), ZED_W_RANGE), vec![1, 2]);
+    }
+
+    #[test]
+    fn katarina_spins_on_two_or_a_low_one() {
+        let one = [u(1, 20_000.0, 0.0, 0.8)];
+        assert!(katarina_r(&scene(0.8, &[], &one, &[], &[])).is_empty()); // one healthy champion
+        assert_eq!(katarina_r(&scene(0.8, &[], &[u(1, 20_000.0, 0.0, 0.4)], &[], &[])), vec![1]); // a low one
+        let two = [u(1, 20_000.0, 0.0, 0.8), u(2, 45_000.0, 0.0, 0.9)];
+        assert_eq!(katarina_r(&scene(0.8, &[], &two, &[], &[])), vec![1]); // #2 in the ring, not in reach
+        assert!(katarina_r(&scene(0.2, &[], &two, &[], &[])).is_empty()); // too hurt
+        assert!(katarina_r(&scene(0.8, &[], &two, &[(0.0, 60_000.0)], &[])).is_empty()); // she stands under a tower
+        assert!(katarina_r(&scene(0.8, &[], &[u(1, 28_000.0, 0.0, 0.3)], &[], &[])).is_empty()); // out of reach
+    }
+
+    #[test]
+    fn fiddlesticks_drops_on_the_biggest_crowd() {
+        let foes = [u(1, 60_000.0, 0.0, 0.9), u(2, 70_000.0, 10_000.0, 0.8), u(3, 30_000.0, -40_000.0, 0.9)];
+        // #1 and #2 stand together; #2 is lower
+        assert_eq!(fiddle_r(&scene(0.8, &[u(9, 40_000.0, 0.0, 1.0)], &foes, &[], &[])), Some((2, (70_000.0, 10_000.0), 2)));
+        // a lone healthy one: no; a lone low one: yes
+        assert_eq!(fiddle_r(&scene(0.8, &[], &[foes[2]], &[], &[])), None);
+        assert_eq!(fiddle_r(&scene(0.8, &[], &[u(3, 30_000.0, -40_000.0, 0.3)], &[], &[])), Some((3, (30_000.0, -40_000.0), 1)));
+        // under their tower, or him too hurt
+        assert_eq!(fiddle_r(&scene(0.8, &[], &foes[..2], &[(80_000.0, 40_000.0)], &[])), None);
+        assert_eq!(fiddle_r(&scene(0.3, &[], &foes[..2], &[], &[])), None);
+        // three there against him alone (and nobody of his there)
+        let three = [u(1, 60_000.0, 0.0, 0.9), u(2, 70_000.0, 10_000.0, 0.8), u(4, 75_000.0, -10_000.0, 0.9)];
+        assert_eq!(fiddle_r(&scene(0.8, &[], &three, &[], &[])), None);
+    }
+
+    #[test]
+    fn channels_only_from_safety_on_low_or_fought_targets() {
+        let far = [u(1, 120_000.0, 0.0, 0.4), u(2, 100_000.0, 0.0, 0.9)];
+        assert_eq!(channel_targets(&scene(0.8, &[], &far, &[], &[]), XERATH_R_REACH), vec![1]);
+        // an ally fighting #2 makes it a target too (lowest first)
+        let ally = [u(9, 90_000.0, 0.0, 0.7)];
+        assert_eq!(channel_targets(&scene(0.8, &ally, &far, &[], &[]), XERATH_R_REACH), vec![1, 2]);
+        // an enemy champion close to him: never
+        let close = [u(1, 120_000.0, 0.0, 0.4), u(3, 30_000.0, 0.0, 1.0)];
+        assert!(channel_targets(&scene(0.8, &[], &close, &[], &[]), XERATH_R_REACH).is_empty());
+        // too hurt to stand still; out of reach
+        assert!(channel_targets(&scene(0.3, &[], &far, &[], &[]), XERATH_R_REACH).is_empty());
+        assert!(channel_targets(&scene(0.8, &[], &[u(1, 150_000.0, 0.0, 0.2)], &[], &[]), JHIN_R_REACH).is_empty());
+    }
+
+    #[test]
+    fn syndra_bursts_low_held_or_crowded() {
+        assert!(syndra_r(&scene(0.8, &[], &[u(1, 50_000.0, 0.0, 0.9)], &[], &[])).is_empty());
+        assert_eq!(syndra_r(&scene(0.8, &[], &[u(1, 50_000.0, 0.0, 0.5)], &[], &[])), vec![1]);
+        assert_eq!(syndra_r(&scene(0.8, &[], &[u(1, 50_000.0, 0.0, 0.9)], &[], &[1])), vec![1]);
+        let two = [u(1, 50_000.0, 0.0, 0.9), u(2, 60_000.0, 0.0, 0.8)];
+        assert_eq!(syndra_r(&scene(0.8, &[], &two, &[], &[])), vec![2, 1]);
+        assert!(syndra_r(&scene(0.8, &[], &[u(1, 80_000.0, 0.0, 0.1)], &[], &[])).is_empty()); // out of range
+    }
+
+    #[test]
+    fn janna_heals_when_someone_is_about_to_fall() {
+        let foe = [u(1, 30_000.0, 0.0, 1.0)];
+        // nobody hurt
+        assert!(janna_r(&scene(0.9, &[u(9, 20_000.0, 0.0, 0.8)], &foe, &[], &[])).is_empty());
+        // an ally at 30% with the enemy on him: him first, then her
+        assert_eq!(janna_r(&scene(0.9, &[u(9, 20_000.0, 0.0, 0.3)], &foe, &[], &[])), vec![9, 100]);
+        // she herself at 30%
+        assert_eq!(janna_r(&scene(0.3, &[], &foe, &[], &[])), vec![100]);
+        // two at half health in a fight
+        assert_eq!(janna_r(&scene(0.5, &[u(9, 20_000.0, 0.0, 0.55)], &foe, &[], &[])), vec![100, 9]);
+        // the hurt ally is out of her heal; no enemy anywhere near
+        assert!(janna_r(&scene(0.9, &[u(9, 50_000.0, 0.0, 0.2)], &foe, &[], &[])).is_empty());
+        assert!(janna_r(&scene(0.3, &[], &[u(1, 90_000.0, 0.0, 1.0)], &[], &[])).is_empty());
+    }
+
+    #[test]
+    fn sona_zilean_and_sivir_wait_for_their_moment() {
+        let foe = [u(1, 60_000.0, 0.0, 1.0)];
+        assert!(sona_w(&scene(0.9, &[u(9, 30_000.0, 0.0, 0.9)], &foe, &[], &[])).is_empty());
+        assert_eq!(sona_w(&scene(0.9, &[u(9, 30_000.0, 0.0, 0.6)], &foe, &[], &[])), vec![1]);
+        assert_eq!(sona_w(&scene(0.5, &[], &foe, &[], &[])), vec![1]);
+        // Zilean: nobody in contact and nobody low -> nothing; an ally 30k from the enemy -> the slow on him
+        assert!(zilean_e(&scene(0.9, &[], &foe, &[], &[])).is_empty());
+        assert_eq!(zilean_e(&scene(0.9, &[u(9, 40_000.0, 0.0, 0.9)], &foe, &[], &[])), vec![1]);
+        assert_eq!(zilean_e(&scene(0.9, &[], &[u(1, 60_000.0, 0.0, 0.3)], &[], &[])), vec![1]); // chase a low one
+        // Sivir: a fresh cast within 60k, the caster first; desperate when low with one close
+        let two = [u(1, 30_000.0, 0.0, 1.0), u(2, 55_000.0, 0.0, 1.0)];
+        assert!(sivir_e(&scene(0.9, &[], &two, &[], &[]), &[]).is_empty());
+        assert_eq!(sivir_e(&scene(0.9, &[], &two, &[], &[]), &[2]), vec![2, 1]);
+        assert!(sivir_e(&scene(0.9, &[], &[u(2, 64_000.0, 0.0, 1.0)], &[], &[]), &[2]).is_empty()); // cast too far
+        assert_eq!(sivir_e(&scene(0.3, &[], &two, &[], &[]), &[]), vec![1, 2]);
+    }
+
+    #[test]
+    fn vladimir_clouds_a_low_one_or_two_together() {
+        assert!(vladimir_r(&scene(0.8, &[], &[u(1, 40_000.0, 0.0, 0.9)], &[], &[])).is_empty());
+        assert_eq!(vladimir_r(&scene(0.8, &[], &[u(1, 40_000.0, 0.0, 0.4)], &[], &[])), vec![1]);
+        let two = [u(1, 40_000.0, 0.0, 0.9), u(2, 55_000.0, 10_000.0, 0.8)];
+        assert_eq!(vladimir_r(&scene(0.8, &[], &two, &[], &[])), vec![2, 1]); // 18k apart: both in one cloud
+        assert!(vladimir_r(&scene(0.8, &[], &[u(1, 65_000.0, 0.0, 0.1)], &[], &[])).is_empty()); // out of range
+    }
+
+    #[test]
+    fn ryze_flees_low_or_joins_a_far_fight() {
+        assert_eq!(ryze_r(&scene(0.3, &[], &[u(1, 40_000.0, 0.0, 1.0)], &[], &[])), Some((1, "low on health")));
+        assert_eq!(ryze_r(&scene(0.3, &[], &[u(1, 90_000.0, 0.0, 1.0)], &[], &[])), None);
+        let allies = [u(9, 200_000.0, 0.0, 1.0)];
+        let fight = [u(1, 230_000.0, 0.0, 1.0)];
+        assert_eq!(ryze_r(&scene(0.9, &allies, &fight, &[], &[])), Some((1, "an ally fights far away")));
+        assert_eq!(ryze_r(&scene(0.9, &[], &fight, &[], &[])), None);
+    }
+
+    #[test]
+    fn plan_follows_readiness_and_the_main_packs_marks() {
+        let foe = [u(1, 40_000.0, 0.0, 0.5)];
+        let s = scene(0.8, &[], &foe, &[], &[]);
+        let marks = |zed_q_ready, kalista_rend| Marks { zed_q_ready, kalista_rend, fresh: Vec::new() };
+        let keys = |v: Vec<Plan>| v.into_iter().map(|p| (p.key, p.slot, p.aim)).collect::<Vec<_>>();
+        let all = [true; 4];
+        // Zed's W only with Q ready, on his first skill slot
+        assert_eq!(keys(plan(ZED, &s, all, &marks(true, false))), vec![("W", SkillSlotV1::Skill, Aim::Unit(1))]);
+        assert!(plan(ZED, &s, all, &marks(false, false)).is_empty());
+        assert!(plan(ZED, &s, [true, false, true, true], &marks(true, false)).is_empty());
+        // Kalista's rend only with the spears' mark
+        assert!(plan(KALISTA, &s, all, &marks(false, false)).is_empty());
+        assert_eq!(keys(plan(KALISTA, &s, all, &marks(false, true))), vec![("E", SkillSlotV1::Skill2, Aim::Unit(1))]);
+        // Orianna: R before E (E needs a fight: the enemy is 40k from her, within FIGHT_CONTACT)
+        assert_eq!(
+            keys(plan(ORIANNA, &s, all, &marks(false, false))),
+            vec![("R", SkillSlotV1::Ult, Aim::Unit(1)), ("E", SkillSlotV1::Skill2, Aim::Unit(1))]
+        );
+        // armed ults press on anyone near; not when the slot is down
+        assert_eq!(keys(plan(EVELYNN, &scene(0.8, &[], &[u(1, 40_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false, false))).len(), 1);
+        assert!(plan(KARMA, &s, [true, true, true, false], &marks(false, false)).is_empty());
+        assert_eq!(keys(plan(APHELIOS, &s, all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        let low = [u(1, 40_000.0, 0.0, 0.4)];
+        assert_eq!(keys(plan(VLADIMIR, &scene(0.8, &[], &low, &[], &[]), all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        assert!(plan(VLADIMIR, &s, all, &marks(false, false)).is_empty()); // one at half health, alone: not yet
+        // Fiddlesticks aims at the spot first, then at the unit
+        let pair = [u(1, 60_000.0, 0.0, 0.9), u(2, 70_000.0, 10_000.0, 0.8)];
+        let f = plan(FIDDLESTICKS, &scene(0.8, &[u(9, 40_000.0, 0.0, 1.0)], &pair, &[], &[]), all, &marks(false, false));
+        assert_eq!(f.iter().map(|p| p.aim).collect::<Vec<_>>(), vec![Aim::Spot((70_000.0, 10_000.0)), Aim::Unit(2)]);
+        assert!(f.iter().all(|p| p.dive));
+        // a hero this list does not know
+        assert!(plan("league_garen", &s, all, &marks(true, true)).is_empty());
+    }
+
+    #[test]
+    fn each_pressed_hero_watches_its_slots() {
+        assert_eq!(slots_of(ZED), &[PressSlot { slot: SkillSlotV1::Skill, key: "W" }]);
+        assert_eq!(slots_of(ORIANNA).len(), 2);
+        assert_eq!(slots_of(KATARINA).iter().map(|p| p.slot).collect::<Vec<_>>(), vec![SkillSlotV1::Ult, SkillSlotV1::Skill2]);
+        for h in [SAMIRA, TF, KOGMAW, JANNA, SYNDRA, XERATH, KAYLE, JHIN, KARMA, EVELYNN, FIDDLESTICKS, RYZE, APHELIOS, VLADIMIR] {
+            assert_eq!(slots_of(h), &[P_R], "{h}");
+        }
+        for h in [CAMILLE, GWEN, VIEGO, SIVIR, ZILEAN, KALISTA] {
+            assert_eq!(slots_of(h), &[P_E2], "{h}");
+        }
+        assert!(slots_of("league_garen").is_empty());
+        assert!(is_armed_ult(KAYLE) && is_armed_ult(APHELIOS) && !is_armed_ult(JANNA) && !is_armed_ult(VLADIMIR));
+    }
+
+    /// The action-level `"range"` of a slot in the main pack's data (four spaces in, like `melee_list_matches_the_data`).
+    fn data_range(hero: &str, slot: &str) -> u64 {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join(format!("../../league/champion/{hero}.data_champion"));
+        let raw = std::fs::read_to_string(&path).unwrap().replace("\r\n", "\n");
+        let head = format!("  \"{slot}\": {{");
+        raw.lines()
+            .skip_while(|l| *l != head)
+            .skip(1)
+            .take_while(|l| !l.starts_with("  }"))
+            .find_map(|l| l.strip_prefix("    \"range\": "))
+            .map(|r| r.trim_end_matches(',').parse().unwrap())
+            .unwrap_or_else(|| panic!("no {slot} range in {}", path.display()))
+    }
+
+    #[test]
+    fn ranges_and_marks_match_the_data() {
+        for (hero, slot, range) in [
+            (ZED, "skill", ZED_W_RANGE),
+            (GWEN, "skill2", GWEN_E_RANGE),
+            (VIEGO, "skill2", VIEGO_E_RANGE),
+            (KATARINA, "skill2", KATARINA_W_RANGE),
+            (ORIANNA, "skill2", ORI_E_RANGE),
+            (SIVIR, "skill2", SIVIR_E_RANGE),
+            (SONA, "skill2", SONA_W_RANGE),
+            (ZILEAN, "skill2", ZILEAN_E_RANGE),
+            (KALISTA, "skill2", KALISTA_E_RANGE),
+            (JANNA, "ult", JANNA_R_RANGE),
+            (SYNDRA, "ult", SYNDRA_R_RANGE),
+            (FIDDLESTICKS, "ult", FIDDLE_R_RANGE),
+            (VLADIMIR, "ult", VLAD_R_RANGE),
+        ] {
+            assert_eq!(data_range(hero, slot) as f64, range, "{hero} {slot}");
+        }
+        // the shorter reaches stay inside the slot's range
+        for (hero, reach) in [
+            (KATARINA, KAT_R_REACH),
+            (ORIANNA, ORI_R_NEAR),
+            (XERATH, XERATH_R_REACH),
+            (JHIN, JHIN_R_REACH),
+            (KAYLE, KAYLE_R_NEAR),
+            (KARMA, KARMA_R_NEAR),
+            (EVELYNN, EVELYNN_R_NEAR),
+            (RYZE, TF_REACH),
+            (APHELIOS, APHELIOS_R_NEAR),
+        ] {
+            assert!(reach <= data_range(hero, "ult") as f64, "{hero}");
+        }
+        let has = |hero: &str, mark: &str| {
+            let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join(format!("../../league/champion/{hero}.data_champion"));
+            std::fs::read_to_string(path).unwrap().contains(&format!("\"{mark}\""))
+        };
+        assert!(has(ZED, ZED_Q_CD) && has(KALISTA, KALISTA_E_OK) && has(KALISTA, KALISTA_E_CD));
     }
 }

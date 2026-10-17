@@ -21,6 +21,8 @@
 //!   再挑离他最近的；技能对准友方（治疗、护盾）的不算出手。
 //!   经典引擎里量过：AI 的普攻命令 98% 就是这一下打的目标；只按掉血猜，目标是英雄时对 80-84%，小兵 / 野怪 90%。
 //! 米利欧自己带着记号时（E 给了自己），用他自己的 on_attack，准确。
+//! 灼烧本身不算谁打中的（0.1.2）：引擎把它排进效果队列，下一 tick 才扣血、才触发他的 on_attack（游戏 0.6.4），被动记下上一次
+//! 打给每个目标的灼烧，看掉血、看 on_attack 时先认出它（`rules::lost` / `rules::own_burn`）。
 //!
 //! **生生不息**（AI 钩子 `league_milio:ult`，千珏附加包的做法）：R 在他身边 `IN_CIRCLE` 以内有友方英雄（含他自己）危险时才放：
 //! `DANGER_NEAR` 以内有敌方英雄，而且生命不到 `DANGER_HP`，或 `BURST_T` tick 内掉了 `BURST` 以上、只剩 `BURST_LEFT` 以下，
@@ -50,7 +52,7 @@ use rules::*;
 
 const ID: &str = "league_milio";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 /// 主包的米利欧。
 pub const HERO: &str = "league_milio";
 /// 热情洋溢！的记号（主包的 buff，副本里没有数值，画面照旧）。
@@ -366,8 +368,8 @@ struct Fired {
     /// 每个友方英雄上一 tick 的投射物在哪。
     shots: HashMap<usize, Vec<(f64, f64)>>,
     burns: Vec<Burn>,
-    /// 正在结算灼烧（这时他的 on_attack 不算他打出的一下）。
-    burning: bool,
+    /// 上一次 on_update 打出去的灼烧：目标 -> 减免前的伤害。打出去时只是排进效果队列，下一 tick 才扣血、才触发他的 on_attack。
+    burned: HashMap<usize, usize>,
 }
 
 impl Fired {
@@ -405,7 +407,8 @@ impl Fired {
         }
     }
 
-    /// 到点的灼烧段。烧过的目标重新记下生命，下一 tick 看掉血时不把它算成友方打的。
+    /// 到点的灼烧段，记进 `burned`：下一 tick 看掉血时先扣掉，他的 on_attack 也认得出它（打出去之前就记：立刻结算的宿主会在
+    /// 这次调用里就触发 on_attack）。
     fn burn_parts_due(&mut self, sim: &mut StableSim<'_>, me: usize) {
         let now = sim.tick();
         let mut hit = Vec::new();
@@ -420,23 +423,17 @@ impl Fired {
             }
         }
         self.burns.retain(|b| !b.parts.is_empty());
-        if hit.is_empty() {
-            return;
-        }
-        self.burning = true;
         for (target, dmg) in hit {
+            *self.burned.entry(target).or_insert(0) += dmg;
             if !sim.deal_damage_typed(me, target, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill) {
+                if let Some(v) = self.burned.get_mut(&target) {
+                    *v -= dmg;
+                }
                 if let Some(k) = counted("burn_refused") {
                     wlog(format!("{} BURN refused #{k} by the host on {} ({dmg})", head(sim, me), who(sim, target)));
                 }
             }
-            if let Some(e) = sim.get_entity(target) {
-                if self.foes.contains_key(&target) {
-                    self.foes.insert(target, e.hp().0 + e.shield());
-                }
-            }
         }
-        self.burning = false;
     }
 
     /// 一个友方英雄开始出手（`slot` 0 普攻、1-3 技能）：等它打中谁。技能对准友方的不算。
@@ -460,7 +457,8 @@ impl Fired {
         Some(Swing { start: now, until: now + wait, target, attack: slot == 0 })
     }
 
-    fn watch(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize) {
+    /// `burned`: what his burn dealt on the last update (landed since, not a hit of anybody's).
+    fn watch(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, burned: &HashMap<usize, usize>) {
         let now = sim.tick();
         // 1. allied champions: cooldowns (every tick, for the jumps), marks, the actions that started
         struct Watched {
@@ -551,7 +549,8 @@ impl Fired {
             self.foes.clear();
             return;
         }
-        // 3. every enemy unit's health + shield, the ones that dropped since the last tick (the ones that died too)
+        // 3. every enemy unit's health + shield, the ones that dropped since the last tick (the ones that died too),
+        //    less what his own burn took
         let mut foes = HashMap::new();
         let mut dropped: Vec<(usize, (f64, f64), usize)> = Vec::new();
         for i in 0..sim.entity_count() {
@@ -560,19 +559,16 @@ impl Fired {
                 continue;
             }
             let id = e.id();
-            if !e.is_alive() {
-                if let Some(was) = self.foes.get(&id) {
-                    dropped.push((id, at(&e), *was));
-                }
-                continue;
-            }
-            let v = e.hp().0 + e.shield();
+            let left = e.is_alive().then(|| e.hp().0 + e.shield());
             if let Some(&was) = self.foes.get(&id) {
-                if v < was {
-                    dropped.push((id, at(&e), was - v));
+                let amount = lost(was, left, burned.get(&id).copied().unwrap_or(0));
+                if amount > 0 {
+                    dropped.push((id, at(&e), amount));
                 }
             }
-            foes.insert(id, v);
+            if let Some(v) = left {
+                foes.insert(id, v);
+            }
         }
         self.foes = foes;
         // 4. which of the watched actions hit someone this tick
@@ -628,8 +624,8 @@ impl StablePassive for Fired {
     }
 
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, damage: &mut usize) {
-        // his own hits (the burn's own damage does not count)
-        if self.burning || *damage == 0 {
+        // his own hits (the burn's own damage, landing a tick after it was dealt, does not count)
+        if *damage == 0 || own_burn(*damage, self.burned.get(&target).copied().unwrap_or(0)) {
             return;
         }
         let Some(m) = sim.get_entity(me) else { return };
@@ -644,6 +640,8 @@ impl StablePassive for Fired {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
+        // the burn dealt on the last update has landed by now (its on_attack came before this update)
+        let burned = std::mem::take(&mut self.burned);
         let team = match sim.get_entity(me) {
             Some(e) => e.team(),
             None => match sim.get_player(player) {
@@ -651,7 +649,7 @@ impl StablePassive for Fired {
                 None => return,
             },
         };
-        self.watch(sim, me, team);
+        self.watch(sim, me, team, &burned);
         self.burn_parts_due(sim, me);
     }
 }
@@ -952,7 +950,8 @@ mod tests {
     fn the_numbers_match_the_kit() {
         let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_milio.py");
         let src = std::fs::read_to_string(path).expect("build_milio.py");
-        for (key, v) in [("r_arm_range", R_CAST_RANGE as usize), ("r_r", R_RADIUS as usize), ("atk_range", ATTACK_RANGE as usize)] {
+        for (key, v) in [("r_arm_range", R_CAST_RANGE as usize), ("r_r", R_RADIUS as usize), ("atk_range", ATTACK_RANGE as usize),
+                         ("atk", HIS_ATTACK)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_milio.P");
         }
         assert!(src.contains("R_ANIM, R_REL = 36, 20") && R_REL == 20, "R_REL is not build_milio's");
