@@ -175,6 +175,8 @@ mod rell;
 mod urgot;
 #[path = "../../league_reksai/src/lib.rs"]
 mod reksai;
+#[path = "../../league_ult_press/src/lib.rs"]
+mod ult_press;
 
 pub const ID: &str = "league_addons";
 
@@ -248,6 +250,7 @@ fn init(host: &StableHost) -> StableMod {
     rell::register(host, &mut module);
     urgot::register(host, &mut module);
     reksai::register(host, &mut module);
+    ult_press::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     host.log(
         LogLevel::Info,
