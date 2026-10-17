@@ -38,7 +38,8 @@ Kit (the user's picks, 2026-10-17: 「全按推荐做：主包近似蛋、W 折�
           egg's health. Once every egg_cd ticks, kept across deaths. The main pack's tooltip says it needs the add-on.
 The add-on copy (--native): the passive `league_anivia:rebirth` decides the egg (the copy shows it: `egg_go` /
 `egg_hatch` flags, a 2-tick watch), the wall (real terrain: the copy's wall has no slow ring, `w_slow` 0) and the
-per-target Iced mark (E's twin reads the add-on's flag `iced_hit`).
+per-target Iced mark (both packs lay `iced` on the champions Q and the formed storm strike, ice_t ticks; in the copy
+E's hit raises `e_now` on her for a tick and the add-on's on_attack doubles it on an `iced` target).
 """
 import argparse
 import json
@@ -51,28 +52,33 @@ ID = "league_anivia"
 FX = "asset/league/effects/league_anivia_fx"
 BIG = "asset/league/effects/league_anivia_big"
 
+# Numbers = the 10-min classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and
+# white_mage, three lineups, both sides, 8 seeds, 2026-10-17; league_syndra +1.17 / +1.42 on seeds 1-8 / 25-32): the
+# draft (Q 70 + 50%, E 55 + 55%, R 25 + 10%, hp 880) -0.40 / -0.67 (deal 7060-7255); +25% damage +0.70; +40% and Q every
+# 7 s +1.61 / +2.03 (too strong); between (Q 95 + 65%, pass 55 + 32%, E 75 + 65%, R 32 + 13%, hp 900, Q every 7.5 s)
+# +0.90 on 25-32; on seeds 9-16 with Q every 7 s +1.93, every 7.5 s +1.45 (league_syndra +1.22). P = Q every 7.5 s.
 # League units x 100 = ours (attack range 600 -> 55000 like every mid); radii count the unit's collision radius
 # (~15000) on top, so League's 225 blast is q_r 14000.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Anivia:
     # 550 +92 hp, 21 armour, 30 mr, 325 move (slow), 600 range
-    "hp": 880, "hp_g": 95, "atk": 76, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 900, "hp_g": 95, "atk": 76, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 880, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 28, "atk_cd": 90, "a_rel": 10, "a_speed": 4500, "f_t": 180,
     # Q Flash Frost (League: 1100 range, speed 950, pass 50-130 +25%, slow 20-40% 3 s, blast 60-200 +45%, stun
     # 1.1-1.5 s r225, cd 11-7)
-    "q_cd": 480, "q_range": 95000, "q_dur": 24, "q_rel": 9, "q_speed": 1600, "q_w": 5000, "q_pass": 40, "q_pass_r": 25,
-    "q_slow": 30, "q_slow_t": 180, "q_dmg": 70, "q_ratio": 50, "q_stun": 66, "q_r": 14000,
+    "q_cd": 450, "q_range": 95000, "q_dur": 24, "q_rel": 9, "q_speed": 1600, "q_w": 5000, "q_pass": 55, "q_pass_r": 32,
+    "q_slow": 30, "q_slow_t": 180, "q_dmg": 95, "q_ratio": 65, "q_stun": 66, "q_r": 14000,
     # W Crystallize (League: width 400-1000, 5 s, cd 17)
     "w_cd": 900, "w_t": 300, "w_w": 8000, "w_h": 50000, "w_p": 2, "w_slow": 99, "w_pull": 16000, "w_mode": 0,
     # E Frostbite (League: 600 range, speed 1600, 55-155 +55%, doubled on Iced, cd 4)
-    "e_cd": 300, "e_range": 65000, "e_dur": 24, "e_rel": 9, "e_speed": 2700, "e_dmg": 55, "e_ratio": 55,
+    "e_cd": 300, "e_range": 65000, "e_dur": 24, "e_rel": 9, "e_speed": 2700, "e_dmg": 75, "e_ratio": 65,
     # the combo's Frostbite after a stun (its own cooldown, e_cd)
-    "e_combo": 1, "e_combo_at": 10,
+    "e_combo": 1, "e_combo_at": 10, "ice_t": 180,
     # R Glacial Storm (League: 750 range, r 200 -> 400 over 1.5 s, every 0.5 s 15-30 +6.25% AP, slow 20-40%;
     # formed x3 and 30-60%)
     "r_cd": 2400, "r_range": 75000, "r_arm": 600, "r_dur": 24, "r_rel": 10, "r_t": 360, "r_grow": 30,
-    "r_r0": 12000, "r_r1": 18000, "r_r2": 24000, "r_r": 32000, "r_p": 30, "r_dmg": 25, "r_ratio": 10, "r_full": 3,
+    "r_r0": 12000, "r_r1": 18000, "r_r2": 24000, "r_r": 32000, "r_p": 30, "r_dmg": 32, "r_ratio": 13, "r_full": 3,
     "r_slow": 25, "r_slow2": 45, "r_ice": 60, "r_cnt": 45000,
     # Rebirth, the add-on's (League: 6 s egg, -40..-20 armour / mr, cd 240 s)
     "egg_t": 360, "egg_def": 20, "egg_cd": 14400, "egg_in": 12, "egg_out": 18,
@@ -237,17 +243,19 @@ def build(p):
 
     # ------------------------------------------------------------------ E: Frostbite (the shard, its doubles)
     def shard(name):
+        if native:      # the add-on doubles the hit on a target carrying `iced` (its on_attack sees `e_now` on her)
+            hit = [refresh("e_now", 1), ap(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit")]
+            return combine(homing(name, "EnemyWithoutTower", hit, p["e_speed"]),
+                           homing(f"{name}_st", "EnemyChampion", marked, p["e_speed"]))
         hit = [ap(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit")]
         iced = [ap(p["e_dmg"], p["e_ratio"]), view("e_iced"), refresh("e_dbl", 1)]
-        storm = [sw("e_dbl", NONE, sw("iced_hit" if native else "r_ice",
-                                      combine(ap(p["e_dmg"], p["e_ratio"]), view("e_iced"))))]
-        twins = [homing(f"{name}_cc", "EnemyChampionInCC", iced, p["e_speed"]),
-                 homing(f"{name}_st", "EnemyChampion", storm + marked, p["e_speed"])]
-        if native:      # the add-on's mark covers the stun too: one twin reads it
-            twins = [homing(f"{name}_st", "EnemyChampion", [sw("iced_hit", combine(ap(p["e_dmg"], p["e_ratio"]),
-                                                                                   view("e_iced")))] + marked,
-                            p["e_speed"])]
-        return combine(homing(name, "EnemyWithoutTower", hit, p["e_speed"]), *twins)
+        storm = [sw("e_dbl", NONE, sw("r_ice", combine(ap(p["e_dmg"], p["e_ratio"]), view("e_iced"))))]
+        return combine(homing(name, "EnemyWithoutTower", hit, p["e_speed"]),
+                       homing(f"{name}_cc", "EnemyChampionInCC", iced, p["e_speed"]),
+                       homing(f"{name}_st", "EnemyChampion", storm + marked, p["e_speed"]))
+
+    # League's Iced mark on a champion (3 s after Flash Frost or the formed storm): seen in both packs, read by the add-on
+    iced = buff("iced", p["ice_t"])
 
     # ------------------------------------------------------------------ W: Crystallize (on Q's stun)
     wall_view = [view("w_wall"), sfx("w")]
@@ -264,13 +272,14 @@ def build(p):
     if p["e_combo"]:
         combo_e = [sw("e_cc", NONE, combine(flag("e_cc", p["e_cd"]),
                                             delayed(p["e_combo_at"], cview("e_cast"), sfx("e"), shard("e_combo"))))]
-    stc = [refresh("q_stc", 4)] + marked + combo_e
+    stc = [refresh("q_stc", 4), iced] + marked + combo_e
     blast = [view("q_blast"), sfx("q_blast"), zone("q_burst", circle(p["q_r"]), burst),
              zone("q_burst_c", circle(p["q_r"]), stc, target="EnemyChampion"),
              delayed(2, sw("q_stc", wall))]
     pass_ = [ap(p["q_pass"], p["q_pass_r"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
              tsfx("q_pass")]
     ball = combine(line("q_hide", p["q_speed"], p["q_range"] + 20000, p["q_w"], "EnemyWithoutTower", pass_, [], True),
+                   line("q_ice", p["q_speed"], p["q_range"] + 20000, p["q_w"], "EnemyChampion", [iced], [], True),
                    line("q_ball", p["q_speed"], p["q_range"] + 20000, p["q_w"], "EnemyChampion", [], blast, False))
     frost = combine(sfx("q"), voice("vo_q", p), delayed(p["q_rel"] - 1, ball))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Position", "EnemyWithoutTower", frost)
@@ -285,7 +294,7 @@ def build(p):
                                                                            move_speed_mult=-slow), tsfx("r_hit")]
         f = [field(f"r_s{k}", circle(r), t, p["r_p"], hit, first=first)]
         if formed:      # a champion struck by the formed storm: Iced for r_ice ticks (her flag, approximate)
-            f.append(field(f"r_s{k}c", circle(r), t, p["r_p"], [refresh("r_ice", p["r_ice"])], first=first,
+            f.append(field(f"r_s{k}c", circle(r), t, p["r_p"], [refresh("r_ice", p["r_ice"]), iced], first=first,
                            target="EnemyChampion"))
         return f
 
@@ -354,12 +363,12 @@ def build(p):
     views_e = [E("a_hit"), E("q_stun"), E("q_blast", BIG, 2, False), E("w_wall", BIG, 1, False), E("e_hit"),
                E("e_iced"), E("e_cast"), E("r_cast"), E("r_storm", BIG, -1, False), E("r_formed", BIG, -1, False),
                E("p_egg_in"), E("p_hatch"), E("p_crack", FX, 2, False)]
-    views_b = [B_("q_slow", FX, 3), B_("w_stuck", FX, 3), B_("r_slow", FX, 3), B_("egg_on", FX, 3)]
+    views_b = [B_("iced", FX, 3), B_("w_stuck", FX, 3), B_("egg_on", FX, 3)]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_anivia:rebirth", "params": {
             "egg_t": p["egg_t"], "egg_cd": p["egg_cd"], "w_t": p["w_t"], "w_w": p["w_w"], "w_h": p["w_h"],
-            "ice_t": 180}}
+            "ice_t": p["ice_t"]}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
