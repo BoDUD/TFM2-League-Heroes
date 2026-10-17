@@ -11,10 +11,10 @@
       "version": ">=0.129.0"
     }
   ],
-  "description": "Samira's and Twisted Fate's ults for game 0.6.4 (needs League of Legends Heroes): their R slots only arm the ult and the data picks the moment, but the 0.6.4 AI almost never presses such a slot. This add-on presses it for the AI - Samira when an enemy champion is in R's range (at S style the ult fires at once, else it waits armed), Twisted Fate when he is alone and an ally far away is fighting an enemy champion (the main pack then reveals and teleports as before). Nothing of the main pack is replaced. Writes a log for testing.",
+  "description": "Armed slots pressed for game 0.6.4's AI (needs League of Legends Heroes): Samira's, Twisted Fate's and Kog'Maw's R and Camille's E only arm or wait for a target in the data, and the 0.6.4 AI almost never presses them. This add-on presses them for the AI - Samira when an enemy champion is in R's range, and she also casts E and Q at champions to climb her Style to S; Twisted Fate when he is alone and an ally far away is fighting an enemy champion; Kog'Maw at the lowest-health champion his R may hit; Camille when an enemy champion is in E's range. Nothing of the main pack is replaced. Writes a log for testing.",
   "last_updated": "2026-10-17",
   "mod_id": "league_ult_press",
   "mod_type": "native",
-  "name": "League Heroes: Samira / Twisted Fate ults pressed for the AI",
+  "name": "League Heroes: armed skills pressed for the AI (Samira, Twisted Fate, Kog'Maw, Camille)",
   "version": "0.1.0"
 }
