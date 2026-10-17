@@ -12,9 +12,11 @@ The game reads every mod file except background music into memory when it starts
   (asset/base/sound/sfx/<clip>) points there. The game reads every mod file into memory at start except the
   .mp3/.wav under /sound/bgm/, which it opens when they play; a clip there plays as a sound effect like before
   (the sfx volume, the .sound_info's volume and delay), so the 2,088 clips (40% of the files) are no longer
-  opened at start. Measured 2026-10-17 (docs/perf.md): the first start after an update 16.1 -> 8.5 s, a cold
-  start on a hard disk with the files scattered 88 -> 51 s. The event names and their .sound_info stay in
-  sound/sfx/, so the add-ons and every Sfx name still find them.
+  opened at start. Measured 2026-10-17 (docs/perf.md section 7): the first start after an update 16.1 -> 8.5 s, a
+  cold start on a hard disk with the files scattered 88 -> 51 s. The event names and their .sound_info stay in
+  sound/sfx/, so the add-ons and every Sfx name still find them. The game opens a clip on the main thread the
+  first time it plays; league.dll (addons/league_main/src/warm.rs) reads the folder into the OS cache once the
+  title is up, so that does not wait for the disk.
 - Sprite sheets (#sheet.png + #anim.fanim) repacked: identical frames share one rect and the frames sit
   close together (1 px gap) - except the idle's, which keep IDLE_PAD clear pixels round them (a dense hero's hd_idle
   IDLE_PAD x its density): the ban/pick and
@@ -72,7 +74,7 @@ GAME_DIRS = [
 ]
 JSON_EXT = (".data_champion", ".fanim", ".i18n", ".champion_view", ".override_info", ".sound_info")
 SHARED = ("text/champion.i18n", "style/champion_view.champion_view", "mod.override_info")
-HERO_DIRS = ("champion", "champions", "effects", "icons", "sound/sfx")
+HERO_DIRS = ("champion", "champions", "effects", "icons", "sound/sfx", "sound/bgm")   # bgm: a packed source
 AUDIO_EXT = (".wav", ".mp3")
 SFX_DIR = "sound/sfx"      # where the sources keep the clips, next to their .sound_info
 STREAM_DIR = "sound/bgm"   # where the package puts them: opened when played, not read at start
@@ -94,7 +96,8 @@ def build_dll(explicit):
     r = subprocess.run(["cargo", "build", "--release", "-p", "league_main"], cwd=addons)
     if r.returncode:
         sys.exit("cargo build of addons/league_main failed: the main pack needs its league.dll")
-    return read(os.path.join(addons, "target", "release", DLL))
+    # under the workspace's long path the linker needs a short CARGO_TARGET_DIR (e.g. C:/t/<xx>_target)
+    return read(os.path.join(addons, os.environ.get("CARGO_TARGET_DIR") or "target", "release", DLL))
 
 
 def lp(path):
