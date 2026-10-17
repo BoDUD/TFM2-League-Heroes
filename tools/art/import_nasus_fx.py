@@ -71,7 +71,8 @@ FX = {
 
 
 def cells(name, meta):
-    a = np.asarray(Image.open(lp(os.path.join(SRC, "pixel_1x", meta["file"]))).convert("RGBA")).copy()
+    a = np.asarray(Image.open(lp(os.path.join(SRC, "pixel_1x", os.path.basename(meta.get("pixel_1x", meta["file"])))))
+                   .convert("RGBA")).copy()
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
     a[a[..., 3] == 0] = 0
     w, h = meta["cell_1x"]
@@ -97,7 +98,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review", help="write every effect's game-size cells at 6x here")
     a = ap.parse_args()
-    meta = {e["name"]: e for e in json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))["effects"]}
+    man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
+    meta = {e["name"]: e for e in man.get("effects", man.get("images", []))}
+    rb = os.path.join(SRC, "readback.json")            # tools/art/readback_nasus_fx.py: re-read from the drafts
+    if os.path.exists(lp(rb)):
+        for name, r in json.load(open(lp(rb), encoding="utf-8")).items():
+            meta[name] = {**meta[name], "frames": r["frames"], "cell_1x": r["cell_1x"]}
     if set(meta) != set(FX):
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
     allc = {n: cells(n, meta[n]) for n in FX}
