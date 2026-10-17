@@ -139,7 +139,39 @@ def design():
     D.part("near_leg", D.rows(NEAR_LEG) & D.rest() & ~cloth)
     D.part("far_leg", D.rows(FAR_LEG) & D.rest() & ~cloth)
     D.part("skirt", D.rest())
+    crotch_cloth(D)
     return D
+
+
+# Between the knees (rows 54-58) the design's dark navy trousers sat in a ring of outline squares, with pockets the
+# outline closed in that the finish filled black: at game size a black hole round a navy cross (the user, 2026-10-18,
+# on the walk's frame 7: 「这里有问题你真的看不出吗」 - the idle has it too, the walk only moves the knees over it). Those
+# squares are the trousers' cloth: the pockets, every outline square there touching neither the background nor a knee
+# guard's colour, and the near-black purple take the cloth's navy; the outline stays where the cloth meets the
+# background or a knee guard (each leg keeps its own edge).
+CROTCH = (54, 58, 12, 19)           # rows y0..y1, columns x0..x1
+CROTCH_CLOTH = (27, 27, 76)
+CROTCH_DARK = (34, 31, 57)
+
+
+def crotch_cloth(D):
+    y0, y1, x0, x1 = CROTCH
+    d = D.d
+    box = np.zeros((D.H, D.W), bool)
+    box[y0:y1 + 1, x0:x1 + 1] = True
+    op = d[..., 3] > 0
+    pockets = ndimage.binary_fill_holes(op) & ~op & box
+    d[pockets] = (*CROTCH_CLOTH, 255)
+    op = d[..., 3] > 0
+    dark = op & (np.abs(d[..., :3].astype(int) - np.array(D.outline)).sum(-1) < 30)
+    legs = (D.parts["near_leg"] | D.parts["far_leg"]) & ~dark
+    cloth = (D.parts["skirt"] | pockets) & box
+    turn = (cloth & dark & ~ndimage.binary_dilation(~op, structure=R.CROSS)
+            & ~ndimage.binary_dilation(legs, structure=R.CROSS))
+    turn |= cloth & np.all(d[..., :3] == CROTCH_DARK, axis=-1)
+    d[turn] = (*CROTCH_CLOTH, 255)
+    D.parts["skirt"] = D.parts["skirt"] | pockets
+    D.d0 = d.copy()
 
 
 def leg_layer(D, name):
@@ -403,9 +435,12 @@ def frames_all(F):
 # off it) while the near foot is back, the lance carried (CARRY). The fix: the stride centred on the stance - ae5a431a
 # stepped only inward (near 0..+2, far -2..0), so with the shins 2 columns apart frames 1 and 8 laid the near shin
 # over 7 squares of the far one (the two legs one block); now near -1..+1 and far +1..-1: the shins at most touch
-# (gap 0..4 columns, never over each other) and the far leg is whole in every frame.
+# (gap 0..4 columns, never over each other) and the far leg is whole in every frame. Frame 7 (「这里有问题你真的看不出吗」,
+# the knees): the near knee a column in covered the left half of the skirt's middle flap while the far knee stayed out,
+# so between the knees only the flap's outline and its filled gap showed - a black hole round a navy cross; the far foot
+# now slides back to -1 a frame earlier (as in frames 8 and 1), its knee covering that gap again.
 WALK_STEP = dict(near=[(1, 0), (0, 0), (0, 0), (-1, 0), (-1, 0), (0, 1), (1, 1), (1, 0)],
-                 far=[(-1, 0), (0, 1), (1, 1), (1, 0), (1, 0), (0, 0), (0, 0), (-1, 0)],
+                 far=[(-1, 0), (0, 1), (1, 1), (1, 0), (1, 0), (0, 0), (-1, 0), (-1, 0)],
                  bob=[1, 1, 0, 0, 1, 1, 0, 0],
                  arm=[0, 0, 1, 1, 1, 0, 0, 0])
 # League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
