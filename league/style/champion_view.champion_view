@@ -1429,7 +1429,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -2
+        "y": -1
       }
     },
     "league_nasus": {
@@ -1443,7 +1443,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -2
+        "y": -6
       }
     }
   }
