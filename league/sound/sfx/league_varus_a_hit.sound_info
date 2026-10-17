@@ -1,9 +1,0 @@
-{
-  "plays": [
-    {
-      "delay": 0.0,
-      "clip": "league_varus_sfx_attack_hit",
-      "volume": 0.35
-    }
-  ]
-}

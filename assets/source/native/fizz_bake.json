@@ -1,6 +1,0 @@
-{
-  "fx": "league_fizz_fx",
-  "items": [
-    {"tag": "q_dash", "into": "skill", "at_ms": 83, "under": true}
-  ]
-}

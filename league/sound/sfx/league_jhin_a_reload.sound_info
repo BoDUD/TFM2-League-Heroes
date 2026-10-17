@@ -1,9 +1,0 @@
-{
-  "plays": [
-    {
-      "delay": 0.1,
-      "clip": "league_jhin_sfx_reload",
-      "volume": 0.45
-    }
-  ]
-}

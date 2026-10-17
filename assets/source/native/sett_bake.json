@@ -1,6 +1,0 @@
-{
-  "fx": "league_sett_big",
-  "items": [
-    {"tag": "e_smash", "into": "skill", "at_ms": 317}
-  ]
-}
