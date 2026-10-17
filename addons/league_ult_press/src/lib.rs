@@ -993,11 +993,15 @@ struct UltPress {
     walk_ticks: usize,
     /// 这一局敌方的塔（实体编号、位置）：一局找一次，之后每 tick 只看还在不在（塔不会动、不会复活）。
     towers: Option<Vec<(usize, (f64, f64))>>,
-    /// 这一局英雄实体在实体表里的先后（实体编号）：有玩家的英雄换成表里没见过的实体（复活）才重新整表看一遍。
-    champ_order: Vec<usize>,
-    /// 核对版：这一 tick 新代码会不会在看场面之前就返回。
+    /// 这一局英雄实体在实体表里的位置和编号（按位置排）。表里的先后会变（核对版 2026-10-18：没有英雄复活，两个英雄也换了
+    /// 先后），所以每 tick 看一眼这些位置上还是不是它们；有一个不是，或者有玩家的英雄是表里没见过的新实体（复活），才整表
+    /// 再看一遍。
+    champ_at: Vec<(usize, usize)>,
+    /// 核对版：这一 tick 新代码会在看场面之前就返回（是谁）；两种找法这次谁先算。
     #[cfg(ult_press_verify)]
-    verify_skip: bool,
+    verify_skip: Option<String>,
+    #[cfg(ult_press_verify)]
+    verify_flip: bool,
 }
 
 /// think() 看的场面：己方英雄、看得见的敌方英雄（希维尔还要他们三个技能格的剩余冷却）、其中被控住的、还在的敌方塔。
@@ -1027,7 +1031,7 @@ fn see(sim: &StableSim<'_>, e: &StableEntity<'_, '_>, team: usize, watch_casts: 
     }
 }
 
-/// 0.3.0 的找法：一个个看这局所有的实体（小兵、野怪、投射物都看一遍）。核对版拿它和新的找法逐 tick 比。
+/// 0.4.0 及以前的找法：一个个看这局所有的实体（小兵、野怪、投射物都看一遍）。核对版拿它和新的找法逐 tick 比。
 #[cfg(ult_press_verify)]
 fn look_all(sim: &StableSim<'_>, mid: usize, team: usize, watch_casts: bool) -> Seen {
     let mut seen = Seen::default();
@@ -1052,18 +1056,35 @@ fn look_all(sim: &StableSim<'_>, mid: usize, team: usize, watch_casts: bool) -> 
 
 impl UltPress {
     /// 这一 tick 的场面。用户过日时采样（2026-10-18）：后台模拟线程约 15% 的时间花在这里原来的找法上——每个被管的英雄
-    /// 每 tick 把这局所有实体（小兵、野怪、投射物）看一遍。现在只看英雄，按它们在实体表里的先后（整表看一遍记下，
-    /// 有玩家的英雄是表里没见过的新实体——复活——才再看一遍），挑「最近的」「血最少的」打平时和原来挑同一个；敌方的塔
-    /// 一局找一次，之后只看还在不在。核对版（`--cfg ult_press_verify`）两种都算、逐 tick 比，用原来那份做决定。
+    /// 每 tick 把这局所有实体（小兵、野怪、投射物）看一遍。现在只看英雄，按它们在实体表里的先后（`champ_at`：记下的位置上
+    /// 还是它们就不整表看），「第一个」「最近的」「血最少的」和原来挑同一个；敌方的塔一局找一次，之后只看还在不在。
+    #[cfg(not(ult_press_verify))]
     fn look(&mut self, sim: &StableSim<'_>, mid: usize, team: usize, watch_casts: bool) -> Seen {
-        let fast = self.look_fast(sim, mid, team, watch_casts);
-        #[cfg(ult_press_verify)]
-        let fast = {
-            let all = look_all(sim, mid, team, watch_casts);
-            verify::compared(&all, &fast, sim, mid);
-            all
-        };
-        fast
+        self.look_fast(sim, mid, team, watch_casts)
+    }
+
+    /// 核对版（`--cfg ult_press_verify`）：两种找法都算（轮流先算，谁也不总占着游戏数据刚读过的便宜）、计时、逐 tick 比，
+    /// 用原来那份做决定。
+    #[cfg(ult_press_verify)]
+    fn look(&mut self, sim: &StableSim<'_>, mid: usize, team: usize, watch_casts: bool) -> Seen {
+        use std::time::Instant;
+        self.verify_flip = !self.verify_flip;
+        let (all, fast, t_all, t_fast);
+        if self.verify_flip {
+            let t0 = Instant::now();
+            fast = self.look_fast(sim, mid, team, watch_casts);
+            let t1 = Instant::now();
+            all = look_all(sim, mid, team, watch_casts);
+            (t_fast, t_all) = (t1 - t0, t1.elapsed());
+        } else {
+            let t0 = Instant::now();
+            all = look_all(sim, mid, team, watch_casts);
+            let t1 = Instant::now();
+            fast = self.look_fast(sim, mid, team, watch_casts);
+            (t_all, t_fast) = (t1 - t0, t1.elapsed());
+        }
+        verify::compared(&all, &fast, sim, mid, &self.champ_at, t_all, t_fast);
+        all
     }
 
     fn look_fast(&mut self, sim: &StableSim<'_>, mid: usize, team: usize, watch_casts: bool) -> Seen {
@@ -1079,33 +1100,59 @@ impl UltPress {
             towers: towers.iter().filter(|(id, _)| sim.get_entity(*id).is_some_and(|e| e.is_alive())).map(|t| t.1).collect(),
             ..Seen::default()
         };
-        // the champions in the entity table's order, from a whole scan redone only when a player's champion is an
-        // entity it has not seen: a respawn is a new entity, put in whatever slot the table has free (not after the
-        // others - sorting by entity id put them in another order after respawns, the verify build of 2026-10-18)
-        let ids: Vec<usize> =
-            (0..sim.player_count()).filter_map(|i| sim.player_at(i).and_then(|p| p.champion())).map(|e| e.id()).collect();
-        if ids.iter().any(|id| !self.champ_order.contains(id)) {
-            self.champ_order =
-                (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|e| e.is_champion()).map(|e| e.id()).collect();
+        // the champions in the entity table's order: the slots they were in, while each still holds the same champion
+        // and every player's champion is one of them; else a whole scan. A respawn is a new entity in whatever slot is
+        // free, and the table moves entities about (the verify builds of 2026-10-18: sorted by entity id, then kept in
+        // the order of the last whole scan, they came out in another order than the table's)
+        let mut champs = Vec::with_capacity(self.champ_at.len());
+        for &(i, id) in &self.champ_at {
+            match sim.entity_at(i) {
+                Some(e) if e.id() == id => champs.push(e),
+                _ => break,
+            }
         }
-        for &id in &self.champ_order {
-            let Some(e) = sim.get_entity(id) else { continue };
-            if e.is_alive() && id != mid && e.is_targetable() {
-                see(sim, &e, team, watch_casts, &mut seen);
+        let known = !self.champ_at.is_empty()
+            && champs.len() == self.champ_at.len()
+            && (0..sim.player_count())
+                .filter_map(|i| sim.player_at(i).and_then(|p| p.champion()))
+                .all(|c| self.champ_at.iter().any(|&(_, id)| id == c.id()));
+        if !known {
+            champs.clear();
+            self.champ_at.clear();
+            for i in 0..sim.entity_count() {
+                let Some(e) = sim.entity_at(i) else { continue };
+                if e.is_champion() {
+                    self.champ_at.push((i, e.id()));
+                    champs.push(e);
+                }
+            }
+            #[cfg(ult_press_verify)]
+            verify::scanned();
+        }
+        for e in &champs {
+            if e.is_alive() && e.id() != mid && e.is_targetable() {
+                see(sim, e, team, watch_casts, &mut seen);
             }
         }
         seen
     }
 }
 
-/// 核对版的计数：两种找法得到的场面（顺序也算）一样不一样；新代码提前返回的 tick，原来的代码是不是也什么都不按。
+/// 核对版的计数：两种找法得到的场面一样不一样（英雄的先后也算；塔只用来问「附近有没有」，不算先后）、各花多少时间；
+/// 新代码提前返回的 tick，原来的代码是不是也什么都不按。
 #[cfg(ult_press_verify)]
 mod verify {
-    use super::{head, wlog, Seen, StableSim};
-    use std::sync::atomic::{AtomicUsize, Ordering::Relaxed};
+    use super::{head, wlog, InputV1, Seen, StableSim};
+    use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering::Relaxed};
+    use std::time::{Duration, Instant};
 
     static LOOKS: AtomicUsize = AtomicUsize::new(0);
     static DIFFER: AtomicUsize = AtomicUsize::new(0);
+    static SCANS: AtomicUsize = AtomicUsize::new(0);
+    static NS_ALL: AtomicU64 = AtomicU64::new(0);
+    static NS_FAST: AtomicU64 = AtomicU64::new(0);
+    static THINKS: AtomicUsize = AtomicUsize::new(0);
+    static NS_THINK: AtomicU64 = AtomicU64::new(0);
     static SKIPS: AtomicUsize = AtomicUsize::new(0);
     static SKIP_PRESSED: AtomicUsize = AtomicUsize::new(0);
     /// a summary line this often, and at most DETAILS lines of each kind of difference: the first verify build wrote
@@ -1114,18 +1161,40 @@ mod verify {
     const DETAILS: usize = 30;
 
     fn summary() {
+        let n = LOOKS.load(Relaxed).max(1) as u64;
+        let (all, fast, think) = (NS_ALL.load(Relaxed), NS_FAST.load(Relaxed), NS_THINK.load(Relaxed));
+        let thinks = THINKS.load(Relaxed).max(1) as u64;
         wlog(format!(
-            "VERIFY {} looks, {} differ (every entity vs the champions in table order); {} early returns, {} where the old way pressed",
+            "VERIFY {} looks, {} differ (every entity vs the champions in their table slots), {} whole scans; a look {} ns the old way, {} ns the new way; a think {} ns besides the looks over {} thinks; {} early returns, {} where the old way pressed",
             LOOKS.load(Relaxed),
             DIFFER.load(Relaxed),
+            SCANS.load(Relaxed),
+            all / n,
+            fast / n,
+            think.saturating_sub(all + fast) / thinks,
+            thinks,
             SKIPS.load(Relaxed),
             SKIP_PRESSED.load(Relaxed)
         ));
     }
 
-    pub fn compared(all: &Seen, fast: &Seen, sim: &StableSim<'_>, mid: usize) {
+    /// 塔：只用在 `.any()` 里，先后不影响判断。
+    fn tower_set(s: &Seen) -> Vec<(u64, u64)> {
+        let mut v: Vec<(u64, u64)> = s.towers.iter().map(|&(x, y)| (x as u64, y as u64)).collect();
+        v.sort_unstable();
+        v
+    }
+
+    pub fn compared(all: &Seen, fast: &Seen, sim: &StableSim<'_>, mid: usize, slots: &[(usize, usize)], t_all: Duration, t_fast: Duration) {
+        NS_ALL.fetch_add(t_all.as_nanos() as u64, Relaxed);
+        NS_FAST.fetch_add(t_fast.as_nanos() as u64, Relaxed);
         let n = LOOKS.fetch_add(1, Relaxed) + 1;
-        if all != fast {
+        let same = all.allies == fast.allies
+            && all.enemies == fast.enemies
+            && all.held == fast.held
+            && all.foe_cds == fast.foe_cds
+            && tower_set(all) == tower_set(fast);
+        if !same {
             let k = DIFFER.fetch_add(1, Relaxed) + 1;
             if k <= DETAILS {
                 let ids = |s: &Seen| {
@@ -1138,7 +1207,15 @@ mod verify {
                         s.foe_cds.iter().map(|c| c.0).collect::<Vec<_>>()
                     )
                 };
-                wlog(format!("{} VERIFY DIFFER every entity: {} | champions: {} #{k}", head(sim, mid), ids(all), ids(fast)));
+                let table: Vec<(usize, usize)> = (0..sim.entity_count())
+                    .filter_map(|i| sim.entity_at(i).filter(|e| e.is_champion()).map(|e| (i, e.id())))
+                    .collect();
+                wlog(format!(
+                    "{} VERIFY DIFFER every entity: {} | champions: {} | (slot, champion) in the table {table:?}, kept {slots:?} #{k}",
+                    head(sim, mid),
+                    ids(all),
+                    ids(fast)
+                ));
             }
         }
         if n % EVERY == 0 {
@@ -1146,11 +1223,22 @@ mod verify {
         }
     }
 
-    pub fn skipped(skip: bool, pressed: bool) {
-        if skip {
+    pub fn scanned() {
+        SCANS.fetch_add(1, Relaxed);
+    }
+
+    pub fn thought(t0: Instant) {
+        THINKS.fetch_add(1, Relaxed);
+        NS_THINK.fetch_add(t0.elapsed().as_nanos() as u64, Relaxed);
+    }
+
+    pub fn skipped(skip: Option<String>, out: Option<&InputV1>) {
+        if let Some(who) = skip {
             SKIPS.fetch_add(1, Relaxed);
-            if pressed && SKIP_PRESSED.fetch_add(1, Relaxed) < DETAILS {
-                wlog("VERIFY an early return would have dropped a press");
+            if let Some(input) = out {
+                if SKIP_PRESSED.fetch_add(1, Relaxed) < DETAILS {
+                    wlog(format!("{who} VERIFY an early return would have dropped a press (input kind {})", input.kind));
+                }
             }
         }
     }
@@ -1183,9 +1271,14 @@ impl StablePlayerAi for UltPress {
     }
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        #[cfg(ult_press_verify)]
+        let t0 = std::time::Instant::now();
         let out = self.decide(ctx, base);
         #[cfg(ult_press_verify)]
-        verify::skipped(std::mem::take(&mut self.verify_skip), out.is_some());
+        {
+            verify::skipped(self.verify_skip.take(), out.as_ref());
+            verify::thought(t0);
+        }
         out
     }
 }
@@ -1222,7 +1315,7 @@ impl UltPress {
                 self.armed_at = None;
                 self.foe_cds.clear();
                 self.towers = None;
-                self.champ_order.clear();
+                self.champ_at.clear();
             }
             self.volleys = (self.volleys + (tick - self.volley_tick) as f64 / KOG_VOLLEY_EVERY as f64).min(KOG_VOLLEYS_MAX);
             self.volley_tick = tick;
@@ -1319,12 +1412,14 @@ impl UltPress {
                 return None;
             }
             // a held champion with no pressed slot ready and her attack not ready: below, plan() presses only ready
-            // slots of slots_of and the hold only a ready attack, so nothing can come out - skip looking round
-            let skip = holder && !atk_ready && !any_ready && name != SAMIRA;
-            // the verify build only notes it and goes on the 0.3.0 way (think() checks nothing was pressed)
+            // slots of slots_of and the hold only a ready attack, so nothing can come out - skip looking round. Not
+            // Samira, Twisted Fate or Kog'Maw: their presses are made whatever their cooldowns and the engine says which
+            // it takes (the first verify build: Twisted Fate's R taken again in the ticks before his teleport)
+            let skip = holder && !atk_ready && !any_ready && !matches!(name.as_str(), SAMIRA | TF | KOGMAW);
+            // the verify build only notes it and goes on the 0.4.0 way (think() checks nothing was pressed)
             #[cfg(ult_press_verify)]
             let skip = {
-                self.verify_skip = skip;
+                self.verify_skip = skip.then(|| head(&sim, mid));
                 false
             };
             if skip {
