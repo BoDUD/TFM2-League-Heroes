@@ -243,10 +243,10 @@ RESTYLE = {
     # here; the outer outline grown a square like the others; the face point on his glowing eye
     "nasus": dict(ppu=1.2, edge=1, face_to=(7, -36)),
     # league_anivia (#123): posed by tools/art/rig_anivia.py from Codex's step-1 takes A-2 / B-1 cut to 46 / 23 rows (the
-    # user's 38 game rows at 1.2, 「模型有点大」 from 44; the egg half of her), the wings rigid (as drawn or mirrored); no
-    # proportion or density change here; the outer outline grown a square like the others; the face point between her
-    # violet brow gem and her magenta eye
-    "anivia": dict(ppu=1.2, edge=1, face_to=(4, -22)),
+    # user's 38 game rows at 1.2, 「模型有点大」 from 44; in game 「凤凰的局内模型太大」 -> 31 rows, 37 / 19 cut); the wings
+    # rigid (as drawn or mirrored); no proportion or density change here; the outer outline grown a square like the
+    # others; the face point on her violet brow gem's row, between it and her magenta eye
+    "anivia": dict(ppu=1.2, edge=1, face_to=(2, -20)),
     # the 2026-10-16 redo from Codex's pictures, posed by tools/art/rig_<hero>_hd.py (tools/art/ppu_rig.py) at PPU 1.5 -
     # Nami after League's own clips (tools/lol/league_joints.py): only the outer outline grown a square, the face point
     # at the new head

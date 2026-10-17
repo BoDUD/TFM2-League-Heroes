@@ -35,7 +35,7 @@ import design_anivia_cut as DC  # noqa: E402
 
 HERO = "anivia"
 PPU = 1.2
-GAME_ROWS = 38                  # her height in game rows (the user: 44 「模型有点大」 -> 38, tools/art/design_anivia_cut.py --sizes)
+GAME_ROWS = 31                  # her height in game rows (the user: 44 「模型有点大」 -> 38; in game 「凤凰的局内模型太大」 -> 31, 49 x 31: design_anivia_cut.py --sizes)
 
 
 def lp(path):
