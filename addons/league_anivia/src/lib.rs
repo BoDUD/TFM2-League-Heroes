@@ -10,7 +10,7 @@
 //!   别人给的「不死」在身上时不触发。
 //! - **真冰墙**：数据在 Q 晕到英雄 2 tick 后立墙（她身上新出现 `league_anivia_w_cd`），墙心就是那一 tick 她新放出、不在她脚下的
 //!   区域的位置（投射物信息里没有名字，只有位置）。之后 `w_t` tick 里，每个单位（英雄、小兵、野怪，两边都算，她自己也算）的中心
-//!   一进墙（竖着的长方形，半宽 `w_w`/2 + 单位半径，半高 `w_h`/2 + 单位半径）就放回上一 tick 的位置；立墙时站在墙上的被推到近的那一侧。
+//!   一进墙（竖着的长方形，半宽 `w_w`/2 + 单位半径，半高 `w_h`/2 + 单位半径）就放回上一 tick 的位置；立墙时站在墙上的被推到她那一侧（和主包数据的拖出一样：墙在被晕的人身后）。
 //! - **冰冻翻倍**：数据给 Q 打中、成形风暴打中的英雄挂 `league_anivia_iced`（`ice_t` tick）；E 打中时她身上亮 1 tick 的
 //!   `league_anivia_e_now`，本包在 `on_attack` 里看到它、目标身上又有冰冻，就把这一下伤害翻倍。
 //!
@@ -152,12 +152,14 @@ pub fn parse_params(json: &str) -> Params {
 
 // ===================== 计算（单元测试用） =====================
 
-/// 一面墙：中心、立起的 tick。
+/// 一面墙：中心、立起的 tick、她在哪一侧。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Wall {
     pub x: u64,
     pub y: u64,
     pub from: usize,
+    /// 立墙时她在墙的左边（x 小的一侧）：墙上的单位推到这一侧。
+    pub left: bool,
 }
 
 /// 单位中心在墙里（竖着的长方形，四边各加单位半径）。
@@ -165,10 +167,10 @@ pub fn inside(w: &Wall, p: &Params, x: u64, y: u64, r: u64) -> bool {
     x.abs_diff(w.x) < p.w_w / 2 + r && y.abs_diff(w.y) < p.w_h / 2 + r
 }
 
-/// 墙里的单位推到近的那一侧（只改 x：墙是竖的）。
-pub fn push_out(w: &Wall, p: &Params, x: u64, r: u64) -> u64 {
+/// 墙里的单位推到她那一侧（只改 x：墙是竖的）。
+pub fn push_out(w: &Wall, p: &Params, r: u64) -> u64 {
     let edge = p.w_w / 2 + r + 1;
-    if x >= w.x { w.x + edge } else { w.x.saturating_sub(edge) }
+    if w.left { w.x.saturating_sub(edge) } else { w.x + edge }
 }
 
 /// 这一 tick 单位该在哪：进了墙就回到上一 tick 的位置（上一 tick 也在墙里，就推出去）。
@@ -176,7 +178,7 @@ pub fn hold(walls: &[Wall], p: &Params, last: Option<(u64, u64)>, now: (u64, u64
     let w = walls.iter().find(|w| inside(w, p, now.0, now.1, r))?;
     match last {
         Some(l) if !inside(w, p, l.0, l.1, r) => Some(l),
-        _ => Some((push_out(w, p, now.0, r), now.1)),
+        _ => Some((push_out(w, p, r), now.1)),
     }
 }
 
@@ -285,7 +287,7 @@ impl Rebirth {
             let me_pos = sim.get_entity(me).map_or((0, 0), |e| e.pos());
             match wall_centre(&self.prev_proj, &mine, me_pos) {
                 Some((x, y)) => {
-                    self.walls.push(Wall { x, y, from: now });
+                    self.walls.push(Wall { x, y, from: now, left: me_pos.0 < x });
                     if let Some(k) = counted("wall") {
                         wlog(format!("{} WALL #{k}: at ({x}, {y}), {} ticks", head(sim, me), self.p.w_t));
                     }
@@ -466,7 +468,7 @@ mod tests {
 
     #[test]
     fn a_unit_walking_into_the_wall_goes_back() {
-        let w = [Wall { x: 500000, y: 400000, from: 0 }];
+        let w = [Wall { x: 500000, y: 400000, from: 0, left: true }];
         // from the left: last tick outside, now inside -> back to last
         assert_eq!(hold(&w, &p(), Some((488000, 400000)), (491000, 400000), 6000), Some((488000, 400000)));
         // from the right the same
@@ -476,10 +478,14 @@ mod tests {
     }
 
     #[test]
-    fn on_the_wall_when_it_rises_pushed_to_the_near_side() {
-        let w = [Wall { x: 500000, y: 400000, from: 0 }];
+    fn on_the_wall_when_it_rises_pushed_to_her_side() {
+        // she stands left of the wall: both out to the left, wherever they stood on it
+        let w = [Wall { x: 500000, y: 400000, from: 0, left: true }];
         assert_eq!(hold(&w, &p(), None, (498000, 400000), 6000), Some((500000 - 10001, 400000)));
-        assert_eq!(hold(&w, &p(), None, (503000, 400000), 6000), Some((500000 + 10001, 400000)));
+        assert_eq!(hold(&w, &p(), None, (503000, 400000), 6000), Some((500000 - 10001, 400000)));
+        // she stands right of it: out to the right
+        let w = [Wall { x: 500000, y: 400000, from: 0, left: false }];
+        assert_eq!(hold(&w, &p(), None, (498000, 400000), 6000), Some((500000 + 10001, 400000)));
     }
 
     #[test]

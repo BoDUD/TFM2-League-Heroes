@@ -14,10 +14,14 @@ Kit (the user's picks, 2026-10-17: 「全按推荐做：主包近似蛋、W 折�
           size flags the stun (`q_stc`).
   W       Crystallize (寒冰屏障), on Q: two ticks after a blast that stunned a champion, with `w_cd` off, a wall stands
           on the blast point for w_t ticks: a `Rect` w_w x w_h (axis-aligned, so always upright on the screen - the
-          fights run left-right), its picture ice blocks stacked up (never turned). Enemies on it when it rises are
-          pulled w_pull toward her (League pushes them off); every w_p ticks each enemy touching it gets w_slow% (a
-          slow, not crowd control) for w_p + 2 ticks: whoever walks into it, from either side, stops at its edge
-          until it melts. The add-on's wall is real terrain (nobody passes, allies neither).
+          fights run left-right), its picture ice blocks stacked up (never turned). Enemies standing on it when it
+          rises are dragged out to her side (League pushes them off): a w_out-tick field on the wall drags whoever
+          is in it toward her (`Grab` w_go a tick, every 2 ticks) until they are out, so the stunned champion ends
+          with the wall behind him (a `Pull` in a projectile heads for the projectile and passes through: the first
+          wall's 1-tick Pull threw him across its centre and he stayed inside, 99% slowed for its 5 s - 25 of 37
+          champions in six simulated games); every w_p ticks each enemy touching it gets w_slow% (a slow, not crowd
+          control) for w_p + 2 ticks: whoever walks into it, from either side, stops at its edge until it melts.
+          The add-on's wall is real terrain (nobody passes, allies neither; on it when it rises: out to her side).
   combo   (the user's 「加高手连招」) Q stuns -> the wall behind -> Frostbite (doubled on the stunned champion) ->
           Glacial Storm (the watch's R fires on a champion in crowd control first).
   skill2  E Frostbite (霜寒刺骨), `Targeting` on `EnemyWithoutTower` (e_range): an ice shard (e_dmg + e_ratio% AP).
@@ -70,7 +74,7 @@ P = {
     "q_cd": 450, "q_range": 95000, "q_dur": 24, "q_rel": 9, "q_speed": 1600, "q_w": 5000, "q_pass": 55, "q_pass_r": 32,
     "q_slow": 30, "q_slow_t": 180, "q_dmg": 95, "q_ratio": 65, "q_stun": 66, "q_r": 14000,
     # W Crystallize (League: width 400-1000, 5 s, cd 17)
-    "w_cd": 900, "w_t": 300, "w_w": 8000, "w_h": 50000, "w_p": 2, "w_slow": 99, "w_pull": 16000, "w_mode": 0,
+    "w_cd": 900, "w_t": 300, "w_w": 8000, "w_h": 50000, "w_p": 2, "w_slow": 99, "w_out": 24, "w_go": 2500, "w_mode": 0,
     # E Frostbite (League: 600 range, speed 1600, 55-155 +55%, doubled on Iced, cd 4)
     "e_cd": 300, "e_range": 65000, "e_dur": 24, "e_rel": 9, "e_speed": 2700, "e_dmg": 75, "e_ratio": 65,
     # the combo's Frostbite after a stun (its own cooldown, e_cd)
@@ -259,13 +263,16 @@ def build(p):
 
     # ------------------------------------------------------------------ W: Crystallize (on Q's stun)
     wall_view = [view("w_wall"), sfx("w")]
-    rise = [zone("w_rise", rect(p["w_w"], p["w_h"]), [{"type": "Pull", "speed": 2000, "tick": p["w_pull"] // 2000}])]
+    # whoever stands on it is dragged toward her until out (a Grab heads for the caster even from a projectile; a Pull
+    # would head for the wall's centre and through it), w_go a tick: 38000 across the wall and two bodies in 16 ticks
+    rise = [field("w_out", rect(p["w_w"], p["w_h"]), p["w_out"], 2, [{"type": "Grab", "speed": p["w_go"], "tick": 2}],
+                  first=1)]
     if p["w_slow"]:
         rise.append(field("w_ice", rect(p["w_w"], p["w_h"]), p["w_t"], p["w_p"],
                           [buff("w_stuck", p["w_p"] + 2, move_speed_mult=-p["w_slow"])] if not p["w_mode"] else
                           [{"type": "Bind", "duration": p["w_p"] + 1}, buff("w_stuck", p["w_p"] + 2)], first=1))
     else:       # the add-on's copy: the wall is real terrain; this hitless field only marks where it stands (the add-on
-                # finds it among her zones the tick w_cd rises - the one-tick w_rise may be gone by then)
+                # finds it among her zones the tick w_cd rises - w_out is gone after w_out ticks)
         rise.append(field("w_mark", circle(1), p["w_t"], p["w_t"], [], first=p["w_t"], target="EnemyChampion"))
     wall = sw("w_cd", NONE, combine(flag("w_cd", p["w_cd"]), voice("vo_w", p), *wall_view, *rise))
 
@@ -367,8 +374,11 @@ def build(p):
     # bolt, a shard); everything else is left-right symmetric (the client never mirrors a picture on the red side)
     Pj2 = lambda name, tag: {"type": "Animated", "name": n(name), "anim": FX, "tag": tag, "repeat": True, "z": 2}
     views_p = [Pj("a_bolt"), Pj("q_ball"), Pj("e_shard"), Pj2("e_combo", "e_shard")]
-    views_e = [E("a_hit"), E("q_stun"), E("q_blast", BIG, 2, False), E("w_wall", BIG, 1, False), E("e_hit"),
-               E("e_iced"), E("r_cast"), E("r_storm", BIG, -1, False), E("r_formed", BIG, -1, False)]
+    # the wall under the units (z -1): a champion pulled against it, or stuck at its edge, stands in front of its ice
+    # instead of half inside it (its pillars reach 38 px up and down the field from the blast point); the storm on the
+    # ground under the wall (z -2), so a wall standing in it stays seen
+    views_e = [E("a_hit"), E("q_stun"), E("q_blast", BIG, 2, False), E("w_wall", BIG, -1, False), E("e_hit"),
+               E("e_iced"), E("r_cast"), E("r_storm", BIG, -2, False), E("r_formed", BIG, -2, False)]
     if native:          # the egg's pictures (main pack sheets) bound only in the add-on's copy, the one that plays them
         views_e += [E("p_egg_in"), E("p_hatch")]
     views_b = [B_("iced", FX, 3)]

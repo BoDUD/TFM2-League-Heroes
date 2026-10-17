@@ -5,7 +5,8 @@ league_anivia_big.
     python tools/art/import_anivia_fx.py [--review out.png]
 
 The source is Codex's step-3 delivery (assets/source/anivia/codex_fx: pixel_1x/anivia_fx_<name>.png, one row of equal
-frames each at game size, frame sizes in manifest.json's entries (cell_1x); alpha 0 / 255, the red side's symmetry exact
+frames each at game size, frame sizes in manifest.json's entries (cell_1x; readback.json's for the ones tools/art/readback_anivia_fx.py re-read
+from Codex's drafts); alpha 0 / 255, the red side's symmetry exact
 - checked again here: the three projectiles top to bottom, the rest left to right - and no dark outline round the
 light). Each frame is cut by the manifest's frame size and placed as the kit plays it (import_swain_fx.py's way): spots
 are game px from the pivot (x forward, y down); a unit's soles are 11 under it, a point's ground too. Times from the kit
@@ -121,6 +122,10 @@ def main():
     a = ap.parse_args()
     man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
     meta = {e["name"]: e for e in man.get("effects", man.get("images", []))}
+    rb = os.path.join(SRC, "readback.json")            # tools/art/readback_anivia_fx.py: re-read from the drafts
+    if os.path.exists(lp(rb)):
+        for name, r in json.load(open(lp(rb), encoding="utf-8")).items():
+            meta[name] = {**meta[name], "frames": r["frames"], "cell_1x": r["cell_1x"]}
     if set(meta) != set(FX):
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
     allc = {n: cells(n, meta[n]) for n in FX}

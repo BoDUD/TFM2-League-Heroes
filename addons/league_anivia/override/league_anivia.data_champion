@@ -1709,27 +1709,29 @@
                                   "name": "league_anivia_w"
                                 },
                                 {
-                                  "type": "RangeProjectile",
-                                  "name": "league_anivia_w_rise",
+                                  "type": "RangePeriodProjectile",
+                                  "name": "league_anivia_w_out",
                                   "shape": {
                                     "Rect": {
                                       "width": 8000,
                                       "height": 50000
                                     }
                                   },
-                                  "delay": 1,
-                                  "apply": 1,
+                                  "tick": 24,
+                                  "period": 2,
+                                  "first_delay": 1,
                                   "applied_target": "EnemyWithoutTower",
                                   "applied_effects": [
                                     {
                                       "casting_type": "Targeting",
                                       "effect": {
-                                        "type": "Pull",
-                                        "speed": 2000,
-                                        "tick": 8
+                                        "type": "Grab",
+                                        "speed": 2500,
+                                        "tick": 2
                                       }
                                     }
-                                  ]
+                                  ],
+                                  "end_effects": []
                                 },
                                 {
                                   "type": "RangePeriodProjectile",
@@ -3198,7 +3200,7 @@
       "name": "league_anivia_w_wall",
       "anim": "asset/league/effects/league_anivia_big",
       "tag": "w_wall",
-      "z": 1,
+      "z": -1,
       "is_follow": false
     },
     {
@@ -3230,7 +3232,7 @@
       "name": "league_anivia_r_storm",
       "anim": "asset/league/effects/league_anivia_big",
       "tag": "r_storm",
-      "z": -1,
+      "z": -2,
       "is_follow": false
     },
     {
@@ -3238,7 +3240,7 @@
       "name": "league_anivia_r_formed",
       "anim": "asset/league/effects/league_anivia_big",
       "tag": "r_formed",
-      "z": -1,
+      "z": -2,
       "is_follow": false
     },
     {
