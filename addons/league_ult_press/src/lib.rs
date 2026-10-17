@@ -114,7 +114,7 @@ pub const CAMILLE_RANGE: f64 = 60_000.0;
 /// 依次跑、后跑的可以换掉前面的命令（champion-data 第 8 节），他们的钩子后跑就把这里的普攻换成 R，先跑的话这里看到的是 R、
 /// 不算原地站——斩杀照样出手。
 pub const MELEE_RANGE: u64 = 30_000;
-pub const MELEE: [&str; 61] = [
+pub const MELEE: [&str; 62] = [
     "league_aatrox",
     "league_akali",
     "league_alistar",
@@ -150,6 +150,7 @@ pub const MELEE: [&str; 61] = [
     "league_malphite",
     "league_masteryi",
     "league_mordekaiser",
+    "league_nasus",
     "league_nautilus",
     "league_nidalee",
     "league_nilah",

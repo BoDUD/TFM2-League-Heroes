@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_nasus": {
+        "skill": "【附加包】法杖重击，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，外加与层数相同的<#a974ffff>魔法伤害<>。击杀单位+<#ffb900ff>4层<>，击杀英雄+<#ffb900ff>10层<>（永久）。",
+        "ult": "【附加包】变身<#ffb900ff>15秒<>：生命+300，护甲魔抗+40，攻击距离增加，Q冷却减半；沙暴每<#ffb900ff>0.5秒<>造成周围敌人<#ffffffff>2%最大生命真实伤害<>。2名敌方英雄在身边或交战时才放。期间整个人变大。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_nasus": {
+        "skill": "【擴充包】法杖重擊，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，外加與層數相同的<#a974ffff>魔法傷害<>。擊殺單位+<#ffb900ff>4層<>，擊殺英雄+<#ffb900ff>10層<>（永久）。",
+        "ult": "【擴充包】變身<#ffb900ff>15秒<>：生命+300，護甲魔抗+40，攻擊距離增加，Q冷卻減半；沙暴每<#ffb900ff>0.5秒<>造成周圍敵人<#ffffffff>2%最大生命真實傷害<>。2名敵方英雄在身邊或交戰時才施放。期間整個人變大。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_nasus": {
+        "skill": "[Add-on] A staff blow for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> plus <#a974ffff>magic damage<> equal to his stacks. A unit it kills gives <#ffb900ff>4 stacks<>, a champion <#ffb900ff>10<> (for good).",
+        "ult": "[Add-on] He grows for <#ffb900ff>15s<>: +300 health, +40 armour and magic resistance, more attack range, Q's cooldown halved; the sandstorm deals <#ffffffff>2% of each nearby enemy's max health as true damage<> every <#ffb900ff>0.5s<>. Cast with 2 enemy champions close, or in a fight. His whole body grows."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_nasus": {
+        "skill": "[확장] 지팡이 일격으로 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>와 중첩만큼의 <#a974ffff>마법 피해<>. 처치한 유닛마다 <#ffb900ff>4중첩<>, 챔피언 <#ffb900ff>10중첩<>(영구).",
+        "ult": "[확장] <#ffb900ff>15초<>간 거대화: 체력 +300, 방어력·마법 저항력 +40, 사거리 증가, Q 재사용 대기시간 절반; 모래폭풍이 <#ffb900ff>0.5초<>마다 주변 적에게 최대 체력의 <#ffffffff>2% 고정 피해<>. 적 챔피언 2명이 가까이 있거나 전투 중에 사용. 온몸이 커집니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_nasus": {
+        "skill": "【拡張】杖の一撃で<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>とスタック分の<#a974ffff>魔法ダメージ<>。倒したユニット毎に<#ffb900ff>4スタック<>、チャンピオンは<#ffb900ff>10<>（永続）。",
+        "ult": "【拡張】<#ffb900ff>15秒<>巨大化：体力+300、物理防御・魔法防御+40、射程増加、Qのクールダウン半減。砂嵐が<#ffb900ff>0.5秒<>毎に周囲の敵へ最大体力の<#ffffffff>2%確定ダメージ<>。敵2体が近いか戦闘中に使う。その間全身が巨大化する。"
+      }
+    }
+  }
+}

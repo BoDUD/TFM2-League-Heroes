@@ -833,6 +833,13 @@
         "skill": "恶魔手射出五道扇形散开的闪电，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>；近处的敌人被更多闪电打中，另受<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>。",
         "skill2": "恶魔之手飞出再飞回，回程打中的敌人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并<#ef5350ff>禁锢1.5秒<>；被禁锢的英雄随后被拉近，留下一片魂屑。",
         "ult": "化身恶魔，吸取周围敌人的生命：每<#ffb900ff>0.5秒<>造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>，每名英雄回复<#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<>；吸到英雄时形态延续。<#ffb900ff>2秒<>后放出<#ff9028ff>恶魔耀光<>：<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速<>。2名敌方英雄在身边或有队友围攻被控者时才放。"
+      },
+      "league_nasus": {
+        "name": "内瑟斯",
+        "attack": "法杖重击。<#ff9028ff>吞噬灵魂<>：生命偷取<#ffb900ff>12%<>。<#ff9028ff>枯萎<>：交战时每<#ffb900ff>12秒<>自动衰老一名交战中的敌方英雄<#ffb900ff>5秒<>：<#ef5350ff>减速35%→75%<>，攻速降低25%→49%。",
+        "skill": "法杖重击，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，外加与层数相同的<#a974ffff>魔法伤害<>。击杀单位+<#ffb900ff>4层<>，击杀英雄+<#ffb900ff>10层<>（死后清空）。",
+        "skill2": "在目标处燃起灵魂之火：造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<><#a974ffff>魔法伤害<>，之后<#ffb900ff>5秒<>内每秒<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<>，火中敌人护甲<#ef5350ff>-30%<>。",
+        "ult": "变身<#ffb900ff>15秒<>：生命+300，护甲魔抗+40，攻击距离增加，Q、E冷却减半；沙暴每<#ffb900ff>0.5秒<>造成周围敌人<#ffffffff>2%最大生命真实伤害<>。2名敌方英雄在身边或交战时才放。"
       }
     },
     "skill_name": {
@@ -1430,6 +1437,11 @@
         "skill1": "解脱之触",
         "skill2": "永不复行",
         "ult": "恶魔升华"
+      },
+      "league_nasus": {
+        "skill1": "汲魂痛击",
+        "skill2": "灵魂烈焰",
+        "ult": "死神降临"
       }
     }
   },
@@ -2267,6 +2279,13 @@
         "skill": "惡魔之手射出五道扇形散開的閃電，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>；近處的敵人被更多閃電擊中，另受<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>。",
         "skill2": "惡魔之手飛出再飛回，回程擊中的敵人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並<#ef5350ff>定身1.5秒<>；被定身的英雄隨後被拉近，留下一片靈魂碎片。",
         "ult": "化身惡魔，汲取周圍敵人的生命：每<#ffb900ff>0.5秒<>造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>，每名英雄回復<#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<>；汲取到英雄時型態延續。<#ffb900ff>2秒<>後放出<#ff9028ff>魔燄<>：<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速<>。2名敵方英雄在身邊或有隊友圍攻被控者時才施放。"
+      },
+      "league_nasus": {
+        "name": "納瑟斯",
+        "attack": "法杖重擊。<#ff9028ff>食魂者<>：生命竊取<#ffb900ff>12%<>。<#ff9028ff>枯萎<>：交戰時每<#ffb900ff>12秒<>自動衰老一名交戰中的敵方英雄<#ffb900ff>5秒<>：<#ef5350ff>緩速35%→75%<>，攻速降低25%→49%。",
+        "skill": "法杖重擊，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，外加與層數相同的<#a974ffff>魔法傷害<>。擊殺單位+<#ffb900ff>4層<>，擊殺英雄+<#ffb900ff>10層<>（死後清空）。",
+        "skill2": "在目標處燃起靈魂之火：造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<><#a974ffff>魔法傷害<>，之後<#ffb900ff>5秒<>內每秒<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<>，火中敵人護甲<#ef5350ff>-30%<>。",
+        "ult": "變身<#ffb900ff>15秒<>：生命+300，護甲魔抗+40，攻擊距離增加，Q、E冷卻減半；沙暴每<#ffb900ff>0.5秒<>造成周圍敵人<#ffffffff>2%最大生命真實傷害<>。2名敵方英雄在身邊或交戰時才施放。"
       }
     },
     "skill_name": {
@@ -2864,6 +2883,11 @@
         "skill1": "靈魂拷問",
         "skill2": "影之爪",
         "ult": "魔君降生"
+      },
+      "league_nasus": {
+        "skill1": "虹吸打擊",
+        "skill2": "靈魂烈焰",
+        "ult": "死神降臨"
       }
     }
   },
@@ -3701,6 +3725,13 @@
         "skill": "Five bolts of demonic lightning fan out from his hand for <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>; a close enemy is struck by more of them for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> more.",
         "skill2": "A demon hand flies out and back; on its way back it deals <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> and <#ef5350ff>roots 1.5s<>. Rooted champions are then pulled closer and drop a Soul Fragment.",
         "ult": "He becomes the demon and drains nearby enemies: every <#ffb900ff>0.5s<> <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>magic damage<>, healing <#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<> per champion; draining champions keeps the form going. After <#ffb900ff>2s<>, <#ff9028ff>Demonflare<>: <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and a <#ef5350ff>slow<>. Cast with 2 enemy champions close, or an ally on a controlled one."
+      },
+      "league_nasus": {
+        "name": "Nasus",
+        "attack": "A staff blow. <#ff9028ff>Soul Eater<>: <#ffb900ff>12%<> life steal. <#ff9028ff>Wither<>: in a fight, every <#ffb900ff>12s<> he ages an enemy champion in the fight for <#ffb900ff>5s<>: a <#ef5350ff>slow growing 35% -> 75%<> and attack speed -25% -> -49%.",
+        "skill": "A staff blow for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> plus <#a974ffff>magic damage<> equal to his stacks. A unit it kills gives <#ffb900ff>4 stacks<>, a champion <#ffb900ff>10<> (lost on death).",
+        "skill2": "Spirit fire at the target spot: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<> <#a974ffff>magic damage<>, then <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<> a second for <#ffb900ff>5s<>; enemies in it lose <#ef5350ff>30% armour<>.",
+        "ult": "He grows for <#ffb900ff>15s<>: +300 health, +40 armour and magic resistance, more attack range, Q and E cooldowns halved; the sandstorm deals <#ffffffff>2% of each nearby enemy's max health as true damage<> every <#ffb900ff>0.5s<>. Cast with 2 enemy champions close, or in a fight."
       }
     },
     "skill_name": {
@@ -4298,6 +4329,11 @@
         "skill1": "Death's Hand",
         "skill2": "Nevermove",
         "ult": "Demonic Ascension"
+      },
+      "league_nasus": {
+        "skill1": "Siphoning Strike",
+        "skill2": "Spirit Fire",
+        "ult": "Fury of the Sands"
       }
     }
   },
@@ -5135,6 +5171,13 @@
         "skill": "악마의 손에서 부채꼴로 퍼지는 번개 다섯 줄기가 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>; 가까운 적은 더 많은 번개에 맞아 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>를 추가로 받습니다.",
         "skill2": "악마의 손이 날아갔다 돌아오며 돌아올 때 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>1.5초 속박<>. 속박된 챔피언은 끌려오고 영혼 조각을 떨어뜨립니다.",
         "ult": "악마로 변신해 주변 적의 생명력을 흡수: <#ffb900ff>0.5초<>마다 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>의 <#a974ffff>마법 피해<>, 챔피언마다 <#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<> 회복; 챔피언을 흡수하면 형태 유지. <#ffb900ff>2초<> 후 <#ff9028ff>악의 불길<>: <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>둔화<>. 적 챔피언 2명이 가까이 있거나 아군이 군중 제어된 적을 칠 때 사용."
+      },
+      "league_nasus": {
+        "name": "나서스",
+        "attack": "지팡이 일격. <#ff9028ff>영혼의 포식자<>: 생명력 흡수 <#ffb900ff>12%<>. <#ff9028ff>쇠약<>: 전투 중 <#ffb900ff>12초<>마다 싸우는 적 챔피언을 <#ffb900ff>5초<>간 늙게 함: <#ef5350ff>둔화 35%→75%<>, 공격 속도 -25%→-49%.",
+        "skill": "지팡이 일격으로 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>와 중첩만큼의 <#a974ffff>마법 피해<>. 처치한 유닛마다 <#ffb900ff>4중첩<>, 챔피언 <#ffb900ff>10중첩<>(사망 시 초기화).",
+        "skill2": "목표 지점에 영혼의 불: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<>의 <#a974ffff>마법 피해<>, 이후 <#ffb900ff>5초<>간 매초 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<>, 불 속의 적 방어력 <#ef5350ff>-30%<>.",
+        "ult": "<#ffb900ff>15초<>간 거대화: 체력 +300, 방어력·마법 저항력 +40, 사거리 증가, Q·E 재사용 대기시간 절반; 모래폭풍이 <#ffb900ff>0.5초<>마다 주변 적에게 최대 체력의 <#ffffffff>2% 고정 피해<>. 적 챔피언 2명이 가까이 있거나 전투 중에 사용."
       }
     },
     "skill_name": {
@@ -5732,6 +5775,11 @@
         "skill1": "죽음의 손길",
         "skill2": "속박명령",
         "ult": "악의 승천"
+      },
+      "league_nasus": {
+        "skill1": "흡수의 일격",
+        "skill2": "영혼의 불길",
+        "ult": "사막의 분노"
       }
     }
   },
@@ -6569,6 +6617,13 @@
         "skill": "悪魔の手から扇状に広がる稲妻を5本放ち<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>。近い敵は多くの稲妻を受け、さらに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>。",
         "skill2": "悪魔の手が飛んで戻り、戻る途中で当たった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.5秒スネア<>。スネアされたチャンピオンは引き寄せられ「魂のかけら」を落とす。",
         "ult": "悪魔に変身し周囲の敵から吸収：<#ffb900ff>0.5秒<>毎に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>、チャンピオン毎に<#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<>回復。チャンピオンを吸収する間は持続。<#ffb900ff>2秒<>後「<#ff9028ff>悪魔の紅炎<>」：<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>スロウ<>。敵2体が近いか、味方がCC中の敵を攻撃中に使う。"
+      },
+      "league_nasus": {
+        "name": "ナサス",
+        "attack": "杖の一撃。<#ff9028ff>ソウルイーター<>：ライフスティール<#ffb900ff>12%<>。<#ff9028ff>ウィザー<>：戦闘中<#ffb900ff>12秒<>毎に戦う敵チャンピオンを<#ffb900ff>5秒<>老化：<#ef5350ff>スロウ35%→75%<>、攻撃速度-25%→-49%。",
+        "skill": "杖の一撃で<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>とスタック分の<#a974ffff>魔法ダメージ<>。倒したユニット毎に<#ffb900ff>4スタック<>、チャンピオンは<#ffb900ff>10<>（死亡で消える）。",
+        "skill2": "目標地点に霊魂の炎：<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3%<>の<#a974ffff>魔法ダメージ<>、その後<#ffb900ff>5秒<>間毎秒<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<>、炎の中の敵は物理防御<#ef5350ff>-30%<>。",
+        "ult": "<#ffb900ff>15秒<>巨大化：体力+300、物理防御・魔法防御+40、射程増加、Q・Eのクールダウン半減。砂嵐が<#ffb900ff>0.5秒<>毎に周囲の敵へ最大体力の<#ffffffff>2%確定ダメージ<>。敵2体が近いか戦闘中に使う。"
       }
     },
     "skill_name": {
@@ -7166,6 +7221,11 @@
         "skill1": "死の手",
         "skill2": "束縛の爪",
         "ult": "魔帝戴冠"
+      },
+      "league_nasus": {
+        "skill1": "サイフォンストライク",
+        "skill2": "スピリットファイア",
+        "ult": "アヌビスの怒り"
       }
     }
   }
