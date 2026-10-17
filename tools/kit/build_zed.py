@@ -367,7 +367,7 @@ def build(p):
                                          view("cw_hit"), tsfx("cw_hit"),
                                          on_me(*rm("cw_ready"), flag("cw_cd", p["cw_cd"]))])))
     swing = combine(sfx("a_swing"),
-                    delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "EnemyWithoutTower",
+                    delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "Enemy",
                                                  [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
                             *([] if p["native"] else [homing("a_twin", 100000, 0, "EnemyChampion", [on_me(climb)])]),
                             contempt))
