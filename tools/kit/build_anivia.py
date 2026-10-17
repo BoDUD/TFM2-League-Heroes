@@ -31,14 +31,14 @@ Kit (the user's picks, 2026-10-17: 「全按推荐做：主包近似蛋、W 折�
           Unused, the window ends with the cooldown capped at 60 ticks (`r_retry`). The storm stands r_t ticks where
           the champion stood: it grows r_r0 -> r_r1 -> r_r2 (r_grow ticks each) to r_r (fully formed); every r_p
           ticks r_dmg + r_ratio% AP and r_slow% (formed: x r_full, r_slow2%).
-  passive Rebirth (寒霜涅槃), approximated: the data reads no health and nothing fires on a death. When the watch sees
-          two enemy champions within egg_r while her fight has lasted egg_fight ticks, once a life: she curls into
-          the egg for egg_t ticks (held by its animation), armour and magic resistance -egg_def, a shell (a shield of
-          egg_sh + egg_ap% AP) as the egg's health. Shell whole at the end: she hatches, healed egg_heal +
-          egg_heal_r% AP. Shell broken: the egg cracks and she is out at once, unhealed. The add-on makes it the real
-          thing (lethal damage -> the egg with her full health, the egg's death is hers, cooldown kept after death).
-The add-on copy (--native): the passive `league_anivia:rebirth` decides the egg and the wall; the copy has no
-watch egg, the wall without the slow ring (`w_slow` 0) and E's twin reading the add-on's flag `iced_hit`.
+  passive Rebirth (寒霜涅槃): the add-on's alone (the user's pick after the simulation: a danger rule in the data egged
+          her at 20-100% health - the data reads no health and nothing fires on a death). With the add-on: the lethal
+          hit leaves her at 1 health, she curls into the egg with her full health as the egg's, armour and magic
+          resistance -egg_def, for egg_t ticks; the egg broken is her death (the killer's); whole, she hatches with the
+          egg's health. Once every egg_cd ticks, kept across deaths. The main pack's tooltip says it needs the add-on.
+The add-on copy (--native): the passive `league_anivia:rebirth` decides the egg (the copy shows it: `egg_go` /
+`egg_hatch` flags, a 2-tick watch), the wall (real terrain: the copy's wall has no slow ring, `w_slow` 0) and the
+per-target Iced mark (E's twin reads the add-on's flag `iced_hit`).
 """
 import argparse
 import json
@@ -74,9 +74,8 @@ P = {
     "r_cd": 2400, "r_range": 75000, "r_arm": 600, "r_dur": 24, "r_rel": 10, "r_t": 360, "r_grow": 30,
     "r_r0": 12000, "r_r1": 18000, "r_r2": 24000, "r_r": 32000, "r_p": 30, "r_dmg": 25, "r_ratio": 10, "r_full": 3,
     "r_slow": 25, "r_slow2": 45, "r_ice": 60, "r_cnt": 45000,
-    # Rebirth (League: 6 s egg, -40..-20 armour / mr, cd 240 s)
-    "egg_t": 360, "egg_r": 30000, "egg_fight": 240, "egg_def": 20, "egg_sh": 400, "egg_ap": 80, "egg_heal": 200,
-    "egg_heal_r": 40, "egg_in": 12, "egg_out": 18,
+    # Rebirth, the add-on's (League: 6 s egg, -40..-20 armour / mr, cd 240 s)
+    "egg_t": 360, "egg_def": 20, "egg_cd": 14400, "egg_in": 12, "egg_out": 18,
     "watch_p": 12,
     "vo_gap": 600,
     "native": 0,
@@ -233,8 +232,8 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 def build(p):
     native = bool(p["native"])
 
-    # a champion struck: the fight (the egg's moment needs a fight that has gone on egg_fight ticks)
-    marked = [sw("fight", NONE, flag("f_new", p["egg_fight"])), refresh("fight", p["f_t"])]
+    # a champion struck: the fight
+    marked = [refresh("fight", p["f_t"])]
 
     # ------------------------------------------------------------------ E: Frostbite (the shard, its doubles)
     def shard(name):
@@ -300,29 +299,34 @@ def build(p):
     drop = combine(*rm("r_arm"), refresh("r_fired", 4), anim("ult", p["r_dur"]), cview("r_cast"), sfx("r"),
                    voice("vo_r", p), delayed(p["r_rel"] - 1, lob("r_lob", 1, storm)))
 
-    # ------------------------------------------------------------------ passive: Rebirth (approximated by the watch)
-    t_ = p["egg_t"]
-    crack = combine(*rm("egg_live", "egg_on"), anim("egg_crack", p["egg_out"]), view("p_crack"), sfx("p_crack"))
-    hatch = combine(*rm("egg_live", "egg_on"), anim("hatch", p["egg_out"]), cview("p_hatch"), sfx("p_hatch"),
-                    voice("vo_p", p), heal(p["egg_heal"], p["egg_heal_r"]))
-    hold = casted(t_ - p["egg_in"], 30, sw("egg_live", sw("egg_shell", anim("egg", 32), crack)))
-    egg = combine(flag("egg_used", None), flag("egg_live", None),
-                  refresh("egg_on", t_, defence=-p["egg_def"], magic_resistance=-p["egg_def"]),
-                  anim("egg_in", p["egg_in"] + 2), cview("p_egg_in"), sfx("p_egg"),
-                  on_me(shield(p["egg_sh"], p["egg_ap"], t_), flag("egg_shell", "shield"),
-                        delayed(p["egg_in"], hold), delayed(t_, sw("egg_live", hatch))))
+    # ------------------------------------------------------------------ passive: Rebirth - the add-on's alone
+    # The main pack has no egg (the user, 2026-10-17: 「主包不做蛋，寒霜涅槃只放在扩展包里，说明写清楚」): the data reads no
+    # health and nothing fires on a death; a danger rule (two enemy champions near, a long fight, her in crowd control)
+    # egged her at 20-100% health in the simulation. The add-on's passive `league_anivia:rebirth` catches the lethal hit
+    # (league_sion's undying guard), fills her health as the egg's and raises `egg_go`; the egg breaking is her death.
+    # The data shows it: egg_go -> `egg_on` (armour and magic resistance -egg_def, egg_t ticks) and the curl-up, the egg
+    # held by its loop every 30 ticks; `egg_hatch` (the add-on, egg_t ticks later with her alive) -> the hatch.
+    egg_watch = NONE
+    if native:
+        t_ = p["egg_t"]
+        start = sw("egg_go", combine(*rm("egg_go"), refresh("egg_on", t_, defence=-p["egg_def"],
+                                                            magic_resistance=-p["egg_def"]),
+                                     refresh("egg_hold", p["egg_in"]), anim("egg_in", p["egg_in"] + 2),
+                                     cview("p_egg_in"), sfx("p_egg")))
+        hold = sw("egg_on", sw("egg_hold", NONE, combine(flag("egg_hold", 30), anim("egg", 32))))
+        out = sw("egg_hatch", combine(*rm("egg_hatch", "egg_on", "egg_hold"), anim("hatch", p["egg_out"]),
+                                      cview("p_hatch"), sfx("p_hatch"), voice("vo_p", p)))
+        egg_watch = casted(1000000, 2, start, hold, out)
 
-    # ------------------------------------------------------------------ the watch (R's moment, the egg)
+    # ------------------------------------------------------------------ the watch (R's moment)
     tick = p["watch_p"]
-    count = combine(*rm("c_e1", "c_e2", "c_d1", "c_d2"),
-                    around(p["r_cnt"], "EnemyChampion", [sw("c_e1", flag("c_e2", 3), flag("c_e1", 3))]),
-                    around(p["egg_r"], "EnemyChampion", [sw("c_d1", flag("c_d2", 3), flag("c_d1", 3))]))
+    count = combine(*rm("c_e1", "c_e2"),
+                    around(p["r_cnt"], "EnemyChampion", [sw("c_e1", flag("c_e2", 3), flag("c_e1", 3))]))
     fire = sw("r_arm", combine(pick(p["r_range"], "EnemyChampionInCC", drop),
                                delayed(1, sw("r_fired", NONE, sw("c_e2", pick(p["r_range"],
                                                                               "EnemyChampionRecentlyAttacked",
                                                                               drop))))))
-    danger = NONE if native else sw("egg_used", NONE, sw("c_d2", sw("fight", sw("f_new", NONE, egg))))
-    watch = on_me(casted(1000000, tick, count, delayed(1, sw("egg_live", NONE, combine(fire, danger)))))
+    watch = on_me(casted(1000000, tick, count, delayed(1, sw("egg_on", NONE, fire))), egg_watch)
     life = sw("init", NONE, combine(flag("init", None), watch))
 
     # ------------------------------------------------------------------ attack: the ice bolt
@@ -354,7 +358,7 @@ def build(p):
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_anivia:rebirth", "params": {
-            "egg_t": p["egg_t"], "egg_def": p["egg_def"], "w_t": p["w_t"], "w_w": p["w_w"], "w_h": p["w_h"],
+            "egg_t": p["egg_t"], "egg_cd": p["egg_cd"], "w_t": p["w_t"], "w_w": p["w_w"], "w_h": p["w_h"],
             "ice_t": 180}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "CC"], **extra,
