@@ -20,7 +20,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ppu_hd as P  # noqa: E402
 
-HEROES = ["morgana", "nami", "janna"]
+HEROES = ["morgana", "nami", "janna", "jax"]
 BG = (96, 112, 96, 255)
 
 
