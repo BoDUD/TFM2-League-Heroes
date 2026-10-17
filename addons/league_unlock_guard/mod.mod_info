@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.113.1"
+    }
+  ],
+  "description": "Unlock guard for League of Legends Heroes: after every other AI hook, a skill2 pressed before level 3 or an ult pressed before level 5 (the game casts it, game 0.6.4's own AI then crashes and that match never ends) becomes an attack on its target, or a stand when there is none to attack; each one is written to league_unlock_guard.log. Changes nothing else.",
+  "last_updated": "2026-10-18",
+  "mod_id": "league_unlock_guard",
+  "mod_type": "native",
+  "name": "League Heroes: unlock guard (safety)",
+  "version": "0.1.0"
+}
