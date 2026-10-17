@@ -670,6 +670,45 @@ def actions():
     return acts, base
 
 
+# ------------------------------------------------------------------------------------------------- the muzzle flash
+# Codex's a_flash (tools/art/pack_renata_fx.py: on her own fine squares, pointing forward, symmetric top to bottom;
+# the delivery's pixel_1x, read by import_renata_fx.flash_cells) laid over the finished shot frames - after finish(), so
+# no outline closes round the light - its root (the cell's left edge, middle row) a square past the barrel's end. A
+# picture with a front rides in her own frames and turns with her (memory red-side-caster-pictures). Flash frames 1-3
+# on attack frames 3-5 (the shot on a_st, the recoil, the gun still out); nothing before the delivery.
+FLASH_ON = {2: 0, 3: 1, 4: 2}          # attack frame (0-based) -> flash frame
+
+
+def with_flash(can, f):
+    """The frame with the flash f rooted a square past the muzzle: the rightmost square within 4 rows of the elbow's
+    row (the pistol points forward at the elbow's height), the flash's middle row on the barrel's middle."""
+    r0 = OY + ELBOW[0]
+    lo = max(0, r0 - 4)
+    band = can[lo:r0 + 5, :, 3] > 0
+    c = int(np.nonzero(band.any(0))[0].max())
+    rows = np.nonzero(band[:, c])[0] + lo
+    top = int(round((rows.min() + rows.max()) / 2 - (f.shape[0] - 1) / 2))
+    out = can.copy()
+    ys, xs = np.nonzero(f[..., 3] > 0)
+    out[top + ys, c + 1 + xs] = f[ys, xs]
+    return out
+
+
+def add_flash(acts):
+    try:
+        import import_renata_fx as F
+        cells = F.flash_cells()
+    except (OSError, KeyError, ValueError, SystemExit) as e:
+        print("no muzzle flash:", e)
+        return acts
+    if cells is None:
+        return acts
+    out = dict(acts)
+    out["attack"] = [(with_flash(f, cells[FLASH_ON[j]]) if j in FLASH_ON else f, ms)
+                     for j, (f, ms) in enumerate(acts["attack"])]
+    return out
+
+
 # ------------------------------------------------------------------------------------------------- checks and review
 def stats(can):
     op = can[..., 3] > 0
@@ -850,6 +889,7 @@ def main():
         return
     acts, base = actions()
     checks(acts, base)
+    acts = add_flash(acts)             # after the checks: the light is not her palette and stands apart
     if a.review:
         review(acts, a.review)
         return

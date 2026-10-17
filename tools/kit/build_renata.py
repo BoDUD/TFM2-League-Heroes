@@ -49,8 +49,9 @@ P = {
     # 545 +94 hp, 27 armour, 330 move, attack speed 0.625
     "hp": 900, "hp_g": 85, "atk": 80, "atk_g": 6, "ap": 30, "ap_g": 15, "def": 20, "def_g": 8, "mr": 22, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
-    # attack (tools/art/rig_renata.py: 60 + 60 ms of the pistol coming down level, the shot on frame 3 at 120 ms)
-    "atk_range": 55000, "atk_dur": 30, "atk_cd": 90, "a_st": 8, "a_ratio": 100, "shot_speed": 6000, "shot_y": -2500,
+    # attack (tools/art/rig_renata.py: 60 + 60 ms of the pistol coming down level, the shot on frame 3 at 120 ms; a
+    # projectile is drawn 5000 - y_offset over the pivot: the muzzle is 4.5 game px up, 24.5 forward)
+    "atk_range": 55000, "atk_dur": 30, "atk_cd": 90, "a_st": 8, "a_ratio": 100, "shot_speed": 6000, "shot_y": 500,
     # passive Leverage (League: 1-6% max health + 2% per 100 AP on her hits; the same again when an ally pops the mark,
     # mark 4 s? -> p_t)
     "p_hp": 2, "p_t": 240, "p_per": 15, "p_reach": 60000, "p_gap": 45, "p_pop": 30, "p_pop_ap": 20, "p_pop_hp": 3,
@@ -60,15 +61,17 @@ P = {
     "w_heal": 150, "w_heal_ap": 60, "w_anim": 18,
     # skill: E (League: 800 range, 65-245 + 55% AP, slow 30% 2 s, shield 50-230 + 50% AP 3 s, cd 14-10 s)
     # (the strip: 70 ms crouch, 80 ms the arm swept up, the missiles leave as it is thrown forward on frame 3, 150 ms)
+    # (the missiles at the mechanical hand's height on frame 3: 13 game px up)
     "e_cd": 600, "e_range": 80000, "e_dur": 26, "e_rel": 9, "e_lock": 8, "e_speed": 4000, "e_len": 80000,
-    "e_rad": 5000, "e_y": -2500, "e_r": 12000, "e_dmg": 70, "e_ap": 50, "e_slow": 30, "e_slow_t": 120,
+    "e_rad": 5000, "e_y": -8000, "e_r": 12000, "e_dmg": 70, "e_ap": 50, "e_slow": 30, "e_slow_t": 120,
     "e_sh": 90, "e_sh_ap": 50, "e_sh_t": 180,
     # skill2: Q (League: 900 range, 80-280 + 100% AP, root 1 s, recast throws ~400 units: 80-280 + 100% AP to what it
     # hits, stun 0.5 s if a champion was thrown, cd 16 s)
     "q_cd": 900, "q_range": 85000, "q_dur": 30, "q_rel": 12, "q_lock": 8, "q_speed": 4500, "q_len": 90000,
-    "q_rad": 5000, "q_y": -2500, "q_dmg": 80, "q_ap": 70, "q_root": 50, "q_pull": 3000, "q_pull_t": 12,
+    "q_rad": 5000, "q_y": -5500, "q_dmg": 80, "q_ap": 70, "q_root": 50, "q_pull": 3000, "q_pull_t": 12,
     "q_land_r": 14000, "q2_dmg": 60, "q2_ap": 50, "q_stun": 30,
-    # (the strip: the lunge's thrust on frame 3 at 200 ms = q_rel; the fling plays skill2_fling, 400 ms)
+    # (the strip: the lunge's thrust on frame 3 at 200 ms = q_rel, the hand 10.5 game px up; the fling plays
+    # skill2_fling, 400 ms)
     "q_fling_anim": 24,
     # ult: R (League: 2000 range, berserk 1.25 / 1.75 / 2.25 s, cd 150-110 s)
     "r_cd": 4800, "r_range": 75000, "r_arm": 360, "r_ally": 45000, "fight_r": 70000, "watch_p": 15, "r_anim": 40, "r_rel": 18, "r_speed": 2000, "r_len": 100000,
@@ -346,7 +349,7 @@ def build(p):
     views_p = [P_("a_shot"), P_("e_missile"), P_("q_hand"), P_("r_wave", BIG, 3)]
     views_e = [E("a_hit"), E("p_pop"), E("w_cast"), E("w_save", FX, 3), E("e_hit"), E("e_boom", FX, 2, **LATE),
                E("e_shield"), E("q_hit"), E("q_fling"), E("q_land", FX, -1, **LATE), E("q_crash_hit"),
-               E("r_cast", BIG, -1), E("r_hit"), E("r_lash", FX, 2, **LATE), E("r_lash_hit")]
+               E("r_cast", BIG, -1), E("r_hit"), E("r_lash", FX, -1, **LATE), E("r_lash_hit")]
     views_b = [B_("p_mark", FX, 3), B_("w_buff", FX, -1), B_("e_slow", FX, -1), B_("r_berserk", FX, 3)]
     extra = {}
     if p["native"]:

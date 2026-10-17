@@ -1432,7 +1432,7 @@
           "type": "TargetProjectile",
           "name": "league_renata_a_shot",
           "speed": 6000,
-          "y_offset": -2500,
+          "y_offset": 500,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -1466,7 +1466,7 @@
           "type": "TargetProjectile",
           "name": "league_renata_a_twin",
           "speed": 6000,
-          "y_offset": -2500,
+          "y_offset": 500,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -1829,7 +1829,7 @@
                                 "radius": 5000
                               }
                             },
-                            "y_offset": -2500
+                            "y_offset": -8000
                           },
                           {
                             "type": "LinearProjectile",
@@ -1870,7 +1870,7 @@
                                 "radius": 10000
                               }
                             },
-                            "y_offset": -2500
+                            "y_offset": -8000
                           },
                           {
                             "type": "Sfx",
@@ -2014,7 +2014,7 @@
                                 "radius": 5000
                               }
                             },
-                            "y_offset": -2500
+                            "y_offset": -8000
                           },
                           {
                             "type": "LinearProjectile",
@@ -2055,7 +2055,7 @@
                                 "radius": 10000
                               }
                             },
-                            "y_offset": -2500
+                            "y_offset": -8000
                           },
                           {
                             "type": "Sfx",
@@ -2358,7 +2358,7 @@
                                 "radius": 5000
                               }
                             },
-                            "y_offset": -2500
+                            "y_offset": -5500
                           },
                           {
                             "type": "Sfx",
@@ -2613,7 +2613,7 @@
                                 "radius": 5000
                               }
                             },
-                            "y_offset": -2500
+                            "y_offset": -5500
                           },
                           {
                             "type": "Sfx",
@@ -4280,7 +4280,7 @@
       "name": "league_renata_r_lash",
       "anim": "asset/league/effects/league_renata_fx",
       "tag": "r_lash",
-      "z": 2,
+      "z": -1,
       "is_follow": false
     },
     {
