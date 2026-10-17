@@ -357,6 +357,30 @@ class Form:
                 fill |= m
         return R.fill_under(can, fill) if fill.any() else can
 
+    def close_slits(self, can):
+        """Codex's walk: thin enclosed slits between an arm and the body (no idle has them; at most 2 squares across)
+        become a dark seam in the outline's colour, then small holes are filled as close_holes does."""
+        from scipy import ndimage
+        self.close_holes(self.rig.canvas())          # make sure ref_holes exists
+        op = can[..., 3] > 0
+        holes = ndimage.binary_fill_holes(op) & ~op & ~self.ref_holes
+        lbl, n = ndimage.label(holes)
+        out = can.copy()
+        for k in range(1, n + 1):
+            m = lbl == k
+            if ndimage.distance_transform_edt(m).max() <= 1.5:
+                out[m] = (*self.D.outline, 255)
+        # pinholes of 1-2 squares are never meant, whatever the idle has near them
+        allh = ndimage.binary_fill_holes(out[..., 3] > 0) & (out[..., 3] == 0)
+        lbl, n = ndimage.label(allh)
+        tiny = np.zeros_like(allh)
+        for k in range(1, n + 1):
+            if (lbl == k).sum() <= 2:
+                tiny |= lbl == k
+        if tiny.any():
+            out = R.fill_under(out, tiny)
+        return self.close_holes(out)
+
 
 def form_a():
     D = design_a()
@@ -492,60 +516,151 @@ def runs(fa, fb):
     return out
 
 
-# the swap sheets as packed (tools/art/pack_nasus_run.py FORMS): 3 x 3 cells of (width, height) squares, the soles on
-# row FEET of a cell, drawn Z px a square
-RUN_CELLS = {"A": (96, 62, 59), "B": (116, 82, 79)}
-RUN_Z = 4
+def codex_cells(path, pal):
+    """Codex's 3 x 3 walk sheet (an image_gen picture, not on an exact grid: tools/art/pack_nasus_run.py's delivery,
+    assets/source/nasus/codex_run) -> nine RGBA figures, left to right and top to bottom: the green ground keyed out
+    (g over r and b by 110), the picture read back on its own squares (scripts/regrid.py), its nine biggest 8-connected
+    pieces the frames (pieces of 6+ squares joined to the nearest frame, specks dropped), every colour snapped to the
+    design's nearest."""
+    sys.path.insert(0, os.path.join(R.ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
+    import regrid as RG
+    from scipy import ndimage
+    a = np.asarray(Image.open(lp(path)).convert("RGB")).astype(int)
+    key = (a[..., 1] - np.maximum(a[..., 0], a[..., 2]) > 110) & (a[..., 1] > 180)
+    rgba = np.dstack([a, np.where(key, 0, 255)]).astype(np.uint8)
+    rgba[key] = 0
+    d, _, _ = RG.regrid(rgba)
+    op = d[..., 3] >= 128
+    lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
+    sizes = ndimage.sum(op, lbl, range(1, n + 1))
+    order = np.argsort(sizes)[::-1]
+    frames_ = [int(k) + 1 for k in order[:9]]
+    cent = {k: ndimage.center_of_mass(lbl == k) for k in frames_}
+    own = np.zeros_like(lbl)
+    for k in frames_:
+        own[lbl == k] = k
+    for k in range(1, n + 1):
+        if k in frames_ or sizes[k - 1] < 6:
+            continue
+        cy, cx = ndimage.center_of_mass(lbl == k)
+        best = min(frames_, key=lambda f: (cent[f][0] - cy) ** 2 + (cent[f][1] - cx) ** 2)
+        own[lbl == k] = best
+    rows = sorted(frames_, key=lambda f: cent[f][0])
+    bands = [sorted(rows[r * 3:(r + 1) * 3], key=lambda f: cent[f][1]) for r in range(3)]
+    flat = d[..., :3].reshape(-1, 3).astype(int)
+    near = pal[np.argmin(((flat[:, None, :] - pal[None]) ** 2).sum(-1), axis=1)].reshape(d.shape[:2] + (3,))
+    out = []
+    for f in [f for band in bands for f in band]:
+        m = own == f
+        ys, xs = np.nonzero(m)
+        cell = np.zeros((ys.max() - ys.min() + 1, xs.max() - xs.min() + 1, 4), np.uint8)
+        sub = m[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+        cell[sub, :3] = near[ys.min():ys.max() + 1, xs.min():xs.max() + 1][sub]
+        cell[sub, 3] = 255
+        out.append(cell)
+    return out
 
 
 def read_run(F, path):
-    """Codex's 3 x 3 walk sheet -> nine canvases: read square by square (its own square size: the sheet's width / the
-    packed squares), the green key cleared, every colour snapped to the design's nearest (Codex's drift), each cell's
-    soles set on the design's ground row and the figure placed by its head (the design's head found in every frame,
-    one shift for the whole cycle - the head bobs with the walk as drawn)."""
-    form = "A" if F.D.H == 53 else "B"
-    cw, ch, feet = RUN_CELLS[form]
-    im = np.asarray(Image.open(lp(path)).convert("RGB")).astype(int)
-    z = im.shape[1] / (3 * cw)
-    ys = ((np.arange(3 * ch) + 0.5) * z).astype(int).clip(0, im.shape[0] - 1)
-    xs = ((np.arange(3 * cw) + 0.5) * z).astype(int).clip(0, im.shape[1] - 1)
-    a = im[np.ix_(ys, xs)]
-    key = (a[..., 1] > 200) & (a[..., 0] < 90) & (a[..., 2] < 90)
+    """Codex's walk -> nine canvases: each frame's soles on the design's ground row, the frame placed sideways by its
+    head (the design's head found in every frame; one shift for the whole cycle, so the head keeps the walk's own sway)."""
     D = F.D
     pal = np.array(sorted({tuple(c) for c in D.d[D.d[..., 3] > 0][:, :3].tolist()}))
-    flat = a.reshape(-1, 3)
-    near = pal[np.argmin(((flat[:, None, :] - pal[None]) ** 2).sum(-1), axis=1)].reshape(a.shape)
-    rgba = np.dstack([near, np.where(key, 0, 255)]).astype(np.uint8)
-    rgba[key] = 0
-    cells = [rgba[(k // 3) * ch:(k // 3 + 1) * ch, (k % 3) * cw:(k % 3 + 1) * cw] for k in range(9)]
+    cells = codex_cells(path, pal)
+    form = "A" if D.H == 53 else "B"
     hr = 18 if form == "A" else 25
     head = D.d[:hr]
     hm = head[..., 3] > 0
     found = []
     for c in cells:
-        sole = int(np.nonzero(c[..., 3].any(1))[0].max())
+        ch, cw = c.shape[:2]
+        pad_ = np.zeros((ch + 2 * hr, cw + 2 * D.W, 4), np.uint8)
+        pad_[hr:hr + ch, D.W:D.W + cw] = c
         best = (-1, 0, 0)
-        for dy in range(-4, 5):
-            y0 = sole - (D.H - 1) + dy
-            if y0 < 0 or y0 + hr > ch:
-                continue
-            for dx in range(0, cw - D.W + 1):
-                sub = c[y0:y0 + hr, dx:dx + D.W]
-                n = int((hm & (sub[..., 3] > 0) & (np.abs(sub[..., :3].astype(int) - head[..., :3]).sum(-1) < 40)).sum())
+        for dy in range(-6, 7):
+            y0 = hr + dy
+            for dx in range(0, pad_.shape[1] - D.W + 1):
+                sub = pad_[y0:y0 + hr, dx:dx + D.W]
+                n = int((hm & (sub[..., 3] > 0) & (np.abs(sub[..., :3].astype(int) - head[..., :3]).sum(-1) < 60)).sum())
                 if n > best[0]:
-                    best = (n, dx, dy)
-        found.append((c, sole, best))
-    gx = int(np.median([b[1] for _, _, b in found]))
+                    best = (n, dx - D.W, dy)
+        found.append((c, best))
+    gx = int(np.median([b[1] for _, b in found]))
     out = []
-    for c, sole, (n, dx, dy) in found:
+    for c, (n, hx, hy) in found:
+        hx = gx
+        ch = c.shape[0]
         lay = np.zeros((D.H + 2 * P, D.W + 2 * P, 4), np.uint8)
-        top = sole - (D.H - 1)
+        top = D.H - ch                             # the frame's soles on the design's lowest row
         for y, x in zip(*np.nonzero(c[..., 3])):
-            ty, tx = P + y - top, P + x - gx
+            ty, tx = P + top + y, P + x - hx
             if 0 <= ty < lay.shape[0] and 0 <= tx < lay.shape[1]:
                 lay[ty, tx] = c[y, x]
         out.append(R.compose(F.rig, [(lay, dict())]))
-        print(f"run {form}: head match {n} squares at dx {dx - gx:+d} dy {dy:+d}")
+        print(f"run {form}: {ch} rows, head match {n}/{int(hm.sum())} at x {-hx:+d}, its head {hy:+d} rows from the top")
+    return [F.close_slits(c) for c in steady_staff(F, out)]
+
+
+# the staff's end left of the near fist (the spike, the teal shaft, the gold ring), design columns < STAFF_CUT: Codex
+# rocked it about the far hand from frame to frame (the spike 23 -> 28 rows over the soles and back, the slope 0.11 -
+# 0.22), so in the walk it is the design's own, moved with the hands
+STAFF_CUT = {"A": 28, "B": 36}
+TEAL_A = {(1, 98, 102), (2, 116, 118), (1, 137, 141), (1, 59, 65)}
+
+
+def steady_staff(F, cans):
+    """Each walking frame's staff end left of the near fist swapped for the design's (lossless, its own slope), set at
+    the height of Codex's shaft where it goes under the fist (the hands' bob), that height smoothed over the cycle
+    (neighbours 1:2:1) so the spike rises and falls with the step instead of jumping."""
+    D, rig = F.D, F.rig
+    form = "A" if D.H == 53 else "B"
+    cut = STAFF_CUT[form]
+    k_d, c_d = D.line
+    exact = D.layer("staff")
+    seg = np.zeros_like(exact)
+    seg[:, :cut] = exact[:, :cut]
+    rgbset = {tuple(c) for c in exact[exact[..., 3] > 0][:, :3].tolist()}
+    heights = []
+    for c in cans:
+        sub = c[rig.oy:rig.oy + D.H + 6, rig.ox:rig.ox + D.W]
+        op = sub[..., 3] > 0
+        col = np.array([tuple(v) in rgbset for v in sub[..., :3].reshape(-1, 3).tolist()]).reshape(op.shape) & op
+        yy, xx = np.mgrid[0:sub.shape[0], 0:sub.shape[1]]
+        near = col & (np.abs(yy - (k_d * xx + c_d)) <= 6) & (xx < cut + 18)
+        dark = sub[..., :3].astype(int).sum(-1) < 40
+        ys, xs = np.nonzero(near & ~dark)
+        k, c0 = np.polyfit(xs, ys, 1)
+        heights.append((k * (cut - 0.5) + c0) - (k_d * (cut - 0.5) + c_d))
+    n = len(heights)
+    smooth = [round((heights[i - 1] + 2 * heights[i] + heights[(i + 1) % n]) / 4) for i in range(n)]
+    out = []
+    for c, dy in zip(cans, smooth):
+        c = c.copy()
+        yy, xx = np.mgrid[0:c.shape[0], 0:c.shape[1]]
+        dx_, dy_ = xx - rig.ox, yy - rig.oy
+        band = (dx_ < cut) & (np.abs(dy_ - dy - (k_d * dx_ + c_d)) <= 6) & (dy_ < D.H - 12)
+        c[band] = 0
+        put = R.compose(rig, [(pad(seg), dict(dy=dy))])
+        m = put[..., 3] > 0
+        c[m] = put[m]
+        out.append(c)
+    print(f"run {form}: the staff's end left of the fist at {[f'{h:+.1f}' for h in heights]} rows -> {smooth}")
+    return [drop_crumbs(c) for c in out]
+
+
+def drop_crumbs(c, most=20):
+    """Pieces of at most `most` squares not joined to the figure (8-connected) - leftovers of Codex's own staff end
+    above or below the swapped one - taken off."""
+    from scipy import ndimage
+    op = c[..., 3] > 0
+    lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
+    if n <= 1:
+        return c
+    sizes = ndimage.sum(op, lbl, range(1, n + 1))
+    out = c.copy()
+    for k in range(1, n + 1):
+        if sizes[k - 1] <= most:
+            out[lbl == k] = 0
     return out
 
 

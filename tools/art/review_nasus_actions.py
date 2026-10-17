@@ -102,18 +102,22 @@ def main():
     allims = [im for fr in rows.values() for im, _ in fr]
     boxes = [im.getbbox() for im in allims]
     bx0 = min(b[0] for b in boxes)
-    by0 = min(b[1] for b in boxes)
     bx1 = max(b[2] for b in boxes)
     by1 = max(b[3] for b in boxes)
-    cw, ch = bx1 - bx0 + 8, by1 - by0 + 18
+    cw = bx1 - bx0 + 8
+    tops = {tag: min(im.getbbox()[1] for im, _ in rows[tag]) for tag in ORDER}     # each row as tall as it needs
+    hs = {tag: by1 - tops[tag] + 18 for tag in ORDER}
     cols = max(len(fr) for fr in rows.values())
-    sheet = Image.new("RGB", (cols * cw + 260, len(ORDER) * ch), BG)
+    sheet = Image.new("RGB", (cols * cw + 260, sum(hs.values())), BG)
     dr = ImageDraw.Draw(sheet)
-    for r, tag in enumerate(ORDER):
-        dr.text((4, r * ch + ch // 2), NAMES[tag][:40], fill=(240, 240, 240))
+    y = 0
+    for tag in ORDER:
+        dr.text((4, y + hs[tag] // 2), NAMES[tag][:40], fill=(240, 240, 240))
         for c, (im, ms) in enumerate(rows[tag]):
-            sheet.paste(im.crop((bx0, by0, bx1, by1)), (260 + c * cw, r * ch + 14), im.crop((bx0, by0, bx1, by1)))
-            dr.text((260 + c * cw + 2, r * ch + 2), f"{int(ms)}ms", fill=(220, 220, 220))
+            crop = im.crop((bx0, tops[tag], bx1, by1))
+            sheet.paste(crop, (260 + c * cw, y + 14), crop)
+            dr.text((260 + c * cw + 2, y + 2), f"{int(ms)}ms", fill=(220, 220, 220))
+        y += hs[tag]
     png = os.path.join(a.out, "nasus_frames_review.png")
     sheet.save(png)
     print(gif, len(out), "frames;", png, sheet.size)
