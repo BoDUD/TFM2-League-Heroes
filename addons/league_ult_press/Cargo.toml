@@ -1,6 +1,6 @@
 [package]
 name = "league_ult_press"
-version = "0.4.0"
+version = "0.4.1"
 edition = "2021"
 publish = false
 
@@ -11,4 +11,4 @@ crate-type = ["cdylib", "rlib"]
 mod-api-stable = { path = "../vendor/mod-api-stable" }
 
 [lints.rust]
-unexpected_cfgs = { level = "warn", check-cfg = ["cfg(league_bundle)"] }
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(league_bundle)", "cfg(ult_press_verify)"] }
