@@ -140,17 +140,7 @@ def design():
     D.part("far_leg", D.rows(FAR_LEG) & D.rest() & ~cloth)
     D.part("skirt", D.rest())
     crotch_cloth(D)
-    if FACE and os.path.isfile(lp(os.path.join(SRC, FACE))):
-        # the face (「脸部太糊」): skin, eyes, brows and jaw line from Codex's redesign take 2 (tools/art/face_jarvaniv.py),
-        # laid on the design's own squares only
-        f = load(FACE)
-        m = (f[..., 3] > 0) & (D.d[..., 3] > 0)
-        D.d[m] = f[m]
-        D.d0 = D.d.copy()
     return D
-
-
-FACE = "face.png"                   # in hd/; None: the design's face as drawn
 
 
 # Between the knees (rows 54-58) the design's dark navy trousers sat in a ring of outline squares, with pockets the
