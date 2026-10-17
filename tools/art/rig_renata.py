@@ -331,11 +331,10 @@ class Frame:
 
 
 def pose(bob=0, dx=0, legs=((0, 0, 0), (0, 0, 0)), arm=None, gun=None, upf=True, lift=0, hide=(), behind=(),
-         extra=(), walk=None):
+         extra=()):
     """One frame (a Frame): the body (all but the legs) bob rows down over the legs and dx columns on, the whole
     figure lift rows up; the near / far leg (knee columns, foot columns, lift rows: see swung); arm: None (the near arm
     as drawn) or a callable drawing it (gets the canvas and the body's origin) - moved away, the hair behind it shows;
-    walk: walking legs (both the far trouser leg, the near one this many columns over: run_frames);
     gun: None (the far forearm hanging empty, the pistol tucked in at her hip) or a callable drawing the forearm with the
     pistol drawn (the attack); upf: the far upper arm drawn; hide: parts left out; behind: callables
     drawn first (under everything: the R machine); extra: callables drawn last."""
@@ -343,19 +342,17 @@ def pose(bob=0, dx=0, legs=((0, 0, 0), (0, 0, 0)), arm=None, gun=None, upf=True,
     x0, y0 = OX + dx, OY - lift
     for f in behind:
         f(can, x0, y0 + bob)
-    # the legs' tops as they stand, under everything (nothing opens between the vest and a swinging leg); walking
-    # (walk = the columns from the far hip to the near one) both legs are the far one as drawn
-    pairs = ((LEG_F, 0), (LEG_N, 0)) if walk is None else ((LEG_F, 0), (LEG_F, walk))
-    for (k, shift), name in zip(pairs, (LEG_F, LEG_N)):
-        if name in hide:
+    # the legs' tops as they stand, under everything (nothing opens between the vest and a swinging leg)
+    for k in (LEG_F, LEG_N):
+        if k in hide:
             continue
         top = leg_rows(k)[0]
-        put(can, DESIGN, (LAB == k) & (np.arange(DH)[:, None] < top + UNDERLAY), x0 - dx + shift, y0)
-    for (k, shift), spec, name in zip(pairs, (legs[1], legs[0]), (LEG_F, LEG_N)):
-        if name in hide:
+        put(can, DESIGN, (LAB == k) & (np.arange(DH)[:, None] < top + UNDERLAY), x0 - dx, y0)
+    for k, spec in ((LEG_F, legs[1]), (LEG_N, legs[0])):
+        if k in hide:
             continue
         src, m, P = swung(k, *spec)
-        put(can, src, m, x0 - dx - P + shift, y0 - P)
+        put(can, src, m, x0 - dx - P, y0 - P)
     if arm is not None:
         put(can, HAIR_FILL[0], HAIR_FILL[1], x0, y0 + bob)
     body = part(BODY) & ~part(*hide)
@@ -580,49 +577,24 @@ def breathe(k):
 
 
 RUN_MS = 133                           # League's Run: 3 cycles in 3.2 s, 1067 ms a cycle, 8 frames
-# League's run at game size (tools/lol/pose_joints.py, assets/source/renata/poses.json --tag run, game px from the
-# pivot): per frame the hips' mean y, and per leg (L = her near leg) the knee's and the foot's x from its hip and the
-# foot's height off the ground (7.8 - its y).
-LEAGUE_RUN = [  # (root y, (near knee dx, foot dx, lift), (far knee dx, foot dx, lift)), game px
-    (-13.95, (-2.9, -7.0, 7.6), (2.4, 5.0, 0.0)),
-    (-12.95, (-0.8, -7.0, 8.6), (2.9, 1.5, 0.8)),
-    (-13.15, (3.0, -1.9, 3.0), (-0.9, -3.4, 1.0)),
-    (-15.75, (3.4, 6.3, 0.2), (-2.9, -7.6, 4.4)),
-    (-13.85, (3.5, 7.5, 0.0), (-3.7, -9.1, 7.4)),
-    (-12.75, (4.5, 5.8, 1.1), (0.5, -7.1, 7.6)),
-    (-12.45, (2.2, 1.1, 1.7), (3.2, -1.0, 3.6)),
-    (-14.05, (-1.3, -4.3, 3.1), (2.4, 4.3, 0.0)),
-]
-# The user on the first review: 「走路姿势很奇怪」 - the first walk sheared her slanted near trouser leg (the A stance)
-# twelve columns to bring its boot under the hip: a fan, not a leg. Now both legs are the far trouser leg (upright in
-# the design) as drawn, each under its own hip (the near one over the far one), swung as two bones by whole-row shifts
-# (swung), the boots flat; League's foot travel at LEG_K squares a League px, the lift at LIFT_K, the near leg's step
-# back BACK_K of League's (behind her hip it hides under the hanging mechanical hand); no bob (the user: 「上下摆动」).
-LEG_K, LIFT_K, BACK_K = 0.9, 0.5, 0.6
-
-
-def _hips():
-    """Columns from the far hip's middle to the near hip's (the near trouser leg's first rows)."""
-    def mid(k):
-        top = leg_rows(k)[0]
-        xs = np.nonzero(LAB[top + 1] == k)[0]
-        return (xs.min() + xs.max()) / 2.0
-    return int(round(mid(LEG_N) - mid(LEG_F)))
+# The walk is Codex's (the user on the first review: 「走路姿势很奇怪」 - two posed walks from the design's own legs stayed
+# a jumble: both hands hang at her hips over short legs, and her near trouser leg stands slanted): League's own Run as
+# the skeleton, our idle as the skin (tools/art/pack_renata_run.py), read back and brought to the design by
+# tools/art/import_renata_run.py (the legs shortened to the design's at one fixed spacing, the design's head laid over
+# every frame). Each frame stands on the ground line with its head where the idle's head is (Codex's bob kept: the
+# head rides 1-4 rows over its idle place, League's own rise and fall).
+RUN_NPZ = os.path.join(SRC, "hd", "run.npz")
 
 
 def run_frames():
-    gap = _hips()
+    z = np.load(lp(RUN_NPZ))
+    places = z["places"]
     out = []
-    for i, (hy, n, f) in enumerate(LEAGUE_RUN):
-        def leg(t, back=1.0):
-            k = LEG_K * SCALE * (back if t[1] < 0 else 1.0)
-            return (int(round(t[0] * k)), int(round(t[1] * k)), int(round(t[2] * LIFT_K * SCALE)))
-        # the arms swing against the legs: the mechanical arm a column ahead while the near foot is behind her, the far
-        # hand a column ahead while the far foot is
-        swing = (1 if n[1] < -3 else -1) if abs(n[1]) > 3 else 0
-        far = (1 if f[1] < -3 else -1) if abs(f[1]) > 3 else 0
-        out.append((pose(dx=1, legs=(leg(n, BACK_K), leg(f)), arm=arm_at(swing) if swing else None,
-                         gun=hanging(far), walk=gap), RUN_MS))
+    for i, (dx, dy) in enumerate(places):
+        f = z[f"f{i}"]
+        can = blank()
+        stamp(can, f, OX - int(dx), SOLE - (f.shape[0] - 1))
+        out.append((Frame(can, OX, SOLE - (f.shape[0] - 1) + int(dy)), RUN_MS))
     return out
 
 
