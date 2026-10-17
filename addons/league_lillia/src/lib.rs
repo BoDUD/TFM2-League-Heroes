@@ -13,6 +13,10 @@
 //!   `r_wake_ratio`% 法强的魔法伤害（`league_lillia_wake` 的画面和声音）；
 //! - 数据里的「Q / W 打到昏睡者加伤」那两段在副本里拿掉了（这里对任何伤害都生效）。
 //!
+//! 梦尘自己那一下（0.1.2）：游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列，打出去以后马上读生命还是原来的，下一次
+//! on_update 之前才扣血。被动记下每次 on_update 打给每个目标的梦尘，下一次看昏睡者掉血时先扣掉（`own_dust`）。0.1.1 在打出去的
+//! 那一 tick 前后各读一次生命，差值永远是 0，下一 tick 梦尘落下就把人叫醒了。
+//!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态记在每个莉莉娅自己的被动实例里，
 //! 服务端预模拟和你看的那场各算各的。
 //!
@@ -26,6 +30,8 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_lillia";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的（0.1.1 的日志写着 v0.1.0）。
+const VERSION: &str = "0.1.2";
 
 /// 主包莉莉娅的名字（buff、声音、画面都以它开头）。
 fn ll(x: &str) -> String {
@@ -168,9 +174,22 @@ pub fn wake_damage(p: &Params, ap: usize) -> usize {
     p.r_wake + p.r_wake_ratio * ap / 100
 }
 
-/// 昏睡中这一 tick 被打了没有：生命 + 护盾比上一 tick 少，而且少的比梦尘自己这一 tick 打的多。
+/// 昏睡中这一 tick 被打了没有：生命 + 护盾比上一 tick 少，而且少的比梦尘自己落下的多。
 pub fn was_hit(guard: usize, now: usize, own_dust: usize) -> bool {
     guard.saturating_sub(now) > own_dust
+}
+
+/// 她的一跳梦尘最多让目标少多少生命 + 护盾：减免前的伤害再加一半。魔抗只会让它变小；让人多受伤害的 `damaged_amplify`
+/// （主包里一层 10-15%）几个叠在一起也到不了一半。
+pub fn dust_cap(dealt: usize) -> usize {
+    dealt + dealt / 2
+}
+
+/// 昏睡中这一 tick 少掉多少以内不算被打：上一次 on_update 打给 `target` 的梦尘（`landed`：(目标, 减免前的伤害)，按
+/// `dust_cap` 扣足），加上主包数据里梦尘那一跳 `data`。游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列，下一次 on_update
+/// 之前才扣血：这一次打出去的梦尘，这一次还看不到。
+pub fn own_dust(landed: &[(usize, usize)], target: usize, data: usize) -> usize {
+    dust_cap(landed.iter().filter(|(t, _)| *t == target).map(|(_, d)| *d).sum()) + data
 }
 
 // ===================== 被动 =====================
@@ -199,11 +218,15 @@ struct Dream {
     p: Params,
     dusted: Vec<Dusted>,
     sleepers: Vec<Sleeper>,
+    /// 上一次 on_update 打出去的梦尘：(目标, 减免前的伤害)。打出去时只是排进效果队列，下一次 on_update 之前才扣血。
+    queued: Vec<(usize, usize)>,
     go_was: bool,
     ticks: usize,
     lullabies: usize,
     sleeps: usize,
     wakes: usize,
+    /// 昏睡中掉的血超过主包数据那一跳、但在她自己落下的梦尘以内（0.1.1 会在这里把人叫醒）。
+    slept_through: usize,
     next_report: usize,
 }
 
@@ -217,7 +240,8 @@ fn guard_of(sim: &StableSim<'_>, id: usize) -> usize {
 }
 
 impl Dream {
-    /// 梦尘：每个身上有 `league_lillia_dust` 的活着的敌方英雄按时跳伤害。返回这一 tick 每个目标吃了多少。
+    /// 梦尘：每个身上有 `league_lillia_dust` 的活着的敌方英雄按时跳伤害。返回这一 tick 打给每个目标的（减免前）：
+    /// 只是排进了效果队列，下一次 on_update 之前才扣血。
     fn dust(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, ap: usize, tick: usize) -> Vec<(usize, usize)> {
         let dust = ll("dust");
         let mut now: Vec<usize> = Vec::new();
@@ -245,9 +269,10 @@ impl Dream {
             d.next = tick + self.p.d_period;
             let Some(max) = sim.get_entity(d.target).map(|e| e.hp().1) else { continue };
             let dmg = dust_damage(&self.p, max, ap);
-            let before = guard_of(sim, d.target);
-            sim.deal_damage_typed(me, d.target, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
-            dealt.push((d.target, before.saturating_sub(guard_of(sim, d.target))));
+            // the health read right after the call has not changed yet (0.1.1 took that difference: always 0)
+            if sim.deal_damage_typed(me, d.target, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill) {
+                dealt.push((d.target, dmg));
+            }
             self.ticks += 1;
         }
         dealt
@@ -276,8 +301,8 @@ impl Dream {
         }
     }
 
-    /// 困倦到点的睡着；睡着的被打了就醒（惊醒伤害），到时间自己醒。
-    fn sleep(&mut self, sim: &mut StableSim<'_>, me: usize, ap: usize, tick: usize, dealt: &[(usize, usize)]) {
+    /// 困倦到点的睡着；睡着的被打了就醒（惊醒伤害），到时间自己醒。`landed`：上一次 on_update 打出去的梦尘，这时已经落下了。
+    fn sleep(&mut self, sim: &mut StableSim<'_>, me: usize, ap: usize, tick: usize, landed: &[(usize, usize)]) {
         let mut keep = Vec::new();
         for mut s in std::mem::take(&mut self.sleepers) {
             if !sim.get_entity(s.target).map_or(false, |e| e.is_alive()) {
@@ -300,7 +325,8 @@ impl Dream {
                 continue;
             }
             let now = guard_of(sim, s.target);
-            let own = dealt.iter().filter(|(t, _)| *t == s.target).map(|(_, d)| *d).sum::<usize>() + data_dust(&self.p, ap);
+            let data = data_dust(&self.p, ap);
+            let own = own_dust(landed, s.target, data);
             if was_hit(s.guard, now, own) {
                 sim.entity_clear_cc(s.target);
                 sim.entity_remove_buff(s.target, &ll("sleep"));
@@ -321,6 +347,20 @@ impl Dream {
                     ));
                 }
                 continue;
+            }
+            if was_hit(s.guard, now, data) {
+                // her own dust landing: 0.1.1 woke them here
+                self.slept_through += 1;
+                if self.slept_through <= 8 || self.slept_through % 20 == 0 {
+                    wlog(format!(
+                        "{} SLEEPS ON #{}: #{} lost {} while asleep, her own dust landing (up to {own}) ({} ticks left)",
+                        head(sim, me),
+                        self.slept_through,
+                        s.target,
+                        s.guard.saturating_sub(now),
+                        s.until.saturating_sub(tick)
+                    ));
+                }
             }
             if tick >= s.until {
                 continue;
@@ -348,26 +388,29 @@ impl StablePassive for Dream {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        // the dust dealt on the last update has landed by now (the host only queues it: game 0.6.4)
+        let landed = std::mem::take(&mut self.queued);
         let Some(e) = sim.get_entity(me) else { return };
         let team = e.team();
         let ap = e.stat().magic_power;
         let tick = sim.tick();
         // the dust and the sleepers go on after her death (League's do); only a living Lillia starts a lullaby
-        let dealt = self.dust(sim, me, team, ap, tick);
+        self.queued = self.dust(sim, me, team, ap, tick);
         if sim.get_entity(me).map_or(false, |e| e.is_alive()) {
             self.lullaby(sim, me, tick);
         }
-        self.sleep(sim, me, ap, tick, &dealt);
+        self.sleep(sim, me, ap, tick, &landed);
         if tick >= self.next_report {
             self.next_report = tick + 1800;
             if tick > 0 {
                 wlog(format!(
-                    "{} WATCH: dust ticks {}, lullabies {}, sleeps {}, wakes {}",
+                    "{} WATCH: dust ticks {}, lullabies {}, sleeps {}, wakes {}, slept through her dust {}",
                     head(sim, me),
                     self.ticks,
                     self.lullabies,
                     self.sleeps,
-                    self.wakes
+                    self.wakes,
+                    self.slept_through
                 ));
             }
         }
@@ -382,8 +425,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Lillia's Dream Dust as % max-health magic, a sleep that breaks on damage) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (Lillia's Dream Dust as % max-health magic, a sleep that breaks on damage) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -456,6 +498,72 @@ mod tests {
         assert_eq!(allow, 5);
         assert!(!was_hit(1000, 994, 1 + allow)); // the game log's 6: dust only
         assert!(was_hit(1000, 950, 1 + allow)); // a real hit
+    }
+
+    #[test]
+    fn the_dust_cap_takes_half_again() {
+        assert_eq!(dust_cap(0), 0);
+        assert_eq!(dust_cap(1), 1);
+        assert_eq!(dust_cap(20), 30);
+        assert_eq!(dust_cap(27), 40);
+        // only that target's dust counts (summed, were there ever two)
+        assert_eq!(own_dust(&[(7, 20), (8, 50), (7, 6)], 7, 5), dust_cap(26) + 5);
+    }
+
+    #[test]
+    fn her_dust_landing_does_not_wake() {
+        // the 10-17 game log (0.1.1): 202 of 491 wakes were for at most 30, 192 of them within one dust period (45
+        // ticks) of falling asleep; a wake damage of 131 = 80 + 40% of 127 ability power
+        let p = Params::default();
+        let ap = 127;
+        let dust = dust_damage(&p, 2000, ap);
+        assert_eq!(dust, 27); // 1.38% of 2000
+        let data = data_dust(&p, ap);
+        assert_eq!(data, 7);
+        let landed = [(7, dust)];
+        // the dust as it lands: magic resistance shrinks it, damaged_amplify grows it
+        for drop in [21, 27, 35, 40] {
+            assert!(was_hit(1500, 1500 - drop, data), "0.1.1 woke them for {drop}");
+            assert!(!was_hit(1500, 1500 - drop, own_dust(&landed, 7, data)), "{drop} is her own dust");
+        }
+        // with the data dust's own run on the same tick: still hers
+        assert!(!was_hit(1500, 1500 - 40 - data, own_dust(&landed, 7, data)));
+        // a real hit landing with it wakes them
+        assert!(was_hit(1500, 1500 - 21 - 60, own_dust(&landed, 7, data)));
+        // her dust went to somebody else, or none was dealt on the last update: only the data dust's run is spared
+        assert_eq!(own_dust(&[(8, dust)], 7, data), data);
+        assert_eq!(own_dust(&[], 7, data), data);
+    }
+
+    #[test]
+    fn the_dust_dealt_the_tick_after_the_sleep_lands_on_the_next() {
+        // the log's commonest wake (115 of 491 lines, two ticks into the sleep): R fired on the hit that first dusted
+        // them, so the dust runs at +1, +46, +91 and the sleep starts at +90; the +91 run is only queued and lands before
+        // the +92 update, where 0.1.1 saw a drop of nothing it had dealt that tick
+        let p = Params::default();
+        let (ap, max, mr_cut) = (127, 2000, 22);
+        let data = data_dust(&p, ap);
+        let mut hp: usize = 1500;
+        let mut queued: Vec<(usize, usize)> = Vec::new();
+        let mut guard: Option<usize> = None;
+        let (mut woke_011, mut woke) = (false, false);
+        for tick in 90..=95 {
+            // the host lands what the last update queued, then calls this update
+            for &(_, dmg) in &queued {
+                hp -= dmg * (100 - mr_cut) / 100;
+            }
+            let landed = std::mem::take(&mut queued);
+            if tick == 91 {
+                queued.push((7, dust_damage(&p, max, ap)));
+            }
+            if let Some(g) = guard {
+                woke_011 |= was_hit(g, hp, data);
+                woke |= was_hit(g, hp, own_dust(&landed, 7, data));
+            }
+            guard = Some(hp); // the guard taken when they fell asleep (+90), then every update
+        }
+        assert_eq!(hp, 1500 - 21);
+        assert!(woke_011 && !woke);
     }
 
     #[test]
