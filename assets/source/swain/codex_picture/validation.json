@@ -1,0 +1,34 @@
+{
+  "swain-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha128": [
+      361,
+      312,
+      937,
+      1214
+    ],
+    "fully_transparent_pixels": 1185714,
+    "semi_transparent_pixels": 385308
+  },
+  "swain-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha128": [
+      29,
+      162,
+      1223,
+      1212
+    ],
+    "fully_transparent_pixels": 839239,
+    "semi_transparent_pixels": 731046
+  }
+}
