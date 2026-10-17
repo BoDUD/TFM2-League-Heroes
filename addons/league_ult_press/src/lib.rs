@@ -1414,9 +1414,8 @@ impl UltPress {
             }
             // a held champion with no pressed slot ready and her attack not ready: below, plan() presses only ready
             // slots of slots_of and the hold only a ready attack, so nothing can come out - skip looking round. Not
-            // Samira, Twisted Fate or Kog'Maw: their presses are made whatever their cooldowns and the engine says which
-            // it takes (the first verify build: Twisted Fate's R taken again in the ticks before his teleport)
-            let skip = holder && !atk_ready && !any_ready && !matches!(name.as_str(), SAMIRA | TF | KOGMAW);
+            // Samira: her E / Q go out while her R cools down
+            let skip = holder && !atk_ready && !any_ready && name != SAMIRA;
             // the verify build only notes it and goes on the 0.4.0 way (think() checks nothing was pressed)
             #[cfg(ult_press_verify)]
             let skip = {
@@ -1512,7 +1511,11 @@ impl UltPress {
                     Some(t) => vec![(press(InputKindV1::Skill2, t), "E", skill2, format!("{} within {CAMILLE_RANGE:.0}", who(&sim, t)))],
                     None => Vec::new(),
                 },
-                KOGMAW => {
+                // Kog'Maw's and Twisted Fate's R only when ready (unlocked and cooled down), as before 0.4.0: since every
+                // champion is held (0.4.0) the early return above no longer stops them, and the engine takes an R pressed
+                // before level 5 - the game's own AI then reads a None for that champion's ult and panics
+                // (game-ai battle.rs:447 / act_gates.rs:111), the match never ends and the day stops (2026-10-18)
+                KOGMAW if ready[3] => {
                     let v = kog_targets(my_at, &enemies);
                     let info: Vec<(f64, bool)> = v
                         .iter()
@@ -1529,7 +1532,7 @@ impl UltPress {
                     kog = Some((vol_open, self.volleys, info));
                     c
                 }
-                TF => match tf_fight(my_at, hp_share(me.hp()), &allies, &enemies) {
+                TF if ready[3] => match tf_fight(my_at, hp_share(me.hp()), &allies, &enemies) {
                     Some((e, a)) => {
                         let far = allies.iter().find(|u| u.id == a).map_or(f64::NAN, |u| dist(my_at, u.at));
                         vec![(press(InputKindV1::Ult, e), "R", ult, format!("{} fighting {} {far:.0} away, nobody near him", who(&sim, a), who(&sim, e)))]

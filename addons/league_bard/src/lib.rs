@@ -962,7 +962,11 @@ impl StablePlayerAi for DrakeAi {
         {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
-            if !me.is_alive() || !has_buff(&sim, me.id(), &bd("r_drk")) {
+            // only a ready ult (unlocked and cooled down): `is_valid_input` checks neither, and the engine takes an R
+            // pressed before level 5 - the game's own AI then reads a None for his ult and panics (game-ai
+            // battle.rs:447 / act_gates.rs:111), the match never ends and the day stops (2026-10-18: R at level 3 and 4)
+            let ready = me.cooldown(SkillSlotV1::Ult).is_some_and(|c| c.unlocked && c.remaining == 0);
+            if !me.is_alive() || !ready || !has_buff(&sim, me.id(), &bd("r_drk")) {
                 return None;
             }
         }
