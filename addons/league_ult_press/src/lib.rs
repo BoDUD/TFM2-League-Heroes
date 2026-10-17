@@ -24,9 +24,9 @@
 //!   生命不到 `KOG_GOOD_HP`、射程内能打的敌方英雄有两个以上，或配额攒满了；一轮开着（`KOG_VOLLEY`）就接着打完。
 //! - 卡密尔（`league_camille`，E `Targeting EnemyChampion`）：E 好了、`CAMILLE_RANGE`（主包 E 的射程；附加包钩墙版是
 //!   85000，取小的）内有敌方英雄——按 E，目标是最近的那个；钩索、钩墙、冲向敌人由主包 / league_camille_wall 决定。
-//! - 卡密尔、瑟提、奥拉夫，之后加上蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜（`HOLDERS`）被停住：游戏的 AI 常把他们
-//!   停在对面英雄 26–32k 外（近战射程 25k）、下令「走到
-//!   自己脚下」站着不打。原地站了 `HOLD_STILL` tick、普攻好了、AI 还让他原地站（`holding`）时，`hold_target` 挑人普攻：
+//! - 卡密尔、瑟提、奥拉夫，之后加上蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜，再加上李青、泰达米尔、塔里克（`HOLDERS`）
+//!   被停住：游戏的 AI 常把他们停在对面英雄 26–32k 外（近战射程 25k）、下令「走到自己脚下」或什么都不下，站着不打。
+//!   原地站了 `HOLD_STILL` tick、普攻好了、AI 还让他原地站（`holding`）时，`hold_target` 挑人普攻：
 //!   他生命不低于 `HOLD_MIN_HP`、目标离敌方塔超过 `TOWER_REACH`、目标身边不比他身边人多；打出一下或 `ENGAGE_TICKS` 后重新算，
 //!   AI 自己下了别的命令（普攻、技能、走开）就不管。没有要按的格子时才这样做。
 //! - 被控住（眩晕、击飞、沉默等）、格子在冷却或还没解锁时不按。冷却由钩子自己看（引擎的「输入合法」不看冷却，
@@ -99,7 +99,10 @@ pub const SETT: &str = "league_sett";
 pub const OLAF: &str = "league_olaf";
 /// 之后（用户：「站桩的按照之前卡密尔那样改 然后合并」）：观察包里同样被停住的——站着不动 13–36%、其中 5–12% 是 AI 下令
 /// 「走到自己脚下」（盖伦、贾克斯 3–4% / 1%）——蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜。
-pub const HOLDERS: [&str; 10] = [
+/// 再之后（用户：「李青、泰达米尔、塔里克照卡蜜尔的规则加进站桩名单，做完开 PR」）：前十位身边有敌方英雄时站着不动
+/// 瑟提 22.7% → 16.8%、奥拉夫 18.0% → 12.4%、亚托克斯 14.3% → 10.0%，名单外的不变；站着不动 18–23% 的李青、泰达米尔
+/// （其中 9.6% 是「走到自己脚下」）、塔里克（94% 是什么命令都没下）。李青、泰达米尔各自的钩子只改 Q / R 命令，不冲突。
+pub const HOLDERS: [&str; 13] = [
     CAMILLE,
     SETT,
     OLAF,
@@ -110,6 +113,9 @@ pub const HOLDERS: [&str; 10] = [
     "league_aatrox",
     "league_evelynn",
     "league_senna",
+    "league_leesin",
+    "league_tryndamere",
+    "league_taric",
 ];
 /// 原地站了这么多 tick、普攻好了、AI 还在让她原地站（没下命令，或「走到」离她 `HOLD_HERE` 以内的地方）才算被停住。
 pub const HOLD_STILL: usize = 15;
@@ -664,7 +670,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (presses armed slots for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E; held champions attack: Camille, Sett, Olaf, Dr. Mundo, Xin Zhao, Kayle, Rakan, Aatrox, Evelynn, Senna) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (presses armed slots for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E; held champions attack: Camille, Sett, Olaf, Dr. Mundo, Xin Zhao, Kayle, Rakan, Aatrox, Evelynn, Senna, Lee Sin, Tryndamere, Taric) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
