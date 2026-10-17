@@ -1,0 +1,3740 @@
+{
+  "version": 1,
+  "description": "Sona stage 3 VFX. Export frame rects are authoritative. Preview timings except r_hit are provisional, not game timing contracts. Logical sources are TWO source pixels per approximate game pixel, not final 1x engine sprites.",
+  "asset_count": 20,
+  "total_frames": 104,
+  "assets": [
+    {
+      "name": "note",
+      "file": "sona_fx_note.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          543,
+          724
+        ],
+        [
+          543,
+          0,
+          543,
+          724
+        ],
+        [
+          1086,
+          0,
+          543,
+          724
+        ],
+        [
+          1629,
+          0,
+          543,
+          724
+        ]
+      ],
+      "size": [
+        2048,
+        256
+      ],
+      "cell_size": [
+        512,
+        256
+      ],
+      "game_size": [
+        12,
+        8
+      ],
+      "logical_source_size": [
+        24,
+        16
+      ],
+      "logical_file": "logical-source/sona_fx_note.png",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            24,
+            16
+          ],
+          "logical_bbox": [
+            3,
+            1,
+            22,
+            15
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            24,
+            0,
+            24,
+            16
+          ],
+          "logical_bbox": [
+            2,
+            1,
+            22,
+            15
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            48,
+            0,
+            24,
+            16
+          ],
+          "logical_bbox": [
+            2,
+            2,
+            22,
+            14
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            72,
+            0,
+            24,
+            16
+          ],
+          "logical_bbox": [
+            5,
+            2,
+            21,
+            14
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "blue",
+      "binding": {
+        "table": "view_projectiles",
+        "id": "league_sona_note"
+      },
+      "loop": true,
+      "symmetry": "vertical",
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/note.png",
+      "geometry_source": "note"
+    },
+    {
+      "name": "hit",
+      "file": "sona_fx_hit.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          543,
+          724
+        ],
+        [
+          543,
+          0,
+          543,
+          724
+        ],
+        [
+          1086,
+          0,
+          543,
+          724
+        ],
+        [
+          1629,
+          0,
+          543,
+          724
+        ]
+      ],
+      "size": [
+        1024,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "game_size": [
+        14,
+        14
+      ],
+      "logical_source_size": [
+        28,
+        28
+      ],
+      "logical_file": "logical-source/sona_fx_hit.png",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            28,
+            28
+          ],
+          "logical_bbox": [
+            7,
+            8,
+            20,
+            22
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            28,
+            0,
+            28,
+            28
+          ],
+          "logical_bbox": [
+            3,
+            5,
+            24,
+            25
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            56,
+            0,
+            28,
+            28
+          ],
+          "logical_bbox": [
+            1,
+            2,
+            26,
+            27
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            84,
+            0,
+            28,
+            28
+          ],
+          "logical_bbox": [
+            5,
+            7,
+            22,
+            23
+          ],
+          "preview_duration_ms": 100
+        }
+      ],
+      "palette": "blue",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sona_hit"
+      },
+      "loop": false,
+      "symmetry": null,
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/hit.png",
+      "geometry_source": "hit"
+    },
+    {
+      "name": "pc_q",
+      "file": "sona_fx_pc_q.png",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          397,
+          793
+        ],
+        [
+          397,
+          0,
+          396,
+          793
+        ],
+        [
+          793,
+          0,
+          397,
+          793
+        ],
+        [
+          1190,
+          0,
+          396,
+          793
+        ],
+        [
+          1586,
+          0,
+          397,
+          793
+        ]
+      ],
+      "size": [
+        1280,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "game_size": [
+        22,
+        22
+      ],
+      "logical_source_size": [
+        44,
+        44
+      ],
+      "logical_file": "logical-source/sona_fx_pc_q.png",
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            4,
+            4,
+            39,
+            39
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            44,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            4,
+            3,
+            39,
+            40
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            88,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            2,
+            1,
+            41,
+            43
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            132,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            5,
+            4,
+            41,
+            41
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            176,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            2,
+            9,
+            37,
+            36
+          ],
+          "preview_duration_ms": 100
+        }
+      ],
+      "palette": "bluegold",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sona_pc_q"
+      },
+      "loop": false,
+      "symmetry": null,
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/pc_q.png",
+      "geometry_source": "pc_q"
+    },
+    {
+      "name": "pc_w",
+      "file": "sona_fx_pc_w.png",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          397,
+          793
+        ],
+        [
+          397,
+          0,
+          396,
+          793
+        ],
+        [
+          793,
+          0,
+          397,
+          793
+        ],
+        [
+          1190,
+          0,
+          396,
+          793
+        ],
+        [
+          1586,
+          0,
+          397,
+          793
+        ]
+      ],
+      "size": [
+        1280,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "game_size": [
+        22,
+        22
+      ],
+      "logical_source_size": [
+        44,
+        44
+      ],
+      "logical_file": "logical-source/sona_fx_pc_w.png",
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            4,
+            4,
+            39,
+            39
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            44,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            4,
+            3,
+            39,
+            40
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            88,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            2,
+            1,
+            41,
+            43
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            132,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            5,
+            4,
+            41,
+            41
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            176,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            2,
+            9,
+            37,
+            36
+          ],
+          "preview_duration_ms": 100
+        }
+      ],
+      "palette": "greengold",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sona_pc_w"
+      },
+      "loop": false,
+      "symmetry": null,
+      "game_duration_ms": null,
+      "variant_of": "pc_q",
+      "generated_source_file": "generated-source/pc_w.png",
+      "geometry_source": "pc_q"
+    },
+    {
+      "name": "pc_e",
+      "file": "sona_fx_pc_e.png",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          397,
+          793
+        ],
+        [
+          397,
+          0,
+          396,
+          793
+        ],
+        [
+          793,
+          0,
+          397,
+          793
+        ],
+        [
+          1190,
+          0,
+          396,
+          793
+        ],
+        [
+          1586,
+          0,
+          397,
+          793
+        ]
+      ],
+      "size": [
+        1280,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "game_size": [
+        22,
+        22
+      ],
+      "logical_source_size": [
+        44,
+        44
+      ],
+      "logical_file": "logical-source/sona_fx_pc_e.png",
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            4,
+            4,
+            39,
+            39
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            44,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            4,
+            3,
+            39,
+            40
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            88,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            2,
+            1,
+            41,
+            43
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            132,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            5,
+            4,
+            41,
+            41
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            176,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            2,
+            9,
+            37,
+            36
+          ],
+          "preview_duration_ms": 100
+        }
+      ],
+      "palette": "pinkgold",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sona_pc_e"
+      },
+      "loop": false,
+      "symmetry": null,
+      "game_duration_ms": null,
+      "variant_of": "pc_q",
+      "generated_source_file": "generated-source/pc_e.png",
+      "geometry_source": "pc_q"
+    },
+    {
+      "name": "pc_glow",
+      "file": "sona_fx_pc_glow.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          362,
+          724
+        ],
+        [
+          362,
+          0,
+          362,
+          724
+        ],
+        [
+          724,
+          0,
+          362,
+          724
+        ],
+        [
+          1086,
+          0,
+          362,
+          724
+        ],
+        [
+          1448,
+          0,
+          362,
+          724
+        ],
+        [
+          1810,
+          0,
+          362,
+          724
+        ]
+      ],
+      "size": [
+        3072,
+        256
+      ],
+      "cell_size": [
+        512,
+        256
+      ],
+      "game_size": [
+        36,
+        20
+      ],
+      "logical_source_size": [
+        72,
+        40
+      ],
+      "logical_file": "logical-source/sona_fx_pc_glow.png",
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            72,
+            40
+          ],
+          "logical_bbox": [
+            7,
+            11,
+            65,
+            38
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            72,
+            0,
+            72,
+            40
+          ],
+          "logical_bbox": [
+            7,
+            3,
+            65,
+            36
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            144,
+            0,
+            72,
+            40
+          ],
+          "logical_bbox": [
+            7,
+            3,
+            65,
+            39
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            216,
+            0,
+            72,
+            40
+          ],
+          "logical_bbox": [
+            7,
+            1,
+            65,
+            38
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 4,
+          "rect": [
+            2048,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            288,
+            0,
+            72,
+            40
+          ],
+          "logical_bbox": [
+            7,
+            4,
+            65,
+            36
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 5,
+          "rect": [
+            2560,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            360,
+            0,
+            72,
+            40
+          ],
+          "logical_bbox": [
+            8,
+            11,
+            64,
+            38
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "gold",
+      "binding": {
+        "table": "view_buffs",
+        "id": "league_sona_pc_glow"
+      },
+      "loop": true,
+      "symmetry": "horizontal",
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/pc_glow.png",
+      "geometry_source": "pc_glow"
+    },
+    {
+      "name": "pc_tempo",
+      "file": "sona_fx_pc_tempo.png",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          496,
+          793
+        ],
+        [
+          496,
+          0,
+          496,
+          793
+        ],
+        [
+          992,
+          0,
+          495,
+          793
+        ],
+        [
+          1487,
+          0,
+          496,
+          793
+        ]
+      ],
+      "size": [
+        2560,
+        256
+      ],
+      "cell_size": [
+        640,
+        256
+      ],
+      "game_size": [
+        24,
+        10
+      ],
+      "logical_source_size": [
+        48,
+        20
+      ],
+      "logical_file": "logical-source/sona_fx_pc_tempo.png",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            640,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            48,
+            20
+          ],
+          "logical_bbox": [
+            3,
+            2,
+            45,
+            19
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            640,
+            0,
+            640,
+            256
+          ],
+          "logical_rect": [
+            48,
+            0,
+            48,
+            20
+          ],
+          "logical_bbox": [
+            3,
+            2,
+            45,
+            19
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            1280,
+            0,
+            640,
+            256
+          ],
+          "logical_rect": [
+            96,
+            0,
+            48,
+            20
+          ],
+          "logical_bbox": [
+            3,
+            2,
+            45,
+            19
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            1920,
+            0,
+            640,
+            256
+          ],
+          "logical_rect": [
+            144,
+            0,
+            48,
+            20
+          ],
+          "logical_bbox": [
+            3,
+            3,
+            45,
+            19
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "pink",
+      "binding": {
+        "table": "view_buffs",
+        "id": "league_sona_pc_tempo"
+      },
+      "loop": true,
+      "symmetry": "horizontal",
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/pc_tempo.png",
+      "geometry_source": "pc_tempo"
+    },
+    {
+      "name": "pc_dim",
+      "file": "sona_fx_pc_dim.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          543,
+          724
+        ],
+        [
+          543,
+          0,
+          543,
+          724
+        ],
+        [
+          1086,
+          0,
+          543,
+          724
+        ],
+        [
+          1629,
+          0,
+          543,
+          724
+        ]
+      ],
+      "size": [
+        1536,
+        256
+      ],
+      "cell_size": [
+        384,
+        256
+      ],
+      "game_size": [
+        14,
+        10
+      ],
+      "logical_source_size": [
+        28,
+        20
+      ],
+      "logical_file": "logical-source/sona_fx_pc_dim.png",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            28,
+            20
+          ],
+          "logical_bbox": [
+            3,
+            1,
+            24,
+            16
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            256
+          ],
+          "logical_rect": [
+            28,
+            0,
+            28,
+            20
+          ],
+          "logical_bbox": [
+            3,
+            4,
+            23,
+            19
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            256
+          ],
+          "logical_rect": [
+            56,
+            0,
+            28,
+            20
+          ],
+          "logical_bbox": [
+            3,
+            1,
+            23,
+            16
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            256
+          ],
+          "logical_rect": [
+            84,
+            0,
+            28,
+            20
+          ],
+          "logical_bbox": [
+            3,
+            5,
+            23,
+            19
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "green",
+      "binding": {
+        "table": "view_buffs",
+        "id": "league_sona_pc_dim"
+      },
+      "loop": true,
+      "symmetry": null,
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/pc_dim.png",
+      "geometry_source": "pc_dim"
+    },
+    {
+      "name": "q_note",
+      "file": "sona_fx_q_note.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          543,
+          724
+        ],
+        [
+          543,
+          0,
+          543,
+          724
+        ],
+        [
+          1086,
+          0,
+          543,
+          724
+        ],
+        [
+          1629,
+          0,
+          543,
+          724
+        ]
+      ],
+      "size": [
+        2048,
+        256
+      ],
+      "cell_size": [
+        512,
+        256
+      ],
+      "game_size": [
+        22,
+        10
+      ],
+      "logical_source_size": [
+        44,
+        20
+      ],
+      "logical_file": "logical-source/sona_fx_q_note.png",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            44,
+            20
+          ],
+          "logical_bbox": [
+            1,
+            4,
+            43,
+            16
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            44,
+            0,
+            44,
+            20
+          ],
+          "logical_bbox": [
+            1,
+            4,
+            43,
+            16
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            88,
+            0,
+            44,
+            20
+          ],
+          "logical_bbox": [
+            1,
+            4,
+            43,
+            16
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            132,
+            0,
+            44,
+            20
+          ],
+          "logical_bbox": [
+            1,
+            4,
+            43,
+            16
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "blue",
+      "binding": {
+        "table": "view_projectiles",
+        "id": "league_sona_q_note"
+      },
+      "loop": true,
+      "symmetry": "vertical",
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/q_note.png",
+      "geometry_source": "q_note"
+    },
+    {
+      "name": "q_hit",
+      "file": "sona_fx_q_hit.png",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          397,
+          793
+        ],
+        [
+          397,
+          0,
+          396,
+          793
+        ],
+        [
+          793,
+          0,
+          397,
+          793
+        ],
+        [
+          1190,
+          0,
+          396,
+          793
+        ],
+        [
+          1586,
+          0,
+          397,
+          793
+        ]
+      ],
+      "size": [
+        1280,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "game_size": [
+        22,
+        22
+      ],
+      "logical_source_size": [
+        44,
+        44
+      ],
+      "logical_file": "logical-source/sona_fx_q_hit.png",
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            11,
+            15,
+            34,
+            38
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            44,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            8,
+            12,
+            36,
+            41
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            88,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            6,
+            1,
+            37,
+            43
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            132,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            7,
+            6,
+            36,
+            42
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "logical_rect": [
+            176,
+            0,
+            44,
+            44
+          ],
+          "logical_bbox": [
+            10,
+            16,
+            33,
+            40
+          ],
+          "preview_duration_ms": 100
+        }
+      ],
+      "palette": "blue",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sona_q_hit"
+      },
+      "loop": false,
+      "symmetry": null,
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/q_hit.png",
+      "geometry_source": "q_hit"
+    },
+    {
+      "name": "q_mel",
+      "file": "sona_fx_q_mel.png",
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          444,
+          887
+        ],
+        [
+          444,
+          0,
+          443,
+          887
+        ],
+        [
+          887,
+          0,
+          443,
+          887
+        ],
+        [
+          1330,
+          0,
+          444,
+          887
+        ]
+      ],
+      "size": [
+        1280,
+        256
+      ],
+      "cell_size": [
+        320,
+        256
+      ],
+      "game_size": [
+        20,
+        16
+      ],
+      "logical_source_size": [
+        40,
+        32
+      ],
+      "logical_file": "logical-source/sona_fx_q_mel.png",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            320,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            40,
+            32
+          ],
+          "logical_bbox": [
+            7,
+            5,
+            33,
+            29
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            320,
+            0,
+            320,
+            256
+          ],
+          "logical_rect": [
+            40,
+            0,
+            40,
+            32
+          ],
+          "logical_bbox": [
+            9,
+            1,
+            31,
+            31
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            640,
+            0,
+            320,
+            256
+          ],
+          "logical_rect": [
+            80,
+            0,
+            40,
+            32
+          ],
+          "logical_bbox": [
+            8,
+            4,
+            32,
+            29
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            960,
+            0,
+            320,
+            256
+          ],
+          "logical_rect": [
+            120,
+            0,
+            40,
+            32
+          ],
+          "logical_bbox": [
+            8,
+            5,
+            32,
+            31
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "blue",
+      "binding": {
+        "table": "view_buffs",
+        "id": "league_sona_q_mel"
+      },
+      "loop": true,
+      "symmetry": "horizontal",
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/q_mel.png",
+      "geometry_source": "q_mel"
+    },
+    {
+      "name": "w_heal",
+      "file": "sona_fx_w_heal.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          362,
+          724
+        ],
+        [
+          362,
+          0,
+          362,
+          724
+        ],
+        [
+          724,
+          0,
+          362,
+          724
+        ],
+        [
+          1086,
+          0,
+          362,
+          724
+        ],
+        [
+          1448,
+          0,
+          362,
+          724
+        ],
+        [
+          1810,
+          0,
+          362,
+          724
+        ]
+      ],
+      "size": [
+        2304,
+        512
+      ],
+      "cell_size": [
+        384,
+        512
+      ],
+      "game_size": [
+        18,
+        24
+      ],
+      "logical_source_size": [
+        36,
+        48
+      ],
+      "logical_file": "logical-source/sona_fx_w_heal.png",
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            512
+          ],
+          "logical_rect": [
+            0,
+            0,
+            36,
+            48
+          ],
+          "logical_bbox": [
+            6,
+            37,
+            29,
+            47
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            512
+          ],
+          "logical_rect": [
+            36,
+            0,
+            36,
+            48
+          ],
+          "logical_bbox": [
+            6,
+            17,
+            29,
+            47
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            512
+          ],
+          "logical_rect": [
+            72,
+            0,
+            36,
+            48
+          ],
+          "logical_bbox": [
+            6,
+            10,
+            29,
+            47
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            512
+          ],
+          "logical_rect": [
+            108,
+            0,
+            36,
+            48
+          ],
+          "logical_bbox": [
+            6,
+            1,
+            29,
+            47
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1536,
+            0,
+            384,
+            512
+          ],
+          "logical_rect": [
+            144,
+            0,
+            36,
+            48
+          ],
+          "logical_bbox": [
+            6,
+            2,
+            30,
+            47
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 5,
+          "rect": [
+            1920,
+            0,
+            384,
+            512
+          ],
+          "logical_rect": [
+            180,
+            0,
+            36,
+            48
+          ],
+          "logical_bbox": [
+            6,
+            24,
+            30,
+            47
+          ],
+          "preview_duration_ms": 100
+        }
+      ],
+      "palette": "green",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sona_w_heal"
+      },
+      "loop": false,
+      "symmetry": null,
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/w_heal.png",
+      "geometry_source": "w_heal"
+    },
+    {
+      "name": "w_mel",
+      "file": "sona_fx_w_mel.png",
+      "source_size": [
+        2126,
+        740
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          532,
+          740
+        ],
+        [
+          532,
+          0,
+          531,
+          740
+        ],
+        [
+          1063,
+          0,
+          531,
+          740
+        ],
+        [
+          1594,
+          0,
+          532,
+          740
+        ]
+      ],
+      "size": [
+        1792,
+        512
+      ],
+      "cell_size": [
+        448,
+        512
+      ],
+      "game_size": [
+        26,
+        30
+      ],
+      "logical_source_size": [
+        52,
+        60
+      ],
+      "logical_file": "logical-source/sona_fx_w_mel.png",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            448,
+            512
+          ],
+          "logical_rect": [
+            0,
+            0,
+            52,
+            60
+          ],
+          "logical_bbox": [
+            5,
+            2,
+            47,
+            57
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            448,
+            0,
+            448,
+            512
+          ],
+          "logical_rect": [
+            52,
+            0,
+            52,
+            60
+          ],
+          "logical_bbox": [
+            4,
+            2,
+            48,
+            57
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            896,
+            0,
+            448,
+            512
+          ],
+          "logical_rect": [
+            104,
+            0,
+            52,
+            60
+          ],
+          "logical_bbox": [
+            5,
+            2,
+            47,
+            59
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            1344,
+            0,
+            448,
+            512
+          ],
+          "logical_rect": [
+            156,
+            0,
+            52,
+            60
+          ],
+          "logical_bbox": [
+            3,
+            2,
+            49,
+            57
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "green",
+      "binding": {
+        "table": "view_buffs",
+        "id": "league_sona_w_mel"
+      },
+      "loop": true,
+      "symmetry": "horizontal",
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/w_mel.png",
+      "geometry_source": "w_mel"
+    },
+    {
+      "name": "e_ally",
+      "file": "sona_fx_e_ally.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          543,
+          724
+        ],
+        [
+          543,
+          0,
+          543,
+          724
+        ],
+        [
+          1086,
+          0,
+          543,
+          724
+        ],
+        [
+          1629,
+          0,
+          543,
+          724
+        ]
+      ],
+      "size": [
+        2048,
+        256
+      ],
+      "cell_size": [
+        512,
+        256
+      ],
+      "game_size": [
+        24,
+        12
+      ],
+      "logical_source_size": [
+        48,
+        24
+      ],
+      "logical_file": "logical-source/sona_fx_e_ally.png",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            0,
+            0,
+            48,
+            24
+          ],
+          "logical_bbox": [
+            6,
+            2,
+            42,
+            22
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            48,
+            0,
+            48,
+            24
+          ],
+          "logical_bbox": [
+            5,
+            1,
+            43,
+            23
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            96,
+            0,
+            48,
+            24
+          ],
+          "logical_bbox": [
+            6,
+            3,
+            42,
+            22
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "logical_rect": [
+            144,
+            0,
+            48,
+            24
+          ],
+          "logical_bbox": [
+            5,
+            4,
+            43,
+            23
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "pink",
+      "binding": {
+        "table": "view_buffs",
+        "id": "league_sona_e_ally"
+      },
+      "loop": true,
+      "symmetry": "horizontal",
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/e_ally.png",
+      "geometry_source": "e_ally"
+    },
+    {
+      "name": "q_aura",
+      "file": "sona_fx_q_aura.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          362,
+          724
+        ],
+        [
+          362,
+          0,
+          362,
+          724
+        ],
+        [
+          724,
+          0,
+          362,
+          724
+        ],
+        [
+          1086,
+          0,
+          362,
+          724
+        ],
+        [
+          1448,
+          0,
+          362,
+          724
+        ],
+        [
+          1810,
+          0,
+          362,
+          724
+        ]
+      ],
+      "size": [
+        4608,
+        384
+      ],
+      "cell_size": [
+        768,
+        384
+      ],
+      "game_size": [
+        84,
+        42
+      ],
+      "logical_source_size": [
+        168,
+        84
+      ],
+      "logical_file": "logical-source/sona_fx_q_aura.png",
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            0,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            28,
+            8,
+            139,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            168,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            31,
+            2,
+            138,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            336,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            30,
+            1,
+            137,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            504,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            29,
+            5,
+            139,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 4,
+          "rect": [
+            3072,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            672,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            29,
+            11,
+            140,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 5,
+          "rect": [
+            3840,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            840,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            28,
+            23,
+            135,
+            83
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "blue",
+      "binding": {
+        "table": "view_projectiles",
+        "id": "league_sona_q_aura"
+      },
+      "loop": true,
+      "symmetry": null,
+      "game_duration_ms": 3000,
+      "variant_of": null,
+      "generated_source_file": "generated-source/q_aura.png",
+      "geometry_source": "q_aura"
+    },
+    {
+      "name": "w_aura",
+      "file": "sona_fx_w_aura.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          362,
+          724
+        ],
+        [
+          362,
+          0,
+          362,
+          724
+        ],
+        [
+          724,
+          0,
+          362,
+          724
+        ],
+        [
+          1086,
+          0,
+          362,
+          724
+        ],
+        [
+          1448,
+          0,
+          362,
+          724
+        ],
+        [
+          1810,
+          0,
+          362,
+          724
+        ]
+      ],
+      "size": [
+        4608,
+        384
+      ],
+      "cell_size": [
+        768,
+        384
+      ],
+      "game_size": [
+        84,
+        42
+      ],
+      "logical_source_size": [
+        168,
+        84
+      ],
+      "logical_file": "logical-source/sona_fx_w_aura.png",
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            0,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            28,
+            8,
+            139,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            168,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            31,
+            2,
+            138,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            336,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            30,
+            1,
+            137,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            504,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            29,
+            5,
+            139,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 4,
+          "rect": [
+            3072,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            672,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            29,
+            11,
+            140,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 5,
+          "rect": [
+            3840,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            840,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            28,
+            23,
+            135,
+            83
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "green",
+      "binding": {
+        "table": "view_projectiles",
+        "id": "league_sona_w_aura"
+      },
+      "loop": true,
+      "symmetry": null,
+      "game_duration_ms": 3000,
+      "variant_of": "q_aura",
+      "generated_source_file": "generated-source/w_aura.png",
+      "geometry_source": "q_aura"
+    },
+    {
+      "name": "e_aura",
+      "file": "sona_fx_e_aura.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          362,
+          724
+        ],
+        [
+          362,
+          0,
+          362,
+          724
+        ],
+        [
+          724,
+          0,
+          362,
+          724
+        ],
+        [
+          1086,
+          0,
+          362,
+          724
+        ],
+        [
+          1448,
+          0,
+          362,
+          724
+        ],
+        [
+          1810,
+          0,
+          362,
+          724
+        ]
+      ],
+      "size": [
+        4608,
+        384
+      ],
+      "cell_size": [
+        768,
+        384
+      ],
+      "game_size": [
+        84,
+        42
+      ],
+      "logical_source_size": [
+        168,
+        84
+      ],
+      "logical_file": "logical-source/sona_fx_e_aura.png",
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            0,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            28,
+            8,
+            139,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            168,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            31,
+            2,
+            138,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            336,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            30,
+            1,
+            137,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            504,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            29,
+            5,
+            139,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 4,
+          "rect": [
+            3072,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            672,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            29,
+            11,
+            140,
+            80
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 5,
+          "rect": [
+            3840,
+            0,
+            768,
+            384
+          ],
+          "logical_rect": [
+            840,
+            0,
+            168,
+            84
+          ],
+          "logical_bbox": [
+            28,
+            23,
+            135,
+            83
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "pink",
+      "binding": {
+        "table": "view_projectiles",
+        "id": "league_sona_e_aura"
+      },
+      "loop": true,
+      "symmetry": null,
+      "game_duration_ms": 3000,
+      "variant_of": "q_aura",
+      "generated_source_file": "generated-source/e_aura.png",
+      "geometry_source": "q_aura"
+    },
+    {
+      "name": "r_wave",
+      "file": "sona_fx_r_wave.png",
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          444,
+          887
+        ],
+        [
+          444,
+          0,
+          443,
+          887
+        ],
+        [
+          887,
+          0,
+          443,
+          887
+        ],
+        [
+          1330,
+          0,
+          444,
+          887
+        ]
+      ],
+      "size": [
+        1024,
+        512
+      ],
+      "cell_size": [
+        256,
+        512
+      ],
+      "game_size": [
+        16,
+        44
+      ],
+      "logical_source_size": [
+        32,
+        88
+      ],
+      "logical_file": "logical-source/sona_fx_r_wave.png",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            512
+          ],
+          "logical_rect": [
+            0,
+            0,
+            32,
+            88
+          ],
+          "logical_bbox": [
+            5,
+            1,
+            31,
+            87
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            512
+          ],
+          "logical_rect": [
+            32,
+            0,
+            32,
+            88
+          ],
+          "logical_bbox": [
+            3,
+            1,
+            31,
+            87
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            512
+          ],
+          "logical_rect": [
+            64,
+            0,
+            32,
+            88
+          ],
+          "logical_bbox": [
+            2,
+            1,
+            30,
+            87
+          ],
+          "preview_duration_ms": 120
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            512
+          ],
+          "logical_rect": [
+            96,
+            0,
+            32,
+            88
+          ],
+          "logical_bbox": [
+            7,
+            1,
+            31,
+            87
+          ],
+          "preview_duration_ms": 120
+        }
+      ],
+      "palette": "gold",
+      "binding": {
+        "table": "view_projectiles",
+        "id": "league_sona_r_wave"
+      },
+      "loop": true,
+      "symmetry": "vertical",
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/r_wave.png",
+      "geometry_source": "r_wave"
+    },
+    {
+      "name": "r_cast",
+      "file": "sona_fx_r_cast.png",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          362,
+          724
+        ],
+        [
+          362,
+          0,
+          362,
+          724
+        ],
+        [
+          724,
+          0,
+          362,
+          724
+        ],
+        [
+          1086,
+          0,
+          362,
+          724
+        ],
+        [
+          1448,
+          0,
+          362,
+          724
+        ],
+        [
+          1810,
+          0,
+          362,
+          724
+        ]
+      ],
+      "size": [
+        4608,
+        640
+      ],
+      "cell_size": [
+        768,
+        640
+      ],
+      "game_size": [
+        48,
+        40
+      ],
+      "logical_source_size": [
+        96,
+        80
+      ],
+      "logical_file": "logical-source/sona_fx_r_cast.png",
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "logical_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "logical_bbox": [
+            37,
+            8,
+            58,
+            32
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "logical_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "logical_bbox": [
+            32,
+            5,
+            62,
+            36
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            640
+          ],
+          "logical_rect": [
+            192,
+            0,
+            96,
+            80
+          ],
+          "logical_bbox": [
+            29,
+            1,
+            65,
+            39
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            640
+          ],
+          "logical_rect": [
+            288,
+            0,
+            96,
+            80
+          ],
+          "logical_bbox": [
+            32,
+            4,
+            67,
+            38
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            3072,
+            0,
+            768,
+            640
+          ],
+          "logical_rect": [
+            384,
+            0,
+            96,
+            80
+          ],
+          "logical_bbox": [
+            29,
+            4,
+            67,
+            36
+          ],
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 5,
+          "rect": [
+            3840,
+            0,
+            768,
+            640
+          ],
+          "logical_rect": [
+            480,
+            0,
+            96,
+            80
+          ],
+          "logical_bbox": [
+            39,
+            12,
+            59,
+            30
+          ],
+          "preview_duration_ms": 100
+        }
+      ],
+      "palette": "gold",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sona_r_cast"
+      },
+      "loop": false,
+      "symmetry": null,
+      "game_duration_ms": null,
+      "variant_of": null,
+      "generated_source_file": "generated-source/r_cast.png",
+      "geometry_source": "r_cast"
+    },
+    {
+      "name": "r_hit",
+      "file": "sona_fx_r_hit.png",
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          444,
+          296
+        ],
+        [
+          444,
+          0,
+          443,
+          296
+        ],
+        [
+          887,
+          0,
+          443,
+          296
+        ],
+        [
+          1330,
+          0,
+          444,
+          296
+        ],
+        [
+          0,
+          296,
+          444,
+          295
+        ],
+        [
+          444,
+          296,
+          443,
+          295
+        ],
+        [
+          887,
+          296,
+          443,
+          295
+        ],
+        [
+          1330,
+          296,
+          444,
+          295
+        ],
+        [
+          0,
+          591,
+          444,
+          296
+        ],
+        [
+          444,
+          591,
+          443,
+          296
+        ],
+        [
+          887,
+          591,
+          443,
+          296
+        ],
+        [
+          1330,
+          591,
+          444,
+          296
+        ]
+      ],
+      "size": [
+        3072,
+        128
+      ],
+      "cell_size": [
+        256,
+        128
+      ],
+      "game_size": [
+        18,
+        10
+      ],
+      "logical_source_size": [
+        36,
+        20
+      ],
+      "logical_file": "logical-source/sona_fx_r_hit.png",
+      "frame_count": 12,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            0,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            11,
+            6,
+            25,
+            17
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            36,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            4,
+            2,
+            32,
+            19
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            72,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            7,
+            3,
+            28,
+            17
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            108,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            5,
+            2,
+            32,
+            19
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            144,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            4,
+            3,
+            32,
+            17
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            180,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            4,
+            3,
+            32,
+            19
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            216,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            7,
+            4,
+            29,
+            17
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 7,
+          "rect": [
+            1792,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            252,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            4,
+            3,
+            33,
+            19
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 8,
+          "rect": [
+            2048,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            288,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            4,
+            3,
+            32,
+            17
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 9,
+          "rect": [
+            2304,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            324,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            4,
+            2,
+            32,
+            19
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 10,
+          "rect": [
+            2560,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            360,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            7,
+            3,
+            28,
+            17
+          ],
+          "preview_duration_ms": 125
+        },
+        {
+          "index": 11,
+          "rect": [
+            2816,
+            0,
+            256,
+            128
+          ],
+          "logical_rect": [
+            396,
+            0,
+            36,
+            20
+          ],
+          "logical_bbox": [
+            7,
+            4,
+            28,
+            15
+          ],
+          "preview_duration_ms": 125
+        }
+      ],
+      "palette": "gold",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sona_r_hit"
+      },
+      "loop": false,
+      "symmetry": null,
+      "game_duration_ms": 1500,
+      "variant_of": null,
+      "generated_source_file": "generated-source/r_hit.png",
+      "geometry_source": "r_hit"
+    }
+  ]
+}

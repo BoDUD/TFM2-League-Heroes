@@ -1,0 +1,182 @@
+{
+  "pass": true,
+  "effects": {
+    "hit": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 4,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": null,
+      "center_clear": null
+    },
+    "p_hit": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 4,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": null,
+      "center_clear": null
+    },
+    "q_hit": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 4,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": null,
+      "center_clear": null
+    },
+    "q_dusk": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 3,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": true,
+      "center_clear": null
+    },
+    "e_grip": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 4,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": null,
+      "center_clear": true
+    },
+    "e_tick": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 4,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": null,
+      "center_clear": null
+    },
+    "e_fear": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 3,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": true,
+      "center_clear": null
+    },
+    "w_proc": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 4,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": null,
+      "center_clear": true
+    },
+    "r_burst": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 4,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": null,
+      "center_clear": true
+    },
+    "r_veil": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 4,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": null,
+      "center_clear": true
+    },
+    "r_dark": {
+      "pass": true,
+      "dimensions": [
+        1920,
+        1664
+      ],
+      "frames": 4,
+      "nonempty": true,
+      "distinct_frames": 3,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "seam_reverses_first_step": true,
+      "center_clear": true
+    }
+  },
+  "runtime_tested": false
+}

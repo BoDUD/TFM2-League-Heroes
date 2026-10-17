@@ -1,0 +1,106 @@
+[
+  {
+    "name": "outline",
+    "hex": "#191421"
+  },
+  {
+    "name": "skin_shadow",
+    "hex": "#835B9E"
+  },
+  {
+    "name": "skin_mid",
+    "hex": "#B889D1"
+  },
+  {
+    "name": "skin_light",
+    "hex": "#DFB4EB"
+  },
+  {
+    "name": "hair_shadow",
+    "hex": "#7E879E"
+  },
+  {
+    "name": "hair_mid",
+    "hex": "#BFCCD8"
+  },
+  {
+    "name": "hair_highlight",
+    "hex": "#FFF4E4"
+  },
+  {
+    "name": "ear_shadow",
+    "hex": "#C35C80"
+  },
+  {
+    "name": "ear_light",
+    "hex": "#F699B4"
+  },
+  {
+    "name": "red_shadow",
+    "hex": "#821D3F"
+  },
+  {
+    "name": "red_mid",
+    "hex": "#D13845"
+  },
+  {
+    "name": "olive_shadow",
+    "hex": "#41492D"
+  },
+  {
+    "name": "olive_mid",
+    "hex": "#727745"
+  },
+  {
+    "name": "olive_light",
+    "hex": "#A3A26B"
+  },
+  {
+    "name": "leather_shadow",
+    "hex": "#442A23"
+  },
+  {
+    "name": "leather_dark",
+    "hex": "#734832"
+  },
+  {
+    "name": "leather_mid",
+    "hex": "#A36A43"
+  },
+  {
+    "name": "leather_light",
+    "hex": "#CE9560"
+  },
+  {
+    "name": "brass_shadow",
+    "hex": "#87602E"
+  },
+  {
+    "name": "brass_light",
+    "hex": "#C8994E"
+  },
+  {
+    "name": "steel_shadow",
+    "hex": "#283447"
+  },
+  {
+    "name": "steel_dark",
+    "hex": "#445E80"
+  },
+  {
+    "name": "steel_mid",
+    "hex": "#7397C3"
+  },
+  {
+    "name": "steel_light",
+    "hex": "#B9DDED"
+  },
+  {
+    "name": "eye_amber",
+    "hex": "#F6BA30"
+  },
+  {
+    "name": "tan",
+    "hex": "#E6BF86"
+  }
+]

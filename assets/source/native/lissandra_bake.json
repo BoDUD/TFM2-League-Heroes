@@ -1,0 +1,9 @@
+{
+  "fx": "league_lissandra_big",
+  "items": [
+    {"tag": "r_cast", "into": "ult_fx1", "from": "ult", "slice_ms": 0, "length_ms": 500, "at_ms": 0},
+    {"tag": "q_cast", "into": "skill", "at_ms": 217, "fx": "league_lissandra_fx"},
+    {"tag": "e_cast", "into": "skill2_e_fx1", "from": "skill2_e", "slice_ms": 0, "length_ms": 717, "at_ms": 0, "fx": "league_lissandra_fx"},
+    {"tag": "e_cast", "into": "skill2_e_fx2", "from": "skill2_e", "slice_ms": 0, "length_ms": 300, "at_ms": 0, "fx": "league_lissandra_fx"}
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "pass": true,
+  "frame_count": 8,
+  "duration_ms": [
+    133,
+    133,
+    133,
+    133,
+    133,
+    133,
+    133,
+    133
+  ],
+  "checks": {
+    "exact_dimensions": true,
+    "strict_8x_blocks": true,
+    "binary_alpha": true,
+    "transparent_rgb_zero": true,
+    "approved_palette_only": true,
+    "8_native_pivots_and_times": true,
+    "upper_pixel_identical_every_frame": true,
+    "head_relative_pivot_x_constant": true,
+    "body_bob_at_most_one_row": true,
+    "no_pixel_below_row_74": true,
+    "planted_sole_row_74_every_frame": true,
+    "both_feet_visible_every_frame": true,
+    "foot_order_swaps_at_frames_3_and_7": true,
+    "raised_far_foot_frame_3": true,
+    "raised_near_foot_frame_7": true,
+    "single_connected_character_every_frame": true,
+    "8_distinct_frames": true
+  },
+  "near_minus_far_foot_x": [
+    11.767,
+    7.292,
+    -7.273,
+    -12.844,
+    -11.104,
+    -7.827,
+    6.727,
+    12.023
+  ],
+  "near_foot_visible_pixels": [
+    10,
+    8,
+    8,
+    7,
+    7,
+    11,
+    11,
+    11
+  ],
+  "far_foot_visible_pixels": [
+    3,
+    9,
+    11,
+    11,
+    11,
+    10,
+    8,
+    4
+  ],
+  "area_range": [
+    766,
+    777
+  ],
+  "game_imported": false,
+  "in_game_verified": false,
+  "notes": [
+    "Legs are newly generated; exact upper body reference pasted over them.",
+    "Color/material readback preserves thin gold strips; feet use near/far palette shading.",
+    "Far foot in frame 1 is mostly hidden by the unchanged staff, with 3 native pixels visible.",
+    "GIF timing is rounded to 130ms; authoritative JSON is 133ms per frame."
+  ]
+}

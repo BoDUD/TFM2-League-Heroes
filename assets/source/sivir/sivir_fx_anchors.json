@@ -1,0 +1,18 @@
+{
+  "a_blade": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "w_blade": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "a_hit": {"cell": [13, 13], "anchor": [6, 6], "frames": 4},
+  "w_cast": {"cell": [17, 19], "anchor": [8, 9], "frames": 5},
+  "w_on": {"cell": [21, 11], "anchor": [10, 5], "frames": 4},
+  "w_bounce": {"cell": [35, 29], "anchor": [17, 14], "frames": 4},
+  "w_hit": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "q_blade": {"cell": [19, 19], "anchor": [9, 9], "frames": 4},
+  "q_throw": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "q_hit": {"cell": [17, 19], "anchor": [8, 9], "frames": 5},
+  "q_catch": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "e_shroud": {"cell": [49, 59], "anchor": [24, 29], "frames": 12},
+  "e_block": {"cell": [27, 27], "anchor": [13, 13], "frames": 5},
+  "r_cast": {"cell": [67, 41], "anchor": [33, 20], "frames": 6},
+  "r_hunt": {"cell": [29, 17], "anchor": [14, 8], "frames": 12},
+  "r_renew": {"cell": [25, 25], "anchor": [12, 12], "frames": 5}
+}

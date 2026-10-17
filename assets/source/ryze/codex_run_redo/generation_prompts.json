@@ -1,0 +1,51 @@
+[
+  {
+    "file": "ryze_run_raw_B.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-7d9f080e-971f-4618-9623-3beac624ee1d.png",
+    "prompt": "Three attached images. FIRST: the approved pixel-art design of this character at 8x (every pixel an 8x8 block) - copy\nits colors, head, face, clothes, scroll and pixel style exactly. SECOND: a leg-and-arm chart with 8 frames in a grid\nof 4 columns and 2 rows: in each cell the NEAR leg and NEAR arm (the ones closer to the viewer, drawn in front) are\nORANGE and the FAR leg and FAR arm are BLUE; the black cross is where he stands, the red line is the ground. THIRD: the\noriginal 3D run at the same 8 frames. Draw the character of the FIRST image running to the right in 8 frames placed\nlike the SECOND image, posing each frame's legs and arms EXACTLY as the colored limbs of the SECOND image - but in the\nFIRST image's colors only (both legs the same slate-blue baggy trousers, bronze knee guards and brown boots; both arms\nthe same blue-violet skin with brown bracers): never orange or blue limbs.\nThe legs MUST alternate: in frames 1-4 the near leg is the forward one, in frames 5-8 the far leg is the forward one.\nFrame 2 and frame 6 are opposite (the other leg in front, the other arm forward); frame 3: the far knee swings forward\npast the near standing leg; frame 7: the near knee swings forward past the far standing leg. The arms swing against\nthe legs. The boots at most about 10 squares apart, the planted boot on the ground line, the lifted one at most 2\nsquares up; the head keeps the same horizontal place in all 8 frames, the body bobs at most 1 square (down in frames\n2 and 6, up in 4 and 8); the scroll rides on his back; 3/4 front view facing right, the face visible; frame 8 flows\ninto frame 1.\nThe character: Ryze, the rune mage (a sturdy bald man with blue-violet skin covered in rune tattoos, glowing eyes and a\nlong brown beard; a sleeveless navy tunic, brown leather straps and a big bronze buckle, baggy trousers, bronze knee\nguards; a huge parchment scroll carried on his back). Keep the FIRST image's proportions: big head, thick short arms,\nbig 3x3 hands, sturdy body, short legs.\nPixel art exactly like the FIRST image: about 40 squares from the top of the scroll to the soles, every pixel one crisp\nsquare on one grid, no anti-aliasing, no blur, a 1-square near-black outline, only the FIRST image's colors, no\ndithering or noise. Transparent background (if not possible: solid #FF00FF magenta). One frame per cell, nothing\ncrossing into the next cell; no grid lines, labels, numbers or guide marks.\n\nPrecise chronological interpretation overrides the broad 'frames 1-4' shorthand: frame 4 is the transition with FAR foot swinging forward while NEAR pushes back; frame 8 is the reverse transition. FOUR columns by TWO rows, reading order left-to-right top then bottom. Match each colored skeleton independently, do NOT duplicate top row poses into bottom. Near limbs always in front at overlap, not permanently on the right. Bottom row near arm bends FORWARD across torso; top row near arm swings BACK behind torso. Use about forty coarse pixel blocks tall, not finely detailed pixel art.\n",
+    "transparent_background": true,
+    "input_references": [
+      "design/ryze_design.png",
+      "legs/ryze_run_legs.png",
+      "pose/lol_pose_run.png"
+    ]
+  },
+  {
+    "file": "ryze_run_raw_C.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 2,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-cd3b9230-67f4-4d08-a6af-c7d17df94041.png",
+    "prompt": "Create an EIGHT frame RUN sprite sheet, FOUR columns TWO rows, transparent. Reference1 is approved pixel character, reference2 exact pose chart. Translate reference2 colored skeletons into character1 with no colored guide marks. Entire chart orange maps the SAME NEAR camera leg and SAME NEAR camera arm in all frames; blue maps the SAME FAR leg and FAR arm. Copy each skeleton pose INDEPENDENTLY. Preserve depth occlusion to distinguish limbs WITHOUT different colors. No repeated gait or dragging leg. Both identical-color legs have bronze knees and brown boots. RIGHT-facing three-quarter front view, big bald violet head, brown beard, navy sleeveless tunic, bronze belt, teal apron, slate-blue trousers and giant scroll. Coarse forty squares tall pixel style like reference1, black 1-square outline.\nFrame1 NEAR knee and boot forward RIGHT touching ground, FAR boot LEFT raised. NEAR arm back LEFT, FAR hand forward RIGHT.\nFrame2 NEAR boot under body grounded, FAR heel LEFT kicked up behind. NEAR arm left back, FAR forearm right front. body down1pixel.\nFrame3 FAR knee passes forward BEHIND NEAR planted shin, knees overlap; hands beside body.\nFrame4 NEAR leg stretches backward LEFT pushing ground; FAR knee/boot RIGHT stretching forward lifted. NEAR elbow bends FORWARD, FAR arm swings back. body up1pixel.\nFrame5 FAR leg straightens RIGHT landing heel; NEAR knee bends BACK LEFT, raised boot LEFT drawn IN FRONT where legs overlap. NEAR elbow forward across torso RIGHT, FAR fist behind LEFT.\nFrame6 FAR shin planted grounded RIGHT underneath body; NEAR thigh slants backward LEFT and NEAR bronze knee/heel visibly flexes LEFT behind with boot lifted, NEAR kick leg drawn IN FRONT of FAR support. NEAR arm forward RIGHT, FAR arm back LEFT. Opposite near/far identities to frame2. body down1pixel.\nFrame7 NEAR knee passes forward IN FRONT of FAR planted leg. No same limb always forward.\nFrame8 NEAR knee/boot raised forward RIGHT, FAR leg stretches backwards LEFT pushing ground. NEAR arm back LEFT, FAR hand forward RIGHT. body up1pixel.\nAll limbs stay inside their own cell, no labels/guidelines/orange limbs. Boots separated max10blocks, lifted foot max2blocks aboveground. Head horizontal locked. Ground level stable. Rows are different halves of one alternating gait; not copied variations.\n",
+    "transparent_background": true,
+    "input_references": [
+      "design/ryze_design.png",
+      "legs/ryze_run_legs.png"
+    ]
+  },
+  {
+    "file": "ryze_run_raw_D.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 3,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-3ffb1206-815e-471c-a318-0f297cf83f31.png",
+    "prompt": "EDIT the first sprite sheet to correct the gait. Second image is the exact limb-position reference. Keep the character identity, 40-block chunky pixels, colors, 4 columns by 2 rows, transparent background and all eight whole characters. Crucial correction: viewer-left shoulder is NEAR arm. TOP ROW first2 NEAR arm swings BACK LEFT, fine. BOTTOM ROW frames5 and6 that viewer-left NEAR arm must bend FORWARD and extend across the torso toward RIGHT: elbow stays left, forearm horizontal across front of belt, fist at right of body. FAR arm moves BACK LEFT, partly hidden behind scroll. Do not simply move viewer-right fist! Bend the viewer-left arm across the front. In frame4 also bend NEAR arm forward across torso RIGHT and FAR back. Frame8 NEAR arm back LEFT/FAR forwardRIGHT.\nAlso fix legs in lower left2frames: the NEAR thigh coming from viewer-left side of hip is the leg that kicks BACK LEFT, visibly drawn in front of the other leg. Frame5 near knee bends backleft, liftedbrownboot left, far boot straightens forwardright and heel lands. Frame6 near knee bends backLEFT, its bronze knee guard at LEFT side, near boot left raised closeground, FAR leg planted under pelvis on RIGHT, far bronze guard only partially visible behind near thigh. NEAR knee passes IN FRONT of FAR support in frame7 and swings forwardRIGHT in frame8; opposite depth ordering in frame3 where FAR knee goes behind NEAR support. Make frames2 and6 opposite occlusion and arm bends, not identical. In frame4 FAR forward lifted boot RIGHT, NEAR rear boot LEFT pushes ground. Frame8 NEAR forward lifted bootRIGHT FAR rearbootLEFT pushesground. Same trouser/boot colors onbothlegs, occlusion identifies limbs. Use skeletal positions from second image only, no guidecolors or text.\n",
+    "transparent_background": true,
+    "input_references": [
+      "ryze_run_raw_C.png",
+      "legs/ryze_run_legs.png"
+    ]
+  },
+  {
+    "file": "ryze_run_raw.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 4,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-f8415503-6a95-4cd1-bbaf-bcb1e3e63ff5.png",
+    "prompt": "Edit only TWO lower-row leg poses in first image: bottom-left frame5 and bottom-third frame7. Keep ALL OTHER six poses, arms, heads, colors, identity, chunky pixel size, transparent sheet, fourcols tworows. Second image skeleton shows desired leg positions. Never add orange/blue guide limbs or labels.\nBOTTOM LEFT FRAME5 correction: NEAR leg begins at viewer-left hip and bends BACKWARD LEFT, its bronze kneecap visibly LEFT of center; lifted rear brown boot also LEFT. Draw this near backward thigh/knee IN FRONT of the far supporting leg at overlap. FAR leg begins on viewer-right hip, stretches forward RIGHT with its heel touching ground; far bronze kneecap partly occluded behind near thigh. Thus prominent near bronze knee is now on LEFT, NOT forward RIGHT like frame1. Keep near forearm across front of torso towardRIGHT exactly as current.\nBOTTOM THIRD FRAME7 correction: NEAR thigh from viewer-left hip bends forwardRIGHT with raised knee overlapping IN FRONT of the FAR support shin. Near boot raised slightly2blocks and close tofarfoot, so both knees visibly CROSS. FAR leg stays planted underpelvis, partly hidden. Keep both hands down at sides ascurrent. This is the opposite depth crossing to upperthirdframe3.\nNo new background, no ground/gridlines. Pixel art40coarseblocks fromscrolltopsoles, no blur. Preserve original8full sprites and even spacing.\n",
+    "transparent_background": true,
+    "input_references": [
+      "ryze_run_raw_D.png",
+      "legs/ryze_run_legs.png"
+    ]
+  }
+]

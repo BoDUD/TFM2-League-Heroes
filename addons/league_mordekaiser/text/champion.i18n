@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_mordekaiser_realm": {
+        "skill2": "【附加包】甩出断魂之爪，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并把敌人<#ef5350ff>拉到身前<>。冷却中被英雄贴近时改为<#ff9028ff>不坏之身<>：获得按造成和受到的伤害攒起的<#7ee87eff>护盾<>（至多最大生命30%），快结束时按剩余护盾回复<#7ee87eff>40%<>。",
+        "ult": "【附加包】把射程内攻击+法强最高的敌方英雄拖进死亡领域<#ffb900ff>7秒<>：两人离开战场单挑，偷取其10%攻击、法强、护甲、魔抗和生命；其死在领域里则回复<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%生命<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_mordekaiser_realm": {
+        "skill2": "【附加包】甩出死之爪，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並把敵人<#ef5350ff>拉到身前<>。冷卻中被英雄貼近時改為<#ff9028ff>不滅之軀<>：獲得按造成和受到的傷害攢起的<#7ee87eff>護盾<>（至多最大生命30%），快結束時按剩餘護盾回復<#7ee87eff>40%<>。",
+        "ult": "【附加包】把射程內攻擊+法強最高的敵方英雄拖進死亡領域<#ffb900ff>7秒<>：兩人離開戰場單挑，偷取其10%攻擊、法強、護甲、魔抗和生命；其死在領域裡則回復<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%生命<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_mordekaiser_realm": {
+        "skill2": "[Add-on] Lashes out a grasp for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, <#ef5350ff>pulling<> enemies to him. On cooldown with a champion close: <#ff9028ff>Indestructible<>, a <#7ee87eff>shield<> stored from the damage he dealt and took (up to 30% max health); near its end he heals <#7ee87eff>40%<> of what is left.",
+        "ult": "[Add-on] Drags the enemy champion in reach with the most attack + ability power into his realm for <#ffb900ff>7s<>: the two leave the battlefield to duel, and he steals 10% of its attack, ability power, armour, magic resistance and health. If it dies in the realm he heals <#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_mordekaiser_realm": {
+        "skill2": "[애드온] 손아귀를 뻗어 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>를 주고 적을 <#ef5350ff>끌어당김<>. 재사용 대기 중 챔피언이 붙으면 <#ff9028ff>불멸<>: 준 피해와 받은 피해로 쌓인 <#7ee87eff>보호막<>(최대 체력 30%까지), 끝날 때 남은 보호막의 <#7ee87eff>40%<> 회복.",
+        "ult": "[애드온] 사거리 안 공격력+주문력이 가장 높은 적 챔피언을 <#ffb900ff>7초<> 동안 죽음의 세계로 끌고 가 1:1, 공격력·주문력·방어력·마법 저항력·체력 10% 강탈. 그 안에서 처치하면 <#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<> 회복."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_mordekaiser_realm": {
+        "skill2": "【アドオン】呪縛の手を放ち<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、敵を<#ef5350ff>引き寄せる<>。CD中に敵が接近すると<#ff9028ff>不滅の鎧<>：与えた・受けたダメージで溜めた<#7ee87eff>シールド<>（最大体力30%まで）、終わり際に残量の<#7ee87eff>40%<>回復。",
+        "ult": "【アドオン】射程内で攻撃力+魔力が最も高い敵チャンピオンを<#ffb900ff>7秒<>死の国へ引きずり込み一騎打ち、攻撃力・魔力・物防・魔防・体力の10%を奪う。中で倒すと<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<>回復。"
+      }
+    }
+  }
+}

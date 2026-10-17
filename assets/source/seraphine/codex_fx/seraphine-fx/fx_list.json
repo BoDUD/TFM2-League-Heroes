@@ -1,0 +1,127 @@
+[
+ {
+  "file": "seraphine_fx_a_bolt.png",
+  "binding": "view_projectiles `league_seraphine_a_bolt`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "10 × 6"
+ },
+ {
+  "file": "seraphine_fx_a_note.png",
+  "binding": "view_projectiles `league_seraphine_a_note`（同上；上下对称）",
+  "size": "14 × 8"
+ },
+ {
+  "file": "seraphine_fx_a_hit.png",
+  "binding": "view_effects `league_seraphine_a_hit`（跟随，画在人物上面；左右对称）",
+  "size": "12"
+ },
+ {
+  "file": "seraphine_fx_a_note_hit.png",
+  "binding": "view_effects `league_seraphine_a_note_hit`（跟随；左右对称）",
+  "size": "16"
+ },
+ {
+  "file": "seraphine_fx_q_note.png",
+  "binding": "view_projectiles `league_seraphine_q_note`（抛物线飞行；上下对称）",
+  "size": "10 × 10"
+ },
+ {
+  "file": "seraphine_fx_q_land.png",
+  "binding": "view_effects `league_seraphine_q_land`（落点上，不旋转，画在人物下面；上下左右都对称）",
+  "size": "60 × 24"
+ },
+ {
+  "file": "seraphine_fx_q_hit.png",
+  "binding": "view_effects `league_seraphine_q_hit`（跟随；左右对称）",
+  "size": "14"
+ },
+ {
+  "file": "seraphine_fx_q_amp.png",
+  "binding": "view_effects `league_seraphine_q_amp`（跟随；左右对称）",
+  "size": "18"
+ },
+ {
+  "file": "seraphine_fx_e_wave.png",
+  "binding": "view_projectiles `league_seraphine_e_wave`（直线飞行，朝飞行方向转，画成朝右；上下对称）",
+  "size": "14 × 18"
+ },
+ {
+  "file": "seraphine_fx_e_hit.png",
+  "binding": "view_effects `league_seraphine_e_hit`（跟随；左右对称）",
+  "size": "14"
+ },
+ {
+  "file": "seraphine_fx_e_root.png",
+  "binding": "view_effects `league_seraphine_e_root`（跟随，画在人物下面；左右对称）",
+  "size": "20 × 10"
+ },
+ {
+  "file": "seraphine_fx_e_stun.png",
+  "binding": "view_effects `league_seraphine_e_stun`（跟随；左右对称）",
+  "size": "18 × 8"
+ },
+ {
+  "file": "seraphine_fx_w_cast.png",
+  "binding": "view_effects `league_seraphine_w_cast`（施法后播放、不跟随，画在人物下面；上下左右都对称）",
+  "size": "100 × 36"
+ },
+ {
+  "file": "seraphine_fx_w_on.png",
+  "binding": "view_buffs `league_seraphine_w_on`（跟随；左右对称）",
+  "size": "26 × 34"
+ },
+ {
+  "file": "seraphine_fx_w_heal.png",
+  "binding": "view_effects `league_seraphine_w_heal`（跟随；左右对称）",
+  "size": "16 × 22"
+ },
+ {
+  "file": "seraphine_fx_r_wave.png",
+  "binding": "view_projectiles `league_seraphine_r_wave`（直线飞行，朝飞行方向转，画成朝右；上下对称）",
+  "size": "26 × 36"
+ },
+ {
+  "file": "seraphine_fx_r_cast.png",
+  "binding": "view_effects `league_seraphine_r_cast`（施法后播放、不跟随，画在人物上面；左右对称）",
+  "size": "44 × 56"
+ },
+ {
+  "file": "seraphine_fx_r_hit.png",
+  "binding": "view_effects `league_seraphine_r_hit`（跟随；左右对称）",
+  "size": "18"
+ },
+ {
+  "file": "seraphine_fx_echo.png",
+  "binding": "view_effects `league_seraphine_echo`（施法后播放、不跟随，画在人物上面；左右对称）",
+  "size": "34 × 44"
+ },
+ {
+  "file": "seraphine_fx_n1.png",
+  "binding": "view_buffs `league_seraphine_n1`（跟随；左右对称）",
+  "size": "30 × 40"
+ },
+ {
+  "file": "seraphine_fx_n2.png",
+  "binding": "view_buffs `league_seraphine_n2`（跟随；左右对称）",
+  "size": "30 × 40"
+ },
+ {
+  "file": "seraphine_fx_n3.png",
+  "binding": "view_buffs `league_seraphine_n3`（跟随；左右对称）",
+  "size": "30 × 40"
+ },
+ {
+  "file": "seraphine_fx_n4.png",
+  "binding": "view_buffs `league_seraphine_n4`（跟随；左右对称）",
+  "size": "30 × 40"
+ },
+ {
+  "file": "seraphine_fx_echo_ready.png",
+  "binding": "view_buffs `league_seraphine_echo`（跟随；左右对称）",
+  "size": "30 × 8"
+ },
+ {
+  "file": "seraphine_fx_e_slow.png",
+  "binding": "view_buffs `league_seraphine_e_slow`（画在脚下；左右对称）",
+  "size": "16 × 6"
+ }
+]

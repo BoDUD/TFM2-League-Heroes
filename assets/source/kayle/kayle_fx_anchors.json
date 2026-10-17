@@ -1,0 +1,16 @@
+{
+  "hit": {"cell": [17, 21], "anchor": [8, 10]},
+  "bolt": {"cell": [27, 9], "anchor": [13, 4]},
+  "bolt_hit": {"cell": [17, 17], "anchor": [8, 8]},
+  "wave": {"cell": [21, 23], "anchor": [10, 11]},
+  "q_sword": {"cell": [39, 13], "anchor": [19, 6]},
+  "q_blast": {"cell": [55, 31], "anchor": [27, 15]},
+  "e_bolt": {"cell": [33, 13], "anchor": [16, 6]},
+  "e_hit": {"cell": [23, 39], "anchor": [11, 19]},
+  "e_blast": {"cell": [43, 59], "anchor": [21, 29]},
+  "w_heal": {"cell": [25, 87], "anchor": [12, 43]},
+  "r_invuln": {"cell": [33, 111], "anchor": [16, 55]},
+  "r_blades": {"cell": [91, 227], "anchor": [45, 113]},
+  "ascend": {"cell": [49, 117], "anchor": [24, 58]},
+  "exalted": {"cell": [33, 83], "anchor": [16, 41]}
+}

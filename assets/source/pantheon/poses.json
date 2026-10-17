@@ -1,0 +1,350 @@
+{
+ "hero": "pantheon",
+ "champ": "Pantheon",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 44,
+ "cell": [
+  200,
+  160,
+  30
+ ],
+ "design": "Pantheon_Idle1@0",
+ "hide_submeshes": [
+  "Recall",
+  "Comet",
+  "Joke",
+  "L_Arm_Only",
+  "Head",
+  "HeadHelmet"
+ ],
+ "submesh_textures": {
+  "Cape": "Cape_TX"
+ },
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "Pantheon_Run_base@0",
+     117
+    ],
+    [
+     "Pantheon_Run_base@117",
+     117
+    ],
+    [
+     "Pantheon_Run_base@233",
+     117
+    ],
+    [
+     "Pantheon_Run_base@350",
+     117
+    ],
+    [
+     "Pantheon_Run_base@466",
+     117
+    ],
+    [
+     "Pantheon_Run_base@583",
+     117
+    ],
+    [
+     "Pantheon_Run_base@700",
+     117
+    ],
+    [
+     "Pantheon_Run_base@816",
+     117
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Pantheon_Idle1@0>Pantheon_attack1@0:0.6",
+     80
+    ],
+    [
+     "Pantheon_attack1@160",
+     80
+    ],
+    [
+     "Pantheon_attack1@330",
+     100
+    ],
+    [
+     "Pantheon_attack1@420",
+     90
+    ],
+    [
+     "Pantheon_attack1@520>Pantheon_Idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "attack_w": {
+   "lunge": 0.3,
+   "release": 2,
+   "frames": [
+    [
+     "Pantheon_attack2@160",
+     60
+    ],
+    [
+     "Pantheon_attack2@330",
+     80
+    ],
+    [
+     "Pantheon_attack3@160",
+     60
+    ],
+    [
+     "Pantheon_attack3@330",
+     80
+    ],
+    [
+     "Pantheon_attack1@330",
+     80
+    ],
+    [
+     "Pantheon_attack1@520>Pantheon_Idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Pantheon_Idle1@0>Pantheon_spell1_hit@0:0.6",
+     60
+    ],
+    [
+     "Pantheon_spell1_hit@120",
+     60
+    ],
+    [
+     "Pantheon_spell1_hit@240",
+     90
+    ],
+    [
+     "Pantheon_spell1_hit@360>Pantheon_Idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill_throw": {
+   "lunge": 0.2,
+   "release": 4,
+   "frames": [
+    [
+     "Pantheon_Idle1@0>Pantheon_spell1_nomove@500:0.6",
+     100
+    ],
+    [
+     "Pantheon_spell1_nomove@1000",
+     140
+    ],
+    [
+     "Pantheon_spell1_longhit@160",
+     80
+    ],
+    [
+     "Pantheon_spell1_longhit@320",
+     90
+    ],
+    [
+     "Pantheon_spell1_longhit@400",
+     90
+    ],
+    [
+     "Pantheon_spell1_longhit@480>Pantheon_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "rise": 0.1,
+   "release": 5,
+   "frames": [
+    [
+     "Pantheon_Idle1@0>Pantheon_spell2@0:0.6",
+     60
+    ],
+    [
+     "Pantheon_spell2@120",
+     60
+    ],
+    [
+     "Pantheon_spell2@240",
+     60
+    ],
+    [
+     "Pantheon_spell2_hit@100",
+     70
+    ],
+    [
+     "Pantheon_spell2_hit@300",
+     90
+    ],
+    [
+     "Pantheon_spell2_hit@650>Pantheon_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "e_hold": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "Pantheon_spell3_loop_nomove_0@0",
+     125
+    ],
+    [
+     "Pantheon_spell3_loop_nomove_0@250",
+     125
+    ],
+    [
+     "Pantheon_spell3_loop_nomove_0@500",
+     125
+    ],
+    [
+     "Pantheon_spell3_loop_nomove_0@750",
+     125
+    ]
+   ]
+  },
+  "e_bash": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Pantheon_spell3_hit@60",
+     60
+    ],
+    [
+     "Pantheon_spell3_hit@120",
+     60
+    ],
+    [
+     "Pantheon_spell3_hit@180",
+     90
+    ],
+    [
+     "Pantheon_spell3_hit@240",
+     80
+    ],
+    [
+     "Pantheon_spell3_hit@290>Pantheon_Idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "Pantheon_Idle1@0>Pantheon_spell4@0:0.6",
+     100
+    ],
+    [
+     "Pantheon_spell4@300",
+     100
+    ],
+    [
+     "Pantheon_spell4@900",
+     150
+    ],
+    [
+     "Pantheon_spell4@1500",
+     400
+    ]
+   ]
+  },
+  "ult_leap": {
+   "lunge": 0.0,
+   "rise": 0.12,
+   "frames": [
+    [
+     "Pantheon_spell4_leap@120",
+     80
+    ],
+    [
+     "Pantheon_spell4_leap@360",
+     80
+    ],
+    [
+     "Pantheon_spell4_leap@480",
+     120
+    ]
+   ]
+  },
+  "ult_land": {
+   "lunge": 0.0,
+   "rise": 0.12,
+   "release": 2,
+   "frames": [
+    [
+     "Pantheon_spell4_hit@0",
+     80
+    ],
+    [
+     "Pantheon_spell4_hit@300",
+     120
+    ],
+    [
+     "Pantheon_spell4_hit@900",
+     150
+    ],
+    [
+     "Pantheon_spell4_hit@2100>Pantheon_Idle1@0:0.5",
+     150
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "Pantheon_Death@300",
+     100
+    ],
+    [
+     "Pantheon_Death@600",
+     100
+    ],
+    [
+     "Pantheon_Death@900",
+     110
+    ],
+    [
+     "Pantheon_Death@1800",
+     120
+    ],
+    [
+     "Pantheon_Death@2600",
+     150
+    ],
+    [
+     "Pantheon_Death@4000",
+     400
+    ]
+   ]
+  }
+ }
+}

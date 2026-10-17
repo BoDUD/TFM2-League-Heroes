@@ -1,0 +1,3467 @@
+{
+  "status": "complete_fx_art_delivery_runtime_import_pending",
+  "items": [
+    {
+      "file": "kindred_fx_a_arrow.png",
+      "binding": {
+        "file": "kindred_fx_a_arrow.png",
+        "binding": "view_projectiles `league_kindred_a_arrow`（朝飞行方向转，画成朝右飞；上下对称）",
+        "size": "14 × 4"
+      },
+      "kind": "sheet",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        6
+      ],
+      "pixel_1x_size": [
+        64,
+        6
+      ],
+      "output_size": [
+        512,
+        48
+      ],
+      "scale": 8,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "2daabedcbb3b772f64902c790babf2f8430b9dddf5230a0e383c063e73be77da",
+      "source_rectangles": [
+        [
+          6.071,
+          233.75,
+          556.929,
+          493.25
+        ],
+        [
+          542.571,
+          233.75,
+          1093.429,
+          493.25
+        ],
+        [
+          1090.071,
+          233.75,
+          1640.929,
+          493.25
+        ],
+        [
+          1633.571,
+          233.75,
+          2184.429,
+          493.25
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "ud"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            15,
+            5
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            2,
+            1,
+            15,
+            5
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            2,
+            1,
+            15,
+            5
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            15,
+            5
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "70a356a6f9a6cf7fe5e10a11f822d43d7bb0f9dcd06daa0584d3adde5c2aaea2"
+    },
+    {
+      "file": "kindred_fx_q_arrow.png",
+      "binding": {
+        "file": "kindred_fx_q_arrow.png",
+        "binding": "view_projectiles `league_kindred_q_arrow`（朝飞行方向转，画成朝右飞；上下对称）",
+        "size": "16 × 5"
+      },
+      "kind": "sheet",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        7
+      ],
+      "pixel_1x_size": [
+        72,
+        7
+      ],
+      "output_size": [
+        576,
+        56
+      ],
+      "scale": 8,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "f37dbdc5d295490b9580a5826f3ab6dcaaf526859ad1ec98b9a252d987eca0bc",
+      "source_rectangles": [
+        [
+          -6.562,
+          259.8,
+          579.562,
+          506.2
+        ],
+        [
+          549.938,
+          259.8,
+          1136.062,
+          506.2
+        ],
+        [
+          1103.938,
+          259.8,
+          1690.062,
+          506.2
+        ],
+        [
+          1650.438,
+          259.8,
+          2236.562,
+          506.2
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "ud"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            2,
+            1,
+            17,
+            6
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            2,
+            1,
+            16,
+            6
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            2,
+            1,
+            16,
+            6
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            2,
+            1,
+            16,
+            6
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "888afa3327599870480b8022dc41ea035772fdd038f9f63bd58e180a2f2cbbf8"
+    },
+    {
+      "file": "kindred_fx_e_arrow.png",
+      "binding": {
+        "file": "kindred_fx_e_arrow.png",
+        "binding": "view_projectiles `league_kindred_e_arrow`（朝飞行方向转，画成朝右飞；上下对称）",
+        "size": "18 × 6"
+      },
+      "kind": "sheet",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        8
+      ],
+      "pixel_1x_size": [
+        80,
+        8
+      ],
+      "output_size": [
+        640,
+        64
+      ],
+      "scale": 8,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "a122b1cf81b8a23c45b23877b1035b65ea438d97f149e7ff90624792429b78b2",
+      "source_rectangles": [
+        [
+          4.778,
+          174.167,
+          569.222,
+          548.833
+        ],
+        [
+          570.278,
+          174.167,
+          1134.722,
+          548.833
+        ],
+        [
+          1110.278,
+          174.167,
+          1674.722,
+          548.833
+        ],
+        [
+          1647.278,
+          174.167,
+          2211.722,
+          548.833
+        ]
+      ],
+      "palette": [
+        "#E6DEFF",
+        "#A6AAF8",
+        "#8E82F7",
+        "#5C44DE",
+        "#3E1C76",
+        "#250E43",
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "ud"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            2,
+            1,
+            19,
+            7
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            3,
+            1,
+            18,
+            7
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            3,
+            1,
+            18,
+            7
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            5,
+            1,
+            18,
+            7
+          ],
+          "symmetry": {
+            "ud": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "61bd645c784218c317773fbb888b3568c0515df62c3ea6bf5cc937c8e966bc4e"
+    },
+    {
+      "file": "kindred_fx_a_hit.png",
+      "binding": {
+        "file": "kindred_fx_a_hit.png",
+        "binding": "view_effects `league_kindred_a_hit`（跟随，画在人物上面；左右对称）",
+        "size": "12"
+      },
+      "kind": "sheet",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "pixel_1x_size": [
+        56,
+        14
+      ],
+      "output_size": [
+        448,
+        112
+      ],
+      "scale": 8,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "ab0a67e8facc7bffbc7d7502a7f907dc68654b8388c3aa381f59f33a32903cc2",
+      "source_rectangles": [
+        [
+          -35.0,
+          124.833,
+          567.0,
+          617.167
+        ],
+        [
+          511.5,
+          124.833,
+          1113.5,
+          617.167
+        ],
+        [
+          1057.0,
+          124.833,
+          1659.0,
+          617.167
+        ],
+        [
+          1615.5,
+          124.833,
+          2217.5,
+          617.167
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            4,
+            3,
+            10,
+            11
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            3,
+            2,
+            11,
+            12
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            13,
+            13
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            3,
+            3,
+            11,
+            10
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "48bce40a2a37a3ca4eddfaf93d7ed7c1123b2b01e4b2dc3132ff021085bf350e"
+    },
+    {
+      "file": "kindred_fx_q_hit.png",
+      "binding": {
+        "file": "kindred_fx_q_hit.png",
+        "binding": "view_effects `league_kindred_q_hit`（跟随，画在人物上面；左右对称）",
+        "size": "14"
+      },
+      "kind": "sheet",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "pixel_1x_size": [
+        64,
+        16
+      ],
+      "output_size": [
+        512,
+        128
+      ],
+      "scale": 8,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "ca67ea4d120ca272422a1e8f47c982e5eda1ac86d5e9950e03b0f8dde4d6af29",
+      "source_rectangles": [
+        [
+          32.214,
+          142.571,
+          516.786,
+          581.429
+        ],
+        [
+          571.714,
+          142.571,
+          1056.286,
+          581.429
+        ],
+        [
+          1115.714,
+          142.571,
+          1600.286,
+          581.429
+        ],
+        [
+          1658.714,
+          142.571,
+          2143.286,
+          581.429
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            7,
+            7,
+            9,
+            9
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": false
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            2,
+            3,
+            14,
+            13
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": false
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "4dde17809c62ad824d9264e9a3b6ef2a5215989d553e7a00ba9623fe6719b51f"
+    },
+    {
+      "file": "kindred_fx_e_hit.png",
+      "binding": {
+        "file": "kindred_fx_e_hit.png",
+        "binding": "view_effects `league_kindred_e_hit`（跟随，画在人物上面；左右对称）",
+        "size": "18"
+      },
+      "kind": "sheet",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "pixel_1x_size": [
+        100,
+        20
+      ],
+      "output_size": [
+        800,
+        160
+      ],
+      "scale": 8,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "52e5c9c551347a73100501a1600c3718936bf1ac98ac271354fdda2d2ce35ca1",
+      "source_rectangles": [
+        [
+          -17.444,
+          152.389,
+          461.444,
+          584.611
+        ],
+        [
+          416.056,
+          152.389,
+          894.944,
+          584.611
+        ],
+        [
+          847.056,
+          152.389,
+          1325.944,
+          584.611
+        ],
+        [
+          1277.556,
+          152.389,
+          1756.444,
+          584.611
+        ],
+        [
+          1710.056,
+          152.389,
+          2188.944,
+          584.611
+        ]
+      ],
+      "palette": [
+        "#E6DEFF",
+        "#A6AAF8",
+        "#8E82F7",
+        "#5C44DE",
+        "#3E1C76",
+        "#250E43",
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            19,
+            19
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": false
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            3,
+            2,
+            17,
+            18
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            2,
+            2,
+            18,
+            18
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            3,
+            3,
+            17,
+            19
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 4,
+          "nonempty": true,
+          "bbox": [
+            3,
+            3,
+            17,
+            18
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": false
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "95b28e7d6296234b28aeee51640887c2c09d4acbc0a488e1ef74c44740e9c58c"
+    },
+    {
+      "file": "kindred_fx_e_mark.png",
+      "binding": {
+        "file": "kindred_fx_e_mark.png",
+        "binding": "view_effects `league_kindred_e_mark`（跟随，画在人物上面；中间的漩涡不用对称）",
+        "size": "11 × 11"
+      },
+      "kind": "sheet",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "pixel_1x_size": [
+        56,
+        14
+      ],
+      "output_size": [
+        448,
+        112
+      ],
+      "scale": 8,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "694ffeaab7f8a84919e1a31801d0a0969292152a1f0f7f0fe90b6b5429cf3ec8",
+      "source_rectangles": [
+        [
+          8.727,
+          85.773,
+          571.273,
+          657.227
+        ],
+        [
+          547.727,
+          85.773,
+          1110.273,
+          657.227
+        ],
+        [
+          1079.727,
+          85.773,
+          1642.273,
+          657.227
+        ],
+        [
+          1620.727,
+          85.773,
+          2183.273,
+          657.227
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#6AE3EA",
+        "#39B4F7",
+        "#2E78F2",
+        "#8E82F7",
+        "#5C44DE"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr_except_swirl"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            13,
+            13
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            13,
+            13
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            13,
+            12
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            2,
+            2,
+            12,
+            12
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "2bd8aa0c96a4bc985ec6ad5b4334ddb84dcb394da9dc3903e1c55b6d6ea256b3"
+    },
+    {
+      "file": "kindred_fx_p_stack.png",
+      "binding": {
+        "file": "kindred_fx_p_stack.png",
+        "binding": "view_buffs `league_kindred_p_stack`（跟随，画在人物上面；中间的漩涡不用对称）",
+        "size": "10 × 12"
+      },
+      "kind": "sheet",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        14
+      ],
+      "pixel_1x_size": [
+        48,
+        14
+      ],
+      "output_size": [
+        384,
+        112
+      ],
+      "scale": 8,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "8b7e9d7f7ab6f28c73f8fa7c1695060391c99374e7b9ea420a5e6fb8f3d4f7fb",
+      "source_rectangles": [
+        [
+          57.4,
+          82.333,
+          526.6,
+          679.667
+        ],
+        [
+          560.9,
+          82.333,
+          1030.1,
+          679.667
+        ],
+        [
+          1120.9,
+          82.333,
+          1590.1,
+          679.667
+        ],
+        [
+          1661.9,
+          82.333,
+          2131.1,
+          679.667
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#6AE3EA",
+        "#39B4F7",
+        "#2E78F2",
+        "#8E82F7",
+        "#5C44DE"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr_except_swirl"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            10,
+            13
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            11,
+            13
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            1,
+            2,
+            11,
+            13
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            10,
+            13
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "2887a6454a577c58aaccd109072ddbb8f7de6a157bb91abfb7a3d7d9f5205f50"
+    },
+    {
+      "file": "kindred_fx_e_bite.png",
+      "binding": {
+        "file": "kindred_fx_e_bite.png",
+        "binding": "view_effects `league_kindred_e_bite`（BIG，跟随，画在人物上面；左右对称）",
+        "size": "28 × 32"
+      },
+      "kind": "sheet",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        34
+      ],
+      "pixel_1x_size": [
+        180,
+        34
+      ],
+      "output_size": [
+        1440,
+        272
+      ],
+      "scale": 8,
+      "raw_size": [
+        2103,
+        748
+      ],
+      "raw_sha256": "7777a3c4e9886b58341d1b5912daf79e181e53cdd13ebe295de6aaa268390fc5",
+      "source_rectangles": [
+        [
+          -76.929,
+          160.031,
+          370.929,
+          651.969
+        ],
+        [
+          228.571,
+          160.031,
+          676.429,
+          651.969
+        ],
+        [
+          614.071,
+          160.031,
+          1061.929,
+          651.969
+        ],
+        [
+          1009.071,
+          160.031,
+          1456.929,
+          651.969
+        ],
+        [
+          1363.571,
+          160.031,
+          1811.429,
+          651.969
+        ],
+        [
+          1714.071,
+          160.031,
+          2161.929,
+          651.969
+        ]
+      ],
+      "palette": [
+        "#E6DEFF",
+        "#A6AAF8",
+        "#8E82F7",
+        "#5C44DE",
+        "#3E1C76",
+        "#250E43",
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            8,
+            5,
+            22,
+            18
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            3,
+            3,
+            27,
+            31
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            1,
+            0,
+            29,
+            33
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            2,
+            5,
+            28,
+            33
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 4,
+          "nonempty": true,
+          "bbox": [
+            3,
+            3,
+            27,
+            34
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 5,
+          "nonempty": true,
+          "bbox": [
+            5,
+            5,
+            25,
+            33
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "8622c7a933a79fe1752bd7894fc0eefcf000ea5788ebd971f5dfd91d42a42114"
+    },
+    {
+      "file": "kindred_fx_w_bite.png",
+      "binding": {
+        "file": "kindred_fx_w_bite.png",
+        "binding": "view_effects `league_kindred_w_bite`（跟随，画在人物上面；左右对称）",
+        "size": "18 × 18"
+      },
+      "kind": "sheet",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "pixel_1x_size": [
+        100,
+        20
+      ],
+      "output_size": [
+        800,
+        160
+      ],
+      "scale": 8,
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_sha256": "1c10d381e1047af56ac7cb391c0386ae5b32439851aea9708adfefabc44b5750",
+      "source_rectangles": [
+        [
+          -1.056,
+          174.778,
+          420.056,
+          659.222
+        ],
+        [
+          409.944,
+          174.778,
+          831.056,
+          659.222
+        ],
+        [
+          789.944,
+          174.778,
+          1211.056,
+          659.222
+        ],
+        [
+          1174.944,
+          174.778,
+          1596.056,
+          659.222
+        ],
+        [
+          1581.944,
+          174.778,
+          2003.056,
+          659.222
+        ]
+      ],
+      "palette": [
+        "#E6DEFF",
+        "#A6AAF8",
+        "#8E82F7",
+        "#5C44DE",
+        "#3E1C76",
+        "#250E43",
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            19,
+            19
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            2,
+            3,
+            18,
+            19
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            1,
+            2,
+            19,
+            18
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            1,
+            4,
+            19,
+            18
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 4,
+          "nonempty": true,
+          "bbox": [
+            2,
+            3,
+            18,
+            18
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "48337382fce6257fab04daf2a0e969616d1fd297c2a324f37c1da31bd1f9a090"
+    },
+    {
+      "file": "kindred_fx_q_dash.png",
+      "binding": {
+        "file": "kindred_fx_q_dash.png",
+        "binding": "view_effects `league_kindred_q_dash`（画在人物下面，不跟随；左右对称、上下对称）",
+        "size": "24 × 8"
+      },
+      "kind": "sheet",
+      "frames": 5,
+      "cell_1x": [
+        26,
+        10
+      ],
+      "pixel_1x_size": [
+        130,
+        10
+      ],
+      "output_size": [
+        1040,
+        80
+      ],
+      "scale": 8,
+      "raw_size": [
+        2020,
+        779
+      ],
+      "raw_sha256": "0781f8be5cdf34b674f5b29856f449f40d00405fe47d4191327024a7d6e81a43",
+      "source_rectangles": [
+        [
+          2.292,
+          280.875,
+          436.708,
+          552.125
+        ],
+        [
+          365.792,
+          280.875,
+          800.208,
+          552.125
+        ],
+        [
+          793.292,
+          280.875,
+          1227.708,
+          552.125
+        ],
+        [
+          1218.792,
+          280.875,
+          1653.208,
+          552.125
+        ],
+        [
+          1594.792,
+          280.875,
+          2029.208,
+          552.125
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr",
+        "ud"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            8,
+            3,
+            18,
+            7
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            3,
+            2,
+            23,
+            8
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            25,
+            9
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            3,
+            2,
+            23,
+            8
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 4,
+          "nonempty": true,
+          "bbox": [
+            6,
+            3,
+            20,
+            7
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "5e167d57e1b135ef843623fd5af7d93e9752e2f8b861758354bc9274c6c5a480"
+    },
+    {
+      "file": "kindred_fx_w_zone.png",
+      "binding": {
+        "file": "kindred_fx_w_zone.png",
+        "binding": "view_effects `league_kindred_w_zone`（BIG，画在人物下面，不跟随，留在她放 W 的地方；左右对称、上下对称）",
+        "size": "120 × 46"
+      },
+      "kind": "sheet",
+      "frames": 10,
+      "cell_1x": [
+        124,
+        50
+      ],
+      "pixel_1x_size": [
+        1240,
+        50
+      ],
+      "output_size": [
+        9920,
+        400
+      ],
+      "scale": 8,
+      "raw_size": [
+        1974,
+        797
+      ],
+      "raw_sha256": "50c245c96291daead7bef93fa3ca829c429c05a952d4831e77c697061b9dd041",
+      "source_rectangles": [
+        [
+          -15.8,
+          371.304,
+          188.8,
+          513.696
+        ],
+        [
+          138.2,
+          371.304,
+          342.8,
+          513.696
+        ],
+        [
+          326.2,
+          371.304,
+          530.8,
+          513.696
+        ],
+        [
+          532.7,
+          371.304,
+          737.3,
+          513.696
+        ],
+        [
+          742.2,
+          371.304,
+          946.8,
+          513.696
+        ],
+        [
+          952.7,
+          371.304,
+          1157.3,
+          513.696
+        ],
+        [
+          1163.2,
+          371.304,
+          1367.8,
+          513.696
+        ],
+        [
+          1369.7,
+          371.304,
+          1574.3,
+          513.696
+        ],
+        [
+          1567.7,
+          371.304,
+          1772.3,
+          513.696
+        ],
+        [
+          1758.2,
+          371.304,
+          1962.8,
+          513.696
+        ]
+      ],
+      "palette": [
+        "#E6DEFF",
+        "#A6AAF8",
+        "#8E82F7",
+        "#5C44DE",
+        "#3E1C76",
+        "#250E43"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr",
+        "ud"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            38,
+            14,
+            86,
+            36
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            23,
+            10,
+            101,
+            40
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            5,
+            5,
+            119,
+            45
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            2,
+            2,
+            122,
+            48
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 4,
+          "nonempty": true,
+          "bbox": [
+            2,
+            2,
+            122,
+            48
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 5,
+          "nonempty": true,
+          "bbox": [
+            2,
+            3,
+            122,
+            47
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 6,
+          "nonempty": true,
+          "bbox": [
+            2,
+            5,
+            122,
+            45
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 7,
+          "nonempty": true,
+          "bbox": [
+            4,
+            5,
+            120,
+            45
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 8,
+          "nonempty": true,
+          "bbox": [
+            8,
+            5,
+            116,
+            45
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 9,
+          "nonempty": true,
+          "bbox": [
+            9,
+            3,
+            115,
+            47
+          ],
+          "symmetry": {
+            "lr": true,
+            "ud": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "runtime_loop_frames_1based": [
+        3,
+        8
+      ],
+      "runtime_ticks": 510,
+      "preview_frame_ms": 100,
+      "sha256": "1917c0e7b3e229fd3b2e61b2c54ca97e595d87eb34a1672ebb32bb469239b8de"
+    },
+    {
+      "file": "kindred_fx_r_zone.png",
+      "binding": {
+        "file": "kindred_fx_r_zone.png",
+        "binding": "view_effects `league_kindred_r_zone`（BIG，画在人物下面，不跟随，留在她放大招的地方；中间的漩涡不用对称）",
+        "size": "100 × 38"
+      },
+      "kind": "sheet",
+      "frames": 9,
+      "cell_1x": [
+        104,
+        44
+      ],
+      "pixel_1x_size": [
+        936,
+        44
+      ],
+      "output_size": [
+        7488,
+        352
+      ],
+      "scale": 8,
+      "raw_size": [
+        1828,
+        860
+      ],
+      "raw_sha256": "b6bfe492d08d44dc6b334be513a28d9ff0c2c92802b8f0d3e2a3b6bd4c5d0ee1",
+      "source_rectangles": [
+        [
+          17.06,
+          287.132,
+          221.94,
+          563.868
+        ],
+        [
+          209.56,
+          287.132,
+          414.44,
+          563.868
+        ],
+        [
+          407.06,
+          287.132,
+          611.94,
+          563.868
+        ],
+        [
+          610.06,
+          287.132,
+          814.94,
+          563.868
+        ],
+        [
+          814.06,
+          287.132,
+          1018.94,
+          563.868
+        ],
+        [
+          1014.56,
+          287.132,
+          1219.44,
+          563.868
+        ],
+        [
+          1215.06,
+          287.132,
+          1419.94,
+          563.868
+        ],
+        [
+          1415.56,
+          287.132,
+          1620.44,
+          563.868
+        ],
+        [
+          1610.56,
+          287.132,
+          1815.44,
+          563.868
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#C0E6FC",
+        "#89F7DD",
+        "#A6AAF8"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr_except_swirl"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            11,
+            24,
+            93,
+            39
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            6,
+            20,
+            98,
+            40
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            4,
+            12,
+            100,
+            41
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            4,
+            10,
+            100,
+            41
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 4,
+          "nonempty": true,
+          "bbox": [
+            2,
+            6,
+            102,
+            41
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 5,
+          "nonempty": true,
+          "bbox": [
+            3,
+            10,
+            101,
+            41
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 6,
+          "nonempty": true,
+          "bbox": [
+            3,
+            3,
+            101,
+            41
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 7,
+          "nonempty": true,
+          "bbox": [
+            5,
+            13,
+            99,
+            40
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 8,
+          "nonempty": true,
+          "bbox": [
+            13,
+            19,
+            91,
+            38
+          ],
+          "symmetry": {
+            "lr_except_swirl": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "runtime_loop_frames_1based": [
+        3,
+        6
+      ],
+      "runtime_ticks": 240,
+      "preview_frame_ms": 100,
+      "sha256": "f3582cd424448f836a0215ca5b2c2459d2fb0b92bfd83aec17ae27a97e5e7ff2"
+    },
+    {
+      "file": "kindred_fx_r_heal.png",
+      "binding": {
+        "file": "kindred_fx_r_heal.png",
+        "binding": "view_effects `league_kindred_r_heal`（跟随，画在人物上面；左右对称）",
+        "size": "18 × 32"
+      },
+      "kind": "sheet",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        34
+      ],
+      "pixel_1x_size": [
+        120,
+        34
+      ],
+      "output_size": [
+        960,
+        272
+      ],
+      "scale": 8,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "58cd558fccdaf4f28ac921fdfcc5effb6d6a5f51dcb634d4f78d07cc7c235ea3",
+      "source_rectangles": [
+        [
+          5.944,
+          47.531,
+          377.056,
+          709.469
+        ],
+        [
+          361.444,
+          47.531,
+          732.556,
+          709.469
+        ],
+        [
+          720.444,
+          47.531,
+          1091.556,
+          709.469
+        ],
+        [
+          1082.944,
+          47.531,
+          1454.056,
+          709.469
+        ],
+        [
+          1443.944,
+          47.531,
+          1815.056,
+          709.469
+        ],
+        [
+          1803.944,
+          47.531,
+          2175.056,
+          709.469
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#C0E6FC",
+        "#89F7DD",
+        "#A6AAF8"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            2,
+            29,
+            18,
+            33
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 1,
+          "nonempty": true,
+          "bbox": [
+            1,
+            13,
+            19,
+            33
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 2,
+          "nonempty": true,
+          "bbox": [
+            1,
+            1,
+            19,
+            33
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 3,
+          "nonempty": true,
+          "bbox": [
+            2,
+            4,
+            18,
+            33
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 4,
+          "nonempty": true,
+          "bbox": [
+            3,
+            12,
+            17,
+            33
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        },
+        {
+          "index": 5,
+          "nonempty": true,
+          "bbox": [
+            4,
+            24,
+            16,
+            33
+          ],
+          "symmetry": {
+            "lr": true
+          },
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated sheet dimensions/cell spacing differ from prompt. Source frames were separated at low-alpha column valleys, isolated, centered, and majority-projected at one shared per-sheet scale into the requested logical grid. Foreground coverage threshold 20%; color chosen by majority among foreground votes. No new silhouettes were drawn."
+      ],
+      "preview_frame_ms": 100,
+      "sha256": "fa575dbe75ae50a825c575b3a55c3c1a912a26651f320bd9faac3c62c6c3df01"
+    },
+    {
+      "file": "kindred_bake_a_nock_2.png",
+      "binding": {
+        "file": "kindred_bake_a_nock_2.png",
+        "into": "hd_attack 2",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        256,
+        170
+      ],
+      "pixel_1x_size": [
+        256,
+        170
+      ],
+      "output_size": [
+        1536,
+        1020
+      ],
+      "scale": 6,
+      "raw_size": [
+        1537,
+        1023
+      ],
+      "raw_sha256": "50d4d25a18b82220d7678b7bfb688b42174d2f8968db804f54ae635a6296c1b5",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1536,
+          1020
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            106,
+            55,
+            167,
+            64
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          32,
+          5,
+          157,
+          161
+        ],
+        "into": "hd_attack 2",
+        "cyan": [
+          114,
+          60
+        ],
+        "yellow": [
+          155,
+          59
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated arrow shaft/fan anchored to cyan, central tip twelve cells beyond yellow",
+        "source_origin": [
+          384.0,
+          531.0
+        ],
+        "rear_effect_limit_cells": 106
+      },
+      "anchor_distance_cells": {
+        "cyan": 0.0,
+        "yellow": 0.0
+      },
+      "sha256": "34e3cc284215e1a4bd03d90e203cda02423ff9d9fa38c90a425988866b1062de"
+    },
+    {
+      "file": "kindred_bake_a_nock_3.png",
+      "binding": {
+        "file": "kindred_bake_a_nock_3.png",
+        "into": "hd_attack 3",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        256,
+        170
+      ],
+      "pixel_1x_size": [
+        256,
+        170
+      ],
+      "output_size": [
+        1536,
+        1020
+      ],
+      "scale": 6,
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "188603a5d9b837b0479fbbc7607dbc412fbb0c19d1c9fe24a00a2bd83e077e05",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1536,
+          1020
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            98,
+            47,
+            176,
+            60
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          20,
+          1,
+          180,
+          169
+        ],
+        "into": "hd_attack 3",
+        "cyan": [
+          106,
+          54
+        ],
+        "yellow": [
+          165,
+          55
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated arrow shaft/fan anchored to cyan, central tip twelve cells beyond yellow",
+        "source_origin": [
+          433.4,
+          550.0
+        ],
+        "rear_effect_limit_cells": 98
+      },
+      "anchor_distance_cells": {
+        "cyan": 0.0,
+        "yellow": 0.0
+      },
+      "sha256": "8c7f0340c7ed8d382ac698e71bb1c9a30fccee0cffe976cae4c14701cf835725"
+    },
+    {
+      "file": "kindred_bake_a_loose_4.png",
+      "binding": {
+        "file": "kindred_bake_a_loose_4.png",
+        "into": "hd_attack 4",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        256,
+        170
+      ],
+      "pixel_1x_size": [
+        256,
+        170
+      ],
+      "output_size": [
+        1536,
+        1020
+      ],
+      "scale": 6,
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "85c8c52404fd2c36c8759fcc5ff6fea0c649592eef7a8be13bb761a8ae68e058",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1536,
+          1020
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            159,
+            40,
+            212,
+            70
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          22,
+          1,
+          176,
+          169
+        ],
+        "into": "hd_attack 4",
+        "yellow": [
+          162,
+          55
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated raster isolated and fitted to guide effect footprint",
+        "target_rect_cells": [
+          159,
+          40,
+          212,
+          70
+        ]
+      },
+      "anchor_distance_cells": {
+        "yellow": 0.0
+      },
+      "sha256": "3160f93ee67f4ecbf20d517ef1a92fdc2c1fb3a17ad4fb11d5e0c77f5e505d98"
+    },
+    {
+      "file": "kindred_bake_e_nock_2.png",
+      "binding": {
+        "file": "kindred_bake_e_nock_2.png",
+        "into": "hd_skill2 2",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        256,
+        170
+      ],
+      "pixel_1x_size": [
+        256,
+        170
+      ],
+      "output_size": [
+        1536,
+        1020
+      ],
+      "scale": 6,
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "11ace1a627401863f7126178e244fb59c016c86c88cbe7b91adea52becf6a5d1",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1536,
+          1020
+        ]
+      ],
+      "palette": [
+        "#E6DEFF",
+        "#A6AAF8",
+        "#8E82F7",
+        "#5C44DE",
+        "#3E1C76",
+        "#250E43",
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            120,
+            64,
+            185,
+            73
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          29,
+          15,
+          163,
+          140
+        ],
+        "into": "hd_skill2 2",
+        "cyan": [
+          128,
+          71
+        ],
+        "yellow": [
+          173,
+          69
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated arrow shaft/fan anchored to cyan, central tip twelve cells beyond yellow",
+        "source_origin": [
+          457.32,
+          616.0
+        ],
+        "rear_effect_limit_cells": 120
+      },
+      "anchor_distance_cells": {
+        "cyan": 0.0,
+        "yellow": 0.0
+      },
+      "sha256": "e1fbf29e0924e15a5a235920aadcd3619d3050e3d6567457f1ba11bf282bca1d"
+    },
+    {
+      "file": "kindred_bake_e_nock_3.png",
+      "binding": {
+        "file": "kindred_bake_e_nock_3.png",
+        "into": "hd_skill2 3",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        256,
+        170
+      ],
+      "pixel_1x_size": [
+        256,
+        170
+      ],
+      "output_size": [
+        1536,
+        1020
+      ],
+      "scale": 6,
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "e45f5e26165d9a8569b21b93d530c862b1d67c2f421e807479a022c88e848e59",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1536,
+          1020
+        ]
+      ],
+      "palette": [
+        "#E6DEFF",
+        "#A6AAF8",
+        "#8E82F7",
+        "#5C44DE",
+        "#3E1C76",
+        "#250E43",
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            133,
+            59,
+            210,
+            68
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          3,
+          12,
+          214,
+          146
+        ],
+        "into": "hd_skill2 3",
+        "cyan": [
+          141,
+          62
+        ],
+        "yellow": [
+          198,
+          65
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated arrow shaft/fan anchored to cyan, central tip twelve cells beyond yellow",
+        "source_origin": [
+          378.47999999999996,
+          516.0
+        ],
+        "rear_effect_limit_cells": 133
+      },
+      "anchor_distance_cells": {
+        "cyan": 0.0,
+        "yellow": 0.0
+      },
+      "sha256": "4409185ac12823229560084261905154ac0fba3cc114d35e849fa0a31d6e9832"
+    },
+    {
+      "file": "kindred_bake_e_loose_4.png",
+      "binding": {
+        "file": "kindred_bake_e_loose_4.png",
+        "into": "hd_skill2 4",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        256,
+        170
+      ],
+      "pixel_1x_size": [
+        256,
+        170
+      ],
+      "output_size": [
+        1536,
+        1020
+      ],
+      "scale": 6,
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "d34d79e61d953a7a3b5c3701f6224a00438f59b8925982072ea65682212f2f2d",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1536,
+          1020
+        ]
+      ],
+      "palette": [
+        "#E6DEFF",
+        "#A6AAF8",
+        "#8E82F7",
+        "#5C44DE",
+        "#3E1C76",
+        "#250E43",
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            176,
+            51,
+            229,
+            81
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          23,
+          12,
+          174,
+          146
+        ],
+        "into": "hd_skill2 4",
+        "yellow": [
+          179,
+          66
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated raster isolated and fitted to guide effect footprint",
+        "target_rect_cells": [
+          176,
+          51,
+          229,
+          81
+        ]
+      },
+      "anchor_distance_cells": {
+        "yellow": 0.0
+      },
+      "sha256": "6a8d4ec053ff328622c5533e024868ad92ce2a03f2be545eb1733f9a1ce758c6"
+    },
+    {
+      "file": "kindred_bake_q_nock_5.png",
+      "binding": {
+        "file": "kindred_bake_q_nock_5.png",
+        "into": "hd_skill 5",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        256,
+        170
+      ],
+      "pixel_1x_size": [
+        256,
+        170
+      ],
+      "output_size": [
+        1536,
+        1020
+      ],
+      "scale": 6,
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "b20e45deee72b6499742c58db101a40d52f8bcbced72f8a4dc97b4db57cf7d86",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1536,
+          1020
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            97,
+            53,
+            177,
+            86
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          19,
+          17,
+          182,
+          136
+        ],
+        "into": "hd_skill 5",
+        "cyan": [
+          105,
+          78
+        ],
+        "yellow": [
+          163,
+          69
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated arrow shaft/fan anchored to cyan, central tip twelve cells beyond yellow",
+        "source_origin": [
+          223.0,
+          528.0
+        ],
+        "rear_effect_limit_cells": 97
+      },
+      "anchor_distance_cells": {
+        "cyan": 0.0,
+        "yellow": 0.0
+      },
+      "sha256": "f59f4589b9c62e929f0da5331114609a6a58ae8e4fcc712109e2ffb10295a216"
+    },
+    {
+      "file": "kindred_bake_q_loose_6.png",
+      "binding": {
+        "file": "kindred_bake_q_loose_6.png",
+        "into": "hd_skill 6",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        256,
+        170
+      ],
+      "pixel_1x_size": [
+        256,
+        170
+      ],
+      "output_size": [
+        1536,
+        1020
+      ],
+      "scale": 6,
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "df167bc4b28aea06d28da9f420e8d382abe5af8667a9c28fd8d90df4cbf6bf3d",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1536,
+          1020
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            128,
+            50,
+            181,
+            80
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          31,
+          12,
+          159,
+          146
+        ],
+        "into": "hd_skill 6",
+        "yellow": [
+          131,
+          65
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated raster isolated and fitted to guide effect footprint",
+        "target_rect_cells": [
+          128,
+          50,
+          181,
+          80
+        ]
+      },
+      "anchor_distance_cells": {
+        "yellow": 1.0
+      },
+      "sha256": "6b468e411884f82c3a0d747ad031cb748340a57ff01f4518afbf12284e938d94"
+    },
+    {
+      "file": "kindred_bake_q_trail_3.png",
+      "binding": {
+        "file": "kindred_bake_q_trail_3.png",
+        "into": "hd_skill 3",
+        "layer": "under"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        170,
+        256
+      ],
+      "pixel_1x_size": [
+        170,
+        256
+      ],
+      "output_size": [
+        1020,
+        1536
+      ],
+      "scale": 6,
+      "raw_size": [
+        1022,
+        1539
+      ],
+      "raw_sha256": "bef17b552670a7d680a3bc4872bd2858b4363840cac9505b0c3485ca05d2884c",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1020,
+          1536
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            17,
+            132,
+            70,
+            184
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          170,
+          256
+        ],
+        "px": 6,
+        "frame": [
+          6,
+          41,
+          159,
+          174
+        ],
+        "into": "hd_skill 3",
+        "cyan": [
+          65,
+          137
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated raster isolated and fitted to guide effect footprint",
+        "target_rect_cells": [
+          17.573593128807154,
+          132,
+          70,
+          184.42640687119285
+        ]
+      },
+      "anchor_distance_cells": {
+        "cyan": 1.0
+      },
+      "sha256": "c2a95bdec46983f32905d969afe1f201e47567d68cd1d61060ca9755f1c9559f"
+    },
+    {
+      "file": "kindred_bake_q_trail_4.png",
+      "binding": {
+        "file": "kindred_bake_q_trail_4.png",
+        "into": "hd_skill 4",
+        "layer": "under"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        256,
+        170
+      ],
+      "pixel_1x_size": [
+        256,
+        170
+      ],
+      "output_size": [
+        1536,
+        1020
+      ],
+      "scale": 6,
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "79547dff5fb74d4f24483eba09a82ea9f4da9095551d7e184006897de183110e",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1536,
+          1020
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            68,
+            99,
+            113,
+            144
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          36,
+          1,
+          148,
+          169
+        ],
+        "into": "hd_skill 4",
+        "cyan": [
+          108,
+          104
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated raster isolated and fitted to guide effect footprint",
+        "target_rect_cells": [
+          67.64466094067262,
+          99,
+          113,
+          144.35533905932738
+        ]
+      },
+      "anchor_distance_cells": {
+        "cyan": 0.0
+      },
+      "sha256": "1e4de1f6a1d1fe5358fd554e3699588bbfaff8d12551609e5797c0f73f290e59"
+    },
+    {
+      "file": "kindred_bake_r_raise_5.png",
+      "binding": {
+        "file": "kindred_bake_r_raise_5.png",
+        "into": "hd_ult 5",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        170,
+        256
+      ],
+      "pixel_1x_size": [
+        170,
+        256
+      ],
+      "output_size": [
+        1020,
+        1536
+      ],
+      "scale": 6,
+      "raw_size": [
+        1024,
+        1536
+      ],
+      "raw_sha256": "c866501aa7703f7b6466106148e516b84df442fd712e1fef7bec680992977276",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1020,
+          1536
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E1FBFD",
+        "#C0E6FC",
+        "#89F7DD",
+        "#A6AAF8"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            87,
+            5,
+            116,
+            57
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          170,
+          256
+        ],
+        "px": 6,
+        "frame": [
+          12,
+          17,
+          146,
+          222
+        ],
+        "into": "hd_ult 5",
+        "yellow": [
+          101,
+          18
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated star bright core placed at raised bow anchor",
+        "source_core": [
+          664,
+          274
+        ]
+      },
+      "anchor_distance_cells": {
+        "yellow": 0.0
+      },
+      "sha256": "91388537d2b5dffc754251718147b78f6ea1b999fe6997a6221c3dd259abe08f"
+    },
+    {
+      "file": "kindred_bake_w_call_2.png",
+      "binding": {
+        "file": "kindred_bake_w_call_2.png",
+        "into": "hd_w_cast 2",
+        "layer": "over"
+      },
+      "kind": "bake",
+      "frames": 1,
+      "cell_1x": [
+        170,
+        256
+      ],
+      "pixel_1x_size": [
+        170,
+        256
+      ],
+      "output_size": [
+        1020,
+        1536
+      ],
+      "scale": 6,
+      "raw_size": [
+        1024,
+        1536
+      ],
+      "raw_sha256": "a84fb86e8568cb9f945d49b266c437e03507629cd296577a2dce1e3772be4e5b",
+      "source_rectangles": [
+        [
+          0,
+          0,
+          1020,
+          1536
+        ]
+      ],
+      "palette": [
+        "#E6DEFF",
+        "#A6AAF8",
+        "#8E82F7",
+        "#5C44DE",
+        "#3E1C76",
+        "#250E43",
+        "#FFFFFF",
+        "#E1FBFD",
+        "#89F7DD",
+        "#54EDD7",
+        "#39B4F7",
+        "#2E78F2"
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "symmetry": [],
+      "frame_checks": [
+        {
+          "index": 0,
+          "nonempty": true,
+          "bbox": [
+            37,
+            12,
+            65,
+            43
+          ],
+          "symmetry": {},
+          "has_pale_core": true
+        }
+      ],
+      "notes": [
+        "Generated effect was oversized/off-anchor; raster transformed to the supplied guide footprint before 6px majority readback. No character or new effect geometry was drawn."
+      ],
+      "guide": {
+        "canvas": [
+          170,
+          256
+        ],
+        "px": 6,
+        "frame": [
+          12,
+          17,
+          146,
+          222
+        ],
+        "into": "hd_w_cast 2",
+        "cyan": [
+          51,
+          44
+        ]
+      },
+      "raster_alignment": {
+        "method": "generated raster isolated and fitted to guide effect footprint",
+        "target_rect_cells": [
+          37,
+          12,
+          65,
+          44
+        ]
+      },
+      "anchor_distance_cells": {
+        "cyan": 3.605551275463989
+      },
+      "sha256": "7cb0d601da1c68dd3f4adf3ccc020ad65a8baf587fe169b457050d373f0cb48c"
+    }
+  ]
+}

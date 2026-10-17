@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_syndra": {
+        "skill2": "先用<#ff9028ff>驱使念力<>把法球（没有时举起附近的小兵或野怪，大小龙除外）掷向敌方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。再锥形击退敌人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>，被推开的法球使附近敌人<#ef5350ff>晕眩1.25秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_syndra": {
+        "skill2": "先用<#ff9028ff>意志之力<>把星體（沒有時舉起附近的小兵或野怪，大小龍除外）擲向敵方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>。再錐形擊退敵人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>，被推開的星體使附近敵人<#ef5350ff>暈眩1.25秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_syndra": {
+        "skill2": "First <#ff9028ff>Force of Will<> throws a sphere (with none, the nearest minion or monster - never a dragon) at an enemy champion for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing 30%<>. Then a cone deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and knocks enemies back; spheres pushed <#ef5350ff>stun<> enemies near them for <#ffb900ff>1.25s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_syndra": {
+        "skill2": "먼저 <#ff9028ff>의지의 힘<>으로 적 챔피언에게 구체(없으면 근처 미니언·몬스터, 용 제외)를 던져 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>30% 둔화<>. 이어서 부채꼴로 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>와 밀쳐내기, 밀려난 구체 주변 적 <#ef5350ff>기절 1.25초<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_syndra": {
+        "skill2": "まず<#ff9028ff>ダークフォース<>でスフィア（なければ近くのミニオンかモンスター、ドラゴン除く）を敵チャンピオンに投げ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>。続けて扇状に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>とノックバック、押されたスフィアが周囲の敵を<#ef5350ff>1.25秒スタン<>。"
+      }
+    }
+  }
+}

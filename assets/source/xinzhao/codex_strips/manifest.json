@@ -1,0 +1,3891 @@
+{
+  "status": "review_only_not_import_ready",
+  "cell": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "feet_row": 81,
+  "palette": [
+    "#030105",
+    "#0D0A19",
+    "#1B1D31",
+    "#1E092F",
+    "#2A0941",
+    "#341620",
+    "#41A9D5",
+    "#430F67",
+    "#613231",
+    "#613712",
+    "#654F83",
+    "#6E6A82",
+    "#7F1BB5",
+    "#86523F",
+    "#8ADEF6",
+    "#A46E21",
+    "#A72DE2",
+    "#A7A5C0",
+    "#AE9BC9",
+    "#B98F91",
+    "#BB7656",
+    "#D5C9C6",
+    "#E2A53D",
+    "#EAB241",
+    "#F3B786"
+  ],
+  "actions": {
+    "idle": {
+      "file": "xinzhao_idle.png",
+      "status": "pixel_checks_passed_visual_review_pending",
+      "frame_count": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "output_size": [
+        3072,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": null,
+      "hit_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 200,
+          "head": [
+            77.9,
+            48.3
+          ],
+          "bbox_1x": [
+            33,
+            40,
+            98,
+            82
+          ],
+          "approved_head_rect_1x": [
+            69,
+            40,
+            86,
+            58
+          ],
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": true
+          }
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 200,
+          "head": [
+            77.9,
+            48.3
+          ],
+          "bbox_1x": [
+            33,
+            40,
+            98,
+            82
+          ],
+          "approved_head_rect_1x": [
+            69,
+            40,
+            86,
+            58
+          ],
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": true
+          }
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 200,
+          "head": [
+            77.9,
+            48.3
+          ],
+          "bbox_1x": [
+            33,
+            40,
+            98,
+            82
+          ],
+          "approved_head_rect_1x": [
+            69,
+            40,
+            86,
+            58
+          ],
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": true
+          }
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 200,
+          "head": [
+            77.9,
+            48.3
+          ],
+          "bbox_1x": [
+            33,
+            40,
+            98,
+            82
+          ],
+          "approved_head_rect_1x": [
+            69,
+            40,
+            86,
+            58
+          ],
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": true
+          }
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 200,
+          "head": [
+            77.9,
+            48.3
+          ],
+          "bbox_1x": [
+            33,
+            40,
+            98,
+            82
+          ],
+          "approved_head_rect_1x": [
+            69,
+            40,
+            86,
+            58
+          ],
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": true
+          }
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 200,
+          "head": [
+            77.9,
+            48.3
+          ],
+          "bbox_1x": [
+            33,
+            40,
+            98,
+            82
+          ],
+          "approved_head_rect_1x": [
+            69,
+            40,
+            86,
+            58
+          ],
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": true
+          }
+        }
+      ]
+    },
+    "run": {
+      "file": "candidates/xinzhao_run.png",
+      "status": "needs_redraw",
+      "frame_count": 8,
+      "grid": [
+        4,
+        2
+      ],
+      "output_size": [
+        4096,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": null,
+      "hit_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "ms": 130,
+          "head": [
+            78.6,
+            48.7
+          ],
+          "bbox_1x": [
+            28,
+            21,
+            119,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            9,
+            -8
+          ],
+          "requested_translation": [
+            9,
+            -8
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "ms": 130,
+          "head": [
+            77.3,
+            50.0
+          ],
+          "bbox_1x": [
+            8,
+            21,
+            101,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -10,
+            -9
+          ],
+          "requested_translation": [
+            -10,
+            -9
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            71,
+            70
+          ],
+          "ms": 130,
+          "head": [
+            76.7,
+            43.3
+          ],
+          "bbox_1x": [
+            7,
+            20,
+            100,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -11,
+            -9
+          ],
+          "requested_translation": [
+            -11,
+            -9
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            512,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            4096,
+            768
+          ],
+          "pivot": [
+            71,
+            70
+          ],
+          "ms": 130,
+          "head": [
+            77.3,
+            43.3
+          ],
+          "bbox_1x": [
+            17,
+            20,
+            111,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -1,
+            -9
+          ],
+          "requested_translation": [
+            -1,
+            -9
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "ms": 130,
+          "head": [
+            77.7,
+            49.1
+          ],
+          "bbox_1x": [
+            4,
+            22,
+            96,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -15,
+            -7
+          ],
+          "requested_translation": [
+            -15,
+            -7
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            73,
+            70
+          ],
+          "ms": 130,
+          "head": [
+            79.2,
+            50.1
+          ],
+          "bbox_1x": [
+            17,
+            20,
+            110,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -1,
+            -8
+          ],
+          "requested_translation": [
+            -1,
+            -8
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            71,
+            70
+          ],
+          "ms": 130,
+          "head": [
+            78.2,
+            43.9
+          ],
+          "bbox_1x": [
+            22,
+            21,
+            113,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            3,
+            -8
+          ],
+          "requested_translation": [
+            3,
+            -8
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 8,
+          "rect_1x": [
+            384,
+            96,
+            512,
+            192
+          ],
+          "rect_8x": [
+            3072,
+            768,
+            4096,
+            1536
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "ms": 130,
+          "head": [
+            77.9,
+            42.6
+          ],
+          "bbox_1x": [
+            8,
+            21,
+            101,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -9,
+            -8
+          ],
+          "requested_translation": [
+            -9,
+            -8
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        }
+      ]
+    },
+    "attack": {
+      "file": "candidates/xinzhao_attack.png",
+      "status": "needs_redraw",
+      "frame_count": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "output_size": [
+        3072,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": 4,
+      "hit_tick": 11,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            65.4,
+            49.3
+          ],
+          "bbox_1x": [
+            26,
+            29,
+            100,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            11,
+            -10
+          ],
+          "requested_translation": [
+            11,
+            -10
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            56.8,
+            50.7
+          ],
+          "bbox_1x": [
+            16,
+            29,
+            90,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -19,
+            -10
+          ],
+          "requested_translation": [
+            -19,
+            -10
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            55.4,
+            50.6
+          ],
+          "bbox_1x": [
+            0,
+            29,
+            81,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -30,
+            -13
+          ],
+          "requested_translation": [
+            -45,
+            -13
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            60.4,
+            49.4
+          ],
+          "bbox_1x": [
+            23,
+            31,
+            125,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -3,
+            -2
+          ],
+          "requested_translation": [
+            -3,
+            -2
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false,
+          "spear_tip_1x": null,
+          "gripping_hand_1x": null,
+          "measurement_status": "pending_accepted_redraw; no invented measurements"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            42,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            46.6,
+            47.2
+          ],
+          "bbox_1x": [
+            0,
+            31,
+            123,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            -2
+          ],
+          "requested_translation": [
+            -22,
+            -2
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 120,
+          "head": [
+            64.6,
+            47.5
+          ],
+          "bbox_1x": [
+            23,
+            30,
+            98,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            12,
+            -2
+          ],
+          "requested_translation": [
+            12,
+            -2
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        }
+      ]
+    },
+    "attack_p": {
+      "file": "candidates/xinzhao_attack_p.png",
+      "status": "needs_redraw",
+      "frame_count": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "output_size": [
+        3072,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": 4,
+      "hit_tick": 13,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            75,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            74.8,
+            42.0
+          ],
+          "bbox_1x": [
+            13,
+            20,
+            96,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -7,
+            -14
+          ],
+          "requested_translation": [
+            -7,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            70.0,
+            41.4
+          ],
+          "bbox_1x": [
+            48,
+            4,
+            119,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            20,
+            -14
+          ],
+          "requested_translation": [
+            20,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            65.5,
+            39.1
+          ],
+          "tilt": -75,
+          "bbox_1x": [
+            18,
+            36,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            6,
+            -14
+          ],
+          "requested_translation": [
+            24,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            58.5,
+            36.6
+          ],
+          "bbox_1x": [
+            0,
+            0,
+            100,
+            83
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -28,
+            0
+          ],
+          "requested_translation": [
+            -52,
+            -1
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false,
+          "spear_tip_1x": null,
+          "gripping_hand_1x": null,
+          "measurement_status": "pending_accepted_redraw; no invented measurements"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            79,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            83.4,
+            54.4
+          ],
+          "bbox_1x": [
+            12,
+            0,
+            113,
+            83
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            12,
+            0
+          ],
+          "requested_translation": [
+            12,
+            -1
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            79.1,
+            50.0
+          ],
+          "bbox_1x": [
+            11,
+            0,
+            93,
+            83
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -10,
+            0
+          ],
+          "requested_translation": [
+            -10,
+            -1
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        }
+      ]
+    },
+    "q1": {
+      "file": "candidates/xinzhao_q1.png",
+      "status": "needs_redraw",
+      "frame_count": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "output_size": [
+        3072,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": 4,
+      "hit_tick": 11,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            70.6,
+            46.2
+          ],
+          "bbox_1x": [
+            6,
+            0,
+            79,
+            83
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -8,
+            -11
+          ],
+          "requested_translation": [
+            -8,
+            -12
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            63.1,
+            34.7
+          ],
+          "bbox_1x": [
+            16,
+            9,
+            104,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -6,
+            -12
+          ],
+          "requested_translation": [
+            -6,
+            -12
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            46.0,
+            34.5
+          ],
+          "bbox_1x": [
+            0,
+            33,
+            104,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -18,
+            -12
+          ],
+          "requested_translation": [
+            -22,
+            -12
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            38,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            36.1,
+            42.9
+          ],
+          "bbox_1x": [
+            0,
+            34,
+            113,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -15,
+            -4
+          ],
+          "requested_translation": [
+            -17,
+            -4
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false,
+          "spear_tip_1x": null,
+          "gripping_hand_1x": null,
+          "measurement_status": "pending_accepted_redraw; no invented measurements"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            38,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            38.9,
+            53.3
+          ],
+          "tilt": -84,
+          "bbox_1x": [
+            0,
+            34,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            -4
+          ],
+          "requested_translation": [
+            -22,
+            -4
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            64.8,
+            48.4
+          ],
+          "tilt": 53,
+          "bbox_1x": [
+            0,
+            0,
+            105,
+            84
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            -2
+          ],
+          "requested_translation": [
+            -8,
+            -4
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        }
+      ]
+    },
+    "q2": {
+      "file": "candidates/xinzhao_q2.png",
+      "status": "needs_redraw",
+      "frame_count": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "output_size": [
+        3072,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": 4,
+      "hit_tick": 11,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            72.0,
+            34.3
+          ],
+          "bbox_1x": [
+            30,
+            28,
+            122,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -1,
+            -14
+          ],
+          "requested_translation": [
+            -1,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            64.0,
+            24.2
+          ],
+          "bbox_1x": [
+            37,
+            0,
+            87,
+            94
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            1,
+            -2
+          ],
+          "requested_translation": [
+            1,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            50.1,
+            53.8
+          ],
+          "bbox_1x": [
+            0,
+            37,
+            91,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -32,
+            -14
+          ],
+          "requested_translation": [
+            -50,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            73.7,
+            51.6
+          ],
+          "bbox_1x": [
+            23,
+            11,
+            115,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -8,
+            -5
+          ],
+          "requested_translation": [
+            -8,
+            -5
+          ],
+          "boundary_debris_removed": [
+            {
+              "bbox": [
+                41,
+                0,
+                48,
+                1
+              ],
+              "pixels": 7
+            },
+            {
+              "bbox": [
+                73,
+                0,
+                83,
+                1
+              ],
+              "pixels": 10
+            }
+          ],
+          "body_resized": false,
+          "spear_tip_1x": null,
+          "gripping_hand_1x": null,
+          "measurement_status": "pending_accepted_redraw; no invented measurements"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            67.1,
+            52.7
+          ],
+          "bbox_1x": [
+            13,
+            10,
+            73,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -18,
+            -5
+          ],
+          "requested_translation": [
+            -18,
+            -5
+          ],
+          "boundary_debris_removed": [
+            {
+              "bbox": [
+                45,
+                0,
+                53,
+                1
+              ],
+              "pixels": 8
+            },
+            {
+              "bbox": [
+                78,
+                0,
+                87,
+                1
+              ],
+              "pixels": 9
+            }
+          ],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            65.6,
+            50.4
+          ],
+          "bbox_1x": [
+            17,
+            29,
+            114,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -9,
+            -5
+          ],
+          "requested_translation": [
+            -9,
+            -5
+          ],
+          "boundary_debris_removed": [
+            {
+              "bbox": [
+                32,
+                0,
+                39,
+                1
+              ],
+              "pixels": 7
+            },
+            {
+              "bbox": [
+                72,
+                0,
+                82,
+                1
+              ],
+              "pixels": 10
+            }
+          ],
+          "body_resized": false
+        }
+      ]
+    },
+    "q3": {
+      "file": "candidates/xinzhao_q3.png",
+      "status": "needs_redraw",
+      "frame_count": 7,
+      "grid": [
+        4,
+        2
+      ],
+      "output_size": [
+        4096,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": 4,
+      "hit_tick": 13,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            70.3,
+            34.1
+          ],
+          "bbox_1x": [
+            50,
+            0,
+            104,
+            89
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -2,
+            -7
+          ],
+          "requested_translation": [
+            -2,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            77,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            76.9,
+            52.1
+          ],
+          "bbox_1x": [
+            36,
+            33,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            -14
+          ],
+          "requested_translation": [
+            17,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            63.4,
+            44.8
+          ],
+          "bbox_1x": [
+            0,
+            10,
+            118,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            -14
+          ],
+          "requested_translation": [
+            -4,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            512,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            4096,
+            768
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            77.1,
+            45.5
+          ],
+          "bbox_1x": [
+            54,
+            0,
+            128,
+            93
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            23,
+            -3
+          ],
+          "requested_translation": [
+            29,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false,
+          "spear_tip_1x": null,
+          "gripping_hand_1x": null,
+          "measurement_status": "pending_accepted_redraw; no invented measurements"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            82,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            82.5,
+            44.5
+          ],
+          "bbox_1x": [
+            3,
+            15,
+            106,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -4,
+            -4
+          ],
+          "requested_translation": [
+            -4,
+            -4
+          ],
+          "boundary_debris_removed": [
+            {
+              "bbox": [
+                52,
+                0,
+                60,
+                1
+              ],
+              "pixels": 8
+            },
+            {
+              "bbox": [
+                84,
+                0,
+                92,
+                1
+              ],
+              "pixels": 8
+            }
+          ],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            82,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            82.8,
+            44.4
+          ],
+          "bbox_1x": [
+            6,
+            0,
+            108,
+            86
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -2,
+            0
+          ],
+          "requested_translation": [
+            -2,
+            -4
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            78,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            80.0,
+            46.2
+          ],
+          "bbox_1x": [
+            27,
+            0,
+            128,
+            86
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            0
+          ],
+          "requested_translation": [
+            6,
+            -4
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        }
+      ]
+    },
+    "skill": {
+      "file": "candidates/xinzhao_skill.png",
+      "status": "needs_redraw",
+      "frame_count": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "output_size": [
+        3072,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": 4,
+      "hit_tick": 9,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            73.7,
+            51.9
+          ],
+          "bbox_1x": [
+            25,
+            38,
+            93,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            8,
+            -6
+          ],
+          "requested_translation": [
+            8,
+            -6
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            75,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            77.0,
+            54.9
+          ],
+          "bbox_1x": [
+            22,
+            47,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            3
+          ],
+          "requested_translation": [
+            32,
+            3
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            70.3,
+            55.6
+          ],
+          "bbox_1x": [
+            0,
+            47,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            1
+          ],
+          "requested_translation": [
+            18,
+            1
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            57.9,
+            49.7
+          ],
+          "bbox_1x": [
+            12,
+            37,
+            96,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -18,
+            -2
+          ],
+          "requested_translation": [
+            -18,
+            -2
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false,
+          "spear_tip_1x": null,
+          "gripping_hand_1x": null,
+          "measurement_status": "pending_accepted_redraw; no invented measurements"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            37,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            40.2,
+            49.4
+          ],
+          "bbox_1x": [
+            0,
+            38,
+            102,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -25,
+            -2
+          ],
+          "requested_translation": [
+            -25,
+            -2
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            64.2,
+            48.6
+          ],
+          "bbox_1x": [
+            1,
+            36,
+            70,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -30,
+            -2
+          ],
+          "requested_translation": [
+            -30,
+            -2
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        }
+      ]
+    },
+    "skill2": {
+      "file": "candidates/xinzhao_skill2.png",
+      "status": "needs_redraw",
+      "frame_count": 7,
+      "grid": [
+        4,
+        2
+      ],
+      "output_size": [
+        4096,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": 4,
+      "hit_tick": 13,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            73.0,
+            45.5
+          ],
+          "bbox_1x": [
+            2,
+            11,
+            83,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -20,
+            -8
+          ],
+          "requested_translation": [
+            -20,
+            -8
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            60.6,
+            44.0
+          ],
+          "bbox_1x": [
+            39,
+            0,
+            83,
+            84
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -10,
+            -8
+          ],
+          "requested_translation": [
+            -10,
+            -10
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            60.8,
+            45.4
+          ],
+          "bbox_1x": [
+            21,
+            3,
+            77,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -23,
+            -10
+          ],
+          "requested_translation": [
+            -23,
+            -10
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            512,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            4096,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            64.0,
+            40.9
+          ],
+          "bbox_1x": [
+            21,
+            30,
+            122,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -5,
+            -9
+          ],
+          "requested_translation": [
+            -5,
+            -9
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false,
+          "spear_tip_1x": null,
+          "gripping_hand_1x": null,
+          "measurement_status": "pending_accepted_redraw; no invented measurements"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            60.8,
+            48.9
+          ],
+          "bbox_1x": [
+            16,
+            31,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            0
+          ],
+          "requested_translation": [
+            8,
+            0
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            65.3,
+            49.8
+          ],
+          "bbox_1x": [
+            0,
+            36,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            0
+          ],
+          "requested_translation": [
+            3,
+            0
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            65.3,
+            49.4
+          ],
+          "bbox_1x": [
+            0,
+            28,
+            117,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            -2
+          ],
+          "requested_translation": [
+            -22,
+            -2
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        }
+      ]
+    },
+    "ult": {
+      "file": "candidates/xinzhao_ult.png",
+      "status": "needs_redraw",
+      "frame_count": 7,
+      "grid": [
+        4,
+        2
+      ],
+      "output_size": [
+        4096,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": 3,
+      "hit_tick": 10,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            58.3,
+            40.8
+          ],
+          "bbox_1x": [
+            8,
+            28,
+            84,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            3,
+            -6
+          ],
+          "requested_translation": [
+            3,
+            -6
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            47.4,
+            39.0
+          ],
+          "bbox_1x": [
+            0,
+            28,
+            94,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -5,
+            -6
+          ],
+          "requested_translation": [
+            -40,
+            -6
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            60.1,
+            46.9
+          ],
+          "bbox_1x": [
+            17,
+            28,
+            117,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -11,
+            -6
+          ],
+          "requested_translation": [
+            -11,
+            -6
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false,
+          "spear_tip_1x": null,
+          "gripping_hand_1x": null,
+          "measurement_status": "pending_accepted_redraw; no invented measurements"
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            512,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            4096,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            60.4,
+            48.8
+          ],
+          "bbox_1x": [
+            0,
+            28,
+            93,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            -6
+          ],
+          "requested_translation": [
+            -13,
+            -6
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            57.5,
+            48.6
+          ],
+          "bbox_1x": [
+            5,
+            25,
+            106,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -19,
+            0
+          ],
+          "requested_translation": [
+            -19,
+            0
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            53.4,
+            50.8
+          ],
+          "bbox_1x": [
+            8,
+            28,
+            99,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -29,
+            0
+          ],
+          "requested_translation": [
+            -29,
+            0
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            61.5,
+            44.3
+          ],
+          "bbox_1x": [
+            0,
+            6,
+            90,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            0
+          ],
+          "requested_translation": [
+            -11,
+            0
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        }
+      ]
+    },
+    "hit": {
+      "file": "xinzhao_hit.png",
+      "status": "pixel_checks_passed_visual_review_pending",
+      "frame_count": 2,
+      "grid": [
+        2,
+        1
+      ],
+      "output_size": [
+        2048,
+        768
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": null,
+      "hit_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            78,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            78.3,
+            50.6
+          ],
+          "bbox_1x": [
+            33,
+            40,
+            98,
+            82
+          ],
+          "approved_head_rect_1x": [
+            69,
+            40,
+            86,
+            58
+          ],
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": true
+          },
+          "route": "approved_model_whole_translation",
+          "recoil_x": -2
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            77,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            78.2,
+            49.2
+          ],
+          "bbox_1x": [
+            34,
+            40,
+            99,
+            82
+          ],
+          "approved_head_rect_1x": [
+            70,
+            40,
+            87,
+            58
+          ],
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": true
+          },
+          "route": "approved_model_whole_translation",
+          "recoil_x": 0
+        }
+      ]
+    },
+    "dead": {
+      "file": "candidates/xinzhao_dead.png",
+      "status": "needs_redraw",
+      "frame_count": 8,
+      "grid": [
+        4,
+        2
+      ],
+      "output_size": [
+        4096,
+        1536
+      ],
+      "export_8x_uniform_blocks": true,
+      "empty_cells_transparent": true,
+      "hit_frame": null,
+      "hit_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            56.7,
+            61.8
+          ],
+          "bbox_1x": [
+            0,
+            26,
+            87,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            -16,
+            -11
+          ],
+          "requested_translation": [
+            -38,
+            -11
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            256,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            2048,
+            768
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "ms": 110,
+          "head": [
+            68.9,
+            59.3
+          ],
+          "bbox_1x": [
+            60,
+            0,
+            113,
+            83
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            13,
+            -12
+          ],
+          "requested_translation": [
+            13,
+            -13
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            384,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            3072,
+            768
+          ],
+          "pivot": [
+            78,
+            70
+          ],
+          "ms": 110,
+          "head": [
+            72.9,
+            59.9
+          ],
+          "bbox_1x": [
+            63,
+            0,
+            109,
+            83
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": false,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            10,
+            -13
+          ],
+          "requested_translation": [
+            10,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            512,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            4096,
+            768
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 120,
+          "head": [
+            71.2,
+            60.6
+          ],
+          "bbox_1x": [
+            60,
+            4,
+            104,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            13,
+            -14
+          ],
+          "requested_translation": [
+            13,
+            -14
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            192
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            1536
+          ],
+          "pivot": [
+            73,
+            70
+          ],
+          "ms": 130,
+          "head": [
+            68.7,
+            60.3
+          ],
+          "bbox_1x": [
+            42,
+            32,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            2,
+            -6
+          ],
+          "requested_translation": [
+            14,
+            -6
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            96,
+            256,
+            192
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            2048,
+            1536
+          ],
+          "pivot": [
+            79,
+            70
+          ],
+          "ms": 150,
+          "head": [
+            75.5,
+            54.7
+          ],
+          "bbox_1x": [
+            28,
+            50,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            -9
+          ],
+          "requested_translation": [
+            5,
+            -9
+          ],
+          "boundary_debris_removed": [],
+          "body_resized": false
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            96,
+            384,
+            192
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            3072,
+            1536
+          ],
+          "pivot": [
+            80,
+            70
+          ],
+          "ms": 200,
+          "head": [
+            76.0,
+            83.2
+          ],
+          "tilt": -102,
+          "bbox_1x": [
+            28,
+            54,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "translation": [
+            0,
+            -9
+          ],
+          "requested_translation": [
+            2,
+            -9
+          ],
+          "boundary_debris_removed": [
+            {
+              "bbox": [
+                53,
+                0,
+                57,
+                1
+              ],
+              "pixels": 4
+            },
+            {
+              "bbox": [
+                64,
+                0,
+                68,
+                1
+              ],
+              "pixels": 4
+            },
+            {
+              "bbox": [
+                81,
+                0,
+                87,
+                1
+              ],
+              "pixels": 6
+            },
+            {
+              "bbox": [
+                90,
+                0,
+                91,
+                1
+              ],
+              "pixels": 1
+            }
+          ],
+          "body_resized": false
+        },
+        {
+          "frame": 8,
+          "rect_1x": [
+            384,
+            96,
+            512,
+            192
+          ],
+          "rect_8x": [
+            3072,
+            768,
+            4096,
+            1536
+          ],
+          "pivot": [
+            83,
+            70
+          ],
+          "ms": 300,
+          "head": [
+            79.1,
+            84.1
+          ],
+          "tilt": -104,
+          "bbox_1x": [
+            28,
+            54,
+            128,
+            82
+          ],
+          "approved_head_rect_1x": null,
+          "qa": {
+            "binary_alpha": true,
+            "palette_only": true,
+            "nothing_below_feet": true,
+            "approved_head_pixels_identical": false
+          },
+          "route": "exact_copy_of_frame_7",
+          "note": "same absolute cell image; declared source pivot retained as metadata"
+        }
+      ]
+    }
+  },
+  "processing": "Whole logical cells re-read by majority after nearest approved-palette mapping. No body resizing, no deletion of character rows. Head-paste trial was rejected because it damaged crossing weapons; trial not included as accepted art.",
+  "idle_sha256_matches_input": true
+}

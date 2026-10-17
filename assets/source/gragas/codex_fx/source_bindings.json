@@ -1,0 +1,82 @@
+[
+ {
+  "file": "gragas_fx_a_hit.png",
+  "binding": "view_effects `league_gragas_a_hit`（跟随，画在人物上面；左右对称）",
+  "size": "12"
+ },
+ {
+  "file": "gragas_fx_w_hit.png",
+  "binding": "view_effects `league_gragas_w_hit`（跟随，画在人物上面；左右对称）",
+  "size": "36 × 20"
+ },
+ {
+  "file": "gragas_fx_q_barrel.png",
+  "binding": "view_projectiles `league_gragas_q_barrel`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "12 × 10"
+ },
+ {
+  "file": "gragas_fx_q_land.png",
+  "binding": "view_effects `league_gragas_q_land`（不跟随，画在人物下面一层；左右对称）",
+  "size": "14 × 14"
+ },
+ {
+  "file": "gragas_fx_q_boom.png",
+  "binding": "view_effects `league_gragas_q_boom`（不跟随，画在人物上面；左右对称）",
+  "size": "40 × 24"
+ },
+ {
+  "file": "gragas_fx_q_hit.png",
+  "binding": "view_effects `league_gragas_q_hit`（跟随，画在人物上面；左右对称）",
+  "size": "12"
+ },
+ {
+  "file": "gragas_fx_q_slow.png",
+  "binding": "view_buffs `league_gragas_q_slow`（跟随，画在人物下面；左右对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "gragas_fx_e_dust.png",
+  "binding": "view_effects `league_gragas_e_dust`（不跟随，画在人物下面；左右对称）",
+  "size": "24 × 10"
+ },
+ {
+  "file": "gragas_fx_e_hit.png",
+  "binding": "view_effects `league_gragas_e_hit`（跟随，画在人物上面；左右对称）",
+  "size": "20"
+ },
+ {
+  "file": "gragas_fx_e_stun.png",
+  "binding": "view_buffs `league_gragas_e_stun`（跟随，画在人物上面；左右对称）",
+  "size": "14 × 6"
+ },
+ {
+  "file": "gragas_fx_w_drink.png",
+  "binding": "view_effects `league_gragas_w_drink`（跟随，画在人物上面；左右对称）",
+  "size": "20 × 16"
+ },
+ {
+  "file": "gragas_fx_w_on.png",
+  "binding": "view_buffs `league_gragas_w_on`（跟随，画在人物上面；左右对称）",
+  "size": "36 × 44"
+ },
+ {
+  "file": "gragas_fx_p_heal.png",
+  "binding": "view_effects `league_gragas_p_heal`（跟随，画在人物上面；左右对称）",
+  "size": "24 × 30"
+ },
+ {
+  "file": "gragas_fx_r_cask.png",
+  "binding": "view_projectiles `league_gragas_r_cask`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "18 × 14"
+ },
+ {
+  "file": "gragas_fx_r_boom.png",
+  "binding": "view_effects `league_gragas_r_boom`（不跟随，画在人物上面；左右对称）",
+  "size": "56 × 36"
+ },
+ {
+  "file": "gragas_fx_r_hit.png",
+  "binding": "view_effects `league_gragas_r_hit`（跟随，画在人物上面；左右对称）",
+  "size": "14"
+ }
+]

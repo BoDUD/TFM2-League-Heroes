@@ -1,0 +1,2135 @@
+{
+  "id": "league_nasus",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank"
+  ],
+  "passive": {
+    "passive_ref": "league_nasus:soul_eater",
+    "params": {
+      "q_s": 4,
+      "q_sc": 10,
+      "r_r": 30000
+    }
+  },
+  "sprite": "asset/league/champions/league_nasus",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_nasus_skill",
+    "asset/league/icons/league_nasus_skill2",
+    "asset/league/icons/league_nasus_ult"
+  ],
+  "stat": {
+    "attack": 90,
+    "magic_power": 0,
+    "hp": 1100,
+    "defence": 32,
+    "magic_resistance": 25,
+    "move_speed": 980,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 16,
+    "magic_power": 0,
+    "hp": 110,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_nasus.attack",
+    "duration": 26,
+    "cooltime": 72,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nasus_init",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_nasus_init",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_nasus_p_vamp",
+                  "duration": "Permanent",
+                  "vamp": 12
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 1000000,
+                    "period": 12,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nasus_c_e1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nasus_c_e2"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_nasus_c_e1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_nasus_c_e2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_nasus_c_e1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nasus_c_e2",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_nasus_r_ok"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_nasus_r_ok",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 14
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_nasus_r_arm",
+                                  "effect_buff": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_nasus_r_go",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_nasus_fight",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_nasus_c_e1",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_nasus_r_ok"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_nasus_r_ok",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 14
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_nasus_r_arm",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_nasus_r_go",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      }
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nasus_r_go",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_nasus_r_go"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_nasus_r_arm"
+                                },
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 30
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_nasus_r_cast"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_nasus_r"
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_nasus_vo_cd",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_nasus_vo_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 600
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_nasus_vo_r"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 11,
+                                      "effects": [
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_nasus_r_storm"
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_nasus_r_on"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_nasus_r_on",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 900
+                                                  }
+                                                },
+                                                "hp": 300,
+                                                "defence": 40,
+                                                "magic_resistance": 40,
+                                                "range": 4000
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Heal",
+                                          "amount": 300,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "heal_type": "Caster"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "target": "AllyOnlySelf",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasted",
+                                              "casted_type": "Heal",
+                                              "duration": 900,
+                                              "period": 30,
+                                              "effects": [
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 30000
+                                                    }
+                                                  },
+                                                  "target": "EnemyWithoutTower",
+                                                  "apply_type": "AroundCaster",
+                                                  "effects": [
+                                                    {
+                                                      "type": "FixedAttack",
+                                                      "damage": 0,
+                                                      "attack_ratio": 0,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 2,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_nasus_r_hit"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nasus_w_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_nasus_fight",
+                              "effect_buff": {
+                                "type": "RandomTarget",
+                                "range": 50000,
+                                "casting_target": "EnemyChampionRecentlyAttacked",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_nasus_w_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 720
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_nasus_r_on",
+                                        "effect_buff": {
+                                          "type": "CasterAnimation",
+                                          "name": "b_skill_w",
+                                          "tick": 18
+                                        },
+                                        "effect_none": {
+                                          "type": "CasterAnimation",
+                                          "name": "skill_w",
+                                          "tick": 18
+                                        }
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_nasus_w"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_nasus_vo_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_nasus_vo_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_nasus_vo_w"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 6,
+                                        "effects": [
+                                          {
+                                            "type": "TargetProjectile",
+                                            "name": "league_nasus_w_bolt",
+                                            "speed": 6000,
+                                            "y_offset": 0,
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_nasus_w_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_nasus_w_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "AddBuff",
+                                                  "buff_state": {
+                                                    "name": "league_nasus_w_slow",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 300
+                                                      }
+                                                    },
+                                                    "move_speed_mult": -35,
+                                                    "attack_speed_mult": -25
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Delayed",
+                                                  "tick": 60,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nasus_w_slow1",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 240
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -10,
+                                                        "attack_speed_mult": -6
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Delayed",
+                                                  "tick": 120,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nasus_w_slow2",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 180
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -10,
+                                                        "attack_speed_mult": -6
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Delayed",
+                                                  "tick": 180,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nasus_w_slow3",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -10,
+                                                        "attack_speed_mult": -6
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Delayed",
+                                                  "tick": 240,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nasus_w_slow4",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 60
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -10,
+                                                        "attack_speed_mult": -6
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nasus_r_on",
+          "effect_buff": {
+            "type": "CasterAnimation",
+            "name": "b_attack",
+            "tick": 26
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 8,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_nasus_a_swing"
+                },
+                {
+                  "type": "TargetProjectile",
+                  "name": "league_nasus_a_blow",
+                  "speed": 40000,
+                  "y_offset": 0,
+                  "applied_target": "Enemy",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_nasus_a_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_nasus_a_hit"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "TargetProjectile",
+                  "name": "league_nasus_a_twin",
+                  "speed": 40000,
+                  "y_offset": 0,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_nasus_fight",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nasus_duel"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nasus_duel",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 120
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nasus_fight"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nasus_fight",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_nasus.skill",
+    "duration": 24,
+    "cooltime": 240,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 31000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nasus_r_on",
+          "effect_buff": {
+            "type": "CasterAnimation",
+            "name": "b_skill",
+            "tick": 24
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "league_nasus_q"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nasus_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_nasus_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_nasus_vo_q"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nasus_q_blow",
+              "speed": 40000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 50,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_nasus_q_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_nasus_q_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_nasus_q_k"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nasus_q_k",
+                          "duration": {
+                            "Time": {
+                              "tick": 8
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 3,
+                    "period": 1,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_nasus_q_k"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Delayed",
+                        "tick": 5,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nasus_q_kc",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_nasus_q_kc"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_nasus_q_k"
+                                },
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_nasus_q_stack",
+                                        "duration": "Permanent",
+                                        "magic_power": 10
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_nasus_q_soul"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_nasus_q_soul"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_nasus_q_k",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_nasus_q_k"
+                                  },
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_nasus_q_stack",
+                                          "duration": "Permanent",
+                                          "magic_power": 4
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "CasterViewEffect",
+                                        "name": "league_nasus_q_soul"
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_nasus_q_soul"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "league_nasus_q_twin",
+              "speed": 40000,
+              "y_offset": 0,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nasus_fight",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_nasus_duel"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nasus_duel",
+                            "duration": {
+                              "Time": {
+                                "tick": 120
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_nasus_fight"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nasus_fight",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_nasus_q_kc"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nasus_q_kc",
+                          "duration": {
+                            "Time": {
+                              "tick": 8
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 3,
+                    "period": 1,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_nasus_q_kc"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_nasus.skill2",
+    "duration": 24,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nasus_r_on",
+          "effect_buff": {
+            "type": "CasterAnimation",
+            "name": "b_skill2",
+            "tick": 24
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "league_nasus_e"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nasus_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_nasus_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_nasus_vo_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "league_nasus_e_lob",
+              "travel_time": 8,
+              "range": 400000,
+              "range_effect_name": "",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "ViewEffect",
+                  "name": "league_nasus_e_fire"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_nasus_e_fire"
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "league_nasus_e_burst",
+                  "shape": {
+                    "Circle": {
+                      "radius": 28000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 50,
+                        "attack_ratio": 0,
+                        "hp_ratio": 3,
+                        "can_crit": false
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_nasus_e_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_nasus_e_hit"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "RangePeriodProjectile",
+                  "name": "league_nasus_e_burn",
+                  "shape": {
+                    "Circle": {
+                      "radius": 28000
+                    }
+                  },
+                  "tick": 300,
+                  "period": 60,
+                  "first_delay": 60,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 10,
+                        "attack_ratio": 0,
+                        "hp_ratio": 1,
+                        "can_crit": false
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_nasus_e_shred",
+                          "duration": {
+                            "Time": {
+                              "tick": 60
+                            }
+                          },
+                          "defence_mult": -30
+                        }
+                      }
+                    }
+                  ],
+                  "end_effects": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_nasus.ult",
+    "duration": 3,
+    "cooltime": 3600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nasus_init",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_nasus_init",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_nasus_p_vamp",
+                  "duration": "Permanent",
+                  "vamp": 12
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 1000000,
+                    "period": 12,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nasus_c_e1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nasus_c_e2"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_nasus_c_e1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_nasus_c_e2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_nasus_c_e1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nasus_c_e2",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_nasus_r_ok"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_nasus_r_ok",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 14
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_nasus_r_arm",
+                                  "effect_buff": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_nasus_r_go",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_nasus_fight",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_nasus_c_e1",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_nasus_r_ok"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_nasus_r_ok",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 14
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_nasus_r_arm",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_nasus_r_go",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      }
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nasus_r_go",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_nasus_r_go"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_nasus_r_arm"
+                                },
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 30
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_nasus_r_cast"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_nasus_r"
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_nasus_vo_cd",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_nasus_vo_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 600
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_nasus_vo_r"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 11,
+                                      "effects": [
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_nasus_r_storm"
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_nasus_r_on"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_nasus_r_on",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 900
+                                                  }
+                                                },
+                                                "hp": 300,
+                                                "defence": 40,
+                                                "magic_resistance": 40,
+                                                "range": 4000
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Heal",
+                                          "amount": 300,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "heal_type": "Caster"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "target": "AllyOnlySelf",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasted",
+                                              "casted_type": "Heal",
+                                              "duration": 900,
+                                              "period": 30,
+                                              "effects": [
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 30000
+                                                    }
+                                                  },
+                                                  "target": "EnemyWithoutTower",
+                                                  "apply_type": "AroundCaster",
+                                                  "effects": [
+                                                    {
+                                                      "type": "FixedAttack",
+                                                      "damage": 0,
+                                                      "attack_ratio": 0,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 2,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_nasus_r_hit"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nasus_w_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_nasus_fight",
+                              "effect_buff": {
+                                "type": "RandomTarget",
+                                "range": 50000,
+                                "casting_target": "EnemyChampionRecentlyAttacked",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_nasus_w_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 720
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_nasus_r_on",
+                                        "effect_buff": {
+                                          "type": "CasterAnimation",
+                                          "name": "b_skill_w",
+                                          "tick": 18
+                                        },
+                                        "effect_none": {
+                                          "type": "CasterAnimation",
+                                          "name": "skill_w",
+                                          "tick": 18
+                                        }
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_nasus_w"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_nasus_vo_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_nasus_vo_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_nasus_vo_w"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 6,
+                                        "effects": [
+                                          {
+                                            "type": "TargetProjectile",
+                                            "name": "league_nasus_w_bolt",
+                                            "speed": 6000,
+                                            "y_offset": 0,
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_nasus_w_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_nasus_w_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "AddBuff",
+                                                  "buff_state": {
+                                                    "name": "league_nasus_w_slow",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 300
+                                                      }
+                                                    },
+                                                    "move_speed_mult": -35,
+                                                    "attack_speed_mult": -25
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Delayed",
+                                                  "tick": 60,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nasus_w_slow1",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 240
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -10,
+                                                        "attack_speed_mult": -6
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Delayed",
+                                                  "tick": 120,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nasus_w_slow2",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 180
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -10,
+                                                        "attack_speed_mult": -6
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Delayed",
+                                                  "tick": 180,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nasus_w_slow3",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -10,
+                                                        "attack_speed_mult": -6
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Delayed",
+                                                  "tick": 240,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nasus_w_slow4",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 60
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -10,
+                                                        "attack_speed_mult": -6
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_nasus_r_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_nasus_r_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_nasus_r_x"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nasus_r_arm"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nasus_r_arm",
+                              "duration": {
+                                "Time": {
+                                  "tick": 600
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Delayed",
+                            "tick": 600,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_nasus_r_arm",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_nasus_r_arm"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_nasus_r_retry",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 3
+                                          }
+                                        },
+                                        "ult_cooldown_mult": 5900
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Attack",
+                "damage": 100,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_nasus_r_x"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_nasus_a_hit",
+      "anim": "asset/league/effects/league_nasus_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nasus_q_hit",
+      "anim": "asset/league/effects/league_nasus_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nasus_q_soul",
+      "anim": "asset/league/effects/league_nasus_fx",
+      "tag": "q_soul",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nasus_e_fire",
+      "anim": "asset/league/effects/league_nasus_big",
+      "tag": "e_fire",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_nasus_e_hit",
+      "anim": "asset/league/effects/league_nasus_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nasus_w_hit",
+      "anim": "asset/league/effects/league_nasus_fx",
+      "tag": "w_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nasus_r_cast",
+      "anim": "asset/league/effects/league_nasus_big",
+      "tag": "r_cast",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_nasus_r_hit",
+      "anim": "asset/league/effects/league_nasus_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_nasus_w_slow",
+      "anim": "asset/league/effects/league_nasus_fx",
+      "tag": "w_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_nasus_e_shred",
+      "anim": "asset/league/effects/league_nasus_fx",
+      "tag": "e_shred",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_nasus_r_on",
+      "anim": "asset/league/effects/league_nasus_big",
+      "tag": "r_on",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}

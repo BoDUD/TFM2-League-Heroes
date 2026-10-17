@@ -1,0 +1,65 @@
+[
+  {
+    "take": "A",
+    "height": 40,
+    "width": 24,
+    "bbox": [
+      8,
+      12,
+      32,
+      52
+    ],
+    "colors": 22,
+    "alpha_binary": true,
+    "grid26_exact": true,
+    "raw_bbox": [
+      160,
+      150,
+      862,
+      1439
+    ],
+    "method": "AI redraw, transparent silhouette crop, nearest-neighbor 24x40 readback, fixed shared 24-color palette"
+  },
+  {
+    "take": "B",
+    "height": 40,
+    "width": 24,
+    "bbox": [
+      8,
+      12,
+      32,
+      52
+    ],
+    "colors": 21,
+    "alpha_binary": true,
+    "grid26_exact": true,
+    "raw_bbox": [
+      128,
+      115,
+      872,
+      1416
+    ],
+    "method": "AI redraw, transparent silhouette crop, nearest-neighbor 24x40 readback, fixed shared 24-color palette"
+  },
+  {
+    "take": "C",
+    "height": 40,
+    "width": 24,
+    "bbox": [
+      8,
+      12,
+      32,
+      52
+    ],
+    "colors": 21,
+    "alpha_binary": true,
+    "grid26_exact": true,
+    "raw_bbox": [
+      165,
+      157,
+      878,
+      1385
+    ],
+    "method": "AI redraw, transparent silhouette crop, nearest-neighbor 24x40 readback, fixed shared 24-color palette"
+  }
+]

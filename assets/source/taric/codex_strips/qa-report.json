@@ -1,0 +1,116 @@
+{
+  "actions": 9,
+  "frames": 55,
+  "checks": [
+    {
+      "action": "idle",
+      "frames": 6,
+      "distinct_frames": 1,
+      "size": [
+        2304,
+        1536
+      ],
+      "binary_alpha": true,
+      "bounds_and_empty_cells": "pass",
+      "durations_and_pivots": "match supplied contract"
+    },
+    {
+      "action": "run",
+      "frames": 8,
+      "distinct_frames": 8,
+      "size": [
+        3072,
+        1536
+      ],
+      "binary_alpha": true,
+      "bounds_and_empty_cells": "pass",
+      "durations_and_pivots": "match supplied contract"
+    },
+    {
+      "action": "attack",
+      "frames": 6,
+      "distinct_frames": 6,
+      "size": [
+        2304,
+        1536
+      ],
+      "binary_alpha": true,
+      "bounds_and_empty_cells": "pass",
+      "durations_and_pivots": "match supplied contract"
+    },
+    {
+      "action": "attack_p",
+      "frames": 6,
+      "distinct_frames": 6,
+      "size": [
+        2304,
+        1536
+      ],
+      "binary_alpha": true,
+      "bounds_and_empty_cells": "pass",
+      "durations_and_pivots": "match supplied contract"
+    },
+    {
+      "action": "skill",
+      "frames": 6,
+      "distinct_frames": 6,
+      "size": [
+        2304,
+        1536
+      ],
+      "binary_alpha": true,
+      "bounds_and_empty_cells": "pass",
+      "durations_and_pivots": "match supplied contract"
+    },
+    {
+      "action": "skill2",
+      "frames": 6,
+      "distinct_frames": 6,
+      "size": [
+        2304,
+        1536
+      ],
+      "binary_alpha": true,
+      "bounds_and_empty_cells": "pass",
+      "durations_and_pivots": "match supplied contract"
+    },
+    {
+      "action": "ult",
+      "frames": 7,
+      "distinct_frames": 7,
+      "size": [
+        3072,
+        1536
+      ],
+      "binary_alpha": true,
+      "bounds_and_empty_cells": "pass",
+      "durations_and_pivots": "match supplied contract"
+    },
+    {
+      "action": "hit",
+      "frames": 2,
+      "distinct_frames": 2,
+      "size": [
+        1536,
+        768
+      ],
+      "binary_alpha": true,
+      "bounds_and_empty_cells": "pass",
+      "durations_and_pivots": "match supplied contract"
+    },
+    {
+      "action": "dead",
+      "frames": 8,
+      "distinct_frames": 8,
+      "size": [
+        3072,
+        1536
+      ],
+      "binary_alpha": true,
+      "bounds_and_empty_cells": "pass",
+      "durations_and_pivots": "match supplied contract"
+    }
+  ],
+  "visual_review": "Reviewed full contact sheets for approved character identity, complete integrated head, face inside silhouette, connected hands, weapon visibility and animation sequence. No game-runtime import or battle test performed.",
+  "format": "Detailed raster source assets. Not the retired 40-native-pixel / 26-color build."
+}

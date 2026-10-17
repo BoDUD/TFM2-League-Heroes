@@ -1,0 +1,267 @@
+{
+ "canvas": [
+  1536,
+  1024
+ ],
+ "px_per_design_square": 12,
+ "soles_y": 990,
+ "standing_x": 760,
+ "design_squares": [
+  56,
+  44
+ ],
+ "frames": [
+  {
+   "file": "smolder_run_1.png",
+   "tag": "run",
+   "index": 0,
+   "ms": 80
+  },
+  {
+   "file": "smolder_run_2.png",
+   "tag": "run",
+   "index": 1,
+   "ms": 80
+  },
+  {
+   "file": "smolder_run_3.png",
+   "tag": "run",
+   "index": 2,
+   "ms": 80
+  },
+  {
+   "file": "smolder_run_4.png",
+   "tag": "run",
+   "index": 3,
+   "ms": 80
+  },
+  {
+   "file": "smolder_run_5.png",
+   "tag": "run",
+   "index": 4,
+   "ms": 80
+  },
+  {
+   "file": "smolder_run_6.png",
+   "tag": "run",
+   "index": 5,
+   "ms": 80
+  },
+  {
+   "file": "smolder_run_7.png",
+   "tag": "run",
+   "index": 6,
+   "ms": 80
+  },
+  {
+   "file": "smolder_run_8.png",
+   "tag": "run",
+   "index": 7,
+   "ms": 80
+  },
+  {
+   "file": "smolder_attack_1.png",
+   "tag": "attack",
+   "index": 0,
+   "ms": 70
+  },
+  {
+   "file": "smolder_attack_2.png",
+   "tag": "attack",
+   "index": 1,
+   "ms": 70
+  },
+  {
+   "file": "smolder_attack_3.png",
+   "tag": "attack",
+   "index": 2,
+   "ms": 80
+  },
+  {
+   "file": "smolder_attack_4.png",
+   "tag": "attack",
+   "index": 3,
+   "ms": 100
+  },
+  {
+   "file": "smolder_attack_5.png",
+   "tag": "attack",
+   "index": 4,
+   "ms": 120
+  },
+  {
+   "file": "smolder_skill_1.png",
+   "tag": "skill",
+   "index": 0,
+   "ms": 80
+  },
+  {
+   "file": "smolder_skill_2.png",
+   "tag": "skill",
+   "index": 1,
+   "ms": 80
+  },
+  {
+   "file": "smolder_skill_3.png",
+   "tag": "skill",
+   "index": 2,
+   "ms": 100
+  },
+  {
+   "file": "smolder_skill_4.png",
+   "tag": "skill",
+   "index": 3,
+   "ms": 100
+  },
+  {
+   "file": "smolder_skill_5.png",
+   "tag": "skill",
+   "index": 4,
+   "ms": 120
+  },
+  {
+   "file": "smolder_skill2_1.png",
+   "tag": "skill2",
+   "index": 0,
+   "ms": 70
+  },
+  {
+   "file": "smolder_skill2_2.png",
+   "tag": "skill2",
+   "index": 1,
+   "ms": 80
+  },
+  {
+   "file": "smolder_skill2_3.png",
+   "tag": "skill2",
+   "index": 2,
+   "ms": 90
+  },
+  {
+   "file": "smolder_skill2_4.png",
+   "tag": "skill2",
+   "index": 3,
+   "ms": 100
+  },
+  {
+   "file": "smolder_skill2_5.png",
+   "tag": "skill2",
+   "index": 4,
+   "ms": 120
+  },
+  {
+   "file": "smolder_skill2_e_1.png",
+   "tag": "skill2_e",
+   "index": 0,
+   "ms": 70
+  },
+  {
+   "file": "smolder_skill2_e_2.png",
+   "tag": "skill2_e",
+   "index": 1,
+   "ms": 70
+  },
+  {
+   "file": "smolder_skill2_e_3.png",
+   "tag": "skill2_e",
+   "index": 2,
+   "ms": 80
+  },
+  {
+   "file": "smolder_skill2_e_4.png",
+   "tag": "skill2_e",
+   "index": 3,
+   "ms": 80
+  },
+  {
+   "file": "smolder_skill2_e_5.png",
+   "tag": "skill2_e",
+   "index": 4,
+   "ms": 80
+  },
+  {
+   "file": "smolder_skill2_e_6.png",
+   "tag": "skill2_e",
+   "index": 5,
+   "ms": 80
+  },
+  {
+   "file": "smolder_skill2_e_7.png",
+   "tag": "skill2_e",
+   "index": 6,
+   "ms": 80
+  },
+  {
+   "file": "smolder_skill2_e_8.png",
+   "tag": "skill2_e",
+   "index": 7,
+   "ms": 100
+  },
+  {
+   "file": "smolder_ult_1.png",
+   "tag": "ult",
+   "index": 0,
+   "ms": 80
+  },
+  {
+   "file": "smolder_ult_2.png",
+   "tag": "ult",
+   "index": 1,
+   "ms": 90
+  },
+  {
+   "file": "smolder_ult_3.png",
+   "tag": "ult",
+   "index": 2,
+   "ms": 100
+  },
+  {
+   "file": "smolder_ult_4.png",
+   "tag": "ult",
+   "index": 3,
+   "ms": 120
+  },
+  {
+   "file": "smolder_ult_5.png",
+   "tag": "ult",
+   "index": 4,
+   "ms": 120
+  },
+  {
+   "file": "smolder_dead_1.png",
+   "tag": "dead",
+   "index": 0,
+   "ms": 100
+  },
+  {
+   "file": "smolder_dead_2.png",
+   "tag": "dead",
+   "index": 1,
+   "ms": 120
+  },
+  {
+   "file": "smolder_dead_3.png",
+   "tag": "dead",
+   "index": 2,
+   "ms": 150
+  },
+  {
+   "file": "smolder_dead_4.png",
+   "tag": "dead",
+   "index": 3,
+   "ms": 150
+  },
+  {
+   "file": "smolder_dead_5.png",
+   "tag": "dead",
+   "index": 4,
+   "ms": 200
+  },
+  {
+   "file": "smolder_dead_6.png",
+   "tag": "dead",
+   "index": 5,
+   "ms": 400
+  }
+ ]
+}

@@ -1,0 +1,172 @@
+{
+  "checks": [
+    {
+      "tag": "idle",
+      "frames": 6,
+      "palette_colors": 29,
+      "head_exact_frames": 6,
+      "alpha": "0/255",
+      "grid": "exact 8x8",
+      "below_feet": 0,
+      "areas": [
+        1520,
+        1520,
+        1520,
+        1520,
+        1520,
+        1520
+      ],
+      "unique_frames": 1
+    },
+    {
+      "tag": "run",
+      "frames": 8,
+      "palette_colors": 29,
+      "head_exact_frames": 8,
+      "alpha": "0/255",
+      "grid": "exact 8x8",
+      "below_feet": 0,
+      "areas": [
+        1440,
+        1484,
+        1340,
+        1468,
+        1396,
+        1432,
+        1405,
+        1452
+      ],
+      "unique_frames": 8
+    },
+    {
+      "tag": "attack",
+      "frames": 6,
+      "palette_colors": 29,
+      "head_exact_frames": 6,
+      "alpha": "0/255",
+      "grid": "exact 8x8",
+      "below_feet": 0,
+      "areas": [
+        1520,
+        1477,
+        1455,
+        1313,
+        1309,
+        1520
+      ],
+      "unique_frames": 6
+    },
+    {
+      "tag": "skill_stab",
+      "frames": 5,
+      "palette_colors": 29,
+      "head_exact_frames": 5,
+      "alpha": "0/255",
+      "grid": "exact 8x8",
+      "below_feet": 0,
+      "areas": [
+        1423,
+        1423,
+        1309,
+        1313,
+        1520
+      ],
+      "unique_frames": 5
+    },
+    {
+      "tag": "skill",
+      "frames": 6,
+      "palette_colors": 29,
+      "head_exact_frames": 6,
+      "alpha": "0/255",
+      "grid": "exact 8x8",
+      "below_feet": 0,
+      "areas": [
+        1514,
+        1471,
+        1471,
+        1471,
+        1241,
+        1249
+      ],
+      "unique_frames": 5
+    },
+    {
+      "tag": "skill2",
+      "frames": 4,
+      "palette_colors": 29,
+      "head_exact_frames": 4,
+      "alpha": "0/255",
+      "grid": "exact 8x8",
+      "below_feet": 0,
+      "areas": [
+        1520,
+        1490,
+        1490,
+        1520
+      ],
+      "unique_frames": 4
+    },
+    {
+      "tag": "ult",
+      "frames": 6,
+      "palette_colors": 29,
+      "head_exact_frames": 6,
+      "alpha": "0/255",
+      "grid": "exact 8x8",
+      "below_feet": 0,
+      "areas": [
+        1514,
+        1402,
+        1402,
+        1432,
+        1432,
+        1520
+      ],
+      "unique_frames": 6
+    },
+    {
+      "tag": "hit",
+      "frames": 2,
+      "palette_colors": 29,
+      "head_exact_frames": 2,
+      "alpha": "0/255",
+      "grid": "exact 8x8",
+      "below_feet": 0,
+      "areas": [
+        1478,
+        1520
+      ],
+      "unique_frames": 2
+    },
+    {
+      "tag": "dead",
+      "frames": 8,
+      "palette_colors": 29,
+      "head_exact_frames": 4,
+      "alpha": "0/255",
+      "grid": "exact 8x8",
+      "below_feet": 0,
+      "areas": [
+        1520,
+        1394,
+        1364,
+        1369,
+        1466,
+        1466,
+        1466,
+        1466
+      ],
+      "unique_frames": 8
+    }
+  ],
+  "original_idle_unchanged": true,
+  "head_template_exact_upright_frames": 47,
+  "limitations": [
+    "rigid-part pose approximation",
+    "45-degree pixel rotations may produce alias stair steps",
+    "prone legs retain bent design geometry",
+    "GIF duration precision is 10 milliseconds; use manifest exact timing",
+    "no in-game validation"
+  ]
+}

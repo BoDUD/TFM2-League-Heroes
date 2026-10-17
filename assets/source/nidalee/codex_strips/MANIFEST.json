@@ -1,0 +1,1213 @@
+[
+  {
+    "file": "nidalee_run_1.png",
+    "form": "human",
+    "tag": "run",
+    "index": 0,
+    "ms": 115,
+    "what": "running to the right, frame 1 of an 8-frame loop: legs crossing as in Image 1 (one forward, one back), the near arm swinging; the javelin upright in her far hand as in Image 2, bobbing with the stride",
+    "prompt_file": "prompts/nidalee_run_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_run_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "cd308aa06486cfc4fbec006a4efabc0dab919f59e781957afd723ad1f320c28d"
+  },
+  {
+    "file": "nidalee_run_2.png",
+    "form": "human",
+    "tag": "run",
+    "index": 1,
+    "ms": 115,
+    "what": "running to the right, frame 2 of an 8-frame loop: legs crossing as in Image 1 (one forward, one back), the near arm swinging; the javelin upright in her far hand as in Image 2, bobbing with the stride",
+    "prompt_file": "prompts/nidalee_run_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_run_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_run_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "ae7ea639f34675988db01bd6566a7cc420efc4bc7551f24461d209105d37bd6c"
+  },
+  {
+    "file": "nidalee_run_3.png",
+    "form": "human",
+    "tag": "run",
+    "index": 2,
+    "ms": 115,
+    "what": "running to the right, frame 3 of an 8-frame loop: legs crossing as in Image 1 (one forward, one back), the near arm swinging; the javelin upright in her far hand as in Image 2, bobbing with the stride",
+    "prompt_file": "prompts/nidalee_run_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_run_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_run_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "61163068505fa9baf349829c6f29793692fa0bdfd901703bc04a6b9866826f34"
+  },
+  {
+    "file": "nidalee_run_4.png",
+    "form": "human",
+    "tag": "run",
+    "index": 3,
+    "ms": 115,
+    "what": "running to the right, frame 4 of an 8-frame loop: legs crossing as in Image 1 (one forward, one back), the near arm swinging; the javelin upright in her far hand as in Image 2, bobbing with the stride",
+    "prompt_file": "prompts/nidalee_run_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_run_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_run_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "8416adc985154b727a3d022c4d0a4d5f41b095fde0282b8064612a0be775ac56"
+  },
+  {
+    "file": "nidalee_run_5.png",
+    "form": "human",
+    "tag": "run",
+    "index": 4,
+    "ms": 115,
+    "what": "running to the right, frame 5 of an 8-frame loop: legs crossing as in Image 1 (one forward, one back), the near arm swinging; the javelin upright in her far hand as in Image 2, bobbing with the stride",
+    "prompt_file": "prompts/nidalee_run_5.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_run_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_run_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "25b3d845fab63f8e3ca1b2196c1397d536c654b58d5793f626593c15531113e5"
+  },
+  {
+    "file": "nidalee_run_6.png",
+    "form": "human",
+    "tag": "run",
+    "index": 5,
+    "ms": 115,
+    "what": "running to the right, frame 6 of an 8-frame loop: legs crossing as in Image 1 (one forward, one back), the near arm swinging; the javelin upright in her far hand as in Image 2, bobbing with the stride",
+    "prompt_file": "prompts/nidalee_run_6.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_run_6.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_run_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "92463491fd075568065c18f8b16808822a13955c2c88d838dce52e6f1d788280"
+  },
+  {
+    "file": "nidalee_run_7.png",
+    "form": "human",
+    "tag": "run",
+    "index": 6,
+    "ms": 115,
+    "what": "running to the right, frame 7 of an 8-frame loop: legs crossing as in Image 1 (one forward, one back), the near arm swinging; the javelin upright in her far hand as in Image 2, bobbing with the stride",
+    "prompt_file": "prompts/nidalee_run_7.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_run_7.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_run_6.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "e25d19ea256c0b5c6cda8a4408b231a0d115a2f0044d25ca917b8635c36a42f0"
+  },
+  {
+    "file": "nidalee_run_8.png",
+    "form": "human",
+    "tag": "run",
+    "index": 7,
+    "ms": 115,
+    "what": "running to the right, frame 8 of an 8-frame loop: legs crossing as in Image 1 (one forward, one back), the near arm swinging; the javelin upright in her far hand as in Image 2, bobbing with the stride",
+    "prompt_file": "prompts/nidalee_run_8.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_run_8.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_run_7.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "1239f81203982ed7af46f099d105802bf873a9fb784e3028089074df56c7748e"
+  },
+  {
+    "file": "nidalee_attack_1.png",
+    "form": "human",
+    "tag": "attack",
+    "index": 0,
+    "ms": 70,
+    "what": "basic attack, throwing her javelin, frame 1 of 5: the javelin turned a quarter turn to lie level, blade to the right, raised over her near shoulder (her near hand behind the shoulder grips it)",
+    "prompt_file": "prompts/nidalee_attack_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_attack_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "076c0bf4b8fd7111123c737ff9b6556247c60d4b0c02db7d543a514798818ee1"
+  },
+  {
+    "file": "nidalee_attack_2.png",
+    "form": "human",
+    "tag": "attack",
+    "index": 1,
+    "ms": 80,
+    "what": "basic attack, throwing her javelin, frame 2 of 5: drawn back to the full, leaning back, the far arm stretched forward to aim",
+    "prompt_file": "prompts/nidalee_attack_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_attack_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_attack_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "6ade4093127e480312b81aac7c9793d27908d9fda93e361be037bdad37a9b4cd"
+  },
+  {
+    "file": "nidalee_attack_3.png",
+    "form": "human",
+    "tag": "attack",
+    "index": 2,
+    "ms": 70,
+    "what": "basic attack, throwing her javelin, frame 3 of 5: the release: the throwing arm swung forward, the javelin already gone - her hand is empty",
+    "prompt_file": "prompts/nidalee_attack_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_attack_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_attack_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "7632aa9fa7e0199c0ccacadad6aa3b443d2fbc7b4c3b2b22c00f4f4c0e31becd"
+  },
+  {
+    "file": "nidalee_attack_4.png",
+    "form": "human",
+    "tag": "attack",
+    "index": 3,
+    "ms": 100,
+    "what": "basic attack, throwing her javelin, frame 4 of 5: the follow-through, leaning forward, hands empty",
+    "prompt_file": "prompts/nidalee_attack_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_attack_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_attack_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "f53f93a93ec86c8f1857c180cc44b60184217c70a10ce5c154af20a96ce022c4"
+  },
+  {
+    "file": "nidalee_attack_5.png",
+    "form": "human",
+    "tag": "attack",
+    "index": 4,
+    "ms": 120,
+    "what": "basic attack, throwing her javelin, frame 5 of 5: back to the standing pose of Image 2, the javelin upright in her far hand again",
+    "prompt_file": "prompts/nidalee_attack_5.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_attack_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_attack_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "e9c72e5864a0408ac6ae4838f06b833b38e83dfe20b948559da60577f25d7184"
+  },
+  {
+    "file": "nidalee_skill_1.png",
+    "form": "human",
+    "tag": "skill",
+    "index": 0,
+    "ms": 70,
+    "what": "Javelin Toss, a full-power throw, frame 1 of 6: crouching to gather power, the javelin level over her shoulder, blade to the right",
+    "prompt_file": "prompts/nidalee_skill_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "71c1bd45e5dd15737e8c063bf01d5af2c9d90c0e5816fb2599ac8d0edac5de1d"
+  },
+  {
+    "file": "nidalee_skill_2.png",
+    "form": "human",
+    "tag": "skill",
+    "index": 1,
+    "ms": 90,
+    "what": "Javelin Toss, a full-power throw, frame 2 of 6: leaning far back, the javelin drawn all the way back",
+    "prompt_file": "prompts/nidalee_skill_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_skill_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "f8b0d018e497aea03521105bf8ab7c04127f2ffd09bfd5290625469fe614bea6"
+  },
+  {
+    "file": "nidalee_skill_3.png",
+    "form": "human",
+    "tag": "skill",
+    "index": 2,
+    "ms": 70,
+    "what": "Javelin Toss, a full-power throw, frame 3 of 6: stepping forward, the javelin starting forward",
+    "prompt_file": "prompts/nidalee_skill_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_skill_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "70d3ff9f78ebd53834d5ba7329c4dbeb361b74a9529a65c5c0361afca7c86f89"
+  },
+  {
+    "file": "nidalee_skill_4.png",
+    "form": "human",
+    "tag": "skill",
+    "index": 3,
+    "ms": 100,
+    "what": "Javelin Toss, a full-power throw, frame 4 of 6: the release, the arm at its farthest forward, her hand empty",
+    "prompt_file": "prompts/nidalee_skill_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_skill_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "a675f2d8eac4da24a48c077094adf44360057d1a0e12fbed2eebf1373a368914"
+  },
+  {
+    "file": "nidalee_skill_5.png",
+    "form": "human",
+    "tag": "skill",
+    "index": 4,
+    "ms": 100,
+    "what": "Javelin Toss, a full-power throw, frame 5 of 6: the follow-through, leaning forward, hands empty",
+    "prompt_file": "prompts/nidalee_skill_5.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_skill_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "00f28010cb33ac9c4124ddd8f6da7ffcd9099db9ba5da1c68b56c9018d1ae067"
+  },
+  {
+    "file": "nidalee_skill_6.png",
+    "form": "human",
+    "tag": "skill",
+    "index": 5,
+    "ms": 120,
+    "what": "Javelin Toss, a full-power throw, frame 6 of 6: back to the standing pose of Image 2, the javelin upright in her far hand",
+    "prompt_file": "prompts/nidalee_skill_6.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill_6.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_skill_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "d19895f7c336bb5547a8f2234661dbfc9495f75bb0909fa8e156aaa835eec1ec"
+  },
+  {
+    "file": "nidalee_skill2_1.png",
+    "form": "human",
+    "tag": "skill2",
+    "index": 0,
+    "ms": 80,
+    "what": "casting a spell (a heal or a trap), frame 1 of 4: raising her near hand, the javelin still upright in her far hand",
+    "prompt_file": "prompts/nidalee_skill2_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill2_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "58149d020bbe3447f8d5bd6247a113e5af830845181b1e02aa9b5b23e03c727c"
+  },
+  {
+    "file": "nidalee_skill2_2.png",
+    "form": "human",
+    "tag": "skill2",
+    "index": 1,
+    "ms": 90,
+    "what": "casting a spell (a heal or a trap), frame 2 of 4: the near hand thrust forward, palm open",
+    "prompt_file": "prompts/nidalee_skill2_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill2_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_skill2_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "0cca4f5cf17032f6e3f536ed7576e614f5f01d0a787317f46cd4ca235f614899"
+  },
+  {
+    "file": "nidalee_skill2_3.png",
+    "form": "human",
+    "tag": "skill2",
+    "index": 2,
+    "ms": 110,
+    "what": "casting a spell (a heal or a trap), frame 3 of 4: holding the cast",
+    "prompt_file": "prompts/nidalee_skill2_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill2_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_skill2_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "dcae940b28379f1a7dabd08b0ae867a8efc69335ec488f778a58dbf6c4bc327b"
+  },
+  {
+    "file": "nidalee_skill2_4.png",
+    "form": "human",
+    "tag": "skill2",
+    "index": 3,
+    "ms": 120,
+    "what": "casting a spell (a heal or a trap), frame 4 of 4: back to the standing pose",
+    "prompt_file": "prompts/nidalee_skill2_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_skill2_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_skill2_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "ddc779d625edba77258c22575f77a19bdbc163423b51119a33fe0cc55012b57b"
+  },
+  {
+    "file": "nidalee_transform_1.png",
+    "form": "human",
+    "tag": "transform",
+    "index": 0,
+    "ms": 80,
+    "what": "turning into a cougar, frame 1 of 3: bending her knees, crouching low, leaning forward, the javelin still upright in her hand",
+    "prompt_file": "prompts/nidalee_transform_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_transform_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "28ec3c9112368eef9e8fceba12a93006f8d2fc340f4ae8f3aedf9d03339bc29a"
+  },
+  {
+    "file": "nidalee_transform_2.png",
+    "form": "human",
+    "tag": "transform",
+    "index": 1,
+    "ms": 80,
+    "what": "turning into a cougar, frame 2 of 3: dropping her hands to the ground as if to pounce, the javelin let go (do not draw it)",
+    "prompt_file": "prompts/nidalee_transform_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_transform_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_transform_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "7077283051d01fbe76de8c54d4e4d7104d1235b6052fb3fc5d030da333944356"
+  },
+  {
+    "file": "nidalee_transform_3.png",
+    "form": "human",
+    "tag": "transform",
+    "index": 2,
+    "ms": 100,
+    "what": "turning into a cougar, frame 3 of 3: lunging forward on all fours (a burst of light will cover her here - do not draw it)",
+    "prompt_file": "prompts/nidalee_transform_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_transform_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_transform_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "c577b7f9840930d151e7db7c7aa9f42138d2eb35a2e657e655e775a3d72593dd"
+  },
+  {
+    "file": "nidalee_dead_1.png",
+    "form": "human",
+    "tag": "dead",
+    "index": 0,
+    "ms": 100,
+    "what": "dying, frame 1 of 6: hit, staggering back, the javelin still in her hand",
+    "prompt_file": "prompts/nidalee_dead_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_dead_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "032aafb303594f729edb86d14fc81fc13df8e997f8df1dd296e3710cef0b7d82"
+  },
+  {
+    "file": "nidalee_dead_2.png",
+    "form": "human",
+    "tag": "dead",
+    "index": 1,
+    "ms": 110,
+    "what": "dying, frame 2 of 6: falling backward, the javelin slipping from her hand toward the image right",
+    "prompt_file": "prompts/nidalee_dead_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_dead_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_dead_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "ae8c7d95ffa75aac3a41075c4f60afbc3c978f153dba527a0b33e50a5f746962"
+  },
+  {
+    "file": "nidalee_dead_3.png",
+    "form": "human",
+    "tag": "dead",
+    "index": 2,
+    "ms": 130,
+    "what": "dying, frame 3 of 6: falling, almost on the ground",
+    "prompt_file": "prompts/nidalee_dead_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_dead_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_dead_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "9e5dcc939806748bbf6c2e101b96f0130b033402cd10a530e0a0d22b0e7a7e5e"
+  },
+  {
+    "file": "nidalee_dead_4.png",
+    "form": "human",
+    "tag": "dead",
+    "index": 3,
+    "ms": 150,
+    "what": "dying, frame 4 of 6: landing on the ground",
+    "prompt_file": "prompts/nidalee_dead_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_dead_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_dead_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "8cefbcc1386d72ce8c940f6749e1af3b5fd67eb73ce1c61988fd4b022a86da6b"
+  },
+  {
+    "file": "nidalee_dead_5.png",
+    "form": "human",
+    "tag": "dead",
+    "index": 4,
+    "ms": 200,
+    "what": "dying, frame 5 of 6: lying on the ground, the javelin lying level beside her on the image right",
+    "prompt_file": "prompts/nidalee_dead_5.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_dead_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_dead_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "7a7f99a1160fed7fbb3c7c3c03383ddb4490019bf116da5a9ea1a01ffc26e359"
+  },
+  {
+    "file": "nidalee_dead_6.png",
+    "form": "human",
+    "tag": "dead",
+    "index": 5,
+    "ms": 400,
+    "what": "dying, frame 6 of 6: the same, still (the last frame)",
+    "prompt_file": "prompts/nidalee_dead_6.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_dead_6.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_human_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_dead_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-human-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "151fd76d75f15edb570d993dcf1747d0f0df66e8113f5603e93a4fafc514164a"
+  },
+  {
+    "file": "nidalee_c_run_1.png",
+    "form": "cougar",
+    "tag": "c_run",
+    "index": 0,
+    "ms": 100,
+    "what": "running to the right, frame 1 of an 8-frame gallop loop as in Image 1: the front and hind legs gathering and stretching in turn, the body rising and falling, the tail streaming level behind",
+    "prompt_file": "prompts/nidalee_c_run_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_run_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "28c4b0f9de5b915ad65fc1b7769542388eb14db0b4c8fcd244affea4b4763ea1"
+  },
+  {
+    "file": "nidalee_c_run_2.png",
+    "form": "cougar",
+    "tag": "c_run",
+    "index": 1,
+    "ms": 100,
+    "what": "running to the right, frame 2 of an 8-frame gallop loop as in Image 1: the front and hind legs gathering and stretching in turn, the body rising and falling, the tail streaming level behind",
+    "prompt_file": "prompts/nidalee_c_run_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_run_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_run_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "b05a1126e439a22dd82e9c0d02504d36f609738d0e06f6403357bdf3f213b60b"
+  },
+  {
+    "file": "nidalee_c_run_3.png",
+    "form": "cougar",
+    "tag": "c_run",
+    "index": 2,
+    "ms": 100,
+    "what": "running to the right, frame 3 of an 8-frame gallop loop as in Image 1: the front and hind legs gathering and stretching in turn, the body rising and falling, the tail streaming level behind",
+    "prompt_file": "prompts/nidalee_c_run_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_run_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_run_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "28298411e6602626ca6ba5400dc0574e096da918f5c47fbacff0074b157c6e19"
+  },
+  {
+    "file": "nidalee_c_run_4.png",
+    "form": "cougar",
+    "tag": "c_run",
+    "index": 3,
+    "ms": 100,
+    "what": "running to the right, frame 4 of an 8-frame gallop loop as in Image 1: the front and hind legs gathering and stretching in turn, the body rising and falling, the tail streaming level behind",
+    "prompt_file": "prompts/nidalee_c_run_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_run_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_run_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "8d3dbd10d80630488fe1290b6f87b30db1698b69432a8c7bd1b87e4cc8bd862e"
+  },
+  {
+    "file": "nidalee_c_run_5.png",
+    "form": "cougar",
+    "tag": "c_run",
+    "index": 4,
+    "ms": 100,
+    "what": "running to the right, frame 5 of an 8-frame gallop loop as in Image 1: the front and hind legs gathering and stretching in turn, the body rising and falling, the tail streaming level behind",
+    "prompt_file": "prompts/nidalee_c_run_5.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_run_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_run_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "1b31e56a7965228710599f8a643fd4c39c6a549e7c65f1ab4548bbc2c1c0858e"
+  },
+  {
+    "file": "nidalee_c_run_6.png",
+    "form": "cougar",
+    "tag": "c_run",
+    "index": 5,
+    "ms": 100,
+    "what": "running to the right, frame 6 of an 8-frame gallop loop as in Image 1: the front and hind legs gathering and stretching in turn, the body rising and falling, the tail streaming level behind",
+    "prompt_file": "prompts/nidalee_c_run_6.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_run_6.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_run_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "ba83bb3db138251cf6a0ceb60b2dd45fd09710efc84fc9215fb92f3566dce296"
+  },
+  {
+    "file": "nidalee_c_run_7.png",
+    "form": "cougar",
+    "tag": "c_run",
+    "index": 6,
+    "ms": 100,
+    "what": "running to the right, frame 7 of an 8-frame gallop loop as in Image 1: the front and hind legs gathering and stretching in turn, the body rising and falling, the tail streaming level behind",
+    "prompt_file": "prompts/nidalee_c_run_7.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_run_7.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_run_6.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "e726a38a746a400ea7c33cfea72cd65f7c75226f28ced94cdec9249df2bfb133"
+  },
+  {
+    "file": "nidalee_c_run_8.png",
+    "form": "cougar",
+    "tag": "c_run",
+    "index": 7,
+    "ms": 100,
+    "what": "running to the right, frame 8 of an 8-frame gallop loop as in Image 1: the front and hind legs gathering and stretching in turn, the body rising and falling, the tail streaming level behind",
+    "prompt_file": "prompts/nidalee_c_run_8.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_run_8.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_run_7.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "6742aa6a60b00d23b1cb06659786347d74a735be8483a1b43b936902b9cc9bc8"
+  },
+  {
+    "file": "nidalee_c_attack_1.png",
+    "form": "cougar",
+    "tag": "c_attack",
+    "index": 0,
+    "ms": 70,
+    "what": "a claw swipe, frame 1 of 4: lifting the near front paw",
+    "prompt_file": "prompts/nidalee_c_attack_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_attack_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "e5a413fee19ba2e144ab35cf88fe05f3f5f7a174e9dbb3c9bd233b031b2bf5a4"
+  },
+  {
+    "file": "nidalee_c_attack_2.png",
+    "form": "cougar",
+    "tag": "c_attack",
+    "index": 1,
+    "ms": 70,
+    "what": "a claw swipe, frame 2 of 4: swiping the paw forward to the right",
+    "prompt_file": "prompts/nidalee_c_attack_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_attack_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_attack_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "caa20b05fc0f7ae25e62e87f46290e6dee3adff3141a295698efa76a2592aeb6"
+  },
+  {
+    "file": "nidalee_c_attack_3.png",
+    "form": "cougar",
+    "tag": "c_attack",
+    "index": 2,
+    "ms": 90,
+    "what": "a claw swipe, frame 3 of 4: the paw at its farthest forward (the hit)",
+    "prompt_file": "prompts/nidalee_c_attack_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_attack_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_attack_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "90200790ab3123a12e7de9029dbb6ec59ff6f36ded976bf2b6c0b6eb9d54b513"
+  },
+  {
+    "file": "nidalee_c_attack_4.png",
+    "form": "cougar",
+    "tag": "c_attack",
+    "index": 3,
+    "ms": 110,
+    "what": "a claw swipe, frame 4 of 4: back to the standing pose of Image 2",
+    "prompt_file": "prompts/nidalee_c_attack_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_attack_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_attack_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "500e2e11785280b9d839213e6bcaf14287ccf149adbd655481d26a1e1679e256"
+  },
+  {
+    "file": "nidalee_c_skill_1.png",
+    "form": "cougar",
+    "tag": "c_skill",
+    "index": 0,
+    "ms": 70,
+    "what": "Takedown, a pouncing bite, frame 1 of 5: crouching on the hind legs to spring",
+    "prompt_file": "prompts/nidalee_c_skill_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_skill_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "88244293f0814c5e1ddef8cc4a1559ff9c05e868636862838c39724087c357ff"
+  },
+  {
+    "file": "nidalee_c_skill_2.png",
+    "form": "cougar",
+    "tag": "c_skill",
+    "index": 1,
+    "ms": 70,
+    "what": "Takedown, a pouncing bite, frame 2 of 5: the front half rearing up, jaws open",
+    "prompt_file": "prompts/nidalee_c_skill_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_skill_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_skill_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "20b5ff32a4d33a6b9d1966e27f4e1d6bdb9f8736eb505be48bcbf973f3af91c4"
+  },
+  {
+    "file": "nidalee_c_skill_3.png",
+    "form": "cougar",
+    "tag": "c_skill",
+    "index": 2,
+    "ms": 90,
+    "what": "Takedown, a pouncing bite, frame 3 of 5: lunging down, biting, both front paws pressing down",
+    "prompt_file": "prompts/nidalee_c_skill_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_skill_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_skill_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "2d0f466865bb0dd7d2fc3265fc7d7000a6559124c4111ae78b35adf66fbb6ee3"
+  },
+  {
+    "file": "nidalee_c_skill_4.png",
+    "form": "cougar",
+    "tag": "c_skill",
+    "index": 3,
+    "ms": 90,
+    "what": "Takedown, a pouncing bite, frame 4 of 5: holding the bite, low",
+    "prompt_file": "prompts/nidalee_c_skill_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_skill_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_skill_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "91c5e360dd75947e72fa2ceef72d133ed3a7df1b218783ea68f5a074f1851eb9"
+  },
+  {
+    "file": "nidalee_c_skill_5.png",
+    "form": "cougar",
+    "tag": "c_skill",
+    "index": 4,
+    "ms": 110,
+    "what": "Takedown, a pouncing bite, frame 5 of 5: back to the standing pose",
+    "prompt_file": "prompts/nidalee_c_skill_5.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_skill_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_skill_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "8f4ae946cd450254608b789a957437a32151d1ddf5e9aca91292d9598851a104"
+  },
+  {
+    "file": "nidalee_c_pounce_1.png",
+    "form": "cougar",
+    "tag": "c_pounce",
+    "index": 0,
+    "ms": 60,
+    "what": "Pounce, a long leap, frame 1 of 6: crouching low, ready to spring",
+    "prompt_file": "prompts/nidalee_c_pounce_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_pounce_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "6fd5a8b3cc9be24fa061ddc44c93c3aa6bf7c1ac55d00d903872fa0ab174e67c"
+  },
+  {
+    "file": "nidalee_c_pounce_2.png",
+    "form": "cougar",
+    "tag": "c_pounce",
+    "index": 1,
+    "ms": 60,
+    "what": "Pounce, a long leap, frame 2 of 6: the hind legs pushing off, leaping forward and up to the right",
+    "prompt_file": "prompts/nidalee_c_pounce_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_pounce_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_pounce_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "86c15880618d99b23af6af820099ee9292f40ef3155b21e7e98e7ac762236931"
+  },
+  {
+    "file": "nidalee_c_pounce_3.png",
+    "form": "cougar",
+    "tag": "c_pounce",
+    "index": 2,
+    "ms": 60,
+    "what": "Pounce, a long leap, frame 3 of 6: in the air, the body fully stretched, front paws reaching forward",
+    "prompt_file": "prompts/nidalee_c_pounce_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_pounce_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_pounce_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "fb76918f4d5ce2f0409fee7e8dc2592b0e7355c2c93938d68bca8e6767318bb6"
+  },
+  {
+    "file": "nidalee_c_pounce_4.png",
+    "form": "cougar",
+    "tag": "c_pounce",
+    "index": 3,
+    "ms": 60,
+    "what": "Pounce, a long leap, frame 4 of 6: coming down, front paws reaching down",
+    "prompt_file": "prompts/nidalee_c_pounce_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_pounce_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_pounce_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "0ed59eee3ee9c6c1aac01bdb11f8daffc926d9a48f8664c9a0a86f3f2e24b1f2"
+  },
+  {
+    "file": "nidalee_c_pounce_5.png",
+    "form": "cougar",
+    "tag": "c_pounce",
+    "index": 4,
+    "ms": 70,
+    "what": "Pounce, a long leap, frame 5 of 6: landing on the front paws, body low",
+    "prompt_file": "prompts/nidalee_c_pounce_5.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_pounce_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_pounce_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "a1de34dcf5fa08bfe8fa97cb6df7cac2d2dcd5022f638f63ea8d7a76985f10f5"
+  },
+  {
+    "file": "nidalee_c_pounce_6.png",
+    "form": "cougar",
+    "tag": "c_pounce",
+    "index": 5,
+    "ms": 90,
+    "what": "Pounce, a long leap, frame 6 of 6: standing again",
+    "prompt_file": "prompts/nidalee_c_pounce_6.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_pounce_6.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_pounce_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "f654f0b1d9fbc7c805878644482cb055294cfd84c1f4b960d70cb63fd07f0216"
+  },
+  {
+    "file": "nidalee_c_swipe_1.png",
+    "form": "cougar",
+    "tag": "c_swipe",
+    "index": 0,
+    "ms": 70,
+    "what": "Swipe, both front paws, frame 1 of 4: the front half rising, both front paws raised",
+    "prompt_file": "prompts/nidalee_c_swipe_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_swipe_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "a2123bc84e9da3d98d800b889b4aa12ea746a24798d5622423d8f5ac0917100f"
+  },
+  {
+    "file": "nidalee_c_swipe_2.png",
+    "form": "cougar",
+    "tag": "c_swipe",
+    "index": 1,
+    "ms": 80,
+    "what": "Swipe, both front paws, frame 2 of 4: both paws sweeping forward to the right",
+    "prompt_file": "prompts/nidalee_c_swipe_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_swipe_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_swipe_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "3b41aa3f796770ab8962b76745a68e7a90373ca693ff466fa5e139675982a2d7"
+  },
+  {
+    "file": "nidalee_c_swipe_3.png",
+    "form": "cougar",
+    "tag": "c_swipe",
+    "index": 2,
+    "ms": 90,
+    "what": "Swipe, both front paws, frame 3 of 4: the sweep at its farthest, body low",
+    "prompt_file": "prompts/nidalee_c_swipe_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_swipe_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_swipe_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "84478c77a74474bcbee5cc1fa9a1341804f1d3205994de5d5b644a1481b7bc57"
+  },
+  {
+    "file": "nidalee_c_swipe_4.png",
+    "form": "cougar",
+    "tag": "c_swipe",
+    "index": 3,
+    "ms": 110,
+    "what": "Swipe, both front paws, frame 4 of 4: back to the standing pose",
+    "prompt_file": "prompts/nidalee_c_swipe_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_swipe_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_swipe_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "dba3db6d19f85d3e9187e2db96b9a460ae23b0dcb0d063087cf4e117b709fa7c"
+  },
+  {
+    "file": "nidalee_c_transform_1.png",
+    "form": "cougar",
+    "tag": "c_transform",
+    "index": 0,
+    "ms": 80,
+    "what": "turning back into the huntress, frame 1 of 3: sitting back on the hind legs, the front half rising",
+    "prompt_file": "prompts/nidalee_c_transform_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_transform_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "6def1671ce2faddb95ff290c5e73fd5a26a7232cc04e9b4904296f129ac26994"
+  },
+  {
+    "file": "nidalee_c_transform_2.png",
+    "form": "cougar",
+    "tag": "c_transform",
+    "index": 1,
+    "ms": 90,
+    "what": "turning back into the huntress, frame 2 of 3: sitting up tall, head raised",
+    "prompt_file": "prompts/nidalee_c_transform_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_transform_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_transform_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "0a3021c01f8a71b22e89b75665d53c887115067d060c572440c59111ab8ea214"
+  },
+  {
+    "file": "nidalee_c_transform_3.png",
+    "form": "cougar",
+    "tag": "c_transform",
+    "index": 2,
+    "ms": 100,
+    "what": "turning back into the huntress, frame 3 of 3: the front paws lifted off the ground (a burst of light will cover it here - do not draw it)",
+    "prompt_file": "prompts/nidalee_c_transform_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_transform_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_transform_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "2ad12fb4dc353c6fe950bf6175f2cf7129e336c4d8edf9ec39c221f44a94a093"
+  },
+  {
+    "file": "nidalee_c_dead_1.png",
+    "form": "cougar",
+    "tag": "c_dead",
+    "index": 0,
+    "ms": 100,
+    "what": "dying, frame 1 of 6: hit, flinching",
+    "prompt_file": "prompts/nidalee_c_dead_1.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_dead_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "5a5ad4df4321dbdc83eb8dd9e77333250737b12c8b60748aff778d8e8d24fe7a"
+  },
+  {
+    "file": "nidalee_c_dead_2.png",
+    "form": "cougar",
+    "tag": "c_dead",
+    "index": 1,
+    "ms": 110,
+    "what": "dying, frame 2 of 6: the legs giving way, sinking",
+    "prompt_file": "prompts/nidalee_c_dead_2.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_dead_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_dead_1.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "7b116b5e534f735081b0a91f15e8243aca4ebcb62e1a95eae9a2ebf95dab6ee4"
+  },
+  {
+    "file": "nidalee_c_dead_3.png",
+    "form": "cougar",
+    "tag": "c_dead",
+    "index": 2,
+    "ms": 130,
+    "what": "dying, frame 3 of 6: collapsing onto its side on the ground",
+    "prompt_file": "prompts/nidalee_c_dead_3.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_dead_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_dead_2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "6cb3c9b76cab83441220069d97124c1d6f0854b0c555590fb37e25084b30bc94"
+  },
+  {
+    "file": "nidalee_c_dead_4.png",
+    "form": "cougar",
+    "tag": "c_dead",
+    "index": 3,
+    "ms": 150,
+    "what": "dying, frame 4 of 6: lying on the ground",
+    "prompt_file": "prompts/nidalee_c_dead_4.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_dead_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_dead_3.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "5a61da1c17a2b790c597383e6cb0b1dcdde5413a4fc1024a1fbb46903649630f"
+  },
+  {
+    "file": "nidalee_c_dead_5.png",
+    "form": "cougar",
+    "tag": "c_dead",
+    "index": 4,
+    "ms": 200,
+    "what": "dying, frame 5 of 6: lying on its side, still",
+    "prompt_file": "prompts/nidalee_c_dead_5.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_dead_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_dead_4.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "ba81c1b9d4d7513b5eaadebb521dc4eeb5d3433d1e250f0858c75c4eda56582b"
+  },
+  {
+    "file": "nidalee_c_dead_6.png",
+    "form": "cougar",
+    "tag": "c_dead",
+    "index": 5,
+    "ms": 400,
+    "what": "dying, frame 6 of 6: the same, still (the last frame)",
+    "prompt_file": "prompts/nidalee_c_dead_6.txt",
+    "reference_order": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\now\\nidalee_c_dead_6.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\design\\nidalee_cougar_design_on_canvas.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\outputs\\nidalee-strips\\nidalee_c_dead_5.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-13\\nidalee-strips-pack-zip-2-model\\work\\nidalee-pack\\refs\\nidalee-cougar-A.png"
+    ],
+    "status": "generated_needs_art_repair",
+    "raw_sha256": "5baa1ac5a90d8d1ae65862f038428b8a2b45faf8d41b12aad2207099d055d384"
+  }
+]

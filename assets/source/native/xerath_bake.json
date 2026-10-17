@@ -1,0 +1,13 @@
+{
+  "fx": "league_xerath_fx",
+  "items": [
+    {"tag": "a_flash", "into": "attack", "at_ms": 183},
+    {"tag": "p_surge", "into": "attack_fx1", "from": "attack", "slice_ms": 183, "length_ms": 283, "at_ms": 0},
+    {"tag": "q_charge", "into": "skill_fx1", "from": "skill", "slice_ms": 0, "length_ms": 1067, "at_ms": 0},
+    {"tag": "q_fire", "into": "skill_fx1", "at_ms": 900},
+    {"tag": "q_charge_s", "into": "skill_quick", "at_ms": 0},
+    {"tag": "q_fire", "into": "skill_quick", "at_ms": 367},
+    {"tag": "e_cast", "into": "skill2", "at_ms": 183},
+    {"tag": "r_cast_shot", "into": "ult_shot", "at_ms": 0}
+  ]
+}

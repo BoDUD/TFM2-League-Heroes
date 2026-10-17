@@ -1,0 +1,1776 @@
+{
+  "version": 1,
+  "character": "sett",
+  "coordinate_system": "PNG pixels, top-left origin, row-major frames, rect=[x,y,width,height]; frame index zero-based",
+  "generation": "native image_gen; original pixels and alpha preserved; no code-painted or normalized sprites",
+  "integration_status": "asset handoff only, not installed or tested in game",
+  "assets": [
+    {
+      "name": "sett_fx_a_hit",
+      "file": "sett_fx_a_hit.png",
+      "raw_file": "raw/sett_fx_a_hit.png",
+      "prompt_number": 1,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_size": [
+          543,
+          724
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            177,
+            267,
+            187,
+            187
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            15,
+            116,
+            472,
+            480
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            44,
+            154,
+            441,
+            420
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            76,
+            177,
+            392,
+            361
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        12,
+        12
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_a_hit",
+        "follow": true,
+        "placement": "target",
+        "z": 2
+      },
+      "sha256": "ba59202a092cb4c3dd3b93b1f6f17f2bfc426d69aac8a46645b6d0ae8b4c3920",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_a2_hit",
+      "file": "sett_fx_a2_hit.png",
+      "raw_file": "raw/sett_fx_a2_hit.png",
+      "prompt_number": 2,
+      "image_size": [
+        1983,
+        793
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "cell_size": [
+          396,
+          793
+        ],
+        "origin": [
+          1,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            1,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            65,
+            259,
+            331,
+            269
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            0,
+            206,
+            396,
+            368
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            793,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            0,
+            176,
+            396,
+            408
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1189,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            0,
+            190,
+            378,
+            398
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1585,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            40,
+            217,
+            314,
+            328
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        16,
+        16
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_a2_hit",
+        "follow": true,
+        "placement": "target",
+        "z": 2
+      },
+      "sha256": "72c4ced741a5205a948b26f0502cb26b9206b47ba25f6443174a5295c6bd7232",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_q_glow",
+      "file": "sett_fx_q_glow.png",
+      "raw_file": "raw/sett_fx_q_glow.png",
+      "prompt_number": 3,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_size": [
+          543,
+          724
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            60,
+            296,
+            421,
+            183
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            53,
+            244,
+            439,
+            235
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            56,
+            205,
+            431,
+            274
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            66,
+            262,
+            418,
+            217
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        30,
+        16
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_buffs",
+        "id": "league_sett_q_1",
+        "z": 1,
+        "tag": "q_glow",
+        "fist_offsets_game_pixels": [
+          [
+            -10,
+            -5
+          ],
+          [
+            10,
+            -5
+          ]
+        ]
+      },
+      "sha256": "883729f2c11766fbe1fb162249f9ef83d29c821fcf8f09016b56c3543c6d47c0",
+      "loop": true
+    },
+    {
+      "name": "sett_fx_q_hit",
+      "file": "sett_fx_q_hit.png",
+      "raw_file": "raw/sett_fx_q_hit.png",
+      "prompt_number": 4,
+      "image_size": [
+        1983,
+        793
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "cell_size": [
+          396,
+          793
+        ],
+        "origin": [
+          1,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            1,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            31,
+            213,
+            326,
+            342
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            5,
+            202,
+            357,
+            369
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            793,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            10,
+            190,
+            370,
+            381
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1189,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            20,
+            203,
+            354,
+            368
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1585,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            42,
+            223,
+            311,
+            324
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        22,
+        22
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_q_hit",
+        "follow": true,
+        "placement": "target"
+      },
+      "sha256": "46a0363d728bdb9a06aa48282506c8017b41f7fdbd2e7160c9d17eb622194ca6",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_e_hit",
+      "file": "sett_fx_e_hit.png",
+      "raw_file": "raw/sett_fx_e_hit.png",
+      "prompt_number": 5,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_size": [
+          543,
+          724
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            111,
+            196,
+            331,
+            329
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            9,
+            175,
+            527,
+            358
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            39,
+            164,
+            462,
+            368
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            77,
+            196,
+            395,
+            316
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        14,
+        14
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_e_hit",
+        "follow": true,
+        "placement": "target"
+      },
+      "sha256": "a9d4eecd28d4f1ab2355946669e2d1e6f0eecd6586bb2b790d00f46f5a96f2b5",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_e_smash",
+      "file": "sett_fx_e_smash.png",
+      "raw_file": "raw/sett_fx_e_smash.png",
+      "prompt_number": 6,
+      "image_size": [
+        1983,
+        793
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "cell_size": [
+          396,
+          793
+        ],
+        "origin": [
+          1,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            1,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            57,
+            281,
+            248,
+            238
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            0,
+            244,
+            384,
+            306
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            793,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            9,
+            243,
+            379,
+            312
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1189,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            24,
+            233,
+            345,
+            328
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1585,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox": [
+            37,
+            301,
+            314,
+            201
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        26,
+        26
+      ],
+      "asset_group": "league_sett_big",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_e_smash",
+        "follow": false,
+        "placement": "caster",
+        "z": 1,
+        "offset_game_pixels": [
+          7,
+          -11
+        ],
+        "trigger_tick": 18
+      },
+      "sha256": "dbe6eb0d6d4dbeafc3862ee46f734f0a30ea0ad1fc10781bebb4683ec14b28ce",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_w_fist",
+      "file": "sett_fx_w_fist.png",
+      "raw_file": "raw/sett_fx_w_fist.png",
+      "prompt_number": 7,
+      "image_size": [
+        1536,
+        1024
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 3,
+        "cell_size": [
+          512,
+          341
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            341
+          ],
+          "visible_bbox": [
+            40,
+            29,
+            440,
+            285
+          ],
+          "duration_ticks": 7,
+          "phase": "charge"
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            341
+          ],
+          "visible_bbox": [
+            42,
+            29,
+            436,
+            285
+          ],
+          "duration_ticks": 7,
+          "phase": "charge"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            341
+          ],
+          "visible_bbox": [
+            34,
+            29,
+            439,
+            285
+          ],
+          "duration_ticks": 7,
+          "phase": "charge"
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            341,
+            512,
+            341
+          ],
+          "visible_bbox": [
+            40,
+            18,
+            440,
+            309
+          ],
+          "duration_ticks": 6,
+          "phase": "charge"
+        },
+        {
+          "index": 4,
+          "rect": [
+            512,
+            341,
+            512,
+            341
+          ],
+          "visible_bbox": [
+            27,
+            18,
+            464,
+            309
+          ],
+          "duration_ticks": 4,
+          "phase": "punch"
+        },
+        {
+          "index": 5,
+          "rect": [
+            1024,
+            341,
+            512,
+            341
+          ],
+          "visible_bbox": [
+            17,
+            18,
+            448,
+            309
+          ],
+          "duration_ticks": 4,
+          "phase": "punch"
+        },
+        {
+          "index": 6,
+          "rect": [
+            0,
+            682,
+            512,
+            341
+          ],
+          "visible_bbox": [
+            40,
+            8,
+            472,
+            319
+          ],
+          "duration_ticks": 4,
+          "phase": "punch"
+        },
+        {
+          "index": 7,
+          "rect": [
+            512,
+            682,
+            512,
+            341
+          ],
+          "visible_bbox": [
+            0,
+            15,
+            512,
+            312
+          ],
+          "duration_ticks": 4,
+          "phase": "punch"
+        },
+        {
+          "index": 8,
+          "rect": [
+            1024,
+            682,
+            512,
+            341
+          ],
+          "visible_bbox": [
+            0,
+            73,
+            451,
+            206
+          ],
+          "duration_ticks": 3,
+          "phase": "punch"
+        }
+      ],
+      "logical_extent_game_pixels": [
+        60,
+        40
+      ],
+      "asset_group": "league_sett_big",
+      "binding": {
+        "table": "view_projectiles",
+        "id": "league_sett_w_fist",
+        "projectile_type": "LineRangeProjectile",
+        "range_units": 50000,
+        "placement": "line_midpoint",
+        "direction": "right",
+        "total_ticks": 46,
+        "punch_start_tick": 27
+      },
+      "sha256": "30f775b938c487061f646d2f6a68158f026216d40ae194479e5b4d00ae767d60",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_w_shield",
+      "file": "sett_fx_w_shield.png",
+      "raw_file": "raw/sett_fx_w_shield.png",
+      "prompt_number": 8,
+      "image_size": [
+        1448,
+        1086
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 3,
+        "cell_size": [
+          362,
+          362
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            144,
+            174,
+            73,
+            35
+          ],
+          "phase": "w_pre"
+        },
+        {
+          "index": 1,
+          "rect": [
+            362,
+            0,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            108,
+            166,
+            144,
+            64
+          ],
+          "phase": "w_pre"
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            48,
+            83,
+            266,
+            242
+          ],
+          "phase": "w_pre"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            38,
+            34,
+            276,
+            308
+          ],
+          "phase": "w_pre"
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            362,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            45,
+            34,
+            275,
+            307
+          ],
+          "phase": "w_loop"
+        },
+        {
+          "index": 5,
+          "rect": [
+            362,
+            362,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            45,
+            27,
+            275,
+            314
+          ],
+          "phase": "w_loop"
+        },
+        {
+          "index": 6,
+          "rect": [
+            724,
+            362,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            45,
+            34,
+            276,
+            307
+          ],
+          "phase": "w_loop"
+        },
+        {
+          "index": 7,
+          "rect": [
+            1086,
+            362,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            44,
+            34,
+            275,
+            315
+          ],
+          "phase": "w_loop"
+        },
+        {
+          "index": 8,
+          "rect": [
+            0,
+            724,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            39,
+            31,
+            282,
+            309
+          ],
+          "phase": "w_remove"
+        },
+        {
+          "index": 9,
+          "rect": [
+            362,
+            724,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            17,
+            24,
+            325,
+            316
+          ],
+          "phase": "w_remove"
+        },
+        {
+          "index": 10,
+          "rect": [
+            724,
+            724,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            24,
+            62,
+            312,
+            266
+          ],
+          "phase": "w_remove"
+        },
+        {
+          "index": 11,
+          "rect": [
+            1086,
+            724,
+            362,
+            362
+          ],
+          "visible_bbox": [
+            75,
+            105,
+            198,
+            215
+          ],
+          "phase": "w_remove"
+        }
+      ],
+      "logical_extent_game_pixels": [
+        36,
+        48
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_buffs",
+        "id": "league_sett_w_shield",
+        "z": 1,
+        "type": "ThreePhase"
+      },
+      "sha256": "802c52fd68cd466d12a677b71eea3e2c1bdb5825443766d105f6c4b545014759",
+      "loop": false,
+      "phases": {
+        "w_pre": {
+          "frame_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "loop": false
+        },
+        "w_loop": {
+          "frame_indices": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "loop": true
+        },
+        "w_remove": {
+          "frame_indices": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "loop": false
+        }
+      }
+    },
+    {
+      "name": "sett_fx_w_true",
+      "file": "sett_fx_w_true.png",
+      "raw_file": "raw/sett_fx_w_true.png",
+      "prompt_number": 9,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "cell_size": [
+          434,
+          724
+        ],
+        "origin": [
+          1,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            1,
+            0,
+            434,
+            724
+          ],
+          "visible_bbox": [
+            57,
+            256,
+            377,
+            226
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            435,
+            0,
+            434,
+            724
+          ],
+          "visible_bbox": [
+            0,
+            99,
+            432,
+            538
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            869,
+            0,
+            434,
+            724
+          ],
+          "visible_bbox": [
+            17,
+            157,
+            417,
+            421
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1303,
+            0,
+            434,
+            724
+          ],
+          "visible_bbox": [
+            0,
+            171,
+            434,
+            402
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1737,
+            0,
+            434,
+            724
+          ],
+          "visible_bbox": [
+            0,
+            200,
+            402,
+            339
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        20,
+        20
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_w_true",
+        "follow": true,
+        "placement": "target",
+        "z": 3
+      },
+      "sha256": "4e351a013169feff77ae4a7b5dd96a7adf5fcad3cfa96eae88f98115b34eb746",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_w_hit",
+      "file": "sett_fx_w_hit.png",
+      "raw_file": "raw/sett_fx_w_hit.png",
+      "prompt_number": 10,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_size": [
+          543,
+          724
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            157,
+            248,
+            232,
+            228
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            27,
+            125,
+            480,
+            455
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            67,
+            169,
+            404,
+            398
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            107,
+            236,
+            284,
+            314
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        14,
+        14
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_w_hit",
+        "follow": true,
+        "placement": "target"
+      },
+      "sha256": "acba9a0a92b49cf7100291cdedcc679f207f727c6f14a129be2bc8432a2ed92b",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_r_grab",
+      "file": "sett_fx_r_grab.png",
+      "raw_file": "raw/sett_fx_r_grab.png",
+      "prompt_number": 11,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_size": [
+          543,
+          724
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            28,
+            177,
+            508,
+            373
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            59,
+            177,
+            427,
+            348
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            49,
+            171,
+            439,
+            379
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            59,
+            171,
+            397,
+            370
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        18,
+        18
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_r_grab",
+        "follow": true,
+        "placement": "target"
+      },
+      "sha256": "f4965569bfe1107a46171dc06f53de3f954295000dee1b6aa7517e8e66c076dc",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_r_slam",
+      "file": "sett_fx_r_slam.png",
+      "raw_file": "raw/sett_fx_r_slam.png",
+      "prompt_number": 12,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "cell_size": [
+          724,
+          362
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            724,
+            362
+          ],
+          "visible_bbox": [
+            70,
+            106,
+            595,
+            228
+          ],
+          "duration_ms": 117
+        },
+        {
+          "index": 1,
+          "rect": [
+            724,
+            0,
+            724,
+            362
+          ],
+          "visible_bbox": [
+            22,
+            78,
+            702,
+            278
+          ],
+          "duration_ms": 117
+        },
+        {
+          "index": 2,
+          "rect": [
+            1448,
+            0,
+            724,
+            362
+          ],
+          "visible_bbox": [
+            0,
+            89,
+            698,
+            271
+          ],
+          "duration_ms": 117
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            362,
+            724,
+            362
+          ],
+          "visible_bbox": [
+            15,
+            65,
+            709,
+            249
+          ],
+          "duration_ms": 117
+        },
+        {
+          "index": 4,
+          "rect": [
+            724,
+            362,
+            724,
+            362
+          ],
+          "visible_bbox": [
+            0,
+            111,
+            673,
+            178
+          ],
+          "duration_ms": 116
+        },
+        {
+          "index": 5,
+          "rect": [
+            1448,
+            362,
+            724,
+            362
+          ],
+          "visible_bbox": [
+            66,
+            129,
+            585,
+            155
+          ],
+          "duration_ms": 116
+        }
+      ],
+      "logical_extent_game_pixels": [
+        64,
+        32
+      ],
+      "asset_group": "league_sett_big",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_r_slam",
+        "follow": false,
+        "placement": "caster_feet",
+        "z": -1,
+        "trigger_tick": 4
+      },
+      "sha256": "25922d82307a5b0ffef1379f0040b5499b13658fa0f27054e48319c2689be534",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_r_hit",
+      "file": "sett_fx_r_hit.png",
+      "raw_file": "raw/sett_fx_r_hit.png",
+      "prompt_number": 13,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_size": [
+          543,
+          724
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            80,
+            325,
+            463,
+            190
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            0,
+            208,
+            543,
+            323
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            16,
+            230,
+            525,
+            286
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox": [
+            36,
+            289,
+            479,
+            232
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        14,
+        14
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_effects",
+        "id": "league_sett_r_hit",
+        "follow": true,
+        "placement": "target"
+      },
+      "sha256": "e12c2ab6c874536f11ba2b51d38d6e855f4b6f5c32fdc658ba3a4457ab74c621",
+      "loop": false
+    },
+    {
+      "name": "sett_fx_grit",
+      "file": "sett_fx_grit.png",
+      "raw_file": "raw/sett_fx_grit.png",
+      "prompt_number": 14,
+      "image_size": [
+        1881,
+        836
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "cell_size": [
+          627,
+          418
+        ],
+        "origin": [
+          0,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            627,
+            418
+          ],
+          "visible_bbox": [
+            88,
+            163,
+            458,
+            203
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            627,
+            0,
+            627,
+            418
+          ],
+          "visible_bbox": [
+            88,
+            142,
+            451,
+            224
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1254,
+            0,
+            627,
+            418
+          ],
+          "visible_bbox": [
+            87,
+            105,
+            452,
+            261
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            418,
+            627,
+            418
+          ],
+          "visible_bbox": [
+            88,
+            88,
+            451,
+            278
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            627,
+            418,
+            627,
+            418
+          ],
+          "visible_bbox": [
+            84,
+            131,
+            462,
+            234
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1254,
+            418,
+            627,
+            418
+          ],
+          "visible_bbox": [
+            87,
+            162,
+            452,
+            203
+          ]
+        }
+      ],
+      "logical_extent_game_pixels": [
+        32,
+        22
+      ],
+      "asset_group": "league_sett_fx",
+      "binding": {
+        "table": "view_buffs",
+        "id": [
+          "league_sett_grit_4",
+          "league_sett_grit_5"
+        ],
+        "z": -1,
+        "tag": "grit",
+        "placement": "caster_feet"
+      },
+      "sha256": "93d33e18dd838d0386f0007ca755cd533b494a8ae44fa1ec5c97f07724342747",
+      "loop": true
+    }
+  ]
+}

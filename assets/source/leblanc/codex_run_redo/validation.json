@@ -1,0 +1,22 @@
+{
+  "dimensions": [
+    3072,
+    1280
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "frame_count": 8,
+  "strict_8x_blocks": true,
+  "binary_alpha": true,
+  "palette_subset": true,
+  "head_identical_all": true,
+  "head_halo_clean_all": true,
+  "connected_character_all": true,
+  "foot_on_row_67_all": true,
+  "pixels_below_feet": 0,
+  "eye_color_outside_head": 0,
+  "head_bob_range": 1,
+  "visual_review": "Frames 3 and 7 have passing poses; bottom row uses different leg poses; compact shoe separation visually reviewed. Golden-pixel shoe segmentation is incomplete and is not used as proof of leg alternation."
+}

@@ -1,0 +1,3922 @@
+{
+  "schema_version": 1,
+  "coordinate_units": "logical pixels; bbox exclusive right/bottom",
+  "scale": 8,
+  "cell_1x": [
+    96,
+    88
+  ],
+  "source_design_sha256": "51785e78d776caf692e64037f2d22137cdac521dac7615dbbed4d8fae75551d9",
+  "palette_rgb": [
+    [
+      11,
+      9,
+      16
+    ],
+    [
+      14,
+      79,
+      168
+    ],
+    [
+      26,
+      20,
+      32
+    ],
+    [
+      26,
+      138,
+      208
+    ],
+    [
+      30,
+      134,
+      224
+    ],
+    [
+      58,
+      44,
+      64
+    ],
+    [
+      62,
+      66,
+      112
+    ],
+    [
+      74,
+      36,
+      16
+    ],
+    [
+      74,
+      216,
+      248
+    ],
+    [
+      90,
+      10,
+      30
+    ],
+    [
+      91,
+      97,
+      148
+    ],
+    [
+      106,
+      74,
+      90
+    ],
+    [
+      111,
+      134,
+      174
+    ],
+    [
+      122,
+      68,
+      32
+    ],
+    [
+      126,
+      134,
+      184
+    ],
+    [
+      138,
+      90,
+      16
+    ],
+    [
+      149,
+      20,
+      46
+    ],
+    [
+      160,
+      32,
+      42
+    ],
+    [
+      162,
+      182,
+      214
+    ],
+    [
+      163,
+      170,
+      214
+    ],
+    [
+      168,
+      102,
+      46
+    ],
+    [
+      198,
+      42,
+      68
+    ],
+    [
+      200,
+      64,
+      10
+    ],
+    [
+      200,
+      246,
+      255
+    ],
+    [
+      212,
+      154,
+      30
+    ],
+    [
+      220,
+      230,
+      244
+    ],
+    [
+      247,
+      208,
+      74
+    ],
+    [
+      255,
+      138,
+      30
+    ],
+    [
+      255,
+      241,
+      160
+    ]
+  ],
+  "source_route": "native image_gen raw strips + exact approved-design component reconstruction",
+  "animations": {
+    "idle": {
+      "file": "viktor_idle.png",
+      "native_file": "native/viktor_idle_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1408
+      ],
+      "feet_row": 74,
+      "frame_count": 6,
+      "release_frame": null,
+      "release_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 200,
+          "cell_rect_1x": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            408,
+            504
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            288,
+            264,
+            528,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "duration_ms": 200,
+          "cell_rect_1x": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1176,
+            504
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1056,
+            264,
+            1296,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "duration_ms": 200,
+          "cell_rect_1x": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1944,
+            504
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1824,
+            264,
+            2064,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "duration_ms": 200,
+          "cell_rect_1x": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            408,
+            1208
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            288,
+            968,
+            528,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "duration_ms": 200,
+          "cell_rect_1x": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1176,
+            1208
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1056,
+            968,
+            1296,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "duration_ms": 200,
+          "cell_rect_1x": [
+            192,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1944,
+            1208
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1824,
+            968,
+            2064,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "run": {
+      "file": "viktor_run.png",
+      "native_file": "native/viktor_run_1x.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3072,
+        1408
+      ],
+      "feet_row": 74,
+      "frame_count": 8,
+      "release_frame": null,
+      "release_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 133,
+          "cell_rect_1x": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            52,
+            63
+          ],
+          "pivot_sheet_px": [
+            416,
+            504
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            67,
+            75
+          ],
+          "bbox_sheet_px": [
+            288,
+            264,
+            536,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              45,
+              57
+            ],
+            "far_hand": [
+              64,
+              65
+            ],
+            "staff_head": [
+              42,
+              46
+            ],
+            "claw_core": [
+              44,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 803,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "duration_ms": 133,
+          "cell_rect_1x": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1176,
+            504
+          ],
+          "bbox_cell_1x": [
+            35,
+            32,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1048,
+            256,
+            1296,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              56
+            ],
+            "far_hand": [
+              63,
+              64
+            ],
+            "staff_head": [
+              41,
+              45
+            ],
+            "claw_core": [
+              43,
+              38
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 811,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -1
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "duration_ms": 133,
+          "cell_rect_1x": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            53,
+            63
+          ],
+          "pivot_sheet_px": [
+            1960,
+            504
+          ],
+          "bbox_cell_1x": [
+            38,
+            32,
+            68,
+            75
+          ],
+          "bbox_sheet_px": [
+            1840,
+            256,
+            2080,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              46,
+              56
+            ],
+            "far_hand": [
+              65,
+              64
+            ],
+            "staff_head": [
+              43,
+              45
+            ],
+            "claw_core": [
+              45,
+              38
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 787,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -1
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "duration_ms": 133,
+          "cell_rect_1x": [
+            288,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            2304,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            53,
+            63
+          ],
+          "pivot_sheet_px": [
+            2728,
+            504
+          ],
+          "bbox_cell_1x": [
+            39,
+            33,
+            68,
+            75
+          ],
+          "bbox_sheet_px": [
+            2616,
+            264,
+            2848,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              46,
+              57
+            ],
+            "far_hand": [
+              65,
+              65
+            ],
+            "staff_head": [
+              43,
+              46
+            ],
+            "claw_core": [
+              45,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 774,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "duration_ms": 133,
+          "cell_rect_1x": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            48,
+            63
+          ],
+          "pivot_sheet_px": [
+            384,
+            1208
+          ],
+          "bbox_cell_1x": [
+            34,
+            33,
+            63,
+            75
+          ],
+          "bbox_sheet_px": [
+            272,
+            968,
+            504,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              41,
+              57
+            ],
+            "far_hand": [
+              60,
+              65
+            ],
+            "staff_head": [
+              38,
+              46
+            ],
+            "claw_core": [
+              40,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 807,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "duration_ms": 133,
+          "cell_rect_1x": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            52,
+            63
+          ],
+          "pivot_sheet_px": [
+            1184,
+            1208
+          ],
+          "bbox_cell_1x": [
+            37,
+            32,
+            67,
+            75
+          ],
+          "bbox_sheet_px": [
+            1064,
+            960,
+            1304,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              45,
+              56
+            ],
+            "far_hand": [
+              64,
+              64
+            ],
+            "staff_head": [
+              42,
+              45
+            ],
+            "claw_core": [
+              44,
+              38
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 810,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -1
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "duration_ms": 133,
+          "cell_rect_1x": [
+            192,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1944,
+            1208
+          ],
+          "bbox_cell_1x": [
+            35,
+            32,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1816,
+            960,
+            2064,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              56
+            ],
+            "far_hand": [
+              63,
+              64
+            ],
+            "staff_head": [
+              41,
+              45
+            ],
+            "claw_core": [
+              43,
+              38
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 767,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -1
+            ]
+          }
+        },
+        {
+          "frame": 8,
+          "duration_ms": 133,
+          "cell_rect_1x": [
+            288,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            2304,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            48,
+            63
+          ],
+          "pivot_sheet_px": [
+            2688,
+            1208
+          ],
+          "bbox_cell_1x": [
+            32,
+            33,
+            63,
+            75
+          ],
+          "bbox_sheet_px": [
+            2560,
+            968,
+            2808,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              41,
+              57
+            ],
+            "far_hand": [
+              60,
+              65
+            ],
+            "staff_head": [
+              38,
+              46
+            ],
+            "claw_core": [
+              40,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 797,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "attack": {
+      "file": "viktor_attack.png",
+      "native_file": "native/viktor_attack_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1408
+      ],
+      "feet_row": 74,
+      "frame_count": 5,
+      "release_frame": 3,
+      "release_tick": 10,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 83,
+          "cell_rect_1x": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            408,
+            504
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            288,
+            264,
+            528,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "duration_ms": 84,
+          "cell_rect_1x": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            50,
+            63
+          ],
+          "pivot_sheet_px": [
+            1168,
+            504
+          ],
+          "bbox_cell_1x": [
+            34,
+            33,
+            64,
+            75
+          ],
+          "bbox_sheet_px": [
+            1040,
+            264,
+            1280,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              42,
+              57
+            ],
+            "far_hand": [
+              61,
+              47
+            ],
+            "staff_head": [
+              39,
+              46
+            ],
+            "claw_core": [
+              41,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 800,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": -110,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              -1,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            52,
+            63
+          ],
+          "pivot_sheet_px": [
+            1952,
+            504
+          ],
+          "bbox_cell_1x": [
+            38,
+            33,
+            73,
+            75
+          ],
+          "bbox_sheet_px": [
+            1840,
+            264,
+            2120,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              46,
+              57
+            ],
+            "far_hand": [
+              70,
+              56
+            ],
+            "staff_head": [
+              43,
+              46
+            ],
+            "claw_core": [
+              45,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 810,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": -56,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              1,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            49,
+            63
+          ],
+          "pivot_sheet_px": [
+            392,
+            1208
+          ],
+          "bbox_cell_1x": [
+            35,
+            33,
+            70,
+            75
+          ],
+          "bbox_sheet_px": [
+            280,
+            968,
+            560,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              43,
+              57
+            ],
+            "far_hand": [
+              67,
+              56
+            ],
+            "staff_head": [
+              40,
+              46
+            ],
+            "claw_core": [
+              42,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 810,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": -56,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              1,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            50,
+            63
+          ],
+          "pivot_sheet_px": [
+            1168,
+            1208
+          ],
+          "bbox_cell_1x": [
+            35,
+            33,
+            65,
+            75
+          ],
+          "bbox_sheet_px": [
+            1048,
+            968,
+            1288,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              43,
+              57
+            ],
+            "far_hand": [
+              62,
+              65
+            ],
+            "staff_head": [
+              40,
+              46
+            ],
+            "claw_core": [
+              42,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "skill": {
+      "file": "viktor_skill.png",
+      "native_file": "native/viktor_skill_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1408
+      ],
+      "feet_row": 74,
+      "frame_count": 5,
+      "release_frame": 3,
+      "release_tick": 9,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            49,
+            63
+          ],
+          "pivot_sheet_px": [
+            392,
+            504
+          ],
+          "bbox_cell_1x": [
+            34,
+            33,
+            64,
+            75
+          ],
+          "bbox_sheet_px": [
+            272,
+            264,
+            512,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              42,
+              55
+            ],
+            "far_hand": [
+              61,
+              65
+            ],
+            "staff_head": [
+              39,
+              44
+            ],
+            "claw_core": [
+              41,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 801,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              -2
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1176,
+            504
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1056,
+            264,
+            1296,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              55
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              44,
+              43
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 771,
+          "rig": {
+            "near_arm_staff_angle_deg": 15,
+            "near_arm_staff_shift": [
+              0,
+              -1
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "duration_ms": 83,
+          "cell_rect_1x": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            47,
+            63
+          ],
+          "pivot_sheet_px": [
+            1912,
+            504
+          ],
+          "bbox_cell_1x": [
+            29,
+            33,
+            62,
+            75
+          ],
+          "bbox_sheet_px": [
+            1768,
+            264,
+            2032,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              51
+            ],
+            "far_hand": [
+              59,
+              65
+            ],
+            "staff_head": [
+              55,
+              53
+            ],
+            "claw_core": [
+              39,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 738,
+          "rig": {
+            "near_arm_staff_angle_deg": 120,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "duration_ms": 83,
+          "cell_rect_1x": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            52,
+            63
+          ],
+          "pivot_sheet_px": [
+            416,
+            1208
+          ],
+          "bbox_cell_1x": [
+            33,
+            33,
+            67,
+            75
+          ],
+          "bbox_sheet_px": [
+            264,
+            968,
+            536,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              45,
+              54
+            ],
+            "far_hand": [
+              64,
+              65
+            ],
+            "staff_head": [
+              48,
+              44
+            ],
+            "claw_core": [
+              44,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 742,
+          "rig": {
+            "near_arm_staff_angle_deg": 35,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "duration_ms": 84,
+          "cell_rect_1x": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            56,
+            63
+          ],
+          "pivot_sheet_px": [
+            1216,
+            1208
+          ],
+          "bbox_cell_1x": [
+            41,
+            33,
+            71,
+            75
+          ],
+          "bbox_sheet_px": [
+            1096,
+            968,
+            1336,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              49,
+              57
+            ],
+            "far_hand": [
+              68,
+              65
+            ],
+            "staff_head": [
+              46,
+              46
+            ],
+            "claw_core": [
+              48,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "skill2": {
+      "file": "viktor_skill2.png",
+      "native_file": "native/viktor_skill2_1x.png",
+      "grid": [
+        4,
+        1
+      ],
+      "size_px": [
+        3072,
+        704
+      ],
+      "feet_row": 74,
+      "frame_count": 4,
+      "release_frame": 3,
+      "release_tick": 9,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            56,
+            63
+          ],
+          "pivot_sheet_px": [
+            448,
+            504
+          ],
+          "bbox_cell_1x": [
+            41,
+            32,
+            71,
+            75
+          ],
+          "bbox_sheet_px": [
+            328,
+            256,
+            568,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              49,
+              57
+            ],
+            "far_hand": [
+              68,
+              65
+            ],
+            "staff_head": [
+              46,
+              46
+            ],
+            "claw_core": [
+              49,
+              37
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 809,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 15,
+            "mechanical_arm_shift": [
+              -2,
+              -2
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1176,
+            504
+          ],
+          "bbox_cell_1x": [
+            36,
+            31,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1056,
+            248,
+            1296,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              47
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              46,
+              36
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 785,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": -110,
+            "mechanical_arm_angle_deg": 30,
+            "mechanical_arm_shift": [
+              -3,
+              -4
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            54,
+            63
+          ],
+          "pivot_sheet_px": [
+            1968,
+            504
+          ],
+          "bbox_cell_1x": [
+            39,
+            36,
+            75,
+            75
+          ],
+          "bbox_sheet_px": [
+            1848,
+            288,
+            2136,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              47,
+              57
+            ],
+            "far_hand": [
+              71,
+              58
+            ],
+            "staff_head": [
+              44,
+              46
+            ],
+            "claw_core": [
+              68,
+              45
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 798,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": -45,
+            "mechanical_arm_angle_deg": 90,
+            "mechanical_arm_shift": [
+              8,
+              -4
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            288,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            2304,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            52,
+            63
+          ],
+          "pivot_sheet_px": [
+            2720,
+            504
+          ],
+          "bbox_cell_1x": [
+            37,
+            33,
+            67,
+            75
+          ],
+          "bbox_sheet_px": [
+            2600,
+            264,
+            2840,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              45,
+              57
+            ],
+            "far_hand": [
+              64,
+              65
+            ],
+            "staff_head": [
+              42,
+              46
+            ],
+            "claw_core": [
+              44,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "skill2_e": {
+      "file": "viktor_skill2_e.png",
+      "native_file": "native/viktor_skill2_e_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1408
+      ],
+      "feet_row": 74,
+      "frame_count": 5,
+      "release_frame": 3,
+      "release_tick": 10,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 83,
+          "cell_rect_1x": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            47,
+            63
+          ],
+          "pivot_sheet_px": [
+            376,
+            504
+          ],
+          "bbox_cell_1x": [
+            32,
+            32,
+            62,
+            75
+          ],
+          "bbox_sheet_px": [
+            256,
+            256,
+            496,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              40,
+              57
+            ],
+            "far_hand": [
+              59,
+              65
+            ],
+            "staff_head": [
+              37,
+              46
+            ],
+            "claw_core": [
+              41,
+              37
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 808,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 20,
+            "mechanical_arm_shift": [
+              -2,
+              -2
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "duration_ms": 84,
+          "cell_rect_1x": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            48,
+            63
+          ],
+          "pivot_sheet_px": [
+            1152,
+            504
+          ],
+          "bbox_cell_1x": [
+            33,
+            31,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1032,
+            248,
+            1296,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              41,
+              57
+            ],
+            "far_hand": [
+              63,
+              62
+            ],
+            "staff_head": [
+              38,
+              46
+            ],
+            "claw_core": [
+              56,
+              36
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 791,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": -25,
+            "mechanical_arm_angle_deg": 55,
+            "mechanical_arm_shift": [
+              5,
+              -6
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            48,
+            63
+          ],
+          "pivot_sheet_px": [
+            1920,
+            504
+          ],
+          "bbox_cell_1x": [
+            33,
+            36,
+            69,
+            75
+          ],
+          "bbox_sheet_px": [
+            1800,
+            288,
+            2088,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              41,
+              57
+            ],
+            "far_hand": [
+              62,
+              49
+            ],
+            "staff_head": [
+              38,
+              46
+            ],
+            "claw_core": [
+              62,
+              47
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 776,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": -95,
+            "mechanical_arm_angle_deg": 100,
+            "mechanical_arm_shift": [
+              8,
+              -4
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            48,
+            63
+          ],
+          "pivot_sheet_px": [
+            384,
+            1208
+          ],
+          "bbox_cell_1x": [
+            33,
+            36,
+            69,
+            75
+          ],
+          "bbox_sheet_px": [
+            264,
+            992,
+            552,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              41,
+              57
+            ],
+            "far_hand": [
+              62,
+              49
+            ],
+            "staff_head": [
+              38,
+              46
+            ],
+            "claw_core": [
+              62,
+              47
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 776,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": -95,
+            "mechanical_arm_angle_deg": 100,
+            "mechanical_arm_shift": [
+              8,
+              -4
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "duration_ms": 87,
+          "cell_rect_1x": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            47,
+            63
+          ],
+          "pivot_sheet_px": [
+            1144,
+            1208
+          ],
+          "bbox_cell_1x": [
+            32,
+            33,
+            62,
+            75
+          ],
+          "bbox_sheet_px": [
+            1024,
+            968,
+            1264,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              40,
+              57
+            ],
+            "far_hand": [
+              59,
+              65
+            ],
+            "staff_head": [
+              37,
+              46
+            ],
+            "claw_core": [
+              39,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "ult": {
+      "file": "viktor_ult.png",
+      "native_file": "native/viktor_ult_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1408
+      ],
+      "feet_row": 74,
+      "frame_count": 5,
+      "release_frame": 3,
+      "release_tick": 12,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            50,
+            63
+          ],
+          "pivot_sheet_px": [
+            400,
+            504
+          ],
+          "bbox_cell_1x": [
+            34,
+            31,
+            69,
+            74
+          ],
+          "bbox_sheet_px": [
+            272,
+            248,
+            552,
+            592
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              43,
+              55
+            ],
+            "far_hand": [
+              66,
+              59
+            ],
+            "staff_head": [
+              40,
+              44
+            ],
+            "claw_core": [
+              43,
+              36
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 794,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              -1
+            ],
+            "far_arm_angle_deg": -35,
+            "mechanical_arm_angle_deg": 15,
+            "mechanical_arm_shift": [
+              -2,
+              -2
+            ],
+            "cape_angle_deg": 10,
+            "whole_shift": [
+              0,
+              -1
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1176,
+            504
+          ],
+          "bbox_cell_1x": [
+            33,
+            28,
+            71,
+            73
+          ],
+          "bbox_sheet_px": [
+            1032,
+            224,
+            1336,
+            584
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              53
+            ],
+            "far_hand": [
+              68,
+              52
+            ],
+            "staff_head": [
+              40,
+              42
+            ],
+            "claw_core": [
+              45,
+              33
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 758,
+          "rig": {
+            "near_arm_staff_angle_deg": -10,
+            "near_arm_staff_shift": [
+              0,
+              -3
+            ],
+            "far_arm_angle_deg": -65,
+            "mechanical_arm_angle_deg": 25,
+            "mechanical_arm_shift": [
+              -3,
+              -4
+            ],
+            "cape_angle_deg": 20,
+            "whole_shift": [
+              0,
+              -2
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            50,
+            63
+          ],
+          "pivot_sheet_px": [
+            1936,
+            504
+          ],
+          "bbox_cell_1x": [
+            32,
+            27,
+            68,
+            73
+          ],
+          "bbox_sheet_px": [
+            1792,
+            216,
+            2080,
+            584
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              52
+            ],
+            "far_hand": [
+              65,
+              49
+            ],
+            "staff_head": [
+              38,
+              42
+            ],
+            "claw_core": [
+              45,
+              32
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 749,
+          "rig": {
+            "near_arm_staff_angle_deg": -15,
+            "near_arm_staff_shift": [
+              0,
+              -4
+            ],
+            "far_arm_angle_deg": -85,
+            "mechanical_arm_angle_deg": 30,
+            "mechanical_arm_shift": [
+              -3,
+              -6
+            ],
+            "cape_angle_deg": 25,
+            "whole_shift": [
+              0,
+              -2
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            54,
+            63
+          ],
+          "pivot_sheet_px": [
+            432,
+            1208
+          ],
+          "bbox_cell_1x": [
+            36,
+            27,
+            72,
+            73
+          ],
+          "bbox_sheet_px": [
+            288,
+            920,
+            576,
+            1288
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              48,
+              52
+            ],
+            "far_hand": [
+              69,
+              49
+            ],
+            "staff_head": [
+              42,
+              42
+            ],
+            "claw_core": [
+              49,
+              32
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 749,
+          "rig": {
+            "near_arm_staff_angle_deg": -15,
+            "near_arm_staff_shift": [
+              0,
+              -4
+            ],
+            "far_arm_angle_deg": -85,
+            "mechanical_arm_angle_deg": 30,
+            "mechanical_arm_shift": [
+              -3,
+              -6
+            ],
+            "cape_angle_deg": 25,
+            "whole_shift": [
+              0,
+              -2
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1176,
+            1208
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1056,
+            968,
+            1296,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "hit": {
+      "file": "viktor_hit.png",
+      "native_file": "native/viktor_hit_1x.png",
+      "grid": [
+        2,
+        1
+      ],
+      "size_px": [
+        1536,
+        704
+      ],
+      "feet_row": 74,
+      "frame_count": 2,
+      "release_frame": null,
+      "release_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            52,
+            63
+          ],
+          "pivot_sheet_px": [
+            416,
+            504
+          ],
+          "bbox_cell_1x": [
+            35,
+            33,
+            65,
+            75
+          ],
+          "bbox_sheet_px": [
+            280,
+            264,
+            520,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              43,
+              57
+            ],
+            "far_hand": [
+              62,
+              65
+            ],
+            "staff_head": [
+              40,
+              46
+            ],
+            "claw_core": [
+              42,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              -2,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            1176,
+            504
+          ],
+          "bbox_cell_1x": [
+            36,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet_px": [
+            1056,
+            264,
+            1296,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              44,
+              57
+            ],
+            "far_hand": [
+              63,
+              65
+            ],
+            "staff_head": [
+              41,
+              46
+            ],
+            "claw_core": [
+              43,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "dead": {
+      "file": "viktor_dead.png",
+      "native_file": "native/viktor_dead_1x.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3072,
+        1408
+      ],
+      "feet_row": 74,
+      "frame_count": 8,
+      "release_frame": null,
+      "release_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            408,
+            504
+          ],
+          "bbox_cell_1x": [
+            34,
+            33,
+            64,
+            75
+          ],
+          "bbox_sheet_px": [
+            272,
+            264,
+            512,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              42,
+              57
+            ],
+            "far_hand": [
+              61,
+              65
+            ],
+            "staff_head": [
+              39,
+              46
+            ],
+            "claw_core": [
+              41,
+              39
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              -2,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            54,
+            63
+          ],
+          "pivot_sheet_px": [
+            1200,
+            504
+          ],
+          "bbox_cell_1x": [
+            30,
+            32,
+            69,
+            75
+          ],
+          "bbox_sheet_px": [
+            1008,
+            256,
+            1320,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              42,
+              52
+            ],
+            "far_hand": [
+              66,
+              64
+            ],
+            "staff_head": [
+              45,
+              42
+            ],
+            "claw_core": [
+              46,
+              38
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 755,
+          "rig": {
+            "near_arm_staff_angle_deg": 35,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -1
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            50,
+            63
+          ],
+          "pivot_sheet_px": [
+            1936,
+            504
+          ],
+          "bbox_cell_1x": [
+            36,
+            30,
+            75,
+            75
+          ],
+          "bbox_sheet_px": [
+            1824,
+            240,
+            2136,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              49,
+              49
+            ],
+            "far_hand": [
+              57,
+              68
+            ],
+            "staff_head": [
+              55,
+              39
+            ],
+            "claw_core": [
+              61,
+              35
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 798,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -5
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "duration_ms": 120,
+          "cell_rect_1x": [
+            288,
+            0,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            2304,
+            0,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            50,
+            63
+          ],
+          "pivot_sheet_px": [
+            2704,
+            504
+          ],
+          "bbox_cell_1x": [
+            39,
+            45,
+            81,
+            75
+          ],
+          "bbox_sheet_px": [
+            2616,
+            360,
+            2952,
+            600
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              56,
+              53
+            ],
+            "far_hand": [
+              48,
+              72
+            ],
+            "staff_head": [
+              67,
+              50
+            ],
+            "claw_core": [
+              74,
+              52
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -3
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "duration_ms": 150,
+          "cell_rect_1x": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            51,
+            63
+          ],
+          "pivot_sheet_px": [
+            408,
+            1208
+          ],
+          "bbox_cell_1x": [
+            40,
+            45,
+            82,
+            75
+          ],
+          "bbox_sheet_px": [
+            320,
+            1064,
+            656,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              57,
+              53
+            ],
+            "far_hand": [
+              49,
+              72
+            ],
+            "staff_head": [
+              68,
+              50
+            ],
+            "claw_core": [
+              75,
+              52
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -3
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "duration_ms": 200,
+          "cell_rect_1x": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            47,
+            63
+          ],
+          "pivot_sheet_px": [
+            1144,
+            1208
+          ],
+          "bbox_cell_1x": [
+            36,
+            45,
+            78,
+            75
+          ],
+          "bbox_sheet_px": [
+            1056,
+            1064,
+            1392,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              53,
+              53
+            ],
+            "far_hand": [
+              45,
+              72
+            ],
+            "staff_head": [
+              64,
+              50
+            ],
+            "claw_core": [
+              71,
+              52
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -3
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "duration_ms": 300,
+          "cell_rect_1x": [
+            192,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            1536,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            49,
+            63
+          ],
+          "pivot_sheet_px": [
+            1928,
+            1208
+          ],
+          "bbox_cell_1x": [
+            38,
+            45,
+            80,
+            75
+          ],
+          "bbox_sheet_px": [
+            1840,
+            1064,
+            2176,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              55,
+              53
+            ],
+            "far_hand": [
+              47,
+              72
+            ],
+            "staff_head": [
+              66,
+              50
+            ],
+            "claw_core": [
+              73,
+              52
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -3
+            ]
+          }
+        },
+        {
+          "frame": 8,
+          "duration_ms": 400,
+          "cell_rect_1x": [
+            288,
+            88,
+            96,
+            88
+          ],
+          "cell_rect_px": [
+            2304,
+            704,
+            768,
+            704
+          ],
+          "pivot_cell_1x": [
+            48,
+            63
+          ],
+          "pivot_sheet_px": [
+            2688,
+            1208
+          ],
+          "bbox_cell_1x": [
+            37,
+            45,
+            79,
+            75
+          ],
+          "bbox_sheet_px": [
+            2600,
+            1064,
+            2936,
+            1304
+          ],
+          "anchors_cell_1x": {
+            "near_hand": [
+              54,
+              53
+            ],
+            "far_hand": [
+              46,
+              72
+            ],
+            "staff_head": [
+              65,
+              50
+            ],
+            "claw_core": [
+              72,
+              52
+            ]
+          },
+          "head_exact": true,
+          "head_opaque_pixels": 164,
+          "opaque_pixels": 820,
+          "rig": {
+            "near_arm_staff_angle_deg": 0,
+            "near_arm_staff_shift": [
+              0,
+              0
+            ],
+            "far_arm_angle_deg": 0,
+            "mechanical_arm_angle_deg": 0,
+            "mechanical_arm_shift": [
+              0,
+              0
+            ],
+            "cape_angle_deg": 0,
+            "whole_shift": [
+              0,
+              -3
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

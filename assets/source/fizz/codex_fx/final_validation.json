@@ -1,0 +1,85 @@
+{
+  "primary_sheet_count": 12,
+  "total_frames": 79,
+  "issues": [],
+  "checks": [
+    {
+      "asset": "hit",
+      "frame_count": 5,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "w_hit",
+      "frame_count": 6,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "q_hit",
+      "frame_count": 5,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "q_dash",
+      "frame_count": 5,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "e_up",
+      "frame_count": 5,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "e_slam",
+      "frame_count": 7,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "e_slow",
+      "frame_count": 6,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "r_fish",
+      "frame_count": 4,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "r_stuck",
+      "frame_count": 4,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "r_ring",
+      "frame_count": 4,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "r_fish_ground",
+      "frame_count": 4,
+      "saved_png_and_rects_verified": true
+    },
+    {
+      "asset": "r_shark",
+      "frame_count": 24,
+      "saved_png_and_rects_verified": true
+    }
+  ],
+  "sha256": {
+    "fizz_fx_hit.png": "ea3f924c66b75286c791b249c556348cc812e328d48779b962e2c9469e624e46",
+    "fizz_fx_w_hit.png": "700f824dccd9fa694341bd34516231240d10f0cdea2cb66faeda5b47140529cc",
+    "fizz_fx_q_hit.png": "86bcd5d7260f25405ae516d7e857ad78761e5cbf8140ce72938c4bc44b7862fe",
+    "fizz_fx_q_dash.png": "758b7df1da9c51dab99c5e06432685703f9a0bb9847c820181c1090fc3ab6671",
+    "fizz_fx_e_up.png": "60096ad09467ae0f9f4732e870368868ac0abc7cf14270366526f9a7a63a4f10",
+    "fizz_fx_e_slam.png": "246d0fcc47883b3abd332acdad4c15588aed55524c3257438bca985f8e71e17f",
+    "fizz_fx_e_slow.png": "aaadb5f4137990362d79add047b5dba8d63308932911b8e8d1c8d208fd8430ef",
+    "fizz_fx_r_fish.png": "1e18ab6c4ed106b80537f601e8c7b79005ac4330101f9a6e14797f9f55af34a3",
+    "fizz_fx_r_stuck.png": "5ea1106364c7f4b1e1f9cbd053a8f126f203d522fb517d2cf3e90b31dc018718",
+    "fizz_fx_r_ring.png": "d7acfe5db71abbc82c485cc8131e47f36dd2705b2ca724ba1d7cd44751551529",
+    "fizz_fx_r_fish_ground.png": "5197bb67ba373e86f1db1504187b2f4566b7bb83254124800c19e30165d8a0db",
+    "fizz_fx_r_shark.png": "eb8ff36fa8d74e1b93d186e24f53ea35480bf94fc78de5b6a845b2418bcded85"
+  },
+  "rgba_vertical_symmetry_r_fish": true,
+  "reserved_actor_regions_empty": true,
+  "game_import_tested": false,
+  "reference_texture_excluded": true
+}

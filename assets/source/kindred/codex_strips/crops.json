@@ -1,0 +1,198 @@
+{
+ "kindred_run_1": [
+  422,
+  155
+ ],
+ "kindred_run_2": [
+  458,
+  163
+ ],
+ "kindred_run_3": [
+  356,
+  122
+ ],
+ "kindred_run_4": [
+  359,
+  114
+ ],
+ "kindred_run_5": [
+  379,
+  106
+ ],
+ "kindred_run_6": [
+  468,
+  185
+ ],
+ "kindred_run_7": [
+  360,
+  88
+ ],
+ "kindred_run_8": [
+  379,
+  100
+ ],
+ "kindred_attack_1": [
+  337,
+  14
+ ],
+ "kindred_attack_2": [
+  241,
+  79
+ ],
+ "kindred_attack_3": [
+  170,
+  104
+ ],
+ "kindred_attack_4": [
+  121,
+  31
+ ],
+ "kindred_attack_5": [
+  454,
+  126
+ ],
+ "kindred_skill_1": [
+  360,
+  274
+ ],
+ "kindred_skill_2": [
+  250,
+  53
+ ],
+ "kindred_skill_3": [
+  267,
+  114
+ ],
+ "kindred_skill_4": [
+  298,
+  138
+ ],
+ "kindred_skill_5": [
+  125,
+  62
+ ],
+ "kindred_skill_6": [
+  274,
+  60
+ ],
+ "kindred_skill2_1": [
+  409,
+  109
+ ],
+ "kindred_skill2_2": [
+  168,
+  97
+ ],
+ "kindred_skill2_3": [
+  156,
+  108
+ ],
+ "kindred_skill2_4": [
+  200,
+  103
+ ],
+ "kindred_skill2_5": [
+  337,
+  15
+ ],
+ "kindred_w_cast_1": [
+  318,
+  177
+ ],
+ "kindred_w_cast_2": [
+  365,
+  8
+ ],
+ "kindred_w_cast_3": [
+  347,
+  131
+ ],
+ "kindred_w_cast_4": [
+  311,
+  57
+ ],
+ "kindred_ult_1": [
+  325,
+  196
+ ],
+ "kindred_ult_2": [
+  318,
+  203
+ ],
+ "kindred_ult_3": [
+  348,
+  205
+ ],
+ "kindred_ult_4": [
+  352,
+  115
+ ],
+ "kindred_ult_5": [
+  405,
+  11
+ ],
+ "kindred_ult_6": [
+  418,
+  139
+ ],
+ "kindred_dead_1": [
+  537,
+  289
+ ],
+ "kindred_dead_2": [
+  368,
+  161
+ ],
+ "kindred_dead_3": [
+  369,
+  237
+ ],
+ "kindred_dead_4": [
+  488,
+  296
+ ],
+ "kindred_dead_5": [
+  144,
+  440
+ ],
+ "kindred_dead_6": [
+  146,
+  635
+ ],
+ "kindred_wolf_float_1": [
+  391,
+  373
+ ],
+ "kindred_wolf_float_2": [
+  354,
+  334
+ ],
+ "kindred_wolf_float_3": [
+  290,
+  315
+ ],
+ "kindred_wolf_float_4": [
+  247,
+  277
+ ],
+ "kindred_wolf_bite_1": [
+  410,
+  439
+ ],
+ "kindred_wolf_bite_2": [
+  436,
+  421
+ ],
+ "kindred_wolf_bite_3": [
+  443,
+  408
+ ],
+ "kindred_wolf_bite_4": [
+  474,
+  399
+ ],
+ "kindred_wolf_bite_5": [
+  484,
+  400
+ ]
+}

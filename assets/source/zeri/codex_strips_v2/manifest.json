@@ -1,0 +1,1402 @@
+{
+  "cell": [
+    80,
+    72
+  ],
+  "scale": 8,
+  "pivot_source": "zeri_cells.json",
+  "sole_row": 59,
+  "palette": [
+    "#017E9E",
+    "#035786",
+    "#0A0411",
+    "#182657",
+    "#22A8CC",
+    "#2A323F",
+    "#318F0A",
+    "#3C3C8C",
+    "#45183A",
+    "#73234B",
+    "#75D902",
+    "#877F90",
+    "#8C2020",
+    "#9E493D",
+    "#A14633",
+    "#A44B10",
+    "#A9C907",
+    "#AC8157",
+    "#C0BAD3",
+    "#CF3728",
+    "#D7F31E",
+    "#EAFB4A",
+    "#F04C7A",
+    "#F2854B",
+    "#F2CC8F",
+    "#F48C06",
+    "#F4F4F8",
+    "#F8AB63",
+    "#F8C00C"
+  ],
+  "route": "lossless approved-model part rig; translation, flip, quarter turns only",
+  "release": {
+    "attack": {
+      "frame": 3,
+      "tick": 8
+    },
+    "skill": {
+      "frame": 4,
+      "tick": 16
+    },
+    "ult": {
+      "frame": 3,
+      "tick": 9
+    }
+  },
+  "tags": {
+    "idle": {
+      "image": "zeri_idle.png",
+      "size": [
+        1920,
+        1152
+      ],
+      "copied_unchanged": true,
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 200,
+          "bbox": [
+            26,
+            20,
+            50,
+            60
+          ],
+          "muzzle": [
+            46,
+            21
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 200,
+          "bbox": [
+            26,
+            20,
+            50,
+            60
+          ],
+          "muzzle": [
+            46,
+            21
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 200,
+          "bbox": [
+            26,
+            20,
+            50,
+            60
+          ],
+          "muzzle": [
+            46,
+            21
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 200,
+          "bbox": [
+            26,
+            20,
+            50,
+            60
+          ],
+          "muzzle": [
+            46,
+            21
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 200,
+          "bbox": [
+            26,
+            20,
+            50,
+            60
+          ],
+          "muzzle": [
+            46,
+            21
+          ]
+        },
+        {
+          "frame": 6,
+          "rect": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 200,
+          "bbox": [
+            26,
+            20,
+            50,
+            60
+          ],
+          "muzzle": [
+            46,
+            21
+          ]
+        }
+      ]
+    },
+    "run": {
+      "image": "zeri_run.png",
+      "size": [
+        2560,
+        1152
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 107,
+          "bbox": [
+            25,
+            20,
+            50,
+            60
+          ],
+          "pixels": 665,
+          "sha256": "ea623fc71692684850ad12384871f957d67c44b31d4573fd6bddacca6d7c783d",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            46,
+            21
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 107,
+          "bbox": [
+            26,
+            20,
+            50,
+            59
+          ],
+          "pixels": 655,
+          "sha256": "a3d61712be72808cd3d8bde4a7fe98f2f6fbf3871036c0e473c7cb6fbb173e6c",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            46,
+            21
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 107,
+          "bbox": [
+            27,
+            19,
+            51,
+            58
+          ],
+          "pixels": 660,
+          "sha256": "846546e01626760736f16ae641b22a324beda24b0fdb367cb11983ce3caf199d",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            47,
+            20
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 107,
+          "bbox": [
+            27,
+            20,
+            51,
+            60
+          ],
+          "pixels": 665,
+          "sha256": "a753d18b0af891abf6381d3201ee7e4d9ad2ebfddd80b6f00c39f0e3c9d578a4",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            47,
+            21
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            39,
+            48
+          ],
+          "ms": 107,
+          "bbox": [
+            28,
+            20,
+            52,
+            60
+          ],
+          "pixels": 669,
+          "sha256": "52cb1b79ed5175d59701d1d6b85face37db770ab3e846bbc73a7438e3aeaf5bf",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            48,
+            21
+          ]
+        },
+        {
+          "frame": 6,
+          "rect": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            39,
+            48
+          ],
+          "ms": 107,
+          "bbox": [
+            28,
+            20,
+            52,
+            59
+          ],
+          "pixels": 658,
+          "sha256": "c482a6c6d69b730741fecdfe6365191d880221565040eafa3c0e57e51c388712",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            48,
+            21
+          ]
+        },
+        {
+          "frame": 7,
+          "rect": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            39,
+            48
+          ],
+          "ms": 107,
+          "bbox": [
+            28,
+            19,
+            52,
+            58
+          ],
+          "pixels": 664,
+          "sha256": "815e89a769197635087e403ca2130b2fe8508c5a7b6f61c40e647a56cbbd23c4",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            48,
+            20
+          ]
+        },
+        {
+          "frame": 8,
+          "rect": [
+            240,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 106,
+          "bbox": [
+            26,
+            20,
+            51,
+            60
+          ],
+          "pixels": 668,
+          "sha256": "e0532193c9f580eb33c0b15de3b266c0b402afac2686c83455ee10a301e157fe",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            47,
+            21
+          ]
+        }
+      ],
+      "sha256": "bd6d87ffb16450527beeb0ef97b410ee9e773ce572c769138d698aa8e0bda94c"
+    },
+    "attack": {
+      "image": "zeri_attack.png",
+      "size": [
+        1920,
+        1152
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 67,
+          "bbox": [
+            26,
+            20,
+            50,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "658fba0ea04daf7a065352225bcfeda41971acd037f60ce4c3550f69fbd36948",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            46,
+            21
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 66,
+          "bbox": [
+            26,
+            20,
+            64,
+            60
+          ],
+          "pixels": 651,
+          "sha256": "e8d554f1c9cccd666efa02cda925447f61d3e76051b17dab59ab3b0cb4aa2405",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            62,
+            42
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 100,
+          "bbox": [
+            25,
+            20,
+            63,
+            60
+          ],
+          "pixels": 651,
+          "sha256": "b4e8396955f28641b83445bad6ef244d58c8fc7e10188a81c4d147a109604b05",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            61,
+            42
+          ],
+          "release": true
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 84,
+          "bbox": [
+            26,
+            20,
+            64,
+            60
+          ],
+          "pixels": 651,
+          "sha256": "e8d554f1c9cccd666efa02cda925447f61d3e76051b17dab59ab3b0cb4aa2405",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            62,
+            42
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 83,
+          "bbox": [
+            27,
+            20,
+            51,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "d37dec98aeddcd8e0dc5a39ca2aaeec8e9813145ffa6235faafee96608e30b40",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            47,
+            21
+          ]
+        }
+      ],
+      "sha256": "6d3152e54b7d094fedf2f7aaab9b348c694ba249f6ce65f26c701132090a2dfa"
+    },
+    "skill": {
+      "image": "zeri_skill.png",
+      "size": [
+        1920,
+        1152
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 90,
+          "bbox": [
+            26,
+            19,
+            50,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "41b99a3155e48221e8e941be4298a3bf3c4f4f34bb30607f40986ba9b6fd223f",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            46,
+            20
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 90,
+          "bbox": [
+            27,
+            20,
+            65,
+            60
+          ],
+          "pixels": 651,
+          "sha256": "ba16526eb5b1cbf66c513005fac22ce6c26e02041483fb7d68e1dc6abd0fbb44",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            63,
+            42
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            39,
+            48
+          ],
+          "ms": 87,
+          "bbox": [
+            27,
+            20,
+            65,
+            60
+          ],
+          "pixels": 651,
+          "sha256": "ba16526eb5b1cbf66c513005fac22ce6c26e02041483fb7d68e1dc6abd0fbb44",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            63,
+            42
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 117,
+          "bbox": [
+            25,
+            20,
+            63,
+            60
+          ],
+          "pixels": 651,
+          "sha256": "b4e8396955f28641b83445bad6ef244d58c8fc7e10188a81c4d147a109604b05",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            61,
+            42
+          ],
+          "release": true
+        },
+        {
+          "frame": 5,
+          "rect": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 116,
+          "bbox": [
+            26,
+            20,
+            50,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "658fba0ea04daf7a065352225bcfeda41971acd037f60ce4c3550f69fbd36948",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            46,
+            21
+          ]
+        }
+      ],
+      "sha256": "ff00e53c3fdc11f62a2e4853431c57b61af921061ede7c5ad17464d07da12f26"
+    },
+    "skill2": {
+      "image": "zeri_skill2.png",
+      "size": [
+        2560,
+        576
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            41,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            30,
+            21,
+            54,
+            60
+          ],
+          "pixels": 668,
+          "sha256": "ecfd3207f774cef06356562b1a0309b0b709b97430176afdc6bfecc7f977ee3f",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            50,
+            22
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            27,
+            19,
+            53,
+            57
+          ],
+          "pixels": 639,
+          "sha256": "1bca4e1b2377816226f60056cccc27402acf132dde752a9481f346e8230bebe0",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            49,
+            20
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            39,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            29,
+            20,
+            53,
+            59
+          ],
+          "pixels": 665,
+          "sha256": "9948186f601b9af9dca80adcbbb82cad65a4219558b9970a00597ecc99769406",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            49,
+            21
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            27,
+            20,
+            51,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "d37dec98aeddcd8e0dc5a39ca2aaeec8e9813145ffa6235faafee96608e30b40",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            47,
+            21
+          ]
+        }
+      ],
+      "sha256": "6b7ddc515d0cc956b3a9ce49a344bcbf82ab8f7591e92a1bd23e22ee316093dd"
+    },
+    "skill2_back": {
+      "image": "zeri_skill2_back.png",
+      "size": [
+        2560,
+        576
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            41,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            30,
+            21,
+            54,
+            60
+          ],
+          "pixels": 668,
+          "sha256": "ecfd3207f774cef06356562b1a0309b0b709b97430176afdc6bfecc7f977ee3f",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            50,
+            22
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            25,
+            18,
+            49,
+            56
+          ],
+          "pixels": 658,
+          "sha256": "c61f3bd7c86c3378b745a292c2aa08c4d4b3e16e0dea2b8e1cd23e83ba2f0c3e",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            45,
+            19
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            39,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            27,
+            21,
+            51,
+            60
+          ],
+          "pixels": 668,
+          "sha256": "7a8f1507e7530e6e30b4e3f1c3e26db3efbfd7c06928f214effb6b1ed97766b3",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            47,
+            22
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            27,
+            20,
+            51,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "d37dec98aeddcd8e0dc5a39ca2aaeec8e9813145ffa6235faafee96608e30b40",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            47,
+            21
+          ]
+        }
+      ],
+      "sha256": "47763eb121a66822c1edc241b6ef169445aa128cfbfe4aa993ba805aff5c6880"
+    },
+    "ult": {
+      "image": "zeri_ult.png",
+      "size": [
+        2560,
+        576
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            36,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            25,
+            21,
+            49,
+            60
+          ],
+          "pixels": 668,
+          "sha256": "6eb44d3f38dc65ac9617216ac0cc813d8fe2253e82da7a154b316c98b7795409",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            45,
+            22
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            39,
+            48
+          ],
+          "ms": 75,
+          "bbox": [
+            27,
+            17,
+            53,
+            58
+          ],
+          "pixels": 664,
+          "sha256": "e6744b2130013d83be0954aa7b95c2185f79f5fbe032281af3a6a9b9a4ad98b2",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            49,
+            18
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            35,
+            48
+          ],
+          "ms": 90,
+          "bbox": [
+            23,
+            20,
+            48,
+            60
+          ],
+          "pixels": 682,
+          "sha256": "706d7993eda73e53e4f5b30ef9964d97c26697aa7270d64c0f7790dd81091ea9",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            44,
+            21
+          ],
+          "release": true
+        },
+        {
+          "frame": 4,
+          "rect": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            33,
+            48
+          ],
+          "ms": 93,
+          "bbox": [
+            22,
+            20,
+            46,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "4a43a905f62ff4544b25db9fd6b77af9c23131228853b757d1f034f4f7059736",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            42,
+            21
+          ]
+        }
+      ],
+      "sha256": "618924cadb6ea39088d5f9dcf3f81d836234835b926afc08c1f99ffbcb241c17"
+    },
+    "hit": {
+      "image": "zeri_hit.png",
+      "size": [
+        1280,
+        576
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 100,
+          "bbox": [
+            24,
+            20,
+            48,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "d54c64189d6ee349c1388440e53fcd4ad6096b429285080f11acf5205f7a37af",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            44,
+            21
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            37,
+            48
+          ],
+          "ms": 100,
+          "bbox": [
+            25,
+            20,
+            49,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "3351ca829e2dbf2a45a02c0c808c00c0013942133daf30ad2d075f6be30cff8d",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            45,
+            21
+          ]
+        }
+      ],
+      "sha256": "eca57f21518d78840b8d4dc0ab755d6c72508ebca173b739044a1487b2679d72"
+    },
+    "dead": {
+      "image": "zeri_dead.png",
+      "size": [
+        2560,
+        1152
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 100,
+          "bbox": [
+            25,
+            20,
+            49,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "3351ca829e2dbf2a45a02c0c808c00c0013942133daf30ad2d075f6be30cff8d",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            45,
+            21
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            35,
+            48
+          ],
+          "ms": 100,
+          "bbox": [
+            22,
+            22,
+            46,
+            60
+          ],
+          "pixels": 660,
+          "sha256": "bbe7b2b2726f8019b5367901e94625e41ddb2d1799e33178da67257aae547c05",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            42,
+            23
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            39,
+            48
+          ],
+          "ms": 100,
+          "bbox": [
+            25,
+            23,
+            49,
+            60
+          ],
+          "pixels": 649,
+          "sha256": "d7319c98908f2e89f5884eab662c651d079d0390c41de5972fc7c5a73acb738d",
+          "head_mode": "exact_translation",
+          "head_exact_translation": true,
+          "muzzle": [
+            45,
+            24
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 120,
+          "bbox": [
+            18,
+            36,
+            58,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "d13cd5fd8cb33e0c99dc0244d5065d9d8a782f9f4cdfacd42e6bdf565d8e897d",
+          "head_mode": "whole_model_quarter_turn",
+          "head_exact_translation": false
+        },
+        {
+          "frame": 5,
+          "rect": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            38,
+            48
+          ],
+          "ms": 150,
+          "bbox": [
+            18,
+            36,
+            58,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "d13cd5fd8cb33e0c99dc0244d5065d9d8a782f9f4cdfacd42e6bdf565d8e897d",
+          "head_mode": "whole_model_quarter_turn",
+          "head_exact_translation": false
+        },
+        {
+          "frame": 6,
+          "rect": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            42,
+            48
+          ],
+          "ms": 200,
+          "bbox": [
+            22,
+            36,
+            62,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "171c5b023b01748a1d42149b7e5516aa5d358b45da239bdc1d87b11eb1dcfc60",
+          "head_mode": "whole_model_quarter_turn",
+          "head_exact_translation": false
+        },
+        {
+          "frame": 7,
+          "rect": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            41,
+            48
+          ],
+          "ms": 300,
+          "bbox": [
+            21,
+            36,
+            61,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "a12024e09b57f1ca2098c4d9a2d76cfc1cfc564eb34ca8e6edd7414eeeb84f05",
+          "head_mode": "whole_model_quarter_turn",
+          "head_exact_translation": false
+        },
+        {
+          "frame": 8,
+          "rect": [
+            240,
+            72,
+            80,
+            72
+          ],
+          "pivot": [
+            46,
+            48
+          ],
+          "ms": 400,
+          "bbox": [
+            26,
+            36,
+            66,
+            60
+          ],
+          "pixels": 677,
+          "sha256": "d8051fb483cc18ecb43beeefb7a9b73dac7e01747cc13299bc4ebff3adc3a352",
+          "head_mode": "whole_model_quarter_turn",
+          "head_exact_translation": false
+        }
+      ],
+      "sha256": "f96ef36239a1ff61aae16197a3207da2b60842f2043905cfe9f7e3592319107a"
+    }
+  },
+  "source_sha256": "19ea002e674a40e2d9b1a82d42366fed726c71f07213dc976bdc08ad7244b26a",
+  "native_body_bbox": [
+    53,
+    60,
+    77,
+    100
+  ],
+  "head_mask_note": "Original mask plus approved right bun tip at x69-71, y62-68; no redraw."
+}

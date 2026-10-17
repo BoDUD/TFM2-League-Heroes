@@ -1,0 +1,1660 @@
+{
+  "schema": 1,
+  "stage": "Generated effect artwork for import; original rasters preserved",
+  "units": "pixels in delivered PNG; game_size uses game logical pixels",
+  "assets": [
+    {
+      "id": "a_hit",
+      "file": "olaf_fx_a_hit.png",
+      "raw_file": "raw/olaf_fx_a_hit.png",
+      "sha256": "1248a5c6dd6a85ac6ee2d065025e0b4a3aca4feddebb5f86c8a5b28f2c1b1246",
+      "image_size": [
+        2076,
+        757
+      ],
+      "target_sheet_size": [
+        1024,
+        288
+      ],
+      "target_cell": [
+        256,
+        288
+      ],
+      "game_size": [
+        12,
+        14
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": false,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_a_hit",
+      "tag": "a_hit",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            57,
+            519,
+            654
+          ],
+          "bbox_local": [
+            108,
+            232,
+            400,
+            481
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            259.5,
+            327.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            519,
+            57,
+            519,
+            654
+          ],
+          "bbox_local": [
+            51,
+            8,
+            451,
+            646
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            259.5,
+            327.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1038,
+            57,
+            519,
+            654
+          ],
+          "bbox_local": [
+            49,
+            57,
+            459,
+            605
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            259.5,
+            327.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1557,
+            57,
+            519,
+            654
+          ],
+          "bbox_local": [
+            80,
+            173,
+            420,
+            523
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            259.5,
+            327.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import."
+      ]
+    },
+    {
+      "id": "q_fly",
+      "file": "olaf_fx_q_fly.png",
+      "raw_file": "raw/olaf_fx_q_fly.png",
+      "sha256": "5c6b10df2a0346267273e163b0a7158fba18e54246388e145ba3c7a68f797f73",
+      "image_size": [
+        2172,
+        724
+      ],
+      "target_sheet_size": [
+        1152,
+        288
+      ],
+      "target_cell": [
+        288,
+        288
+      ],
+      "game_size": [
+        14,
+        14
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": true,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_q_axe",
+      "tag": "q_fly",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            122,
+            543,
+            500
+          ],
+          "bbox_local": [
+            22,
+            11,
+            510,
+            483
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            271.5,
+            250.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            122,
+            543,
+            500
+          ],
+          "bbox_local": [
+            19,
+            11,
+            419,
+            482
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            271.5,
+            250.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            122,
+            543,
+            500
+          ],
+          "bbox_local": [
+            14,
+            11,
+            495,
+            492
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            271.5,
+            250.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            122,
+            543,
+            500
+          ],
+          "bbox_local": [
+            26,
+            8,
+            430,
+            483
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            271.5,
+            250.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Axe rotates approximately90degrees per frame; axe shape and midpoint have slight drift.",
+        "Generated raster retains semi-transparent/off-palette edge pixels."
+      ]
+    },
+    {
+      "id": "q_land",
+      "file": "olaf_fx_q_land.png",
+      "raw_file": "raw/olaf_fx_q_land.png",
+      "sha256": "0d04589fa7e97880efa5feb640847b305c5f59dee5b8d3ae0c2bd8d4b3c6bfe0",
+      "image_size": [
+        2103,
+        748
+      ],
+      "target_sheet_size": [
+        1920,
+        256
+      ],
+      "target_cell": [
+        384,
+        256
+      ],
+      "game_size": [
+        22,
+        14
+      ],
+      "layout": [
+        5,
+        1
+      ],
+      "loop": false,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_q_land",
+      "tag": "q_land",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            240,
+            420,
+            381
+          ],
+          "bbox_local": [
+            59,
+            167,
+            361,
+            338
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            210.0,
+            190.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            420,
+            240,
+            420,
+            381
+          ],
+          "bbox_local": [
+            30,
+            58,
+            386,
+            360
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            210.0,
+            190.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            840,
+            240,
+            420,
+            381
+          ],
+          "bbox_local": [
+            25,
+            8,
+            416,
+            366
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            210.0,
+            190.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1260,
+            240,
+            420,
+            381
+          ],
+          "bbox_local": [
+            56,
+            64,
+            402,
+            373
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            210.0,
+            190.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 5,
+          "rect": [
+            1680,
+            240,
+            420,
+            381
+          ],
+          "bbox_local": [
+            56,
+            231,
+            371,
+            366
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            210.0,
+            190.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import."
+      ]
+    },
+    {
+      "id": "q_axe",
+      "file": "olaf_fx_q_axe.png",
+      "raw_file": "raw/olaf_fx_q_axe.png",
+      "sha256": "d5c45cc952fe92b9b80238408e03894bb412c4a0fd58f47de361258b802bed13",
+      "image_size": [
+        1916,
+        821
+      ],
+      "target_sheet_size": [
+        672,
+        288
+      ],
+      "target_cell": [
+        224,
+        288
+      ],
+      "game_size": [
+        10,
+        14
+      ],
+      "layout": [
+        3,
+        1
+      ],
+      "loop": true,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_q_axe",
+      "tag": "q_axe",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            161,
+            638,
+            595
+          ],
+          "bbox_local": [
+            120,
+            8,
+            576,
+            587
+          ],
+          "preview_ms": 80,
+          "anchor_local": [
+            319.0,
+            297.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            638,
+            161,
+            638,
+            595
+          ],
+          "bbox_local": [
+            111,
+            8,
+            565,
+            587
+          ],
+          "preview_ms": 90,
+          "anchor_local": [
+            319.0,
+            297.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1276,
+            161,
+            638,
+            595
+          ],
+          "bbox_local": [
+            106,
+            8,
+            561,
+            587
+          ],
+          "preview_ms": 80,
+          "anchor_local": [
+            319.0,
+            297.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Axe silhouette is consistent but differs somewhat from the approved blade; pulse timing is preview-only.",
+        "Generated raster retains semi-transparent/off-palette edge pixels."
+      ]
+    },
+    {
+      "id": "q_hit",
+      "file": "olaf_fx_q_hit.png",
+      "raw_file": "raw/olaf_fx_q_hit.png",
+      "sha256": "02fcfc40f84217e338c43a722017618648de692909c12c23ddb0235761f72a58",
+      "image_size": [
+        2172,
+        724
+      ],
+      "target_sheet_size": [
+        1024,
+        256
+      ],
+      "target_cell": [
+        256,
+        256
+      ],
+      "game_size": [
+        14,
+        14
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": false,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_q_hit",
+      "tag": "q_hit",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            202,
+            543,
+            335
+          ],
+          "bbox_local": [
+            111,
+            15,
+            543,
+            321
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            271.5,
+            167.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            202,
+            543,
+            335
+          ],
+          "bbox_local": [
+            0,
+            8,
+            543,
+            327
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            271.5,
+            167.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            202,
+            543,
+            335
+          ],
+          "bbox_local": [
+            45,
+            15,
+            519,
+            327
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            271.5,
+            167.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            202,
+            543,
+            335
+          ],
+          "bbox_local": [
+            68,
+            42,
+            498,
+            276
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            271.5,
+            167.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import."
+      ]
+    },
+    {
+      "id": "q_slow",
+      "file": "olaf_fx_q_slow.png",
+      "raw_file": "raw/olaf_fx_q_slow.png",
+      "sha256": "98b4e3efb74db5596830b66847609e8f95d222c5c8eaeae86edbf87db4529966",
+      "image_size": [
+        1983,
+        793
+      ],
+      "target_sheet_size": [
+        1280,
+        128
+      ],
+      "target_cell": [
+        320,
+        128
+      ],
+      "game_size": [
+        16,
+        5
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": true,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_q_slow",
+      "tag": "q_slow",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            293,
+            495,
+            227
+          ],
+          "bbox_local": [
+            32,
+            28,
+            456,
+            210
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            247.5,
+            113.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            495,
+            293,
+            495,
+            227
+          ],
+          "bbox_local": [
+            37,
+            8,
+            455,
+            219
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            247.5,
+            113.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            990,
+            293,
+            495,
+            227
+          ],
+          "bbox_local": [
+            36,
+            28,
+            467,
+            219
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            247.5,
+            113.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1485,
+            293,
+            495,
+            227
+          ],
+          "bbox_local": [
+            35,
+            23,
+            466,
+            219
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            247.5,
+            113.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import."
+      ]
+    },
+    {
+      "id": "q_pick",
+      "file": "olaf_fx_q_pick.png",
+      "raw_file": "raw/olaf_fx_q_pick.png",
+      "sha256": "458e612c83f3d3a7f7e268d29f503d8e29b0ac07d6b1ba3cb775dd8598407421",
+      "image_size": [
+        2103,
+        748
+      ],
+      "target_sheet_size": [
+        1920,
+        544
+      ],
+      "target_cell": [
+        480,
+        544
+      ],
+      "game_size": [
+        26,
+        30
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": false,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_q_pick",
+      "tag": "q_pick",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            24,
+            525,
+            676
+          ],
+          "bbox_local": [
+            32,
+            338,
+            525,
+            624
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            262.5,
+            338.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            525,
+            24,
+            525,
+            676
+          ],
+          "bbox_local": [
+            0,
+            109,
+            498,
+            658
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            262.5,
+            338.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1050,
+            24,
+            525,
+            676
+          ],
+          "bbox_local": [
+            19,
+            8,
+            508,
+            658
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            262.5,
+            338.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1575,
+            24,
+            525,
+            676
+          ],
+          "bbox_local": [
+            62,
+            56,
+            501,
+            668
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            262.5,
+            338.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import.",
+        "Semi-transparent noise between ribbons needs cleanup in strict pixel conversion."
+      ]
+    },
+    {
+      "id": "e_hit",
+      "file": "olaf_fx_e_hit.png",
+      "raw_file": "raw/olaf_fx_e_hit.png",
+      "sha256": "0f32a7019a104836e45d78a6e0aaffb2d1fffdbb6de79b4b8a0fe596e5bcc24c",
+      "image_size": [
+        1983,
+        793
+      ],
+      "target_sheet_size": [
+        2560,
+        512
+      ],
+      "target_cell": [
+        512,
+        512
+      ],
+      "game_size": [
+        28,
+        30
+      ],
+      "layout": [
+        5,
+        1
+      ],
+      "loop": false,
+      "group": "league_olaf_big",
+      "binding": "league_olaf_e_hit",
+      "tag": "e_hit",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            207,
+            396,
+            442
+          ],
+          "bbox_local": [
+            73,
+            148,
+            330,
+            390
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            198.0,
+            221.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            396,
+            207,
+            396,
+            442
+          ],
+          "bbox_local": [
+            10,
+            72,
+            396,
+            420
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            198.0,
+            221.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            792,
+            207,
+            396,
+            442
+          ],
+          "bbox_local": [
+            0,
+            8,
+            396,
+            434
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            198.0,
+            221.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1188,
+            207,
+            396,
+            442
+          ],
+          "bbox_local": [
+            0,
+            64,
+            392,
+            430
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            198.0,
+            221.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 5,
+          "rect": [
+            1584,
+            207,
+            396,
+            442
+          ],
+          "bbox_local": [
+            85,
+            182,
+            317,
+            424
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            198.0,
+            221.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import.",
+        "Final frame retains a small ground ring rather than only isolated sparks."
+      ]
+    },
+    {
+      "id": "w_cast",
+      "file": "olaf_fx_w_cast.png",
+      "raw_file": "raw/olaf_fx_w_cast.png",
+      "sha256": "4ded285cb7d44e229608781b54f71611ea01bd977cb538871b87ac7186e4c22e",
+      "image_size": [
+        2172,
+        724
+      ],
+      "target_sheet_size": [
+        3680,
+        800
+      ],
+      "target_cell": [
+        736,
+        800
+      ],
+      "game_size": [
+        40,
+        44
+      ],
+      "layout": [
+        5,
+        1
+      ],
+      "loop": false,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_w_cast",
+      "tag": "w_cast",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            197,
+            434,
+            325
+          ],
+          "bbox_local": [
+            139,
+            104,
+            332,
+            261
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            217.0,
+            162.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            434,
+            197,
+            434,
+            325
+          ],
+          "bbox_local": [
+            81,
+            41,
+            334,
+            301
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            217.0,
+            162.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            868,
+            197,
+            434,
+            325
+          ],
+          "bbox_local": [
+            78,
+            27,
+            358,
+            317
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            217.0,
+            162.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1302,
+            197,
+            434,
+            325
+          ],
+          "bbox_local": [
+            81,
+            8,
+            352,
+            308
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            217.0,
+            162.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 5,
+          "rect": [
+            1736,
+            197,
+            434,
+            325
+          ],
+          "bbox_local": [
+            100,
+            56,
+            309,
+            285
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            217.0,
+            162.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import."
+      ]
+    },
+    {
+      "id": "w_on",
+      "file": "olaf_fx_w_on.png",
+      "raw_file": "raw/olaf_fx_w_on.png",
+      "sha256": "95dee90bae1e96bcb9ddf40820608552374d4dec41de5b393995835bbc55be31",
+      "image_size": [
+        2126,
+        740
+      ],
+      "target_sheet_size": [
+        2944,
+        800
+      ],
+      "target_cell": [
+        736,
+        800
+      ],
+      "game_size": [
+        40,
+        44
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": true,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_w_on",
+      "tag": "w_on",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            44,
+            531,
+            642
+          ],
+          "bbox_local": [
+            32,
+            8,
+            499,
+            634
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            265.5,
+            321.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            531,
+            44,
+            531,
+            642
+          ],
+          "bbox_local": [
+            33,
+            8,
+            500,
+            634
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            265.5,
+            321.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1062,
+            44,
+            531,
+            642
+          ],
+          "bbox_local": [
+            33,
+            8,
+            500,
+            634
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            265.5,
+            321.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1593,
+            44,
+            531,
+            642
+          ],
+          "bbox_local": [
+            34,
+            8,
+            503,
+            634
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            265.5,
+            321.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import.",
+        "Aura is brighter/thicker than the requested faint persistent glow; tune opacity behind character at import."
+      ]
+    },
+    {
+      "id": "r_cast",
+      "file": "olaf_fx_r_cast.png",
+      "raw_file": "raw/olaf_fx_r_cast.png",
+      "sha256": "0eb3cced1dc8b0ec81987e3b4ef6aec90d09bf5abe4466da0d2f0ca0cf26d9d9",
+      "image_size": [
+        2172,
+        724
+      ],
+      "target_sheet_size": [
+        4992,
+        864
+      ],
+      "target_cell": [
+        832,
+        864
+      ],
+      "game_size": [
+        48,
+        50
+      ],
+      "layout": [
+        6,
+        1
+      ],
+      "loop": false,
+      "group": "league_olaf_big",
+      "binding": "league_olaf_r_cast",
+      "tag": "r_cast",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            144,
+            362,
+            439
+          ],
+          "bbox_local": [
+            102,
+            270,
+            246,
+            413
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            181.0,
+            219.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            362,
+            144,
+            362,
+            439
+          ],
+          "bbox_local": [
+            4,
+            254,
+            329,
+            430
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            181.0,
+            219.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            724,
+            144,
+            362,
+            439
+          ],
+          "bbox_local": [
+            50,
+            94,
+            318,
+            429
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            181.0,
+            219.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1086,
+            144,
+            362,
+            439
+          ],
+          "bbox_local": [
+            34,
+            8,
+            335,
+            431
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            181.0,
+            219.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 5,
+          "rect": [
+            1448,
+            144,
+            362,
+            439
+          ],
+          "bbox_local": [
+            82,
+            94,
+            330,
+            425
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            181.0,
+            219.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 6,
+          "rect": [
+            1810,
+            144,
+            362,
+            439
+          ],
+          "bbox_local": [
+            119,
+            203,
+            262,
+            407
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            181.0,
+            219.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import."
+      ]
+    },
+    {
+      "id": "r_on",
+      "file": "olaf_fx_r_on.png",
+      "raw_file": "raw/olaf_fx_r_on.png",
+      "sha256": "afc29547388b881e01081bdbad19e5dcc886925182ba936cee0b155d889df9a5",
+      "image_size": [
+        1983,
+        793
+      ],
+      "target_sheet_size": [
+        2560,
+        576
+      ],
+      "target_cell": [
+        640,
+        576
+      ],
+      "game_size": [
+        36,
+        30
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": true,
+      "group": "league_olaf_big",
+      "binding": "league_olaf_r_on",
+      "tag": "r_on",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            204,
+            495,
+            401
+          ],
+          "bbox_local": [
+            22,
+            8,
+            472,
+            393
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            247.5,
+            200.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            495,
+            204,
+            495,
+            401
+          ],
+          "bbox_local": [
+            25,
+            8,
+            474,
+            393
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            247.5,
+            200.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            990,
+            204,
+            495,
+            401
+          ],
+          "bbox_local": [
+            24,
+            17,
+            472,
+            393
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            247.5,
+            200.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1485,
+            204,
+            495,
+            401
+          ],
+          "bbox_local": [
+            26,
+            11,
+            476,
+            393
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            247.5,
+            200.5
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import."
+      ]
+    },
+    {
+      "id": "p_4",
+      "file": "olaf_fx_p_4.png",
+      "raw_file": "raw/olaf_fx_p_4.png",
+      "sha256": "beebc0e4e8f1d5316f1c5f442edda72dc99350233837c9f1c0afa8a84b9f1c5e",
+      "image_size": [
+        1881,
+        836
+      ],
+      "target_sheet_size": [
+        2304,
+        704
+      ],
+      "target_cell": [
+        576,
+        704
+      ],
+      "game_size": [
+        32,
+        40
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": true,
+      "group": "league_olaf_fx",
+      "binding": "league_olaf_p_4",
+      "tag": "p_4",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            58,
+            470,
+            434
+          ],
+          "bbox_local": [
+            42,
+            8,
+            426,
+            418
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            235.0,
+            217.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 2,
+          "rect": [
+            470,
+            58,
+            470,
+            434
+          ],
+          "bbox_local": [
+            47,
+            12,
+            426,
+            426
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            235.0,
+            217.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 3,
+          "rect": [
+            940,
+            58,
+            470,
+            434
+          ],
+          "bbox_local": [
+            46,
+            8,
+            424,
+            426
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            235.0,
+            217.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1410,
+            58,
+            470,
+            434
+          ],
+          "bbox_local": [
+            46,
+            8,
+            436,
+            426
+          ],
+          "preview_ms": 100,
+          "anchor_local": [
+            235.0,
+            217.0
+          ],
+          "anchor_status": "center default; set ground/feet anchor from original specification at import"
+        }
+      ],
+      "limitations": [
+        "Generated raster does not use an exact16px lattice or exclusive specified palette.",
+        "Left-right symmetry and anchor alignment are approximate; verify red/blue teams after import."
+      ]
+    }
+  ],
+  "notes": [
+    "All artwork made with image generation, no code-drawn pixels.",
+    "Actual raw sizes differ from requested sheets. Use assets[].frames[].rect to cut.",
+    "Rasters retain semi-transparent edges and off-palette colors. Exact grid/palette conversion is deferred to importer as permitted in source brief.",
+    "Frame duration is a preview choice except q_axe total250ms. Bind actual playback to game effect data."
+  ]
+}

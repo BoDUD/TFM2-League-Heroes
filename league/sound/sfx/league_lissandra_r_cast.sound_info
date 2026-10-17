@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_lissandra_sfx_r",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_lissandra_sfx_r_field",
+      "volume": 0.4
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_lissandra_vo_r",
+      "volume": 0.9
+    }
+  ]
+}

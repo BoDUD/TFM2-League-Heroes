@@ -1,0 +1,144 @@
+{
+  "assets": 15,
+  "frames": 72,
+  "checks": [
+    {
+      "name": "a_slash",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "a_hit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "q_spin",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "q_spin_e",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "q_hit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "e_dash",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "e_hit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "w_hit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "w_glow",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "w_stun",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "e_shred",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "f5",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "r_cast",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "r_on",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    },
+    {
+      "name": "r_burn",
+      "dimensions": true,
+      "binary_alpha": true,
+      "exact_16x_grid": true,
+      "palette": true,
+      "frames_nonempty": true,
+      "symmetry": true
+    }
+  ],
+  "game_import_tested": false,
+  "loop_seam_runtime_tested": false,
+  "brightness_comparison_to_other_champions": false
+}

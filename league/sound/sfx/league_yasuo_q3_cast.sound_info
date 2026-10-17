@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_yasuo_sfx_q_cast",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_yasuo_vo_q3",
+      "volume": 1.0
+    },
+    {
+      "delay": 0.15,
+      "clip": "league_yasuo_sfx_q3_cast",
+      "volume": 0.9
+    }
+  ]
+}

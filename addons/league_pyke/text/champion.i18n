@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_pyke": {
+        "ult": "【精确斩杀测试版】只对斩得死的英雄出手。X形打击：生命不高于<#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>的英雄<#ff5050ff>被处决<>，其余受到一半的<#ffffffff>真实伤害<>。英雄死在X里，派克闪到那里并<#ffb900ff>刷新大招<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_pyke": {
+        "ult": "【精確斬殺測試版】只對斬得死的英雄出手。X形打擊：生命不高於<#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>的英雄<#ff5050ff>被處決<>，其餘受到一半的<#ffffffff>真實傷害<>。英雄死在X裡，派克閃到那裡並<#ffb900ff>刷新大招<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_pyke": {
+        "ult": "[Exact execute test build] Cast only on a champion it kills. Strikes an X: champions at or below <#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> health are <#ff5050ff>executed<>, the rest take half of it as <#ffffffff>true damage<>. A champion dying in the X blinks him to it and <#ffb900ff>refreshes the ult<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_pyke": {
+        "ult": "[정밀 처형 테스트판] 처형할 수 있는 챔피언에게만 사용. X자 타격: 체력이 <#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> 이하인 챔피언은 <#ff5050ff>처형<>, 나머지는 그 절반의 <#ffffffff>고정 피해<>. X 안에서 챔피언이 죽으면 그곳으로 이동하고 <#ffb900ff>궁극기 초기화<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_pyke": {
+        "ult": "【精密処刑テスト版】処刑できるチャンピオンにだけ使う。X字の斬撃：体力<#ffb900ff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>以下のチャンピオンは<#ff5050ff>処刑<>、残りはその半分の<#ffffffff>確定ダメージ<>。X内でチャンピオンが死ぬとそこへ移動し<#ffb900ff>アルティメット再使用<>。"
+      }
+    }
+  }
+}

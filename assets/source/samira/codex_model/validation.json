@@ -1,0 +1,22 @@
+[
+  {
+    "version": "A",
+    "strict_8x8_grid": true,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "no_pixels_below_row99": true,
+    "colors": 21
+  },
+  {
+    "version": "B",
+    "strict_8x8_grid": true,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "no_pixels_below_row99": true,
+    "colors": 22
+  }
+]

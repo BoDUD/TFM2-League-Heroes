@@ -1,0 +1,489 @@
+[
+  {
+    "name": "a_hit",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink bloom ramp (#FFFFFF, #FFE0F0, #FF9AD0, #F04AA8, #B8075E) and a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A).\nEffect: a BLOSSOM HIT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-pink 4-point star 6 squares across at the center; 2 a pink-violet burst 10 squares across with 4 small petals flying out at mirrored places; 3 the petals farther, blue-violet dust motes round it; 4 a few fading motes.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 16:16. The logical pixel grid of EACH cell is exactly 16 columns by 16 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      16,
+      16
+    ],
+    "output_size": [
+      1024,
+      256
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F0",
+      "#FF9AD0",
+      "#F04AA8",
+      "#B8075E",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "q_spin",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink bloom ramp (#FFFFFF, #FFE0F0, #FF9AD0, #F04AA8, #B8075E), a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A) and a gold lantern-light ramp (#FFFFFF, #FFF6C0, #FBD70B, #E8A010, #8A5A10).\nEffect: a BLOOMING RING on the ground round her, seen from above at an angle, 6 frames, SYMMETRIC LEFT TO RIGHT AND TOP TO BOTTOM in every frame, its middle EMPTY: 1 a thin white-pink ellipse 24 squares wide; 2 an outer ring 44 squares wide, 2 squares thick, bright pink with a violet outer edge, a fainter inner ring 24 squares wide; 3 the outer ring 54 squares wide and 20 tall, brightest, 8 petals and 4 gold flash glints on it at mirrored places; 4 the rings thinner, the petals flying outward; 5 the rings breaking into petals and dust; 6 a few fading petals.\nLayout: one horizontal row of 6 equal 58:24 cells, image size 5568x384 (each cell 928x384, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 6 separate temporal frames, one horizontal strip with equal cell aspect 58:24. The logical pixel grid of EACH cell is exactly 58 columns by 24 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 6,
+    "cell": [
+      58,
+      24
+    ],
+    "output_size": [
+      5568,
+      384
+    ],
+    "symmetry": "xy",
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F0",
+      "#FF9AD0",
+      "#F04AA8",
+      "#B8075E",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#FFF6C0",
+      "#FBD70B",
+      "#E8A010",
+      "#8A5A10",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "q_hit",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink bloom ramp (#FFFFFF, #FFE0F0, #FF9AD0, #F04AA8, #B8075E), a gold lantern-light ramp (#FFFFFF, #FFF6C0, #FBD70B, #E8A010, #8A5A10) and a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A).\nEffect: a BLOOM STRIKE HIT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold horizontal flash spike 14 squares wide and 2 tall through the center; 2 the spike with a pink-violet burst 9 squares across at its middle; 3 the burst opening into 6 petals at mirrored places, blue-violet motes; 4 fading motes.\nLayout: one horizontal row of 4 equal square cells, image size 1152x288 (each cell 288x288, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 18:18. The logical pixel grid of EACH cell is exactly 18 columns by 18 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      18,
+      18
+    ],
+    "output_size": [
+      1152,
+      288
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F0",
+      "#FF9AD0",
+      "#F04AA8",
+      "#B8075E",
+      "#FFF6C0",
+      "#FBD70B",
+      "#E8A010",
+      "#8A5A10",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "e_seed",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange seed ramp (#FFFFFF, #FFE0B0, #FFA840, #FF7F00, #D84A0A), a cyan sparkle ramp (#FFFFFF, #D8FBFF, #8AE8FF, #56C8FE, #1E8AC8) and a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A).\nEffect: a SWIRLSEED in flight, 4 frames, a seamless loop, SYMMETRIC TOP TO BOTTOM in every frame (the game turns it to its flight; flying left it is flipped upside down): a round orange seed 5 squares across with a lit top-and-bottom-symmetric shine, a thin cyan band across its middle, a soft gold glow round it, 2 small blue-violet motes trailing to the LEFT at mirrored heights; the glow and the band brighten and dim frame to frame (no spinning lines).\nLayout: one horizontal row of 4 equal square cells, image size 640x160 (each cell 160x160, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 10:10. The logical pixel grid of EACH cell is exactly 10 columns by 10 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      10,
+      10
+    ],
+    "output_size": [
+      640,
+      160
+    ],
+    "symmetry": "y",
+    "palette": [
+      "#FFFFFF",
+      "#FFE0B0",
+      "#FFA840",
+      "#FF7F00",
+      "#D84A0A",
+      "#D8FBFF",
+      "#8AE8FF",
+      "#56C8FE",
+      "#1E8AC8",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#000000"
+    ],
+    "loop": true
+  },
+  {
+    "name": "e_land",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange seed ramp (#FFFFFF, #FFE0B0, #FFA840, #FF7F00, #D84A0A), a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A) and leaf-green accents (#E8FFD0, #B1DC43, #3E8A2A, #036A2E) used sparingly.\nEffect: a SEED BURST on the ground seen from above at an angle, 5 frames, SYMMETRIC LEFT TO RIGHT AND TOP TO BOTTOM in every frame: 1 a bright white-orange ellipse 6 squares wide; 2 an orange ring 14 squares wide, 4 leaves and 4 violet motes at mirrored places; 3 the ring 20 squares wide and 8 tall, thinner; 4 the ring breaking into motes; 5 a few fading motes.\nLayout: one horizontal row of 5 equal 22:10 cells, image size 1760x160 (each cell 352x160, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 5 separate temporal frames, one horizontal strip with equal cell aspect 22:10. The logical pixel grid of EACH cell is exactly 22 columns by 10 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 5,
+    "cell": [
+      22,
+      10
+    ],
+    "output_size": [
+      1760,
+      160
+    ],
+    "symmetry": "xy",
+    "palette": [
+      "#FFFFFF",
+      "#FFE0B0",
+      "#FFA840",
+      "#FF7F00",
+      "#D84A0A",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#E8FFD0",
+      "#B1DC43",
+      "#3E8A2A",
+      "#036A2E",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "e_hit",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange seed ramp (#FFFFFF, #FFE0B0, #FFA840, #FF7F00, #D84A0A) and a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A).\nEffect: a SEED HIT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-orange flash 6 squares across; 2 an orange burst 10 squares across with a thin violet ring round it; 3 the ring wider, 6 motes at mirrored places; 4 fading motes.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 16:16. The logical pixel grid of EACH cell is exactly 16 columns by 16 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      16,
+      16
+    ],
+    "output_size": [
+      1024,
+      256
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#FFE0B0",
+      "#FFA840",
+      "#FF7F00",
+      "#D84A0A",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "e_slow",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A).\nEffect: a SLOWING DREAM MIST under a figure's feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a flat ellipse of blue-violet mist 14 squares wide and 4 tall, paler in the middle, 4 small sparkles at mirrored places; it pulses and the sparkles twinkle.\nLayout: one horizontal row of 4 equal 18:8 cells, image size 1152x128 (each cell 288x128, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 18:8. The logical pixel grid of EACH cell is exactly 18 columns by 8 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      18,
+      8
+    ],
+    "output_size": [
+      1152,
+      128
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#000000"
+    ],
+    "loop": true
+  },
+  {
+    "name": "w_mark",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A) and a cyan sparkle ramp (#FFFFFF, #D8FBFF, #8AE8FF, #56C8FE, #1E8AC8).\nEffect: a WARNING CIRCLE on the ground seen from above at an angle, 6 frames, SYMMETRIC LEFT TO RIGHT AND TOP TO BOTTOM in every frame: an elliptical ring 44 squares wide and 16 tall, 1 square thick, violet with a faint violet fill inside, and a bright cyan ellipse 9 squares wide and 4 tall at the center; a thin white-cyan ring shrinks from the outer ring toward the center: 44 wide in frame 1, then 36, 28, 20, 14 and 10 wide in frame 6; the center ellipse brightens each frame.\nLayout: one horizontal row of 6 equal 48:20 cells, image size 4608x320 (each cell 768x320, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 6 separate temporal frames, one horizontal strip with equal cell aspect 48:20. The logical pixel grid of EACH cell is exactly 48 columns by 20 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 6,
+    "cell": [
+      48,
+      20
+    ],
+    "output_size": [
+      4608,
+      320
+    ],
+    "symmetry": "xy",
+    "palette": [
+      "#FFFFFF",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#D8FBFF",
+      "#8AE8FF",
+      "#56C8FE",
+      "#1E8AC8",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "w_land",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A), a cyan sparkle ramp (#FFFFFF, #D8FBFF, #8AE8FF, #56C8FE, #1E8AC8) and a pink bloom ramp (#FFFFFF, #FFE0F0, #FF9AD0, #F04AA8, #B8075E).\nEffect: a SLAM SHOCKWAVE on the ground seen from above at an angle, 6 frames, SYMMETRIC LEFT TO RIGHT AND TOP TO BOTTOM in every frame: 1 a white flash ellipse 10 squares wide at the center; 2 a ring 24 squares wide, 2 squares thick, violet with a teal outer edge, a pink-white flash inside; 3 the ring 38 squares wide, 8 petals and sparks flying out at mirrored places; 4 the ring 46 squares wide and 18 tall, thinner; 5 breaking into sparks; 6 a few fading sparks.\nLayout: one horizontal row of 6 equal 50:22 cells, image size 4800x352 (each cell 800x352, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 6 separate temporal frames, one horizontal strip with equal cell aspect 50:22. The logical pixel grid of EACH cell is exactly 50 columns by 22 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 6,
+    "cell": [
+      50,
+      22
+    ],
+    "output_size": [
+      4800,
+      352
+    ],
+    "symmetry": "xy",
+    "palette": [
+      "#FFFFFF",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#D8FBFF",
+      "#8AE8FF",
+      "#56C8FE",
+      "#1E8AC8",
+      "#FFE0F0",
+      "#FF9AD0",
+      "#F04AA8",
+      "#B8075E",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "w_hit",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A) and a cyan sparkle ramp (#FFFFFF, #D8FBFF, #8AE8FF, #56C8FE, #1E8AC8).\nEffect: a SLAM HIT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-violet 4-point star 7 squares across; 2 a violet burst 11 squares across with a thin cyan ring; 3 the ring wider, 6 sparks at mirrored places; 4 fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1152x288 (each cell 288x288, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 18:18. The logical pixel grid of EACH cell is exactly 18 columns by 18 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      18,
+      18
+    ],
+    "output_size": [
+      1152,
+      288
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#D8FBFF",
+      "#8AE8FF",
+      "#56C8FE",
+      "#1E8AC8",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "w_sweet",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold lantern-light ramp (#FFFFFF, #FFF6C0, #FBD70B, #E8A010, #8A5A10), a pink bloom ramp (#FFFFFF, #FFE0F0, #FF9AD0, #F04AA8, #B8075E) and a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A).\nEffect: a CRITICAL SLAM BURST, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white 8-point star 10 squares across; 2 a gold-white burst 16 squares across with 8 long gold rays and a pink-violet ring; 3 the rays longest (22 squares across), a white core; 4 the rays breaking into sparkles and petals; 5 fading sparkles.\nLayout: one horizontal row of 5 equal square cells, image size 1920x384 (each cell 384x384, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 5 separate temporal frames, one horizontal strip with equal cell aspect 24:24. The logical pixel grid of EACH cell is exactly 24 columns by 24 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 5,
+    "cell": [
+      24,
+      24
+    ],
+    "output_size": [
+      1920,
+      384
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#FFF6C0",
+      "#FBD70B",
+      "#E8A010",
+      "#8A5A10",
+      "#FFE0F0",
+      "#FF9AD0",
+      "#F04AA8",
+      "#B8075E",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "r_cast",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A), a cyan sparkle ramp (#FFFFFF, #D8FBFF, #8AE8FF, #56C8FE, #1E8AC8) and a pink bloom ramp (#FFFFFF, #FFE0F0, #FF9AD0, #F04AA8, #B8075E).\nEffect: a LULLABY AURA round her, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the figure's place EMPTY (the middle 22 x 44 squares): 1 a blue-violet ellipse glow 30 squares wide on the ground at the bottom; 2 two blue dream ribbons rising from it at the left and the right (mirrored), curling outward, 8 motes; 3 the ribbons reaching the top, brightest, cyan and pink sparkles and tiny stars drifting up at mirrored places; 4 the ribbons thinning, the motes higher; 5 fading; 6 a few motes.\nLayout: one horizontal row of 6 equal 46:54 cells, image size 4416x864 (each cell 736x864, 16 px a square); centered across, the ground glow on the cell's bottom. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 6 separate temporal frames, one horizontal strip with equal cell aspect 46:54. The logical pixel grid of EACH cell is exactly 46 columns by 54 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 6,
+    "cell": [
+      46,
+      54
+    ],
+    "output_size": [
+      4416,
+      864
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#D8FBFF",
+      "#8AE8FF",
+      "#56C8FE",
+      "#1E8AC8",
+      "#FFE0F0",
+      "#FF9AD0",
+      "#F04AA8",
+      "#B8075E",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "drowsy",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A).\nEffect: a DROWSY HAZE over a head, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a soft blue-violet haze 16 squares wide and 6 tall, 6 small motes at mirrored places drifting down 1 square a frame and fading in again at the top.\nLayout: one horizontal row of 4 equal 20:12 cells, image size 1280x192 (each cell 320x192, 16 px a square); centered across, the haze in the cell's top half. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 20:12. The logical pixel grid of EACH cell is exactly 20 columns by 12 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      20,
+      12
+    ],
+    "output_size": [
+      1280,
+      192
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#000000"
+    ],
+    "loop": true
+  },
+  {
+    "name": "sleep",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A), a gold lantern-light ramp (#FFFFFF, #FFF6C0, #FBD70B, #E8A010, #8A5A10) and a cyan sparkle ramp (#FFFFFF, #D8FBFF, #8AE8FF, #56C8FE, #1E8AC8).\nEffect: a SLEEP BUBBLE over a head, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a round blue-violet glowing bubble outline 10 squares across with a pale inside, a small gold crescent inside it opening UPWARD (a symmetric bowl shape), one small cyan star on each side of the bubble (mirrored); the bubble swells 1 square and back, the stars twinkle.\nLayout: one horizontal row of 4 equal 20:16 cells, image size 1280x256 (each cell 320x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 20:16. The logical pixel grid of EACH cell is exactly 20 columns by 16 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      20,
+      16
+    ],
+    "output_size": [
+      1280,
+      256
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#FFF6C0",
+      "#FBD70B",
+      "#E8A010",
+      "#8A5A10",
+      "#D8FBFF",
+      "#8AE8FF",
+      "#56C8FE",
+      "#1E8AC8",
+      "#000000"
+    ],
+    "loop": true
+  },
+  {
+    "name": "wake",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A) and a cyan sparkle ramp (#FFFFFF, #D8FBFF, #8AE8FF, #56C8FE, #1E8AC8).\nEffect: a DREAM POP, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a round blue-violet bubble outline 10 squares across; 2 the bubble bursting into a white-cyan 8-point flash 14 squares across; 3 bubble shards and motes flying out at mirrored places; 4 the motes farther and fading; 5 a few fading motes.\nLayout: one horizontal row of 5 equal square cells, image size 1600x320 (each cell 320x320, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 5 separate temporal frames, one horizontal strip with equal cell aspect 20:20. The logical pixel grid of EACH cell is exactly 20 columns by 20 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 5,
+    "cell": [
+      20,
+      20
+    ],
+    "output_size": [
+      1600,
+      320
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#D8FBFF",
+      "#8AE8FF",
+      "#56C8FE",
+      "#1E8AC8",
+      "#000000"
+    ],
+    "loop": false
+  },
+  {
+    "name": "dust",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A) and a pink bloom ramp (#FFFFFF, #FFE0F0, #FF9AD0, #F04AA8, #B8075E).\nEffect: DREAM DUST round a figure, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the figure's place EMPTY (the middle 14 x 26 squares): 10 small blue-violet motes and 4 tiny pink star glints placed round the empty middle at mirrored places, more near the head; each frame different mirrored pairs brighten and they drift 1 square up and down.\nLayout: one horizontal row of 4 equal 24:32 cells, image size 1536x512 (each cell 384x512, 16 px a square); centered across, the figure area's bottom on the cell's bottom. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 24:32. The logical pixel grid of EACH cell is exactly 24 columns by 32 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      24,
+      32
+    ],
+    "output_size": [
+      1536,
+      512
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#FFE0F0",
+      "#FF9AD0",
+      "#F04AA8",
+      "#B8075E",
+      "#000000"
+    ],
+    "loop": true
+  },
+  {
+    "name": "prance",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, dust, petals, sparkles or rings, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink bloom ramp (#FFFFFF, #FFE0F0, #FF9AD0, #F04AA8, #B8075E), a blue-violet dream ramp (#FFFFFF, #E6E8FF, #A8B0FF, #6A6AE8, #3A2C9A) and leaf-green accents (#E8FFD0, #B1DC43, #3E8A2A, #036A2E) used sparingly.\nEffect: PRANCING PETALS under a figure's hooves, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a faint blue-violet ground glow 20 squares wide and 3 tall, 4 pink petals and 4 motes rising from it at mirrored places, two short pale speed streaks at each side (mirrored); the petals rise 1 square a frame and fade in again at the bottom.\nLayout: one horizontal row of 4 equal 28:10 cells, image size 1792x160 (each cell 448x160, 16 px a square); centered across, the glow on the cell's bottom. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nProduction constraints: this is ONLY an effect, no character. Exactly 4 separate temporal frames, one horizontal strip with equal cell aspect 28:10. The logical pixel grid of EACH cell is exactly 28 columns by 10 rows. Render large SOLID aligned SQUARE pixel blocks, one block per logical pixel. Do not draw a smooth illustration or countless tiny pixels. All forms must fit completely within their individual cell and never touch adjacent frames. Do not add any outer canvas margins. Transparent RGBA canvas. No soft halos, dark outlines, checkerboard, text or scenery. Preserve a clean empty central area for hollow rings/auras. Reference is only color and silhouette inspiration; create original low-resolution VFX, do not paste its textures.",
+    "frames": 4,
+    "cell": [
+      28,
+      10
+    ],
+    "output_size": [
+      1792,
+      160
+    ],
+    "symmetry": "x",
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F0",
+      "#FF9AD0",
+      "#F04AA8",
+      "#B8075E",
+      "#E6E8FF",
+      "#A8B0FF",
+      "#6A6AE8",
+      "#3A2C9A",
+      "#E8FFD0",
+      "#B1DC43",
+      "#3E8A2A",
+      "#036A2E",
+      "#000000"
+    ],
+    "loop": true
+  }
+]

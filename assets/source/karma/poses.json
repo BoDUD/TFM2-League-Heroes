@@ -1,0 +1,290 @@
+{
+ "hero": "karma",
+ "champ": "Karma",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 2.0,
+  "legs": 0.85,
+  "hair": 1.0
+ },
+ "height": 36,
+ "cell": [
+  96,
+  80,
+  14
+ ],
+ "design": "karma_2012_idle1@0",
+ "head_joint": "Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "karma_2012_idle1@0",
+     200
+    ],
+    [
+     "karma_2012_idle1@0",
+     200
+    ],
+    [
+     "karma_2012_idle1@0",
+     200
+    ],
+    [
+     "karma_2012_idle1@0",
+     200
+    ],
+    [
+     "karma_2012_idle1@0",
+     200
+    ],
+    [
+     "karma_2012_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "karma_2012_idle1@0",
+   "frames": [
+    [
+     "karma_2012_run@0",
+     125
+    ],
+    [
+     "karma_2012_run@125",
+     125
+    ],
+    [
+     "karma_2012_run@250",
+     125
+    ],
+    [
+     "karma_2012_run@375",
+     125
+    ],
+    [
+     "karma_2012_run@500",
+     125
+    ],
+    [
+     "karma_2012_run@625",
+     125
+    ],
+    [
+     "karma_2012_run@750",
+     125
+    ],
+    [
+     "karma_2012_run@875",
+     125
+    ]
+   ]
+  },
+  "attack": {
+   "flat": true,
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "karma_2012_idle1@0>karma_2012_attack1@0:0.6",
+     60
+    ],
+    [
+     "karma_2012_attack1@100",
+     60
+    ],
+    [
+     "karma_2012_attack1@200",
+     70
+    ],
+    [
+     "karma_2012_attack1@300",
+     70
+    ],
+    [
+     "karma_2012_attack1@500",
+     70
+    ],
+    [
+     "karma_2012_attack1@1100>karma_2012_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill": {
+   "flat": true,
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "karma_2012_idle1@0>karma_2012_spell1@100:0.6",
+     55
+    ],
+    [
+     "karma_2012_spell1@200",
+     55
+    ],
+    [
+     "karma_2012_spell1@250",
+     60
+    ],
+    [
+     "karma_2012_spell1@350",
+     60
+    ],
+    [
+     "karma_2012_spell1@600",
+     70
+    ],
+    [
+     "karma_2012_spell1@850>karma_2012_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill2": {
+   "flat": true,
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "karma_2012_idle1@0>karma_2012_spell2@100:0.6",
+     55
+    ],
+    [
+     "karma_2012_spell2@250",
+     55
+    ],
+    [
+     "karma_2012_spell2@300",
+     60
+    ],
+    [
+     "karma_2012_spell2@400",
+     60
+    ],
+    [
+     "karma_2012_spell2@550",
+     70
+    ],
+    [
+     "karma_2012_spell2@800>karma_2012_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill_e": {
+   "flat": true,
+   "lunge": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "karma_2012_idle1@0>karma_2012_spell3@200:0.6",
+     50
+    ],
+    [
+     "karma_2012_spell3@350",
+     50
+    ],
+    [
+     "karma_2012_spell3@500",
+     55
+    ],
+    [
+     "karma_2012_spell3@650",
+     60
+    ],
+    [
+     "karma_2012_spell3@850>karma_2012_idle1@0:0.5",
+     55
+    ]
+   ]
+  },
+  "ult": {
+   "flat": true,
+   "lunge": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "karma_2012_idle1@0>karma_2012_channel_windup@0:0.6",
+     50
+    ],
+    [
+     "karma_2012_channel_windup@193",
+     50
+    ],
+    [
+     "karma_2012_channel_windup@387",
+     60
+    ],
+    [
+     "karma_2012_channel_windup@580",
+     70
+    ],
+    [
+     "karma_2012_channel_windup@870>karma_2012_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "hit": {
+   "flat": true,
+   "frames": [
+    [
+     "karma_2012_idle1@0>karma_2012_death@283:0.35",
+     120
+    ],
+    [
+     "karma_2012_idle1@0>karma_2012_death@283:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "karma_2012_death@0",
+     100
+    ],
+    [
+     "karma_2012_death@283",
+     100
+    ],
+    [
+     "karma_2012_death@567",
+     100
+    ],
+    [
+     "karma_2012_death@850",
+     120
+    ],
+    [
+     "karma_2012_death@1417",
+     150
+    ],
+    [
+     "karma_2012_death@1700",
+     150
+    ],
+    [
+     "karma_2012_death@1983",
+     200
+    ],
+    [
+     "karma_2012_death@2550",
+     500
+    ]
+   ]
+  }
+ }
+}

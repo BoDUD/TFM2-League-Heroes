@@ -1,0 +1,6 @@
+{
+ "league_vayne_hit": {
+  "anim": "asset/league/effects/league_vayne_fx",
+  "tag": "hit"
+ }
+}

@@ -1,0 +1,471 @@
+{
+  "frames": [
+    {
+      "frame": 1,
+      "sheet_rect": [
+        0,
+        0,
+        480,
+        480
+      ],
+      "logical_bbox": [
+        10,
+        10,
+        49,
+        56
+      ],
+      "source_logical_bbox": [
+        17,
+        20,
+        43,
+        56
+      ],
+      "foot_bottom_row": 55,
+      "source_foot_bottom_row": 55,
+      "native_crop": [
+        81,
+        125,
+        349,
+        442
+      ],
+      "size_logical": [
+        39,
+        46
+      ]
+    },
+    {
+      "frame": 2,
+      "sheet_rect": [
+        480,
+        0,
+        480,
+        480
+      ],
+      "logical_bbox": [
+        16,
+        10,
+        48,
+        56
+      ],
+      "source_logical_bbox": [
+        18,
+        19,
+        45,
+        56
+      ],
+      "foot_bottom_row": 55,
+      "source_foot_bottom_row": 55,
+      "native_crop": [
+        529,
+        125,
+        753,
+        449
+      ],
+      "size_logical": [
+        32,
+        46
+      ]
+    },
+    {
+      "frame": 3,
+      "sheet_rect": [
+        960,
+        0,
+        480,
+        480
+      ],
+      "logical_bbox": [
+        16,
+        10,
+        48,
+        56
+      ],
+      "source_logical_bbox": [
+        19,
+        18,
+        45,
+        56
+      ],
+      "foot_bottom_row": 55,
+      "source_foot_bottom_row": 55,
+      "native_crop": [
+        954,
+        125,
+        1181,
+        447
+      ],
+      "size_logical": [
+        32,
+        46
+      ]
+    },
+    {
+      "frame": 4,
+      "sheet_rect": [
+        0,
+        480,
+        480,
+        480
+      ],
+      "logical_bbox": [
+        15,
+        10,
+        49,
+        56
+      ],
+      "source_logical_bbox": [
+        19,
+        18,
+        45,
+        56
+      ],
+      "foot_bottom_row": 55,
+      "source_foot_bottom_row": 55,
+      "native_crop": [
+        107,
+        546,
+        333,
+        854
+      ],
+      "size_logical": [
+        34,
+        46
+      ]
+    },
+    {
+      "frame": 5,
+      "sheet_rect": [
+        480,
+        480,
+        480,
+        480
+      ],
+      "logical_bbox": [
+        14,
+        10,
+        46,
+        56
+      ],
+      "source_logical_bbox": [
+        18,
+        20,
+        43,
+        56
+      ],
+      "foot_bottom_row": 55,
+      "source_foot_bottom_row": 55,
+      "native_crop": [
+        539,
+        546,
+        752,
+        854
+      ],
+      "size_logical": [
+        32,
+        46
+      ]
+    },
+    {
+      "frame": 6,
+      "sheet_rect": [
+        960,
+        480,
+        480,
+        480
+      ],
+      "logical_bbox": [
+        14,
+        10,
+        47,
+        56
+      ],
+      "source_logical_bbox": [
+        17,
+        19,
+        43,
+        56
+      ],
+      "foot_bottom_row": 55,
+      "source_foot_bottom_row": 55,
+      "native_crop": [
+        943,
+        545,
+        1168,
+        854
+      ],
+      "size_logical": [
+        33,
+        46
+      ]
+    },
+    {
+      "frame": 7,
+      "sheet_rect": [
+        0,
+        960,
+        480,
+        480
+      ],
+      "logical_bbox": [
+        13,
+        10,
+        47,
+        56
+      ],
+      "source_logical_bbox": [
+        17,
+        18,
+        43,
+        56
+      ],
+      "foot_bottom_row": 55,
+      "source_foot_bottom_row": 55,
+      "native_crop": [
+        92,
+        931,
+        316,
+        1233
+      ],
+      "size_logical": [
+        34,
+        46
+      ]
+    },
+    {
+      "frame": 8,
+      "sheet_rect": [
+        480,
+        960,
+        480,
+        480
+      ],
+      "logical_bbox": [
+        14,
+        10,
+        48,
+        56
+      ],
+      "source_logical_bbox": [
+        17,
+        17,
+        44,
+        56
+      ],
+      "foot_bottom_row": 55,
+      "source_foot_bottom_row": 55,
+      "native_crop": [
+        523,
+        931,
+        744,
+        1233
+      ],
+      "size_logical": [
+        34,
+        46
+      ]
+    },
+    {
+      "frame": 9,
+      "sheet_rect": [
+        960,
+        960,
+        480,
+        480
+      ],
+      "logical_bbox": [
+        12,
+        10,
+        49,
+        56
+      ],
+      "source_logical_bbox": [
+        17,
+        18,
+        44,
+        56
+      ],
+      "foot_bottom_row": 55,
+      "source_foot_bottom_row": 55,
+      "native_crop": [
+        919,
+        931,
+        1161,
+        1233
+      ],
+      "size_logical": [
+        37,
+        46
+      ]
+    }
+  ],
+  "cell_px": [
+    480,
+    480
+  ],
+  "grid": [
+    3,
+    3
+  ],
+  "logical_cell": [
+    60,
+    60
+  ],
+  "scale": 8,
+  "color_key": "#00FF00",
+  "character_palette": [
+    [
+      11,
+      1,
+      15
+    ],
+    [
+      15,
+      12,
+      48
+    ],
+    [
+      17,
+      2,
+      24
+    ],
+    [
+      18,
+      15,
+      59
+    ],
+    [
+      27,
+      27,
+      86
+    ],
+    [
+      32,
+      32,
+      98
+    ],
+    [
+      35,
+      21,
+      72
+    ],
+    [
+      38,
+      38,
+      118
+    ],
+    [
+      43,
+      23,
+      26
+    ],
+    [
+      44,
+      44,
+      141
+    ],
+    [
+      48,
+      45,
+      71
+    ],
+    [
+      52,
+      30,
+      26
+    ],
+    [
+      61,
+      36,
+      30
+    ],
+    [
+      81,
+      75,
+      80
+    ],
+    [
+      87,
+      51,
+      39
+    ],
+    [
+      88,
+      59,
+      149
+    ],
+    [
+      89,
+      60,
+      156
+    ],
+    [
+      96,
+      102,
+      215
+    ],
+    [
+      97,
+      188,
+      219
+    ],
+    [
+      104,
+      106,
+      129
+    ],
+    [
+      118,
+      122,
+      139
+    ],
+    [
+      120,
+      70,
+      48
+    ],
+    [
+      138,
+      141,
+      152
+    ],
+    [
+      152,
+      161,
+      186
+    ],
+    [
+      163,
+      165,
+      171
+    ],
+    [
+      182,
+      115,
+      70
+    ],
+    [
+      195,
+      195,
+      197
+    ],
+    [
+      222,
+      224,
+      227
+    ],
+    [
+      238,
+      169,
+      109
+    ],
+    [
+      239,
+      226,
+      246
+    ]
+  ],
+  "preview_duration_ms": 100,
+  "preview_timing_note": "100ms is an editorial preview, not a supplied runtime timing.",
+  "generation": "built-in image_gen, then authorized local grid/palette/background/registration export",
+  "pose_note": "AI redraw follows reference poses; joint coordinates are visually approximate. Lowest foot row and horizontal silhouette centre registered deterministically."
+}

@@ -1,0 +1,10 @@
+{
+ "league_alistar_e_ready": {
+  "anim": "asset/league/effects/league_alistar_fx",
+  "tag": "e_ready"
+ },
+ "league_alistar_w_butt": {
+  "anim": "asset/league/effects/league_alistar_fx",
+  "tag": "w_butt"
+ }
+}

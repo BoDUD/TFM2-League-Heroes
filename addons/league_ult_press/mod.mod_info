@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.129.0"
+    }
+  ],
+  "description": "Armed slots pressed for game 0.6.4's AI (needs League of Legends Heroes): Samira's, Twisted Fate's and Kog'Maw's R and Camille's E only arm or wait for a target in the data, and the 0.6.4 AI almost never presses them. This add-on presses them for the AI - Samira when an enemy champion is in R's range, and she also casts E and Q at champions to climb her Style to S; Twisted Fate when he is alone and an ally far away is fighting an enemy champion; Kog'Maw at the lowest-health champion his R may hit; Camille when an enemy champion is in E's range. Nothing of the main pack is replaced. Writes a log for testing. Also, when the AI holds any melee League champion (attack range up to 30000), Rakan or Senna next to an enemy champion without attacking (standing still, or walking along with him), it attacks him for them - only at half health or more, away from his tower and not outnumbered.",
+  "last_updated": "2026-10-17",
+  "mod_id": "league_ult_press",
+  "mod_type": "native",
+  "name": "League Heroes: armed skills pressed and lane holds broken for the AI",
+  "version": "0.2.1"
+}

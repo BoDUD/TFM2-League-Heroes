@@ -1,0 +1,46 @@
+{
+ "hero": "blitzcrank",
+ "champ": "Blitzcrank",
+ "camera": {"yaw": 20, "pitch": 20, "mirror": false},
+ "chibi": {"head": 1.5, "legs": 1.0},
+ "height": 44,
+ "cell": [128, 112, 14],
+ "design": "blitzcrank_idle1@0",
+ "tags": {
+  "idle": {"frames": [
+   ["blitzcrank_idle1@0", 160], ["blitzcrank_idle1@161", 160], ["blitzcrank_idle1@323", 160],
+   ["blitzcrank_idle1@484", 160], ["blitzcrank_idle1@645", 160], ["blitzcrank_idle1@806", 160]]},
+  "run": {"flat": true, "head_like": "blitzcrank_idle1@0", "frames": [
+   ["blitzcrank_run@0", 83, {"turn": 15}], ["blitzcrank_run@121", 83, {"turn": 15}],
+   ["blitzcrank_run@242", 83, {"turn": 15}], ["blitzcrank_run@363", 84, {"turn": 15}],
+   ["blitzcrank_run@484", 83, {"turn": 15}], ["blitzcrank_run@605", 83, {"turn": 15}],
+   ["blitzcrank_run@726", 83, {"turn": 15}], ["blitzcrank_run@847", 85, {"turn": 15}]]},
+  "attack": {"lunge": 0.6, "frames": [
+   ["blitzcrank_idle1@0>blitzcrank_attack1@120:0.5", 70], ["blitzcrank_attack1@200", 70, {"turn": 20}],
+   ["blitzcrank_attack1@300", 70, {"turn": 25}], ["blitzcrank_attack1@370", 70, {"turn": 25}],
+   ["blitzcrank_attack1@480", 80, {"turn": 15}], ["blitzcrank_attack1@620>blitzcrank_idle1@0:0.5", 80]]},
+  "skill": {"lunge": 0.6, "frames": [
+   ["blitzcrank_idle1@0>blitzcrank_spell1@87:0.5", 60], ["blitzcrank_spell1@130", 60, {"turn": 15}],
+   ["blitzcrank_spell1@200", 70, {"turn": 25}], ["blitzcrank_spell1@261", 80, {"turn": 25}],
+   ["blitzcrank_spell1@435", 120, {"turn": 25}], ["blitzcrank_spell1@610", 120, {"turn": 25}],
+   ["blitzcrank_spell1@697", 80, {"turn": 15}], ["blitzcrank_spell1@784>blitzcrank_idle1@0:0.5", 80]]},
+  "q_pull": {"lunge": 0.6, "frames": [
+   ["blitzcrank_spell1@435", 100, {"turn": 25}], ["blitzcrank_spell1@523", 100, {"turn": 25}],
+   ["blitzcrank_spell1@610", 100, {"turn": 25}]]},
+  "skill2": {"lunge": 0.6, "frames": [
+   ["blitzcrank_idle1@0>blitzcrank_i_Spell3@87:0.5", 70], ["blitzcrank_i_Spell3@174", 70, {"turn": 20}],
+   ["blitzcrank_i_Spell3@261", 60, {"turn": 20}], ["blitzcrank_i_Spell3@348", 60, {"turn": 20}],
+   ["blitzcrank_i_Spell3@435", 90, {"turn": 10}], ["blitzcrank_i_Spell3@610", 100],
+   ["blitzcrank_i_Spell3@784>blitzcrank_idle1@0:0.5", 90]]},
+  "ult": {"lunge": 0.6, "frames": [
+   ["blitzcrank_idle1@0>blitzcrank_spell2@97:0.5", 70], ["blitzcrank_spell2@194", 70],
+   ["blitzcrank_spell2@290", 70], ["blitzcrank_spell2@387", 80], ["blitzcrank_spell2@580", 90],
+   ["blitzcrank_spell2@774", 100], ["blitzcrank_spell2@871>blitzcrank_idle1@0:0.5", 100]]},
+  "hit": {"flat": true, "frames": [
+   ["blitzcrank_idle1@0>blitzcrank_death@167:0.35", 120], ["blitzcrank_idle1@0>blitzcrank_death@167:0.15", 120]]},
+  "dead": {"lunge": 0.65, "flat": true, "travel": 0.4, "frames": [
+   ["blitzcrank_death@0", 100], ["blitzcrank_death@167", 100], ["blitzcrank_death@333", 100],
+   ["blitzcrank_death@500", 110], ["blitzcrank_death@667", 120], ["blitzcrank_death@833", 130],
+   ["blitzcrank_death@1000", 150], ["blitzcrank_death@1500", 500]]}
+ }
+}

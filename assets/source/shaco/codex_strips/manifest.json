@@ -1,0 +1,4341 @@
+{
+  "version": 1,
+  "scale": 8,
+  "cell_size_1x": [
+    112,
+    96
+  ],
+  "cell_size_px": [
+    896,
+    768
+  ],
+  "approved_model": "46-grid A with user-approved 19-cell collar repair",
+  "bbox_convention": "[left, top, right_exclusive, bottom_exclusive]",
+  "animations": {
+    "idle": {
+      "file": "shaco_idle.png",
+      "native_file": "native/shaco_idle_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "head_offset": [
+            -7,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 1,
+          "duration_ms": 180,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            288,
+            288,
+            584,
+            656
+          ],
+          "head_bbox_local_1x": [
+            43,
+            36,
+            68,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "9c6d24eda845eb43105fbdeb2c33f155198f4a208445e2fe6ea979271fda28da",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -7,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 2,
+          "duration_ms": 180,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            1184,
+            288,
+            1480,
+            656
+          ],
+          "head_bbox_local_1x": [
+            43,
+            36,
+            68,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "9c6d24eda845eb43105fbdeb2c33f155198f4a208445e2fe6ea979271fda28da",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -7,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 3,
+          "duration_ms": 180,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            2080,
+            288,
+            2376,
+            656
+          ],
+          "head_bbox_local_1x": [
+            43,
+            36,
+            68,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "9c6d24eda845eb43105fbdeb2c33f155198f4a208445e2fe6ea979271fda28da",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -7,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 4,
+          "duration_ms": 180,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            288,
+            1056,
+            584,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            43,
+            36,
+            68,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "9c6d24eda845eb43105fbdeb2c33f155198f4a208445e2fe6ea979271fda28da",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -7,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 5,
+          "duration_ms": 180,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            1184,
+            1056,
+            1480,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            43,
+            36,
+            68,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "9c6d24eda845eb43105fbdeb2c33f155198f4a208445e2fe6ea979271fda28da",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -7,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 6,
+          "duration_ms": 180,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            2080,
+            1056,
+            2376,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            43,
+            36,
+            68,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "9c6d24eda845eb43105fbdeb2c33f155198f4a208445e2fe6ea979271fda28da",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 0
+    },
+    "run": {
+      "file": "shaco_run.png",
+      "native_file": "native/shaco_run_1x.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3584,
+        1536
+      ],
+      "frame_count": 8,
+      "frames": [
+        {
+          "head_offset": [
+            -8,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                71,
+                62
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                47,
+                61
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 1,
+          "duration_ms": 139,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            38,
+            36,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            304,
+            288,
+            600,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            36,
+            67,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            878
+          ],
+          "pixel_hash": "54cb494f6d3dedee2a7a09d911b12b41e95a43b8bd404be9a6a0e1b78e10266a",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -9,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                71,
+                63
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                48,
+                60
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 2,
+          "duration_ms": 139,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            41,
+            36,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            1224,
+            288,
+            1496,
+            656
+          ],
+          "head_bbox_local_1x": [
+            41,
+            36,
+            66,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            821
+          ],
+          "pixel_hash": "bf42ee74c85b0ad4c9991ea88e5796f54d82aaaeda22f608a69ddf9532fcf304",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -10,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                71,
+                64
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                48,
+                61
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 3,
+          "duration_ms": 139,
+          "pivot_1x": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            40,
+            36,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            2112,
+            288,
+            2392,
+            656
+          ],
+          "head_bbox_local_1x": [
+            40,
+            36,
+            65,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            802
+          ],
+          "pixel_hash": "58f1564de5e22d422cc2fe4d3bae4f0b5f3ec30b9260a2b0cc1d4bac6082c9ba",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -8,
+            -16
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                70,
+                65
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                46,
+                66
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 4,
+          "duration_ms": 139,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            96
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            768
+          ],
+          "bbox_local_1x": [
+            37,
+            38,
+            74,
+            82
+          ],
+          "bbox_sheet_px": [
+            2984,
+            304,
+            3280,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            38,
+            67,
+            57
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            851
+          ],
+          "pixel_hash": "75ee564dd1d48c2743f5e2cc116c99331fd1b008a174d16591a9009bf2312c8a",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -9,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                64,
+                61
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                41,
+                67
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 5,
+          "duration_ms": 139,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            32,
+            36,
+            68,
+            82
+          ],
+          "bbox_sheet_px": [
+            256,
+            1056,
+            544,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            41,
+            36,
+            66,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            883
+          ],
+          "pixel_hash": "56912c6bcbf03395b9ac3748c5a8f58b0d14b43f4b9d30caf6a1d39d2f873610",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -12,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                59,
+                59
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                36,
+                66
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 6,
+          "duration_ms": 139,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "pivot_px": [
+            416,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            29,
+            36,
+            66,
+            82
+          ],
+          "bbox_sheet_px": [
+            1128,
+            1056,
+            1424,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            38,
+            36,
+            63,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            873
+          ],
+          "pixel_hash": "a6c1d3c7f3c8f5bf4e8f157b8881506af63a90313e6fe7446ff6e52e18058dfc",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -11,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                61,
+                60
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                38,
+                65
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 7,
+          "duration_ms": 139,
+          "pivot_1x": [
+            53,
+            70
+          ],
+          "pivot_px": [
+            424,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            31,
+            36,
+            67,
+            82
+          ],
+          "bbox_sheet_px": [
+            2040,
+            1056,
+            2328,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            39,
+            36,
+            64,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            867
+          ],
+          "pixel_hash": "affecc3b0e48348ea764a62941cd9d8b66140360022bdd124f45ce4b309dcd83",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -4,
+            -16
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                72,
+                64
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                48,
+                65
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 8,
+          "duration_ms": 139,
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "pivot_px": [
+            480,
+            560
+          ],
+          "cell_rect_1x": [
+            336,
+            96,
+            448,
+            192
+          ],
+          "cell_rect_px": [
+            2688,
+            768,
+            3584,
+            1536
+          ],
+          "bbox_local_1x": [
+            39,
+            38,
+            76,
+            82
+          ],
+          "bbox_sheet_px": [
+            3000,
+            1072,
+            3296,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            46,
+            38,
+            71,
+            57
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            853
+          ],
+          "pixel_hash": "23eb12f414821337585d212299c403867d62827ad4b17c0013c42e6225a1e123",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 0
+    },
+    "attack": {
+      "file": "shaco_attack.png",
+      "native_file": "native/shaco_attack_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "head_offset": [
+            -8,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                67,
+                61
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                46,
+                62
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 1,
+          "duration_ms": 60,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            39,
+            36,
+            74,
+            82
+          ],
+          "bbox_sheet_px": [
+            312,
+            288,
+            592,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            36,
+            67,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            892
+          ],
+          "pixel_hash": "9aa8f8fcf69e56c3bd859b2b01f2adb6ea01db6dcfe3a73b537830fdb190be93",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -6,
+            -17
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                64,
+                64
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                42,
+                65
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 2,
+          "duration_ms": 60,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            33,
+            37,
+            70,
+            82
+          ],
+          "bbox_sheet_px": [
+            1160,
+            296,
+            1456,
+            656
+          ],
+          "head_bbox_local_1x": [
+            44,
+            37,
+            69,
+            56
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            867
+          ],
+          "pixel_hash": "05b96da27d315d83ebb22be662d3cdde5e550b3fc0339b3e92b9541117a062fa",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -7,
+            -16
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                76,
+                62
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                39,
+                65
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 3,
+          "duration_ms": 60,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            30,
+            38,
+            84,
+            82
+          ],
+          "bbox_sheet_px": [
+            2032,
+            304,
+            2464,
+            656
+          ],
+          "head_bbox_local_1x": [
+            43,
+            38,
+            68,
+            57
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "48e226fd8383a50d12e95374be6fcca716e3fbfc912fa8a72a0e42449c3c2821",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -6,
+            -15
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                59,
+                70
+              ],
+              "rotation_ccw": 270,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                68,
+                66
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 4,
+          "duration_ms": 60,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            44,
+            39,
+            78,
+            82
+          ],
+          "bbox_sheet_px": [
+            352,
+            1080,
+            624,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            44,
+            39,
+            69,
+            58
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            810
+          ],
+          "pixel_hash": "84db34ed2ceabf8f04bf094b236213657354cf5d86716314e021d5a9456c68d1",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -13,
+            -17
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                67,
+                54
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                62,
+                63
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 5,
+          "duration_ms": 70,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "pivot_px": [
+            416,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            37,
+            37,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            1192,
+            1064,
+            1496,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            37,
+            37,
+            62,
+            56
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            900
+          ],
+          "pixel_hash": "8e36a9d0d00aa556fe55922a31d036b07ff1e419a8142c57999699591fd88138",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -10,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 6,
+          "duration_ms": 80,
+          "pivot_1x": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            33,
+            36,
+            70,
+            82
+          ],
+          "bbox_sheet_px": [
+            2056,
+            1056,
+            2352,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            40,
+            36,
+            65,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "97d81d3ee489c694d87102cffb7a6085f68ce3cda3d7cec92574ddc21b9db703",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 0,
+      "action_event": {
+        "frame_1based": 3,
+        "tick_from_reference": 7,
+        "offset_ms": 120
+      }
+    },
+    "attack_q": {
+      "file": "shaco_attack_q.png",
+      "native_file": "native/shaco_attack_q_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "head_offset": [
+            -8,
+            -17
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                74,
+                65
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                39,
+                64
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 1,
+          "duration_ms": 60,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            30,
+            37,
+            78,
+            82
+          ],
+          "bbox_sheet_px": [
+            240,
+            296,
+            624,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            37,
+            67,
+            56
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            925
+          ],
+          "pixel_hash": "32225a56d420f4bd2e725b6fa0af497677fda0cba6e40d4dd250a6226fbe373a",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -8,
+            -16
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                75,
+                67
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                38,
+                66
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 2,
+          "duration_ms": 60,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            29,
+            38,
+            79,
+            82
+          ],
+          "bbox_sheet_px": [
+            1128,
+            304,
+            1528,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            38,
+            67,
+            57
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            918
+          ],
+          "pixel_hash": "6691b603e607c52e3cea0edda900fd092dd6e266be4b298b5848c62aa18c4e58",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -9,
+            -13
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                70,
+                74
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                58,
+                72
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 3,
+          "duration_ms": 60,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "pivot_px": [
+            416,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            38,
+            41,
+            74,
+            82
+          ],
+          "bbox_sheet_px": [
+            2096,
+            328,
+            2384,
+            656
+          ],
+          "head_bbox_local_1x": [
+            41,
+            41,
+            66,
+            60
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            794
+          ],
+          "pixel_hash": "f161a8a902afc382f0491d3b319ee4abed9b45f7a6c6b633cea4d0757ce2d072",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -8,
+            -12
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                71,
+                74
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                61,
+                72
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 4,
+          "duration_ms": 70,
+          "pivot_1x": [
+            53,
+            70
+          ],
+          "pivot_px": [
+            424,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            39,
+            42,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            312,
+            1104,
+            600,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            42,
+            42,
+            67,
+            61
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            774
+          ],
+          "pixel_hash": "65ae88909a5f7280a175284e01a01549d1c41d99a685eb7bdfdd6eda0dbf64ea",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -13,
+            -14
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                69,
+                69
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                54,
+                72
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 5,
+          "duration_ms": 80,
+          "pivot_1x": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            37,
+            40,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            1192,
+            1088,
+            1512,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            37,
+            40,
+            62,
+            59
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            811
+          ],
+          "pixel_hash": "85f57b4aa2a32a85cd5815f0b2c26355d0c80f5b4464d88afe17bac242d3e810",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -7,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 6,
+          "duration_ms": 90,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            2080,
+            1056,
+            2376,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            43,
+            36,
+            68,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "9c6d24eda845eb43105fbdeb2c33f155198f4a208445e2fe6ea979271fda28da",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 0,
+      "action_event": {
+        "frame_1based": 3,
+        "tick_from_reference": 7,
+        "offset_ms": 120
+      }
+    },
+    "attack_e": {
+      "file": "shaco_attack_e.png",
+      "native_file": "native/shaco_attack_e_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "head_offset": [
+            -9,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                70,
+                57
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                43,
+                64
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 1,
+          "duration_ms": 60,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            34,
+            36,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            272,
+            288,
+            616,
+            656
+          ],
+          "head_bbox_local_1x": [
+            41,
+            36,
+            66,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            932
+          ],
+          "pixel_hash": "0c77f0a7c5b036c813e26fcd7ed29262bf2e357ed6456eec692ac444ef31df42",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -9,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                70,
+                51
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                38,
+                52
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 2,
+          "duration_ms": 70,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            36,
+            74,
+            82
+          ],
+          "bbox_sheet_px": [
+            1144,
+            288,
+            1488,
+            656
+          ],
+          "head_bbox_local_1x": [
+            41,
+            36,
+            66,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            943
+          ],
+          "pixel_hash": "09533025d1b493e1280d623d8592ecdf1bc86e9658fd32fecd53d63560cc94de",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -8,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                73,
+                49
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                43,
+                62
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 3,
+          "duration_ms": 60,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            34,
+            36,
+            80,
+            82
+          ],
+          "bbox_sheet_px": [
+            2064,
+            288,
+            2432,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            36,
+            67,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            944
+          ],
+          "pixel_hash": "94cce228c8a1f4396ef955739f1bee6b55302beb77d6f00900f1bedde08ce5d0",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -9,
+            -15
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                73,
+                69
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                59,
+                71
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 4,
+          "duration_ms": 70,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "pivot_px": [
+            416,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            41,
+            39,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            328,
+            1080,
+            616,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            41,
+            39,
+            66,
+            58
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            805
+          ],
+          "pixel_hash": "9d1e1a367df51bd90958e8d35d513170973930a609bf5f84e4606342e2ac8bbc",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -10,
+            -13
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                68,
+                74
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                59,
+                72
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 5,
+          "duration_ms": 80,
+          "pivot_1x": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            39,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            1208,
+            1096,
+            1472,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            40,
+            41,
+            65,
+            60
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            785
+          ],
+          "pixel_hash": "e3660e95fcf59ee6ceb3766b4a1ac24b72c15adbce446ff189bfd5ee1a5c5d71",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -8,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 6,
+          "duration_ms": 90,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            35,
+            36,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            2072,
+            1056,
+            2368,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            42,
+            36,
+            67,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "8e1e07668b78054c6b80bae63e1362dbe2376ce789e697df03080e57863ea488",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 0,
+      "action_event": {
+        "frame_1based": 4,
+        "tick_from_reference": 11,
+        "offset_ms": 190
+      }
+    },
+    "skill": {
+      "file": "shaco_skill.png",
+      "native_file": "native/shaco_skill_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "head_offset": [
+            -8,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                68,
+                66
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                45,
+                64
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 1,
+          "duration_ms": 50,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            288,
+            288,
+            576,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            36,
+            67,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            899
+          ],
+          "pixel_hash": "2a37c63981a99c730ea855845837a30d4cd94bee67bc2fef3139332f98aa8c05",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -7,
+            -17
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                76,
+                67
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                39,
+                67
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 2,
+          "duration_ms": 60,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            30,
+            37,
+            84,
+            82
+          ],
+          "bbox_sheet_px": [
+            1136,
+            296,
+            1568,
+            656
+          ],
+          "head_bbox_local_1x": [
+            43,
+            37,
+            68,
+            56
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            971
+          ],
+          "pixel_hash": "8586cb78ac6a5eed575dbf211472f9b9aad7fd02670f12d6e7712624d31b3696",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -11,
+            -14
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                54,
+                74
+              ],
+              "rotation_ccw": 270,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                59,
+                71
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 3,
+          "duration_ms": 70,
+          "pivot_1x": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            39,
+            40,
+            69,
+            82
+          ],
+          "bbox_sheet_px": [
+            2104,
+            320,
+            2344,
+            656
+          ],
+          "head_bbox_local_1x": [
+            39,
+            40,
+            64,
+            59
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            772
+          ],
+          "pixel_hash": "ca21ecef9f3ebfaec8aec0d360b8882527c973a62246199a109e6886eba3693f",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -11,
+            -13
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                60,
+                71
+              ],
+              "rotation_ccw": 270,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                57,
+                72
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 4,
+          "duration_ms": 80,
+          "pivot_1x": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            39,
+            41,
+            68,
+            82
+          ],
+          "bbox_sheet_px": [
+            312,
+            1096,
+            544,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            39,
+            41,
+            64,
+            60
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            744
+          ],
+          "pixel_hash": "89185d018bade4b1a72905a854fa9e0f0f1ffeeef5f967fe1109e4f4d1cf0d43",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -6,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 5,
+          "duration_ms": 90,
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            37,
+            36,
+            74,
+            82
+          ],
+          "bbox_sheet_px": [
+            1192,
+            1056,
+            1488,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            44,
+            36,
+            69,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "b7723feab8b74f1eb5dd02e31b4ec71c1f56d4dd0d9fafb82d1f84be5e83b81a",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 1,
+      "action_event": {
+        "frame_1based": 3,
+        "tick_from_reference": 7,
+        "offset_ms": 110
+      }
+    },
+    "skill2": {
+      "file": "shaco_skill2.png",
+      "native_file": "native/shaco_skill2_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "head_offset": [
+            -8,
+            -17
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                68,
+                67
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                44,
+                66
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 1,
+          "duration_ms": 60,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            35,
+            37,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            280,
+            296,
+            576,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            37,
+            67,
+            56
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            890
+          ],
+          "pixel_hash": "5ad2ef50df037059c65805ae2776b7d101c8024668868fdb92b77f16054a6e90",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -12,
+            -17
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                70,
+                57
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                39,
+                66
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 2,
+          "duration_ms": 70,
+          "pivot_1x": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            30,
+            37,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            1136,
+            296,
+            1512,
+            656
+          ],
+          "head_bbox_local_1x": [
+            38,
+            37,
+            63,
+            56
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            962
+          ],
+          "pixel_hash": "c39d721cd5d30e991dd5cc5826a513e4bfa48bed6343e3922ef9dd7d18f0855f",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -9,
+            -15
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                75,
+                70
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                42,
+                71
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 3,
+          "duration_ms": 70,
+          "pivot_1x": [
+            53,
+            70
+          ],
+          "pivot_px": [
+            424,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            33,
+            39,
+            83,
+            82
+          ],
+          "bbox_sheet_px": [
+            2056,
+            312,
+            2456,
+            656
+          ],
+          "head_bbox_local_1x": [
+            41,
+            39,
+            66,
+            58
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            920
+          ],
+          "pixel_hash": "bc2be8845eee038a79d77d977738d65f266d161b38c4b40f0d118c12d94d400f",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -8,
+            -16
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                68,
+                68
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                38,
+                67
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 4,
+          "duration_ms": 80,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            29,
+            38,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            232,
+            1072,
+            576,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            42,
+            38,
+            67,
+            57
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            916
+          ],
+          "pixel_hash": "e5bb8fc6c6a0f79b90c6880f96875cc663f09fa92b81e0802351a714635fa8fb",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -5,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 5,
+          "duration_ms": 100,
+          "pivot_1x": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            38,
+            36,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            1200,
+            1056,
+            1496,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            45,
+            36,
+            70,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "d37512aae5aa53416147b9e0dfe7f6e865a9e806f5a469b25c9ed090a4d24ada",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 1,
+      "action_event": {
+        "frame_1based": 3,
+        "tick_from_reference": 8,
+        "offset_ms": 130
+      }
+    },
+    "ult": {
+      "file": "shaco_ult.png",
+      "native_file": "native/shaco_ult_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "head_offset": [
+            -9,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                68,
+                69
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                42,
+                67
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 1,
+          "duration_ms": 70,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            35,
+            36,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            280,
+            288,
+            576,
+            656
+          ],
+          "head_bbox_local_1x": [
+            41,
+            36,
+            66,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            957
+          ],
+          "pixel_hash": "516e1f819271894682da6609b4aa60736191f4dc78d67f702864ecddd2e9132e",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -11,
+            -17
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                73,
+                60
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                39,
+                66
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 2,
+          "duration_ms": 80,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "pivot_px": [
+            416,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            32,
+            37,
+            81,
+            82
+          ],
+          "bbox_sheet_px": [
+            1152,
+            296,
+            1544,
+            656
+          ],
+          "head_bbox_local_1x": [
+            39,
+            37,
+            64,
+            56
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            942
+          ],
+          "pixel_hash": "ecec2f8e635e639217a3994d42d7bac13ac3cfe95273c1cf31cf5b23ad189e40",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -7,
+            -17
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                76,
+                53
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                43,
+                67
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 3,
+          "duration_ms": 80,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            36,
+            37,
+            84,
+            82
+          ],
+          "bbox_sheet_px": [
+            2080,
+            296,
+            2464,
+            656
+          ],
+          "head_bbox_local_1x": [
+            43,
+            37,
+            68,
+            56
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            937
+          ],
+          "pixel_hash": "5cc71a8aa93b70f75390dd4666767b5723ca7127db0d889f730613708e9fd0e4",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -12,
+            -16
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                64,
+                66
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                59,
+                65
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 4,
+          "duration_ms": 90,
+          "pivot_1x": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            38,
+            38,
+            69,
+            82
+          ],
+          "bbox_sheet_px": [
+            304,
+            1072,
+            552,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            38,
+            38,
+            63,
+            57
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            816
+          ],
+          "pixel_hash": "a812cf0015281cc9f7a83e19689af0f50cf39dea9f535b4e6de83b14659e4e03",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -9,
+            -17
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                74,
+                54
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                41,
+                67
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 5,
+          "duration_ms": 90,
+          "pivot_1x": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            34,
+            37,
+            82,
+            82
+          ],
+          "bbox_sheet_px": [
+            1168,
+            1064,
+            1552,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            41,
+            37,
+            66,
+            56
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            936
+          ],
+          "pixel_hash": "0d5b53ae31c134474739e06e863d918079f9ff1ac83f4f0f8532a9287f52cdbb",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -9,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "neck_continuity": "approved repaired junction",
+          "frame": 6,
+          "duration_ms": 100,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            34,
+            36,
+            71,
+            82
+          ],
+          "bbox_sheet_px": [
+            2064,
+            1056,
+            2360,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            41,
+            36,
+            66,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            912
+          ],
+          "pixel_hash": "e72638016b8c1260f39c09d7baff9125f80a7700cd9ecd72cf281ab6ca033efe",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 0,
+      "action_event": {
+        "frame_1based": 2,
+        "tick_from_reference": 4,
+        "offset_ms": 70
+      }
+    },
+    "hit": {
+      "file": "shaco_hit.png",
+      "native_file": "native/shaco_hit_1x.png",
+      "grid": [
+        2,
+        1
+      ],
+      "size_px": [
+        1792,
+        768
+      ],
+      "frame_count": 2,
+      "frames": [
+        {
+          "head_offset": [
+            -8,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                73,
+                64
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                40,
+                62
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 1,
+          "duration_ms": 100,
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            36,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            248,
+            288,
+            616,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            36,
+            67,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            946
+          ],
+          "pixel_hash": "d348874e90ba88d28cc5ac98cc350cba59abad4314c124aa616f34005d873279",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -8,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                69,
+                67
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                43,
+                64
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 2,
+          "duration_ms": 100,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            34,
+            36,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            1168,
+            288,
+            1480,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            36,
+            67,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            921
+          ],
+          "pixel_hash": "3d7e3983fc737595b71326ec142d775e26b858ff5e29b0141d3a5e9cc1818280",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 0
+    },
+    "dead": {
+      "file": "shaco_dead.png",
+      "native_file": "native/shaco_dead_1x.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3584,
+        1536
+      ],
+      "frame_count": 8,
+      "frames": [
+        {
+          "head_offset": [
+            -9,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                70,
+                65
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                40,
+                63
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 1,
+          "duration_ms": 100,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            36,
+            74,
+            82
+          ],
+          "bbox_sheet_px": [
+            248,
+            288,
+            592,
+            656
+          ],
+          "head_bbox_local_1x": [
+            41,
+            36,
+            66,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            923
+          ],
+          "pixel_hash": "1a57ceed22cf103e2ad4201109cb8d45f36aac44eba6ecc7f002b4e0d9dd4ac6",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -8,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                73,
+                64
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                40,
+                62
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 2,
+          "duration_ms": 100,
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            36,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            1144,
+            288,
+            1512,
+            656
+          ],
+          "head_bbox_local_1x": [
+            42,
+            36,
+            67,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            937
+          ],
+          "pixel_hash": "5bea683e982c823a56a186f2be84299bc143d6ca508dff434626bdc8555207a8",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -11,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                70,
+                52
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                36,
+                54
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 3,
+          "duration_ms": 100,
+          "pivot_1x": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            29,
+            36,
+            74,
+            82
+          ],
+          "bbox_sheet_px": [
+            2024,
+            288,
+            2384,
+            656
+          ],
+          "head_bbox_local_1x": [
+            39,
+            36,
+            64,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            956
+          ],
+          "pixel_hash": "3d0c2c97521cd7b49c47c60a68b98b056113e8e4134dce1727a19930234d1423",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -10,
+            -18
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                72,
+                46
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                36,
+                48
+              ],
+              "rotation_ccw": 270,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 4,
+          "duration_ms": 120,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            96
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            768
+          ],
+          "bbox_local_1x": [
+            33,
+            36,
+            79,
+            82
+          ],
+          "bbox_sheet_px": [
+            2952,
+            288,
+            3320,
+            656
+          ],
+          "head_bbox_local_1x": [
+            40,
+            36,
+            65,
+            55
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            969
+          ],
+          "pixel_hash": "1394eb6cacfef00f5fad5a1adf46f9a61ea9417f33b90f3f1a45576d7f4a7843",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -9,
+            -16
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                58,
+                71
+              ],
+              "rotation_ccw": 270,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                59,
+                69
+              ],
+              "rotation_ccw": 180,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 5,
+          "duration_ms": 120,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            41,
+            38,
+            69,
+            82
+          ],
+          "bbox_sheet_px": [
+            328,
+            1072,
+            552,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            41,
+            38,
+            66,
+            57
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            784
+          ],
+          "pixel_hash": "f7fb579146e78f5c4b28ae749da21580861a2ddf52848e6217ae9567b08ea686",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_offset": [
+            -6,
+            -13
+          ],
+          "head_rotation_cw": 0,
+          "wrists": [
+            {
+              "side": "far",
+              "position": [
+                67,
+                74
+              ],
+              "rotation_ccw": 0,
+              "blade_source": "approved original dagger"
+            },
+            {
+              "side": "near",
+              "position": [
+                62,
+                72
+              ],
+              "rotation_ccw": 90,
+              "blade_source": "approved original dagger"
+            }
+          ],
+          "neck_continuity": "core and head use identical translation",
+          "frame": 6,
+          "duration_ms": 120,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            43,
+            41,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            1240,
+            1096,
+            1480,
+            1424
+          ],
+          "head_bbox_local_1x": [
+            44,
+            41,
+            69,
+            60
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            726
+          ],
+          "pixel_hash": "6ce87fe1bc9ffcbddddf53196552ab07625c89b061dfb2ae8e2875e55e267517",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_rotation_cw": 90,
+          "whole_character_rotation": true,
+          "head_box_local": [
+            56,
+            54,
+            75,
+            79
+          ],
+          "death_below_baseline": 1,
+          "frame": 7,
+          "duration_ms": 150,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            34,
+            53,
+            75,
+            83
+          ],
+          "bbox_sheet_px": [
+            2064,
+            1192,
+            2392,
+            1432
+          ],
+          "head_bbox_local_1x": [
+            56,
+            54,
+            75,
+            79
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            728
+          ],
+          "pixel_hash": "da9760f6f5e8a363c9df4bfd767b6441e6bde6c2ae156e8479b488c885fc5a6b",
+          "face_including_transparent_gaps_identical": true
+        },
+        {
+          "head_rotation_cw": 90,
+          "whole_character_rotation": true,
+          "head_box_local": [
+            59,
+            55,
+            78,
+            80
+          ],
+          "death_below_baseline": 2,
+          "frame": 8,
+          "duration_ms": 400,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "cell_rect_1x": [
+            336,
+            96,
+            448,
+            192
+          ],
+          "cell_rect_px": [
+            2688,
+            768,
+            3584,
+            1536
+          ],
+          "bbox_local_1x": [
+            37,
+            54,
+            78,
+            84
+          ],
+          "bbox_sheet_px": [
+            2984,
+            1200,
+            3312,
+            1440
+          ],
+          "head_bbox_local_1x": [
+            59,
+            55,
+            78,
+            80
+          ],
+          "head_pixel_identical": true,
+          "cyan_outside_head": 0,
+          "eye_pixels": 6,
+          "component_sizes": [
+            728
+          ],
+          "pixel_hash": "1baf2c3beb8a33e8bd14f95a69fa1130733ed63c52410778d3826397469f4305",
+          "face_including_transparent_gaps_identical": true
+        }
+      ],
+      "unused_cells": 0
+    }
+  },
+  "game_installation": false
+}

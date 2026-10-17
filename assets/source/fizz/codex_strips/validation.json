@@ -1,0 +1,777 @@
+{
+  "animations": {
+    "idle": {
+      "frame_count": 6,
+      "grid_exact": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "frames": [
+        {
+          "frame": 1,
+          "area": 885,
+          "components": 1,
+          "component_areas": [
+            885
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true
+        },
+        {
+          "frame": 2,
+          "area": 885,
+          "components": 1,
+          "component_areas": [
+            885
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true
+        },
+        {
+          "frame": 3,
+          "area": 885,
+          "components": 1,
+          "component_areas": [
+            885
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true
+        },
+        {
+          "frame": 4,
+          "area": 885,
+          "components": 1,
+          "component_areas": [
+            885
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true
+        },
+        {
+          "frame": 5,
+          "area": 885,
+          "components": 1,
+          "component_areas": [
+            885
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true
+        },
+        {
+          "frame": 6,
+          "area": 885,
+          "components": 1,
+          "component_areas": [
+            885
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true
+        }
+      ]
+    },
+    "run": {
+      "frame_count": 8,
+      "grid_exact": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "frames": [
+        {
+          "frame": 1,
+          "area": 808,
+          "components": 1,
+          "component_areas": [
+            808
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 2,
+          "area": 781,
+          "components": 1,
+          "component_areas": [
+            781
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 3,
+          "area": 781,
+          "components": 1,
+          "component_areas": [
+            781
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 4,
+          "area": 819,
+          "components": 1,
+          "component_areas": [
+            819
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 5,
+          "area": 808,
+          "components": 1,
+          "component_areas": [
+            808
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 6,
+          "area": 776,
+          "components": 1,
+          "component_areas": [
+            776
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 7,
+          "area": 778,
+          "components": 1,
+          "component_areas": [
+            778
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 8,
+          "area": 812,
+          "components": 1,
+          "component_areas": [
+            812
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 6,
+      "grid_exact": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "frames": [
+        {
+          "frame": 1,
+          "area": 831,
+          "components": 1,
+          "component_areas": [
+            831
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 2,
+          "area": 791,
+          "components": 1,
+          "component_areas": [
+            791
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 3,
+          "area": 823,
+          "components": 1,
+          "component_areas": [
+            823
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 4,
+          "area": 820,
+          "components": 1,
+          "component_areas": [
+            820
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 5,
+          "area": 841,
+          "components": 1,
+          "component_areas": [
+            841
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 6,
+          "area": 832,
+          "components": 1,
+          "component_areas": [
+            832
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        }
+      ]
+    },
+    "attack_w": {
+      "frame_count": 7,
+      "grid_exact": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "frames": [
+        {
+          "frame": 1,
+          "area": 802,
+          "components": 1,
+          "component_areas": [
+            802
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 2,
+          "area": 785,
+          "components": 1,
+          "component_areas": [
+            785
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 3,
+          "area": 795,
+          "components": 1,
+          "component_areas": [
+            795
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 4,
+          "area": 802,
+          "components": 1,
+          "component_areas": [
+            802
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 5,
+          "area": 786,
+          "components": 1,
+          "component_areas": [
+            786
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 6,
+          "area": 789,
+          "components": 1,
+          "component_areas": [
+            789
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 7,
+          "area": 829,
+          "components": 1,
+          "component_areas": [
+            829
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        }
+      ]
+    },
+    "skill": {
+      "frame_count": 7,
+      "grid_exact": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "frames": [
+        {
+          "frame": 1,
+          "area": 802,
+          "components": 1,
+          "component_areas": [
+            802
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 2,
+          "area": 860,
+          "components": 1,
+          "component_areas": [
+            860
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 3,
+          "area": 885,
+          "components": 1,
+          "component_areas": [
+            885
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 4,
+          "area": 831,
+          "components": 1,
+          "component_areas": [
+            831
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 5,
+          "area": 835,
+          "components": 1,
+          "component_areas": [
+            835
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 6,
+          "area": 796,
+          "components": 1,
+          "component_areas": [
+            796
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 7,
+          "area": 831,
+          "components": 1,
+          "component_areas": [
+            831
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        }
+      ]
+    },
+    "skill2": {
+      "frame_count": 8,
+      "grid_exact": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "frames": [
+        {
+          "frame": 1,
+          "area": 808,
+          "components": 1,
+          "component_areas": [
+            808
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 2,
+          "area": 793,
+          "components": 1,
+          "component_areas": [
+            793
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 3,
+          "area": 912,
+          "components": 1,
+          "component_areas": [
+            912
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 4,
+          "area": 893,
+          "components": 1,
+          "component_areas": [
+            893
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 5,
+          "area": 893,
+          "components": 1,
+          "component_areas": [
+            893
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 6,
+          "area": 933,
+          "components": 1,
+          "component_areas": [
+            933
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 7,
+          "area": 797,
+          "components": 1,
+          "component_areas": [
+            797
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 8,
+          "area": 832,
+          "components": 1,
+          "component_areas": [
+            832
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        }
+      ]
+    },
+    "ult": {
+      "frame_count": 7,
+      "grid_exact": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "frames": [
+        {
+          "frame": 1,
+          "area": 832,
+          "components": 1,
+          "component_areas": [
+            832
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 2,
+          "area": 780,
+          "components": 1,
+          "component_areas": [
+            780
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 3,
+          "area": 789,
+          "components": 1,
+          "component_areas": [
+            789
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 4,
+          "area": 792,
+          "components": 1,
+          "component_areas": [
+            792
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 5,
+          "area": 821,
+          "components": 1,
+          "component_areas": [
+            821
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 6,
+          "area": 832,
+          "components": 1,
+          "component_areas": [
+            832
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 7,
+          "area": 833,
+          "components": 1,
+          "component_areas": [
+            833
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        }
+      ]
+    },
+    "hit": {
+      "frame_count": 2,
+      "grid_exact": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "frames": [
+        {
+          "frame": 1,
+          "area": 860,
+          "components": 1,
+          "component_areas": [
+            860
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0,
+          "closed_green_pixels": 0
+        },
+        {
+          "frame": 2,
+          "area": 831,
+          "components": 1,
+          "component_areas": [
+            831
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        }
+      ]
+    },
+    "dead": {
+      "frame_count": 8,
+      "grid_exact": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "frames": [
+        {
+          "frame": 1,
+          "area": 814,
+          "components": 1,
+          "component_areas": [
+            814
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 2,
+          "area": 884,
+          "components": 1,
+          "component_areas": [
+            884
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 3,
+          "area": 889,
+          "components": 1,
+          "component_areas": [
+            889
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 4,
+          "area": 891,
+          "components": 1,
+          "component_areas": [
+            891
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 5,
+          "area": 816,
+          "components": 1,
+          "component_areas": [
+            816
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 6,
+          "area": 858,
+          "components": 1,
+          "component_areas": [
+            858
+          ],
+          "below_baseline_pixels": 0,
+          "palette_valid": true,
+          "head_exact": true,
+          "green_outside_head": 0
+        },
+        {
+          "frame": 7,
+          "area": 522,
+          "components": 2,
+          "component_areas": [
+            281,
+            241
+          ],
+          "below_baseline_pixels": 51,
+          "palette_valid": true,
+          "head_exact": "death prone exception",
+          "green_outside_head": 0
+        },
+        {
+          "frame": 8,
+          "area": 522,
+          "components": 2,
+          "component_areas": [
+            281,
+            241
+          ],
+          "below_baseline_pixels": 51,
+          "palette_valid": true,
+          "head_exact": "death prone exception",
+          "green_outside_head": 0
+        }
+      ]
+    }
+  },
+  "issues": [],
+  "idle_original_preserved": true
+}

@@ -1,0 +1,6 @@
+{
+ "league_garen_spin": {
+  "anim": "asset/league/effects/league_garen_spin",
+  "tag": "loop"
+ }
+}

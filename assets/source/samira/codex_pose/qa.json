@@ -1,0 +1,75 @@
+{
+  "source_grid_bbox": [
+    53,
+    71,
+    102,
+    116
+  ],
+  "source_cell": [
+    8.44,
+    1.991,
+    2.759
+  ],
+  "source_actor_size": [
+    49,
+    45
+  ],
+  "generated_head_rows_replaced": 17,
+  "body_rows_deleted": [
+    3,
+    17,
+    22
+  ],
+  "head_rectangle": [
+    57,
+    60,
+    77,
+    75
+  ],
+  "head_entire_rectangle_exact": true,
+  "hair_top_row": 60,
+  "soles_bottom_row": 99,
+  "hair_to_soles_rows": 40,
+  "width_including_weapons": 49,
+  "body_left": 44,
+  "foot_gap_center": 64.5,
+  "col64_inside_foot_gap": true,
+  "color_count": 28,
+  "only_approved_palette": true,
+  "alpha_values": [
+    0,
+    255
+  ],
+  "strict8x8": true,
+  "nothing_below_soles": true,
+  "palette": [
+    "#023D08",
+    "#0C080D",
+    "#232B29",
+    "#262936",
+    "#2B5664",
+    "#2CB137",
+    "#38433D",
+    "#3B241D",
+    "#440B13",
+    "#6A381D",
+    "#6E020F",
+    "#777B90",
+    "#8D983A",
+    "#94510B",
+    "#951517",
+    "#AC8C69",
+    "#B20413",
+    "#B5BAD2",
+    "#BCBFB6",
+    "#D47603",
+    "#DA6D40",
+    "#DB0316",
+    "#E9EBF2",
+    "#EB9607",
+    "#F1955D",
+    "#F6B205",
+    "#F8D824",
+    "#FAEF8F"
+  ]
+}

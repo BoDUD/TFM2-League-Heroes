@@ -1,0 +1,294 @@
+{
+  "hero": "taric",
+  "champ": "Taric",
+  "camera": {
+    "yaw": 40,
+    "pitch": 25,
+    "mirror": false
+  },
+  "chibi": {
+    "head": 2.2,
+    "legs": 0.8,
+    "hair": 0.7,
+    "scale": {
+      "L_ShoulderPad": 1.2,
+      "R_ShoulderPad": 1.2
+    }
+  },
+  "height": 39,
+  "cell": [
+    96,
+    96,
+    14
+  ],
+  "design": "taric_idle1@0",
+  "tags": {
+    "idle": {
+      "frames": [
+        [
+          "taric_idle1@0",
+          200
+        ],
+        [
+          "taric_idle1@0",
+          200
+        ],
+        [
+          "taric_idle1@0",
+          200
+        ],
+        [
+          "taric_idle1@0",
+          200
+        ],
+        [
+          "taric_idle1@0",
+          200
+        ],
+        [
+          "taric_idle1@0",
+          200
+        ]
+      ]
+    },
+    "run": {
+      "flat": true,
+      "head_like": "taric_idle1@0",
+      "frames": [
+        [
+          "taric_run@0",
+          150
+        ],
+        [
+          "taric_run@150",
+          150
+        ],
+        [
+          "taric_run@300",
+          150
+        ],
+        [
+          "taric_run@450",
+          150
+        ],
+        [
+          "taric_run@600",
+          150
+        ],
+        [
+          "taric_run@750",
+          150
+        ],
+        [
+          "taric_run@900",
+          150
+        ],
+        [
+          "taric_run@1050",
+          150
+        ]
+      ]
+    },
+    "attack": {
+      "lunge": 0.5,
+      "frames": [
+        [
+          "taric_idle1@0>taric_attack2@300:0.5",
+          60
+        ],
+        [
+          "taric_attack2@350",
+          60
+        ],
+        [
+          "taric_attack2@400",
+          70
+        ],
+        [
+          "taric_attack2@450",
+          70
+        ],
+        [
+          "taric_attack2@550>taric_idle1@0:0.5",
+          80
+        ],
+        [
+          "taric_idle1@0>taric_attack2@650:0.3",
+          90
+        ]
+      ]
+    },
+    "attack_p": {
+      "lunge": 0.5,
+      "frames": [
+        [
+          "taric_passiveattack1@100",
+          50
+        ],
+        [
+          "taric_passiveattack1@200",
+          50
+        ],
+        [
+          "taric_passiveattack1@330",
+          60
+        ],
+        [
+          "taric_passiveattack1@350>taric_idle1@0:0.3",
+          70
+        ],
+        [
+          "taric_passiveattack1@350>taric_idle1@0:0.6",
+          80
+        ],
+        [
+          "taric_idle1@0>taric_passiveattack1@350:0.2",
+          90
+        ]
+      ]
+    },
+    "skill": {
+      "lunge": 0.5,
+      "frames": [
+        [
+          "taric_idle1@0>taric_spell3_0@250:0.6",
+          60
+        ],
+        [
+          "taric_spell3_0@300",
+          70
+        ],
+        [
+          "taric_spell3_0@400",
+          80
+        ],
+        [
+          "taric_spell3_0@500",
+          90
+        ],
+        [
+          "taric_spell3_0@650>taric_idle1@0:0.4",
+          100
+        ],
+        [
+          "taric_idle1@0>taric_spell3_0@650:0.3",
+          100
+        ]
+      ]
+    },
+    "skill2": {
+      "lunge": 0.5,
+      "frames": [
+        [
+          "taric_spell1@65",
+          60
+        ],
+        [
+          "taric_spell1@130",
+          70
+        ],
+        [
+          "taric_spell1@260",
+          80
+        ],
+        [
+          "taric_spell1@400",
+          90
+        ],
+        [
+          "taric_spell1@520",
+          100
+        ],
+        [
+          "taric_spell1@700>taric_idle1@0:0.5",
+          100
+        ]
+      ]
+    },
+    "ult": {
+      "lunge": 0.4,
+      "frames": [
+        [
+          "taric_idle1@0>taric_spell4@65:0.7",
+          80
+        ],
+        [
+          "taric_spell4@130",
+          90
+        ],
+        [
+          "taric_spell4@260",
+          100
+        ],
+        [
+          "taric_spell4@400",
+          100
+        ],
+        [
+          "taric_spell4@520",
+          100
+        ],
+        [
+          "taric_spell4@650",
+          100
+        ],
+        [
+          "taric_spell4@800>taric_idle1@0:0.5",
+          97
+        ]
+      ]
+    },
+    "hit": {
+      "frames": [
+        [
+          "taric_idle1@0>taric_death@200:0.35",
+          100
+        ],
+        [
+          "taric_idle1@0>taric_death@200:0.15",
+          100
+        ]
+      ]
+    },
+    "dead": {
+      "anchor": "first",
+      "lunge": 0.4,
+      "flat": true,
+      "travel": 0.3,
+      "frames": [
+        [
+          "taric_death@0",
+          100
+        ],
+        [
+          "taric_death@150",
+          100
+        ],
+        [
+          "taric_death@300",
+          100
+        ],
+        [
+          "taric_death@450",
+          120
+        ],
+        [
+          "taric_death@600",
+          120
+        ],
+        [
+          "taric_death@800",
+          120
+        ],
+        [
+          "taric_death@1000",
+          150
+        ],
+        [
+          "taric_death@1400",
+          400
+        ]
+      ]
+    }
+  }
+}

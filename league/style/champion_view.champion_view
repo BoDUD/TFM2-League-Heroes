@@ -1,0 +1,1436 @@
+{
+  "entries": {
+    "league_garen": {
+      "face": {
+        "x": 1,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_ashe": {
+      "face": {
+        "x": 0,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_lux": {
+      "face": {
+        "x": 1,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_leesin": {
+      "face": {
+        "x": 0,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_soraka": {
+      "face": {
+        "x": 5,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_darius": {
+      "face": {
+        "x": 0,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_amumu": {
+      "face": {
+        "x": 5,
+        "y": -26
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_yasuo": {
+      "face": {
+        "x": 10,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_jinx": {
+      "face": {
+        "x": 3,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_leona": {
+      "face": {
+        "x": 3,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_teemo": {
+      "face": {
+        "x": 0,
+        "y": -27
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_masteryi": {
+      "face": {
+        "x": 2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -4
+      }
+    },
+    "league_annie": {
+      "face": {
+        "x": 0,
+        "y": -26
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_missfortune": {
+      "face": {
+        "x": 1,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_janna": {
+      "face": {
+        "x": 1,
+        "y": -27
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -2
+      }
+    },
+    "league_malphite": {
+      "face": {
+        "x": 13,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -4
+      }
+    },
+    "league_ekko": {
+      "face": {
+        "x": 3,
+        "y": -29
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_yone": {
+      "face": {
+        "x": 2,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_ezreal": {
+      "face": {
+        "x": 3,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_thresh": {
+      "face": {
+        "x": -4,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_fiddlesticks": {
+      "face": {
+        "x": 9,
+        "y": -30
+      },
+      "center": {
+        "x": 2,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -4
+      }
+    },
+    "league_kayle": {
+      "face": {
+        "x": -2,
+        "y": -40
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "league_ahri": {
+      "face": {
+        "x": 1,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_morgana": {
+      "face": {
+        "x": 1,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
+      }
+    },
+    "league_lucian": {
+      "face": {
+        "x": -3,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -5
+      }
+    },
+    "league_briar": {
+      "face": {
+        "x": -3,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -5
+      }
+    },
+    "league_riven": {
+      "face": {
+        "x": -1,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_vayne": {
+      "face": {
+        "x": 1,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_akali": {
+      "face": {
+        "x": 1,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_nami": {
+      "face": {
+        "x": 1,
+        "y": -43
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -1
+      }
+    },
+    "league_veigar": {
+      "face": {
+        "x": -2,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_jax": {
+      "face": {
+        "x": 4,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_diana": {
+      "face": {
+        "x": -3,
+        "y": -40
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_taric": {
+      "face": {
+        "x": -3,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_tristana": {
+      "face": {
+        "x": -3,
+        "y": -28
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_fiora": {
+      "face": {
+        "x": 1,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "league_fizz": {
+      "face": {
+        "x": 0,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_shaco": {
+      "face": {
+        "x": -2,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_caitlyn": {
+      "face": {
+        "x": -1,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
+      }
+    },
+    "league_nocturne": {
+      "face": {
+        "x": -1,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_blitzcrank": {
+      "face": {
+        "x": 0,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -7
+      }
+    },
+    "league_camille": {
+      "face": {
+        "x": 0,
+        "y": -44
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -5
+      }
+    },
+    "league_sona": {
+      "face": {
+        "x": -1,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_leblanc": {
+      "face": {
+        "x": 4,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_kaisa": {
+      "face": {
+        "x": -1,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_ryze": {
+      "face": {
+        "x": -2,
+        "y": -41
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_kennen": {
+      "face": {
+        "x": 4,
+        "y": -28
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_jhin": {
+      "face": {
+        "x": -2,
+        "y": -40
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_zilean": {
+      "face": {
+        "x": 1,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_vi": {
+      "face": {
+        "x": -1,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_kayn": {
+      "face": {
+        "x": -1,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_aatrox": {
+      "face": {
+        "x": 0,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_sivir": {
+      "face": {
+        "x": 0,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "league_twistedfate": {
+      "face": {
+        "x": -4,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_rakan": {
+      "face": {
+        "x": -2,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_evelynn": {
+      "face": {
+        "x": -2,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_sett": {
+      "face": {
+        "x": -2,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_lissandra": {
+      "face": {
+        "x": 0,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_alistar": {
+      "face": {
+        "x": 10,
+        "y": -28
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -7
+      }
+    },
+    "league_varus": {
+      "face": {
+        "x": -1,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_tryndamere": {
+      "face": {
+        "x": 9,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_xerath": {
+      "face": {
+        "x": 1,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "league_xinzhao": {
+      "face": {
+        "x": 3,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -13
+      }
+    },
+    "league_samira": {
+      "face": {
+        "x": -4,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_pyke": {
+      "face": {
+        "x": 8,
+        "y": -26
+      },
+      "center": {
+        "x": 0,
+        "y": -6
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "league_gwen": {
+      "face": {
+        "x": 2,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_khazix": {
+      "face": {
+        "x": 8,
+        "y": -26
+      },
+      "center": {
+        "x": 1,
+        "y": -11
+      }
+    },
+    "league_brand": {
+      "face": {
+        "x": 3,
+        "y": -40
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_twitch": {
+      "face": {
+        "x": 1,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      }
+    },
+    "league_renekton": {
+      "face": {
+        "x": 17,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -14
+      }
+    },
+    "league_seraphine": {
+      "face": {
+        "x": 3,
+        "y": -40
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -5
+      }
+    },
+    "league_lillia": {
+      "face": {
+        "x": 2,
+        "y": -41
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_viktor": {
+      "face": {
+        "x": 6,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_xayah": {
+      "face": {
+        "x": 5,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -7
+      }
+    },
+    "league_lulu": {
+      "face": {
+        "x": 2,
+        "y": -22
+      },
+      "center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_vladimir": {
+      "face": {
+        "x": -2,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_rengar": {
+      "face": {
+        "x": 4,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_kogmaw": {
+      "face": {
+        "x": 8,
+        "y": -23
+      },
+      "center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_zed": {
+      "face": {
+        "x": -1,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_olaf": {
+      "face": {
+        "x": 3,
+        "y": -41
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_karma": {
+      "face": {
+        "x": 1,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_hecarim": {
+      "face": {
+        "x": 9,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
+      }
+    },
+    "league_talon": {
+      "face": {
+        "x": 10,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      }
+    },
+    "league_draven": {
+      "face": {
+        "x": 4,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_senna": {
+      "face": {
+        "x": 3,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_shen": {
+      "face": {
+        "x": 0,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_syndra": {
+      "face": {
+        "x": -1,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_viego": {
+      "face": {
+        "x": 4,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_zeri": {
+      "face": {
+        "x": -1,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_nautilus": {
+      "face": {
+        "x": 3,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -5
+      }
+    },
+    "league_gragas": {
+      "face": {
+        "x": 2,
+        "y": -40
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_irelia": {
+      "face": {
+        "x": 1,
+        "y": -40
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_kassadin": {
+      "face": {
+        "x": 1,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_corki": {
+      "face": {
+        "x": 3,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_braum": {
+      "face": {
+        "x": 2,
+        "y": -40
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_mordekaiser": {
+      "face": {
+        "x": 1,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      }
+    },
+    "league_nidalee": {
+      "face": {
+        "x": 3,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_galio": {
+      "face": {
+        "x": -1,
+        "y": -42
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_nilah": {
+      "face": {
+        "x": -1,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_bard": {
+      "face": {
+        "x": 5,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_sion": {
+      "face": {
+        "x": 4,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      }
+    },
+    "league_kindred": {
+      "face": {
+        "x": 1,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_malzahar": {
+      "face": {
+        "x": 4,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -16
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_smolder": {
+      "face": {
+        "x": 4,
+        "y": -25
+      },
+      "center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_milio": {
+      "face": {
+        "x": 0,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_jayce": {
+      "face": {
+        "x": 0,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_katarina": {
+      "face": {
+        "x": 0,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_elise": {
+      "face": {
+        "x": 0,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -3
+      }
+    },
+    "league_tahmkench": {
+      "face": {
+        "x": -1,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_kalista": {
+      "face": {
+        "x": 0,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_drmundo": {
+      "face": {
+        "x": -1,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -16
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_pantheon": {
+      "face": {
+        "x": -3,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
+    "league_orianna": {
+      "face": {
+        "x": -4,
+        "y": -37
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_aphelios": {
+      "face": {
+        "x": -2,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_rell": {
+      "face": {
+        "x": -2,
+        "y": -43
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
+      }
+    },
+    "league_reksai": {
+      "face": {
+        "x": 15,
+        "y": -20
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_urgot": {
+      "face": {
+        "x": 3,
+        "y": -24
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -7
+      }
+    },
+    "league_yunara": {
+      "face": {
+        "x": 1,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_swain": {
+      "face": {
+        "x": -1,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_nasus": {
+      "face": {
+        "x": 7,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -2
+      }
+    }
+  }
+}

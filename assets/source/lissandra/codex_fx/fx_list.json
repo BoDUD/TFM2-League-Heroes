@@ -1,0 +1,107 @@
+[
+ {
+  "file": "lissandra_fx_a_bolt.png",
+  "binding": "view_projectiles `league_lissandra_a_bolt`（朝右，游戏转到飞行方向，上下对称）",
+  "size": "12 × 6"
+ },
+ {
+  "file": "lissandra_fx_a_hit.png",
+  "binding": "view_effects `league_lissandra_a_hit`（跟随，画在人物上面）",
+  "size": "12"
+ },
+ {
+  "file": "lissandra_fx_q_cast.png",
+  "binding": "view_effects `league_lissandra_q_cast`（施法者身上，跟随第一 tick；格子左边中点放到 Q 第 4 帧的手）",
+  "size": "16 × 12"
+ },
+ {
+  "file": "lissandra_fx_q_shard.png",
+  "binding": "view_projectiles `league_lissandra_q_shard`（朝右，游戏转到飞行方向，上下对称）",
+  "size": "26 × 12"
+ },
+ {
+  "file": "lissandra_fx_q_hit.png",
+  "binding": "view_effects `league_lissandra_q_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "lissandra_fx_slow.png",
+  "binding": "view_buffs `league_lissandra_q_slow` / `r_slow` / `p_slow`（同一张，循环，画在脚下）",
+  "size": "18 × 7"
+ },
+ {
+  "file": "lissandra_fx_w_ring.png",
+  "binding": "view_effects `league_lissandra_w_ring`（BIG，施法者身上，第一 tick 跟随，画在人物下面）和 `w_ring_late`（同一张，E 落地时，不跟随）",
+  "size": "60 × 34"
+ },
+ {
+  "file": "lissandra_fx_w_hit.png",
+  "binding": "view_effects `league_lissandra_w_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "lissandra_fx_w_root.png",
+  "binding": "view_buffs `league_lissandra_w_root`（循环，画在脚下，1.25 秒）",
+  "size": "20 × 12"
+ },
+ {
+  "file": "lissandra_fx_e_cast.png",
+  "binding": "view_effects `league_lissandra_e_cast`（施法者身上，跟随第一 tick；格子左边中点放到 E 第 2 帧的手）",
+  "size": "16 × 12"
+ },
+ {
+  "file": "lissandra_fx_e_claw.png",
+  "binding": "view_projectiles `league_lissandra_e_claw`（朝右，游戏转到飞行方向，上下对称）",
+  "size": "22 × 12"
+ },
+ {
+  "file": "lissandra_fx_e_hit.png",
+  "binding": "view_effects `league_lissandra_e_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "lissandra_fx_e_port.png",
+  "binding": "view_effects `league_lissandra_e_port`（BIG，画在她落地的位置，不跟随）",
+  "size": "34 × 30"
+ },
+ {
+  "file": "lissandra_fx_r_cast.png",
+  "binding": "view_effects `league_lissandra_r_cast`（BIG，施法者身上，不跟随）",
+  "size": "40 × 50"
+ },
+ {
+  "file": "lissandra_fx_r_tomb.png",
+  "binding": "view_buffs `league_lissandra_r_tomb`（BIG，循环，画在人物上面）",
+  "size": "30 × 44"
+ },
+ {
+  "file": "lissandra_fx_r_burst.png",
+  "binding": "view_effects `league_lissandra_r_burst`（BIG，画在冰墓的位置，不跟随）",
+  "size": "56 × 36"
+ },
+ {
+  "file": "lissandra_fx_r_field.png",
+  "binding": "view_projectiles `league_lissandra_r_field`（BIG，地面上，画在人物下面）",
+  "size": "60 × 30"
+ },
+ {
+  "file": "lissandra_fx_r_self_cast.png",
+  "binding": "view_effects `league_lissandra_r_self_cast`（BIG，施法者身上，不跟随）",
+  "size": "34 × 50"
+ },
+ {
+  "file": "lissandra_fx_r_stasis.png",
+  "binding": "view_buffs `league_lissandra_r_stasis`（BIG，循环，画在人物上面）",
+  "size": "34 × 50"
+ },
+ {
+  "file": "lissandra_fx_p_thrall.png",
+  "binding": "view_effects `league_lissandra_p_thrall`（BIG，画在尸体的位置，不跟随）",
+  "size": "26 × 40"
+ },
+ {
+  "file": "lissandra_fx_p_burst.png",
+  "binding": "view_effects `league_lissandra_p_burst`（BIG，画在冰仆的位置，不跟随）",
+  "size": "50 × 34"
+ }
+]

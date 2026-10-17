@@ -1,0 +1,68 @@
+{
+  "A": {
+    "image": "akali_design_A.png",
+    "native": "akali_design_A_1x.png",
+    "bbox": [
+      45,
+      54,
+      82,
+      100
+    ],
+    "height": 46,
+    "color_count": 25,
+    "eye_rect": [
+      64,
+      69,
+      6,
+      2
+    ],
+    "grid_8x": true,
+    "binary_alpha": true,
+    "floor_y": 99,
+    "eye_structure": "near 3 / gap 1 / far 2; both 2 rows"
+  },
+  "B": {
+    "image": "akali_design_B.png",
+    "native": "akali_design_B_1x.png",
+    "bbox": [
+      33,
+      22,
+      95,
+      100
+    ],
+    "height": 78,
+    "color_count": 27,
+    "eye_rect": [
+      64,
+      44,
+      6,
+      2
+    ],
+    "grid_8x": true,
+    "binary_alpha": true,
+    "floor_y": 99,
+    "eye_structure": "near 3 / gap 1 / far 2; both 2 rows"
+  },
+  "B_game": {
+    "image": "akali_design_B_game.png",
+    "native": "akali_design_B_game_1x.png",
+    "bbox": [
+      45,
+      54,
+      82,
+      100
+    ],
+    "height": 46,
+    "color_count": 27,
+    "eye_rect": [
+      64,
+      67,
+      6,
+      2
+    ],
+    "grid_8x": true,
+    "binary_alpha": true,
+    "floor_y": 99,
+    "eye_structure": "near 3 / gap 1 / far 2; both 2 rows"
+  }
+}

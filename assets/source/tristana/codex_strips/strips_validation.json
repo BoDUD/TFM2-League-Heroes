@@ -1,0 +1,94 @@
+{
+  "attack": {
+    "frames": 6,
+    "palette_ok": true,
+    "binary_alpha": true,
+    "head_preserved": true,
+    "amber_outside_head": 0,
+    "max_components": 1,
+    "strict_8x8": true,
+    "unused_cells_empty": true
+  },
+  "run": {
+    "frames": 8,
+    "palette_ok": true,
+    "binary_alpha": true,
+    "head_preserved": true,
+    "amber_outside_head": 0,
+    "max_components": 1,
+    "strict_8x8": true,
+    "unused_cells_empty": true,
+    "head_x_offsets": [
+      -23,
+      -23,
+      -23,
+      -23,
+      -23,
+      -23,
+      -23,
+      -23
+    ],
+    "head_bob_range": 2
+  },
+  "skill": {
+    "frames": 5,
+    "palette_ok": true,
+    "binary_alpha": true,
+    "head_preserved": true,
+    "amber_outside_head": 0,
+    "max_components": 1,
+    "strict_8x8": true,
+    "unused_cells_empty": true
+  },
+  "hit": {
+    "frames": 2,
+    "palette_ok": true,
+    "binary_alpha": true,
+    "head_preserved": true,
+    "amber_outside_head": 0,
+    "max_components": 1,
+    "strict_8x8": true,
+    "unused_cells_empty": true
+  },
+  "skill2": {
+    "frames": 7,
+    "palette_ok": true,
+    "binary_alpha": true,
+    "head_preserved": true,
+    "amber_outside_head": 0,
+    "max_components": 1,
+    "strict_8x8": true,
+    "unused_cells_empty": true
+  },
+  "ult": {
+    "frames": 7,
+    "palette_ok": true,
+    "binary_alpha": true,
+    "head_preserved": true,
+    "amber_outside_head": 0,
+    "max_components": 1,
+    "strict_8x8": true,
+    "unused_cells_empty": true
+  },
+  "dead": {
+    "frames": 8,
+    "palette_ok": true,
+    "binary_alpha": true,
+    "head_preserved": true,
+    "amber_outside_head": 0,
+    "max_components": 2,
+    "strict_8x8": true,
+    "unused_cells_empty": true
+  },
+  "idle": {
+    "frames": 6,
+    "palette_ok": true,
+    "binary_alpha": true,
+    "head_preserved": true,
+    "amber_outside_head": 0,
+    "max_components": 1,
+    "strict_8x8": true,
+    "unused_cells_empty": true,
+    "unchanged_sha256": "a75a1ab263bcc1bd6f2c1d8052d60813144b06bccd21c558eb0eee993bb18d28"
+  }
+}

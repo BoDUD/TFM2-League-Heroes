@@ -1,0 +1,1328 @@
+[
+ {
+  "file": "aphelios_fx_a_cal.png",
+  "origin": "provided",
+  "frame_width": 18,
+  "frame_height": 7,
+  "frames": 3,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 0,
+  "occupied_pixels": [
+   52,
+   52,
+   43
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.3333333333333333,
+    1
+   ],
+   [
+    0.3333333333333333,
+    0,
+    0.3333333333333333,
+    1
+   ],
+   [
+    0.6666666666666666,
+    0,
+    0.3333333333333333,
+    1
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_ibxrvoibxrvoibxr.jpg",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_a_sev.png",
+  "origin": "provided",
+  "frame_width": 11,
+  "frame_height": 9,
+  "frames": 3,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 1,
+  "occupied_pixels": [
+   29,
+   28,
+   28
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.3333333333333333,
+    1
+   ],
+   [
+    0.3333333333333333,
+    0,
+    0.3333333333333333,
+    1
+   ],
+   [
+    0.6666666666666666,
+    0,
+    0.3333333333333333,
+    1
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc.jpg",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_a_grav.png",
+  "origin": "provided",
+  "frame_width": 12,
+  "frame_height": 9,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 2,
+  "occupied_pixels": [
+   33,
+   36,
+   53,
+   26
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.25,
+    1
+   ],
+   [
+    0.25,
+    0,
+    0.25,
+    1
+   ],
+   [
+    0.5,
+    0,
+    0.25,
+    1
+   ],
+   [
+    0.75,
+    0,
+    0.25,
+    1
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc (1).jpg",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_a_inf.png",
+  "origin": "provided",
+  "frame_width": 14,
+  "frame_height": 9,
+  "frames": 3,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 3,
+  "occupied_pixels": [
+   47,
+   57,
+   57
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.3333333333333333,
+    1
+   ],
+   [
+    0.3333333333333333,
+    0,
+    0.3333333333333333,
+    1
+   ],
+   [
+    0.6666666666666666,
+    0,
+    0.3333333333333333,
+    1
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc (2).jpg",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_a_cre.png",
+  "origin": "provided",
+  "frame_width": 11,
+  "frame_height": 11,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 4,
+  "occupied_pixels": [
+   31,
+   59,
+   35,
+   58
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.25,
+    1
+   ],
+   [
+    0.25,
+    0,
+    0.25,
+    1
+   ],
+   [
+    0.5,
+    0,
+    0.25,
+    1
+   ],
+   [
+    0.75,
+    0,
+    0.25,
+    1
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc (3).jpg",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_q_c_shot.png",
+  "origin": "provided",
+  "frame_width": 36,
+  "frame_height": 11,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 0,
+  "occupied_pixels": [
+   151,
+   156,
+   167,
+   58
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.25,
+    0.5
+   ],
+   [
+    0.25,
+    0,
+    0.25,
+    0.5
+   ],
+   [
+    0.5,
+    0,
+    0.25,
+    0.5
+   ],
+   [
+    0.75,
+    0,
+    0.25,
+    1
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc (4).jpg",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_q_c_hit.png",
+  "origin": "provided",
+  "frame_width": 18,
+  "frame_height": 18,
+  "frames": 5,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 0,
+  "occupied_pixels": [
+   14,
+   154,
+   146,
+   146,
+   30
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.2,
+    1
+   ],
+   [
+    0.2,
+    0,
+    0.2,
+    1
+   ],
+   [
+    0.4,
+    0,
+    0.2,
+    1
+   ],
+   [
+    0.6,
+    0,
+    0.2,
+    1
+   ],
+   [
+    0.8,
+    0,
+    0.2,
+    1
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc (5).jpg",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_q_c_pop_bolt.png",
+  "origin": "provided",
+  "frame_width": 14,
+  "frame_height": 7,
+  "frames": 3,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 0,
+  "occupied_pixels": [
+   11,
+   18,
+   9
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   [
+    0.3333333333333333,
+    0,
+    0.3333333333333333,
+    0.3333333333333333
+   ],
+   [
+    0.6666666666666666,
+    0,
+    0.3333333333333333,
+    0.3333333333333333
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc (6).jpg",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_q_c_pop.png",
+  "origin": "provided",
+  "frame_width": 20,
+  "frame_height": 20,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 0,
+  "occupied_pixels": [
+   52,
+   200,
+   138,
+   16
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0.6666666666666666,
+    0.25,
+    0.3333333333333333
+   ],
+   [
+    0.25,
+    0.6666666666666666,
+    0.25,
+    0.3333333333333333
+   ],
+   [
+    0.5,
+    0.6666666666666666,
+    0.25,
+    0.3333333333333333
+   ],
+   [
+    0.75,
+    0.6666666666666666,
+    0.25,
+    0.3333333333333333
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc (6).jpg",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_q_s_on.png",
+  "origin": "provided",
+  "frame_width": 30,
+  "frame_height": 12,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 1,
+  "occupied_pixels": [
+   118,
+   122,
+   110,
+   96
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0.38,
+    0.25,
+    0.28
+   ],
+   [
+    0.25,
+    0.38,
+    0.25,
+    0.28
+   ],
+   [
+    0.5,
+    0.38,
+    0.25,
+    0.28
+   ],
+   [
+    0.75,
+    0.38,
+    0.25,
+    0.28
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc (7).jpg",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_q_s_hit.png",
+  "origin": "provided",
+  "frame_width": 11,
+  "frame_height": 11,
+  "frames": 3,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 1,
+  "occupied_pixels": [
+   2,
+   37,
+   3
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.3333333333333333,
+    1
+   ],
+   [
+    0.3333333333333333,
+    0,
+    0.3333333333333333,
+    1
+   ],
+   [
+    0.6666666666666666,
+    0,
+    0.3333333333333333,
+    1
+   ]
+  ],
+  "raw_source": "raw/provided/Gemini_Generated_Image_t4pc6rt4pc6rt4pc (8).jpg",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_off_bolt.png",
+  "origin": "generated",
+  "frame_width": 13,
+  "frame_height": 7,
+  "frames": 3,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 5,
+  "occupied_pixels": [
+   30,
+   40,
+   32
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    1,
+    0.3333333333333333
+   ],
+   [
+    0,
+    0.3333333333333333,
+    1,
+    0.3333333333333333
+   ],
+   [
+    0,
+    0.6666666666666666,
+    1,
+    0.3333333333333333
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_off_bolt.png",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_q_g_cast.png",
+  "origin": "generated",
+  "frame_width": 38,
+  "frame_height": 14,
+  "frames": 5,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 2,
+  "occupied_pixels": [
+   16,
+   96,
+   260,
+   126,
+   42
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    1,
+    0.2
+   ],
+   [
+    0,
+    0.2,
+    1,
+    0.2
+   ],
+   [
+    0,
+    0.4,
+    1,
+    0.2
+   ],
+   [
+    0,
+    0.6,
+    1,
+    0.2
+   ],
+   [
+    0,
+    0.8,
+    1,
+    0.2
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_q_g_cast.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_q_g_hit.png",
+  "origin": "generated",
+  "frame_width": 22,
+  "frame_height": 28,
+  "frames": 6,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 2,
+  "occupied_pixels": [
+   88,
+   152,
+   250,
+   260,
+   230,
+   162
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.3333333333333333,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.6666666666666666,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.3333333333333333,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.6666666666666666,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_q_g_hit.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_q_i_wave.png",
+  "origin": "generated",
+  "frame_width": 50,
+  "frame_height": 32,
+  "frames": 5,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 3,
+  "occupied_pixels": [
+   62,
+   304,
+   834,
+   694,
+   368
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.5,
+    0.3333333333333333
+   ],
+   [
+    0.5,
+    0,
+    0.5,
+    0.3333333333333333
+   ],
+   [
+    0,
+    0.3333333333333333,
+    0.5,
+    0.3333333333333333
+   ],
+   [
+    0.5,
+    0.3333333333333333,
+    0.5,
+    0.3333333333333333
+   ],
+   [
+    0,
+    0.6666666666666666,
+    0.5,
+    0.3333333333333333
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_q_i_wave.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_q_i_hit.png",
+  "origin": "generated",
+  "frame_width": 16,
+  "frame_height": 16,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 3,
+  "occupied_pixels": [
+   14,
+   76,
+   98,
+   46
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0.5,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.5,
+    0.5
+   ],
+   [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_q_i_hit.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_q_r_turret.png",
+  "origin": "generated",
+  "frame_width": 24,
+  "frame_height": 24,
+  "frames": 6,
+  "layout": "horizontal",
+  "symmetry": "point",
+  "alpha": "0_or_255",
+  "palette_index": 4,
+  "occupied_pixels": [
+   196,
+   208,
+   196,
+   202,
+   228,
+   208
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.5,
+    0.3333333333333333
+   ],
+   [
+    0.5,
+    0,
+    0.5,
+    0.3333333333333333
+   ],
+   [
+    0,
+    0.3333333333333333,
+    0.5,
+    0.3333333333333333
+   ],
+   [
+    0.5,
+    0.3333333333333333,
+    0.5,
+    0.3333333333333333
+   ],
+   [
+    0,
+    0.6666666666666666,
+    0.5,
+    0.3333333333333333
+   ],
+   [
+    0.5,
+    0.6666666666666666,
+    0.5,
+    0.3333333333333333
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_q_r_turret.png",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_q_r_hit.png",
+  "origin": "generated",
+  "frame_width": 12,
+  "frame_height": 12,
+  "frames": 3,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 4,
+  "occupied_pixels": [
+   4,
+   38,
+   10
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0.5,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.5,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_q_r_hit.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_a_hit.png",
+  "origin": "generated",
+  "frame_width": 12,
+  "frame_height": 12,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 5,
+  "occupied_pixels": [
+   4,
+   22,
+   32,
+   8
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0.5,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.5,
+    0.5
+   ],
+   [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_a_hit.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_muzzle.png",
+  "origin": "generated",
+  "frame_width": 12,
+  "frame_height": 10,
+  "frames": 3,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 0,
+  "occupied_pixels": [
+   22,
+   48,
+   10
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.35,
+    0.5
+   ],
+   [
+    0.35,
+    0,
+    0.4,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.5,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_muzzle.png",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_swap.png",
+  "origin": "generated",
+  "frame_width": 28,
+  "frame_height": 50,
+  "frames": 5,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 5,
+  "occupied_pixels": [
+   80,
+   228,
+   372,
+   274,
+   102
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.3333333333333333,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.6666666666666666,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.3333333333333333,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_swap.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_r_cast.png",
+  "origin": "generated",
+  "frame_width": 38,
+  "frame_height": 54,
+  "frames": 5,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 5,
+  "occupied_pixels": [
+   144,
+   400,
+   796,
+   818,
+   350
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.3333333333333333,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.6666666666666666,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.3333333333333333,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_r_cast.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_r_moon.png",
+  "origin": "generated",
+  "frame_width": 30,
+  "frame_height": 15,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "tb",
+  "alpha": "0_or_255",
+  "palette_index": 5,
+  "occupied_pixels": [
+   176,
+   180,
+   169,
+   153
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    1,
+    0.25
+   ],
+   [
+    0,
+    0.25,
+    1,
+    0.25
+   ],
+   [
+    0,
+    0.5,
+    1,
+    0.25
+   ],
+   [
+    0,
+    0.75,
+    1,
+    0.25
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_r_moon.png",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_r_boom.png",
+  "origin": "generated",
+  "frame_width": 50,
+  "frame_height": 36,
+  "frames": 6,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 5,
+  "occupied_pixels": [
+   98,
+   364,
+   668,
+   482,
+   312,
+   170
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.3333333333333333,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.6666666666666666,
+    0,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.3333333333333333,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ],
+   [
+    0.6666666666666666,
+    0.5,
+    0.3333333333333333,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_r_boom.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_r_hit.png",
+  "origin": "generated",
+  "frame_width": 20,
+  "frame_height": 20,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 5,
+  "occupied_pixels": [
+   18,
+   88,
+   118,
+   56
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0.5,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.5,
+    0.5
+   ],
+   [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_r_hit.png",
+  "fps": 10
+ },
+ {
+  "file": "aphelios_fx_mw.png",
+  "origin": "generated",
+  "frame_width": 22,
+  "frame_height": 7,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 0,
+  "occupied_pixels": [
+   46,
+   42,
+   48,
+   42
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    1,
+    0.25
+   ],
+   [
+    0,
+    0.25,
+    1,
+    0.25
+   ],
+   [
+    0,
+    0.5,
+    1,
+    0.25
+   ],
+   [
+    0,
+    0.75,
+    1,
+    0.25
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_mw.png",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_g_slow.png",
+  "origin": "generated",
+  "frame_width": 16,
+  "frame_height": 6,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 2,
+  "occupied_pixels": [
+   30,
+   30,
+   28,
+   22
+  ],
+  "source_rectangles": [
+   [
+    0.24,
+    0.08129439621152329,
+    0.52,
+    0.19731649565903708
+   ],
+   [
+    0.24,
+    0.324388318863457,
+    0.52,
+    0.19731649565903708
+   ],
+   [
+    0.24,
+    0.5737963693764798,
+    0.52,
+    0.19731649565903708
+   ],
+   [
+    0.24,
+    0.7505919494869772,
+    0.52,
+    0.19731649565903708
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_g_slow.png",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_q_s_haste.png",
+  "origin": "generated",
+  "frame_width": 20,
+  "frame_height": 7,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 1,
+  "occupied_pixels": [
+   18,
+   22,
+   18,
+   16
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0.13,
+    1,
+    0.16
+   ],
+   [
+    0,
+    0.36,
+    1,
+    0.16
+   ],
+   [
+    0,
+    0.58,
+    1,
+    0.16
+   ],
+   [
+    0,
+    0.8,
+    1,
+    0.16
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_q_s_haste.png",
+  "fps": 8
+ },
+ {
+  "file": "aphelios_fx_cre.png",
+  "origin": "generated",
+  "frame_width": 28,
+  "frame_height": 32,
+  "frames": 4,
+  "layout": "horizontal",
+  "symmetry": "lr",
+  "alpha": "0_or_255",
+  "palette_index": 4,
+  "occupied_pixels": [
+   98,
+   62,
+   94,
+   66
+  ],
+  "source_rectangles": [
+   [
+    0,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0.5,
+    0,
+    0.5,
+    0.5
+   ],
+   [
+    0,
+    0.5,
+    0.5,
+    0.5
+   ],
+   [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ]
+  ],
+  "raw_source": "raw/aphelios_fx_cre.png",
+  "fps": 8
+ }
+]

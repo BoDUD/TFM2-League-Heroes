@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_tryndamere_rage": {
+        "ult": "【残血开大测试版】身边有敌方英雄、生命低于<#ffb900ff>15%<>（或刚被打掉一大截）时爆发：怒气全满，<#ffb900ff>5秒<>内生命不会降到1以下；结束时施放<#ff9028ff>嗜血杀戮<>，按怒气回复<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>生命，每层再加<#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<>。大招没好时残血也会喝嗜血杀戮。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_tryndamere_rage": {
+        "ult": "【殘血開大測試版】身邊有敵方英雄、生命低於<#ffb900ff>15%<>（或剛被打掉一大截）時爆發：怒氣全滿，<#ffb900ff>5秒<>內生命不會降到1以下；結束時施放<#ff9028ff>嗜血殺戮<>，按怒氣回復<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>生命，每層再加<#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<>。大招沒好時殘血也會喝嗜血殺戮。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_tryndamere_rage": {
+        "ult": "[Low-health test build] With an enemy champion close and his health below <#ffb900ff>15%<> (or a big hit just taken): full Fury, and for <#ffb900ff>5s<> his health cannot fall below 1. As it ends he casts <#ff9028ff>Bloodlust<>, spending his Fury to heal <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>, plus <#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<> per stack. With R not ready he drinks Bloodlust when hurt."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_tryndamere_rage": {
+        "ult": "[빈사 발동 테스트판] 적 챔피언이 가까이 있고 체력이 <#ffb900ff>15%<> 미만(또는 방금 크게 맞음)이면 발동: 분노가 가득 차고 <#ffb900ff>5초<> 동안 체력이 1 아래로 떨어지지 않습니다. 끝날 때 <#ff9028ff>피의 갈망<>으로 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>, 중첩당 <#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<> 회복. 궁극기가 없을 때도 빈사면 피의 갈망을 씁니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_tryndamere_rage": {
+        "ult": "【瀕死発動テスト版】敵チャンピオンが近くにいて体力<#ffb900ff>15%<>未満（か大ダメージ直後）で発動：フューリー最大、<#ffb900ff>5秒<>間体力が1未満にならない。終わりに<#ff9028ff>血の欲望<>で<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>、1つにつき<#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<>回復。アルティメットがない時も瀕死なら血の欲望を使う。"
+      }
+    }
+  }
+}

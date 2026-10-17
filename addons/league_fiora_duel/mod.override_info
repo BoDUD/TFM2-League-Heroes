@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_fiora": {
+    "remapping": "asset/league_fiora_duel/override/league_fiora",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_fiora_duel/text/champion",
+    "type": "merge"
+  }
+}

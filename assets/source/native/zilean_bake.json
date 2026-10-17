@@ -1,0 +1,9 @@
+{
+  "fx": "league_zilean_fx",
+  "items": [
+    {"tag": "a_cast", "into": "attack", "at_ms": 300},
+    {"tag": "q_cast", "into": "skill_fx1", "from": "skill", "slice_ms": 217, "length_ms": 283, "at_ms": 0},
+    {"tag": "w_rewind", "into": "w", "at_ms": 0, "fx": "league_zilean_big", "under": true},
+    {"tag": "e_cast", "into": "skill2", "at_ms": 217}
+  ]
+}

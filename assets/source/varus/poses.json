@@ -1,0 +1,254 @@
+{
+ "hero": "varus",
+ "champ": "Varus",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.6,
+  "legs": 0.85
+ },
+ "height": 40,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "varus_idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "varus_idle1@0",
+     200
+    ],
+    [
+     "varus_idle1@0",
+     200
+    ],
+    [
+     "varus_idle1@0",
+     200
+    ],
+    [
+     "varus_idle1@0",
+     200
+    ],
+    [
+     "varus_idle1@0",
+     200
+    ],
+    [
+     "varus_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "varus_idle1@0",
+   "frames": [
+    [
+     "varus_run@0",
+     133
+    ],
+    [
+     "varus_run@133",
+     133
+    ],
+    [
+     "varus_run@267",
+     133
+    ],
+    [
+     "varus_run@400",
+     133
+    ],
+    [
+     "varus_run@534",
+     133
+    ],
+    [
+     "varus_run@667",
+     133
+    ],
+    [
+     "varus_run@800",
+     133
+    ],
+    [
+     "varus_run@934",
+     133
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 3,
+   "frames": [
+    [
+     "varus_idle1@0>varus_attack1@0:0.5",
+     70
+    ],
+    [
+     "varus_attack1@150",
+     80
+    ],
+    [
+     "varus_attack1@300",
+     80
+    ],
+    [
+     "varus_attack1@375",
+     70
+    ],
+    [
+     "varus_attack1@550",
+     60
+    ],
+    [
+     "varus_attack1@800>varus_idle1@0:0.5",
+     40
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 6,
+   "frames": [
+    [
+     "varus_idle1@0>varus_spell1_idle@0:0.5",
+     100
+    ],
+    [
+     "varus_spell1_idle@0",
+     150
+    ],
+    [
+     "varus_spell1_idle@500",
+     250
+    ],
+    [
+     "varus_spell1_idle@1000",
+     300
+    ],
+    [
+     "varus_spell1_idle@1500",
+     300
+    ],
+    [
+     "varus_spell1_fire@91",
+     80
+    ],
+    [
+     "varus_spell1_fire@274>varus_idle1@0:0.3",
+     87
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "varus_spell3@121",
+     80
+    ],
+    [
+     "varus_spell3@242",
+     87
+    ],
+    [
+     "varus_spell3@400",
+     80
+    ],
+    [
+     "varus_spell3@605",
+     80
+    ],
+    [
+     "varus_spell3@847>varus_idle1@0:0.5",
+     73
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "varus_spell4@121",
+     120
+    ],
+    [
+     "varus_spell4@300",
+     130
+    ],
+    [
+     "varus_spell4@484",
+     90
+    ],
+    [
+     "varus_spell4@605",
+     80
+    ],
+    [
+     "varus_spell4@800>varus_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "varus_idle1@0>varus_death@300:0.25",
+     100
+    ],
+    [
+     "varus_idle1@0>varus_death@300:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "frames": [
+    [
+     "varus_death@0",
+     100
+    ],
+    [
+     "varus_death@200",
+     110
+    ],
+    [
+     "varus_death@400",
+     110
+    ],
+    [
+     "varus_death@650",
+     120
+    ],
+    [
+     "varus_death@950",
+     130
+    ],
+    [
+     "varus_death@1300",
+     150
+    ],
+    [
+     "varus_death@1900",
+     200
+    ],
+    [
+     "varus_death@2600",
+     300
+    ]
+   ]
+  }
+ }
+}

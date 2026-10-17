@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_katarina": {
+    "remapping": "asset/league_katarina/override/league_katarina",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_katarina/text/champion",
+    "type": "merge"
+  }
+}

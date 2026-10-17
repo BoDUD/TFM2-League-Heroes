@@ -1,0 +1,19 @@
+{
+  "a_hit": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "q_spin": {"cell": [71, 45], "anchor": [35, 22], "frames": 6},
+  "q_hit": {"cell": [17, 9], "anchor": [8, 4], "frames": 4},
+  "q1": {"cell": [7, 15], "anchor": [3, 7], "frames": 4},
+  "q2": {"cell": [9, 19], "anchor": [4, 9], "frames": 4},
+  "w_start": {"cell": [63, 91], "anchor": [31, 45], "frames": 6},
+  "w_aura": {"cell": [65, 45], "anchor": [32, 22], "frames": 4},
+  "w_hit": {"cell": [15, 39], "anchor": [7, 19], "frames": 5},
+  "e_dust": {"cell": [37, 41], "anchor": [18, 20], "frames": 5},
+  "e_ride": {"cell": [45, 27], "anchor": [22, 13], "frames": 4},
+  "e_hit": {"cell": [27, 49], "anchor": [13, 24], "frames": 5},
+  "e_haste": {"cell": [43, 57], "anchor": [21, 28], "frames": 4},
+  "r_riders": {"cell": [39, 35], "anchor": [19, 17], "frames": 4},
+  "r_cast": {"cell": [59, 141], "anchor": [29, 70], "frames": 5},
+  "r_land": {"cell": [55, 45], "anchor": [27, 22], "frames": 6},
+  "r_hit": {"cell": [19, 15], "anchor": [9, 7], "frames": 4},
+  "r_fear": {"cell": [19, 67], "anchor": [9, 33], "frames": 6}
+}

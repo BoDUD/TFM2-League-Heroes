@@ -1,0 +1,2551 @@
+{
+  "schema_version": 1,
+  "cell_native": [
+    96,
+    80
+  ],
+  "scale": 8,
+  "palette": [
+    "#060212",
+    "#130F31",
+    "#1C1948",
+    "#2B010E",
+    "#2C40A3",
+    "#390C20",
+    "#690B36",
+    "#7A0012",
+    "#7F0015",
+    "#AA011B",
+    "#B8662B",
+    "#C90D33",
+    "#DE8D36",
+    "#F4AA45",
+    "#F9B954",
+    "#FCC967",
+    "#FDE59B",
+    "#FEDECD"
+  ],
+  "units": "rects/pivots/bbox in native pixels; output variants include x8 coordinates",
+  "actions": {
+    "idle": {
+      "image": "leblanc_idle.png",
+      "image_1x": "leblanc_idle_1x.png",
+      "image_size": [
+        2304,
+        1280
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 180,
+          "bbox": [
+            34,
+            25,
+            66,
+            68
+          ],
+          "bbox_8x": [
+            272,
+            200,
+            528,
+            544
+          ],
+          "head_top_left": [
+            34,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        },
+        {
+          "index": 1,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 180,
+          "bbox": [
+            34,
+            25,
+            66,
+            68
+          ],
+          "bbox_8x": [
+            272,
+            200,
+            528,
+            544
+          ],
+          "head_top_left": [
+            34,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 180,
+          "bbox": [
+            34,
+            25,
+            66,
+            68
+          ],
+          "bbox_8x": [
+            272,
+            200,
+            528,
+            544
+          ],
+          "head_top_left": [
+            34,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            0,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 180,
+          "bbox": [
+            34,
+            25,
+            66,
+            68
+          ],
+          "bbox_8x": [
+            272,
+            200,
+            528,
+            544
+          ],
+          "head_top_left": [
+            34,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            96,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 180,
+          "bbox": [
+            34,
+            25,
+            66,
+            68
+          ],
+          "bbox_8x": [
+            272,
+            200,
+            528,
+            544
+          ],
+          "head_top_left": [
+            34,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            192,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 180,
+          "bbox": [
+            34,
+            25,
+            66,
+            68
+          ],
+          "bbox_8x": [
+            272,
+            200,
+            528,
+            544
+          ],
+          "head_top_left": [
+            34,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        }
+      ],
+      "event_frame": null,
+      "event_tick": null,
+      "source_grid_pitch": null
+    },
+    "run": {
+      "image": "leblanc_run.png",
+      "image_1x": "leblanc_run_1x.png",
+      "image_size": [
+        3072,
+        1280
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            45,
+            56
+          ],
+          "pivot_8x": [
+            360,
+            448
+          ],
+          "duration_ms": 142,
+          "bbox": [
+            15,
+            22,
+            76,
+            67
+          ],
+          "bbox_8x": [
+            120,
+            176,
+            608,
+            536
+          ],
+          "head_top_left": [
+            39,
+            22
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 1030,
+          "body_pixels_connected_to_head": 769
+        },
+        {
+          "index": 1,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            45,
+            56
+          ],
+          "pivot_8x": [
+            360,
+            448
+          ],
+          "duration_ms": 142,
+          "bbox": [
+            23,
+            22,
+            77,
+            67
+          ],
+          "bbox_8x": [
+            184,
+            176,
+            616,
+            536
+          ],
+          "head_top_left": [
+            39,
+            22
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 922,
+          "body_pixels_connected_to_head": 670
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 142,
+          "bbox": [
+            19,
+            22,
+            76,
+            65
+          ],
+          "bbox_8x": [
+            152,
+            176,
+            608,
+            520
+          ],
+          "head_top_left": [
+            38,
+            22
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 915,
+          "body_pixels_connected_to_head": 656
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            288,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            2304,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            45,
+            56
+          ],
+          "pivot_8x": [
+            360,
+            448
+          ],
+          "duration_ms": 142,
+          "bbox": [
+            23,
+            22,
+            77,
+            67
+          ],
+          "bbox_8x": [
+            184,
+            176,
+            616,
+            536
+          ],
+          "head_top_left": [
+            39,
+            22
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 928,
+          "body_pixels_connected_to_head": 676
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            0,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            45,
+            56
+          ],
+          "pivot_8x": [
+            360,
+            448
+          ],
+          "duration_ms": 142,
+          "bbox": [
+            20,
+            22,
+            78,
+            68
+          ],
+          "bbox_8x": [
+            160,
+            176,
+            624,
+            544
+          ],
+          "head_top_left": [
+            39,
+            22
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 993,
+          "body_pixels_connected_to_head": 740
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            96,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 142,
+          "bbox": [
+            22,
+            22,
+            76,
+            68
+          ],
+          "bbox_8x": [
+            176,
+            176,
+            608,
+            544
+          ],
+          "head_top_left": [
+            38,
+            22
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 947,
+          "body_pixels_connected_to_head": 686
+        },
+        {
+          "index": 6,
+          "cell_rect": [
+            192,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            43,
+            56
+          ],
+          "pivot_8x": [
+            344,
+            448
+          ],
+          "duration_ms": 142,
+          "bbox": [
+            20,
+            22,
+            76,
+            68
+          ],
+          "bbox_8x": [
+            160,
+            176,
+            608,
+            544
+          ],
+          "head_top_left": [
+            37,
+            22
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 985,
+          "body_pixels_connected_to_head": 729
+        },
+        {
+          "index": 7,
+          "cell_rect": [
+            288,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            2304,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 142,
+          "bbox": [
+            21,
+            22,
+            77,
+            68
+          ],
+          "bbox_8x": [
+            168,
+            176,
+            616,
+            544
+          ],
+          "head_top_left": [
+            38,
+            22
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 989,
+          "body_pixels_connected_to_head": 732
+        }
+      ],
+      "event_frame": null,
+      "event_tick": null,
+      "source_grid_pitch": [
+        [
+          5.58583333333334,
+          2.0999999999999996
+        ],
+        [
+          5.375833333333339,
+          3.15
+        ]
+      ]
+    },
+    "attack": {
+      "image": "leblanc_attack.png",
+      "image_1x": "leblanc_attack_1x.png",
+      "image_size": [
+        2304,
+        1280
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            45,
+            56
+          ],
+          "pivot_8x": [
+            360,
+            448
+          ],
+          "duration_ms": 50,
+          "bbox": [
+            31,
+            12,
+            65,
+            68
+          ],
+          "bbox_8x": [
+            248,
+            96,
+            520,
+            544
+          ],
+          "head_top_left": [
+            36,
+            26
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 822,
+          "body_pixels_connected_to_head": 573
+        },
+        {
+          "index": 1,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            46,
+            56
+          ],
+          "pivot_8x": [
+            368,
+            448
+          ],
+          "duration_ms": 50,
+          "bbox": [
+            33,
+            0,
+            55,
+            68
+          ],
+          "bbox_8x": [
+            264,
+            0,
+            440,
+            544
+          ],
+          "head_top_left": [
+            37,
+            26
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 768,
+          "body_pixels_connected_to_head": 519
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            45,
+            56
+          ],
+          "pivot_8x": [
+            360,
+            448
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            18,
+            17,
+            62,
+            68
+          ],
+          "bbox_8x": [
+            144,
+            136,
+            496,
+            544
+          ],
+          "head_top_left": [
+            38,
+            32
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 755,
+          "body_pixels_connected_to_head": 360
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            0,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            40,
+            56
+          ],
+          "pivot_8x": [
+            320,
+            448
+          ],
+          "duration_ms": 70,
+          "bbox": [
+            15,
+            0,
+            81,
+            68
+          ],
+          "bbox_8x": [
+            120,
+            0,
+            648,
+            544
+          ],
+          "head_top_left": [
+            32,
+            27
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 899,
+          "body_pixels_connected_to_head": 609
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            96,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            40,
+            56
+          ],
+          "pivot_8x": [
+            320,
+            448
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            17,
+            0,
+            81,
+            68
+          ],
+          "bbox_8x": [
+            136,
+            0,
+            648,
+            544
+          ],
+          "head_top_left": [
+            31,
+            27
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 896,
+          "body_pixels_connected_to_head": 612
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            192,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            41,
+            56
+          ],
+          "pivot_8x": [
+            328,
+            448
+          ],
+          "duration_ms": 90,
+          "bbox": [
+            31,
+            25,
+            63,
+            68
+          ],
+          "bbox_8x": [
+            248,
+            200,
+            504,
+            544
+          ],
+          "head_top_left": [
+            31,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        }
+      ],
+      "event_frame": 4,
+      "event_tick": 10,
+      "source_grid_pitch": [
+        [
+          6.460000000000007,
+          2.8
+        ],
+        [
+          5.970000000000005,
+          1.75
+        ]
+      ]
+    },
+    "skill": {
+      "image": "leblanc_skill.png",
+      "image_1x": "leblanc_skill_1x.png",
+      "image_size": [
+        2304,
+        1280
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            46,
+            56
+          ],
+          "pivot_8x": [
+            368,
+            448
+          ],
+          "duration_ms": 50,
+          "bbox": [
+            36,
+            25,
+            68,
+            68
+          ],
+          "bbox_8x": [
+            288,
+            200,
+            544,
+            544
+          ],
+          "head_top_left": [
+            36,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        },
+        {
+          "index": 1,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            48,
+            56
+          ],
+          "pivot_8x": [
+            384,
+            448
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            28,
+            23,
+            70,
+            68
+          ],
+          "bbox_8x": [
+            224,
+            184,
+            560,
+            544
+          ],
+          "head_top_left": [
+            37,
+            23
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 932,
+          "body_pixels_connected_to_head": 683
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            46,
+            56
+          ],
+          "pivot_8x": [
+            368,
+            448
+          ],
+          "duration_ms": 70,
+          "bbox": [
+            24,
+            23,
+            72,
+            68
+          ],
+          "bbox_8x": [
+            192,
+            184,
+            576,
+            544
+          ],
+          "head_top_left": [
+            36,
+            23
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 945,
+          "body_pixels_connected_to_head": 696
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            0,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            43,
+            56
+          ],
+          "pivot_8x": [
+            344,
+            448
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            25,
+            23,
+            67,
+            68
+          ],
+          "bbox_8x": [
+            200,
+            184,
+            536,
+            544
+          ],
+          "head_top_left": [
+            33,
+            23
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 934,
+          "body_pixels_connected_to_head": 685
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            96,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            43,
+            56
+          ],
+          "pivot_8x": [
+            344,
+            448
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            33,
+            25,
+            65,
+            68
+          ],
+          "bbox_8x": [
+            264,
+            200,
+            520,
+            544
+          ],
+          "head_top_left": [
+            33,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        }
+      ],
+      "event_frame": 3,
+      "event_tick": 7,
+      "source_grid_pitch": [
+        [
+          6.807222222222231,
+          2.8
+        ],
+        [
+          6.072222222222228,
+          1.0499999999999998
+        ]
+      ]
+    },
+    "skill2": {
+      "image": "leblanc_skill2.png",
+      "image_1x": "leblanc_skill2_1x.png",
+      "image_size": [
+        2304,
+        1280
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            54,
+            56
+          ],
+          "pivot_8x": [
+            432,
+            448
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            4,
+            19,
+            70,
+            68
+          ],
+          "bbox_8x": [
+            32,
+            152,
+            560,
+            544
+          ],
+          "head_top_left": [
+            50,
+            19
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 1531,
+          "body_pixels_connected_to_head": 1282
+        },
+        {
+          "index": 1,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            45,
+            56
+          ],
+          "pivot_8x": [
+            360,
+            448
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            10,
+            19,
+            82,
+            68
+          ],
+          "bbox_8x": [
+            80,
+            152,
+            656,
+            544
+          ],
+          "head_top_left": [
+            39,
+            19
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 1399,
+          "body_pixels_connected_to_head": 1150
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            47,
+            56
+          ],
+          "pivot_8x": [
+            376,
+            448
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            18,
+            18,
+            73,
+            68
+          ],
+          "bbox_8x": [
+            144,
+            144,
+            584,
+            544
+          ],
+          "head_top_left": [
+            41,
+            18
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 1389,
+          "body_pixels_connected_to_head": 1140
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            0,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            48,
+            56
+          ],
+          "pivot_8x": [
+            384,
+            448
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            20,
+            19,
+            76,
+            68
+          ],
+          "bbox_8x": [
+            160,
+            152,
+            608,
+            544
+          ],
+          "head_top_left": [
+            42,
+            19
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 1291,
+          "body_pixels_connected_to_head": 1039
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            96,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            48,
+            56
+          ],
+          "pivot_8x": [
+            384,
+            448
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            27,
+            18,
+            77,
+            68
+          ],
+          "bbox_8x": [
+            216,
+            144,
+            616,
+            544
+          ],
+          "head_top_left": [
+            42,
+            18
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 1304,
+          "body_pixels_connected_to_head": 1055
+        }
+      ],
+      "event_frame": null,
+      "event_tick": null,
+      "source_grid_pitch": [
+        [
+          5.620000000000004,
+          1.75
+        ],
+        [
+          5.375000000000003,
+          1.75
+        ]
+      ]
+    },
+    "skill2_back": {
+      "image": "leblanc_skill2_back.png",
+      "image_1x": "leblanc_skill2_back_1x.png",
+      "image_size": [
+        2304,
+        1280
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            53,
+            56
+          ],
+          "pivot_8x": [
+            424,
+            448
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            38,
+            41,
+            71,
+            68
+          ],
+          "bbox_8x": [
+            304,
+            328,
+            568,
+            544
+          ],
+          "head_top_left": [
+            45,
+            41
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 579,
+          "body_pixels_connected_to_head": 330
+        },
+        {
+          "index": 1,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            52,
+            56
+          ],
+          "pivot_8x": [
+            416,
+            448
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            24,
+            42,
+            74,
+            68
+          ],
+          "bbox_8x": [
+            192,
+            336,
+            592,
+            544
+          ],
+          "head_top_left": [
+            45,
+            42
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 670,
+          "body_pixels_connected_to_head": 421
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            50,
+            56
+          ],
+          "pivot_8x": [
+            400,
+            448
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            25,
+            32,
+            81,
+            68
+          ],
+          "bbox_8x": [
+            200,
+            256,
+            648,
+            544
+          ],
+          "head_top_left": [
+            46,
+            32
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 841,
+          "body_pixels_connected_to_head": 592
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            0,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            45,
+            56
+          ],
+          "pivot_8x": [
+            360,
+            448
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            22,
+            29,
+            81,
+            68
+          ],
+          "bbox_8x": [
+            176,
+            232,
+            648,
+            544
+          ],
+          "head_top_left": [
+            41,
+            29
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 884,
+          "body_pixels_connected_to_head": 635
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            96,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            41,
+            56
+          ],
+          "pivot_8x": [
+            328,
+            448
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            32,
+            25,
+            65,
+            68
+          ],
+          "bbox_8x": [
+            256,
+            200,
+            520,
+            544
+          ],
+          "head_top_left": [
+            34,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 860,
+          "body_pixels_connected_to_head": 611
+        }
+      ],
+      "event_frame": null,
+      "event_tick": null,
+      "source_grid_pitch": [
+        [
+          7.3000000000000105,
+          7.0
+        ],
+        [
+          6.0750000000000055,
+          4.55
+        ]
+      ]
+    },
+    "e": {
+      "image": "leblanc_e.png",
+      "image_1x": "leblanc_e_1x.png",
+      "image_size": [
+        2304,
+        1280
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            46,
+            56
+          ],
+          "pivot_8x": [
+            368,
+            448
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            36,
+            25,
+            68,
+            68
+          ],
+          "bbox_8x": [
+            288,
+            200,
+            544,
+            544
+          ],
+          "head_top_left": [
+            36,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        },
+        {
+          "index": 1,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            46,
+            56
+          ],
+          "pivot_8x": [
+            368,
+            448
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            35,
+            20,
+            64,
+            68
+          ],
+          "bbox_8x": [
+            280,
+            160,
+            512,
+            544
+          ],
+          "head_top_left": [
+            37,
+            20
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 831,
+          "body_pixels_connected_to_head": 582
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            47,
+            56
+          ],
+          "pivot_8x": [
+            376,
+            448
+          ],
+          "duration_ms": 70,
+          "bbox": [
+            34,
+            26,
+            64,
+            68
+          ],
+          "bbox_8x": [
+            272,
+            208,
+            512,
+            544
+          ],
+          "head_top_left": [
+            39,
+            26
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 799,
+          "body_pixels_connected_to_head": 550
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            0,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            51,
+            56
+          ],
+          "pivot_8x": [
+            408,
+            448
+          ],
+          "duration_ms": 90,
+          "bbox": [
+            22,
+            25,
+            87,
+            68
+          ],
+          "bbox_8x": [
+            176,
+            200,
+            696,
+            544
+          ],
+          "head_top_left": [
+            45,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 1056,
+          "body_pixels_connected_to_head": 807
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            96,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            50,
+            56
+          ],
+          "pivot_8x": [
+            400,
+            448
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            22,
+            25,
+            87,
+            68
+          ],
+          "bbox_8x": [
+            176,
+            200,
+            696,
+            544
+          ],
+          "head_top_left": [
+            45,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 1065,
+          "body_pixels_connected_to_head": 814
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            192,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            44,
+            56
+          ],
+          "pivot_8x": [
+            352,
+            448
+          ],
+          "duration_ms": 120,
+          "bbox": [
+            34,
+            25,
+            66,
+            68
+          ],
+          "bbox_8x": [
+            272,
+            200,
+            528,
+            544
+          ],
+          "head_top_left": [
+            34,
+            25
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 617
+        }
+      ],
+      "event_frame": 4,
+      "event_tick": 11,
+      "source_grid_pitch": [
+        [
+          6.950000000000009,
+          4.55
+        ],
+        [
+          5.3400000000000025,
+          4.8999999999999995
+        ]
+      ]
+    },
+    "hit": {
+      "image": "leblanc_hit.png",
+      "image_1x": "leblanc_hit_1x.png",
+      "image_size": [
+        1536,
+        640
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            47,
+            56
+          ],
+          "pivot_8x": [
+            376,
+            448
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            29,
+            23,
+            70,
+            68
+          ],
+          "bbox_8x": [
+            232,
+            184,
+            560,
+            544
+          ],
+          "head_top_left": [
+            35,
+            29
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 866,
+          "body_pixels_connected_to_head": 615
+        },
+        {
+          "index": 1,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            46,
+            56
+          ],
+          "pivot_8x": [
+            368,
+            448
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            32,
+            28,
+            68,
+            68
+          ],
+          "bbox_8x": [
+            256,
+            224,
+            544,
+            544
+          ],
+          "head_top_left": [
+            36,
+            28
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 860,
+          "body_pixels_connected_to_head": 611
+        }
+      ],
+      "event_frame": null,
+      "event_tick": null,
+      "source_grid_pitch": [
+        [
+          8.091666666666667,
+          3.15
+        ],
+        [
+          9.526666666666673,
+          5.949999999999999
+        ]
+      ]
+    },
+    "dead": {
+      "image": "leblanc_dead.png",
+      "image_1x": "leblanc_dead_1x.png",
+      "image_size": [
+        3072,
+        1280
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            39,
+            56
+          ],
+          "pivot_8x": [
+            312,
+            448
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            25,
+            29,
+            62,
+            68
+          ],
+          "bbox_8x": [
+            200,
+            232,
+            496,
+            544
+          ],
+          "head_top_left": [
+            30,
+            29
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 761,
+          "body_pixels_connected_to_head": 512
+        },
+        {
+          "index": 1,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            42,
+            56
+          ],
+          "pivot_8x": [
+            336,
+            448
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            23,
+            32,
+            68,
+            68
+          ],
+          "bbox_8x": [
+            184,
+            256,
+            544,
+            544
+          ],
+          "head_top_left": [
+            35,
+            35
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 632,
+          "body_pixels_connected_to_head": 276
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            38,
+            56
+          ],
+          "pivot_8x": [
+            304,
+            448
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            27,
+            29,
+            70,
+            68
+          ],
+          "bbox_8x": [
+            216,
+            232,
+            560,
+            544
+          ],
+          "head_top_left": [
+            28,
+            30
+          ],
+          "head_rotation_degrees": 0,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 695,
+          "body_pixels_connected_to_head": 342
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            288,
+            0,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            2304,
+            0,
+            768,
+            640
+          ],
+          "pivot": [
+            36,
+            56
+          ],
+          "pivot_8x": [
+            288,
+            448
+          ],
+          "duration_ms": 120,
+          "bbox": [
+            20,
+            31,
+            75,
+            68
+          ],
+          "bbox_8x": [
+            160,
+            248,
+            600,
+            544
+          ],
+          "head_top_left": [
+            23,
+            42
+          ],
+          "head_rotation_degrees": 90,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 590,
+          "body_pixels_connected_to_head": 221
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            0,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            0,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            35,
+            56
+          ],
+          "pivot_8x": [
+            280,
+            448
+          ],
+          "duration_ms": 120,
+          "bbox": [
+            19,
+            37,
+            68,
+            70
+          ],
+          "bbox_8x": [
+            152,
+            296,
+            544,
+            560
+          ],
+          "head_top_left": [
+            22,
+            46
+          ],
+          "head_rotation_degrees": 90,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 558,
+          "body_pixels_connected_to_head": 204
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            96,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            768,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            33,
+            56
+          ],
+          "pivot_8x": [
+            264,
+            448
+          ],
+          "duration_ms": 150,
+          "bbox": [
+            14,
+            51,
+            85,
+            70
+          ],
+          "bbox_8x": [
+            112,
+            408,
+            680,
+            560
+          ],
+          "head_top_left": [
+            19,
+            51
+          ],
+          "head_rotation_degrees": 90,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 506,
+          "body_pixels_connected_to_head": 170
+        },
+        {
+          "index": 6,
+          "cell_rect": [
+            192,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            1536,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            34,
+            56
+          ],
+          "pivot_8x": [
+            272,
+            448
+          ],
+          "duration_ms": 200,
+          "bbox": [
+            14,
+            51,
+            85,
+            70
+          ],
+          "bbox_8x": [
+            112,
+            408,
+            680,
+            560
+          ],
+          "head_top_left": [
+            19,
+            51
+          ],
+          "head_rotation_degrees": 90,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 506,
+          "body_pixels_connected_to_head": 170
+        },
+        {
+          "index": 7,
+          "cell_rect": [
+            288,
+            80,
+            96,
+            80
+          ],
+          "cell_rect_8x": [
+            2304,
+            640,
+            768,
+            640
+          ],
+          "pivot": [
+            33,
+            56
+          ],
+          "pivot_8x": [
+            264,
+            448
+          ],
+          "duration_ms": 400,
+          "bbox": [
+            14,
+            51,
+            85,
+            70
+          ],
+          "bbox_8x": [
+            112,
+            408,
+            680,
+            560
+          ],
+          "head_top_left": [
+            19,
+            51
+          ],
+          "head_rotation_degrees": 90,
+          "head_identical": true,
+          "eye_color_outside_head": 0,
+          "opaque_pixels": 506,
+          "body_pixels_connected_to_head": 170
+        }
+      ],
+      "event_frame": null,
+      "event_tick": null,
+      "source_grid_pitch": [
+        [
+          5.3451562500000005,
+          4.55
+        ],
+        [
+          6.710156250000006,
+          4.199999999999999
+        ]
+      ]
+    }
+  }
+}

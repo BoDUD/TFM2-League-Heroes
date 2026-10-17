@@ -1,0 +1,97 @@
+{
+ "hero": "ryze",
+ "champ": "Ryze",
+ "camera": {
+  "yaw": 90,
+  "pitch": 15,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 2.2,
+  "legs": 0.85,
+  "scale": {
+   "Scroll_Base_SKN": 1.4,
+   "Scroll_Top_SKN": 1.5,
+   "Scroll_Bottom_SKN": 1.4,
+   "L_Clavicle": 1.3,
+   "R_Clavicle": 1.3,
+   "Spine2": 1.15
+  }
+ },
+ "height": 41,
+ "cell": [
+  104,
+  96,
+  14
+ ],
+ "design": "ryze_idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "rise": 0.3,
+   "head_like": "ryze_idle1@0",
+   "frames": [
+    [
+     "Ryze_Run_Fast@0",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@133",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@267",
+     134
+    ],
+    [
+     "Ryze_Run_Fast@400",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@533",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@667",
+     134
+    ],
+    [
+     "Ryze_Run_Fast@800",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@933",
+     134
+    ]
+   ]
+  }
+ },
+ "_note": "poses_v2.json seen from the side (yaw 90, unmirrored): the run legs of fix_ryze_strips_v2.py follow League's Ryze_Run_Fast stride as it reads moving across the screen"
+}

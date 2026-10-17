@@ -1,0 +1,613 @@
+{
+  "tool": "built-in image_gen",
+  "method": "one standalone frame per call; raw output preserved unchanged",
+  "approved_reference": "1_design.png",
+  "default_prompt_template": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: [FRAME]. Pose detail: [ZH]. Priority: coarse sprite style and exact small size, not rendered illustration.",
+  "frames": [
+    {
+      "name": "run_1",
+      "frame_line": "run frame 1 of 8: the near front hoof planted under the chest (14 squares right of the standing point), the far front hoof reaching forward to land (23 right); the far hind hoof planted under the hips (10 left), the near hind hoof kicked back (21 left, lifted 5).",
+      "pose_detail": "近前蹄踩在胸下（站位点右 14 格），远前蹄向前伸出正要落地（右 23 格）；远后蹄踩在胯下（左 10 格），近后蹄向后踢起（左 21 格、抬起 5 格）",
+      "prompt": "IMAGE 1 is the finished run_2 frame and the EDIT TARGET. Make it into run_1 by changing ONLY the four legs and their pose, with tiny shifts of arms/weapon as required by IMAGE 2 run_1 skeleton. Keep the character EXACTLY the same size as IMAGE 1: same helmet width/height, same horse torso length, same pixel block size, same armor shapes, same canvas and same baseline. Do not enlarge or shrink the horse, torso, head, tail, armor, or weapon. Keep all top half transparent margins and anchor position unchanged. Image 3 is approved identity/design. Pose for run_1: near front hoof grounded under chest, far front hoof reaches farther forward to land; far hind hoof grounded under hips, near hind hoof kicked backwards and raised slightly. All four legs joined to body, two hands holding glaive diagonal up-right. Preserve IMAGE 1's crisp coarse block style, tiny profile crescent helm, teal eye squares, dark armor, teal flame tail and maroon cloth. Redraw the legs cleanly, without copying skeleton muddy texture or any guide lines. Output ONE transparent square PNG matching IMAGE 1 canvas. Absolutely preserve image 1's character size; this is a leg pose edit, not an enlargement.",
+      "references": [
+        "run_2.png",
+        "frames/run_1/2_skeleton.png",
+        "1_design.png"
+      ]
+    },
+    {
+      "name": "run_2",
+      "frame_line": "run frame 2 of 8: both front hooves on the ground sweeping back (far 18 right, near 7 right); the far hind pushed back furthest (17 left), the near hind lifted coming forward.",
+      "pose_detail": "两只前蹄都着地往后蹬（远的右 18 格、近的右 7 格）；远后蹄向后蹬到最远（左 17 格、抬起 3 格），近后蹄抬起往前收（左 18 格、抬起 3 格）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: run frame 2 of 8: both front hooves on the ground sweeping back (far 18 right, near 7 right); the far hind pushed back furthest (17 left), the near hind lifted coming forward.. Pose detail: 两只前蹄都着地往后蹬（远的右 18 格、近的右 7 格）；远后蹄向后蹬到最远（左 17 格、抬起 3 格），近后蹄抬起往前收（左 18 格、抬起 3 格）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/run_2/2_skeleton.png",
+        "frames/run_2/3_soft_drawing.png",
+        "frames/run_2/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "run_3",
+      "frame_line": "run frame 3 of 8: the far front planted under the chest (9 right), the near front lifting behind it (4 left, lifted 3); the near hind landing (13 left), the far hind lifted behind; the body at its LOWEST.",
+      "pose_detail": "远前蹄踩在胸下（右 9 格），近前蹄在它后面抬起（左 4 格、抬起 3 格）；近后蹄落地（左 13 格），远后蹄在后面抬起；**身体最低**",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: run frame 3 of 8: the far front planted under the chest (9 right), the near front lifting behind it (4 left, lifted 3); the near hind landing (13 left), the far hind lifted behind; the body at its LOWEST.. Pose detail: 远前蹄踩在胸下（右 9 格），近前蹄在它后面抬起（左 4 格、抬起 3 格）；近后蹄落地（左 13 格），远后蹄在后面抬起；**身体最低**. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/run_3/2_skeleton.png",
+        "frames/run_3/3_soft_drawing.png",
+        "frames/run_3/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "run_4",
+      "frame_line": "run frame 4 of 8: the far front pushing off (2 right), the near front folded up high (lifted 6); the near hind planted (8 left), the far hind swinging forward (12 left).",
+      "pose_detail": "远前蹄往后蹬起（右 2 格），近前蹄高高收起（抬起 6 格）；近后蹄踩地（左 8 格），远后蹄往前摆（左 12 格）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: run frame 4 of 8: the far front pushing off (2 right), the near front folded up high (lifted 6); the near hind planted (8 left), the far hind swinging forward (12 left).. Pose detail: 远前蹄往后蹬起（右 2 格），近前蹄高高收起（抬起 6 格）；近后蹄踩地（左 8 格），远后蹄往前摆（左 12 格）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/run_4/2_skeleton.png",
+        "frames/run_4/3_soft_drawing.png",
+        "frames/run_4/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "run_5",
+      "frame_line": "run frame 5 of 8: GATHERED: all four hooves tucked under the belly, the front and hind hooves close together, the front ones lifted 5-7; the body rising.",
+      "pose_detail": "**收拢腾空**：四只蹄子都收到肚子下面，前后蹄靠得很近；远前蹄收起 5 格、近前蹄 7 格；身体开始升高",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: run frame 5 of 8: GATHERED: all four hooves tucked under the belly, the front and hind hooves close together, the front ones lifted 5-7; the body rising.. Pose detail: **收拢腾空**：四只蹄子都收到肚子下面，前后蹄靠得很近；远前蹄收起 5 格、近前蹄 7 格；身体开始升高. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/run_5/2_skeleton.png",
+        "frames/run_5/3_soft_drawing.png",
+        "frames/run_5/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "run_6",
+      "frame_line": "run frame 6 of 8: the near front reaching forward to land (10 right, lifted 3), the far front folded high (lifted 6); both hind hooves under the belly, the near hind on the ground; the body at its HIGHEST.",
+      "pose_detail": "近前蹄向前伸出准备落地（右 10 格、抬起 3 格），远前蹄高高收起（抬起 6 格）；两只后蹄在肚子下面，近后蹄着地；**身体最高**（比第 3 帧高 4 格）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: run frame 6 of 8: the near front reaching forward to land (10 right, lifted 3), the far front folded high (lifted 6); both hind hooves under the belly, the near hind on the ground; the body at its HIGHEST.. Pose detail: 近前蹄向前伸出准备落地（右 10 格、抬起 3 格），远前蹄高高收起（抬起 6 格）；两只后蹄在肚子下面，近后蹄着地；**身体最高**（比第 3 帧高 4 格）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/run_6/2_skeleton.png",
+        "frames/run_6/3_soft_drawing.png",
+        "frames/run_6/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "run_7",
+      "frame_line": "run frame 7 of 8: the near front planted far forward (17 right), the far front swinging forward (8 right, lifted 3); the far hind planted under the belly, the near hind pushing back (11 left).",
+      "pose_detail": "近前蹄落在前面（右 17 格），远前蹄往前摆（右 8 格、抬起 3 格）；远后蹄踩在肚下（0 格），近后蹄往后蹬（左 11 格）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: run frame 7 of 8: the near front planted far forward (17 right), the far front swinging forward (8 right, lifted 3); the far hind planted under the belly, the near hind pushing back (11 left).. Pose detail: 近前蹄落在前面（右 17 格），远前蹄往前摆（右 8 格、抬起 3 格）；远后蹄踩在肚下（0 格），近后蹄往后蹬（左 11 格）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/run_7/2_skeleton.png",
+        "frames/run_7/3_soft_drawing.png",
+        "frames/run_7/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "run_8",
+      "frame_line": "run frame 8 of 8: both front hooves forward (near 19 right planted, far 17 right landing); the far hind on the ground (3 left), the near hind kicked back (19 left); the body low (then frame 1 again).",
+      "pose_detail": "两只前蹄都伸在前面（近的右 19 格踩地，远的右 17 格正落地）；远后蹄着地（左 3 格），近后蹄向后踢起（左 19 格）；身体最低，接回第 1 帧",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: run frame 8 of 8: both front hooves forward (near 19 right planted, far 17 right landing); the far hind on the ground (3 left), the near hind kicked back (19 left); the body low (then frame 1 again).. Pose detail: 两只前蹄都伸在前面（近的右 19 格踩地，远的右 17 格正落地）；远后蹄着地（左 3 格），近后蹄向后踢起（左 19 格）；身体最低，接回第 1 帧. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/run_8/2_skeleton.png",
+        "frames/run_8/3_soft_drawing.png",
+        "frames/run_8/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "attack_1",
+      "frame_line": "attack frame 1 of 6: from the idle, both hands start lifting the glaive, the blade turning from the upper right to straight up.",
+      "pose_detail": "从待机开始：两手握戟往上抬，戟刃从右上方转向上方；身体不动",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: attack frame 1 of 6: from the idle, both hands start lifting the glaive, the blade turning from the upper right to straight up.. Pose detail: 从待机开始：两手握戟往上抬，戟刃从右上方转向上方；身体不动. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/attack_1/2_skeleton.png",
+        "frames/attack_1/3_soft_drawing.png",
+        "frames/attack_1/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "attack_2",
+      "frame_line": "attack frame 2 of 6: RAISED: both hands hold the glaive straight up above his head (the hands 3 squares above the helm, the blade to the sky), the rider leaning back a little (the head 2-3 squares left); the horse standing firm.",
+      "pose_detail": "**举戟过头**：两手把戟竖直举到头顶上方（手在头上方 3 格，戟刃朝天），骑士上身微微后仰（头往左 2–3 格）；马站稳",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: attack frame 2 of 6: RAISED: both hands hold the glaive straight up above his head (the hands 3 squares above the helm, the blade to the sky), the rider leaning back a little (the head 2-3 squares left); the horse standing firm.. Pose detail: **举戟过头**：两手把戟竖直举到头顶上方（手在头上方 3 格，戟刃朝天），骑士上身微微后仰（头往左 2–3 格）；马站稳. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/attack_2/2_skeleton.png",
+        "frames/attack_2/3_soft_drawing.png",
+        "frames/attack_2/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "attack_3",
+      "frame_line": "attack frame 3 of 6: WIND-UP: the glaive held level above his head, the blade at the LEFT (behind him), the pommel at the right; leaning back the most (the head 3 left and 3 higher than in the idle).",
+      "pose_detail": "**蓄力**：戟横在头顶上方，戟刃在**左边**（身后），戟尾在右边；上身后仰最多（头比待机往左 3 格、高 3 格）；马的前蹄踩稳",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: attack frame 3 of 6: WIND-UP: the glaive held level above his head, the blade at the LEFT (behind him), the pommel at the right; leaning back the most (the head 3 left and 3 higher than in the idle).. Pose detail: **蓄力**：戟横在头顶上方，戟刃在**左边**（身后），戟尾在右边；上身后仰最多（头比待机往左 3 格、高 3 格）；马的前蹄踩稳. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/attack_3/2_skeleton.png",
+        "frames/attack_3/3_soft_drawing.png",
+        "frames/attack_3/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "attack_4",
+      "frame_line": "attack frame 4 of 6: THE CHOP (it hits here): the whole centaur lunges forward to the right - the rider's head and chest 16 squares right and 11 lower, both hands thrust forward below the chest, the glaive chopping down and forward so the blade lands far ahead at the right (about 35 squares right of the standing point, at hip height); the horse pitched forward, the HIND LEGS KICKED UP off the ground behind (lifted 4-5), the near front hoof planted forward (20 right), the far front lifted.",
+      "pose_detail": "**劈下（出手帧）**：整个身体向右前方猛冲——骑士头和胸往右 16 格、低 11 格，两手伸到身前胸口以下，戟从上往前下方劈出，戟刃远远落在右前方（离站位点右约 35 格、腰的高度）；马身前倾，**两条后腿向后扬起离地**（抬起 4–5 格），近前蹄踩在前面（右 20 格），远前蹄抬起",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: attack frame 4 of 6: THE CHOP (it hits here): the whole centaur lunges forward to the right - the rider's head and chest 16 squares right and 11 lower, both hands thrust forward below the chest, the glaive chopping down and forward so the blade lands far ahead at the right (about 35 squares right of the standing point, at hip height); the horse pitched forward, the HIND LEGS KICKED UP off the ground behind (lifted 4-5), the near front hoof planted forward (20 right), the far front lifted.. Pose detail: **劈下（出手帧）**：整个身体向右前方猛冲——骑士头和胸往右 16 格、低 11 格，两手伸到身前胸口以下，戟从上往前下方劈出，戟刃远远落在右前方（离站位点右约 35 格、腰的高度）；马身前倾，**两条后腿向后扬起离地**（抬起 4–5 格），近前蹄踩在前面（右 20 格），远前蹄抬起. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/attack_4/2_skeleton.png",
+        "frames/attack_4/3_soft_drawing.png",
+        "frames/attack_4/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "attack_5",
+      "frame_line": "attack frame 5 of 6: follow-through: the glaive sweeps on down and back to his left side (the blade behind at the left, at chest height), the hands in front of the chest; still low and pitched forward, the hind legs still up.",
+      "pose_detail": "**收势**：戟继续往下往后扫，扫到身体左后方（戟刃在左边、胸的高度），两手在胸前；身体还低着前倾，后腿还扬着",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: attack frame 5 of 6: follow-through: the glaive sweeps on down and back to his left side (the blade behind at the left, at chest height), the hands in front of the chest; still low and pitched forward, the hind legs still up.. Pose detail: **收势**：戟继续往下往后扫，扫到身体左后方（戟刃在左边、胸的高度），两手在胸前；身体还低着前倾，后腿还扬着. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/attack_5/2_skeleton.png",
+        "frames/attack_5/3_soft_drawing.png",
+        "frames/attack_5/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "attack_6",
+      "frame_line": "attack frame 6 of 6: back to the idle: the hind legs down, the body rising, the glaive across the body again (blade up-right).",
+      "pose_detail": "回到待机：后腿落地，身体抬起，戟回到身前斜握（戟刃右上方）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: attack frame 6 of 6: back to the idle: the hind legs down, the body rising, the glaive across the body again (blade up-right).. Pose detail: 回到待机：后腿落地，身体抬起，戟回到身前斜握（戟刃右上方）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/attack_6/2_skeleton.png",
+        "frames/attack_6/3_soft_drawing.png",
+        "frames/attack_6/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill_1",
+      "frame_line": "skill frame 1 of 7: DRAWING BACK: both hands pull the glaive up and back, the blade swinging to the upper left of his head; the rider leaning back (the head 6 squares left).",
+      "pose_detail": "**拉开**：两手把戟往上往后拉，戟刃转到头的左上方；上身后仰（头往左 6 格）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill frame 1 of 7: DRAWING BACK: both hands pull the glaive up and back, the blade swinging to the upper left of his head; the rider leaning back (the head 6 squares left).. Pose detail: **拉开**：两手把戟往上往后拉，戟刃转到头的左上方；上身后仰（头往左 6 格）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill_1/2_skeleton.png",
+        "frames/skill_1/3_soft_drawing.png",
+        "frames/skill_1/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill_2",
+      "frame_line": "skill frame 2 of 7: FULLY WOUND: the glaive held level far behind him at the LEFT at head height (the blade about 16 squares left of the standing point), the hands behind his head, the torso twisted to the left.",
+      "pose_detail": "**蓄力到底**：戟水平拉到身体**左后方**、头的高度（戟刃在左边离站位点约 16 格），两手在头后面；上身向左扭到底",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill frame 2 of 7: FULLY WOUND: the glaive held level far behind him at the LEFT at head height (the blade about 16 squares left of the standing point), the hands behind his head, the torso twisted to the left.. Pose detail: **蓄力到底**：戟水平拉到身体**左后方**、头的高度（戟刃在左边离站位点约 16 格），两手在头后面；上身向左扭到底. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill_2/2_skeleton.png",
+        "frames/skill_2/3_soft_drawing.png",
+        "frames/skill_2/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill_3",
+      "frame_line": "skill frame 3 of 7: UNWINDING: the torso turns back, the glaive sweeping round level at chest height (the hands in front of the chest, the glaive swinging from behind to his side).",
+      "pose_detail": "**开始转**：上身往回扭，戟在胸口高度水平扫回来（两手在胸前，戟从身后横扫到身侧）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill frame 3 of 7: UNWINDING: the torso turns back, the glaive sweeping round level at chest height (the hands in front of the chest, the glaive swinging from behind to his side).. Pose detail: **开始转**：上身往回扭，戟在胸口高度水平扫回来（两手在胸前，戟从身后横扫到身侧）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill_3/2_skeleton.png",
+        "frames/skill_3/3_soft_drawing.png",
+        "frames/skill_3/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill_4",
+      "frame_line": "skill frame 4 of 7: THE SWEEP (it hits here): the glaive sweeps a WIDE FLAT ARC in front of him at waist height out to the front right, both hands thrust forward (24 squares right); the rider leaning forward to the right (the head 10 right); the horse on all four hooves, the far front hoof lifted a little.",
+      "pose_detail": "**横扫（出手帧）**：戟在身前**腰的高度画一个又大又平的圆弧**扫到右前方，两手伸到前面（右 24 格）；骑士向右前方倾（头往右 10 格）；马四蹄站稳，远前蹄微抬",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill frame 4 of 7: THE SWEEP (it hits here): the glaive sweeps a WIDE FLAT ARC in front of him at waist height out to the front right, both hands thrust forward (24 squares right); the rider leaning forward to the right (the head 10 right); the horse on all four hooves, the far front hoof lifted a little.. Pose detail: **横扫（出手帧）**：戟在身前**腰的高度画一个又大又平的圆弧**扫到右前方，两手伸到前面（右 24 格）；骑士向右前方倾（头往右 10 格）；马四蹄站稳，远前蹄微抬. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill_4/2_skeleton.png",
+        "frames/skill_4/3_soft_drawing.png",
+        "frames/skill_4/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill_5",
+      "frame_line": "skill frame 5 of 7: RISING: the glaive swings on up to the upper right (the blade above-right of his head), the body rising.",
+      "pose_detail": "**扬起**：戟顺势往上扬到右上方（两手一高一低，戟刃在头的右上方），身体抬起",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill frame 5 of 7: RISING: the glaive swings on up to the upper right (the blade above-right of his head), the body rising.. Pose detail: **扬起**：戟顺势往上扬到右上方（两手一高一低，戟刃在头的右上方），身体抬起. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill_5/2_skeleton.png",
+        "frames/skill_5/3_soft_drawing.png",
+        "frames/skill_5/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill_6",
+      "frame_line": "skill frame 6 of 7: the glaive swung on over his head, the blade pointing back to the upper left (the highest: the blade 10 squares above the helm), the rider upright, leaning back.",
+      "pose_detail": "戟继续扬到头顶上方、戟刃指向左后方（举得最高，戟刃比头高 10 格），上身直立后仰",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill frame 6 of 7: the glaive swung on over his head, the blade pointing back to the upper left (the highest: the blade 10 squares above the helm), the rider upright, leaning back.. Pose detail: 戟继续扬到头顶上方、戟刃指向左后方（举得最高，戟刃比头高 10 格），上身直立后仰. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill_6/2_skeleton.png",
+        "frames/skill_6/3_soft_drawing.png",
+        "frames/skill_6/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill_7",
+      "frame_line": "skill frame 7 of 7: settling: the glaive brought down to stand upright in front of him (blade up), back to the idle.",
+      "pose_detail": "落下：戟收回到身前竖着（戟刃朝上），回到待机",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill frame 7 of 7: settling: the glaive brought down to stand upright in front of him (blade up), back to the idle.. Pose detail: 落下：戟收回到身前竖着（戟刃朝上），回到待机. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill_7/2_skeleton.png",
+        "frames/skill_7/3_soft_drawing.png",
+        "frames/skill_7/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_1",
+      "frame_line": "skill2 frame 1 of 7: from the idle into the charge: the glaive lowering forward, the body leaning in, the horse starting off.",
+      "pose_detail": "从待机进入冲锋：戟往前放低，身体前倾，马开始起步",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2 frame 1 of 7: from the idle into the charge: the glaive lowering forward, the body leaning in, the horse starting off.. Pose detail: 从待机进入冲锋：戟往前放低，身体前倾，马开始起步. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_1/2_skeleton.png",
+        "frames/skill2_1/3_soft_drawing.png",
+        "frames/skill2_1/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_2",
+      "frame_line": "skill2 frame 2 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.",
+      "pose_detail": "**冲锋疾驰**（第 2–7 帧和跑步一样的疾驰步，但更低更快）：**戟像骑枪一样压低**——戟刃在右前方、马胸前面、接近腰下的高度，戟杆斜着贴在马身侧；**空着的那只手向前伸出、五指张开**（在头的右前方）；骑士上身前倾、头往前；近前蹄踩地、远前蹄前伸，后腿向后蹬",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2 frame 2 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.. Pose detail: **冲锋疾驰**（第 2–7 帧和跑步一样的疾驰步，但更低更快）：**戟像骑枪一样压低**——戟刃在右前方、马胸前面、接近腰下的高度，戟杆斜着贴在马身侧；**空着的那只手向前伸出、五指张开**（在头的右前方）；骑士上身前倾、头往前；近前蹄踩地、远前蹄前伸，后腿向后蹬. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_2/2_skeleton.png",
+        "frames/skill2_2/3_soft_drawing.png",
+        "frames/skill2_2/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_3",
+      "frame_line": "skill2 frame 3 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.",
+      "pose_detail": "前蹄踩在胸下，后蹄向后蹬到最远；身体最低",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2 frame 3 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.. Pose detail: 前蹄踩在胸下，后蹄向后蹬到最远；身体最低. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_3/2_skeleton.png",
+        "frames/skill2_3/3_soft_drawing.png",
+        "frames/skill2_3/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_4",
+      "frame_line": "skill2 frame 4 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.",
+      "pose_detail": "前蹄往后蹬起，近后蹄落地",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2 frame 4 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.. Pose detail: 前蹄往后蹬起，近后蹄落地. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_4/2_skeleton.png",
+        "frames/skill2_4/3_soft_drawing.png",
+        "frames/skill2_4/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_5",
+      "frame_line": "skill2 frame 5 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.",
+      "pose_detail": "**收拢**：四只蹄子收到肚子下面；身体升高",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2 frame 5 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.. Pose detail: **收拢**：四只蹄子收到肚子下面；身体升高. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_5/2_skeleton.png",
+        "frames/skill2_5/3_soft_drawing.png",
+        "frames/skill2_5/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_6",
+      "frame_line": "skill2 frame 6 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.",
+      "pose_detail": "近前蹄向前伸出，后蹄在肚子下面；身体最高",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2 frame 6 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.. Pose detail: 近前蹄向前伸出，后蹄在肚子下面；身体最高. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_6/2_skeleton.png",
+        "frames/skill2_6/3_soft_drawing.png",
+        "frames/skill2_6/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_7",
+      "frame_line": "skill2 frame 7 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.",
+      "pose_detail": "前蹄落在前面，后蹄往后蹬；接回第 2 帧",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2 frame 7 of 7: THE CHARGE: the glaive held low and forward like a lance - the blade ahead at the right in front of the horse's chest, below waist height, the shaft slanting along the horse's side; the FREE HAND REACHED FORWARD with the fingers spread like a claw (in front of his helm at the right); the rider leaning forward, the head forward.. Pose detail: 前蹄落在前面，后蹄往后蹬；接回第 2 帧. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_7/2_skeleton.png",
+        "frames/skill2_7/3_soft_drawing.png",
+        "frames/skill2_7/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_hit_1",
+      "frame_line": "skill2_hit frame 1 of 4: REARING: the horse lifts its front legs (the far front hoof lifted 7), the rider leaning back, both hands raising the glaive above his head, the blade to the upper left.",
+      "pose_detail": "**人立**：马的前腿抬起（远前蹄抬起 7 格），骑士后仰，两手把戟举到头顶上方，戟刃朝左上方",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2_hit frame 1 of 4: REARING: the horse lifts its front legs (the far front hoof lifted 7), the rider leaning back, both hands raising the glaive above his head, the blade to the upper left.. Pose detail: **人立**：马的前腿抬起（远前蹄抬起 7 格），骑士后仰，两手把戟举到头顶上方，戟刃朝左上方. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_hit_1/2_skeleton.png",
+        "frames/skill2_hit_1/3_soft_drawing.png",
+        "frames/skill2_hit_1/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_hit_2",
+      "frame_line": "skill2_hit frame 2 of 4: HIGHEST: the glaive held level above his head, the blade at the LEFT behind him, the rider leaning back (the head 3 left); the far front hoof kicked high forward.",
+      "pose_detail": "**举到最高**：戟横在头顶上方、戟刃在**左边**（身后），骑士后仰（头往左 3 格）；远前蹄向前高高踢出",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2_hit frame 2 of 4: HIGHEST: the glaive held level above his head, the blade at the LEFT behind him, the rider leaning back (the head 3 left); the far front hoof kicked high forward.. Pose detail: **举到最高**：戟横在头顶上方、戟刃在**左边**（身后），骑士后仰（头往左 3 格）；远前蹄向前高高踢出. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_hit_2/2_skeleton.png",
+        "frames/skill2_hit_2/3_soft_drawing.png",
+        "frames/skill2_hit_2/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_hit_3",
+      "frame_line": "skill2_hit frame 3 of 4: THE SMASH (it hits here): the front legs come down hard, the whole body lunging forward to the right (the head 16 right and 6 lower), the glaive slammed down forward so the BLADE STRIKES THE GROUND at the front right (about 30 squares right of the standing point, at the feet line).",
+      "pose_detail": "**砸下（出手帧）**：前腿重重落下，整个身体向右前方扑（头往右 16 格、低 6 格），戟从头顶向前下方猛砸，**戟刃砸到右前方的地面**（离站位点右约 30 格，贴着脚底线）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2_hit frame 3 of 4: THE SMASH (it hits here): the front legs come down hard, the whole body lunging forward to the right (the head 16 right and 6 lower), the glaive slammed down forward so the BLADE STRIKES THE GROUND at the front right (about 30 squares right of the standing point, at the feet line).. Pose detail: **砸下（出手帧）**：前腿重重落下，整个身体向右前方扑（头往右 16 格、低 6 格），戟从头顶向前下方猛砸，**戟刃砸到右前方的地面**（离站位点右约 30 格，贴着脚底线）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_hit_3/2_skeleton.png",
+        "frames/skill2_hit_3/3_soft_drawing.png",
+        "frames/skill2_hit_3/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "skill2_hit_4",
+      "frame_line": "skill2_hit frame 4 of 4: holding: the blade still down near the ground at the front right, the body slowly rising.",
+      "pose_detail": "保持：戟刃还压在右前方地面附近，身体慢慢抬起",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: skill2_hit frame 4 of 4: holding: the blade still down near the ground at the front right, the body slowly rising.. Pose detail: 保持：戟刃还压在右前方地面附近，身体慢慢抬起. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/skill2_hit_4/2_skeleton.png",
+        "frames/skill2_hit_4/3_soft_drawing.png",
+        "frames/skill2_hit_4/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "ult_1",
+      "frame_line": "ult frame 1 of 7: GATHERING: the body sinking a little, the glaive lowered in front.",
+      "pose_detail": "**蓄势**：身体微微下沉，戟放低到身前",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: ult frame 1 of 7: GATHERING: the body sinking a little, the glaive lowered in front.. Pose detail: **蓄势**：身体微微下沉，戟放低到身前. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/ult_1/2_skeleton.png",
+        "frames/ult_1/3_soft_drawing.png",
+        "frames/ult_1/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "ult_2",
+      "frame_line": "ult frame 2 of 7: CROUCH: the hind legs bent, the hips sinking 5 squares (about to spring), the front legs bracing; the rider leaning forward, the glaive low.",
+      "pose_detail": "**后蹲**：马的后腿弯曲、胯往下沉 5 格（像要起跳），前腿撑着；骑士前倾，戟压低",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: ult frame 2 of 7: CROUCH: the hind legs bent, the hips sinking 5 squares (about to spring), the front legs bracing; the rider leaning forward, the glaive low.. Pose detail: **后蹲**：马的后腿弯曲、胯往下沉 5 格（像要起跳），前腿撑着；骑士前倾，戟压低. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/ult_2/2_skeleton.png",
+        "frames/ult_2/3_soft_drawing.png",
+        "frames/ult_2/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "ult_3",
+      "frame_line": "ult frame 3 of 7: REARING (the spectral riders burst out here): the horse STANDS UP ON ITS HIND LEGS - the hips low, the chest and the rider reared up high and back (the head 10 squares left), both front hooves raised high (the far one lifted 8), the rider raising the glaive high (blade to the sky); the tail low on the ground at the left.",
+      "pose_detail": "**人立（出手帧，幽灵骑兵从这里冲出）**：马**用后腿站起来**——胯低、胸和头高高向后上方立起（头往左 10 格），两只前蹄高高抬起（远的抬起 8 格）；骑士把戟高高举起（戟刃朝天）；尾巴拖在地上向左",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: ult frame 3 of 7: REARING (the spectral riders burst out here): the horse STANDS UP ON ITS HIND LEGS - the hips low, the chest and the rider reared up high and back (the head 10 squares left), both front hooves raised high (the far one lifted 8), the rider raising the glaive high (blade to the sky); the tail low on the ground at the left.. Pose detail: **人立（出手帧，幽灵骑兵从这里冲出）**：马**用后腿站起来**——胯低、胸和头高高向后上方立起（头往左 10 格），两只前蹄高高抬起（远的抬起 8 格）；骑士把戟高高举起（戟刃朝天）；尾巴拖在地上向左. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/ult_3/2_skeleton.png",
+        "frames/ult_3/3_soft_drawing.png",
+        "frames/ult_3/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "ult_4",
+      "frame_line": "ult frame 4 of 7: THE CHARGE: down again and galloping to the right, the body low and stretched long, the rider leaning forward, BOTH HANDS HOLDING THE GLAIVE LEVEL LIKE A LANCE pointing to the right (the blade at the right at chest height); the near front hoof planted, the far front folded.",
+      "pose_detail": "**冲锋**：落下来向右疾驰，身体压低拉长，骑士前倾，**两手平端着戟像骑枪一样指向右边**（戟刃在右边、胸口高度）；近前蹄踩地、远前蹄收起",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: ult frame 4 of 7: THE CHARGE: down again and galloping to the right, the body low and stretched long, the rider leaning forward, BOTH HANDS HOLDING THE GLAIVE LEVEL LIKE A LANCE pointing to the right (the blade at the right at chest height); the near front hoof planted, the far front folded.. Pose detail: **冲锋**：落下来向右疾驰，身体压低拉长，骑士前倾，**两手平端着戟像骑枪一样指向右边**（戟刃在右边、胸口高度）；近前蹄踩地、远前蹄收起. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/ult_4/2_skeleton.png",
+        "frames/ult_4/3_soft_drawing.png",
+        "frames/ult_4/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "ult_5",
+      "frame_line": "ult frame 5 of 7: charging: the front hooves reaching forward, the hind hooves pushing back, the head low (5 squares lower than in the idle).",
+      "pose_detail": "冲锋：前蹄向前伸，后蹄向后蹬，头低（比待机低 5 格）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: ult frame 5 of 7: charging: the front hooves reaching forward, the hind hooves pushing back, the head low (5 squares lower than in the idle).. Pose detail: 冲锋：前蹄向前伸，后蹄向后蹬，头低（比待机低 5 格）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/ult_5/2_skeleton.png",
+        "frames/ult_5/3_soft_drawing.png",
+        "frames/ult_5/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "ult_6",
+      "frame_line": "ult frame 6 of 7: charging: the front hooves planted, the near hind kicked back furthest.",
+      "pose_detail": "冲锋：前蹄踩地，近后蹄向后踢到最远",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: ult frame 6 of 7: charging: the front hooves planted, the near hind kicked back furthest.. Pose detail: 冲锋：前蹄踩地，近后蹄向后踢到最远. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/ult_6/2_skeleton.png",
+        "frames/ult_6/3_soft_drawing.png",
+        "frames/ult_6/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "ult_7",
+      "frame_line": "ult frame 7 of 7: charging: both front hooves stretched forward, the hind hooves kicked up behind (the near hind lifted 6); it can loop back to frame 4.",
+      "pose_detail": "冲锋：两只前蹄都伸在前面，后蹄向后高高踢起（近后蹄抬起 6 格）；接得上第 4 帧",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: ult frame 7 of 7: charging: both front hooves stretched forward, the hind hooves kicked up behind (the near hind lifted 6); it can loop back to frame 4.. Pose detail: 冲锋：两只前蹄都伸在前面，后蹄向后高高踢起（近后蹄抬起 6 格）；接得上第 4 帧. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/ult_7/2_skeleton.png",
+        "frames/ult_7/3_soft_drawing.png",
+        "frames/ult_7/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "hit_1",
+      "frame_line": "hit frame 1 of 2: struck: the rider rocked back (the head 9 squares left and 2 higher), the hips sinking 2, the glaive jolted upward; the hooves stay on the ground.",
+      "pose_detail": "**被击中**：骑士上身向后仰（头往左 9 格、往上 2 格），胯往下沉 2 格，戟被震得向上倾；后蹄稍稍着地",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: hit frame 1 of 2: struck: the rider rocked back (the head 9 squares left and 2 higher), the hips sinking 2, the glaive jolted upward; the hooves stay on the ground.. Pose detail: **被击中**：骑士上身向后仰（头往左 9 格、往上 2 格），胯往下沉 2 格，戟被震得向上倾；后蹄稍稍着地. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/hit_1/2_skeleton.png",
+        "frames/hit_1/3_soft_drawing.png",
+        "frames/hit_1/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "hit_2",
+      "frame_line": "hit frame 2 of 2: halfway back to the idle.",
+      "pose_detail": "恢复到一半：回到接近待机的姿势",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: hit frame 2 of 2: halfway back to the idle.. Pose detail: 恢复到一半：回到接近待机的姿势. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/hit_2/2_skeleton.png",
+        "frames/hit_2/3_soft_drawing.png",
+        "frames/hit_2/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "dead_1",
+      "frame_line": "dead frame 1 of 8: STIFF: he lets go of the glaive - it stands upright by itself at his right side (blade up); his body goes rigid, the head bowed.",
+      "pose_detail": "**僵住**：骑士松开戟——戟竖着立在他身旁右边（戟刃朝上），他身体僵直、低头",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: dead frame 1 of 8: STIFF: he lets go of the glaive - it stands upright by itself at his right side (blade up); his body goes rigid, the head bowed.. Pose detail: **僵住**：骑士松开戟——戟竖着立在他身旁右边（戟刃朝上），他身体僵直、低头. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/dead_1/2_skeleton.png",
+        "frames/dead_1/3_soft_drawing.png",
+        "frames/dead_1/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "dead_2",
+      "frame_line": "dead frame 2 of 8: THE DEATH REAR: the horse rears, both front legs kicked up high (the front hooves 15+ squares off the ground), the rider's torso and head thrown far back (the head 25 squares left), the arms flung out; the glaive still standing upright at the right where it was.",
+      "pose_detail": "**人立惨叫**：马的前腿高高扬起（前蹄抬起 15 格以上），骑士上身和头向后仰（头往左 25 格），两臂向两边甩开；戟还立在右边原地",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: dead frame 2 of 8: THE DEATH REAR: the horse rears, both front legs kicked up high (the front hooves 15+ squares off the ground), the rider's torso and head thrown far back (the head 25 squares left), the arms flung out; the glaive still standing upright at the right where it was.. Pose detail: **人立惨叫**：马的前腿高高扬起（前蹄抬起 15 格以上），骑士上身和头向后仰（头往左 25 格），两臂向两边甩开；戟还立在右边原地. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/dead_2/2_skeleton.png",
+        "frames/dead_2/3_soft_drawing.png",
+        "frames/dead_2/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "dead_3",
+      "frame_line": "dead frame 3 of 8: still rearing, the highest, the arms flailing; the glaive still standing at the right.",
+      "pose_detail": "继续向后仰到最高，两臂乱甩；戟还立在右边原地",
+      "prompt": "Edit IMAGE 1 (finished death frame 2) into death frame 3, the HIGHEST DEATH REAR. Keep exactly image 1's character scale, tiny helmet dimensions, horse torso length, pixel block size, style, transparent square canvas and weapon at the right. IMAGE 2 is frame 3 skeleton pose/placement, IMAGE 3 approved design, IMAGE 4 original motion. Horse is STILL STANDING ON ONLY ITS TWO HIND LEGS. Both front hooves must stay high off the ground, knees curled upward, more than 15 logical squares above the ground. The rider torso and head thrown backward to the LEFT at the peak, arms flung open; torso and horse chest form a steep reared silhouette. Do NOT turn it back into a normal four-leg standing horse. The crescent helmet is far back/left over its rear hips, not upright over the front chest. Whole centaur anatomically connected. Keep the detached glaive still upright at exactly the right position from image 1, not in either hand. Tail low behind at left. Same coarse clean square-block pixel drawing as image 1 and run_2–7, no added details, no blur, no text, no guides or effects. One transparent PNG, unchanged canvas and overall character scale.",
+      "references": [
+        "dead_2.png",
+        "frames/dead_3/2_skeleton.png",
+        "1_design.png",
+        "frames/dead_3/4_original_motion.png"
+      ],
+      "initial_prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: dead frame 3 of 8: still rearing, the highest, the arms flailing; the glaive still standing at the right.. Pose detail: 继续向后仰到最高，两臂乱甩；戟还立在右边原地. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "initial_references": [
+        "1_design.png",
+        "frames/dead_3/2_skeleton.png",
+        "frames/dead_3/3_soft_drawing.png",
+        "frames/dead_3/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "dead_4",
+      "frame_line": "dead frame 4 of 8: toppling to the left: the front legs still in the air, the body twisting to the left; the glaive falls and lies across at his lower left.",
+      "pose_detail": "开始向左侧倒：前腿还在空中，身体扭向左边；戟倒下来横在身体左下方",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: dead frame 4 of 8: toppling to the left: the front legs still in the air, the body twisting to the left; the glaive falls and lies across at his lower left.. Pose detail: 开始向左侧倒：前腿还在空中，身体扭向左边；戟倒下来横在身体左下方. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/dead_4/2_skeleton.png",
+        "frames/dead_4/3_soft_drawing.png",
+        "frames/dead_4/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "dead_5",
+      "frame_line": "dead frame 5 of 8: the front legs coming down, the body twisting further; the glaive on the ground at the left.",
+      "pose_detail": "前腿往下落，身体继续扭倒；戟躺在左边地上",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: dead frame 5 of 8: the front legs coming down, the body twisting further; the glaive on the ground at the left.. Pose detail: 前腿往下落，身体继续扭倒；戟躺在左边地上. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/dead_5/2_skeleton.png",
+        "frames/dead_5/3_soft_drawing.png",
+        "frames/dead_5/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "dead_6",
+      "frame_line": "dead frame 6 of 8: COLLAPSING: the hips down on the ground, the rider slumped forward, the head low.",
+      "pose_detail": "**瘫倒**：胯落到地面，骑士上身前垂，头低下（比站着低 2 格）",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: dead frame 6 of 8: COLLAPSING: the hips down on the ground, the rider slumped forward, the head low.. Pose detail: **瘫倒**：胯落到地面，骑士上身前垂，头低下（比站着低 2 格）. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/dead_6/2_skeleton.png",
+        "frames/dead_6/3_soft_drawing.png",
+        "frames/dead_6/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "dead_7",
+      "frame_line": "dead frame 7 of 8: FALLEN ON HIS SIDE: the whole body lying on the ground on its side (the head at the right, near the ground), the four legs stretched out to the right, off the ground; the glaive lying behind him at the upper left.",
+      "pose_detail": "**侧倒在地**：整个身体侧躺在地上（头在右边贴近地面），四条腿向右边伸出、离开地面；戟横躺在身后左上方",
+      "prompt": "Edit image 1 (finished death frame 8) into death frame 7. Preserve its EXACT character size, pixel block size, canvas, position, side-lying corpse pose, all armor, helmet and glaive position. Change ONLY the teal ghost flame tail on the left to be a little larger / brighter (before it shrinks in frame 8). Keep the entire centaur truly lying flat on its side, helmet on the ground at the RIGHT, torso and shoulders flat along the ground, four legs extending right, not supporting the body. Do NOT make the helmet upright or lift the torso into a sitting pose. Reference 2 is death frame 7 skeleton for pose and placement. Reference 3 is approved design. Same coarse pixel style as image 1 and previously completed run_2–7, no added detail. Image 1 already has correct side-lying head and corpse; preserve it, only redraw the larger left tail. Weapon lies horizontally behind the corpse at upper left. No effects beyond the character's tail, no lines, no text, no floor; transparent PNG in the same square canvas size as image 1. Draw the lying character directly, do not rotate a standing sprite.",
+      "references": [
+        "dead_8.png",
+        "frames/dead_7/2_skeleton.png",
+        "1_design.png"
+      ],
+      "initial_prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: dead frame 7 of 8: FALLEN ON HIS SIDE: the whole body lying on the ground on its side (the head at the right, near the ground), the four legs stretched out to the right, off the ground; the glaive lying behind him at the upper left.. Pose detail: **侧倒在地**：整个身体侧躺在地上（头在右边贴近地面），四条腿向右边伸出、离开地面；戟横躺在身后左上方. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "initial_references": [
+        "1_design.png",
+        "frames/dead_7/2_skeleton.png",
+        "frames/dead_7/3_soft_drawing.png",
+        "frames/dead_7/4_original_motion.png"
+      ]
+    },
+    {
+      "name": "dead_8",
+      "frame_line": "dead frame 8 of 8: lying still (as 7), the ghost-flame tail smaller; the glaive where it was in frame 7. The lying body is DRAWN lying, never a rotated standing sprite.",
+      "pose_detail": "躺着不动（同上），尾巴的幽灵火变小；戟和第 7 帧同一个位置",
+      "prompt": "Use image 1 as the ONLY pixel style and character identity source. Redraw ONE pose of its tiny coarse game sprite; preserve the small closed helm, crescent horn, two single-square teal eyes, spiked pauldrons, dark armor greys, teal chest grin and horse skull plates, maroon tabard, teal flame tail, hooked silver glaive and copper guard. Image 2 provides exact pose size and position on a 1024x1024 canvas, red ground line y=800 and blue body anchor x=516. Image 3 explains anatomy/pose only; do NOT copy its soft shading or level of detail. Image 4 provides original motion only. Match the VERY COARSE 8x8 square pixel language of image 1, only its 16 flat colors and one logical pixel black outline. Every square aligned to x=0,y=0. Character must remain small in the lower-middle of canvas, about 45 logical squares tall in ordinary stance. Helmet is only 9 logical squares high. Match image 2 silhouette bounding box and placement, keeping huge empty transparent margins above. Four whole legs and hooves attached to horse, a clearly separated rider torso, hands according to pose, full connected glaive. No lines or text, no effects, nothing below red line y=800, no blur/gradient/antialiasing/translucent pixels or tiny specks. Output ONE transparent PNG 1024x1024. FRAME: dead frame 8 of 8: lying still (as 7), the ghost-flame tail smaller; the glaive where it was in frame 7. The lying body is DRAWN lying, never a rotated standing sprite.. Pose detail: 躺着不动（同上），尾巴的幽灵火变小；戟和第 7 帧同一个位置. Priority: coarse sprite style and exact small size, not rendered illustration.",
+      "references": [
+        "1_design.png",
+        "frames/dead_8/2_skeleton.png",
+        "frames/dead_8/3_soft_drawing.png",
+        "frames/dead_8/4_original_motion.png"
+      ]
+    }
+  ],
+  "run_1_discarded_prompt_history": [
+    "Four attached images. FIRST: the approved final pixel-art design of this character at 8x (every pixel an 8x8 block, 1024x1024 = a 128x128 grid) - his exact look and his pixel style: a SMALL closed helm with a crescent horn between two big spiked pauldrons, two single glowing teal eye squares, a teal fanged grin on the chest, dark plate in a few greys, teal cracks, skull plates on the horse's chest, a maroon tabard, a teal ghost-flame tail, a glaive with a hooked silver blade and a copper guard. SECOND: the SKELETON of this one frame - the same character already placed on the same 1024x1024 canvas (the same 128x128 grid at 8x), as big as he must be and where he must be, in this frame's pose; it is a rough, muddy reading of a soft drawing: the rider and the horse merge, edges break. THIRD: an earlier soft drawing of this frame - the pose drawn clearly (which part is where). FOURTH: the same frame of the original 3D model - the motion.\nTask: redraw this ONE frame as clean, crisp game pixel art on the SECOND image's canvas: the SAME canvas size (1024x1024), the SAME grid (every pixel one 8x8 block aligned to x=0, y=0), the SAME size and place as the SECOND image (the same height, the same width, the hooves on the same red line, the body over the same blue line), the SECOND image's pose as drawn clearly in the THIRD and FOURTH images. Draw it in the FIRST image's pixel style and colours: clear shapes, the rider clearly separate from the horse (his torso, his two arms and both hands on the glaive), the helm exactly like the FIRST image's helm (small, the horn, the two eye squares), the horse's body, four legs and hooves whole and joined, the glaive whole from the pommel to the blade, the tail and the tabard where the pose puts them. Use only the FIRST image's colours; one 1-square near-black outline round the silhouette; no anti-aliasing, no blur, no soft shading, no semi-transparent pixels, no stray specks; nothing below the red line (only what touches the ground stands on it).\nFRAME: run frame 1 of 8: the near front hoof planted under the chest (14 squares right of the standing point), the far front hoof reaching forward to land (23 right); the far hind hoof planted under the hips (10 left), the near hind hoof kicked back (21 left, lifted 5).\nOutput: one 1024x1024 PNG with a transparent background (if not possible: solid #FF00FF), the character only (no lines, no text, no effects).\nCRITICAL: match the VERY COARSE pixel size of image 1. Character must occupy only roughly x=288..920, y=400..800 on the 1024 canvas, not fill the canvas. Keep the tiny helmet at only 9 logical squares high. No finer detail than one 8x8 block. Only 16 flat colors, no smooth rendered illustration. Preserve all empty margins. The second image red baseline is y=800 and blue body anchor is x=516. Remove the guides from output.",
+    "Edit image 1, the approved TINY COARSE GAME SPRITE, into run frame 1, using image 2 ONLY for placement and pose. Preserve image 1's exact coarse 8x8 square pixel language and extremely small helmet, exact 16 flat colors, flat solid shapes. Do NOT increase resolution or detail of the character. Keep the 1024x1024 transparent canvas unchanged. On the 128x128 logical grid the character is around 75 squares wide and 48 squares tall, at logical x=36..114 y=50..100, with hooves at y=99, body anchor x=64. Image 2 is a rough pose target, not a quality/style target. Rebuild its silhouette cleanly with image 1 armor, not image 2 muddy texture. Run frame 1: near front hoof grounded at x=78, far front reaching x=87; far hind grounded x=54, near hind lifted five squares kicked back x=43. Draw all four connected legs, rider torso separate from horse, two hands on complete glaive diagonal to upper right, tiny 9-square-high helmet between shoulders, crescent and two one-square teal eyes, teal tail at left, maroon tabard. Character occupies the same small lower-middle area as input, huge transparent margins above it. No red or blue guide lines, no ground line, no effects, no text. Truly crisp square blocks aligned to multiples of 8, no anti-aliasing, no gradient or transparency within character. Don't enlarge the sprite to fill canvas.",
+    "Redraw ONLY run frame 1 as a standalone transparent sprite, matching the EXACT same character scale, helmet size, horse body length and coarse pixel size/style as reference images 1 and 2 (finished run_2 and run_3). Reference 3 is approved design identity, reference 4 is run_1 skeleton for pose and position. Reference 5 is existing run_1, which is around 15 percent TOO SMALL; replace it with a redraw about 15 percent larger in the character, while preserving the same canvas and ground level. Match run_2 and run_3's horse length and helmet dimensions precisely; don't enlarge the canvas or merely scale an old sprite. Draw the full centaur together in run_1 pose: near front hoof planted under chest, far front reaching forward to land, far hind planted beneath hips, near hind kicked backward and lifted five logical squares. Tiny crescent horn closed helm with two teal eye squares between spiked shoulders, chest teal fanged grin, dark plate, teal cracks, skull plate on horse chest, maroon tabard, teal flame tail left, complete copper-guard hooked silver glaive held diagonally up-right in both hands. Same flat chunky square pixel rendering as images 1 and 2, no smoother or more detailed drawing. Keep sprite position from image 4 with feet on its red baseline and body on its blue anchor, remove red/blue lines. Huge transparent empty margins above, character only, no effects, text or floor. Use same square canvas dimensions as image 1."
+  ]
+}

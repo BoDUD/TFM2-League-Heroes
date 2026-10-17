@@ -1,0 +1,7218 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-27T03:13:12.339Z",
+  "source_pack": "darius_strips_pack.zip",
+  "status": "format_and_head_checks_passed",
+  "scope": "PROMPTS.md items 2-20, 9 action sheets + 10 VFX sheets",
+  "logical_pixel_scale": 8,
+  "coordinate_convention": "zero-based cell-local x,y; bbox=[x,y,width,height]; alpha bbox never used to recenter character frames",
+  "character_palette": [
+    "141319",
+    "20282D",
+    "292629",
+    "34424A",
+    "3C3534",
+    "50616A",
+    "554B45",
+    "647B91",
+    "77182B",
+    "7D9097",
+    "A72B3C",
+    "A97754",
+    "BFE8E7",
+    "C1D2D6",
+    "CA996E",
+    "E2B289",
+    "E8F4F2",
+    "FFFDF7"
+  ],
+  "character_head": {
+    "source_file": "reference/darius_native.png",
+    "source_sha256": "9bc5f56cc19628a28eb827e2553094e9f39723519e7af4cac0e4471487c0f7e4",
+    "source_rect_cells": [
+      61,
+      62,
+      10,
+      13
+    ],
+    "stencil_file": "reference/approved_head.json",
+    "size_cells": [
+      10,
+      13
+    ],
+    "opaque_stencil_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+    "rotation": 0,
+    "scale": 1
+  },
+  "geometry_policy": {
+    "character_anchors": "Original darius_cells.json pivots retained. Head anchors rounded to cells; idle forced 1-cell bob, run head x fixed to 50. Limbs and shaft endpoints are recorded pose approximations, not recovered 3D bones.",
+    "ground_line_conflict": "Prose says y=78; actual provided idle render/design/head coordinates place standing boots at y=72 inclusive. Keep reference position; do not shift every frame to prose line.",
+    "game_import_tested": false
+  },
+  "summary": {
+    "action_sheets": 9,
+    "action_frames": 59,
+    "vfx_sheets": 10,
+    "vfx_frames": 56,
+    "total_frames": 115,
+    "character_shared_color_count": 18,
+    "errors": []
+  },
+  "assets": [
+    {
+      "file": "darius_idle.png",
+      "sha256": "922cdf4efcf2e815ac843dabb4127a09c316797516f70d6396fe931ee101a7dd",
+      "kind": "character",
+      "tag": "idle",
+      "prompt_number": 2,
+      "frame_count": 6,
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "cell_size_cells": [
+          88,
+          96
+        ],
+        "cell_size_pixels": [
+          704,
+          768
+        ],
+        "sheet_size_pixels": [
+          2112,
+          1536
+        ]
+      },
+      "loop": true,
+      "validation": {
+        "size": [
+          2112,
+          1536
+        ],
+        "color_count": 18,
+        "palette": [
+          "141319",
+          "20282D",
+          "292629",
+          "34424A",
+          "3C3534",
+          "50616A",
+          "554B45",
+          "647B91",
+          "77182B",
+          "7D9097",
+          "A72B3C",
+          "A97754",
+          "BFE8E7",
+          "C1D2D6",
+          "CA996E",
+          "E2B289",
+          "E8F4F2",
+          "FFFDF7"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            27,
+            39,
+            28,
+            39
+          ],
+          "head_xy_cells": [
+            41,
+            39
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            46.3,
+            44.5
+          ],
+          "duration_ms": 222,
+          "landmarks": {
+            "method": "approved-design-native-cells",
+            "body_translation": [
+              -20,
+              -23
+            ]
+          },
+          "bbox_pixels": [
+            216,
+            312,
+            224,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            27,
+            39,
+            28,
+            39
+          ],
+          "head_xy_cells": [
+            41,
+            39
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            46.4,
+            44.5
+          ],
+          "duration_ms": 222,
+          "landmarks": {
+            "method": "approved-design-native-cells",
+            "body_translation": [
+              -20,
+              -23
+            ]
+          },
+          "bbox_pixels": [
+            216,
+            312,
+            224,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            27,
+            38,
+            28,
+            39
+          ],
+          "head_xy_cells": [
+            41,
+            38
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            46.2,
+            44.3
+          ],
+          "duration_ms": 222,
+          "landmarks": {
+            "method": "approved-design-native-cells",
+            "body_translation": [
+              -20,
+              -24
+            ]
+          },
+          "bbox_pixels": [
+            216,
+            304,
+            224,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            0,
+            1
+          ],
+          "bbox_cells": [
+            27,
+            38,
+            28,
+            39
+          ],
+          "head_xy_cells": [
+            41,
+            38
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            45.7,
+            44.1
+          ],
+          "duration_ms": 222,
+          "landmarks": {
+            "method": "approved-design-native-cells",
+            "body_translation": [
+              -20,
+              -24
+            ]
+          },
+          "bbox_pixels": [
+            216,
+            304,
+            224,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            1,
+            1
+          ],
+          "bbox_cells": [
+            27,
+            38,
+            28,
+            39
+          ],
+          "head_xy_cells": [
+            41,
+            38
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            45.7,
+            44.1
+          ],
+          "duration_ms": 222,
+          "landmarks": {
+            "method": "approved-design-native-cells",
+            "body_translation": [
+              -20,
+              -24
+            ]
+          },
+          "bbox_pixels": [
+            216,
+            304,
+            224,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            2,
+            1
+          ],
+          "bbox_cells": [
+            27,
+            39,
+            28,
+            39
+          ],
+          "head_xy_cells": [
+            41,
+            39
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            45.9,
+            44.2
+          ],
+          "duration_ms": 222,
+          "landmarks": {
+            "method": "approved-design-native-cells",
+            "body_translation": [
+              -20,
+              -23
+            ]
+          },
+          "bbox_pixels": [
+            216,
+            312,
+            224,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "method": "native-grid reconstruction with approved-design parts and reference pose landmarks; exact head stencil pasted last",
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_run.png",
+      "sha256": "29ee40b5dde9c1eba57929f0790c8fdfe68ed49d96676da4a68abfbbbe41b9b0",
+      "kind": "character",
+      "tag": "run",
+      "prompt_number": 3,
+      "frame_count": 8,
+      "layout": {
+        "columns": 4,
+        "rows": 2,
+        "order": "row-major",
+        "cell_size_cells": [
+          88,
+          96
+        ],
+        "cell_size_pixels": [
+          704,
+          768
+        ],
+        "sheet_size_pixels": [
+          2816,
+          1536
+        ]
+      },
+      "loop": true,
+      "validation": {
+        "size": [
+          2816,
+          1536
+        ],
+        "color_count": 18,
+        "palette": [
+          "141319",
+          "20282D",
+          "292629",
+          "34424A",
+          "3C3534",
+          "50616A",
+          "554B45",
+          "647B91",
+          "77182B",
+          "7D9097",
+          "A72B3C",
+          "A97754",
+          "BFE8E7",
+          "C1D2D6",
+          "CA996E",
+          "E2B289",
+          "E8F4F2",
+          "FFFDF7"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            30,
+            43,
+            28,
+            37
+          ],
+          "head_xy_cells": [
+            45,
+            43
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            42,
+            66
+          ],
+          "reference_head": [
+            49.6,
+            48.4
+          ],
+          "duration_ms": 142,
+          "landmarks": {
+            "hip": [
+              43,
+              60
+            ],
+            "left_knee": [
+              38,
+              66
+            ],
+            "left_foot": [
+              37,
+              70
+            ],
+            "right_knee": [
+              46,
+              63
+            ],
+            "right_foot": [
+              49,
+              67
+            ],
+            "axe_ring": [
+              34,
+              44
+            ],
+            "axe_hub": [
+              41,
+              71
+            ],
+            "left_hand": [
+              38,
+              60
+            ],
+            "right_hand": [
+              55,
+              59
+            ]
+          },
+          "bbox_pixels": [
+            240,
+            344,
+            224,
+            296
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            29,
+            43,
+            28,
+            38
+          ],
+          "head_xy_cells": [
+            45,
+            43
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            41,
+            66
+          ],
+          "reference_head": [
+            49.2,
+            47.8
+          ],
+          "duration_ms": 142,
+          "landmarks": {
+            "hip": [
+              42,
+              60
+            ],
+            "left_knee": [
+              37,
+              66
+            ],
+            "left_foot": [
+              36,
+              71
+            ],
+            "right_knee": [
+              45,
+              66
+            ],
+            "right_foot": [
+              48,
+              70
+            ],
+            "axe_ring": [
+              33,
+              45
+            ],
+            "axe_hub": [
+              40,
+              72
+            ],
+            "left_hand": [
+              37,
+              61
+            ],
+            "right_hand": [
+              54,
+              57
+            ]
+          },
+          "bbox_pixels": [
+            232,
+            344,
+            224,
+            304
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            31,
+            46,
+            27,
+            38
+          ],
+          "head_xy_cells": [
+            45,
+            46
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            43,
+            66
+          ],
+          "reference_head": [
+            51.7,
+            51
+          ],
+          "duration_ms": 142,
+          "landmarks": {
+            "hip": [
+              43,
+              65
+            ],
+            "left_knee": [
+              39,
+              68
+            ],
+            "left_foot": [
+              40,
+              76
+            ],
+            "right_knee": [
+              47,
+              67
+            ],
+            "right_foot": [
+              49,
+              71
+            ],
+            "axe_ring": [
+              33,
+              47
+            ],
+            "axe_hub": [
+              42,
+              75
+            ],
+            "left_hand": [
+              38,
+              63
+            ],
+            "right_hand": [
+              55,
+              58
+            ]
+          },
+          "bbox_pixels": [
+            248,
+            368,
+            216,
+            304
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            26,
+            47,
+            32,
+            36
+          ],
+          "head_xy_cells": [
+            45,
+            47
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            42,
+            66
+          ],
+          "reference_head": [
+            50.9,
+            51.6
+          ],
+          "duration_ms": 142,
+          "landmarks": {
+            "hip": [
+              42,
+              63
+            ],
+            "left_knee": [
+              38,
+              64
+            ],
+            "left_foot": [
+              37,
+              69
+            ],
+            "right_knee": [
+              46,
+              65
+            ],
+            "right_foot": [
+              48,
+              71
+            ],
+            "axe_ring": [
+              33,
+              48
+            ],
+            "axe_hub": [
+              37,
+              75
+            ],
+            "left_hand": [
+              35,
+              62
+            ],
+            "right_hand": [
+              55,
+              60
+            ]
+          },
+          "bbox_pixels": [
+            208,
+            376,
+            256,
+            288
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            0,
+            1
+          ],
+          "bbox_cells": [
+            24,
+            39,
+            34,
+            35
+          ],
+          "head_xy_cells": [
+            45,
+            44
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            42,
+            66
+          ],
+          "reference_head": [
+            50,
+            48.5
+          ],
+          "duration_ms": 142,
+          "landmarks": {
+            "hip": [
+              43,
+              61
+            ],
+            "left_knee": [
+              38,
+              63
+            ],
+            "left_foot": [
+              35,
+              67
+            ],
+            "right_knee": [
+              46,
+              66
+            ],
+            "right_foot": [
+              48,
+              72
+            ],
+            "axe_ring": [
+              35,
+              40
+            ],
+            "axe_hub": [
+              35,
+              67
+            ],
+            "left_hand": [
+              35,
+              57
+            ],
+            "right_hand": [
+              55,
+              62
+            ]
+          },
+          "bbox_pixels": [
+            192,
+            312,
+            272,
+            280
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            1,
+            1
+          ],
+          "bbox_cells": [
+            23,
+            38,
+            35,
+            36
+          ],
+          "head_xy_cells": [
+            45,
+            44
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            42,
+            66
+          ],
+          "reference_head": [
+            48.9,
+            48.5
+          ],
+          "duration_ms": 142,
+          "landmarks": {
+            "hip": [
+              42,
+              61
+            ],
+            "left_knee": [
+              38,
+              63
+            ],
+            "left_foot": [
+              35,
+              66
+            ],
+            "right_knee": [
+              46,
+              67
+            ],
+            "right_foot": [
+              49,
+              72
+            ],
+            "axe_ring": [
+              34,
+              39
+            ],
+            "axe_hub": [
+              34,
+              66
+            ],
+            "left_hand": [
+              34,
+              56
+            ],
+            "right_hand": [
+              55,
+              62
+            ]
+          },
+          "bbox_pixels": [
+            184,
+            304,
+            280,
+            288
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 7,
+          "cell": [
+            2,
+            1
+          ],
+          "bbox_cells": [
+            23,
+            40,
+            34,
+            38
+          ],
+          "head_xy_cells": [
+            45,
+            47
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            43,
+            66
+          ],
+          "reference_head": [
+            49,
+            52.4
+          ],
+          "duration_ms": 142,
+          "landmarks": {
+            "hip": [
+              43,
+              65
+            ],
+            "left_knee": [
+              38,
+              67
+            ],
+            "left_foot": [
+              35,
+              71
+            ],
+            "right_knee": [
+              46,
+              69
+            ],
+            "right_foot": [
+              47,
+              76
+            ],
+            "axe_ring": [
+              34,
+              41
+            ],
+            "axe_hub": [
+              34,
+              70
+            ],
+            "left_hand": [
+              34,
+              60
+            ],
+            "right_hand": [
+              54,
+              61
+            ]
+          },
+          "bbox_pixels": [
+            184,
+            320,
+            272,
+            304
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 8,
+          "cell": [
+            3,
+            1
+          ],
+          "bbox_cells": [
+            26,
+            42,
+            31,
+            39
+          ],
+          "head_xy_cells": [
+            45,
+            47
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            43,
+            66
+          ],
+          "reference_head": [
+            49.6,
+            52
+          ],
+          "duration_ms": 142,
+          "landmarks": {
+            "hip": [
+              43,
+              63
+            ],
+            "left_knee": [
+              38,
+              64
+            ],
+            "left_foot": [
+              37,
+              68
+            ],
+            "right_knee": [
+              46,
+              66
+            ],
+            "right_foot": [
+              48,
+              72
+            ],
+            "axe_ring": [
+              35,
+              43
+            ],
+            "axe_hub": [
+              37,
+              73
+            ],
+            "left_hand": [
+              36,
+              59
+            ],
+            "right_hand": [
+              54,
+              60
+            ]
+          },
+          "bbox_pixels": [
+            208,
+            336,
+            248,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "method": "native-grid reconstruction with approved-design parts and reference pose landmarks; exact head stencil pasted last",
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_attack.png",
+      "sha256": "3e0a0ee36314f919b5cf9ba642897c4c43c34e71192b0328ba5c00f83b760d44",
+      "kind": "character",
+      "tag": "attack",
+      "prompt_number": 4,
+      "frame_count": 6,
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "cell_size_cells": [
+          88,
+          96
+        ],
+        "cell_size_pixels": [
+          704,
+          768
+        ],
+        "sheet_size_pixels": [
+          2112,
+          1536
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          2112,
+          1536
+        ],
+        "color_count": 18,
+        "palette": [
+          "141319",
+          "20282D",
+          "292629",
+          "34424A",
+          "3C3534",
+          "50616A",
+          "554B45",
+          "647B91",
+          "77182B",
+          "7D9097",
+          "A72B3C",
+          "A97754",
+          "BFE8E7",
+          "C1D2D6",
+          "CA996E",
+          "E2B289",
+          "E8F4F2",
+          "FFFDF7"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            25,
+            39,
+            32,
+            37
+          ],
+          "head_xy_cells": [
+            40,
+            39
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            43,
+            66
+          ],
+          "reference_head": [
+            44.7,
+            43.8
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              43,
+              63
+            ],
+            "left_knee": [
+              41,
+              66
+            ],
+            "left_foot": [
+              39,
+              72
+            ],
+            "right_knee": [
+              46,
+              66
+            ],
+            "right_foot": [
+              48,
+              71
+            ],
+            "axe_ring": [
+              36,
+              44
+            ],
+            "axe_hub": [
+              36,
+              69
+            ],
+            "left_hand": [
+              36,
+              57
+            ],
+            "right_hand": [
+              55,
+              56
+            ]
+          },
+          "bbox_pixels": [
+            200,
+            312,
+            256,
+            296
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            26,
+            17,
+            30,
+            57
+          ],
+          "head_xy_cells": [
+            44,
+            43
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            48.6,
+            48.1
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              46,
+              63
+            ],
+            "left_knee": [
+              44,
+              66
+            ],
+            "left_foot": [
+              43,
+              72
+            ],
+            "right_knee": [
+              49,
+              66
+            ],
+            "right_foot": [
+              51,
+              71
+            ],
+            "axe_ring": [
+              52,
+              45
+            ],
+            "axe_hub": [
+              29,
+              28
+            ],
+            "left_hand": [
+              43,
+              39
+            ],
+            "right_hand": [
+              49,
+              43
+            ]
+          },
+          "bbox_pixels": [
+            208,
+            136,
+            240,
+            456
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            29,
+            41,
+            36,
+            33
+          ],
+          "head_xy_cells": [
+            49,
+            51
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            53,
+            66
+          ],
+          "reference_head": [
+            54.4,
+            55.8
+          ],
+          "duration_ms": 50,
+          "landmarks": {
+            "hip": [
+              52,
+              67
+            ],
+            "left_knee": [
+              48,
+              70
+            ],
+            "left_foot": [
+              41,
+              71
+            ],
+            "right_knee": [
+              56,
+              69
+            ],
+            "right_foot": [
+              61,
+              72
+            ],
+            "axe_ring": [
+              57,
+              62
+            ],
+            "axe_hub": [
+              33,
+              52
+            ],
+            "left_hand": [
+              49,
+              59
+            ],
+            "right_hand": [
+              52,
+              60
+            ]
+          },
+          "bbox_pixels": [
+            232,
+            328,
+            288,
+            264
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            0,
+            1
+          ],
+          "bbox_cells": [
+            31,
+            53,
+            32,
+            22
+          ],
+          "head_xy_cells": [
+            46,
+            53
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            50,
+            66
+          ],
+          "reference_head": [
+            50.8,
+            58.2
+          ],
+          "duration_ms": 50,
+          "landmarks": {
+            "hip": [
+              48,
+              66
+            ],
+            "left_knee": [
+              44,
+              69
+            ],
+            "left_foot": [
+              42,
+              72
+            ],
+            "right_knee": [
+              53,
+              68
+            ],
+            "right_foot": [
+              59,
+              73
+            ],
+            "axe_ring": [
+              54,
+              64
+            ],
+            "axe_hub": [
+              38,
+              67
+            ],
+            "left_hand": [
+              47,
+              65
+            ],
+            "right_hand": [
+              51,
+              65
+            ]
+          },
+          "bbox_pixels": [
+            248,
+            424,
+            256,
+            176
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            1,
+            1
+          ],
+          "bbox_cells": [
+            16,
+            54,
+            55,
+            29
+          ],
+          "head_xy_cells": [
+            31,
+            54
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            33,
+            66
+          ],
+          "reference_head": [
+            35.9,
+            58.8
+          ],
+          "duration_ms": 90,
+          "landmarks": {
+            "hip": [
+              32,
+              66
+            ],
+            "left_knee": [
+              28,
+              68
+            ],
+            "left_foot": [
+              24,
+              71
+            ],
+            "right_knee": [
+              36,
+              67
+            ],
+            "right_foot": [
+              39,
+              73
+            ],
+            "axe_ring": [
+              33,
+              64
+            ],
+            "axe_hub": [
+              66,
+              71
+            ],
+            "left_hand": [
+              39,
+              65
+            ],
+            "right_hand": [
+              44,
+              66
+            ]
+          },
+          "bbox_pixels": [
+            128,
+            432,
+            440,
+            232
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            2,
+            1
+          ],
+          "bbox_cells": [
+            29,
+            45,
+            28,
+            30
+          ],
+          "head_xy_cells": [
+            44,
+            45
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            48.6,
+            50
+          ],
+          "duration_ms": 80,
+          "landmarks": {
+            "hip": [
+              45,
+              64
+            ],
+            "left_knee": [
+              42,
+              66
+            ],
+            "left_foot": [
+              40,
+              71
+            ],
+            "right_knee": [
+              49,
+              67
+            ],
+            "right_foot": [
+              53,
+              73
+            ],
+            "axe_ring": [
+              40,
+              48
+            ],
+            "axe_hub": [
+              40,
+              67
+            ],
+            "left_hand": [
+              40,
+              59
+            ],
+            "right_hand": [
+              51,
+              60
+            ]
+          },
+          "bbox_pixels": [
+            232,
+            360,
+            224,
+            240
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "method": "native-grid reconstruction with approved-design parts and reference pose landmarks; exact head stencil pasted last",
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_skill.png",
+      "sha256": "1268b770b6bc6921f9bb21adfe5070bf591451fece26c24e2e284518a808d90f",
+      "kind": "character",
+      "tag": "skill",
+      "prompt_number": 5,
+      "frame_count": 8,
+      "layout": {
+        "columns": 4,
+        "rows": 2,
+        "order": "row-major",
+        "cell_size_cells": [
+          88,
+          96
+        ],
+        "cell_size_pixels": [
+          704,
+          768
+        ],
+        "sheet_size_pixels": [
+          2816,
+          1536
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          2816,
+          1536
+        ],
+        "color_count": 18,
+        "palette": [
+          "141319",
+          "20282D",
+          "292629",
+          "34424A",
+          "3C3534",
+          "50616A",
+          "554B45",
+          "647B91",
+          "77182B",
+          "7D9097",
+          "A72B3C",
+          "A97754",
+          "BFE8E7",
+          "C1D2D6",
+          "CA996E",
+          "E2B289",
+          "E8F4F2",
+          "FFFDF7"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            29,
+            40,
+            27,
+            35
+          ],
+          "head_xy_cells": [
+            40,
+            40
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            45.3,
+            44.8
+          ],
+          "duration_ms": 80,
+          "landmarks": {
+            "hip": [
+              44,
+              63
+            ],
+            "left_knee": [
+              41,
+              67
+            ],
+            "left_foot": [
+              39,
+              73
+            ],
+            "right_knee": [
+              48,
+              66
+            ],
+            "right_foot": [
+              51,
+              71
+            ],
+            "axe_ring": [
+              30,
+              53
+            ],
+            "axe_hub": [
+              37,
+              51
+            ],
+            "left_hand": [
+              33,
+              52
+            ],
+            "right_hand": [
+              54,
+              55
+            ]
+          },
+          "bbox_pixels": [
+            232,
+            320,
+            216,
+            280
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            24,
+            29,
+            38,
+            45
+          ],
+          "head_xy_cells": [
+            44,
+            40
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            52,
+            66
+          ],
+          "reference_head": [
+            48.9,
+            45.1
+          ],
+          "duration_ms": 120,
+          "landmarks": {
+            "hip": [
+              51,
+              63
+            ],
+            "left_knee": [
+              48,
+              67
+            ],
+            "left_foot": [
+              46,
+              72
+            ],
+            "right_knee": [
+              55,
+              66
+            ],
+            "right_foot": [
+              58,
+              71
+            ],
+            "axe_ring": [
+              50,
+              41
+            ],
+            "axe_hub": [
+              30,
+              40
+            ],
+            "left_hand": [
+              42,
+              41
+            ],
+            "right_hand": [
+              47,
+              41
+            ]
+          },
+          "bbox_pixels": [
+            192,
+            232,
+            304,
+            360
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            31,
+            40,
+            28,
+            35
+          ],
+          "head_xy_cells": [
+            40,
+            42
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            47,
+            66
+          ],
+          "reference_head": [
+            44.9,
+            46.5
+          ],
+          "duration_ms": 120,
+          "landmarks": {
+            "hip": [
+              47,
+              63
+            ],
+            "left_knee": [
+              43,
+              67
+            ],
+            "left_foot": [
+              40,
+              73
+            ],
+            "right_knee": [
+              51,
+              66
+            ],
+            "right_foot": [
+              55,
+              71
+            ],
+            "axe_ring": [
+              34,
+              54
+            ],
+            "axe_hub": [
+              42,
+              43
+            ],
+            "left_hand": [
+              38,
+              49
+            ],
+            "right_hand": [
+              37,
+              51
+            ]
+          },
+          "bbox_pixels": [
+            248,
+            320,
+            224,
+            280
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            27,
+            41,
+            37,
+            34
+          ],
+          "head_xy_cells": [
+            47,
+            41
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            51,
+            66
+          ],
+          "reference_head": [
+            51.6,
+            46.4
+          ],
+          "duration_ms": 80,
+          "landmarks": {
+            "hip": [
+              52,
+              65
+            ],
+            "left_knee": [
+              48,
+              68
+            ],
+            "left_foot": [
+              46,
+              73
+            ],
+            "right_knee": [
+              56,
+              67
+            ],
+            "right_foot": [
+              60,
+              72
+            ],
+            "axe_ring": [
+              55,
+              58
+            ],
+            "axe_hub": [
+              34,
+              62
+            ],
+            "left_hand": [
+              46,
+              60
+            ],
+            "right_hand": [
+              51,
+              59
+            ]
+          },
+          "bbox_pixels": [
+            216,
+            328,
+            296,
+            272
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            0,
+            1
+          ],
+          "bbox_cells": [
+            12,
+            47,
+            74,
+            26
+          ],
+          "head_xy_cells": [
+            22,
+            47
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            30,
+            66
+          ],
+          "reference_head": [
+            26.8,
+            51.5
+          ],
+          "duration_ms": 70,
+          "landmarks": {
+            "hip": [
+              28,
+              64
+            ],
+            "left_knee": [
+              25,
+              69
+            ],
+            "left_foot": [
+              23,
+              71
+            ],
+            "right_knee": [
+              33,
+              65
+            ],
+            "right_foot": [
+              31,
+              69
+            ],
+            "axe_ring": [
+              25,
+              55
+            ],
+            "axe_hub": [
+              79,
+              52
+            ],
+            "left_hand": [
+              40,
+              54
+            ],
+            "right_hand": [
+              46,
+              54
+            ]
+          },
+          "bbox_pixels": [
+            96,
+            376,
+            592,
+            208
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            1,
+            1
+          ],
+          "bbox_cells": [
+            12,
+            47,
+            58,
+            34
+          ],
+          "head_xy_cells": [
+            48,
+            47
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            49,
+            66
+          ],
+          "reference_head": [
+            53.4,
+            51.8
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              50,
+              64
+            ],
+            "left_knee": [
+              45,
+              66
+            ],
+            "left_foot": [
+              45,
+              72
+            ],
+            "right_knee": [
+              56,
+              62
+            ],
+            "right_foot": [
+              60,
+              66
+            ],
+            "axe_ring": [
+              68,
+              55
+            ],
+            "axe_hub": [
+              21,
+              75
+            ],
+            "left_hand": [
+              47,
+              64
+            ],
+            "right_hand": [
+              51,
+              62
+            ]
+          },
+          "bbox_pixels": [
+            96,
+            376,
+            464,
+            272
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 7,
+          "cell": [
+            2,
+            1
+          ],
+          "bbox_cells": [
+            14,
+            45,
+            61,
+            37
+          ],
+          "head_xy_cells": [
+            25,
+            45
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            31,
+            66
+          ],
+          "reference_head": [
+            30.3,
+            50
+          ],
+          "duration_ms": 70,
+          "landmarks": {
+            "hip": [
+              30,
+              65
+            ],
+            "left_knee": [
+              25,
+              68
+            ],
+            "left_foot": [
+              20,
+              72
+            ],
+            "right_knee": [
+              33,
+              69
+            ],
+            "right_foot": [
+              35,
+              73
+            ],
+            "axe_ring": [
+              31,
+              60
+            ],
+            "axe_hub": [
+              70,
+              70
+            ],
+            "left_hand": [
+              41,
+              63
+            ],
+            "right_hand": [
+              46,
+              64
+            ]
+          },
+          "bbox_pixels": [
+            112,
+            360,
+            488,
+            296
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 8,
+          "cell": [
+            3,
+            1
+          ],
+          "bbox_cells": [
+            23,
+            43,
+            34,
+            34
+          ],
+          "head_xy_cells": [
+            43,
+            43
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            46,
+            66
+          ],
+          "reference_head": [
+            47.6,
+            48.2
+          ],
+          "duration_ms": 130,
+          "landmarks": {
+            "hip": [
+              46,
+              64
+            ],
+            "left_knee": [
+              42,
+              67
+            ],
+            "left_foot": [
+              39,
+              72
+            ],
+            "right_knee": [
+              50,
+              67
+            ],
+            "right_foot": [
+              53,
+              72
+            ],
+            "axe_ring": [
+              39,
+              51
+            ],
+            "axe_hub": [
+              34,
+              72
+            ],
+            "left_hand": [
+              37,
+              61
+            ],
+            "right_hand": [
+              54,
+              58
+            ]
+          },
+          "bbox_pixels": [
+            184,
+            344,
+            272,
+            272
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "method": "native-grid reconstruction with approved-design parts and reference pose landmarks; exact head stencil pasted last",
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_w_attack.png",
+      "sha256": "a4e056de6d2b2702e92ad62d9dccd38bea4d90e3d6265d3842aa9c8c020a4853",
+      "kind": "character",
+      "tag": "w_attack",
+      "prompt_number": 6,
+      "frame_count": 6,
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "cell_size_cells": [
+          88,
+          96
+        ],
+        "cell_size_pixels": [
+          704,
+          768
+        ],
+        "sheet_size_pixels": [
+          2112,
+          1536
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          2112,
+          1536
+        ],
+        "color_count": 18,
+        "palette": [
+          "141319",
+          "20282D",
+          "292629",
+          "34424A",
+          "3C3534",
+          "50616A",
+          "554B45",
+          "647B91",
+          "77182B",
+          "7D9097",
+          "A72B3C",
+          "A97754",
+          "BFE8E7",
+          "C1D2D6",
+          "CA996E",
+          "E2B289",
+          "E8F4F2",
+          "FFFDF7"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            21,
+            46,
+            46,
+            29
+          ],
+          "head_xy_cells": [
+            55,
+            51
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            56,
+            66
+          ],
+          "reference_head": [
+            60.3,
+            55.7
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              56,
+              65
+            ],
+            "left_knee": [
+              52,
+              66
+            ],
+            "left_foot": [
+              46,
+              70
+            ],
+            "right_knee": [
+              59,
+              67
+            ],
+            "right_foot": [
+              60,
+              73
+            ],
+            "axe_ring": [
+              58,
+              58
+            ],
+            "axe_hub": [
+              27,
+              57
+            ],
+            "left_hand": [
+              48,
+              58
+            ],
+            "right_hand": [
+              55,
+              58
+            ]
+          },
+          "bbox_pixels": [
+            168,
+            368,
+            368,
+            232
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            19,
+            51,
+            43,
+            26
+          ],
+          "head_xy_cells": [
+            50,
+            51
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            49,
+            66
+          ],
+          "reference_head": [
+            55.3,
+            55.9
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              48,
+              65
+            ],
+            "left_knee": [
+              44,
+              66
+            ],
+            "left_foot": [
+              39,
+              71
+            ],
+            "right_knee": [
+              51,
+              67
+            ],
+            "right_foot": [
+              53,
+              73
+            ],
+            "axe_ring": [
+              50,
+              62
+            ],
+            "axe_hub": [
+              28,
+              71
+            ],
+            "left_hand": [
+              44,
+              64
+            ],
+            "right_hand": [
+              48,
+              63
+            ]
+          },
+          "bbox_pixels": [
+            152,
+            408,
+            344,
+            208
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            21,
+            53,
+            42,
+            22
+          ],
+          "head_xy_cells": [
+            51,
+            53
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            53,
+            66
+          ],
+          "reference_head": [
+            56.1,
+            58.3
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              53,
+              67
+            ],
+            "left_knee": [
+              51,
+              70
+            ],
+            "left_foot": [
+              47,
+              73
+            ],
+            "right_knee": [
+              57,
+              69
+            ],
+            "right_foot": [
+              57,
+              73
+            ],
+            "axe_ring": [
+              55,
+              64
+            ],
+            "axe_hub": [
+              27,
+              65
+            ],
+            "left_hand": [
+              48,
+              64
+            ],
+            "right_hand": [
+              53,
+              64
+            ]
+          },
+          "bbox_pixels": [
+            168,
+            424,
+            336,
+            176
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            0,
+            1
+          ],
+          "bbox_cells": [
+            30,
+            48,
+            34,
+            31
+          ],
+          "head_xy_cells": [
+            39,
+            48
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            42,
+            66
+          ],
+          "reference_head": [
+            43.8,
+            53
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              42,
+              66
+            ],
+            "left_knee": [
+              39,
+              68
+            ],
+            "left_foot": [
+              35,
+              73
+            ],
+            "right_knee": [
+              46,
+              67
+            ],
+            "right_foot": [
+              50,
+              73
+            ],
+            "axe_ring": [
+              62,
+              68
+            ],
+            "axe_hub": [
+              38,
+              73
+            ],
+            "left_hand": [
+              47,
+              71
+            ],
+            "right_hand": [
+              51,
+              70
+            ]
+          },
+          "bbox_pixels": [
+            240,
+            384,
+            272,
+            248
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            1,
+            1
+          ],
+          "bbox_cells": [
+            30,
+            48,
+            26,
+            34
+          ],
+          "head_xy_cells": [
+            40,
+            48
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            40,
+            66
+          ],
+          "reference_head": [
+            44.6,
+            52.5
+          ],
+          "duration_ms": 100,
+          "landmarks": {
+            "hip": [
+              40,
+              65
+            ],
+            "left_knee": [
+              37,
+              69
+            ],
+            "left_foot": [
+              32,
+              72
+            ],
+            "right_knee": [
+              45,
+              67
+            ],
+            "right_foot": [
+              50,
+              72
+            ],
+            "axe_ring": [
+              42,
+              59
+            ],
+            "axe_hub": [
+              51,
+              72
+            ],
+            "left_hand": [
+              46,
+              65
+            ],
+            "right_hand": [
+              47,
+              67
+            ]
+          },
+          "bbox_pixels": [
+            240,
+            384,
+            208,
+            272
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            2,
+            1
+          ],
+          "bbox_cells": [
+            30,
+            41,
+            26,
+            35
+          ],
+          "head_xy_cells": [
+            41,
+            41
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            45,
+            66
+          ],
+          "reference_head": [
+            45.5,
+            45.5
+          ],
+          "duration_ms": 140,
+          "landmarks": {
+            "hip": [
+              45,
+              64
+            ],
+            "left_knee": [
+              43,
+              67
+            ],
+            "left_foot": [
+              42,
+              72
+            ],
+            "right_knee": [
+              49,
+              67
+            ],
+            "right_foot": [
+              52,
+              72
+            ],
+            "axe_ring": [
+              39,
+              47
+            ],
+            "axe_hub": [
+              41,
+              68
+            ],
+            "left_hand": [
+              40,
+              59
+            ],
+            "right_hand": [
+              50,
+              57
+            ]
+          },
+          "bbox_pixels": [
+            240,
+            328,
+            208,
+            280
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "method": "native-grid reconstruction with approved-design parts and reference pose landmarks; exact head stencil pasted last",
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_skill2.png",
+      "sha256": "170f45f4c9d18c1eafeb4413e78bf1582026ac7c1a90b93e5e108eb5d8db14d0",
+      "kind": "character",
+      "tag": "skill2",
+      "prompt_number": 7,
+      "frame_count": 8,
+      "layout": {
+        "columns": 4,
+        "rows": 2,
+        "order": "row-major",
+        "cell_size_cells": [
+          88,
+          96
+        ],
+        "cell_size_pixels": [
+          704,
+          768
+        ],
+        "sheet_size_pixels": [
+          2816,
+          1536
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          2816,
+          1536
+        ],
+        "color_count": 18,
+        "palette": [
+          "141319",
+          "20282D",
+          "292629",
+          "34424A",
+          "3C3534",
+          "50616A",
+          "554B45",
+          "647B91",
+          "77182B",
+          "7D9097",
+          "A72B3C",
+          "A97754",
+          "BFE8E7",
+          "C1D2D6",
+          "CA996E",
+          "E2B289",
+          "E8F4F2",
+          "FFFDF7"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            24,
+            46,
+            32,
+            32
+          ],
+          "head_xy_cells": [
+            44,
+            46
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            44,
+            66
+          ],
+          "reference_head": [
+            48.8,
+            50.6
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              44,
+              66
+            ],
+            "left_knee": [
+              40,
+              70
+            ],
+            "left_foot": [
+              38,
+              75
+            ],
+            "right_knee": [
+              46,
+              70
+            ],
+            "right_foot": [
+              48,
+              74
+            ],
+            "axe_ring": [
+              43,
+              51
+            ],
+            "axe_hub": [
+              35,
+              73
+            ],
+            "left_hand": [
+              39,
+              62
+            ],
+            "right_hand": [
+              48,
+              59
+            ]
+          },
+          "bbox_pixels": [
+            192,
+            368,
+            256,
+            256
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            28,
+            54,
+            29,
+            31
+          ],
+          "head_xy_cells": [
+            45,
+            54
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            37,
+            66
+          ],
+          "reference_head": [
+            50,
+            59.1
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              37,
+              69
+            ],
+            "left_knee": [
+              35,
+              72
+            ],
+            "left_foot": [
+              34,
+              74
+            ],
+            "right_knee": [
+              42,
+              69
+            ],
+            "right_foot": [
+              47,
+              73
+            ],
+            "axe_ring": [
+              46,
+              61
+            ],
+            "axe_hub": [
+              39,
+              80
+            ],
+            "left_hand": [
+              44,
+              68
+            ],
+            "right_hand": [
+              45,
+              64
+            ]
+          },
+          "bbox_pixels": [
+            224,
+            432,
+            232,
+            248
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            57,
+            54,
+            37
+          ],
+          "head_xy_cells": [
+            33,
+            57
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            22,
+            66
+          ],
+          "reference_head": [
+            37.9,
+            61.6
+          ],
+          "duration_ms": 70,
+          "landmarks": {
+            "hip": [
+              23,
+              70
+            ],
+            "left_knee": [
+              20,
+              73
+            ],
+            "left_foot": [
+              19,
+              75
+            ],
+            "right_knee": [
+              29,
+              69
+            ],
+            "right_foot": [
+              33,
+              73
+            ],
+            "axe_ring": [
+              24,
+              58
+            ],
+            "axe_hub": [
+              57,
+              82
+            ],
+            "left_hand": [
+              38,
+              68
+            ],
+            "right_hand": [
+              43,
+              72
+            ]
+          },
+          "bbox_pixels": [
+            56,
+            456,
+            432,
+            296
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            2,
+            51,
+            82,
+            33
+          ],
+          "head_xy_cells": [
+            9,
+            51
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            8,
+            66
+          ],
+          "reference_head": [
+            14,
+            56.2
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              8,
+              68
+            ],
+            "left_knee": [
+              10,
+              71
+            ],
+            "left_foot": [
+              18,
+              76
+            ],
+            "right_knee": [
+              15,
+              70
+            ],
+            "right_foot": [
+              20,
+              75
+            ],
+            "axe_ring": [
+              4,
+              65
+            ],
+            "axe_hub": [
+              78,
+              72
+            ],
+            "left_hand": [
+              22,
+              67
+            ],
+            "right_hand": [
+              28,
+              67
+            ]
+          },
+          "bbox_pixels": [
+            16,
+            408,
+            656,
+            264
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            0,
+            1
+          ],
+          "bbox_cells": [
+            11,
+            49,
+            54,
+            33
+          ],
+          "head_xy_cells": [
+            23,
+            49
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            28,
+            66
+          ],
+          "reference_head": [
+            27.6,
+            54.1
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              27,
+              66
+            ],
+            "left_knee": [
+              26,
+              69
+            ],
+            "left_foot": [
+              23,
+              73
+            ],
+            "right_knee": [
+              32,
+              69
+            ],
+            "right_foot": [
+              35,
+              74
+            ],
+            "axe_ring": [
+              16,
+              59
+            ],
+            "axe_hub": [
+              60,
+              70
+            ],
+            "left_hand": [
+              31,
+              63
+            ],
+            "right_hand": [
+              37,
+              64
+            ]
+          },
+          "bbox_pixels": [
+            88,
+            392,
+            432,
+            264
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            1,
+            1
+          ],
+          "bbox_cells": [
+            17,
+            50,
+            42,
+            28
+          ],
+          "head_xy_cells": [
+            47,
+            50
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            49,
+            66
+          ],
+          "reference_head": [
+            51.9,
+            54.8
+          ],
+          "duration_ms": 70,
+          "landmarks": {
+            "hip": [
+              48,
+              68
+            ],
+            "left_knee": [
+              45,
+              72
+            ],
+            "left_foot": [
+              44,
+              76
+            ],
+            "right_knee": [
+              52,
+              72
+            ],
+            "right_foot": [
+              54,
+              76
+            ],
+            "axe_ring": [
+              55,
+              54
+            ],
+            "axe_hub": [
+              26,
+              68
+            ],
+            "left_hand": [
+              43,
+              60
+            ],
+            "right_hand": [
+              47,
+              58
+            ]
+          },
+          "bbox_pixels": [
+            136,
+            400,
+            336,
+            224
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 7,
+          "cell": [
+            2,
+            1
+          ],
+          "bbox_cells": [
+            22,
+            50,
+            39,
+            28
+          ],
+          "head_xy_cells": [
+            49,
+            50
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            50,
+            66
+          ],
+          "reference_head": [
+            53.6,
+            54.9
+          ],
+          "duration_ms": 100,
+          "landmarks": {
+            "hip": [
+              49,
+              67
+            ],
+            "left_knee": [
+              45,
+              72
+            ],
+            "left_foot": [
+              43,
+              76
+            ],
+            "right_knee": [
+              53,
+              71
+            ],
+            "right_foot": [
+              56,
+              76
+            ],
+            "axe_ring": [
+              55,
+              53
+            ],
+            "axe_hub": [
+              31,
+              69
+            ],
+            "left_hand": [
+              43,
+              61
+            ],
+            "right_hand": [
+              47,
+              58
+            ]
+          },
+          "bbox_pixels": [
+            176,
+            400,
+            312,
+            224
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 8,
+          "cell": [
+            3,
+            1
+          ],
+          "bbox_cells": [
+            24,
+            44,
+            34,
+            32
+          ],
+          "head_xy_cells": [
+            45,
+            44
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            48,
+            66
+          ],
+          "reference_head": [
+            50.1,
+            48.7
+          ],
+          "duration_ms": 100,
+          "landmarks": {
+            "hip": [
+              47,
+              64
+            ],
+            "left_knee": [
+              44,
+              69
+            ],
+            "left_foot": [
+              42,
+              74
+            ],
+            "right_knee": [
+              52,
+              69
+            ],
+            "right_foot": [
+              54,
+              74
+            ],
+            "axe_ring": [
+              43,
+              48
+            ],
+            "axe_hub": [
+              35,
+              71
+            ],
+            "left_hand": [
+              39,
+              59
+            ],
+            "right_hand": [
+              55,
+              59
+            ]
+          },
+          "bbox_pixels": [
+            192,
+            352,
+            272,
+            256
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "method": "native-grid reconstruction with approved-design parts and reference pose landmarks; exact head stencil pasted last",
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_ult.png",
+      "sha256": "8477dfffb4e9ddebe903c37d33a75bc8d354118161957f9487ddc4f08a41041d",
+      "kind": "character",
+      "tag": "ult",
+      "prompt_number": 8,
+      "frame_count": 8,
+      "layout": {
+        "columns": 4,
+        "rows": 2,
+        "order": "row-major",
+        "cell_size_cells": [
+          88,
+          96
+        ],
+        "cell_size_pixels": [
+          704,
+          768
+        ],
+        "sheet_size_pixels": [
+          2816,
+          1536
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          2816,
+          1536
+        ],
+        "color_count": 18,
+        "palette": [
+          "141319",
+          "20282D",
+          "292629",
+          "34424A",
+          "3C3534",
+          "50616A",
+          "554B45",
+          "647B91",
+          "77182B",
+          "7D9097",
+          "A72B3C",
+          "A97754",
+          "BFE8E7",
+          "C1D2D6",
+          "CA996E",
+          "E2B289",
+          "E8F4F2",
+          "FFFDF7"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            20,
+            34,
+            41,
+            36
+          ],
+          "head_xy_cells": [
+            39,
+            36
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            43,
+            66
+          ],
+          "reference_head": [
+            43.8,
+            40.8
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              42,
+              60
+            ],
+            "left_knee": [
+              39,
+              63
+            ],
+            "left_foot": [
+              37,
+              68
+            ],
+            "right_knee": [
+              45,
+              61
+            ],
+            "right_foot": [
+              47,
+              66
+            ],
+            "axe_ring": [
+              39,
+              35
+            ],
+            "axe_hub": [
+              31,
+              60
+            ],
+            "left_hand": [
+              33,
+              53
+            ],
+            "right_hand": [
+              59,
+              52
+            ]
+          },
+          "bbox_pixels": [
+            160,
+            272,
+            328,
+            288
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            25,
+            23,
+            35,
+            42
+          ],
+          "head_xy_cells": [
+            48,
+            32
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            52,
+            66
+          ],
+          "reference_head": [
+            53.4,
+            36.5
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              51,
+              53
+            ],
+            "left_knee": [
+              47,
+              58
+            ],
+            "left_foot": [
+              45,
+              63
+            ],
+            "right_knee": [
+              54,
+              56
+            ],
+            "right_foot": [
+              55,
+              60
+            ],
+            "axe_ring": [
+              55,
+              25
+            ],
+            "axe_hub": [
+              34,
+              34
+            ],
+            "left_hand": [
+              42,
+              31
+            ],
+            "right_hand": [
+              52,
+              26
+            ]
+          },
+          "bbox_pixels": [
+            200,
+            184,
+            280,
+            336
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            25,
+            11,
+            36,
+            46
+          ],
+          "head_xy_cells": [
+            49,
+            25
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            52,
+            66
+          ],
+          "reference_head": [
+            54,
+            29.9
+          ],
+          "duration_ms": 80,
+          "landmarks": {
+            "hip": [
+              51,
+              46
+            ],
+            "left_knee": [
+              48,
+              50
+            ],
+            "left_foot": [
+              45,
+              55
+            ],
+            "right_knee": [
+              56,
+              47
+            ],
+            "right_foot": [
+              56,
+              51
+            ],
+            "axe_ring": [
+              59,
+              18
+            ],
+            "axe_hub": [
+              32,
+              22
+            ],
+            "left_hand": [
+              44,
+              20
+            ],
+            "right_hand": [
+              56,
+              18
+            ]
+          },
+          "bbox_pixels": [
+            200,
+            88,
+            288,
+            368
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            26,
+            9,
+            37,
+            48
+          ],
+          "head_xy_cells": [
+            50,
+            24
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            53,
+            66
+          ],
+          "reference_head": [
+            54.9,
+            29.3
+          ],
+          "duration_ms": 80,
+          "landmarks": {
+            "hip": [
+              52,
+              46
+            ],
+            "left_knee": [
+              49,
+              50
+            ],
+            "left_foot": [
+              46,
+              55
+            ],
+            "right_knee": [
+              57,
+              47
+            ],
+            "right_foot": [
+              57,
+              51
+            ],
+            "axe_ring": [
+              61,
+              19
+            ],
+            "axe_hub": [
+              32,
+              20
+            ],
+            "left_hand": [
+              45,
+              20
+            ],
+            "right_hand": [
+              58,
+              19
+            ]
+          },
+          "bbox_pixels": [
+            208,
+            72,
+            296,
+            384
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            0,
+            1
+          ],
+          "bbox_cells": [
+            26,
+            19,
+            36,
+            54
+          ],
+          "head_xy_cells": [
+            45,
+            48
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            39,
+            66
+          ],
+          "reference_head": [
+            50,
+            52.8
+          ],
+          "duration_ms": 60,
+          "landmarks": {
+            "hip": [
+              39,
+              65
+            ],
+            "left_knee": [
+              32,
+              67
+            ],
+            "left_foot": [
+              28,
+              68
+            ],
+            "right_knee": [
+              43,
+              66
+            ],
+            "right_foot": [
+              44,
+              71
+            ],
+            "axe_ring": [
+              49,
+              58
+            ],
+            "axe_hub": [
+              50,
+              25
+            ],
+            "left_hand": [
+              49,
+              46
+            ],
+            "right_hand": [
+              49,
+              43
+            ]
+          },
+          "bbox_pixels": [
+            208,
+            152,
+            288,
+            432
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            1,
+            1
+          ],
+          "bbox_cells": [
+            17,
+            55,
+            44,
+            38
+          ],
+          "head_xy_cells": [
+            31,
+            55
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            29,
+            66
+          ],
+          "reference_head": [
+            35.5,
+            59.8
+          ],
+          "duration_ms": 100,
+          "landmarks": {
+            "hip": [
+              28,
+              67
+            ],
+            "left_knee": [
+              22,
+              68
+            ],
+            "left_foot": [
+              19,
+              70
+            ],
+            "right_knee": [
+              34,
+              68
+            ],
+            "right_foot": [
+              36,
+              70
+            ],
+            "axe_ring": [
+              21,
+              60
+            ],
+            "axe_hub": [
+              56,
+              81
+            ],
+            "left_hand": [
+              36,
+              69
+            ],
+            "right_hand": [
+              41,
+              72
+            ]
+          },
+          "bbox_pixels": [
+            136,
+            440,
+            352,
+            304
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 7,
+          "cell": [
+            2,
+            1
+          ],
+          "bbox_cells": [
+            17,
+            52,
+            45,
+            42
+          ],
+          "head_xy_cells": [
+            28,
+            52
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            30,
+            66
+          ],
+          "reference_head": [
+            33.3,
+            56.8
+          ],
+          "duration_ms": 120,
+          "landmarks": {
+            "hip": [
+              28,
+              65
+            ],
+            "left_knee": [
+              23,
+              68
+            ],
+            "left_foot": [
+              19,
+              71
+            ],
+            "right_knee": [
+              34,
+              66
+            ],
+            "right_foot": [
+              37,
+              70
+            ],
+            "axe_ring": [
+              19,
+              58
+            ],
+            "axe_hub": [
+              57,
+              82
+            ],
+            "left_hand": [
+              35,
+              68
+            ],
+            "right_hand": [
+              40,
+              71
+            ]
+          },
+          "bbox_pixels": [
+            136,
+            416,
+            360,
+            336
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 8,
+          "cell": [
+            3,
+            1
+          ],
+          "bbox_cells": [
+            24,
+            41,
+            34,
+            33
+          ],
+          "head_xy_cells": [
+            42,
+            41
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            47,
+            66
+          ],
+          "reference_head": [
+            47.3,
+            46.2
+          ],
+          "duration_ms": 120,
+          "landmarks": {
+            "hip": [
+              46,
+              63
+            ],
+            "left_knee": [
+              43,
+              67
+            ],
+            "left_foot": [
+              42,
+              72
+            ],
+            "right_knee": [
+              50,
+              66
+            ],
+            "right_foot": [
+              54,
+              71
+            ],
+            "axe_ring": [
+              39,
+              46
+            ],
+            "axe_hub": [
+              35,
+              68
+            ],
+            "left_hand": [
+              37,
+              57
+            ],
+            "right_hand": [
+              53,
+              58
+            ]
+          },
+          "bbox_pixels": [
+            192,
+            328,
+            272,
+            264
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "method": "native-grid reconstruction with approved-design parts and reference pose landmarks; exact head stencil pasted last",
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_hit.png",
+      "sha256": "00c6df6bbfd5a1a27fbf776a3867cd3ac0d0a30b105ee67898528270bd51c960",
+      "kind": "character",
+      "tag": "hit",
+      "prompt_number": 9,
+      "frame_count": 2,
+      "layout": {
+        "columns": 2,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          88,
+          96
+        ],
+        "cell_size_pixels": [
+          704,
+          768
+        ],
+        "sheet_size_pixels": [
+          1408,
+          768
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          1408,
+          768
+        ],
+        "color_count": 18,
+        "palette": [
+          "141319",
+          "20282D",
+          "292629",
+          "34424A",
+          "3C3534",
+          "50616A",
+          "554B45",
+          "647B91",
+          "77182B",
+          "7D9097",
+          "A72B3C",
+          "A97754",
+          "BFE8E7",
+          "C1D2D6",
+          "CA996E",
+          "E2B289",
+          "E8F4F2",
+          "FFFDF7"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            28,
+            38,
+            28,
+            39
+          ],
+          "head_xy_cells": [
+            42,
+            38
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            48,
+            66
+          ],
+          "reference_head": [
+            46.4,
+            43.3
+          ],
+          "duration_ms": 120,
+          "landmarks": {
+            "method": "approved-design-native-cells",
+            "body_translation": [
+              -19,
+              -24
+            ]
+          },
+          "bbox_pixels": [
+            224,
+            304,
+            224,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            28,
+            39,
+            28,
+            39
+          ],
+          "head_xy_cells": [
+            42,
+            39
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            47,
+            66
+          ],
+          "reference_head": [
+            46.5,
+            43.6
+          ],
+          "duration_ms": 120,
+          "landmarks": {
+            "method": "approved-design-native-cells",
+            "body_translation": [
+              -19,
+              -23
+            ]
+          },
+          "bbox_pixels": [
+            224,
+            312,
+            224,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "method": "native-grid reconstruction with approved-design parts and reference pose landmarks; exact head stencil pasted last",
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_dead.png",
+      "sha256": "2963f5faff75bb5367703c1296d19bb009524ce23a53d1b953d0225f98497388",
+      "kind": "character",
+      "tag": "dead",
+      "prompt_number": 10,
+      "frame_count": 7,
+      "layout": {
+        "columns": 4,
+        "rows": 2,
+        "order": "row-major",
+        "cell_size_cells": [
+          88,
+          96
+        ],
+        "cell_size_pixels": [
+          704,
+          768
+        ],
+        "sheet_size_pixels": [
+          2816,
+          1536
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          2816,
+          1536
+        ],
+        "color_count": 18,
+        "palette": [
+          "141319",
+          "20282D",
+          "292629",
+          "34424A",
+          "3C3534",
+          "50616A",
+          "554B45",
+          "647B91",
+          "77182B",
+          "7D9097",
+          "A72B3C",
+          "A97754",
+          "BFE8E7",
+          "C1D2D6",
+          "CA996E",
+          "E2B289",
+          "E8F4F2",
+          "FFFDF7"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            29,
+            36,
+            31,
+            39
+          ],
+          "head_xy_cells": [
+            41,
+            36
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            50,
+            66
+          ],
+          "reference_head": [
+            46.4,
+            40.6
+          ],
+          "duration_ms": 100,
+          "landmarks": {
+            "hip": [
+              50,
+              61
+            ],
+            "left_knee": [
+              47,
+              65
+            ],
+            "left_foot": [
+              46,
+              70
+            ],
+            "right_knee": [
+              53,
+              65
+            ],
+            "right_foot": [
+              56,
+              71
+            ],
+            "axe_ring": [
+              39,
+              42
+            ],
+            "axe_hub": [
+              40,
+              68
+            ],
+            "left_hand": [
+              40,
+              57
+            ],
+            "right_hand": [
+              53,
+              54
+            ]
+          },
+          "bbox_pixels": [
+            232,
+            288,
+            248,
+            312
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            34,
+            35,
+            27,
+            41
+          ],
+          "head_xy_cells": [
+            39,
+            35
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            51,
+            66
+          ],
+          "reference_head": [
+            44.1,
+            39.5
+          ],
+          "duration_ms": 100,
+          "landmarks": {
+            "hip": [
+              51,
+              61
+            ],
+            "left_knee": [
+              49,
+              65
+            ],
+            "left_foot": [
+              48,
+              70
+            ],
+            "right_knee": [
+              54,
+              64
+            ],
+            "right_foot": [
+              57,
+              67
+            ],
+            "axe_ring": [
+              40,
+              42
+            ],
+            "axe_hub": [
+              52,
+              66
+            ],
+            "left_hand": [
+              46,
+              54
+            ],
+            "right_hand": [
+              52,
+              57
+            ]
+          },
+          "bbox_pixels": [
+            272,
+            280,
+            216,
+            328
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            30,
+            44,
+            32,
+            36
+          ],
+          "head_xy_cells": [
+            35,
+            44
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            51,
+            66
+          ],
+          "reference_head": [
+            40.1,
+            49.1
+          ],
+          "duration_ms": 100,
+          "landmarks": {
+            "hip": [
+              50,
+              65
+            ],
+            "left_knee": [
+              51,
+              68
+            ],
+            "left_foot": [
+              51,
+              73
+            ],
+            "right_knee": [
+              54,
+              65
+            ],
+            "right_foot": [
+              58,
+              71
+            ],
+            "axe_ring": [
+              39,
+              55
+            ],
+            "axe_hub": [
+              57,
+              68
+            ],
+            "left_hand": [
+              48,
+              61
+            ],
+            "right_hand": [
+              51,
+              62
+            ]
+          },
+          "bbox_pixels": [
+            240,
+            352,
+            256,
+            288
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            23,
+            48,
+            51,
+            31
+          ],
+          "head_xy_cells": [
+            28,
+            56
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            53,
+            66
+          ],
+          "reference_head": [
+            33.3,
+            61.1
+          ],
+          "duration_ms": 120,
+          "landmarks": {
+            "hip": [
+              47,
+              72
+            ],
+            "left_knee": [
+              53,
+              72
+            ],
+            "left_foot": [
+              61,
+              76
+            ],
+            "right_knee": [
+              52,
+              70
+            ],
+            "right_foot": [
+              59,
+              72
+            ],
+            "axe_ring": [
+              37,
+              70
+            ],
+            "axe_hub": [
+              64,
+              52
+            ],
+            "left_hand": [
+              43,
+              66
+            ],
+            "right_hand": [
+              48,
+              61
+            ]
+          },
+          "bbox_pixels": [
+            184,
+            384,
+            408,
+            248
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            0,
+            1
+          ],
+          "bbox_cells": [
+            26,
+            48,
+            42,
+            33
+          ],
+          "head_xy_cells": [
+            31,
+            63
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            61,
+            66
+          ],
+          "reference_head": [
+            35.8,
+            67.8
+          ],
+          "duration_ms": 120,
+          "landmarks": {
+            "hip": [
+              50,
+              72
+            ],
+            "left_knee": [
+              56,
+              73
+            ],
+            "left_foot": [
+              62,
+              77
+            ],
+            "right_knee": [
+              58,
+              71
+            ],
+            "right_foot": [
+              64,
+              74
+            ],
+            "axe_ring": [
+              44,
+              60
+            ],
+            "axe_hub": [
+              40,
+              59
+            ],
+            "left_hand": [
+              38,
+              77
+            ],
+            "right_hand": [
+              46,
+              73
+            ]
+          },
+          "bbox_pixels": [
+            208,
+            384,
+            336,
+            264
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            1,
+            1
+          ],
+          "bbox_cells": [
+            27,
+            44,
+            42,
+            36
+          ],
+          "head_xy_cells": [
+            32,
+            62
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            63,
+            66
+          ],
+          "reference_head": [
+            36.7,
+            67.2
+          ],
+          "duration_ms": 200,
+          "landmarks": {
+            "hip": [
+              52,
+              72
+            ],
+            "left_knee": [
+              59,
+              74
+            ],
+            "left_foot": [
+              65,
+              77
+            ],
+            "right_knee": [
+              59,
+              71
+            ],
+            "right_foot": [
+              64,
+              74
+            ],
+            "axe_ring": [
+              63,
+              55
+            ],
+            "axe_hub": [
+              41,
+              55
+            ],
+            "left_hand": [
+              40,
+              77
+            ],
+            "right_hand": [
+              48,
+              72
+            ]
+          },
+          "bbox_pixels": [
+            216,
+            352,
+            336,
+            288
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 7,
+          "cell": [
+            2,
+            1
+          ],
+          "bbox_cells": [
+            29,
+            46,
+            42,
+            34
+          ],
+          "head_xy_cells": [
+            34,
+            62
+          ],
+          "head_size_cells": [
+            10,
+            13
+          ],
+          "head_source_mask_exact": true,
+          "pivot_cells": [
+            65,
+            66
+          ],
+          "reference_head": [
+            38.7,
+            67.3
+          ],
+          "duration_ms": 400,
+          "landmarks": {
+            "hip": [
+              55,
+              72
+            ],
+            "left_knee": [
+              60,
+              74
+            ],
+            "left_foot": [
+              66,
+              77
+            ],
+            "right_knee": [
+              61,
+              71
+            ],
+            "right_foot": [
+              67,
+              74
+            ],
+            "axe_ring": [
+              64,
+              57
+            ],
+            "axe_hub": [
+              43,
+              57
+            ],
+            "left_hand": [
+              42,
+              77
+            ],
+            "right_hand": [
+              51,
+              74
+            ]
+          },
+          "bbox_pixels": [
+            232,
+            368,
+            336,
+            272
+          ],
+          "head_mask_sha256": "f30dcf419234081427b52d88de1271240e035ea788679d2d36d8198789adbacf",
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "method": "native-grid reconstruction with approved-design parts and reference pose landmarks; exact head stencil pasted last",
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_hit.png",
+      "sha256": "cc05ebd38a12db39435aacd8af7b1242fbdfda9909bc8be731ea169b2733f6b6",
+      "kind": "vfx",
+      "tag": "fx_hit",
+      "prompt_number": 11,
+      "frame_count": 5,
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          32,
+          32
+        ],
+        "cell_size_pixels": [
+          256,
+          256
+        ],
+        "sheet_size_pixels": [
+          1280,
+          256
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          1280,
+          256
+        ],
+        "color_count": 8,
+        "palette": [
+          "5A0710",
+          "7E8A94",
+          "B3121F",
+          "BFC8CF",
+          "F2F6F8",
+          "FF3B30",
+          "FFC2B8",
+          "FFFFFF"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            8,
+            9,
+            16,
+            13
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            64,
+            72,
+            128,
+            104
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            8,
+            6,
+            16,
+            19
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            64,
+            48,
+            128,
+            152
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            6,
+            17,
+            20
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            56,
+            48,
+            136,
+            160
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            8,
+            16,
+            14
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            56,
+            64,
+            128,
+            112
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            4,
+            0
+          ],
+          "bbox_cells": [
+            11,
+            10,
+            9,
+            10
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            88,
+            80,
+            72,
+            80
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "source_cell_width": 396.6,
+        "source_height": 793,
+        "shared_scale": [
+          0.05152224824355972,
+          0.05152224824355972
+        ],
+        "source_anchor": [
+          205.09999999999997,
+          393
+        ],
+        "target_anchor": [
+          16,
+          16
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_bleed.png",
+      "sha256": "22e11d7c3962855cb7f528ef5da95343b8c99740416fc2cd2a781612d9f787b4",
+      "kind": "vfx",
+      "tag": "fx_bleed",
+      "prompt_number": 12,
+      "frame_count": 5,
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          32,
+          32
+        ],
+        "cell_size_pixels": [
+          256,
+          256
+        ],
+        "sheet_size_pixels": [
+          1280,
+          256
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          1280,
+          256
+        ],
+        "color_count": 3,
+        "palette": [
+          "B3121F",
+          "FF3B30",
+          "FFC2B8"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            15,
+            18,
+            4,
+            3
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            120,
+            144,
+            32,
+            24
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            10,
+            10,
+            12,
+            11
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            80,
+            80,
+            96,
+            88
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            9,
+            12,
+            14,
+            10
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            72,
+            96,
+            112,
+            80
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            10,
+            15,
+            12,
+            7
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            80,
+            120,
+            96,
+            56
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            4,
+            0
+          ],
+          "bbox_cells": [
+            12,
+            18,
+            8,
+            4
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            96,
+            144,
+            64,
+            32
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "source_cell_width": 396.6,
+        "source_height": 793,
+        "shared_scale": [
+          0.054901960784313725,
+          0.054901960784313725
+        ],
+        "source_anchor": [
+          197.79999999999995,
+          355
+        ],
+        "target_anchor": [
+          16,
+          16
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_q_spin.png",
+      "sha256": "9b9bf001d760c25bccb600909beec889034c7268db38466e53cf850396e3809a",
+      "kind": "vfx",
+      "tag": "fx_q_spin",
+      "prompt_number": 13,
+      "frame_count": 6,
+      "layout": {
+        "columns": 6,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          32,
+          32
+        ],
+        "cell_size_pixels": [
+          256,
+          256
+        ],
+        "sheet_size_pixels": [
+          1536,
+          256
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          1536,
+          256
+        ],
+        "color_count": 8,
+        "palette": [
+          "5A0710",
+          "7E8A94",
+          "B3121F",
+          "BFC8CF",
+          "F2F6F8",
+          "FF3B30",
+          "FFC2B8",
+          "FFFFFF"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            18,
+            10,
+            11,
+            12
+          ],
+          "duration_ms": 50,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            144,
+            80,
+            88,
+            96
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            2,
+            8,
+            28,
+            18
+          ],
+          "duration_ms": 50,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            16,
+            64,
+            224,
+            144
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            1,
+            5,
+            29,
+            22
+          ],
+          "duration_ms": 50,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            8,
+            40,
+            232,
+            176
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            2,
+            5,
+            29,
+            22
+          ],
+          "duration_ms": 50,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            16,
+            40,
+            232,
+            176
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            4,
+            0
+          ],
+          "bbox_cells": [
+            2,
+            5,
+            28,
+            23
+          ],
+          "duration_ms": 50,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            16,
+            40,
+            224,
+            184
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            5,
+            0
+          ],
+          "bbox_cells": [
+            3,
+            6,
+            25,
+            19
+          ],
+          "duration_ms": 50,
+          "pivot_cells": [
+            16,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            24,
+            48,
+            200,
+            152
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "source_cell_width": 362,
+        "source_height": 724,
+        "shared_scale": [
+          0.08356545961002786,
+          0.07348242811501597
+        ],
+        "source_anchor": [
+          181,
+          354
+        ],
+        "target_anchor": [
+          16,
+          16
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_q_heal.png",
+      "sha256": "5a4f3323f11be4e1351de41d9fbb5fbb36bf05c65cb9aac3aea48aebb2b47538",
+      "kind": "vfx",
+      "tag": "fx_q_heal",
+      "prompt_number": 14,
+      "frame_count": 6,
+      "layout": {
+        "columns": 6,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          32,
+          32
+        ],
+        "cell_size_pixels": [
+          256,
+          256
+        ],
+        "sheet_size_pixels": [
+          1536,
+          256
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          1536,
+          256
+        ],
+        "color_count": 5,
+        "palette": [
+          "5A0710",
+          "B3121F",
+          "FF3B30",
+          "FFC2B8",
+          "FFFFFF"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            8,
+            11,
+            16,
+            17
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            64,
+            88,
+            128,
+            136
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            9,
+            18,
+            14
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            56,
+            72,
+            144,
+            112
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            8,
+            9,
+            16,
+            17
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            64,
+            72,
+            128,
+            136
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            10,
+            18,
+            13
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            56,
+            80,
+            144,
+            104
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            4,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            8,
+            17,
+            20
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            56,
+            64,
+            136,
+            160
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            5,
+            0
+          ],
+          "bbox_cells": [
+            9,
+            6,
+            14,
+            16
+          ],
+          "duration_ms": 80,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            72,
+            48,
+            112,
+            128
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "source_cell_width": 362,
+        "source_height": 724,
+        "shared_scale": [
+          0.06267806267806268,
+          0.06267806267806268
+        ],
+        "source_anchor": [
+          185,
+          345
+        ],
+        "target_anchor": [
+          16,
+          17
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_might.png",
+      "sha256": "962058913efcc9c746307cc3c6e0ad1f1ee65fd8a25ad1807c96bc875ecb9042",
+      "kind": "vfx",
+      "tag": "fx_might",
+      "prompt_number": 15,
+      "frame_count": 6,
+      "layout": {
+        "columns": 6,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          32,
+          32
+        ],
+        "cell_size_pixels": [
+          256,
+          256
+        ],
+        "sheet_size_pixels": [
+          1536,
+          256
+        ]
+      },
+      "loop": true,
+      "validation": {
+        "size": [
+          1536,
+          256
+        ],
+        "color_count": 5,
+        "palette": [
+          "2A0508",
+          "6E0A12",
+          "D11E1E",
+          "FF6A2B",
+          "FFD9A0"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            8,
+            8,
+            16,
+            20
+          ],
+          "duration_ms": 167,
+          "pivot_cells": [
+            16,
+            28
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            64,
+            64,
+            128,
+            160
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            4,
+            17,
+            24
+          ],
+          "duration_ms": 167,
+          "pivot_cells": [
+            16,
+            28
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            56,
+            32,
+            136,
+            192
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            8,
+            1,
+            16,
+            27
+          ],
+          "duration_ms": 167,
+          "pivot_cells": [
+            16,
+            28
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            64,
+            8,
+            128,
+            216
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            8,
+            5,
+            16,
+            23
+          ],
+          "duration_ms": 167,
+          "pivot_cells": [
+            16,
+            28
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            64,
+            40,
+            128,
+            184
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            4,
+            0
+          ],
+          "bbox_cells": [
+            8,
+            6,
+            17,
+            22
+          ],
+          "duration_ms": 167,
+          "pivot_cells": [
+            16,
+            28
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            64,
+            48,
+            136,
+            176
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            5,
+            0
+          ],
+          "bbox_cells": [
+            8,
+            9,
+            16,
+            19
+          ],
+          "duration_ms": 167,
+          "pivot_cells": [
+            16,
+            28
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            64,
+            72,
+            128,
+            152
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "source_cell_width": 362,
+        "source_height": 724,
+        "shared_scale": [
+          0.051233396584440226,
+          0.051233396584440226
+        ],
+        "source_anchor": [
+          180,
+          600
+        ],
+        "target_anchor": [
+          16,
+          28
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_w_ready.png",
+      "sha256": "7073bd45c213885b257f9f96dbdcfc0c06bdd862fcbecfd62d4cede15ed4fe06",
+      "kind": "vfx",
+      "tag": "fx_w_ready",
+      "prompt_number": 16,
+      "frame_count": 4,
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          32,
+          32
+        ],
+        "cell_size_pixels": [
+          256,
+          256
+        ],
+        "sheet_size_pixels": [
+          1024,
+          256
+        ]
+      },
+      "loop": true,
+      "validation": {
+        "size": [
+          1024,
+          256
+        ],
+        "color_count": 6,
+        "palette": [
+          "5A0710",
+          "B3121F",
+          "BFC8CF",
+          "F2F6F8",
+          "FF3B30",
+          "FFC2B8"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            5,
+            17,
+            21,
+            10
+          ],
+          "duration_ms": 100,
+          "pivot_cells": [
+            16,
+            24
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            40,
+            136,
+            168,
+            80
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            5,
+            18,
+            22,
+            11
+          ],
+          "duration_ms": 100,
+          "pivot_cells": [
+            16,
+            24
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            40,
+            144,
+            176,
+            88
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            6,
+            18,
+            21,
+            10
+          ],
+          "duration_ms": 100,
+          "pivot_cells": [
+            16,
+            24
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            48,
+            144,
+            168,
+            80
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            6,
+            17,
+            21,
+            11
+          ],
+          "duration_ms": 100,
+          "pivot_cells": [
+            16,
+            24
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            48,
+            136,
+            168,
+            88
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "source_cell_width": 543,
+        "source_height": 724,
+        "shared_scale": [
+          0.04631578947368421,
+          0.04631578947368421
+        ],
+        "source_anchor": [
+          271,
+          441.64
+        ],
+        "target_anchor": [
+          16,
+          24
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_w_hit.png",
+      "sha256": "20641e8a49778e10fb3aa67ba530fe2daf883991a9aed77559bcbc740803e1c5",
+      "kind": "vfx",
+      "tag": "fx_w_hit",
+      "prompt_number": 17,
+      "frame_count": 6,
+      "layout": {
+        "columns": 6,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          32,
+          32
+        ],
+        "cell_size_pixels": [
+          256,
+          256
+        ],
+        "sheet_size_pixels": [
+          1536,
+          256
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          1536,
+          256
+        ],
+        "color_count": 8,
+        "palette": [
+          "5A0710",
+          "7E8A94",
+          "B3121F",
+          "BFC8CF",
+          "F2F6F8",
+          "FF3B30",
+          "FFC2B8",
+          "FFFFFF"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            13,
+            21,
+            6,
+            5
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            23
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            104,
+            168,
+            48,
+            40
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            5,
+            19,
+            22,
+            8
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            23
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            40,
+            152,
+            176,
+            64
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            17,
+            18,
+            12
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            23
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            56,
+            136,
+            144,
+            96
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            6,
+            22,
+            20,
+            8
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            23
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            48,
+            176,
+            160,
+            64
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            4,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            18,
+            18,
+            12
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            23
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            56,
+            144,
+            144,
+            96
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 6,
+          "cell": [
+            5,
+            0
+          ],
+          "bbox_cells": [
+            7,
+            22,
+            13,
+            7
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            23
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            56,
+            176,
+            104,
+            56
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "source_cell_width": 362,
+        "source_height": 724,
+        "shared_scale": [
+          0.061971830985915494,
+          0.061971830985915494
+        ],
+        "source_anchor": [
+          181,
+          417
+        ],
+        "target_anchor": [
+          16,
+          23
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_e_hook.png",
+      "sha256": "38eb4918403b77ec3633f94010b8cf7a76b653ec9534994cde64cec33c3c7062",
+      "kind": "vfx",
+      "tag": "fx_e_hook",
+      "prompt_number": 18,
+      "frame_count": 5,
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          32,
+          32
+        ],
+        "cell_size_pixels": [
+          256,
+          256
+        ],
+        "sheet_size_pixels": [
+          1280,
+          256
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          1280,
+          256
+        ],
+        "color_count": 8,
+        "palette": [
+          "3C434A",
+          "5A0710",
+          "7E8A94",
+          "B3121F",
+          "BFC8CF",
+          "F2F6F8",
+          "FF3B30",
+          "FFC2B8"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            19,
+            13,
+            10,
+            8
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            152,
+            104,
+            80,
+            64
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            15,
+            13,
+            14,
+            11
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            120,
+            104,
+            112,
+            88
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            4,
+            13,
+            24,
+            9
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            32,
+            104,
+            192,
+            72
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            3,
+            13,
+            26,
+            9
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            24,
+            104,
+            208,
+            72
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            4,
+            0
+          ],
+          "bbox_cells": [
+            3,
+            13,
+            26,
+            8
+          ],
+          "duration_ms": 60,
+          "pivot_cells": [
+            16,
+            17
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            24,
+            104,
+            208,
+            64
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "source_cell_width": 396.6,
+        "source_height": 793,
+        "shared_scale": [
+          0.06974248927038626,
+          0.06974248927038626
+        ],
+        "source_anchor": [
+          206.09999999999997,
+          383
+        ],
+        "target_anchor": [
+          16,
+          17
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_e_sweep.png",
+      "sha256": "4b0a39ddc2ab7985e33d2fe8d3306f6aa9dfd678fb16d5b74bea7bd34f17fc5e",
+      "kind": "vfx",
+      "tag": "fx_e_sweep",
+      "prompt_number": 19,
+      "frame_count": 5,
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          64,
+          32
+        ],
+        "cell_size_pixels": [
+          512,
+          256
+        ],
+        "sheet_size_pixels": [
+          2560,
+          256
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          2560,
+          256
+        ],
+        "color_count": 7,
+        "palette": [
+          "3C434A",
+          "5A0710",
+          "7E8A94",
+          "B3121F",
+          "BFC8CF",
+          "F2F6F8",
+          "FFFFFF"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            2,
+            8,
+            62,
+            18
+          ],
+          "duration_ms": 55,
+          "pivot_cells": [
+            0,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            16,
+            64,
+            496,
+            144
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            1,
+            6,
+            63,
+            19
+          ],
+          "duration_ms": 55,
+          "pivot_cells": [
+            0,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            8,
+            48,
+            504,
+            152
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            0,
+            7,
+            61,
+            18
+          ],
+          "duration_ms": 55,
+          "pivot_cells": [
+            0,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            0,
+            56,
+            488,
+            144
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            5,
+            9,
+            51,
+            14
+          ],
+          "duration_ms": 55,
+          "pivot_cells": [
+            0,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            40,
+            72,
+            408,
+            112
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 5,
+          "cell": [
+            4,
+            0
+          ],
+          "bbox_cells": [
+            6,
+            10,
+            55,
+            14
+          ],
+          "duration_ms": 55,
+          "pivot_cells": [
+            0,
+            16
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            48,
+            80,
+            440,
+            112
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        }
+      ],
+      "processing": {
+        "source_cell_width": 396.6,
+        "source_height": 793,
+        "shared_scale": [
+          0.16137165910237014,
+          0.0403530895334174
+        ],
+        "source_anchor": [
+          0,
+          396.5
+        ],
+        "target_anchor": [
+          0,
+          16
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    },
+    {
+      "file": "darius_fx_r_impact.png",
+      "sha256": "04b2bfbca774686704027e7d61a4891cbbae53a62b37302b7b042a565c233de8",
+      "kind": "vfx",
+      "tag": "fx_r_impact",
+      "prompt_number": 20,
+      "frame_count": 8,
+      "layout": {
+        "columns": 8,
+        "rows": 1,
+        "order": "row-major",
+        "cell_size_cells": [
+          32,
+          64
+        ],
+        "cell_size_pixels": [
+          256,
+          512
+        ],
+        "sheet_size_pixels": [
+          2048,
+          512
+        ]
+      },
+      "loop": false,
+      "validation": {
+        "size": [
+          2048,
+          512
+        ],
+        "color_count": 9,
+        "palette": [
+          "2A0508",
+          "5A0710",
+          "B3121F",
+          "BFC8CF",
+          "F2F6F8",
+          "FF3B30",
+          "FF6A2B",
+          "FFC2B8",
+          "FFFFFF"
+        ],
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonuniform_pixels": 0
+      },
+      "frames": [
+        {
+          "index": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "bbox_cells": [
+            9,
+            3,
+            23,
+            38
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            56
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            72,
+            24,
+            184,
+            304
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        },
+        {
+          "index": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "bbox_cells": [
+            0,
+            0,
+            32,
+            47
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            56
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            0,
+            0,
+            256,
+            376
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        },
+        {
+          "index": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "bbox_cells": [
+            0,
+            5,
+            32,
+            55
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            56
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            0,
+            40,
+            256,
+            440
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        },
+        {
+          "index": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "bbox_cells": [
+            0,
+            10,
+            32,
+            52
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            56
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            0,
+            80,
+            256,
+            416
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        },
+        {
+          "index": 5,
+          "cell": [
+            4,
+            0
+          ],
+          "bbox_cells": [
+            0,
+            13,
+            32,
+            47
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            56
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            0,
+            104,
+            256,
+            376
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        },
+        {
+          "index": 6,
+          "cell": [
+            5,
+            0
+          ],
+          "bbox_cells": [
+            0,
+            14,
+            32,
+            47
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            56
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            0,
+            112,
+            256,
+            376
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        },
+        {
+          "index": 7,
+          "cell": [
+            6,
+            0
+          ],
+          "bbox_cells": [
+            2,
+            25,
+            29,
+            34
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            56
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            16,
+            200,
+            232,
+            272
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": false
+        },
+        {
+          "index": 8,
+          "cell": [
+            7,
+            0
+          ],
+          "bbox_cells": [
+            0,
+            21,
+            27,
+            37
+          ],
+          "duration_ms": 70,
+          "pivot_cells": [
+            16,
+            56
+          ],
+          "head_size_cells": null,
+          "bbox_pixels": [
+            0,
+            168,
+            216,
+            296
+          ],
+          "head_mask_sha256": null,
+          "head_pixel_mismatches": 0,
+          "nontransparent_on_cell_border": true
+        }
+      ],
+      "processing": {
+        "source_cell_width": 271.5,
+        "source_height": 724,
+        "shared_scale": [
+          0.11786372007366483,
+          0.08839779005524862
+        ],
+        "source_anchor": [
+          135.75,
+          647.98
+        ],
+        "target_anchor": [
+          16,
+          56
+        ],
+        "per_frame_bbox_recentering": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "a_hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "l_dust": {"cell": [25, 11], "anchor": [12, 5], "frames": 4},
+  "l_hit": {"cell": [21, 27], "anchor": [10, 13], "frames": 5},
+  "p_ready": {"cell": [15, 9], "anchor": [7, 4], "frames": 4},
+  "f_stack": {"cell": [19, 9], "anchor": [9, 4], "frames": 4},
+  "q_slam": {"cell": [27, 13], "anchor": [13, 6], "frames": 5},
+  "q_rip": {"cell": [13, 41], "anchor": [6, 20], "frames": 4},
+  "q_buff": {"cell": [25, 11], "anchor": [12, 5], "frames": 4},
+  "q_emp": {"cell": [33, 35], "anchor": [16, 17], "frames": 4},
+  "w_roar": {"cell": [47, 23], "anchor": [23, 11], "frames": 6},
+  "w_heal": {"cell": [21, 29], "anchor": [10, 14], "frames": 5},
+  "w_emp": {"cell": [31, 35], "anchor": [15, 17], "frames": 4},
+  "e_bola": {"cell": [21, 11], "anchor": [10, 5], "frames": 4},
+  "e_slow": {"cell": [21, 11], "anchor": [10, 5], "frames": 4},
+  "e_root": {"cell": [25, 17], "anchor": [12, 8], "frames": 4},
+  "r_smoke": {"cell": [33, 27], "anchor": [16, 13], "frames": 6},
+  "r_mark": {"cell": [15, 11], "anchor": [7, 5], "frames": 4},
+  "r_hit": {"cell": [29, 29], "anchor": [14, 14], "frames": 6},
+  "t_trophy": {"cell": [19, 25], "anchor": [9, 12], "frames": 6},
+  "k_meet": {"cell": [15, 15], "anchor": [7, 7], "frames": 5}
+}

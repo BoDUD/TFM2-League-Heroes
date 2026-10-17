@@ -1,0 +1,36 @@
+[
+  {
+    "version": 1,
+    "bbox_1x": [
+      46,
+      60,
+      82,
+      100
+    ],
+    "height": 40,
+    "width": 36,
+    "colors": 24,
+    "alpha": [
+      0,
+      255
+    ],
+    "grid": 8
+  },
+  {
+    "version": 2,
+    "bbox_1x": [
+      46,
+      63,
+      82,
+      100
+    ],
+    "height": 37,
+    "width": 36,
+    "colors": 24,
+    "alpha": [
+      0,
+      255
+    ],
+    "grid": 8
+  }
+]

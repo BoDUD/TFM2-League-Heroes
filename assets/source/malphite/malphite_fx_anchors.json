@@ -1,0 +1,12 @@
+{
+  "hit": {"cell": [18, 18], "anchor": [9, 9]},
+  "w_hit": {"cell": [30, 30], "anchor": [15, 15]},
+  "q_shard": {"cell": [34, 12], "anchor": [17, 6]},
+  "q_hit": {"cell": [26, 24], "anchor": [13, 12]},
+  "e_hit": {"cell": [18, 28], "anchor": [9, 14]},
+  "r_knockup": {"cell": [24, 66], "anchor": [12, 33]},
+  "granite": {"cell": [54, 54], "anchor": [27, 27]},
+  "thunder": {"cell": [44, 16], "anchor": [22, 8]},
+  "e_slam": {"cell": [74, 66], "anchor": [37, 33]},
+  "r_slam": {"cell": [68, 76], "anchor": [34, 38]}
+}

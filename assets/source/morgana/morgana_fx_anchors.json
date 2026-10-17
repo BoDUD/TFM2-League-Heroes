@@ -1,0 +1,14 @@
+{
+  "bolt": {"cell": [27, 11], "anchor": [13, 5], "frames": 4},
+  "hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 5},
+  "q_orb": {"cell": [45, 17], "anchor": [22, 8], "frames": 4},
+  "q_hit": {"cell": [19, 19], "anchor": [9, 9], "frames": 5},
+  "q_bind": {"cell": [23, 69], "anchor": [11, 34], "frames": 9},
+  "w_pool": {"cell": [47, 65], "anchor": [23, 32], "frames": 8},
+  "e_shield": {"cell": [49, 93], "anchor": [24, 46], "frames": 10},
+  "r_cast": {"cell": [123, 83], "anchor": [61, 41], "frames": 7},
+  "r_hit": {"cell": [25, 21], "anchor": [12, 10], "frames": 5},
+  "r_chain": {"cell": [59, 31], "anchor": [29, 15], "frames": 4},
+  "r_snap": {"cell": [33, 35], "anchor": [16, 17], "frames": 3},
+  "r_stun": {"cell": [27, 19], "anchor": [13, 9], "frames": 5}
+}

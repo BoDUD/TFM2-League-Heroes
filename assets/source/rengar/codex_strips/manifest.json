@@ -1,0 +1,3161 @@
+{
+  "version": 1,
+  "units": "game pixels; rectangles x,y,width,height; bbox min inclusive/max exclusive",
+  "scale": 8,
+  "status": "review_candidate",
+  "actions": {
+    "run": {
+      "file": "rengar_run.png",
+      "file_1x": "rengar_run_1x.png",
+      "cols": 4,
+      "rows": 2,
+      "cell": [
+        64,
+        64
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "cell_px": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "ms": 120,
+          "bbox": [
+            7,
+            13,
+            61,
+            59
+          ],
+          "feet_row": 58,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            7.0,
+            7.0
+          ],
+          "source_grid_offset": [
+            0.971988203420209,
+            6.400094533793132
+          ],
+          "source_frame_rect_px": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "head_origin": [
+            23,
+            13
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 2,
+          "cell": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "cell_px": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "ms": 120,
+          "bbox": [
+            13,
+            12,
+            63,
+            59
+          ],
+          "feet_row": 58,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            7.0,
+            7.0
+          ],
+          "source_grid_offset": [
+            0.9347350847163944,
+            6.590309251622532
+          ],
+          "source_frame_rect_px": [
+            444,
+            0,
+            443,
+            444
+          ],
+          "head_origin": [
+            23,
+            12
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 3,
+          "cell": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "cell_px": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "ms": 120,
+          "bbox": [
+            7,
+            14,
+            61,
+            59
+          ],
+          "feet_row": 58,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            7.0,
+            7.0
+          ],
+          "source_grid_offset": [
+            5.506989071515962,
+            0.24441210369830038
+          ],
+          "source_frame_rect_px": [
+            887,
+            0,
+            443,
+            444
+          ],
+          "head_origin": [
+            23,
+            14
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 4,
+          "cell": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "cell_px": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "ms": 120,
+          "bbox": [
+            6,
+            13,
+            61,
+            59
+          ],
+          "feet_row": 58,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            7.0,
+            7.0
+          ],
+          "source_grid_offset": [
+            0.21033042530449925,
+            6.777019111454008
+          ],
+          "source_frame_rect_px": [
+            1330,
+            0,
+            444,
+            444
+          ],
+          "head_origin": [
+            23,
+            13
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 5,
+          "cell": [
+            0,
+            64,
+            64,
+            64
+          ],
+          "cell_px": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "ms": 120,
+          "bbox": [
+            5,
+            13,
+            60,
+            59
+          ],
+          "feet_row": 58,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            7.0,
+            7.0
+          ],
+          "source_grid_offset": [
+            3.1262864294096584,
+            1.7921329057528506
+          ],
+          "source_frame_rect_px": [
+            0,
+            444,
+            444,
+            443
+          ],
+          "head_origin": [
+            23,
+            13
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 6,
+          "cell": [
+            64,
+            64,
+            64,
+            64
+          ],
+          "cell_px": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "ms": 120,
+          "bbox": [
+            10,
+            13,
+            61,
+            59
+          ],
+          "feet_row": 58,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            7.0,
+            7.0
+          ],
+          "source_grid_offset": [
+            1.4408603627539895,
+            2.526380546399141
+          ],
+          "source_frame_rect_px": [
+            444,
+            444,
+            443,
+            443
+          ],
+          "head_origin": [
+            23,
+            13
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 7,
+          "cell": [
+            128,
+            64,
+            64,
+            64
+          ],
+          "cell_px": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "ms": 120,
+          "bbox": [
+            7,
+            13,
+            57,
+            59
+          ],
+          "feet_row": 58,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            7.0,
+            7.0
+          ],
+          "source_grid_offset": [
+            4.706813915545279,
+            2.707998368787431
+          ],
+          "source_frame_rect_px": [
+            887,
+            444,
+            443,
+            443
+          ],
+          "head_origin": [
+            23,
+            13
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 8,
+          "cell": [
+            192,
+            64,
+            64,
+            64
+          ],
+          "cell_px": [
+            1536,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "ms": 120,
+          "bbox": [
+            8,
+            13,
+            62,
+            59
+          ],
+          "feet_row": 58,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            7.0,
+            7.0
+          ],
+          "source_grid_offset": [
+            0.9296152196304716,
+            2.3068597312616776
+          ],
+          "source_frame_rect_px": [
+            1330,
+            444,
+            444,
+            443
+          ],
+          "head_origin": [
+            23,
+            13
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        }
+      ],
+      "strike_frame": null,
+      "qa_status": "needs_visual_revision_before_import"
+    },
+    "attack": {
+      "file": "rengar_attack.png",
+      "file_1x": "rengar_attack_1x.png",
+      "cols": 3,
+      "rows": 2,
+      "cell": [
+        112,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            36,
+            45,
+            78,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.425
+          ],
+          "source_grid_offset": [
+            1.055063284081587,
+            3.427084507244724
+          ],
+          "source_frame_rect_px": [
+            0,
+            0,
+            553,
+            474
+          ],
+          "head_origin": [
+            45,
+            45
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 2,
+          "cell": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            37,
+            38,
+            82,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.425
+          ],
+          "source_grid_offset": [
+            3.052127651489908,
+            3.2778030576164316
+          ],
+          "source_frame_rect_px": [
+            553,
+            0,
+            553,
+            474
+          ],
+          "head_origin": [
+            45,
+            45
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 3,
+          "cell": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            29,
+            45,
+            79,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.425
+          ],
+          "source_grid_offset": [
+            5.171510825341395,
+            3.4186566041509048
+          ],
+          "source_frame_rect_px": [
+            1106,
+            0,
+            553,
+            474
+          ],
+          "head_origin": [
+            42,
+            45
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 4,
+          "cell": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            18,
+            44,
+            74,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.425
+          ],
+          "source_grid_offset": [
+            0.6211496195524752,
+            2.1276047506770963
+          ],
+          "source_frame_rect_px": [
+            0,
+            474,
+            553,
+            474
+          ],
+          "head_origin": [
+            23,
+            44
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true,
+          "strike_tick": 11,
+          "blade_red_edge_bbox": [
+            71,
+            61,
+            74,
+            63
+          ],
+          "blade_red_edge_center": [
+            72.0,
+            61.5
+          ],
+          "landmark_method": "measured red edge pixels; not an inferred anatomical hand"
+        },
+        {
+          "frame": 5,
+          "cell": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            17,
+            45,
+            81,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.425
+          ],
+          "source_grid_offset": [
+            2.6965430837484488,
+            1.9268460800265992
+          ],
+          "source_frame_rect_px": [
+            553,
+            474,
+            553,
+            474
+          ],
+          "head_origin": [
+            38,
+            45
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 6,
+          "cell": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 90,
+          "bbox": [
+            39,
+            44,
+            79,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.425
+          ],
+          "source_grid_offset": [
+            5.553115633044593,
+            1.0818586587513395
+          ],
+          "source_frame_rect_px": [
+            1106,
+            474,
+            553,
+            474
+          ],
+          "head_origin": [
+            42,
+            44
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        }
+      ],
+      "strike_frame": 4,
+      "qa_status": "needs_visual_revision_before_import"
+    },
+    "leap": {
+      "file": "rengar_leap.png",
+      "file_1x": "rengar_leap_1x.png",
+      "cols": 4,
+      "rows": 2,
+      "cell": [
+        112,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            40,
+            52,
+            84,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.025
+          ],
+          "source_grid_offset": [
+            7.947530451403351,
+            0.22519316259529532
+          ],
+          "source_frame_rect_px": [
+            0,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            51,
+            52
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 2,
+          "cell": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            41,
+            46,
+            88,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.025
+          ],
+          "source_grid_offset": [
+            4.245352313388619,
+            0.28735005112757817
+          ],
+          "source_frame_rect_px": [
+            479,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            59,
+            46
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 3,
+          "cell": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            38,
+            47,
+            91,
+            78
+          ],
+          "feet_row": 81,
+          "airborne_lift": 4,
+          "source_grid_pitch": [
+            8.05,
+            8.025
+          ],
+          "source_grid_offset": [
+            7.66233057377539,
+            7.871720197165983
+          ],
+          "source_frame_rect_px": [
+            958,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            54,
+            47
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 4,
+          "cell": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            36,
+            41,
+            87,
+            74
+          ],
+          "feet_row": 81,
+          "airborne_lift": 8,
+          "source_grid_pitch": [
+            8.05,
+            8.025
+          ],
+          "source_grid_offset": [
+            3.0326613856245914,
+            7.959246710874005
+          ],
+          "source_frame_rect_px": [
+            1437,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            45,
+            41
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 5,
+          "cell": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            34,
+            45,
+            84,
+            78
+          ],
+          "feet_row": 81,
+          "airborne_lift": 4,
+          "source_grid_pitch": [
+            8.05,
+            8.025
+          ],
+          "source_grid_offset": [
+            8.04082066687535,
+            7.9033694323810995
+          ],
+          "source_frame_rect_px": [
+            0,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            47,
+            45
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 6,
+          "cell": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            34,
+            54,
+            83,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.025
+          ],
+          "source_grid_offset": [
+            4.204072344545099,
+            7.625370462723717
+          ],
+          "source_frame_rect_px": [
+            479,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            44,
+            54
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true,
+          "strike_tick": 17,
+          "blade_red_edge_bbox": [
+            76,
+            77,
+            81,
+            80
+          ],
+          "blade_red_edge_center": [
+            78.14,
+            78.14
+          ],
+          "landmark_method": "measured red edge pixels; not an inferred anatomical hand"
+        },
+        {
+          "frame": 7,
+          "cell": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            34,
+            51,
+            76,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.025
+          ],
+          "source_grid_offset": [
+            7.78038271857563,
+            7.872925509240383
+          ],
+          "source_frame_rect_px": [
+            958,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            46,
+            51
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 8,
+          "cell": [
+            336,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            44,
+            48,
+            78,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.025
+          ],
+          "source_grid_offset": [
+            2.9376769055370726,
+            7.916340961407185
+          ],
+          "source_frame_rect_px": [
+            1437,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            52,
+            48
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        }
+      ],
+      "strike_frame": 6,
+      "qa_status": "needs_visual_revision_before_import"
+    },
+    "skill": {
+      "file": "rengar_skill.png",
+      "file_1x": "rengar_skill_1x.png",
+      "cols": 4,
+      "rows": 2,
+      "cell": [
+        112,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            22,
+            48,
+            74,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.825
+          ],
+          "source_grid_offset": [
+            0.04514739108093342,
+            5.863255047495889
+          ],
+          "source_frame_rect_px": [
+            0,
+            0,
+            479,
+            455
+          ],
+          "head_origin": [
+            28,
+            48
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 2,
+          "cell": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            39,
+            23,
+            68,
+            79
+          ],
+          "feet_row": 81,
+          "airborne_lift": 3,
+          "source_grid_pitch": [
+            8.05,
+            7.825
+          ],
+          "source_grid_offset": [
+            3.743088147504177,
+            6.670790364526194
+          ],
+          "source_frame_rect_px": [
+            479,
+            0,
+            479,
+            455
+          ],
+          "head_origin": [
+            43,
+            36
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 3,
+          "cell": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            37,
+            22,
+            68,
+            77
+          ],
+          "feet_row": 81,
+          "airborne_lift": 5,
+          "source_grid_pitch": [
+            8.05,
+            7.825
+          ],
+          "source_grid_offset": [
+            0.15084570516671006,
+            6.058415154507079
+          ],
+          "source_frame_rect_px": [
+            958,
+            0,
+            479,
+            455
+          ],
+          "head_origin": [
+            43,
+            34
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 4,
+          "cell": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            37,
+            48,
+            69,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.825
+          ],
+          "source_grid_offset": [
+            3.1257350537045006,
+            6.721574190932589
+          ],
+          "source_frame_rect_px": [
+            1437,
+            0,
+            479,
+            455
+          ],
+          "head_origin": [
+            43,
+            49
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 5,
+          "cell": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            39,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            12,
+            51,
+            66,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.825
+          ],
+          "source_grid_offset": [
+            8.01248523885226,
+            5.325569748172422
+          ],
+          "source_frame_rect_px": [
+            0,
+            455,
+            479,
+            366
+          ],
+          "head_origin": [
+            20,
+            51
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 6,
+          "cell": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            35,
+            44,
+            82,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.825
+          ],
+          "source_grid_offset": [
+            3.364994362176147,
+            5.70535157380501
+          ],
+          "source_frame_rect_px": [
+            479,
+            455,
+            479,
+            366
+          ],
+          "head_origin": [
+            38,
+            45
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true,
+          "strike_tick": 16,
+          "blade_red_edge_bbox": [
+            78,
+            46,
+            81,
+            53
+          ],
+          "blade_red_edge_center": [
+            79.1,
+            49.0
+          ],
+          "landmark_method": "measured red edge pixels; not an inferred anatomical hand"
+        },
+        {
+          "frame": 7,
+          "cell": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            39,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            19,
+            38,
+            60,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.825
+          ],
+          "source_grid_offset": [
+            0.4753235175631683,
+            5.697816006891254
+          ],
+          "source_frame_rect_px": [
+            958,
+            455,
+            479,
+            366
+          ],
+          "head_origin": [
+            23,
+            43
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 8,
+          "cell": [
+            336,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            32,
+            49,
+            75,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.825
+          ],
+          "source_grid_offset": [
+            2.103894891651664,
+            4.721392538459826
+          ],
+          "source_frame_rect_px": [
+            1437,
+            455,
+            479,
+            366
+          ],
+          "head_origin": [
+            42,
+            49
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        }
+      ],
+      "strike_frame": 6,
+      "qa_status": "needs_visual_revision_before_import"
+    },
+    "skill2": {
+      "file": "rengar_skill2.png",
+      "file_1x": "rengar_skill2_1x.png",
+      "cols": 3,
+      "rows": 2,
+      "cell": [
+        112,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            30,
+            44,
+            79,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.0
+          ],
+          "source_grid_offset": [
+            0.3192604289027147,
+            2.9376227090430107
+          ],
+          "source_frame_rect_px": [
+            0,
+            0,
+            553,
+            474
+          ],
+          "head_origin": [
+            47,
+            44
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 2,
+          "cell": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            29,
+            36,
+            74,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.0
+          ],
+          "source_grid_offset": [
+            2.9486236256561784,
+            2.072539009566357
+          ],
+          "source_frame_rect_px": [
+            553,
+            0,
+            553,
+            474
+          ],
+          "head_origin": [
+            41,
+            39
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 3,
+          "cell": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            32,
+            24,
+            77,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.0
+          ],
+          "source_grid_offset": [
+            3.5105283201697004,
+            1.5116721755469813
+          ],
+          "source_frame_rect_px": [
+            1106,
+            0,
+            553,
+            474
+          ],
+          "head_origin": [
+            44,
+            37
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 4,
+          "cell": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            28,
+            44,
+            90,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.0
+          ],
+          "source_grid_offset": [
+            7.895922042758306,
+            3.830281760453232
+          ],
+          "source_frame_rect_px": [
+            0,
+            474,
+            553,
+            474
+          ],
+          "head_origin": [
+            52,
+            44
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true,
+          "strike_tick": 13,
+          "blade_red_edge_bbox": [
+            30,
+            64,
+            33,
+            69
+          ],
+          "blade_red_edge_center": [
+            30.57,
+            65.86
+          ],
+          "landmark_method": "measured red edge pixels; not an inferred anatomical hand",
+          "throw_claw_blades_bbox": [
+            72,
+            47,
+            90,
+            61
+          ],
+          "throw_hand_estimate": [
+            71,
+            53.8
+          ],
+          "throw_hand_estimate_method": "approximate wrist immediately behind forward bone claw cluster; requires manual import review"
+        },
+        {
+          "frame": 5,
+          "cell": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            32,
+            43,
+            87,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.0
+          ],
+          "source_grid_offset": [
+            2.7949410901399396,
+            3.6358170498277245
+          ],
+          "source_frame_rect_px": [
+            553,
+            474,
+            553,
+            474
+          ],
+          "head_origin": [
+            55,
+            43
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 6,
+          "cell": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 90,
+          "bbox": [
+            36,
+            43,
+            82,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.0
+          ],
+          "source_grid_offset": [
+            4.044190338902592,
+            2.710575589116341
+          ],
+          "source_frame_rect_px": [
+            1106,
+            474,
+            553,
+            474
+          ],
+          "head_origin": [
+            51,
+            43
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        }
+      ],
+      "strike_frame": 4,
+      "qa_status": "needs_visual_revision_before_import"
+    },
+    "skill_w": {
+      "file": "rengar_skill_w.png",
+      "file_1x": "rengar_skill_w_1x.png",
+      "cols": 4,
+      "rows": 2,
+      "cell": [
+        112,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            37,
+            45,
+            79,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.375
+          ],
+          "source_grid_offset": [
+            0.11014529656352771,
+            6.909504171510675
+          ],
+          "source_frame_rect_px": [
+            0,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            44,
+            45
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 2,
+          "cell": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            31,
+            41,
+            70,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.375
+          ],
+          "source_grid_offset": [
+            3.1958362494350565,
+            6.858265296528426
+          ],
+          "source_frame_rect_px": [
+            479,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            37,
+            41
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 3,
+          "cell": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            29,
+            41,
+            78,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.375
+          ],
+          "source_grid_offset": [
+            7.7724932942105625,
+            6.860449273805561
+          ],
+          "source_frame_rect_px": [
+            958,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            43,
+            41
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true,
+          "strike_tick": 8,
+          "blade_red_edge_bbox": [
+            73,
+            68,
+            77,
+            76
+          ],
+          "blade_red_edge_center": [
+            74.85,
+            71.85
+          ],
+          "landmark_method": "measured red edge pixels; not an inferred anatomical hand"
+        },
+        {
+          "frame": 4,
+          "cell": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            24,
+            41,
+            76,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.375
+          ],
+          "source_grid_offset": [
+            3.6604675857730573,
+            6.9925970568597835
+          ],
+          "source_frame_rect_px": [
+            1437,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            40,
+            41
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 5,
+          "cell": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            24,
+            40,
+            76,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.375
+          ],
+          "source_grid_offset": [
+            0.5180973918698671,
+            3.983865590493849
+          ],
+          "source_frame_rect_px": [
+            0,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            38,
+            40
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 6,
+          "cell": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 90,
+          "bbox": [
+            32,
+            42,
+            72,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.375
+          ],
+          "source_grid_offset": [
+            3.089752432516612,
+            3.5494742032049227
+          ],
+          "source_frame_rect_px": [
+            479,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            38,
+            42
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 7,
+          "cell": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            37,
+            45,
+            79,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            7.375
+          ],
+          "source_grid_offset": [
+            0.32432515232691667,
+            2.6854465726081984
+          ],
+          "source_frame_rect_px": [
+            958,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            44,
+            45
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        }
+      ],
+      "strike_frame": 3,
+      "qa_status": "needs_visual_revision_before_import"
+    },
+    "ult": {
+      "file": "rengar_ult.png",
+      "file_1x": "rengar_ult_1x.png",
+      "cols": 4,
+      "rows": 1,
+      "cell": [
+        112,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            27,
+            42,
+            82,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.0
+          ],
+          "source_grid_offset": [
+            6.692953388325883,
+            1.8555463834746362
+          ],
+          "source_frame_rect_px": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "head_origin": [
+            44,
+            42
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 2,
+          "cell": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 90,
+          "bbox": [
+            24,
+            54,
+            83,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.0
+          ],
+          "source_grid_offset": [
+            4.314356046379654,
+            1.6968353674018484
+          ],
+          "source_frame_rect_px": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "head_origin": [
+            57,
+            54
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 3,
+          "cell": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            19,
+            54,
+            87,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.0
+          ],
+          "source_grid_offset": [
+            7.278621602246965,
+            1.6419681455700137
+          ],
+          "source_frame_rect_px": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "head_origin": [
+            56,
+            54
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true,
+          "strike_tick": 10,
+          "blade_red_edge_bbox": [
+            19,
+            75,
+            86,
+            79
+          ],
+          "blade_red_edge_center": [
+            34.89,
+            77.0
+          ],
+          "landmark_method": "measured red edge pixels; not an inferred anatomical hand"
+        },
+        {
+          "frame": 4,
+          "cell": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            21,
+            44,
+            85,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            8.05,
+            8.0
+          ],
+          "source_grid_offset": [
+            2.7390608916987143,
+            1.564373427601328
+          ],
+          "source_frame_rect_px": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "head_origin": [
+            51,
+            44
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        }
+      ],
+      "strike_frame": 3,
+      "qa_status": "needs_visual_revision_before_import"
+    },
+    "hit": {
+      "file": "rengar_hit.png",
+      "file_1x": "rengar_hit_1x.png",
+      "cols": 2,
+      "rows": 1,
+      "cell": [
+        112,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            20,
+            39,
+            86,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            9.7,
+            9.2
+          ],
+          "source_grid_offset": [
+            4.838572108322159,
+            1.054400165446992
+          ],
+          "source_frame_rect_px": [
+            0,
+            0,
+            958,
+            821
+          ],
+          "head_origin": [
+            38,
+            40
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 2,
+          "cell": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            29,
+            40,
+            83,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            9.7,
+            9.2
+          ],
+          "source_grid_offset": [
+            8.508619201539606,
+            2.4525519736865617
+          ],
+          "source_frame_rect_px": [
+            958,
+            0,
+            958,
+            821
+          ],
+          "head_origin": [
+            43,
+            40
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        }
+      ],
+      "strike_frame": null,
+      "qa_status": "needs_visual_revision_before_import"
+    },
+    "dead": {
+      "file": "rengar_dead.png",
+      "file_1x": "rengar_dead_1x.png",
+      "cols": 4,
+      "rows": 2,
+      "cell": [
+        112,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            16,
+            33,
+            64,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            6.9,
+            6.6
+          ],
+          "source_grid_offset": [
+            4.811885015709622,
+            2.555392580595643
+          ],
+          "source_frame_rect_px": [
+            0,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            18,
+            33
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 2,
+          "cell": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            32,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            7,
+            8,
+            58,
+            74
+          ],
+          "feet_row": 81,
+          "airborne_lift": 8,
+          "source_grid_pitch": [
+            6.9,
+            6.6
+          ],
+          "source_grid_offset": [
+            3.4048632261635916,
+            2.659315631226782
+          ],
+          "source_frame_rect_px": [
+            479,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            11,
+            8
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 3,
+          "cell": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            42,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            22,
+            52,
+            63,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            6.9,
+            6.6
+          ],
+          "source_grid_offset": [
+            0.06041380606162177,
+            2.2167497745598914
+          ],
+          "source_frame_rect_px": [
+            958,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            31,
+            52
+          ],
+          "head_rotation_degrees": 0,
+          "head_exact": true
+        },
+        {
+          "frame": 4,
+          "cell": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            17,
+            52,
+            64,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            6.9,
+            6.6
+          ],
+          "source_grid_offset": [
+            3.329657005429363,
+            2.978684486412982
+          ],
+          "source_frame_rect_px": [
+            1437,
+            0,
+            479,
+            410
+          ],
+          "head_origin": [
+            22,
+            52
+          ],
+          "head_rotation_degrees": 90,
+          "head_exact": true
+        },
+        {
+          "frame": 5,
+          "cell": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            41,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            15,
+            45,
+            67,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            6.9,
+            6.6
+          ],
+          "source_grid_offset": [
+            5.903858227668188,
+            0.8939996719405888
+          ],
+          "source_frame_rect_px": [
+            0,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            22,
+            45
+          ],
+          "head_rotation_degrees": 90,
+          "head_exact": true
+        },
+        {
+          "frame": 6,
+          "cell": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            14,
+            45,
+            66,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            6.9,
+            6.6
+          ],
+          "source_grid_offset": [
+            3.777928483414029,
+            0.9116949618929223
+          ],
+          "source_frame_rect_px": [
+            479,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            21,
+            45
+          ],
+          "head_rotation_degrees": 90,
+          "head_exact": true
+        },
+        {
+          "frame": 7,
+          "cell": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            14,
+            45,
+            66,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            6.9,
+            6.6
+          ],
+          "source_grid_offset": [
+            0.6243305654393801,
+            0.9062952767770919
+          ],
+          "source_frame_rect_px": [
+            958,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            21,
+            45
+          ],
+          "head_rotation_degrees": 90,
+          "head_exact": true
+        },
+        {
+          "frame": 8,
+          "cell": [
+            336,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "ms": 500,
+          "bbox": [
+            14,
+            45,
+            66,
+            82
+          ],
+          "feet_row": 81,
+          "airborne_lift": 0,
+          "source_grid_pitch": [
+            6.9,
+            6.6
+          ],
+          "source_grid_offset": [
+            3.567392953964666,
+            0.8720433597829543
+          ],
+          "source_frame_rect_px": [
+            1437,
+            410,
+            479,
+            411
+          ],
+          "head_origin": [
+            21,
+            45
+          ],
+          "head_rotation_degrees": 90,
+          "head_exact": true
+        }
+      ],
+      "strike_frame": null,
+      "qa_status": "needs_visual_revision_before_import"
+    },
+    "idle": {
+      "file": "rengar_idle.png",
+      "file_1x": "rengar_idle_1x.png",
+      "cols": 3,
+      "rows": 2,
+      "cell": [
+        112,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            34,
+            42,
+            75,
+            82
+          ],
+          "feet_row": 81,
+          "source": "provided unchanged idle strip"
+        },
+        {
+          "frame": 2,
+          "cell": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            34,
+            42,
+            75,
+            82
+          ],
+          "feet_row": 81,
+          "source": "provided unchanged idle strip"
+        },
+        {
+          "frame": 3,
+          "cell": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            34,
+            42,
+            75,
+            82
+          ],
+          "feet_row": 81,
+          "source": "provided unchanged idle strip"
+        },
+        {
+          "frame": 4,
+          "cell": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            34,
+            42,
+            75,
+            82
+          ],
+          "feet_row": 81,
+          "source": "provided unchanged idle strip"
+        },
+        {
+          "frame": 5,
+          "cell": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            34,
+            42,
+            75,
+            82
+          ],
+          "feet_row": 81,
+          "source": "provided unchanged idle strip"
+        },
+        {
+          "frame": 6,
+          "cell": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "cell_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            34,
+            42,
+            75,
+            82
+          ],
+          "feet_row": 81,
+          "source": "provided unchanged idle strip"
+        }
+      ],
+      "qa_status": "provided_unchanged"
+    }
+  },
+  "palette": [
+    "#0297EA",
+    "#0E0206",
+    "#3A1A26",
+    "#444B6F",
+    "#5068A0",
+    "#5F6A90",
+    "#70292B",
+    "#7593CE",
+    "#7D512D",
+    "#909BBB",
+    "#923937",
+    "#A8031E",
+    "#A9C9F4",
+    "#B04218",
+    "#C2C7DB",
+    "#C4843C",
+    "#D03379",
+    "#D5800F",
+    "#E0A65A",
+    "#E47FB4",
+    "#EFF0F5",
+    "#F4B507",
+    "#F4D05A",
+    "#F9AED8",
+    "#FBD88C"
+  ]
+}

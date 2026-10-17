@@ -1,0 +1,10 @@
+{
+ "league_gwen_r_hit": {
+  "anim": "asset/league/effects/league_gwen_fx",
+  "tag": "r_hit"
+ },
+ "league_gwen_q_hit": {
+  "anim": "asset/league/effects/league_gwen_fx",
+  "tag": "q_hit"
+ }
+}

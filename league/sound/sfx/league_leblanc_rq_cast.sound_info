@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_leblanc_sfx_r_cast",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.15,
+      "clip": "league_leblanc_sfx_q_cast",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_leblanc_vo_rq",
+      "volume": 0.9
+    }
+  ]
+}

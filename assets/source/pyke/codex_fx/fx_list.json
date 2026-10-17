@@ -1,0 +1,82 @@
+[
+ {
+  "file": "pyke_fx_a_hit.png",
+  "binding": "view_effects `league_pyke_a_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "pyke_fx_q_charge.png",
+  "binding": "view_effects `league_pyke_q_charge`（动作第一 tick 播放、跟随；`design/pyke_shots.png` skill 2 的十字）",
+  "size": "12"
+ },
+ {
+  "file": "pyke_fx_q_hook.png",
+  "binding": "view_projectiles `league_pyke_q_hook` / `q_hook_c`（朝飞行方向转，画成朝右飞；上下对称）；`q_return` 是它的镜像（收回）",
+  "size": "26 × 8"
+ },
+ {
+  "file": "pyke_fx_q_hit.png",
+  "binding": "view_effects `league_pyke_q_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "pyke_fx_q_stab_hit.png",
+  "binding": "view_effects `league_pyke_q_stab_hit`（跟随，画在人物上面）",
+  "size": "16 × 10"
+ },
+ {
+  "file": "pyke_fx_w_cast.png",
+  "binding": "view_effects `league_pyke_w_cast`（技能第一 tick 播放、跟随；中心在站位点）",
+  "size": "28 × 16"
+ },
+ {
+  "file": "pyke_fx_e_left.png",
+  "binding": "view_effects `league_pyke_e_left`（放在冲刺起点的地上，不跟随，不旋转）",
+  "size": "26 × 10"
+ },
+ {
+  "file": "pyke_fx_e_phantom.png",
+  "binding": "view_projectiles `league_pyke_e_phantom`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "24 × 12"
+ },
+ {
+  "file": "pyke_fx_e_hit.png",
+  "binding": "view_effects `league_pyke_e_hit`（跟随，画在人物上面）",
+  "size": "18"
+ },
+ {
+  "file": "pyke_fx_e_stun.png",
+  "binding": "view_buffs `league_pyke_e_stun`（画在头顶，左右对称）",
+  "size": "14 × 7"
+ },
+ {
+  "file": "pyke_fx_q_slow.png",
+  "binding": "view_buffs `league_pyke_q_slow`（画在脚下，左右对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "pyke_fx_r_mark.png",
+  "binding": "view_effects `league_pyke_r_mark`（放在 X 的中心，地上，不跟随，不旋转）",
+  "size": "56 × 28"
+ },
+ {
+  "file": "pyke_fx_r_strike.png",
+  "binding": "view_effects `league_pyke_r_strike`（放在 X 的中心，地上，不跟随，不旋转；落下前 0.1 秒开始）",
+  "size": "58 × 34"
+ },
+ {
+  "file": "pyke_fx_r_hit.png",
+  "binding": "view_effects `league_pyke_r_hit`（跟随，画在人物上面）",
+  "size": "20"
+ },
+ {
+  "file": "pyke_fx_r_reset.png",
+  "binding": "view_effects `league_pyke_r_reset`（不跟随，左右对称；中心在站位点上面约 20 格）",
+  "size": "24"
+ },
+ {
+  "file": "pyke_fx_p_heal.png",
+  "binding": "view_effects `league_pyke_p_heal`（不跟随，左右对称；中心在站位点上面约 18 格）",
+  "size": "22 × 32"
+ }
+]

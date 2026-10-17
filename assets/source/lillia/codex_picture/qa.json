@@ -1,0 +1,44 @@
+{
+  "A": {
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_zero_pixels": 1320880,
+    "alpha_bbox": [
+      65,
+      35,
+      1474,
+      1000
+    ],
+    "body_bbox_alpha_gt_240": [
+      495,
+      69,
+      1106,
+      935
+    ],
+    "partial_alpha_pixels": 251984
+  },
+  "B": {
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_zero_pixels": 1225196,
+    "alpha_bbox": [
+      65,
+      31,
+      1520,
+      1000
+    ],
+    "body_bbox_alpha_gt_240": [
+      352,
+      135,
+      1411,
+      928
+    ],
+    "partial_alpha_pixels": 347668
+  }
+}

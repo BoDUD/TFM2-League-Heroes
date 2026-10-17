@@ -1,0 +1,4329 @@
+{
+  "schema_version": 1,
+  "stage": "kogmaw stage 3 VFX authoring",
+  "assets": [
+    {
+      "id": "a_glob",
+      "number": 1,
+      "frame_count": 4,
+      "cell_requested": [
+        128,
+        80
+      ],
+      "logical_cell": [
+        8,
+        5
+      ],
+      "generation_layout": [
+        2,
+        2
+      ],
+      "symmetry_axis": "vertical",
+      "loop": true,
+      "filename": "kogmaw_fx_a_glob.png",
+      "pixelgrid_filename": "kogmaw_fx_a_glob_pixelgrid.png",
+      "pixelgrid_cell": [
+        32,
+        20
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_a_glob_raw.png",
+      "raw_size": [
+        1586,
+        992
+      ],
+      "output_size": [
+        512,
+        80
+      ],
+      "source_grid_steps": [
+        24.78125,
+        24.8
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F2FFD0",
+        "#D4F87A",
+        "#A8E838",
+        "#74C41E",
+        "#46961A",
+        "#26640E"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            80
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            32,
+            20
+          ],
+          "raw_rect": [
+            0,
+            0,
+            793,
+            496
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            -1
+          ],
+          "bbox_pixelgrid": [
+            9,
+            5,
+            31,
+            15
+          ],
+          "opaque_pixels": 102,
+          "bright_core_pixels": 12,
+          "mean_luminance": 166.04,
+          "brightest_decile_luminance": 251.08,
+          "symmetry_agreement": 0.8462,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            80
+          ],
+          "rect_pixelgrid": [
+            32,
+            0,
+            32,
+            20
+          ],
+          "raw_rect": [
+            793,
+            0,
+            793,
+            496
+          ],
+          "whole_frame_shift_pixelgrid": [
+            5,
+            -1
+          ],
+          "bbox_pixelgrid": [
+            8,
+            5,
+            31,
+            15
+          ],
+          "opaque_pixels": 105,
+          "bright_core_pixels": 12,
+          "mean_luminance": 170.14,
+          "brightest_decile_luminance": 251.08,
+          "symmetry_agreement": 0.661,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            256,
+            0,
+            128,
+            80
+          ],
+          "rect_pixelgrid": [
+            64,
+            0,
+            32,
+            20
+          ],
+          "raw_rect": [
+            0,
+            496,
+            793,
+            496
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            1
+          ],
+          "bbox_pixelgrid": [
+            8,
+            5,
+            31,
+            15
+          ],
+          "opaque_pixels": 96,
+          "bright_core_pixels": 12,
+          "mean_luminance": 173.22,
+          "brightest_decile_luminance": 251.92,
+          "symmetry_agreement": 0.3,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            384,
+            0,
+            128,
+            80
+          ],
+          "rect_pixelgrid": [
+            96,
+            0,
+            32,
+            20
+          ],
+          "raw_rect": [
+            793,
+            496,
+            793,
+            496
+          ],
+          "whole_frame_shift_pixelgrid": [
+            5,
+            1
+          ],
+          "bbox_pixelgrid": [
+            8,
+            5,
+            31,
+            15
+          ],
+          "opaque_pixels": 99,
+          "bright_core_pixels": 15,
+          "mean_luminance": 169.3,
+          "brightest_decile_luminance": 252.54,
+          "symmetry_agreement": 0.35,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0008,
+      "binding_reference": {
+        "table": "view_projectiles",
+        "key": "league_kogmaw_a_glob",
+        "description": "view_projectiles `league_kogmaw_a_glob`（循环，朝飞行方向转）",
+        "implemented": false
+      },
+      "anchor_px": [
+        64.0,
+        40.0
+      ],
+      "game_size_reference": [
+        8,
+        5
+      ],
+      "facing": "right; rotates with projectile",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "a_hit",
+      "number": 2,
+      "frame_count": 4,
+      "cell_requested": [
+        192,
+        192
+      ],
+      "logical_cell": [
+        12,
+        12
+      ],
+      "generation_layout": [
+        2,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_a_hit.png",
+      "pixelgrid_filename": "kogmaw_fx_a_hit_pixelgrid.png",
+      "pixelgrid_cell": [
+        48,
+        48
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_a_hit_raw.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        768,
+        192
+      ],
+      "source_grid_steps": [
+        13.0625,
+        13.0625
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F2FFD0",
+        "#D4F87A",
+        "#A8E838",
+        "#74C41E",
+        "#46961A",
+        "#26640E"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            48,
+            48
+          ],
+          "raw_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            16,
+            16,
+            32,
+            32
+          ],
+          "opaque_pixels": 108,
+          "bright_core_pixels": 48,
+          "mean_luminance": 225.89,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 1.0,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            48,
+            0,
+            48,
+            48
+          ],
+          "raw_rect": [
+            627,
+            0,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            2,
+            4,
+            46,
+            43
+          ],
+          "opaque_pixels": 550,
+          "bright_core_pixels": 34,
+          "mean_luminance": 169.09,
+          "brightest_decile_luminance": 243.24,
+          "symmetry_agreement": 0.8803,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            96,
+            0,
+            48,
+            48
+          ],
+          "raw_rect": [
+            0,
+            627,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            3,
+            6,
+            45,
+            42
+          ],
+          "opaque_pixels": 298,
+          "bright_core_pixels": 15,
+          "mean_luminance": 148.75,
+          "brightest_decile_luminance": 230.67,
+          "symmetry_agreement": 0.9085,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            144,
+            0,
+            48,
+            48
+          ],
+          "raw_rect": [
+            627,
+            627,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            2
+          ],
+          "bbox_pixelgrid": [
+            5,
+            11,
+            43,
+            36
+          ],
+          "opaque_pixels": 85,
+          "bright_core_pixels": 5,
+          "mean_luminance": 118.93,
+          "brightest_decile_luminance": 225.36,
+          "symmetry_agreement": 0.75,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_a_hit",
+        "description": "view_effects `league_kogmaw_a_hit`（跟随，画在人物上面）",
+        "implemented": false
+      },
+      "anchor_px": [
+        96.0,
+        96.0
+      ],
+      "game_size_reference": [
+        12,
+        12
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "w_cast",
+      "number": 3,
+      "frame_count": 5,
+      "cell_requested": [
+        768,
+        512
+      ],
+      "logical_cell": [
+        48,
+        32
+      ],
+      "generation_layout": [
+        3,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_w_cast.png",
+      "pixelgrid_filename": "kogmaw_fx_w_cast_pixelgrid.png",
+      "pixelgrid_cell": [
+        192,
+        128
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_w_cast_raw.png",
+      "raw_size": [
+        1882,
+        836
+      ],
+      "output_size": [
+        3840,
+        512
+      ],
+      "source_grid_steps": [
+        3.267361111111111,
+        3.265625
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F2FFD0",
+        "#D4F87A",
+        "#A8E838",
+        "#74C41E",
+        "#46961A",
+        "#26640E"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            192,
+            128
+          ],
+          "raw_rect": [
+            0,
+            0,
+            627,
+            444
+          ],
+          "source_padding_top_px": 50,
+          "whole_frame_shift_pixelgrid": [
+            1,
+            2
+          ],
+          "bbox_pixelgrid": [
+            15,
+            17,
+            177,
+            116
+          ],
+          "opaque_pixels": 6260,
+          "bright_core_pixels": 1408,
+          "mean_luminance": 179.98,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8274,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "rect_pixelgrid": [
+            192,
+            0,
+            192,
+            128
+          ],
+          "raw_rect": [
+            627,
+            0,
+            628,
+            444
+          ],
+          "source_padding_top_px": 50,
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            7,
+            26,
+            184,
+            107
+          ],
+          "opaque_pixels": 6530,
+          "bright_core_pixels": 861,
+          "mean_luminance": 158.45,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.661,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            512
+          ],
+          "rect_pixelgrid": [
+            384,
+            0,
+            192,
+            128
+          ],
+          "raw_rect": [
+            1255,
+            0,
+            627,
+            444
+          ],
+          "source_padding_top_px": 50,
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            3,
+            21,
+            189,
+            103
+          ],
+          "opaque_pixels": 8468,
+          "bright_core_pixels": 1340,
+          "mean_luminance": 162.87,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8012,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            2304,
+            0,
+            768,
+            512
+          ],
+          "rect_pixelgrid": [
+            576,
+            0,
+            192,
+            128
+          ],
+          "raw_rect": [
+            0,
+            444,
+            627,
+            392
+          ],
+          "source_padding_top_px": 76,
+          "whole_frame_shift_pixelgrid": [
+            -1,
+            0
+          ],
+          "bbox_pixelgrid": [
+            8,
+            25,
+            184,
+            103
+          ],
+          "opaque_pixels": 5379,
+          "bright_core_pixels": 402,
+          "mean_luminance": 155.32,
+          "brightest_decile_luminance": 243.53,
+          "symmetry_agreement": 0.6434,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 5,
+          "rect": [
+            3072,
+            0,
+            768,
+            512
+          ],
+          "rect_pixelgrid": [
+            768,
+            0,
+            192,
+            128
+          ],
+          "raw_rect": [
+            627,
+            444,
+            628,
+            392
+          ],
+          "source_padding_top_px": 76,
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            15,
+            26,
+            177,
+            99
+          ],
+          "opaque_pixels": 3110,
+          "bright_core_pixels": 296,
+          "mean_luminance": 161.57,
+          "brightest_decile_luminance": 253.72,
+          "symmetry_agreement": 0.6147,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0005,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_w_cast",
+        "description": "view_effects `league_kogmaw_w_cast`（跟随，画在人物上面）",
+        "implemented": false
+      },
+      "anchor_px": [
+        384.0,
+        464
+      ],
+      "game_size_reference": [
+        44,
+        30
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "w_on",
+      "number": 4,
+      "frame_count": 4,
+      "cell_requested": [
+        640,
+        192
+      ],
+      "logical_cell": [
+        40,
+        12
+      ],
+      "generation_layout": [
+        1,
+        4
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": true,
+      "filename": "kogmaw_fx_w_on.png",
+      "pixelgrid_filename": "kogmaw_fx_w_on_pixelgrid.png",
+      "pixelgrid_cell": [
+        160,
+        48
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_w_on_raw.png",
+      "raw_size": [
+        1145,
+        1374
+      ],
+      "output_size": [
+        2560,
+        192
+      ],
+      "source_grid_steps": [
+        7.15625,
+        7.15625
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F2FFD0",
+        "#D4F87A",
+        "#A8E838",
+        "#74C41E",
+        "#46961A",
+        "#26640E"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            640,
+            192
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            160,
+            48
+          ],
+          "raw_rect": [
+            0,
+            0,
+            1145,
+            410
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            16,
+            5,
+            144,
+            42
+          ],
+          "opaque_pixels": 950,
+          "bright_core_pixels": 137,
+          "mean_luminance": 171.08,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.3944,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            640,
+            0,
+            640,
+            192
+          ],
+          "rect_pixelgrid": [
+            160,
+            0,
+            160,
+            48
+          ],
+          "raw_rect": [
+            0,
+            410,
+            1145,
+            300
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            1
+          ],
+          "bbox_pixelgrid": [
+            14,
+            4,
+            146,
+            44
+          ],
+          "opaque_pixels": 1086,
+          "bright_core_pixels": 170,
+          "mean_luminance": 166.62,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8179,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            1280,
+            0,
+            640,
+            192
+          ],
+          "rect_pixelgrid": [
+            320,
+            0,
+            160,
+            48
+          ],
+          "raw_rect": [
+            0,
+            710,
+            1145,
+            340
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            2
+          ],
+          "bbox_pixelgrid": [
+            15,
+            5,
+            145,
+            43
+          ],
+          "opaque_pixels": 1185,
+          "bright_core_pixels": 143,
+          "mean_luminance": 162.65,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.7898,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1920,
+            0,
+            640,
+            192
+          ],
+          "rect_pixelgrid": [
+            480,
+            0,
+            160,
+            48
+          ],
+          "raw_rect": [
+            0,
+            1050,
+            1145,
+            324
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            4
+          ],
+          "bbox_pixelgrid": [
+            16,
+            7,
+            144,
+            41
+          ],
+          "opaque_pixels": 1099,
+          "bright_core_pixels": 123,
+          "mean_luminance": 156.19,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8028,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_buffs",
+        "key": "league_kogmaw_w_on",
+        "description": "view_buffs `league_kogmaw_w_on`（循环，跟随，画在人物下面；8 秒）",
+        "implemented": false
+      },
+      "anchor_px": [
+        320.0,
+        96.0
+      ],
+      "game_size_reference": [
+        40,
+        10
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "q_spit",
+      "number": 5,
+      "frame_count": 4,
+      "cell_requested": [
+        224,
+        128
+      ],
+      "logical_cell": [
+        14,
+        8
+      ],
+      "generation_layout": [
+        2,
+        2
+      ],
+      "symmetry_axis": "vertical",
+      "loop": true,
+      "filename": "kogmaw_fx_q_spit.png",
+      "pixelgrid_filename": "kogmaw_fx_q_spit_pixelgrid.png",
+      "pixelgrid_cell": [
+        56,
+        32
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_q_spit_raw.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "output_size": [
+        896,
+        128
+      ],
+      "source_grid_steps": [
+        14.8125,
+        14.8125
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFFCD8",
+        "#FFF07A",
+        "#E2E83A",
+        "#B4D21E",
+        "#7CA816",
+        "#4A760E"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            224,
+            128
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            56,
+            32
+          ],
+          "raw_rect": [
+            0,
+            0,
+            830,
+            474
+          ],
+          "whole_frame_shift_pixelgrid": [
+            1,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            8,
+            6,
+            55,
+            27
+          ],
+          "opaque_pixels": 359,
+          "bright_core_pixels": 25,
+          "mean_luminance": 185.77,
+          "brightest_decile_luminance": 248.79,
+          "symmetry_agreement": 0.3426,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            224,
+            0,
+            224,
+            128
+          ],
+          "rect_pixelgrid": [
+            56,
+            0,
+            56,
+            32
+          ],
+          "raw_rect": [
+            830,
+            0,
+            829,
+            474
+          ],
+          "whole_frame_shift_pixelgrid": [
+            3,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            7,
+            6,
+            55,
+            26
+          ],
+          "opaque_pixels": 326,
+          "bright_core_pixels": 20,
+          "mean_luminance": 188.32,
+          "brightest_decile_luminance": 246.99,
+          "symmetry_agreement": 0.4699,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            448,
+            0,
+            224,
+            128
+          ],
+          "rect_pixelgrid": [
+            112,
+            0,
+            56,
+            32
+          ],
+          "raw_rect": [
+            0,
+            474,
+            830,
+            474
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            1
+          ],
+          "bbox_pixelgrid": [
+            9,
+            6,
+            55,
+            26
+          ],
+          "opaque_pixels": 319,
+          "bright_core_pixels": 18,
+          "mean_luminance": 185.36,
+          "brightest_decile_luminance": 246.11,
+          "symmetry_agreement": 0.4233,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            672,
+            0,
+            224,
+            128
+          ],
+          "rect_pixelgrid": [
+            168,
+            0,
+            56,
+            32
+          ],
+          "raw_rect": [
+            830,
+            474,
+            829,
+            474
+          ],
+          "whole_frame_shift_pixelgrid": [
+            3,
+            0
+          ],
+          "bbox_pixelgrid": [
+            9,
+            6,
+            55,
+            25
+          ],
+          "opaque_pixels": 290,
+          "bright_core_pixels": 18,
+          "mean_luminance": 184.15,
+          "brightest_decile_luminance": 247.29,
+          "symmetry_agreement": 0.14,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_projectiles",
+        "key": "league_kogmaw_q_spit",
+        "description": "view_projectiles `league_kogmaw_q_spit`（循环，朝飞行方向转）",
+        "implemented": false
+      },
+      "anchor_px": [
+        112.0,
+        64.0
+      ],
+      "game_size_reference": [
+        14,
+        8
+      ],
+      "facing": "right; rotates with projectile",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "q_hit",
+      "number": 6,
+      "frame_count": 5,
+      "cell_requested": [
+        288,
+        288
+      ],
+      "logical_cell": [
+        18,
+        18
+      ],
+      "generation_layout": [
+        3,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_q_hit.png",
+      "pixelgrid_filename": "kogmaw_fx_q_hit_pixelgrid.png",
+      "pixelgrid_cell": [
+        72,
+        72
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_q_hit_raw.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        1440,
+        288
+      ],
+      "source_grid_steps": [
+        7.111111111111111,
+        7.111111111111111
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFFCD8",
+        "#FFF07A",
+        "#E2E83A",
+        "#B4D21E",
+        "#7CA816",
+        "#4A760E"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            288,
+            288
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            72,
+            72
+          ],
+          "raw_rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            2
+          ],
+          "bbox_pixelgrid": [
+            21,
+            23,
+            52,
+            50
+          ],
+          "opaque_pixels": 185,
+          "bright_core_pixels": 94,
+          "mean_luminance": 243.33,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8333,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            288,
+            0,
+            288,
+            288
+          ],
+          "rect_pixelgrid": [
+            72,
+            0,
+            72,
+            72
+          ],
+          "raw_rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            6,
+            11,
+            66,
+            61
+          ],
+          "opaque_pixels": 1174,
+          "bright_core_pixels": 141,
+          "mean_luminance": 176.16,
+          "brightest_decile_luminance": 252.52,
+          "symmetry_agreement": 0.8758,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            288,
+            288
+          ],
+          "rect_pixelgrid": [
+            144,
+            0,
+            72,
+            72
+          ],
+          "raw_rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            1
+          ],
+          "bbox_pixelgrid": [
+            2,
+            5,
+            70,
+            67
+          ],
+          "opaque_pixels": 1786,
+          "bright_core_pixels": 116,
+          "mean_luminance": 170.85,
+          "brightest_decile_luminance": 245.46,
+          "symmetry_agreement": 0.7012,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            864,
+            0,
+            288,
+            288
+          ],
+          "rect_pixelgrid": [
+            216,
+            0,
+            72,
+            72
+          ],
+          "raw_rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            2
+          ],
+          "bbox_pixelgrid": [
+            2,
+            5,
+            70,
+            67
+          ],
+          "opaque_pixels": 1368,
+          "bright_core_pixels": 128,
+          "mean_luminance": 170.87,
+          "brightest_decile_luminance": 249.28,
+          "symmetry_agreement": 0.7455,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 5,
+          "rect": [
+            1152,
+            0,
+            288,
+            288
+          ],
+          "rect_pixelgrid": [
+            288,
+            0,
+            72,
+            72
+          ],
+          "raw_rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -5
+          ],
+          "bbox_pixelgrid": [
+            11,
+            13,
+            61,
+            59
+          ],
+          "opaque_pixels": 368,
+          "bright_core_pixels": 12,
+          "mean_luminance": 170.72,
+          "brightest_decile_luminance": 240.32,
+          "symmetry_agreement": 0.9144,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_q_hit",
+        "description": "view_effects `league_kogmaw_q_hit`（跟随，画在人物上面）",
+        "implemented": false
+      },
+      "anchor_px": [
+        144.0,
+        144.0
+      ],
+      "game_size_reference": [
+        18,
+        18
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "q_shred",
+      "number": 7,
+      "frame_count": 4,
+      "cell_requested": [
+        320,
+        384
+      ],
+      "logical_cell": [
+        20,
+        24
+      ],
+      "generation_layout": [
+        2,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": true,
+      "filename": "kogmaw_fx_q_shred.png",
+      "pixelgrid_filename": "kogmaw_fx_q_shred_pixelgrid.png",
+      "pixelgrid_cell": [
+        80,
+        96
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_q_shred_raw.png",
+      "raw_size": [
+        1280,
+        1229
+      ],
+      "output_size": [
+        1280,
+        384
+      ],
+      "source_grid_steps": [
+        8.0,
+        6.401041666666667
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFFCD8",
+        "#FFF07A",
+        "#E2E83A",
+        "#B4D21E",
+        "#7CA816",
+        "#4A760E"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            320,
+            384
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            80,
+            96
+          ],
+          "raw_rect": [
+            0,
+            0,
+            640,
+            614
+          ],
+          "whole_frame_shift_pixelgrid": [
+            -4,
+            0
+          ],
+          "bbox_pixelgrid": [
+            20,
+            6,
+            59,
+            90
+          ],
+          "opaque_pixels": 825,
+          "bright_core_pixels": 62,
+          "mean_luminance": 181.61,
+          "brightest_decile_luminance": 248.48,
+          "symmetry_agreement": 0.1741,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            320,
+            0,
+            320,
+            384
+          ],
+          "rect_pixelgrid": [
+            80,
+            0,
+            80,
+            96
+          ],
+          "raw_rect": [
+            640,
+            0,
+            640,
+            614
+          ],
+          "whole_frame_shift_pixelgrid": [
+            4,
+            0
+          ],
+          "bbox_pixelgrid": [
+            19,
+            4,
+            61,
+            91
+          ],
+          "opaque_pixels": 915,
+          "bright_core_pixels": 96,
+          "mean_luminance": 184.29,
+          "brightest_decile_luminance": 252.41,
+          "symmetry_agreement": 0.3748,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            640,
+            0,
+            320,
+            384
+          ],
+          "rect_pixelgrid": [
+            160,
+            0,
+            80,
+            96
+          ],
+          "raw_rect": [
+            0,
+            614,
+            640,
+            615
+          ],
+          "whole_frame_shift_pixelgrid": [
+            -3,
+            0
+          ],
+          "bbox_pixelgrid": [
+            17,
+            6,
+            63,
+            88
+          ],
+          "opaque_pixels": 754,
+          "bright_core_pixels": 57,
+          "mean_luminance": 180.18,
+          "brightest_decile_luminance": 247.83,
+          "symmetry_agreement": 0.2192,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            960,
+            0,
+            320,
+            384
+          ],
+          "rect_pixelgrid": [
+            240,
+            0,
+            80,
+            96
+          ],
+          "raw_rect": [
+            640,
+            614,
+            640,
+            615
+          ],
+          "whole_frame_shift_pixelgrid": [
+            4,
+            0
+          ],
+          "bbox_pixelgrid": [
+            22,
+            14,
+            58,
+            86
+          ],
+          "opaque_pixels": 580,
+          "bright_core_pixels": 42,
+          "mean_luminance": 179.33,
+          "brightest_decile_luminance": 248.37,
+          "symmetry_agreement": 0.4444,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.2498,
+      "binding_reference": {
+        "table": "view_buffs",
+        "key": "league_kogmaw_q_shred",
+        "description": "view_buffs `league_kogmaw_q_shred`（循环，跟随，画在人物上面；4 秒）",
+        "implemented": false
+      },
+      "anchor_px": [
+        160.0,
+        352
+      ],
+      "game_size_reference": [
+        20,
+        24
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "e_ooze",
+      "number": 8,
+      "frame_count": 4,
+      "cell_requested": [
+        192,
+        128
+      ],
+      "logical_cell": [
+        12,
+        8
+      ],
+      "generation_layout": [
+        2,
+        2
+      ],
+      "symmetry_axis": "vertical",
+      "loop": true,
+      "filename": "kogmaw_fx_e_ooze.png",
+      "pixelgrid_filename": "kogmaw_fx_e_ooze_pixelgrid.png",
+      "pixelgrid_cell": [
+        48,
+        32
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_e_ooze_raw.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        768,
+        128
+      ],
+      "source_grid_steps": [
+        16.0,
+        16.0
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE4FF",
+        "#F6A8FA",
+        "#DA66EC",
+        "#AE38D0",
+        "#7420A0",
+        "#42106A"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            192,
+            128
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            48,
+            32
+          ],
+          "raw_rect": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            -5
+          ],
+          "bbox_pixelgrid": [
+            8,
+            8,
+            47,
+            24
+          ],
+          "opaque_pixels": 295,
+          "bright_core_pixels": 12,
+          "mean_luminance": 102.73,
+          "brightest_decile_luminance": 216.3,
+          "symmetry_agreement": 0.1579,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            192,
+            0,
+            192,
+            128
+          ],
+          "rect_pixelgrid": [
+            48,
+            0,
+            48,
+            32
+          ],
+          "raw_rect": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            -4
+          ],
+          "bbox_pixelgrid": [
+            5,
+            8,
+            47,
+            25
+          ],
+          "opaque_pixels": 310,
+          "bright_core_pixels": 12,
+          "mean_luminance": 98.34,
+          "brightest_decile_luminance": 215.47,
+          "symmetry_agreement": 0.3538,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            384,
+            0,
+            192,
+            128
+          ],
+          "rect_pixelgrid": [
+            96,
+            0,
+            48,
+            32
+          ],
+          "raw_rect": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            -1
+          ],
+          "bbox_pixelgrid": [
+            5,
+            7,
+            47,
+            25
+          ],
+          "opaque_pixels": 325,
+          "bright_core_pixels": 17,
+          "mean_luminance": 108.73,
+          "brightest_decile_luminance": 223.14,
+          "symmetry_agreement": 0.4031,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            576,
+            0,
+            192,
+            128
+          ],
+          "rect_pixelgrid": [
+            144,
+            0,
+            48,
+            32
+          ],
+          "raw_rect": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            5,
+            8,
+            47,
+            23
+          ],
+          "opaque_pixels": 288,
+          "bright_core_pixels": 18,
+          "mean_luminance": 114.03,
+          "brightest_decile_luminance": 230.54,
+          "symmetry_agreement": 0.2567,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_projectiles",
+        "key": "league_kogmaw_e_ooze",
+        "description": "view_projectiles `league_kogmaw_e_ooze`（循环，朝飞行方向转）",
+        "implemented": false
+      },
+      "anchor_px": [
+        96.0,
+        64.0
+      ],
+      "game_size_reference": [
+        12,
+        8
+      ],
+      "facing": "right; rotates with projectile",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "e_trail",
+      "number": 9,
+      "frame_count": 4,
+      "cell_requested": [
+        1600,
+        224
+      ],
+      "logical_cell": [
+        100,
+        14
+      ],
+      "generation_layout": [
+        1,
+        4
+      ],
+      "symmetry_axis": "vertical",
+      "loop": true,
+      "filename": "kogmaw_fx_e_trail.png",
+      "pixelgrid_filename": "kogmaw_fx_e_trail_pixelgrid.png",
+      "pixelgrid_cell": [
+        400,
+        56
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_e_trail_raw.png",
+      "raw_size": [
+        1676,
+        938
+      ],
+      "output_size": [
+        6400,
+        224
+      ],
+      "source_grid_steps": [
+        4.19,
+        4.1875
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE4FF",
+        "#F6A8FA",
+        "#DA66EC",
+        "#AE38D0",
+        "#7420A0",
+        "#42106A"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            1600,
+            224
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            400,
+            56
+          ],
+          "raw_rect": [
+            0,
+            0,
+            1676,
+            234
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -6
+          ],
+          "bbox_pixelgrid": [
+            5,
+            7,
+            394,
+            50
+          ],
+          "opaque_pixels": 8452,
+          "bright_core_pixels": 557,
+          "mean_luminance": 103.18,
+          "brightest_decile_luminance": 220.92,
+          "symmetry_agreement": 0.1327,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            1600,
+            0,
+            1600,
+            224
+          ],
+          "rect_pixelgrid": [
+            400,
+            0,
+            400,
+            56
+          ],
+          "raw_rect": [
+            0,
+            234,
+            1676,
+            235
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            1
+          ],
+          "bbox_pixelgrid": [
+            5,
+            1,
+            394,
+            55
+          ],
+          "opaque_pixels": 8630,
+          "bright_core_pixels": 613,
+          "mean_luminance": 104.6,
+          "brightest_decile_luminance": 223.52,
+          "symmetry_agreement": 0.0735,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            3200,
+            0,
+            1600,
+            224
+          ],
+          "rect_pixelgrid": [
+            800,
+            0,
+            400,
+            56
+          ],
+          "raw_rect": [
+            0,
+            469,
+            1676,
+            235
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -6
+          ],
+          "bbox_pixelgrid": [
+            5,
+            7,
+            394,
+            49
+          ],
+          "opaque_pixels": 8472,
+          "bright_core_pixels": 583,
+          "mean_luminance": 102.2,
+          "brightest_decile_luminance": 222.53,
+          "symmetry_agreement": 0.2205,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            4800,
+            0,
+            1600,
+            224
+          ],
+          "rect_pixelgrid": [
+            1200,
+            0,
+            400,
+            56
+          ],
+          "raw_rect": [
+            0,
+            704,
+            1676,
+            234
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            5,
+            8,
+            394,
+            47
+          ],
+          "opaque_pixels": 7855,
+          "bright_core_pixels": 623,
+          "mean_luminance": 104.43,
+          "brightest_decile_luminance": 227.25,
+          "symmetry_agreement": 0.219,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0006,
+      "binding_reference": {
+        "table": "view_projectiles",
+        "key": "league_kogmaw_e_trail",
+        "description": "view_projectiles `league_kogmaw_e_trail`（循环，朝施放方向转，画在人物下面；4 秒）",
+        "implemented": false
+      },
+      "anchor_px": [
+        800.0,
+        112.0
+      ],
+      "game_size_reference": [
+        100,
+        14
+      ],
+      "facing": "right; rotates with projectile",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "e_hit",
+      "number": 10,
+      "frame_count": 4,
+      "cell_requested": [
+        192,
+        192
+      ],
+      "logical_cell": [
+        12,
+        12
+      ],
+      "generation_layout": [
+        2,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_e_hit.png",
+      "pixelgrid_filename": "kogmaw_fx_e_hit_pixelgrid.png",
+      "pixelgrid_cell": [
+        96,
+        96
+      ],
+      "pixel_block_px": 2,
+      "authoring_factor": 8,
+      "raw_filename": "raw/kogmaw_fx_e_hit_raw.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        768,
+        192
+      ],
+      "source_grid_steps": [
+        6.53125,
+        6.53125
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE4FF",
+        "#F6A8FA",
+        "#DA66EC",
+        "#AE38D0",
+        "#7420A0",
+        "#42106A"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "raw_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            35,
+            34,
+            61,
+            61
+          ],
+          "opaque_pixels": 257,
+          "bright_core_pixels": 75,
+          "mean_luminance": 202.16,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.9692,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "raw_rect": [
+            627,
+            0,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -1
+          ],
+          "bbox_pixelgrid": [
+            2,
+            8,
+            95,
+            88
+          ],
+          "opaque_pixels": 2988,
+          "bright_core_pixels": 143,
+          "mean_luminance": 108.93,
+          "brightest_decile_luminance": 220.12,
+          "symmetry_agreement": 0.8696,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "raw_rect": [
+            0,
+            627,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -1
+          ],
+          "bbox_pixelgrid": [
+            9,
+            14,
+            87,
+            82
+          ],
+          "opaque_pixels": 2042,
+          "bright_core_pixels": 102,
+          "mean_luminance": 111.55,
+          "brightest_decile_luminance": 221.28,
+          "symmetry_agreement": 0.8891,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "raw_rect": [
+            627,
+            627,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            23,
+            30,
+            74,
+            67
+          ],
+          "opaque_pixels": 281,
+          "bright_core_pixels": 2,
+          "mean_luminance": 104.96,
+          "brightest_decile_luminance": 194.95,
+          "symmetry_agreement": 0.8176,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_e_hit",
+        "description": "view_effects `league_kogmaw_e_hit`（跟随，画在人物上面）",
+        "implemented": false
+      },
+      "anchor_px": [
+        96.0,
+        96.0
+      ],
+      "game_size_reference": [
+        12,
+        12
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "e_slow",
+      "number": 11,
+      "frame_count": 4,
+      "cell_requested": [
+        288,
+        96
+      ],
+      "logical_cell": [
+        18,
+        6
+      ],
+      "generation_layout": [
+        1,
+        4
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": true,
+      "filename": "kogmaw_fx_e_slow.png",
+      "pixelgrid_filename": "kogmaw_fx_e_slow_pixelgrid.png",
+      "pixelgrid_cell": [
+        72,
+        24
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_e_slow_raw.png",
+      "raw_size": [
+        1086,
+        1448
+      ],
+      "output_size": [
+        1152,
+        96
+      ],
+      "source_grid_steps": [
+        15.083333333333334,
+        15.083333333333334
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE4FF",
+        "#F6A8FA",
+        "#DA66EC",
+        "#AE38D0",
+        "#7420A0",
+        "#42106A"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            288,
+            96
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            72,
+            24
+          ],
+          "raw_rect": [
+            0,
+            0,
+            1086,
+            460
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -4
+          ],
+          "bbox_pixelgrid": [
+            6,
+            8,
+            66,
+            16
+          ],
+          "opaque_pixels": 312,
+          "bright_core_pixels": 11,
+          "mean_luminance": 87.96,
+          "brightest_decile_luminance": 209.29,
+          "symmetry_agreement": 0.8165,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            288,
+            0,
+            288,
+            96
+          ],
+          "rect_pixelgrid": [
+            72,
+            0,
+            72,
+            24
+          ],
+          "raw_rect": [
+            0,
+            460,
+            1086,
+            335
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            6,
+            3,
+            66,
+            20
+          ],
+          "opaque_pixels": 506,
+          "bright_core_pixels": 26,
+          "mean_luminance": 94.91,
+          "brightest_decile_luminance": 222.63,
+          "symmetry_agreement": 0.7782,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            288,
+            96
+          ],
+          "rect_pixelgrid": [
+            144,
+            0,
+            72,
+            24
+          ],
+          "raw_rect": [
+            0,
+            795,
+            1086,
+            400
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            6,
+            2,
+            66,
+            22
+          ],
+          "opaque_pixels": 477,
+          "bright_core_pixels": 27,
+          "mean_luminance": 97.7,
+          "brightest_decile_luminance": 225.17,
+          "symmetry_agreement": 0.7683,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            864,
+            0,
+            288,
+            96
+          ],
+          "rect_pixelgrid": [
+            216,
+            0,
+            72,
+            24
+          ],
+          "raw_rect": [
+            0,
+            1195,
+            1086,
+            253
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            7,
+            2,
+            65,
+            22
+          ],
+          "opaque_pixels": 540,
+          "bright_core_pixels": 23,
+          "mean_luminance": 87.56,
+          "brightest_decile_luminance": 217.62,
+          "symmetry_agreement": 0.8645,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_buffs",
+        "key": "league_kogmaw_e_slow",
+        "description": "view_buffs `league_kogmaw_e_slow`（循环，跟随，画在人物下面）",
+        "implemented": false
+      },
+      "anchor_px": [
+        144.0,
+        48.0
+      ],
+      "game_size_reference": [
+        18,
+        6
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "r_mark",
+      "number": 12,
+      "frame_count": 6,
+      "cell_requested": [
+        512,
+        256
+      ],
+      "logical_cell": [
+        32,
+        16
+      ],
+      "generation_layout": [
+        2,
+        3
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_r_mark.png",
+      "pixelgrid_filename": "kogmaw_fx_r_mark_pixelgrid.png",
+      "pixelgrid_cell": [
+        128,
+        64
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_r_mark_raw.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        3072,
+        256
+      ],
+      "source_grid_steps": [
+        6.9296875,
+        4.619791666666667
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F6FFD8",
+        "#DCF88A",
+        "#B6E44A",
+        "#84C02A"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            128,
+            64
+          ],
+          "raw_rect": [
+            0,
+            0,
+            887,
+            296
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -6
+          ],
+          "bbox_pixelgrid": [
+            8,
+            6,
+            120,
+            57
+          ],
+          "opaque_pixels": 1094,
+          "bright_core_pixels": 274,
+          "mean_luminance": 231.89,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.877,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "rect_pixelgrid": [
+            128,
+            0,
+            128,
+            64
+          ],
+          "raw_rect": [
+            887,
+            0,
+            887,
+            296
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -6
+          ],
+          "bbox_pixelgrid": [
+            8,
+            6,
+            120,
+            57
+          ],
+          "opaque_pixels": 1184,
+          "bright_core_pixels": 334,
+          "mean_luminance": 232.98,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8953,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "rect_pixelgrid": [
+            256,
+            0,
+            128,
+            64
+          ],
+          "raw_rect": [
+            0,
+            296,
+            887,
+            295
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -5
+          ],
+          "bbox_pixelgrid": [
+            8,
+            7,
+            120,
+            57
+          ],
+          "opaque_pixels": 1120,
+          "bright_core_pixels": 350,
+          "mean_luminance": 232.68,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8961,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "rect_pixelgrid": [
+            384,
+            0,
+            128,
+            64
+          ],
+          "raw_rect": [
+            887,
+            296,
+            887,
+            295
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -5
+          ],
+          "bbox_pixelgrid": [
+            8,
+            7,
+            120,
+            57
+          ],
+          "opaque_pixels": 1048,
+          "bright_core_pixels": 346,
+          "mean_luminance": 233.16,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.906,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 5,
+          "rect": [
+            2048,
+            0,
+            512,
+            256
+          ],
+          "rect_pixelgrid": [
+            512,
+            0,
+            128,
+            64
+          ],
+          "raw_rect": [
+            0,
+            591,
+            887,
+            296
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -3
+          ],
+          "bbox_pixelgrid": [
+            8,
+            7,
+            120,
+            57
+          ],
+          "opaque_pixels": 954,
+          "bright_core_pixels": 320,
+          "mean_luminance": 234.07,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8778,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 6,
+          "rect": [
+            2560,
+            0,
+            512,
+            256
+          ],
+          "rect_pixelgrid": [
+            640,
+            0,
+            128,
+            64
+          ],
+          "raw_rect": [
+            887,
+            591,
+            887,
+            296
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -3
+          ],
+          "bbox_pixelgrid": [
+            8,
+            7,
+            120,
+            57
+          ],
+          "opaque_pixels": 4464,
+          "bright_core_pixels": 4067,
+          "mean_luminance": 249.47,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.9808,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.5,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_r_mark",
+        "description": "view_effects `league_kogmaw_r_mark`（不跟随，画在人物下面；落下前 0.6 秒）",
+        "implemented": false
+      },
+      "anchor_px": [
+        256.0,
+        128.0
+      ],
+      "game_size_reference": [
+        30,
+        15
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "r_fall",
+      "number": 13,
+      "frame_count": 7,
+      "cell_requested": [
+        512,
+        960
+      ],
+      "logical_cell": [
+        32,
+        60
+      ],
+      "generation_layout": [
+        4,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_r_fall.png",
+      "pixelgrid_filename": "kogmaw_fx_r_fall_pixelgrid.png",
+      "pixelgrid_cell": [
+        128,
+        240
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_r_fall_raw.png",
+      "raw_size": [
+        1448,
+        1086
+      ],
+      "output_size": [
+        3584,
+        960
+      ],
+      "source_grid_steps": [
+        2.828125,
+        2.2625
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F2FFD0",
+        "#D4F87A",
+        "#A8E838",
+        "#74C41E",
+        "#46961A",
+        "#26640E"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            512,
+            960
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            128,
+            240
+          ],
+          "raw_rect": [
+            0,
+            0,
+            362,
+            720
+          ],
+          "whole_frame_shift_pixelgrid": [
+            -1,
+            -37
+          ],
+          "bbox_pixelgrid": [
+            49,
+            0,
+            79,
+            70
+          ],
+          "opaque_pixels": 952,
+          "bright_core_pixels": 95,
+          "mean_luminance": 158.32,
+          "brightest_decile_luminance": 253.34,
+          "symmetry_agreement": 0.4162,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            512,
+            960
+          ],
+          "rect_pixelgrid": [
+            128,
+            0,
+            128,
+            240
+          ],
+          "raw_rect": [
+            362,
+            0,
+            362,
+            720
+          ],
+          "whole_frame_shift_pixelgrid": [
+            1,
+            -9
+          ],
+          "bbox_pixelgrid": [
+            48,
+            19,
+            80,
+            152
+          ],
+          "opaque_pixels": 1343,
+          "bright_core_pixels": 144,
+          "mean_luminance": 156.64,
+          "brightest_decile_luminance": 254.32,
+          "symmetry_agreement": 0.3871,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            1024,
+            0,
+            512,
+            960
+          ],
+          "rect_pixelgrid": [
+            256,
+            0,
+            128,
+            240
+          ],
+          "raw_rect": [
+            724,
+            0,
+            350,
+            720
+          ],
+          "whole_frame_shift_pixelgrid": [
+            -2,
+            8
+          ],
+          "bbox_pixelgrid": [
+            5,
+            121,
+            123,
+            215
+          ],
+          "opaque_pixels": 3228,
+          "bright_core_pixels": 820,
+          "mean_luminance": 185.1,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.7209,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1536,
+            0,
+            512,
+            960
+          ],
+          "rect_pixelgrid": [
+            384,
+            0,
+            128,
+            240
+          ],
+          "raw_rect": [
+            1074,
+            0,
+            374,
+            720
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            10
+          ],
+          "bbox_pixelgrid": [
+            4,
+            100,
+            123,
+            217
+          ],
+          "opaque_pixels": 6142,
+          "bright_core_pixels": 949,
+          "mean_luminance": 170.04,
+          "brightest_decile_luminance": 254.47,
+          "symmetry_agreement": 0.6558,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 5,
+          "rect": [
+            2048,
+            0,
+            512,
+            960
+          ],
+          "rect_pixelgrid": [
+            512,
+            0,
+            128,
+            240
+          ],
+          "raw_rect": [
+            0,
+            720,
+            382,
+            366
+          ],
+          "whole_frame_shift_pixelgrid": [
+            -2,
+            6
+          ],
+          "bbox_pixelgrid": [
+            6,
+            148,
+            123,
+            221
+          ],
+          "opaque_pixels": 3419,
+          "bright_core_pixels": 269,
+          "mean_luminance": 156.91,
+          "brightest_decile_luminance": 248.02,
+          "symmetry_agreement": 0.4642,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 6,
+          "rect": [
+            2560,
+            0,
+            512,
+            960
+          ],
+          "rect_pixelgrid": [
+            640,
+            0,
+            128,
+            240
+          ],
+          "raw_rect": [
+            382,
+            720,
+            358,
+            366
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            4
+          ],
+          "bbox_pixelgrid": [
+            4,
+            156,
+            125,
+            222
+          ],
+          "opaque_pixels": 2608,
+          "bright_core_pixels": 383,
+          "mean_luminance": 176.4,
+          "brightest_decile_luminance": 253.42,
+          "symmetry_agreement": 0.3125,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 7,
+          "rect": [
+            3072,
+            0,
+            512,
+            960
+          ],
+          "rect_pixelgrid": [
+            768,
+            0,
+            128,
+            240
+          ],
+          "raw_rect": [
+            740,
+            720,
+            382,
+            366
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            3
+          ],
+          "bbox_pixelgrid": [
+            5,
+            168,
+            122,
+            220
+          ],
+          "opaque_pixels": 1766,
+          "bright_core_pixels": 137,
+          "mean_luminance": 160.19,
+          "brightest_decile_luminance": 246.26,
+          "symmetry_agreement": 0.4985,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.25,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_r_fall",
+        "description": "view_effects `league_kogmaw_r_fall`（不跟随，画在人物上面；落点上）",
+        "implemented": false
+      },
+      "anchor_px": [
+        256.0,
+        832
+      ],
+      "game_size_reference": [
+        32,
+        60
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "r_hit",
+      "number": 14,
+      "frame_count": 4,
+      "cell_requested": [
+        224,
+        224
+      ],
+      "logical_cell": [
+        14,
+        14
+      ],
+      "generation_layout": [
+        2,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_r_hit.png",
+      "pixelgrid_filename": "kogmaw_fx_r_hit_pixelgrid.png",
+      "pixelgrid_cell": [
+        56,
+        56
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_r_hit_raw.png",
+      "raw_size": [
+        1271,
+        1238
+      ],
+      "output_size": [
+        896,
+        224
+      ],
+      "source_grid_steps": [
+        11.348214285714286,
+        11.053571428571429
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F2FFD0",
+        "#D4F87A",
+        "#A8E838",
+        "#74C41E",
+        "#46961A",
+        "#26640E"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            224,
+            224
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            56,
+            56
+          ],
+          "raw_rect": [
+            0,
+            0,
+            636,
+            619
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -3
+          ],
+          "bbox_pixelgrid": [
+            13,
+            13,
+            42,
+            43
+          ],
+          "opaque_pixels": 220,
+          "bright_core_pixels": 50,
+          "mean_luminance": 216.2,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8584,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            224,
+            0,
+            224,
+            224
+          ],
+          "rect_pixelgrid": [
+            56,
+            0,
+            56,
+            56
+          ],
+          "raw_rect": [
+            636,
+            0,
+            635,
+            619
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            -5
+          ],
+          "bbox_pixelgrid": [
+            2,
+            7,
+            54,
+            49
+          ],
+          "opaque_pixels": 970,
+          "bright_core_pixels": 103,
+          "mean_luminance": 182.25,
+          "brightest_decile_luminance": 254.11,
+          "symmetry_agreement": 0.5206,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            448,
+            0,
+            224,
+            224
+          ],
+          "rect_pixelgrid": [
+            112,
+            0,
+            56,
+            56
+          ],
+          "raw_rect": [
+            0,
+            619,
+            636,
+            619
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            4,
+            11,
+            52,
+            46
+          ],
+          "opaque_pixels": 608,
+          "bright_core_pixels": 35,
+          "mean_luminance": 166.38,
+          "brightest_decile_luminance": 243.36,
+          "symmetry_agreement": 0.8447,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            672,
+            0,
+            224,
+            224
+          ],
+          "rect_pixelgrid": [
+            168,
+            0,
+            56,
+            56
+          ],
+          "raw_rect": [
+            636,
+            619,
+            635,
+            619
+          ],
+          "whole_frame_shift_pixelgrid": [
+            2,
+            -4
+          ],
+          "bbox_pixelgrid": [
+            6,
+            16,
+            49,
+            40
+          ],
+          "opaque_pixels": 246,
+          "bright_core_pixels": 18,
+          "mean_luminance": 156.21,
+          "brightest_decile_luminance": 246.87,
+          "symmetry_agreement": 0.529,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0267,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_r_hit",
+        "description": "view_effects `league_kogmaw_r_hit`（跟随，画在人物上面）",
+        "implemented": false
+      },
+      "anchor_px": [
+        112.0,
+        112.0
+      ],
+      "game_size_reference": [
+        14,
+        14
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "p_wake",
+      "number": 15,
+      "frame_count": 6,
+      "cell_requested": [
+        480,
+        544
+      ],
+      "logical_cell": [
+        30,
+        34
+      ],
+      "generation_layout": [
+        3,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_p_wake.png",
+      "pixelgrid_filename": "kogmaw_fx_p_wake_pixelgrid.png",
+      "pixelgrid_cell": [
+        120,
+        136
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_p_wake_raw.png",
+      "raw_size": [
+        1443,
+        1090
+      ],
+      "output_size": [
+        2880,
+        544
+      ],
+      "source_grid_steps": [
+        4.008333333333334,
+        4.007352941176471
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE4FF",
+        "#F6A8FA",
+        "#DA66EC",
+        "#AE38D0",
+        "#7420A0",
+        "#42106A"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            480,
+            544
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            120,
+            136
+          ],
+          "raw_rect": [
+            0,
+            0,
+            481,
+            600
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -5
+          ],
+          "bbox_pixelgrid": [
+            22,
+            102,
+            99,
+            131
+          ],
+          "opaque_pixels": 607,
+          "bright_core_pixels": 268,
+          "mean_luminance": 205.04,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.7278,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            480,
+            0,
+            480,
+            544
+          ],
+          "rect_pixelgrid": [
+            120,
+            0,
+            120,
+            136
+          ],
+          "raw_rect": [
+            481,
+            0,
+            481,
+            600
+          ],
+          "whole_frame_shift_pixelgrid": [
+            -4,
+            -3
+          ],
+          "bbox_pixelgrid": [
+            5,
+            38,
+            116,
+            127
+          ],
+          "opaque_pixels": 2496,
+          "bright_core_pixels": 674,
+          "mean_luminance": 157.27,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.0969,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            960,
+            0,
+            480,
+            544
+          ],
+          "rect_pixelgrid": [
+            240,
+            0,
+            120,
+            136
+          ],
+          "raw_rect": [
+            962,
+            0,
+            481,
+            600
+          ],
+          "whole_frame_shift_pixelgrid": [
+            1,
+            -4
+          ],
+          "bbox_pixelgrid": [
+            1,
+            23,
+            119,
+            128
+          ],
+          "opaque_pixels": 4499,
+          "bright_core_pixels": 1255,
+          "mean_luminance": 159.09,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.6705,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1440,
+            0,
+            480,
+            544
+          ],
+          "rect_pixelgrid": [
+            360,
+            0,
+            120,
+            136
+          ],
+          "raw_rect": [
+            0,
+            600,
+            481,
+            490
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -3
+          ],
+          "bbox_pixelgrid": [
+            3,
+            43,
+            118,
+            128
+          ],
+          "opaque_pixels": 2885,
+          "bright_core_pixels": 661,
+          "mean_luminance": 151.22,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.344,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 5,
+          "rect": [
+            1920,
+            0,
+            480,
+            544
+          ],
+          "rect_pixelgrid": [
+            480,
+            0,
+            120,
+            136
+          ],
+          "raw_rect": [
+            481,
+            600,
+            481,
+            490
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -4
+          ],
+          "bbox_pixelgrid": [
+            12,
+            50,
+            108,
+            127
+          ],
+          "opaque_pixels": 1700,
+          "bright_core_pixels": 348,
+          "mean_luminance": 151.33,
+          "brightest_decile_luminance": 250.57,
+          "symmetry_agreement": 0.3077,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 6,
+          "rect": [
+            2400,
+            0,
+            480,
+            544
+          ],
+          "rect_pixelgrid": [
+            600,
+            0,
+            120,
+            136
+          ],
+          "raw_rect": [
+            962,
+            600,
+            481,
+            490
+          ],
+          "whole_frame_shift_pixelgrid": [
+            1,
+            -4
+          ],
+          "bbox_pixelgrid": [
+            26,
+            52,
+            94,
+            125
+          ],
+          "opaque_pixels": 801,
+          "bright_core_pixels": 139,
+          "mean_luminance": 153.51,
+          "brightest_decile_luminance": 249.76,
+          "symmetry_agreement": 0.3595,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0002,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_p_wake",
+        "description": "view_effects `league_kogmaw_p_wake`（不跟随，画在人物上面；死亡时）",
+        "implemented": false
+      },
+      "anchor_px": [
+        240.0,
+        480
+      ],
+      "game_size_reference": [
+        30,
+        34
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "p_form",
+      "number": 16,
+      "frame_count": 4,
+      "cell_requested": [
+        288,
+        192
+      ],
+      "logical_cell": [
+        18,
+        12
+      ],
+      "generation_layout": [
+        2,
+        2
+      ],
+      "symmetry_axis": "vertical",
+      "loop": true,
+      "filename": "kogmaw_fx_p_form.png",
+      "pixelgrid_filename": "kogmaw_fx_p_form_pixelgrid.png",
+      "pixelgrid_cell": [
+        72,
+        48
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_p_form_raw.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        1152,
+        192
+      ],
+      "source_grid_steps": [
+        10.666666666666666,
+        10.666666666666666
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE4FF",
+        "#F6A8FA",
+        "#DA66EC",
+        "#AE38D0",
+        "#7420A0",
+        "#42106A"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            288,
+            192
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            72,
+            48
+          ],
+          "raw_rect": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            5,
+            6,
+            71,
+            42
+          ],
+          "opaque_pixels": 1040,
+          "bright_core_pixels": 135,
+          "mean_luminance": 103.87,
+          "brightest_decile_luminance": 244.42,
+          "symmetry_agreement": 0.4105,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            288,
+            0,
+            288,
+            192
+          ],
+          "rect_pixelgrid": [
+            72,
+            0,
+            72,
+            48
+          ],
+          "raw_rect": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            3,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            6,
+            6,
+            71,
+            42
+          ],
+          "opaque_pixels": 1077,
+          "bright_core_pixels": 134,
+          "mean_luminance": 107.29,
+          "brightest_decile_luminance": 243.56,
+          "symmetry_agreement": 0.3043,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            288,
+            192
+          ],
+          "rect_pixelgrid": [
+            144,
+            0,
+            72,
+            48
+          ],
+          "raw_rect": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            2
+          ],
+          "bbox_pixelgrid": [
+            5,
+            7,
+            71,
+            42
+          ],
+          "opaque_pixels": 1094,
+          "bright_core_pixels": 137,
+          "mean_luminance": 107.92,
+          "brightest_decile_luminance": 242.71,
+          "symmetry_agreement": 0.2733,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            864,
+            0,
+            288,
+            192
+          ],
+          "rect_pixelgrid": [
+            216,
+            0,
+            72,
+            48
+          ],
+          "raw_rect": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            3,
+            2
+          ],
+          "bbox_pixelgrid": [
+            6,
+            7,
+            71,
+            42
+          ],
+          "opaque_pixels": 1034,
+          "bright_core_pixels": 113,
+          "mean_luminance": 104.81,
+          "brightest_decile_luminance": 243.67,
+          "symmetry_agreement": 0.2612,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_projectiles",
+        "key": "league_kogmaw_p_form",
+        "description": "view_projectiles `league_kogmaw_p_form`（循环，朝飞行方向转）",
+        "implemented": false
+      },
+      "anchor_px": [
+        144.0,
+        96.0
+      ],
+      "game_size_reference": [
+        18,
+        12
+      ],
+      "facing": "right; rotates with projectile",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "p_boom",
+      "number": 17,
+      "frame_count": 6,
+      "cell_requested": [
+        416,
+        416
+      ],
+      "logical_cell": [
+        26,
+        26
+      ],
+      "generation_layout": [
+        3,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_p_boom.png",
+      "pixelgrid_filename": "kogmaw_fx_p_boom_pixelgrid.png",
+      "pixelgrid_cell": [
+        104,
+        104
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_p_boom_raw.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        2496,
+        416
+      ],
+      "source_grid_steps": [
+        4.923076923076923,
+        4.923076923076923
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE4FF",
+        "#F6A8FA",
+        "#DA66EC",
+        "#AE38D0",
+        "#7420A0",
+        "#42106A"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            416,
+            416
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            104,
+            104
+          ],
+          "raw_rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            2
+          ],
+          "bbox_pixelgrid": [
+            38,
+            39,
+            67,
+            66
+          ],
+          "opaque_pixels": 244,
+          "bright_core_pixels": 88,
+          "mean_luminance": 212.69,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.7692,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            416,
+            0,
+            416,
+            416
+          ],
+          "rect_pixelgrid": [
+            104,
+            0,
+            104,
+            104
+          ],
+          "raw_rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            1
+          ],
+          "bbox_pixelgrid": [
+            16,
+            13,
+            88,
+            91
+          ],
+          "opaque_pixels": 1813,
+          "bright_core_pixels": 234,
+          "mean_luminance": 138.53,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.8415,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            832,
+            0,
+            416,
+            416
+          ],
+          "rect_pixelgrid": [
+            208,
+            0,
+            104,
+            104
+          ],
+          "raw_rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            1
+          ],
+          "bbox_pixelgrid": [
+            5,
+            8,
+            100,
+            96
+          ],
+          "opaque_pixels": 3482,
+          "bright_core_pixels": 812,
+          "mean_luminance": 153.94,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.5628,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            1248,
+            0,
+            416,
+            416
+          ],
+          "rect_pixelgrid": [
+            312,
+            0,
+            104,
+            104
+          ],
+          "raw_rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            1
+          ],
+          "bbox_pixelgrid": [
+            2,
+            6,
+            102,
+            98
+          ],
+          "opaque_pixels": 2523,
+          "bright_core_pixels": 292,
+          "mean_luminance": 142.93,
+          "brightest_decile_luminance": 251.34,
+          "symmetry_agreement": 0.6944,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 5,
+          "rect": [
+            1664,
+            0,
+            416,
+            416
+          ],
+          "rect_pixelgrid": [
+            416,
+            0,
+            104,
+            104
+          ],
+          "raw_rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            5,
+            12,
+            99,
+            93
+          ],
+          "opaque_pixels": 1326,
+          "bright_core_pixels": 42,
+          "mean_luminance": 116.74,
+          "brightest_decile_luminance": 207.82,
+          "symmetry_agreement": 0.8295,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 6,
+          "rect": [
+            2080,
+            0,
+            416,
+            416
+          ],
+          "rect_pixelgrid": [
+            520,
+            0,
+            104,
+            104
+          ],
+          "raw_rect": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            20,
+            26,
+            85,
+            78
+          ],
+          "opaque_pixels": 309,
+          "bright_core_pixels": 61,
+          "mean_luminance": 150.89,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.456,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_p_boom",
+        "description": "view_effects `league_kogmaw_p_boom`（跟随，画在人物上面）",
+        "implemented": false
+      },
+      "anchor_px": [
+        208.0,
+        208.0
+      ],
+      "game_size_reference": [
+        26,
+        26
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    },
+    {
+      "id": "p_hit",
+      "number": 18,
+      "frame_count": 4,
+      "cell_requested": [
+        192,
+        192
+      ],
+      "logical_cell": [
+        12,
+        12
+      ],
+      "generation_layout": [
+        2,
+        2
+      ],
+      "symmetry_axis": "horizontal",
+      "loop": false,
+      "filename": "kogmaw_fx_p_hit.png",
+      "pixelgrid_filename": "kogmaw_fx_p_hit_pixelgrid.png",
+      "pixelgrid_cell": [
+        48,
+        48
+      ],
+      "pixel_block_px": 4,
+      "authoring_factor": 4,
+      "raw_filename": "raw/kogmaw_fx_p_hit_raw.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        768,
+        192
+      ],
+      "source_grid_steps": [
+        13.0625,
+        13.0625
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE4FF",
+        "#F6A8FA",
+        "#DA66EC",
+        "#AE38D0",
+        "#7420A0",
+        "#42106A"
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            0,
+            0,
+            48,
+            48
+          ],
+          "raw_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            14,
+            14,
+            34,
+            34
+          ],
+          "opaque_pixels": 133,
+          "bright_core_pixels": 52,
+          "mean_luminance": 177.64,
+          "brightest_decile_luminance": 252.24,
+          "symmetry_agreement": 0.9559,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 2,
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            48,
+            0,
+            48,
+            48
+          ],
+          "raw_rect": [
+            627,
+            0,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -2
+          ],
+          "bbox_pixelgrid": [
+            5,
+            3,
+            43,
+            45
+          ],
+          "opaque_pixels": 577,
+          "bright_core_pixels": 119,
+          "mean_luminance": 141.33,
+          "brightest_decile_luminance": 250.34,
+          "symmetry_agreement": 0.9315,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 3,
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            96,
+            0,
+            48,
+            48
+          ],
+          "raw_rect": [
+            0,
+            627,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            0
+          ],
+          "bbox_pixelgrid": [
+            5,
+            6,
+            43,
+            43
+          ],
+          "opaque_pixels": 223,
+          "bright_core_pixels": 42,
+          "mean_luminance": 139.43,
+          "brightest_decile_luminance": 247.44,
+          "symmetry_agreement": 0.9052,
+          "preview_duration_ms": 100
+        },
+        {
+          "index": 4,
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "rect_pixelgrid": [
+            144,
+            0,
+            48,
+            48
+          ],
+          "raw_rect": [
+            627,
+            627,
+            627,
+            627
+          ],
+          "whole_frame_shift_pixelgrid": [
+            0,
+            -1
+          ],
+          "bbox_pixelgrid": [
+            8,
+            7,
+            40,
+            41
+          ],
+          "opaque_pixels": 59,
+          "bright_core_pixels": 19,
+          "mean_luminance": 159.81,
+          "brightest_decile_luminance": 255.0,
+          "symmetry_agreement": 0.9333,
+          "preview_duration_ms": 100
+        }
+      ],
+      "timing_status": "preview only; actual engine timing not supplied by input spec",
+      "raw_aspect_error": 0.0,
+      "binding_reference": {
+        "table": "view_effects",
+        "key": "league_kogmaw_p_hit",
+        "description": "view_effects `league_kogmaw_p_hit`（跟随，画在人物上面）",
+        "implemented": false
+      },
+      "anchor_px": [
+        96.0,
+        96.0
+      ],
+      "game_size_reference": [
+        12,
+        12
+      ],
+      "facing": "upright; does not mirror or rotate",
+      "status": "generated_authoring_asset; engine import pending"
+    }
+  ],
+  "expected_asset_count": 18,
+  "expected_frame_count": 83,
+  "actual_asset_count": 18,
+  "actual_frame_count": 83,
+  "coordinates": "zero-based source pixels. assets[].frames[].rect=[x,y,width,height] in final named PNG. rect_pixelgrid and bbox_pixelgrid use the smaller authoring grid (pixel_block_px), NOT native game pixels. raw_rect references original raw PNG.",
+  "timing_note": "100 ms GIF frames are review timing only; input has no per-frame runtime timing. R mark six frames at 100 ms is a proposed 600 ms countdown.",
+  "import_note": "All assets are separate effects. This package does not modify the game. Native game size is logical_cell, final PNG cell is cell_requested. Actual authoring blocks are 4px (E hit: 2px), not the example prompt 16px; preserve source and assess native-scale readability during import."
+}

@@ -1,0 +1,211 @@
+{
+ "hero": "nidalee_cougar",
+ "champ": "NidaleeCougar",
+ "wad": "Nidalee",
+ "camera": {
+  "yaw": 90,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "legs": "^(L|R)_(Hip|Knee|Foot|Toe|Shoulder|Elbow|Hand|Paw)$",
+ "head_joint": "Head",
+ "height": 29,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "NidaleeCougar_Idle1@0",
+ "tags": {
+  "c_run": {
+   "frames": [
+    [
+     "NidaleeCougar_Run1@0",
+     100
+    ],
+    [
+     "NidaleeCougar_Run1@183",
+     100
+    ],
+    [
+     "NidaleeCougar_Run1@367",
+     100
+    ],
+    [
+     "NidaleeCougar_Run1@550",
+     100
+    ],
+    [
+     "NidaleeCougar_Run1@733",
+     100
+    ],
+    [
+     "NidaleeCougar_Run1@917",
+     100
+    ],
+    [
+     "NidaleeCougar_Run1@1100",
+     100
+    ],
+    [
+     "NidaleeCougar_Run1@1283",
+     100
+    ]
+   ]
+  },
+  "c_attack": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "NidaleeCougar_Idle1@0>NidaleeCougar_Attack1@0:0.6",
+     70
+    ],
+    [
+     "NidaleeCougar_Attack1@150",
+     70
+    ],
+    [
+     "NidaleeCougar_Attack1@300",
+     90
+    ],
+    [
+     "NidaleeCougar_Attack1@700>NidaleeCougar_Idle1@0:0.5",
+     110
+    ]
+   ]
+  },
+  "c_skill": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "NidaleeCougar_Idle1@0>NidaleeCougar_Spell1@0:0.6",
+     70
+    ],
+    [
+     "NidaleeCougar_Spell1@150",
+     70
+    ],
+    [
+     "NidaleeCougar_Spell1@300",
+     90
+    ],
+    [
+     "NidaleeCougar_Spell1@450",
+     90
+    ],
+    [
+     "NidaleeCougar_Spell1@900>NidaleeCougar_Idle1@0:0.5",
+     110
+    ]
+   ]
+  },
+  "c_pounce": {
+   "lunge": 0.5,
+   "rise": 0.5,
+   "frames": [
+    [
+     "NidaleeCougar_Spell2_short@0",
+     60
+    ],
+    [
+     "NidaleeCougar_Spell2_short@80",
+     60
+    ],
+    [
+     "NidaleeCougar_Spell2_short@160",
+     60
+    ],
+    [
+     "NidaleeCougar_Spell2_short@240",
+     60
+    ],
+    [
+     "NidaleeCougar_Spell2_short@320",
+     70
+    ],
+    [
+     "NidaleeCougar_Spell2@500",
+     90
+    ]
+   ]
+  },
+  "c_swipe": {
+   "lunge": 0.2,
+   "release": 2,
+   "frames": [
+    [
+     "NidaleeCougar_Idle1@0>NidaleeCougar_Spell3@0:0.6",
+     70
+    ],
+    [
+     "NidaleeCougar_Spell3@150",
+     80
+    ],
+    [
+     "NidaleeCougar_Spell3@300",
+     90
+    ],
+    [
+     "NidaleeCougar_Spell3@700>NidaleeCougar_Idle1@0:0.5",
+     110
+    ]
+   ]
+  },
+  "c_transform": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "NidaleeCougar_Idle1@0>NidaleeCougar_Taunt@0:0.5",
+     80
+    ],
+    [
+     "NidaleeCougar_Taunt@300",
+     90
+    ],
+    [
+     "NidaleeCougar_Taunt@600",
+     100
+    ]
+   ]
+  },
+  "c_dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "NidaleeCougar_Death@0",
+     100
+    ],
+    [
+     "NidaleeCougar_Death@150",
+     110
+    ],
+    [
+     "NidaleeCougar_Death@1000",
+     120
+    ],
+    [
+     "NidaleeCougar_Death@1200",
+     150
+    ],
+    [
+     "NidaleeCougar_Death@1400",
+     200
+    ],
+    [
+     "NidaleeCougar_Death@1600",
+     400
+    ]
+   ]
+  }
+ }
+}

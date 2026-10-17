@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_lillia_sfx_swing",
+      "volume": 0.4
+    },
+    {
+      "delay": 0.15,
+      "clip": "league_lillia_sfx_hit",
+      "volume": 0.4
+    }
+  ]
+}

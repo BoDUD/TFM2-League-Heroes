@@ -1,0 +1,164 @@
+# Miss Fortune hit: squares fix_missfortune_model.py sets in each 1x frame of missfortune_hit.png
+# '@ frame row col' then one '|' row per square row from that corner: '_' keeps the strip's square, '.' clears it, a letter is a palette colour
+
+@ 1 60 30   # 185 squares
+|_##_______________________________
+|__#_______________________________
+|__________________________________
+|______WW_____o_s__________________
+|__________#_TsWsT_________________
+|__________#_tTTTtn_W#_____________
+|____##__ss#_n__tnn_m#.____________
+|________so##osWso#m_#......_______
+|________so#_sWWso##so####..._####_
+|___#____o__#oWsso#__Wsyyy###_gyyY#
+|__#________GgyyGG#_bsoGGGyyyygkkY#
+|__#________nttTtn#_bbu#__G_GGGkkg#
+|___________ntTttn____b#_##_##GGG#_
+|_______#__#Bb____#_________..###__
+|______#___#Bb_______________....__
+|#__________________#__#._____..___
+|#________#_____#___#______________
+|_#________________________________
+
+@ 2 60 32   # 175 squares
+|__#________________#____________
+|___________________#____________
+|#__________________#____________
+|#________________##_____________
+|#__________o_s___#______________
+|________#_Ts_sT__#______________
+|______so#_tTTTtnWW#__.._________
+|#______o___tntnnWm#.........____
+|#_________os_so_mso####....##_#_
+|#_________sW_so_##Wsyyy####gyyY#
+|__________oWsso#BbsoGGGyyyygkkY#
+|_________GgyyGG#Bbbu#_GGGGGGkkg#
+|#________nttTtn#Bbbb#_#####GGG#_
+|_____#___ntTttn#___#_______###__
+|____________#______#____________
+|___#___#________________________
+|______#_________________________
+|___________________#____________
+# ---- round 2 (applied after the blocks above): 1 wears hit 2's head one row up (its tilted spiky hat popped for 120 ms); far arm as attack in both
+
+@ 1 45 29   # round 2: 357 squares
+|_________..__###_______
+|_______....__Ggy#______
+|_______....##TtTy______
+|_______....#YTtty##U#__
+|_______...#_ttt_tyyt#__
+|______...#_tttTytGtt#__
+|_____...#ttt_yyytGtt#__
+|____#_..ngYtttt__tttG#_
+|____g_##gt_tttttgyttG#_
+|____UUt__ttnn_r_DD#Gtt#
+|____#UtttnndRRRDDrRRtt#
+|......uG__rooRx_Woro###
+|......#_DRRRRd___WDRd#_
+|_......#d__Ros#W#sDdR#_
+|__...#RrRRrroseWesDrRr#
+|__.._#Rr_DDror____dr_R#
+|_______rRo_Do_WoWsrR_R#
+|__.#____oorDRo__drD###_
+|__.#DrrrD_##_______r#__
+|_________#WWW__________
+|________#W_Wm__________
+|_______#WWmmm__________
+|______#WWmmm___________
+|______#sodx____________
+|____.._Wsdx____________
+|___...#so______________
+|___..#Y_yddx___________
+|____.#y_#dx____________
+|___.#YgG_______________
+|__.#_gG________________
+|_.#Y_gG#_______________
+|_.#ykkG#_______________
+|___ykkG#_______________
+|___#yG#________________
+|____##_________________
+
+@ 2 65 30   # round 2: 83 squares
+|__________WW
+|_______#WWWm
+|__..#__WWmmm
+|__...#WWmmm#
+|__...#sodD__
+|___..#Ws____
+|___..#so#___
+|__..#Ygy#___
+|_.##YgG_____
+|__Yy_G#_____
+|#Yg_G_______
+|#ykkG#______
+|#ykkG#______
+|_#yG#_______
+|__##________
+
+# ---- round 3 (applied after the blocks above): 1-2: the hair strand as attack's
+
+@ 1 68 38   # round 3: 15 squares
+|##_
+|###
+|_##
+|BBB
+|BBB
+|B#_
+
+@ 2 69 38   # round 3: 8 squares
+|###
+|__#
+|_##
+|_#_
+|_#_
+
+# ---- round 4 (applied after the blocks above): every sleeve in the cloth-white ramp w F2F4F4 / c C4D0DA / l 8A9AAC (the user's option b)
+
+@ 1 64 36   # round 4: 23 squares
+|___www________
+|__wccl______ww
+|_wclll______wl
+|wclll_______ll
+
+@ 2 65 36   # round 4: 22 squares
+|___www________
+|__wccl______ww
+|_wclll______wl
+|wclll_______l_
+
+# ---- round 5 (2026-10-04): the pistols. Every gun (the rotated E gun, and Codex's own far guns in the run) is cleared
+# with the outline squares that only served it, and one pistol design is stamped with its grip in the same hand at the
+# nearest drawn angle (tools/art/fix_missfortune_model.py, Round 5).
+
+@ 1 66 27   # round 5: 146 squares
+|______________________________##_____
+|_________________________#####Yy#____
+|_________________________UyyyykG_..._
+|______##U__UU____________UggggkG#....
+|_____#Yyu__UG____________UtttGkG#....
+|_####YggtU#___________#UU__###y_#....
+|#Yyyyggt##___________#UG#__...__...._
+|#ykkggt#..____________##________...__
+|_#ykkG#...___________________________
+|__#ykG#...___________________________
+|___#yG#...___________________________
+|______#...___________________________
+|______...____________________________
+|______.._____________________________
+
+@ 2 66 27   # round 5: 136 squares
+|______________________________##_____
+|_________________________#####Yy#____
+|_________________________UyyyykG_..._
+|_________________________UggggkG#....
+|______##U__UU____________UtttGkG#....
+|_____#Yyu__UG_________#UU__###y_#....
+|_####YggtU#__________#UG#__...__...._
+|#Yyyyggt##..__________#_________...__
+|#ykkggt#..___________________________
+|_#ykkG#..____________________________
+|__#ykG#..____________________________
+|_____G#..____________________________
+|______#._____________________________
+|______.______________________________

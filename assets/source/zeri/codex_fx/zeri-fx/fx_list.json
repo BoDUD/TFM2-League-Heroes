@@ -1,0 +1,122 @@
+[
+ {
+  "file": "zeri_fx_a_burst.png",
+  "binding": "view_projectiles `league_zeri_a_burst`（直线弹，朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "18 × 3"
+ },
+ {
+  "file": "zeri_fx_a_hit.png",
+  "binding": "view_effects `league_zeri_a_hit`（跟随，画在人物上面；左右对称）",
+  "size": "10"
+ },
+ {
+  "file": "zeri_fx_p_spark.png",
+  "binding": "view_projectiles `league_zeri_p_spark`（追踪弹，朝飞行方向转；上下对称）",
+  "size": "12 × 9"
+ },
+ {
+  "file": "zeri_fx_p_hit.png",
+  "binding": "view_effects `league_zeri_p_hit`（跟随；左右对称）",
+  "size": "16"
+ },
+ {
+  "file": "zeri_fx_p_ready.png",
+  "binding": "view_effects `league_zeri_p_ready`（跟随她，画在人物上面；左右对称；中间留空）",
+  "size": "30 × 42"
+ },
+ {
+  "file": "zeri_fx_p_shv.png",
+  "binding": "view_buffs `league_zeri_p_shv`（画在人物上面；左右对称；只画外圈，中间留空）",
+  "size": "30 × 44"
+ },
+ {
+  "file": "zeri_fx_p_slow.png",
+  "binding": "view_buffs `league_zeri_p_slow`（画在脚下；左右对称）",
+  "size": "14 × 5"
+ },
+ {
+  "file": "zeri_fx_p_haste.png",
+  "binding": "view_buffs `league_zeri_p_haste`（画在脚下；左右对称）",
+  "size": "18 × 6"
+ },
+ {
+  "file": "zeri_fx_w_cast.png",
+  "binding": "view_effects `league_zeri_w_cast`（施法时跟随她，画在人物上面；左右对称；中间留空）",
+  "size": "30 × 40"
+ },
+ {
+  "file": "zeri_fx_w_pulse.png",
+  "binding": "view_projectiles `league_zeri_w_pulse`（直线弹，朝飞行方向转；上下对称）",
+  "size": "16 × 7"
+ },
+ {
+  "file": "zeri_fx_w_laser.png",
+  "binding": "view_projectiles `league_zeri_w_laser`（线的画面：以脉冲停下的点为中心、朝泽丽→那一点的方向转；**画在格子右半边**；上下对称）",
+  "size": "200 × 13"
+ },
+ {
+  "file": "zeri_fx_w_wall.png",
+  "binding": "view_projectiles `league_zeri_w_wall`（附加包生成的直线弹，朝飞行方向转；上下对称）",
+  "size": "40 × 9"
+ },
+ {
+  "file": "zeri_fx_w_hit.png",
+  "binding": "view_effects `league_zeri_w_hit`（跟随；左右对称）",
+  "size": "14"
+ },
+ {
+  "file": "zeri_fx_w_slow.png",
+  "binding": "view_buffs `league_zeri_w_slow`（画在脚下；左右对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "zeri_fx_e_cast.png",
+  "binding": "view_effects `league_zeri_e_cast`（跟随她，画在人物下面；左右对称）",
+  "size": "44 × 18"
+ },
+ {
+  "file": "zeri_fx_e_on.png",
+  "binding": "view_buffs `league_zeri_e_on`（画在人物上面；左右对称；中间留空）",
+  "size": "28 × 40"
+ },
+ {
+  "file": "zeri_fx_e_shot.png",
+  "binding": "view_projectiles `league_zeri_e_shot`（直线弹，朝飞行方向转；上下对称）",
+  "size": "18 × 4"
+ },
+ {
+  "file": "zeri_fx_e_hit.png",
+  "binding": "view_effects `league_zeri_e_hit`（跟随；左右对称）",
+  "size": "10"
+ },
+ {
+  "file": "zeri_fx_r_nova.png",
+  "binding": "view_effects `league_zeri_r_nova`（跟随她，画在人物下面；上下左右都对称）",
+  "size": "150 × 60"
+ },
+ {
+  "file": "zeri_fx_r_on.png",
+  "binding": "view_buffs `league_zeri_r_on`（画在人物上面；左右对称；中间留空）",
+  "size": "34 × 48"
+ },
+ {
+  "file": "zeri_fx_r_st2.png",
+  "binding": "view_buffs `league_zeri_r_st2`（画在人物上面；左右对称；中间留空）",
+  "size": "34 × 48"
+ },
+ {
+  "file": "zeri_fx_r_shot.png",
+  "binding": "view_projectiles `league_zeri_r_shot`（直线弹，朝飞行方向转；上下对称）",
+  "size": "18 × 9"
+ },
+ {
+  "file": "zeri_fx_r_hit.png",
+  "binding": "view_effects `league_zeri_r_hit`（跟随；左右对称）",
+  "size": "16"
+ },
+ {
+  "file": "zeri_fx_r_zap.png",
+  "binding": "view_effects `league_zeri_r_zap`（跟随；左右对称）",
+  "size": "14 × 30"
+ }
+]

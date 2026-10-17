@@ -1,0 +1,349 @@
+{
+  "run": {
+    "size_px": [
+      4096,
+      1536
+    ],
+    "frames": 8,
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "colors": 24,
+    "checks": [
+      {
+        "frame": 1,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 2,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 3,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 4,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 5,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 6,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 7,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 8,
+        "head_identical": true,
+        "below_sol​​es": 0
+      }
+    ],
+    "visual_approval": false
+  },
+  "attack": {
+    "size_px": [
+      3072,
+      1536
+    ],
+    "frames": 6,
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "colors": 24,
+    "checks": [
+      {
+        "frame": 1,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 2,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 3,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 4,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 5,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 6,
+        "head_identical": true,
+        "below_sol​​es": 0
+      }
+    ],
+    "visual_approval": false
+  },
+  "skill": {
+    "size_px": [
+      3072,
+      1536
+    ],
+    "frames": 6,
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "colors": 24,
+    "checks": [
+      {
+        "frame": 1,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 2,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 3,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 4,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 5,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 6,
+        "head_identical": true,
+        "below_sol​​es": 0
+      }
+    ],
+    "visual_approval": false
+  },
+  "skill2": {
+    "size_px": [
+      3072,
+      1536
+    ],
+    "frames": 6,
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "colors": 24,
+    "checks": [
+      {
+        "frame": 1,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 2,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 3,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 4,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 5,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 6,
+        "head_identical": true,
+        "below_sol​​es": 0
+      }
+    ],
+    "visual_approval": false
+  },
+  "skill_q": {
+    "size_px": [
+      3072,
+      1536
+    ],
+    "frames": 5,
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "colors": 24,
+    "checks": [
+      {
+        "frame": 1,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 2,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 3,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 4,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 5,
+        "head_identical": true,
+        "below_sol​​es": 0
+      }
+    ],
+    "visual_approval": false
+  },
+  "ult": {
+    "size_px": [
+      3072,
+      1536
+    ],
+    "frames": 6,
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "colors": 24,
+    "checks": [
+      {
+        "frame": 1,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 2,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 3,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 4,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 5,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 6,
+        "head_identical": true,
+        "below_sol​​es": 0
+      }
+    ],
+    "visual_approval": false
+  },
+  "hit": {
+    "size_px": [
+      2048,
+      768
+    ],
+    "frames": 2,
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "colors": 24,
+    "checks": [
+      {
+        "frame": 1,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 2,
+        "head_identical": true,
+        "below_sol​​es": 0
+      }
+    ],
+    "visual_approval": false
+  },
+  "dead": {
+    "size_px": [
+      4096,
+      1536
+    ],
+    "frames": 8,
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "colors": 24,
+    "checks": [
+      {
+        "frame": 1,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 2,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 3,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 4,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 5,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 6,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 7,
+        "head_identical": true,
+        "below_sol​​es": 0
+      },
+      {
+        "frame": 8,
+        "head_identical": true,
+        "below_sol​​es": 0
+      }
+    ],
+    "visual_approval": false
+  }
+}

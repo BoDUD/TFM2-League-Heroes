@@ -1,0 +1,2542 @@
+{
+  "schema": 2,
+  "units": "logical pixels, local to each cell unless stated",
+  "scale": 8,
+  "cell": [
+    112,
+    96
+  ],
+  "status": "redrawn review draft",
+  "method": "Whole-figure image generation. Export only: palette mapping, majority sampling onto logical sheet lattice, binary alpha, whole-frame vertical translation. No head pasting, limb assembly, row deletion or separate part scaling. Original generated rasters retained.",
+  "animations": {
+    "run": {
+      "file": "olaf_run.png",
+      "raw_size": [
+        1916,
+        821
+      ],
+      "layout": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            36,
+            41,
+            88,
+            82
+          ],
+          "export_translation": [
+            0,
+            -2
+          ],
+          "head": {
+            "eye_left": [
+              75,
+              57
+            ],
+            "eye_right": [
+              79,
+              57
+            ],
+            "mouth": [
+              78,
+              60
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            30,
+            43,
+            80,
+            82
+          ],
+          "export_translation": [
+            0,
+            -2
+          ],
+          "head": {
+            "eye_left": [
+              74,
+              62
+            ],
+            "eye_right": [
+              78,
+              62
+            ],
+            "mouth": [
+              77,
+              65
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            24,
+            39,
+            71,
+            81
+          ],
+          "export_translation": [
+            0,
+            -1
+          ],
+          "head": {
+            "eye_left": [
+              65,
+              52
+            ],
+            "eye_right": [
+              69,
+              52
+            ],
+            "mouth": [
+              68,
+              55
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            13,
+            41,
+            69,
+            82
+          ],
+          "export_translation": [
+            0,
+            -4
+          ],
+          "head": {
+            "eye_left": [
+              62,
+              58
+            ],
+            "eye_right": [
+              66,
+              58
+            ],
+            "mouth": [
+              65,
+              61
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            33,
+            35,
+            92,
+            82
+          ],
+          "export_translation": [
+            0,
+            5
+          ],
+          "head": {
+            "eye_left": [
+              60,
+              52
+            ],
+            "eye_right": [
+              64,
+              52
+            ],
+            "mouth": [
+              63,
+              55
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 6,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            24,
+            40,
+            82,
+            82
+          ],
+          "export_translation": [
+            0,
+            5
+          ],
+          "head": {
+            "eye_left": [
+              62,
+              54
+            ],
+            "eye_right": [
+              66,
+              54
+            ],
+            "mouth": [
+              65,
+              57
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 7,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            22,
+            44,
+            83,
+            82
+          ],
+          "export_translation": [
+            0,
+            5
+          ],
+          "head": {
+            "eye_left": [
+              69,
+              62
+            ],
+            "eye_right": [
+              73,
+              62
+            ],
+            "mouth": [
+              72,
+              65
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 8,
+          "rect": [
+            336,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            21,
+            32,
+            76,
+            78
+          ],
+          "export_translation": [
+            0,
+            8
+          ],
+          "head": {
+            "eye_left": [
+              68,
+              52
+            ],
+            "eye_right": [
+              72,
+              52
+            ],
+            "mouth": [
+              71,
+              55
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        }
+      ],
+      "event_frame": null,
+      "event_tick": null,
+      "limitations": [
+        "Head/helmet shape and size vary between frames; eyes and mouth are often merged or absent after strict grid export.",
+        "Some boots, arms and axes do not match the approved component dimensions. Exact League limb placement is approximate.",
+        "Frames5 and8 are47 and46 rows high, exceeding42. Boot alternation and forward-facing face need further correction."
+      ]
+    },
+    "attack": {
+      "file": "olaf_attack.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            29,
+            43,
+            85,
+            82
+          ],
+          "export_translation": [
+            0,
+            -3
+          ],
+          "head": {
+            "eye_left": [
+              55,
+              57
+            ],
+            "eye_right": [
+              59,
+              57
+            ],
+            "mouth": [
+              58,
+              60
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            34,
+            17,
+            79,
+            82
+          ],
+          "export_translation": [
+            0,
+            -3
+          ],
+          "head": {
+            "eye_left": [
+              61,
+              47
+            ],
+            "eye_right": [
+              63,
+              47
+            ],
+            "mouth": [
+              62,
+              50
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                61,
+                47
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                62,
+                50
+              ],
+              [
+                63,
+                50
+              ],
+              [
+                62,
+                51
+              ],
+              [
+                63,
+                51
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            37,
+            33,
+            83,
+            82
+          ],
+          "export_translation": [
+            0,
+            -3
+          ],
+          "head": {
+            "eye_left": [
+              67,
+              56
+            ],
+            "eye_right": [
+              71,
+              56
+            ],
+            "mouth": [
+              70,
+              59
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            37,
+            44,
+            74,
+            82
+          ],
+          "export_translation": [
+            0,
+            5
+          ],
+          "head": {
+            "eye_left": [
+              57,
+              63
+            ],
+            "eye_right": [
+              61,
+              63
+            ],
+            "mouth": [
+              60,
+              66
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": {
+            "fist_right": [
+              58,
+              74
+            ],
+            "blade_right": [
+              63,
+              80
+            ],
+            "fist_left": [
+              44,
+              48
+            ],
+            "blade_left": [
+              43,
+              60
+            ],
+            "coordinate_status": "visual approximation; verify against source before import",
+            "tick": 12
+          }
+        },
+        {
+          "frame": 5,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            33,
+            37,
+            79,
+            82
+          ],
+          "export_translation": [
+            0,
+            6
+          ],
+          "head": {
+            "eye_left": [
+              69,
+              62
+            ],
+            "eye_right": [
+              73,
+              62
+            ],
+            "mouth": [
+              72,
+              65
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                72,
+                65
+              ],
+              [
+                73,
+                65
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 6,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            38,
+            47,
+            78,
+            82
+          ],
+          "export_translation": [
+            0,
+            6
+          ],
+          "head": {
+            "eye_left": [
+              59,
+              59
+            ],
+            "eye_right": [
+              63,
+              59
+            ],
+            "mouth": [
+              62,
+              62
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                62,
+                62
+              ]
+            ]
+          },
+          "event": null
+        }
+      ],
+      "event_frame": 4,
+      "event_tick": 12,
+      "limitations": [
+        "Head/helmet shape and size vary between frames; eyes and mouth are often merged or absent after strict grid export.",
+        "Some boots, arms and axes do not match the approved component dimensions. Exact League limb placement is approximate.",
+        "Frame4 far-hand axe identity/direction remains ambiguous; compare reference before import."
+      ]
+    },
+    "skill": {
+      "file": "olaf_skill.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            34,
+            41,
+            81,
+            82
+          ],
+          "export_translation": [
+            0,
+            -9
+          ],
+          "head": {
+            "eye_left": [
+              61,
+              51
+            ],
+            "eye_right": [
+              62,
+              52
+            ],
+            "mouth": [
+              61,
+              55
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                61,
+                51
+              ]
+            ],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            33,
+            16,
+            74,
+            82
+          ],
+          "export_translation": [
+            0,
+            -9
+          ],
+          "head": {
+            "eye_left": [
+              58,
+              45
+            ],
+            "eye_right": [
+              60,
+              45
+            ],
+            "mouth": [
+              59,
+              48
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                58,
+                45
+              ]
+            ],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            37,
+            37,
+            84,
+            82
+          ],
+          "export_translation": [
+            0,
+            -9
+          ],
+          "head": {
+            "eye_left": [
+              66,
+              58
+            ],
+            "eye_right": [
+              70,
+              58
+            ],
+            "mouth": [
+              69,
+              61
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            37,
+            45,
+            89,
+            82
+          ],
+          "export_translation": [
+            0,
+            9
+          ],
+          "head": {
+            "eye_left": [
+              77,
+              62
+            ],
+            "eye_right": [
+              81,
+              62
+            ],
+            "mouth": [
+              80,
+              65
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": {
+            "fist_left_empty": [
+              85,
+              77
+            ],
+            "fist_right": [
+              63,
+              61
+            ],
+            "blade_right": [
+              58,
+              50
+            ],
+            "coordinate_status": "visual approximation; verify against source before import",
+            "tick": 12
+          }
+        },
+        {
+          "frame": 5,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            33,
+            48,
+            85,
+            82
+          ],
+          "export_translation": [
+            0,
+            9
+          ],
+          "head": {
+            "eye_left": [
+              75,
+              63
+            ],
+            "eye_right": [
+              79,
+              63
+            ],
+            "mouth": [
+              78,
+              66
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 6,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            35,
+            40,
+            77,
+            82
+          ],
+          "export_translation": [
+            0,
+            9
+          ],
+          "head": {
+            "eye_left": [
+              56,
+              55
+            ],
+            "eye_right": [
+              60,
+              55
+            ],
+            "mouth": [
+              59,
+              58
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        }
+      ],
+      "event_frame": 4,
+      "event_tick": 12,
+      "limitations": [
+        "Head/helmet shape and size vary between frames; eyes and mouth are often merged or absent after strict grid export.",
+        "Some boots, arms and axes do not match the approved component dimensions. Exact League limb placement is approximate.",
+        "Frames4-5 carried far axe is not clearly positioned behind the head as in the reference."
+      ]
+    },
+    "skill2": {
+      "file": "olaf_skill2.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            29,
+            47,
+            81,
+            82
+          ],
+          "export_translation": [
+            0,
+            -12
+          ],
+          "head": {
+            "eye_left": [
+              60,
+              60
+            ],
+            "eye_right": [
+              62,
+              59
+            ],
+            "mouth": [
+              61,
+              62
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                60,
+                59
+              ],
+              [
+                61,
+                60
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                61,
+                62
+              ],
+              [
+                62,
+                62
+              ],
+              [
+                61,
+                63
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            35,
+            8,
+            79,
+            74
+          ],
+          "export_translation": [
+            0,
+            -10
+          ],
+          "head": {
+            "eye_left": [
+              59,
+              28
+            ],
+            "eye_right": [
+              63,
+              28
+            ],
+            "mouth": [
+              62,
+              31
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                62,
+                30
+              ],
+              [
+                61,
+                31
+              ],
+              [
+                62,
+                31
+              ],
+              [
+                63,
+                31
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 57,
+          "bbox": [
+            34,
+            9,
+            78,
+            66
+          ],
+          "export_translation": [
+            0,
+            -13
+          ],
+          "head": {
+            "eye_left": [
+              61,
+              32
+            ],
+            "eye_right": [
+              65,
+              31
+            ],
+            "mouth": [
+              64,
+              34
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                61,
+                32
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                63,
+                34
+              ],
+              [
+                64,
+                34
+              ],
+              [
+                63,
+                35
+              ],
+              [
+                64,
+                35
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            40,
+            18,
+            79,
+            82
+          ],
+          "export_translation": [
+            0,
+            2
+          ],
+          "head": {
+            "eye_left": [
+              66,
+              43
+            ],
+            "eye_right": [
+              70,
+              43
+            ],
+            "mouth": [
+              69,
+              46
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                69,
+                46
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            39,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            30,
+            45,
+            88,
+            82
+          ],
+          "export_translation": [
+            0,
+            1
+          ],
+          "head": {
+            "eye_left": [
+              61,
+              58
+            ],
+            "eye_right": [
+              63,
+              59
+            ],
+            "mouth": [
+              62,
+              62
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                61,
+                58
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                62,
+                61
+              ],
+              [
+                62,
+                62
+              ]
+            ]
+          },
+          "event": {
+            "fist_left": [
+              48,
+              72
+            ],
+            "blade_left": [
+              65,
+              80
+            ],
+            "fist_right": [
+              72,
+              72
+            ],
+            "blade_right": [
+              80,
+              80
+            ],
+            "coordinate_status": "visual approximation; verify against source before import",
+            "tick": 14
+          }
+        },
+        {
+          "frame": 6,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            35,
+            41,
+            86,
+            82
+          ],
+          "export_translation": [
+            0,
+            2
+          ],
+          "head": {
+            "eye_left": [
+              63,
+              54
+            ],
+            "eye_right": [
+              65,
+              54
+            ],
+            "mouth": [
+              64,
+              57
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                63,
+                54
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                64,
+                56
+              ],
+              [
+                64,
+                57
+              ],
+              [
+                65,
+                57
+              ]
+            ]
+          },
+          "event": null
+        }
+      ],
+      "event_frame": 5,
+      "event_tick": 14,
+      "limitations": [
+        "Head/helmet shape and size vary between frames; eyes and mouth are often merged or absent after strict grid export.",
+        "Some boots, arms and axes do not match the approved component dimensions. Exact League limb placement is approximate."
+      ]
+    },
+    "ult": {
+      "file": "olaf_ult.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            35,
+            40,
+            86,
+            82
+          ],
+          "export_translation": [
+            0,
+            -5
+          ],
+          "head": {
+            "eye_left": [
+              58,
+              53
+            ],
+            "eye_right": [
+              62,
+              53
+            ],
+            "mouth": [
+              61,
+              56
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            28,
+            27,
+            98,
+            82
+          ],
+          "export_translation": [
+            0,
+            -5
+          ],
+          "head": {
+            "eye_left": [
+              54,
+              34
+            ],
+            "eye_right": [
+              58,
+              35
+            ],
+            "mouth": [
+              57,
+              38
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                54,
+                34
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                57,
+                37
+              ],
+              [
+                58,
+                37
+              ],
+              [
+                56,
+                38
+              ],
+              [
+                56,
+                39
+              ],
+              [
+                57,
+                39
+              ],
+              [
+                58,
+                39
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            34,
+            20,
+            82,
+            82
+          ],
+          "export_translation": [
+            0,
+            -5
+          ],
+          "head": {
+            "eye_left": [
+              56,
+              42
+            ],
+            "eye_right": [
+              60,
+              42
+            ],
+            "mouth": [
+              59,
+              45
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                58,
+                44
+              ],
+              [
+                58,
+                45
+              ],
+              [
+                59,
+                45
+              ],
+              [
+                60,
+                45
+              ],
+              [
+                59,
+                46
+              ],
+              [
+                61,
+                46
+              ],
+              [
+                61,
+                47
+              ]
+            ]
+          },
+          "event": {
+            "fist_left": [
+              44,
+              45
+            ],
+            "blade_left": [
+              65,
+              35
+            ],
+            "fist_right": [
+              70,
+              43
+            ],
+            "blade_right": [
+              52,
+              25
+            ],
+            "coordinate_status": "visual approximation; verify against source before import",
+            "tick": 7
+          }
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            33,
+            18,
+            82,
+            82
+          ],
+          "export_translation": [
+            0,
+            2
+          ],
+          "head": {
+            "eye_left": [
+              54,
+              39
+            ],
+            "eye_right": [
+              58,
+              39
+            ],
+            "mouth": [
+              57,
+              42
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                57,
+                40
+              ],
+              [
+                57,
+                41
+              ],
+              [
+                57,
+                42
+              ],
+              [
+                58,
+                42
+              ],
+              [
+                59,
+                42
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 90,
+          "bbox": [
+            33,
+            27,
+            86,
+            82
+          ],
+          "export_translation": [
+            0,
+            2
+          ],
+          "head": {
+            "eye_left": [
+              56,
+              41
+            ],
+            "eye_right": [
+              59,
+              41
+            ],
+            "mouth": [
+              58,
+              44
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                56,
+                41
+              ]
+            ],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 6,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            32,
+            39,
+            84,
+            82
+          ],
+          "export_translation": [
+            0,
+            2
+          ],
+          "head": {
+            "eye_left": [
+              62,
+              54
+            ],
+            "eye_right": [
+              65,
+              55
+            ],
+            "mouth": [
+              64,
+              58
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                62,
+                54
+              ]
+            ],
+            "observed_red_pixels": []
+          },
+          "event": null
+        }
+      ],
+      "event_frame": 3,
+      "event_tick": 7,
+      "limitations": [
+        "Head/helmet shape and size vary between frames; eyes and mouth are often merged or absent after strict grid export.",
+        "Some boots, arms and axes do not match the approved component dimensions. Exact League limb placement is approximate."
+      ]
+    },
+    "hit": {
+      "file": "olaf_hit.png",
+      "raw_size": [
+        1915,
+        821
+      ],
+      "layout": [
+        2,
+        1
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            22,
+            32,
+            88,
+            82
+          ],
+          "export_translation": [
+            0,
+            -4
+          ],
+          "head": {
+            "eye_left": [
+              56,
+              44
+            ],
+            "eye_right": [
+              61,
+              43
+            ],
+            "mouth": [
+              60,
+              46
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                56,
+                43
+              ],
+              [
+                56,
+                44
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                60,
+                46
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            28,
+            37,
+            87,
+            82
+          ],
+          "export_translation": [
+            0,
+            -4
+          ],
+          "head": {
+            "eye_left": [
+              60,
+              49
+            ],
+            "eye_right": [
+              63,
+              49
+            ],
+            "mouth": [
+              62,
+              52
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                60,
+                49
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                62,
+                51
+              ],
+              [
+                61,
+                52
+              ]
+            ]
+          },
+          "event": null
+        }
+      ],
+      "event_frame": null,
+      "event_tick": null,
+      "limitations": [
+        "Head/helmet shape and size vary between frames; eyes and mouth are often merged or absent after strict grid export.",
+        "Some boots, arms and axes do not match the approved component dimensions. Exact League limb placement is approximate."
+      ]
+    },
+    "dead": {
+      "file": "olaf_dead.png",
+      "raw_size": [
+        1915,
+        821
+      ],
+      "layout": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            27,
+            40,
+            74,
+            82
+          ],
+          "export_translation": [
+            0,
+            -10
+          ],
+          "head": {
+            "eye_left": [
+              59,
+              52
+            ],
+            "eye_right": [
+              58,
+              52
+            ],
+            "mouth": [
+              57,
+              55
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [
+              [
+                59,
+                52
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                57,
+                55
+              ],
+              [
+                58,
+                55
+              ],
+              [
+                57,
+                56
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            6,
+            27,
+            98,
+            82
+          ],
+          "export_translation": [
+            0,
+            -10
+          ],
+          "head": {
+            "eye_left": [
+              53,
+              36
+            ],
+            "eye_right": [
+              57,
+              36
+            ],
+            "mouth": [
+              56,
+              39
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                55,
+                39
+              ],
+              [
+                56,
+                39
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            25,
+            24,
+            85,
+            82
+          ],
+          "export_translation": [
+            0,
+            -10
+          ],
+          "head": {
+            "eye_left": [
+              53,
+              42
+            ],
+            "eye_right": [
+              57,
+              42
+            ],
+            "mouth": [
+              56,
+              45
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                56,
+                45
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            47,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            28,
+            41,
+            84,
+            82
+          ],
+          "export_translation": [
+            0,
+            -11
+          ],
+          "head": {
+            "eye_left": [
+              58,
+              55
+            ],
+            "eye_right": [
+              62,
+              55
+            ],
+            "mouth": [
+              61,
+              58
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            20,
+            19,
+            80,
+            82
+          ],
+          "export_translation": [
+            0,
+            -2
+          ],
+          "head": {
+            "eye_left": [
+              51,
+              44
+            ],
+            "eye_right": [
+              55,
+              44
+            ],
+            "mouth": [
+              54,
+              47
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                54,
+                47
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 6,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            17,
+            41,
+            91,
+            82
+          ],
+          "export_translation": [
+            0,
+            0
+          ],
+          "head": {
+            "eye_left": [
+              63,
+              65
+            ],
+            "eye_right": [
+              67,
+              65
+            ],
+            "mouth": [
+              66,
+              68
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                66,
+                68
+              ]
+            ]
+          },
+          "event": null
+        },
+        {
+          "frame": 7,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            14,
+            49,
+            95,
+            82
+          ],
+          "export_translation": [
+            0,
+            -2
+          ],
+          "head": {
+            "eye_left": [
+              67,
+              71
+            ],
+            "eye_right": [
+              71,
+              71
+            ],
+            "mouth": [
+              70,
+              74
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        },
+        {
+          "frame": 8,
+          "rect": [
+            336,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 500,
+          "bbox": [
+            12,
+            54,
+            100,
+            82
+          ],
+          "export_translation": [
+            0,
+            -3
+          ],
+          "head": {
+            "eye_left": [
+              81,
+              74
+            ],
+            "eye_right": [
+              85,
+              74
+            ],
+            "mouth": [
+              84,
+              77
+            ],
+            "coordinate_status": "estimated placement for face repair; not a verified pair of drawn eye pixels",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "event": null
+        }
+      ],
+      "event_frame": null,
+      "event_tick": null,
+      "limitations": [
+        "Head/helmet shape and size vary between frames; eyes and mouth are often merged or absent after strict grid export.",
+        "Some boots, arms and axes do not match the approved component dimensions. Exact League limb placement is approximate.",
+        "Frame8 bows slightly but is not fully face-down as requested. Ground axes sometimes overlap into an ambiguous single blade."
+      ]
+    }
+  }
+}

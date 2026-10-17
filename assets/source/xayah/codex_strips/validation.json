@@ -1,0 +1,134 @@
+[
+  {
+    "action": "run",
+    "size": [
+      1536,
+      1024
+    ],
+    "frames": 6,
+    "distinct_frames": 6,
+    "exact_8x_grid": true,
+    "binary_alpha": true,
+    "only_approved_palette": true,
+    "heads_equal_under_mask": true,
+    "no_pixels_below_baseline": true,
+    "standing_legs_equal": false,
+    "duration_ms_total": 810
+  },
+  {
+    "action": "attack",
+    "size": [
+      3072,
+      1536
+    ],
+    "frames": 6,
+    "distinct_frames": 6,
+    "exact_8x_grid": true,
+    "binary_alpha": true,
+    "only_approved_palette": true,
+    "heads_equal_under_mask": true,
+    "no_pixels_below_baseline": true,
+    "standing_legs_equal": true,
+    "duration_ms_total": 400
+  },
+  {
+    "action": "skill",
+    "size": [
+      4096,
+      768
+    ],
+    "frames": 4,
+    "distinct_frames": 4,
+    "exact_8x_grid": true,
+    "binary_alpha": true,
+    "only_approved_palette": true,
+    "heads_equal_under_mask": true,
+    "no_pixels_below_baseline": true,
+    "standing_legs_equal": false,
+    "duration_ms_total": 300
+  },
+  {
+    "action": "skill_e",
+    "size": [
+      4096,
+      768
+    ],
+    "frames": 4,
+    "distinct_frames": 4,
+    "exact_8x_grid": true,
+    "binary_alpha": true,
+    "only_approved_palette": true,
+    "heads_equal_under_mask": true,
+    "no_pixels_below_baseline": true,
+    "standing_legs_equal": false,
+    "duration_ms_total": 333
+  },
+  {
+    "action": "skill2",
+    "size": [
+      4096,
+      768
+    ],
+    "frames": 4,
+    "distinct_frames": 4,
+    "exact_8x_grid": true,
+    "binary_alpha": true,
+    "only_approved_palette": true,
+    "heads_equal_under_mask": true,
+    "no_pixels_below_baseline": true,
+    "standing_legs_equal": true,
+    "duration_ms_total": 400
+  },
+  {
+    "action": "ult",
+    "size": [
+      4096,
+      1536
+    ],
+    "frames": 8,
+    "distinct_frames": 8,
+    "exact_8x_grid": true,
+    "binary_alpha": true,
+    "only_approved_palette": true,
+    "heads_equal_under_mask": true,
+    "no_pixels_below_baseline": true,
+    "standing_legs_equal": false,
+    "duration_ms_total": 1167
+  },
+  {
+    "action": "hit",
+    "size": [
+      2048,
+      768
+    ],
+    "frames": 2,
+    "distinct_frames": 2,
+    "exact_8x_grid": true,
+    "binary_alpha": true,
+    "only_approved_palette": true,
+    "heads_equal_under_mask": true,
+    "no_pixels_below_baseline": true,
+    "standing_legs_equal": true,
+    "duration_ms_total": 200
+  },
+  {
+    "action": "dead",
+    "size": [
+      4096,
+      1536
+    ],
+    "frames": 8,
+    "distinct_frames": 7,
+    "exact_8x_grid": true,
+    "binary_alpha": true,
+    "only_approved_palette": true,
+    "heads_equal_under_mask": true,
+    "no_pixels_below_baseline": true,
+    "standing_legs_equal": false,
+    "duration_ms_total": 1220
+  },
+  {
+    "action": "idle",
+    "supplied_file_unchanged": true
+  }
+]

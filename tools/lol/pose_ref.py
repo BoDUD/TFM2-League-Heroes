@@ -1,0 +1,797 @@
+#!/usr/bin/env python3
+"""Render a champion's real in-game animation from the local League client as pose references.
+
+    python tools/lol/pose_ref.py --lol "D:\\WeGameApps\\lol" --champ Garen --anim Run --frames 6 --out ref/
+
+For each animation whose file name contains --anim, writes <out>/<anim>.png: N frames spread over
+the clip (or --t0..--t1 seconds; attack clips hold a long recovery after the swing), the textured
+model seen from a 3/4 view facing right (like TFM2 sprites), with the frame times. Use them to judge a sprite's motion, or attach them to image-model
+prompts as the pose to copy. The renders show Riot's model: keep them local, never commit them.
+
+An exact strip instead, with League-style cross-fades into and out of a clip (so a sprite action can
+start and end near the idle pose), and per-pixel texturing that shows the face and trim:
+
+    python tools/lol/pose_ref.py --champ Ashe --hq --name ashe_pose_attack --out ref/ \\
+        --frame "ashe_idle1@0>ashe_attack1@0:0.5" --frame ashe_attack1@0 --frame ashe_attack1@367
+
+A frame is <clip>@<ms> or <clipA>@<ms>><clipB>@<ms>:<weight of B>; <clip> is the .anm file name
+without extension (case-insensitive).
+
+Reads (read-only) Champions/<Champ>.wad.client: the skin bin (-> .skn/.skl/texture), the
+animation bin (-> .anm list). A summon lives in its champion's WAD as a character of its own:
+--champ AnnieTibbers --wad Annie renders Tibbers (his spawn, idle, claw swipes and death). Formats handled: SKN 1.x-4.x, SKL (0x22FD4FC3), compressed ANM
+("r3d2canm" v1-3) and uncompressed "r3d2anmd" v3 (named tracks, Lux's clips), v4 and v5, TEX
+(DXT1/DXT5/BGRA8). Needs numpy + Pillow.
+"""
+import argparse
+import io
+import os
+import re
+import struct
+import sys
+
+import numpy as np
+from PIL import Image, ImageDraw
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from riot import Wad  # noqa: E402
+
+
+def elf(name):
+    h = 0
+    for c in name.lower().encode():
+        h = ((h << 4) + c) & 0xFFFFFFFF
+        g = h & 0xF0000000
+        if g:
+            h ^= g >> 24
+        h &= ~g & 0xFFFFFFFF
+    return h
+
+
+# ----------------------------------------------------------------------------- formats
+def read_skn(b):
+    magic, major, minor = struct.unpack_from("<IHH", b, 0)
+    if magic != 0x00112233:
+        raise ValueError("not a SKN")
+    pos = 8
+    if major > 0:
+        (nsub,) = struct.unpack_from("<I", b, pos)
+        pos += 4 + nsub * 80
+    if major == 4:
+        pos += 4                                    # flags
+    ic, vc = struct.unpack_from("<II", b, pos)
+    pos += 8
+    vsize = 52
+    if major == 4:
+        vsize, _vtype = struct.unpack_from("<II", b, pos)
+        pos += 8 + 24 + 16                          # vertex size/type, bbox, bounding sphere
+    idx = np.frombuffer(b, "<u2", ic, pos).astype(np.int64)
+    pos += 2 * ic
+    dt = np.dtype([("pos", "<f4", 3), ("bones", "u1", 4), ("w", "<f4", 4), ("n", "<f4", 3), ("uv", "<f4", 2)])
+    raw = np.frombuffer(b, np.uint8, vc * vsize, pos).reshape(vc, vsize)[:, :52].copy()
+    v = raw.view(dt).reshape(vc)
+    return idx.reshape(-1, 3), v
+
+
+def read_skl(b):
+    _size, token, _ver = struct.unpack_from("<III", b, 0)
+    if token != 0x22FD4FC3:
+        raise ValueError("only the new SKL format is supported")
+    _flags, njoints, ninf = struct.unpack_from("<HHI", b, 12)
+    joints_off, _ji_off, inf_off = struct.unpack_from("<iii", b, 20)
+    joints = []
+    for j in range(njoints):
+        p = joints_off + 100 * j
+        _f, jid, parent, _pad, nhash, _radius = struct.unpack_from("<hhhhIf", b, p)
+        vals = struct.unpack_from("<3f3f4f3f3f4f", b, p + 16)
+        (noff,) = struct.unpack_from("<i", b, p + 96)
+        s = p + 96 + noff
+        name = b[s:b.index(b"\0", s)].decode("latin1")
+        joints.append(dict(id=jid, parent=parent, hash=nhash, name=name,
+                           t=np.array(vals[0:3]), s=np.array(vals[3:6]), r=np.array(vals[6:10])))
+    influences = struct.unpack_from(f"<{ninf}h", b, inf_off)
+    return joints, list(influences)
+
+
+def quat48(a, c, d):
+    """Riot's 48-bit quantized quaternion: 2-bit index of the dropped largest component + 3x15 bits."""
+    bits = a | (c << 16) | (d << 32)
+    mx = (bits >> 45) & 3
+    comps = [((bits >> sh) & 0x7FFF) / 32767.0 * 1.41421356237 - 0.70710678118 for sh in (30, 15, 0)]
+    comps.insert(mx, np.sqrt(max(0.0, 1.0 - sum(x * x for x in comps))))
+    return np.array(comps)                                            # x, y, z, w
+
+
+def read_anmd_v5(b):
+    """Legacy uncompressed "r3d2anmd" v5: per frame and track, palette indices."""
+    (_res, _tok, _ver, _flags, ntracks, nframes, dt, hashes_off, _asset, _time, vec_off, quat_off,
+     frames_off) = struct.unpack_from("<IIIIiifiiiiii", b, 12)
+    hashes = struct.unpack_from(f"<{ntracks}I", b, hashes_off + 12)
+    vecs = np.frombuffer(b, "<f4", (quat_off - vec_off) // 4, vec_off + 12).reshape(-1, 3)
+    quats = np.frombuffer(b, "<u2", (hashes_off - quat_off) // 2, quat_off + 12).reshape(-1, 3)
+    idx = np.frombuffer(b, "<u2", nframes * ntracks * 3, frames_off + 12).reshape(nframes, ntracks, 3)
+    keys = {}
+    for f in range(nframes):
+        for tr in range(ntracks):
+            ti, si, ri = idx[f, tr]
+            keys.setdefault((tr, 1), []).append((f * dt, vecs[ti].astype(float)))
+            keys.setdefault((tr, 2), []).append((f * dt, vecs[si].astype(float)))
+            keys.setdefault((tr, 0), []).append((f * dt, quat48(*(int(x) for x in quats[ri]))))
+    return dict(duration=(nframes - 1) * dt, fps=1.0 / dt, hashes=hashes, keys=keys)
+
+
+def read_anmd_v4(b):
+    """Legacy uncompressed "r3d2anmd" v4: per frame and track, joint hash + indices into a vector and a
+    full-quaternion palette (Lux's spell4)."""
+    (_res, _tok, _ver, _flags, ntracks, nframes, dt, _tracks, _asset, _time, vec_off, quat_off,
+     frames_off) = struct.unpack_from("<IIIIiifiiiiii", b, 12)
+    vecs = np.frombuffer(b, "<f4", (quat_off - vec_off) // 4, vec_off + 12).reshape(-1, 3)
+    quats = np.frombuffer(b, "<f4", (frames_off - quat_off) // 4, quat_off + 12).reshape(-1, 4)
+    fr = np.frombuffer(b, np.dtype([("h", "<u4"), ("t", "<u2"), ("s", "<u2"), ("r", "<u2"), ("pad", "<u2")]),
+                       nframes * ntracks, frames_off + 12)
+    hashes = list(dict.fromkeys(int(h) for h in fr["h"]))
+    track = {h: k for k, h in enumerate(hashes)}
+    keys = {}
+    for i, e in enumerate(fr):
+        tr, t = track[int(e["h"])], (i // ntracks) * dt
+        keys.setdefault((tr, 1), []).append((t, vecs[e["t"]].astype(float)))
+        keys.setdefault((tr, 2), []).append((t, vecs[e["s"]].astype(float)))
+        keys.setdefault((tr, 0), []).append((t, quats[e["r"]].astype(float)))
+    return dict(duration=(nframes - 1) * dt, fps=1.0 / dt, hashes=hashes, keys=keys)
+
+
+def read_anmd_v3(b):
+    """Oldest "r3d2anmd" (v1-3, most of Lux's clips): per named track, every frame's rotation and
+    translation; tracks are matched to joints by the ELF hash of their name."""
+    _skl, ntracks, nframes, fps = struct.unpack_from("<Iiii", b, 12)
+    p, hashes, keys = 28, [], {}
+    for tr in range(ntracks):
+        hashes.append(elf(b[p:p + 32].split(b"\0")[0].decode("latin1")))
+        data = np.frombuffer(b, "<f4", nframes * 7, p + 36).reshape(nframes, 7).astype(float)
+        p += 36 + 28 * nframes
+        keys[(tr, 0)] = [(f / fps, data[f, :4]) for f in range(nframes)]
+        keys[(tr, 1)] = [(f / fps, data[f, 4:]) for f in range(nframes)]
+    return dict(duration=(nframes - 1) / fps, fps=float(fps), hashes=hashes, keys=keys)
+
+
+def read_anim(b):
+    if b[:8] == b"r3d2canm":
+        return read_canm(b)
+    ver = struct.unpack_from("<I", b, 8)[0]
+    if b[:8] == b"r3d2anmd" and ver == 5:
+        return read_anmd_v5(b)
+    if b[:8] == b"r3d2anmd" and ver == 4:
+        return read_anmd_v4(b)
+    if b[:8] == b"r3d2anmd" and ver in (1, 2, 3):
+        return read_anmd_v3(b)
+    raise ValueError(f"unsupported animation {b[:8]!r} v{ver}")
+
+
+def read_canm(b):
+    if b[:8] != b"r3d2canm":
+        raise ValueError(f"unsupported animation {b[:8]!r} (only compressed r3d2canm)")
+    (_ver, _res, _tok, _flags, njoints, nframes, _njump, duration, fps) = struct.unpack_from("<IIIIiiiff", b, 8)
+    tmin = np.array(struct.unpack_from("<3f", b, 68))
+    tmax = np.array(struct.unpack_from("<3f", b, 80))
+    smin = np.array(struct.unpack_from("<3f", b, 92))
+    smax = np.array(struct.unpack_from("<3f", b, 104))
+    frames_off, _jump_off, hashes_off = struct.unpack_from("<iii", b, 116)
+    hashes = struct.unpack_from(f"<{njoints}I", b, hashes_off + 12)
+    fr = np.frombuffer(b, "<u2", nframes * 5, frames_off + 12).reshape(nframes, 5)
+    keys = {}                                   # (joint, kind) -> list of (time, value)
+    for t, jid, a, c, d in fr.tolist():
+        joint, kind = jid & 0x3FFF, jid >> 14
+        tt = t / 65535.0 * duration
+        if kind == 0:
+            val = quat48(a, c, d)
+        elif kind == 1:
+            val = tmin + (tmax - tmin) * np.array([a, c, d]) / 65535.0
+        else:
+            val = smin + (smax - smin) * np.array([a, c, d]) / 65535.0
+        keys.setdefault((joint, kind), []).append((tt, val))
+    for k in keys:
+        keys[k].sort(key=lambda kv: kv[0])
+    return dict(duration=duration, fps=fps, hashes=hashes, keys=keys)
+
+
+def read_tex(b):
+    if b[:4] != b"TEX\0":
+        return Image.open(io.BytesIO(b)).convert("RGBA")          # plain DDS
+    w, h, _one, fmt, _rt, _flags = struct.unpack_from("<HHBBBB", b, 4)
+    if fmt == 20:                                                   # BGRA8
+        data = b[-w * h * 4:]
+        return Image.frombytes("RGBA", (w, h), data, "raw", "BGRA")
+    block = 8 if fmt == 10 else 16
+    size = max(1, (w + 3) // 4) * max(1, (h + 3) // 4) * block
+    four = b"DXT1" if fmt == 10 else b"DXT5"
+    # DDS header: size, flags, height, width, linear size, depth, mips, reserved[11],
+    # pixel format (size, FOURCC flag, fourcc, bit count, 4 masks), caps[4], reserved
+    hdr = struct.pack("<4sIIIIIII44sII4sIIIIIIIIII", b"DDS ", 124, 0x81007, h, w, size, 0, 1, b"\0" * 44,
+                      32, 4, four, 0, 0, 0, 0, 0, 0x1000, 0, 0, 0, 0)
+    return Image.open(io.BytesIO(hdr + b[-size:])).convert("RGBA")
+
+
+def diffuse_textures(paths, skin_bin=None, skn=None):
+    """The base skin's colour texture among the texture paths a skin bin names: `*_TX_CM` / `*_CM_TX`
+    (Garen, Lux), else the base textures that are not a load screen or an icon (Amumu's is a plain
+    `SadMummy.tex`). A weapon trail's texture is named like a colour map too (Yasuo's
+    `Yasuo_Weapon_Trail_TX_CM` sorts before `Yasuo_base_TX_CM`, and its alpha cut holes in the model).
+    Given the bin and the skin's .skn path, the skin's own texture comes first: the bin names it right
+    after the mesh. Teemo's skin has three colour maps, and the harmonica's (`Teemo_Base_Harmonica_TX_CM`,
+    for a submesh that is hidden) sorted first and turned the whole model brass; for every earlier hero
+    the texture after the mesh is the one the name rules picked. Camille's bin spells the folder `skins/base/`, so
+    the folder is matched in any case. Urgot's only `_TX_CM` maps are particle textures (`Particles/Urgot_Base_Q_Projectile_TX_CM`)
+    and turned him lime green; particles never count."""
+    base = [p for p in paths if "/base/" in p.lower()]
+    named = [p for p in base if re.search(r"_tx_cm|_cm_tx", p, re.I) and not re.search(r"trail|/particles/", p, re.I)]
+    found = named or [p for p in base if not re.search(r"loadscreen|square|circle|icon|/particles/", p, re.I)]
+    if skin_bin is not None and skn is not None:
+        at = skin_bin.find(skn.encode("latin1"))
+        m = re.search(rb"[A-Za-z0-9_/\.\-]+\.(?:tex|dds)", skin_bin[at + len(skn):at + len(skn) + 400]) if at >= 0 else None
+        own = m.group(0).decode("latin1") if m else None
+        if own in found:
+            found = [own] + [p for p in found if p != own]
+    return found
+
+
+def skin_textures(w, champ, skin_bin, skn):
+    """(colour maps, every texture path) of the base skin. Evelynn's skin bin names no colour map: her materials sit in
+    the shared bins it links (DATA/Characters/Evelynn/Evelynn_Multi_Skins_*.bin, `Evelynn_base_CM_TX3_V03.tex`), and her
+    stealth look (`..._CM_TX3_Shade`) sorts before the plain map."""
+    refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
+    paths = refs(skin_bin, rb"(?:tex|dds)")
+    texs = diffuse_textures(paths, skin_bin, skn)
+    if texs:
+        return texs, paths
+    for link in refs(skin_bin, rb"bin"):
+        if link.lower().startswith(f"data/characters/{champ.lower()}/") and "/animations/" not in link.lower():
+            try:
+                paths = sorted(set(paths) | set(refs(w.read_path(link.lower()), rb"(?:tex|dds)")))
+            except Exception:
+                pass
+    return sorted(diffuse_textures(paths, None, None), key=lambda p: "shade" in p.lower()), paths
+
+
+def base_mesh(paths):
+    """The base skin's own .skn / .skl among the paths a skin bin names. Taric's bin also names a particle mesh
+    (`Skins/Base/Particles/Taric_Base_W_cas_anim.skn`, three gems) that sorts before `Taric.skn`. The folder is
+    matched in any case (Camille's `skins/base/`)."""
+    base = [p for p in paths if "/base/" in p.lower()]
+    return next((p for p in base if "/particles/" not in p.lower()), base[0])
+
+
+def skn_submeshes(b):
+    """A SKN's submeshes: (name, first index, index count)."""
+    magic, major, _minor = struct.unpack_from("<IHH", b, 0)
+    if magic != 0x00112233 or major == 0:
+        return []
+    (nsub,) = struct.unpack_from("<I", b, 8)
+    out = []
+    for i in range(nsub):
+        p = 12 + 80 * i
+        name = b[p:p + 64].split(b"\0")[0].decode("latin1")
+        _sv, _vc, si, ic = struct.unpack_from("<IIII", b, p + 64)
+        out.append((name, si, ic))
+    return out
+
+
+def hidden_submeshes(skin_bin, names):
+    """The submeshes the skin hides until an animation shows them (the bin's initialSubmeshToHide: one
+    string of submesh names, e.g. Teemo's "Mushroom Harmonica")."""
+    hide = set()
+    for m in re.finditer(rb"[A-Za-z0-9_ ,]{3,}", skin_bin):
+        words = [w for w in re.split(r"[ ,]+", m.group(0).decode("latin1")) if w]
+        if words and all(w in names for w in words):
+            hide.update(words)
+    return hide
+
+
+def submesh_vertex_maps(b, n_verts, named):
+    """Index of each vertex's colour map: 0 for the skin's own, k for the vertices of the submeshes in
+    `named` [(submesh names, k)] - Yone's Katana and GhostKatana use his swords' map. Every submesh has a
+    vertex range of its own, so a triangle's map is its first corner's (vmap[tris[:, 0]])."""
+    vmap = np.zeros(n_verts, int)
+    magic, major, _minor = struct.unpack_from("<IHH", b, 0)
+    if magic != 0x00112233 or major == 0:
+        return vmap
+    (nsub,) = struct.unpack_from("<I", b, 8)
+    for i in range(nsub):
+        p = 12 + 80 * i
+        name = b[p:p + 64].split(b"\0")[0].decode("latin1")
+        sv, vc, _si, _ic = struct.unpack_from("<IIII", b, p + 64)
+        for names, k in named:
+            if name in names:
+                vmap[sv:sv + vc] = k
+    return vmap
+
+
+def drop_submeshes(tris, subs, hide):
+    """The triangles outside the named submeshes."""
+    keep = np.ones(len(tris), bool)
+    for name, si, ic in subs:
+        if name in hide:
+            keep[si // 3:(si + ic) // 3] = False
+    return tris[keep]
+
+
+# ----------------------------------------------------------------------------- pose
+def qmat(q):
+    x, y, z, w = q / np.linalg.norm(q)
+    return np.array([[1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w)],
+                     [2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w)],
+                     [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y)]])
+
+
+def trs(t, r, s):
+    m = np.eye(4)
+    m[:3, :3] = qmat(r) * s[None, :]
+    m[:3, 3] = t
+    return m
+
+
+def sample(keys, t):
+    if len(keys) == 1 or t <= keys[0][0]:
+        return keys[0][1]
+    for (t0, v0), (t1, v1) in zip(keys, keys[1:]):
+        if t <= t1:
+            u = 0.0 if t1 == t0 else (t - t0) / (t1 - t0)
+            if len(v0) == 4:                                        # nlerp on the short arc
+                v1 = v1 if np.dot(v0, v1) >= 0 else -v1
+                q = v0 * (1 - u) + v1 * u
+                return q / np.linalg.norm(q)
+            return v0 * (1 - u) + v1 * u
+    return keys[-1][1]
+
+
+def globals_(joints, local):
+    g = [None] * len(joints)
+    for i, j in enumerate(joints):                   # parents come first in SKL order
+        g[i] = local[i] if j["parent"] < 0 else g[j["parent"]] @ local[i]
+    return g
+
+
+def local_pose(joints, anim, t):
+    """(translation, rotation, scale) of every joint relative to its parent at clip time t."""
+    by_hash = {h: k for k, h in enumerate(anim["hashes"])}
+    local = []
+    for j in joints:
+        tr, rot, sc = j["t"], j["r"], j["s"]
+        k = by_hash.get(j["hash"], by_hash.get(elf(j["name"])))
+        if k is not None:
+            kk = anim["keys"]
+            tr = sample(kk[(k, 1)], t) if (k, 1) in kk else tr
+            rot = sample(kk[(k, 0)], t) if (k, 0) in kk else rot
+            sc = sample(kk[(k, 2)], t) if (k, 2) in kk else sc
+        local.append((np.asarray(tr, float), np.asarray(rot, float), np.asarray(sc, float)))
+    return local
+
+
+def blend_pose(a, b, w):
+    """Cross-fade two local poses the way League blends clips: lerp translation and scale, nlerp rotation."""
+    out = []
+    for (ta, ra, sa), (tb, rb, sb) in zip(a, b):
+        rb = rb if np.dot(ra, rb) >= 0 else -rb
+        q = ra * (1 - w) + rb * w
+        out.append((ta * (1 - w) + tb * w, q / np.linalg.norm(q), sa * (1 - w) + sb * w))
+    return out
+
+
+LEG = re.compile(r"(^|_)(hip|thigh)$", re.I)
+LOWER = re.compile(r"hip|thigh|cape|skirt|cloth", re.I)     # legs and what hangs down to them
+HAIR = re.compile(r"hair|braid|ponytail", re.I)             # chains hanging from the head
+
+
+def chibi(joints, local, head=1.0, legs=1.0, hair=1.0, hair_re=None, scale=None):
+    """TFM2 proportions from League's adult ones: scale the head joint, and the root of every leg,
+    cape, skirt and cloth chain (meshes and child bones scale with it), so the reference already shows
+    the big head and short legs of the sprite to draw instead of pulling the image model back to
+    realistic proportions. `hair` scales the hair chains hanging from the head on top of the head's
+    scale: a long braid would otherwise grow with the head (Lee Sin's reached the ground at 2x),
+    so --hair 0.5 with --head 2.0 keeps it at League's length. `hair_re` (default HAIR) names those
+    chains; keep_parts() adds parts such as a horn. `scale` maps more joint names to a factor
+    (Darius's pauldrons: {"L_Shoulderpad": 1.4, "R_Shoulderpad": 1.4}, as big as the sprite draws them)."""
+    scale = {k.lower(): v for k, v in (scale or {}).items()}
+    if head == 1.0 and legs == 1.0 and not scale:
+        return local
+    hair_re = hair_re or HAIR
+    out = []
+    for j, (t, r, s) in zip(joints, local):
+        parent = joints[j["parent"]]["name"] if j["parent"] >= 0 else ""
+        k = head if j["name"].lower() == "head" else \
+            hair if parent.lower() == "head" and hair_re.search(j["name"]) else \
+            legs if LOWER.search(j["name"]) and not LOWER.search(parent) else 1.0
+        out.append((t, r, np.asarray(s, float) * k * scale.get(j["name"].lower(), 1.0)))
+    return out
+
+
+def keep_parts(joints, influences, v, keep):
+    """Let --hair also hold head parts that ride on the head's skin weights (Soraka's horn has a
+    `horn` joint under Head but no vertex follows it, so --head 2.0 doubled it and made its tip the
+    crown). `keep` maps a joint name to a radius: the vertices mainly weighted to the joint's parent,
+    above the joint and within that many units of it across (bind pose), are bound to the joint
+    alone. Returns the influence list (the joint appended when the skin never used it) and the hair
+    pattern extended with those names, for chibi() and for measuring the crown without them."""
+    if not keep:
+        return influences, HAIR
+    influences = list(influences)
+    by_name = {j["name"].lower(): i for i, j in enumerate(joints)}
+    bind = globals_(joints, [trs(j["t"], j["r"], j["s"]) for j in joints])
+    joint_of = np.array(influences)[v["bones"].astype(np.int64)]
+    main = joint_of[np.arange(len(v)), np.argmax(v["w"], axis=1)]
+    for name, radius in keep.items():
+        k = by_name[name.lower()]
+        px, py, pz = bind[k][:3, 3]
+        p = v["pos"]
+        sel = (main == joints[k]["parent"]) & (p[:, 1] > py - 1.0) & (np.hypot(p[:, 0] - px, p[:, 2] - pz) < radius)
+        if k not in influences:
+            influences.append(k)
+        v["bones"][sel] = influences.index(k)
+        v["w"][sel] = (1.0, 0.0, 0.0, 0.0)
+        print(f"keep {joints[k]['name']}: {int(sel.sum())} vertices bound to it (were on {joints[joints[k]['parent']]['name']})")
+    return influences, re.compile(HAIR.pattern + "|" + "|".join(re.escape(n) for n in keep), re.I)
+
+
+def chain_vertices(joints, influences, v, pattern):
+    """Vertices that mostly follow a joint whose name matches `pattern`, or anything below it."""
+    chain = set()
+    for i in range(len(joints)):
+        k = i
+        while k >= 0 and not pattern.search(joints[k]["name"]):
+            k = joints[k]["parent"]
+        if k >= 0:
+            chain.add(i)
+    joint_of = np.array(influences)[v["bones"].astype(np.int64)]
+    main = joint_of[np.arange(len(v)), np.argmax(v["w"], axis=1)]
+    return np.isin(main, sorted(chain))
+
+
+def leg_vertices(joints, influences, v):
+    """Vertices that mostly follow a leg (a hip/thigh joint or anything below it)."""
+    return chain_vertices(joints, influences, v, LEG)
+
+
+def pose(joints, anim, t):
+    return globals_(joints, [trs(*p) for p in local_pose(joints, anim, t)])
+
+
+def skin(v, influences, bind_inv, glob):
+    mats = np.stack([glob[j] @ bind_inv[j] for j in range(len(glob))])      # joint skin matrices
+    joint_of = np.array(influences)[v["bones"].astype(np.int64)]             # (n, 4)
+    p = np.c_[v["pos"], np.ones(len(v))]
+    out = np.zeros((len(v), 3))
+    for k in range(4):
+        m = mats[joint_of[:, k]]
+        out += v["w"][:, k:k + 1] * np.einsum("nij,nj->ni", m, p)[:, :3]
+    return out
+
+
+# ----------------------------------------------------------------------------- render
+def render(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0, tri_tex=None):
+    """tri_tex = (index per triangle, [textures]): the colour map of each triangle, index 0 being `tex`
+    (Yone's swords have their own map); None textures the whole model with `tex`."""
+    cy, sy = np.cos(np.radians(yaw)), np.sin(np.radians(yaw))
+    cp, sp = np.cos(np.radians(pitch)), np.sin(np.radians(pitch))
+    ry = np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
+    rx = np.array([[1, 0, 0], [0, cp, -sp], [0, sp, cp]])
+    v = verts @ (rx @ ry).T
+    ss = 3                                                   # supersampling
+    W, H = size[0] * ss, size[1] * ss
+    x = (v[:, 0] * scale + size[0] * (0.5 + shift)) * ss
+    y = (ground - v[:, 1] * scale) * ss
+    z = v[:, 2]
+    tv = v[tris]
+    n = np.cross(tv[:, 1] - tv[:, 0], tv[:, 2] - tv[:, 0])
+    n /= np.maximum(np.linalg.norm(n, axis=1, keepdims=True), 1e-9)
+    light = np.array([-0.4, 0.6, 0.7])
+    light /= np.linalg.norm(light)
+    shade = 0.75 + 0.75 * np.abs(n @ light)            # diffuse maps are dark without the game's lighting
+    c = uv[tris].mean(1)
+    idx, maps = tri_tex if tri_tex is not None else (np.zeros(len(tris), int), [tex])
+    col = np.zeros((len(tris), 3), np.float32)
+    for k, t in enumerate(maps):
+        tw, th = t.size
+        texa = np.asarray(t.convert("RGB")).astype(np.float32)
+        sel = idx == k
+        px = np.clip((c[sel, 0] % 1.0) * tw, 0, tw - 1).astype(int)
+        py = np.clip((c[sel, 1] % 1.0) * th, 0, th - 1).astype(int)
+        col[sel] = texa[py, px]
+    col = np.clip(col * shade[:, None], 0, 255).astype(np.uint8)
+    order = np.argsort(z[tris].mean(1))                     # far first (camera looks down -z)
+    img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    for i in order:
+        a, b_, c_ = tris[i]
+        d.polygon([(x[a], y[a]), (x[b_], y[b_]), (x[c_], y[c_])], fill=tuple(col[i]) + (255,))
+    return img.resize(size, Image.LANCZOS)
+
+
+def render_hq(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0, tri_tex=None):
+    """Like render(), but z-buffered and textured per pixel: faces, hair and trim stay readable."""
+    cy, sy = np.cos(np.radians(yaw)), np.sin(np.radians(yaw))
+    cp, sp = np.cos(np.radians(pitch)), np.sin(np.radians(pitch))
+    ry = np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
+    rx = np.array([[1, 0, 0], [0, cp, -sp], [0, sp, cp]])
+    v = verts @ (rx @ ry).T
+    ss = 2
+    W, H = size[0] * ss, size[1] * ss
+    x = (v[:, 0] * scale + size[0] * (0.5 + shift)) * ss
+    y = (ground - v[:, 1] * scale) * ss
+    z = v[:, 2]
+    tv = v[tris]
+    n = np.cross(tv[:, 1] - tv[:, 0], tv[:, 2] - tv[:, 0])
+    n /= np.maximum(np.linalg.norm(n, axis=1, keepdims=True), 1e-9)
+    light = np.array([-0.35, 0.55, 0.75])
+    light /= np.linalg.norm(light)
+    shade = 0.8 + 0.55 * np.abs(n @ light)
+    idx, maps = tri_tex if tri_tex is not None else (None, [tex])
+    texas = [np.asarray(t.convert("RGBA")).astype(np.float32) for t in maps]
+    uv = uv.astype(np.float64)
+    img = np.zeros((H, W, 4), np.float32)
+    zbuf = np.full((H, W), -np.inf)
+    for i, (i0, i1, i2) in enumerate(tris):
+        xs, ys = x[[i0, i1, i2]], y[[i0, i1, i2]]
+        x0, x1 = max(int(xs.min()), 0), min(int(np.ceil(xs.max())), W - 1)
+        y0, y1 = max(int(ys.min()), 0), min(int(np.ceil(ys.max())), H - 1)
+        den = (ys[1] - ys[2]) * (xs[0] - xs[2]) + (xs[2] - xs[1]) * (ys[0] - ys[2])
+        if x1 < x0 or y1 < y0 or abs(den) < 1e-9:
+            continue
+        gx, gy = np.meshgrid(np.arange(x0, x1 + 1) + 0.5, np.arange(y0, y1 + 1) + 0.5)
+        l0 = ((ys[1] - ys[2]) * (gx - xs[2]) + (xs[2] - xs[1]) * (gy - ys[2])) / den
+        l1 = ((ys[2] - ys[0]) * (gx - xs[2]) + (xs[0] - xs[2]) * (gy - ys[2])) / den
+        l2 = 1 - l0 - l1
+        zz = l0 * z[i0] + l1 * z[i1] + l2 * z[i2]
+        zb = zbuf[y0:y1 + 1, x0:x1 + 1]
+        m = (l0 >= -1e-4) & (l1 >= -1e-4) & (l2 >= -1e-4) & (zz > zb)
+        if not m.any():
+            continue
+        u = (l0 * uv[i0, 0] + l1 * uv[i1, 0] + l2 * uv[i2, 0]) % 1.0
+        vv = (l0 * uv[i0, 1] + l1 * uv[i1, 1] + l2 * uv[i2, 1]) % 1.0
+        texa = texas[0 if idx is None else idx[i]]
+        th, tw = texa.shape[:2]
+        col = texa[np.clip((vv * th).astype(int), 0, th - 1), np.clip((u * tw).astype(int), 0, tw - 1)]
+        m &= col[..., 3] >= 40                                # cut-out texels (hair tips, fringes)
+        zb[m] = zz[m]
+        blk = img[y0:y1 + 1, x0:x1 + 1]
+        blk[m, :3] = np.clip(col[..., :3] * shade[i], 0, 255)[m]
+        blk[m, 3] = 255
+    return Image.fromarray(img.astype(np.uint8), "RGBA").resize(size, Image.LANCZOS)
+
+
+def parse_frame(spec):
+    """'clip@ms' or 'clipA@ms>clipB@ms:w' -> (clipA, seconds, clipB, seconds, w)."""
+    m = re.fullmatch(r"([\w.]+)@([\d.]+)(?:>([\w.]+)@([\d.]+):([\d.]+))?", spec.strip())
+    if not m:
+        raise SystemExit(f"bad --frame {spec!r}: use clip@ms or clipA@ms>clipB@ms:weight")
+    a, ta, b, tb, w = m.groups()
+    return a, float(ta) / 1000, b, (float(tb) / 1000 if tb else 0.0), (float(w) if w else 0.0)
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--lol", default=r"D:\WeGameApps\lol", help="League install folder")
+    ap.add_argument("--champ", default="Garen")
+    ap.add_argument("--wad", help="champion WAD holding --champ, for a summon (default: --champ)")
+    ap.add_argument("--anim", action="append", default=[], help="substring of the .anm file name (repeatable)")
+    ap.add_argument("--frames", type=int, default=6)
+    ap.add_argument("--t0", type=float, default=0.0, help="start of the sampled window, seconds")
+    ap.add_argument("--t1", type=float, help="end of the sampled window, seconds (default: clip end)")
+    ap.add_argument("--times", help="explicit frame times in ms, comma-separated (overrides --frames/--t0/--t1)")
+    ap.add_argument("--bg", default="92,98,86", help="background R,G,B (arena olive; 225,225,225 for prompts)")
+    ap.add_argument("--no-labels", action="store_true", help="no frame times under the cells (for image prompts)")
+    ap.add_argument("--yaw", type=float, default=90.0, help="degrees; 90 = facing right")
+    ap.add_argument("--pitch", type=float, default=12.0, help="degrees the camera looks down")
+    ap.add_argument("--size", type=int, default=260, help="cell height in px")
+    ap.add_argument("--width", type=float, default=0.9, help="cell width as a fraction of --size")
+    ap.add_argument("--fit", type=float, default=0.62, help="bind-pose height as a fraction of --size")
+    ap.add_argument("--fit-all", action="store_true",
+                    help="frame on every vertex, hidden submeshes too, so renders that show different props share one "
+                         "scale (Aphelios: each weapon is a submesh far from his body in the bind pose)")
+    ap.add_argument("--shift", type=float, default=0.0, help="move the character right by this fraction of the cell")
+    ap.add_argument("--ground", type=float, default=0.84, help="feet line as a fraction of the cell height")
+    ap.add_argument("--mirror", action="store_true",
+                    help="render the other side (yaw -> -yaw) and flip it, so a pose whose chest faces the "
+                         "champion's right still shows its front while facing right (TFM2 sprites show the front)")
+    ap.add_argument("--frame", action="append", default=[],
+                    help="explicit frame, repeatable, in order: clip@ms, or clipA@ms>clipB@ms:w to cross-fade "
+                         "(w = weight of clipB); clip = .anm name without extension. Needs --name")
+    ap.add_argument("--name", help="file name (without .png) of the --frame strip")
+    ap.add_argument("--hq", action="store_true", help="per-pixel textured render (clearer face and trim; slower)")
+    ap.add_argument("--opaque", action="store_true",
+                    help="ignore the colour map's alpha (Evelynn's holds a glow mask, not cut-outs: 93%% of it is < 128)")
+    ap.add_argument("--head", type=float, default=1.0,
+                    help="scale the head (about 2 gives the big-headed TFM2 proportions)")
+    ap.add_argument("--legs", type=float, default=1.0, help="scale each leg from the hip down (TFM2: about 0.8)")
+    ap.add_argument("--hair", type=float, default=1.0,
+                    help="scale the hair chains hanging from the head on top of --head (Lee Sin's braid: 0.5 "
+                         "keeps League's length)")
+    ap.add_argument("--keep", action="append", default=[], metavar="JOINT:RADIUS",
+                    help="a head part riding on the head's skin weights that --hair should hold at League's size "
+                         "(Soraka: horn:4); see keep_parts()")
+    ap.add_argument("--track", type=float, metavar="PX",
+                    help="with --frame: print each frame's head joint x, in game px from the unit, for a hero "
+                         "PX px tall (head top to soles) in the pose of --track-ref, instead of rendering (the "
+                         "importers' head tracks; same camera, --mirror, --head and --legs as the references)")
+    ap.add_argument("--track-ref", metavar="CLIP@MS", help="pose whose height is PX (default: the first --frame)")
+    ap.add_argument("--hide-submeshes", action="store_true",
+                    help="leave out the submeshes the skin hides until an animation shows them (Teemo's mushroom and harmonica)")
+    ap.add_argument("--hide-submesh", action="append", default=[], metavar="NAME",
+                    help="leave out this submesh (repeatable; Yone's skin hides both swords at first, so name his demon, "
+                         "emote props and smears instead)")
+    ap.add_argument("--hide-joints", metavar="REGEX",
+                    help="leave out the triangles whose vertices mostly follow a joint matching REGEX or one below it "
+                         "(a prop skinned into the body's one submesh: Orianna's ball, 'Ball|Spinnig')")
+    ap.add_argument("--only-joints", metavar="REGEX",
+                    help="the opposite: draw only those triangles (the prop alone)")
+    ap.add_argument("--submesh-texture", action="append", default=[], metavar="SUBMESH=TEXTURE",
+                    help="colour a submesh with another of the skin's maps, named by a part of its file name "
+                         "(repeatable; Yone: Katana=Swords_TX, GhostKatana=Swords_TX)")
+    ap.add_argument("--layer", action="append", default=[], metavar="CLIP@MS=REGEX",
+                    help="take the joints whose names match REGEX from this clip at this time, over every pose "
+                         "(repeatable; League layers parts that way: Kha'Zix's evolutions come from "
+                         "Khazix_evo_overrides@0='Wing|_evo$|_base$|Spike|Shell')")
+    ap.add_argument("--out", required=True)
+    args = ap.parse_args()
+    if args.frame and not args.name:
+        ap.error("--frame needs --name")
+    champ = args.champ
+    wad_path = os.path.join(args.lol, "Game", "DATA", "FINAL", "Champions", f"{args.wad or champ}.wad.client")
+    w = Wad(wad_path)
+    skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
+    refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
+    skn = base_mesh(refs(skin_bin, rb"skn"))
+    skl = base_mesh(refs(skin_bin, rb"skl"))
+    texs, tex_paths = skin_textures(w, champ, skin_bin, skn)
+    skn_bytes = w.read_path(skn.lower())
+    tris, verts = read_skn(skn_bytes)
+    if args.hide_submeshes:
+        subs = skn_submeshes(skn_bytes)
+        tris = drop_submeshes(tris, subs, hidden_submeshes(skin_bin, {s[0] for s in subs}))
+    if args.hide_submesh:
+        tris = drop_submeshes(tris, skn_submeshes(skn_bytes), set(args.hide_submesh))
+    joints, influences = read_skl(w.read_path(skl.lower()))
+    for rx, keep_it in ((args.hide_joints, False), (args.only_joints, True)):
+        if rx:
+            prop = chain_vertices(joints, influences, verts, re.compile(rx, re.I))
+            tris = tris[prop[tris].all(axis=1) == keep_it] if keep_it else tris[~prop[tris].any(axis=1)]
+    influences, hair_re = keep_parts(joints, influences, verts, {k: float(r) for k, r in (x.split(":") for x in args.keep)})
+    tex = read_tex(w.read_path(texs[0].lower())) if texs else Image.new("RGB", (4, 4), (180, 180, 180))
+    if args.opaque:
+        tex = tex.convert("RGB").convert("RGBA")
+    tri_tex = None
+    if args.submesh_texture:
+        pairs = [x.split("=", 1) for x in args.submesh_texture]
+        stems = list(dict.fromkeys(t for _, t in pairs))
+        paths = tex_paths
+        maps = [tex] + [read_tex(w.read_path(next(q for q in paths if t.lower() in q.lower()).lower())) for t in stems]
+        vmap = submesh_vertex_maps(skn_bytes, len(verts), [({n for n, t in pairs if t == stem}, k + 1)
+                                                           for k, stem in enumerate(stems)])
+        tri_tex = (vmap[tris[:, 0]], maps)
+    bind = globals_(joints, [trs(j["t"], j["r"], j["s"]) for j in joints])
+    bind_inv = [np.linalg.inv(m) for m in bind]
+    anims = refs(w.read_path(f"data/characters/{champ.lower()}/animations/skin0.bin"), rb"anm")
+    # frame the character once, from the bind pose: height -> cell height
+    rest = skin(verts, influences, bind_inv, bind)
+    # frame on the drawn vertices only: a hidden submesh (Pyke's Nensi sea monster) must not set the height or the ground
+    drawn = np.arange(len(verts)) if args.fit_all else np.unique(np.asarray(tris).ravel())
+    small = args.head != 1.0 or args.legs != 1.0
+    if small:
+        legv = leg_vertices(joints, influences, verts)
+        tall = skin(verts, influences, bind_inv, globals_(joints, [
+            trs(*p) for p in chibi(joints, [(j["t"], j["r"], j["s"]) for j in joints], args.head, args.legs, args.hair, hair_re)]))
+        height = tall[drawn, 1].max() - tall[drawn, 1].min()
+    else:
+        height = rest[drawn, 1].max() - rest[drawn, 1].min()
+    scale = args.size * args.fit / height
+    ground = args.size * args.ground
+    os.makedirs(args.out, exist_ok=True)
+    draw = render_hq if args.hq else render
+
+    layers = []
+    if args.layer:
+        all_anims = {os.path.splitext(os.path.basename(a))[0].lower(): a for a in anims}
+        for spec in args.layer:
+            at, rx = spec.split("=", 1)
+            name, ms = at.rsplit("@", 1)
+            if name.lower() not in all_anims:
+                raise SystemExit(f"--layer: no clip {name!r}")
+            pose = local_pose(joints, read_anim(w.read_path(all_anims[name.lower()].lower())), float(ms) / 1000.0)
+            pick_ = [i for i, j in enumerate(joints) if re.search(rx, j["name"], re.I)]
+            layers.append((pick_, pose))
+            print(f"--layer {name}@{ms}: {len(pick_)} joints")
+
+    def layered(local):
+        local = list(local)
+        for pick_, pose in layers:
+            for i in pick_:
+                local[i] = pose[i]
+        return local
+
+    def cell(local):
+        local = layered(local)
+        pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, local, args.head, args.legs, args.hair, hair_re)]))
+        if small:   # shorter legs lift the body: put the lowest point of the legs where League has it
+            adult = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in local]))
+            pv[:, 1] += adult[legv, 1].min() - pv[legv, 1].min()
+        pv[:, 1] -= rest[drawn, 1].min()
+        size = (int(args.size * args.width), args.size)
+        if args.mirror:
+            return draw(pv, tris, verts["uv"], tex, -args.yaw, args.pitch, size, scale, ground,
+                        -args.shift, tri_tex=tri_tex).transpose(Image.FLIP_LEFT_RIGHT)
+        return draw(pv, tris, verts["uv"], tex, args.yaw, args.pitch, size, scale, ground, args.shift, tri_tex=tri_tex)
+
+    def save(cells, labels, name):
+        cw, chh = cells[0].size
+        bg = tuple(int(c) for c in args.bg.split(",")) + (255,)
+        sheet = Image.new("RGBA", (cw * len(cells), chh + (0 if args.no_labels else 16)), bg)
+        dr = ImageDraw.Draw(sheet)
+        for i, (cimg, label) in enumerate(zip(cells, labels)):
+            sheet.alpha_composite(cimg, (i * cw, 0))
+            if not args.no_labels:
+                dr.text((i * cw + 4, chh + 2), f"{i + 1}: {label}", fill=(255, 255, 255, 255))
+        out = os.path.join(args.out, f"{name}.png")
+        sheet.save(out)
+        return out
+
+    if args.frame:
+        by_name = {os.path.splitext(os.path.basename(a))[0].lower(): a for a in anims}
+        loaded = {}
+
+        def clip(name):
+            if name.lower() not in by_name:
+                raise SystemExit(f"no clip {name!r}; clips: {', '.join(sorted(by_name))}")
+            if name.lower() not in loaded:
+                loaded[name.lower()] = read_anim(w.read_path(by_name[name.lower()].lower()))
+            return loaded[name.lower()]
+
+        def frame_pose(spec):
+            a, ta, b, tb, wgt = parse_frame(spec)
+            local = local_pose(joints, clip(a), ta)
+            if b:
+                local = blend_pose(local, local_pose(joints, clip(b), tb), wgt)
+            return local
+
+        def head_track(poses, ref):
+            """Head joint x per pose in game px from the unit (the world origin), scaled so that
+            `ref` is args.track px from the head top to the soles, seen through the render camera."""
+            yaw = -args.yaw if args.mirror else args.yaw
+            cy, sy = np.cos(np.radians(yaw)), np.sin(np.radians(yaw))
+            cp, sp = np.cos(np.radians(args.pitch)), np.sin(np.radians(args.pitch))
+            rot = np.array([[1, 0, 0], [0, cp, -sp], [0, sp, cp]]) @ np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
+            sign = -1.0 if args.mirror else 1.0
+            head = next(i for i, j in enumerate(joints) if j["name"].lower() == "head")
+            headv = chain_vertices(joints, influences, verts, re.compile(r"^head$", re.I))
+            legv = chain_vertices(joints, influences, verts, LEG)
+            pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, ref, args.head, args.legs, args.hair, hair_re)])) @ rot.T
+            px = args.track / (pv[headv, 1].max() - pv[legv, 1].min())
+            xs = []
+            for p in poses:
+                glob = globals_(joints, [trs(*q) for q in chibi(joints, p, args.head, args.legs, args.hair, hair_re)])
+                xs.append(sign * (rot @ glob[head][:3, 3])[0] * px)
+            print(f"{args.name}: head x, game px for a {args.track:g} px hero: [" + ", ".join(f"{x:.1f}" for x in xs) + "]")
+
+        poses = [frame_pose(spec) for spec in args.frame]
+        cells = [cell(p) for p in poses] if not args.track else []
+        if cells:
+            print(f"{args.name}: {len(cells)} frames -> {save(cells, args.frame, args.name)}")
+        if args.track:
+            head_track(poses, frame_pose(args.track_ref) if args.track_ref else poses[0])
+        return
+    wanted = [a for a in anims if any(s.lower() in os.path.basename(a).lower() for s in args.anim)] or anims[:1]
+    for path in wanted:
+        try:
+            anim = read_anim(w.read_path(path.lower()))
+        except ValueError as e:
+            print(f"skip {os.path.basename(path)}: {e}")
+            continue
+        t1 = min(args.t1 if args.t1 is not None else anim["duration"], anim["duration"])
+        ts = [args.t0 + (t1 - args.t0) * i / args.frames for i in range(args.frames)]
+        if args.times:
+            ts = [float(x) / 1000.0 for x in args.times.split(",")]
+        cells = [cell(local_pose(joints, anim, t)) for t in ts]
+        name = os.path.splitext(os.path.basename(path))[0]
+        out = save(cells, [f"{t * 1000:.0f} ms" for t in ts], name)
+        print(f"{name}: {anim['duration']:.2f}s @ {anim['fps']:.0f} fps -> {out}")
+
+
+if __name__ == "__main__":
+    main()

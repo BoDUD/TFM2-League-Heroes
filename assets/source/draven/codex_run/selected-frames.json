@@ -1,0 +1,42 @@
+[
+  {
+    "file": "run_1.png",
+    "prompt": "correction-prompts.json: run_1",
+    "raw": "raw/run_1.png"
+  },
+  {
+    "file": "run_2.png",
+    "prompt": "precise-prompts.json: frame2",
+    "raw": "raw/run_2.png"
+  },
+  {
+    "file": "run_3.png",
+    "prompt": "precise-prompts.json: frame3",
+    "raw": "raw/run_3.png"
+  },
+  {
+    "file": "run_4.png",
+    "prompt": "refine-prompts.json: frame4",
+    "raw": "raw/run_4.png"
+  },
+  {
+    "file": "run_5.png",
+    "prompt": "redraw-prompts.json: frame5",
+    "raw": "raw/run_5.png"
+  },
+  {
+    "file": "run_6.png",
+    "prompt": "redraw-prompts.json: frame6",
+    "raw": "raw/run_6.png"
+  },
+  {
+    "file": "run_7.png",
+    "prompt": "precise-prompts.json: frame7",
+    "raw": "raw/run_7.png"
+  },
+  {
+    "file": "run_8.png",
+    "prompt": "landing-revision-prompt.txt",
+    "raw": "raw/run_8.png"
+  }
+]

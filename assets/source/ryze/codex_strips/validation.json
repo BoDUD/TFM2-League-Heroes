@@ -1,0 +1,135 @@
+{
+  "automated_checks": {
+    "skill2": {
+      "frames": 12,
+      "size": [
+        3328,
+        2304
+      ],
+      "strict_8x8": true,
+      "binary_alpha": true,
+      "colors_from_approved_palette": true,
+      "fixed_head_exact": true,
+      "eye_colors_exclusive": true,
+      "single_connected_component": true,
+      "no_pixels_below_allowed_line": true,
+      "durations_and_pivots_match": true
+    },
+    "run": {
+      "frames": 8,
+      "size": [
+        3328,
+        1536
+      ],
+      "strict_8x8": true,
+      "binary_alpha": true,
+      "colors_from_approved_palette": true,
+      "fixed_head_exact": true,
+      "eye_colors_exclusive": true,
+      "single_connected_component": true,
+      "no_pixels_below_allowed_line": true,
+      "durations_and_pivots_match": true
+    },
+    "attack": {
+      "frames": 6,
+      "size": [
+        2496,
+        1536
+      ],
+      "strict_8x8": true,
+      "binary_alpha": true,
+      "colors_from_approved_palette": true,
+      "fixed_head_exact": true,
+      "eye_colors_exclusive": true,
+      "single_connected_component": true,
+      "no_pixels_below_allowed_line": true,
+      "durations_and_pivots_match": true
+    },
+    "skill": {
+      "frames": 6,
+      "size": [
+        2496,
+        1536
+      ],
+      "strict_8x8": true,
+      "binary_alpha": true,
+      "colors_from_approved_palette": true,
+      "fixed_head_exact": true,
+      "eye_colors_exclusive": true,
+      "single_connected_component": true,
+      "no_pixels_below_allowed_line": true,
+      "durations_and_pivots_match": true
+    },
+    "ult": {
+      "frames": 8,
+      "size": [
+        3328,
+        1536
+      ],
+      "strict_8x8": true,
+      "binary_alpha": true,
+      "colors_from_approved_palette": true,
+      "fixed_head_exact": true,
+      "eye_colors_exclusive": true,
+      "single_connected_component": true,
+      "no_pixels_below_allowed_line": true,
+      "durations_and_pivots_match": true
+    },
+    "ult_land": {
+      "frames": 4,
+      "size": [
+        3328,
+        768
+      ],
+      "strict_8x8": true,
+      "binary_alpha": true,
+      "colors_from_approved_palette": true,
+      "fixed_head_exact": true,
+      "eye_colors_exclusive": true,
+      "single_connected_component": true,
+      "no_pixels_below_allowed_line": true,
+      "durations_and_pivots_match": true
+    },
+    "hit": {
+      "frames": 2,
+      "size": [
+        1664,
+        768
+      ],
+      "strict_8x8": true,
+      "binary_alpha": true,
+      "colors_from_approved_palette": true,
+      "fixed_head_exact": true,
+      "eye_colors_exclusive": true,
+      "single_connected_component": true,
+      "no_pixels_below_allowed_line": true,
+      "durations_and_pivots_match": true
+    },
+    "dead": {
+      "frames": 8,
+      "size": [
+        3328,
+        1536
+      ],
+      "strict_8x8": true,
+      "binary_alpha": true,
+      "colors_from_approved_palette": true,
+      "fixed_head_exact": true,
+      "eye_colors_exclusive": true,
+      "single_connected_component": true,
+      "no_pixels_below_allowed_line": true,
+      "durations_and_pivots_match": true
+    }
+  },
+  "idle_preserved_byte_for_byte": true,
+  "generated_frames": 54,
+  "new_sheets": 8,
+  "status": "technical_checks_passed_visual_review_required",
+  "not_certified": [
+    "every_hand_exactly_3x3_and_open",
+    "every_arm_exactly_3_pixels_inside_outline",
+    "all_generated_clothing_and_lower_scroll_identical_to_design",
+    "no_generated_head_fragments_within_3_pixels",
+    "run_loop_seam_and_alternation_quality"
+  ]
+}

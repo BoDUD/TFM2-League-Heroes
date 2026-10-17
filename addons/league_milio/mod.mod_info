@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.113.0"
+    }
+  ],
+  "description": "Test build of Milio as in League (needs League of Legends Heroes): replaces the main pack's Milio so Fired Up! marks the allies his spells touch (every Cozy Campfire pulse too) and their next hit sets the enemy ablaze (20-100 magic damage by his level over 1.5 s, at most 100 to monsters) instead of the data pack's +30% attack and ability power; Breath of Life goes out only when an allied champion around him is crowd-controlled, below 30% health or lost 30% within a second, with an enemy champion close, read from their health, and it really cleanses crowd control. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-15",
+  "mod_id": "league_milio",
+  "mod_type": "native",
+  "name": "League Heroes: Milio's Fired Up! and Breath of Life as in League (test)",
+  "version": "0.1.1"
+}

@@ -1,0 +1,3161 @@
+{
+  "id": "league_vladimir",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Heal"
+  ],
+  "sprite": "asset/league/champions/league_vladimir",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_vladimir_skill",
+    "asset/league/icons/league_vladimir_skill2",
+    "asset/league/icons/league_vladimir_ult"
+  ],
+  "stat": {
+    "attack": 72,
+    "magic_power": 40,
+    "hp": 1000,
+    "defence": 22,
+    "magic_resistance": 22,
+    "move_speed": 910,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 5,
+    "magic_power": 20,
+    "hp": 105,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_vladimir_pool.attack",
+    "duration": 25,
+    "cooltime": 85,
+    "start_timing": 12,
+    "cancelable": true,
+    "range": 48000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_vladimir_a_shot"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_vladimir_a_bolt",
+          "speed": 5000,
+          "y_offset": -3000,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_vladimir_a_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "league_vladimir_a_hit"
+              }
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": []
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_vladimir_polling",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vladimir_polling",
+                  "duration": {
+                    "Time": {
+                      "tick": 5
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 36000,
+                    "period": 3,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_vladimir_polling"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_vladimir_polling",
+                              "duration": {
+                                "Time": {
+                                  "tick": 5
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_vladimir_w_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_vladimir_w_go",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vladimir_w_go"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_w_cd",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1200
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 120
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_w_in",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 120
+                                    }
+                                  },
+                                  "damaged_reduce": 100,
+                                  "cc_immune": true
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterAnimation",
+                                "name": "skill_w",
+                                "tick": 120
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_vladimir_w_splash"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_vladimir_w_cast"
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 15,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 45,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 75,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 105,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 114,
+                                "effects": [
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_vladimir_w_splash"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_vladimir_w_out"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_vladimir_e_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_vladimir_e_burst"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_vladimir_e_cast"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 32000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "TargetProjectile",
+                                              "name": "league_vladimir_e_bolt",
+                                              "speed": 4500,
+                                              "y_offset": -3000,
+                                              "applied_target": "Enemy",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ApAttack",
+                                                    "damage": 63,
+                                                    "attack_ratio": 49,
+                                                    "hp_ratio": 3,
+                                                    "can_crit": false
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_vladimir_e_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 30
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -40
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_vladimir_e_hit"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_vladimir_e_hit"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 32000
+                                            }
+                                          },
+                                          "target": "EnemyChampion",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "TargetProjectile",
+                                              "name": "league_vladimir_e_mark",
+                                              "speed": 4500,
+                                              "y_offset": -3000,
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_vladimir_eq"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_vladimir_eq",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 150
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_vladimir.skill",
+    "duration": 26,
+    "cooltime": 240,
+    "start_timing": 11,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_vladimir_q_cast"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_vladimir_eq",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_vladimir_eq"
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 180,
+                    "attack_ratio": 135,
+                    "hp_ratio": 9,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_vladimir_q_drain"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_vladimir_q_rush"
+                  },
+                  {
+                    "type": "ParabolicProjectile",
+                    "name": "league_vladimir_q_link",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "range_effect_name": "",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_vladimir_q_rush",
+                        "speed": 4500,
+                        "range": 200000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "penetrate": true,
+                        "applied_target": "Enemy",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "target": "AllyOnlySelf",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Heal",
+                                "amount": 80,
+                                "attack_ratio": 0,
+                                "ap_ratio": 60,
+                                "heal_type": "Caster"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_vladimir_q_heal"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_vladimir_q_heal"
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vladimir_q_haste"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_q_haste",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 60
+                                    }
+                                  },
+                                  "move_speed_mult": 30
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_vladimir_q1",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_vladimir_q1"
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "ApAttack",
+                      "damage": 180,
+                      "attack_ratio": 135,
+                      "hp_ratio": 9,
+                      "can_crit": false
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_vladimir_q_drain"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_vladimir_q_rush"
+                    },
+                    {
+                      "type": "ParabolicProjectile",
+                      "name": "league_vladimir_q_link",
+                      "travel_time": 1,
+                      "range": 400000,
+                      "range_effect_name": "",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1
+                        }
+                      },
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "BackToCasterLinearProjectile",
+                          "name": "league_vladimir_q_rush",
+                          "speed": 4500,
+                          "range": 200000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "penetrate": true,
+                          "applied_target": "Enemy",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Heal",
+                                  "amount": 80,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 60,
+                                  "heal_type": "Caster"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_vladimir_q_heal"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_vladimir_q_heal"
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_vladimir_q_haste"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_vladimir_q_haste",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": 30
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_vladimir_q1",
+                    "duration": {
+                      "Time": {
+                        "tick": 1800
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "ApAttack",
+                      "damage": 100,
+                      "attack_ratio": 75,
+                      "hp_ratio": 5,
+                      "can_crit": false
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_vladimir_q_drain"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_vladimir_q_hit"
+                    },
+                    {
+                      "type": "ParabolicProjectile",
+                      "name": "league_vladimir_q_link",
+                      "travel_time": 1,
+                      "range": 400000,
+                      "range_effect_name": "",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1
+                        }
+                      },
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "BackToCasterLinearProjectile",
+                          "name": "league_vladimir_q_orb",
+                          "speed": 4500,
+                          "range": 200000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "penetrate": true,
+                          "applied_target": "Enemy",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Heal",
+                                  "amount": 40,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 30,
+                                  "heal_type": "Caster"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_vladimir_q_heal"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_vladimir_q_heal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_vladimir_polling",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vladimir_polling",
+                  "duration": {
+                    "Time": {
+                      "tick": 5
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 36000,
+                    "period": 3,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_vladimir_polling"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_vladimir_polling",
+                              "duration": {
+                                "Time": {
+                                  "tick": 5
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_vladimir_w_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_vladimir_w_go",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vladimir_w_go"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_w_cd",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1200
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 120
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_w_in",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 120
+                                    }
+                                  },
+                                  "damaged_reduce": 100,
+                                  "cc_immune": true
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterAnimation",
+                                "name": "skill_w",
+                                "tick": 120
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_vladimir_w_splash"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_vladimir_w_cast"
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 15,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 45,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 75,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 105,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 114,
+                                "effects": [
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_vladimir_w_splash"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_vladimir_w_out"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_vladimir_e_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_vladimir_e_burst"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_vladimir_e_cast"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 32000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "TargetProjectile",
+                                              "name": "league_vladimir_e_bolt",
+                                              "speed": 4500,
+                                              "y_offset": -3000,
+                                              "applied_target": "Enemy",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ApAttack",
+                                                    "damage": 63,
+                                                    "attack_ratio": 49,
+                                                    "hp_ratio": 3,
+                                                    "can_crit": false
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_vladimir_e_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 30
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -40
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_vladimir_e_hit"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_vladimir_e_hit"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 32000
+                                            }
+                                          },
+                                          "target": "EnemyChampion",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "TargetProjectile",
+                                              "name": "league_vladimir_e_mark",
+                                              "speed": 4500,
+                                              "y_offset": -3000,
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_vladimir_eq"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_vladimir_eq",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 150
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_vladimir.skill2",
+    "duration": 68,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 32000,
+    "casting_type": "None",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "skill2",
+          "tick": 68
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_vladimir_e_cd",
+            "duration": {
+              "Time": {
+                "tick": 480
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_vladimir_e_chg",
+            "duration": {
+              "Time": {
+                "tick": 58
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "league_vladimir_e_charge"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_vladimir_polling",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vladimir_polling",
+                  "duration": {
+                    "Time": {
+                      "tick": 5
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 36000,
+                    "period": 3,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_vladimir_polling"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_vladimir_polling",
+                              "duration": {
+                                "Time": {
+                                  "tick": 5
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_vladimir_w_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_vladimir_w_go",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vladimir_w_go"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_w_cd",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1200
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 120
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_w_in",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 120
+                                    }
+                                  },
+                                  "damaged_reduce": 100,
+                                  "cc_immune": true
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterAnimation",
+                                "name": "skill_w",
+                                "tick": 120
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_vladimir_w_splash"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_vladimir_w_cast"
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 15,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 45,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 75,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 105,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 114,
+                                "effects": [
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_vladimir_w_splash"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_vladimir_w_out"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_vladimir_e_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_vladimir_e_burst"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_vladimir_e_cast"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 32000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "TargetProjectile",
+                                              "name": "league_vladimir_e_bolt",
+                                              "speed": 4500,
+                                              "y_offset": -3000,
+                                              "applied_target": "Enemy",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ApAttack",
+                                                    "damage": 63,
+                                                    "attack_ratio": 49,
+                                                    "hp_ratio": 3,
+                                                    "can_crit": false
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_vladimir_e_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 30
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -40
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_vladimir_e_hit"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_vladimir_e_hit"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 32000
+                                            }
+                                          },
+                                          "target": "EnemyChampion",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "TargetProjectile",
+                                              "name": "league_vladimir_e_mark",
+                                              "speed": 4500,
+                                              "y_offset": -3000,
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_vladimir_eq"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_vladimir_eq",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 150
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 58,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_vladimir_e_burst"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_vladimir_e_cast"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 32000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "TargetProjectile",
+                      "name": "league_vladimir_e_bolt",
+                      "speed": 4500,
+                      "y_offset": -3000,
+                      "applied_target": "Enemy",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ApAttack",
+                            "damage": 90,
+                            "attack_ratio": 70,
+                            "hp_ratio": 5,
+                            "can_crit": false
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_vladimir_e_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 30
+                                }
+                              },
+                              "move_speed_mult": -40
+                            }
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_vladimir_e_hit"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_vladimir_e_hit"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 32000
+                    }
+                  },
+                  "target": "EnemyChampion",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "TargetProjectile",
+                      "name": "league_vladimir_e_mark",
+                      "speed": 4500,
+                      "y_offset": -3000,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vladimir_eq"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_eq",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 150
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_vladimir.ult",
+    "duration": 26,
+    "cooltime": 3600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampionRecentlyAttacked",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_vladimir_e_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterViewEffect",
+                "name": "league_vladimir_c_blink"
+              },
+              {
+                "type": "LinearProjectile",
+                "name": "league_vladimir_r_path",
+                "penetrate": false,
+                "applied_target": "EnemyChampion",
+                "applied_effects": [],
+                "end_effects": [
+                  {
+                    "type": "Teleport"
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_vladimir_c_blink"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_vladimir_c_blink"
+                  }
+                ],
+                "speed": 10000,
+                "range": 30000,
+                "shape": {
+                  "Circle": {
+                    "radius": 22000
+                  }
+                },
+                "y_offset": 0
+              },
+              {
+                "type": "Delayed",
+                "tick": 29,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_vladimir_e_burst"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_vladimir_e_cast"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 32000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_vladimir_e_bolt",
+                            "speed": 4500,
+                            "y_offset": -3000,
+                            "applied_target": "Enemy",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 63,
+                                  "attack_ratio": 49,
+                                  "hp_ratio": 3,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_vladimir_e_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 30
+                                      }
+                                    },
+                                    "move_speed_mult": -40
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_vladimir_e_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_vladimir_e_hit"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 32000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_vladimir_e_mark",
+                            "speed": 4500,
+                            "y_offset": -3000,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_vladimir_eq"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_vladimir_eq",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 150
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "league_vladimir_r_cast"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_vladimir_polling",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vladimir_polling",
+                  "duration": {
+                    "Time": {
+                      "tick": 5
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 36000,
+                    "period": 3,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_vladimir_polling"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_vladimir_polling",
+                              "duration": {
+                                "Time": {
+                                  "tick": 5
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_vladimir_w_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_vladimir_w_go",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vladimir_w_go"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_w_cd",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1200
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterInvisible",
+                                "tick": 120
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_vladimir_w_in",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 120
+                                    }
+                                  },
+                                  "damaged_reduce": 100,
+                                  "cc_immune": true
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterAnimation",
+                                "name": "skill_w",
+                                "tick": 120
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_vladimir_w_splash"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_vladimir_w_cast"
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 15,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 45,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 75,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 105,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 25,
+                                            "attack_ratio": 10,
+                                            "hp_ratio": 2,
+                                            "can_crit": false
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vladimir_w_drain",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 30
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 15,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 8,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 114,
+                                "effects": [
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_vladimir_w_splash"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_vladimir_w_out"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_vladimir_e_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_vladimir_e_burst"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_vladimir_e_cast"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 32000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "TargetProjectile",
+                                              "name": "league_vladimir_e_bolt",
+                                              "speed": 4500,
+                                              "y_offset": -3000,
+                                              "applied_target": "Enemy",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ApAttack",
+                                                    "damage": 63,
+                                                    "attack_ratio": 49,
+                                                    "hp_ratio": 3,
+                                                    "can_crit": false
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_vladimir_e_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 30
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -40
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_vladimir_e_hit"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_vladimir_e_hit"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 32000
+                                            }
+                                          },
+                                          "target": "EnemyChampion",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "TargetProjectile",
+                                              "name": "league_vladimir_e_mark",
+                                              "speed": 4500,
+                                              "y_offset": -3000,
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_vladimir_eq"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_vladimir_eq",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 150
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "league_vladimir_r_lob",
+              "travel_time": 1,
+              "range": 400000,
+              "range_effect_name": "",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyChampion",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "ViewEffect",
+                  "name": "league_vladimir_r_cloud"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_vladimir_r_land"
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "league_vladimir_r_zone",
+                  "shape": {
+                    "Circle": {
+                      "radius": 26000
+                    }
+                  },
+                  "delay": 2,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_vladimir_r_mark",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          },
+                          "damaged_amplify": 10
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Delayed",
+                        "tick": 180,
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 200,
+                            "attack_ratio": 80,
+                            "hp_ratio": 6,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_vladimir_r_burst"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_vladimir_r_burst"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "league_vladimir_r_zone_c",
+                  "shape": {
+                    "Circle": {
+                      "radius": 26000
+                    }
+                  },
+                  "delay": 2,
+                  "apply": 1,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Delayed",
+                        "tick": 180,
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 70,
+                            "attack_ratio": 0,
+                            "ap_ratio": 30,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_vladimir_r_heal_on"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_vladimir_a_bolt",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "a_bolt",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_vladimir_q_orb",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "q_orb",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_vladimir_q_rush",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "q_rush",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_vladimir_e_bolt",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "e_bolt",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_vladimir_a_hit",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vladimir_q_drain",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "q_drain",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vladimir_q_heal",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "q_heal",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_vladimir_e_hit",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vladimir_e_burst",
+      "anim": "asset/league/effects/league_vladimir_big",
+      "tag": "e_burst",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_vladimir_w_splash",
+      "anim": "asset/league/effects/league_vladimir_big",
+      "tag": "w_splash",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_vladimir_r_cloud",
+      "anim": "asset/league/effects/league_vladimir_big",
+      "tag": "r_cloud",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_vladimir_r_burst",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "r_burst",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vladimir_r_heal_on",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "r_heal_on",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vladimir_c_blink",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "c_blink",
+      "z": 2,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_vladimir_q1",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "q1",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_vladimir_e_chg",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "e_chg",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_vladimir_w_in",
+      "anim": "asset/league/effects/league_vladimir_big",
+      "tag": "w_in",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_vladimir_w_drain",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "w_drain",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_vladimir_r_mark",
+      "anim": "asset/league/effects/league_vladimir_fx",
+      "tag": "r_mark",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "passive": {
+    "passive_ref": "league_vladimir_pool:guard",
+    "params": {
+      "hp": 35,
+      "near": 60000,
+      "cost": 20
+    }
+  }
+}

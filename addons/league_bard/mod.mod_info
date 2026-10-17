@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.115.2"
+    }
+  ],
+  "description": "Test build of Bard's Magical Journey as in League (needs League of Legends Heroes): replaces the main pack's Bard so he opens his door himself, only on a nearby wall, and goes through it to the far side - back toward his own side when dived or hurt, after a hurt enemy champion behind the wall, or over to an allied champion in a fight - taking the allied champions near the door with him. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-14",
+  "mod_id": "league_bard",
+  "mod_type": "native",
+  "name": "League Heroes: Bard's Magical Journey through walls (test)",
+  "version": "0.6.0"
+}

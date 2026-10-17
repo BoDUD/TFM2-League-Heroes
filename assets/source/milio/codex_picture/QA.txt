@@ -1,0 +1,5 @@
+milio-model-A.png size=(1024, 1536) alpha_bbox=(0, 23, 984, 1521) solid_bbox=(310, 410, 887, 1516) semitransparent_pixels=404024
+milio-model-B.png size=(1024, 1536) alpha_bbox=(0, 21, 1004, 1520) solid_bbox=(117, 409, 888, 1515) semitransparent_pixels=461132
+milio-model-B-boy.png size=(1024, 1536) alpha_bbox=(0, 23, 984, 1521) solid_bbox=(310, 410, 887, 1516) semitransparent_pixels=404024
+milio-model-B-spirit.png size=(1024, 1536) alpha_bbox=(75, 64, 954, 1383) solid_bbox=(117, 633, 350, 917) semitransparent_pixels=50322
+Layer composite differs from B: 995822 pixels(raw/02-04 and milio-model-B-boy.png were byte-identical copies of milio-model-B.png / -A.png / -B-spirit.png: dropped)

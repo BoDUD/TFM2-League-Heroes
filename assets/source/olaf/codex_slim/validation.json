@@ -1,0 +1,39 @@
+{
+  "method": "Image generation for artwork, majority lattice sampling and palette mapping for export only. No head pasting, part assembly, row/column removal or silhouette compression.",
+  "versions": {
+    "A": {
+      "bbox": [
+        46,
+        57,
+        84,
+        100
+      ],
+      "width": 38,
+      "height": 43,
+      "foot_row": 99,
+      "whole_frame_vertical_shift": -1,
+      "head_preserved_exactly": false,
+      "changed_pixels_in_original_head_mask": 165,
+      "grid8": true,
+      "binary_alpha": true,
+      "approved_palette_only": true
+    },
+    "B": {
+      "bbox": [
+        47,
+        57,
+        83,
+        100
+      ],
+      "width": 36,
+      "height": 43,
+      "foot_row": 99,
+      "whole_frame_vertical_shift": -1,
+      "head_preserved_exactly": false,
+      "changed_pixels_in_original_head_mask": 163,
+      "grid8": true,
+      "binary_alpha": true,
+      "approved_palette_only": true
+    }
+  }
+}

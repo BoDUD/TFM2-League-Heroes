@@ -1,0 +1,1921 @@
+[
+  {
+    "file": "xayah_fx_a_blade.png",
+    "frames": 4,
+    "frame_size": [
+      1182,
+      591
+    ],
+    "sheet_size": [
+      4728,
+      591
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      2,
+      1
+    ],
+    "source_size": [
+      1330,
+      1182
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Loop: identical solid sharp magenta feather blade pointing RIGHT, violet quill, white edges, dark thin outline on blade only. Top-bottom symmetry. Short pink luminous tail to LEFT flickers across 4 frames. Overall logical 11x4 pixels.",
+    "binding": "view_projectiles `league_xayah_a_blade`、`league_xayah_w_blade`（朝右，游戏转到飞行方向，上下对称）",
+    "size": "11 × 4",
+    "prompt_number": 1,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        665,
+        591
+      ],
+      [
+        665,
+        0,
+        1330,
+        591
+      ],
+      [
+        0,
+        591,
+        665,
+        1182
+      ],
+      [
+        665,
+        591,
+        1330,
+        1182
+      ]
+    ],
+    "content_boxes": [
+      [
+        93,
+        250,
+        600,
+        454
+      ],
+      [
+        53,
+        250,
+        643,
+        455
+      ],
+      [
+        31,
+        189,
+        598,
+        392
+      ],
+      [
+        117,
+        189,
+        643,
+        392
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_a_pierce.png",
+    "frames": 4,
+    "frame_size": [
+      1024,
+      384
+    ],
+    "sheet_size": [
+      4096,
+      384
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      8,
+      3
+    ],
+    "source_size": [
+      2048,
+      768
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Loop: stronger straight magenta feather blade pointing RIGHT, white hot edges violet core, thin dark outline only on solid blade. Top-bottom symmetry. Long bright pink tail LEFT and paired gold sparks flicker, logical16x6.",
+    "binding": "view_projectiles `league_xayah_a_pierce`（朝右，上下对称）",
+    "size": "16 × 6",
+    "prompt_number": 2,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        1024,
+        384
+      ],
+      [
+        1024,
+        0,
+        2048,
+        384
+      ],
+      [
+        0,
+        384,
+        1024,
+        768
+      ],
+      [
+        1024,
+        384,
+        2048,
+        768
+      ]
+    ],
+    "content_boxes": [
+      [
+        92,
+        113,
+        972,
+        331
+      ],
+      [
+        64,
+        85,
+        926,
+        345
+      ],
+      [
+        92,
+        35,
+        976,
+        291
+      ],
+      [
+        46,
+        52,
+        943,
+        269
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_a_hit.png",
+    "frames": 4,
+    "frame_size": [
+      627,
+      627
+    ],
+    "sheet_size": [
+      2508,
+      627
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      1,
+      1
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Centered impact timeline: white flash; crossed magenta slashes white core with four pink sparks; slashes fading sparks outward; few fading sparks. Logical12x12.",
+    "binding": "view_effects `league_xayah_a_hit`（跟随，画在人物上面）",
+    "size": "12",
+    "prompt_number": 3,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        627,
+        627
+      ],
+      [
+        627,
+        0,
+        1254,
+        627
+      ],
+      [
+        0,
+        627,
+        627,
+        1254
+      ],
+      [
+        627,
+        627,
+        1254,
+        1254
+      ]
+    ],
+    "content_boxes": [
+      [
+        110,
+        104,
+        568,
+        588
+      ],
+      [
+        90,
+        137,
+        500,
+        566
+      ],
+      [
+        133,
+        81,
+        559,
+        508
+      ],
+      [
+        98,
+        118,
+        482,
+        490
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_p_on.png",
+    "frames": 4,
+    "frame_size": [
+      627,
+      627
+    ],
+    "sheet_size": [
+      2508,
+      627
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      1,
+      1
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Centered hand empowerment, left-right symmetry: white-pink spark; magenta ring with four tiny feather glints; brighter ring glints quarter turn; fading ring. Logical10x10.",
+    "binding": "view_effects `league_xayah_p_on`（施法者身上，不跟随；格子中心放到手）",
+    "size": "10",
+    "prompt_number": 4,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        627,
+        627
+      ],
+      [
+        627,
+        0,
+        1254,
+        627
+      ],
+      [
+        0,
+        627,
+        627,
+        1254
+      ],
+      [
+        627,
+        627,
+        1254,
+        1254
+      ]
+    ],
+    "content_boxes": [
+      [
+        150,
+        119,
+        546,
+        577
+      ],
+      [
+        61,
+        91,
+        569,
+        588
+      ],
+      [
+        83,
+        69,
+        589,
+        538
+      ],
+      [
+        70,
+        69,
+        540,
+        549
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_f_drop.png",
+    "frames": 3,
+    "frame_size": [
+      561,
+      935
+    ],
+    "sheet_size": [
+      1683,
+      935
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      3,
+      5
+    ],
+    "source_size": [
+      1683,
+      935
+    ],
+    "source_layout": [
+      3,
+      1
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true
+    ],
+    "description": "Vertical narrow solid magenta feather POINTING DOWN, violet shaft white edge dark outline, left-right symmetric. Timeline: falling feather point flash; same feather landed above flat pink ground oval; same feather stays as ring fades. Logical6x10.",
+    "binding": "view_effects `league_xayah_f_drop`（地面上的点，不旋转）",
+    "size": "6 × 10",
+    "prompt_number": 5,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        561,
+        935
+      ],
+      [
+        561,
+        0,
+        1122,
+        935
+      ],
+      [
+        1122,
+        0,
+        1683,
+        935
+      ]
+    ],
+    "content_boxes": [
+      [
+        168,
+        58,
+        408,
+        853
+      ],
+      [
+        58,
+        305,
+        494,
+        865
+      ],
+      [
+        45,
+        369,
+        499,
+        870
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_f_lie.png",
+    "frames": 2,
+    "frame_size": [
+      795,
+      1325
+    ],
+    "sheet_size": [
+      1590,
+      1325
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      3,
+      5
+    ],
+    "source_size": [
+      1586,
+      992
+    ],
+    "source_layout": [
+      2,
+      1
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true
+    ],
+    "description": "Two frame loop upright planted magenta feather POINT DOWN violet shaft white edge thin dark outline, faint pink at foot. Left-right symmetric. Identical size and position both frames, tiny edge glint moves one pixel higher. Logical5x9.",
+    "binding": "view_effects `league_xayah_f_lie`（地面上的点，每 1/3 秒重播一次，不旋转）",
+    "size": "5 × 9",
+    "prompt_number": 6,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        793,
+        992
+      ],
+      [
+        793,
+        0,
+        1586,
+        992
+      ]
+    ],
+    "content_boxes": [
+      [
+        243,
+        328,
+        678,
+        867
+      ],
+      [
+        120,
+        328,
+        556,
+        867
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_feather.png",
+    "frames": 4,
+    "frame_size": [
+      995,
+      398
+    ],
+    "sheet_size": [
+      3980,
+      398
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      5,
+      2
+    ],
+    "source_size": [
+      1983,
+      793
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Four frame loop returning solid magenta feather blade pointing RIGHT, violet shaft white edge dark outline, top-bottom symmetric. Long bright magenta ribbon to LEFT ripples. Logical13x5.",
+    "binding": "view_projectiles `league_xayah_feather`（朝右，游戏转到飞行方向，上下对称）",
+    "size": "13 × 5",
+    "prompt_number": 7,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        991,
+        396
+      ],
+      [
+        991,
+        0,
+        1982,
+        396
+      ],
+      [
+        0,
+        396,
+        991,
+        792
+      ],
+      [
+        991,
+        396,
+        1982,
+        792
+      ]
+    ],
+    "content_boxes": [
+      [
+        50,
+        141,
+        916,
+        354
+      ],
+      [
+        73,
+        114,
+        917,
+        354
+      ],
+      [
+        74,
+        69,
+        916,
+        315
+      ],
+      [
+        42,
+        91,
+        917,
+        297
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_q_dagger.png",
+    "frames": 4,
+    "frame_size": [
+      1050,
+      420
+    ],
+    "sheet_size": [
+      4200,
+      420
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      5,
+      2
+    ],
+    "source_size": [
+      2098,
+      749
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Four frame loop straight long narrow magenta feather dagger RIGHT, violet quill, white tip and edges dark thin outline on solid blade. Top-bottom symmetric. Pink flame tail LEFT with two gold sparks flickers. Logical14x5.",
+    "binding": "view_projectiles `league_xayah_q_dagger`（朝右，上下对称）",
+    "size": "14 × 5",
+    "prompt_number": 8,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        1049,
+        374
+      ],
+      [
+        1049,
+        0,
+        2098,
+        374
+      ],
+      [
+        0,
+        374,
+        1049,
+        748
+      ],
+      [
+        1049,
+        374,
+        2098,
+        748
+      ]
+    ],
+    "content_boxes": [
+      [
+        115,
+        149,
+        966,
+        333
+      ],
+      [
+        39,
+        137,
+        949,
+        334
+      ],
+      [
+        82,
+        77,
+        996,
+        275
+      ],
+      [
+        150,
+        98,
+        965,
+        275
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_q_flash.png",
+    "frames": 3,
+    "frame_size": [
+      1536,
+      1024
+    ],
+    "sheet_size": [
+      4608,
+      1024
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      3,
+      2
+    ],
+    "source_size": [
+      1536,
+      1024
+    ],
+    "source_layout": [
+      3,
+      1
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true
+    ],
+    "description": "Three frame casting flash. Origin at LEFT edge middle, shoots RIGHT. White magenta star at left middle; two short magenta rays diverge slightly right; fading rays. Logical12x8.",
+    "binding": "view_effects `league_xayah_q_flash`（施法者身上，不跟随；格子左边中点放到手）",
+    "size": "12 × 8",
+    "prompt_number": 9,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        512,
+        1024
+      ],
+      [
+        512,
+        0,
+        1024,
+        1024
+      ],
+      [
+        1024,
+        0,
+        1536,
+        1024
+      ]
+    ],
+    "content_boxes": [
+      [
+        69,
+        357,
+        472,
+        656
+      ],
+      [
+        60,
+        427,
+        454,
+        620
+      ],
+      [
+        85,
+        430,
+        408,
+        635
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_q_hit.png",
+    "frames": 4,
+    "frame_size": [
+      627,
+      627
+    ],
+    "sheet_size": [
+      2508,
+      627
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      1,
+      1
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Four centered impact frames: white flash; large diagonal magenta slash white core plus thin pink ring; expanding ring fading slash; sparse fading pink sparks. Logical14x14.",
+    "binding": "view_effects `league_xayah_q_hit`（跟随，画在人物上面）",
+    "size": "14",
+    "prompt_number": 10,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        627,
+        627
+      ],
+      [
+        627,
+        0,
+        1254,
+        627
+      ],
+      [
+        0,
+        627,
+        627,
+        1254
+      ],
+      [
+        627,
+        627,
+        1254,
+        1254
+      ]
+    ],
+    "content_boxes": [
+      [
+        132,
+        151,
+        508,
+        536
+      ],
+      [
+        51,
+        88,
+        565,
+        598
+      ],
+      [
+        87,
+        75,
+        616,
+        534
+      ],
+      [
+        174,
+        137,
+        499,
+        456
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_e_cast.png",
+    "frames": 4,
+    "frame_size": [
+      627,
+      627
+    ],
+    "sheet_size": [
+      2508,
+      627
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      1,
+      1
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Four left-right symmetric recall cast frames around EMPTY human-shaped central hole: six magenta feather glints on ring; glints rush inward along curved pink winds; tighter ring with white glints; fading swirl. Logical24x24. Never draw person.",
+    "binding": "view_effects `league_xayah_e_cast`（施法者身上，不跟随；格子中心放到她胸口）",
+    "size": "24",
+    "prompt_number": 11,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        627,
+        627
+      ],
+      [
+        627,
+        0,
+        1254,
+        627
+      ],
+      [
+        0,
+        627,
+        627,
+        1254
+      ],
+      [
+        627,
+        627,
+        1254,
+        1254
+      ]
+    ],
+    "content_boxes": [
+      [
+        74,
+        89,
+        612,
+        578
+      ],
+      [
+        30,
+        75,
+        547,
+        582
+      ],
+      [
+        121,
+        59,
+        617,
+        546
+      ],
+      [
+        79,
+        59,
+        519,
+        537
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_e_hit.png",
+    "frames": 3,
+    "frame_size": [
+      724,
+      724
+    ],
+    "sheet_size": [
+      2172,
+      724
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      1,
+      1
+    ],
+    "source_size": [
+      2172,
+      724
+    ],
+    "source_layout": [
+      3,
+      1
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true
+    ],
+    "description": "Three centered left-right symmetric frames: thin horizontal magenta slash with white center; splits into pink sparks; sparks fade. Logical12x12.",
+    "binding": "view_effects `league_xayah_e_hit`（跟随，画在人物上面）",
+    "size": "12",
+    "prompt_number": 12,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        724,
+        724
+      ],
+      [
+        724,
+        0,
+        1448,
+        724
+      ],
+      [
+        1448,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "content_boxes": [
+      [
+        92,
+        307,
+        634,
+        470
+      ],
+      [
+        77,
+        199,
+        649,
+        544
+      ],
+      [
+        98,
+        249,
+        627,
+        484
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_e_root.png",
+    "frames": 5,
+    "frame_size": [
+      810,
+      486
+    ],
+    "sheet_size": [
+      4050,
+      486
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      5,
+      3
+    ],
+    "source_size": [
+      1619,
+      971
+    ],
+    "source_layout": [
+      3,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Five left-right symmetric root impact frames around EMPTY figure center, ground bottom-middle: crimson foot flash; four solid magenta feathers slant planted two per side white edges thin dark outline with flat crimson ground ring; brighter ring upward sparks; ring dims blades stay; more fading ring blades stay. Logical20x12.",
+    "binding": "view_effects `league_xayah_e_root`（跟随，画在人物上面）",
+    "size": "20 × 12",
+    "prompt_number": 13,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        539,
+        485
+      ],
+      [
+        539,
+        0,
+        1078,
+        485
+      ],
+      [
+        1078,
+        0,
+        1617,
+        485
+      ],
+      [
+        0,
+        485,
+        539,
+        970
+      ],
+      [
+        539,
+        485,
+        1078,
+        970
+      ]
+    ],
+    "content_boxes": [
+      [
+        43,
+        197,
+        496,
+        451
+      ],
+      [
+        17,
+        141,
+        517,
+        457
+      ],
+      [
+        28,
+        65,
+        516,
+        449
+      ],
+      [
+        35,
+        83,
+        504,
+        419
+      ],
+      [
+        43,
+        117,
+        501,
+        413
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_e_bind.png",
+    "frames": 4,
+    "frame_size": [
+      992,
+      496
+    ],
+    "sheet_size": [
+      3968,
+      496
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      2,
+      1
+    ],
+    "source_size": [
+      1983,
+      793
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Four left-right symmetric looping ground binding frames, empty human center: four small magenta planted feathers two per side with solid dark outline, flat crimson oval ring pulses dim bright dim, white glint moves on blade. Logical16x8.",
+    "binding": "view_buffs `league_xayah_e_bind`（跟随，画在人物上面）",
+    "size": "16 × 8",
+    "prompt_number": 14,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        991,
+        396
+      ],
+      [
+        991,
+        0,
+        1982,
+        396
+      ],
+      [
+        0,
+        396,
+        991,
+        792
+      ],
+      [
+        991,
+        396,
+        1982,
+        792
+      ]
+    ],
+    "content_boxes": [
+      [
+        83,
+        109,
+        908,
+        356
+      ],
+      [
+        68,
+        97,
+        929,
+        367
+      ],
+      [
+        65,
+        94,
+        925,
+        357
+      ],
+      [
+        83,
+        124,
+        912,
+        354
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_w_cast.png",
+    "frames": 5,
+    "frame_size": [
+      512,
+      512
+    ],
+    "sheet_size": [
+      2560,
+      512
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      1,
+      1
+    ],
+    "source_size": [
+      1536,
+      1024
+    ],
+    "source_layout": [
+      3,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Five left-right symmetric casting frames around EMPTY human center: hollow pink light burst; eight small outlined magenta feather blades on wide flat violet wind oval; blades rotate quarter turn; rotate further; ring thins. Logical26x26. No person.",
+    "binding": "view_effects `league_xayah_w_cast`（施法者身上，跟随；格子中心放到她胸口）",
+    "size": "26",
+    "prompt_number": 15,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        512,
+        512
+      ],
+      [
+        512,
+        0,
+        1024,
+        512
+      ],
+      [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      [
+        0,
+        512,
+        512,
+        1024
+      ],
+      [
+        512,
+        512,
+        1024,
+        1024
+      ]
+    ],
+    "content_boxes": [
+      [
+        47,
+        85,
+        480,
+        459
+      ],
+      [
+        43,
+        84,
+        470,
+        463
+      ],
+      [
+        47,
+        81,
+        467,
+        460
+      ],
+      [
+        60,
+        69,
+        482,
+        438
+      ],
+      [
+        56,
+        68,
+        481,
+        431
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_w_on.png",
+    "frames": 4,
+    "frame_size": [
+      1045,
+      380
+    ],
+    "sheet_size": [
+      4180,
+      380
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      11,
+      4
+    ],
+    "source_size": [
+      2079,
+      756
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Four left-right symmetric ground aura loop frames, ground bottom-middle: flat wide violet ellipse, six tiny magenta feather glints circulate with changing white highlight; empty center. Logical22x8.",
+    "binding": "view_buffs `league_xayah_w_on`（跟随，画在人物下面）",
+    "size": "22 × 8",
+    "prompt_number": 16,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        1039,
+        378
+      ],
+      [
+        1039,
+        0,
+        2078,
+        378
+      ],
+      [
+        0,
+        378,
+        1039,
+        756
+      ],
+      [
+        1039,
+        378,
+        2078,
+        756
+      ]
+    ],
+    "content_boxes": [
+      [
+        54,
+        103,
+        971,
+        336
+      ],
+      [
+        49,
+        92,
+        962,
+        331
+      ],
+      [
+        72,
+        54,
+        966,
+        308
+      ],
+      [
+        62,
+        77,
+        959,
+        307
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_w_flash.png",
+    "frames": 3,
+    "frame_size": [
+      724,
+      724
+    ],
+    "sheet_size": [
+      2172,
+      724
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      1,
+      1
+    ],
+    "source_size": [
+      2172,
+      724
+    ],
+    "source_layout": [
+      3,
+      1
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true
+    ],
+    "description": "Three centered left-right symmetric hand spark frames: small white violet spark; bright violet four-point star; fading star. Logical10x10.",
+    "binding": "view_effects `league_xayah_w_flash`（施法者身上，不跟随；格子中心放到手）",
+    "size": "10",
+    "prompt_number": 17,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        724,
+        724
+      ],
+      [
+        724,
+        0,
+        1448,
+        724
+      ],
+      [
+        1448,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "content_boxes": [
+      [
+        220,
+        221,
+        503,
+        496
+      ],
+      [
+        60,
+        90,
+        664,
+        636
+      ],
+      [
+        205,
+        204,
+        523,
+        503
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_w_ms.png",
+    "frames": 4,
+    "frame_size": [
+      1086,
+      362
+    ],
+    "sheet_size": [
+      4344,
+      362
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      3,
+      1
+    ],
+    "source_size": [
+      2172,
+      724
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Four left-right symmetric foot speed loop frames: short pink streaks and two tiny gold-tipped magenta feathers drift outward to BOTH sides of empty center. Ground bottom-middle. Logical18x6.",
+    "binding": "view_buffs `league_xayah_w_ms`（跟随，画在人物下面）",
+    "size": "18 × 6",
+    "prompt_number": 18,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        1086,
+        362
+      ],
+      [
+        1086,
+        0,
+        2172,
+        362
+      ],
+      [
+        0,
+        362,
+        1086,
+        724
+      ],
+      [
+        1086,
+        362,
+        2172,
+        724
+      ]
+    ],
+    "content_boxes": [
+      [
+        84,
+        145,
+        1023,
+        317
+      ],
+      [
+        72,
+        96,
+        1016,
+        319
+      ],
+      [
+        74,
+        75,
+        1027,
+        309
+      ],
+      [
+        80,
+        107,
+        1006,
+        309
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_r_cast.png",
+    "frames": 5,
+    "frame_size": [
+      627,
+      627
+    ],
+    "sheet_size": [
+      3135,
+      627
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      1,
+      1
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_layout": [
+      3,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Five left-right symmetric ultimate casting frames, EMPTY human-shaped center: hollow pink flash; paired wings of layered solid magenta feathers white edges thin dark outline gold tips opening to both sides; widest wings tiny feathers swirl upward; wings fold; fade. Logical28x28. No person.",
+    "binding": "view_effects `league_xayah_r_cast`（施法者身上，跟随；格子中心放到她胸口）",
+    "size": "28",
+    "prompt_number": 19,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        435,
+        627
+      ],
+      [
+        435,
+        0,
+        805,
+        627
+      ],
+      [
+        805,
+        0,
+        1254,
+        627
+      ],
+      [
+        0,
+        627,
+        435,
+        1254
+      ],
+      [
+        435,
+        627,
+        805,
+        1254
+      ]
+    ],
+    "content_boxes": [
+      [
+        57,
+        216,
+        402,
+        616
+      ],
+      [
+        32,
+        244,
+        349,
+        594
+      ],
+      [
+        20,
+        209,
+        432,
+        609
+      ],
+      [
+        65,
+        121,
+        396,
+        459
+      ],
+      [
+        44,
+        138,
+        336,
+        468
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_r_rain.png",
+    "frames": 6,
+    "frame_size": [
+      846,
+      470
+    ],
+    "sheet_size": [
+      5076,
+      470
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      9,
+      5
+    ],
+    "source_size": [
+      1682,
+      935
+    ],
+    "source_layout": [
+      3,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Six ground fan timeline frames. ALL face RIGHT and top-bottom symmetrical, fan origin LEFT edge middle widening toward RIGHT, logical90x50. Thin magenta streaks spray; many small white-tipped outlined magenta daggers strike across fan with white impacts; more strikes; crimson impact sparks; planted ground feathers remain; fade. Fan silhouette, no actor.",
+    "binding": "view_projectiles `league_xayah_r_rain`（LineRangeProjectile 的画面：朝右画，扇形的尖在格子左边中点，上下对称）",
+    "size": "90 × 50",
+    "prompt_number": 20,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        560,
+        467
+      ],
+      [
+        560,
+        0,
+        1120,
+        467
+      ],
+      [
+        1120,
+        0,
+        1680,
+        467
+      ],
+      [
+        0,
+        467,
+        560,
+        934
+      ],
+      [
+        560,
+        467,
+        1120,
+        934
+      ],
+      [
+        1120,
+        467,
+        1680,
+        934
+      ]
+    ],
+    "content_boxes": [
+      [
+        48,
+        116,
+        526,
+        436
+      ],
+      [
+        39,
+        113,
+        512,
+        431
+      ],
+      [
+        17,
+        84,
+        522,
+        438
+      ],
+      [
+        48,
+        34,
+        539,
+        399
+      ],
+      [
+        39,
+        89,
+        512,
+        405
+      ],
+      [
+        26,
+        121,
+        506,
+        407
+      ]
+    ],
+    "has_transparent_pixels": true
+  },
+  {
+    "file": "xayah_fx_r_hit.png",
+    "frames": 4,
+    "frame_size": [
+      627,
+      627
+    ],
+    "sheet_size": [
+      2508,
+      627
+    ],
+    "layout": "horizontal",
+    "cell_aspect": [
+      1,
+      1
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_layout": [
+      2,
+      2
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "description": "Four centered left-right symmetric ultimate impact frames: solid magenta dagger pointing DOWN strikes center, thin dark outline; white crimson burst; crimson ring and sparks; fading sparks. Logical16x16.",
+    "binding": "view_effects `league_xayah_r_hit`（跟随，画在人物上面）",
+    "size": "16",
+    "prompt_number": 21,
+    "source_crop_boxes": [
+      [
+        0,
+        0,
+        627,
+        627
+      ],
+      [
+        627,
+        0,
+        1254,
+        627
+      ],
+      [
+        0,
+        627,
+        627,
+        1254
+      ],
+      [
+        627,
+        627,
+        1254,
+        1254
+      ]
+    ],
+    "content_boxes": [
+      [
+        199,
+        60,
+        493,
+        558
+      ],
+      [
+        43,
+        137,
+        576,
+        605
+      ],
+      [
+        87,
+        80,
+        597,
+        552
+      ],
+      [
+        80,
+        90,
+        519,
+        510
+      ]
+    ],
+    "has_transparent_pixels": true
+  }
+]

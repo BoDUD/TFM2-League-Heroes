@@ -1,0 +1,258 @@
+{
+ "hero": "khazix",
+ "champ": "Khazix",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 1.6,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 45,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "Khazix_idle1@0",
+ "layer": [
+  {
+   "at": "Khazix_evo_overrides@0",
+   "joints": "Spikes|Spike\\d"
+  }
+ ],
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Khazix_idle1@0",
+     200
+    ],
+    [
+     "Khazix_idle1@0",
+     200
+    ],
+    [
+     "Khazix_idle1@0",
+     200
+    ],
+    [
+     "Khazix_idle1@0",
+     200
+    ],
+    [
+     "Khazix_idle1@0",
+     200
+    ],
+    [
+     "Khazix_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "Khazix_idle1@0",
+   "frames": [
+    [
+     "Khazix_run@0",
+     125
+    ],
+    [
+     "Khazix_run@125",
+     125
+    ],
+    [
+     "Khazix_run@250",
+     125
+    ],
+    [
+     "Khazix_run@375",
+     125
+    ],
+    [
+     "Khazix_run@500",
+     125
+    ],
+    [
+     "Khazix_run@625",
+     125
+    ],
+    [
+     "Khazix_run@750",
+     125
+    ],
+    [
+     "Khazix_run@875",
+     125
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Khazix_idle1@0>Khazix_attack1@120:0.5",
+     60
+    ],
+    [
+     "Khazix_attack1@256",
+     60
+    ],
+    [
+     "Khazix_attack1@383",
+     60
+    ],
+    [
+     "Khazix_attack1@511",
+     80
+    ],
+    [
+     "Khazix_attack1@640",
+     70
+    ],
+    [
+     "Khazix_attack1@767>Khazix_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Khazix_idle1@0>Khazix_spell1@100:0.5",
+     60
+    ],
+    [
+     "Khazix_spell1@222",
+     70
+    ],
+    [
+     "Khazix_spell1@333",
+     70
+    ],
+    [
+     "Khazix_spell1@444",
+     80
+    ],
+    [
+     "Khazix_spell1@667",
+     70
+    ],
+    [
+     "Khazix_spell1@889>Khazix_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "rise": 0.6,
+   "release": 6,
+   "frames": [
+    [
+     "Khazix_idle1@0>Khazix_spell3@0:0.5",
+     60
+    ],
+    [
+     "Khazix_spell3@167",
+     60
+    ],
+    [
+     "Khazix_spell3@500",
+     60
+    ],
+    [
+     "Khazix_spell3@833>Khazix_idle1@0:0.5",
+     60
+    ],
+    [
+     "Khazix_spell2@222",
+     100
+    ],
+    [
+     "Khazix_spell2@444",
+     100
+    ],
+    [
+     "Khazix_spell2@667>Khazix_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.1,
+   "release": 2,
+   "frames": [
+    [
+     "Khazix_idle1@0>Khazix_Evo2R@333:0.5",
+     100
+    ],
+    [
+     "Khazix_Evo2R@667",
+     100
+    ],
+    [
+     "Khazix_Evo2R@1000>Khazix_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Khazix_idle1@0>Khazix_death@0:0.25",
+     100
+    ],
+    [
+     "Khazix_idle1@0>Khazix_death@0:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "frames": [
+    [
+     "Khazix_death@0",
+     100
+    ],
+    [
+     "Khazix_death@200",
+     110
+    ],
+    [
+     "Khazix_death@400",
+     120
+    ],
+    [
+     "Khazix_death@700",
+     130
+    ],
+    [
+     "Khazix_death@1000",
+     150
+    ],
+    [
+     "Khazix_death@1300",
+     200
+    ],
+    [
+     "Khazix_death@1800",
+     300
+    ],
+    [
+     "Khazix_death@2200",
+     400
+    ]
+   ]
+  }
+ }
+}

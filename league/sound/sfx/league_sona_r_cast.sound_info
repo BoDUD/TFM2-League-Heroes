@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_sona_sfx_r_cast",
+      "volume": 0.65
+    },
+    {
+      "delay": 0.2,
+      "clip": "league_sona_sfx_r_wave",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_sona_vo_r",
+      "volume": 0.9
+    }
+  ]
+}

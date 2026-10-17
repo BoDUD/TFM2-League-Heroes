@@ -1,0 +1,123 @@
+{
+  "variants": [
+    {
+      "variant": 1,
+      "canvas_1x": [
+        128,
+        128
+      ],
+      "sprite_bbox_1x": [
+        44,
+        60,
+        73,
+        100
+      ],
+      "height_pixels": 40,
+      "width_pixels": 29,
+      "crest_rows": [
+        60,
+        63
+      ],
+      "hair_top_row": 64,
+      "chin_row": 75,
+      "head_height_pixels": 12,
+      "foot_bottom_row": 99,
+      "foot_gap_center_column": 64,
+      "eye_row": 73,
+      "eye_teal_columns": [
+        62,
+        66
+      ],
+      "eye_width_each": 2,
+      "eye_gap_pixels": 2,
+      "face_rows_below_eyes": 2,
+      "palette_count": 23,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "strict_8x_grid": true,
+      "pixels_below_feet": 0,
+      "outline_color": "#160A0E"
+    },
+    {
+      "variant": 2,
+      "canvas_1x": [
+        128,
+        128
+      ],
+      "sprite_bbox_1x": [
+        44,
+        60,
+        73,
+        100
+      ],
+      "height_pixels": 40,
+      "width_pixels": 29,
+      "crest_rows": [
+        60,
+        63
+      ],
+      "hair_top_row": 64,
+      "chin_row": 73,
+      "head_height_pixels": 10,
+      "foot_bottom_row": 99,
+      "foot_gap_center_column": 64,
+      "eye_row": 71,
+      "eye_teal_columns": [
+        62,
+        66
+      ],
+      "eye_width_each": 2,
+      "eye_gap_pixels": 2,
+      "face_rows_below_eyes": 2,
+      "palette_count": 23,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "strict_8x_grid": true,
+      "pixels_below_feet": 0,
+      "outline_color": "#160A0E"
+    }
+  ],
+  "source_recovered_grid": [
+    38,
+    52
+  ],
+  "whole_rows_removed": [
+    1,
+    3,
+    7,
+    16,
+    26,
+    28,
+    31,
+    33,
+    35,
+    37,
+    41,
+    45
+  ],
+  "whole_columns_removed": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11,
+    12,
+    13,
+    14
+  ],
+  "variant2_head_rows_removed": [
+    5,
+    7
+  ],
+  "variant2_leg_rows_duplicated": [
+    34,
+    36
+  ],
+  "facial_cleanup": "equal paired eyes; unique teal; two face rows; single red mouth; brown brows",
+  "downsampling": false
+}

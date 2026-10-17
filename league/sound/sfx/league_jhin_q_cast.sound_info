@@ -1,0 +1,24 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_jhin_sfx_q_flick",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_jhin_sfx_q_throw",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_jhin_sfx_q_cast",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_jhin_vo_q",
+      "volume": 0.9
+    }
+  ]
+}

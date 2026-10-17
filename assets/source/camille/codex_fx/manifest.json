@@ -1,0 +1,2873 @@
+{
+  "schema_version": 1,
+  "units": "output pixels; rect is [x,y,width,height]",
+  "grid_scale": 8,
+  "assets": [
+    {
+      "name": "hit",
+      "file": "camille_fx_hit.png",
+      "size": [
+        1280,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "target_game_size": [
+        14,
+        14
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            88,
+            104,
+            72,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            320,
+            72,
+            128,
+            144
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            536,
+            48,
+            200,
+            192
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            832,
+            48,
+            152,
+            152
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1088,
+            64,
+            128,
+            152
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_hit",
+        "placement": "follow_target"
+      }
+    },
+    {
+      "name": "q_hit",
+      "file": "camille_fx_q_hit.png",
+      "size": [
+        1536,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "target_game_size": [
+        20,
+        20
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            120,
+            120,
+            16,
+            32
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            320,
+            88,
+            128,
+            88
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            544,
+            32,
+            208,
+            184
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            792,
+            32,
+            208,
+            176
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1056,
+            32,
+            200,
+            184
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            160,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1336,
+            80,
+            128,
+            96
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_q_hit",
+        "placement": "follow_target"
+      }
+    },
+    {
+      "name": "q2_hit",
+      "file": "camille_fx_q2_hit.png",
+      "size": [
+        1792,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "target_game_size": [
+        28,
+        28
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            96,
+            96,
+            72,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            280,
+            40,
+            216,
+            176
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            536,
+            32,
+            216,
+            200
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            792,
+            32,
+            216,
+            192
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1048,
+            24,
+            208,
+            200
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            160,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1320,
+            48,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            192,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1600,
+            72,
+            112,
+            120
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_q2_hit",
+        "placement": "follow_target"
+      }
+    },
+    {
+      "name": "w_arc",
+      "file": "camille_fx_w_arc.png",
+      "size": [
+        2400,
+        560
+      ],
+      "cell_size": [
+        400,
+        560
+      ],
+      "target_game_size": [
+        46,
+        66
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            400,
+            560
+          ],
+          "rect_1x": [
+            0,
+            0,
+            50,
+            70
+          ],
+          "pivot": [
+            0,
+            280
+          ],
+          "bbox": [
+            160,
+            40,
+            184,
+            480
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            400,
+            0,
+            400,
+            560
+          ],
+          "rect_1x": [
+            50,
+            0,
+            50,
+            70
+          ],
+          "pivot": [
+            0,
+            280
+          ],
+          "bbox": [
+            400,
+            32,
+            328,
+            496
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            800,
+            0,
+            400,
+            560
+          ],
+          "rect_1x": [
+            100,
+            0,
+            50,
+            70
+          ],
+          "pivot": [
+            0,
+            280
+          ],
+          "bbox": [
+            800,
+            40,
+            312,
+            480
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1200,
+            0,
+            400,
+            560
+          ],
+          "rect_1x": [
+            150,
+            0,
+            50,
+            70
+          ],
+          "pivot": [
+            0,
+            280
+          ],
+          "bbox": [
+            1200,
+            32,
+            328,
+            496
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1600,
+            0,
+            400,
+            560
+          ],
+          "rect_1x": [
+            200,
+            0,
+            50,
+            70
+          ],
+          "pivot": [
+            0,
+            280
+          ],
+          "bbox": [
+            1608,
+            40,
+            304,
+            480
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            2000,
+            0,
+            400,
+            560
+          ],
+          "rect_1x": [
+            250,
+            0,
+            50,
+            70
+          ],
+          "pivot": [
+            0,
+            280
+          ],
+          "bbox": [
+            2104,
+            56,
+            168,
+            448
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_projectiles",
+        "id": "league_camille_w_arc",
+        "placement": "projectile",
+        "type": "LineRangeProjectile",
+        "rotate": true,
+        "range": 46000,
+        "angle_degrees": 45
+      }
+    },
+    {
+      "name": "w_hit",
+      "file": "camille_fx_w_hit.png",
+      "size": [
+        1024,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "target_game_size": [
+        14,
+        14
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        2,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            104,
+            96,
+            64,
+            136
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            264,
+            72,
+            232,
+            160
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            536,
+            48,
+            208,
+            160
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            848,
+            120,
+            88,
+            56
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_w_hit",
+        "placement": "follow_target"
+      }
+    },
+    {
+      "name": "w_edge",
+      "file": "camille_fx_w_edge.png",
+      "size": [
+        1536,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "target_game_size": [
+        20,
+        20
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            40,
+            32,
+            184,
+            192
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            280,
+            72,
+            216,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            520,
+            48,
+            232,
+            168
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            792,
+            48,
+            216,
+            168
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1080,
+            64,
+            160,
+            136
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            160,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1344,
+            96,
+            160,
+            88
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_w_edge",
+        "placement": "follow_target"
+      }
+    },
+    {
+      "name": "e_hook",
+      "file": "camille_fx_e_hook.png",
+      "size": [
+        9216,
+        128
+      ],
+      "cell_size": [
+        1152,
+        128
+      ],
+      "target_game_size": [
+        144,
+        16
+      ],
+      "preview_ms_per_frame": 22,
+      "preview_timing_is_provisional": false,
+      "loop": false,
+      "generation_grid": [
+        1,
+        8
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            1152,
+            128
+          ],
+          "rect_1x": [
+            0,
+            0,
+            144,
+            16
+          ],
+          "pivot": [
+            576,
+            64
+          ],
+          "bbox": [
+            488,
+            32,
+            120,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            1152,
+            0,
+            1152,
+            128
+          ],
+          "rect_1x": [
+            144,
+            0,
+            144,
+            16
+          ],
+          "pivot": [
+            576,
+            64
+          ],
+          "bbox": [
+            1576,
+            40,
+            184,
+            48
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            2304,
+            0,
+            1152,
+            128
+          ],
+          "rect_1x": [
+            288,
+            0,
+            144,
+            16
+          ],
+          "pivot": [
+            576,
+            64
+          ],
+          "bbox": [
+            2664,
+            32,
+            248,
+            64
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            3456,
+            0,
+            1152,
+            128
+          ],
+          "rect_1x": [
+            432,
+            0,
+            144,
+            16
+          ],
+          "pivot": [
+            576,
+            64
+          ],
+          "bbox": [
+            3752,
+            32,
+            304,
+            64
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            4608,
+            0,
+            1152,
+            128
+          ],
+          "rect_1x": [
+            576,
+            0,
+            144,
+            16
+          ],
+          "pivot": [
+            576,
+            64
+          ],
+          "bbox": [
+            4840,
+            32,
+            376,
+            64
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            5760,
+            0,
+            1152,
+            128
+          ],
+          "rect_1x": [
+            720,
+            0,
+            144,
+            16
+          ],
+          "pivot": [
+            576,
+            64
+          ],
+          "bbox": [
+            5928,
+            32,
+            440,
+            64
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            6912,
+            0,
+            1152,
+            128
+          ],
+          "rect_1x": [
+            864,
+            0,
+            144,
+            16
+          ],
+          "pivot": [
+            576,
+            64
+          ],
+          "bbox": [
+            7008,
+            32,
+            512,
+            64
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            8064,
+            0,
+            1152,
+            128
+          ],
+          "rect_1x": [
+            1008,
+            0,
+            144,
+            16
+          ],
+          "pivot": [
+            576,
+            64
+          ],
+          "bbox": [
+            8096,
+            40,
+            568,
+            48
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_projectiles",
+        "id": "league_camille_e_hook",
+        "placement": "projectile",
+        "type": "TargetProjectile",
+        "loop": false,
+        "ms_per_frame": 22
+      }
+    },
+    {
+      "name": "e_hit",
+      "file": "camille_fx_e_hit.png",
+      "size": [
+        1280,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "target_game_size": [
+        16,
+        16
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            80,
+            96,
+            104,
+            72
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            280,
+            48,
+            192,
+            176
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            544,
+            24,
+            192,
+            216
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            808,
+            40,
+            192,
+            184
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1072,
+            48,
+            144,
+            136
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_e_hit",
+        "placement": "follow_target"
+      }
+    },
+    {
+      "name": "e_stun",
+      "file": "camille_fx_e_stun.png",
+      "size": [
+        2048,
+        160
+      ],
+      "cell_size": [
+        256,
+        160
+      ],
+      "target_game_size": [
+        16,
+        10
+      ],
+      "preview_ms_per_frame": 94,
+      "preview_timing_is_provisional": false,
+      "loop": false,
+      "generation_grid": [
+        2,
+        4
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            160
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            20
+          ],
+          "pivot": [
+            128,
+            80
+          ],
+          "bbox": [
+            96,
+            96,
+            64,
+            56
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            160
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            20
+          ],
+          "pivot": [
+            128,
+            80
+          ],
+          "bbox": [
+            312,
+            80,
+            136,
+            80
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            160
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            20
+          ],
+          "pivot": [
+            128,
+            80
+          ],
+          "bbox": [
+            576,
+            72,
+            136,
+            88
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            160
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            20
+          ],
+          "pivot": [
+            128,
+            80
+          ],
+          "bbox": [
+            824,
+            0,
+            144,
+            160
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            160
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            20
+          ],
+          "pivot": [
+            128,
+            80
+          ],
+          "bbox": [
+            1088,
+            0,
+            144,
+            160
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            160
+          ],
+          "rect_1x": [
+            160,
+            0,
+            32,
+            20
+          ],
+          "pivot": [
+            128,
+            80
+          ],
+          "bbox": [
+            1328,
+            0,
+            152,
+            160
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            0,
+            256,
+            160
+          ],
+          "rect_1x": [
+            192,
+            0,
+            32,
+            20
+          ],
+          "pivot": [
+            128,
+            80
+          ],
+          "bbox": [
+            1600,
+            24,
+            144,
+            112
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1792,
+            0,
+            256,
+            160
+          ],
+          "rect_1x": [
+            224,
+            0,
+            32,
+            20
+          ],
+          "pivot": [
+            128,
+            80
+          ],
+          "bbox": [
+            1856,
+            40,
+            120,
+            80
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_e_stun",
+        "placement": "above_actor",
+        "duration_ms": 750
+      }
+    },
+    {
+      "name": "p_shield",
+      "file": "camille_fx_p_shield.png",
+      "size": [
+        2304,
+        640
+      ],
+      "cell_size": [
+        384,
+        640
+      ],
+      "target_game_size": [
+        30,
+        50
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": true,
+      "generation_grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            640
+          ],
+          "rect_1x": [
+            0,
+            0,
+            48,
+            80
+          ],
+          "pivot": [
+            192,
+            320
+          ],
+          "bbox": [
+            136,
+            72,
+            216,
+            520
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            640
+          ],
+          "rect_1x": [
+            48,
+            0,
+            48,
+            80
+          ],
+          "pivot": [
+            192,
+            320
+          ],
+          "bbox": [
+            464,
+            72,
+            224,
+            520
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            640
+          ],
+          "rect_1x": [
+            96,
+            0,
+            48,
+            80
+          ],
+          "pivot": [
+            192,
+            320
+          ],
+          "bbox": [
+            800,
+            72,
+            216,
+            520
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            640
+          ],
+          "rect_1x": [
+            144,
+            0,
+            48,
+            80
+          ],
+          "pivot": [
+            192,
+            320
+          ],
+          "bbox": [
+            1288,
+            48,
+            216,
+            520
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1536,
+            0,
+            384,
+            640
+          ],
+          "rect_1x": [
+            192,
+            0,
+            48,
+            80
+          ],
+          "pivot": [
+            192,
+            320
+          ],
+          "bbox": [
+            1616,
+            48,
+            224,
+            520
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1920,
+            0,
+            384,
+            640
+          ],
+          "rect_1x": [
+            240,
+            0,
+            48,
+            80
+          ],
+          "pivot": [
+            192,
+            320
+          ],
+          "bbox": [
+            1952,
+            48,
+            216,
+            520
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_buffs",
+        "id": "league_camille_p_on",
+        "placement": "actor_overlay"
+      }
+    },
+    {
+      "name": "r_mark",
+      "file": "camille_fx_r_mark.png",
+      "size": [
+        2048,
+        256
+      ],
+      "cell_size": [
+        512,
+        256
+      ],
+      "target_game_size": [
+        28,
+        14
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": true,
+      "generation_grid": [
+        2,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            72,
+            88,
+            368,
+            136
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            584,
+            80,
+            368,
+            144
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            1096,
+            80,
+            368,
+            152
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            192,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            1608,
+            80,
+            368,
+            144
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_buffs",
+        "id": "league_camille_r_mark",
+        "placement": "ground"
+      }
+    },
+    {
+      "name": "r_wall",
+      "file": "camille_fx_r_wall.png",
+      "size": [
+        1280,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "target_game_size": [
+        20,
+        20
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            88,
+            24,
+            96,
+            216
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            344,
+            24,
+            112,
+            216
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            552,
+            16,
+            192,
+            232
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            792,
+            8,
+            208,
+            232
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            1104,
+            32,
+            96,
+            200
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_r_wall",
+        "placement": "follow_target"
+      }
+    },
+    {
+      "name": "r_hit",
+      "file": "camille_fx_r_hit.png",
+      "size": [
+        1024,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "target_game_size": [
+        14,
+        14
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        2,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            120,
+            120,
+            72,
+            48
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            320,
+            48,
+            88,
+            200
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            616,
+            40,
+            96,
+            168
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "bbox": [
+            840,
+            88,
+            56,
+            80
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_r_hit",
+        "placement": "follow_target"
+      }
+    },
+    {
+      "name": "e_land",
+      "file": "camille_fx_e_land.png",
+      "size": [
+        3584,
+        256
+      ],
+      "cell_size": [
+        512,
+        256
+      ],
+      "target_game_size": [
+        56,
+        28
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        2,
+        4
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            208,
+            72,
+            104,
+            152
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            648,
+            72,
+            232,
+            160
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            1112,
+            56,
+            344,
+            184
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            192,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            1552,
+            48,
+            480,
+            200
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            2048,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            256,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            2104,
+            56,
+            400,
+            192
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            2560,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            320,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            2592,
+            72,
+            424,
+            160
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            3072,
+            0,
+            512,
+            256
+          ],
+          "rect_1x": [
+            384,
+            0,
+            64,
+            32
+          ],
+          "pivot": [
+            256,
+            128
+          ],
+          "bbox": [
+            3136,
+            96,
+            344,
+            128
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_e_land",
+        "placement": "ground",
+        "radius": 25000
+      }
+    },
+    {
+      "name": "r_land",
+      "file": "camille_fx_r_land.png",
+      "size": [
+        6144,
+        448
+      ],
+      "cell_size": [
+        768,
+        448
+      ],
+      "target_game_size": [
+        96,
+        56
+      ],
+      "preview_ms_per_frame": 100,
+      "preview_timing_is_provisional": true,
+      "loop": false,
+      "generation_grid": [
+        2,
+        4
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            0,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            288,
+            88,
+            224,
+            328
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            96,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            840,
+            72,
+            632,
+            376
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            192,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            1576,
+            72,
+            696,
+            368
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            288,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            2392,
+            0,
+            592,
+            424
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            3072,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            384,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            3168,
+            16,
+            576,
+            432
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            3840,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            480,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            3936,
+            8,
+            576,
+            440
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            4608,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            576,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            4712,
+            0,
+            568,
+            408
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            5376,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            672,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            5472,
+            0,
+            576,
+            400
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_r_land",
+        "placement": "ground"
+      }
+    },
+    {
+      "name": "r_zone",
+      "file": "camille_fx_r_zone.png",
+      "size": [
+        4608,
+        448
+      ],
+      "cell_size": [
+        768,
+        448
+      ],
+      "target_game_size": [
+        96,
+        56
+      ],
+      "preview_ms_per_frame": 83,
+      "preview_timing_is_provisional": false,
+      "loop": true,
+      "generation_grid": [
+        2,
+        3
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            0,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            96,
+            0,
+            576,
+            400
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            96,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            864,
+            0,
+            576,
+            400
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            192,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            1632,
+            0,
+            576,
+            400
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            288,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            2400,
+            0,
+            576,
+            400
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            3072,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            384,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            3168,
+            0,
+            576,
+            400
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            3840,
+            0,
+            768,
+            448
+          ],
+          "rect_1x": [
+            480,
+            0,
+            96,
+            56
+          ],
+          "pivot": [
+            384,
+            224
+          ],
+          "bbox": [
+            3936,
+            0,
+            576,
+            400
+          ]
+        }
+      ],
+      "suggested_binding": {
+        "table": "view_effects",
+        "id": "league_camille_r_zone",
+        "placement": "ground",
+        "duration_ms": 3000,
+        "cycle_ms": 500
+      }
+    }
+  ]
+}

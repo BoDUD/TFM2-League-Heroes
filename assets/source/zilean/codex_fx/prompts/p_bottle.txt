@@ -1,0 +1,6 @@
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, rings or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold ramp (#FFFFFF, #FFF2B0, #FFD24A, #E39A1E, #9C5A10) and a bright cyan ramp (#FFFFFF, #D8FFFF, #7FF4FF, #2FC8E8, #1A7FB0).
+Effect: a TIME BOTTLE over a head (do NOT draw the figure), 6 frames: 1 a small gold sparkle at the top of the cell; 2 a tiny hourglass-shaped bottle (6 squares tall: a gold frame, glowing cyan sand inside) appears; 3 the bottle glows bright; 4 it tips and pours a stream of gold-and-cyan light downward; 5 the stream reaches the bottom of the cell, the bottle fading; 6 a few gold and cyan specks.
+Layout: one horizontal row of 6 equal cells, each 2 wide to 3 tall, image size 1536x768 (each cell 256x384); the bottle near the top of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+
+Generation refinements: no character; equal spacing; generous padding; bright coarse square pixels.

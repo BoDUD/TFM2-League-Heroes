@@ -1,0 +1,2062 @@
+{
+  "schema": 2,
+  "scale": 8,
+  "cell": [
+    112,
+    96
+  ],
+  "units": "logical pixels local to cell, except rect_px",
+  "status": "Size and restrained-run redraw; review required for exact part dimensions and gait.",
+  "method": "Image generation; palette mapping and majority sheet lattice sampling; whole-frame registration only. No body compression, head paste or limb assembly.",
+  "animations": {
+    "run": {
+      "file": "olaf_run.png",
+      "layout": [
+        4,
+        2
+      ],
+      "raw_size": [
+        1916,
+        821
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            39,
+            42,
+            74,
+            82
+          ],
+          "head": {
+            "mouth": [
+              74,
+              55
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            -2,
+            -4
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            40,
+            42,
+            72,
+            82
+          ],
+          "head": {
+            "mouth": [
+              68,
+              59
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            -4,
+            -4
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            40,
+            42,
+            72,
+            81
+          ],
+          "head": {
+            "mouth": [
+              60,
+              54
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            -1,
+            -4
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            40,
+            45,
+            72,
+            82
+          ],
+          "head": {
+            "mouth": [
+              59,
+              63
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            0,
+            -3
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            39,
+            42,
+            73,
+            82
+          ],
+          "head": {
+            "mouth": [
+              74,
+              51
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            -4,
+            11
+          ]
+        },
+        {
+          "frame": 6,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            40,
+            41,
+            72,
+            82
+          ],
+          "head": {
+            "mouth": [
+              66,
+              56
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            -4,
+            11
+          ]
+        },
+        {
+          "frame": 7,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            40,
+            42,
+            73,
+            81
+          ],
+          "head": {
+            "mouth": [
+              74,
+              62
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            0,
+            11
+          ]
+        },
+        {
+          "frame": 8,
+          "rect": [
+            336,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            40,
+            44,
+            73,
+            82
+          ],
+          "head": {
+            "mouth": [
+              67,
+              48
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            0,
+            11
+          ]
+        }
+      ],
+      "limitations": [
+        "Exact pixel positions and part shapes are not preserved by the generator.",
+        "Part-size compliance requires manual inspection against approved_slim_design.png.",
+        "Eyes/mouth and helmet vary; some facial pixels are absent after grid export."
+      ]
+    },
+    "attack": {
+      "file": "olaf_attack.png",
+      "layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1659,
+        948
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            40,
+            44,
+            99,
+            82
+          ],
+          "head": {
+            "mouth": [
+              61,
+              59
+            ],
+            "eye_left": [
+              63,
+              57
+            ],
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [
+              [
+                63,
+                57
+              ]
+            ],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            2,
+            1
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            33,
+            18,
+            79,
+            82
+          ],
+          "head": {
+            "mouth": [
+              61,
+              50
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            0,
+            1
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            39,
+            34,
+            85,
+            82
+          ],
+          "head": {
+            "mouth": [
+              67,
+              62
+            ],
+            "eye_left": [
+              66,
+              58
+            ],
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [
+              [
+                66,
+                58
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                67,
+                62
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            0,
+            1
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            34,
+            44,
+            74,
+            82
+          ],
+          "head": {
+            "mouth": [
+              61,
+              63
+            ],
+            "eye_left": [
+              61,
+              57
+            ],
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [
+              [
+                61,
+                57
+              ]
+            ],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            1,
+            2
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            22,
+            38,
+            74,
+            82
+          ],
+          "head": {
+            "mouth": [
+              64,
+              64
+            ],
+            "eye_left": [
+              63,
+              61
+            ],
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [
+              [
+                63,
+                61
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                64,
+                64
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            1,
+            2
+          ]
+        },
+        {
+          "frame": 6,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            41,
+            41,
+            83,
+            82
+          ],
+          "head": {
+            "mouth": [
+              60,
+              63
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            0,
+            2
+          ]
+        }
+      ],
+      "limitations": [
+        "Exact pixel positions and part shapes are not preserved by the generator.",
+        "Part-size compliance requires manual inspection against approved_slim_design.png.",
+        "Eyes/mouth and helmet vary; some facial pixels are absent after grid export."
+      ]
+    },
+    "skill": {
+      "file": "olaf_skill.png",
+      "layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1659,
+        948
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            35,
+            40,
+            80,
+            82
+          ],
+          "head": {
+            "mouth": [
+              60,
+              57
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                59,
+                57
+              ],
+              [
+                60,
+                57
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            -1,
+            -7
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            34,
+            14,
+            72,
+            82
+          ],
+          "head": {
+            "mouth": [
+              58,
+              48
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                58,
+                48
+              ],
+              [
+                59,
+                48
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            0,
+            -7
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            40,
+            33,
+            89,
+            82
+          ],
+          "head": {
+            "mouth": [
+              71,
+              59
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                70,
+                59
+              ],
+              [
+                71,
+                59
+              ],
+              [
+                72,
+                59
+              ],
+              [
+                71,
+                60
+              ],
+              [
+                72,
+                60
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            0,
+            -7
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            40,
+            41,
+            91,
+            82
+          ],
+          "head": {
+            "mouth": [
+              80,
+              58
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                80,
+                58
+              ],
+              [
+                79,
+                59
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            5,
+            5
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            33,
+            43,
+            88,
+            82
+          ],
+          "head": {
+            "mouth": [
+              76,
+              61
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                76,
+                61
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            1,
+            5
+          ]
+        },
+        {
+          "frame": 6,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            40,
+            36,
+            84,
+            82
+          ],
+          "head": {
+            "mouth": [
+              61,
+              55
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            0,
+            5
+          ]
+        }
+      ],
+      "limitations": [
+        "Exact pixel positions and part shapes are not preserved by the generator.",
+        "Part-size compliance requires manual inspection against approved_slim_design.png.",
+        "Eyes/mouth and helmet vary; some facial pixels are absent after grid export."
+      ]
+    },
+    "skill2": {
+      "file": "olaf_skill2.png",
+      "layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1659,
+        948
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            32,
+            44,
+            86,
+            82
+          ],
+          "head": {
+            "mouth": [
+              64,
+              62
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                63,
+                62
+              ],
+              [
+                65,
+                62
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            -2,
+            -1
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            40,
+            6,
+            89,
+            74
+          ],
+          "head": {
+            "mouth": [
+              66,
+              34
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                66,
+                34
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            -2,
+            -1
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 57,
+          "bbox": [
+            31,
+            3,
+            75,
+            66
+          ],
+          "head": {
+            "mouth": [
+              61,
+              33
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                61,
+                33
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            0,
+            -5
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            35,
+            16,
+            76,
+            82
+          ],
+          "head": {
+            "mouth": [
+              63,
+              45
+            ],
+            "eye_left": [
+              63,
+              42
+            ],
+            "eye_right": [
+              65,
+              42
+            ],
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [
+              [
+                63,
+                42
+              ],
+              [
+                65,
+                42
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                63,
+                45
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            -2,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            47,
+            45,
+            106,
+            82
+          ],
+          "head": {
+            "mouth": [
+              81,
+              62
+            ],
+            "eye_left": [
+              81,
+              59
+            ],
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [
+              [
+                81,
+                59
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                81,
+                62
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            2,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            40,
+            39,
+            94,
+            82
+          ],
+          "head": {
+            "mouth": [
+              70,
+              56
+            ],
+            "eye_left": [
+              70,
+              53
+            ],
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [
+              [
+                70,
+                53
+              ]
+            ],
+            "observed_red_pixels": [
+              [
+                70,
+                56
+              ],
+              [
+                71,
+                56
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            -1,
+            0
+          ]
+        }
+      ],
+      "limitations": [
+        "Exact pixel positions and part shapes are not preserved by the generator.",
+        "Part-size compliance requires manual inspection against approved_slim_design.png.",
+        "Eyes/mouth and helmet vary; some facial pixels are absent after grid export."
+      ]
+    },
+    "ult": {
+      "file": "olaf_ult.png",
+      "layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1660,
+        948
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            41,
+            40,
+            92,
+            82
+          ],
+          "head": {
+            "mouth": [
+              69,
+              55
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            2,
+            -1
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            43,
+            28,
+            108,
+            82
+          ],
+          "head": {
+            "mouth": [
+              70,
+              44
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                70,
+                44
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            6,
+            -1
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            43,
+            26,
+            87,
+            82
+          ],
+          "head": {
+            "mouth": [
+              66,
+              44
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            1,
+            -1
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            39,
+            22,
+            86,
+            82
+          ],
+          "head": {
+            "mouth": [
+              62,
+              41
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            0,
+            5
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 90,
+          "bbox": [
+            41,
+            30,
+            91,
+            82
+          ],
+          "head": {
+            "mouth": [
+              62,
+              43
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            3,
+            5
+          ]
+        },
+        {
+          "frame": 6,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            37,
+            38,
+            88,
+            82
+          ],
+          "head": {
+            "mouth": [
+              66,
+              53
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            0,
+            5
+          ]
+        }
+      ],
+      "limitations": [
+        "Exact pixel positions and part shapes are not preserved by the generator.",
+        "Part-size compliance requires manual inspection against approved_slim_design.png.",
+        "Eyes/mouth and helmet vary; some facial pixels are absent after grid export."
+      ]
+    },
+    "hit": {
+      "file": "olaf_hit.png",
+      "layout": [
+        2,
+        1
+      ],
+      "raw_size": [
+        1915,
+        821
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            28,
+            42,
+            80,
+            82
+          ],
+          "head": {
+            "mouth": [
+              55,
+              54
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                55,
+                54
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            -8,
+            5
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            38,
+            46,
+            83,
+            82
+          ],
+          "head": {
+            "mouth": [
+              64,
+              51
+            ],
+            "eye_left": [
+              62,
+              56
+            ],
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [
+              [
+                62,
+                56
+              ]
+            ],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            8,
+            5
+          ]
+        }
+      ],
+      "limitations": [
+        "Exact pixel positions and part shapes are not preserved by the generator.",
+        "Part-size compliance requires manual inspection against approved_slim_design.png.",
+        "Eyes/mouth and helmet vary; some facial pixels are absent after grid export."
+      ]
+    },
+    "dead": {
+      "file": "olaf_dead.png",
+      "layout": [
+        4,
+        2
+      ],
+      "raw_size": [
+        1916,
+        821
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            29,
+            38,
+            80,
+            82
+          ],
+          "head": {
+            "mouth": [
+              61,
+              55
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                60,
+                55
+              ],
+              [
+                61,
+                55
+              ],
+              [
+                62,
+                55
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            1,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            9,
+            23,
+            102,
+            82
+          ],
+          "head": {
+            "mouth": [
+              60,
+              39
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                60,
+                39
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            26,
+            24,
+            87,
+            82
+          ],
+          "head": {
+            "mouth": null,
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            -4,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "rect_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            35,
+            38,
+            94,
+            82
+          ],
+          "head": {
+            "mouth": [
+              68,
+              55
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": [
+              [
+                68,
+                55
+              ],
+              [
+                69,
+                55
+              ],
+              [
+                68,
+                56
+              ]
+            ]
+          },
+          "whole_frame_translation": [
+            -3,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            23,
+            17,
+            83,
+            82
+          ],
+          "head": {
+            "mouth": null,
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            2,
+            1
+          ]
+        },
+        {
+          "frame": 6,
+          "rect": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            17,
+            40,
+            93,
+            82
+          ],
+          "head": {
+            "mouth": [
+              65,
+              69
+            ],
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 7,
+          "rect": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            12,
+            49,
+            98,
+            82
+          ],
+          "head": {
+            "mouth": null,
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            -2,
+            0
+          ]
+        },
+        {
+          "frame": 8,
+          "rect": [
+            336,
+            96,
+            112,
+            96
+          ],
+          "rect_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 500,
+          "bbox": [
+            9,
+            53,
+            101,
+            82
+          ],
+          "head": {
+            "mouth": null,
+            "eye_left": null,
+            "eye_right": null,
+            "coordinate_status": "observed color pixels; mouth fallback from reference when absent; eye pair not anatomically verified",
+            "observed_blue_pixels": [],
+            "observed_red_pixels": []
+          },
+          "whole_frame_translation": [
+            -2,
+            0
+          ]
+        }
+      ],
+      "limitations": [
+        "Exact pixel positions and part shapes are not preserved by the generator.",
+        "Part-size compliance requires manual inspection against approved_slim_design.png.",
+        "Eyes/mouth and helmet vary; some facial pixels are absent after grid export."
+      ]
+    }
+  }
+}

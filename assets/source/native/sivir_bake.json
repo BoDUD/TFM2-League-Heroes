@@ -1,0 +1,8 @@
+{
+  "fx": "league_sivir_fx",
+  "items": [
+    {"tag": "w_cast", "into": "attack_fx1", "from": "attack", "slice_ms": 33, "length_ms": 367, "at_ms": 0},
+    {"tag": "q_catch", "into": "skill_catch_fx1", "from": "skill_catch", "slice_ms": 0, "length_ms": 167, "at_ms": 0},
+    {"tag": "q_throw", "into": "skill_wait", "at_ms": 0, "length_ms": 1000}
+  ]
+}

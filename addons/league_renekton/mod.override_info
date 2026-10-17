@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_renekton": {
+    "remapping": "asset/league_renekton/override/league_renekton",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_renekton/text/champion",
+    "type": "merge"
+  }
+}

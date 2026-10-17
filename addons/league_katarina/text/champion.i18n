@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_katarina": {
+        "attack": "【附加包】<#ff9028ff>贪婪<>：她参与击杀的每个敌方英雄都让Q、W冷却刷新、瞬步就绪。瞬步就绪时自己跳到有敌人的匕首旁（残血时跳到远离敌人的）。捡起匕首旋斩周围敌人，造成<#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>，瞬步冷却降为<#ffb900ff>2秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_katarina": {
+        "attack": "【附加包】<#ff9028ff>貪婪<>：她參與擊殺的每個敵方英雄都讓Q、W冷卻刷新、瞬步就緒。瞬步就緒時自己跳到有敵人的匕首旁（殘血時跳到遠離敵人的）。撿起匕首旋斬周圍敵人，造成<#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>，瞬步冷卻降為<#ffb900ff>2秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_katarina": {
+        "attack": "[Add-on] <#ff9028ff>Voracity<>: every enemy champion she takes down refreshes Q and W and readies Shunpo. With Shunpo ready she blinks to a dagger with an enemy beside it (when low, to one away from them). Picking a dagger up slashes nearby enemies for <#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<> and cuts Shunpo's cooldown to <#ffb900ff>2s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_katarina": {
+        "attack": "[확장] <#ff9028ff>탐욕<>: 그녀가 관여한 적 챔피언 처치마다 Q, W 초기화, 순보 준비. 순보가 준비되면 적이 있는 단검으로 스스로 순보(체력이 낮으면 적에게서 먼 단검으로). 단검을 주우면 주변 적에게 <#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>마법 피해<>, 순보 대기시간 <#ffb900ff>2초<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_katarina": {
+        "attack": "【拡張】<#ff9028ff>貪欲なる暗殺者<>：彼女が関わった敵チャンピオンの撃破ごとにQ・WのCD解消、瞬歩使用可能。瞬歩が使えると敵のそばの短剣へ自ら瞬歩（瀕死なら敵から遠い短剣へ）。拾うと周囲に<#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>、瞬歩CD<#ffb900ff>2秒<>。"
+      }
+    }
+  }
+}

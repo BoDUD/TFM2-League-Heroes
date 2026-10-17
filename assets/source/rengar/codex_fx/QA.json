@@ -1,0 +1,206 @@
+{
+  "assets": 20,
+  "frames_or_states": 92,
+  "checks": [
+    {
+      "id": "a_hit",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "l_dust",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "l_hit",
+      "frame_count": 5,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "p_ready",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "f_stack",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "q_slam",
+      "frame_count": 5,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "q_rip",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "q_buff",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "q_emp",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "w_roar",
+      "frame_count": 6,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "w_heal",
+      "frame_count": 5,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "w_emp",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "e_bola",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "e_slow",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "e_root",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "r_smoke",
+      "frame_count": 6,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "r_mark",
+      "frame_count": 4,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "r_hit",
+      "frame_count": 6,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "t_trophy",
+      "frame_count": 6,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    },
+    {
+      "id": "k_meet",
+      "frame_count": 5,
+      "nonempty_frames": true,
+      "equal_width_frames": true,
+      "cell_aspect_matches_requested": true,
+      "rgba_decode_verified": true,
+      "source_pixels_preserved": true,
+      "frames_with_visible_pixels_touching_source_crop_edge": []
+    }
+  ]
+}

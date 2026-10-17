@@ -1,0 +1,2 @@
+Version 1: PNG1024x1024, native128x128, strict8x8=true, alpha0/255=true, colors=20, top=58, bottom=99, totalHeight=42, width=23, crown64->sole99=36, head64->chin73=10.
+Version 2: PNG1024x1024, native128x128, strict8x8=true, alpha0/255=true, colors=20, top=60, bottom=99, totalHeight=40, width=23, crown64->sole99=36, head64->chin73=10.

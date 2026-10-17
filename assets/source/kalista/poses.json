@@ -1,0 +1,258 @@
+{
+ "hero": "kalista",
+ "champ": "Kalista",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 38,
+ "cell": [
+  160,
+  128,
+  28
+ ],
+ "design": "Kalista_Idle1@0",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "Kalista_Run1@0",
+     100
+    ],
+    [
+     "Kalista_Run1@100",
+     100
+    ],
+    [
+     "Kalista_Run1@200",
+     100
+    ],
+    [
+     "Kalista_Run1@300",
+     100
+    ],
+    [
+     "Kalista_Run1@400",
+     100
+    ],
+    [
+     "Kalista_Run1@500",
+     100
+    ],
+    [
+     "Kalista_Run1@600",
+     100
+    ],
+    [
+     "Kalista_Run1@700",
+     100
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Kalista_Idle1@0>Kalista_Attack1@300:0.6",
+     60
+    ],
+    [
+     "Kalista_Attack1@450",
+     60
+    ],
+    [
+     "Kalista_Attack1@600",
+     90
+    ],
+    [
+     "Kalista_Attack1@700",
+     90
+    ],
+    [
+     "Kalista_Attack1@800>Kalista_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "hop_b": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "Kalista_Attack1_Dash_180@0",
+     50
+    ],
+    [
+     "Kalista_Attack1_Dash_180@83",
+     50
+    ],
+    [
+     "Kalista_Attack1_Dash_180@167",
+     50
+    ],
+    [
+     "Kalista_Attack1_Dash_180@250",
+     50
+    ]
+   ]
+  },
+  "hop_f": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "Kalista_Attack1_Dash_0@0",
+     50
+    ],
+    [
+     "Kalista_Attack1_Dash_0@83",
+     50
+    ],
+    [
+     "Kalista_Attack1_Dash_0@167",
+     50
+    ],
+    [
+     "Kalista_Attack1_Dash_0@250",
+     50
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Kalista_Idle1@0>Kalista_Spell1@0:0.6",
+     60
+    ],
+    [
+     "Kalista_Spell1@150",
+     60
+    ],
+    [
+     "Kalista_Spell1@300",
+     90
+    ],
+    [
+     "Kalista_Spell1@450",
+     90
+    ],
+    [
+     "Kalista_Spell1@600>Kalista_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.2,
+   "release": 2,
+   "frames": [
+    [
+     "Kalista_Idle1@0>Kalista_Spell3@0:0.6",
+     60
+    ],
+    [
+     "Kalista_Spell3@125",
+     70
+    ],
+    [
+     "Kalista_Spell3@250",
+     70
+    ],
+    [
+     "Kalista_Spell3@375",
+     80
+    ],
+    [
+     "Kalista_Spell3@500>Kalista_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "Kalista_Idle1@0>Kalista_Spell4_Call@125:0.6",
+     70
+    ],
+    [
+     "Kalista_Spell4_Call@250",
+     80
+    ],
+    [
+     "Kalista_Spell4_Call@375",
+     80
+    ],
+    [
+     "Kalista_Spell4_Call@500",
+     80
+    ],
+    [
+     "Kalista_Spell4_Call@750",
+     90
+    ]
+   ]
+  },
+  "ult2": {
+   "lunge": 0.2,
+   "release": 3,
+   "frames": [
+    [
+     "Kalista_Spell4_Throw@167",
+     60
+    ],
+    [
+     "Kalista_Spell4_Throw@333",
+     60
+    ],
+    [
+     "Kalista_Spell4_Throw@500",
+     80
+    ],
+    [
+     "Kalista_Spell4_Throw@833>Kalista_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "Kalista_Death@0",
+     100
+    ],
+    [
+     "Kalista_Death@542",
+     100
+    ],
+    [
+     "Kalista_Death@1083",
+     110
+    ],
+    [
+     "Kalista_Death@1625",
+     120
+    ],
+    [
+     "Kalista_Death@3250",
+     150
+    ],
+    [
+     "Kalista_Death@3792",
+     400
+    ]
+   ]
+  }
+ }
+}

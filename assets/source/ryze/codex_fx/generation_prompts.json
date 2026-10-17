@@ -1,0 +1,270 @@
+[
+  {
+    "file": "ryze_fx_orb.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 2,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-789271e7-6941-4f31-8af5-6ef76890751c.png",
+    "prompt": "Edit this pixel-art VFX sheet. Preserve effect identity, palette, FOUR equal cells in ONE row, complete sprites with transparent safety margins, exact coarse pixel style. Make each frame exactly vertically mirror-symmetric about the head/tail horizontal centerline. Place the TWO stars at identical x positions, equally spaced above and below tail. Identical vertically reflected star shapes and sparks; tail upper and lower edges mirror. White-blue round head at right with violet rim. Keep four flickering flight frames, do not change to an impact animation. Keep true transparent background, white light cores, no black outline or labels. Strict count four frames.\n",
+    "previous_attempts": [
+      {
+        "file": "ryze_fx_orb.png",
+        "tool": "image_gen.imagegen",
+        "attempt": 1,
+        "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-3aac9eb2-0f25-4d6f-a70c-fcbf03005c99.png",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8) and a violet ramp (#FFFFFF, #EAD8FF, #B98CFF, #7B4BF0, #4724A8).\nEffect: a small FLYING MAGIC ORB moving to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a round glowing head (white core, light-blue then violet rim) at the front (right), a short tapering light-blue tail behind it to the left, two tiny sparks flickering beside the tail.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); the orb on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference image is local shape guidance only: use the attack/Q row shapes, recolored to the stated ramps and coarse hard square pixels, never copy its labels, background or photoreal blur. EXACTLY FOUR separate animation frames in one horizontal row, complete and with safe transparent margins per cell. Pure empty transparency behind the effect. Each frame appears as approximately 10 by 7 chunky pixel blocks.\n",
+        "transparent_background": true,
+        "input_references": [
+          "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+        ]
+      }
+    ],
+    "transparent_background": true,
+    "input_references": [
+      "ryze_fx_orb.png (previous generated attempt)"
+    ]
+  },
+  {
+    "file": "ryze_fx_hit.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-ef246e26-7950-47ee-847a-959ca9eece77.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8) and a violet ramp (#FFFFFF, #EAD8FF, #B98CFF, #7B4BF0, #4724A8).\nEffect: a SMALL MAGIC HIT, 4 frames: 1 a white flash at the center; 2 a four-pointed light-blue star with a violet rim; 3 the star wider and thinner, a few violet sparks flying out; 4 a few fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. \n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_q_bolt.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 2,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-4a590b43-5fbd-43f8-8caf-2914003091d9.png",
+    "prompt": "Edit this pixel-art VFX sheet. Preserve effect identity, palette, FOUR equal cells in ONE row, complete sprites with transparent safety margins, exact coarse pixel style. Correct up/down mirror symmetry inside every frame. White-blue round head atRIGHT, tapering tailLEFT; top and bottom energy edges mirror. Use 2-3 angular light-blue rune units along tail, each rune unit consists of vertically mirrored upper and lower angular strokes so it is itself vertically symmetric, forked Y-like or hooked mirrored-Z shape, white core. Matching spark pairs above/below at same x. Four slightly shifted tail-rune states. Keep distinct long Q energy bolt, not violet orb. Keep true transparent background, white light cores, no black outline or labels. Strict count four frames.\n",
+    "previous_attempts": [
+      {
+        "file": "ryze_fx_q_bolt.png",
+        "tool": "image_gen.imagegen",
+        "attempt": 1,
+        "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-d54be3d0-b7a0-405e-80d4-e5e0aa577251.png",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a FLYING RUNE BOLT moving to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: at the front (right) a bright round head 5-6 squares across (white core, light-blue rim, a thin cyan ring round it); behind it to the left a tapering trail of light-blue energy carrying 2-3 small RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in light blue with a white core square), getting fainter; the runes in the trail shift a little each frame.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); the bolt on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. \n",
+        "transparent_background": true,
+        "input_references": [
+          "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+        ]
+      }
+    ],
+    "transparent_background": true,
+    "input_references": [
+      "ryze_fx_q_bolt.png (previous generated attempt)"
+    ]
+  },
+  {
+    "file": "ryze_fx_q_cast.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-d7415ed2-c979-4397-83a5-b2495575c6fb.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a SMALL RUNE FLASH at a hand, 4 frames: 1 a white point; 2 a small light-blue rune circle (a ring 8-10 squares across with 3 tiny RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in light blue with a white core square) on it) flares round it; 3 the ring wider and thinner, a burst of 4 short rays; 4 the ring breaks into a few blue specks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. \n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_q_hit.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-c5023000-1c8e-4f91-8a4c-d4f4c49df9de.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a BLUE RUNE BLAST, 5 frames: 1 a white flash; 2 a round light-blue burst with a white core; 3 the burst at full size, a ring of energy round it, 3-4 small RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in light blue with a white core square) flying outward; 4 the ring thins and breaks, the runes fly further; 5 a few blue sparks and rune fragments.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. \n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_q_pop.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-29a89a92-176d-4b4d-acc0-044b636911db.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a violet ramp (#FFFFFF, #EAD8FF, #B98CFF, #7B4BF0, #4724A8) and a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a FLUX DETONATION on a figure (do NOT draw the figure), 5 frames: 1 a blue-white lightning arc strikes down from the top of the cell to the center; 2 a violet-and-blue starburst at the center, white core; 3 the burst at full size, 4 violet RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in violet with a white core square) flying outward; 4 the burst fades, the runes break apart; 5 a few violet sparks.\nLayout: one horizontal row of 5 equal cells, each 4 wide to 5 tall, image size 1280x400 (each cell 256x320); the burst centered a little below the middle of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. \n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_e_orb.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 4,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-2932e301-ef3a-4b35-a0c3-cb00a1545adb.png",
+    "prompt": "Edit this pixel-art VFX sheet. Preserve effect identity, palette, FOUR equal cells in ONE row, complete sprites with transparent safety margins, exact coarse pixel style. Keep the current mirrored glyph-pair positions and flight geometry exactly. Only improve brightness: significantly enlarge orb white core and LIGHT VIOLET #EAD8FF body. Tail and both rune glyphs predominantly #EAD8FF and #B98CFF with white cores. At least three quarters of the visible effect uses white or these two LIGHTEST violet shades; #7B4BF0 is a tiny interior accent, #4724A8 almost absent. No dark border. Current tail/body are too dark. Preserve four frames and near vertical mirror symmetry; do not replace the paired glyphs with mismatched symbols. Keep true transparent background, white light cores, no black outline or labels. Strict count four frames.\n",
+    "previous_attempts": [
+      {
+        "file": "ryze_fx_e_orb.png",
+        "tool": "image_gen.imagegen",
+        "attempt": 1,
+        "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-115b996e-74b1-4df0-ac4d-188e84165af5.png",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a violet ramp (#FFFFFF, #EAD8FF, #B98CFF, #7B4BF0, #4724A8).\nEffect: a FLYING VIOLET ORB moving to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a round orb 6-7 squares across (white core, light-violet body, violet rim) with two tiny violet rune glyphs circling it, a short flickering violet flame tail behind it to the left.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); the orb on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. \n",
+        "transparent_background": true,
+        "input_references": [
+          "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+        ]
+      },
+      {
+        "file": "ryze_fx_e_orb.png",
+        "tool": "image_gen.imagegen",
+        "attempt": 2,
+        "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-f8e048bf-a555-4c0f-8805-1be3718f48ad.png",
+        "prompt": "Edit this pixel-art VFX sheet. Preserve effect identity, palette, FOUR equal cells in ONE row, complete sprites with transparent safety margins, exact coarse pixel style. Correct vertical reflection symmetry within EACH frame around the horizontal center line of the orb. Above and below details must exactly mirror. Put a matching hooked angular rune PAIR at the exact same x distance above/below orb, one vertically reflected from the other, identical size. Every upper spark has matching lower spark at same x and distance. Head round at RIGHT white core violet ring; left tail symmetric. Current different upper/lower glyphs are wrong. No detached vertically asymmetric decoration. Four subtle flicker frames, not same exact pose. Keep true transparent background, white light cores, no black outline or labels. Strict count four frames.\n",
+        "transparent_background": true,
+        "input_references": [
+          "ryze_fx_e_orb.png (previous generated attempt)"
+        ]
+      },
+      {
+        "file": "ryze_fx_e_orb.png",
+        "tool": "image_gen.imagegen",
+        "attempt": 3,
+        "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-2a22ef4b-1896-4737-8f1b-a8d95e20b1e1.png",
+        "prompt": "Pixel-art VFX sprite sheet, transparent PNG. Exactly FOUR separate RIGHT-FLYING violet magic orbs, one equally spaced horizontal row, seamless four-frame flicker loop. Each cell twice as wide as tall, proposed2048x256. Each effect approximately12x10 chunky game squares, one hard square pixel grid, no blur, no outline, no shadow, no characters/text/gridlines. ONLY #FFFFFF #EAD8FF #B98CFF #7B4BF0 #4724A8. Round orb head at RIGHT, 6-7square diameter white center brightvioletbody violetthinrim. Short tapering flickering violet flame tailLEFT.\nABSOLUTE composition rule: EACH complete effect is geometrically MIRROR-SYMMETRIC vertically around a horizontal line through orb center. Top and bottom halves show EXACT SAME pixel silhouettes and brightness at mirrored positions. Two tiny rune glyphs orbit the orb, placed one ABOVE and one BELOW at SAME horizontal x, exactly SAME distance from center, and the lower glyph is the VERTICAL REFLECTION of upper. Both glyphs are a small angular forked rune with brightviolet 1-square strokes and whitecenterpixel, 3squares high. These two runes change position as a symmetricPAIR per frame: firstxheadcenter, secondslightlyleft, thirdfurtherleft, fourthslightlyleft again. NEVER a Z on top and diamond onbottom. Only ONE glyph pattern mirrored. Every spark/topflameedge has EXACT lower matchingmirroredpixel. Leave transparentmargin aroundfour wholesprites. Do not add asymmetrical embellishment.\n",
+        "transparent_background": true,
+        "input_references": []
+      }
+    ],
+    "transparent_background": true,
+    "input_references": [
+      "ryze_fx_e_orb.png (previous generated attempt)"
+    ]
+  },
+  {
+    "file": "ryze_fx_e_cast.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-80f620f6-a9f4-49b8-bf90-f9b9100e6ffa.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a violet ramp (#FFFFFF, #EAD8FF, #B98CFF, #7B4BF0, #4724A8).\nEffect: a SMALL VIOLET FLASH at a hand, 4 frames: 1 a white point; 2 a four-pointed violet star with a white core; 3 the star wider, a few violet sparks; 4 fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. \n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_e_hit.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-dd636308-0473-4967-87db-7ce853055e59.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a violet ramp (#FFFFFF, #EAD8FF, #B98CFF, #7B4BF0, #4724A8).\nEffect: a VIOLET FLUX BURST, 5 frames: 1 a white flash; 2 a violet burst with a white core; 3 the burst at full size, a ring of 6 violet RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in violet with a white core square) expanding round it; 4 the ring wider and fainter; 5 a few violet sparks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. \n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_flux.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-983cb66d-b190-4670-a56a-243b7b30ac7c.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a violet ramp (#FFFFFF, #EAD8FF, #B98CFF, #7B4BF0, #4724A8).\nEffect: a FLUX MARK round a figure's chest (do NOT draw the figure; leave the middle empty), 4 frames, a seamless loop: 4 violet RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in violet with a white core square) spaced round a flattened ellipse (twice as wide as tall) at the middle of the cell, moving a quarter of the way to the next one each frame, a faint violet ring joining them.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); the ellipse centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. The four glyphs must be small at four compass positions with lots of empty space INSIDE the ellipse for a character. Keep the flattened ellipse exactly twice as wide as tall.\n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_w_cage.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-7df30c49-3459-4c83-83f7-b83d9f35c4be.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a RUNE PRISON round a figure (do NOT draw the figure; leave its place empty), 8 frames: 1 a light-blue rune circle appears on the ground (a flattened ellipse twice as wide as tall, with 4 small RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in light blue with a white core square) on it); 2 thin bright blue bars of light shoot up from the circle; 3-6 the cage held: 6-7 vertical light-blue bars (white cores) standing on the ellipse, the ones in front brighter, the ones behind dimmer, runes flickering on the bars and round the circle, the light pulsing a little each frame; 7 the bars fade upward; 8 the circle breaks into blue specks.\nLayout: one horizontal row of 8 equal cells, each 4 wide to 5 tall, image size 2048x320 (each cell 256x320); the circle's center 4 squares (32 px) above the bottom of every cell, horizontally centered. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. Exactly EIGHT frames on one horizontal row. All eight cages fit separate equally spaced cells. Each cage middle is empty, no character. Stages: ground ring, bars rise, held cage, held cage pulse, held cage pulse, held cage pulse, bars fade upward, ring breaks. No missing final disappearance frames.\n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_rune_out.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-4dcc1f83-f6bf-4906-a00e-33acab275e98.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: TWO RUNES BURSTING round a figure (do NOT draw the figure; leave the middle empty), 5 frames: 1 two bright RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in light blue with a white core square), one on each side of the figure's waist, glowing white; 2 both flare into small blue starbursts; 3 a ring of light-blue wind sweeps out to both sides from them; 4 the wind wider and fainter, a few sparks; 5 fading specks.\nLayout: one horizontal row of 5 equal cells, each 5 wide to 4 tall, image size 1600x256 (each cell 320x256); centered in every cell, a little below the middle. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. \n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_runes.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-6a984739-ebfb-45cb-9d55-56d6778c8a87.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: ORBITING RUNES round a figure's waist (do NOT draw the figure; leave the middle empty), 6 frames per row, a seamless loop: ROW 1 one glowing RUNE (a rune glyph 4-5 squares tall, white core, light-blue glow) moving round a flattened ellipse (twice as wide as tall), a sixth of the way each frame, a faint blue trail behind it; ROW 2 the same with TWO runes on opposite sides of the ellipse.\nLayout: two horizontal rows of 6 equal cells each, each cell 2 wide to 1 tall, image size 3072x512 (each cell 512x256); the ellipse centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. IMPORTANT frame counting: exactly TWELVE separate cells, SIX columns TWO rows. Row1 has exactly ONE glyph in each frame, traveling at ellipse positions right, back-right, back-left, left, front-left, front-right; row2 has exactly TWO glyphs in opposite positions every frame. Do not draw four glyphs, do not draw a complete thick runic ring. Thin subtle trail only; transparent empty middle. No figure.\n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_w_slow.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-c05c1048-e379-4e7b-a3ce-b127d074f1fe.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a SLOW MARK at a figure's feet (do NOT draw the figure), 4 frames, a seamless loop: a flat ring (twice as wide as tall) of light-blue rune chain links on the ground with 3 small RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in light blue with a white core square) on it, turning a little each frame.\nLayout: one horizontal row of 4 equal cells, each 5 wide to 2 tall, image size 2560x256 (each cell 640x256); the ring at the bottom middle of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. Keep the ground ring flattened 2:1, symmetric left-right, no figure. Four subtly different orbit states. Small glyphs occupy only rim; empty center.\n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_q_haste.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-a4ff9ead-9539-4d5f-acab-4b783d4cbf97.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a BLUE SPEED WIND at a figure's feet (do NOT draw the figure; symmetric left and right), 4 frames, a seamless loop: curling light-blue wind streaks swirl round the figure's feet on both sides, two tiny runes riding them, a few white sparkles, moving each frame.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); the swirl at the bottom middle of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. Left and right wind curls must mirror each other around each empty cell center. Both foot positions glow equally; no character. Four frames of subtle motion, flat ground plane.\n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_r_portal.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-1feabaea-429f-4ea6-a6ec-c852f0f4919b.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a GROUND PORTAL, a big rune circle on the floor seen from above at an angle (a flattened ellipse TWICE as wide as tall), 10 frames: 1-2 it opens from the center outward; 3-8 the full portal turning: an outer ring of 10-12 RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in light blue with a white core square) (white cores), a glowing light-blue inner ring, between them thin rune lines, the middle a dark-blue swirl (the darkest ramp shades, with lighter streaks spiralling in), light-blue sparks rising from the rim; the runes move round a little each frame so frames 3-8 loop; 9-10 it closes to the center and vanishes.\nLayout: one horizontal row of 10 equal cells, each 2 wide to 1 tall, image size 5120x256 (each cell 512x256); the ellipse centered in every cell, filling it. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. EXACTLY TEN separate portal stages in ONE horizontal row. Count strictly ten: tiny opening, medium opening, full portal, full portal rotated, full portal rotated, full portal rotated, full portal rotated, full portal rotated, small closing, final disappearing center spark. Each portal fits wholly within one equal column without overlap. Flat ellipse 2:1, never upright circles. Do not omit late closing frames; final cell must retain a tiny center spark to mark its position. No characters.\n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_r_out.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-30a8f20a-d567-447c-b61a-fb0a78e20dae.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a TELEPORT COLUMN, 6 frames: 1 a ring of light flashes on the ground (a flattened ellipse); 2 a tall column of light-blue light with a white core shoots up from it to the top of the cell; 3 the column at full brightness, 4-5 RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in light blue with a white core square) flying up and outward; 4 the column narrows to a thin white line; 5 the line vanishes upward, the runes drift; 6 a few blue specks.\nLayout: one horizontal row of 6 equal cells, each 2 wide to 3 tall, image size 1536x768 (each cell 256x384); the column centered horizontally, its foot 2 squares (16 px) above the bottom of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. Exactly SIX equal cells in a single row, full column height fits with transparent margin above it. First frame only ground ring, second tall column, third full column plus glyphs, fourth thin line, fifth scattered rising glyphs, sixth tiny residue. No figure.\n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_r_in.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-9a139594-4673-4d3c-9e4c-ee1cce8ecc01.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a TELEPORT ARRIVAL round a figure (do NOT draw the figure; leave its place empty), 6 frames: 1 a bright flash and a glowing ellipse on the ground; 2 a ring of light-blue light rises up round the figure's place; 3 the ring at chest height bursts outward, 6 RUNES (League's rune glyphs: small angular symbols like a hooked Z, a crescent with a tick, a forked Y - each 3-5 squares tall, drawn with 1-square strokes in light blue with a white core square) flying out; 4 the runes fly further, fading; 5 sparks; 6 a few specks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256 (each cell 256x256); the ground ellipse 2 squares above the bottom of every cell, horizontally centered. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. Exactly SIX equal cells in one row. Ground plane ellipse and empty character space. No blue silhouette: only light rings, glyphs and sparks. Frame1 flash atfeet,2 raised ring,3 glyph burst atchest,4 farther fading glyphs,5 sparks,6 tiny last specks.\n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  },
+  {
+    "file": "ryze_fx_r_ally.png",
+    "tool": "image_gen.imagegen",
+    "attempt": 1,
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0fca9-7a78-7ad0-8423-ac5d06b89a58\\exec-0ce292c3-07bd-4c77-a6f1-1bd6cb8f02f9.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, runes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright blue ramp (#FFFFFF, #D6F4FF, #7FDBFF, #2E9BF0, #1A4FB8).\nEffect: a TELEPORT FLASH on a figure (do NOT draw the figure), 4 frames: 1 three thin vertical light-blue streaks flash over the figure's place, white cores; 2 they brighten, a small ring of light at the feet; 3 the streaks shoot upward and thin out; 4 a few blue specks.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 3 tall, image size 1024x768 (each cell 256x384); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nInput reference is SHAPE guidance only for the named effect, no copying labels/background/blur. Draw only the requested effect, NO character or scenery. The delivered image MUST have exactly the requested frame count and chronological stages, with all cells equally spaced, ample transparent safety margins, no cropping. Approximately 3-5 coarse square blocks tall rune glyphs. Exactly FOUR equal cells in one row. Three slender white-core vertical streaks per active stage, empty middle for ally, no silhouette. Last frame only scattered small blue-white specks. Do not draw an ally.\n",
+    "transparent_background": true,
+    "input_references": [
+      "refs/lol_fx_ref.png (local shape guide, excluded from delivery)"
+    ]
+  }
+]

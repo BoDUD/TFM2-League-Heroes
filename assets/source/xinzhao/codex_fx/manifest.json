@@ -1,0 +1,4179 @@
+{
+  "status": "generated_source_art_for_import_cleanup",
+  "image_count": 20,
+  "reference_collage_included": false,
+  "postprocess": "crop declared source grid cells; preserve aspect with nearest-neighbor fit and transparent padding; repack frames. No programmatically drawn VFX shapes. Raw RGBA preserved.",
+  "items": [
+    {
+      "name": "a_hit",
+      "brief_item": 1,
+      "file": "xinzhao_fx_a_hit.png",
+      "binding": "view_effects `league_xinzhao_a_hit`（跟随，画在人物上面）",
+      "game_size": "14",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        256,
+        256
+      ],
+      "output_size": [
+        1024,
+        256
+      ],
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 1.0,
+      "source_sha256": "5fc0330c02eda24e5aa293cd36114f687809be000f59b7d93ed0006b9135e512",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            887,
+            444
+          ],
+          "output_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_fit_scale": 0.28861330326944756,
+          "padding": [
+            0,
+            64
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            37,
+            118,
+            240,
+            158
+          ],
+          "mean_luminance_alpha128": 213.97,
+          "brightest_decile_luminance": 253.43,
+          "semi_transparent_pixels": 4646,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            887,
+            0,
+            1774,
+            444
+          ],
+          "output_rect": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_fit_scale": 0.28861330326944756,
+          "padding": [
+            0,
+            64
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            46,
+            84,
+            224,
+            191
+          ],
+          "mean_luminance_alpha128": 200.05,
+          "brightest_decile_luminance": 253.17,
+          "semi_transparent_pixels": 6634,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            444,
+            887,
+            887
+          ],
+          "output_rect": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_fit_scale": 0.28861330326944756,
+          "padding": [
+            0,
+            64
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            56,
+            85,
+            222,
+            172
+          ],
+          "mean_luminance_alpha128": 192.68,
+          "brightest_decile_luminance": 251.58,
+          "semi_transparent_pixels": 3318,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            887,
+            444,
+            1774,
+            887
+          ],
+          "output_rect": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_fit_scale": 0.28861330326944756,
+          "padding": [
+            0,
+            64
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            78,
+            96,
+            208,
+            169
+          ],
+          "mean_luminance_alpha128": 182.57,
+          "brightest_decile_luminance": 252.18,
+          "semi_transparent_pixels": 1098,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧突刺→星闪→飞散→淡去已画。原稿方格比例不准，导出采用等比装框；效应尺寸需在导入时定标。"
+    },
+    {
+      "name": "p_hit",
+      "brief_item": 2,
+      "file": "xinzhao_fx_p_hit.png",
+      "binding": "view_effects `league_xinzhao_p_hit`（跟随，画在人物上面）",
+      "game_size": "20",
+      "frames": 5,
+      "output_grid": [
+        5,
+        1
+      ],
+      "output_cell": [
+        256,
+        256
+      ],
+      "output_size": [
+        1280,
+        256
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "6fa8d4544b05a71b0edcc976980a446ee023ab4ea7321068e093aa58c377696b",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "output_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            18,
+            42,
+            254,
+            243
+          ],
+          "mean_luminance_alpha128": 185.05,
+          "brightest_decile_luminance": 254.0,
+          "semi_transparent_pixels": 31120,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            512,
+            0,
+            1024,
+            512
+          ],
+          "output_rect": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            23,
+            42,
+            241,
+            243
+          ],
+          "mean_luminance_alpha128": 195.58,
+          "brightest_decile_luminance": 254.24,
+          "semi_transparent_pixels": 32288,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            1024,
+            0,
+            1536,
+            512
+          ],
+          "output_rect": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            21,
+            33,
+            235,
+            240
+          ],
+          "mean_luminance_alpha128": 184.9,
+          "brightest_decile_luminance": 253.02,
+          "semi_transparent_pixels": 25238,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            0,
+            512,
+            512,
+            1024
+          ],
+          "output_rect": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            23,
+            24,
+            239,
+            228
+          ],
+          "mean_luminance_alpha128": 187.48,
+          "brightest_decile_luminance": 253.25,
+          "semi_transparent_pixels": 24909,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 5,
+          "source_rect": [
+            512,
+            512,
+            1024,
+            1024
+          ],
+          "output_rect": [
+            1024,
+            0,
+            1280,
+            256
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            32,
+            33,
+            242,
+            223
+          ],
+          "mean_luminance_alpha128": 179.95,
+          "brightest_decile_luminance": 253.56,
+          "semi_transparent_pixels": 14849,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "五帧重挥月牙、白芯爆发与散星已画；最深金色边缘需清理。"
+    },
+    {
+      "name": "p_heal",
+      "brief_item": 3,
+      "file": "xinzhao_fx_p_heal.png",
+      "binding": "view_effects `league_xinzhao_p_heal`（施法者身上，不跟随；格子中心放到他的胸口）",
+      "game_size": "22 × 32",
+      "frames": 5,
+      "output_grid": [
+        5,
+        1
+      ],
+      "output_cell": [
+        220,
+        320
+      ],
+      "output_size": [
+        1100,
+        320
+      ],
+      "source_size": [
+        1798,
+        875
+      ],
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.992589,
+      "source_sha256": "402a5e3f060b3a3f748367930e75e15951651d09c046b929767e1060423c4b73",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            599,
+            438
+          ],
+          "output_rect": [
+            0,
+            0,
+            220,
+            320
+          ],
+          "source_fit_scale": 0.3672787979966611,
+          "padding": [
+            0,
+            111
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            110.0,
+            224
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            72,
+            167,
+            161,
+            256
+          ],
+          "mean_luminance_alpha128": 187.65,
+          "brightest_decile_luminance": 249.62,
+          "semi_transparent_pixels": 4287,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.443463
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            599,
+            0,
+            1199,
+            438
+          ],
+          "output_rect": [
+            220,
+            0,
+            440,
+            320
+          ],
+          "source_fit_scale": 0.36666666666666664,
+          "padding": [
+            0,
+            112
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            110.0,
+            224
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            59,
+            144,
+            159,
+            265
+          ],
+          "mean_luminance_alpha128": 191.44,
+          "brightest_decile_luminance": 251.02,
+          "semi_transparent_pixels": 6753,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.406058
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            1199,
+            0,
+            1798,
+            438
+          ],
+          "output_rect": [
+            440,
+            0,
+            660,
+            320
+          ],
+          "source_fit_scale": 0.3672787979966611,
+          "padding": [
+            0,
+            111
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            110.0,
+            224
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            44,
+            115,
+            154,
+            264
+          ],
+          "mean_luminance_alpha128": 198.07,
+          "brightest_decile_luminance": 251.41,
+          "semi_transparent_pixels": 7306,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.585681
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            0,
+            438,
+            599,
+            875
+          ],
+          "output_rect": [
+            660,
+            0,
+            880,
+            320
+          ],
+          "source_fit_scale": 0.3672787979966611,
+          "padding": [
+            0,
+            112
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            110.0,
+            224
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            64,
+            122,
+            176,
+            268
+          ],
+          "mean_luminance_alpha128": 197.33,
+          "brightest_decile_luminance": 250.95,
+          "semi_transparent_pixels": 4383,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.597671
+        },
+        {
+          "frame": 5,
+          "source_rect": [
+            599,
+            438,
+            1199,
+            875
+          ],
+          "output_rect": [
+            880,
+            0,
+            1100,
+            320
+          ],
+          "source_fit_scale": 0.36666666666666664,
+          "padding": [
+            0,
+            112
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            110.0,
+            224
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            65,
+            136,
+            160,
+            243
+          ],
+          "mean_luminance_alpha128": 202.4,
+          "brightest_decile_luminance": 252.1,
+          "semi_transparent_pixels": 1846,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.567548
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "五帧上升光点已画；部分“+”更像四芒星，左右逐像素对称未通过，胸口挂点待校准。"
+    },
+    {
+      "name": "e_dash",
+      "brief_item": 4,
+      "file": "xinzhao_fx_e_dash.png",
+      "binding": "view_effects `league_xinzhao_e_dash`（BIG，施法者身上，跟随；格子里的站位点放到他的站位点）",
+      "game_size": "44 × 24",
+      "frames": 5,
+      "output_grid": [
+        5,
+        1
+      ],
+      "output_cell": [
+        352,
+        192
+      ],
+      "output_size": [
+        1760,
+        192
+      ],
+      "source_size": [
+        2079,
+        756
+      ],
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "ae7b5dd55e6bfadd4c2a4213ac24be93237bc1dfec4c8eed39efcd0804e709f4",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            693,
+            378
+          ],
+          "output_rect": [
+            0,
+            0,
+            352,
+            192
+          ],
+          "source_fit_scale": 0.5079365079365079,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            160
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            116,
+            59,
+            285,
+            149
+          ],
+          "mean_luminance_alpha128": 182.18,
+          "brightest_decile_luminance": 253.63,
+          "semi_transparent_pixels": 9644,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            693,
+            0,
+            1386,
+            378
+          ],
+          "output_rect": [
+            352,
+            0,
+            704,
+            192
+          ],
+          "source_fit_scale": 0.5079365079365079,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            160
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            15,
+            59,
+            329,
+            161
+          ],
+          "mean_luminance_alpha128": 178.81,
+          "brightest_decile_luminance": 253.76,
+          "semi_transparent_pixels": 23422,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            1386,
+            0,
+            2079,
+            378
+          ],
+          "output_rect": [
+            704,
+            0,
+            1056,
+            192
+          ],
+          "source_fit_scale": 0.5079365079365079,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            160
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            37,
+            61,
+            318,
+            155
+          ],
+          "mean_luminance_alpha128": 177.67,
+          "brightest_decile_luminance": 253.85,
+          "semi_transparent_pixels": 18005,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            0,
+            378,
+            693,
+            756
+          ],
+          "output_rect": [
+            1056,
+            0,
+            1408,
+            192
+          ],
+          "source_fit_scale": 0.5079365079365079,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            160
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            47,
+            59,
+            312,
+            144
+          ],
+          "mean_luminance_alpha128": 182.0,
+          "brightest_decile_luminance": 253.82,
+          "semi_transparent_pixels": 12786,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 5,
+          "source_rect": [
+            693,
+            378,
+            1386,
+            756
+          ],
+          "output_rect": [
+            1408,
+            0,
+            1760,
+            192
+          ],
+          "source_fit_scale": 0.5079365079365079,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            160
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            57,
+            71,
+            298,
+            137
+          ],
+          "mean_luminance_alpha128": 180.18,
+          "brightest_decile_luminance": 252.67,
+          "semi_transparent_pixels": 8016,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "size_conflict_resolution": "Centered 44-square cell cannot contain a 30-square leftward trail. Prompt requested longest visible trail 20-21 squares; visual anchor remains unverified.",
+      "review_notes": "五帧蓝白拖尾与前端金光已画；44 格中心站位容不下向左 30 格，按完整留在格内处理。中间仍有亮光，需检查角色遮挡与挂点。"
+    },
+    {
+      "name": "e_land",
+      "brief_item": 5,
+      "file": "xinzhao_fx_e_land.png",
+      "binding": "view_effects `league_xinzhao_e_land`（BIG，施法者脚下，不跟随，z -1）",
+      "game_size": "44 × 20",
+      "frames": 5,
+      "output_grid": [
+        5,
+        1
+      ],
+      "output_cell": [
+        352,
+        160
+      ],
+      "output_size": [
+        1760,
+        160
+      ],
+      "source_size": [
+        1801,
+        873
+      ],
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_cell_aspect_relative_error": -0.374848,
+      "source_sha256": "78df40d78928f6605d53d5bb87b3955f21e61e45fc9e0bd003959b3facef379b",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            600,
+            436
+          ],
+          "output_rect": [
+            0,
+            0,
+            352,
+            160
+          ],
+          "source_fit_scale": 0.3669724770642202,
+          "padding": [
+            66,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            80.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            118,
+            45,
+            286,
+            151
+          ],
+          "mean_luminance_alpha128": 200.49,
+          "brightest_decile_luminance": 253.73,
+          "semi_transparent_pixels": 6523,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.486408
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            600,
+            0,
+            1201,
+            436
+          ],
+          "output_rect": [
+            352,
+            0,
+            704,
+            160
+          ],
+          "source_fit_scale": 0.3669724770642202,
+          "padding": [
+            66,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            80.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            66,
+            45,
+            287,
+            155
+          ],
+          "mean_luminance_alpha128": 182.51,
+          "brightest_decile_luminance": 253.94,
+          "semi_transparent_pixels": 16214,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.526209
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            1201,
+            0,
+            1801,
+            436
+          ],
+          "output_rect": [
+            704,
+            0,
+            1056,
+            160
+          ],
+          "source_fit_scale": 0.3669724770642202,
+          "padding": [
+            66,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            80.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            66,
+            47,
+            281,
+            157
+          ],
+          "mean_luminance_alpha128": 171.55,
+          "brightest_decile_luminance": 253.69,
+          "semi_transparent_pixels": 15520,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.503227
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            0,
+            436,
+            600,
+            873
+          ],
+          "output_rect": [
+            1056,
+            0,
+            1408,
+            160
+          ],
+          "source_fit_scale": 0.36613272311212813,
+          "padding": [
+            66,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            80.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            76,
+            39,
+            286,
+            141
+          ],
+          "mean_luminance_alpha128": 123.05,
+          "brightest_decile_luminance": 247.73,
+          "semi_transparent_pixels": 11572,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.426749
+        },
+        {
+          "frame": 5,
+          "source_rect": [
+            600,
+            436,
+            1201,
+            873
+          ],
+          "output_rect": [
+            1408,
+            0,
+            1760,
+            160
+          ],
+          "source_fit_scale": 0.36613272311212813,
+          "padding": [
+            66,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            176.0,
+            80.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            66,
+            47,
+            285,
+            134
+          ],
+          "mean_luminance_alpha128": 83.29,
+          "brightest_decile_luminance": 148.86,
+          "semi_transparent_pixels": 8241,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.399354
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "五帧闪光、空心椭圆扩散与紫色尘土已画；源帧比例和左右对称需修正，个别分格附近有多余火星。"
+    },
+    {
+      "name": "e_hit",
+      "brief_item": 6,
+      "file": "xinzhao_fx_e_hit.png",
+      "binding": "view_effects `league_xinzhao_e_hit`（跟随，画在人物上面）",
+      "game_size": "16",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        256,
+        256
+      ],
+      "output_size": [
+        1024,
+        256
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "d79418815d7bb81e8f250e70ae906520196e861d06f7a869e90d2454224a8d30",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "output_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            73,
+            76,
+            192,
+            203
+          ],
+          "mean_luminance_alpha128": 207.78,
+          "brightest_decile_luminance": 253.61,
+          "semi_transparent_pixels": 6531,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "output_rect": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            18,
+            21,
+            250,
+            241
+          ],
+          "mean_luminance_alpha128": 174.85,
+          "brightest_decile_luminance": 253.53,
+          "semi_transparent_pixels": 28870,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "output_rect": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            34,
+            23,
+            237,
+            229
+          ],
+          "mean_luminance_alpha128": 167.57,
+          "brightest_decile_luminance": 253.1,
+          "semi_transparent_pixels": 15986,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "output_rect": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            38,
+            45,
+            216,
+            203
+          ],
+          "mean_luminance_alpha128": 191.18,
+          "brightest_decile_luminance": 249.48,
+          "semi_transparent_pixels": 6343,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧蓝白电爆与金色火花已画，仍需硬化边缘、色板归一。"
+    },
+    {
+      "name": "e_slow",
+      "brief_item": 7,
+      "file": "xinzhao_fx_e_slow.png",
+      "binding": "view_buffs `league_xinzhao_e_slow`（循环，画在脚下）",
+      "game_size": "16 × 6",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        512,
+        192
+      ],
+      "output_size": [
+        2048,
+        192
+      ],
+      "source_size": [
+        2048,
+        768
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "98759636fcf77159c78cd33222acd1391b0b06e3cfd1336f4e059f2f62f7ae47",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            1024,
+            384
+          ],
+          "output_rect": [
+            0,
+            0,
+            512,
+            192
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            256.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            95,
+            24,
+            435,
+            192
+          ],
+          "mean_luminance_alpha128": 152.43,
+          "brightest_decile_luminance": 254.05,
+          "semi_transparent_pixels": 24643,
+          "touches_cell_edge_alpha128": true,
+          "left_right_premultiplied_rgba_mean_difference": 0.35191
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            1024,
+            0,
+            2048,
+            384
+          ],
+          "output_rect": [
+            512,
+            0,
+            1024,
+            192
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            256.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            78,
+            63,
+            416,
+            192
+          ],
+          "mean_luminance_alpha128": 154.45,
+          "brightest_decile_luminance": 254.19,
+          "semi_transparent_pixels": 22042,
+          "touches_cell_edge_alpha128": true,
+          "left_right_premultiplied_rgba_mean_difference": 0.284439
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            384,
+            1024,
+            768
+          ],
+          "output_rect": [
+            1024,
+            0,
+            1536,
+            192
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            256.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            94,
+            91,
+            438,
+            172
+          ],
+          "mean_luminance_alpha128": 153.68,
+          "brightest_decile_luminance": 254.13,
+          "semi_transparent_pixels": 20152,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.251027
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            1024,
+            384,
+            2048,
+            768
+          ],
+          "output_rect": [
+            1536,
+            0,
+            2048,
+            192
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            256.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            66,
+            84,
+            425,
+            172
+          ],
+          "mean_luminance_alpha128": 171.97,
+          "brightest_decile_luminance": 254.33,
+          "semi_transparent_pixels": 20682,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.197944
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧下滑电光与脚下环已画；第 4 帧中心填充过亮，不能视作空心循环通过。第 1/2 帧触格边。"
+    },
+    {
+      "name": "q_marks",
+      "brief_item": 8,
+      "file": "xinzhao_fx_q_marks.png",
+      "binding": "view_buffs `league_xinzhao_q_1` / `q_2` / `q_3`（循环，画在人物上面，头顶）",
+      "game_size": "14 × 8",
+      "frames": 12,
+      "output_grid": [
+        4,
+        3
+      ],
+      "output_cell": [
+        448,
+        256
+      ],
+      "output_size": [
+        1792,
+        768
+      ],
+      "source_size": [
+        1914,
+        822
+      ],
+      "source_grid": [
+        4,
+        3
+      ],
+      "source_cell_aspect_relative_error": -0.002086,
+      "source_sha256": "b74de17d6fc3b888bac7e226dfaa53b3df2e5cf1f4352468ee900e06e823d45e",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            478,
+            274
+          ],
+          "output_rect": [
+            0,
+            0,
+            448,
+            256
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            1,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            67,
+            38,
+            398,
+            226
+          ],
+          "mean_luminance_alpha128": 200.97,
+          "brightest_decile_luminance": 253.62,
+          "semi_transparent_pixels": 53660,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            478,
+            0,
+            957,
+            274
+          ],
+          "output_rect": [
+            448,
+            0,
+            896,
+            256
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            66,
+            37,
+            400,
+            227
+          ],
+          "mean_luminance_alpha128": 210.33,
+          "brightest_decile_luminance": 253.69,
+          "semi_transparent_pixels": 64812,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            957,
+            0,
+            1436,
+            274
+          ],
+          "output_rect": [
+            896,
+            0,
+            1344,
+            256
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            67,
+            38,
+            396,
+            227
+          ],
+          "mean_luminance_alpha128": 196.31,
+          "brightest_decile_luminance": 253.49,
+          "semi_transparent_pixels": 50520,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            1436,
+            0,
+            1914,
+            274
+          ],
+          "output_rect": [
+            1344,
+            0,
+            1792,
+            256
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            1,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            71,
+            48,
+            385,
+            226
+          ],
+          "mean_luminance_alpha128": 189.21,
+          "brightest_decile_luminance": 253.72,
+          "semi_transparent_pixels": 42110,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 5,
+          "source_rect": [
+            0,
+            274,
+            478,
+            548
+          ],
+          "output_rect": [
+            0,
+            256,
+            448,
+            512
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            1,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            70,
+            38,
+            320,
+            226
+          ],
+          "mean_luminance_alpha128": 201.06,
+          "brightest_decile_luminance": 253.6,
+          "semi_transparent_pixels": 40881,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 6,
+          "source_rect": [
+            478,
+            274,
+            957,
+            548
+          ],
+          "output_rect": [
+            448,
+            256,
+            896,
+            512
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            66,
+            37,
+            327,
+            227
+          ],
+          "mean_luminance_alpha128": 208.97,
+          "brightest_decile_luminance": 253.6,
+          "semi_transparent_pixels": 48951,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 7,
+          "source_rect": [
+            957,
+            274,
+            1436,
+            548
+          ],
+          "output_rect": [
+            896,
+            256,
+            1344,
+            512
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            67,
+            38,
+            308,
+            227
+          ],
+          "mean_luminance_alpha128": 198.14,
+          "brightest_decile_luminance": 253.45,
+          "semi_transparent_pixels": 39968,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 8,
+          "source_rect": [
+            1436,
+            274,
+            1914,
+            548
+          ],
+          "output_rect": [
+            1344,
+            256,
+            1792,
+            512
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            1,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            71,
+            49,
+            295,
+            226
+          ],
+          "mean_luminance_alpha128": 189.79,
+          "brightest_decile_luminance": 253.68,
+          "semi_transparent_pixels": 30956,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 9,
+          "source_rect": [
+            0,
+            548,
+            478,
+            822
+          ],
+          "output_rect": [
+            0,
+            512,
+            448,
+            768
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            1,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            75,
+            39,
+            196,
+            227
+          ],
+          "mean_luminance_alpha128": 202.26,
+          "brightest_decile_luminance": 253.71,
+          "semi_transparent_pixels": 20491,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 10,
+          "source_rect": [
+            478,
+            548,
+            957,
+            822
+          ],
+          "output_rect": [
+            448,
+            512,
+            896,
+            768
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            65,
+            37,
+            222,
+            226
+          ],
+          "mean_luminance_alpha128": 211.27,
+          "brightest_decile_luminance": 253.69,
+          "semi_transparent_pixels": 28011,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 11,
+          "source_rect": [
+            957,
+            548,
+            1436,
+            822
+          ],
+          "output_rect": [
+            896,
+            512,
+            1344,
+            768
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            73,
+            39,
+            202,
+            227
+          ],
+          "mean_luminance_alpha128": 200.09,
+          "brightest_decile_luminance": 253.5,
+          "semi_transparent_pixels": 21345,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 12,
+          "source_rect": [
+            1436,
+            548,
+            1914,
+            822
+          ],
+          "output_rect": [
+            1344,
+            512,
+            1792,
+            768
+          ],
+          "source_fit_scale": 0.9343065693430657,
+          "padding": [
+            1,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            224.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            71,
+            49,
+            189,
+            222
+          ],
+          "mean_luminance_alpha128": 191.91,
+          "brightest_decile_luminance": 253.78,
+          "semi_transparent_pixels": 15786,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "3 行×4 帧已画出 3/2/1 道，都是向右倾斜；三行同位置与逐格大小仍非完全一致。导入时拆 q_1/q_2/q_3。"
+    },
+    {
+      "name": "q_hit",
+      "brief_item": 9,
+      "file": "xinzhao_fx_q_hit.png",
+      "binding": "view_effects `league_xinzhao_q_hit`（跟随，画在人物上面）",
+      "game_size": "16",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        256,
+        256
+      ],
+      "output_size": [
+        1024,
+        256
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "9b0713b45f61b2ec3df06afab3fa73641a0e14eee3023060f17f56ca38160f61",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "output_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            21,
+            18,
+            254,
+            238
+          ],
+          "mean_luminance_alpha128": 193.24,
+          "brightest_decile_luminance": 253.78,
+          "semi_transparent_pixels": 24646,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "output_rect": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            19,
+            20,
+            237,
+            245
+          ],
+          "mean_luminance_alpha128": 196.14,
+          "brightest_decile_luminance": 253.41,
+          "semi_transparent_pixels": 25071,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "output_rect": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            30,
+            22,
+            243,
+            237
+          ],
+          "mean_luminance_alpha128": 175.26,
+          "brightest_decile_luminance": 252.46,
+          "semi_transparent_pixels": 23341,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "output_rect": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            44,
+            27,
+            228,
+            229
+          ],
+          "mean_luminance_alpha128": 180.77,
+          "brightest_decile_luminance": 251.63,
+          "semi_transparent_pixels": 9886,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧三道金色刺痕、白金星爆与飞散已画；色阶和碎边仍需整理。"
+    },
+    {
+      "name": "q3_up",
+      "brief_item": 10,
+      "file": "xinzhao_fx_q3_up.png",
+      "binding": "view_effects `league_xinzhao_q3_up`（跟随，画在人物上面）",
+      "game_size": "20 × 32",
+      "frames": 5,
+      "output_grid": [
+        5,
+        1
+      ],
+      "output_cell": [
+        200,
+        320
+      ],
+      "output_size": [
+        1000,
+        320
+      ],
+      "source_size": [
+        1122,
+        1402
+      ],
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_cell_aspect_relative_error": -0.146362,
+      "source_sha256": "b66ca6e733a78d41a18321b020273e1602a717bdf33cc8a9170b51399a5d05d7",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            374,
+            701
+          ],
+          "output_rect": [
+            0,
+            0,
+            200,
+            320
+          ],
+          "source_fit_scale": 0.456490727532097,
+          "padding": [
+            15,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            100.0,
+            288
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            36,
+            174,
+            176,
+            320
+          ],
+          "mean_luminance_alpha128": 152.97,
+          "brightest_decile_luminance": 253.48,
+          "semi_transparent_pixels": 15097,
+          "touches_cell_edge_alpha128": true
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            374,
+            0,
+            748,
+            701
+          ],
+          "output_rect": [
+            200,
+            0,
+            400,
+            320
+          ],
+          "source_fit_scale": 0.456490727532097,
+          "padding": [
+            15,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            100.0,
+            288
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            31,
+            40,
+            183,
+            320
+          ],
+          "mean_luminance_alpha128": 180.14,
+          "brightest_decile_luminance": 253.56,
+          "semi_transparent_pixels": 31128,
+          "touches_cell_edge_alpha128": true
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            748,
+            0,
+            1122,
+            701
+          ],
+          "output_rect": [
+            400,
+            0,
+            600,
+            320
+          ],
+          "source_fit_scale": 0.456490727532097,
+          "padding": [
+            15,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            100.0,
+            288
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            36,
+            40,
+            175,
+            320
+          ],
+          "mean_luminance_alpha128": 173.71,
+          "brightest_decile_luminance": 253.42,
+          "semi_transparent_pixels": 25147,
+          "touches_cell_edge_alpha128": true
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            0,
+            701,
+            374,
+            1402
+          ],
+          "output_rect": [
+            600,
+            0,
+            800,
+            320
+          ],
+          "source_fit_scale": 0.456490727532097,
+          "padding": [
+            15,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            100.0,
+            288
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            44,
+            0,
+            171,
+            297
+          ],
+          "mean_luminance_alpha128": 115.92,
+          "brightest_decile_luminance": 243.22,
+          "semi_transparent_pixels": 21428,
+          "touches_cell_edge_alpha128": true
+        },
+        {
+          "frame": 5,
+          "source_rect": [
+            374,
+            701,
+            748,
+            1402
+          ],
+          "output_rect": [
+            800,
+            0,
+            1000,
+            320
+          ],
+          "source_fit_scale": 0.456490727532097,
+          "padding": [
+            15,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            100.0,
+            288
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            40,
+            0,
+            170,
+            297
+          ],
+          "mean_luminance_alpha128": 92.51,
+          "brightest_decile_luminance": 231.65,
+          "semi_transparent_pixels": 9455,
+          "touches_cell_edge_alpha128": true
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "五帧竖直上挑、上飞火星和尘土已画；各帧有源图触格边，需要检查分格碎点及竖直范围。"
+    },
+    {
+      "name": "w_slash",
+      "brief_item": 11,
+      "file": "xinzhao_fx_w_slash.png",
+      "binding": "view_effects `league_xinzhao_w_slash`（BIG，施法者身上，不跟随；格子里的站位点放到他的站位点）",
+      "game_size": "40 × 30",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        320,
+        240
+      ],
+      "output_size": [
+        1280,
+        240
+      ],
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "f1a9043a7372716056b056cdf17f42c5ad8826d52b019fdc58eedfbfd9f32755",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            724,
+            543
+          ],
+          "output_rect": [
+            0,
+            0,
+            320,
+            240
+          ],
+          "source_fit_scale": 0.4419889502762431,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            96,
+            208
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            81,
+            15,
+            270,
+            108
+          ],
+          "mean_luminance_alpha128": 213.7,
+          "brightest_decile_luminance": 253.76,
+          "semi_transparent_pixels": 9917,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            724,
+            0,
+            1448,
+            543
+          ],
+          "output_rect": [
+            320,
+            0,
+            640,
+            240
+          ],
+          "source_fit_scale": 0.4419889502762431,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            96,
+            208
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            41,
+            23,
+            309,
+            236
+          ],
+          "mean_luminance_alpha128": 207.73,
+          "brightest_decile_luminance": 253.68,
+          "semi_transparent_pixels": 32608,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            543,
+            724,
+            1086
+          ],
+          "output_rect": [
+            640,
+            0,
+            960,
+            240
+          ],
+          "source_fit_scale": 0.4419889502762431,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            96,
+            208
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            92,
+            17,
+            306,
+            225
+          ],
+          "mean_luminance_alpha128": 213.05,
+          "brightest_decile_luminance": 253.64,
+          "semi_transparent_pixels": 16694,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            724,
+            543,
+            1448,
+            1086
+          ],
+          "output_rect": [
+            960,
+            0,
+            1280,
+            240
+          ],
+          "source_fit_scale": 0.4419889502762431,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            96,
+            208
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            141,
+            37,
+            305,
+            215
+          ],
+          "mean_luminance_alpha128": 190.59,
+          "brightest_decile_luminance": 251.88,
+          "semi_transparent_pixels": 7719,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧开口向左的金白月牙和蓝色风丝已画；站位点与角色身前遮挡需实测。"
+    },
+    {
+      "name": "w_thrust",
+      "brief_item": 12,
+      "file": "xinzhao_fx_w_thrust.png",
+      "binding": "view_projectiles `league_xinzhao_w_thrust`（BIG，LineRangeProjectile 60000 长：画面按方向转动，所以**上下必须对称**）",
+      "game_size": "60 × 10",
+      "frames": 5,
+      "output_grid": [
+        5,
+        1
+      ],
+      "output_cell": [
+        768,
+        128
+      ],
+      "output_size": [
+        3840,
+        128
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_grid": [
+        1,
+        5
+      ],
+      "source_cell_aspect_relative_error": 0.25,
+      "source_sha256": "e2c215bc4c9758cb290a75863d43053153fa6d9c926afbad366e62a237699448",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            1536,
+            205
+          ],
+          "output_rect": [
+            0,
+            0,
+            768,
+            128
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            13
+          ],
+          "source_axis_translation_y": -10,
+          "requested_anchor": [
+            384.0,
+            64.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            22,
+            32,
+            104,
+            96
+          ],
+          "mean_luminance_alpha128": 130.8,
+          "brightest_decile_luminance": 254.19,
+          "semi_transparent_pixels": 3072,
+          "touches_cell_edge_alpha128": false,
+          "top_bottom_premultiplied_rgba_mean_difference": 0.038822
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            0,
+            205,
+            1536,
+            410
+          ],
+          "output_rect": [
+            768,
+            0,
+            1536,
+            128
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            13
+          ],
+          "source_axis_translation_y": -10,
+          "requested_anchor": [
+            384.0,
+            64.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            22,
+            25,
+            413,
+            102
+          ],
+          "mean_luminance_alpha128": 141.35,
+          "brightest_decile_luminance": 254.27,
+          "semi_transparent_pixels": 20302,
+          "touches_cell_edge_alpha128": false,
+          "top_bottom_premultiplied_rgba_mean_difference": 0.055779
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            410,
+            1536,
+            614
+          ],
+          "output_rect": [
+            1536,
+            0,
+            2304,
+            128
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            13
+          ],
+          "source_axis_translation_y": -10,
+          "requested_anchor": [
+            384.0,
+            64.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            22,
+            24,
+            747,
+            101
+          ],
+          "mean_luminance_alpha128": 147.14,
+          "brightest_decile_luminance": 254.3,
+          "semi_transparent_pixels": 39756,
+          "touches_cell_edge_alpha128": false,
+          "top_bottom_premultiplied_rgba_mean_difference": 0.119431
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            0,
+            614,
+            1536,
+            819
+          ],
+          "output_rect": [
+            2304,
+            0,
+            3072,
+            128
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            13
+          ],
+          "source_axis_translation_y": -11,
+          "requested_anchor": [
+            384.0,
+            64.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            22,
+            28,
+            671,
+            100
+          ],
+          "mean_luminance_alpha128": 129.02,
+          "brightest_decile_luminance": 253.96,
+          "semi_transparent_pixels": 23283,
+          "touches_cell_edge_alpha128": false,
+          "top_bottom_premultiplied_rgba_mean_difference": 0.058396
+        },
+        {
+          "frame": 5,
+          "source_rect": [
+            0,
+            819,
+            1536,
+            1024
+          ],
+          "output_rect": [
+            3072,
+            0,
+            3840,
+            128
+          ],
+          "source_fit_scale": 0.5,
+          "padding": [
+            0,
+            13
+          ],
+          "source_axis_translation_y": 2,
+          "requested_anchor": [
+            384.0,
+            64.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            22,
+            34,
+            609,
+            97
+          ],
+          "mean_luminance_alpha128": 102.44,
+          "brightest_decile_luminance": 251.36,
+          "semi_transparent_pixels": 11148,
+          "touches_cell_edge_alpha128": false,
+          "top_bottom_premultiplied_rgba_mean_difference": 0.070151
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "五帧向右直线电刺已画，额外生图重试一次并按白芯对齐中心线。上下翻转仍非完全相同：待修正，不能按旋转安全成品发布。"
+    },
+    {
+      "name": "w_hit",
+      "brief_item": 13,
+      "file": "xinzhao_fx_w_hit.png",
+      "binding": "view_effects `league_xinzhao_w_hit`（跟随，画在人物上面）",
+      "game_size": "14",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        256,
+        256
+      ],
+      "output_size": [
+        1024,
+        256
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "d1112e344e7fc7f0fe0b042376bb118b99f7fcc2176123b525b8b09148afc32f",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "output_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            7,
+            91,
+            256,
+            204
+          ],
+          "mean_luminance_alpha128": 212.05,
+          "brightest_decile_luminance": 253.59,
+          "semi_transparent_pixels": 16829,
+          "touches_cell_edge_alpha128": true
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "output_rect": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            29,
+            34,
+            237,
+            240
+          ],
+          "mean_luminance_alpha128": 209.88,
+          "brightest_decile_luminance": 253.48,
+          "semi_transparent_pixels": 25092,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "output_rect": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            23,
+            47,
+            251,
+            218
+          ],
+          "mean_luminance_alpha128": 186.76,
+          "brightest_decile_luminance": 252.71,
+          "semi_transparent_pixels": 16448,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "output_rect": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            50,
+            56,
+            227,
+            208
+          ],
+          "mean_luminance_alpha128": 205.28,
+          "brightest_decile_luminance": 253.07,
+          "semi_transparent_pixels": 6821,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧金白横斩、星闪与蓝色风丝已画；第 1 帧触格边。"
+    },
+    {
+      "name": "w_hit2",
+      "brief_item": 14,
+      "file": "xinzhao_fx_w_hit2.png",
+      "binding": "view_effects `league_xinzhao_w_hit2`（跟随，画在人物上面）",
+      "game_size": "16",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        256,
+        256
+      ],
+      "output_size": [
+        1024,
+        256
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "9c0940160827c8495e38617eb59e7c22ab0bfa805cca101eb42776bae277dbde",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "output_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            33,
+            33,
+            234,
+            249
+          ],
+          "mean_luminance_alpha128": 195.59,
+          "brightest_decile_luminance": 253.64,
+          "semi_transparent_pixels": 16380,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "output_rect": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            13,
+            27,
+            239,
+            249
+          ],
+          "mean_luminance_alpha128": 176.32,
+          "brightest_decile_luminance": 253.91,
+          "semi_transparent_pixels": 21748,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "output_rect": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            42,
+            33,
+            234,
+            221
+          ],
+          "mean_luminance_alpha128": 169.58,
+          "brightest_decile_luminance": 253.66,
+          "semi_transparent_pixels": 13250,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "output_rect": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            41,
+            53,
+            220,
+            213
+          ],
+          "mean_luminance_alpha128": 183.42,
+          "brightest_decile_luminance": 254.04,
+          "semi_transparent_pixels": 6569,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧蓝白闪电爆发与散电已画；非严格色板及二值透明，待整理。"
+    },
+    {
+      "name": "w_slow",
+      "brief_item": 15,
+      "file": "xinzhao_fx_w_slow.png",
+      "binding": "view_buffs `league_xinzhao_w_slow`（循环，画在脚下）",
+      "game_size": "18 × 8",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        576,
+        256
+      ],
+      "output_size": [
+        2304,
+        256
+      ],
+      "source_size": [
+        1881,
+        836
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "ccde98c172c6e4f4543e3677462dca68f2d16d0e3bf910f1d3f3a0b6d7a8c897",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            940,
+            418
+          ],
+          "output_rect": [
+            0,
+            0,
+            576,
+            256
+          ],
+          "source_fit_scale": 0.6124401913875598,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            288.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            50,
+            64,
+            529,
+            229
+          ],
+          "mean_luminance_alpha128": 158.45,
+          "brightest_decile_luminance": 253.7,
+          "semi_transparent_pixels": 43577,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.233543
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            940,
+            0,
+            1881,
+            418
+          ],
+          "output_rect": [
+            576,
+            0,
+            1152,
+            256
+          ],
+          "source_fit_scale": 0.61211477151966,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            288.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            43,
+            59,
+            529,
+            229
+          ],
+          "mean_luminance_alpha128": 157.75,
+          "brightest_decile_luminance": 253.52,
+          "semi_transparent_pixels": 45103,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.284827
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            418,
+            940,
+            836
+          ],
+          "output_rect": [
+            1152,
+            0,
+            1728,
+            256
+          ],
+          "source_fit_scale": 0.6124401913875598,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            288.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            50,
+            62,
+            529,
+            228
+          ],
+          "mean_luminance_alpha128": 156.0,
+          "brightest_decile_luminance": 253.38,
+          "semi_transparent_pixels": 43316,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.292316
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            940,
+            418,
+            1881,
+            836
+          ],
+          "output_rect": [
+            1728,
+            0,
+            2304,
+            256
+          ],
+          "source_fit_scale": 0.61211477151966,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            288.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            43,
+            62,
+            529,
+            228
+          ],
+          "mean_luminance_alpha128": 155.85,
+          "brightest_decile_luminance": 253.26,
+          "semi_transparent_pixels": 41764,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.197087
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧空心脚下电环已画；枝条左右不完全对称，循环接缝仍需实测。"
+    },
+    {
+      "name": "r_tell",
+      "brief_item": 16,
+      "file": "xinzhao_fx_r_tell.png",
+      "binding": "view_effects `league_xinzhao_r_tell`（BIG，施法者身上，跟随；格子中心放到他的胸口）",
+      "game_size": "30 × 30",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        256,
+        256
+      ],
+      "output_size": [
+        1024,
+        256
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "64fdf1f27507cec69409889478559458647f03b101d7df936557a08139affaca",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "output_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            24,
+            54,
+            256,
+            211
+          ],
+          "mean_luminance_alpha128": 202.98,
+          "brightest_decile_luminance": 253.5,
+          "semi_transparent_pixels": 17732,
+          "touches_cell_edge_alpha128": true
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "output_rect": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            0,
+            31,
+            238,
+            224
+          ],
+          "mean_luminance_alpha128": 186.02,
+          "brightest_decile_luminance": 253.45,
+          "semi_transparent_pixels": 17994,
+          "touches_cell_edge_alpha128": true
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "output_rect": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            18,
+            36,
+            240,
+            187
+          ],
+          "mean_luminance_alpha128": 188.53,
+          "brightest_decile_luminance": 253.47,
+          "semi_transparent_pixels": 16877,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "output_rect": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            12,
+            35,
+            232,
+            226
+          ],
+          "mean_luminance_alpha128": 192.97,
+          "brightest_decile_luminance": 253.43,
+          "semi_transparent_pixels": 18434,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧亮弧方向按右→上→左→下转动，中心空心。第 1/2 帧触格边，形状并非同一弧的精确旋转。"
+    },
+    {
+      "name": "r_sweep",
+      "brief_item": 17,
+      "file": "xinzhao_fx_r_sweep.png",
+      "binding": "view_effects `league_xinzhao_r_sweep`（BIG，施法者身上，不跟随；格子里的站位点放到他的站位点）",
+      "game_size": "76 × 44",
+      "frames": 6,
+      "output_grid": [
+        6,
+        1
+      ],
+      "output_cell": [
+        608,
+        352
+      ],
+      "output_size": [
+        3648,
+        352
+      ],
+      "source_size": [
+        2019,
+        779
+      ],
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.000338,
+      "source_sha256": "a3570f8b0b4789638b54e5c5970891a8bb0c7c190438a82828f3da30e335de9e",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            673,
+            390
+          ],
+          "output_rect": [
+            0,
+            0,
+            608,
+            352
+          ],
+          "source_fit_scale": 0.9025641025641026,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            304.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            385,
+            64,
+            579,
+            266
+          ],
+          "mean_luminance_alpha128": 181.0,
+          "brightest_decile_luminance": 253.77,
+          "semi_transparent_pixels": 21611,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            673,
+            0,
+            1346,
+            390
+          ],
+          "output_rect": [
+            608,
+            0,
+            1216,
+            352
+          ],
+          "source_fit_scale": 0.9025641025641026,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            304.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            34,
+            56,
+            567,
+            314
+          ],
+          "mean_luminance_alpha128": 143.01,
+          "brightest_decile_luminance": 253.31,
+          "semi_transparent_pixels": 67645,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            1346,
+            0,
+            2019,
+            390
+          ],
+          "output_rect": [
+            1216,
+            0,
+            1824,
+            352
+          ],
+          "source_fit_scale": 0.9025641025641026,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            304.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            30,
+            56,
+            586,
+            310
+          ],
+          "mean_luminance_alpha128": 124.94,
+          "brightest_decile_luminance": 245.82,
+          "semi_transparent_pixels": 80116,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            0,
+            390,
+            673,
+            779
+          ],
+          "output_rect": [
+            1824,
+            0,
+            2432,
+            352
+          ],
+          "source_fit_scale": 0.9034175334323923,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            304.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            14,
+            14,
+            604,
+            309
+          ],
+          "mean_luminance_alpha128": 211.21,
+          "brightest_decile_luminance": 253.79,
+          "semi_transparent_pixels": 123468,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 5,
+          "source_rect": [
+            673,
+            390,
+            1346,
+            779
+          ],
+          "output_rect": [
+            2432,
+            0,
+            3040,
+            352
+          ],
+          "source_fit_scale": 0.9034175334323923,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            304.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            25,
+            42,
+            581,
+            294
+          ],
+          "mean_luminance_alpha128": 134.77,
+          "brightest_decile_luminance": 252.39,
+          "semi_transparent_pixels": 87787,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 6,
+          "source_rect": [
+            1346,
+            390,
+            2019,
+            779
+          ],
+          "output_rect": [
+            3040,
+            0,
+            3648,
+            352
+          ],
+          "source_fit_scale": 0.9034175334323923,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            304.0,
+            192
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            23,
+            57,
+            588,
+            283
+          ],
+          "mean_luminance_alpha128": 61.25,
+          "brightest_decile_luminance": 105.53,
+          "semi_transparent_pixels": 43859,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "size_conflict_resolution": "Explicit 608x352 cells / 19:11 take priority: exported 3648x352, not conflicting 3648x528.",
+      "review_notes": "六帧新月刃、整圈闪光及外散尘土已画，中心基本空心。采用明确的 608×352 单格，导出 3648×352；原文总图高度 528 与单格冲突。"
+    },
+    {
+      "name": "r_hit",
+      "brief_item": 18,
+      "file": "xinzhao_fx_r_hit.png",
+      "binding": "view_effects `league_xinzhao_r_hit`（跟随，画在人物上面）",
+      "game_size": "16",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        256,
+        256
+      ],
+      "output_size": [
+        1024,
+        256
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "d82151eac3a01467b29a1462fc0875c3b5fc637ca7acfc0c32543f2a47563724",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "output_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            27,
+            24,
+            239,
+            254
+          ],
+          "mean_luminance_alpha128": 182.26,
+          "brightest_decile_luminance": 253.7,
+          "semi_transparent_pixels": 19101,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "output_rect": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            15,
+            18,
+            238,
+            250
+          ],
+          "mean_luminance_alpha128": 204.33,
+          "brightest_decile_luminance": 253.55,
+          "semi_transparent_pixels": 21454,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "output_rect": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            24,
+            22,
+            240,
+            238
+          ],
+          "mean_luminance_alpha128": 173.68,
+          "brightest_decile_luminance": 253.25,
+          "semi_transparent_pixels": 21452,
+          "touches_cell_edge_alpha128": false
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "output_rect": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            128.0
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            40,
+            39,
+            236,
+            222
+          ],
+          "mean_luminance_alpha128": 186.66,
+          "brightest_decile_luminance": 250.28,
+          "semi_transparent_pixels": 8081,
+          "touches_cell_edge_alpha128": false
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧蓝白弧斩、白芯闪光和蓝金火星已画；需色板归一与硬边整理。"
+    },
+    {
+      "name": "r_chal",
+      "brief_item": 19,
+      "file": "xinzhao_fx_r_chal.png",
+      "binding": "view_buffs `league_xinzhao_r_chal`（循环，画在人物上面，头顶）",
+      "game_size": "12 × 12",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        256,
+        256
+      ],
+      "output_size": [
+        1024,
+        256
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.0,
+      "source_sha256": "397e15f00edea52c9d6db612a8425d24ec514272cfcd39c99a3c7369d6024ea1",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "output_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            53,
+            54,
+            205,
+            210
+          ],
+          "mean_luminance_alpha128": 166.62,
+          "brightest_decile_luminance": 250.5,
+          "semi_transparent_pixels": 28698,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.126551
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "output_rect": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            38,
+            38,
+            214,
+            224
+          ],
+          "mean_luminance_alpha128": 188.42,
+          "brightest_decile_luminance": 252.03,
+          "semi_transparent_pixels": 35701,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.143875
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "output_rect": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            53,
+            63,
+            205,
+            219
+          ],
+          "mean_luminance_alpha128": 169.01,
+          "brightest_decile_luminance": 250.68,
+          "semi_transparent_pixels": 28887,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.139698
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "output_rect": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_fit_scale": 0.4082934609250399,
+          "padding": [
+            0,
+            0
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            128.0,
+            256
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            39,
+            33,
+            213,
+            211
+          ],
+          "mean_luminance_alpha128": 184.63,
+          "brightest_decile_luminance": 251.47,
+          "semi_transparent_pixels": 34244,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.1388
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧交叉长枪＋中央盾牌已画，保留允许的深色描边。纹章大小/跳动及左右对称仍需统一，深边需精确映射 #10102A。"
+    },
+    {
+      "name": "r_guard",
+      "brief_item": 20,
+      "file": "xinzhao_fx_r_guard.png",
+      "binding": "view_buffs `league_xinzhao_r_guard`（BIG，循环，画在人物下面，z -1）",
+      "game_size": "30 × 44",
+      "frames": 4,
+      "output_grid": [
+        4,
+        1
+      ],
+      "output_cell": [
+        240,
+        352
+      ],
+      "output_size": [
+        960,
+        352
+      ],
+      "source_size": [
+        1070,
+        1470
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_cell_aspect_relative_error": 0.067574,
+      "source_sha256": "84171ac295be9e953258d8d4f7bee5f218b29b3e35c760f5442be4978fd39bcd",
+      "frames_detail": [
+        {
+          "frame": 1,
+          "source_rect": [
+            0,
+            0,
+            535,
+            735
+          ],
+          "output_rect": [
+            0,
+            0,
+            240,
+            352
+          ],
+          "source_fit_scale": 0.4485981308411215,
+          "padding": [
+            0,
+            20
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            120.0,
+            320
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            8,
+            27,
+            227,
+            342
+          ],
+          "mean_luminance_alpha128": 196.19,
+          "brightest_decile_luminance": 253.37,
+          "semi_transparent_pixels": 46806,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.330947
+        },
+        {
+          "frame": 2,
+          "source_rect": [
+            535,
+            0,
+            1070,
+            735
+          ],
+          "output_rect": [
+            240,
+            0,
+            480,
+            352
+          ],
+          "source_fit_scale": 0.4485981308411215,
+          "padding": [
+            0,
+            20
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            120.0,
+            320
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            4,
+            27,
+            235,
+            342
+          ],
+          "mean_luminance_alpha128": 195.86,
+          "brightest_decile_luminance": 253.4,
+          "semi_transparent_pixels": 46657,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.136751
+        },
+        {
+          "frame": 3,
+          "source_rect": [
+            0,
+            735,
+            535,
+            1470
+          ],
+          "output_rect": [
+            480,
+            0,
+            720,
+            352
+          ],
+          "source_fit_scale": 0.4485981308411215,
+          "padding": [
+            0,
+            20
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            120.0,
+            320
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            6,
+            25,
+            233,
+            341
+          ],
+          "mean_luminance_alpha128": 198.56,
+          "brightest_decile_luminance": 253.43,
+          "semi_transparent_pixels": 52084,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.30693
+        },
+        {
+          "frame": 4,
+          "source_rect": [
+            535,
+            735,
+            1070,
+            1470
+          ],
+          "output_rect": [
+            720,
+            0,
+            960,
+            352
+          ],
+          "source_fit_scale": 0.4485981308411215,
+          "padding": [
+            0,
+            20
+          ],
+          "source_axis_translation_y": 0,
+          "requested_anchor": [
+            120.0,
+            320
+          ],
+          "actual_anchor_verified": false,
+          "visible_bbox_alpha128": [
+            6,
+            25,
+            230,
+            341
+          ],
+          "mean_luminance_alpha128": 194.64,
+          "brightest_decile_luminance": 253.35,
+          "semi_transparent_pixels": 46878,
+          "touches_cell_edge_alpha128": false,
+          "left_right_premultiplied_rgba_mean_difference": 0.11504
+        }
+      ],
+      "status": "needs_pixel_cleanup_and_import_validation",
+      "review_notes": "四帧金橙光翼、空心罩边和脚下椭圆已画；左右仍非逐像素对称，翼形接缝、细碎像素和罩边需清理。"
+    }
+  ],
+  "runtime_tested": false,
+  "overall_character_animation_ready": false
+}

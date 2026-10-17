@@ -1,0 +1,2337 @@
+{
+  "format": "RGBA PNG horizontal strips",
+  "scale": 16,
+  "alpha": [
+    0,
+    255
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#F0DCFF",
+    "#C890FF",
+    "#9048E8",
+    "#5A1CA8",
+    "#E8C8FF",
+    "#9A5AE0",
+    "#5A2098",
+    "#2E0A58",
+    "#160430",
+    "#FFD8F2",
+    "#FF80DC",
+    "#E838B8",
+    "#A01480"
+  ],
+  "normalization": "AI artwork only. Source tiles sampled by opaque coverage >=40% with alpha>=240 (Q form >=64 to retain faint authored ellipse; W slow >=160; near-black sphere interior >=160; orb and shadow >=128; top R orb >=160). Nearest permitted palette majority; deepest force/magenta colors excluded to avoid enclosing dark contours. Symmetry repaired by pair/group majority, ties prefer brighter artwork. E wave, orb/shadow and top R orb cropped from AI source and fitted to prescribed footprints. No generated geometric effect primitives.",
+  "effects": [
+    {
+      "index": 1,
+      "name": "a_bolt",
+      "cell": [
+        10,
+        6
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 810,
+            "height": 486
+          },
+          "bbox": {
+            "x": 4,
+            "y": 1,
+            "width": 5,
+            "height": 4,
+            "count": 16
+          },
+          "symmetryChanges": 8,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 810,
+            "y": 0,
+            "width": 809,
+            "height": 486
+          },
+          "bbox": {
+            "x": 2,
+            "y": 1,
+            "width": 6,
+            "height": 4,
+            "count": 18
+          },
+          "symmetryChanges": 9,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 486,
+            "width": 810,
+            "height": 485
+          },
+          "bbox": {
+            "x": 2,
+            "y": 1,
+            "width": 7,
+            "height": 4,
+            "count": 18
+          },
+          "symmetryChanges": 9,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 810,
+            "y": 486,
+            "width": 809,
+            "height": 485
+          },
+          "bbox": {
+            "x": 3,
+            "y": 1,
+            "width": 5,
+            "height": 4,
+            "count": 12
+          },
+          "symmetryChanges": 3,
+          "edits": []
+        }
+      ],
+      "symmetry": "tb",
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceScale": 64,
+      "sourceSize": [
+        1619,
+        971
+      ],
+      "finalSize": [
+        640,
+        96
+      ],
+      "file": "syndra_fx_a_bolt.png",
+      "sourceGridActual": [
+        2,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 2,
+      "name": "a_hit",
+      "cell": [
+        12,
+        12
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 4,
+            "y": 5,
+            "width": 4,
+            "height": 4,
+            "count": 12
+          },
+          "symmetryChanges": 6,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 627,
+            "y": 0,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 2,
+            "y": 3,
+            "width": 8,
+            "height": 7,
+            "count": 30
+          },
+          "symmetryChanges": 0,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 627,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 2,
+            "y": 3,
+            "width": 8,
+            "height": 6,
+            "count": 20
+          },
+          "symmetryChanges": 10,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 627,
+            "y": 627,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 3,
+            "y": 3,
+            "width": 6,
+            "height": 1,
+            "count": 2
+          },
+          "symmetryChanges": 0,
+          "edits": []
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceScale": 48,
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "finalSize": [
+        768,
+        192
+      ],
+      "file": "syndra_fx_a_hit.png",
+      "sourceGridActual": [
+        2,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 3,
+      "name": "q_form",
+      "cell": [
+        42,
+        18
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 341
+          },
+          "bbox": {
+            "x": 4,
+            "y": 3,
+            "width": 34,
+            "height": 12,
+            "count": 72
+          },
+          "symmetryChanges": 49,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 768,
+            "y": 0,
+            "width": 768,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 2,
+            "width": 36,
+            "height": 14,
+            "count": 212
+          },
+          "symmetryChanges": 122,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 341,
+            "width": 768,
+            "height": 342
+          },
+          "bbox": {
+            "x": 2,
+            "y": 3,
+            "width": 38,
+            "height": 12,
+            "count": 188
+          },
+          "symmetryChanges": 64,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 768,
+            "y": 341,
+            "width": 768,
+            "height": 342
+          },
+          "bbox": {
+            "x": 3,
+            "y": 2,
+            "width": 36,
+            "height": 14,
+            "count": 236
+          },
+          "symmetryChanges": 65,
+          "edits": []
+        },
+        {
+          "frame": 5,
+          "sourceRect": {
+            "x": 0,
+            "y": 683,
+            "width": 768,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 1,
+            "width": 36,
+            "height": 16,
+            "count": 296
+          },
+          "symmetryChanges": 207,
+          "edits": []
+        },
+        {
+          "frame": 6,
+          "sourceRect": {
+            "x": 768,
+            "y": 683,
+            "width": 768,
+            "height": 341
+          },
+          "bbox": {
+            "x": 2,
+            "y": 1,
+            "width": 38,
+            "height": 16,
+            "count": 416
+          },
+          "symmetryChanges": 210,
+          "edits": []
+        }
+      ],
+      "symmetry": "both",
+      "sourceGrid": [
+        2,
+        3
+      ],
+      "sourceScale": 16,
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "finalSize": [
+        4032,
+        288
+      ],
+      "file": "syndra_fx_q_form.png",
+      "sourceGridActual": [
+        2,
+        3
+      ],
+      "previewDelayMs": [
+        83,
+        83,
+        84,
+        83,
+        83,
+        84
+      ],
+      "timingNote": "Matches specified total duration; GIF delay rounded to 10ms by format."
+    },
+    {
+      "index": 4,
+      "name": "q_blast",
+      "cell": [
+        42,
+        18
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 16,
+            "y": 6,
+            "width": 10,
+            "height": 6,
+            "count": 36
+          },
+          "symmetryChanges": 75,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 512,
+            "y": 0,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 6,
+            "y": 1,
+            "width": 30,
+            "height": 16,
+            "count": 316
+          },
+          "symmetryChanges": 160,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 1024,
+            "y": 0,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 2,
+            "y": 0,
+            "width": 38,
+            "height": 18,
+            "count": 268
+          },
+          "symmetryChanges": 259,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 0,
+            "y": 512,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 3,
+            "y": 3,
+            "width": 36,
+            "height": 12,
+            "count": 172
+          },
+          "symmetryChanges": 202,
+          "edits": []
+        },
+        {
+          "frame": 5,
+          "sourceRect": {
+            "x": 512,
+            "y": 512,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 0,
+            "y": 4,
+            "width": 42,
+            "height": 10,
+            "count": 24
+          },
+          "symmetryChanges": 77,
+          "edits": []
+        }
+      ],
+      "symmetry": "both",
+      "sourceGrid": [
+        2,
+        3
+      ],
+      "sourceScale": 16,
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "finalSize": [
+        3360,
+        288
+      ],
+      "file": "syndra_fx_q_blast.png",
+      "sourceGridActual": [
+        3,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 5,
+      "name": "q_hit",
+      "cell": [
+        16,
+        16
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 887,
+            "height": 444
+          },
+          "bbox": {
+            "x": 5,
+            "y": 6,
+            "width": 6,
+            "height": 5,
+            "count": 22
+          },
+          "symmetryChanges": 11,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 887,
+            "y": 0,
+            "width": 887,
+            "height": 444
+          },
+          "bbox": {
+            "x": 3,
+            "y": 4,
+            "width": 10,
+            "height": 10,
+            "count": 52
+          },
+          "symmetryChanges": 3,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 444,
+            "width": 887,
+            "height": 443
+          },
+          "bbox": {
+            "x": 3,
+            "y": 2,
+            "width": 10,
+            "height": 12,
+            "count": 60
+          },
+          "symmetryChanges": 30,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 887,
+            "y": 444,
+            "width": 887,
+            "height": 443
+          },
+          "bbox": {
+            "x": 4,
+            "y": 4,
+            "width": 8,
+            "height": 9,
+            "count": 12
+          },
+          "symmetryChanges": 1,
+          "edits": []
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceScale": 32,
+      "sourceSize": [
+        1774,
+        887
+      ],
+      "finalSize": [
+        1024,
+        256
+      ],
+      "file": "syndra_fx_q_hit.png",
+      "sourceGridActual": [
+        2,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 6,
+      "name": "orb",
+      "cell": [
+        18,
+        24
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 384,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 11,
+            "width": 12,
+            "height": 13,
+            "count": 42
+          },
+          "symmetryChanges": 3,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 384,
+            "y": 0,
+            "width": 384,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 7,
+            "width": 12,
+            "height": 17,
+            "count": 84
+          },
+          "symmetryChanges": 13,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 768,
+            "y": 0,
+            "width": 384,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 4,
+            "width": 12,
+            "height": 20,
+            "count": 112
+          },
+          "symmetryChanges": 25,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 1152,
+            "y": 0,
+            "width": 384,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 4,
+            "width": 12,
+            "height": 20,
+            "count": 110
+          },
+          "symmetryChanges": 25,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 5,
+          "sourceRect": {
+            "x": 0,
+            "y": 341,
+            "width": 384,
+            "height": 342
+          },
+          "bbox": {
+            "x": 3,
+            "y": 5,
+            "width": 12,
+            "height": 19,
+            "count": 110
+          },
+          "symmetryChanges": 27,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 6,
+          "sourceRect": {
+            "x": 384,
+            "y": 341,
+            "width": 384,
+            "height": 342
+          },
+          "bbox": {
+            "x": 3,
+            "y": 5,
+            "width": 12,
+            "height": 19,
+            "count": 112
+          },
+          "symmetryChanges": 27,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 7,
+          "sourceRect": {
+            "x": 768,
+            "y": 341,
+            "width": 384,
+            "height": 342
+          },
+          "bbox": {
+            "x": 3,
+            "y": 6,
+            "width": 12,
+            "height": 18,
+            "count": 110
+          },
+          "symmetryChanges": 31,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 8,
+          "sourceRect": {
+            "x": 1152,
+            "y": 341,
+            "width": 384,
+            "height": 342
+          },
+          "bbox": {
+            "x": 3,
+            "y": 6,
+            "width": 12,
+            "height": 18,
+            "count": 110
+          },
+          "symmetryChanges": 27,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 9,
+          "sourceRect": {
+            "x": 0,
+            "y": 683,
+            "width": 384,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 5,
+            "width": 12,
+            "height": 19,
+            "count": 112
+          },
+          "symmetryChanges": 32,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 10,
+          "sourceRect": {
+            "x": 384,
+            "y": 683,
+            "width": 384,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 5,
+            "width": 12,
+            "height": 19,
+            "count": 110
+          },
+          "symmetryChanges": 27,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 11,
+          "sourceRect": {
+            "x": 768,
+            "y": 683,
+            "width": 384,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 7,
+            "width": 12,
+            "height": 17,
+            "count": 82
+          },
+          "symmetryChanges": 8,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        },
+        {
+          "frame": 12,
+          "sourceRect": {
+            "x": 1152,
+            "y": 683,
+            "width": 384,
+            "height": 341
+          },
+          "bbox": {
+            "x": 3,
+            "y": 11,
+            "width": 12,
+            "height": 13,
+            "count": 44
+          },
+          "symmetryChanges": 7,
+          "edits": [
+            "Crop separated AI sphere and shadow; fit 4/8/10px sphere and 12x3 shadow; place 6px apart, bob +/-1px"
+          ]
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        4,
+        3
+      ],
+      "sourceScale": 16,
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "finalSize": [
+        3456,
+        384
+      ],
+      "file": "syndra_fx_orb.png",
+      "sourceGridActual": [
+        4,
+        3
+      ],
+      "previewDelayMs": [
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "timingNote": "Matches specified total duration; GIF delay rounded to 10ms by format."
+    },
+    {
+      "index": 7,
+      "name": "w_throw",
+      "cell": [
+        14,
+        12
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 678,
+            "height": 581
+          },
+          "bbox": {
+            "x": 3,
+            "y": 2,
+            "width": 10,
+            "height": 8,
+            "count": 58
+          },
+          "symmetryChanges": 29,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 678,
+            "y": 0,
+            "width": 677,
+            "height": 581
+          },
+          "bbox": {
+            "x": 1,
+            "y": 1,
+            "width": 12,
+            "height": 10,
+            "count": 74
+          },
+          "symmetryChanges": 36,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 581,
+            "width": 678,
+            "height": 580
+          },
+          "bbox": {
+            "x": 3,
+            "y": 2,
+            "width": 11,
+            "height": 8,
+            "count": 52
+          },
+          "symmetryChanges": 8,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 678,
+            "y": 581,
+            "width": 677,
+            "height": 580
+          },
+          "bbox": {
+            "x": 3,
+            "y": 3,
+            "width": 10,
+            "height": 6,
+            "count": 42
+          },
+          "symmetryChanges": 15,
+          "edits": []
+        }
+      ],
+      "symmetry": "tb",
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceScale": 32,
+      "sourceSize": [
+        1355,
+        1161
+      ],
+      "finalSize": [
+        896,
+        192
+      ],
+      "file": "syndra_fx_w_throw.png",
+      "sourceGridActual": [
+        2,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 8,
+      "name": "w_land",
+      "cell": [
+        46,
+        20
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 752,
+            "height": 349
+          },
+          "bbox": {
+            "x": 15,
+            "y": 4,
+            "width": 16,
+            "height": 12,
+            "count": 96
+          },
+          "symmetryChanges": 47,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 752,
+            "y": 0,
+            "width": 752,
+            "height": 349
+          },
+          "bbox": {
+            "x": 11,
+            "y": 2,
+            "width": 24,
+            "height": 16,
+            "count": 220
+          },
+          "symmetryChanges": 95,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 349,
+            "width": 752,
+            "height": 348
+          },
+          "bbox": {
+            "x": 6,
+            "y": 1,
+            "width": 34,
+            "height": 18,
+            "count": 352
+          },
+          "symmetryChanges": 150,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 752,
+            "y": 349,
+            "width": 752,
+            "height": 348
+          },
+          "bbox": {
+            "x": 3,
+            "y": 2,
+            "width": 40,
+            "height": 16,
+            "count": 288
+          },
+          "symmetryChanges": 141,
+          "edits": []
+        },
+        {
+          "frame": 5,
+          "sourceRect": {
+            "x": 0,
+            "y": 697,
+            "width": 752,
+            "height": 349
+          },
+          "bbox": {
+            "x": 2,
+            "y": 4,
+            "width": 42,
+            "height": 12,
+            "count": 32
+          },
+          "symmetryChanges": 30,
+          "edits": []
+        }
+      ],
+      "symmetry": "both",
+      "sourceGrid": [
+        2,
+        3
+      ],
+      "sourceScale": 16,
+      "sourceSize": [
+        1504,
+        1046
+      ],
+      "finalSize": [
+        3680,
+        320
+      ],
+      "file": "syndra_fx_w_land.png",
+      "sourceGridActual": [
+        2,
+        3
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 9,
+      "name": "w_hit",
+      "cell": [
+        16,
+        16
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 5,
+            "y": 5,
+            "width": 6,
+            "height": 7,
+            "count": 22
+          },
+          "symmetryChanges": 6,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 627,
+            "y": 0,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 2,
+            "y": 3,
+            "width": 12,
+            "height": 12,
+            "count": 76
+          },
+          "symmetryChanges": 26,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 627,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 2,
+            "y": 3,
+            "width": 12,
+            "height": 10,
+            "count": 40
+          },
+          "symmetryChanges": 20,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 627,
+            "y": 627,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 4,
+            "y": 6,
+            "width": 8,
+            "height": 3,
+            "count": 8
+          },
+          "symmetryChanges": 4,
+          "edits": []
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceScale": 32,
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "finalSize": [
+        1024,
+        256
+      ],
+      "file": "syndra_fx_w_hit.png",
+      "sourceGridActual": [
+        2,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 10,
+      "name": "w_slow",
+      "cell": [
+        18,
+        8
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 941,
+            "height": 418
+          },
+          "bbox": {
+            "x": 0,
+            "y": 2,
+            "width": 18,
+            "height": 5,
+            "count": 38
+          },
+          "symmetryChanges": 17,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 941,
+            "y": 0,
+            "width": 940,
+            "height": 418
+          },
+          "bbox": {
+            "x": 0,
+            "y": 2,
+            "width": 18,
+            "height": 5,
+            "count": 30
+          },
+          "symmetryChanges": 9,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 418,
+            "width": 941,
+            "height": 418
+          },
+          "bbox": {
+            "x": 0,
+            "y": 2,
+            "width": 18,
+            "height": 4,
+            "count": 34
+          },
+          "symmetryChanges": 14,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 941,
+            "y": 418,
+            "width": 940,
+            "height": 418
+          },
+          "bbox": {
+            "x": 0,
+            "y": 2,
+            "width": 18,
+            "height": 4,
+            "count": 30
+          },
+          "symmetryChanges": 7,
+          "edits": []
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceScale": 48,
+      "sourceSize": [
+        1881,
+        836
+      ],
+      "finalSize": [
+        1152,
+        128
+      ],
+      "file": "syndra_fx_w_slow.png",
+      "sourceGridActual": [
+        2,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 11,
+      "name": "e_wave",
+      "cell": [
+        144,
+        66
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 627,
+            "height": 418
+          },
+          "bbox": {
+            "x": 74,
+            "y": 26,
+            "width": 9,
+            "height": 14,
+            "count": 52
+          },
+          "symmetryChanges": 6,
+          "edits": [
+            "Crop AI wave; fit progressively larger right-half footprint (14/32/50/66/72 x 14/32/48/60/64), centered vertically"
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 627,
+            "y": 0,
+            "width": 627,
+            "height": 418
+          },
+          "bbox": {
+            "x": 72,
+            "y": 17,
+            "width": 32,
+            "height": 32,
+            "count": 214
+          },
+          "symmetryChanges": 22,
+          "edits": [
+            "Crop AI wave; fit progressively larger right-half footprint (14/32/50/66/72 x 14/32/48/60/64), centered vertically"
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 1254,
+            "y": 0,
+            "width": 627,
+            "height": 418
+          },
+          "bbox": {
+            "x": 78,
+            "y": 9,
+            "width": 44,
+            "height": 48,
+            "count": 542
+          },
+          "symmetryChanges": 55,
+          "edits": [
+            "Crop AI wave; fit progressively larger right-half footprint (14/32/50/66/72 x 14/32/48/60/64), centered vertically"
+          ]
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 0,
+            "y": 418,
+            "width": 627,
+            "height": 418
+          },
+          "bbox": {
+            "x": 72,
+            "y": 3,
+            "width": 66,
+            "height": 60,
+            "count": 760
+          },
+          "symmetryChanges": 140,
+          "edits": [
+            "Crop AI wave; fit progressively larger right-half footprint (14/32/50/66/72 x 14/32/48/60/64), centered vertically"
+          ]
+        },
+        {
+          "frame": 5,
+          "sourceRect": {
+            "x": 627,
+            "y": 418,
+            "width": 627,
+            "height": 418
+          },
+          "bbox": {
+            "x": 72,
+            "y": 1,
+            "width": 72,
+            "height": 64,
+            "count": 302
+          },
+          "symmetryChanges": 74,
+          "edits": [
+            "Crop AI wave; fit progressively larger right-half footprint (14/32/50/66/72 x 14/32/48/60/64), centered vertically"
+          ]
+        }
+      ],
+      "symmetry": "tb",
+      "sourceGrid": [
+        2,
+        3
+      ],
+      "sourceScale": 8,
+      "sourceSize": [
+        1881,
+        836
+      ],
+      "finalSize": [
+        11520,
+        1056
+      ],
+      "file": "syndra_fx_e_wave.png",
+      "sourceGridActual": [
+        3,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 12,
+      "name": "e_hit",
+      "cell": [
+        14,
+        14
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 5,
+            "y": 6,
+            "width": 4,
+            "height": 4,
+            "count": 12
+          },
+          "symmetryChanges": 2,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 627,
+            "y": 0,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 2,
+            "y": 4,
+            "width": 10,
+            "height": 7,
+            "count": 36
+          },
+          "symmetryChanges": 2,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 627,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 3,
+            "y": 4,
+            "width": 8,
+            "height": 6,
+            "count": 24
+          },
+          "symmetryChanges": 1,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 627,
+            "y": 627,
+            "width": 627,
+            "height": 627
+          },
+          "bbox": {
+            "x": 3,
+            "y": 5,
+            "width": 8,
+            "height": 6,
+            "count": 8
+          },
+          "symmetryChanges": 2,
+          "edits": []
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceScale": 32,
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "finalSize": [
+        896,
+        224
+      ],
+      "file": "syndra_fx_e_hit.png",
+      "sourceGridActual": [
+        2,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 13,
+      "name": "e_stun",
+      "cell": [
+        20,
+        32
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 351,
+            "height": 561
+          },
+          "bbox": {
+            "x": 2,
+            "y": 18,
+            "width": 16,
+            "height": 12,
+            "count": 118
+          },
+          "symmetryChanges": 6,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 351,
+            "y": 0,
+            "width": 350,
+            "height": 561
+          },
+          "bbox": {
+            "x": 2,
+            "y": 13,
+            "width": 16,
+            "height": 18,
+            "count": 160
+          },
+          "symmetryChanges": 15,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 701,
+            "y": 0,
+            "width": 351,
+            "height": 561
+          },
+          "bbox": {
+            "x": 1,
+            "y": 12,
+            "width": 18,
+            "height": 20,
+            "count": 58
+          },
+          "symmetryChanges": 6,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 1052,
+            "y": 0,
+            "width": 350,
+            "height": 561
+          },
+          "bbox": {
+            "x": 1,
+            "y": 1,
+            "width": 18,
+            "height": 8,
+            "count": 88
+          },
+          "symmetryChanges": 15,
+          "edits": [
+            "Move AI halo to top quarter; no redraw"
+          ]
+        },
+        {
+          "frame": 5,
+          "sourceRect": {
+            "x": 0,
+            "y": 561,
+            "width": 351,
+            "height": 561
+          },
+          "bbox": {
+            "x": 1,
+            "y": 1,
+            "width": 18,
+            "height": 10,
+            "count": 88
+          },
+          "symmetryChanges": 12,
+          "edits": [
+            "Move AI halo to top quarter; no redraw"
+          ]
+        },
+        {
+          "frame": 6,
+          "sourceRect": {
+            "x": 351,
+            "y": 561,
+            "width": 350,
+            "height": 561
+          },
+          "bbox": {
+            "x": 1,
+            "y": 1,
+            "width": 18,
+            "height": 10,
+            "count": 98
+          },
+          "symmetryChanges": 11,
+          "edits": [
+            "Move AI halo to top quarter; no redraw"
+          ]
+        },
+        {
+          "frame": 7,
+          "sourceRect": {
+            "x": 701,
+            "y": 561,
+            "width": 351,
+            "height": 561
+          },
+          "bbox": {
+            "x": 1,
+            "y": 1,
+            "width": 18,
+            "height": 8,
+            "count": 86
+          },
+          "symmetryChanges": 7,
+          "edits": [
+            "Move AI halo to top quarter; no redraw"
+          ]
+        },
+        {
+          "frame": 8,
+          "sourceRect": {
+            "x": 1052,
+            "y": 561,
+            "width": 350,
+            "height": 561
+          },
+          "bbox": {
+            "x": 3,
+            "y": 1,
+            "width": 14,
+            "height": 4,
+            "count": 36
+          },
+          "symmetryChanges": 6,
+          "edits": [
+            "Move AI halo to top quarter; no redraw"
+          ]
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        4,
+        2
+      ],
+      "sourceScale": 16,
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "finalSize": [
+        2560,
+        512
+      ],
+      "file": "syndra_fx_e_stun.png",
+      "sourceGridActual": [
+        4,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        150,
+        200,
+        200,
+        200,
+        200
+      ],
+      "timingNote": "Matches specified total duration; GIF delay rounded to 10ms by format."
+    },
+    {
+      "index": 14,
+      "name": "r_cast",
+      "cell": [
+        58,
+        50
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 552,
+            "height": 475
+          },
+          "bbox": {
+            "x": 6,
+            "y": 5,
+            "width": 46,
+            "height": 37,
+            "count": 114
+          },
+          "symmetryChanges": 54,
+          "edits": [
+            "Crop AI top-center orb and fit 4/6px above the reserved 16x36 character region"
+          ]
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 552,
+            "y": 0,
+            "width": 551,
+            "height": 475
+          },
+          "bbox": {
+            "x": 4,
+            "y": 5,
+            "width": 50,
+            "height": 39,
+            "count": 306
+          },
+          "symmetryChanges": 70,
+          "edits": [
+            "Crop AI top-center orb and fit 4/6px above the reserved 16x36 character region"
+          ]
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 1103,
+            "y": 0,
+            "width": 552,
+            "height": 475
+          },
+          "bbox": {
+            "x": 3,
+            "y": 5,
+            "width": 52,
+            "height": 39,
+            "count": 484
+          },
+          "symmetryChanges": 128,
+          "edits": [
+            "Crop AI top-center orb and fit 4/6px above the reserved 16x36 character region"
+          ]
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 0,
+            "y": 475,
+            "width": 552,
+            "height": 475
+          },
+          "bbox": {
+            "x": 6,
+            "y": 4,
+            "width": 46,
+            "height": 39,
+            "count": 518
+          },
+          "symmetryChanges": 199,
+          "edits": [
+            "Crop AI top-center orb and fit 4/6px above the reserved 16x36 character region"
+          ]
+        },
+        {
+          "frame": 5,
+          "sourceRect": {
+            "x": 552,
+            "y": 475,
+            "width": 551,
+            "height": 475
+          },
+          "bbox": {
+            "x": 1,
+            "y": 4,
+            "width": 56,
+            "height": 42,
+            "count": 816
+          },
+          "symmetryChanges": 93,
+          "edits": [
+            "Crop AI top-center orb and fit 4/6px above the reserved 16x36 character region"
+          ]
+        },
+        {
+          "frame": 6,
+          "sourceRect": {
+            "x": 1103,
+            "y": 475,
+            "width": 552,
+            "height": 475
+          },
+          "bbox": {
+            "x": 5,
+            "y": 5,
+            "width": 48,
+            "height": 38,
+            "count": 212
+          },
+          "symmetryChanges": 81,
+          "edits": [
+            "Crop AI top-center orb and fit 4/6px above the reserved 16x36 character region"
+          ]
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        3,
+        2
+      ],
+      "sourceScale": 16,
+      "sourceSize": [
+        1655,
+        950
+      ],
+      "finalSize": [
+        5568,
+        800
+      ],
+      "file": "syndra_fx_r_cast.png",
+      "sourceGridActual": [
+        3,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 15,
+      "name": "r_orb",
+      "cell": [
+        16,
+        12
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 724,
+            "height": 543
+          },
+          "bbox": {
+            "x": 3,
+            "y": 0,
+            "width": 11,
+            "height": 12,
+            "count": 84
+          },
+          "symmetryChanges": 42,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 724,
+            "y": 0,
+            "width": 724,
+            "height": 543
+          },
+          "bbox": {
+            "x": 2,
+            "y": 0,
+            "width": 12,
+            "height": 12,
+            "count": 86
+          },
+          "symmetryChanges": 43,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 543,
+            "width": 724,
+            "height": 543
+          },
+          "bbox": {
+            "x": 2,
+            "y": 2,
+            "width": 12,
+            "height": 8,
+            "count": 60
+          },
+          "symmetryChanges": 28,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 724,
+            "y": 543,
+            "width": 724,
+            "height": 543
+          },
+          "bbox": {
+            "x": 3,
+            "y": 2,
+            "width": 11,
+            "height": 8,
+            "count": 56
+          },
+          "symmetryChanges": 25,
+          "edits": []
+        }
+      ],
+      "symmetry": "tb",
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceScale": 32,
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "finalSize": [
+        1024,
+        192
+      ],
+      "file": "syndra_fx_r_orb.png",
+      "sourceGridActual": [
+        2,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 16,
+      "name": "r_hit",
+      "cell": [
+        20,
+        20
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 5,
+            "y": 6,
+            "width": 10,
+            "height": 9,
+            "count": 40
+          },
+          "symmetryChanges": 3,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 512,
+            "y": 0,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 2,
+            "y": 4,
+            "width": 16,
+            "height": 13,
+            "count": 132
+          },
+          "symmetryChanges": 15,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 1024,
+            "y": 0,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 2,
+            "y": 2,
+            "width": 16,
+            "height": 17,
+            "count": 110
+          },
+          "symmetryChanges": 7,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 0,
+            "y": 512,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 2,
+            "y": 2,
+            "width": 16,
+            "height": 15,
+            "count": 62
+          },
+          "symmetryChanges": 8,
+          "edits": []
+        },
+        {
+          "frame": 5,
+          "sourceRect": {
+            "x": 512,
+            "y": 512,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 4,
+            "y": 5,
+            "width": 12,
+            "height": 9,
+            "count": 10
+          },
+          "symmetryChanges": 0,
+          "edits": []
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        3,
+        2
+      ],
+      "sourceScale": 32,
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "finalSize": [
+        1600,
+        320
+      ],
+      "file": "syndra_fx_r_hit.png",
+      "sourceGridActual": [
+        3,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    },
+    {
+      "index": 17,
+      "name": "evo",
+      "cell": [
+        32,
+        46
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 3,
+            "y": 33,
+            "width": 26,
+            "height": 8,
+            "count": 26
+          },
+          "symmetryChanges": 13,
+          "edits": []
+        },
+        {
+          "frame": 2,
+          "sourceRect": {
+            "x": 512,
+            "y": 0,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 4,
+            "y": 19,
+            "width": 24,
+            "height": 20,
+            "count": 60
+          },
+          "symmetryChanges": 16,
+          "edits": []
+        },
+        {
+          "frame": 3,
+          "sourceRect": {
+            "x": 1024,
+            "y": 0,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 2,
+            "y": 6,
+            "width": 28,
+            "height": 31,
+            "count": 136
+          },
+          "symmetryChanges": 62,
+          "edits": []
+        },
+        {
+          "frame": 4,
+          "sourceRect": {
+            "x": 0,
+            "y": 512,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 2,
+            "y": 4,
+            "width": 28,
+            "height": 37,
+            "count": 216
+          },
+          "symmetryChanges": 101,
+          "edits": []
+        },
+        {
+          "frame": 5,
+          "sourceRect": {
+            "x": 512,
+            "y": 512,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 5,
+            "y": 5,
+            "width": 22,
+            "height": 28,
+            "count": 106
+          },
+          "symmetryChanges": 18,
+          "edits": []
+        },
+        {
+          "frame": 6,
+          "sourceRect": {
+            "x": 1024,
+            "y": 512,
+            "width": 512,
+            "height": 512
+          },
+          "bbox": {
+            "x": 5,
+            "y": 8,
+            "width": 22,
+            "height": 28,
+            "count": 42
+          },
+          "symmetryChanges": 21,
+          "edits": []
+        }
+      ],
+      "symmetry": "lr",
+      "sourceGrid": [
+        3,
+        2
+      ],
+      "sourceScale": 16,
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "finalSize": [
+        3072,
+        736
+      ],
+      "file": "syndra_fx_evo.png",
+      "sourceGridActual": [
+        3,
+        2
+      ],
+      "previewDelayMs": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "timingNote": "100ms/frame for preview only; game timing not specified."
+    }
+  ]
+}

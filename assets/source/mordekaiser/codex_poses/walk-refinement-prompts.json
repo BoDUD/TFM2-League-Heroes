@@ -1,0 +1,20 @@
+[
+  {
+    "id": "walk-1",
+    "prompt": "Edit FIRST landscape image as FIXED-size canvas. Output EXACTLY1536x1024 landscape; do NOT zoom,crop or recenter. Replace white background and all yellow/green/red guides with transparency. Keep upper body,head,arms and shoulder-resting mace in EXACT original pixel positions and scale. Horn tips at x552,y144; body centerx590; standingsoley1007. Image2 ungridded character, image3palette. Change ONLY legs and hanging waistcloth below hips. Walk phase1 CONTACT: move NEAR leg (the leg rooted on image LEFT hip) FORWARD across body towards imageRIGHT, its large boot heel resting at y1007 and toe lifted. The FAR leg (rooted at image RIGHT hip) reaches backward to imageLEFT, knee nearly straight. This near-leg-forward stride must differ from the default far/imageRIGHT-leg-forward stride. Keep rigid leg armor,bootlength and proportions. One sprite only. Same coarse aligned4x4flatpixels using48colorpalette,no glow/nohalo/noground/noshadow/noantialias. Lots of transparentspace on right.",
+    "refs": [
+      "C:/Users/OWNER/Documents/Codex/2026-10-09/new-chat-4/work/mordekaiser-pose-input/design/grid_landscape.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-09/new-chat-4/work/mordekaiser-pose-input/design/mordekaiser_front.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-09/new-chat-4/work/mordekaiser-pose-input/design/mordekaiser_palette.png"
+    ]
+  },
+  {
+    "id": "walk-4",
+    "prompt": "Edit FIRST landscape image as FIXED-size canvas. Output EXACTLY1536x1024 landscape; do NOT zoom,crop or recenter. Replace white background and all yellow/green/red guides with transparency. Keep upper body,head,arms and shoulder-resting mace in EXACT original pixel positions and scale. Horn tips at x552,y144; body centerx590; standingsoley1007. Image2 ungridded character, image3palette. Change ONLY legs and hanging waistcloth below hips. Walk phase4 PASSING: FAR/imageRIGHT knee advances across the body toward imageRIGHT, boot airborne under hips; near/imageLEFT leg is straight and SUPPORTS weight under hips. Feet close, not wide apart. Torso bob may be one4pxcell upward only. Keep rigid leg armor,bootlength and proportions. One sprite only. Same coarse aligned4x4flatpixels using48colorpalette,no glow/nohalo/noground/noshadow/noantialias. Lots of transparentspace on right.",
+    "refs": [
+      "C:/Users/OWNER/Documents/Codex/2026-10-09/new-chat-4/work/mordekaiser-pose-input/design/grid_landscape.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-09/new-chat-4/work/mordekaiser-pose-input/design/mordekaiser_front.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-09/new-chat-4/work/mordekaiser-pose-input/design/mordekaiser_palette.png"
+    ]
+  }
+]

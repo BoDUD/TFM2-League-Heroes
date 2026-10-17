@@ -1,0 +1,84 @@
+{
+  "A": {
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "bbox_1x": [
+      39,
+      53,
+      95,
+      100
+    ],
+    "body_scalp_row": 60,
+    "sole_row": 99,
+    "body_height_cells": 40,
+    "head_chin_row_manual": 72,
+    "head_height_cells_manual": 13,
+    "total_height_with_weapon": 47,
+    "width_with_weapon": 56,
+    "opaque_colors": 25,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "eye_pixels": [
+      [
+        73,
+        67
+      ],
+      [
+        76,
+        67
+      ]
+    ],
+    "grid_verified": true,
+    "pixels_below_soles": 0,
+    "weapon_tip_above_scalp": 7
+  },
+  "B": {
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "bbox_1x": [
+      42,
+      52,
+      98,
+      100
+    ],
+    "body_scalp_row": 60,
+    "sole_row": 99,
+    "body_height_cells": 40,
+    "head_chin_row_manual": 70,
+    "head_height_cells_manual": 11,
+    "total_height_with_weapon": 48,
+    "width_with_weapon": 56,
+    "opaque_colors": 25,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "eye_pixels": [
+      [
+        75,
+        65
+      ],
+      [
+        79,
+        65
+      ]
+    ],
+    "grid_verified": true,
+    "pixels_below_soles": 0,
+    "weapon_tip_above_scalp": 8
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "tool": "image_gen.imagegen",
+  "transparent_background": true,
+  "reference_order": [
+    "tfm2_style_ref_gunner.png",
+    "lucian_new_look.png",
+    "lucian_now_design.png",
+    "lucian_size_guide.png"
+  ],
+  "attempts": [
+    {
+      "id": "initial",
+      "selected": false,
+      "prompt": "Draw a SINGLE actual tiny 36-pixel-tall game sprite, NOT a detailed illustration with pixel texture. FIRST reference is the mandatory Teamfight Manager 2 pixel-art style: match these chunky coarse pixels, tiny 3-head-tall body proportions, flat color clusters and readable eyes exactly. SECOND reference is Lucian's redesigned outfit and stance ONLY, do NOT copy its high detail or fine pixel density. THIRD reference shows the required canvas and ground anchor. FOURTH shows a rejected direct shrink, use only its size, NEVER its blurry broken shapes.\n\nOutput one transparent 1024x1024 PNG, designed on a 128x128 logical pixel grid and enlarged exactly 8x nearest neighbor. EVERY logical pixel is a flat solid 8x8 square; no details smaller than this. The entire body is ONLY 36 logical pixels from top of hair to soles, 41 including the raised gun. Body head height 11-12 logical pixels, short torso and short legs; broad readable face. Full figure occupies only about 328 pixels vertically with HUGE transparent margins. Feet on logical row 99 (output y792-799), with no pixels whatsoever below output y799. Center the standing point at x512.\n\nDraw Lucian, an adult Black male gunslinger with dark brown skin and very short black hair, shaved side stripes indicated by ONE simple lighter pixel line, stern thick brows. Turn face enough toward viewer to show BOTH eyes, while torso/stance faces right in 3/4 FRONT view. No protruding nose pixel. Near eye 2 pixels wide, far eye 1 pixel wide, 1 skin pixel between, SAME HEIGHT. Three-row eye structure: dark brows then pale eye whites and dark pupils. Eye white/pupil colors unique to eyes, never elsewhere. Make this face readable at native size.\n\nHis white high-collared long coat has broad unbroken ivory areas and SIMPLE gold edge, NOT ornate filigree. Coat tails extend behind him to image left with muted purple lining. Dark charcoal vest with a simplified gold cross strap/buckle, dark pants, gray knee guards with simple gold edge, dark boots, black gloves and white sleeves with gold cuff.\nTWO white relic handguns, black grips and simple gold edge: left-image gun held beside head muzzle UP, right-image gun held horizontally pointing RIGHT at shoulder height. Each gun a clear solid shape minimum 6x3 logical pixels and separated from arm by a single outline. Keep both feet, both hands, both guns fully visible. Balanced legs-apart stance of reference TWO, compressed to game proportions.\n\nUse at most 24 flat colors TOTAL, 2-3 shades per material. Suggested palette: single outer outline #15131B; hair #251C20 #3B2A28; skin #9E6747 #754932 #BE8860; coat/guns #E5DCCA #B4AC9E #877F77; gold #C5A164 #927340 #E4C687; dark fabric #2C2B38 #41404E #1E1E29; armor #62616C #85828A; purple lining #5D3F62 #3D2D49; eyes-only white #F3F4EF and pupil #152B35. ONE single-pixel outer outline, material dark shades inside, no second black ring. Broad simple shapes, NO fine decorative patterns. No gradient, dithering, blur, glow, soft alpha, shadow, magic, muzzle flashes, background, text, grid or frame. Genuine alpha transparency. One idle MODEL ONLY, no sprite sheet or extra poses. PRIORITY: reference ONE simplicity, 11-12px head, two visible eyes, and clear coat/pistol shapes.",
+      "source": "exec-18522352-ff34-4182-a7bc-ae51455737c9.png",
+      "issue": "Only one eye visible; face correction required."
+    },
+    {
+      "id": "face_correction",
+      "selected": true,
+      "prompt": "Edit this exact tiny Lucian pixel sprite. Change ONLY THE FACE ORIENTATION AND FACIAL PIXELS. Currently he is nearly full profile and only one eye shows; this is wrong. Turn his face toward the viewer into a THREE-QUARTER FRONT view so that TWO DISTINCT EYES are plainly visible. Keep the head's size and location, hairstyle, outline except the nose, and ALL clothes/body/weapons/pose/canvas/transparent background identical. Draw TWO eyes at the SAME HEIGHT with exactly one skin-color pixel column between them: on viewer left a 2-pixel-wide eye, on viewer right a 1-pixel-wide eye. Both eyes have a dark eyebrow row above pale gray-white eye whites and dark iris. Make the right cheek round/flat and remove any nose tip protruding from the head silhouette. Keep dark brown skin, short shaved black hair and stern expression. Use coarse clear pixel blocks, not fine detail. All existing body, coat, gold trim, pistols, feet and their positioning unchanged. Genuine transparent alpha background. TWO VISIBLE EYES is the only purpose of this correction.",
+      "reference": "initial via num_last_images_to_include=1",
+      "source": "exec-a29e5d14-a888-4e30-8bb9-ca905f2802dc.png",
+      "output": "lucian_native.png"
+    }
+  ]
+}

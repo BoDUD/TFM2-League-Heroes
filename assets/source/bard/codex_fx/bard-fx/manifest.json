@@ -1,0 +1,1017 @@
+{
+  "assets": [
+    {
+      "file": "bard_fx_a_bolt.png",
+      "binding": "view_projectiles `league_bard_a_bolt`（朝飞行方向转，画成朝右飞；上下对称）",
+      "size": "10 × 6",
+      "tag": "a_bolt",
+      "frames": 4,
+      "cell": [
+        12,
+        8
+      ],
+      "symmetry": "vertical",
+      "prompt_path": "outputs\\bard-fx\\prompts\\a_bolt.txt",
+      "raw_file": "a_bolt.png",
+      "pixel_1x_size": [
+        48,
+        8
+      ],
+      "8x_size": [
+        384,
+        64
+      ],
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "source_virtual_cell_width": 543.0,
+      "source_virtual_cell_top": 177.5,
+      "source_virtual_cell_height": 362.0,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "9949bbd4b796912b79fb0c2b63842bebc72358e42f9817d5d05f089a8c5d1c5e",
+      "final_sha256": "39127fa5c95bcceb9b41a04f6942476a6d27ac0434f37757d4a7a6602c48a66e",
+      "foreground_cells_per_frame": [
+        12,
+        16,
+        22,
+        16
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "1df06e8805e2ecdf3a4451e057d8256395951f3be78dcdafca153a8e2176ece7",
+      "selected_prompt": "prompts/a_bolt.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_a_hit.png",
+      "binding": "view_effects `league_bard_a_hit`（跟随，画在人物上面；左右对称）",
+      "size": "10",
+      "tag": "a_hit",
+      "frames": 4,
+      "cell": [
+        12,
+        12
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\a_hit.txt",
+      "raw_file": "a_hit.png",
+      "pixel_1x_size": [
+        48,
+        12
+      ],
+      "8x_size": [
+        384,
+        96
+      ],
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "source_virtual_cell_width": 543.0,
+      "source_virtual_cell_top": 85.0,
+      "source_virtual_cell_height": 543.0,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "00e0fc407c1b0468285246f01a2ee25e632a4f01734d31acf066c8c3c92b4f3d",
+      "final_sha256": "3076b3e24dec59cc3ab1b7036936908afa17d3042ea9641444dcab08469d6aa1",
+      "foreground_cells_per_frame": [
+        4,
+        20,
+        14,
+        4
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "16de71c175e143f46daa8da75864fb75aab4c8741b48123ba75530a6e2bd67cf",
+      "selected_prompt": "prompts/a_hit.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_p_meep.png",
+      "binding": "view_projectiles `league_bard_p_meep`（朝飞行方向转，画成朝右飞；上下对称）",
+      "size": "10 × 8",
+      "tag": "p_meep",
+      "frames": 4,
+      "cell": [
+        12,
+        10
+      ],
+      "symmetry": "vertical",
+      "prompt_path": "outputs\\bard-fx\\prompts\\p_meep.txt",
+      "raw_file": "p_meep.png",
+      "pixel_1x_size": [
+        48,
+        10
+      ],
+      "8x_size": [
+        384,
+        80
+      ],
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "source_virtual_cell_width": 543.0,
+      "source_virtual_cell_top": 112.75,
+      "source_virtual_cell_height": 452.5,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#A86A1E",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "6ee4c938759a608d794abc709f7b01ba832e5be1dee7d7daab815a2b7c7a051b",
+      "final_sha256": "78ece3f4f2eb3cd05f22549b360ed5a453031688565f5a1c02a08313c34b06b8",
+      "foreground_cells_per_frame": [
+        42,
+        40,
+        42,
+        44
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "b8c380b319fd2712f518091b632839d84eb02eacd490da8053c993780bda4ff2",
+      "selected_prompt": "prompts/p_meep-repair.txt",
+      "notes": "米普双眼在第4帧较弱；细旋涡读回时简化。保持上下精确对称。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid",
+      "source_extent_override": [
+        12,
+        6
+      ]
+    },
+    {
+      "file": "bard_fx_p_hit.png",
+      "binding": "view_effects `league_bard_p_hit`（跟随，画在人物上面；左右对称）",
+      "size": "18 × 12",
+      "tag": "p_hit",
+      "frames": 5,
+      "cell": [
+        20,
+        14
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\p_hit.txt",
+      "raw_file": "p_hit.png",
+      "pixel_1x_size": [
+        100,
+        14
+      ],
+      "8x_size": [
+        800,
+        112
+      ],
+      "source_native_size": [
+        2091,
+        752
+      ],
+      "source_virtual_cell_width": 418.2,
+      "source_virtual_cell_top": 236.63,
+      "source_virtual_cell_height": 292.74,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "cbeb840441c2a750003407520227d74cda59afb57554053e45e942ed3241954f",
+      "final_sha256": "1670c4cbe7bad8bfb68ae4767254fdc024a69b813cb8c4bf3aeb6c34f3e80ca6",
+      "foreground_cells_per_frame": [
+        24,
+        96,
+        110,
+        64,
+        16
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "3ba3c396a5fc01e9d7abc92d46092c9e763a675af81d4b6e82d20e18d351007f",
+      "selected_prompt": "prompts/p_hit.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_q_bolt.png",
+      "binding": "view_projectiles `league_bard_q_bolt`（朝飞行方向转，画成朝右飞；上下对称）",
+      "size": "16 × 10",
+      "tag": "q_bolt",
+      "frames": 4,
+      "cell": [
+        18,
+        12
+      ],
+      "symmetry": "vertical",
+      "prompt_path": "outputs\\bard-fx\\prompts\\q_bolt.txt",
+      "raw_file": "q_bolt.png",
+      "pixel_1x_size": [
+        72,
+        12
+      ],
+      "8x_size": [
+        576,
+        96
+      ],
+      "source_native_size": [
+        2171,
+        724
+      ],
+      "source_virtual_cell_width": 542.75,
+      "source_virtual_cell_top": 180.58333333333334,
+      "source_virtual_cell_height": 361.8333333333333,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "3da2d70deb4b05008ebd045a798f62a830b096062697ffe5b52060951a897dce",
+      "final_sha256": "8b216d6cfe5cf4b7c6239be510063c72d677a016ad7a70d5614db30cfdd6b8f3",
+      "foreground_cells_per_frame": [
+        60,
+        74,
+        86,
+        78
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "83d56dfff6df1312be03501961c7c841a6046d0f6a1a9441afed0206ae59c84a",
+      "selected_prompt": "prompts/q_bolt.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_q_hit.png",
+      "binding": "view_effects `league_bard_q_hit`（跟随，画在人物上面；左右对称）",
+      "size": "16",
+      "tag": "q_hit",
+      "frames": 5,
+      "cell": [
+        18,
+        18
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\q_hit.txt",
+      "raw_file": "q_hit.png",
+      "pixel_1x_size": [
+        90,
+        18
+      ],
+      "8x_size": [
+        720,
+        144
+      ],
+      "source_native_size": [
+        2171,
+        724
+      ],
+      "source_virtual_cell_width": 434.2,
+      "source_virtual_cell_top": 133.9,
+      "source_virtual_cell_height": 434.2,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "261405300c078687dbab6cab8770525834b59e751ea0108fbf1d7234f0b5cc90",
+      "final_sha256": "bb5f926dfc48532d647841b14268e3627e83481bceabdf37113b85285e45be43",
+      "foreground_cells_per_frame": [
+        28,
+        118,
+        128,
+        76,
+        30
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "5ff2b2fab61354eb776b1003b64fe853b3ffc24a97f679c4c32672c8626a6dbd",
+      "selected_prompt": "prompts/q_hit.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_q_bind.png",
+      "binding": "view_effects `league_bard_q_bind`（跟随，画在人物上面；左右对称；6 帧铺满 1.5 秒）",
+      "size": "22 × 14",
+      "tag": "q_bind",
+      "frames": 6,
+      "cell": [
+        24,
+        16
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\q_bind.txt",
+      "raw_file": "q_bind.png",
+      "pixel_1x_size": [
+        144,
+        16
+      ],
+      "8x_size": [
+        1152,
+        128
+      ],
+      "source_native_size": [
+        1881,
+        836
+      ],
+      "source_virtual_cell_width": 313.5,
+      "source_virtual_cell_top": 315.5,
+      "source_virtual_cell_height": 209.0,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "9a8cd158cfc94cced24bdf1bc5c9c37a02c4711b299955c1166f525ef5370a83",
+      "final_sha256": "6b2b42c3fbecdda3edcb77e9f7add3197992aecbc13a3ac1a21a89e167c47ea2",
+      "foreground_cells_per_frame": [
+        34,
+        26,
+        22,
+        24,
+        26,
+        14
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "d7859d9b6bd413c09f5aaf113cb31ff0dc9e5f8b9ceb74d348e9213c6340f1a1",
+      "selected_prompt": "prompts/q_bind.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_w_shrine.png",
+      "binding": "view_projectiles `league_bard_w_shrine`（朝飞行方向转，画成朝右飞；上下对称）",
+      "size": "10",
+      "tag": "w_shrine",
+      "frames": 4,
+      "cell": [
+        12,
+        12
+      ],
+      "symmetry": "vertical",
+      "prompt_path": "outputs\\bard-fx\\prompts\\w_shrine.txt",
+      "raw_file": "w_shrine.png",
+      "pixel_1x_size": [
+        48,
+        12
+      ],
+      "8x_size": [
+        384,
+        96
+      ],
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "source_virtual_cell_width": 543.0,
+      "source_virtual_cell_top": 85.0,
+      "source_virtual_cell_height": 543.0,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F4FFE0",
+        "#C6F27A",
+        "#7FCF4A",
+        "#3E8F3A",
+        "#8A5A2E"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "49886ec8dd4de5a7bf2173709286a866a060db0ddc8f19de7176fc04e0ba26d6",
+      "final_sha256": "fb77a4a8c86e6597f43441d8926dbf5ea7fb09970959b3e52826e9e5568af512",
+      "foreground_cells_per_frame": [
+        40,
+        44,
+        36,
+        34
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "dbbde51297d35a0976e4c1de876818ccf431a032432bf91899a2b8da2565286d",
+      "selected_prompt": "prompts/w_shrine.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_w_land.png",
+      "binding": "view_effects `league_bard_w_land`（跟随，画在人物上面；左右对称）",
+      "size": "20 × 26",
+      "tag": "w_land",
+      "frames": 6,
+      "cell": [
+        22,
+        28
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\w_land.txt",
+      "raw_file": "w_land.png",
+      "pixel_1x_size": [
+        132,
+        28
+      ],
+      "8x_size": [
+        1056,
+        224
+      ],
+      "source_native_size": [
+        2171,
+        724
+      ],
+      "source_virtual_cell_width": 361.8333333333333,
+      "source_virtual_cell_top": 141.24242424242428,
+      "source_virtual_cell_height": 460.51515151515144,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F4FFE0",
+        "#C6F27A",
+        "#7FCF4A",
+        "#3E8F3A",
+        "#8A5A2E"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "6ec050f847890a136bba5c8f72fef59732a3218592e4f62697e509b0d65d9a50",
+      "final_sha256": "57182d9d8a6175b377a72e5c0b946ad8643d56ea5602fd249de91571d373ef0a",
+      "foreground_cells_per_frame": [
+        46,
+        102,
+        114,
+        84,
+        48,
+        16
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "7820aa11813670a36dbcc34321667daa1faa1400c0ddb6dc2a2d056ddb96189c",
+      "selected_prompt": "prompts/w_land.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_e_door.png",
+      "binding": "view_effects `league_bard_e_door`（入口：不跟随，画在人物下面；出口 `e_door_out` 用同一张，跟随；左右对称）",
+      "size": "18 × 30",
+      "tag": "e_door",
+      "frames": 6,
+      "cell": [
+        20,
+        32
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\e_door.txt",
+      "raw_file": "e_door.png",
+      "pixel_1x_size": [
+        120,
+        32
+      ],
+      "8x_size": [
+        960,
+        256
+      ],
+      "source_native_size": [
+        2171,
+        724
+      ],
+      "source_virtual_cell_width": 361.8333333333333,
+      "source_virtual_cell_top": 54.03333333333336,
+      "source_virtual_cell_height": 578.9333333333333,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "b0381a302cc911799aa0db671d035d77716f3ff3607e66e734af63688f5a063b",
+      "final_sha256": "51509b0a522336248322d67dede6da51efa787c115788f8ce544d90e6a257b2f",
+      "foreground_cells_per_frame": [
+        40,
+        114,
+        138,
+        96,
+        24,
+        42
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "faddfb53e3fe89cd60059b1c9244c83c58f593fcbd4085fba04f78071d6322fd",
+      "selected_prompt": "prompts/e_door.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_e_ride.png",
+      "binding": "view_effects `league_bard_e_ride`（跟随，画在人物上面；左右对称）",
+      "size": "16 × 22",
+      "tag": "e_ride",
+      "frames": 4,
+      "cell": [
+        18,
+        24
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\e_ride.txt",
+      "raw_file": "e_ride.png",
+      "pixel_1x_size": [
+        72,
+        24
+      ],
+      "8x_size": [
+        576,
+        192
+      ],
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "source_virtual_cell_width": 543.0,
+      "source_virtual_cell_top": 4.0,
+      "source_virtual_cell_height": 724.0,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "07f92de00762a15622353715451f5dd79494c616d62716ecc965f97d8564f0e5",
+      "final_sha256": "9b8aa98ba7b71284c279ad2fa46e0ca0fd696f2a7b613e856f75bf1ca1e1c54a",
+      "foreground_cells_per_frame": [
+        10,
+        28,
+        40,
+        6
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "7e4255f9c8f973c859c7368da42388a11d9ebb6729a808c85bab0b2b5312b19a",
+      "selected_prompt": "prompts/e_ride.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_r_orb.png",
+      "binding": "view_projectiles `league_bard_r_orb`（朝飞行方向转；上下、左右都对称）",
+      "size": "14",
+      "tag": "r_orb",
+      "frames": 4,
+      "cell": [
+        16,
+        16
+      ],
+      "symmetry": "both",
+      "prompt_path": "outputs\\bard-fx\\prompts\\r_orb.txt",
+      "raw_file": "r_orb.png",
+      "pixel_1x_size": [
+        64,
+        16
+      ],
+      "8x_size": [
+        512,
+        128
+      ],
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "source_virtual_cell_width": 543.0,
+      "source_virtual_cell_top": 59.0,
+      "source_virtual_cell_height": 543.0,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "e71625ef58a3595908ef53f6be71c57283a1f495a5c1924411a3a9c9864e00ce",
+      "final_sha256": "a9699284cd48689d1e6320f5a7b896d2503bdcf28c3224af61e6e008302ffa6c",
+      "foreground_cells_per_frame": [
+        76,
+        64,
+        60,
+        64
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "4abdb52c40fb181f570a5c484bbd53ef6e927cee07f9232974175876a36efdb1",
+      "selected_prompt": "prompts/r_orb.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_r_mark.png",
+      "binding": "view_effects `league_bard_r_mark`（不跟随，画在人物下面；左右对称；6 帧铺满法球飞行 0.4 秒）",
+      "size": "52 × 18",
+      "tag": "r_mark",
+      "frames": 6,
+      "cell": [
+        54,
+        20
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\r_mark.txt",
+      "raw_file": "r_mark.png",
+      "pixel_1x_size": [
+        324,
+        20
+      ],
+      "8x_size": [
+        2592,
+        160
+      ],
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "source_virtual_cell_width": 362.0,
+      "source_virtual_cell_top": 290.46296296296293,
+      "source_virtual_cell_height": 134.07407407407408,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "2ed21e9ea9fb4f591b9cd94727147fa47b8ed6e93c5000a677397328ab40ae51",
+      "final_sha256": "32c36e1165a27cd6c2aac7b78b06c632d44e16bb14bb666b9684f25d644a6ba9",
+      "foreground_cells_per_frame": [
+        44,
+        114,
+        160,
+        224,
+        256,
+        284
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "fb95003c43dd4c71bf4df3866b84cf25fdd787db8d57e2595028ceca3432937a",
+      "selected_prompt": "prompts/r_mark.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_r_dome.png",
+      "binding": "view_effects `league_bard_r_dome`（不跟随，画在人物上面；左右对称）",
+      "size": "52 × 40",
+      "tag": "r_dome",
+      "frames": 5,
+      "cell": [
+        54,
+        42
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\r_dome.txt",
+      "raw_file": "r_dome.png",
+      "pixel_1x_size": [
+        270,
+        42
+      ],
+      "8x_size": [
+        2160,
+        336
+      ],
+      "source_native_size": [
+        2171,
+        724
+      ],
+      "source_virtual_cell_width": 434.2,
+      "source_virtual_cell_top": 191.64444444444447,
+      "source_virtual_cell_height": 337.71111111111105,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "3509a0d58b8e1984ea1b87381ff61cc9e6906804b7a3e7edb94b9cd1f81ef67b",
+      "final_sha256": "bbe6d6127814970ca9ef04b89410d9617ac7ac9235292e7372179a4a05d9a2ee",
+      "foreground_cells_per_frame": [
+        422,
+        802,
+        940,
+        766,
+        380
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "98ad9c618b48da61c8c84aab02d8867e986e24b1baef4258727c81a8264466ae",
+      "selected_prompt": "prompts/r_dome.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_r_lock.png",
+      "binding": "view_effects `league_bard_r_lock`（时停的锁定画面：不跟随，画在人物上面；左右对称；6 帧铺满 2.5 秒）",
+      "size": "24 × 30",
+      "tag": "r_lock",
+      "frames": 6,
+      "cell": [
+        26,
+        32
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\r_lock.txt",
+      "raw_file": "r_lock.png",
+      "pixel_1x_size": [
+        156,
+        32
+      ],
+      "8x_size": [
+        1248,
+        256
+      ],
+      "source_native_size": [
+        2171,
+        724
+      ],
+      "source_virtual_cell_width": 361.8333333333333,
+      "source_virtual_cell_top": 127.33333333333334,
+      "source_virtual_cell_height": 445.3333333333333,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#A86A1E",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "6a9cbb046ecfda48a8515cab992f286139e21bc9748b08816ec4ba195b873b6d",
+      "final_sha256": "ac22a2c574c328d2547a60ac8c9474f148aadf3e754f4d8546249f6147e184c9",
+      "foreground_cells_per_frame": [
+        144,
+        384,
+        386,
+        386,
+        390,
+        384
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "254ccca7c9b01db3f9e12af6c70c48969daa83b2816a2e6ebc45b55f1dcb01eb",
+      "selected_prompt": "prompts/r_lock.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_r_free.png",
+      "binding": "view_effects `league_bard_r_free`（不跟随，画在人物上面；左右对称）",
+      "size": "28 × 32",
+      "tag": "r_free",
+      "frames": 4,
+      "cell": [
+        30,
+        34
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\r_free.txt",
+      "raw_file": "r_free.png",
+      "pixel_1x_size": [
+        120,
+        34
+      ],
+      "8x_size": [
+        960,
+        272
+      ],
+      "source_native_size": [
+        2171,
+        724
+      ],
+      "source_virtual_cell_width": 542.75,
+      "source_virtual_cell_top": 59.44166666666666,
+      "source_virtual_cell_height": 615.1166666666667,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "5a67578168507436e84c05a01b3f06ddcbb8210561178873bc20f69de017cdd0",
+      "final_sha256": "618cafd280ab4fe7e16d91d83b37b746650e274226ddb6654e7b137bf235715e",
+      "foreground_cells_per_frame": [
+        448,
+        342,
+        114,
+        38
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "fde9f36b1203fef63a5253c532d40e56f1b16dec370206e33cb6dd24f17a745f",
+      "selected_prompt": "prompts/r_free.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_slow.png",
+      "binding": "view_buffs `league_bard_p_slow` 和 `league_bard_q_slow`（跟随，画在人物下面；左右对称）",
+      "size": "18 × 6",
+      "tag": "slow",
+      "frames": 4,
+      "cell": [
+        20,
+        8
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\slow.txt",
+      "raw_file": "slow.png",
+      "pixel_1x_size": [
+        80,
+        8
+      ],
+      "8x_size": [
+        640,
+        64
+      ],
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "source_virtual_cell_width": 543.0,
+      "source_virtual_cell_top": 262.9,
+      "source_virtual_cell_height": 217.2,
+      "palette": [
+        "#FFFFFF",
+        "#F2E8FF",
+        "#C7B3FF",
+        "#8E7BEA",
+        "#5A4CC4"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "8a3f287756f5e03efac2503c040257bffb92622eaac59f97a092151c2ae15f28",
+      "final_sha256": "00f011b4504683808f2cb9842a442d63e57f7a71efbbda5d3cd579b86c2bc2f0",
+      "foreground_cells_per_frame": [
+        34,
+        36,
+        34,
+        36
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "06a879660ef5624a98f45e8651508d67f5395311a490a64d9aa41c9f48f054e8",
+      "selected_prompt": "prompts/slow.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    },
+    {
+      "file": "bard_fx_haste.png",
+      "binding": "view_buffs `league_bard_w_haste` 和 `league_bard_e_haste`（跟随，画在人物下面；左右对称）",
+      "size": "18 × 8",
+      "tag": "haste",
+      "frames": 4,
+      "cell": [
+        20,
+        10
+      ],
+      "symmetry": "horizontal",
+      "prompt_path": "outputs\\bard-fx\\prompts\\haste.txt",
+      "raw_file": "haste.png",
+      "pixel_1x_size": [
+        80,
+        10
+      ],
+      "8x_size": [
+        640,
+        80
+      ],
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "source_virtual_cell_width": 543.0,
+      "source_virtual_cell_top": 224.75,
+      "source_virtual_cell_height": 271.5,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#F5C343",
+        "#D9962B",
+        "#F4FFE0",
+        "#C6F27A",
+        "#7FCF4A",
+        "#3E8F3A"
+      ],
+      "majority_grid": true,
+      "hard_alpha": true,
+      "exact_symmetry_verified": true,
+      "raw_sha256": "32fc21e4c91146c76ae6e719e34174c8a6d92fe3fa96224d8a0943bf79588fd6",
+      "final_sha256": "b1405969b48c32238d1a5b9cb208898a7f35c9d1b7ada331549ae09869fae9f1",
+      "foreground_cells_per_frame": [
+        42,
+        34,
+        32,
+        42
+      ],
+      "frame_count_validated": true,
+      "pixel_1x_sha256": "370e63935ef14edfb0251912316fc731ed014f143a783eb32654b7fd0a10e0e1",
+      "selected_prompt": "prompts/haste.txt",
+      "notes": "小细节经多数投票简化；帧动画未在游戏运行时验证。",
+      "source_frame_bounds_rule": "equal native horizontal tiles; opaque bounds per tile; common max width/height -> requested effect extent; majority votes on derived grid"
+    }
+  ],
+  "count": 18,
+  "expected": 18,
+  "scale": 8,
+  "generation": "built-in image_gen; no procedural shapes",
+  "postprocess": "Read generated art through source virtual cell grid. Alpha majority; nearest permitted palette then majority color; per-frame mirrored source colors; hollow unit areas cleared except opening/closing portal lines and filled r_lock. No procedural shape drawing. Deepest enclosing light tones excluded.",
+  "references_excluded_from_delivery": true,
+  "total_animation_frames": 85,
+  "validation": "18 strips,85 frames,nonempty,palette,hard alpha,per-frame exact symmetry,exact8x replication all passed"
+}

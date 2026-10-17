@@ -1,0 +1,17 @@
+{
+  "bolt": {"cell": [27, 7], "anchor": [13, 3]},
+  "hit": {"cell": [17, 17], "anchor": [8, 8]},
+  "q_bolt": {"cell": [47, 11], "anchor": [23, 5]},
+  "q_hit": {"cell": [25, 25], "anchor": [12, 12]},
+  "w_orb": {"cell": [33, 19], "anchor": [16, 9]},
+  "w_stick": {"cell": [27, 17], "anchor": [13, 8]},
+  "w_mark": {"cell": [21, 21], "anchor": [10, 10]},
+  "w_boom": {"cell": [43, 47], "anchor": [21, 23]},
+  "e_blink": {"cell": [33, 85], "anchor": [16, 42]},
+  "e_bolt": {"cell": [35, 7], "anchor": [17, 3]},
+  "e_hit": {"cell": [23, 21], "anchor": [11, 10]},
+  "r_charge": {"cell": [31, 29], "anchor": [15, 14]},
+  "r_wave": {"cell": [77, 39], "anchor": [38, 19]},
+  "r_hit": {"cell": [29, 29], "anchor": [14, 14]},
+  "rsf": {"cell": [29, 69], "anchor": [14, 34]}
+}
