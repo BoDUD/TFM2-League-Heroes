@@ -1,0 +1,2772 @@
+{
+  "assets": [
+    {
+      "id": 1,
+      "file": "kaisa_fx_bolt.png",
+      "size": [
+        2172,
+        724
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": true,
+      "requested_cell_size": [
+        288,
+        96
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            79,
+            299,
+            477,
+            431
+          ],
+          "stack": null,
+          "brightness_mean": 99.76,
+          "brightness_top10_mean": 247.36,
+          "opaque_pixels": 11746
+        },
+        {
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            74,
+            306,
+            477,
+            445
+          ],
+          "stack": null,
+          "brightness_mean": 105.91,
+          "brightness_top10_mean": 244.78,
+          "opaque_pixels": 19775
+        },
+        {
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            46,
+            287,
+            483,
+            454
+          ],
+          "stack": null,
+          "brightness_mean": 109.88,
+          "brightness_top10_mean": 248.47,
+          "opaque_pixels": 27766
+        },
+        {
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            63,
+            298,
+            478,
+            438
+          ],
+          "stack": null,
+          "brightness_mean": 100.15,
+          "brightness_top10_mean": 245.54,
+          "opaque_pixels": 16740
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 2,
+      "file": "kaisa_fx_q_missile.png",
+      "size": [
+        1983,
+        793
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": true,
+      "requested_cell_size": [
+        320,
+        192
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            41,
+            303,
+            453,
+            506
+          ],
+          "stack": null,
+          "brightness_mean": 80.42,
+          "brightness_top10_mean": 228.26,
+          "opaque_pixels": 26646
+        },
+        {
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            37,
+            301,
+            455,
+            506
+          ],
+          "stack": null,
+          "brightness_mean": 80.45,
+          "brightness_top10_mean": 230.17,
+          "opaque_pixels": 26093
+        },
+        {
+          "rect": [
+            992,
+            0,
+            495,
+            793
+          ],
+          "bbox": [
+            39,
+            301,
+            455,
+            497
+          ],
+          "stack": null,
+          "brightness_mean": 82.92,
+          "brightness_top10_mean": 227.91,
+          "opaque_pixels": 25443
+        },
+        {
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            44,
+            303,
+            457,
+            506
+          ],
+          "stack": null,
+          "brightness_mean": 81.94,
+          "brightness_top10_mean": 227.41,
+          "opaque_pixels": 25935
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 3,
+      "file": "kaisa_fx_w_bolt.png",
+      "size": [
+        2172,
+        724
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": true,
+      "requested_cell_size": [
+        432,
+        144
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            23,
+            266,
+            522,
+            457
+          ],
+          "stack": null,
+          "brightness_mean": 79.41,
+          "brightness_top10_mean": 239.8,
+          "opaque_pixels": 38637
+        },
+        {
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            23,
+            262,
+            521,
+            463
+          ],
+          "stack": null,
+          "brightness_mean": 78.23,
+          "brightness_top10_mean": 233.3,
+          "opaque_pixels": 41794
+        },
+        {
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            22,
+            257,
+            522,
+            466
+          ],
+          "stack": null,
+          "brightness_mean": 79.29,
+          "brightness_top10_mean": 236.09,
+          "opaque_pixels": 40350
+        },
+        {
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            22,
+            257,
+            521,
+            466
+          ],
+          "stack": null,
+          "brightness_mean": 81.01,
+          "brightness_top10_mean": 237.13,
+          "opaque_pixels": 41820
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 4,
+      "file": "kaisa_fx_shot.png",
+      "size": [
+        2172,
+        724
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        320,
+        256
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            26,
+            170,
+            543,
+            595
+          ],
+          "stack": null,
+          "brightness_mean": 154.91,
+          "brightness_top10_mean": 252.58,
+          "opaque_pixels": 37259
+        },
+        {
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            0,
+            220,
+            508,
+            552
+          ],
+          "stack": null,
+          "brightness_mean": 112.17,
+          "brightness_top10_mean": 244.13,
+          "opaque_pixels": 48188
+        },
+        {
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            52,
+            220,
+            517,
+            554
+          ],
+          "stack": null,
+          "brightness_mean": 118.11,
+          "brightness_top10_mean": 239.29,
+          "opaque_pixels": 31314
+        },
+        {
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            77,
+            279,
+            464,
+            486
+          ],
+          "stack": null,
+          "brightness_mean": 109.64,
+          "brightness_top10_mean": 178.66,
+          "opaque_pixels": 4350
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 5,
+      "file": "kaisa_fx_hit.png",
+      "size": [
+        2172,
+        724
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            118,
+            223,
+            444,
+            549
+          ],
+          "stack": null,
+          "brightness_mean": 181.31,
+          "brightness_top10_mean": 253.76,
+          "opaque_pixels": 21579
+        },
+        {
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            44,
+            162,
+            479,
+            596
+          ],
+          "stack": null,
+          "brightness_mean": 108.77,
+          "brightness_top10_mean": 252.53,
+          "opaque_pixels": 40932
+        },
+        {
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            66,
+            178,
+            484,
+            586
+          ],
+          "stack": null,
+          "brightness_mean": 91.89,
+          "brightness_top10_mean": 219.67,
+          "opaque_pixels": 20252
+        },
+        {
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            80,
+            212,
+            463,
+            569
+          ],
+          "stack": null,
+          "brightness_mean": 68.39,
+          "brightness_top10_mean": 183.68,
+          "opaque_pixels": 3077
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 6,
+      "file": "kaisa_fx_pl_stack.png",
+      "size": [
+        2032,
+        774
+      ],
+      "layout": [
+        6,
+        4
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        224,
+        128
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            339,
+            194
+          ],
+          "bbox": [
+            132,
+            46,
+            302,
+            185
+          ],
+          "stack": 1,
+          "brightness_mean": 77.34,
+          "brightness_top10_mean": 239.58,
+          "opaque_pixels": 7398
+        },
+        {
+          "rect": [
+            339,
+            0,
+            338,
+            194
+          ],
+          "bbox": [
+            140,
+            62,
+            283,
+            173
+          ],
+          "stack": 1,
+          "brightness_mean": 52.21,
+          "brightness_top10_mean": 184.94,
+          "opaque_pixels": 4266
+        },
+        {
+          "rect": [
+            677,
+            0,
+            339,
+            194
+          ],
+          "bbox": [
+            107,
+            60,
+            261,
+            175
+          ],
+          "stack": 1,
+          "brightness_mean": 57.74,
+          "brightness_top10_mean": 219.07,
+          "opaque_pixels": 5175
+        },
+        {
+          "rect": [
+            1016,
+            0,
+            339,
+            194
+          ],
+          "bbox": [
+            82,
+            61,
+            231,
+            175
+          ],
+          "stack": 1,
+          "brightness_mean": 52.19,
+          "brightness_top10_mean": 188.52,
+          "opaque_pixels": 4351
+        },
+        {
+          "rect": [
+            1355,
+            0,
+            338,
+            194
+          ],
+          "bbox": [
+            50,
+            60,
+            202,
+            174
+          ],
+          "stack": 1,
+          "brightness_mean": 55.78,
+          "brightness_top10_mean": 206.46,
+          "opaque_pixels": 4762
+        },
+        {
+          "rect": [
+            1693,
+            0,
+            339,
+            194
+          ],
+          "bbox": [
+            59,
+            81,
+            164,
+            163
+          ],
+          "stack": 1,
+          "brightness_mean": 49.76,
+          "brightness_top10_mean": 178.15,
+          "opaque_pixels": 1696
+        },
+        {
+          "rect": [
+            0,
+            194,
+            339,
+            193
+          ],
+          "bbox": [
+            126,
+            30,
+            303,
+            171
+          ],
+          "stack": 2,
+          "brightness_mean": 78.53,
+          "brightness_top10_mean": 247.34,
+          "opaque_pixels": 8288
+        },
+        {
+          "rect": [
+            339,
+            194,
+            338,
+            193
+          ],
+          "bbox": [
+            135,
+            46,
+            288,
+            161
+          ],
+          "stack": 2,
+          "brightness_mean": 60.52,
+          "brightness_top10_mean": 212.42,
+          "opaque_pixels": 5340
+        },
+        {
+          "rect": [
+            677,
+            194,
+            339,
+            193
+          ],
+          "bbox": [
+            106,
+            45,
+            265,
+            160
+          ],
+          "stack": 2,
+          "brightness_mean": 68.53,
+          "brightness_top10_mean": 244.97,
+          "opaque_pixels": 6037
+        },
+        {
+          "rect": [
+            1016,
+            194,
+            339,
+            193
+          ],
+          "bbox": [
+            78,
+            45,
+            237,
+            160
+          ],
+          "stack": 2,
+          "brightness_mean": 65.0,
+          "brightness_top10_mean": 235.62,
+          "opaque_pixels": 5595
+        },
+        {
+          "rect": [
+            1355,
+            194,
+            338,
+            193
+          ],
+          "bbox": [
+            51,
+            46,
+            207,
+            161
+          ],
+          "stack": 2,
+          "brightness_mean": 66.3,
+          "brightness_top10_mean": 239.13,
+          "opaque_pixels": 5833
+        },
+        {
+          "rect": [
+            1693,
+            194,
+            339,
+            193
+          ],
+          "bbox": [
+            57,
+            69,
+            165,
+            149
+          ],
+          "stack": 2,
+          "brightness_mean": 57.21,
+          "brightness_top10_mean": 199.25,
+          "opaque_pixels": 1761
+        },
+        {
+          "rect": [
+            0,
+            387,
+            339,
+            193
+          ],
+          "bbox": [
+            124,
+            19,
+            305,
+            159
+          ],
+          "stack": 3,
+          "brightness_mean": 86.15,
+          "brightness_top10_mean": 250.98,
+          "opaque_pixels": 8231
+        },
+        {
+          "rect": [
+            339,
+            387,
+            338,
+            193
+          ],
+          "bbox": [
+            131,
+            36,
+            290,
+            152
+          ],
+          "stack": 3,
+          "brightness_mean": 71.61,
+          "brightness_top10_mean": 242.39,
+          "opaque_pixels": 5392
+        },
+        {
+          "rect": [
+            677,
+            387,
+            339,
+            193
+          ],
+          "bbox": [
+            105,
+            35,
+            265,
+            150
+          ],
+          "stack": 3,
+          "brightness_mean": 77.35,
+          "brightness_top10_mean": 249.95,
+          "opaque_pixels": 5391
+        },
+        {
+          "rect": [
+            1016,
+            387,
+            339,
+            193
+          ],
+          "bbox": [
+            76,
+            36,
+            238,
+            152
+          ],
+          "stack": 3,
+          "brightness_mean": 74.18,
+          "brightness_top10_mean": 249.07,
+          "opaque_pixels": 5562
+        },
+        {
+          "rect": [
+            1355,
+            387,
+            338,
+            193
+          ],
+          "bbox": [
+            44,
+            34,
+            212,
+            153
+          ],
+          "stack": 3,
+          "brightness_mean": 75.84,
+          "brightness_top10_mean": 251.21,
+          "opaque_pixels": 6482
+        },
+        {
+          "rect": [
+            1693,
+            387,
+            339,
+            193
+          ],
+          "bbox": [
+            56,
+            55,
+            167,
+            138
+          ],
+          "stack": 3,
+          "brightness_mean": 70.73,
+          "brightness_top10_mean": 236.68,
+          "opaque_pixels": 2024
+        },
+        {
+          "rect": [
+            0,
+            580,
+            339,
+            194
+          ],
+          "bbox": [
+            119,
+            8,
+            310,
+            151
+          ],
+          "stack": 4,
+          "brightness_mean": 92.43,
+          "brightness_top10_mean": 251.64,
+          "opaque_pixels": 9086
+        },
+        {
+          "rect": [
+            339,
+            580,
+            338,
+            194
+          ],
+          "bbox": [
+            128,
+            26,
+            294,
+            145
+          ],
+          "stack": 4,
+          "brightness_mean": 81.54,
+          "brightness_top10_mean": 250.7,
+          "opaque_pixels": 6513
+        },
+        {
+          "rect": [
+            677,
+            580,
+            339,
+            194
+          ],
+          "bbox": [
+            100,
+            23,
+            273,
+            145
+          ],
+          "stack": 4,
+          "brightness_mean": 87.08,
+          "brightness_top10_mean": 252.22,
+          "opaque_pixels": 6700
+        },
+        {
+          "rect": [
+            1016,
+            580,
+            339,
+            194
+          ],
+          "bbox": [
+            75,
+            25,
+            240,
+            144
+          ],
+          "stack": 4,
+          "brightness_mean": 83.5,
+          "brightness_top10_mean": 251.05,
+          "opaque_pixels": 6400
+        },
+        {
+          "rect": [
+            1355,
+            580,
+            338,
+            194
+          ],
+          "bbox": [
+            43,
+            26,
+            212,
+            146
+          ],
+          "stack": 4,
+          "brightness_mean": 85.65,
+          "brightness_top10_mean": 251.58,
+          "opaque_pixels": 6832
+        },
+        {
+          "rect": [
+            1693,
+            580,
+            339,
+            194
+          ],
+          "bbox": [
+            56,
+            50,
+            167,
+            130
+          ],
+          "stack": 4,
+          "brightness_mean": 74.47,
+          "brightness_top10_mean": 239.49,
+          "opaque_pixels": 1986
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 7,
+      "file": "kaisa_fx_p_burst.png",
+      "size": [
+        1659,
+        948
+      ],
+      "layout": [
+        7,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            237,
+            948
+          ],
+          "bbox": [
+            55,
+            423,
+            194,
+            579
+          ],
+          "stack": null,
+          "brightness_mean": 175.29,
+          "brightness_top10_mean": 253.9,
+          "opaque_pixels": 2349
+        },
+        {
+          "rect": [
+            237,
+            0,
+            237,
+            948
+          ],
+          "bbox": [
+            20,
+            372,
+            230,
+            609
+          ],
+          "stack": null,
+          "brightness_mean": 118.28,
+          "brightness_top10_mean": 250.96,
+          "opaque_pixels": 12173
+        },
+        {
+          "rect": [
+            474,
+            0,
+            237,
+            948
+          ],
+          "bbox": [
+            9,
+            357,
+            237,
+            625
+          ],
+          "stack": null,
+          "brightness_mean": 117.98,
+          "brightness_top10_mean": 249.75,
+          "opaque_pixels": 24536
+        },
+        {
+          "rect": [
+            711,
+            0,
+            237,
+            948
+          ],
+          "bbox": [
+            0,
+            365,
+            237,
+            625
+          ],
+          "stack": null,
+          "brightness_mean": 118.49,
+          "brightness_top10_mean": 245.64,
+          "opaque_pixels": 10406
+        },
+        {
+          "rect": [
+            948,
+            0,
+            237,
+            948
+          ],
+          "bbox": [
+            0,
+            389,
+            236,
+            609
+          ],
+          "stack": null,
+          "brightness_mean": 123.02,
+          "brightness_top10_mean": 239.56,
+          "opaque_pixels": 2171
+        },
+        {
+          "rect": [
+            1185,
+            0,
+            237,
+            948
+          ],
+          "bbox": [
+            45,
+            423,
+            208,
+            571
+          ],
+          "stack": null,
+          "brightness_mean": 121.7,
+          "brightness_top10_mean": 249.35,
+          "opaque_pixels": 452
+        },
+        {
+          "rect": [
+            1422,
+            0,
+            237,
+            948
+          ],
+          "bbox": [
+            61,
+            456,
+            155,
+            538
+          ],
+          "stack": null,
+          "brightness_mean": 117.9,
+          "brightness_top10_mean": 238.83,
+          "opaque_pixels": 17
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 8,
+      "file": "kaisa_fx_e_cast.png",
+      "size": [
+        2172,
+        724
+      ],
+      "layout": [
+        6,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        240,
+        320
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            36,
+            400,
+            340,
+            636
+          ],
+          "stack": null,
+          "brightness_mean": 132.34,
+          "brightness_top10_mean": 251.51,
+          "opaque_pixels": 13184
+        },
+        {
+          "rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            40,
+            256,
+            333,
+            636
+          ],
+          "stack": null,
+          "brightness_mean": 115.0,
+          "brightness_top10_mean": 248.1,
+          "opaque_pixels": 10546
+        },
+        {
+          "rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            28,
+            180,
+            362,
+            636
+          ],
+          "stack": null,
+          "brightness_mean": 107.12,
+          "brightness_top10_mean": 247.33,
+          "opaque_pixels": 17699
+        },
+        {
+          "rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            0,
+            191,
+            362,
+            626
+          ],
+          "stack": null,
+          "brightness_mean": 123.04,
+          "brightness_top10_mean": 250.33,
+          "opaque_pixels": 22440
+        },
+        {
+          "rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            0,
+            181,
+            348,
+            626
+          ],
+          "stack": null,
+          "brightness_mean": 114.44,
+          "brightness_top10_mean": 247.8,
+          "opaque_pixels": 1870
+        },
+        {
+          "rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            79,
+            355,
+            288,
+            575
+          ],
+          "stack": null,
+          "brightness_mean": 129.8,
+          "brightness_top10_mean": 250.11,
+          "opaque_pixels": 244
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 9,
+      "file": "kaisa_fx_e_aura.png",
+      "size": [
+        1983,
+        793
+      ],
+      "layout": [
+        6,
+        1
+      ],
+      "loop": true,
+      "requested_cell_size": [
+        240,
+        320
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            330,
+            793
+          ],
+          "bbox": [
+            48,
+            232,
+            289,
+            575
+          ],
+          "stack": null,
+          "brightness_mean": 102.72,
+          "brightness_top10_mean": 241.29,
+          "opaque_pixels": 4749
+        },
+        {
+          "rect": [
+            330,
+            0,
+            331,
+            793
+          ],
+          "bbox": [
+            51,
+            209,
+            283,
+            583
+          ],
+          "stack": null,
+          "brightness_mean": 102.51,
+          "brightness_top10_mean": 237.78,
+          "opaque_pixels": 3506
+        },
+        {
+          "rect": [
+            661,
+            0,
+            331,
+            793
+          ],
+          "bbox": [
+            68,
+            201,
+            310,
+            583
+          ],
+          "stack": null,
+          "brightness_mean": 99.54,
+          "brightness_top10_mean": 233.97,
+          "opaque_pixels": 2977
+        },
+        {
+          "rect": [
+            992,
+            0,
+            330,
+            793
+          ],
+          "bbox": [
+            65,
+            225,
+            294,
+            583
+          ],
+          "stack": null,
+          "brightness_mean": 103.46,
+          "brightness_top10_mean": 240.4,
+          "opaque_pixels": 3840
+        },
+        {
+          "rect": [
+            1322,
+            0,
+            330,
+            793
+          ],
+          "bbox": [
+            49,
+            240,
+            290,
+            583
+          ],
+          "stack": null,
+          "brightness_mean": 96.74,
+          "brightness_top10_mean": 240.86,
+          "opaque_pixels": 3595
+        },
+        {
+          "rect": [
+            1652,
+            0,
+            331,
+            793
+          ],
+          "bbox": [
+            71,
+            214,
+            292,
+            576
+          ],
+          "stack": null,
+          "brightness_mean": 108.07,
+          "brightness_top10_mean": 242.36,
+          "opaque_pixels": 3276
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 10,
+      "file": "kaisa_fx_e_invis.png",
+      "size": [
+        2094,
+        751
+      ],
+      "layout": [
+        5,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        240,
+        320
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            419,
+            751
+          ],
+          "bbox": [
+            65,
+            132,
+            407,
+            679
+          ],
+          "stack": null,
+          "brightness_mean": 105.49,
+          "brightness_top10_mean": 232.97,
+          "opaque_pixels": 11562
+        },
+        {
+          "rect": [
+            419,
+            0,
+            419,
+            751
+          ],
+          "bbox": [
+            68,
+            120,
+            406,
+            679
+          ],
+          "stack": null,
+          "brightness_mean": 99.43,
+          "brightness_top10_mean": 212.65,
+          "opaque_pixels": 7222
+        },
+        {
+          "rect": [
+            838,
+            0,
+            418,
+            751
+          ],
+          "bbox": [
+            101,
+            106,
+            386,
+            679
+          ],
+          "stack": null,
+          "brightness_mean": 98.18,
+          "brightness_top10_mean": 221.94,
+          "opaque_pixels": 3717
+        },
+        {
+          "rect": [
+            1256,
+            0,
+            419,
+            751
+          ],
+          "bbox": [
+            107,
+            109,
+            387,
+            679
+          ],
+          "stack": null,
+          "brightness_mean": 111.56,
+          "brightness_top10_mean": 236.54,
+          "opaque_pixels": 3339
+        },
+        {
+          "rect": [
+            1675,
+            0,
+            419,
+            751
+          ],
+          "bbox": [
+            119,
+            146,
+            349,
+            679
+          ],
+          "stack": null,
+          "brightness_mean": 98.05,
+          "brightness_top10_mean": 210.4,
+          "opaque_pixels": 1564
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 11,
+      "file": "kaisa_fx_q_pod.png",
+      "size": [
+        1983,
+        793
+      ],
+      "layout": [
+        5,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            93,
+            426,
+            325,
+            664
+          ],
+          "stack": null,
+          "brightness_mean": 175.08,
+          "brightness_top10_mean": 253.37,
+          "opaque_pixels": 11888
+        },
+        {
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            45,
+            270,
+            396,
+            664
+          ],
+          "stack": null,
+          "brightness_mean": 93.93,
+          "brightness_top10_mean": 236.92,
+          "opaque_pixels": 31284
+        },
+        {
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            0,
+            185,
+            397,
+            665
+          ],
+          "stack": null,
+          "brightness_mean": 100.49,
+          "brightness_top10_mean": 242.96,
+          "opaque_pixels": 65810
+        },
+        {
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            0,
+            261,
+            368,
+            665
+          ],
+          "stack": null,
+          "brightness_mean": 76.94,
+          "brightness_top10_mean": 173.37,
+          "opaque_pixels": 49832
+        },
+        {
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            114,
+            340,
+            314,
+            664
+          ],
+          "stack": null,
+          "brightness_mean": 90.46,
+          "brightness_top10_mean": 131.88,
+          "opaque_pixels": 13287
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 12,
+      "file": "kaisa_fx_q_hit.png",
+      "size": [
+        1983,
+        793
+      ],
+      "layout": [
+        5,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            91,
+            309,
+            312,
+            517
+          ],
+          "stack": null,
+          "brightness_mean": 150.02,
+          "brightness_top10_mean": 253.82,
+          "opaque_pixels": 7810
+        },
+        {
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            30,
+            262,
+            328,
+            554
+          ],
+          "stack": null,
+          "brightness_mean": 83.02,
+          "brightness_top10_mean": 230.11,
+          "opaque_pixels": 24415
+        },
+        {
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            16,
+            226,
+            396,
+            589
+          ],
+          "stack": null,
+          "brightness_mean": 90.14,
+          "brightness_top10_mean": 238.88,
+          "opaque_pixels": 37365
+        },
+        {
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            69,
+            267,
+            385,
+            568
+          ],
+          "stack": null,
+          "brightness_mean": 79.47,
+          "brightness_top10_mean": 202.73,
+          "opaque_pixels": 18609
+        },
+        {
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            104,
+            304,
+            318,
+            524
+          ],
+          "stack": null,
+          "brightness_mean": 94.03,
+          "brightness_top10_mean": 236.91,
+          "opaque_pixels": 482
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 13,
+      "file": "kaisa_fx_w_charge.png",
+      "size": [
+        2073,
+        758
+      ],
+      "layout": [
+        5,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        280,
+        240
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            415,
+            758
+          ],
+          "bbox": [
+            30,
+            213,
+            279,
+            526
+          ],
+          "stack": null,
+          "brightness_mean": 84.72,
+          "brightness_top10_mean": 219.04,
+          "opaque_pixels": 5473
+        },
+        {
+          "rect": [
+            415,
+            0,
+            414,
+            758
+          ],
+          "bbox": [
+            32,
+            209,
+            302,
+            563
+          ],
+          "stack": null,
+          "brightness_mean": 91.84,
+          "brightness_top10_mean": 228.21,
+          "opaque_pixels": 13829
+        },
+        {
+          "rect": [
+            829,
+            0,
+            415,
+            758
+          ],
+          "bbox": [
+            26,
+            230,
+            233,
+            529
+          ],
+          "stack": null,
+          "brightness_mean": 95.23,
+          "brightness_top10_mean": 234.98,
+          "opaque_pixels": 11093
+        },
+        {
+          "rect": [
+            1244,
+            0,
+            414,
+            758
+          ],
+          "bbox": [
+            22,
+            193,
+            316,
+            573
+          ],
+          "stack": null,
+          "brightness_mean": 102.92,
+          "brightness_top10_mean": 236.6,
+          "opaque_pixels": 22937
+        },
+        {
+          "rect": [
+            1658,
+            0,
+            415,
+            758
+          ],
+          "bbox": [
+            15,
+            175,
+            380,
+            584
+          ],
+          "stack": null,
+          "brightness_mean": 124.36,
+          "brightness_top10_mean": 248.87,
+          "opaque_pixels": 38665
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 14,
+      "file": "kaisa_fx_w_muzzle.png",
+      "size": [
+        1983,
+        793
+      ],
+      "layout": [
+        5,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        400,
+        280
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            29,
+            193,
+            382,
+            585
+          ],
+          "stack": null,
+          "brightness_mean": 141.89,
+          "brightness_top10_mean": 253.13,
+          "opaque_pixels": 38560
+        },
+        {
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            9,
+            257,
+            387,
+            545
+          ],
+          "stack": null,
+          "brightness_mean": 113.39,
+          "brightness_top10_mean": 248.35,
+          "opaque_pixels": 35637
+        },
+        {
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            14,
+            244,
+            368,
+            552
+          ],
+          "stack": null,
+          "brightness_mean": 117.27,
+          "brightness_top10_mean": 250.03,
+          "opaque_pixels": 22248
+        },
+        {
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            7,
+            275,
+            370,
+            545
+          ],
+          "stack": null,
+          "brightness_mean": 80.84,
+          "brightness_top10_mean": 212.23,
+          "opaque_pixels": 12793
+        },
+        {
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            25,
+            298,
+            346,
+            501
+          ],
+          "stack": null,
+          "brightness_mean": 96.83,
+          "brightness_top10_mean": 234.77,
+          "opaque_pixels": 2229
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 15,
+      "file": "kaisa_fx_w_hit.png",
+      "size": [
+        2172,
+        724
+      ],
+      "layout": [
+        6,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            55,
+            250,
+            326,
+            516
+          ],
+          "stack": null,
+          "brightness_mean": 164.35,
+          "brightness_top10_mean": 253.55,
+          "opaque_pixels": 10678
+        },
+        {
+          "rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            20,
+            187,
+            333,
+            559
+          ],
+          "stack": null,
+          "brightness_mean": 98.28,
+          "brightness_top10_mean": 250.87,
+          "opaque_pixels": 26733
+        },
+        {
+          "rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            16,
+            208,
+            354,
+            540
+          ],
+          "stack": null,
+          "brightness_mean": 95.91,
+          "brightness_top10_mean": 240.97,
+          "opaque_pixels": 53243
+        },
+        {
+          "rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            33,
+            215,
+            362,
+            534
+          ],
+          "stack": null,
+          "brightness_mean": 85.61,
+          "brightness_top10_mean": 228.96,
+          "opaque_pixels": 18738
+        },
+        {
+          "rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            56,
+            250,
+            327,
+            516
+          ],
+          "stack": null,
+          "brightness_mean": 107.8,
+          "brightness_top10_mean": 243.52,
+          "opaque_pixels": 5262
+        },
+        {
+          "rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            67,
+            267,
+            311,
+            489
+          ],
+          "stack": null,
+          "brightness_mean": 81.38,
+          "brightness_top10_mean": 231.83,
+          "opaque_pixels": 639
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 16,
+      "file": "kaisa_fx_r_launch.png",
+      "size": [
+        1902,
+        827
+      ],
+      "layout": [
+        6,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        392,
+        252
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            317,
+            827
+          ],
+          "bbox": [
+            19,
+            404,
+            298,
+            589
+          ],
+          "stack": null,
+          "brightness_mean": 176.95,
+          "brightness_top10_mean": 253.82,
+          "opaque_pixels": 14568
+        },
+        {
+          "rect": [
+            317,
+            0,
+            317,
+            827
+          ],
+          "bbox": [
+            9,
+            257,
+            317,
+            599
+          ],
+          "stack": null,
+          "brightness_mean": 107.56,
+          "brightness_top10_mean": 243.53,
+          "opaque_pixels": 24070
+        },
+        {
+          "rect": [
+            634,
+            0,
+            317,
+            827
+          ],
+          "bbox": [
+            0,
+            257,
+            317,
+            608
+          ],
+          "stack": null,
+          "brightness_mean": 94.48,
+          "brightness_top10_mean": 195.19,
+          "opaque_pixels": 37636
+        },
+        {
+          "rect": [
+            951,
+            0,
+            317,
+            827
+          ],
+          "bbox": [
+            0,
+            295,
+            317,
+            595
+          ],
+          "stack": null,
+          "brightness_mean": 83.58,
+          "brightness_top10_mean": 176.71,
+          "opaque_pixels": 17353
+        },
+        {
+          "rect": [
+            1268,
+            0,
+            317,
+            827
+          ],
+          "bbox": [
+            0,
+            338,
+            315,
+            589
+          ],
+          "stack": null,
+          "brightness_mean": 78.24,
+          "brightness_top10_mean": 158.07,
+          "opaque_pixels": 7716
+        },
+        {
+          "rect": [
+            1585,
+            0,
+            317,
+            827
+          ],
+          "bbox": [
+            61,
+            370,
+            266,
+            571
+          ],
+          "stack": null,
+          "brightness_mean": 82.05,
+          "brightness_top10_mean": 157.24,
+          "opaque_pixels": 1925
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 17,
+      "file": "kaisa_fx_r_trail.png",
+      "size": [
+        2172,
+        724
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "loop": true,
+      "requested_cell_size": [
+        432,
+        192
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            24,
+            255,
+            540,
+            460
+          ],
+          "stack": null,
+          "brightness_mean": 73.28,
+          "brightness_top10_mean": 218.99,
+          "opaque_pixels": 31943
+        },
+        {
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            36,
+            247,
+            535,
+            460
+          ],
+          "stack": null,
+          "brightness_mean": 77.4,
+          "brightness_top10_mean": 223.27,
+          "opaque_pixels": 32241
+        },
+        {
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            32,
+            247,
+            531,
+            461
+          ],
+          "stack": null,
+          "brightness_mean": 72.96,
+          "brightness_top10_mean": 217.24,
+          "opaque_pixels": 32519
+        },
+        {
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            35,
+            240,
+            527,
+            476
+          ],
+          "stack": null,
+          "brightness_mean": 71.17,
+          "brightness_top10_mean": 212.55,
+          "opaque_pixels": 35793
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 18,
+      "file": "kaisa_fx_r_land.png",
+      "size": [
+        2089,
+        753
+      ],
+      "layout": [
+        5,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        364,
+        196
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            418,
+            753
+          ],
+          "bbox": [
+            48,
+            444,
+            381,
+            619
+          ],
+          "stack": null,
+          "brightness_mean": 127.15,
+          "brightness_top10_mean": 253.52,
+          "opaque_pixels": 11464
+        },
+        {
+          "rect": [
+            418,
+            0,
+            418,
+            753
+          ],
+          "bbox": [
+            23,
+            306,
+            412,
+            621
+          ],
+          "stack": null,
+          "brightness_mean": 106.21,
+          "brightness_top10_mean": 236.25,
+          "opaque_pixels": 24216
+        },
+        {
+          "rect": [
+            836,
+            0,
+            417,
+            753
+          ],
+          "bbox": [
+            27,
+            265,
+            414,
+            622
+          ],
+          "stack": null,
+          "brightness_mean": 104.19,
+          "brightness_top10_mean": 209.95,
+          "opaque_pixels": 47439
+        },
+        {
+          "rect": [
+            1253,
+            0,
+            418,
+            753
+          ],
+          "bbox": [
+            39,
+            294,
+            414,
+            622
+          ],
+          "stack": null,
+          "brightness_mean": 98.06,
+          "brightness_top10_mean": 161.53,
+          "opaque_pixels": 28821
+        },
+        {
+          "rect": [
+            1671,
+            0,
+            418,
+            753
+          ],
+          "bbox": [
+            47,
+            447,
+            366,
+            610
+          ],
+          "stack": null,
+          "brightness_mean": 110.76,
+          "brightness_top10_mean": 163.02,
+          "opaque_pixels": 9744
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 19,
+      "file": "kaisa_fx_r_shield.png",
+      "size": [
+        1881,
+        836
+      ],
+      "layout": [
+        6,
+        2
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        240,
+        320
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            314,
+            418
+          ],
+          "bbox": [
+            55,
+            103,
+            273,
+            400
+          ],
+          "stack": null,
+          "brightness_mean": 108.25,
+          "brightness_top10_mean": 250.61,
+          "opaque_pixels": 4665
+        },
+        {
+          "rect": [
+            314,
+            0,
+            313,
+            418
+          ],
+          "bbox": [
+            28,
+            103,
+            281,
+            401
+          ],
+          "stack": null,
+          "brightness_mean": 113.01,
+          "brightness_top10_mean": 250.31,
+          "opaque_pixels": 8273
+        },
+        {
+          "rect": [
+            627,
+            0,
+            313,
+            418
+          ],
+          "bbox": [
+            27,
+            83,
+            282,
+            397
+          ],
+          "stack": null,
+          "brightness_mean": 102.9,
+          "brightness_top10_mean": 249.33,
+          "opaque_pixels": 11297
+        },
+        {
+          "rect": [
+            940,
+            0,
+            314,
+            418
+          ],
+          "bbox": [
+            26,
+            85,
+            281,
+            393
+          ],
+          "stack": null,
+          "brightness_mean": 101.71,
+          "brightness_top10_mean": 249.28,
+          "opaque_pixels": 12212
+        },
+        {
+          "rect": [
+            1254,
+            0,
+            314,
+            418
+          ],
+          "bbox": [
+            27,
+            83,
+            282,
+            400
+          ],
+          "stack": null,
+          "brightness_mean": 104.35,
+          "brightness_top10_mean": 250.92,
+          "opaque_pixels": 11211
+        },
+        {
+          "rect": [
+            1568,
+            0,
+            313,
+            418
+          ],
+          "bbox": [
+            28,
+            83,
+            281,
+            398
+          ],
+          "stack": null,
+          "brightness_mean": 100.33,
+          "brightness_top10_mean": 248.8,
+          "opaque_pixels": 10931
+        },
+        {
+          "rect": [
+            0,
+            418,
+            314,
+            418
+          ],
+          "bbox": [
+            30,
+            67,
+            283,
+            375
+          ],
+          "stack": null,
+          "brightness_mean": 105.72,
+          "brightness_top10_mean": 250.33,
+          "opaque_pixels": 11467
+        },
+        {
+          "rect": [
+            314,
+            418,
+            313,
+            418
+          ],
+          "bbox": [
+            27,
+            70,
+            282,
+            375
+          ],
+          "stack": null,
+          "brightness_mean": 103.62,
+          "brightness_top10_mean": 249.79,
+          "opaque_pixels": 12600
+        },
+        {
+          "rect": [
+            627,
+            418,
+            313,
+            418
+          ],
+          "bbox": [
+            27,
+            69,
+            283,
+            375
+          ],
+          "stack": null,
+          "brightness_mean": 100.55,
+          "brightness_top10_mean": 249.3,
+          "opaque_pixels": 11264
+        },
+        {
+          "rect": [
+            940,
+            418,
+            314,
+            418
+          ],
+          "bbox": [
+            27,
+            69,
+            281,
+            381
+          ],
+          "stack": null,
+          "brightness_mean": 101.36,
+          "brightness_top10_mean": 249.59,
+          "opaque_pixels": 10718
+        },
+        {
+          "rect": [
+            1254,
+            418,
+            314,
+            418
+          ],
+          "bbox": [
+            7,
+            72,
+            304,
+            381
+          ],
+          "stack": null,
+          "brightness_mean": 104.2,
+          "brightness_top10_mean": 251.26,
+          "opaque_pixels": 10615
+        },
+        {
+          "rect": [
+            1568,
+            418,
+            313,
+            418
+          ],
+          "bbox": [
+            35,
+            88,
+            279,
+            364
+          ],
+          "stack": null,
+          "brightness_mean": 103.61,
+          "brightness_top10_mean": 245.21,
+          "opaque_pixels": 1101
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    },
+    {
+      "id": 20,
+      "file": "kaisa_fx_evolve.png",
+      "size": [
+        2079,
+        756
+      ],
+      "layout": [
+        8,
+        1
+      ],
+      "loop": false,
+      "requested_cell_size": [
+        210,
+        360
+      ],
+      "delivery": "native generated source",
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            260,
+            756
+          ],
+          "bbox": [
+            24,
+            579,
+            242,
+            695
+          ],
+          "stack": null,
+          "brightness_mean": 122.77,
+          "brightness_top10_mean": 252.22,
+          "opaque_pixels": 6803
+        },
+        {
+          "rect": [
+            260,
+            0,
+            260,
+            756
+          ],
+          "bbox": [
+            29,
+            303,
+            240,
+            695
+          ],
+          "stack": null,
+          "brightness_mean": 139.56,
+          "brightness_top10_mean": 253.14,
+          "opaque_pixels": 22375
+        },
+        {
+          "rect": [
+            520,
+            0,
+            260,
+            756
+          ],
+          "bbox": [
+            20,
+            183,
+            238,
+            695
+          ],
+          "stack": null,
+          "brightness_mean": 144.17,
+          "brightness_top10_mean": 253.22,
+          "opaque_pixels": 34262
+        },
+        {
+          "rect": [
+            780,
+            0,
+            260,
+            756
+          ],
+          "bbox": [
+            7,
+            100,
+            260,
+            703
+          ],
+          "stack": null,
+          "brightness_mean": 156.82,
+          "brightness_top10_mean": 253.09,
+          "opaque_pixels": 52320
+        },
+        {
+          "rect": [
+            1040,
+            0,
+            259,
+            756
+          ],
+          "bbox": [
+            0,
+            192,
+            259,
+            660
+          ],
+          "stack": null,
+          "brightness_mean": 133.32,
+          "brightness_top10_mean": 250.63,
+          "opaque_pixels": 11192
+        },
+        {
+          "rect": [
+            1299,
+            0,
+            260,
+            756
+          ],
+          "bbox": [
+            0,
+            218,
+            255,
+            651
+          ],
+          "stack": null,
+          "brightness_mean": 119.3,
+          "brightness_top10_mean": 241.05,
+          "opaque_pixels": 2365
+        },
+        {
+          "rect": [
+            1559,
+            0,
+            260,
+            756
+          ],
+          "bbox": [
+            63,
+            321,
+            221,
+            659
+          ],
+          "stack": null,
+          "brightness_mean": 93.94,
+          "brightness_top10_mean": 228.77,
+          "opaque_pixels": 866
+        },
+        {
+          "rect": [
+            1819,
+            0,
+            260,
+            756
+          ],
+          "bbox": [
+            84,
+            392,
+            206,
+            676
+          ],
+          "stack": null,
+          "brightness_mean": 76.89,
+          "brightness_top10_mean": 169.82,
+          "opaque_pixels": 128
+        }
+      ],
+      "alpha_has_transparency": true,
+      "alpha_is_binary": false
+    }
+  ],
+  "notes": [
+    "Frame rects are actual source-pixel regions, [x,y,width,height].",
+    "Native generated sources may have partial alpha or off-palette edge pixels; final pixel-grid conversion belongs to import stage.",
+    "Preview uses 100ms per frame for review only; no engine frame times supplied.",
+    "Projectile symmetry and stack pip count require visual checking; not certified by region metadata."
+  ]
+}

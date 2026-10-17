@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.50.0"
+    }
+  ],
+  "description": "Test build of Zilean's Chronoshift that guards and really rewinds (needs League of Legends Heroes): replaces the main pack's Zilean so his R goes to the allied champion (or himself) about to die - an enemy champion close and low health or a big hit just taken - and the time rune catches lethal damage, banishes the champion for 2.5 s (untargetable, immune) and then revives them with the heal; an unused rune heals nothing. Other champions (Soraka, Kayle...) are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-03",
+  "mod_id": "league_zilean_rewind",
+  "mod_type": "native",
+  "name": "League Heroes: Zilean Chronoshift Rewind (test)",
+  "version": "0.2.0"
+}

@@ -1,0 +1,381 @@
+{
+  "raw_sources": true,
+  "strict_native_pixel_art_ready": false,
+  "assets": {
+    "a_feather": {
+      "requested_frames": 3,
+      "rectangles": 3,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        768,
+        128
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 257466,
+      "transparent_pixels": 1314453,
+      "strict_8x_grid": false,
+      "visible_colors": 55465,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 183.95,
+      "top10_mean_luminance": 245.58,
+      "white_or_pale_pixels_luma220": 30123,
+      "notes": "飞羽朝右；上下有轻微不对称，仍有半透明边缘和非指定色。"
+    },
+    "a_hit": {
+      "requested_frames": 4,
+      "rectangles": 4,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        1024,
+        256
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 295537,
+      "transparent_pixels": 1274400,
+      "strict_8x_grid": false,
+      "visible_colors": 42717,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 197.99,
+      "top10_mean_luminance": 252.78,
+      "white_or_pale_pixels_luma220": 69039,
+      "notes": "4 帧齐；末帧除两颗主火星外还有小碎点。"
+    },
+    "q_feather": {
+      "requested_frames": 4,
+      "rectangles": 4,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        2089,
+        753
+      ],
+      "requested_size": [
+        1792,
+        192
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 267076,
+      "transparent_pixels": 1305585,
+      "strict_8x_grid": false,
+      "visible_colors": 98332,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 181.89,
+      "top10_mean_luminance": 249.96,
+      "white_or_pale_pixels_luma220": 44275,
+      "notes": "孔雀眼与虹彩尾齐；尾端靠近格边，导入时留透明边距。"
+    },
+    "q_hit": {
+      "requested_frames": 5,
+      "rectangles": 5,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        1600,
+        320
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 544694,
+      "transparent_pixels": 1027817,
+      "strict_8x_grid": false,
+      "visible_colors": 88155,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 189.28,
+      "top10_mean_luminance": 252.96,
+      "white_or_pale_pixels_luma220": 62135,
+      "notes": "5 帧齐，但大小变化导致间距不均，必须按 manifest 的实际 rect 切。"
+    },
+    "q_heal": {
+      "requested_frames": 4,
+      "rectangles": 4,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        2048,
+        768
+      ],
+      "requested_size": [
+        2048,
+        384
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "semi_alpha_pixels": 405979,
+      "transparent_pixels": 1166885,
+      "strict_8x_grid": false,
+      "visible_colors": 61880,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 197.6,
+      "top10_mean_luminance": 254.06,
+      "white_or_pale_pixels_luma220": 47185,
+      "notes": "4 帧齐；修订稿柔光更强，因此保留初稿。软光仍存在；环高度较要求偏扁，漂浮光点首尾位置有跳变。"
+    },
+    "q_burst": {
+      "requested_frames": 6,
+      "rectangles": 6,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        4032,
+        384
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 342092,
+      "transparent_pixels": 1230055,
+      "strict_8x_grid": false,
+      "visible_colors": 68176,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 206.4,
+      "top10_mean_luminance": 253.36,
+      "white_or_pale_pixels_luma220": 81850,
+      "notes": "6 帧齐；修订后仍非等宽视觉分帧，提供实际 rect。圈内光面偏多，需清理柔光并按 80×40 地面范围重排。"
+    },
+    "q_healed": {
+      "requested_frames": 5,
+      "rectangles": 5,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        1280,
+        384
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 389485,
+      "transparent_pixels": 1181821,
+      "strict_8x_grid": false,
+      "visible_colors": 64026,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 145.15,
+      "top10_mean_luminance": 250.76,
+      "white_or_pale_pixels_luma220": 52195,
+      "notes": "5 帧齐；有柔光柱；末帧仍有底部微光，而非只剩两点。"
+    },
+    "w_burst": {
+      "requested_frames": 7,
+      "rectangles": 7,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        1659,
+        948
+      ],
+      "requested_size": [
+        1792,
+        320
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 604402,
+      "transparent_pixels": 968277,
+      "strict_8x_grid": false,
+      "visible_colors": 79365,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 189.65,
+      "top10_mean_luminance": 253.32,
+      "white_or_pale_pixels_luma220": 87335,
+      "notes": "7 帧齐；金色羽毛螺旋清楚，但第 4 帧顶端接近画布边缘，地面碎石与细节需像素化简化。"
+    },
+    "w_hit": {
+      "requested_frames": 5,
+      "rectangles": 5,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        2200,
+        715
+      ],
+      "requested_size": [
+        1280,
+        416
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 419707,
+      "transparent_pixels": 1152510,
+      "strict_8x_grid": false,
+      "visible_colors": 35409,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 211.99,
+      "top10_mean_luminance": 253.52,
+      "white_or_pale_pixels_luma220": 105437,
+      "notes": "5 帧齐；采用修订稿，第 3 帧顶端已留空。末帧仍有地面余光。"
+    },
+    "e_shield": {
+      "requested_frames": 6,
+      "rectangles": 6,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        1958,
+        803
+      ],
+      "requested_size": [
+        2496,
+        480
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 783289,
+      "transparent_pixels": 788749,
+      "strict_8x_grid": false,
+      "visible_colors": 85967,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 164.3,
+      "top10_mean_luminance": 250.16,
+      "white_or_pale_pixels_luma220": 76747,
+      "notes": "6 帧齐；保留环形火焰羽饰，但弧光较密，需删柔光以免遮挡身体。"
+    },
+    "e_on": {
+      "requested_frames": 6,
+      "rectangles": 6,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        2103,
+        748
+      ],
+      "requested_size": [
+        2880,
+        640
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 552012,
+      "transparent_pixels": 1020826,
+      "strict_8x_grid": false,
+      "visible_colors": 39135,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 210.03,
+      "top10_mean_luminance": 252.79,
+      "white_or_pale_pixels_luma220": 76309,
+      "notes": "6 帧齐；空心边和两枚金羽齐；上下边未完全断开，脚下光面较亮。"
+    },
+    "p_on": {
+      "requested_frames": 6,
+      "rectangles": 6,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        2109,
+        746
+      ],
+      "requested_size": [
+        3264,
+        736
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 574224,
+      "transparent_pixels": 999082,
+      "strict_8x_grid": false,
+      "visible_colors": 154216,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 206.32,
+      "top10_mean_luminance": 253.07,
+      "white_or_pale_pixels_luma220": 130462,
+      "notes": "6 帧齐；中心空心；边框比 1–2 格更厚，羽毛卷纹较大，需适当收细。"
+    },
+    "r_start": {
+      "requested_frames": 6,
+      "rectangles": 6,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        1920,
+        352
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 514002,
+      "transparent_pixels": 1058416,
+      "strict_8x_grid": false,
+      "visible_colors": 93153,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 174.15,
+      "top10_mean_luminance": 252.26,
+      "white_or_pale_pixels_luma220": 53745,
+      "notes": "6 帧齐；采用修订稿，向左的光箭明显。仍非等宽视觉分帧，按 rect 切；羽毛数量为近似。"
+    },
+    "r_on": {
+      "requested_frames": 4,
+      "rectangles": 4,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        1536,
+        240
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 312947,
+      "transparent_pixels": 1259266,
+      "strict_8x_grid": false,
+      "visible_colors": 93000,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 188.45,
+      "top10_mean_luminance": 251.54,
+      "white_or_pale_pixels_luma220": 36203,
+      "notes": "4 帧齐；三色尾向左，右端金光较亮，需对齐实际角色站位后检查遮挡；无缝性未运行时验证。"
+    },
+    "r_charmed": {
+      "requested_frames": 8,
+      "rectangles": 8,
+      "every_frame_nonempty": true,
+      "actual_size": [
+        1881,
+        836
+      ],
+      "requested_size": [
+        2304,
+        384
+      ],
+      "exact_requested_dimensions": false,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "semi_alpha_pixels": 179314,
+      "transparent_pixels": 1391162,
+      "strict_8x_grid": false,
+      "visible_colors": 38522,
+      "exact_requested_palette": false,
+      "mean_luminance_alpha96": 150.17,
+      "top10_mean_luminance": 250.04,
+      "white_or_pale_pixels_luma220": 23098,
+      "notes": "8 帧齐；金橙心白芯玫红边，末帧两颗主火星；漂浮节奏以生成稿为准。"
+    }
+  }
+}

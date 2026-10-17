@@ -1,0 +1,164 @@
+# Miss Fortune dead: squares fix_missfortune_model.py sets in each 1x frame of missfortune_dead.png
+# '@ frame row col' then one '|' row per square row from that corner: '_' keeps the strip's square, '.' clears it, a letter is a palette colour
+
+@ 1 57 31   # 427 squares
+|___________________#____________
+|________________________________
+|________________________....____
+|____________________........____
+|____________________........____
+|___________________........_____
+|____x_RdD____sd_dr%.....________
+|__#xR_#_WWTsWsTxrd%...__________
+|_#xd____WmtTTTtn#WW#.______...__
+|%xrD#W_mmmntntnn#Wm#..........._
+|%xD_WWmmm#os_so_#mm####....####_
+|%rdx##_o##sWWso#.#Wsyyy####gyyY#
+|%RxdR#Ws__oWsso#.#soGGGyyyygkkY#
+|%rdxx#so#GgyyGG#..#u##GGGGGGkkg#
+|_%%x##gG#nttTtn#......#####GGG#_
+|__#%#yG#BntTttnB#....______###__
+|__#ygGG#bbuu%bb_%....___________
+|_#ykkkG#B_u%.%ub_%%.____________
+|_#gkkkG#BG%._%uuB_%.____________
+|___g_G#_b%.__#tty#U%.___________
+|___###_%%%.._%ttT%%%.___________
+|_____%tt%...__%tTT%..___________
+|_____#t%.._____%TTU%.___________
+|_____%T_.._____%TTT%..__________
+|_____nbb.______%B%T%%.__________
+|_____%%%.__________%%.._________
+|_____....___________..._________
+
+@ 2 60 32   # 180 squares
+|_____#______________________
+|____#_______________________
+|____#_______________##______
+|_______#__##oWs##___#_______
+|________WWWT_WsTW___________
+|_______WWm#_TTTtWWWm_.______
+|____#_WWmm#ntntnnmms________
+|____#_Wsm__osWso_##sWs#_____
+|_____##om##oWsso_..#Wo#_____
+|_____#so##GgyyGG#_..##______
+|_____#Wo____ntTtnn___...____
+|____..##__tttnnn_t___....___
+|___.....___________#_....___
+|___...________________....__
+|_...._________#________.....
+|....._________#_________....
+|.....________.__________....
+|_....______________._____.._
+|___________________.________
+
+@ 3 65 38   # 85 squares
+|____m__________
+|___RrRoWsd_____
+|_rWWWTs_sTWW___
+|_WWWmtTTTtnWWm_
+|WWmmmn_nWsnWmm_
+|#mmosssssoo#Ws_
+|_#GgyyGGGG#.so#
+|___nnnnnn______
+|__ttntnnn______
+
+@ 4 68 42   # 58 squares
+|_____W______
+|___s________
+|__WW___W____
+|_WWTWsWsTWW#
+|_mmnsosonWm_
+|_mmosWssomm_
+|G_yyGGG__#._
+|tnnnnnn_____
+|nttnnnn_____
+
+@ 5 66 42   # 63 squares
+|___m________
+|__Wo________
+|__WW________
+|_WWTWsWsTWW#
+|_mmnsosonWm_
+|_mmosWssomm_
+|#GgyyGGG#...
+|_nnnnnn___._
+|nnnnnnnt____
+
+@ 6 72 41   # 23 squares
+|_mm____
+|_oo____
+|_oo__mm
+|_ss____
+|_ss____
+|_______
+|nnnnnn_
+|nnnnn__
+
+@ 7 80 46   # 15 squares
+|_ss______oo
+|moo__soo_o_
+|_oo___oo___
+# ---- round 2 (applied after the blocks above): face speck (dead 1)
+
+@ 1 62 44   # round 2: 1 squares
+|s
+
+# ---- round 4 (applied after the blocks above): every sleeve in the cloth-white ramp w F2F4F4 / c C4D0DA / l 8A9AAC (the user's option b)
+
+@ 1 64 35   # round 4: 24 squares
+|___www_________
+|__wccl_______ww
+|_wclll_______wl
+|wclll________ll
+|______________w
+
+@ 2 64 38   # round 4: 21 squares
+|__www_____ww__
+|_wcl______wcwl
+|wcll_______ll_
+|w_l___________
+|__l___________
+
+@ 3 67 38   # round 4: 23 squares
+|__www_____ww__
+|_wccl______wwl
+|wclll______wll
+|_ll_________w_
+
+@ 4 69 43   # round 4: 15 squares
+|_w________
+|_ww_______
+|wc______ww
+|ll______wl
+|ll______ll
+
+@ 5 67 43   # round 4: 15 squares
+|_w________
+|_ww_______
+|wc______ww
+|ll______wl
+|ll______ll
+
+@ 6 73 46   # round 4: 4 squares
+|ww
+|ll
+
+# ---- round 5 (2026-10-04): the pistols. Every gun (the rotated E gun, and Codex's own far guns in the run) is cleared
+# with the outline squares that only served it, and one pistol design is stamped with its grip in the same hand at the
+# nearest drawn angle (tools/art/fix_missfortune_model.py, Round 5).
+
+@ 1 65 28   # round 5: 140 squares
+|____________________________##_____
+|_______________________#####Yy#____
+|_______________________UyyyykG_..._
+|___________________#___UggggkG#....
+|________U__UU______#___UtttGkG#....
+|______Yyu__U_______##UU__###y_#....
+|_###_YggtU#________#UG#__...__...._
+|#Yyyyggt##__________##________...__
+|#ykkggt#.._________________________
+|_#ykkG#..._________________________
+|__#ykG#..._________________________
+|___#yG#..._________________________
+|____#y_..__________________________
+|_____#_____________________________

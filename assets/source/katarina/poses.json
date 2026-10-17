@@ -1,0 +1,237 @@
+{
+ "hero": "katarina",
+ "champ": "Katarina",
+ "hide_submeshes": false,
+ "camera": {
+  "yaw": 60,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.3,
+  "legs": 0.9,
+  "hair": 1.0
+ },
+ "height": 38,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "katarina_idle1@0",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "katarina_run@0",
+     100
+    ],
+    [
+     "katarina_run@100",
+     100
+    ],
+    [
+     "katarina_run@200",
+     100
+    ],
+    [
+     "katarina_run@300",
+     100
+    ],
+    [
+     "katarina_run@400",
+     100
+    ],
+    [
+     "katarina_run@500",
+     100
+    ],
+    [
+     "katarina_run@600",
+     100
+    ],
+    [
+     "katarina_run@700",
+     100
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "katarina_idle1@0>katarina_attack1@120:0.6",
+     90
+    ],
+    [
+     "katarina_attack1@240",
+     90
+    ],
+    [
+     "katarina_attack1@300",
+     110
+    ],
+    [
+     "katarina_attack1@380",
+     110
+    ],
+    [
+     "katarina_attack1@450>katarina_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "katarina_idle1@0>katarina_spell1@0:0.6",
+     90
+    ],
+    [
+     "katarina_spell1@120",
+     90
+    ],
+    [
+     "katarina_spell1@240",
+     110
+    ],
+    [
+     "katarina_spell1@400",
+     110
+    ],
+    [
+     "katarina_spell1@650>katarina_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "katarina_spell2_throw@100",
+     80
+    ],
+    [
+     "katarina_spell2_throw@150",
+     80
+    ],
+    [
+     "katarina_spell2_throw@200",
+     110
+    ],
+    [
+     "katarina_spell2_throw@300",
+     110
+    ],
+    [
+     "katarina_spell2_throw@350>katarina_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "blink": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "katarina_spell3@150",
+     50
+    ],
+    [
+     "katarina_spell3@200",
+     50
+    ],
+    [
+     "katarina_spell3@300>katarina_idle1@0:0.4",
+     40
+    ]
+   ]
+  },
+  "spin": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "frames": [
+    [
+     "katarina_spell2@0",
+     50
+    ],
+    [
+     "katarina_spell2@125",
+     50
+    ],
+    [
+     "katarina_spell2@250",
+     50
+    ],
+    [
+     "katarina_spell2@375",
+     50
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.2,
+   "frames": [
+    [
+     "katarina_spell4@0",
+     100
+    ],
+    [
+     "katarina_spell4@133",
+     100
+    ],
+    [
+     "katarina_spell4@267",
+     100
+    ],
+    [
+     "katarina_spell4@400",
+     100
+    ],
+    [
+     "katarina_spell4@533",
+     100
+    ],
+    [
+     "katarina_spell4@667",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "katarina_death@0",
+     120
+    ],
+    [
+     "katarina_death@100",
+     120
+    ],
+    [
+     "katarina_death@200",
+     120
+    ],
+    [
+     "katarina_death@300",
+     150
+    ],
+    [
+     "katarina_death@600",
+     200
+    ],
+    [
+     "katarina_death@1300",
+     400
+    ]
+   ]
+  }
+ }
+}

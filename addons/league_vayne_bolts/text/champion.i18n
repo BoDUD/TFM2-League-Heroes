@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_vayne_bolts": {
+        "attack": "【圣银弩箭测试版】普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>暗夜猎手<>：附近有敌方英雄时<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度+8%<>。<#ff9028ff>圣银弩箭<>：<#ffb900ff>3.5秒<>内对同一目标连续第<#ffb900ff>3<>次命中（普攻、技能都算）额外造成<#f5f5f5ff>50<>的<#f5f5f5ff>真实伤害<>，对英雄再加<#f5f5f5ff>7%<>最大生命值。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_vayne_bolts": {
+        "attack": "【聖銀弩箭測試版】普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>夜之狩獵<>：附近有敵方英雄時<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+8%<>。<#ff9028ff>神聖銀箭<>：<#ffb900ff>3.5秒<>內對同一目標連續第<#ffb900ff>3<>次命中（普攻、技能都算）額外造成<#f5f5f5ff>50<>的<#f5f5f5ff>真實傷害<>，對英雄再加<#f5f5f5ff>7%<>最大生命。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_vayne_bolts": {
+        "attack": "[Silver Bolts test build] Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Night Hunter<>: <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>8% Move Speed<> while an enemy champion is near. <#ff9028ff>Silver Bolts<>: every <#ffb900ff>3<>rd hit in a row on the same target within <#ffb900ff>3.5s<> (attacks and abilities) deals <#f5f5f5ff>50<> <#f5f5f5ff>true damage<> more, plus <#f5f5f5ff>7%<> of a champion's max health."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_vayne_bolts": {
+        "attack": "[은화살 테스트판] 기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>어둠 사냥꾼<>: 근처에 적 챔피언이 있으면 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 8%<>. <#ff9028ff>은화살<>: <#ffb900ff>3.5초<> 안에 같은 대상에게 연속 <#ffb900ff>3<>번째 적중(기본 공격·스킬)마다 <#f5f5f5ff>50<> <#f5f5f5ff>고정 피해<>, 챔피언에게는 최대 체력의 <#f5f5f5ff>7%<> 추가."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_vayne_bolts": {
+        "attack": "【シルバーボルトテスト版】通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#ff9028ff>ナイトハンター<>：近くに敵チャンピオンがいると<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度8%<>。<#ff9028ff>シルバーボルト<>：<#ffb900ff>3.5秒<>以内に同じ相手への連続<#ffb900ff>3<>回目の命中ごとに<#f5f5f5ff>50<>の<#f5f5f5ff>確定ダメージ<>、チャンピオンには最大体力の<#f5f5f5ff>7%<>を追加。"
+      }
+    }
+  }
+}

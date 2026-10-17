@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_fiddlesticks_sfx_attack_cast",
+      "volume": 0.5
+    }
+  ]
+}

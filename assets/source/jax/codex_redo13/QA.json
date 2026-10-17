@@ -1,0 +1,329 @@
+{
+  "frames": 13,
+  "rgba_files": 26,
+  "native_size": [
+    96,
+    96
+  ],
+  "zoom_size": [
+    768,
+    768
+  ],
+  "palette": "only original 24 allowed colors",
+  "alpha": "0 or 255 only",
+  "bounding_boxes": "exact match to source for all 13",
+  "eight_connected_foreground": "one component in every frame",
+  "real_openings": {
+    "skill2_burst_1": [],
+    "skill2_burst_2": [],
+    "skill2_burst_3": [
+      {
+        "area": 11,
+        "bounds": [
+          51,
+          51,
+          57,
+          52
+        ]
+      }
+    ],
+    "skill2_burst_4": [],
+    "skill2_burst_5": [
+      {
+        "area": 89,
+        "bounds": [
+          28,
+          53,
+          40,
+          65
+        ]
+      }
+    ],
+    "skill2_burst_6": [],
+    "dead_2": [],
+    "dead_3": [],
+    "dead_4": [
+      {
+        "area": 17,
+        "bounds": [
+          59,
+          54,
+          62,
+          60
+        ]
+      }
+    ],
+    "dead_5": [
+      {
+        "area": 9,
+        "bounds": [
+          56,
+          58,
+          59,
+          60
+        ]
+      },
+      {
+        "area": 2,
+        "bounds": [
+          54,
+          61,
+          55,
+          61
+        ]
+      }
+    ],
+    "dead_6": [],
+    "dead_7": [
+      {
+        "area": 7,
+        "bounds": [
+          55,
+          62,
+          58,
+          64
+        ]
+      }
+    ],
+    "dead_8": []
+  },
+  "frames_detail": [
+    {
+      "frame": "skill2_burst_1",
+      "changed_pixels": 531,
+      "weapon_alpha_pixels_changed": 0,
+      "palette_colors_used": 21,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "skill2_burst_2",
+      "changed_pixels": 595,
+      "weapon_alpha_pixels_changed": 27,
+      "palette_colors_used": 21,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "skill2_burst_3",
+      "changed_pixels": 559,
+      "weapon_alpha_pixels_changed": 13,
+      "palette_colors_used": 21,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "skill2_burst_4",
+      "changed_pixels": 526,
+      "weapon_alpha_pixels_changed": 4,
+      "palette_colors_used": 22,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "skill2_burst_5",
+      "changed_pixels": 463,
+      "weapon_alpha_pixels_changed": 13,
+      "palette_colors_used": 21,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "skill2_burst_6",
+      "changed_pixels": 450,
+      "weapon_alpha_pixels_changed": 0,
+      "palette_colors_used": 21,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "dead_2",
+      "changed_pixels": 629,
+      "weapon_alpha_pixels_changed": 14,
+      "palette_colors_used": 22,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "dead_3",
+      "changed_pixels": 590,
+      "weapon_alpha_pixels_changed": 22,
+      "palette_colors_used": 21,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "dead_4",
+      "changed_pixels": 579,
+      "weapon_alpha_pixels_changed": 14,
+      "palette_colors_used": 21,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "dead_5",
+      "changed_pixels": 545,
+      "weapon_alpha_pixels_changed": 1,
+      "palette_colors_used": 22,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "dead_6",
+      "changed_pixels": 550,
+      "weapon_alpha_pixels_changed": 0,
+      "palette_colors_used": 21,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "dead_7",
+      "changed_pixels": 458,
+      "weapon_alpha_pixels_changed": 0,
+      "palette_colors_used": 19,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    },
+    {
+      "frame": "dead_8",
+      "changed_pixels": 464,
+      "weapon_alpha_pixels_changed": 0,
+      "palette_colors_used": 18,
+      "size": [
+        96,
+        96
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "mask_exact": true,
+      "body_silhouette_exact": true,
+      "nearest_8x_exact": true
+    }
+  ],
+  "sha256_native": {
+    "jax_skill2_burst_1.png": "829601151b2d078daec399a4fdd889020796c8ebba0cdae3375bd9fcfe34f064",
+    "jax_skill2_burst_2.png": "3e992169370bd9b63ea7518330c95209a640cabe0bf57643fe7e1f353a91bd65",
+    "jax_skill2_burst_3.png": "aa2dd48762c8d9e0d99210b685379152aef7ca3b99f651db4eb6cbce1b205fc7",
+    "jax_skill2_burst_4.png": "0462a2f338628b0c5fc8ae0501be23018ff9ee74eed1fb600e10301465c1b7b6",
+    "jax_skill2_burst_5.png": "78e37bf68b4711e82daf9c39dd858e8ed9eca9636f0f43eb53f49e3a3269afb8",
+    "jax_skill2_burst_6.png": "e2bf91c7b5a0bba2a4e1ab043b9f3e481531109bf5b01753e32401d10cc1107c",
+    "jax_dead_2.png": "4d47de3a1b2b34fbc0a246a5c780340dd66c2060b6e517f149cfbec06f7412e8",
+    "jax_dead_3.png": "fdfb186e7b1b87043ac1747551638a75f0f773754b631a7d78e32e053e97fcf5",
+    "jax_dead_4.png": "b4ef399eb29911556743a5ecba835aa4a32bbdccd5035325fbabc6d331fe5a88",
+    "jax_dead_5.png": "633fffa0fe9931db4ec511c542f7cea7caaf7d63150c19ee5d41d2dbb39feee4",
+    "jax_dead_6.png": "a920e268d9b1342581e0a71cdb955d46b9c7fb1594296b2d4ab4abccd62beadd",
+    "jax_dead_7.png": "2aa7a8881db04056db74301f8bc2429bd347cb9a68012e1e9773a8b038d321e8",
+    "jax_dead_8.png": "02d9b3d765e61f0e0146633a339d0b3614fc546cf8d4a8c58297a2a414fccd8b"
+  },
+  "game_import_tested": false
+}

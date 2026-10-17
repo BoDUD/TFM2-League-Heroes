@@ -1,0 +1,320 @@
+{
+  "px_per_square": 5,
+  "grid": [
+    307,
+    204
+  ],
+  "soles_row": 196,
+  "standing_point": [
+    165,
+    196
+  ],
+  "design_squares": [
+    142,
+    166
+  ],
+  "frames": [
+    {
+      "file": "kindred_wolf_float_1.png",
+      "tag": "wolf_float",
+      "index": 0,
+      "ms": 100
+    },
+    {
+      "file": "kindred_wolf_float_2.png",
+      "tag": "wolf_float",
+      "index": 1,
+      "ms": 100
+    },
+    {
+      "file": "kindred_wolf_float_3.png",
+      "tag": "wolf_float",
+      "index": 2,
+      "ms": 100
+    },
+    {
+      "file": "kindred_wolf_float_4.png",
+      "tag": "wolf_float",
+      "index": 3,
+      "ms": 100
+    },
+    {
+      "file": "kindred_wolf_bite_1.png",
+      "tag": "wolf_bite",
+      "index": 0,
+      "ms": 100
+    },
+    {
+      "file": "kindred_wolf_bite_2.png",
+      "tag": "wolf_bite",
+      "index": 1,
+      "ms": 100
+    },
+    {
+      "file": "kindred_wolf_bite_3.png",
+      "tag": "wolf_bite",
+      "index": 2,
+      "ms": 100
+    },
+    {
+      "file": "kindred_wolf_bite_4.png",
+      "tag": "wolf_bite",
+      "index": 3,
+      "ms": 100
+    },
+    {
+      "file": "kindred_wolf_bite_5.png",
+      "tag": "wolf_bite",
+      "index": 4,
+      "ms": 100
+    },
+    {
+      "file": "kindred_run_1.png",
+      "tag": "run",
+      "index": 0,
+      "ms": 125
+    },
+    {
+      "file": "kindred_run_2.png",
+      "tag": "run",
+      "index": 1,
+      "ms": 125
+    },
+    {
+      "file": "kindred_run_3.png",
+      "tag": "run",
+      "index": 2,
+      "ms": 125
+    },
+    {
+      "file": "kindred_run_4.png",
+      "tag": "run",
+      "index": 3,
+      "ms": 125
+    },
+    {
+      "file": "kindred_run_5.png",
+      "tag": "run",
+      "index": 4,
+      "ms": 125
+    },
+    {
+      "file": "kindred_run_6.png",
+      "tag": "run",
+      "index": 5,
+      "ms": 125
+    },
+    {
+      "file": "kindred_run_7.png",
+      "tag": "run",
+      "index": 6,
+      "ms": 125
+    },
+    {
+      "file": "kindred_run_8.png",
+      "tag": "run",
+      "index": 7,
+      "ms": 125
+    },
+    {
+      "file": "kindred_attack_1.png",
+      "tag": "attack",
+      "index": 0,
+      "ms": 80
+    },
+    {
+      "file": "kindred_attack_2.png",
+      "tag": "attack",
+      "index": 1,
+      "ms": 80
+    },
+    {
+      "file": "kindred_attack_3.png",
+      "tag": "attack",
+      "index": 2,
+      "ms": 90
+    },
+    {
+      "file": "kindred_attack_4.png",
+      "tag": "attack",
+      "index": 3,
+      "ms": 90
+    },
+    {
+      "file": "kindred_attack_5.png",
+      "tag": "attack",
+      "index": 4,
+      "ms": 100
+    },
+    {
+      "file": "kindred_skill_1.png",
+      "tag": "skill",
+      "index": 0,
+      "ms": 60
+    },
+    {
+      "file": "kindred_skill_2.png",
+      "tag": "skill",
+      "index": 1,
+      "ms": 60
+    },
+    {
+      "file": "kindred_skill_3.png",
+      "tag": "skill",
+      "index": 2,
+      "ms": 60
+    },
+    {
+      "file": "kindred_skill_4.png",
+      "tag": "skill",
+      "index": 3,
+      "ms": 60
+    },
+    {
+      "file": "kindred_skill_5.png",
+      "tag": "skill",
+      "index": 4,
+      "ms": 80
+    },
+    {
+      "file": "kindred_skill_6.png",
+      "tag": "skill",
+      "index": 5,
+      "ms": 100
+    },
+    {
+      "file": "kindred_skill2_1.png",
+      "tag": "skill2",
+      "index": 0,
+      "ms": 80
+    },
+    {
+      "file": "kindred_skill2_2.png",
+      "tag": "skill2",
+      "index": 1,
+      "ms": 80
+    },
+    {
+      "file": "kindred_skill2_3.png",
+      "tag": "skill2",
+      "index": 2,
+      "ms": 90
+    },
+    {
+      "file": "kindred_skill2_4.png",
+      "tag": "skill2",
+      "index": 3,
+      "ms": 90
+    },
+    {
+      "file": "kindred_skill2_5.png",
+      "tag": "skill2",
+      "index": 4,
+      "ms": 100
+    },
+    {
+      "file": "kindred_w_cast_1.png",
+      "tag": "w_cast",
+      "index": 0,
+      "ms": 80
+    },
+    {
+      "file": "kindred_w_cast_2.png",
+      "tag": "w_cast",
+      "index": 1,
+      "ms": 80
+    },
+    {
+      "file": "kindred_w_cast_3.png",
+      "tag": "w_cast",
+      "index": 2,
+      "ms": 100
+    },
+    {
+      "file": "kindred_w_cast_4.png",
+      "tag": "w_cast",
+      "index": 3,
+      "ms": 100
+    },
+    {
+      "file": "kindred_ult_1.png",
+      "tag": "ult",
+      "index": 0,
+      "ms": 80
+    },
+    {
+      "file": "kindred_ult_2.png",
+      "tag": "ult",
+      "index": 1,
+      "ms": 80
+    },
+    {
+      "file": "kindred_ult_3.png",
+      "tag": "ult",
+      "index": 2,
+      "ms": 80
+    },
+    {
+      "file": "kindred_ult_4.png",
+      "tag": "ult",
+      "index": 3,
+      "ms": 100
+    },
+    {
+      "file": "kindred_ult_5.png",
+      "tag": "ult",
+      "index": 4,
+      "ms": 100
+    },
+    {
+      "file": "kindred_ult_6.png",
+      "tag": "ult",
+      "index": 5,
+      "ms": 100
+    },
+    {
+      "file": "kindred_dead_1.png",
+      "tag": "dead",
+      "index": 0,
+      "ms": 100
+    },
+    {
+      "file": "kindred_dead_2.png",
+      "tag": "dead",
+      "index": 1,
+      "ms": 100
+    },
+    {
+      "file": "kindred_dead_3.png",
+      "tag": "dead",
+      "index": 2,
+      "ms": 100
+    },
+    {
+      "file": "kindred_dead_4.png",
+      "tag": "dead",
+      "index": 3,
+      "ms": 120
+    },
+    {
+      "file": "kindred_dead_5.png",
+      "tag": "dead",
+      "index": 4,
+      "ms": 150
+    },
+    {
+      "file": "kindred_dead_6.png",
+      "tag": "dead",
+      "index": 5,
+      "ms": 400
+    }
+  ],
+  "design_at": [
+    78,
+    31
+  ],
+  "wolf_at": [
+    71,
+    84
+  ]
+}

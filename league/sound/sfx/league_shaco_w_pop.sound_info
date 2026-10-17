@@ -1,0 +1,34 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_shaco_sfx_w_pop",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.5,
+      "clip": "league_shaco_sfx_w_shot",
+      "volume": 0.3
+    },
+    {
+      "delay": 1.5,
+      "clip": "league_shaco_sfx_w_shot",
+      "volume": 0.3
+    },
+    {
+      "delay": 2.5,
+      "clip": "league_shaco_sfx_w_shot",
+      "volume": 0.3
+    },
+    {
+      "delay": 3.5,
+      "clip": "league_shaco_sfx_w_shot",
+      "volume": 0.3
+    },
+    {
+      "delay": 4.5,
+      "clip": "league_shaco_sfx_w_shot",
+      "volume": 0.3
+    }
+  ]
+}

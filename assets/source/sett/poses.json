@@ -1,0 +1,41 @@
+{
+ "hero": "sett",
+ "champ": "Sett",
+ "camera": {"yaw": 30, "pitch": 20, "mirror": true},
+ "chibi": {"head": 3.0, "legs": 1.05},
+ "hide_submeshes": true,
+ "height": 42,
+ "cell": [96, 80, 12],
+ "design": "Sett_Idle@0",
+ "tags": {
+  "idle": {"frames": [["Sett_Idle@0", 200], ["Sett_Idle@0", 200], ["Sett_Idle@0", 200],
+                      ["Sett_Idle@0", 200], ["Sett_Idle@0", 200], ["Sett_Idle@0", 200]]},
+  "run": {"head_like": "Sett_Idle@0", "frames": [
+   ["Sett_Run@0", 125], ["Sett_Run@133", 125], ["Sett_Run@267", 125], ["Sett_Run@400", 125],
+   ["Sett_Run@533", 125], ["Sett_Run@667", 125], ["Sett_Run@800", 125], ["Sett_Run@933", 125]]},
+  "attack": {"lunge": 0.4, "frames": [
+   ["Sett_Idle@0>Sett_Attack1@0:0.6", 67], ["Sett_Attack1@0", 67], ["Sett_Attack1@12", 66],
+   ["Sett_Attack1@30", 100], ["Sett_Attack1@500>Sett_Idle@0:0.5", 100]]},
+  "attack2": {"lunge": 0.4, "frames": [
+   ["Sett_Idle@0>Sett_attack2@0:0.4", 50], ["Sett_Idle@0>Sett_attack2@0:0.8", 50], ["Sett_attack2@0", 80],
+   ["Sett_attack2@133", 85], ["Sett_attack2@500>Sett_Idle@0:0.5", 85]]},
+  "skill": {"lunge": 0.3, "frames": [
+   ["Sett_Spell3_Start@0", 50], ["Sett_Spell3_Start@100", 50], ["Sett_Spell3_Start@200", 67],
+   ["Sett_Spell3_Front@0", 67], ["Sett_Spell3_Front@117", 66], ["Sett_Spell3_Front@233", 100],
+   ["Sett_Spell3_Front@350>Sett_Idle@0:0.5", 100]]},
+  "skill2": {"lunge": 0.4, "frames": [
+   ["Sett_spell2@0", 80, {"turn": -60}], ["Sett_spell2@200", 100, {"turn": -60}], ["Sett_spell2@450", 150, {"turn": -60}], ["Sett_spell2@680", 153],
+   ["Sett_spell2@783", 150], ["Sett_spell2@1044", 130, {"turn": 60}], ["Sett_spell2@1306>Sett_Idle@0:0.5", 137]]},
+  "ult": {"lunge": 0.3, "frames": [
+   ["Sett_Spell4_Grab@0", 40], ["Sett_Spell4_Grab@50", 40], ["Sett_Spell4_Grab@100", 53], ["Sett_Spell4_Grab@150", 100]]},
+  "ult_dash": {"lunge": 0.0, "rise": 0.3, "frames": [
+   ["Sett_Spell4_Dash@0", 125], ["Sett_Spell4_Dash@125", 125], ["Sett_Spell4_Dash@250", 125], ["Sett_Spell4_Dash@375", 125]]},
+  "ult_slam": {"lunge": 0.2, "rise": 0.3, "frames": [
+   ["Sett_Spell4_PowerBomb@780", 67], ["Sett_Spell4_PowerBomb@900", 100],
+   ["Sett_Spell4_PowerBomb@933>Sett_Idle@0:0.35", 100], ["Sett_Spell4_PowerBomb@933>Sett_Idle@0:0.7", 133]]},
+  "hit": {"frames": [["Sett_Idle@0>Sett_Death@150:0.35", 100], ["Sett_Idle@0>Sett_Death@150:0.15", 100]]},
+  "dead": {"anchor": "first", "lunge": 0.3, "flat": true, "travel": 0.2, "frames": [
+   ["Sett_Death@0", 100], ["Sett_Death@200", 100], ["Sett_Death@367", 110], ["Sett_Death@550", 110],
+   ["Sett_Death@733", 120], ["Sett_Death@1000", 150], ["Sett_Death@1467", 300], ["Sett_Death@1833", 500]]}
+ }
+}

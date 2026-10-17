@@ -1,0 +1,190 @@
+{
+  "passed": true,
+  "exact_8x": true,
+  "upper_full_resolution_exact": true,
+  "palette_only": true,
+  "alpha_binary": true,
+  "frames": [
+    {
+      "frame": 1,
+      "upper_rgba_100_percent": true,
+      "protected_cannon_unchanged": true,
+      "pixels_below81": 0,
+      "components": [
+        826
+      ],
+      "near_visible_pixels": 41,
+      "far_visible_pixels": 15,
+      "near_foot": [
+        46,
+        81
+      ],
+      "far_foot": [
+        41,
+        77
+      ],
+      "foot_contact_expected": true
+    },
+    {
+      "frame": 2,
+      "upper_rgba_100_percent": true,
+      "protected_cannon_unchanged": true,
+      "pixels_below81": 0,
+      "components": [
+        853
+      ],
+      "near_visible_pixels": 64,
+      "far_visible_pixels": 23,
+      "near_foot": [
+        41,
+        78
+      ],
+      "far_foot": [
+        50,
+        77
+      ],
+      "foot_contact_expected": false
+    },
+    {
+      "frame": 3,
+      "upper_rgba_100_percent": true,
+      "protected_cannon_unchanged": true,
+      "pixels_below81": 0,
+      "components": [
+        859
+      ],
+      "near_visible_pixels": 46,
+      "far_visible_pixels": 45,
+      "near_foot": [
+        40,
+        77
+      ],
+      "far_foot": [
+        52,
+        78
+      ],
+      "foot_contact_expected": false
+    },
+    {
+      "frame": 4,
+      "upper_rgba_100_percent": true,
+      "protected_cannon_unchanged": true,
+      "pixels_below81": 0,
+      "components": [
+        854
+      ],
+      "near_visible_pixels": 35,
+      "far_visible_pixels": 50,
+      "near_foot": [
+        38,
+        77
+      ],
+      "far_foot": [
+        51,
+        81
+      ],
+      "foot_contact_expected": true
+    },
+    {
+      "frame": 5,
+      "upper_rgba_100_percent": true,
+      "protected_cannon_unchanged": true,
+      "pixels_below81": 0,
+      "components": [
+        826
+      ],
+      "near_visible_pixels": 29,
+      "far_visible_pixels": 27,
+      "near_foot": [
+        41,
+        77
+      ],
+      "far_foot": [
+        46,
+        81
+      ],
+      "foot_contact_expected": true
+    },
+    {
+      "frame": 6,
+      "upper_rgba_100_percent": true,
+      "protected_cannon_unchanged": true,
+      "pixels_below81": 0,
+      "components": [
+        845
+      ],
+      "near_visible_pixels": 48,
+      "far_visible_pixels": 27,
+      "near_foot": [
+        52,
+        77
+      ],
+      "far_foot": [
+        43,
+        78
+      ],
+      "foot_contact_expected": false
+    },
+    {
+      "frame": 7,
+      "upper_rgba_100_percent": true,
+      "protected_cannon_unchanged": true,
+      "pixels_below81": 0,
+      "components": [
+        861
+      ],
+      "near_visible_pixels": 47,
+      "far_visible_pixels": 44,
+      "near_foot": [
+        53,
+        78
+      ],
+      "far_foot": [
+        41,
+        77
+      ],
+      "foot_contact_expected": false
+    },
+    {
+      "frame": 8,
+      "upper_rgba_100_percent": true,
+      "protected_cannon_unchanged": true,
+      "pixels_below81": 0,
+      "components": [
+        855
+      ],
+      "near_visible_pixels": 52,
+      "far_visible_pixels": 33,
+      "near_foot": [
+        51,
+        81
+      ],
+      "far_foot": [
+        38,
+        77
+      ],
+      "foot_contact_expected": true
+    }
+  ],
+  "leg_pair_differences": [
+    {
+      "frames": [
+        1,
+        5
+      ],
+      "leg_region_changed_fraction": 0.24705882352941178,
+      "changed_pixels": 21,
+      "denominator": "opaque union below hip; includes protected cannon"
+    },
+    {
+      "frames": [
+        4,
+        8
+      ],
+      "leg_region_changed_fraction": 0.32456140350877194,
+      "changed_pixels": 37,
+      "denominator": "opaque union below hip; includes protected cannon"
+    }
+  ],
+  "game_tested": false
+}

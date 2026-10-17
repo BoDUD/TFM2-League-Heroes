@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_urgot_sfx_vo_r_kill",
+      "volume": 0.9
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_urgot_sfx_r_fear",
+      "volume": 0.6
+    }
+  ]
+}

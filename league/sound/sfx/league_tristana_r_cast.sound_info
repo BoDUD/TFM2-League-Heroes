@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_tristana_sfx_r_cast",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.25,
+      "clip": "league_tristana_sfx_r_launch",
+      "volume": 0.6
+    }
+  ]
+}

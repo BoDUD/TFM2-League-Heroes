@@ -1,0 +1,207 @@
+{
+  "idle": {
+    "frames": 6,
+    "unique_frames": 1,
+    "palette_valid": true,
+    "hard_alpha": true,
+    "grid_8x": true,
+    "below_feet": 0,
+    "head_exact_frames": 6,
+    "areas": [
+      976,
+      976,
+      976,
+      976,
+      976,
+      976
+    ],
+    "connected_components": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "run": {
+    "frames": 8,
+    "unique_frames": 8,
+    "palette_valid": true,
+    "hard_alpha": true,
+    "grid_8x": true,
+    "below_feet": 0,
+    "head_exact_frames": 8,
+    "areas": [
+      954,
+      932,
+      911,
+      937,
+      976,
+      955,
+      913,
+      917
+    ],
+    "connected_components": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "attack": {
+    "frames": 5,
+    "unique_frames": 5,
+    "palette_valid": true,
+    "hard_alpha": true,
+    "grid_8x": true,
+    "below_feet": 0,
+    "head_exact_frames": 5,
+    "areas": [
+      976,
+      968,
+      948,
+      965,
+      976
+    ],
+    "connected_components": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "skill": {
+    "frames": 3,
+    "unique_frames": 3,
+    "palette_valid": true,
+    "hard_alpha": true,
+    "grid_8x": true,
+    "below_feet": 0,
+    "head_exact_frames": 3,
+    "areas": [
+      969,
+      962,
+      976
+    ],
+    "connected_components": [
+      1,
+      1,
+      1
+    ]
+  },
+  "skill2": {
+    "frames": 4,
+    "unique_frames": 4,
+    "palette_valid": true,
+    "hard_alpha": true,
+    "grid_8x": true,
+    "below_feet": 0,
+    "head_exact_frames": 4,
+    "areas": [
+      976,
+      976,
+      976,
+      976
+    ],
+    "connected_components": [
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "skill2_e": {
+    "frames": 5,
+    "unique_frames": 5,
+    "palette_valid": true,
+    "hard_alpha": true,
+    "grid_8x": true,
+    "below_feet": 0,
+    "head_exact_frames": 5,
+    "areas": [
+      965,
+      960,
+      968,
+      965,
+      976
+    ],
+    "connected_components": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "ult": {
+    "frames": 3,
+    "unique_frames": 3,
+    "palette_valid": true,
+    "hard_alpha": true,
+    "grid_8x": true,
+    "below_feet": 0,
+    "head_exact_frames": 3,
+    "areas": [
+      957,
+      972,
+      965
+    ],
+    "connected_components": [
+      1,
+      1,
+      1
+    ]
+  },
+  "hit": {
+    "frames": 2,
+    "unique_frames": 2,
+    "palette_valid": true,
+    "hard_alpha": true,
+    "grid_8x": true,
+    "below_feet": 0,
+    "head_exact_frames": 2,
+    "areas": [
+      976,
+      976
+    ],
+    "connected_components": [
+      1,
+      1
+    ]
+  },
+  "dead": {
+    "frames": 8,
+    "unique_frames": 5,
+    "palette_valid": true,
+    "hard_alpha": true,
+    "grid_8x": true,
+    "below_feet": 0,
+    "head_exact_frames": 7,
+    "areas": [
+      976,
+      976,
+      975,
+      976,
+      976,
+      976,
+      976,
+      976
+    ],
+    "connected_components": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  }
+}

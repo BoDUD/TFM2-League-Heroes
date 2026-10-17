@@ -1,0 +1,52 @@
+[
+  {
+    "file": "khazix-model-A.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "alpha_bbox": [
+      57,
+      18,
+      1468,
+      1006
+    ],
+    "solid_bbox": [
+      127,
+      21,
+      1440,
+      997
+    ],
+    "fully_transparent_fraction": 0.6885382334391276
+  },
+  {
+    "file": "khazix-model-B.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "alpha_bbox": [
+      47,
+      17,
+      1522,
+      1024
+    ],
+    "solid_bbox": [
+      120,
+      22,
+      1502,
+      999
+    ],
+    "fully_transparent_fraction": 0.6128177642822266
+  }
+]

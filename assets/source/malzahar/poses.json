@@ -1,0 +1,197 @@
+{
+ "hero": "malzahar",
+ "champ": "Malzahar",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 35,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "malzahar_idle1@0",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "malzahar_run@0",
+     110
+    ],
+    [
+     "malzahar_run@333",
+     110
+    ],
+    [
+     "malzahar_run@667",
+     110
+    ],
+    [
+     "malzahar_run@1000",
+     110
+    ],
+    [
+     "malzahar_run@1333",
+     110
+    ],
+    [
+     "malzahar_run@1667",
+     110
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.2,
+   "release": 3,
+   "frames": [
+    [
+     "malzahar_idle1@0>malzahar_attack1@150:0.6",
+     70
+    ],
+    [
+     "malzahar_attack1@300",
+     70
+    ],
+    [
+     "malzahar_attack1@400",
+     70
+    ],
+    [
+     "malzahar_attack1@550",
+     100
+    ],
+    [
+     "malzahar_attack1@800>malzahar_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.1,
+   "release": 3,
+   "frames": [
+    [
+     "malzahar_idle1@0>malzahar_spell3@150:0.6",
+     70
+    ],
+    [
+     "malzahar_spell3@300",
+     70
+    ],
+    [
+     "malzahar_spell3@450",
+     80
+    ],
+    [
+     "malzahar_spell3@600",
+     100
+    ],
+    [
+     "malzahar_spell3@850>malzahar_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.0,
+   "release": 3,
+   "frames": [
+    [
+     "malzahar_idle1@0>malzahar_spell1@150:0.6",
+     70
+    ],
+    [
+     "malzahar_spell1@350",
+     80
+    ],
+    [
+     "malzahar_spell1@500",
+     90
+    ],
+    [
+     "malzahar_spell1@700",
+     100
+    ],
+    [
+     "malzahar_spell1@950>malzahar_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.0,
+   "release": 3,
+   "frames": [
+    [
+     "malzahar_idle1@0>malzahar_spell4@100:0.6",
+     80
+    ],
+    [
+     "malzahar_spell4@300",
+     80
+    ],
+    [
+     "malzahar_spell4@500",
+     90
+    ],
+    [
+     "malzahar_spell4@700",
+     100
+    ]
+   ]
+  },
+  "ult_loop": {
+   "lunge": 0.0,
+   "release": 0,
+   "frames": [
+    [
+     "malzahar_channel@0",
+     120
+    ],
+    [
+     "malzahar_channel@250",
+     120
+    ],
+    [
+     "malzahar_channel@500",
+     120
+    ],
+    [
+     "malzahar_channel@750",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.0,
+   "travel": 0.0,
+   "frames": [
+    [
+     "malzahar_death@0",
+     100
+    ],
+    [
+     "malzahar_death@250",
+     120
+    ],
+    [
+     "malzahar_death@500",
+     150
+    ],
+    [
+     "malzahar_death@800",
+     150
+    ]
+   ],
+   "rise": 0.2
+  }
+ }
+}

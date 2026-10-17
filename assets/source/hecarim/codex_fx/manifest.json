@@ -1,0 +1,1242 @@
+[
+  {
+    "name": "hecarim_fx_a_hit",
+    "file": "hecarim_fx_a_hit.png",
+    "frames_requested": 4,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2172,
+      724
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "target_cell_1x": [
+      14,
+      14
+    ],
+    "target_anchor_1x": [
+      7,
+      7
+    ],
+    "anchor_source_px_per_cell": [
+      271.5,
+      362.0
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.11034461707518085,
+      0.28460160963747544,
+      0.20825575124894438,
+      0.0751910299848397
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 268182,
+    "visible_rgb_colors": 43311,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "cbc59be82fdc3a4d5969cf7dfcdbead998e2a88c376849edab14be862fc24f5a",
+    "frames_visually_observed": 4,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "4 帧可辨；末帧火星仍较多，读回需校正居中和左右镜像。"
+  },
+  {
+    "name": "hecarim_fx_q_spin",
+    "file": "hecarim_fx_q_spin.png",
+    "frames_requested": 6,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2172,
+      724
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        362,
+        724
+      ],
+      [
+        362,
+        0,
+        724,
+        724
+      ],
+      [
+        724,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      [
+        1810,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "target_cell_1x": [
+      60,
+      36
+    ],
+    "target_anchor_1x": [
+      30,
+      21
+    ],
+    "anchor_source_px_per_cell": [
+      181.0,
+      422.33333333333337
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.09992826836787644,
+      0.15218552547236042,
+      0.1745978449986264,
+      0.28218003113458073,
+      0.16428069961234396,
+      0.08463569488110864
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 204028,
+    "visible_rgb_colors": 42234,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "5eed0777226b67e990268f198012ffa08a709c4fcbec264e0a7f00155a43e7d5",
+    "frames_visually_observed": 6,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "6 帧可辨；重画了间距和衰减，3–4 帧仍贴近边界，上弧断开程度与前后亮度需整理。"
+  },
+  {
+    "name": "hecarim_fx_q_hit",
+    "file": "hecarim_fx_q_hit.png",
+    "frames_requested": 4,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2172,
+      724
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "target_cell_1x": [
+      16,
+      16
+    ],
+    "target_anchor_1x": [
+      8,
+      8
+    ],
+    "anchor_source_px_per_cell": [
+      271.5,
+      362.0
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.12162327157290681,
+      0.23577322629549363,
+      0.16744503118545426,
+      0.08651547063072963
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 166008,
+    "visible_rgb_colors": 27270,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "a5a0fc889cb90a62e3fa82b2e9981e605fa17621c14e100b3630967cced89388",
+    "frames_visually_observed": 4,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "4 帧可辨；2–3 帧刀光较长，需防止串到邻格。"
+  },
+  {
+    "name": "hecarim_fx_q1",
+    "file": "hecarim_fx_q1.png",
+    "frames_requested": 4,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2172,
+      724
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "target_cell_1x": [
+      56,
+      32
+    ],
+    "target_anchor_1x": [
+      28,
+      30
+    ],
+    "anchor_source_px_per_cell": [
+      271.5,
+      678.75
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.06744299624553585,
+      0.07861990374734186,
+      0.07580151196035936,
+      0.07586764750770733
+    ],
+    "loop_requested": true,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 111566,
+    "visible_rgb_colors": 36593,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "177cb625ae2744e4c25680d7b058446dc13d9e6e4572df57bef0670de156ed68",
+    "frames_visually_observed": 4,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "4 帧，每帧两团火；火团的高度和距中心 22 格的位置需按锚点放回。"
+  },
+  {
+    "name": "hecarim_fx_q2",
+    "file": "hecarim_fx_q2.png",
+    "frames_requested": 4,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2172,
+      724
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "target_cell_1x": [
+      56,
+      32
+    ],
+    "target_anchor_1x": [
+      28,
+      30
+    ],
+    "anchor_source_px_per_cell": [
+      271.5,
+      678.75
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.15439597895872123,
+      0.1479553941169887,
+      0.1453201469226621,
+      0.15105359014275105
+    ],
+    "loop_requested": true,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 202676,
+    "visible_rgb_colors": 41466,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "48335696e537fc763bf962c13baa32dda2cd1187853a71458466323b801fb94f",
+    "frames_visually_observed": 4,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "4 帧，每帧四团火；高低位置和间距需回到指定 22/15 格与 14/20 格。"
+  },
+  {
+    "name": "hecarim_fx_w_start",
+    "file": "hecarim_fx_w_start.png",
+    "frames_requested": 6,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2172,
+      724
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        362,
+        724
+      ],
+      [
+        362,
+        0,
+        724,
+        724
+      ],
+      [
+        724,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      [
+        1810,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "target_cell_1x": [
+      64,
+      44
+    ],
+    "target_anchor_1x": [
+      32,
+      28
+    ],
+    "anchor_source_px_per_cell": [
+      181.0,
+      460.72727272727275
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.13428314154024604,
+      0.2893684563963249,
+      0.2974191874484906,
+      0.4101141601294222,
+      0.36522847287933824,
+      0.2341198376117945
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 378006,
+    "visible_rgb_colors": 87944,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "bb8a47d19ae446acceade9b2eb6f55dabb2f0a53341b60c761cf13c314cf354e",
+    "frames_visually_observed": 6,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "6 帧可辨；修过间距，但末帧仍有较大烟柱，未完全衰减成稀疏烟与火星。"
+  },
+  {
+    "name": "hecarim_fx_w_aura",
+    "file": "hecarim_fx_w_aura.png",
+    "frames_requested": 4,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2172,
+      724
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "target_cell_1x": [
+      64,
+      34
+    ],
+    "target_anchor_1x": [
+      32,
+      17
+    ],
+    "anchor_source_px_per_cell": [
+      271.5,
+      362.0
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.26520354486533787,
+      0.27326190694219754,
+      0.2879134743546697,
+      0.29280241750862307
+    ],
+    "loop_requested": true,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 359526,
+    "visible_rgb_colors": 69822,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "599f02dd9fe837b464ab79eea752db639c04e09c1d62fd8b93913eb5baa58913",
+    "frames_visually_observed": 4,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "4 帧可辨；光环中心有少量杂点，幽灵数量与左右镜像需整理。"
+  },
+  {
+    "name": "hecarim_fx_w_hit",
+    "file": "hecarim_fx_w_hit.png",
+    "frames_requested": 5,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2073,
+      758
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        415,
+        758
+      ],
+      [
+        415,
+        0,
+        829,
+        758
+      ],
+      [
+        829,
+        0,
+        1244,
+        758
+      ],
+      [
+        1244,
+        0,
+        1658,
+        758
+      ],
+      [
+        1658,
+        0,
+        2073,
+        758
+      ]
+    ],
+    "target_cell_1x": [
+      14,
+      20
+    ],
+    "target_anchor_1x": [
+      7,
+      13
+    ],
+    "anchor_source_px_per_cell": [
+      207.3,
+      492.7
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.043049241822169945,
+      0.15900602908747913,
+      0.25737355755475727,
+      0.22663250608644667,
+      0.10428203579489462
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 193950,
+    "visible_rgb_colors": 40808,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "d221131a869139b8cf91ed8b3dfcac5062ffc9570faf8ddd9bc77e91aeed2290",
+    "frames_visually_observed": 5,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "5 帧可辨；末帧还残留底部亮团，应进一步淡出，只留下顶部余烬。"
+  },
+  {
+    "name": "hecarim_fx_e_dust",
+    "file": "hecarim_fx_e_dust.png",
+    "frames_requested": 5,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2103,
+      748
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        421,
+        748
+      ],
+      [
+        421,
+        0,
+        841,
+        748
+      ],
+      [
+        841,
+        0,
+        1262,
+        748
+      ],
+      [
+        1262,
+        0,
+        1682,
+        748
+      ],
+      [
+        1682,
+        0,
+        2103,
+        748
+      ]
+    ],
+    "target_cell_1x": [
+      36,
+      16
+    ],
+    "target_anchor_1x": [
+      18,
+      13
+    ],
+    "anchor_source_px_per_cell": [
+      210.3,
+      607.75
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.3323637379806166,
+      0.38304685510567865,
+      0.47428455294879773,
+      0.3765979118920295,
+      0.30879494963608417
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 0,
+    "visible_rgb_colors": 26345,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "45175013be0990a0ac88fc6f67647c4fd1ba173aaa7d246956d56809113ca38b",
+    "frames_visually_observed": 5,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "opaque black; remove black during readback",
+    "readback_notes": "5 帧可辨；选用纯黑背景版，明显红黄杂边已消除；读回需要抠黑、校正宽度和落地点。"
+  },
+  {
+    "name": "hecarim_fx_e_ride",
+    "file": "hecarim_fx_e_ride.png",
+    "frames_requested": 4,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2079,
+      756
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        520,
+        756
+      ],
+      [
+        520,
+        0,
+        1040,
+        756
+      ],
+      [
+        1040,
+        0,
+        1559,
+        756
+      ],
+      [
+        1559,
+        0,
+        2079,
+        756
+      ]
+    ],
+    "target_cell_1x": [
+      44,
+      12
+    ],
+    "target_anchor_1x": [
+      22,
+      6
+    ],
+    "anchor_source_px_per_cell": [
+      259.875,
+      378.0
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.14923178673178672,
+      0.149506512006512,
+      0.15508048648703754,
+      0.14963369963369963
+    ],
+    "loop_requested": true,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 197243,
+    "visible_rgb_colors": 56086,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "4e303330c033305f3066bfec1e6e05c2adcdc9d1588b72b4e7e28cf59422555c",
+    "frames_visually_observed": 4,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "4 帧可辨；烟尘灰褐和青绿火芯均有，局部彩色杂边仍需剔除，火焰高度需压到目标尺寸。"
+  },
+  {
+    "name": "hecarim_fx_e_hit",
+    "file": "hecarim_fx_e_hit.png",
+    "frames_requested": 5,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2172,
+      724
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        434,
+        724
+      ],
+      [
+        434,
+        0,
+        869,
+        724
+      ],
+      [
+        869,
+        0,
+        1303,
+        724
+      ],
+      [
+        1303,
+        0,
+        1738,
+        724
+      ],
+      [
+        1738,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "target_cell_1x": [
+      24,
+      22
+    ],
+    "target_anchor_1x": [
+      12,
+      14
+    ],
+    "anchor_source_px_per_cell": [
+      217.2,
+      460.72727272727275
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.3252666955215521,
+      0.47006413920111767,
+      0.6180398197418336,
+      0.6341080840795073,
+      0.457576953433307
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 838928,
+    "visible_rgb_colors": 116654,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "9576e4094c383f223e6bbcdfb6a5fae0e95742d1b15208a557ae0a93b9aff72f",
+    "frames_visually_observed": 5,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "5 帧可辨；碎石向上飞，方向正确；末帧烟较密，边缘彩色杂点和帧间留白需整理。"
+  },
+  {
+    "name": "hecarim_fx_e_haste",
+    "file": "hecarim_fx_e_haste.png",
+    "frames_requested": 4,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2032,
+      774
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        508,
+        774
+      ],
+      [
+        508,
+        0,
+        1016,
+        774
+      ],
+      [
+        1016,
+        0,
+        1524,
+        774
+      ],
+      [
+        1524,
+        0,
+        2032,
+        774
+      ]
+    ],
+    "target_cell_1x": [
+      42,
+      10
+    ],
+    "target_anchor_1x": [
+      21,
+      5
+    ],
+    "anchor_source_px_per_cell": [
+      254.0,
+      387.0
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.1832234633461515,
+      0.23314818205863802,
+      0.226215182404525,
+      0.1895155547417038
+    ],
+    "loop_requested": true,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 284101,
+    "visible_rgb_colors": 51025,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "c7897b2b9f415fc5fc1a32ee67efa07659bf296718b81155c91d3a28dab3f4eb",
+    "frames_visually_observed": 4,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "4 帧可辨；两侧火焰偏高，读回应压缩为 40×8 格蹄下风，不使用高烟柱造型。"
+  },
+  {
+    "name": "hecarim_fx_r_riders",
+    "file": "hecarim_fx_r_riders.png",
+    "frames_requested": 4,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      1983,
+      793
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        496,
+        793
+      ],
+      [
+        496,
+        0,
+        992,
+        793
+      ],
+      [
+        992,
+        0,
+        1487,
+        793
+      ],
+      [
+        1487,
+        0,
+        1983,
+        793
+      ]
+    ],
+    "target_cell_1x": [
+      40,
+      26
+    ],
+    "target_anchor_1x": [
+      20,
+      13
+    ],
+    "anchor_source_px_per_cell": [
+      247.875,
+      396.5
+    ],
+    "symmetry_requested": "top-bottom",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.5680500752552577,
+      0.5603008176382053,
+      0.5443794820844001,
+      0.5625940690721231
+    ],
+    "loop_requested": true,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 977504,
+    "visible_rgb_colors": 119553,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "5c843f32d516a51f13e40a5b7ff7256bf0e16c95bf8883a15ee791fea92847b3",
+    "frames_visually_observed": 4,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "4 帧可辨；朝右楔形刀阵、非侧面人马；各帧刀阵接近边界，五把刀的分离和上下精确镜像需整理。"
+  },
+  {
+    "name": "hecarim_fx_r_cast",
+    "file": "hecarim_fx_r_cast.png",
+    "frames_requested": 5,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2146,
+      733
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        429,
+        733
+      ],
+      [
+        429,
+        0,
+        858,
+        733
+      ],
+      [
+        858,
+        0,
+        1288,
+        733
+      ],
+      [
+        1288,
+        0,
+        1717,
+        733
+      ],
+      [
+        1717,
+        0,
+        2146,
+        733
+      ]
+    ],
+    "target_cell_1x": [
+      60,
+      48
+    ],
+    "target_anchor_1x": [
+      30,
+      45
+    ],
+    "anchor_source_px_per_cell": [
+      214.6,
+      687.1875
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.2239543085382103,
+      0.5049529824427506,
+      0.4724325010311241,
+      0.5790426035992202,
+      0.1924841870271611
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 590308,
+    "visible_rgb_colors": 108063,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "bcc059f8800773492c27077472f91b4d6640b4ee14d968f82b13f3dedfc7ff29",
+    "frames_visually_observed": 5,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "5 帧可辨；中央未画角色，左右灵火和骑兵轮廓可见；烟偏多，末帧未完全淡出，需调整白芯与亮青绿比例。"
+  },
+  {
+    "name": "hecarim_fx_r_land",
+    "file": "hecarim_fx_r_land.png",
+    "frames_requested": 6,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2170,
+      725
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        362,
+        725
+      ],
+      [
+        362,
+        0,
+        723,
+        725
+      ],
+      [
+        723,
+        0,
+        1085,
+        725
+      ],
+      [
+        1085,
+        0,
+        1447,
+        725
+      ],
+      [
+        1447,
+        0,
+        1808,
+        725
+      ],
+      [
+        1808,
+        0,
+        2170,
+        725
+      ]
+    ],
+    "target_cell_1x": [
+      60,
+      34
+    ],
+    "target_anchor_1x": [
+      30,
+      19
+    ],
+    "anchor_source_px_per_cell": [
+      180.83333333333334,
+      405.14705882352945
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.15633453991236426,
+      0.2736307192664056,
+      0.36515145742046107,
+      0.3505124785673462,
+      0.2578813640271277,
+      0.15361402171842256
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 348252,
+    "visible_rgb_colors": 100207,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "25be139f1c609eea2d8190f39a6cc479db44e6bbfa2db81b7b50a2c6670dd76a",
+    "frames_visually_observed": 6,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "6 帧可辨；扩圈和裂纹可见，峰值帧偏宽，需校正分格、亮度与后续衰减。"
+  },
+  {
+    "name": "hecarim_fx_r_hit",
+    "file": "hecarim_fx_r_hit.png",
+    "frames_requested": 4,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      2172,
+      724
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "target_cell_1x": [
+      16,
+      16
+    ],
+    "target_anchor_1x": [
+      8,
+      8
+    ],
+    "anchor_source_px_per_cell": [
+      271.5,
+      362.0
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.11927800331695207,
+      0.3730299237915001,
+      0.37473927332295515,
+      0.12740758829095572
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 310206,
+    "visible_rgb_colors": 63500,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "14f28e1e34ec39325c9705324ea80ef66356304898e13bcab1c5fee080a09976",
+    "frames_visually_observed": 4,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "4 帧可辨；暗刀身和亮青绿刀边可见；后两帧仍较密，需清彩色边缘与精确镜像。"
+  },
+  {
+    "name": "hecarim_fx_r_fear",
+    "file": "hecarim_fx_r_fear.png",
+    "frames_requested": 6,
+    "layout": "single horizontal row; equal-cell readback assumed",
+    "actual_canvas": [
+      1920,
+      819
+    ],
+    "source_frame_rects": [
+      [
+        0,
+        0,
+        320,
+        819
+      ],
+      [
+        320,
+        0,
+        640,
+        819
+      ],
+      [
+        640,
+        0,
+        960,
+        819
+      ],
+      [
+        960,
+        0,
+        1280,
+        819
+      ],
+      [
+        1280,
+        0,
+        1600,
+        819
+      ],
+      [
+        1600,
+        0,
+        1920,
+        819
+      ]
+    ],
+    "target_cell_1x": [
+      18,
+      46
+    ],
+    "target_anchor_1x": [
+      9,
+      44
+    ],
+    "anchor_source_px_per_cell": [
+      160.0,
+      783.3913043478261
+    ],
+    "symmetry_requested": "left-right",
+    "symmetry_rgba_mismatch_fraction_per_cell": [
+      0.2716422466422466,
+      0.4129120879120879,
+      0.44694749694749697,
+      0.38894993894993896,
+      0.377518315018315,
+      0.19697039072039071
+    ],
+    "loop_requested": false,
+    "raw_unchanged": true,
+    "semi_transparent_pixels": 440983,
+    "visible_rgb_colors": 65282,
+    "preview_ms": 100,
+    "preview_timing_is_suggested": true,
+    "one_x_exported": false,
+    "sha256": "47bfce6889582eef00ecc17bf1beeb3ff2506445914045da3feadf4768393810",
+    "frames_visually_observed": 6,
+    "source_frame_rects_are_nominal": true,
+    "target_anchor_is_requested_not_measured": true,
+    "background": "generated alpha",
+    "readback_notes": "6 帧可辨；骷髅升起后淡出；底部未充分保留角色空位，需把骷髅移到脚底上方 30–36 格并保留下面空白。"
+  }
+]

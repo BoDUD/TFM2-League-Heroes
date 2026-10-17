@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "file": "kaisa_fx_bolt.png",
+    "cols": 4,
+    "rows": 1,
+    "cell": [
+      288,
+      96
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink core (#FFFFFF, #FFE3FB, #FFC2F6) wrapped in magenta and purple plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5).\nEffect: a small PLASMA BOLT flying to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a bright white-pink needle-shaped head at 80% of the cell width wrapped in a magenta glow, a short purple trail behind it to the left edge with two tiny sparks, flickering each frame.\nLayout: one horizontal row of 4 equal cells, each 3 wide to 1 tall, image size 1152x96 (each cell 288x96); the bolt on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 4 columns x 1 rows, 4 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution. All four projectiles are horizontally oriented RIGHT and individually mirror-symmetric across horizontal centerline. A symmetric pair of trails is better than an asymmetric curl.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": true
+  },
+  {
+    "id": 2,
+    "file": "kaisa_fx_q_missile.png",
+    "cols": 4,
+    "rows": 1,
+    "cell": [
+      320,
+      192
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink core (#FFFFFF, #FFE3FB, #FFC2F6), magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) and a purple smoke trail (#2A1F46, #463970, #6D5EA2, #A99BD6).\nEffect: a small HOMING MISSILE flying to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a rounded magenta warhead with a white-pink core at 80% of the cell width, a short wavy purple trail of plasma puffs behind it to the left edge that wiggles up and down a square each frame.\nLayout: one horizontal row of 4 equal cells, each 5 wide to 3 tall, image size 1280x192 (each cell 320x192); the missile on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 4 columns x 1 rows, 4 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution. All four projectiles are horizontally oriented RIGHT and individually mirror-symmetric across horizontal centerline. A symmetric pair of trails is better than an asymmetric curl.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": true
+  },
+  {
+    "id": 3,
+    "file": "kaisa_fx_w_bolt.png",
+    "cols": 4,
+    "rows": 1,
+    "cell": [
+      432,
+      144
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink head (#FFFFFF, #FFE3FB, #FFC2F6), magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) and void violet lightning (#2B1450, #5226A0, #8A55E6, #BFA2FF).\nEffect: a long VOID BOLT flying to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a bright white-pink cone-shaped head at 85% of the cell width wrapped in a magenta glow, a long violet trail behind it to the left edge, two thin zig-zag violet lightning lines twisting round the trail (their zig-zags change each frame).\nLayout: one horizontal row of 4 equal cells, each 3 wide to 1 tall, image size 1728x144 (each cell 432x144); the bolt on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 4 columns x 1 rows, 4 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution. All four projectiles are horizontally oriented RIGHT and individually mirror-symmetric across horizontal centerline. A symmetric pair of trails is better than an asymmetric curl.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": true
+  },
+  {
+    "id": 4,
+    "file": "kaisa_fx_shot.png",
+    "cols": 4,
+    "rows": 1,
+    "cell": [
+      320,
+      256
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink flash (#FFFFFF, #FFE3FB, #FFC2F6) and magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5).\nEffect: a small PALM FLASH blasting to the RIGHT from the middle of the cell's LEFT edge (the palm is there), 4 frames: 1 a white-pink star at the left edge; 2 a short cone of magenta plasma to 70% of the cell width, two tiny purple sparks above and below; 3 the cone breaks into purple sparks; 4 faint sparks.\nLayout: one horizontal row of 4 equal cells, each 5 wide to 4 tall, image size 1280x256 (each cell 320x256); the palm at the middle of each cell's left edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 4 columns x 1 rows, 4 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 5,
+    "file": "kaisa_fx_hit.png",
+    "cols": 4,
+    "rows": 1,
+    "cell": [
+      256,
+      256
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink flash (#FFFFFF, #FFE3FB, #FFC2F6) and magenta sparks (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5).\nEffect: a small PLASMA SPLASH, 4 frames: 1 a white-pink flash at the centre; 2 a star of magenta plasma with short curved spikes; 3 purple sparks flying out; 4 fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 4 columns x 1 rows, 4 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 6,
+    "file": "kaisa_fx_pl_stack.png",
+    "cols": 6,
+    "rows": 4,
+    "cell": [
+      224,
+      128
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5), dark void violet (#2B1450, #5226A0, #8A55E6, #BFA2FF) and a white-pink sparkle (#FFFFFF, #FFE3FB, #FFC2F6).\nEffect: a PLASMA STACK MARK that floats over a target's head, 4 rows (row k = k stacks) of 6 frames: a small purple horned crest (a round dot in the middle with two horns curving up on each side, like the reference icon P_Stack_Empty) above a row of 4 small square pips; in row k the first k pips are lit bright magenta with a white centre and the rest are dark violet. Frame 1 the mark pops in a square bigger; frames 2-5 it holds, the lit pips blinking a little brighter in 3 and 5; frame 6 it fades to half size.\nLayout: 4 rows of 6 equal cells, each 7 wide to 4 tall, image size 1344x512 (each cell 224x128); the mark centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 6 columns x 4 rows, 24 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 7,
+    "file": "kaisa_fx_p_burst.png",
+    "cols": 7,
+    "rows": 1,
+    "cell": [
+      256,
+      256
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink core (#FFFFFF, #FFE3FB, #FFC2F6), magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) and violet lightning (#2B1450, #5226A0, #8A55E6, #BFA2FF).\nEffect: a PLASMA RUPTURE, 7 frames: 1 a bright white-pink flash at the centre; 2 a burst of magenta plasma with four zig-zag violet lightning bolts shooting out; 3 the burst at its biggest (90% of the cell), the bolts branching; 4 the plasma breaking into curved magenta shards; 5 violet sparks and small arcs; 6 fading sparks; 7 a few specks.\nLayout: one horizontal row of 7 equal square cells, image size 1792x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 7 columns x 1 rows, 7 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 8,
+    "file": "kaisa_fx_e_cast.png",
+    "cols": 6,
+    "rows": 1,
+    "cell": [
+      240,
+      320
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, violet electricity (#2B1450, #5226A0, #8A55E6, #BFA2FF), magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) and white-pink sparks (#FFFFFF, #FFE3FB, #FFC2F6).\nEffect: a SUPERCHARGE burst round a character (the character is not drawn: imagine a 30x40-pixel figure standing in the middle of the cell, feet on the bottom row), 6 frames: 1 a ring of magenta light flashes round the feet; 2-3 several thin zig-zag violet lightning lines climb up round the figure's outline to its shoulders, white-pink sparks at their tips; 4 a burst of sparks at shoulder height on both sides (where the wing-pods are); 5 the lightning flickers and breaks up; 6 a few sparks.\nLayout: one horizontal row of 6 equal cells, each 3 wide to 4 tall, image size 1440x320 (each cell 240x320, the feet on the bottom row). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 6 columns x 1 rows, 6 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 9,
+    "file": "kaisa_fx_e_aura.png",
+    "cols": 6,
+    "rows": 1,
+    "cell": [
+      240,
+      320
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, violet electricity (#2B1450, #5226A0, #8A55E6, #BFA2FF) and magenta sparks (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5).\nEffect: a light ELECTRIC AURA round a character (not drawn: a 26x36-pixel figure in the middle, feet on the bottom row), 6 frames, a seamless loop: three or four short thin violet arcs jumping at different places on the figure's outline (hands, knees, shoulders), each lasting one or two frames, a few magenta sparks; never more than a few squares wide, the figure must stay visible.\nLayout: one horizontal row of 6 equal cells, each 3 wide to 4 tall, image size 1440x320 (each cell 240x320, the feet on the bottom row). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 6 columns x 1 rows, 6 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": true
+  },
+  {
+    "id": 10,
+    "file": "kaisa_fx_e_invis.png",
+    "cols": 5,
+    "rows": 1,
+    "cell": [
+      240,
+      320
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, void violet (#2B1450, #5226A0, #8A55E6, #BFA2FF) and magenta (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) dissolving specks.\nEffect: a VOID CLOAK shimmer over a character (not drawn: a 28x40-pixel figure in the middle, feet on the bottom row), 5 frames: 1 a thin violet outline of light wraps the figure's shape; 2-3 the outline breaks into drifting violet and magenta specks rising up; 4 the specks thin out; 5 a few specks. Use a checker of violet specks (every other square) for the see-through parts, no semi-transparency.\nLayout: one horizontal row of 5 equal cells, each 3 wide to 4 tall, image size 1200x320 (each cell 240x320, the feet on the bottom row). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 5 columns x 1 rows, 5 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 11,
+    "file": "kaisa_fx_q_pod.png",
+    "cols": 5,
+    "rows": 1,
+    "cell": [
+      256,
+      256
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink flash (#FFFFFF, #FFE3FB, #FFC2F6), magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) and purple smoke (#2A1F46, #463970, #6D5EA2, #A99BD6).\nEffect: a MISSILE LAUNCH FLASH from a pod's opening, 5 frames: 1 a white-pink flash at the centre; 2 a burst of magenta fire spraying up and out, small sparks; 3 the fire at its biggest with a ring of sparks; 4 a puff of purple smoke; 5 faint smoke.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 5 columns x 1 rows, 5 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 12,
+    "file": "kaisa_fx_q_hit.png",
+    "cols": 5,
+    "rows": 1,
+    "cell": [
+      256,
+      256
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink core (#FFFFFF, #FFE3FB, #FFC2F6), magenta (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) and violet (#2B1450, #5226A0, #8A55E6, #BFA2FF).\nEffect: a MISSILE IMPACT, 5 frames: 1 a white-pink flash at the centre; 2 a round burst of magenta fire with short spikes; 3 the burst at its biggest, violet shards flying out; 4 fading sparks and a small purple puff; 5 specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 5 columns x 1 rows, 5 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 13,
+    "file": "kaisa_fx_w_charge.png",
+    "cols": 5,
+    "rows": 1,
+    "cell": [
+      280,
+      240
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5), void violet (#2B1450, #5226A0, #8A55E6, #BFA2FF) and a white-pink core (#FFFFFF, #FFE3FB, #FFC2F6).\nEffect: an ENERGY CHARGE at a cannon's mouth, the mouth at the middle of the cell's LEFT edge, 5 frames: 1 a few violet specks scattered round the mouth; 2 the specks drawn in toward the mouth in curved lines; 3 a small magenta orb forming at the mouth; 4 the orb brighter with a white-pink core and short rays; 5 the orb at its brightest.\nLayout: one horizontal row of 5 equal cells, each 7 wide to 6 tall, image size 1400x240 (each cell 280x240); the cannon's mouth at the middle of each cell's left edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 5 columns x 1 rows, 5 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 14,
+    "file": "kaisa_fx_w_muzzle.png",
+    "cols": 5,
+    "rows": 1,
+    "cell": [
+      400,
+      280
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink flash (#FFFFFF, #FFE3FB, #FFC2F6), magenta (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) and violet (#2B1450, #5226A0, #8A55E6, #BFA2FF).\nEffect: a VOID MUZZLE BLAST to the RIGHT from the middle of the cell's LEFT edge, 5 frames: 1 a big white-pink flash; 2 a cone of magenta and violet light to 90% of the cell width and a violet shock ring (an ellipse, taller than wide) round the mouth; 3 the ring moving right and widening, short white rays; 4 the light breaking into violet sparks; 5 fading sparks.\nLayout: one horizontal row of 5 equal cells, each 10 wide to 7 tall, image size 2000x280 (each cell 400x280); the mouth at the middle of each cell's left edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 5 columns x 1 rows, 5 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 15,
+    "file": "kaisa_fx_w_hit.png",
+    "cols": 6,
+    "rows": 1,
+    "cell": [
+      256,
+      256
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink core (#FFFFFF, #FFE3FB, #FFC2F6), void violet (#2B1450, #5226A0, #8A55E6, #BFA2FF) and magenta (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5).\nEffect: a VOID IMPACT, 6 frames: 1 a white-pink flash at the centre; 2 a violet shock ring bursting out and three short zig-zag lightning bolts; 3 the ring at 85% of the cell, magenta plasma inside it; 4 the ring breaking into arcs; 5 violet sparks; 6 specks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 6 columns x 1 rows, 6 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 16,
+    "file": "kaisa_fx_r_launch.png",
+    "cols": 6,
+    "rows": 1,
+    "cell": [
+      392,
+      252
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, void violet (#2B1450, #5226A0, #8A55E6, #BFA2FF), magenta (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5), a white-pink flash (#FFFFFF, #FFE3FB, #FFC2F6) and purple smoke (#2A1F46, #463970, #6D5EA2, #A99BD6).\nEffect: a LAUNCH BURST on the ground (seen from above at an angle: flat, an ellipse twice as wide as tall), 6 frames: 1 a white-pink flash on the ground; 2 a violet shock ring spreading on the ground and a burst of magenta energy shooting up and to the RIGHT (the way she dashes); 3 the ring at its widest, purple smoke rolling; 4 smoke and sparks; 5 thin smoke; 6 faint smoke.\nLayout: one horizontal row of 6 equal cells, each 14 wide to 9 tall, image size 2352x252 (each cell 392x252); the ground at 80% of the cell height. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 6 columns x 1 rows, 6 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 17,
+    "file": "kaisa_fx_r_trail.png",
+    "cols": 4,
+    "rows": 1,
+    "cell": [
+      432,
+      192
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5), void violet (#2B1450, #5226A0, #8A55E6, #BFA2FF) and white-pink sparks (#FFFFFF, #FFE3FB, #FFC2F6).\nEffect: a DASH TRAIL behind a character flying to the RIGHT (the character is not drawn: she is at the middle of the cell's RIGHT edge), 4 frames, a seamless loop: a long streak of violet energy stretching from the right edge to the left, wide (12 squares) near her and thinning to a point on the left, magenta plasma wisps along its edges and two thin violet lightning lines, flickering each frame.\nLayout: one horizontal row of 4 equal cells, each 9 wide to 4 tall, image size 1728x192 (each cell 432x192); the character at the middle of each cell's right edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 4 columns x 1 rows, 4 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": true
+  },
+  {
+    "id": 18,
+    "file": "kaisa_fx_r_land.png",
+    "cols": 5,
+    "rows": 1,
+    "cell": [
+      364,
+      196
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, void violet (#2B1450, #5226A0, #8A55E6, #BFA2FF), magenta (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) and purple smoke (#2A1F46, #463970, #6D5EA2, #A99BD6).\nEffect: a LANDING IMPACT at a character's feet (seen from above at an angle: flat), 5 frames: 1 a white-pink flash on the ground; 2 a violet shock ring spreading on the ground, magenta sparks flying up; 3 the ring at its widest, a puff of purple smoke; 4 smoke; 5 faint smoke.\nLayout: one horizontal row of 5 equal cells, each 13 wide to 7 tall, image size 1820x196 (each cell 364x196); the ground at 80% of the cell height. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 5 columns x 1 rows, 5 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 19,
+    "file": "kaisa_fx_r_shield.png",
+    "cols": 6,
+    "rows": 2,
+    "cell": [
+      240,
+      320
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, magenta plasma (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5), void violet (#2B1450, #5226A0, #8A55E6, #BFA2FF) and white-pink highlights (#FFFFFF, #FFE3FB, #FFC2F6).\nEffect: a PLASMA SHIELD round a character (not drawn: a 28x40-pixel figure in the middle, feet on the bottom row), 12 frames: 1-2 a shell forms from the feet up: an egg-shaped outline 2 squares thick in bright magenta with a white-pink highlight on its upper left; 3-10 holding: the outline steady, a sparse checker of violet specks (every other square) inside it so the figure stays visible, a few curved plasma streaks sliding round the shell (moving each frame); 11 the shell cracks into arcs; 12 the arcs fade.\nLayout: two rows of 6 equal cells, each 3 wide to 4 tall, image size 1440x640 (each cell 240x320, the feet on the bottom row). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 6 columns x 2 rows, 12 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  },
+  {
+    "id": 20,
+    "file": "kaisa_fx_evolve.png",
+    "cols": 8,
+    "rows": 1,
+    "cell": [
+      210,
+      360
+    ],
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white-pink core (#FFFFFF, #FFE3FB, #FFC2F6), magenta (#4A0C63, #8E1FB8, #D23CF0, #F408EA, #FF9BF5) and violet (#2B1450, #5226A0, #8A55E6, #BFA2FF).\nEffect: an EVOLUTION burst round a character (not drawn: a 28x40-pixel figure in the middle, feet 2 squares above the bottom), 8 frames: 1 a violet ring lights on the ground round the feet; 2-3 a column of white-pink and violet light rises from the ring through the figure and above its head; 4 the column at its tallest, short rays out of it; 5 it bursts into a ring of magenta sparks at head height; 6-7 the sparks fall gently; 8 a few specks.\nLayout: one horizontal row of 8 equal cells, each 7 wide to 12 tall, image size 1680x360 (each cell 210x360). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nAuthoritative layout: EXACTLY 8 columns x 1 rows, 8 total frames. Frame rectangles are equal width and equal height. Keep every effect contained in its own cell, no cross-cell spill. No character, hands, weapons, floor, labels or reference collage. Effects only. References: image 1 character palette/pixel style ONLY, image 2 official VFX design language ONLY, not content to reproduce as a sheet. Bright white-pink and vivid magenta focal pixels; dark purple only small outer accents, no dark perimeter stroke. NO bloom, no soft glow, no anti-aliasing. Opaque chunky square pixels and fully transparent holes. Generous transparent spacing between effects within equal cells. Maintain exact requested frame evolution.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\design\\kaisa_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat\\work\\kaisa-fx-reference\\kaisa_fx_pack\\refs\\lol_fx_ref.png"
+    ],
+    "loop": false
+  }
+]

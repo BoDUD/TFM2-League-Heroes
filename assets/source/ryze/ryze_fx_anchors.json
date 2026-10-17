@@ -1,0 +1,21 @@
+{
+  "orb": {"cell": [19, 9], "anchor": [9, 4], "frames": 4},
+  "hit": {"cell": [15, 13], "anchor": [7, 6], "frames": 4},
+  "q_bolt": {"cell": [33, 11], "anchor": [16, 5], "frames": 4},
+  "q_cast": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "q_hit": {"cell": [21, 21], "anchor": [10, 10], "frames": 5},
+  "q_pop": {"cell": [27, 39], "anchor": [13, 19], "frames": 5},
+  "e_orb": {"cell": [21, 13], "anchor": [10, 6], "frames": 4},
+  "e_cast": {"cell": [15, 13], "anchor": [7, 6], "frames": 4},
+  "e_hit": {"cell": [27, 27], "anchor": [13, 13], "frames": 5},
+  "flux": {"cell": [23, 15], "anchor": [11, 7], "frames": 4},
+  "w_cage": {"cell": [23, 59], "anchor": [11, 29], "frames": 8},
+  "rune_out": {"cell": [31, 21], "anchor": [15, 10], "frames": 5},
+  "runes": {"cell": [35, 17], "anchor": [17, 8], "frames": 12},
+  "w_slow": {"cell": [25, 13], "anchor": [12, 6], "frames": 4},
+  "q_haste": {"cell": [27, 35], "anchor": [13, 17], "frames": 4},
+  "r_portal": {"cell": [65, 49], "anchor": [32, 24], "frames": 10},
+  "r_out": {"cell": [19, 87], "anchor": [9, 43], "frames": 6},
+  "r_in": {"cell": [33, 59], "anchor": [16, 29], "frames": 6},
+  "r_ally": {"cell": [13, 51], "anchor": [6, 25], "frames": 4}
+}

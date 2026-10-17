@@ -1,0 +1,100 @@
+{
+  "attack": {
+    "size": [
+      3072,
+      1536
+    ],
+    "frame_count": 6,
+    "colors": 24,
+    "binary_alpha": true,
+    "exact_8x_grid": true,
+    "supplied_head_mask_matches": true,
+    "nothing_below_baseline": true,
+    "unused_cells_empty": true,
+    "standing_legs_match": true
+  },
+  "run": {
+    "size": [
+      4096,
+      1536
+    ],
+    "frame_count": 8,
+    "colors": 24,
+    "binary_alpha": true,
+    "exact_8x_grid": true,
+    "supplied_head_mask_matches": true,
+    "nothing_below_baseline": true,
+    "unused_cells_empty": true,
+    "head_relative_x_constant": true,
+    "head_bob_range": 1
+  },
+  "skill": {
+    "size": [
+      4096,
+      1536
+    ],
+    "frame_count": 7,
+    "colors": 24,
+    "binary_alpha": true,
+    "exact_8x_grid": true,
+    "supplied_head_mask_matches": true,
+    "nothing_below_baseline": true,
+    "unused_cells_empty": true,
+    "standing_legs_match": true
+  },
+  "skill2": {
+    "size": [
+      3072,
+      1536
+    ],
+    "frame_count": 5,
+    "colors": 24,
+    "binary_alpha": true,
+    "exact_8x_grid": true,
+    "supplied_head_mask_matches": true,
+    "nothing_below_baseline": true,
+    "unused_cells_empty": true,
+    "standing_legs_match": true
+  },
+  "ult": {
+    "size": [
+      3072,
+      1536
+    ],
+    "frame_count": 5,
+    "colors": 24,
+    "binary_alpha": true,
+    "exact_8x_grid": true,
+    "supplied_head_mask_matches": true,
+    "nothing_below_baseline": true,
+    "unused_cells_empty": true
+  },
+  "hit": {
+    "size": [
+      2048,
+      768
+    ],
+    "frame_count": 2,
+    "colors": 24,
+    "binary_alpha": true,
+    "exact_8x_grid": true,
+    "supplied_head_mask_matches": true,
+    "nothing_below_baseline": true,
+    "unused_cells_empty": true,
+    "standing_legs_match": true
+  },
+  "dead": {
+    "size": [
+      4096,
+      1536
+    ],
+    "frame_count": 8,
+    "colors": 24,
+    "binary_alpha": true,
+    "exact_8x_grid": true,
+    "supplied_head_mask_matches": true,
+    "nothing_below_baseline": true,
+    "unused_cells_empty": true,
+    "last_two_frames_identical": true
+  }
+}

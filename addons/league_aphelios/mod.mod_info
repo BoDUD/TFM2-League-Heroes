@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.124.0"
+    }
+  ],
+  "description": "Test build of Aphelios as in League (needs League of Legends Heroes): replaces the main pack's Aphelios so his whole body holds his main weapon (idle, run and hit too, game 0.6.4), his weapons come in League's first-in first-out queue, and he swaps Severum into his main hand when low. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-16",
+  "mod_id": "league_aphelios",
+  "mod_type": "native",
+  "name": "League Heroes: Aphelios's weapon forms, weapon queue and Severum when low (test)",
+  "version": "0.1.0"
+}

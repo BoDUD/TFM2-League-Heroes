@@ -1,0 +1,8 @@
+{
+  "assets": 2,
+  "frames": 6,
+  "actual_frame_rects": true,
+  "transparent_alpha": true,
+  "engine_tested": false,
+  "visual_review": "Q arm raise/throw/recover and E cross/spread/recover visible. Identity and alignment approximate; importer review required."
+}

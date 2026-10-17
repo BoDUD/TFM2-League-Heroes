@@ -1,0 +1,110 @@
+{
+  "generator": "built-in image_gen",
+  "postprocessing": "Alpha threshold 128 only. No RGB recoloring, redrawing, regridding, scaling or cropping.",
+  "assets": [
+    {
+      "file": "jayce-cannon-side-1.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "dimensions_correct": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "binary_alpha_correct": true,
+      "foreground_rgb_unchanged": true,
+      "bbox": [
+        264,
+        60,
+        1408,
+        971
+      ],
+      "raw_sha256": "e716810220346e20ca9bf2dc559449b7439d5cd3c01b2bb7f155d5cfdae50b98",
+      "final_sha256": "ea720a4fe1f93098f74d5f7d86710c34c3a792bee21ba423d682b591a92d9dc8"
+    },
+    {
+      "file": "jayce-cannon-side-2.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "dimensions_correct": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "binary_alpha_correct": true,
+      "foreground_rgb_unchanged": true,
+      "bbox": [
+        295,
+        65,
+        1435,
+        970
+      ],
+      "raw_sha256": "1e140c82e4ac667409ac8d67ec276f22f0e7078ecfa18c76ac4155e3a9760419",
+      "final_sha256": "39f66ffd5a22a87d3fd5f5a1f9fdd8e98b9ff5a91a63fccaee486cdeaea3ddcf"
+    },
+    {
+      "file": "jayce-hammer-side-1.png",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "dimensions_correct": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "binary_alpha_correct": true,
+      "foreground_rgb_unchanged": true,
+      "bbox": [
+        35,
+        80,
+        985,
+        1487
+      ],
+      "raw_sha256": "8fbf6b26c499120e0bfa310b893f588dd6d8e5f950de27f3e83d4827667637c3",
+      "final_sha256": "bd2a38552c95d5554e72d736410c22d0b2e1f27540bbb5c10943c68efa58734a"
+    },
+    {
+      "file": "jayce-hammer-side-2.png",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "dimensions_correct": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "binary_alpha_correct": true,
+      "foreground_rgb_unchanged": true,
+      "bbox": [
+        57,
+        249,
+        949,
+        1495
+      ],
+      "raw_sha256": "e966626b08aff8c8a3dddcde00110f670d119c749bb05a90de23ce3d47cf5285",
+      "final_sha256": "2a87e1e892766b839e6d04941d267a87f90cb6fbda0e7dc539e2521a9c20359b"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_ahri_sfx_e_cast",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_ahri_vo_e",
+      "volume": 0.9
+    }
+  ]
+}

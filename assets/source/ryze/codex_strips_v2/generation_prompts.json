@@ -1,0 +1,706 @@
+{
+  "run": {
+    "prompt": "Four attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, face, lean body, arms, hands, legs, boots and scroll exactly; do not redesign anything. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing, the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames in the same grid - the motion of the arms and the upper body. FOURTH: the previous, approved version of these frames drawn on an older, bulkier body - copy its poses, gestures and timing, but draw the FIRST image's lean body, thin arms and narrow trousers instead.\nThe character: Ryze, the rune mage: a bald man with blue-violet skin and dark rune lines, a stern brow, two glowing eyes and a long dark-brown beard; a sleeveless dark navy tunic with brown leather straps crossing it, a bronze-studded shoulder pad, a belt with a round bronze buckle, a dark-teal cloth strip hanging in front, narrow navy trousers and brown boots with bronze cuffs; bare blue-violet arms with brown leather bracers; a big cream parchment scroll in its case strapped on his back, its top behind his shoulder at image left.\nTask: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size (41 squares from the top of the scroll to the soles when standing), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.\nPixel rules (most important): ONLY the 30 colors of the FIRST image, no new colors: #0F0213 #10041C #321721 #141743 #431F20 #51261D #18235D #112A70 #663322 #23148D #014C78 #7F4226 #494560 #233D98 #097999 #9B592D #511AC4 #329498 #6B44CC #E79845 #9270F2 #C4A68D #40CCFC #B368FD #A88CFB #B59CFC #FBCE84 #C8B5FD #F4EEEA #FBFBFD. ONE outline: a 1-square near-black outline around the silhouette and each material's own dark shade inside it - never a second black ring. Big flat areas; no dithering, no noise, no random specks.\nArms and hands: the arms as thick as in the FIRST image (3 squares inside the outline), joined to the shoulders, the elbows bent naturally - never a straight thin stick; the hands like the FIRST image's hands (a blue-violet fist of 3x3 squares; an open palm of 3x4 with the fingers together when he casts), joined to the brown bracers - never claws, forks of single-square fingers, balls or floating hands. The far arm (image left) mostly stays close to the body or behind it; it is never flung out as a long stick.\nLEGS (the art director's rule): in every STANDING frame (attacks, casts, the hit, standing up after the ult) his legs are the FIRST image's legs exactly: straight, the same width apart, in the same place under him, the boots flat on the feet line - never a wide stance, never crouching, never toes turned out, never one leg slanted. Show the action with the upper body only: the torso leaning forward or back, the shoulders twisting, the arms. He kneels ONLY where the animation says so (the far knee on the ground with its shin flat behind, the near foot planted ahead).\nThe head (the bald head with its rune lines, the face with the glowing eyes, the moustache and the beard's upper part) is COPIED from the FIRST image in every frame, square for square, and only moved; never redraw, squash, turn or tilt it. The eye colors #FBFBFD、#B368FD appear ONLY in the eyes. The scroll is the FIRST image's scroll in every frame, the same size, on his back, only moved with the body.\nThe whole figure is ONE connected piece in every frame, with no little holes of background walled in between an arm and the body.\nFeet line: in every cell the soles' lowest row is on square row 81 from the top of the cell (pixels 648 to 655); NOTHING from pixel 656 down (only the lying frames of the death may dip 1 square). His place across the cell follows the SECOND image (each frame's standing point is in ryze_cells.json). In the move loop his head keeps the same horizontal place relative to the standing point in every frame, and the legs alternate and cross, both in the FIRST image's leg colors.\n3/4 front view facing right like the FIRST image; every throw, thrust and cast goes to the RIGHT of the image; never his back, never upside down. Do not draw effects (orbs, runes, the rune cage, the bolt, portals, glows) - only the character. Every animation starts and ends near the FIRST image's idle stance.\nAnimation: MOVE, 8 frames, one seamless loop (8 x 133 ms; the FOURTH image's run on the FIRST image's lean body): he jogs to the right, the upper body leaning a little forward, the legs ALTERNATING - frames 1-4 the near leg (drawn in front) swings forward and plants while the far leg pushes back, frames 5-8 the other way round, the knees passing each other in frames 3 and 7; the swinging boot lifts 1-3 squares, the planted boot stays on the feet line, the shoes at most 10 squares apart; the arms swing against the legs with the elbows bent and the hands loosely closed; the body bobs down 1 square on the landing frames (1 and 5); the scroll rides on his back; his head keeps the same horizontal place relative to the standing point in all 8 frames; both legs in the FIRST image's leg colours; frame 8 flows into frame 1.\nLayout: exactly like the SECOND image - 4 columns by 2 rows, 8 frames, each cell 104x96 squares (832x768 px), 3328x1536 pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #00FF00 green). No grid lines, no borders, no labels, no guide marks.\nEssential: use the FIRST image's coarse block resolution, not a high-detail illustration. Copy its 41-block-tall silhouette proportions. Maintain the identical logical block size across all frames. Frame-specific body gesture is more important than copying the original 3D head position. The head stays above the shoulders, upright and connected. Keep the scroll and torso a coherent piece. No detached parts. Each pose stays within its own cell.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\design\\ryze_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\now\\ryze_now_run.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\pose\\lol_pose_run.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\old\\ryze_old_run.png"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "frames": [
+      {
+        "pivot": [
+          51,
+          70
+        ],
+        "ms": 133,
+        "head": [
+          54.9,
+          46.1
+        ]
+      },
+      {
+        "pivot": [
+          49,
+          70
+        ],
+        "ms": 133,
+        "head": [
+          52.2,
+          49.3
+        ]
+      },
+      {
+        "pivot": [
+          50,
+          70
+        ],
+        "ms": 134,
+        "head": [
+          53.3,
+          49.6
+        ]
+      },
+      {
+        "pivot": [
+          48,
+          70
+        ],
+        "ms": 133,
+        "head": [
+          53.1,
+          45.6
+        ]
+      },
+      {
+        "pivot": [
+          46,
+          70
+        ],
+        "ms": 133,
+        "head": [
+          52.3,
+          45.7
+        ]
+      },
+      {
+        "pivot": [
+          45,
+          70
+        ],
+        "ms": 134,
+        "head": [
+          50.9,
+          48.8
+        ]
+      },
+      {
+        "pivot": [
+          47,
+          70
+        ],
+        "ms": 133,
+        "head": [
+          52.0,
+          49.2
+        ]
+      },
+      {
+        "pivot": [
+          50,
+          70
+        ],
+        "ms": 134,
+        "head": [
+          54.1,
+          45.9
+        ]
+      }
+    ]
+  },
+  "attack": {
+    "prompt": "Four attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, face, lean body, arms, hands, legs, boots and scroll exactly; do not redesign anything. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing, the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames in the same grid - the motion of the arms and the upper body. FOURTH: the previous, approved version of these frames drawn on an older, bulkier body - copy its poses, gestures and timing, but draw the FIRST image's lean body, thin arms and narrow trousers instead.\nThe character: Ryze, the rune mage: a bald man with blue-violet skin and dark rune lines, a stern brow, two glowing eyes and a long dark-brown beard; a sleeveless dark navy tunic with brown leather straps crossing it, a bronze-studded shoulder pad, a belt with a round bronze buckle, a dark-teal cloth strip hanging in front, narrow navy trousers and brown boots with bronze cuffs; bare blue-violet arms with brown leather bracers; a big cream parchment scroll in its case strapped on his back, its top behind his shoulder at image left.\nTask: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size (41 squares from the top of the scroll to the soles when standing), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.\nPixel rules (most important): ONLY the 30 colors of the FIRST image, no new colors: #0F0213 #10041C #321721 #141743 #431F20 #51261D #18235D #112A70 #663322 #23148D #014C78 #7F4226 #494560 #233D98 #097999 #9B592D #511AC4 #329498 #6B44CC #E79845 #9270F2 #C4A68D #40CCFC #B368FD #A88CFB #B59CFC #FBCE84 #C8B5FD #F4EEEA #FBFBFD. ONE outline: a 1-square near-black outline around the silhouette and each material's own dark shade inside it - never a second black ring. Big flat areas; no dithering, no noise, no random specks.\nArms and hands: the arms as thick as in the FIRST image (3 squares inside the outline), joined to the shoulders, the elbows bent naturally - never a straight thin stick; the hands like the FIRST image's hands (a blue-violet fist of 3x3 squares; an open palm of 3x4 with the fingers together when he casts), joined to the brown bracers - never claws, forks of single-square fingers, balls or floating hands. The far arm (image left) mostly stays close to the body or behind it; it is never flung out as a long stick.\nLEGS (the art director's rule): in every STANDING frame (attacks, casts, the hit, standing up after the ult) his legs are the FIRST image's legs exactly: straight, the same width apart, in the same place under him, the boots flat on the feet line - never a wide stance, never crouching, never toes turned out, never one leg slanted. Show the action with the upper body only: the torso leaning forward or back, the shoulders twisting, the arms. He kneels ONLY where the animation says so (the far knee on the ground with its shin flat behind, the near foot planted ahead).\nThe head (the bald head with its rune lines, the face with the glowing eyes, the moustache and the beard's upper part) is COPIED from the FIRST image in every frame, square for square, and only moved; never redraw, squash, turn or tilt it. The eye colors #FBFBFD、#B368FD appear ONLY in the eyes. The scroll is the FIRST image's scroll in every frame, the same size, on his back, only moved with the body.\nThe whole figure is ONE connected piece in every frame, with no little holes of background walled in between an arm and the body.\nFeet line: in every cell the soles' lowest row is on square row 81 from the top of the cell (pixels 648 to 655); NOTHING from pixel 656 down (only the lying frames of the death may dip 1 square). His place across the cell follows the SECOND image (each frame's standing point is in ryze_cells.json). In the move loop his head keeps the same horizontal place relative to the standing point in every frame, and the legs alternate and cross, both in the FIRST image's leg colors.\n3/4 front view facing right like the FIRST image; every throw, thrust and cast goes to the RIGHT of the image; never his back, never upside down. Do not draw effects (orbs, runes, the rune cage, the bolt, portals, glows) - only the character. Every animation starts and ends near the FIRST image's idle stance.\nAnimation: BASIC ATTACK, 6 frames (the FOURTH image's motion, League's attack1: he flings a rune orb from his open near hand): 1 he gathers, the far fist in front of his chest, the near hand low in front; 2 the shoulders turn back, the near hand drawn back to his hip; 3 THE FLING (the orb leaves here): the near arm thrust forward to the right at chest height, the elbow a little bent, the palm open toward the target, the far fist pulled back to his hip, the upper body leaning into the throw; 4 the arm still out, a little higher; 5 the arm coming back down; 6 back to the idle. On the FIRST image's legs in every frame.\nLayout: exactly like the SECOND image - 3 columns by 2 rows, 6 frames, each cell 104x96 squares (832x768 px), 2496x1536 pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #00FF00 green). No grid lines, no borders, no labels, no guide marks.\nEssential: use the FIRST image's coarse block resolution, not a high-detail illustration. Copy its 41-block-tall silhouette proportions. Maintain the identical logical block size across all frames. Frame-specific body gesture is more important than copying the original 3D head position. The head stays above the shoulders, upright and connected. Keep the scroll and torso a coherent piece. No detached parts. Each pose stays within its own cell.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\design\\ryze_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\now\\ryze_now_attack.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\pose\\lol_pose_attack.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\old\\ryze_old_attack.png"
+    ],
+    "columns": 3,
+    "rows": 2,
+    "frames": [
+      {
+        "pivot": [
+          47,
+          70
+        ],
+        "ms": 60,
+        "head": [
+          47.6,
+          47.2
+        ]
+      },
+      {
+        "pivot": [
+          51,
+          70
+        ],
+        "ms": 70,
+        "head": [
+          49.1,
+          57.7
+        ]
+      },
+      {
+        "pivot": [
+          52,
+          70
+        ],
+        "ms": 80,
+        "head": [
+          55.8,
+          57.1
+        ]
+      },
+      {
+        "pivot": [
+          51,
+          70
+        ],
+        "ms": 90,
+        "head": [
+          52.3,
+          51.2
+        ]
+      },
+      {
+        "pivot": [
+          50,
+          70
+        ],
+        "ms": 100,
+        "head": [
+          51.9,
+          51.3
+        ]
+      },
+      {
+        "pivot": [
+          52,
+          70
+        ],
+        "ms": 70,
+        "head": [
+          53.9,
+          49.3
+        ]
+      }
+    ]
+  },
+  "skill": {
+    "prompt": "Four attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, face, lean body, arms, hands, legs, boots and scroll exactly; do not redesign anything. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing, the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames in the same grid - the motion of the arms and the upper body. FOURTH: the previous, approved version of these frames drawn on an older, bulkier body - copy its poses, gestures and timing, but draw the FIRST image's lean body, thin arms and narrow trousers instead.\nThe character: Ryze, the rune mage: a bald man with blue-violet skin and dark rune lines, a stern brow, two glowing eyes and a long dark-brown beard; a sleeveless dark navy tunic with brown leather straps crossing it, a bronze-studded shoulder pad, a belt with a round bronze buckle, a dark-teal cloth strip hanging in front, narrow navy trousers and brown boots with bronze cuffs; bare blue-violet arms with brown leather bracers; a big cream parchment scroll in its case strapped on his back, its top behind his shoulder at image left.\nTask: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size (41 squares from the top of the scroll to the soles when standing), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.\nPixel rules (most important): ONLY the 30 colors of the FIRST image, no new colors: #0F0213 #10041C #321721 #141743 #431F20 #51261D #18235D #112A70 #663322 #23148D #014C78 #7F4226 #494560 #233D98 #097999 #9B592D #511AC4 #329498 #6B44CC #E79845 #9270F2 #C4A68D #40CCFC #B368FD #A88CFB #B59CFC #FBCE84 #C8B5FD #F4EEEA #FBFBFD. ONE outline: a 1-square near-black outline around the silhouette and each material's own dark shade inside it - never a second black ring. Big flat areas; no dithering, no noise, no random specks.\nArms and hands: the arms as thick as in the FIRST image (3 squares inside the outline), joined to the shoulders, the elbows bent naturally - never a straight thin stick; the hands like the FIRST image's hands (a blue-violet fist of 3x3 squares; an open palm of 3x4 with the fingers together when he casts), joined to the brown bracers - never claws, forks of single-square fingers, balls or floating hands. The far arm (image left) mostly stays close to the body or behind it; it is never flung out as a long stick.\nLEGS (the art director's rule): in every STANDING frame (attacks, casts, the hit, standing up after the ult) his legs are the FIRST image's legs exactly: straight, the same width apart, in the same place under him, the boots flat on the feet line - never a wide stance, never crouching, never toes turned out, never one leg slanted. Show the action with the upper body only: the torso leaning forward or back, the shoulders twisting, the arms. He kneels ONLY where the animation says so (the far knee on the ground with its shin flat behind, the near foot planted ahead).\nThe head (the bald head with its rune lines, the face with the glowing eyes, the moustache and the beard's upper part) is COPIED from the FIRST image in every frame, square for square, and only moved; never redraw, squash, turn or tilt it. The eye colors #FBFBFD、#B368FD appear ONLY in the eyes. The scroll is the FIRST image's scroll in every frame, the same size, on his back, only moved with the body.\nThe whole figure is ONE connected piece in every frame, with no little holes of background walled in between an arm and the body.\nFeet line: in every cell the soles' lowest row is on square row 81 from the top of the cell (pixels 648 to 655); NOTHING from pixel 656 down (only the lying frames of the death may dip 1 square). His place across the cell follows the SECOND image (each frame's standing point is in ryze_cells.json). In the move loop his head keeps the same horizontal place relative to the standing point in every frame, and the legs alternate and cross, both in the FIRST image's leg colors.\n3/4 front view facing right like the FIRST image; every throw, thrust and cast goes to the RIGHT of the image; never his back, never upside down. Do not draw effects (orbs, runes, the rune cage, the bolt, portals, glows) - only the character. Every animation starts and ends near the FIRST image's idle stance.\nAnimation: OVERLOAD, 6 frames (the FOURTH image's motion, League's spell1): 1 he gathers, both hands low in front of him; 2 the shoulders twist back, the near hand cocked at his hip, the far hand raised behind his shoulder - still facing right, the face visible; 3 THE OVERLOAD (the bolt leaves here): the near arm thrust straight forward to the right at shoulder height, the palm open toward the target, the upper body leaning into it; 4 the arm sweeping up and forward, the palm open; 5 the arms coming back; 6 back to the idle. On the FIRST image's legs in every frame.\nLayout: exactly like the SECOND image - 3 columns by 2 rows, 6 frames, each cell 104x96 squares (832x768 px), 2496x1536 pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #00FF00 green). No grid lines, no borders, no labels, no guide marks.\nEssential: use the FIRST image's coarse block resolution, not a high-detail illustration. Copy its 41-block-tall silhouette proportions. Maintain the identical logical block size across all frames. Frame-specific body gesture is more important than copying the original 3D head position. The head stays above the shoulders, upright and connected. Keep the scroll and torso a coherent piece. No detached parts. Each pose stays within its own cell.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\design\\ryze_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\now\\ryze_now_skill.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\pose\\lol_pose_skill.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\old\\ryze_old_skill.png"
+    ],
+    "columns": 3,
+    "rows": 2,
+    "frames": [
+      {
+        "pivot": [
+          52,
+          70
+        ],
+        "ms": 50,
+        "head": [
+          56.0,
+          46.4
+        ]
+      },
+      {
+        "pivot": [
+          45,
+          70
+        ],
+        "ms": 50,
+        "head": [
+          52.0,
+          55.3
+        ]
+      },
+      {
+        "pivot": [
+          50,
+          70
+        ],
+        "ms": 60,
+        "head": [
+          51.5,
+          66.8
+        ]
+      },
+      {
+        "pivot": [
+          47,
+          70
+        ],
+        "ms": 80,
+        "head": [
+          50.1,
+          61.1
+        ],
+        "tilt": -52
+      },
+      {
+        "pivot": [
+          48,
+          70
+        ],
+        "ms": 90,
+        "head": [
+          50.9,
+          59.0
+        ]
+      },
+      {
+        "pivot": [
+          47,
+          70
+        ],
+        "ms": 103,
+        "head": [
+          49.7,
+          52.0
+        ]
+      }
+    ]
+  },
+  "skill2": {
+    "prompt": "Four attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, face, lean body, arms, hands, legs, boots and scroll exactly; do not redesign anything. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing, the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames in the same grid - the motion of the arms and the upper body. FOURTH: the previous, approved version of these frames drawn on an older, bulkier body - copy its poses, gestures and timing, but draw the FIRST image's lean body, thin arms and narrow trousers instead.\nThe character: Ryze, the rune mage: a bald man with blue-violet skin and dark rune lines, a stern brow, two glowing eyes and a long dark-brown beard; a sleeveless dark navy tunic with brown leather straps crossing it, a bronze-studded shoulder pad, a belt with a round bronze buckle, a dark-teal cloth strip hanging in front, narrow navy trousers and brown boots with bronze cuffs; bare blue-violet arms with brown leather bracers; a big cream parchment scroll in its case strapped on his back, its top behind his shoulder at image left.\nTask: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size (41 squares from the top of the scroll to the soles when standing), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.\nPixel rules (most important): ONLY the 30 colors of the FIRST image, no new colors: #0F0213 #10041C #321721 #141743 #431F20 #51261D #18235D #112A70 #663322 #23148D #014C78 #7F4226 #494560 #233D98 #097999 #9B592D #511AC4 #329498 #6B44CC #E79845 #9270F2 #C4A68D #40CCFC #B368FD #A88CFB #B59CFC #FBCE84 #C8B5FD #F4EEEA #FBFBFD. ONE outline: a 1-square near-black outline around the silhouette and each material's own dark shade inside it - never a second black ring. Big flat areas; no dithering, no noise, no random specks.\nArms and hands: the arms as thick as in the FIRST image (3 squares inside the outline), joined to the shoulders, the elbows bent naturally - never a straight thin stick; the hands like the FIRST image's hands (a blue-violet fist of 3x3 squares; an open palm of 3x4 with the fingers together when he casts), joined to the brown bracers - never claws, forks of single-square fingers, balls or floating hands. The far arm (image left) mostly stays close to the body or behind it; it is never flung out as a long stick.\nLEGS (the art director's rule): in every STANDING frame (attacks, casts, the hit, standing up after the ult) his legs are the FIRST image's legs exactly: straight, the same width apart, in the same place under him, the boots flat on the feet line - never a wide stance, never crouching, never toes turned out, never one leg slanted. Show the action with the upper body only: the torso leaning forward or back, the shoulders twisting, the arms. He kneels ONLY where the animation says so (the far knee on the ground with its shin flat behind, the near foot planted ahead).\nThe head (the bald head with its rune lines, the face with the glowing eyes, the moustache and the beard's upper part) is COPIED from the FIRST image in every frame, square for square, and only moved; never redraw, squash, turn or tilt it. The eye colors #FBFBFD、#B368FD appear ONLY in the eyes. The scroll is the FIRST image's scroll in every frame, the same size, on his back, only moved with the body.\nThe whole figure is ONE connected piece in every frame, with no little holes of background walled in between an arm and the body.\nFeet line: in every cell the soles' lowest row is on square row 81 from the top of the cell (pixels 648 to 655); NOTHING from pixel 656 down (only the lying frames of the death may dip 1 square). His place across the cell follows the SECOND image (each frame's standing point is in ryze_cells.json). In the move loop his head keeps the same horizontal place relative to the standing point in every frame, and the legs alternate and cross, both in the FIRST image's leg colors.\n3/4 front view facing right like the FIRST image; every throw, thrust and cast goes to the RIGHT of the image; never his back, never upside down. Do not draw effects (orbs, runes, the rune cage, the bolt, portals, glows) - only the character. Every animation starts and ends near the FIRST image's idle stance.\nAnimation: THE COMBO E -> W -> Q, 12 frames of 78 ms (the FOURTH image's motion; League's spell3, spell2 and spell1 one after the other): 1 SPELL FLUX wind-up: both arms spread out to the sides, the palms open; 2 SPELL FLUX (the orb leaves here): the near arm flung forward and up to the right, the palm open, the far arm back; 3 the near hand drawn back to his chest; 4 RUNE PRISON: the far hand raised high above his head, the fingers spread; 5 the hand at its highest; 6 RUNE PRISON (the cage closes on the target here): the near hand thrust down and forward to the right, the palm open, the upper body leaning in; 7 OVERLOAD: he drops onto one knee (the far knee on the ground, its shin flat behind, the near foot planted ahead), the near hand drawn back; 8 up again on the FIRST image's legs, the near hand cocked behind his hip; 9 OVERLOAD (the bolt leaves here): the near arm thrust straight forward to the right, the palm open; 10 the arm sweeping up; 11 the arms coming back; 12 the idle. Facing right with the face visible in every frame (League spins him: show it as a twist of the shoulders, never his back).\nLayout: exactly like the SECOND image - 4 columns by 3 rows, 12 frames, each cell 104x96 squares (832x768 px), 3328x2304 pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #00FF00 green). No grid lines, no borders, no labels, no guide marks.\nEssential: use the FIRST image's coarse block resolution, not a high-detail illustration. Copy its 41-block-tall silhouette proportions. Maintain the identical logical block size across all frames. Frame-specific body gesture is more important than copying the original 3D head position. The head stays above the shoulders, upright and connected. Keep the scroll and torso a coherent piece. No detached parts. Each pose stays within its own cell.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\design\\ryze_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\now\\ryze_now_skill2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\pose\\lol_pose_skill2.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\old\\ryze_old_skill2.png"
+    ],
+    "columns": 4,
+    "rows": 3,
+    "frames": [
+      {
+        "pivot": [
+          49,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          48.8,
+          58.4
+        ]
+      },
+      {
+        "pivot": [
+          48,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          49.6,
+          31.9
+        ]
+      },
+      {
+        "pivot": [
+          50,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          53.0,
+          40.9
+        ]
+      },
+      {
+        "pivot": [
+          44,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          48.7,
+          40.8
+        ]
+      },
+      {
+        "pivot": [
+          46,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          50.9,
+          41.6
+        ]
+      },
+      {
+        "pivot": [
+          45,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          48.2,
+          49.3
+        ]
+      },
+      {
+        "pivot": [
+          45,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          52.0,
+          55.3
+        ]
+      },
+      {
+        "pivot": [
+          47,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          47.0,
+          64.8
+        ]
+      },
+      {
+        "pivot": [
+          43,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          48.6,
+          68.5
+        ]
+      },
+      {
+        "pivot": [
+          46,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          48.7,
+          59.6
+        ],
+        "tilt": -45
+      },
+      {
+        "pivot": [
+          48,
+          70
+        ],
+        "ms": 78,
+        "head": [
+          51.0,
+          58.9
+        ]
+      },
+      {
+        "pivot": [
+          47,
+          70
+        ],
+        "ms": 75,
+        "head": [
+          49.7,
+          52.0
+        ]
+      }
+    ]
+  },
+  "ult": {
+    "prompt": "Four attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, face, lean body, arms, hands, legs, boots and scroll exactly; do not redesign anything. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing, the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames in the same grid - the motion of the arms and the upper body. FOURTH: the previous, approved version of these frames drawn on an older, bulkier body - copy its poses, gestures and timing, but draw the FIRST image's lean body, thin arms and narrow trousers instead.\nThe character: Ryze, the rune mage: a bald man with blue-violet skin and dark rune lines, a stern brow, two glowing eyes and a long dark-brown beard; a sleeveless dark navy tunic with brown leather straps crossing it, a bronze-studded shoulder pad, a belt with a round bronze buckle, a dark-teal cloth strip hanging in front, narrow navy trousers and brown boots with bronze cuffs; bare blue-violet arms with brown leather bracers; a big cream parchment scroll in its case strapped on his back, its top behind his shoulder at image left.\nTask: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size (41 squares from the top of the scroll to the soles when standing), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.\nPixel rules (most important): ONLY the 30 colors of the FIRST image, no new colors: #0F0213 #10041C #321721 #141743 #431F20 #51261D #18235D #112A70 #663322 #23148D #014C78 #7F4226 #494560 #233D98 #097999 #9B592D #511AC4 #329498 #6B44CC #E79845 #9270F2 #C4A68D #40CCFC #B368FD #A88CFB #B59CFC #FBCE84 #C8B5FD #F4EEEA #FBFBFD. ONE outline: a 1-square near-black outline around the silhouette and each material's own dark shade inside it - never a second black ring. Big flat areas; no dithering, no noise, no random specks.\nArms and hands: the arms as thick as in the FIRST image (3 squares inside the outline), joined to the shoulders, the elbows bent naturally - never a straight thin stick; the hands like the FIRST image's hands (a blue-violet fist of 3x3 squares; an open palm of 3x4 with the fingers together when he casts), joined to the brown bracers - never claws, forks of single-square fingers, balls or floating hands. The far arm (image left) mostly stays close to the body or behind it; it is never flung out as a long stick.\nLEGS (the art director's rule): in every STANDING frame (attacks, casts, the hit, standing up after the ult) his legs are the FIRST image's legs exactly: straight, the same width apart, in the same place under him, the boots flat on the feet line - never a wide stance, never crouching, never toes turned out, never one leg slanted. Show the action with the upper body only: the torso leaning forward or back, the shoulders twisting, the arms. He kneels ONLY where the animation says so (the far knee on the ground with its shin flat behind, the near foot planted ahead).\nThe head (the bald head with its rune lines, the face with the glowing eyes, the moustache and the beard's upper part) is COPIED from the FIRST image in every frame, square for square, and only moved; never redraw, squash, turn or tilt it. The eye colors #FBFBFD、#B368FD appear ONLY in the eyes. The scroll is the FIRST image's scroll in every frame, the same size, on his back, only moved with the body.\nThe whole figure is ONE connected piece in every frame, with no little holes of background walled in between an arm and the body.\nFeet line: in every cell the soles' lowest row is on square row 81 from the top of the cell (pixels 648 to 655); NOTHING from pixel 656 down (only the lying frames of the death may dip 1 square). His place across the cell follows the SECOND image (each frame's standing point is in ryze_cells.json). In the move loop his head keeps the same horizontal place relative to the standing point in every frame, and the legs alternate and cross, both in the FIRST image's leg colors.\n3/4 front view facing right like the FIRST image; every throw, thrust and cast goes to the RIGHT of the image; never his back, never upside down. Do not draw effects (orbs, runes, the rune cage, the bolt, portals, glows) - only the character. Every animation starts and ends near the FIRST image's idle stance.\nAnimation: REALM WARP, the channel, 8 frames of 125 ms (the FOURTH image's motion, League's spell4): 1 he spreads both arms wide, the palms open; 2 he drops onto one knee and presses both hands flat on the ground in front of him; 3 and 4 kneeling, both hands on the ground (drawing the portal), the head a little bowed but the face visible; 5 he stands up on the FIRST image's legs, the far arm sweeping up; 6 standing, the far arm raised high, the palm open; 7 and 8 both arms raised high and wide, the hands closed (the moment he warps). The portals and the rune light are effects - do not draw them.\nLayout: exactly like the SECOND image - 4 columns by 2 rows, 8 frames, each cell 104x96 squares (832x768 px), 3328x1536 pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #00FF00 green). No grid lines, no borders, no labels, no guide marks.\nEssential: use the FIRST image's coarse block resolution, not a high-detail illustration. Copy its 41-block-tall silhouette proportions. Maintain the identical logical block size across all frames. Frame-specific body gesture is more important than copying the original 3D head position. The head stays above the shoulders, upright and connected. Keep the scroll and torso a coherent piece. No detached parts. Each pose stays within its own cell.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\design\\ryze_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\now\\ryze_now_ult.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\pose\\lol_pose_ult.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\old\\ryze_old_ult.png"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "frames": [
+      {
+        "pivot": [
+          45,
+          70
+        ],
+        "ms": 125,
+        "head": [
+          48.4,
+          45.4
+        ]
+      },
+      {
+        "pivot": [
+          48,
+          70
+        ],
+        "ms": 125,
+        "head": [
+          51.5,
+          56.3
+        ]
+      },
+      {
+        "pivot": [
+          48,
+          70
+        ],
+        "ms": 125,
+        "head": [
+          50.8,
+          56.7
+        ]
+      },
+      {
+        "pivot": [
+          50,
+          70
+        ],
+        "ms": 125,
+        "head": [
+          51.9,
+          57.6
+        ]
+      },
+      {
+        "pivot": [
+          48,
+          70
+        ],
+        "ms": 125,
+        "head": [
+          48.9,
+          46.9
+        ]
+      },
+      {
+        "pivot": [
+          46,
+          70
+        ],
+        "ms": 125,
+        "head": [
+          47.5,
+          46.2
+        ]
+      },
+      {
+        "pivot": [
+          46,
+          70
+        ],
+        "ms": 125,
+        "head": [
+          47.5,
+          46.2
+        ]
+      },
+      {
+        "pivot": [
+          48,
+          70
+        ],
+        "ms": 125,
+        "head": [
+          51.1,
+          42.2
+        ]
+      }
+    ]
+  },
+  "ult_land": {
+    "prompt": "Four attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, face, lean body, arms, hands, legs, boots and scroll exactly; do not redesign anything. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing, the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames in the same grid - the motion of the arms and the upper body. FOURTH: the previous, approved version of these frames drawn on an older, bulkier body - copy its poses, gestures and timing, but draw the FIRST image's lean body, thin arms and narrow trousers instead.\nThe character: Ryze, the rune mage: a bald man with blue-violet skin and dark rune lines, a stern brow, two glowing eyes and a long dark-brown beard; a sleeveless dark navy tunic with brown leather straps crossing it, a bronze-studded shoulder pad, a belt with a round bronze buckle, a dark-teal cloth strip hanging in front, narrow navy trousers and brown boots with bronze cuffs; bare blue-violet arms with brown leather bracers; a big cream parchment scroll in its case strapped on his back, its top behind his shoulder at image left.\nTask: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size (41 squares from the top of the scroll to the soles when standing), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.\nPixel rules (most important): ONLY the 30 colors of the FIRST image, no new colors: #0F0213 #10041C #321721 #141743 #431F20 #51261D #18235D #112A70 #663322 #23148D #014C78 #7F4226 #494560 #233D98 #097999 #9B592D #511AC4 #329498 #6B44CC #E79845 #9270F2 #C4A68D #40CCFC #B368FD #A88CFB #B59CFC #FBCE84 #C8B5FD #F4EEEA #FBFBFD. ONE outline: a 1-square near-black outline around the silhouette and each material's own dark shade inside it - never a second black ring. Big flat areas; no dithering, no noise, no random specks.\nArms and hands: the arms as thick as in the FIRST image (3 squares inside the outline), joined to the shoulders, the elbows bent naturally - never a straight thin stick; the hands like the FIRST image's hands (a blue-violet fist of 3x3 squares; an open palm of 3x4 with the fingers together when he casts), joined to the brown bracers - never claws, forks of single-square fingers, balls or floating hands. The far arm (image left) mostly stays close to the body or behind it; it is never flung out as a long stick.\nLEGS (the art director's rule): in every STANDING frame (attacks, casts, the hit, standing up after the ult) his legs are the FIRST image's legs exactly: straight, the same width apart, in the same place under him, the boots flat on the feet line - never a wide stance, never crouching, never toes turned out, never one leg slanted. Show the action with the upper body only: the torso leaning forward or back, the shoulders twisting, the arms. He kneels ONLY where the animation says so (the far knee on the ground with its shin flat behind, the near foot planted ahead).\nThe head (the bald head with its rune lines, the face with the glowing eyes, the moustache and the beard's upper part) is COPIED from the FIRST image in every frame, square for square, and only moved; never redraw, squash, turn or tilt it. The eye colors #FBFBFD、#B368FD appear ONLY in the eyes. The scroll is the FIRST image's scroll in every frame, the same size, on his back, only moved with the body.\nThe whole figure is ONE connected piece in every frame, with no little holes of background walled in between an arm and the body.\nFeet line: in every cell the soles' lowest row is on square row 81 from the top of the cell (pixels 648 to 655); NOTHING from pixel 656 down (only the lying frames of the death may dip 1 square). His place across the cell follows the SECOND image (each frame's standing point is in ryze_cells.json). In the move loop his head keeps the same horizontal place relative to the standing point in every frame, and the legs alternate and cross, both in the FIRST image's leg colors.\n3/4 front view facing right like the FIRST image; every throw, thrust and cast goes to the RIGHT of the image; never his back, never upside down. Do not draw effects (orbs, runes, the rune cage, the bolt, portals, glows) - only the character. Every animation starts and ends near the FIRST image's idle stance.\nAnimation: ARRIVAL, 4 frames of 67 ms (League's spell4 wind-down, after the warp): 1 he lands on one knee, a hand touching the ground in front; 2 rising onto the FIRST image's legs, the arms out for balance; 3 almost the idle; 4 the idle.\nLayout: exactly like the SECOND image - 4 columns by 1 rows, 4 frames, each cell 104x96 squares (832x768 px), 3328x768 pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #00FF00 green). No grid lines, no borders, no labels, no guide marks.\nEssential: use the FIRST image's coarse block resolution, not a high-detail illustration. Copy its 41-block-tall silhouette proportions. Maintain the identical logical block size across all frames. Frame-specific body gesture is more important than copying the original 3D head position. The head stays above the shoulders, upright and connected. Keep the scroll and torso a coherent piece. No detached parts. Each pose stays within its own cell.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\design\\ryze_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\now\\ryze_now_ult_land.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\pose\\lol_pose_ult_land.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\old\\ryze_old_ult_land.png"
+    ],
+    "columns": 4,
+    "rows": 1,
+    "frames": [
+      {
+        "pivot": [
+          46,
+          70
+        ],
+        "ms": 67,
+        "head": [
+          51.0,
+          65.9
+        ]
+      },
+      {
+        "pivot": [
+          50,
+          70
+        ],
+        "ms": 67,
+        "head": [
+          56.1,
+          58.0
+        ]
+      },
+      {
+        "pivot": [
+          51,
+          70
+        ],
+        "ms": 67,
+        "head": [
+          55.2,
+          48.1
+        ]
+      },
+      {
+        "pivot": [
+          49,
+          70
+        ],
+        "ms": 66,
+        "head": [
+          52.9,
+          46.0
+        ]
+      }
+    ]
+  },
+  "hit": {
+    "prompt": "Four attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, face, lean body, arms, hands, legs, boots and scroll exactly; do not redesign anything. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing, the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames in the same grid - the motion of the arms and the upper body. FOURTH: the previous, approved version of these frames drawn on an older, bulkier body - copy its poses, gestures and timing, but draw the FIRST image's lean body, thin arms and narrow trousers instead.\nThe character: Ryze, the rune mage: a bald man with blue-violet skin and dark rune lines, a stern brow, two glowing eyes and a long dark-brown beard; a sleeveless dark navy tunic with brown leather straps crossing it, a bronze-studded shoulder pad, a belt with a round bronze buckle, a dark-teal cloth strip hanging in front, narrow navy trousers and brown boots with bronze cuffs; bare blue-violet arms with brown leather bracers; a big cream parchment scroll in its case strapped on his back, its top behind his shoulder at image left.\nTask: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size (41 squares from the top of the scroll to the soles when standing), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.\nPixel rules (most important): ONLY the 30 colors of the FIRST image, no new colors: #0F0213 #10041C #321721 #141743 #431F20 #51261D #18235D #112A70 #663322 #23148D #014C78 #7F4226 #494560 #233D98 #097999 #9B592D #511AC4 #329498 #6B44CC #E79845 #9270F2 #C4A68D #40CCFC #B368FD #A88CFB #B59CFC #FBCE84 #C8B5FD #F4EEEA #FBFBFD. ONE outline: a 1-square near-black outline around the silhouette and each material's own dark shade inside it - never a second black ring. Big flat areas; no dithering, no noise, no random specks.\nArms and hands: the arms as thick as in the FIRST image (3 squares inside the outline), joined to the shoulders, the elbows bent naturally - never a straight thin stick; the hands like the FIRST image's hands (a blue-violet fist of 3x3 squares; an open palm of 3x4 with the fingers together when he casts), joined to the brown bracers - never claws, forks of single-square fingers, balls or floating hands. The far arm (image left) mostly stays close to the body or behind it; it is never flung out as a long stick.\nLEGS (the art director's rule): in every STANDING frame (attacks, casts, the hit, standing up after the ult) his legs are the FIRST image's legs exactly: straight, the same width apart, in the same place under him, the boots flat on the feet line - never a wide stance, never crouching, never toes turned out, never one leg slanted. Show the action with the upper body only: the torso leaning forward or back, the shoulders twisting, the arms. He kneels ONLY where the animation says so (the far knee on the ground with its shin flat behind, the near foot planted ahead).\nThe head (the bald head with its rune lines, the face with the glowing eyes, the moustache and the beard's upper part) is COPIED from the FIRST image in every frame, square for square, and only moved; never redraw, squash, turn or tilt it. The eye colors #FBFBFD、#B368FD appear ONLY in the eyes. The scroll is the FIRST image's scroll in every frame, the same size, on his back, only moved with the body.\nThe whole figure is ONE connected piece in every frame, with no little holes of background walled in between an arm and the body.\nFeet line: in every cell the soles' lowest row is on square row 81 from the top of the cell (pixels 648 to 655); NOTHING from pixel 656 down (only the lying frames of the death may dip 1 square). His place across the cell follows the SECOND image (each frame's standing point is in ryze_cells.json). In the move loop his head keeps the same horizontal place relative to the standing point in every frame, and the legs alternate and cross, both in the FIRST image's leg colors.\n3/4 front view facing right like the FIRST image; every throw, thrust and cast goes to the RIGHT of the image; never his back, never upside down. Do not draw effects (orbs, runes, the rune cage, the bolt, portals, glows) - only the character. Every animation starts and ends near the FIRST image's idle stance.\nAnimation: HIT, 2 frames: 1 jolted back by a blow: the upper body and head pushed back 1-2 squares (to the left), the scroll tipping back, the arms flung out - the legs stay the FIRST image's legs; 2 recovering toward the idle.\nLayout: exactly like the SECOND image - 2 columns by 1 rows, 2 frames, each cell 104x96 squares (832x768 px), 1664x768 pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #00FF00 green). No grid lines, no borders, no labels, no guide marks.\nEssential: use the FIRST image's coarse block resolution, not a high-detail illustration. Copy its 41-block-tall silhouette proportions. Maintain the identical logical block size across all frames. Frame-specific body gesture is more important than copying the original 3D head position. The head stays above the shoulders, upright and connected. Keep the scroll and torso a coherent piece. No detached parts. Each pose stays within its own cell.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\design\\ryze_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\now\\ryze_now_hit.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\pose\\lol_pose_hit.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\old\\ryze_old_hit.png"
+    ],
+    "columns": 2,
+    "rows": 1,
+    "frames": [
+      {
+        "pivot": [
+          54,
+          70
+        ],
+        "ms": 100,
+        "head": [
+          55.2,
+          48.5
+        ]
+      },
+      {
+        "pivot": [
+          52,
+          70
+        ],
+        "ms": 100,
+        "head": [
+          54.8,
+          46.7
+        ]
+      }
+    ]
+  },
+  "dead": {
+    "prompt": "Four attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, face, lean body, arms, hands, legs, boots and scroll exactly; do not redesign anything. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing, the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames in the same grid - the motion of the arms and the upper body. FOURTH: the previous, approved version of these frames drawn on an older, bulkier body - copy its poses, gestures and timing, but draw the FIRST image's lean body, thin arms and narrow trousers instead.\nThe character: Ryze, the rune mage: a bald man with blue-violet skin and dark rune lines, a stern brow, two glowing eyes and a long dark-brown beard; a sleeveless dark navy tunic with brown leather straps crossing it, a bronze-studded shoulder pad, a belt with a round bronze buckle, a dark-teal cloth strip hanging in front, narrow navy trousers and brown boots with bronze cuffs; bare blue-violet arms with brown leather bracers; a big cream parchment scroll in its case strapped on his back, its top behind his shoulder at image left.\nTask: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size (41 squares from the top of the scroll to the soles when standing), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.\nPixel rules (most important): ONLY the 30 colors of the FIRST image, no new colors: #0F0213 #10041C #321721 #141743 #431F20 #51261D #18235D #112A70 #663322 #23148D #014C78 #7F4226 #494560 #233D98 #097999 #9B592D #511AC4 #329498 #6B44CC #E79845 #9270F2 #C4A68D #40CCFC #B368FD #A88CFB #B59CFC #FBCE84 #C8B5FD #F4EEEA #FBFBFD. ONE outline: a 1-square near-black outline around the silhouette and each material's own dark shade inside it - never a second black ring. Big flat areas; no dithering, no noise, no random specks.\nArms and hands: the arms as thick as in the FIRST image (3 squares inside the outline), joined to the shoulders, the elbows bent naturally - never a straight thin stick; the hands like the FIRST image's hands (a blue-violet fist of 3x3 squares; an open palm of 3x4 with the fingers together when he casts), joined to the brown bracers - never claws, forks of single-square fingers, balls or floating hands. The far arm (image left) mostly stays close to the body or behind it; it is never flung out as a long stick.\nLEGS (the art director's rule): in every STANDING frame (attacks, casts, the hit, standing up after the ult) his legs are the FIRST image's legs exactly: straight, the same width apart, in the same place under him, the boots flat on the feet line - never a wide stance, never crouching, never toes turned out, never one leg slanted. Show the action with the upper body only: the torso leaning forward or back, the shoulders twisting, the arms. He kneels ONLY where the animation says so (the far knee on the ground with its shin flat behind, the near foot planted ahead).\nThe head (the bald head with its rune lines, the face with the glowing eyes, the moustache and the beard's upper part) is COPIED from the FIRST image in every frame, square for square, and only moved; never redraw, squash, turn or tilt it. The eye colors #FBFBFD、#B368FD appear ONLY in the eyes. The scroll is the FIRST image's scroll in every frame, the same size, on his back, only moved with the body.\nThe whole figure is ONE connected piece in every frame, with no little holes of background walled in between an arm and the body.\nFeet line: in every cell the soles' lowest row is on square row 81 from the top of the cell (pixels 648 to 655); NOTHING from pixel 656 down (only the lying frames of the death may dip 1 square). His place across the cell follows the SECOND image (each frame's standing point is in ryze_cells.json). In the move loop his head keeps the same horizontal place relative to the standing point in every frame, and the legs alternate and cross, both in the FIRST image's leg colors.\n3/4 front view facing right like the FIRST image; every throw, thrust and cast goes to the RIGHT of the image; never his back, never upside down. Do not draw effects (orbs, runes, the rune cage, the bolt, portals, glows) - only the character. Every animation starts and ends near the FIRST image's idle stance.\nAnimation: DEATH, 8 frames (the FOURTH image's motion, League's death): 1 struck, he reels back, the arms flung out (on the FIRST image's legs); 2 he staggers, a hand pressed to his face; 3 his knees give way: down on one knee; 4 down on both knees, slumping forward; 5 pitching forward, the hands reaching for the ground; 6 he falls forward onto the ground; 7 lying flat on his front on the feet line, the scroll lying on his back, the head up with the chin on the ground and the face visible; 8 still, the same. Never upside down; the lying frames may dip 1 square under the feet line, nothing lower.\nLayout: exactly like the SECOND image - 4 columns by 2 rows, 8 frames, each cell 104x96 squares (832x768 px), 3328x1536 pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #00FF00 green). No grid lines, no borders, no labels, no guide marks.\nEssential: use the FIRST image's coarse block resolution, not a high-detail illustration. Copy its 41-block-tall silhouette proportions. Maintain the identical logical block size across all frames. Frame-specific body gesture is more important than copying the original 3D head position. The head stays above the shoulders, upright and connected. Keep the scroll and torso a coherent piece. No detached parts. Each pose stays within its own cell.",
+    "references": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\design\\ryze_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\now\\ryze_now_dead.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\pose\\lol_pose_dead.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-02\\new-chat-6\\work\\ryze-strips-v2\\ryze_strips_v2_pack\\old\\ryze_old_dead.png"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "frames": [
+      {
+        "pivot": [
+          44,
+          70
+        ],
+        "ms": 100,
+        "head": [
+          50.7,
+          53.9
+        ],
+        "tilt": -51
+      },
+      {
+        "pivot": [
+          44,
+          70
+        ],
+        "ms": 100,
+        "head": [
+          49.8,
+          49.1
+        ]
+      },
+      {
+        "pivot": [
+          41,
+          70
+        ],
+        "ms": 120,
+        "head": [
+          44.8,
+          49.9
+        ]
+      },
+      {
+        "pivot": [
+          45,
+          70
+        ],
+        "ms": 120,
+        "head": [
+          52.0,
+          46.2
+        ]
+      },
+      {
+        "pivot": [
+          45,
+          70
+        ],
+        "ms": 150,
+        "head": [
+          51.7,
+          53.0
+        ]
+      },
+      {
+        "pivot": [
+          44,
+          70
+        ],
+        "ms": 150,
+        "head": [
+          49.8,
+          74.0
+        ],
+        "tilt": -92
+      },
+      {
+        "pivot": [
+          39,
+          70
+        ],
+        "ms": 200,
+        "head": [
+          45.7,
+          72.9
+        ],
+        "tilt": -142
+      },
+      {
+        "pivot": [
+          39,
+          70
+        ],
+        "ms": 400,
+        "head": [
+          45.7,
+          72.9
+        ],
+        "tilt": -142
+      }
+    ]
+  }
+}

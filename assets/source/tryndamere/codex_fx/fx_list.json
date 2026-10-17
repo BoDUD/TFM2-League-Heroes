@@ -1,0 +1,57 @@
+[
+ {
+  "file": "tryndamere_fx_a_hit.png",
+  "binding": "view_effects `league_tryndamere_a_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "tryndamere_fx_f_full.png",
+  "binding": "view_buffs `league_tryndamere_f_5`（满 5 层怒气时，循环，画在人物下面）",
+  "size": "26 × 40"
+ },
+ {
+  "file": "tryndamere_fx_e_spin.png",
+  "binding": "view_effects `league_tryndamere_e_spin`（BIG，施法者身上，跟随；格子中心放到他的腰）",
+  "size": "40 × 30"
+ },
+ {
+  "file": "tryndamere_fx_e_hit.png",
+  "binding": "view_effects `league_tryndamere_e_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "tryndamere_fx_w_shout.png",
+  "binding": "view_effects `league_tryndamere_w_shout`（BIG，施法者身上，跟随；格子里的脚放到他脚下）",
+  "size": "84 × 48"
+ },
+ {
+  "file": "tryndamere_fx_w_hit.png",
+  "binding": "view_effects `league_tryndamere_w_hit`（跟随，画在人物上面）",
+  "size": "16 × 20"
+ },
+ {
+  "file": "tryndamere_fx_w_weak.png",
+  "binding": "view_buffs `league_tryndamere_w_weak`（循环，画在人物上面，头顶）",
+  "size": "12 × 12"
+ },
+ {
+  "file": "tryndamere_fx_w_slow.png",
+  "binding": "view_buffs `league_tryndamere_w_slow`（循环，画在脚下）",
+  "size": "18 × 8"
+ },
+ {
+  "file": "tryndamere_fx_q_heal.png",
+  "binding": "view_effects `league_tryndamere_q_heal`（施法者身上，不跟随；格子中心放到他的胸口）",
+  "size": "30 × 44"
+ },
+ {
+  "file": "tryndamere_fx_r_cast.png",
+  "binding": "view_effects `league_tryndamere_r_cast`（BIG，施法者身上，不跟随；格子里的脚放到他脚下）",
+  "size": "48 × 56"
+ },
+ {
+  "file": "tryndamere_fx_r_rage.png",
+  "binding": "view_buffs `league_tryndamere_r_rage`（BIG，循环，画在人物下面）",
+  "size": "34 × 50"
+ }
+]

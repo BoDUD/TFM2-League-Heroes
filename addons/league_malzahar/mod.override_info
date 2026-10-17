@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_malzahar": {
+    "remapping": "asset/league_malzahar/override/league_malzahar",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_malzahar/text/champion",
+    "type": "merge"
+  }
+}

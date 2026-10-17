@@ -1,0 +1,230 @@
+[
+ {
+  "file": "run_1.png",
+  "tag": "run",
+  "frame": 1,
+  "ms": 100
+ },
+ {
+  "file": "run_2.png",
+  "tag": "run",
+  "frame": 2,
+  "ms": 100
+ },
+ {
+  "file": "run_3.png",
+  "tag": "run",
+  "frame": 3,
+  "ms": 100
+ },
+ {
+  "file": "run_4.png",
+  "tag": "run",
+  "frame": 4,
+  "ms": 100
+ },
+ {
+  "file": "run_5.png",
+  "tag": "run",
+  "frame": 5,
+  "ms": 100
+ },
+ {
+  "file": "run_6.png",
+  "tag": "run",
+  "frame": 6,
+  "ms": 100
+ },
+ {
+  "file": "run_7.png",
+  "tag": "run",
+  "frame": 7,
+  "ms": 100
+ },
+ {
+  "file": "run_8.png",
+  "tag": "run",
+  "frame": 8,
+  "ms": 100
+ },
+ {
+  "file": "attack_1.png",
+  "tag": "attack",
+  "frame": 1,
+  "ms": 50
+ },
+ {
+  "file": "attack_2.png",
+  "tag": "attack",
+  "frame": 2,
+  "ms": 60
+ },
+ {
+  "file": "attack_3.png",
+  "tag": "attack",
+  "frame": 3,
+  "ms": 60
+ },
+ {
+  "file": "attack_4.png",
+  "tag": "attack",
+  "frame": 4,
+  "ms": 90
+ },
+ {
+  "file": "attack_5.png",
+  "tag": "attack",
+  "frame": 5,
+  "ms": 80
+ },
+ {
+  "file": "attack_6.png",
+  "tag": "attack",
+  "frame": 6,
+  "ms": 60
+ },
+ {
+  "file": "skill_1.png",
+  "tag": "skill",
+  "frame": 1,
+  "ms": 50
+ },
+ {
+  "file": "skill_2.png",
+  "tag": "skill",
+  "frame": 2,
+  "ms": 50
+ },
+ {
+  "file": "skill_3.png",
+  "tag": "skill",
+  "frame": 3,
+  "ms": 50
+ },
+ {
+  "file": "skill_4.png",
+  "tag": "skill",
+  "frame": 4,
+  "ms": 50
+ },
+ {
+  "file": "skill2_1.png",
+  "tag": "skill2",
+  "frame": 1,
+  "ms": 60
+ },
+ {
+  "file": "skill2_2.png",
+  "tag": "skill2",
+  "frame": 2,
+  "ms": 60
+ },
+ {
+  "file": "skill2_3.png",
+  "tag": "skill2",
+  "frame": 3,
+  "ms": 60
+ },
+ {
+  "file": "skill2_4.png",
+  "tag": "skill2",
+  "frame": 4,
+  "ms": 80
+ },
+ {
+  "file": "skill2_5.png",
+  "tag": "skill2",
+  "frame": 5,
+  "ms": 80
+ },
+ {
+  "file": "skill2_6.png",
+  "tag": "skill2",
+  "frame": 6,
+  "ms": 60
+ },
+ {
+  "file": "ult_1.png",
+  "tag": "ult",
+  "frame": 1,
+  "ms": 60
+ },
+ {
+  "file": "ult_2.png",
+  "tag": "ult",
+  "frame": 2,
+  "ms": 70
+ },
+ {
+  "file": "ult_3.png",
+  "tag": "ult",
+  "frame": 3,
+  "ms": 70
+ },
+ {
+  "file": "ult_4.png",
+  "tag": "ult",
+  "frame": 4,
+  "ms": 70
+ },
+ {
+  "file": "ult_5.png",
+  "tag": "ult",
+  "frame": 5,
+  "ms": 80
+ },
+ {
+  "file": "ult_6.png",
+  "tag": "ult",
+  "frame": 6,
+  "ms": 70
+ },
+ {
+  "file": "ult_7.png",
+  "tag": "ult",
+  "frame": 7,
+  "ms": 80
+ },
+ {
+  "file": "hit_1.png",
+  "tag": "hit",
+  "frame": 1,
+  "ms": 100
+ },
+ {
+  "file": "dead_1.png",
+  "tag": "dead",
+  "frame": 1,
+  "ms": 100
+ },
+ {
+  "file": "dead_2.png",
+  "tag": "dead",
+  "frame": 2,
+  "ms": 100
+ },
+ {
+  "file": "dead_3.png",
+  "tag": "dead",
+  "frame": 3,
+  "ms": 120
+ },
+ {
+  "file": "dead_4.png",
+  "tag": "dead",
+  "frame": 4,
+  "ms": 150
+ },
+ {
+  "file": "dead_5.png",
+  "tag": "dead",
+  "frame": 5,
+  "ms": 200
+ },
+ {
+  "file": "dead_6.png",
+  "tag": "dead",
+  "frame": 6,
+  "ms": 400
+ }
+]

@@ -1,0 +1,54 @@
+{
+  "hero": "missfortune",
+  "champ": "MissFortune",
+  "camera": {"yaw": 35, "pitch": 25, "mirror": false},
+  "chibi": {"head": 2.1, "legs": 0.65, "hair": 0.5, "scale": {"Hat": 0.75}},
+  "weapon": "^[lr]_weapon$",
+  "hair_part": true,
+  "height": 36,
+  "cell": [96, 96, 12],
+  "design": "missfortune_idle1@0",
+  "restyle": {
+    "head": {"rect": [51, 63, 18, 17], "dx": -2, "dy": 0,
+             "cut": [[55, 79], [56, 79], [57, 79], [58, 79], [59, 79], [60, 79], [61, 79], [62, 79], [63, 79], [65, 79], [66, 79], [67, 79]]},
+    "turn": {"dead": 180, "*": 60},
+    "outline": "1A1622",
+    "weapon": [["2A3038", 0.2], ["4A5460", 0.45], ["C8963C", 0.72], ["F2D27A"]],
+    "hair": [["8A1E14", 0.28], ["C8361C", 0.45], ["F0643A"]],
+    "weights": {"C8963C": 1.3, "F2D27A": 1.3, "F5CFAE": 1.2, "E0A383": 1.2},
+    "materials": [
+      {"name": "gold", "hue": [30, 65], "sat": [0.25, 1], "val": [0.45, 1], "ramp": [["C8963C", 0.7], ["F2D27A"]]},
+      {"name": "skin", "hue": [5, 30], "sat": [0.25, 0.62], "val": [0.45, 1], "ramp": [["B8745E", 0.55], ["E0A383", 0.72], ["F5CFAE"]]},
+      {"name": "white", "sat": [0, 0.25], "val": [0.55, 1], "ramp": [["8A9AAC", 0.7], ["C4D0DA", 0.85], ["F2F4F4"]]},
+      {"name": "teal", "hue": [170, 260], "sat": [0.3, 1], "ramp": [["16324A", 0.18], ["25506E", 0.3], ["3A6E8E"]]},
+      {"name": "dark", "ramp": [["241A20", 0.2], ["3A2A2E"]]}
+    ]
+  },
+  "tags": {
+    "idle": {"frames": [
+      ["missfortune_idle1@0", 200], ["missfortune_idle1@222", 200], ["missfortune_idle1@444", 200],
+      ["missfortune_idle1@667", 200], ["missfortune_idle1@889", 200], ["missfortune_idle1@1111", 200]]},
+    "run": {"head_like": "missfortune_idle1@0", "frames": [
+      ["missfortune_run@0", 100], ["missfortune_run@100", 100], ["missfortune_run@200", 100], ["missfortune_run@300", 100],
+      ["missfortune_run@400", 100], ["missfortune_run@500", 100], ["missfortune_run@600", 100], ["missfortune_run@700", 100]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["missfortune_idle1@0>missfortune_attack1@200:0.5", 60], ["missfortune_attack1@230", 60], ["missfortune_attack1@265", 70],
+      ["missfortune_attack1@305", 70], ["missfortune_attack1@380", 70], ["missfortune_attack1@500>missfortune_idle1@0:0.5", 80]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["missfortune_idle1@0>missfortune_spell1@220:0.5", 60], ["missfortune_spell1@250", 60], ["missfortune_spell1@285", 70],
+      ["missfortune_spell1@330", 80], ["missfortune_spell1@420", 90], ["missfortune_spell1@600>missfortune_idle1@0:0.5", 90]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["missfortune_idle1@0>missfortune_spell3@250:0.5", 60], ["missfortune_spell3@320", 70], ["missfortune_spell3@400", 80],
+      ["missfortune_spell3@480", 80], ["missfortune_spell3@600", 90], ["missfortune_spell3@800>missfortune_idle1@0:0.5", 90]]},
+    "ult": {"lunge": 0.7, "frames": [
+      ["missfortune_spell4_loop@0", 125], ["missfortune_spell4_loop@133", 125], ["missfortune_spell4_loop@267", 125],
+      ["missfortune_spell4_loop@400", 125], ["missfortune_spell4_loop@533", 125], ["missfortune_spell4_loop@667", 125],
+      ["missfortune_spell4_loop@800", 125], ["missfortune_spell4_loop@933", 125]]},
+    "hit": {"flat": true, "frames": [
+      ["missfortune_idle1@0>missfortune_death@150:0.3", 120], ["missfortune_idle1@0>missfortune_death@150:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "travel": 0.3, "frames": [
+      ["missfortune_death@0", 100], ["missfortune_death@300", 100, {"hide": ["^[lr]_weapon$"]}], ["missfortune_death@700", 120, {"hide": ["^[lr]_weapon$"]}],
+      ["missfortune_death@1200", 150, {"hide": ["^[lr]_weapon$"]}], ["missfortune_death@2000", 150, {"hide": ["^[lr]_weapon$"]}], ["missfortune_death@2800", 150, {"hide": ["^[lr]_weapon$"]}],
+      ["missfortune_death@3400", 500, {"hide": ["^[lr]_weapon$"]}]]}
+  }
+}

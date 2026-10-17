@@ -1,0 +1,38 @@
+{
+  "reksai-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "visible_bounds": [
+      0,
+      9,
+      1254,
+      1254
+    ]
+  },
+  "reksai-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "visible_bounds": [
+      0,
+      53,
+      1251,
+      1254
+    ]
+  }
+}

@@ -1,0 +1,589 @@
+{
+  "hero": "fiddlesticks",
+  "champ": "FiddleSticks",
+  "camera": {
+    "yaw": 30,
+    "pitch": 25,
+    "mirror": false
+  },
+  "chibi": {
+    "head": 2.0,
+    "legs": 0.75,
+    "hair": 1.0
+  },
+  "weapon": "^Scythe$",
+  "glue": {
+    "joint": "Scythe",
+    "to": "Scythe_Snap"
+  },
+  "hide_submeshes": [
+    "L_Demon_Arm",
+    "R_Demon_Arm",
+    "Lantern",
+    "Tongue"
+  ],
+  "submesh_textures": {
+    "Weapon": "Weapon_TX"
+  },
+  "height": 28,
+  "parts": [
+    {
+      "name": "backleg",
+      "joints": "^L_Hip$",
+      "outline": true,
+      "materials": [
+        {
+          "name": "metal",
+          "sat": [
+            0,
+            0.3
+          ],
+          "val": [
+            0.3,
+            1
+          ],
+          "ramp": [
+            [
+              "4A3A40",
+              0.5
+            ],
+            [
+              "6E5E64"
+            ]
+          ]
+        },
+        {
+          "name": "dark",
+          "ramp": [
+            [
+              "1E1219",
+              0.1
+            ],
+            [
+              "35222C"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "cell": [
+    96,
+    96,
+    14
+  ],
+  "design": "Fiddlesticks_Idle1@0",
+  "tags": {
+    "idle": {
+      "frames": [
+        [
+          "Fiddlesticks_Idle1@0",
+          200
+        ],
+        [
+          "Fiddlesticks_Idle1@0",
+          200
+        ],
+        [
+          "Fiddlesticks_Idle1@0",
+          200
+        ],
+        [
+          "Fiddlesticks_Idle1@0",
+          200
+        ],
+        [
+          "Fiddlesticks_Idle1@0",
+          200
+        ],
+        [
+          "Fiddlesticks_Idle1@0",
+          200
+        ]
+      ]
+    },
+    "run": {
+      "flat": true,
+      "head_like": "Fiddlesticks_Idle1@0",
+      "frames": [
+        [
+          "Fiddlesticks_Run@0",
+          108
+        ],
+        [
+          "Fiddlesticks_Run@108",
+          109
+        ],
+        [
+          "Fiddlesticks_Run@217",
+          108
+        ],
+        [
+          "Fiddlesticks_Run@325",
+          109
+        ],
+        [
+          "Fiddlesticks_Run@433",
+          108
+        ],
+        [
+          "Fiddlesticks_Run@542",
+          109
+        ],
+        [
+          "Fiddlesticks_Run@650",
+          108
+        ],
+        [
+          "Fiddlesticks_Run@758",
+          108
+        ]
+      ]
+    },
+    "attack": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Fiddlesticks_Idle1@0>Fiddlesticks_Attack2_A@0:0.5",
+          60
+        ],
+        [
+          "Fiddlesticks_Attack2_A@83",
+          60
+        ],
+        [
+          "Fiddlesticks_Attack2_A@125",
+          70
+        ],
+        [
+          "Fiddlesticks_Attack2_A@167",
+          70
+        ],
+        [
+          "Fiddlesticks_Attack2_A@208",
+          80
+        ],
+        [
+          "Fiddlesticks_Attack2_A@292>Fiddlesticks_Idle1@0:0.5",
+          90
+        ]
+      ]
+    },
+    "skill": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Fiddlesticks_Idle1@0>Fiddlesticks_Spell1@0:0.5",
+          50
+        ],
+        [
+          "Fiddlesticks_Spell1@58",
+          50
+        ],
+        [
+          "Fiddlesticks_Spell1@117",
+          60
+        ],
+        [
+          "Fiddlesticks_Spell1@175",
+          60
+        ],
+        [
+          "Fiddlesticks_Spell1@233>Fiddlesticks_Idle1@0:0.4",
+          70
+        ],
+        [
+          "Fiddlesticks_Spell1@292>Fiddlesticks_Idle1@0:0.4",
+          70
+        ],
+        [
+          "Fiddlesticks_Spell1@350>Fiddlesticks_Idle1@0:0.4",
+          80
+        ],
+        [
+          "Fiddlesticks_Spell1@408>Fiddlesticks_Idle1@0:0.5",
+          90
+        ]
+      ]
+    },
+    "skill2": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Fiddlesticks_Idle1@0>Fiddlesticks_Spell3_mid@0:0.5",
+          50
+        ],
+        [
+          "Fiddlesticks_Spell3_mid@150",
+          60
+        ],
+        [
+          "Fiddlesticks_Spell3_mid@300",
+          60
+        ],
+        [
+          "Fiddlesticks_Spell3_mid@350",
+          50
+        ],
+        [
+          "Fiddlesticks_Spell3_mid@500",
+          80
+        ],
+        [
+          "Fiddlesticks_Spell3_mid@600",
+          80
+        ],
+        [
+          "Fiddlesticks_Spell3_mid@675>Fiddlesticks_Idle1@0:0.5",
+          90
+        ]
+      ]
+    },
+    "w_loop": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Fiddlesticks_Spell2_channel@0",
+          250
+        ],
+        [
+          "Fiddlesticks_Spell2_channel@250",
+          250
+        ],
+        [
+          "Fiddlesticks_Spell2_channel@500",
+          250
+        ],
+        [
+          "Fiddlesticks_Spell2_channel@750",
+          250
+        ],
+        [
+          "Fiddlesticks_Spell2_channel@1000",
+          250
+        ],
+        [
+          "Fiddlesticks_Spell2_channel@1250",
+          250
+        ],
+        [
+          "Fiddlesticks_Spell2_channel@1500",
+          250
+        ],
+        [
+          "Fiddlesticks_Spell2_channel@1750",
+          250
+        ]
+      ]
+    },
+    "ult": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Fiddlesticks_Idle1@0>Fiddlesticks_Spell4@0:0.5",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4@192",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4@383",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4@575",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4@767",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4@958",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4@1150",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4@1342",
+          125
+        ]
+      ]
+    },
+    "ult_land": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Fiddlesticks_Spell4_NoMove@0",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4_NoMove@200",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4_NoMove@400",
+          125
+        ],
+        [
+          "Fiddlesticks_Spell4_NoMove@600",
+          125
+        ]
+      ]
+    },
+    "hit": {
+      "flat": true,
+      "frames": [
+        [
+          "Fiddlesticks_Idle1@0>Fiddlesticks_Death_v2@100:0.35",
+          100
+        ],
+        [
+          "Fiddlesticks_Idle1@0>Fiddlesticks_Death_v2@100:0.15",
+          100
+        ]
+      ]
+    },
+    "dead": {
+      "anchor": "first",
+      "lunge": 0.2,
+      "flat": true,
+      "travel": 0.3,
+      "frames": [
+        [
+          "Fiddlesticks_Death_v2@0",
+          100
+        ],
+        [
+          "Fiddlesticks_Death_v2@248",
+          100
+        ],
+        [
+          "Fiddlesticks_Death_v2@496",
+          100,
+          {
+            "hide": [
+              "^Scythe$"
+            ]
+          }
+        ],
+        [
+          "Fiddlesticks_Death_v2@744",
+          100,
+          {
+            "hide": [
+              "^Scythe$"
+            ]
+          }
+        ],
+        [
+          "Fiddlesticks_Death_v2@992",
+          120,
+          {
+            "hide": [
+              "^Scythe$"
+            ]
+          }
+        ],
+        [
+          "Fiddlesticks_Death_v2@1488",
+          150,
+          {
+            "hide": [
+              "^Scythe$"
+            ]
+          }
+        ],
+        [
+          "Fiddlesticks_Death_v2@3471",
+          150,
+          {
+            "hide": [
+              "^Scythe$"
+            ]
+          }
+        ],
+        [
+          "Fiddlesticks_Death_v2@3900",
+          400,
+          {
+            "hide": [
+              "^Scythe$"
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  "restyle": {
+    "head": {
+      "rect": [
+        68,
+        56,
+        16,
+        18
+      ],
+      "dx": -1,
+      "dy": -1
+    },
+    "turn": 180,
+    "outline": "1A1016",
+    "weapon": [
+      [
+        "3A2418",
+        0.18
+      ],
+      [
+        "5E3A22",
+        0.26
+      ],
+      [
+        "8A5A34"
+      ]
+    ],
+    "weapon_materials": [
+      {
+        "name": "edge",
+        "sat": [
+          0,
+          0.22
+        ],
+        "val": [
+          0.5,
+          1
+        ],
+        "ramp": [
+          [
+            "D8CCC4"
+          ]
+        ]
+      },
+      {
+        "name": "blade",
+        "hue": [
+          320,
+          12
+        ],
+        "sat": [
+          0.25,
+          1
+        ],
+        "ramp": [
+          [
+            "5E2220",
+            0.25
+          ],
+          [
+            "943A2E",
+            0.4
+          ],
+          [
+            "C8644A"
+          ]
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "name": "burlap",
+        "hue": [
+          12,
+          52
+        ],
+        "sat": [
+          0.18,
+          1
+        ],
+        "val": [
+          0.3,
+          1
+        ],
+        "ramp": [
+          [
+            "6A4428",
+            0.42
+          ],
+          [
+            "9A6A3C",
+            0.56
+          ],
+          [
+            "C8985E",
+            0.72
+          ],
+          [
+            "ECCC98"
+          ]
+        ]
+      },
+      {
+        "name": "red",
+        "hue": [
+          340,
+          12
+        ],
+        "sat": [
+          0.5,
+          1
+        ],
+        "val": [
+          0.3,
+          1
+        ],
+        "ramp": [
+          [
+            "7A1E22",
+            0.45
+          ],
+          [
+            "B03228"
+          ]
+        ]
+      },
+      {
+        "name": "metal",
+        "sat": [
+          0,
+          0.3
+        ],
+        "val": [
+          0.3,
+          1
+        ],
+        "ramp": [
+          [
+            "5A4448",
+            0.45
+          ],
+          [
+            "8A7478",
+            0.62
+          ],
+          [
+            "B8A4A8"
+          ]
+        ]
+      },
+      {
+        "name": "dark",
+        "ramp": [
+          [
+            "24161E",
+            0.07
+          ],
+          [
+            "3E2833",
+            0.15
+          ],
+          [
+            "5E4450"
+          ]
+        ]
+      }
+    ],
+    "cover": 0.4
+  }
+}

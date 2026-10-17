@@ -1,0 +1,25 @@
+{
+  "fx": "league_aatrox_fx",
+  "items": [
+    {"tag": "p_swing_r", "into": "attack_p_r", "at_ms": 300},
+    {"tag": "p_swing", "into": "attack_p", "at_ms": 300},
+    {"tag": "e_dash", "into": "q3_r_fx1", "from": "q3_r", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "e_dash", "into": "q3_fx1", "from": "q3", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "q3_slash_r", "into": "q3_r", "at_ms": 600},
+    {"tag": "q3_slash", "into": "q3", "at_ms": 600},
+    {"tag": "e_dash_back", "into": "q2_r_fx1", "from": "q2_r", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "e_dash_back", "into": "q2_fx1", "from": "q2", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "e_dash", "into": "q2_r_fx2", "from": "q2_r", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "e_dash", "into": "q2_fx2", "from": "q2", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "q2_slash_r", "into": "q2_r", "at_ms": 600},
+    {"tag": "q2_slash", "into": "q2", "at_ms": 600},
+    {"tag": "e_dash_back", "into": "skill_r_fx1", "from": "skill_r", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "e_dash_back", "into": "skill_fx1", "from": "skill", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "e_dash", "into": "skill_r_fx2", "from": "skill_r", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "e_dash", "into": "skill_fx2", "from": "skill", "slice_ms": 300, "length_ms": 500, "at_ms": 0, "under": true},
+    {"tag": "q1_slash_r", "into": "skill_r", "at_ms": 600},
+    {"tag": "q1_slash", "into": "skill_fx3", "from": "skill", "slice_ms": 600, "length_ms": 200, "at_ms": 0},
+    {"tag": "w_throw_r", "into": "skill2_r", "at_ms": 233},
+    {"tag": "w_throw", "into": "skill2_fx1", "from": "skill2", "slice_ms": 267, "length_ms": 233, "at_ms": 0}
+  ]
+}

@@ -1,0 +1,308 @@
+{
+  "asset_count": 20,
+  "frames": 104,
+  "all_passed": true,
+  "scope": "file contract, palette/alpha and logical frame symmetry; no engine test",
+  "assets": [
+    {
+      "name": "note",
+      "frame_count": 4,
+      "distinct_frames": 4,
+      "dimensions": [
+        2048,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": "vertical",
+      "gif_duration_ms": 480,
+      "export_sha256": "7647fe0d05ca2643c115c21f1c11d8bd5a5c433d641b4444ba1760cdafb04ae7"
+    },
+    {
+      "name": "hit",
+      "frame_count": 4,
+      "distinct_frames": 4,
+      "dimensions": [
+        1024,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 400,
+      "export_sha256": "4171c7e41c0cdb631782608c9d34a7fef436bfbbf55b9160e70aa41d345cb053"
+    },
+    {
+      "name": "pc_q",
+      "frame_count": 5,
+      "distinct_frames": 5,
+      "dimensions": [
+        1280,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 500,
+      "export_sha256": "f3531ba7ecced31ec1e33db620a36d273a7ac88a95dbbbb691ce432c359cbd5e"
+    },
+    {
+      "name": "pc_w",
+      "frame_count": 5,
+      "distinct_frames": 5,
+      "dimensions": [
+        1280,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 500,
+      "export_sha256": "c452bca7d98817ca8c0a20b8d017ef302f67b1055dd58d0f433df964273d4dcd"
+    },
+    {
+      "name": "pc_e",
+      "frame_count": 5,
+      "distinct_frames": 5,
+      "dimensions": [
+        1280,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 500,
+      "export_sha256": "1fc1eebe998ab710158a72fd4e49c3fb7124b287819f097af586190066577b56"
+    },
+    {
+      "name": "pc_glow",
+      "frame_count": 6,
+      "distinct_frames": 6,
+      "dimensions": [
+        3072,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": "horizontal",
+      "gif_duration_ms": 720,
+      "export_sha256": "3ce4c43c567121797916c0c0857ceb8104270dafa3ef0861aa96c0873073bbec"
+    },
+    {
+      "name": "pc_tempo",
+      "frame_count": 4,
+      "distinct_frames": 4,
+      "dimensions": [
+        2560,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": "horizontal",
+      "gif_duration_ms": 480,
+      "export_sha256": "7893563bd9f41eb1a29d4b06b4cacd4be50835b67f88abf20c86534c90bf9fe9"
+    },
+    {
+      "name": "pc_dim",
+      "frame_count": 4,
+      "distinct_frames": 4,
+      "dimensions": [
+        1536,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 480,
+      "export_sha256": "9cb57db8a323033f4135d0e1e9cb5f558ce83a9a60ff28b37222bef72fd9a404"
+    },
+    {
+      "name": "q_note",
+      "frame_count": 4,
+      "distinct_frames": 4,
+      "dimensions": [
+        2048,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": "vertical",
+      "gif_duration_ms": 480,
+      "export_sha256": "c81ea9567accf60c028ff987d855bf09d32dccf7d91a678794af8281019f8211"
+    },
+    {
+      "name": "q_hit",
+      "frame_count": 5,
+      "distinct_frames": 5,
+      "dimensions": [
+        1280,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 500,
+      "export_sha256": "88be23713ace5319bc7288c74a5073833eda6b154e85ac76639c1a566b030688"
+    },
+    {
+      "name": "q_mel",
+      "frame_count": 4,
+      "distinct_frames": 4,
+      "dimensions": [
+        1280,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": "horizontal",
+      "gif_duration_ms": 480,
+      "export_sha256": "55b9d860031d4724f0596a40bd53d94a147545ff787e63d69dd5759d374e5df4"
+    },
+    {
+      "name": "w_heal",
+      "frame_count": 6,
+      "distinct_frames": 6,
+      "dimensions": [
+        2304,
+        512
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 600,
+      "export_sha256": "8b15d6d194ee604cd330d70fa744431299fb53200e68f016e30b90b8059acde4"
+    },
+    {
+      "name": "w_mel",
+      "frame_count": 4,
+      "distinct_frames": 4,
+      "dimensions": [
+        1792,
+        512
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": "horizontal",
+      "gif_duration_ms": 480,
+      "export_sha256": "6e99ce9e85e0011816f07406ba3a4f36f2e49f3b17791c026e172e5d497d83aa"
+    },
+    {
+      "name": "e_ally",
+      "frame_count": 4,
+      "distinct_frames": 4,
+      "dimensions": [
+        2048,
+        256
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": "horizontal",
+      "gif_duration_ms": 480,
+      "export_sha256": "ebb412d35e7210dde86dc9bad3266f8efaa6c64deeb7351cda5ef55bbed1971a"
+    },
+    {
+      "name": "q_aura",
+      "frame_count": 6,
+      "distinct_frames": 6,
+      "dimensions": [
+        4608,
+        384
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 720,
+      "export_sha256": "a44076b814eb2dbcaf95816c06a5c696cbe8bba2d0c2686c7c36ab9859e2edfc"
+    },
+    {
+      "name": "w_aura",
+      "frame_count": 6,
+      "distinct_frames": 6,
+      "dimensions": [
+        4608,
+        384
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 720,
+      "export_sha256": "95591f5f9ef162d21373fc9b3a04bfb06ee1bbacf2c9812d51bc5af0b1e6ca92"
+    },
+    {
+      "name": "e_aura",
+      "frame_count": 6,
+      "distinct_frames": 6,
+      "dimensions": [
+        4608,
+        384
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 720,
+      "export_sha256": "a59b3903a2001d89b17d2160aa068b83a0ce4a4e80b15878e2834298719f44cd"
+    },
+    {
+      "name": "r_wave",
+      "frame_count": 4,
+      "distinct_frames": 4,
+      "dimensions": [
+        1024,
+        512
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": "vertical",
+      "gif_duration_ms": 480,
+      "export_sha256": "be497d5afbd5a66c04dd3ac915d4767393aeaa50aa85eb8b1c2e410fa0fee8e7"
+    },
+    {
+      "name": "r_cast",
+      "frame_count": 6,
+      "distinct_frames": 6,
+      "dimensions": [
+        4608,
+        640
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 600,
+      "export_sha256": "81439b3d05287421668f18a484b61b424c00cfaf8b6ef62387cb137af239edd3"
+    },
+    {
+      "name": "r_hit",
+      "frame_count": 12,
+      "distinct_frames": 11,
+      "dimensions": [
+        3072,
+        128
+      ],
+      "alpha": "binary",
+      "frame_rects": "pass",
+      "logical_border": "empty",
+      "symmetry": null,
+      "gif_duration_ms": 1500,
+      "export_sha256": "06f70ec71279387cba4a502e7f95042a405df3e19efd5a99a1c97ead09bda308"
+    }
+  ]
+}

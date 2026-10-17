@@ -1,0 +1,176 @@
+{
+  "variants": [
+    {
+      "variant": "A",
+      "canvas": [
+        1024,
+        1536
+      ],
+      "cell_size": 8,
+      "height_with_weapon_px": 1248,
+      "height_cells": 156,
+      "bbox_px": [
+        80,
+        160,
+        936,
+        1408
+      ],
+      "visible_width_px": 856,
+      "colours": 14,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid_verified": true,
+      "source_bbox": [
+        28,
+        26,
+        1022,
+        1471
+      ],
+      "baseline_y_exclusive": 1408,
+      "bottom_contact_columns": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94
+      ]
+    },
+    {
+      "variant": "B",
+      "canvas": [
+        1024,
+        1536
+      ],
+      "cell_size": 8,
+      "height_with_weapon_px": 1248,
+      "height_cells": 156,
+      "bbox_px": [
+        64,
+        160,
+        952,
+        1408
+      ],
+      "visible_width_px": 888,
+      "colours": 14,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid_verified": true,
+      "source_bbox": [
+        9,
+        31,
+        1016,
+        1448
+      ],
+      "baseline_y_exclusive": 1408,
+      "bottom_contact_columns": [
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92
+      ]
+    }
+  ],
+  "shared_palette": {
+    "outline": [
+      "#080D13"
+    ],
+    "iron": [
+      "#111E23",
+      "#293B43",
+      "#485A6C",
+      "#77899F",
+      "#B4C0CF"
+    ],
+    "soul": [
+      "#063E42",
+      "#04767B",
+      "#05ADAB",
+      "#13E4D6",
+      "#B9FFF1"
+    ],
+    "cloth": [
+      "#230F1C",
+      "#491626",
+      "#75283C",
+      "#A64254"
+    ]
+  },
+  "generator": "built-in image_gen",
+  "sampling": "uniform per-model scale, majority palette colour per cell, hard alpha threshold; source art preserved in raw",
+  "scope": "pack0 model images only"
+}

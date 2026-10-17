@@ -1,0 +1,916 @@
+{
+  "character": "Blitzcrank",
+  "project": "Teamfight Manager 2 League-style mod",
+  "version": 1,
+  "pixel_contract": {
+    "scale": "1 image pixel = 1 game pixel",
+    "alpha": [
+      0,
+      255
+    ],
+    "antialiasing": false,
+    "preview_scale": 8
+  },
+  "assets": [
+    {
+      "name": "blitzcrank_fx_hit",
+      "file": "logical/blitzcrank_fx_hit_1x.png",
+      "size_1x": [
+        80,
+        16
+      ],
+      "cell_1x": [
+        16,
+        16
+      ],
+      "frame_ms": 80,
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFD24A",
+        "#F9AF07",
+        "#DD8702",
+        "#984B01",
+        "#BFCDE0",
+        "#67718F"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            16,
+            0,
+            16,
+            16
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            32,
+            0,
+            16,
+            16
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            48,
+            0,
+            16,
+            16
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            64,
+            0,
+            16,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_p_mark",
+      "file": "logical/blitzcrank_fx_p_mark_1x.png",
+      "size_1x": [
+        108,
+        18
+      ],
+      "cell_1x": [
+        18,
+        18
+      ],
+      "frame_ms": 167,
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#E6F6FF",
+        "#9ED8FF",
+        "#4FA0FF",
+        "#3A5CE0",
+        "#2A2A9A"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            18,
+            0,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            36,
+            0,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            54,
+            0,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            72,
+            0,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            90,
+            0,
+            18,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_p_bolt",
+      "file": "logical/blitzcrank_fx_p_bolt_1x.png",
+      "size_1x": [
+        120,
+        44
+      ],
+      "cell_1x": [
+        20,
+        44
+      ],
+      "frame_ms": 80,
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6F6FF",
+        "#9ED8FF",
+        "#4FA0FF",
+        "#3A5CE0",
+        "#2A2A9A"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            20,
+            44
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            20,
+            0,
+            20,
+            44
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            40,
+            0,
+            20,
+            44
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            60,
+            0,
+            20,
+            44
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            80,
+            0,
+            20,
+            44
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            100,
+            0,
+            20,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_q_parts",
+      "file": "logical/blitzcrank_fx_q_parts_1x.png",
+      "size_1x": [
+        32,
+        15
+      ],
+      "components": {
+        "hand_strip": "logical/blitzcrank_fx_q_hand_1x.png",
+        "cable_tile": "logical/blitzcrank_fx_q_cable_1x.png"
+      },
+      "palette": [
+        "#FDDC36",
+        "#F9AF07",
+        "#DD8702",
+        "#BC6802",
+        "#984B01",
+        "#672D01",
+        "#E2EBFC",
+        "#BFCDE0",
+        "#A2AECC",
+        "#67718F",
+        "#454759",
+        "#373E56",
+        "#170F1D",
+        "#FFFFFF",
+        "#E8ECF0",
+        "#C8D0D8",
+        "#9AA4B0",
+        "#6E7884"
+      ],
+      "frames": [
+        {
+          "name": "hand_0",
+          "rect_1x": [
+            0,
+            0,
+            16,
+            12
+          ]
+        },
+        {
+          "name": "hand_1",
+          "rect_1x": [
+            16,
+            0,
+            16,
+            12
+          ]
+        },
+        {
+          "name": "cable_tile",
+          "rect_1x": [
+            0,
+            12,
+            12,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_q_grab",
+      "file": "logical/blitzcrank_fx_q_grab_1x.png",
+      "size_1x": [
+        110,
+        22
+      ],
+      "cell_1x": [
+        22,
+        22
+      ],
+      "frame_ms": 80,
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFD24A",
+        "#F9AF07",
+        "#DD8702",
+        "#984B01",
+        "#FFFFFF",
+        "#E6F6FF",
+        "#9ED8FF",
+        "#4FA0FF",
+        "#3A5CE0",
+        "#2A2A9A"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            22,
+            22
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            22,
+            0,
+            22,
+            22
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            44,
+            0,
+            22,
+            22
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            66,
+            0,
+            22,
+            22
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            88,
+            0,
+            22,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_e_hit",
+      "file": "logical/blitzcrank_fx_e_hit_1x.png",
+      "size_1x": [
+        144,
+        40
+      ],
+      "cell_1x": [
+        24,
+        40
+      ],
+      "frame_ms": 80,
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFD24A",
+        "#F9AF07",
+        "#DD8702",
+        "#984B01"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            24,
+            40
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            24,
+            0,
+            24,
+            40
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            48,
+            0,
+            24,
+            40
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            72,
+            0,
+            24,
+            40
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            96,
+            0,
+            24,
+            40
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            120,
+            0,
+            24,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_w_steam",
+      "file": "logical/blitzcrank_fx_w_steam_1x.png",
+      "size_1x": [
+        288,
+        56
+      ],
+      "cell_1x": [
+        48,
+        56
+      ],
+      "frame_ms": 167,
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#E8ECF0",
+        "#C8D0D8",
+        "#9AA4B0",
+        "#6E7884",
+        "#FFF2B0",
+        "#FFD24A"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            48,
+            56
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            48,
+            0,
+            48,
+            56
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            96,
+            0,
+            48,
+            56
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            144,
+            0,
+            48,
+            56
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            192,
+            0,
+            48,
+            56
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            240,
+            0,
+            48,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_r_charge",
+      "file": "logical/blitzcrank_fx_r_charge_1x.png",
+      "size_1x": [
+        300,
+        56
+      ],
+      "cell_1x": [
+        60,
+        56
+      ],
+      "frame_ms": 80,
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6F6FF",
+        "#9ED8FF",
+        "#4FA0FF",
+        "#3A5CE0",
+        "#2A2A9A"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            60,
+            56
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            60,
+            0,
+            60,
+            56
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            120,
+            0,
+            60,
+            56
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            180,
+            0,
+            60,
+            56
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            240,
+            0,
+            60,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_r_field",
+      "file": "logical/blitzcrank_fx_r_field_1x.png",
+      "size_1x": [
+        924,
+        72
+      ],
+      "cell_1x": [
+        132,
+        72
+      ],
+      "frame_ms": 90,
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6F6FF",
+        "#9ED8FF",
+        "#4FA0FF",
+        "#3A5CE0",
+        "#2A2A9A"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            132,
+            72
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            132,
+            0,
+            132,
+            72
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            264,
+            0,
+            132,
+            72
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            396,
+            0,
+            132,
+            72
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            528,
+            0,
+            132,
+            72
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            660,
+            0,
+            132,
+            72
+          ]
+        },
+        {
+          "index": 6,
+          "rect_1x": [
+            792,
+            0,
+            132,
+            72
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_r_hit",
+      "file": "logical/blitzcrank_fx_r_hit_1x.png",
+      "size_1x": [
+        90,
+        18
+      ],
+      "cell_1x": [
+        18,
+        18
+      ],
+      "frame_ms": 80,
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6F6FF",
+        "#9ED8FF",
+        "#4FA0FF",
+        "#3A5CE0",
+        "#2A2A9A"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            18,
+            0,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            36,
+            0,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            54,
+            0,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            72,
+            0,
+            18,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_r_silence",
+      "file": "logical/blitzcrank_fx_r_silence_1x.png",
+      "size_1x": [
+        132,
+        12
+      ],
+      "cell_1x": [
+        22,
+        12
+      ],
+      "frame_ms": 167,
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#F0E0FF",
+        "#C8A0FF",
+        "#9A60F0",
+        "#6A30C0"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            22,
+            12
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            22,
+            0,
+            22,
+            12
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            44,
+            0,
+            22,
+            12
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            66,
+            0,
+            22,
+            12
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            88,
+            0,
+            22,
+            12
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            110,
+            0,
+            22,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "name": "blitzcrank_fx_mb_on",
+      "file": "logical/blitzcrank_fx_mb_on_1x.png",
+      "size_1x": [
+        360,
+        56
+      ],
+      "cell_1x": [
+        60,
+        56
+      ],
+      "frame_ms": 167,
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFD24A",
+        "#F9AF07",
+        "#DD8702",
+        "#984B01"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect_1x": [
+            0,
+            0,
+            60,
+            56
+          ]
+        },
+        {
+          "index": 1,
+          "rect_1x": [
+            60,
+            0,
+            60,
+            56
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            120,
+            0,
+            60,
+            56
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            180,
+            0,
+            60,
+            56
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            240,
+            0,
+            60,
+            56
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            300,
+            0,
+            60,
+            56
+          ]
+        }
+      ]
+    }
+  ]
+}

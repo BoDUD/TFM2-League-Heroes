@@ -1,0 +1,187 @@
+[
+  {
+    "file": "irelia-front-A.png",
+    "native_size": [
+      39,
+      59
+    ],
+    "large_size": [
+      1024,
+      1536
+    ],
+    "visible_bbox": [
+      4,
+      12,
+      26,
+      52
+    ],
+    "width": 22,
+    "colors": 22,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "foot_groups": [
+      [
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      [
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    ],
+    "nothing_below_row51": true,
+    "grid_matches_native": true,
+    "padding_transparent": true,
+    "source": "irelia-front-A-coarse.png",
+    "source_crest_y": 304,
+    "source_bottom_y": 1488,
+    "sampling": "nearest-neighbor; shared 24-color palette; hard alpha threshold128"
+  },
+  {
+    "file": "irelia-side-A.png",
+    "native_size": [
+      39,
+      59
+    ],
+    "large_size": [
+      1024,
+      1536
+    ],
+    "visible_bbox": [
+      6,
+      12,
+      25,
+      52
+    ],
+    "width": 19,
+    "colors": 20,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "foot_groups": [
+      [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      [
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    ],
+    "nothing_below_row51": true,
+    "grid_matches_native": true,
+    "padding_transparent": true,
+    "source": "irelia-side-A-coarse.png",
+    "source_crest_y": 308,
+    "source_bottom_y": 1476,
+    "sampling": "nearest-neighbor; shared 24-color palette; hard alpha threshold128"
+  },
+  {
+    "file": "irelia-front-B.png",
+    "native_size": [
+      39,
+      59
+    ],
+    "large_size": [
+      1024,
+      1536
+    ],
+    "visible_bbox": [
+      4,
+      12,
+      26,
+      52
+    ],
+    "width": 22,
+    "colors": 21,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "foot_groups": [
+      [
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      [
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    ],
+    "nothing_below_row51": true,
+    "grid_matches_native": true,
+    "padding_transparent": true,
+    "source": "irelia-front-B-coarse.png",
+    "source_crest_y": 304,
+    "source_bottom_y": 1488,
+    "sampling": "nearest-neighbor; shared 24-color palette; hard alpha threshold128"
+  },
+  {
+    "file": "irelia-side-B.png",
+    "native_size": [
+      39,
+      59
+    ],
+    "large_size": [
+      1024,
+      1536
+    ],
+    "visible_bbox": [
+      4,
+      12,
+      26,
+      52
+    ],
+    "width": 22,
+    "colors": 18,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "foot_groups": [
+      [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ]
+    ],
+    "nothing_below_row51": true,
+    "grid_matches_native": true,
+    "padding_transparent": true,
+    "source": "irelia-side-B-coarse.png",
+    "source_crest_y": 230,
+    "source_bottom_y": 1488,
+    "sampling": "nearest-neighbor; shared 24-color palette; hard alpha threshold128"
+  }
+]

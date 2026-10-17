@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_veigar": {
+    "remapping": "asset/league_veigar_power/override/league_veigar",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_veigar_power/text/champion",
+    "type": "merge"
+  }
+}

@@ -1,0 +1,34 @@
+{
+ "hero": "zilean",
+ "champ": "Zilean",
+ "camera": {"yaw": 30, "pitch": 15, "mirror": false},
+ "chibi": {"head": 2.2, "legs": 0.8, "scale": {"clock": 1.6}},
+ "height": 31,
+ "cell": [80, 72, 12],
+ "design": "zilean_idle1@0",
+ "tags": {
+  "idle": {"frames": [["zilean_idle1@0", 180], ["zilean_idle1@0", 180], ["zilean_idle1@0", 180],
+                      ["zilean_idle1@0", 180], ["zilean_idle1@0", 180], ["zilean_idle1@0", 180]]},
+  "run": {"flat": true, "head_like": "zilean_idle1@0", "frames": [
+   ["zilean_run@0>zilean_idle1@0:0.5", 97], ["zilean_run@97>zilean_idle1@0:0.5", 97],
+   ["zilean_run@194>zilean_idle1@0:0.5", 97], ["zilean_run@290>zilean_idle1@0:0.5", 97],
+   ["zilean_run@387>zilean_idle1@0:0.5", 97], ["zilean_run@484>zilean_idle1@0:0.5", 97],
+   ["zilean_run@581>zilean_idle1@0:0.5", 97], ["zilean_run@677>zilean_idle1@0:0.5", 97]]},
+  "attack": {"lunge": 0.4, "frames": [
+   ["zilean_idle1@0>zilean_attack1@70:0.5", 60], ["zilean_attack1@170", 70], ["zilean_attack1@270", 70],
+   ["zilean_attack1@370", 90], ["zilean_attack1@520", 100], ["zilean_attack1@760>zilean_idle1@0:0.5", 110]]},
+  "skill": {"lunge": 0.4, "frames": [
+   ["zilean_idle1@0>zilean_spell1@70:0.5", 60], ["zilean_spell1@200", 70], ["zilean_spell1@340", 70],
+   ["zilean_spell1@470", 90], ["zilean_spell1@620", 100], ["zilean_spell1@850>zilean_idle1@0:0.5", 110]]},
+  "w": {"lunge": 0.3, "frames": [
+   ["zilean_idle1@0>zilean_spell2@60:0.5", 80], ["zilean_spell2@180", 80], ["zilean_spell2@320", 90],
+   ["zilean_spell2@480", 120], ["zilean_spell2@700>zilean_idle1@0:0.5", 130]]},
+  "skill2": {"lunge": 0.4, "frames": [
+   ["zilean_idle1@0>zilean_spell3@80:0.5", 60], ["zilean_spell3@250", 70], ["zilean_spell3@420", 70],
+   ["zilean_spell3@600", 90], ["zilean_spell3@800", 100], ["zilean_spell3@1050>zilean_idle1@0:0.5", 110]]},
+  "hit": {"frames": [["zilean_idle1@0>zilean_death@100:0.35", 100], ["zilean_idle1@0>zilean_death@100:0.15", 100]]},
+  "dead": {"anchor": "first", "lunge": 0.3, "flat": true, "travel": 0.2, "frames": [
+   ["zilean_death@0", 100], ["zilean_death@150", 100], ["zilean_death@300", 110], ["zilean_death@450", 110],
+   ["zilean_death@600", 120], ["zilean_death@800", 150], ["zilean_death@1100", 300], ["zilean_death@1500", 500]]}
+ }
+}

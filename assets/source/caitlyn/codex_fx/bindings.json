@@ -1,0 +1,487 @@
+{
+  "format": "reference mapping, not an engine-native config",
+  "tick_rate": 60,
+  "assets": [
+    {
+      "file": "caitlyn_fx_bolt.png",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_bolt",
+        "follow_actor": false,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "loop": true,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_hs_bolt.png",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_hs_bolt",
+        "follow_actor": false,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "loop": true,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_q_bolt.png",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_q_bolt",
+        "follow_actor": false,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "loop": true,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_e_net.png",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_e_net",
+        "follow_actor": false,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "loop": false,
+      "hold_last_frame": true
+    },
+    {
+      "file": "caitlyn_fx_w_throw.png",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_w_throw",
+        "follow_actor": false,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "loop": true,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_r_bullet.png",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_r_bullet",
+        "follow_actor": false,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "loop": true,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_shot.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_shot",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_hs_shot.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_hs_shot",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_e_shot.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_e_shot",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_q_muzzle.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_q_muzzle",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_r_muzzle.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_r_muzzle",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "frame_ticks": [
+        3,
+        3,
+        3,
+        4,
+        4,
+        4
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_hit.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_hs_hit.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_hs_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        2,
+        3,
+        3,
+        3
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_q_hit.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_q_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        3,
+        3,
+        3
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_e_hit.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_e_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.9
+      ],
+      "frame_ticks": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_r_hit.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_r_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        2,
+        2,
+        3,
+        3,
+        4,
+        4,
+        4
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_w_land.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_w_land",
+        "follow_actor": false,
+        "z": -1
+      },
+      "anchor_normalized": [
+        0.5,
+        0.8
+      ],
+      "frame_ticks": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_w_trap.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_w_trap",
+        "follow_actor": false,
+        "z": -1
+      },
+      "anchor_normalized": [
+        0.5,
+        0.8
+      ],
+      "frame_ticks": [
+        7,
+        8
+      ],
+      "loop": true,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_w_fade.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_w_fade",
+        "follow_actor": false,
+        "z": -1
+      },
+      "anchor_normalized": [
+        0.5,
+        0.8
+      ],
+      "frame_ticks": [
+        3,
+        3,
+        3
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_w_snap.png",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_w_snap",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.95
+      ],
+      "frame_ticks": [
+        5,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        7
+      ],
+      "loop": false,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_r_mark.png",
+      "binding": {
+        "table": "view_buffs",
+        "key": "league_caitlyn_r_mark",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "frame_ticks": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "loop": true,
+      "hold_last_frame": false
+    },
+    {
+      "file": "caitlyn_fx_e_slow.png",
+      "binding": {
+        "table": "view_buffs",
+        "key": "league_caitlyn_e_slow",
+        "follow_actor": true,
+        "z": 0
+      },
+      "anchor_normalized": [
+        0.5,
+        0.85
+      ],
+      "frame_ticks": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "loop": true,
+      "hold_last_frame": false
+    }
+  ]
+}

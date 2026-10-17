@@ -1,0 +1,62 @@
+{
+  "version_1": {
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "visible_bbox_1x": [
+      51,
+      60,
+      78,
+      100
+    ],
+    "height": 40,
+    "width": 27,
+    "helmet_height": 7,
+    "eye_row": 69,
+    "sole_row": 99,
+    "colors": 22,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "exact_8x_grid": true
+  },
+  "version_2": {
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "visible_bbox_1x": [
+      51,
+      60,
+      78,
+      100
+    ],
+    "height": 40,
+    "width": 27,
+    "helmet_height": 10,
+    "eye_row": 68,
+    "sole_row": 99,
+    "colors": 22,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "exact_8x_grid": true
+  },
+  "variant_difference_bbox_local": [
+    12,
+    1,
+    24,
+    10
+  ]
+}

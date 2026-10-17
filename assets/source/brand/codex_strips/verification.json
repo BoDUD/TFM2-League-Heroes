@@ -1,0 +1,394 @@
+{
+  "passed": true,
+  "idle_sha256_unchanged": true,
+  "animations": {
+    "idle": {
+      "frames": 6,
+      "size": [
+        3072,
+        1536
+      ],
+      "grid_alpha_palette_baseline": "passed",
+      "head": "supplied idle",
+      "component_diagnostics": [
+        {
+          "frame": 1,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 2,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 3,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 4,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 5,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 6,
+          "components_8_connected": [
+            832
+          ]
+        }
+      ]
+    },
+    "run": {
+      "frames": 8,
+      "size": [
+        4096,
+        1536
+      ],
+      "grid_alpha_palette_baseline": "passed",
+      "head": "exact translated design",
+      "component_diagnostics": [
+        {
+          "frame": 1,
+          "components_8_connected": [
+            738
+          ]
+        },
+        {
+          "frame": 2,
+          "components_8_connected": [
+            703
+          ]
+        },
+        {
+          "frame": 3,
+          "components_8_connected": [
+            710
+          ]
+        },
+        {
+          "frame": 4,
+          "components_8_connected": [
+            714
+          ]
+        },
+        {
+          "frame": 5,
+          "components_8_connected": [
+            738
+          ]
+        },
+        {
+          "frame": 6,
+          "components_8_connected": [
+            762
+          ]
+        },
+        {
+          "frame": 7,
+          "components_8_connected": [
+            768
+          ]
+        },
+        {
+          "frame": 8,
+          "components_8_connected": [
+            773
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frames": 6,
+      "size": [
+        3072,
+        1536
+      ],
+      "grid_alpha_palette_baseline": "passed",
+      "head": "exact translated design",
+      "component_diagnostics": [
+        {
+          "frame": 1,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 2,
+          "components_8_connected": [
+            830
+          ]
+        },
+        {
+          "frame": 3,
+          "components_8_connected": [
+            803
+          ]
+        },
+        {
+          "frame": 4,
+          "components_8_connected": [
+            830
+          ]
+        },
+        {
+          "frame": 5,
+          "components_8_connected": [
+            828
+          ]
+        },
+        {
+          "frame": 6,
+          "components_8_connected": [
+            832
+          ]
+        }
+      ]
+    },
+    "skill": {
+      "frames": 6,
+      "size": [
+        3072,
+        1536
+      ],
+      "grid_alpha_palette_baseline": "passed",
+      "head": "exact translated design",
+      "component_diagnostics": [
+        {
+          "frame": 1,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 2,
+          "components_8_connected": [
+            828
+          ]
+        },
+        {
+          "frame": 3,
+          "components_8_connected": [
+            808
+          ]
+        },
+        {
+          "frame": 4,
+          "components_8_connected": [
+            677
+          ]
+        },
+        {
+          "frame": 5,
+          "components_8_connected": [
+            690
+          ]
+        },
+        {
+          "frame": 6,
+          "components_8_connected": [
+            832
+          ]
+        }
+      ]
+    },
+    "skill2": {
+      "frames": 8,
+      "size": [
+        4096,
+        1536
+      ],
+      "grid_alpha_palette_baseline": "passed",
+      "head": "exact translated design",
+      "component_diagnostics": [
+        {
+          "frame": 1,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 2,
+          "components_8_connected": [
+            736
+          ]
+        },
+        {
+          "frame": 3,
+          "components_8_connected": [
+            830
+          ]
+        },
+        {
+          "frame": 4,
+          "components_8_connected": [
+            823
+          ]
+        },
+        {
+          "frame": 5,
+          "components_8_connected": [
+            826
+          ]
+        },
+        {
+          "frame": 6,
+          "components_8_connected": [
+            830
+          ]
+        },
+        {
+          "frame": 7,
+          "components_8_connected": [
+            828
+          ]
+        },
+        {
+          "frame": 8,
+          "components_8_connected": [
+            832
+          ]
+        }
+      ]
+    },
+    "ult": {
+      "frames": 6,
+      "size": [
+        3072,
+        1536
+      ],
+      "grid_alpha_palette_baseline": "passed",
+      "head": "exact translated design",
+      "component_diagnostics": [
+        {
+          "frame": 1,
+          "components_8_connected": [
+            821
+          ]
+        },
+        {
+          "frame": 2,
+          "components_8_connected": [
+            732
+          ]
+        },
+        {
+          "frame": 3,
+          "components_8_connected": [
+            742
+          ]
+        },
+        {
+          "frame": 4,
+          "components_8_connected": [
+            826
+          ]
+        },
+        {
+          "frame": 5,
+          "components_8_connected": [
+            825
+          ]
+        },
+        {
+          "frame": 6,
+          "components_8_connected": [
+            832
+          ]
+        }
+      ]
+    },
+    "hit": {
+      "frames": 2,
+      "size": [
+        2048,
+        768
+      ],
+      "grid_alpha_palette_baseline": "passed",
+      "head": "exact translated design",
+      "component_diagnostics": [
+        {
+          "frame": 1,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 2,
+          "components_8_connected": [
+            832
+          ]
+        }
+      ]
+    },
+    "dead": {
+      "frames": 8,
+      "size": [
+        4096,
+        1536
+      ],
+      "grid_alpha_palette_baseline": "passed",
+      "head": "rigid body rotation, death exception",
+      "component_diagnostics": [
+        {
+          "frame": 1,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 2,
+          "components_8_connected": [
+            829
+          ]
+        },
+        {
+          "frame": 3,
+          "components_8_connected": [
+            831
+          ]
+        },
+        {
+          "frame": 4,
+          "components_8_connected": [
+            838
+          ]
+        },
+        {
+          "frame": 5,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 6,
+          "components_8_connected": [
+            832
+          ]
+        },
+        {
+          "frame": 7,
+          "components_8_connected": [
+            817
+          ]
+        },
+        {
+          "frame": 8,
+          "components_8_connected": [
+            817
+          ]
+        }
+      ]
+    }
+  }
+}

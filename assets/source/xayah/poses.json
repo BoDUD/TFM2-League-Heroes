@@ -1,0 +1,275 @@
+{
+ "hero": "xayah",
+ "champ": "Xayah",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 2.6,
+  "legs": 0.85
+ },
+ "height": 44,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "Xayah_idle@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Xayah_idle@0",
+     200
+    ],
+    [
+     "Xayah_idle@0",
+     200
+    ],
+    [
+     "Xayah_idle@0",
+     200
+    ],
+    [
+     "Xayah_idle@0",
+     200
+    ],
+    [
+     "Xayah_idle@0",
+     200
+    ],
+    [
+     "Xayah_idle@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "Xayah_idle@0",
+   "frames": [
+    [
+     "Xayah_run@0",
+     109
+    ],
+    [
+     "Xayah_run@109",
+     109
+    ],
+    [
+     "Xayah_run@218",
+     109
+    ],
+    [
+     "Xayah_run@326",
+     109
+    ],
+    [
+     "Xayah_run@435",
+     109
+    ],
+    [
+     "Xayah_run@544",
+     109
+    ],
+    [
+     "Xayah_run@653",
+     109
+    ],
+    [
+     "Xayah_run@761",
+     109
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 3,
+   "frames": [
+    [
+     "Xayah_idle@0>Xayah_attack1@0:0.5",
+     70
+    ],
+    [
+     "Xayah_attack1@150",
+     70
+    ],
+    [
+     "Xayah_attack1@300",
+     80
+    ],
+    [
+     "Xayah_attack1@400",
+     70
+    ],
+    [
+     "Xayah_attack1@550",
+     60
+    ],
+    [
+     "Xayah_attack1@800>Xayah_idle@0:0.5",
+     50
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Xayah_spell1@0",
+     70
+    ],
+    [
+     "Xayah_spell1@100",
+     70
+    ],
+    [
+     "Xayah_spell1@200",
+     80
+    ],
+    [
+     "Xayah_spell1@300>Xayah_idle@0:0.3",
+     80
+    ]
+   ]
+  },
+  "skill_e": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "release": 1,
+   "frames": [
+    [
+     "Xayah_spell3@0",
+     80
+    ],
+    [
+     "Xayah_spell3@130",
+     80
+    ],
+    [
+     "Xayah_spell3@260",
+     90
+    ],
+    [
+     "Xayah_spell3@400>Xayah_idle@0:0.4",
+     83
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "release": 1,
+   "frames": [
+    [
+     "Xayah_spell2@0",
+     100
+    ],
+    [
+     "Xayah_spell2@100",
+     100
+    ],
+    [
+     "Xayah_spell2@200",
+     100
+    ],
+    [
+     "Xayah_spell2@300>Xayah_idle@0:0.4",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "rise": 0.15,
+   "release": 6,
+   "frames": [
+    [
+     "Xayah_Spell4_base@0",
+     120
+    ],
+    [
+     "Xayah_Spell4_base@150",
+     130
+    ],
+    [
+     "Xayah_Spell4_base@300",
+     150
+    ],
+    [
+     "Xayah_Spell4_base@500",
+     200
+    ],
+    [
+     "Xayah_Spell4_base@700",
+     200
+    ],
+    [
+     "Xayah_Spell4_base@850",
+     150
+    ],
+    [
+     "Xayah_Spell4_base@1000",
+     120
+    ],
+    [
+     "Xayah_Spell4_base@1100>Xayah_idle@0:0.5",
+     97
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Xayah_idle@0>Xayah_death@300:0.25",
+     100
+    ],
+    [
+     "Xayah_idle@0>Xayah_death@300:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "frames": [
+    [
+     "Xayah_death@0",
+     100
+    ],
+    [
+     "Xayah_death@200",
+     110
+    ],
+    [
+     "Xayah_death@400",
+     110
+    ],
+    [
+     "Xayah_death@650",
+     120
+    ],
+    [
+     "Xayah_death@950",
+     130
+    ],
+    [
+     "Xayah_death@1300",
+     150
+    ],
+    [
+     "Xayah_death@1900",
+     200
+    ],
+    [
+     "Xayah_death@2600",
+     300
+    ]
+   ]
+  }
+ }
+}

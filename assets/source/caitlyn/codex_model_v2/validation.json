@@ -1,0 +1,95 @@
+{
+  "A": {
+    "canvas": [
+      26,
+      42
+    ],
+    "visible_bbox": [
+      1,
+      1,
+      25,
+      41
+    ],
+    "visible_size": [
+      24,
+      40
+    ],
+    "opaque_colors": 22,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "source_file": "generation_sources/generated_low_A.png",
+    "logical_preview_block_size": 16,
+    "segment_rows": {
+      "hat": 8,
+      "face": 8,
+      "torso": 8,
+      "skirt": 7,
+      "legs_boots": 9
+    },
+    "segment_total": 40
+  },
+  "B": {
+    "canvas": [
+      21,
+      42
+    ],
+    "visible_bbox": [
+      1,
+      1,
+      20,
+      41
+    ],
+    "visible_size": [
+      19,
+      40
+    ],
+    "opaque_colors": 21,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "source_file": "generation_sources/generated_low_B.png",
+    "logical_preview_block_size": 16,
+    "segment_rows": {
+      "hat": 7,
+      "face": 8,
+      "torso": 7,
+      "skirt": 6,
+      "legs_boots": 12
+    },
+    "segment_total": 40
+  },
+  "C": {
+    "canvas": [
+      25,
+      42
+    ],
+    "visible_bbox": [
+      1,
+      1,
+      24,
+      41
+    ],
+    "visible_size": [
+      23,
+      40
+    ],
+    "opaque_colors": 23,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "source_file": "generation_sources/generated_low_C.png",
+    "logical_preview_block_size": 16,
+    "segment_rows": {
+      "hat": 8,
+      "face": 9,
+      "torso": 7,
+      "skirt": 6,
+      "legs_boots": 10
+    },
+    "segment_total": 40
+  }
+}

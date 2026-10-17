@@ -1,0 +1,302 @@
+{
+ "hero": "hecarim",
+ "champ": "Hecarim",
+ "camera": {
+  "yaw": 70,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 45,
+ "cell": [
+  120,
+  100,
+  10
+ ],
+ "design": "hecarim_idle1@0",
+ "head_joint": "head",
+ "legs": "_[fb]_leg",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "hecarim_idle1@0",
+     200
+    ],
+    [
+     "hecarim_idle1@0",
+     200
+    ],
+    [
+     "hecarim_idle1@0",
+     200
+    ],
+    [
+     "hecarim_idle1@0",
+     200
+    ],
+    [
+     "hecarim_idle1@0",
+     200
+    ],
+    [
+     "hecarim_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "frames": [
+    [
+     "hecarim_run@175",
+     85
+    ],
+    [
+     "hecarim_run@259",
+     85
+    ],
+    [
+     "hecarim_run@344",
+     85
+    ],
+    [
+     "hecarim_run@428",
+     85
+    ],
+    [
+     "hecarim_run@512",
+     85
+    ],
+    [
+     "hecarim_run@597",
+     85
+    ],
+    [
+     "hecarim_run@681",
+     85
+    ],
+    [
+     "hecarim_run@766",
+     85
+    ]
+   ]
+  },
+  "attack": {
+   "flat": true,
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "hecarim_idle1@0>hecarim_attack1@0:0.6",
+     60
+    ],
+    [
+     "hecarim_attack1@100",
+     60
+    ],
+    [
+     "hecarim_attack1@250",
+     70
+    ],
+    [
+     "hecarim_attack1@400",
+     70
+    ],
+    [
+     "hecarim_attack1@500",
+     70
+    ],
+    [
+     "hecarim_attack1@800>hecarim_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "skill": {
+   "flat": true,
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "hecarim_idle1@0>hecarim_spell1@80:0.6",
+     50
+    ],
+    [
+     "hecarim_spell1@160",
+     50
+    ],
+    [
+     "hecarim_spell1@240",
+     55
+    ],
+    [
+     "hecarim_spell1@320",
+     55
+    ],
+    [
+     "hecarim_spell1@400",
+     60
+    ],
+    [
+     "hecarim_spell1@560",
+     60
+    ],
+    [
+     "hecarim_spell1@800>hecarim_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill2": {
+   "flat": true,
+   "lunge": 0.3,
+   "frames": [
+    [
+     "hecarim_idle1@0>hecarim_spell3run@0:0.6",
+     60
+    ],
+    [
+     "hecarim_spell3run@125",
+     75
+    ],
+    [
+     "hecarim_spell3run@250",
+     75
+    ],
+    [
+     "hecarim_spell3run@375",
+     75
+    ],
+    [
+     "hecarim_spell3run@500",
+     75
+    ],
+    [
+     "hecarim_spell3run@625",
+     75
+    ],
+    [
+     "hecarim_spell3run@750",
+     75
+    ]
+   ]
+  },
+  "skill2_hit": {
+   "flat": true,
+   "lunge": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "hecarim_crit@200",
+     50
+    ],
+    [
+     "hecarim_crit@300",
+     50
+    ],
+    [
+     "hecarim_crit@400",
+     60
+    ],
+    [
+     "hecarim_crit@600>hecarim_idle1@0:0.3",
+     70
+    ]
+   ]
+  },
+  "ult": {
+   "flat": true,
+   "lunge": 0.3,
+   "rise": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "hecarim_idle1@0>hecarim_spell4windup@100:0.6",
+     50
+    ],
+    [
+     "hecarim_spell4windup@200",
+     60
+    ],
+    [
+     "hecarim_spell4windup@300",
+     60
+    ],
+    [
+     "hecarim_spell4@0",
+     80
+    ],
+    [
+     "hecarim_spell4@200",
+     80
+    ],
+    [
+     "hecarim_spell4@400",
+     80
+    ],
+    [
+     "hecarim_spell4@600",
+     90
+    ]
+   ]
+  },
+  "hit": {
+   "flat": true,
+   "frames": [
+    [
+     "hecarim_idle1@0>hecarim_death@250:0.35",
+     120
+    ],
+    [
+     "hecarim_idle1@0>hecarim_death@250:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "hecarim_death@0",
+     100
+    ],
+    [
+     "hecarim_death@250",
+     100
+    ],
+    [
+     "hecarim_death@500",
+     100
+    ],
+    [
+     "hecarim_death@1000",
+     120
+    ],
+    [
+     "hecarim_death@1250",
+     150
+    ],
+    [
+     "hecarim_death@1750",
+     150
+    ],
+    [
+     "hecarim_death@2000",
+     200
+    ],
+    [
+     "hecarim_death@3600",
+     500
+    ]
+   ]
+  }
+ }
+}

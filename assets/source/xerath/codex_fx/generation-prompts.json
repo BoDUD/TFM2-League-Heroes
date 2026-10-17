@@ -1,0 +1,417 @@
+{
+  "date": "2026-10-06",
+  "route": "built-in image_gen, one call per VFX strip",
+  "reference_images": [
+    "local-only refs/lol_fx_ref.png",
+    "scale-only design/xerath_size.png",
+    "origin-only design/xerath_shots.png"
+  ],
+  "layout_policy": "Explicit per-cell sizes at the final layout sentence take precedence over contradictory total image height; corrected totals=frame count*cell width by cell height.",
+  "effects": [
+    {
+      "number": 1,
+      "id": "a_orb",
+      "file": "xerath_fx_a_orb.png",
+      "frames": 4,
+      "cell": [
+        224,
+        128
+      ],
+      "size": [
+        896,
+        128
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: an ARCANE ORB in flight to the RIGHT, 4 frames, a seamless loop: a round orb 6 squares across, a white core with bright cyan and blue rims, a short tapering cyan trail 8 squares long to its LEFT, 2-3 tiny sparks; the orb's glow pulses and the trail flickers each frame.\nLayout: one horizontal row of 4 equal 7:4 cells, image size 896x128 (each cell 224x128); the orb's center 3/5 of the way across and vertically centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 224:128."
+    },
+    {
+      "number": 2,
+      "id": "a_orb_p",
+      "file": "xerath_fx_a_orb_p.png",
+      "frames": 4,
+      "cell": [
+        320,
+        192
+      ],
+      "size": [
+        1280,
+        192
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: an EMPOWERED ARCANE ORB in flight to the RIGHT, 4 frames, a seamless loop: a round orb 9 squares across (white core, cyan and blue rims), 2-3 thin crackling blue lightning arcs wrapped round it changing every frame, a bright tapering cyan trail 11 squares long to its LEFT, a few sparks.\nLayout: one horizontal row of 4 equal 5:3 cells, image size 1280x192 (each cell 320x192); the orb's center 3/5 of the way across and vertically centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 320:192."
+    },
+    {
+      "number": 3,
+      "id": "a_flash",
+      "file": "xerath_fx_a_flash.png",
+      "frames": 3,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        768,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a SMALL CAST FLASH at a hand, 3 frames: 1 a white-cyan flash 8 squares across at the center with 4 short rays; 2 the flash smaller, rays streaking to the right; 3 a few fading sparks.\nLayout: one horizontal row of 3 equal square cells, image size 768x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 3 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 4,
+      "id": "a_hit",
+      "file": "xerath_fx_a_hit.png",
+      "frames": 4,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        1024,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: an ARCANE HIT, 4 frames: 1 a white-cyan burst 8 squares across at the center; 2 a thin blue ring 12 squares across spreading from it, 5 sparks flying out; 3 the ring fading, sparks further out; 4 a few fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 5,
+      "id": "p_surge",
+      "file": "xerath_fx_p_surge.png",
+      "frames": 4,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        1024,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a MANA SURGE round a hand, 4 frames: 1 a swirl of bright cyan energy 10 squares across at the center; 2 two thin blue rings spreading out to 16 squares, 3 short blue lightning arcs; 3 the rings at the edge, sparks; 4 fading.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 6,
+      "id": "p_hit",
+      "file": "xerath_fx_p_hit.png",
+      "frames": 5,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        1280,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: an EMPOWERED ARCANE HIT, 5 frames: 1 a white-cyan burst 10 squares across; 2 a blue ring 16 squares across spreading from it, 3 crackling lightning arcs, sparks; 3 the ring at 20 squares, the burst fading; 4 sparks; 5 a few fading sparks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 5 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 7,
+      "id": "q_charge",
+      "file": "xerath_fx_q_charge.png",
+      "frames": 8,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        2048,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: an ENERGY CHARGE gathering at a raised hand (do NOT draw the figure; leave its place empty), 8 frames: the hand's point is 10 squares right of and 20 squares above the standing point; 1-2 thin cyan light streaks and motes appear up to 24 squares round that point; 3-6 they are drawn in toward it, a glowing white-cyan orb growing there from 2 to 5 squares; 7-8 the orb at its brightest, 6 squares, 2-3 thin blue lightning arcs flickering round it.\nLayout: one horizontal row of 8 equal square cells, image size 2048x256; the standing point 8 squares above the bottom, horizontally centered, in every cell (the hand's point 10 right of it, 20 above it). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 8 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 8,
+      "id": "q_charge_s",
+      "file": "xerath_fx_q_charge_s.png",
+      "frames": 4,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        1024,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a QUICK ENERGY CHARGE at a raised hand (do NOT draw the figure; leave its place empty), 4 frames: the hand's point 10 squares right of and 20 above the standing point; 1 a few cyan streaks round it; 2-3 drawn in, a white-cyan orb growing to 3 squares; 4 the orb at 4 squares, bright.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; the standing point 8 squares above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 9,
+      "id": "q_fire",
+      "file": "xerath_fx_q_fire.png",
+      "frames": 3,
+      "cell": [
+        384,
+        256
+      ],
+      "size": [
+        1152,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a BEAM MUZZLE FLASH at a hand, 3 frames: 1 a white-cyan flash 10 squares across at the point with a bright blast of light shooting 12 squares to the RIGHT; 2 the flash smaller, the blast thinning; 3 fading sparks.\nLayout: one horizontal row of 3 equal 3:2 cells, image size 1152x256 (each cell 384x256); the flash's center 1/3 of the way across and vertically centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 3 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 384:256."
+    },
+    {
+      "number": 10,
+      "id": "q_beam",
+      "file": "xerath_fx_q_beam.png",
+      "frames": 3,
+      "cell": [
+        896,
+        192
+      ],
+      "size": [
+        2688,
+        192
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a LONG ARCANE BEAM flying to the RIGHT, 3 frames, a seamless loop, SYMMETRIC TOP TO BOTTOM: a straight beam 54 squares long and 6 squares thick, a white core 2 squares thick, bright cyan then blue edges, the front end a little wider and brightest, the back end tapering; thin crackling blue lightning flickering along both edges, different each frame.\nLayout: one horizontal row of 3 equal 14:3 cells, image size 2688x192 (each cell 896x192); the beam vertically centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 3 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 896:192. MANDATORY: every frame perfectly symmetric top-to-bottom along its horizontal centerline, including crackles, so vertically flipping leaves it unchanged."
+    },
+    {
+      "number": 11,
+      "id": "q_beam_s",
+      "file": "xerath_fx_q_beam_s.png",
+      "frames": 3,
+      "cell": [
+        576,
+        160
+      ],
+      "size": [
+        1728,
+        160
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a SHORTER ARCANE BEAM flying to the RIGHT, 3 frames, a seamless loop, SYMMETRIC TOP TO BOTTOM: a straight beam 34 squares long and 4 squares thick, a white core, cyan and blue edges, a little crackle along the edges.\nLayout: one horizontal row of 3 equal 18:5 cells, image size 1728x160 (each cell 576x160); the beam vertically centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 3 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 576:160. MANDATORY: every frame perfectly symmetric top-to-bottom along its horizontal centerline, including crackles, so vertically flipping leaves it unchanged."
+    },
+    {
+      "number": 12,
+      "id": "q_hit",
+      "file": "xerath_fx_q_hit.png",
+      "frames": 4,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        1024,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a BEAM STRIKE, 4 frames: 1 a horizontal white-cyan streak 14 squares long through the center with a flash 6 squares across; 2 the streak thinning, 3 short blue lightning forks; 3 sparks; 4 fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 13,
+      "id": "e_cast",
+      "file": "xerath_fx_e_cast.png",
+      "frames": 3,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        768,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: an ELECTRIC CAST FLASH at a hand, 3 frames: 1 a white-cyan flash 8 squares across with 3 short blue lightning forks to the right; 2 the forks longer and thinner; 3 fading sparks.\nLayout: one horizontal row of 3 equal square cells, image size 768x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 3 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 14,
+      "id": "e_orb",
+      "file": "xerath_fx_e_orb.png",
+      "frames": 4,
+      "cell": [
+        256,
+        192
+      ],
+      "size": [
+        1024,
+        192
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a SHOCKING ORB in flight to the RIGHT, 4 frames, a seamless loop: a round electric orb 8 squares across (a white core, cyan and blue rims), 3-4 crackling blue-white lightning arcs jumping round it (different every frame), a short cyan trail 6 squares to its LEFT.\nLayout: one horizontal row of 4 equal 4:3 cells, image size 1024x192 (each cell 256x192); the orb's center 3/5 of the way across and vertically centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:192."
+    },
+    {
+      "number": 15,
+      "id": "e_hit",
+      "file": "xerath_fx_e_hit.png",
+      "frames": 5,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        1280,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: an ELECTRIC SHOCK BURST, 5 frames: 1 a white-cyan flash 12 squares across; 2 a crackling ring of blue lightning 18 squares across, 5 lightning forks shooting out; 3 the ring at 22 squares, the forks thinner; 4 sparks; 5 a few fading sparks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 5 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 16,
+      "id": "e_stun",
+      "file": "xerath_fx_e_stun.png",
+      "frames": 4,
+      "cell": [
+        224,
+        128
+      ],
+      "size": [
+        896,
+        128
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a STUN MARK over a head, SYMMETRIC LEFT AND RIGHT, 4 frames, a seamless loop: a flattened ellipse 12 squares wide and 4 tall of crackling blue-white lightning circling, 3 bright sparks on it moving a quarter of the way round each frame.\nLayout: one horizontal row of 4 equal 7:4 cells, image size 896x128 (each cell 224x128); the ellipse centered across, its bottom 2 squares above the bottom of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 224:128. MANDATORY: every frame bilaterally mirror symmetric left-to-right, including minor sparks. Hollow center where the character would stand. No person silhouette."
+    },
+    {
+      "number": 17,
+      "id": "w_mark",
+      "file": "xerath_fx_w_mark.png",
+      "frames": 8,
+      "cell": [
+        512,
+        256
+      ],
+      "size": [
+        4096,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0) and a deep blue-violet ramp (#8AA8FF, #5A64E8, #3A34B0, #241C70, #120C3A).\nEffect: an ARCANE TARGET CIRCLE on the ground, seen from above at an angle (every ring a flattened ellipse twice as wide as tall), 8 frames: 1 a thin cyan outer ring 52 squares wide fades in; 2-4 a ring of deep blue-violet runes turning inside it, an inner bright ring 22 squares wide (the eye's pupil) appearing at the center; 5-6 everything brighter, the runes glowing cyan; 7-8 the brightest, a white glow filling the inner ring.\nLayout: one horizontal row of 8 equal 2:1 cells, image size 4096x256 (each cell 512x256); the circle centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 8 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 512:256."
+    },
+    {
+      "number": 18,
+      "id": "w_blast",
+      "file": "xerath_fx_w_blast.png",
+      "frames": 6,
+      "cell": [
+        352,
+        576
+      ],
+      "size": [
+        2112,
+        576
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0) and a deep blue-violet ramp (#8AA8FF, #5A64E8, #3A34B0, #241C70, #120C3A).\nEffect: an ARCANE PILLAR crashing down onto a spot on the ground, 6 frames: 1 a thick vertical pillar of white-cyan light 12 squares wide coming straight down from the top of the cell to the ground point; 2 the pillar at its thickest, a white flash on the ground 20 squares wide; 3 a blue-white shockwave ring along the ground (a flattened ellipse twice as wide as tall, 40 squares wide), sparks; 4-5 the pillar thinning to a line, the ring fading, sparks rising; 6 fading motes.\nLayout: one horizontal row of 6 equal 11:18 cells, image size 2112x576 (each cell 352x576); the ground point 12 squares (96 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 6 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 352:576."
+    },
+    {
+      "number": 19,
+      "id": "w_hit",
+      "file": "xerath_fx_w_hit.png",
+      "frames": 4,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        1024,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: an ARCANE BLAST HIT, 4 frames: 1 a white-cyan flash 10 squares across; 2 sparks splashing up and out; 3 sparks higher; 4 fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    },
+    {
+      "number": 20,
+      "id": "w_slow",
+      "file": "xerath_fx_w_slow.png",
+      "frames": 4,
+      "cell": [
+        576,
+        256
+      ],
+      "size": [
+        2304,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a deep blue-violet ramp (#8AA8FF, #5A64E8, #3A34B0, #241C70, #120C3A) and an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a SLOW MARK at a figure's feet (do NOT draw the figure; SYMMETRIC LEFT AND RIGHT), 4 frames, a seamless loop: a flattened ellipse of deep blue-violet light on the ground (twice as wide as tall, 16 squares wide), 4 short cyan streaks sinking DOWN into it a square each frame.\nLayout: one horizontal row of 4 equal 9:4 cells, image size 2304x256 (each cell 576x256); the ellipse at the bottom middle of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 576:256. MANDATORY: every frame bilaterally mirror symmetric left-to-right, including minor sparks. Hollow center where the character would stand. No person silhouette."
+    },
+    {
+      "number": 21,
+      "id": "r_rise",
+      "file": "xerath_fx_r_rise.png",
+      "frames": 6,
+      "cell": [
+        416,
+        576
+      ],
+      "size": [
+        2496,
+        576
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0) and a deep blue-violet ramp (#8AA8FF, #5A64E8, #3A34B0, #241C70, #120C3A).\nEffect: an ASCENSION round a floating figure (do NOT draw the figure; leave its place empty; SYMMETRIC LEFT AND RIGHT), 6 frames: 1 a flattened rune circle (twice as wide as tall, 40 squares wide) lights up on the ground round the standing point; 2-3 a column of white-cyan light rising from it past the top of the cell, behind the figure's place, its edges only (the figure's place inside stays mostly empty), glowing blue runes and a few small outlined stone shards rising round it; 4 the brightest; 5-6 the column thinning, runes floating at shoulder height.\nLayout: one horizontal row of 6 equal 13:18 cells, image size 2496x576 (each cell 416x576); the standing point 8 squares (64 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 6 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 416:576. MANDATORY: every frame bilaterally mirror symmetric left-to-right, including minor sparks. Hollow center where the character would stand. No person silhouette."
+    },
+    {
+      "number": 22,
+      "id": "r_chan",
+      "file": "xerath_fx_r_chan.png",
+      "frames": 6,
+      "cell": [
+        512,
+        256
+      ],
+      "size": [
+        3072,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a deep blue-violet ramp (#8AA8FF, #5A64E8, #3A34B0, #241C70, #120C3A) and an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a TURNING RUNE CIRCLE on the ground under a floating figure, seen from above at an angle (a flattened ellipse twice as wide as tall, 44 squares wide), SYMMETRIC LEFT AND RIGHT, 6 frames, a seamless loop: a bright cyan outer ring, inside it a ring of deep blue-violet runes, a smaller inner ring; the runes shift round a step each frame; 3-4 small motes rising from the ring.\nLayout: one horizontal row of 6 equal 2:1 cells, image size 3072x256 (each cell 512x256); the circle centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 6 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 512:256. MANDATORY: every frame bilaterally mirror symmetric left-to-right, including minor sparks. Hollow center where the character would stand. No person silhouette."
+    },
+    {
+      "number": 23,
+      "id": "r_cast_shot",
+      "file": "xerath_fx_r_cast_shot.png",
+      "frames": 3,
+      "cell": [
+        256,
+        320
+      ],
+      "size": [
+        768,
+        320
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a SUMMONING FLASH at a hand, 3 frames: 1 a white-cyan flash 8 squares across, a thin bright ray shooting UP from it to the top of the cell; 2 the ray thinner, sparks; 3 fading sparks.\nLayout: one horizontal row of 3 equal 4:5 cells, image size 768x320 (each cell 256x320); the flash's center 2/3 of the way down, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 3 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:320."
+    },
+    {
+      "number": 24,
+      "id": "r_end",
+      "file": "xerath_fx_r_end.png",
+      "frames": 4,
+      "cell": [
+        256,
+        384
+      ],
+      "size": [
+        1024,
+        384
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: FADING RUNES round a figure (do NOT draw the figure; leave its place empty; SYMMETRIC LEFT AND RIGHT), 4 frames: 1 a dozen cyan rune glyphs and motes round the figure's place from its feet to its head; 2 they break into motes; 3 the motes drifting down; 4 a few fading motes near the ground.\nLayout: one horizontal row of 4 equal 2:3 cells, image size 1024x384 (each cell 256x384); the standing point 6 squares above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:384. MANDATORY: every frame bilaterally mirror symmetric left-to-right, including minor sparks. Hollow center where the character would stand. No person silhouette."
+    },
+    {
+      "number": 25,
+      "id": "r_mark",
+      "file": "xerath_fx_r_mark.png",
+      "frames": 7,
+      "cell": [
+        512,
+        256
+      ],
+      "size": [
+        3584,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0) and a deep blue-violet ramp (#8AA8FF, #5A64E8, #3A34B0, #241C70, #120C3A).\nEffect: an ARTILLERY TARGET MARK on the ground, seen from above at an angle (a flattened ellipse twice as wide as tall), 7 frames: 1 a thin cyan ring 38 squares wide appears with 4 short tick marks pointing in; 2-5 a deep blue-violet rune ring inside it, the outer ring closing in to 30 squares, a small cross at the center, brighter each frame; 6-7 the brightest, white glow at the center.\nLayout: one horizontal row of 7 equal 2:1 cells, image size 3584x256 (each cell 512x256); the mark centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 7 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 512:256."
+    },
+    {
+      "number": 26,
+      "id": "r_bolt",
+      "file": "xerath_fx_r_bolt.png",
+      "frames": 7,
+      "cell": [
+        256,
+        448
+      ],
+      "size": [
+        1792,
+        448
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0) and a deep blue-violet ramp (#8AA8FF, #5A64E8, #3A34B0, #241C70, #120C3A).\nEffect: an ARCANE ARTILLERY SHELL falling straight down onto a spot, 7 frames: 1 a bright white-cyan bolt 6 squares wide with a long tapering trail coming down from the top of the cell; 2 the bolt just above the ground point; 3 a white flash on the ground 18 squares wide; 4 the explosion at its biggest - a blue-white burst 24 squares across and a shockwave ring along the ground (a flattened ellipse twice as wide as tall, 40 squares wide); 5-6 sparks thrown up, dark blue smoke spreading; 7 fading motes.\nLayout: one horizontal row of 7 equal 4:7 cells, image size 1792x448 (each cell 256x448 at 2/3 scale - or 384x672 if you can: keep the 4:7 shape); the ground point 1/7 of the cell height above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 7 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:448."
+    },
+    {
+      "number": 27,
+      "id": "r_hit",
+      "file": "xerath_fx_r_hit.png",
+      "frames": 4,
+      "cell": [
+        256,
+        256
+      ],
+      "size": [
+        1024,
+        256
+      ],
+      "prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: an ARTILLERY HIT, 4 frames: 1 a white-cyan flash 12 squares across; 2 a crackling blue ring 16 squares across, sparks; 3 sparks; 4 fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 256:256."
+    }
+  ]
+}

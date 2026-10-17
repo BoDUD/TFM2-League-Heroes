@@ -1,0 +1,10 @@
+Generation tool: built-in image_gen
+
+A — initial generation
+Create ONE standalone transparent PNG pixel art game character reference, 1536x1536. Use the attached five images as visual references: 1 Swain costume and angle, 2 head close-up, 3 layout guide only (never reproduce its text/lines/background), 4-5 Pantheon and Katarina pixel STYLE ONLY. Follow Swain's original costume, not the costumes of the last two heroes.
+POSE A ONLY, NORMAL IDLE: full body tall grim adult older general, upright 3/4 facing RIGHT, both normal dark gloved hands hanging down. Swept back shoulder length SILVER WHITE hair with 4 grey-white shades. Narrow long pale clean shaven face, heavy frowning eyebrows, two same-height dark eyes, downturned mouth. Adult proportions with head about quarter of body height, broad shoulders, not a doll. Ankle-length near-black purple-grey greatcoat, high upright purple grey lapels, grey squared meander trim at hem, dark crimson lining visible at open front. Dark curved layered chest armor with dark bronze highlights, belt bronze buckle, dark tall boots. Spiked dark pauldrons, small hanging raven-feather metal plates behind shoulders.
+EXACT COMPOSITION: head top at y=598, soles at y=1390, hair-to-soles 792 px / 72 logical pixels. Center around x=768. Both soles level, all body contained, huge transparent upper margin as layout guide. Consistent 11x11 pixel square grid aligned across all shapes, 2 logical pixel near-black outer outline, flat 3-4 shades per material, purple-grey lit edges on black coat. Sharp square steps, no smooth illustration, no gradients, no dithering, no antialiasing, no tiny subpixel detail. Native small pixel sprite enlarged by nearest neighbor. Style complexity/density like attached Pantheon and Katarina.
+No wings for A, no demon arm for A. No cane, no ground, no shadows, no effects, no ravens, no lettering, no guide lines, no background, real alpha transparency. Save final image on disk and report the path.
+
+B — identity-preserving edit
+undefined

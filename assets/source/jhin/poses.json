@@ -1,0 +1,42 @@
+{
+ "hero": "jhin",
+ "champ": "Jhin",
+ "camera": {"yaw": 30, "pitch": 20, "mirror": true},
+ "chibi": {"head": 2.8, "legs": 0.85},
+ "weapon": "^weapon$",
+ "height": 41,
+ "cell": [96, 80, 12],
+ "design": "Jhin_Idle01@0",
+ "tags": {
+  "idle": {"frames": [["Jhin_Idle01@0", 200], ["Jhin_Idle01@0", 200], ["Jhin_Idle01@0", 200],
+                      ["Jhin_Idle01@0", 200], ["Jhin_Idle01@0", 200], ["Jhin_Idle01@0", 200]]},
+  "run": {"head_like": "Jhin_Idle01@0", "frames": [
+   ["Jhin_WalkRun@0", 100], ["Jhin_WalkRun@100", 100], ["Jhin_WalkRun@200", 100], ["Jhin_WalkRun@300", 100],
+   ["Jhin_WalkRun@400", 100], ["Jhin_WalkRun@500", 100], ["Jhin_WalkRun@600", 100], ["Jhin_WalkRun@700", 100]]},
+  "attack": {"lunge": 0.4, "frames": [
+   ["Jhin_Idle01@0>Jhin_Attack1@60:0.5", 50], ["Jhin_Attack1@130", 50], ["Jhin_Attack1@200", 70],
+   ["Jhin_Attack1@260", 70], ["Jhin_Attack1@340", 80], ["Jhin_Attack1@520>Jhin_Idle01@0:0.5", 80]]},
+  "attack4": {"lunge": 0.3, "frames": [
+   ["Jhin_Attack4@200", 40], ["Jhin_Attack4@800", 60], ["Jhin_Attack4@1000", 50], ["Jhin_Attack4@1100", 80],
+   ["Jhin_Attack4@1200", 120], ["Jhin_Attack4@1400>Jhin_Idle01@0:0.5", 150]]},
+  "skill": {"lunge": 0.4, "frames": [
+   ["Jhin_Idle01@0>Jhin_Spell3@0:0.6", 50], ["Jhin_Spell3@120", 50], ["Jhin_Spell3@250", 70],
+   ["Jhin_Spell3@330", 70], ["Jhin_Spell3@470", 80], ["Jhin_Spell3@760>Jhin_Idle01@0:0.5", 80]]},
+  "skill2": {"lunge": 0.3, "rise": 0.25, "frames": [
+   ["Jhin_Spell2@0", 100], ["Jhin_Spell2@150", 100], ["Jhin_Spell2@300", 100], ["Jhin_Spell2@450", 100],
+   ["Jhin_Spell2@560", 150], ["Jhin_Spell2@600", 100], ["Jhin_Spell2@760", 100], ["Jhin_Spell2@1000>Jhin_Idle01@0:0.5", 50]]},
+  "ult": {"lunge": 0.3, "rise": 0.15, "frames": [
+   ["Jhin_Spell4_Deploy@0", 80], ["Jhin_Spell4_Deploy@976", 100], ["Jhin_Spell4_Deploy@1138", 120],
+   ["Jhin_Spell4_Idle@0", 200]]},
+  "ult_aim": {"lunge": 0.3, "frames": [
+   ["Jhin_Spell4_Idle@0", 250], ["Jhin_Spell4_Idle@500", 250], ["Jhin_Spell4_Idle@1000", 250],
+   ["Jhin_Spell4_Idle@1500", 250]]},
+  "ult_shot": {"lunge": 0.3, "frames": [
+   ["Jhin_Spell4_shooting1@0", 50], ["Jhin_Spell4_shooting1@167", 70], ["Jhin_Spell4_shooting1@333", 70],
+   ["Jhin_Spell4_shooting1@500>Jhin_Spell4_Idle@0:0.5", 60]]},
+  "hit": {"frames": [["Jhin_Idle01@0>Jhin_Death@80:0.35", 100], ["Jhin_Idle01@0>Jhin_Death@80:0.15", 100]]},
+  "dead": {"anchor": "first", "lunge": 0.3, "flat": true, "travel": 0.2, "frames": [
+   ["Jhin_Death@0", 100], ["Jhin_Death@250", 100], ["Jhin_Death@500", 110], ["Jhin_Death@750", 110],
+   ["Jhin_Death@1000", 120], ["Jhin_Death@1250", 150], ["Jhin_Death@1500", 300], ["Jhin_Death@1750", 500]]}
+ }
+}

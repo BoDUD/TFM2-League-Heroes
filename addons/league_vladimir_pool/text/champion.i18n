@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_vladimir_pool": {
+        "attack": "【残血血池测试版】射出血弹攻击。被动<#ff9028ff>血色契约<>：技能伤害附带最大生命值加成。<#ff9028ff>血红之池<>（自动）：生命低于<#ffb900ff>35%<>时化为血池<#ffb900ff>2秒<>，不可选取，脚下敌人每次受到<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>伤害并<#ef5350ff>减速40%<>，自己回复<#7cfc00ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>8%<>；消耗5%最大生命值。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_vladimir_pool": {
+        "attack": "【殘血血池測試版】射出血彈攻擊。被動<#ff9028ff>血色契約<>：技能傷害附帶最大生命值加成。<#ff9028ff>血紅之池<>（自動）：生命低於<#ffb900ff>35%<>時化為血池<#ffb900ff>2秒<>，無法被選取，腳下敵人每次受到<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>傷害並<#ef5350ff>緩速40%<>，自己回復<#7cfc00ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>8%<>；消耗5%最大生命值。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_vladimir_pool": {
+        "attack": "[Low-health pool test build] Fires blood bolts. Passive <#ff9028ff>Crimson Pact<>: his skills also scale with his max health. <#ff9028ff>Sanguine Pool<> (automatic): below <#ffb900ff>35%<> health he becomes a pool for <#ffb900ff>2s<>, untargetable; enemies on it take <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<> per pulse and are <#ef5350ff>slowed 40%<>, he heals <#7cfc00ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>8%<>. Costs 5% max health."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_vladimir_pool": {
+        "attack": "[빈사 웅덩이 테스트판] 피의 탄환으로 공격합니다. 기본 지속 효과 <#ff9028ff>핏빛 계약<>: 스킬 피해가 최대 체력에 비례해 증가합니다. <#ff9028ff>피의 웅덩이<>(자동): 체력 <#ffb900ff>35%<> 미만일 때 <#ffb900ff>2초<> 동안 웅덩이가 되어 지정 불가, 위의 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>의 피해와 <#ef5350ff>40% 둔화<>, 자신은 <#7cfc00ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>8%<> 회복. 최대 체력 5% 소모."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_vladimir_pool": {
+        "attack": "【瀕死の沼テスト版】血の弾で攻撃。パッシブ<#ff9028ff>真紅の盟約<>：スキルダメージが最大体力に比例して増加。<#ff9028ff>紅血の沼<>（自動）：体力<#ffb900ff>35%<>未満で<#ffb900ff>2秒<>沼となり対象不可、上の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>と<#ef5350ff>40%スロウ<>、自身は<#7cfc00ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>8%<>回復。最大体力の5%を消費。"
+      }
+    }
+  }
+}

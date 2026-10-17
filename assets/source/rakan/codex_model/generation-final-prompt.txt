@@ -1,0 +1,12 @@
+Final source generation route: built-in image_gen, transparent_background=true.
+Reference order: 4_tfm2_style.png, 3_quality_bar.png.
+The detailed references were examined before generation, but omitted on this retry because they repeatedly produced illustration-scale pixels.
+The prompt used lower requested counts to counter the generator's persistent oversize tendency; actual recovered source is approximately38x52 squares, NOT32high. Final sizes come from explicit whole-row/column removal; no interpolated downscale.
+
+ACTUAL PROMPT
+Create ONE ultra-low-resolution pixel sprite of Rakan. Match ONLY the huge square blocks and tiny game-actor style in attached native sprite references. 8-bit tactical game sprite, NOT detailed pixel illustration. Underlying sprite just 24 pixels wide and 32 pixels tall, hard maximum40 pixel rows. Show very huge clean square blocks at32x enlargement on transparent background. NO smaller subdivisions inside squares. NO gradients, fine details or antialiasing.
+BIG but reasonable head: white hair top to chin ONLY8 sprite rows, red crest ONLY3rows above white hair; all body and feet21rows below. Face 7pixels wide. TWO eyes same horizontal row: [ivory+teal] then1skin gap then[ivory+teal], with2skin rows below and1dark red smile. White hair sweeps back and stops above eyes; pale long ears red tips. Rakan slim young man facing right, bare chest, red/gold collar, gold wrist bracers, teal trousers, red belt with2 tiny ivory bird skulls, charcoal shin wraps red bands, purple-grey bird feet.
+Pose: upright relaxed, right-side hand golden feather at chin, left-side hand hanging down at cloak. Gold/orange feather cape trailing diagonally LEFT down to ground, tips not lower than toes; one purple one cyan one green feather. Red cloak shoulders trimmed gold. ONE dark plum outline, about20 flat colors, large continuous areas without tiny pattern. Each feather 2-3pixels wide, trousers only one gold mark. Small recognisable coherent silhouette like supplied game sprites, no extra objects. Transparent background, no text or guidelines.
+
+Source: exec-0cd4f4cc-8490-4fda-b67d-8f8b62159cc4.png
+Rejected trials: exec-a3db440c-6f05-4550-9dd3-aa195ffcf7d1.png; exec-fde41246-04d7-484e-afcc-6068e55f44f5.png; exec-4d516511-f5aa-4518-8b36-985e45732a29.png. These are not final design assets.

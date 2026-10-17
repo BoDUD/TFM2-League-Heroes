@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_kaisa_sfx_r_cast",
+      "volume": 0.55
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_kaisa_vo_r",
+      "volume": 0.9
+    },
+    {
+      "delay": 0.12,
+      "clip": "league_kaisa_sfx_r_dash",
+      "volume": 0.5
+    }
+  ]
+}

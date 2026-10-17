@@ -1,0 +1,2214 @@
+{
+  "schema_version": 1,
+  "character": "Kennen",
+  "generation_tool": "built-in image_gen",
+  "stage": "generated_source_for_import",
+  "asset_count": 19,
+  "total_frames": 96,
+  "limitations": [
+    "生图原稿，非最终游戏像素条；尺寸、像素网格及色阶尚需导入处理。",
+    "保留生成的半透明边缘；frames[].rect 按帧间空隙划分，部分帧宽不同。",
+    "未接入游戏，未验证实际亮度、技能范围和动画循环。"
+  ],
+  "assets": [
+    {
+      "id": "kennen_fx_a_star",
+      "file": "kennen_fx_a_star.png",
+      "prompt_number": 1,
+      "description": "普攻手里剑（飞行中循环），4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_projectiles",
+        "id": "league_kennen_a_star"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size_pixels": [
+        9,
+        9
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            75,
+            166,
+            471,
+            559
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            86,
+            168,
+            474,
+            548
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            103,
+            208,
+            425,
+            519
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            72,
+            166,
+            468,
+            559
+          ]
+        }
+      ],
+      "loop": true,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1272906,
+        "partial_pixels": 299051,
+        "opaque_pixels": 571
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_a_cast",
+      "file": "kennen_fx_a_cast.png",
+      "prompt_number": 2,
+      "description": "普攻出手：手上的闪光，3 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_a_cast"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        768,
+        256
+      ],
+      "game_size_pixels": [
+        10,
+        10
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 3,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            351,
+            351,
+            375,
+            374
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            218,
+            251,
+            585,
+            465
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            306,
+            316,
+            438,
+            421
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1542807,
+        "partial_pixels": 29269,
+        "opaque_pixels": 452
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_a_hit",
+      "file": "kennen_fx_a_hit.png",
+      "prompt_number": 3,
+      "description": "普攻命中，4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_a_hit"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size_pixels": [
+        12,
+        12
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            212,
+            290,
+            336,
+            417
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            113,
+            185,
+            430,
+            504
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            105,
+            178,
+            434,
+            521
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            168,
+            267,
+            397,
+            479
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1487701,
+        "partial_pixels": 83827,
+        "opaque_pixels": 1000
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_a_cast2",
+      "file": "kennen_fx_a_cast2.png",
+      "prompt_number": 4,
+      "description": "第 5 次普攻（W 被动）出手：带电的闪光，4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_a_cast2"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size_pixels": [
+        14,
+        14
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            236,
+            345,
+            307,
+            417
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            44,
+            126,
+            527,
+            623
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            44,
+            111,
+            507,
+            589
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            139,
+            201,
+            423,
+            519
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1397482,
+        "partial_pixels": 173684,
+        "opaque_pixels": 1362
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_a_hit2",
+      "file": "kennen_fx_a_hit2.png",
+      "prompt_number": 5,
+      "description": "第 5 次普攻打中：电击，5 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_a_hit2"
+      },
+      "image_size": [
+        1983,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        256
+      ],
+      "game_size_pixels": [
+        18,
+        18
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            79,
+            290,
+            307,
+            520
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            189,
+            373,
+            617
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            793,
+            0,
+            406,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            26,
+            190,
+            403,
+            627
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1199,
+            0,
+            415,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            53,
+            243,
+            412,
+            595
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1614,
+            0,
+            369,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            116,
+            309,
+            290,
+            520
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": false,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1353205,
+        "partial_pixels": 218369,
+        "opaque_pixels": 945
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_k_mark1",
+      "file": "kennen_fx_k_mark1.png",
+      "prompt_number": 6,
+      "description": "被动雷缚印：一层标记（头顶），4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_k_mark1"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "game_size_pixels": [
+        14,
+        7
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            98,
+            255,
+            461,
+            447
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            99,
+            255,
+            459,
+            447
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            98,
+            255,
+            458,
+            447
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            97,
+            255,
+            457,
+            447
+          ]
+        }
+      ],
+      "loop": true,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1438452,
+        "partial_pixels": 130822,
+        "opaque_pixels": 3254
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_k_mark2",
+      "file": "kennen_fx_k_mark2.png",
+      "prompt_number": 7,
+      "description": "被动雷缚印：两层标记（头顶），4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_k_mark2"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "game_size_pixels": [
+        14,
+        7
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            41,
+            229,
+            498,
+            479
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            39,
+            207,
+            496,
+            506
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            39,
+            229,
+            496,
+            464
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            38,
+            208,
+            498,
+            478
+          ]
+        }
+      ],
+      "loop": true,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1332870,
+        "partial_pixels": 236377,
+        "opaque_pixels": 3281
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_k_stun",
+      "file": "kennen_fx_k_stun.png",
+      "prompt_number": 8,
+      "description": "被动雷缚印：第三层眩晕（1.25 秒），10 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_k_stun"
+      },
+      "image_size": [
+        1983,
+        793
+      ],
+      "requested_image_size": [
+        5120,
+        1280
+      ],
+      "game_size_pixels": [
+        24,
+        30
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 10,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            198,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            36,
+            214,
+            177,
+            370
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            198,
+            0,
+            199,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            32,
+            214,
+            190,
+            363
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            397,
+            0,
+            198,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            16,
+            230,
+            186,
+            694
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            595,
+            0,
+            198,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            20,
+            216,
+            192,
+            694
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            793,
+            0,
+            198,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            23,
+            215,
+            181,
+            694
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            991,
+            0,
+            199,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            20,
+            216,
+            183,
+            694
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1190,
+            0,
+            198,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            14,
+            215,
+            186,
+            693
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1388,
+            0,
+            198,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            24,
+            215,
+            191,
+            694
+          ]
+        },
+        {
+          "index": 8,
+          "rect": [
+            1586,
+            0,
+            199,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            35,
+            215,
+            187,
+            693
+          ]
+        },
+        {
+          "index": 9,
+          "rect": [
+            1785,
+            0,
+            198,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            46,
+            238,
+            161,
+            662
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": false,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1078595,
+        "partial_pixels": 493752,
+        "opaque_pixels": 172
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。",
+        "采用第8条的10帧；附包尾注中的12帧与此冲突。"
+      ],
+      "duration_ms": 1250
+    },
+    {
+      "id": "kennen_fx_q_star",
+      "file": "kennen_fx_q_star.png",
+      "prompt_number": 9,
+      "description": "Q 千鸟：飞出去的雷电手里剑（飞行中循环），4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_projectiles",
+        "id": "league_kennen_q_star"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "game_size_pixels": [
+        18,
+        10
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            56,
+            215,
+            531,
+            513
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            52,
+            219,
+            519,
+            506
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            56,
+            219,
+            507,
+            506
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            44,
+            235,
+            503,
+            490
+          ]
+        }
+      ],
+      "loop": true,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1268810,
+        "partial_pixels": 302737,
+        "opaque_pixels": 981
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_q_cast",
+      "file": "kennen_fx_q_cast.png",
+      "prompt_number": 10,
+      "description": "Q 出手：手上的电光，4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_q_cast"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size_pixels": [
+        14,
+        14
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            163,
+            307,
+            341,
+            500
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            515,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            43,
+            177,
+            479,
+            552
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1058,
+            0,
+            606,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            106,
+            603,
+            651
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1664,
+            0,
+            508,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            81,
+            205,
+            435,
+            564
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": false,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1286075,
+        "partial_pixels": 284246,
+        "opaque_pixels": 2207
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_q_hit",
+      "file": "kennen_fx_q_hit.png",
+      "prompt_number": 11,
+      "description": "Q 千鸟打中，5 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_q_hit"
+      },
+      "image_size": [
+        1983,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        256
+      ],
+      "game_size_pixels": [
+        20,
+        20
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            45,
+            232,
+            345,
+            575
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            394,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            24,
+            220,
+            363,
+            576
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            791,
+            0,
+            405,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            183,
+            402,
+            614
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1196,
+            0,
+            401,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            44,
+            196,
+            398,
+            588
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1597,
+            0,
+            386,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            63,
+            283,
+            329,
+            524
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": false,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1286527,
+        "partial_pixels": 284584,
+        "opaque_pixels": 1408
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_w_burst",
+      "file": "kennen_fx_w_burst.png",
+      "prompt_number": 12,
+      "description": "W 电刃：以凯南为中心的放电（地面 + 闪电，大图），7 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_w_burst"
+      },
+      "image_size": [
+        2056,
+        765
+      ],
+      "requested_image_size": [
+        3584,
+        256
+      ],
+      "game_size_pixels": [
+        100,
+        50
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 7,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            268,
+            765
+          ],
+          "visible_bbox_in_frame": [
+            55,
+            392,
+            213,
+            469
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            268,
+            0,
+            291,
+            765
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            346,
+            244,
+            509
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            559,
+            0,
+            322,
+            765
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            329,
+            272,
+            513
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            881,
+            0,
+            322,
+            765
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            309,
+            319,
+            521
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1203,
+            0,
+            308,
+            765
+          ],
+          "visible_bbox_in_frame": [
+            49,
+            319,
+            305,
+            504
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1511,
+            0,
+            291,
+            765
+          ],
+          "visible_bbox_in_frame": [
+            47,
+            351,
+            288,
+            497
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1802,
+            0,
+            254,
+            765
+          ],
+          "visible_bbox_in_frame": [
+            88,
+            416,
+            172,
+            463
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": false,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1403563,
+        "partial_pixels": 169190,
+        "opaque_pixels": 87
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_w_hit",
+      "file": "kennen_fx_w_hit.png",
+      "prompt_number": 13,
+      "description": "W 电刃打中的敌人：从凯南劈来的电击，4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_w_hit"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size_pixels": [
+        16,
+        16
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            131,
+            224,
+            404,
+            517
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            68,
+            156,
+            454,
+            572
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            103,
+            156,
+            477,
+            546
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            120,
+            181,
+            437,
+            548
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1408896,
+        "partial_pixels": 161986,
+        "opaque_pixels": 1646
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_e_in",
+      "file": "kennen_fx_e_in.png",
+      "prompt_number": 14,
+      "description": "E 雷铠：化身闪电（起点），4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_e_in"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size_pixels": [
+        24,
+        24
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            31,
+            129,
+            484,
+            586
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            539,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            8,
+            129,
+            483,
+            586
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1082,
+            0,
+            593,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            144,
+            590,
+            594
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1675,
+            0,
+            497,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            71,
+            186,
+            441,
+            559
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": false,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1137369,
+        "partial_pixels": 434064,
+        "opaque_pixels": 1095
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_e_ball",
+      "file": "kennen_fx_e_ball.png",
+      "prompt_number": 15,
+      "description": "E 雷铠：冲刺时包住凯南的闪电球（跟随，循环），4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_e_ball"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        3072,
+        640
+      ],
+      "game_size_pixels": [
+        30,
+        26
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            32,
+            160,
+            506,
+            601
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            37,
+            145,
+            502,
+            579
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            25,
+            136,
+            521,
+            570
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            145,
+            513,
+            580
+          ]
+        }
+      ],
+      "loop": true,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1119749,
+        "partial_pixels": 452213,
+        "opaque_pixels": 566
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_e_hit",
+      "file": "kennen_fx_e_hit.png",
+      "prompt_number": 16,
+      "description": "E 冲过时电到的敌人，4 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_e_hit"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size_pixels": [
+        14,
+        14
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            99,
+            212,
+            445,
+            543
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            67,
+            173,
+            487,
+            560
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            103,
+            205,
+            439,
+            542
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            105,
+            251,
+            408,
+            545
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1415270,
+        "partial_pixels": 155064,
+        "opaque_pixels": 2194
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_e_out",
+      "file": "kennen_fx_e_out.png",
+      "prompt_number": 17,
+      "description": "E 雷铠：冲刺结束，闪电散开（终点），5 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_e_out"
+      },
+      "image_size": [
+        1983,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        256
+      ],
+      "game_size_pixels": [
+        28,
+        28
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            403,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            30,
+            220,
+            400,
+            592
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            403,
+            0,
+            392,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            22,
+            195,
+            389,
+            600
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            795,
+            0,
+            409,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            7,
+            226,
+            406,
+            599
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1204,
+            0,
+            373,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            45,
+            246,
+            359,
+            582
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1577,
+            0,
+            406,
+            793
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            297,
+            359,
+            543
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": false,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1318033,
+        "partial_pixels": 253582,
+        "opaque_pixels": 904
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    },
+    {
+      "id": "kennen_fx_r_storm",
+      "file": "kennen_fx_r_storm.png",
+      "prompt_number": 18,
+      "description": "R 万雷天牢引：跟随凯南的雷暴（3 秒，地面 + 闪电，大图），12 帧循环",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_r_storm"
+      },
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        6144,
+        256
+      ],
+      "game_size_pixels": [
+        110,
+        56
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 12,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            45,
+            350,
+            144,
+            454
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            181,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            13,
+            297,
+            161,
+            462
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            362,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            5,
+            265,
+            168,
+            469
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            543,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            7,
+            259,
+            170,
+            472
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            724,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            7,
+            262,
+            169,
+            474
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            905,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            7,
+            260,
+            171,
+            471
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1086,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            10,
+            261,
+            172,
+            475
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1267,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            10,
+            258,
+            173,
+            475
+          ]
+        },
+        {
+          "index": 8,
+          "rect": [
+            1448,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            13,
+            266,
+            172,
+            475
+          ]
+        },
+        {
+          "index": 9,
+          "rect": [
+            1629,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            12,
+            264,
+            174,
+            469
+          ]
+        },
+        {
+          "index": 10,
+          "rect": [
+            1810,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            15,
+            282,
+            173,
+            466
+          ]
+        },
+        {
+          "index": 11,
+          "rect": [
+            1991,
+            0,
+            181,
+            724
+          ],
+          "visible_bbox_in_frame": [
+            23,
+            314,
+            139,
+            460
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": true,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1321190,
+        "partial_pixels": 251296,
+        "opaque_pixels": 42
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。",
+        "3–10帧循环接缝、总时长及退出时机需在导入时实测。"
+      ],
+      "phase_ranges_zero_based_end_exclusive": {
+        "intro": [
+          0,
+          2
+        ],
+        "loop": [
+          2,
+          10
+        ],
+        "outro": [
+          10,
+          12
+        ]
+      },
+      "duration_ms": 3000
+    },
+    {
+      "id": "kennen_fx_r_hit",
+      "file": "kennen_fx_r_hit.png",
+      "prompt_number": 19,
+      "description": "R 雷暴劈中敌方英雄：从天而降的闪电（大图），5 帧",
+      "stage": "generated_source",
+      "binding": {
+        "type": "view_effects",
+        "id": "league_kennen_r_hit"
+      },
+      "image_size": [
+        1619,
+        971
+      ],
+      "requested_image_size": [
+        1280,
+        768
+      ],
+      "game_size_pixels": [
+        16,
+        48
+      ],
+      "layout": "single_horizontal_row",
+      "rect_coordinates": "zero-based pixels [x,y,width,height]",
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            322,
+            971
+          ],
+          "visible_bbox_in_frame": [
+            45,
+            49,
+            251,
+            920
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            322,
+            0,
+            326,
+            971
+          ],
+          "visible_bbox_in_frame": [
+            4,
+            37,
+            311,
+            932
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            648,
+            0,
+            326,
+            971
+          ],
+          "visible_bbox_in_frame": [
+            17,
+            37,
+            323,
+            932
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            974,
+            0,
+            321,
+            971
+          ],
+          "visible_bbox_in_frame": [
+            28,
+            49,
+            300,
+            931
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1295,
+            0,
+            324,
+            971
+          ],
+          "visible_bbox_in_frame": [
+            84,
+            704,
+            282,
+            932
+          ]
+        }
+      ],
+      "loop": false,
+      "uniform_cell_width": false,
+      "alpha": {
+        "corner": 0,
+        "transparent_pixels": 1103592,
+        "partial_pixels": 467800,
+        "opaque_pixels": 657
+      },
+      "notes": [
+        "按 frames[].rect 切片；原稿帧间留白不完全等宽。导入时统一帧画布、锚点及像素色阶。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "base_preservation": "all original opaque RGBA cells preserved; every cell outside allowed region unchanged",
+  "allowed_addition_area_1x": {
+    "x_min": 74,
+    "y_min": 63,
+    "y_max_exclusive": 90
+  },
+  "variants": {
+    "A": {
+      "added_cells": 186,
+      "added_bbox_1x": [
+        74,
+        64,
+        90,
+        87
+      ],
+      "original_opaque_cells_changed": 0,
+      "changes_outside_allowed_area": 0,
+      "palette_new_colors": 0,
+      "partial_alpha": 0,
+      "grid8_errors": 0,
+      "total_palette_colors": 21,
+      "sole_row": 99,
+      "detached_added_cells": 0
+    },
+    "B": {
+      "added_cells": 185,
+      "added_bbox_1x": [
+        75,
+        64,
+        90,
+        86
+      ],
+      "original_opaque_cells_changed": 0,
+      "changes_outside_allowed_area": 0,
+      "palette_new_colors": 0,
+      "partial_alpha": 0,
+      "grid8_errors": 0,
+      "total_palette_colors": 21,
+      "sole_row": 99,
+      "detached_added_cells": 0
+    },
+    "C": {
+      "added_cells": 180,
+      "added_bbox_1x": [
+        74,
+        65,
+        90,
+        88
+      ],
+      "original_opaque_cells_changed": 0,
+      "changes_outside_allowed_area": 0,
+      "palette_new_colors": 0,
+      "partial_alpha": 0,
+      "grid8_errors": 0,
+      "total_palette_colors": 21,
+      "sole_row": 99,
+      "detached_added_cells": 0
+    }
+  }
+}

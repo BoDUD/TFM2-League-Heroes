@@ -1,0 +1,290 @@
+[
+  {
+    "file": "sivir_fx_a_blade.png",
+    "frames": 4,
+    "canvas": [
+      1024,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 10,
+    "opaque_pixels": 78713,
+    "mean_visible_luminance": 139.98,
+    "brightest_decile_luminance": 248.84,
+    "raw_partial_alpha_pixels": 600934,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_w_blade.png",
+    "frames": 4,
+    "canvas": [
+      1024,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 10,
+    "opaque_pixels": 76323,
+    "mean_visible_luminance": 136.52,
+    "brightest_decile_luminance": 249.42,
+    "raw_partial_alpha_pixels": 665711,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_a_hit.png",
+    "frames": 4,
+    "canvas": [
+      1024,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 9,
+    "opaque_pixels": 28415,
+    "mean_visible_luminance": 192.91,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 188513,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_w_cast.png",
+    "frames": 5,
+    "canvas": [
+      1280,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 5,
+    "opaque_pixels": 40871,
+    "mean_visible_luminance": 172.2,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 253647,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_w_on.png",
+    "frames": 4,
+    "canvas": [
+      1536,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 5,
+    "opaque_pixels": 32510,
+    "mean_visible_luminance": 163.83,
+    "brightest_decile_luminance": 253.2,
+    "raw_partial_alpha_pixels": 127004,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_w_bounce.png",
+    "frames": 4,
+    "canvas": [
+      1024,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 10,
+    "opaque_pixels": 11623,
+    "mean_visible_luminance": 143.93,
+    "brightest_decile_luminance": 250.94,
+    "raw_partial_alpha_pixels": 213918,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_w_hit.png",
+    "frames": 4,
+    "canvas": [
+      1024,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 9,
+    "opaque_pixels": 36731,
+    "mean_visible_luminance": 204.24,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 349609,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_q_blade.png",
+    "frames": 4,
+    "canvas": [
+      1024,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 10,
+    "opaque_pixels": 77469,
+    "mean_visible_luminance": 162.13,
+    "brightest_decile_luminance": 249.98,
+    "raw_partial_alpha_pixels": 764477,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_q_throw.png",
+    "frames": 4,
+    "canvas": [
+      1024,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 9,
+    "opaque_pixels": 21791,
+    "mean_visible_luminance": 197.64,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 194093,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_q_hit.png",
+    "frames": 5,
+    "canvas": [
+      1280,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 9,
+    "opaque_pixels": 44027,
+    "mean_visible_luminance": 204.33,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 362685,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_q_catch.png",
+    "frames": 4,
+    "canvas": [
+      1024,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 9,
+    "opaque_pixels": 30522,
+    "mean_visible_luminance": 202.86,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 246132,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_e_shroud.png",
+    "frames": 12,
+    "canvas": [
+      1536,
+      1152
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 9,
+    "opaque_pixels": 74022,
+    "mean_visible_luminance": 147.05,
+    "brightest_decile_luminance": 250.73,
+    "raw_partial_alpha_pixels": 323709,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_e_block.png",
+    "frames": 5,
+    "canvas": [
+      1280,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 9,
+    "opaque_pixels": 25039,
+    "mean_visible_luminance": 184.35,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 213979,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_r_cast.png",
+    "frames": 6,
+    "canvas": [
+      3072,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 5,
+    "opaque_pixels": 53280,
+    "mean_visible_luminance": 185.74,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 219065,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_r_hunt.png",
+    "frames": 12,
+    "canvas": [
+      2048,
+      768
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 5,
+    "opaque_pixels": 167092,
+    "mean_visible_luminance": 181.08,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 452146,
+    "all_cells_nonempty": true
+  },
+  {
+    "file": "sivir_fx_r_renew.png",
+    "frames": 5,
+    "canvas": [
+      1280,
+      256
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colour_count": 7,
+    "opaque_pixels": 30873,
+    "mean_visible_luminance": 201.22,
+    "brightest_decile_luminance": 255.0,
+    "raw_partial_alpha_pixels": 249249,
+    "all_cells_nonempty": true
+  }
+]

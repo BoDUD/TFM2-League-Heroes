@@ -1,0 +1,84 @@
+{
+  "tool": "built-in image_gen",
+  "transparent_background": true,
+  "finalization": "Motion studies were reviewed, then final approved raster parts were reposed to correct model drift and wrong-hand casts. Final PNGs are not simply recolored generator sheets.",
+  "actions": {
+    "run": {
+      "prompt": "Create a RUN ANIMATION SPRITE SHEET for the EXACT approved pixel character in reference1. Reference2 is low-res motion/layout, reference3 shows poses. Keep the approved design, not the 3D design. EXACTLY EIGHT frames, 4 columns by 2 rows, row-major order, no text/grid. 3072x1536 canvas, 768px square cells. Transparent background. Each sprite is only 40 LOGICAL pixels tall displayed at 8x: crisp 8x8 single-color squares. Same blue-violet crooked small hat, silver band/buckle, pitch black face, two equal 2x2 yellow L eyes, blue-violet wide robe, brown belt, magenta right hip cloth, short silver boots, silver giant claw glove at picture RIGHT. Short vertical gray fork staff with ORANGE crystal in picture LEFT hand, head at brim level. Copy reference1 silhouette proportions and shading, NOT reference2's long staff.\nEight DIFFERENT springy RUN poses: frame1 near leg forward far leg back; frame2 near leg lifting and far leg landing; frame3 legs crossing bent knees; frame4 weight shift; frame5 far leg forward near leg back; frame6 far leg lifting and near leg landing; frame7 opposite crossing; frame8 eases into frame1. Use visible leg alternation not just translating a still. Stay facing 3/4 FRONT RIGHT in every frame. Head same shape/size in all frames, same horizontal offset to body; vertical bob at most2 logical pixels. Tiny arm swing, keep staff upright attached to hand. Body size constant. Feet at/before cell y655, no pixels below. Leave margins around each sprite, don't fill cells. Head and body as coarse as reference1; no finer details. One pixel dark outline, strictly approved colors only: #111020 #252637 #201660 #4F291F #581052 #3D3E50 #2D258B #474857 #A94708 #89502D #69239B #4034C1 #A51B8B #737586 #BD7C42 #F6810B #6558F3 #A744D3 #FFD132 #FFBE54 #B4B4BF #FFF28A #F5EFDF. Eye yellows nowhere else. No effects, no blur, no antialiasing, no glow, no ground.",
+      "reference_images": [
+        "design/veigar_design.png",
+        "now/veigar_now_run.png",
+        "pose/lol_pose_run.png"
+      ],
+      "generated_motion_study": "exec-432b9d3b-f2e5-46df-8aa2-9457993fb132.png",
+      "final_frame_source": "Approved B design raster parts and exact approved head; see pose_parameters.json",
+      "used_as": "motion reference, not replacement design"
+    },
+    "attack": {
+      "prompt": "Animate the EXACT approved 40-pixel-tall Veigar pixel sprite in reference1. Reference2 supplies frame order/position and reference3 supplies body gestures ONLY. Do not redesign the character. Same small hooked blue-violet hat drooping left, silver band and buckle, black face and two equal yellow L eyes, blue robe, brown belt, magenta hip cloth, short silver boots, giant silver gauntlet on picture RIGHT, short metal fork staff with orange crystal held by picture LEFT near hand. Copy reference1 short staff (brim height at idle), never reference3 tall weapon. Constant character size, coarse game pixels, true hard square blocks, no fine detail, 1-cell dark outline, only reference1 colors. Head must keep exact approved shape in all frames and face FRONT RIGHT, never back view. Staff and gauntlet stay connected to hands, no detached pieces. Both eyes visible, no weapon crossing face. No VFX, no trails, no glows, no shadows, no text or grid. Transparent background. Output cells each96x96 logical pixels displayed at8x (768x768), feet never lower than row81 (y655). Leave ample empty cell margins.\nBASIC ATTACK. Exactly SIX distinct frames, 3columns x2rows, row-major. Canvas2304x1536. Frame1 starts idle and lifts short staff, frame2 staff raised high to RIGHT but clear of face, frame3 draws it backward over shoulder, frame4 RELEASE: near arm swings forward and short staff points straight to the RIGHT at chest level, frame5 follow-through holding the forward-pointing staff, frame6 returns to reference1 idle stance. Body leans slightly, knees bend, far claw balances motion. Clearly different windup and release poses, all the same size/design. Only the character, no projectile.",
+      "reference_images": [
+        "design/veigar_design.png",
+        "now/veigar_now_attack.png",
+        "pose/lol_pose_attack.png"
+      ],
+      "generated_motion_study": "exec-df4e817c-20d9-4243-917a-0389d9ab46fb.png",
+      "final_frame_source": "Approved B design raster parts and exact approved head; see pose_parameters.json",
+      "used_as": "motion reference, not replacement design"
+    },
+    "skill": {
+      "prompt": "Animate the EXACT approved 40-pixel-tall Veigar pixel sprite in reference1. Reference2 supplies frame order/position and reference3 supplies body gestures ONLY. Do not redesign the character. Same small hooked blue-violet hat drooping left, silver band and buckle, black face and two equal yellow L eyes, blue robe, brown belt, magenta hip cloth, short silver boots, giant silver gauntlet on picture RIGHT, short metal fork staff with orange crystal held by picture LEFT near hand. Copy reference1 short staff (brim height at idle), never reference3 tall weapon. Constant character size, coarse game pixels, true hard square blocks, no fine detail, 1-cell dark outline, only reference1 colors. Head must keep exact approved shape in all frames and face FRONT RIGHT, never back view. Staff and gauntlet stay connected to hands, no detached pieces. Both eyes visible, no weapon crossing face. No VFX, no trails, no glows, no shadows, no text or grid. Transparent background. Output cells each96x96 logical pixels displayed at8x (768x768), feet never lower than row81 (y655). Leave ample empty cell margins.\nBALEFUL STRIKE / Q. Exactly SIX frames,3 columns x2 rows,2304x1536. Frame1 idle then crouch with staff pulled back LOW; frame2 coiled with weight on back leg, short staff held diagonally BACK at hip level; frame3 deeper windup, near hand pulls staff back; frame4 RELEASE: lunge RIGHT, near arm thrusts staff horizontally forward to RIGHT at chest height BELOW face; frame5 held lunge followthrough; frame6 returns to reference1 idle pose. Far giant silver glove remains on picture RIGHT side, balancing beside/behind right shoulder, do NOT swap hands. Short staff in left-side near hand throughout. It can cross below the torso when thrusting but never face. Same approved model in all6 frames, coarse 40-pixel game sprite. No magic projectile.",
+      "reference_images": [
+        "design/veigar_design.png",
+        "now/veigar_now_skill.png",
+        "pose/lol_pose_skill.png"
+      ],
+      "generated_motion_study": "exec-2a8a60f5-93d5-4942-807f-97348a4b845b.png",
+      "final_frame_source": "Approved B design raster parts and exact approved head; see pose_parameters.json",
+      "used_as": "motion reference, not replacement design"
+    },
+    "skill2": {
+      "prompt": "Animate the EXACT approved 40-pixel-tall Veigar pixel sprite in reference1. Reference2 supplies frame order/position and reference3 supplies body gestures ONLY. Do not redesign the character. Same small hooked blue-violet hat drooping left, silver band and buckle, black face and two equal yellow L eyes, blue robe, brown belt, magenta hip cloth, short silver boots, giant silver gauntlet on picture RIGHT, short metal fork staff with orange crystal held by picture LEFT near hand. Copy reference1 short staff (brim height at idle), never reference3 tall weapon. Constant character size, coarse game pixels, true hard square blocks, no fine detail, 1-cell dark outline, only reference1 colors. Head must keep exact approved shape in all frames and face FRONT RIGHT, never back view. Staff and gauntlet stay connected to hands, no detached pieces. Both eyes visible, no weapon crossing face. No VFX, no trails, no glows, no shadows, no text or grid. Transparent background. Output cells each96x96 logical pixels displayed at8x (768x768), feet never lower than row81 (y655). Leave ample empty cell margins.\nEVENT HORIZON / E. Output SEVEN frames in a3x3 grid,2304x2304. Read left-right top-bottom: slots1..7 contain frames,slots8,9 TRANSPARENT EMPTY. Reference2/3 only have first6 poses; add a final seventh frame that returns to approved idle. Frame1 starts idle lifting staff. Frame2 raises staff high to right. Frame3 crouches while circling short staff. Frame4 RELEASE: sweeps staff down and around. Frame5 holds staff at arm length BEHIND him to LEFT with orange fork head LOW. Frame6 begins recovering. Frame7 exact idle stance. Always FRONT RIGHT facing even when staff twirls: never rotate body to show back. Silver giant glove always on picture RIGHT, staff held with LEFT-side near hand, do not swap. Staff no taller than approved design when standing. No cage or effects. Body same scale each frame.",
+      "reference_images": [
+        "design/veigar_design.png",
+        "now/veigar_now_skill2.png",
+        "pose/lol_pose_skill2.png"
+      ],
+      "generated_motion_study": "exec-c7dcf35c-f3be-476f-9485-ab0176343f8e.png",
+      "final_frame_source": "Approved B design raster parts and exact approved head; see pose_parameters.json",
+      "used_as": "motion reference, not replacement design"
+    },
+    "ult": {
+      "prompt": "Animate the EXACT approved 40-pixel-tall Veigar pixel sprite in reference1. Reference2 supplies frame order/position and reference3 supplies body gestures ONLY. Do not redesign the character. Same small hooked blue-violet hat drooping left, silver band and buckle, black face and two equal yellow L eyes, blue robe, brown belt, magenta hip cloth, short silver boots, giant silver gauntlet on picture RIGHT, short metal fork staff with orange crystal held by picture LEFT near hand. Copy reference1 short staff (brim height at idle), never reference3 tall weapon. Constant character size, coarse game pixels, true hard square blocks, no fine detail, 1-cell dark outline, only reference1 colors. Head must keep exact approved shape in all frames and face FRONT RIGHT, never back view. Staff and gauntlet stay connected to hands, no detached pieces. Both eyes visible, no weapon crossing face. No VFX, no trails, no glows, no shadows, no text or grid. Transparent background. Output cells each96x96 logical pixels displayed at8x (768x768), feet never lower than row81 (y655). Leave ample empty cell margins.\nULTIMATE / R using reference3 W JUMP. SEVEN frames,4columns x2rows,3072x1536, eighth slot EMPTY transparent. Frame1 slight crouch, frame2 deeper crouch gathering power with short staff pulled in, frame3 SPRING UP from floor with knees lifting, frame4 RELEASE at TOP OF JUMP visibly airborne 10 logical pixels above normal sole line, near left hand holds short staff overhead, far right claw flung outward, frame5 landing, frame6 squash crouch after landing, frame7 reference1 idle. Do NOT force jumping feet onto floor: just keep all pixels above normal floor row81. Same approved short stout model, short weapon constant length, copied head silhouette and front-right face in every frame; no back or upside down. Never mix up left staff and right gauntlet. No magic burst effect.",
+      "reference_images": [
+        "design/veigar_design.png",
+        "now/veigar_now_ult.png",
+        "pose/lol_pose_ult.png"
+      ],
+      "generated_motion_study": "exec-93c0ceb1-27ab-48c0-978e-9ec8aac6f32a.png",
+      "final_frame_source": "Approved B design raster parts and exact approved head; see pose_parameters.json",
+      "used_as": "motion reference, not replacement design"
+    },
+    "hit": {
+      "prompt": "Animate the EXACT approved 40-pixel-tall Veigar pixel sprite in reference1. Reference2 supplies frame order/position and reference3 supplies body gestures ONLY. Do not redesign the character. Same small hooked blue-violet hat drooping left, silver band and buckle, black face and two equal yellow L eyes, blue robe, brown belt, magenta hip cloth, short silver boots, giant silver gauntlet on picture RIGHT, short metal fork staff with orange crystal held by picture LEFT near hand. Copy reference1 short staff (brim height at idle), never reference3 tall weapon. Constant character size, coarse game pixels, true hard square blocks, no fine detail, 1-cell dark outline, only reference1 colors. Head must keep exact approved shape in all frames and face FRONT RIGHT, never back view. Staff and gauntlet stay connected to hands, no detached pieces. Both eyes visible, no weapon crossing face. No VFX, no trails, no glows, no shadows, no text or grid. Transparent background. Output cells each96x96 logical pixels displayed at8x (768x768), feet never lower than row81 (y655). Leave ample empty cell margins.\nHIT REACTION. Exactly TWO frames side by side,2 columns1row,1536x768. Frame1 sharply recoils backward LEFT, knees bent, head knocked askew slightly, both eyes narrow to the single lower row (1 yellow and1 pale core per eye, same height); near hand still grips short vertical staff on left and far claw stays at right. Frame2 recovers to exact approved idle pose. Head SAME SHAPE as reference1, not a new hat. Maintain short stocky40pixel model. No blood, no impact effects.",
+      "reference_images": [
+        "design/veigar_design.png",
+        "now/veigar_now_hit.png",
+        "pose/lol_pose_hit.png"
+      ],
+      "generated_motion_study": "exec-c6d72af5-7076-4952-9bb6-d8063c2f3c1b.png",
+      "final_frame_source": "Approved B design raster parts and exact approved head; see pose_parameters.json",
+      "used_as": "motion reference, not replacement design"
+    },
+    "dead": {
+      "prompt": "Animate the EXACT approved 40-pixel-tall Veigar pixel sprite in reference1. Reference2 supplies frame order/position and reference3 supplies body gestures ONLY. Do not redesign the character. Same small hooked blue-violet hat drooping left, silver band and buckle, black face and two equal yellow L eyes, blue robe, brown belt, magenta hip cloth, short silver boots, giant silver gauntlet on picture RIGHT, short metal fork staff with orange crystal held by picture LEFT near hand. Copy reference1 short staff (brim height at idle), never reference3 tall weapon. Constant character size, coarse game pixels, true hard square blocks, no fine detail, 1-cell dark outline, only reference1 colors. Head must keep exact approved shape in all frames and face FRONT RIGHT, never back view. Staff and gauntlet stay connected to hands, no detached pieces. Both eyes visible, no weapon crossing face. No VFX, no trails, no glows, no shadows, no text or grid. Transparent background. Output cells each96x96 logical pixels displayed at8x (768x768), feet never lower than row81 (y655). Leave ample empty cell margins.\nDEATH. EIGHT frames4columns x2rows,3072x1536. Frame1 idle struck; frame2 staggering backward with staff dropping diagonally, frame3 knees buckle body crumples, frame4 sinks down, frame5 collapses onto side, frame6 falls, frame7 on ground, frame8 a settled heap on ground with floppy hat covering him and short staff on ground beside him. Show a gradual readable loss of balance, not eight standing poses or a shrunken upright model. Head keep approved exact shape in first5frames except whole-head tilt; final lying frames may rotate/occlude hat and face. Never show back view. Face still black and yellow eyes only, no skin. Staff remains same short length, cannot grow. Last3frames may extend only TWO logical pixels below normal groundline. Render no blood, gore, smoke, or magical effects. Preserve approved blue-purple costume and metal glove throughout.",
+      "reference_images": [
+        "design/veigar_design.png",
+        "now/veigar_now_dead.png",
+        "pose/lol_pose_dead.png"
+      ],
+      "generated_motion_study": "exec-a10746cb-bf3e-4578-b1fb-918ba3cfd363.png",
+      "final_frame_source": "Approved B design raster parts and exact approved head; see pose_parameters.json",
+      "used_as": "motion reference, not replacement design"
+    }
+  }
+}

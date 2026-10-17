@@ -1,0 +1,12 @@
+{
+  "fx": "league_leblanc_fx",
+  "items": [
+    {"tag": "a_cast", "into": "attack_fx1", "from": "attack", "slice_ms": 233, "length_ms": 167, "at_ms": 0},
+    {"tag": "e_cast", "into": "e_fx1", "from": "e", "slice_ms": 167, "length_ms": 333, "at_ms": 0},
+    {"tag": "q_cast", "into": "skill", "at_ms": 217},
+    {"tag": "w_trail", "into": "skill2_fx1", "from": "skill2", "slice_ms": 0, "length_ms": 300, "at_ms": 0, "under": true},
+    {"tag": "rw_trail", "into": "skill2_fx2", "from": "skill2", "slice_ms": 0, "length_ms": 300, "at_ms": 0, "under": true},
+    {"tag": "re_cast", "into": "e_fx2", "from": "e", "slice_ms": 167, "length_ms": 333, "at_ms": 0},
+    {"tag": "rq_cast", "into": "ult_fx1", "from": "ult", "slice_ms": 183, "length_ms": 483, "at_ms": 0}
+  ]
+}

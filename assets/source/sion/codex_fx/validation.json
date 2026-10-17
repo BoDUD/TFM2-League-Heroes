@@ -1,0 +1,137 @@
+[
+  {
+    "file": "sion_fx_a_hit.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_k_soul.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_q_warn.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_q_slam.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_q_hit.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_e_roar.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_e_hit.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_e_shred.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_w_sh.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_w_burst.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_w_hit.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_r_go.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_r_crash.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_r_hit.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  },
+  {
+    "file": "sion_fx_p_zombie.png",
+    "size_correct": true,
+    "exact_nearest_8x": true,
+    "hard_alpha": true,
+    "palette_only": true,
+    "symmetric": true,
+    "all_frames_nonempty": true
+  }
+]

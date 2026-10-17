@@ -1,0 +1,242 @@
+{
+  "asset_count": 26,
+  "sheets": 14,
+  "sheet_frames": 74,
+  "bake_overlays": 12,
+  "checks": [
+    {
+      "file": "kindred_fx_a_arrow.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_q_arrow.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_e_arrow.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_a_hit.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_q_hit.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_e_hit.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_e_mark.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_p_stack.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_e_bite.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_w_bite.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_q_dash.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_w_zone.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_r_zone.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_fx_r_heal.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_a_nock_2.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_a_nock_3.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_a_loose_4.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_e_nock_2.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_e_nock_3.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_e_loose_4.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_q_nock_5.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_q_loose_6.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_q_trail_3.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_q_trail_4.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_r_raise_5.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    },
+    {
+      "file": "kindred_bake_w_call_2.png",
+      "dimensions": true,
+      "pair_equal": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "requested_symmetry": true
+    }
+  ]
+}

@@ -1,0 +1,378 @@
+{
+  "method": "User-authorized cutout animation from the approved design; final strips were not generated independently with image_gen.",
+  "approval": "User explicitly authorized splitting the approved shoulder/gauntlet/blade pixels and rotating, translating, and compositing them while copying the head unchanged.",
+  "source_pack": "nocturne_strips_pack.zip",
+  "source_design": "design/nocturne_design_1x.png",
+  "source_head": "design/nocturne_head_1x.png",
+  "source_timing_and_pivots": "nocturne_cells.json",
+  "image_gen_attempts": [
+    {
+      "animation": "run",
+      "accepted": false,
+      "reason": "Redesigned elongated arms and finer texture inconsistent with the approved pixel design.",
+      "prompt": "Three attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, face, armour, blades and pixel style exactly; do not redesign anything. Every frame must be the FIRST image's character in a new pose: the same front-on stance, the same big head with the swept-back crest and the two square white eyes, the same dark navy-indigo shadow body with its light blue rim highlights, the two big purple-and-silver pauldrons with their blue ring runes and steel spikes, the steel gauntlets, the two crimson-and-silver curved blades on the outside of the forearms, the crimson tabard with the silver ring emblem, the smoke tail, the same shading. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing (which frame is the wind-up, the hit, the recovery), the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames, in the same grid and the same places - copy the motion of the arms and the blades from it, but keep the FIRST image's proportions (big head, compact body, its blade size); the 3D model has NO lower body (his smoke tail is an effect there), so draw the FIRST image's smoke tail in every frame; never draw him from the back or upside down.\nThe character: Nocturne (a floating shadow demon in spiked armour: a big bare dark-navy head with a tall crest sweeping back and two glowing square pure-white eyes, no mouth; two big rounded purple-and-silver pauldrons with blue ring runes and steel spikes; steel gauntlets and big navy fists; a curved crimson blade with silver edges on the outside of each forearm; a crimson tabard with a silver ring emblem; no legs - a dark navy smoke tail that narrows down to a point).\nTask: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size (40 squares from the tip of the crest to the tip of the tail in the idle stance), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.\nPixel rules (most important): ONLY the 20 colors of the FIRST image, no new colors: #080611 #101029 #171C43 #560F27 #342039 #202952 #33323E #9B1032 #583262 #30437B #284C85 #555160 #D3143E #794786 #465DAC #777680 #888BA2 #A1A3AA #D3D7DC #FFFFFF. ONE outline: a 1-square near-black outline around the silhouette and each material's own dark shade inside it - never a second black ring. Copy the FIRST image's shading - its light blue rims and steel highlights move with the pose; no dithering, no noise, no random specks added. Arms (gauntlets) at least 3 squares wide with the outline, the fists as big as in the FIRST image, the blades attached to the forearms and as big as in the FIRST image; no loose pieces.\nThe head (the crest, the skull with the two white eyes, down to the chin's outline) is COPIED from the FIRST image in every frame, square for square, and only moved (in the death it sinks with the body into the smoke); never redraw, squash, turn or tilt it, or it flickers when the frames play. It sits between the pauldrons - no neck. Both eyes are the FIRST image's 2x2 white squares on the same rows; pure white #FFFFFF appears ONLY in the eyes.\nThe smoke tail is in every frame: it comes out under the tabard, narrows and ends in a 1-2 square point; it may sway and curl with the motion but never breaks into pieces.\nFeet line: in every cell the tail's lowest square is on square row 88 from the top of the cell (pixels 704 to 711) - in the flying frames of the dive it may lift off it; NOTHING from pixel 712 down - not a blade tip - because the game draws the health bar there (only the last frames of the death, a pool of smoke, may dip at most 2 squares). His place across the cell follows the SECOND image (each frame's standing point is in nocturne_cells.json). In the move loop his head keeps the same horizontal place relative to the standing point in every frame.\nFront view like the FIRST image; every strike, throw, reach and dive goes to the RIGHT of the image; never his back, never upside down. Do not draw effects (the thrown shadow blade, the dusk trail, the tether chain, the shroud, slash trails, dark mist, impact bursts) - only the character. Every animation starts and ends in the FIRST image's stance.\nAnimation: MOVE, 8 frames, one seamless loop (8 x 100 ms): he glides forward to the right, floating - he has NO legs: the smoke tail streams back and down to the left and waves from frame to frame (curling a little more in some frames), its lowest square always on the feet line; the body leans a little forward (to the right) and bobs 1 square down and up over the loop (frames 1-4 one bob, 5-8 the next); the arms swing gently in turn - in frames 1-4 the right arm (image right) is a little forward and the left arm back, in frames 5-8 the other way - the blades following the forearms, pointing down and back; his head keeps the same place across the cell relative to the standing point in all 8 frames; frame 8 flows into frame 1.\nLayout: exactly like the SECOND image - 4 columns by 2 rows, 8 frames read left to right, top to bottom, each cell 120x104 squares (960x832 px), 3840x1664 pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #FF00FF magenta). No grid lines, no borders, no labels, no guide marks.\nBefore finishing, check: every square 8x8 on one grid, only the FIRST image's colors, the head identical to the FIRST image in every frame, both white eyes visible and level, white only in the eyes, both blades on the forearms in every frame (until the death drops them), arms at least 3 squares wide, the smoke tail in every frame, no loose pieces, nothing below the feet line, never his back or upside down, the frames in the same cells as the SECOND image.\nThis is the approved 40-pixel character: do not shrink below 40 logical rows, enlarge, or redesign. Follow exactly EIGHT compact actors, each on its own 120x104 logical-cell grid; transparent unused background.",
+      "raw_file": "exec-dc92fd64-5fd6-41d5-98a6-3660c3bea178.png"
+    }
+  ],
+  "motions": {
+    "run": "MOVE, 8 frames, one seamless loop (8 x 100 ms): he glides forward to the right, floating - he has NO legs: the smoke tail streams back and down to the left and waves from frame to frame (curling a little more in some frames), its lowest square always on the feet line; the body leans a little forward (to the right) and bobs 1 square down and up over the loop (frames 1-4 one bob, 5-8 the next); the arms swing gently in turn - in frames 1-4 the right arm (image right) is a little forward and the left arm back, in frames 5-8 the other way - the blades following the forearms, pointing down and back; his head keeps the same place across the cell relative to the standing point in all 8 frames; frame 8 flows into frame 1.",
+    "attack": "BASIC ATTACK, 6 frames (League's attack1, a downward blade slash): 1 he draws the right arm (image right) up and back, the blade lifting; 2 the wind-up: the right blade raised high above his right shoulder, the body leaning back a little; 3 THE SLASH (the hit lands here): he whips the right arm down and forward to the right, the blade cutting down in front of him, the body leaning into it; 4 the follow-through: the right blade low in front, the left arm drawn back; 5 recovering, the arms coming back to his sides; 6 back to the idle stance. Slash trails are effects - do not draw them.",
+    "attack_p": "UMBRA BLADES (the empowered attack: a cleave all round him), 6 frames (League's crit): 1 he hunches a little and cocks both arms in front of his chest, the blades crossed; 2 both arms drawn back, the blades raised behind his shoulders; 3 THE CLEAVE (the hit lands here): both arms flung wide open to the sides at shoulder height, both blades sweeping out level like wings - the widest frame; 4 the arms still wide, the blades swept further back; 5 the arms coming down and in; 6 back to the idle stance. The swirl of the cleave is an effect - do not draw it.",
+    "skill": "DUSKBRINGER (he hurls a shadow blade), 5 frames (League's spell1): 1 he draws the right arm (image right) back behind him; 2 the wind-up: the right arm far back, the left arm forward for balance, leaning back; 3 THE THROW (the shadow blade leaves his right hand here and flies to the right - the flying blade is an effect, his own forearm blades stay on his arms): the right arm whipped forward and straight out to the right at shoulder height; 4 the follow-through, the right arm low in front, leaning forward; 5 back to the idle stance.",
+    "skill2": "UNSPEAKABLE HORROR (he reaches out and plants a nightmare tether in the enemy), 5 frames (League's spell3): 1 he rises a little and raises both fists in front of his chest, menacing; 2 both arms spread out to the sides, fists up, the blades hanging from the forearms; 3 THE GRIP (the tether shoots out here - an effect): the right arm (image right) thrust straight forward to the right with the hand open like a claw, the left arm held back; 4 still reaching, the clawed hand pulling back a little; 5 back to the idle stance. The dark shroud round him is an effect - do not draw it.",
+    "ult": "PARANOIA (he rises, then flies at a far enemy champion), 6 frames (League's spell4): 1 he gathers, hunching low, both blades drawn back; 2 he rears up and spreads both arms wide and high, the blades raised above his shoulders, the tail coiled under him; 3 THE LAUNCH (he takes off here): he throws himself forward to the right - the body leaning far forward (at most 30 degrees), both arms swept back behind him with the blades trailing, the tail streaming back to the left and up off the ground; 4-6 the flight: the same diving pose, the tail and the blades rippling a little from frame to frame (the game holds these frames while he flies). The head stays the FIRST image's head (upright, both eyes visible) and only moves with the body; never his back.",
+    "ult_hit": "PARANOIA'S STRIKE (he lands on the enemy), 4 frames (League's attack3): 1 THE STRIKE (the hit lands here, on the first frame): both blades crash down in front of him, crossing, the body low and leaning forward; 2 the blades driven down low, the arms crossed in front; 3 he pulls the blades back up and apart; 4 back to the idle stance.",
+    "hit": "HIT, 2 frames: 1 jolted back by a blow: his body and head pushed back 1-2 squares (to the left), the arms flung out a little, the tail bending; 2 recovering toward the idle stance.",
+    "dead": "DEATH, 8 frames (he dissolves into shadow): 1 struck, he rocks back, the arms flung out; 2 he rears up, both arms spread wide, the blades out; 3 he doubles over, the arms dropping; 4 he sinks lower, the smoke tail spreading on the ground; 5 his body sinks into a pool of dark smoke - the head, the pauldrons and the arms above it; 6 lower still, the blades lying on the ground at his sides; 7 only the pauldrons, the top of the head and the blade tips above the smoke pool; 8 a flat pool of dark navy-violet smoke on the ground with the two crimson blades lying in it, nothing else. Frames 5-8 lie on the feet line and may reach 2 squares below it, nothing lower."
+  },
+  "pose_parameters": {
+    "run": [
+      {
+        "la": 8,
+        "ra": -8,
+        "bob": 0,
+        "tail": 0
+      },
+      {
+        "la": 4,
+        "ra": -12,
+        "bob": -1,
+        "tail": -1
+      },
+      {
+        "la": -4,
+        "ra": -4,
+        "bob": -1,
+        "tail": -2
+      },
+      {
+        "la": -10,
+        "ra": 4,
+        "bob": 0,
+        "tail": -1
+      },
+      {
+        "la": -8,
+        "ra": 8,
+        "bob": 0,
+        "tail": 0
+      },
+      {
+        "la": -4,
+        "ra": 12,
+        "bob": -1,
+        "tail": 1
+      },
+      {
+        "la": 4,
+        "ra": 4,
+        "bob": -1,
+        "tail": 2
+      },
+      {
+        "la": 10,
+        "ra": -4,
+        "bob": 0,
+        "tail": 1
+      }
+    ],
+    "attack": [
+      {
+        "la": 10,
+        "ra": -110,
+        "bx": -1,
+        "by": 0,
+        "tail": -1
+      },
+      {
+        "la": 12,
+        "ra": -150,
+        "bx": -2,
+        "by": -1,
+        "tail": -2
+      },
+      {
+        "la": 30,
+        "ra": -40,
+        "bx": 2,
+        "by": 2,
+        "tail": 2
+      },
+      {
+        "la": 25,
+        "ra": -20,
+        "bx": 2,
+        "by": 1,
+        "tail": 1
+      },
+      {
+        "la": 8,
+        "ra": -5,
+        "bx": 1,
+        "by": 0,
+        "tail": 0
+      },
+      {
+        "idle": true
+      }
+    ],
+    "attack_p": [
+      {
+        "la": -28,
+        "ra": 28,
+        "by": 1,
+        "tail": 0
+      },
+      {
+        "la": 85,
+        "ra": -140,
+        "by": 0,
+        "tail": -1
+      },
+      {
+        "la": 105,
+        "ra": -100,
+        "by": 0,
+        "tail": 2
+      },
+      {
+        "la": 115,
+        "ra": -110,
+        "by": 1,
+        "tail": 1
+      },
+      {
+        "la": 35,
+        "ra": -30,
+        "by": 0,
+        "tail": 0
+      },
+      {
+        "idle": true
+      }
+    ],
+    "skill": [
+      {
+        "la": 12,
+        "ra": -105,
+        "bx": -1,
+        "tail": -1
+      },
+      {
+        "la": 25,
+        "ra": -140,
+        "bx": -2,
+        "by": -1,
+        "tail": -2
+      },
+      {
+        "la": 30,
+        "ra": -90,
+        "bx": 2,
+        "by": 0,
+        "tail": 2
+      },
+      {
+        "la": 18,
+        "ra": -40,
+        "bx": 1,
+        "by": 1,
+        "tail": 1
+      },
+      {
+        "idle": true
+      }
+    ],
+    "skill2": [
+      {
+        "la": -20,
+        "ra": 20,
+        "by": -1,
+        "tail": -1
+      },
+      {
+        "la": 85,
+        "ra": -85,
+        "by": -1,
+        "tail": -2
+      },
+      {
+        "la": 70,
+        "ra": -90,
+        "bx": 1,
+        "claw": true,
+        "tail": 2
+      },
+      {
+        "la": 55,
+        "ra": -70,
+        "bx": 1,
+        "claw": true,
+        "tail": 1
+      },
+      {
+        "idle": true
+      }
+    ],
+    "ult": [
+      {
+        "la": -20,
+        "ra": 30,
+        "by": 1,
+        "tail": -2
+      },
+      {
+        "la": 110,
+        "ra": -150,
+        "by": -1,
+        "tail": 1
+      },
+      {
+        "la": 60,
+        "ra": 75,
+        "bx": 3,
+        "by": -5,
+        "lean": 20,
+        "flight": true,
+        "tail": 55
+      },
+      {
+        "la": 64,
+        "ra": 80,
+        "bx": 3,
+        "by": -5,
+        "lean": 20,
+        "flight": true,
+        "tail": 50
+      },
+      {
+        "la": 58,
+        "ra": 70,
+        "bx": 3,
+        "by": -5,
+        "lean": 20,
+        "flight": true,
+        "tail": 58
+      },
+      {
+        "la": 62,
+        "ra": 78,
+        "bx": 3,
+        "by": -5,
+        "lean": 20,
+        "flight": true,
+        "tail": 53
+      }
+    ],
+    "ult_hit": [
+      {
+        "la": -45,
+        "ra": 50,
+        "bx": 1,
+        "by": 2,
+        "tail": 2
+      },
+      {
+        "la": -35,
+        "ra": 40,
+        "bx": 1,
+        "by": 1,
+        "tail": 1
+      },
+      {
+        "la": 25,
+        "ra": -25,
+        "by": 0,
+        "tail": 0
+      },
+      {
+        "idle": true
+      }
+    ],
+    "hit": [
+      {
+        "la": 25,
+        "ra": -25,
+        "bx": -2,
+        "by": 0,
+        "tail": -2
+      },
+      {
+        "la": 8,
+        "ra": -8,
+        "bx": -1,
+        "by": 0,
+        "tail": -1
+      }
+    ],
+    "dead": [
+      {
+        "la": 30,
+        "ra": -30,
+        "bx": -1,
+        "by": 0,
+        "tail": -1
+      },
+      {
+        "la": 105,
+        "ra": -105,
+        "bx": 0,
+        "by": -1,
+        "tail": 1
+      },
+      {
+        "la": -8,
+        "ra": 8,
+        "bx": 0,
+        "by": 3,
+        "tail": 0
+      },
+      {
+        "la": -12,
+        "ra": 12,
+        "bx": 0,
+        "by": 9,
+        "pool": 0
+      },
+      {
+        "la": -15,
+        "ra": 15,
+        "bx": 0,
+        "by": 17,
+        "pool": 1
+      },
+      {
+        "la": 10,
+        "ra": -10,
+        "bx": 0,
+        "by": 25,
+        "pool": 2,
+        "drop": true
+      },
+      {
+        "la": 15,
+        "ra": -15,
+        "bx": 0,
+        "by": 31,
+        "pool": 3,
+        "drop": true
+      },
+      {
+        "pool": 4,
+        "drop": true,
+        "nohead": true
+      }
+    ]
+  },
+  "parameter_units": {
+    "la": "left arm clockwise degrees around source joint (55,77)",
+    "ra": "right arm clockwise degrees around source joint (72,77)",
+    "bx": "body x translation in game pixels",
+    "by": "body y translation in game pixels",
+    "bob": "body y translation in game pixels",
+    "tail": "tail row sway in game pixels, or rotation degrees for flight",
+    "lean": "clockwise torso lean degrees; head remains unrotated",
+    "pool": "death-pool stage composed from approved tail cutouts",
+    "claw": "rearranged approved right-fist knuckle pixels"
+  }
+}

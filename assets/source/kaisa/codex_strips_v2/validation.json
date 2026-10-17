@@ -1,0 +1,90 @@
+{
+  "technical_checks_pass": true,
+  "only_new_pack_inputs": true,
+  "idle_new_pack_preserved_exact": true,
+  "redrawn_frames": 45,
+  "palette_count": 33,
+  "art_status": "PREVIEW_NOT_IMPORT_READY",
+  "sheets": {
+    "run": {
+      "dimensions_correct": true,
+      "strict8x8_tiles": true,
+      "binary_alpha": true,
+      "new33_colour_palette_only": true,
+      "all_frames_connected": true,
+      "footline_pass": true,
+      "mouth_preserved": true
+    },
+    "attack": {
+      "dimensions_correct": true,
+      "strict8x8_tiles": true,
+      "binary_alpha": true,
+      "new33_colour_palette_only": true,
+      "all_frames_connected": true,
+      "footline_pass": true,
+      "mouth_preserved": true
+    },
+    "skill": {
+      "dimensions_correct": true,
+      "strict8x8_tiles": true,
+      "binary_alpha": true,
+      "new33_colour_palette_only": true,
+      "all_frames_connected": true,
+      "footline_pass": true,
+      "mouth_preserved": true
+    },
+    "skill2": {
+      "dimensions_correct": true,
+      "strict8x8_tiles": true,
+      "binary_alpha": true,
+      "new33_colour_palette_only": true,
+      "all_frames_connected": true,
+      "footline_pass": true,
+      "mouth_preserved": true,
+      "last_cell_empty": true
+    },
+    "ult": {
+      "dimensions_correct": true,
+      "strict8x8_tiles": true,
+      "binary_alpha": true,
+      "new33_colour_palette_only": true,
+      "all_frames_connected": true,
+      "footline_pass": true,
+      "mouth_preserved": true
+    },
+    "ult_land": {
+      "dimensions_correct": true,
+      "strict8x8_tiles": true,
+      "binary_alpha": true,
+      "new33_colour_palette_only": true,
+      "all_frames_connected": true,
+      "footline_pass": true,
+      "mouth_preserved": true
+    },
+    "hit": {
+      "dimensions_correct": true,
+      "strict8x8_tiles": true,
+      "binary_alpha": true,
+      "new33_colour_palette_only": true,
+      "all_frames_connected": true,
+      "footline_pass": true,
+      "mouth_preserved": true
+    },
+    "dead": {
+      "dimensions_correct": true,
+      "strict8x8_tiles": true,
+      "binary_alpha": true,
+      "new33_colour_palette_only": true,
+      "all_frames_connected": true,
+      "footline_pass": true,
+      "mouth_preserved": true
+    }
+  },
+  "remaining_requirements": [
+    "Head pixels have not been replaced with exact fixed template; user-requested upper-right crown repair changes the native head contour.",
+    "Standing legs are drawn from the new reference but not exact pixel copies of idle.",
+    "Standing heights and run boot spacing/head bob/loop timing require final art review.",
+    "The native image grid is imperfect; coarse-grid readback is approximate.",
+    "Game import and effect attachment points have not been tested."
+  ]
+}

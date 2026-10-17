@@ -1,0 +1,81 @@
+{
+  "method": "Read-only PIL inspection. No image processing or resaving. bbox uses alpha >=128; not anatomical landmark measurement.",
+  "images": [
+    {
+      "file": "nasus-model-A-1.png",
+      "width": 1254,
+      "height": 1254,
+      "transparent_pixels": 1235612,
+      "opaque_pixels": 2485,
+      "partial_alpha_pixels": 334419,
+      "alpha_ge_128_bbox": [
+        99,
+        411,
+        1235,
+        1244
+      ],
+      "alpha_ge_128_height": 833,
+      "exactly_uniform_11px_nonempty_cells": 0,
+      "nonempty_11px_cells": 3481,
+      "sha256": "508e6ff741ba56e21ed56f5d938c97e23f4e08cb98b0c1353b0710be4fc0eba8",
+      "raw_identical": true
+    },
+    {
+      "file": "nasus-model-A-2.png",
+      "width": 1254,
+      "height": 1254,
+      "transparent_pixels": 1226233,
+      "opaque_pixels": 2532,
+      "partial_alpha_pixels": 343751,
+      "alpha_ge_128_bbox": [
+        78,
+        403,
+        1235,
+        1235
+      ],
+      "alpha_ge_128_height": 832,
+      "exactly_uniform_11px_nonempty_cells": 0,
+      "nonempty_11px_cells": 3289,
+      "sha256": "52cb20adcd85dcc35b89d84b46bce526d4773e0f20a0018ec53b32d328711052",
+      "raw_identical": true
+    },
+    {
+      "file": "nasus-model-B-1.png",
+      "width": 1254,
+      "height": 1254,
+      "transparent_pixels": 1119406,
+      "opaque_pixels": 2511,
+      "partial_alpha_pixels": 450599,
+      "alpha_ge_128_bbox": [
+        30,
+        246,
+        1244,
+        1244
+      ],
+      "alpha_ge_128_height": 998,
+      "exactly_uniform_11px_nonempty_cells": 0,
+      "nonempty_11px_cells": 4589,
+      "sha256": "8c512f8694eb03b80d78e7e620354e5dea6b4edfff9a24f8660412b29c1e50db",
+      "raw_identical": true
+    },
+    {
+      "file": "nasus-model-B-2.png",
+      "width": 1254,
+      "height": 1254,
+      "transparent_pixels": 1114976,
+      "opaque_pixels": 2405,
+      "partial_alpha_pixels": 455135,
+      "alpha_ge_128_bbox": [
+        20,
+        245,
+        1254,
+        1254
+      ],
+      "alpha_ge_128_height": 1009,
+      "exactly_uniform_11px_nonempty_cells": 0,
+      "nonempty_11px_cells": 4770,
+      "sha256": "2a07a385cbd0f3eabd0252ef1fbc77937fe07b5d490ff46e8f1187af4c9210ce",
+      "raw_identical": true
+    }
+  ]
+}

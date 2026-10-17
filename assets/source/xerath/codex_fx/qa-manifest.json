@@ -1,0 +1,2888 @@
+[
+  {
+    "id": "a_orb",
+    "file": "xerath_fx_a_orb.png",
+    "prompt_number": 1,
+    "expected_frames": 4,
+    "actual_size": [
+      1659,
+      948
+    ],
+    "requested_size": [
+      896,
+      128
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 129236,
+    "bbox": [
+      37,
+      214,
+      1627,
+      908
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          415,
+          948
+        ],
+        "alpha_bbox": [
+          37,
+          214,
+          415,
+          721
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          415,
+          0,
+          415,
+          948
+        ],
+        "alpha_bbox": [
+          11,
+          216,
+          415,
+          754
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          830,
+          0,
+          414,
+          948
+        ],
+        "alpha_bbox": [
+          0,
+          242,
+          414,
+          908
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1244,
+          0,
+          415,
+          948
+        ],
+        "alpha_bbox": [
+          1,
+          216,
+          383,
+          719
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_a_orb.png",
+      "binding": "view_projectiles `league_xerath_a_orb`（朝飞行方向转，画成朝右飞）",
+      "size": "14 × 8"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "朝右，四帧尾迹变化；需清半透明散点与外围蓝色边。",
+    "sha256": "872fb6f1161dc9f063fbc8bf132c17a2cda22249215ae3f3f0b75bb950155f93"
+  },
+  {
+    "id": "a_orb_p",
+    "file": "xerath_fx_a_orb_p.png",
+    "prompt_number": 2,
+    "expected_frames": 4,
+    "actual_size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1280,
+      192
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 261801,
+    "bbox": [
+      0,
+      36,
+      1982,
+      767
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          496,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          36,
+          494,
+          680
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          496,
+          0,
+          496,
+          793
+        ],
+        "alpha_bbox": [
+          1,
+          84,
+          496,
+          753
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          992,
+          0,
+          495,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          77,
+          495,
+          706
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1487,
+          0,
+          496,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          78,
+          495,
+          767
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_a_orb_p.png",
+      "binding": "view_projectiles `league_xerath_a_orb_p`（朝飞行方向转，画成朝右飞）",
+      "size": "20 × 12"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "朝右，强化电弧可辨；需清边并验证循环接缝。",
+    "sha256": "7ced59f8331f697dc916af68a1751e16a26af65925ec577a28581c8c6e025dce"
+  },
+  {
+    "id": "a_flash",
+    "file": "xerath_fx_a_flash.png",
+    "prompt_number": 3,
+    "expected_frames": 3,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      768,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 199090,
+    "bbox": [
+      57,
+      39,
+      2148,
+      698
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "alpha_bbox": [
+          57,
+          39,
+          720,
+          692
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          724,
+          0,
+          724,
+          724
+        ],
+        "alpha_bbox": [
+          1,
+          95,
+          724,
+          698
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1448,
+          0,
+          724,
+          724
+        ],
+        "alpha_bbox": [
+          1,
+          77,
+          700,
+          644
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_a_flash.png",
+      "binding": "view_effects `league_xerath_a_flash`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+      "size": "12"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 3,
+    "visual_notes": "三帧闪光到碎光；中帧左侧亮核、右侧光线，需依出手原点重新定位。",
+    "sha256": "1928006483d755a4e9b917491743d2863de817d3b78c324c1d8dc2698f5cb2bb"
+  },
+  {
+    "id": "a_hit",
+    "file": "xerath_fx_a_hit.png",
+    "prompt_number": 4,
+    "expected_frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 259241,
+    "bbox": [
+      27,
+      13,
+      2154,
+      708
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          27,
+          27,
+          541,
+          704
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          3,
+          20,
+          543,
+          708
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          1,
+          13,
+          543,
+          704
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          18,
+          525,
+          692
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_a_hit.png",
+      "binding": "view_effects `league_xerath_a_hit`（跟随，画在人物上面）",
+      "size": "14"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "爆点、扩环、断环、碎光四阶段；需去细碎辉光。",
+    "sha256": "8bf4cc8a3e525ee75638491ad40c88b25e275e18b7713fe790be3cc717ba2473"
+  },
+  {
+    "id": "p_surge",
+    "file": "xerath_fx_p_surge.png",
+    "prompt_number": 5,
+    "expected_frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 509649,
+    "bbox": [
+      9,
+      9,
+      2156,
+      724
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          9,
+          25,
+          543,
+          708
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          1,
+          9,
+          543,
+          724
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          23,
+          543,
+          685
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          9,
+          527,
+          724
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_p_surge.png",
+      "binding": "view_effects `league_xerath_p_surge`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+      "size": "18"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "旋涡到双环再消散；需清边与重定帧中心。",
+    "sha256": "eb3dfbe2f3dff30dc860557ca167ef9d0b532fa8690d27fb0f473b64ec203b5c"
+  },
+  {
+    "id": "p_hit",
+    "file": "xerath_fx_p_hit.png",
+    "prompt_number": 6,
+    "expected_frames": 5,
+    "actual_size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1280,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 371055,
+    "bbox": [
+      35,
+      21,
+      1969,
+      769
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          397,
+          793
+        ],
+        "alpha_bbox": [
+          35,
+          21,
+          397,
+          736
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          397,
+          0,
+          396,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          35,
+          396,
+          753
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          793,
+          0,
+          397,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          32,
+          397,
+          761
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1190,
+          0,
+          396,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          50,
+          396,
+          769
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          1586,
+          0,
+          397,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          100,
+          383,
+          734
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_p_hit.png",
+      "binding": "view_effects `league_xerath_p_hit`（跟随，画在人物上面）",
+      "size": "20"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 5,
+    "visual_notes": "五阶段白芯冲击；扩环高度不完全一致。",
+    "sha256": "c9933ee121683166bbb7a34d4d124557a8be14527e7a4623999f732a7c4b92cc"
+  },
+  {
+    "id": "q_charge",
+    "file": "xerath_fx_q_charge.png",
+    "prompt_number": 7,
+    "expected_frames": 8,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      2048,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 228881,
+    "bbox": [
+      19,
+      37,
+      2172,
+      668
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          272,
+          724
+        ],
+        "alpha_bbox": [
+          19,
+          81,
+          272,
+          668
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          272,
+          0,
+          271,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          97,
+          271,
+          579
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          271,
+          724
+        ],
+        "alpha_bbox": [
+          1,
+          101,
+          271,
+          563
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          814,
+          0,
+          272,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          83,
+          270,
+          579
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          1086,
+          0,
+          272,
+          724
+        ],
+        "alpha_bbox": [
+          15,
+          69,
+          272,
+          617
+        ]
+      },
+      {
+        "index": 5,
+        "rect": [
+          1358,
+          0,
+          271,
+          724
+        ],
+        "alpha_bbox": [
+          1,
+          51,
+          271,
+          636
+        ]
+      },
+      {
+        "index": 6,
+        "rect": [
+          1629,
+          0,
+          271,
+          724
+        ],
+        "alpha_bbox": [
+          1,
+          37,
+          271,
+          644
+        ]
+      },
+      {
+        "index": 7,
+        "rect": [
+          1900,
+          0,
+          272,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          39,
+          272,
+          656
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_q_charge.png",
+      "binding": "view_effects `league_xerath_q_charge`（施法者身上，跟随；格子里的站位点放到他脚下）",
+      "size": "56 × 56"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 8,
+    "visual_notes": "八帧蓄力递增清楚；末帧亮核需按前爪原点对齐。",
+    "sha256": "30950d08cb4c899bf9db3cb3e9fbc23dbbd9e3fed740d19f4ca464cd93b071a1"
+  },
+  {
+    "id": "q_charge_s",
+    "file": "xerath_fx_q_charge_s.png",
+    "prompt_number": 8,
+    "expected_frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 275482,
+    "bbox": [
+      41,
+      23,
+      2171,
+      706
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          41,
+          87,
+          543,
+          678
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          1,
+          55,
+          531,
+          690
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          11,
+          23,
+          539,
+          668
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          5,
+          71,
+          542,
+          706
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_q_charge_s.png",
+      "binding": "view_effects `league_xerath_q_charge_s`（施法者身上，跟随；站位点放到他脚下）",
+      "size": "56 × 56"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "四帧由小到大蓄力；需校准与长蓄力同一中心。",
+    "sha256": "8f00e3faafe20639c1fcbb08458d028d5c275f3fc952efdc1cef0e224b1605cc"
+  },
+  {
+    "id": "q_fire",
+    "file": "xerath_fx_q_fire.png",
+    "prompt_number": 9,
+    "expected_frames": 3,
+    "actual_size": [
+      1881,
+      836
+    ],
+    "requested_size": [
+      1152,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 226204,
+    "bbox": [
+      10,
+      93,
+      1858,
+      810
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          627,
+          836
+        ],
+        "alpha_bbox": [
+          10,
+          93,
+          627,
+          810
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          627,
+          0,
+          627,
+          836
+        ],
+        "alpha_bbox": [
+          0,
+          232,
+          627,
+          706
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1254,
+          0,
+          627,
+          836
+        ],
+        "alpha_bbox": [
+          0,
+          152,
+          604,
+          780
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_q_fire.png",
+      "binding": "view_effects `league_xerath_q_fire`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+      "size": "24 × 16"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 3,
+    "visual_notes": "向右喷射，三帧衰减；需校准起始点，去外围散点。",
+    "sha256": "acc8811bd5d434f83890405a6bb80e147cf681ecd2281214843101d7bd8c6985"
+  },
+  {
+    "id": "q_beam",
+    "file": "xerath_fx_q_beam.png",
+    "prompt_number": 10,
+    "expected_frames": 3,
+    "actual_size": [
+      2032,
+      774
+    ],
+    "requested_size": [
+      2688,
+      192
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 219075,
+    "bbox": [
+      0,
+      21,
+      2019,
+      748
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          677,
+          774
+        ],
+        "alpha_bbox": [
+          0,
+          21,
+          677,
+          748
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          677,
+          0,
+          678,
+          774
+        ],
+        "alpha_bbox": [
+          0,
+          132,
+          678,
+          704
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1355,
+          0,
+          677,
+          774
+        ],
+        "alpha_bbox": [
+          0,
+          22,
+          664,
+          718
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_q_beam.png",
+      "binding": "view_projectiles `league_xerath_q_beam`（朝飞行方向转，画成朝右飞；上下对称）",
+      "size": "56 × 12"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 3,
+    "visual_notes": "三帧长横束，亮芯可辨；电弧未严格上下镜像，导入时需修正。",
+    "sha256": "a06c113af35a3cc5553842a2bde92a948a2950f07089f24b7bb44f3abfc97de8"
+  },
+  {
+    "id": "q_beam_s",
+    "file": "xerath_fx_q_beam_s.png",
+    "prompt_number": 11,
+    "expected_frames": 3,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1728,
+      160
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 212489,
+    "bbox": [
+      46,
+      110,
+      2171,
+      658
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "alpha_bbox": [
+          46,
+          110,
+          722,
+          658
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          724,
+          0,
+          724,
+          724
+        ],
+        "alpha_bbox": [
+          17,
+          114,
+          724,
+          626
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1448,
+          0,
+          724,
+          724
+        ],
+        "alpha_bbox": [
+          1,
+          134,
+          723,
+          657
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_q_beam_s.png",
+      "binding": "view_projectiles `league_xerath_q_beam_s`（朝飞行方向转，画成朝右飞；上下对称）",
+      "size": "36 × 10"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 3,
+    "visual_notes": "三帧短束；左右起止形态不同符合束结构，上下仍需镜像修正。",
+    "sha256": "5a68117d234e8bb04c5c70838a709178dd452eaf4a7584c496dad692257b5e20"
+  },
+  {
+    "id": "q_hit",
+    "file": "xerath_fx_q_hit.png",
+    "prompt_number": 12,
+    "expected_frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 186890,
+    "bbox": [
+      0,
+      37,
+      2141,
+      724
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          37,
+          543,
+          724
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          67,
+          533,
+          675
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          13,
+          54,
+          543,
+          692
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          136,
+          512,
+          657
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_q_hit.png",
+      "binding": "view_effects `league_xerath_q_hit`（跟随，画在人物上面）",
+      "size": "14"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "横向冲击再碎散；需去辉光和对齐命中中心。",
+    "sha256": "ac91c55fff3172add0316ddee659c886a77eb47aed4b3c19841e8ce29ed1a7f0"
+  },
+  {
+    "id": "e_cast",
+    "file": "xerath_fx_e_cast.png",
+    "prompt_number": 13,
+    "expected_frames": 3,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      768,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 249888,
+    "bbox": [
+      33,
+      19,
+      2120,
+      724
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "alpha_bbox": [
+          33,
+          19,
+          724,
+          706
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          724,
+          0,
+          724,
+          724
+        ],
+        "alpha_bbox": [
+          15,
+          35,
+          700,
+          724
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1448,
+          0,
+          724,
+          724
+        ],
+        "alpha_bbox": [
+          9,
+          75,
+          672,
+          690
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_e_cast.png",
+      "binding": "view_effects `league_xerath_e_cast`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+      "size": "16"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 3,
+    "visual_notes": "三帧闪光与前向电弧；需清边。",
+    "sha256": "9276f752afa21527dd86e2a4eb701c03914476e32aa55e11c55513ff1948de3c"
+  },
+  {
+    "id": "e_orb",
+    "file": "xerath_fx_e_orb.png",
+    "prompt_number": 14,
+    "expected_frames": 4,
+    "actual_size": [
+      2048,
+      768
+    ],
+    "requested_size": [
+      1024,
+      192
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "semi_alpha_pixels": 281116,
+    "bbox": [
+      57,
+      35,
+      2032,
+      726
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          512,
+          768
+        ],
+        "alpha_bbox": [
+          57,
+          37,
+          512,
+          712
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          512,
+          0,
+          512,
+          768
+        ],
+        "alpha_bbox": [
+          0,
+          41,
+          512,
+          658
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1024,
+          0,
+          512,
+          768
+        ],
+        "alpha_bbox": [
+          0,
+          35,
+          512,
+          718
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1536,
+          0,
+          512,
+          768
+        ],
+        "alpha_bbox": [
+          1,
+          41,
+          496,
+          726
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_e_orb.png",
+      "binding": "view_projectiles `league_xerath_e_orb`（朝飞行方向转，画成朝右飞）",
+      "size": "16 × 12"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "朝右，电弧明显；宽半透明辉光需要收紧，alpha最大值254。",
+    "sha256": "54e449fc5040a4598d7445b072362e7fb49ce2045bc6da4a2310bc53b98c308e"
+  },
+  {
+    "id": "e_hit",
+    "file": "xerath_fx_e_hit.png",
+    "prompt_number": 15,
+    "expected_frames": 5,
+    "actual_size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1280,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 247067,
+    "bbox": [
+      31,
+      23,
+      1961,
+      769
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          397,
+          793
+        ],
+        "alpha_bbox": [
+          31,
+          122,
+          397,
+          743
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          397,
+          0,
+          396,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          34,
+          396,
+          761
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          793,
+          0,
+          397,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          24,
+          397,
+          762
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1190,
+          0,
+          396,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          23,
+          396,
+          769
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          1586,
+          0,
+          397,
+          793
+        ],
+        "alpha_bbox": [
+          0,
+          104,
+          375,
+          704
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_e_hit.png",
+      "binding": "view_effects `league_xerath_e_hit`（跟随，画在人物上面）",
+      "size": "22"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 5,
+    "visual_notes": "五帧爆点到残光；末帧碎光分布需要稳定中心。",
+    "sha256": "a1a10baf6ab5e85f3e614b38dc89c9e87b688ececacf66b0490d54a855743807"
+  },
+  {
+    "id": "e_stun",
+    "file": "xerath_fx_e_stun.png",
+    "prompt_number": 16,
+    "expected_frames": 4,
+    "actual_size": [
+      2097,
+      750
+    ],
+    "requested_size": [
+      896,
+      128
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 221555,
+    "bbox": [
+      33,
+      30,
+      2079,
+      724
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          524,
+          750
+        ],
+        "alpha_bbox": [
+          33,
+          30,
+          522,
+          701
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          524,
+          0,
+          524,
+          750
+        ],
+        "alpha_bbox": [
+          11,
+          98,
+          524,
+          693
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1048,
+          0,
+          525,
+          750
+        ],
+        "alpha_bbox": [
+          0,
+          97,
+          521,
+          707
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1573,
+          0,
+          524,
+          750
+        ],
+        "alpha_bbox": [
+          5,
+          99,
+          506,
+          724
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_e_stun.png",
+      "binding": "view_buffs `league_xerath_e_stun`（循环，画在人物上面，头顶）",
+      "size": "14 × 8"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "四帧中空椭圆环；左右非逐像素镜像，须对称化并校验循环。",
+    "sha256": "a69265a6c71444629aa66c30fa12e54b7b2f4985eca2490eb385a0b829ca0f85"
+  },
+  {
+    "id": "w_mark",
+    "file": "xerath_fx_w_mark.png",
+    "prompt_number": 17,
+    "expected_frames": 8,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      4096,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 329467,
+    "bbox": [
+      0,
+      65,
+      2172,
+      676
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          272,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          101,
+          272,
+          668
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          272,
+          0,
+          271,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          101,
+          271,
+          650
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          271,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          97,
+          271,
+          660
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          814,
+          0,
+          272,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          87,
+          272,
+          660
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          1086,
+          0,
+          272,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          87,
+          272,
+          660
+        ]
+      },
+      {
+        "index": 5,
+        "rect": [
+          1358,
+          0,
+          271,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          67,
+          271,
+          676
+        ]
+      },
+      {
+        "index": 6,
+        "rect": [
+          1629,
+          0,
+          271,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          69,
+          271,
+          660
+        ]
+      },
+      {
+        "index": 7,
+        "rect": [
+          1900,
+          0,
+          272,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          65,
+          272,
+          660
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_w_mark.png",
+      "binding": "view_effects `league_xerath_w_mark`（BIG，落点，不转；画在人物下面）",
+      "size": "56 × 28"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 8,
+    "visual_notes": "八帧预警递亮，末两帧白芯；椭圆比例与相邻帧安全间隔需重排。",
+    "sha256": "00002c1d8f498406e64cc34cf0a609d422ff258201eaaf0ffa21da34613990e1"
+  },
+  {
+    "id": "w_blast",
+    "file": "xerath_fx_w_blast.png",
+    "prompt_number": 18,
+    "expected_frames": 6,
+    "actual_size": [
+      2171,
+      724
+    ],
+    "requested_size": [
+      2112,
+      576
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 486851,
+    "bbox": [
+      23,
+      9,
+      2171,
+      724
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          23,
+          26,
+          362,
+          709
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          362,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          23,
+          362,
+          708
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          724,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          43,
+          362,
+          724
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          361,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          47,
+          361,
+          724
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          1447,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          19,
+          362,
+          644
+        ]
+      },
+      {
+        "index": 5,
+        "rect": [
+          1809,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          9,
+          362,
+          724
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_w_blast.png",
+      "binding": "view_effects `league_xerath_w_blast`（BIG，落点，不转；画在人物上面）",
+      "size": "44 × 72"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 6,
+    "visual_notes": "六帧垂直落雷到消散；亮柱顶部平切，需决定是否接受上边界截断。",
+    "sha256": "db916905e05c4723368ae61f49519a4300366a6bdf78d76873075ea6325436f8"
+  },
+  {
+    "id": "w_hit",
+    "file": "xerath_fx_w_hit.png",
+    "prompt_number": 19,
+    "expected_frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 357681,
+    "bbox": [
+      17,
+      18,
+      2150,
+      724
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          17,
+          128,
+          535,
+          644
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          15,
+          18,
+          519,
+          724
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          5,
+          40,
+          543,
+          724
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          146,
+          521,
+          656
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_w_hit.png",
+      "binding": "view_effects `league_xerath_w_hit`（跟随，画在人物上面）",
+      "size": "16"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "四帧地面爆裂；末帧仍有较明显亮块，需核对淡出节奏。",
+    "sha256": "80996dd9fc9a653157b1ab7e2ea558eee7e3c2d7d476f37109378d697afcf9ad"
+  },
+  {
+    "id": "w_slow",
+    "file": "xerath_fx_w_slow.png",
+    "prompt_number": 20,
+    "expected_frames": 4,
+    "actual_size": [
+      1881,
+      836
+    ],
+    "requested_size": [
+      2304,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 163781,
+    "bbox": [
+      17,
+      31,
+      1864,
+      812
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          470,
+          836
+        ],
+        "alpha_bbox": [
+          17,
+          83,
+          468,
+          812
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          470,
+          0,
+          470,
+          836
+        ],
+        "alpha_bbox": [
+          3,
+          31,
+          470,
+          780
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          940,
+          0,
+          471,
+          836
+        ],
+        "alpha_bbox": [
+          1,
+          232,
+          467,
+          804
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1411,
+          0,
+          470,
+          836
+        ],
+        "alpha_bbox": [
+          3,
+          148,
+          453,
+          770
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_w_slow.png",
+      "binding": "view_buffs `league_xerath_w_slow`（循环，画在脚下）",
+      "size": "18 × 8"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "采用第二次生图，光条稍短；仍主要为两簇而非四根独立短条，首尾高度变化明显，须补齐四条并修循环、镜像。",
+    "sha256": "38b1f5437dece80f1050980fbb4c7266d45aba9e6fe26c44f2a1d858591f71a2"
+  },
+  {
+    "id": "r_rise",
+    "file": "xerath_fx_r_rise.png",
+    "prompt_number": 21,
+    "expected_frames": 6,
+    "actual_size": [
+      1958,
+      803
+    ],
+    "requested_size": [
+      2496,
+      576
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 705181,
+    "bbox": [
+      0,
+      15,
+      1958,
+      803
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          326,
+          803
+        ],
+        "alpha_bbox": [
+          0,
+          44,
+          326,
+          803
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          326,
+          0,
+          327,
+          803
+        ],
+        "alpha_bbox": [
+          0,
+          15,
+          327,
+          803
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          653,
+          0,
+          326,
+          803
+        ],
+        "alpha_bbox": [
+          0,
+          23,
+          326,
+          803
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          979,
+          0,
+          326,
+          803
+        ],
+        "alpha_bbox": [
+          0,
+          25,
+          326,
+          803
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          1305,
+          0,
+          327,
+          803
+        ],
+        "alpha_bbox": [
+          0,
+          20,
+          327,
+          803
+        ]
+      },
+      {
+        "index": 5,
+        "rect": [
+          1632,
+          0,
+          326,
+          803
+        ],
+        "alpha_bbox": [
+          0,
+          24,
+          326,
+          803
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_r_rise.png",
+      "binding": "view_effects `league_xerath_r_rise`（BIG，施法者身上，跟随；格子里的站位点放到他脚下）",
+      "size": "52 × 72"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 6,
+    "visual_notes": "六帧侧柱升腾，采用首次原稿；第4帧中央有亮雾，须擦除人物留空，全部帧镜像修整。重试未解决，保留备选。",
+    "sha256": "6ce6be4adb76926e85819a46a9ca8b87d9f88a84b6741acdabc1ea408b8d098e"
+  },
+  {
+    "id": "r_chan",
+    "file": "xerath_fx_r_chan.png",
+    "prompt_number": 22,
+    "expected_frames": 6,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      3072,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 369717,
+    "bbox": [
+      0,
+      31,
+      2172,
+      688
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          32,
+          362,
+          676
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          362,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          31,
+          362,
+          688
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          724,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          49,
+          362,
+          676
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          53,
+          362,
+          670
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          1448,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          52,
+          362,
+          675
+        ]
+      },
+      {
+        "index": 5,
+        "rect": [
+          1810,
+          0,
+          362,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          53,
+          362,
+          674
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_r_chan.png",
+      "binding": "view_buffs `league_xerath_r_chan`（BIG，循环，画在人物下面）",
+      "size": "48 × 24"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 6,
+    "visual_notes": "六帧中空符文椭圆；环内符文、浮光未完全镜像，循环须核验。",
+    "sha256": "f6da2d3ff36bae511e3132dbf1e0184f930fdc58aa98fa2f5e376f5ebc562593"
+  },
+  {
+    "id": "r_cast_shot",
+    "file": "xerath_fx_r_cast_shot.png",
+    "prompt_number": 23,
+    "expected_frames": 3,
+    "actual_size": [
+      1942,
+      809
+    ],
+    "requested_size": [
+      768,
+      320
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 294776,
+    "bbox": [
+      39,
+      0,
+      1928,
+      809
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          647,
+          809
+        ],
+        "alpha_bbox": [
+          39,
+          0,
+          644,
+          809
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          647,
+          0,
+          648,
+          809
+        ],
+        "alpha_bbox": [
+          2,
+          13,
+          647,
+          809
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1295,
+          0,
+          647,
+          809
+        ],
+        "alpha_bbox": [
+          0,
+          33,
+          633,
+          809
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_r_cast_shot.png",
+      "binding": "view_effects `league_xerath_r_cast_shot`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+      "size": "16 × 20"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 3,
+    "visual_notes": "三帧向上能量发射后衰减；第一帧触及顶部，需要明确出手原点与裁切。",
+    "sha256": "330ac8e6215678a75f2fc7a87a68796c465cb9f17349d2a81718b8438df1ce62"
+  },
+  {
+    "id": "r_end",
+    "file": "xerath_fx_r_end.png",
+    "prompt_number": 24,
+    "expected_frames": 4,
+    "actual_size": [
+      2048,
+      768
+    ],
+    "requested_size": [
+      1024,
+      384
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      253
+    ],
+    "semi_alpha_pixels": 695653,
+    "bbox": [
+      0,
+      0,
+      2048,
+      768
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          512,
+          768
+        ],
+        "alpha_bbox": [
+          0,
+          0,
+          512,
+          768
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          512,
+          0,
+          512,
+          768
+        ],
+        "alpha_bbox": [
+          0,
+          0,
+          512,
+          768
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1024,
+          0,
+          512,
+          768
+        ],
+        "alpha_bbox": [
+          0,
+          0,
+          512,
+          768
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1536,
+          0,
+          512,
+          768
+        ],
+        "alpha_bbox": [
+          0,
+          1,
+          512,
+          768
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_r_end.png",
+      "binding": "view_effects `league_xerath_r_end`（施法者身上，不跟随；格子里的站位点放到他脚下）",
+      "size": "32 × 48"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "四帧两侧符文下降消散，中间留空；有宽半透明光晕，须去光晕与对称化。",
+    "sha256": "b005841d41a45cf7f7c345c7650e2d5f980c09634750a8117225d641a5071fe8"
+  },
+  {
+    "id": "r_mark",
+    "file": "xerath_fx_r_mark.png",
+    "prompt_number": 25,
+    "expected_frames": 7,
+    "actual_size": [
+      2079,
+      756
+    ],
+    "requested_size": [
+      3584,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 274522,
+    "bbox": [
+      0,
+      37,
+      2078,
+      691
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          297,
+          756
+        ],
+        "alpha_bbox": [
+          0,
+          37,
+          297,
+          635
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          297,
+          0,
+          297,
+          756
+        ],
+        "alpha_bbox": [
+          0,
+          81,
+          297,
+          571
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          594,
+          0,
+          297,
+          756
+        ],
+        "alpha_bbox": [
+          0,
+          53,
+          297,
+          642
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          891,
+          0,
+          297,
+          756
+        ],
+        "alpha_bbox": [
+          0,
+          114,
+          297,
+          642
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          1188,
+          0,
+          297,
+          756
+        ],
+        "alpha_bbox": [
+          0,
+          105,
+          295,
+          635
+        ]
+      },
+      {
+        "index": 5,
+        "rect": [
+          1485,
+          0,
+          297,
+          756
+        ],
+        "alpha_bbox": [
+          3,
+          99,
+          287,
+          691
+        ]
+      },
+      {
+        "index": 6,
+        "rect": [
+          1782,
+          0,
+          297,
+          756
+        ],
+        "alpha_bbox": [
+          6,
+          103,
+          296,
+          654
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_r_mark.png",
+      "binding": "view_effects `league_xerath_r_mark`（BIG，落点，不转；画在人物下面）",
+      "size": "40 × 20"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 7,
+    "visual_notes": "七帧椭圆靶圈递亮；中央白芯明显，需统一宽高2:1与中心。",
+    "sha256": "2a7d977211e1207a251fbb2343583df03b4b0898f396f315421479c34973164a"
+  },
+  {
+    "id": "r_bolt",
+    "file": "xerath_fx_r_bolt.png",
+    "prompt_number": 26,
+    "expected_frames": 7,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1792,
+      448
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 438143,
+    "bbox": [
+      29,
+      0,
+      2154,
+      724
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          310,
+          724
+        ],
+        "alpha_bbox": [
+          29,
+          0,
+          306,
+          690
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          310,
+          0,
+          311,
+          724
+        ],
+        "alpha_bbox": [
+          21,
+          17,
+          311,
+          686
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          621,
+          0,
+          310,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          87,
+          310,
+          694
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          931,
+          0,
+          310,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          15,
+          310,
+          704
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          1241,
+          0,
+          310,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          23,
+          310,
+          724
+        ]
+      },
+      {
+        "index": 5,
+        "rect": [
+          1551,
+          0,
+          311,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          77,
+          311,
+          700
+        ]
+      },
+      {
+        "index": 6,
+        "rect": [
+          1862,
+          0,
+          310,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          194,
+          292,
+          686
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_r_bolt.png",
+      "binding": "view_effects `league_xerath_r_bolt`（BIG，落点，不转；画在人物上面）",
+      "size": "48 × 84"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 7,
+    "visual_notes": "七帧垂直下落、地面炸开、烟尘衰减；烟尘暗色边需按能量无描边规则清理。",
+    "sha256": "e05068bfef4fb8ee0959b29d06d284a24ffef2b32afff36271366e05674f4c18"
+  },
+  {
+    "id": "r_hit",
+    "file": "xerath_fx_r_hit.png",
+    "prompt_number": 27,
+    "expected_frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "exact_requested_size": false,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "semi_alpha_pixels": 422192,
+    "bbox": [
+      0,
+      15,
+      2156,
+      724
+    ],
+    "equal_partition_frames": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          15,
+          543,
+          689
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          23,
+          543,
+          724
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          19,
+          543,
+          708
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "alpha_bbox": [
+          0,
+          22,
+          527,
+          724
+        ]
+      }
+    ],
+    "binding": {
+      "file": "xerath_fx_r_hit.png",
+      "binding": "view_effects `league_xerath_r_hit`（跟随，画在人物上面）",
+      "size": "18"
+    },
+    "status": "raw_generated; frame partitions provisional; import cleanup required",
+    "visually_observed_frames": 4,
+    "visual_notes": "四帧白爆、扩环、断裂、余光；需减去粒子周边暗蓝边。",
+    "sha256": "68dad1e4ef6267c50f1774dba5e5fba76fd7cc65954112df5f75d27a15e323ad"
+  }
+]

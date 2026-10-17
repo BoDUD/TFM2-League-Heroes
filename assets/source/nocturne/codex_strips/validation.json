@@ -1,0 +1,288 @@
+{
+  "passed": true,
+  "new_frames": 50,
+  "all_frames": 56,
+  "animations": {
+    "idle": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "provided_idle_byte_identical": true
+      },
+      "frames": 6,
+      "duration_ms": [
+        180,
+        180,
+        180,
+        180,
+        180,
+        180
+      ],
+      "opaque_colour_count": 20
+    },
+    "run": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "head_x_fixed_relative_to_pivot": true,
+        "body_bob_at_most_one_pixel": true,
+        "genuine_pose_variation": true
+      },
+      "frames": 8,
+      "duration_ms": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "opaque_colour_count": 20
+    },
+    "attack": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "genuine_pose_variation": true
+      },
+      "frames": 6,
+      "duration_ms": [
+        60,
+        60,
+        60,
+        70,
+        80,
+        90
+      ],
+      "opaque_colour_count": 20
+    },
+    "attack_p": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "genuine_pose_variation": true
+      },
+      "frames": 6,
+      "duration_ms": [
+        60,
+        60,
+        70,
+        80,
+        80,
+        90
+      ],
+      "opaque_colour_count": 20
+    },
+    "skill": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "genuine_pose_variation": true
+      },
+      "frames": 5,
+      "duration_ms": [
+        60,
+        70,
+        70,
+        80,
+        100
+      ],
+      "opaque_colour_count": 20
+    },
+    "skill2": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "genuine_pose_variation": true
+      },
+      "frames": 5,
+      "duration_ms": [
+        60,
+        70,
+        70,
+        80,
+        100
+      ],
+      "opaque_colour_count": 20
+    },
+    "ult": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "genuine_pose_variation": true
+      },
+      "frames": 6,
+      "duration_ms": [
+        60,
+        70,
+        155,
+        155,
+        155,
+        155
+      ],
+      "opaque_colour_count": 20
+    },
+    "ult_hit": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "genuine_pose_variation": true
+      },
+      "frames": 4,
+      "duration_ms": [
+        80,
+        80,
+        80,
+        100
+      ],
+      "opaque_colour_count": 20
+    },
+    "hit": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "genuine_pose_variation": true
+      },
+      "frames": 2,
+      "duration_ms": [
+        100,
+        100
+      ],
+      "opaque_colour_count": 20
+    },
+    "dead": {
+      "passed": true,
+      "checks": {
+        "size_exact": true,
+        "strict_8x8_grid": true,
+        "binary_alpha": true,
+        "approved_palette_only": true,
+        "unused_cells_empty": true,
+        "head_pixels_exact": true,
+        "white_only_at_eyes": true,
+        "floor_valid": true,
+        "connected_silhouettes": true,
+        "frame_count_exact": true,
+        "duration_exact": true,
+        "pivot_exact": true,
+        "genuine_pose_variation": true,
+        "last_frame_no_head": true,
+        "last_frame_no_white_eyes": true
+      },
+      "frames": 8,
+      "duration_ms": [
+        100,
+        100,
+        100,
+        120,
+        120,
+        150,
+        200,
+        400
+      ],
+      "opaque_colour_count": 20
+    }
+  },
+  "scope": "pixel assets and import metadata; not a game-runtime verification"
+}

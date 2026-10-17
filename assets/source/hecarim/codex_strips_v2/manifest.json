@@ -1,0 +1,688 @@
+[
+  {
+    "tag": "run",
+    "frame": 1,
+    "of": 8,
+    "ms": 85,
+    "file": "run_1.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "6d4fabdb886937ea1e6b07e4e8a0c193f884e2d9c798cb2469997ed27dc8a632",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "run",
+    "frame": 2,
+    "of": 8,
+    "ms": 85,
+    "file": "run_2.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "4ce2122a7fafcdb2b7f3ad896df006cbb615209ab8e1bd4d1552e0fe70814f91",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "run",
+    "frame": 3,
+    "of": 8,
+    "ms": 85,
+    "file": "run_3.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "15099aef2e052198e276bc06516b68117e7f4dbd35b778efdf21286509f6db89",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "run",
+    "frame": 4,
+    "of": 8,
+    "ms": 85,
+    "file": "run_4.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "d58941808e0c0f68b08d7f11d3821a0f91695ec8436ef3d2e76e981aafca02a2",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "run",
+    "frame": 5,
+    "of": 8,
+    "ms": 85,
+    "file": "run_5.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "c6819e8a0523a280300ef75af4b15030c75185615aa217287c9cd8afbe254c74",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "run",
+    "frame": 6,
+    "of": 8,
+    "ms": 85,
+    "file": "run_6.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "4d1b54ee79b1684dcd28e587c558bf678424b069b78b802b42f34341ac2ab3a5",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "run",
+    "frame": 7,
+    "of": 8,
+    "ms": 85,
+    "file": "run_7.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "7c1959f42df0615af59c079dad1bad36ed66850774228647ab58470727a198b6",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "run",
+    "frame": 8,
+    "of": 8,
+    "ms": 85,
+    "file": "run_8.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "5a266af98fbdd68138ee28cc507768382e5452e7e5c174414ebfbbd74d814ba4",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "attack",
+    "frame": 1,
+    "of": 6,
+    "ms": 60,
+    "file": "attack_1.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "0f66e35008a57895a4a1d4f2d27626cffb5bce8c9b66118d186cb95c5e6474ed",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "attack",
+    "frame": 2,
+    "of": 6,
+    "ms": 60,
+    "file": "attack_2.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "ad30945c3c6ec6c92dcc3276b6c0b64de5c2ee0fce2c9663e925c0cdf6cc2efe",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "attack",
+    "frame": 3,
+    "of": 6,
+    "ms": 70,
+    "file": "attack_3.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "6f2334ffeeb9d5f207c75159ab22148460a44eb3b0f0c698148b0cdece8288e1",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "attack",
+    "frame": 4,
+    "of": 6,
+    "ms": 70,
+    "file": "attack_4.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "4ac88ca11f83a107dd943caf8ad55daaf19c7e286c5369993a1bb9170eb7b42b",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "attack",
+    "frame": 5,
+    "of": 6,
+    "ms": 70,
+    "file": "attack_5.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "f94428ea5fb82184b1b5af81312e4370f5b8e99363ffabd7064a354a71ced9f9",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "attack",
+    "frame": 6,
+    "of": 6,
+    "ms": 80,
+    "file": "attack_6.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "9e0660ae0073f57a8d524c333f740c05f0c71f1806116a5c6d894013d59ff3b3",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill",
+    "frame": 1,
+    "of": 7,
+    "ms": 50,
+    "file": "skill_1.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "e1561be856fb454df2e3418420216a7c8f52769613bbbdd95d8b6e40214ab370",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill",
+    "frame": 2,
+    "of": 7,
+    "ms": 50,
+    "file": "skill_2.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "1bc8e775ecc1b5aa31a8a2037e54e3b4d706e0e2be0b8ad0a96f4f4d06196774",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill",
+    "frame": 3,
+    "of": 7,
+    "ms": 55,
+    "file": "skill_3.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "59af6f4f1c555cb1d779f1fae263980cbe92d5612b0f8656ccfb8694919230fd",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill",
+    "frame": 4,
+    "of": 7,
+    "ms": 55,
+    "file": "skill_4.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "f288d5144ed3e7e56f9c11745550049bb56f405d75624d88eacc09a62bd683dd",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill",
+    "frame": 5,
+    "of": 7,
+    "ms": 60,
+    "file": "skill_5.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "32745b702a5e5ff95e10d049f6b0d5209ac92c2dd7aac5eb87a40a6511181cdf",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill",
+    "frame": 6,
+    "of": 7,
+    "ms": 60,
+    "file": "skill_6.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "6d62ea863b644b8c7ef364f6a40cb55602dd1cfc423c9e0d200bb1862dea8841",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill",
+    "frame": 7,
+    "of": 7,
+    "ms": 70,
+    "file": "skill_7.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "cf8a5bc5c1eb33364ca4f90b29a6b9a302165ca5a0f32fa3cf7baac1257d7b13",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2",
+    "frame": 1,
+    "of": 7,
+    "ms": 60,
+    "file": "skill2_1.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "e0bcff8b7dd6623167eb4fa6e13be1ddd2e5b5ff3ec10f1f7af427a6bb59f756",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2",
+    "frame": 2,
+    "of": 7,
+    "ms": 75,
+    "file": "skill2_2.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "6f187333b521e964b0754875ad80a8a0e4309041d93285a30c3e5f0e1617b428",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2",
+    "frame": 3,
+    "of": 7,
+    "ms": 75,
+    "file": "skill2_3.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "6a3cae83faea562185b61eac9c65146a380555afa6805a86f439c65c80469608",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2",
+    "frame": 4,
+    "of": 7,
+    "ms": 75,
+    "file": "skill2_4.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "120174bd526028072353df2ae63531666b7664b8f129c7df10570cf28d1cd5d5",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2",
+    "frame": 5,
+    "of": 7,
+    "ms": 75,
+    "file": "skill2_5.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "1d9951595f14a86dca477dd1de2db1d2684774d597ee6bc972ca869211be9f82",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2",
+    "frame": 6,
+    "of": 7,
+    "ms": 75,
+    "file": "skill2_6.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "76424687d68563c0ff722e4a0ea54ad182f8e91a50d92bb214e92662e8daf8db",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2",
+    "frame": 7,
+    "of": 7,
+    "ms": 75,
+    "file": "skill2_7.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "8e7c299b8ed771a78084ef97cc049b736a12792d09363839f57d58889b01fd61",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2_hit",
+    "frame": 1,
+    "of": 4,
+    "ms": 50,
+    "file": "skill2_hit_1.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "5ece5ae95ad66313af0dd2ea864fc478e9a1e4e0fe5c2bb7fcda608b60db42ca",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2_hit",
+    "frame": 2,
+    "of": 4,
+    "ms": 50,
+    "file": "skill2_hit_2.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "57c99c7569d27047ad29ddba752a1722b419caa8edf20897863b01acde70cd6f",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2_hit",
+    "frame": 3,
+    "of": 4,
+    "ms": 60,
+    "file": "skill2_hit_3.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "a80a3a97a47ce8ae26c56f05602d0fd19676752899beaee77dd1b98ebc31f42b",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "skill2_hit",
+    "frame": 4,
+    "of": 4,
+    "ms": 70,
+    "file": "skill2_hit_4.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "ed0116f0d6e922ab82c37465543c676ef5060dd33b6bc833b68edec7d55c4127",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "ult",
+    "frame": 1,
+    "of": 7,
+    "ms": 50,
+    "file": "ult_1.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "66754e3b2b25788184d12b439199628d747edcdeaf4091cc72f0f8d0f0090b74",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "ult",
+    "frame": 2,
+    "of": 7,
+    "ms": 60,
+    "file": "ult_2.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "51b7e311d5fd5e0976794c34d3afab802fc14491e36f0a7a18acfe87ceb1f96f",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "ult",
+    "frame": 3,
+    "of": 7,
+    "ms": 60,
+    "file": "ult_3.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "fd1ad76f9765240bb0fe97aeb6fc22b9ccbaf8b317480d490f0a76b188f99735",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "ult",
+    "frame": 4,
+    "of": 7,
+    "ms": 80,
+    "file": "ult_4.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "236495d76bc9ac3fb517881bc877ad9bb2abedcd3220a81cffdfad57b404790b",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "ult",
+    "frame": 5,
+    "of": 7,
+    "ms": 80,
+    "file": "ult_5.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "fe2f3a00989bd324e7578ef631eebf2577a9dbf24a94c967df537c877a111684",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "ult",
+    "frame": 6,
+    "of": 7,
+    "ms": 80,
+    "file": "ult_6.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "24a6021b7d94408786bd76286a578849de5ea606d013770b202f5d8fb7902dca",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "ult",
+    "frame": 7,
+    "of": 7,
+    "ms": 90,
+    "file": "ult_7.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "8e391312d4262c4d98ddd0075d99f0f0416968729138a6eddd74babcac3a2033",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "hit",
+    "frame": 1,
+    "of": 2,
+    "ms": 120,
+    "file": "hit_1.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "3892882a5df72e87b4e7f721f8ba2bb19694fe3acf0f953cb3c2721d01159e07",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "hit",
+    "frame": 2,
+    "of": 2,
+    "ms": 120,
+    "file": "hit_2.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "cdf298468014eb6e39dfd355535a64252fc0d85329c905ccdadaa7e9441ce1e6",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "dead",
+    "frame": 1,
+    "of": 8,
+    "ms": 100,
+    "file": "dead_1.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "1fad3ed95b57a19ea74f457c080b7a0317c15343278f71bef87c18b1ff863dcc",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "dead",
+    "frame": 2,
+    "of": 8,
+    "ms": 100,
+    "file": "dead_2.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "15bc2254f980f83fa8644c3b2344cb8b83f57a301ddbde60ed8b6e71988c2744",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "dead",
+    "frame": 3,
+    "of": 8,
+    "ms": 100,
+    "file": "dead_3.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "05555edb6a3b07976b886d29e5cf7278729aef9178bd34352d8d83a0ddd4d498",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "dead",
+    "frame": 4,
+    "of": 8,
+    "ms": 120,
+    "file": "dead_4.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "ae96dbbf3776530aec3eb6841aed4301b4d3ad6050b52b706e3e6b0d67eea0ac",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "dead",
+    "frame": 5,
+    "of": 8,
+    "ms": 150,
+    "file": "dead_5.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "591095a1a54ea4c8066baf9cdcc215eec89c67227820731a1c60e1aa963006b1",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "dead",
+    "frame": 6,
+    "of": 8,
+    "ms": 150,
+    "file": "dead_6.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "813e683db65a2fcd32411892f37e7a96bbac48674f5dda2969076b48ae9af107",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "dead",
+    "frame": 7,
+    "of": 8,
+    "ms": 200,
+    "file": "dead_7.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "65a5ebaffc7cd90f789ac28d269f80922ce3ea1302e3dd045fcaa4f83813dcda",
+    "raw_unchanged": true
+  },
+  {
+    "tag": "dead",
+    "frame": 8,
+    "of": 8,
+    "ms": 500,
+    "file": "dead_8.png",
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "sha256": "181452afe1dc0016f3351f1d53b76f6e04ed7c23f6c8b2175d74d64da3d99c9a",
+    "raw_unchanged": true
+  }
+]

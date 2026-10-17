@@ -1,0 +1,190 @@
+{
+ "labels": {
+  "#FFE000": "head",
+  "#00B4FF": "hair",
+  "#FF8000": "torso",
+  "#00E040": "far_arm",
+  "#FF00FF": "near_arm",
+  "#5050FF": "far_leg",
+  "#E02020": "near_leg",
+  "#FFFFFF": "scythe"
+ },
+ "joints": {
+  "head": [
+   63,
+   70
+  ],
+  "hair": [
+   55,
+   71
+  ],
+  "torso": [
+   63,
+   86
+  ],
+  "far_arm": [
+   56,
+   73
+  ],
+  "near_arm": [
+   71,
+   76
+  ],
+  "far_leg": [
+   61,
+   88
+  ],
+  "near_leg": [
+   68,
+   89
+  ],
+  "scythe": [
+   54,
+   81
+  ]
+ },
+ "order": [
+  "hair",
+  "far_leg",
+  "near_leg",
+  "torso",
+  "scythe",
+  "far_arm",
+  "near_arm",
+  "head"
+ ],
+ "sprites": {
+  "scythe_whole": {
+   "joint": [
+    21,
+    14
+   ]
+  },
+  "legs_crouch": {
+   "joint": [
+    7,
+    5
+   ],
+   "drop": 4,
+   "low": 9
+  },
+  "legs_lunge": {
+   "joint": [
+    16,
+    4
+   ],
+   "drop": 3,
+   "low": 10
+  },
+  "legs_tuck": {
+   "joint": [
+    5,
+    6
+   ],
+   "drop": 0,
+   "low": 9
+  },
+  "legs_hang": {
+   "joint": [
+    6,
+    5
+   ],
+   "drop": 0,
+   "low": 14
+  },
+  "legs_kneel": {
+   "joint": [
+    12,
+    5
+   ],
+   "drop": 5,
+   "low": 8
+  },
+  "scythe_long": {
+   "joint": [
+    27,
+    14
+   ],
+   "note": "the shadow design's whole scythe laid straight (blade = scythe_whole turned +29 deg, shaft redrawn straight in the design's shaft colours): pommel left, blade right, joint = grip on the shaft (core rows = joint row and the row below). Use on 'scythe': ['sprite', 'scythe_long'] then rot/flip/deg/at - quarter turns stay clean (made for sh_ult_exit by poses/sh_ue/make_long.py)."
+  }
+ },
+ "front": [
+  {
+   "part": "torso",
+   "over": "scythe",
+   "pixels": [
+    [
+     66,
+     84
+    ],
+    [
+     66,
+     85
+    ],
+    [
+     67,
+     85
+    ],
+    [
+     61,
+     86
+    ],
+    [
+     64,
+     86
+    ],
+    [
+     65,
+     86
+    ],
+    [
+     66,
+     86
+    ],
+    [
+     67,
+     86
+    ],
+    [
+     70,
+     86
+    ],
+    [
+     63,
+     87
+    ],
+    [
+     64,
+     87
+    ],
+    [
+     65,
+     87
+    ],
+    [
+     66,
+     87
+    ],
+    [
+     70,
+     87
+    ],
+    [
+     65,
+     88
+    ],
+    [
+     66,
+     88
+    ]
+   ]
+  }
+ ],
+ "hips": {
+  "joint": [
+   63,
+   86
+  ],
+  "note": "Leg pairs (legs_*): both legs in one sprite, joint = the hips' middle, which goes on the design's hips' middle (canvas 63, 86 = the torso joint). Use the pseudo-part 'hips': put 'hips' in the frame's 'order' where 'far_leg' was and leave out 'far_leg' and 'near_leg' (or 'hide' them), parts {'hips': [['sprite', 'legs_crouch', [63, 86]], ...more ops]}, and 'move': [0, drop] (the sprite's 'drop') so the hips come down with the body and the soles stand on the soles' row (legs_crouch/lunge/kneel; tuck and hang are airborne, 'low' = rows from the joint to the sprite's lowest pixel). The sash and robe (torso) stay drawn over the hips. Drawn by work/ka/legs_shadow.py."
+ }
+}

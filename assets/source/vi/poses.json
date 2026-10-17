@@ -1,0 +1,334 @@
+{
+ "hero": "vi",
+ "champ": "Vi",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 3.0,
+  "legs": 0.8,
+  "hair": 1.0,
+  "scale": {
+   "L_Elbow": 1.3,
+   "R_Elbow": 1.3
+  }
+ },
+ "hide_submeshes": true,
+ "height": 40,
+ "cell": [
+  96,
+  88,
+  12
+ ],
+ "design": "vi_recall@800",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "vi_recall@800",
+     200
+    ],
+    [
+     "vi_recall@800",
+     200
+    ],
+    [
+     "vi_recall@800",
+     200
+    ],
+    [
+     "vi_recall@800",
+     200
+    ],
+    [
+     "vi_recall@800",
+     200
+    ],
+    [
+     "vi_recall@800",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "vi_recall@800",
+   "frames": [
+    [
+     "vi_run1@0",
+     105
+    ],
+    [
+     "vi_run1@105",
+     105
+    ],
+    [
+     "vi_run1@210",
+     105
+    ],
+    [
+     "vi_run1@315",
+     105
+    ],
+    [
+     "vi_run1@420",
+     105
+    ],
+    [
+     "vi_run1@525",
+     105
+    ],
+    [
+     "vi_run1@630",
+     105
+    ],
+    [
+     "vi_run1@735",
+     105
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "head_like": "vi_recall@800",
+   "frames": [
+    [
+     "vi_recall@800>vi_attack1@150:0.6",
+     60
+    ],
+    [
+     "vi_attack1@230",
+     60
+    ],
+    [
+     "vi_attack1@300",
+     70
+    ],
+    [
+     "vi_attack1@380",
+     70
+    ],
+    [
+     "vi_attack1@500",
+     70
+    ],
+    [
+     "vi_attack1@650>vi_recall@800:0.5",
+     70
+    ]
+   ]
+  },
+  "attack_e": {
+   "lunge": 0.3,
+   "head_like": "vi_recall@800",
+   "frames": [
+    [
+     "vi_recall@800>vi_spell3@100:0.6",
+     60
+    ],
+    [
+     "vi_spell3@250",
+     60,
+     {
+      "turn": -20
+     }
+    ],
+    [
+     "vi_spell3@330",
+     50,
+     {
+      "turn": -45
+     }
+    ],
+    [
+     "vi_spell3@420",
+     80,
+     {
+      "turn": -45
+     }
+    ],
+    [
+     "vi_spell3@600",
+     80,
+     {
+      "turn": -45
+     }
+    ],
+    [
+     "vi_spell3@900>vi_recall@800:0.5",
+     70,
+     {
+      "turn": -20
+     }
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "head_like": "vi_recall@800",
+   "frames": [
+    [
+     "vi_recall@800>vi_spell1_idleintro@200:0.5",
+     125
+    ],
+    [
+     "vi_spell1_idleintro@600",
+     125
+    ],
+    [
+     "vi_spell1_idleintro@1000",
+     125
+    ],
+    [
+     "vi_spell1_idleintro@1400",
+     125
+    ]
+   ]
+  },
+  "skill_dash": {
+   "lunge": 0.3,
+   "head_like": "vi_recall@800",
+   "frames": [
+    [
+     "vi_spell1@90",
+     90
+    ],
+    [
+     "vi_spell1@270",
+     90
+    ],
+    [
+     "vi_spell1@450",
+     87
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "head_like": "vi_recall@800",
+   "frames": [
+    [
+     "vi_recall@800>vi_spell4@200:0.6",
+     66
+    ],
+    [
+     "vi_spell4@500",
+     67
+    ]
+   ]
+  },
+  "ult_dash": {
+   "lunge": 0.3,
+   "head_like": "vi_recall@800",
+   "frames": [
+    [
+     "vi_spell4_run@0",
+     125
+    ],
+    [
+     "vi_spell4_run@125",
+     125
+    ],
+    [
+     "vi_spell4_run@250",
+     125
+    ],
+    [
+     "vi_spell4_run@375",
+     125
+    ],
+    [
+     "vi_spell4_run@500",
+     125
+    ],
+    [
+     "vi_spell4_run@625",
+     125
+    ]
+   ]
+  },
+  "ult_slam": {
+   "lunge": 0.3,
+   "rise": 0.25,
+   "head_like": "vi_recall@800",
+   "frames": [
+    [
+     "vi_spell4_hit@0",
+     60
+    ],
+    [
+     "vi_spell4_hit@90",
+     70
+    ],
+    [
+     "vi_spell4_hit@630",
+     70
+    ],
+    [
+     "vi_spell4_hit@720",
+     70
+    ],
+    [
+     "vi_spell4_hit@850>vi_recall@800:0.4",
+     63
+    ]
+   ]
+  },
+  "hit": {
+   "head_like": "vi_recall@800",
+   "frames": [
+    [
+     "vi_recall@800>vi_death@300:0.35",
+     100
+    ],
+    [
+     "vi_recall@800>vi_death@300:0.15",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "flat": true,
+   "travel": 0.3,
+   "rise": 0.3,
+   "frames": [
+    [
+     "vi_death@300",
+     100
+    ],
+    [
+     "vi_death@600",
+     100
+    ],
+    [
+     "vi_death@900",
+     110
+    ],
+    [
+     "vi_death@1200",
+     120
+    ],
+    [
+     "vi_death@1500",
+     130
+    ],
+    [
+     "vi_death@2100",
+     150
+    ],
+    [
+     "vi_death@2500",
+     200
+    ],
+    [
+     "vi_death@3100",
+     500
+    ]
+   ]
+  }
+ }
+}

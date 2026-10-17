@@ -1,0 +1,254 @@
+{
+"kayle_idle_01": {
+"eyes_x": 32.5,
+"body_low": 93
+},
+"kayle_idle_02": {
+"eyes_x": 32.5,
+"body_low": 93
+},
+"kayle_idle_03": {
+"eyes_x": 32.5,
+"body_low": 93
+},
+"kayle_idle_04": {
+"eyes_x": 32.5,
+"body_low": 93
+},
+"kayle_idle_05": {
+"eyes_x": 32.5,
+"body_low": 93
+},
+"kayle_idle_06": {
+"eyes_x": 32.5,
+"body_low": 93
+},
+"kayle_run_01": {
+"eyes_x": 29.9,
+"body_low": 83
+},
+"kayle_run_02": {
+"eyes_x": 30.3,
+"body_low": 89
+},
+"kayle_run_03": {
+"eyes_x": 30.7,
+"body_low": 94
+},
+"kayle_run_04": {
+"eyes_x": 31.3,
+"body_low": 95
+},
+"kayle_run_05": {
+"eyes_x": 31.8,
+"body_low": 92
+},
+"kayle_run_06": {
+"eyes_x": 32.0,
+"body_low": 85
+},
+"kayle_run_07": {
+"eyes_x": 32.2,
+"body_low": 81
+},
+"kayle_run_08": {
+"eyes_x": 32.7,
+"body_low": 79
+},
+"kayle_run_09": {
+"eyes_x": 32.7,
+"body_low": 81
+},
+"kayle_run_10": {
+"eyes_x": 31.8,
+"body_low": 87
+},
+"kayle_run_11": {
+"eyes_x": 30.8,
+"body_low": 93
+},
+"kayle_run_12": {
+"eyes_x": 29.9,
+"body_low": 96
+},
+"kayle_run_13": {
+"eyes_x": 28.9,
+"body_low": 94
+},
+"kayle_run_14": {
+"eyes_x": 27.7,
+"body_low": 87
+},
+"kayle_run_15": {
+"eyes_x": 27.5,
+"body_low": 82
+},
+"kayle_run_16": {
+"eyes_x": 28.4,
+"body_low": 81
+},
+"kayle_attack_01": {
+"eyes_x": 32.4,
+"body_low": 97
+},
+"kayle_attack_02": {
+"eyes_x": 29.7,
+"body_low": 99
+},
+"kayle_attack_03": {
+"eyes_x": 29.9,
+"body_low": 105
+},
+"kayle_attack_04": {
+"eyes_x": 37.8,
+"body_low": 105
+},
+"kayle_attack_05": {
+"eyes_x": 34.1,
+"body_low": 95
+},
+"kayle_attack_06": {
+"eyes_x": 32.1,
+"body_low": 93
+},
+"kayle_attack_melee_01": {
+"eyes_x": 32.0,
+"body_low": 98
+},
+"kayle_attack_melee_02": {
+"eyes_x": 30.9,
+"body_low": 98
+},
+"kayle_attack_melee_03": {
+"eyes_x": 31.5,
+"body_low": 97
+},
+"kayle_attack_melee_04": {
+"eyes_x": 33.3,
+"body_low": 110
+},
+"kayle_attack_melee_05": {
+"eyes_x": 33.2,
+"body_low": 102
+},
+"kayle_attack_melee_06": {
+"eyes_x": 32.6,
+"body_low": 99
+},
+"kayle_skill_01": {
+"eyes_x": 31.1,
+"body_low": 96
+},
+"kayle_skill_02": {
+"eyes_x": 32.4,
+"body_low": 95
+},
+"kayle_skill_03": {
+"eyes_x": 33.3,
+"body_low": 96
+},
+"kayle_skill_04": {
+"eyes_x": 32.6,
+"body_low": 101
+},
+"kayle_skill_05": {
+"eyes_x": 32.8,
+"body_low": 97
+},
+"kayle_skill_06": {
+"eyes_x": 31.9,
+"body_low": 94
+},
+"kayle_skill2_01": {
+"eyes_x": 29.0,
+"body_low": 93
+},
+"kayle_skill2_02": {
+"eyes_x": 27.3,
+"body_low": 95
+},
+"kayle_skill2_03": {
+"eyes_x": 38.6,
+"body_low": 106
+},
+"kayle_skill2_04": {
+"eyes_x": 32.6,
+"body_low": 103
+},
+"kayle_skill2_05": {
+"eyes_x": 31.4,
+"body_low": 103
+},
+"kayle_skill2_06": {
+"eyes_x": 32.0,
+"body_low": 97
+},
+"kayle_ult_01": {
+"eyes_x": 33.3,
+"body_low": 103
+},
+"kayle_ult_02": {
+"eyes_x": 32.9,
+"body_low": 102
+},
+"kayle_ult_03": {
+"eyes_x": 32.5,
+"body_low": 100
+},
+"kayle_ult_04": {
+"eyes_x": 32.0,
+"body_low": 99
+},
+"kayle_ult_05": {
+"eyes_x": 32.0,
+"body_low": 99
+},
+"kayle_ult_06": {
+"eyes_x": 32.2,
+"body_low": 99
+},
+"kayle_ult_07": {
+"eyes_x": 31.7,
+"body_low": 98
+},
+"kayle_ult_08": {
+"eyes_x": 31.8,
+"body_low": 105
+},
+"kayle_hit_01": {
+"eyes_x": 33.5,
+"body_low": 95
+},
+"kayle_hit_02": {
+"eyes_x": 32.9,
+"body_low": 94
+},
+"kayle_dead_01": {
+"eyes_x": 32.1,
+"body_low": 82
+},
+"kayle_dead_02": {
+"eyes_x": 33.8,
+"body_low": 83
+},
+"kayle_dead_03": {
+"eyes_x": 30.6,
+"body_low": 97
+},
+"kayle_dead_04": {
+"eyes_x": 30.7,
+"body_low": 97
+},
+"kayle_dead_05": {
+"eyes_x": 33.8,
+"body_low": 96
+},
+"kayle_dead_06": {
+"eyes_x": 34.8,
+"body_low": 100
+},
+"kayle_dead_07": {
+"eyes_x": 33.9,
+"body_low": 100
+}
+}

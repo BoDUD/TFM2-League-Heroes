@@ -1,0 +1,15 @@
+{
+  "bolt": {"cell": [28, 10], "anchor": [14, 5]},
+  "hit": {"cell": [18, 18], "anchor": [9, 9]},
+  "q_ball": {"cell": [44, 14], "anchor": [22, 7]},
+  "q_hit": {"cell": [30, 34], "anchor": [15, 17]},
+  "w_cone": {"cell": [56, 52], "anchor": [0, 26]},
+  "burn": {"cell": [20, 66], "anchor": [10, 33]},
+  "e_shield": {"cell": [32, 44], "anchor": [16, 22]},
+  "pyro_ready": {"cell": [18, 62], "anchor": [9, 31]},
+  "stun": {"cell": [20, 14], "anchor": [10, 7]},
+  "tibbers_drop": {"cell": [62, 134], "anchor": [31, 67]},
+  "tibbers": {"cell": [52, 108], "anchor": [26, 54]},
+  "tibbers_vanish": {"cell": [60, 98], "anchor": [30, 49]},
+  "r_ring": {"cell": [72, 62], "anchor": [36, 31]}
+}

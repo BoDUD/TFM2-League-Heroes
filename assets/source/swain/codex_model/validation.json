@@ -1,0 +1,102 @@
+{
+  "swain-model-A-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1024,
+      1024
+    ],
+    "size_pass": false,
+    "alpha_levels": 256,
+    "transparent_pixels": 1123803,
+    "opaque_pixels": 2197,
+    "semi_transparent_pixels": 446516,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      334,
+      176,
+      951,
+      1176
+    ],
+    "raw_copy_identical": true,
+    "sha256": "d6b42a6824799424499a700b1052eae9e46e47663be30f2a297ad672add9086e",
+    "strict_12px_grid": "not certified; generated originals retained without regridding"
+  },
+  "swain-model-A-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1024,
+      1024
+    ],
+    "size_pass": false,
+    "alpha_levels": 256,
+    "transparent_pixels": 1170520,
+    "opaque_pixels": 1712,
+    "semi_transparent_pixels": 400284,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      337,
+      177,
+      921,
+      1161
+    ],
+    "raw_copy_identical": true,
+    "sha256": "742b2f124bc8de60dc696ded3c9c3ff12057a6175614b66738547030ba576ecd",
+    "strict_12px_grid": "not certified; generated originals retained without regridding"
+  },
+  "swain-model-B-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1024,
+      1024
+    ],
+    "size_pass": false,
+    "alpha_levels": 256,
+    "transparent_pixels": 844099,
+    "opaque_pixels": 5005,
+    "semi_transparent_pixels": 723412,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      39,
+      165,
+      1215,
+      1195
+    ],
+    "raw_copy_identical": true,
+    "sha256": "d7228f9b88a8e1279ff520936cd200abcb9535f2c56e914f2ac25d1189127790",
+    "strict_12px_grid": "not certified; generated originals retained without regridding"
+  },
+  "swain-model-B-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1024,
+      1024
+    ],
+    "size_pass": false,
+    "alpha_levels": 256,
+    "transparent_pixels": 889268,
+    "opaque_pixels": 4707,
+    "semi_transparent_pixels": 678541,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      13,
+      163,
+      1241,
+      1183
+    ],
+    "raw_copy_identical": true,
+    "sha256": "d1ff188c68493eb9716675daf5a9aa445ce22a0e2abcca9c6dd690b7d6c0412a",
+    "strict_12px_grid": "not certified; generated originals retained without regridding"
+  }
+}

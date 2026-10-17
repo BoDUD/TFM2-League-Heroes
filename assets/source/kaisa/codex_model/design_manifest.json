@@ -1,0 +1,533 @@
+{
+  "generation_tool": "built-in image_gen",
+  "stage": "generated design drafts before grid normalization",
+  "target": {
+    "canvas": [
+      1024,
+      1024
+    ],
+    "logical_canvas": [
+      128,
+      128
+    ],
+    "scale": 8,
+    "sole_logical_row": 99,
+    "sole_pixel_rows": [
+      792,
+      799
+    ],
+    "max_colors": 24,
+    "body_height_logical_pixels": 36
+  },
+  "files": [
+    {
+      "file": "kaisa_design_A.png",
+      "version": "A",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_xyxy_exclusive": [
+        97,
+        51,
+        1218,
+        1254
+      ],
+      "opaque_bbox_xyxy_inclusive": [
+        392,
+        411,
+        892,
+        1175
+      ],
+      "sole_pixel_row": 1175,
+      "stand_point_xy": [
+        533.5,
+        1176
+      ],
+      "nontransparent_rgba_count": 86683,
+      "opaque_rgb_count": 580,
+      "partial_alpha_pixel_count": 193727,
+      "palette_top_24": [
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "count": 5043
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            2
+          ],
+          "count": 1133
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            3
+          ],
+          "count": 532
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            4
+          ],
+          "count": 360
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            5
+          ],
+          "count": 359
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            6
+          ],
+          "count": 298
+        },
+        {
+          "rgba": [
+            63,
+            0,
+            63,
+            4
+          ],
+          "count": 226
+        },
+        {
+          "rgba": [
+            13,
+            0,
+            16,
+            253
+          ],
+          "count": 201
+        },
+        {
+          "rgba": [
+            12,
+            0,
+            15,
+            253
+          ],
+          "count": 185
+        },
+        {
+          "rgba": [
+            15,
+            0,
+            19,
+            252
+          ],
+          "count": 176
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            127,
+            2
+          ],
+          "count": 174
+        },
+        {
+          "rgba": [
+            15,
+            0,
+            19,
+            253
+          ],
+          "count": 169
+        },
+        {
+          "rgba": [
+            51,
+            0,
+            51,
+            5
+          ],
+          "count": 167
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            63,
+            4
+          ],
+          "count": 166
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            42,
+            6
+          ],
+          "count": 164
+        },
+        {
+          "rgba": [
+            14,
+            0,
+            18,
+            253
+          ],
+          "count": 158
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            85,
+            3
+          ],
+          "count": 154
+        },
+        {
+          "rgba": [
+            16,
+            0,
+            20,
+            252
+          ],
+          "count": 152
+        },
+        {
+          "rgba": [
+            14,
+            0,
+            17,
+            253
+          ],
+          "count": 152
+        },
+        {
+          "rgba": [
+            17,
+            1,
+            21,
+            253
+          ],
+          "count": 146
+        },
+        {
+          "rgba": [
+            42,
+            0,
+            42,
+            6
+          ],
+          "count": 142
+        },
+        {
+          "rgba": [
+            16,
+            0,
+            20,
+            253
+          ],
+          "count": 142
+        },
+        {
+          "rgba": [
+            18,
+            1,
+            23,
+            253
+          ],
+          "count": 141
+        },
+        {
+          "rgba": [
+            18,
+            1,
+            22,
+            253
+          ],
+          "count": 140
+        }
+      ],
+      "lilac_eye_centers": null,
+      "eye_center_status": "Not reliably measured: generated blocks are not on a strict 8px grid.",
+      "strict_game_sprite_ready": false
+    },
+    {
+      "file": "kaisa_design_B.png",
+      "version": "B",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_xyxy_exclusive": [
+        59,
+        53,
+        1194,
+        1181
+      ],
+      "opaque_bbox_xyxy_inclusive": [
+        412,
+        550,
+        862,
+        1175
+      ],
+      "sole_pixel_row": 1175,
+      "stand_point_xy": [
+        676.5,
+        1176
+      ],
+      "nontransparent_rgba_count": 80727,
+      "opaque_rgb_count": 824,
+      "partial_alpha_pixel_count": 156702,
+      "palette_top_24": [
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "count": 3844
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            2
+          ],
+          "count": 898
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            3
+          ],
+          "count": 446
+        },
+        {
+          "rgba": [
+            85,
+            0,
+            85,
+            3
+          ],
+          "count": 243
+        },
+        {
+          "rgba": [
+            63,
+            0,
+            63,
+            4
+          ],
+          "count": 215
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            127,
+            2
+          ],
+          "count": 209
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            0,
+            4
+          ],
+          "count": 202
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            51,
+            5
+          ],
+          "count": 183
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            85,
+            3
+          ],
+          "count": 169
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            63,
+            4
+          ],
+          "count": 168
+        },
+        {
+          "rgba": [
+            127,
+            0,
+            127,
+            2
+          ],
+          "count": 157
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            42,
+            6
+          ],
+          "count": 154
+        },
+        {
+          "rgba": [
+            51,
+            0,
+            51,
+            5
+          ],
+          "count": 153
+        },
+        {
+          "rgba": [
+            21,
+            7,
+            34,
+            253
+          ],
+          "count": 125
+        },
+        {
+          "rgba": [
+            42,
+            0,
+            42,
+            6
+          ],
+          "count": 114
+        },
+        {
+          "rgba": [
+            0,
+            0,
+            36,
+            7
+          ],
+          "count": 107
+        },
+        {
+          "rgba": [
+            36,
+            0,
+            36,
+            7
+          ],
+          "count": 101
+        },
+        {
+          "rgba": [
+            63,
+            63,
+            63,
+            4
+          ],
+          "count": 99
+        },
+        {
+          "rgba": [
+            23,
+            8,
+            37,
+            253
+          ],
+          "count": 99
+        },
+        {
+          "rgba": [
+            31,
+            0,
+            63,
+            8
+          ],
+          "count": 93
+        },
+        {
+          "rgba": [
+            36,
+            0,
+            72,
+            7
+          ],
+          "count": 90
+        },
+        {
+          "rgba": [
+            22,
+            7,
+            36,
+            253
+          ],
+          "count": 89
+        },
+        {
+          "rgba": [
+            21,
+            7,
+            35,
+            253
+          ],
+          "count": 84
+        },
+        {
+          "rgba": [
+            23,
+            8,
+            38,
+            253
+          ],
+          "count": 82
+        }
+      ],
+      "lilac_eye_centers": null,
+      "eye_center_status": "Not reliably measured: generated blocks are not on a strict 8px grid.",
+      "strict_game_sprite_ready": false
+    }
+  ],
+  "limitations": [
+    "Generated canvas differs from requested 1024x1024.",
+    "Generated blocks do not strictly conform to one 8x8 grid.",
+    "Palette and alpha include additional generated values.",
+    "Soles do not match requested y=792..799.",
+    "Eye pixel structure and finger count need verification after regridding."
+  ],
+  "not_performed": [
+    "No code resampling or palette reduction without user approval.",
+    "No animation or game installation."
+  ]
+}

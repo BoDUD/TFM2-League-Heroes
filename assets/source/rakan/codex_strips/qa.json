@@ -1,0 +1,207 @@
+{
+  "palette_count": 22,
+  "checks": {
+    "idle": {
+      "frames": 6,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "run": {
+      "frames": 8,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "attack": {
+      "frames": 6,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "skill": {
+      "frames": 6,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "skill2": {
+      "frames": 4,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "w_spin": {
+      "frames": 6,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "e_dash": {
+      "frames": 3,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "e_land": {
+      "frames": 3,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "ult": {
+      "frames": 8,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "hit": {
+      "frames": 2,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    },
+    "dead": {
+      "frames": 8,
+      "strict_8x_grid": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_subset": true,
+      "all_heads_exact": true,
+      "ground_safe": true,
+      "body_clipped_frames": [],
+      "head_clipped_frames": [],
+      "file_checks_pass": true,
+      "head_pixels_independently_verified": true,
+      "grounded_bottom_row_75": true,
+      "loop_head_position_valid": true,
+      "death_last_two_frames_identical": true
+    }
+  },
+  "limitations": [
+    "Generated pixel grid spacing was estimated from visible block boundaries; it is not an exact recovery of a uniform vector lattice.",
+    "GIF durations quantize to10ms; manifest and HTML player preserve original integer millisecond timings."
+  ]
+}

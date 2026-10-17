@@ -1,0 +1,269 @@
+[
+  {
+    "name": "a_orb",
+    "frame_count": 4,
+    "dimensions": [
+      2048,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": true,
+    "verified_after_export": true
+  },
+  {
+    "name": "a_cast",
+    "frame_count": 4,
+    "dimensions": [
+      1024,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "a_hit",
+    "frame_count": 4,
+    "dimensions": [
+      1024,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "q_orb",
+    "frame_count": 4,
+    "dimensions": [
+      2048,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": true,
+    "verified_after_export": true
+  },
+  {
+    "name": "q_cast",
+    "frame_count": 4,
+    "dimensions": [
+      1024,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "q_hit",
+    "frame_count": 5,
+    "dimensions": [
+      1280,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "q_mark",
+    "frame_count": 4,
+    "dimensions": [
+      1024,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "q_pop",
+    "frame_count": 6,
+    "dimensions": [
+      1536,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "e_chain",
+    "frame_count": 4,
+    "dimensions": [
+      2048,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": true,
+    "verified_after_export": true
+  },
+  {
+    "name": "e_tether",
+    "frame_count": 4,
+    "dimensions": [
+      2048,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": true,
+    "tile_edges_match": true,
+    "verified_after_export": true
+  },
+  {
+    "name": "e_cast",
+    "frame_count": 4,
+    "dimensions": [
+      1024,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "e_hit",
+    "frame_count": 4,
+    "dimensions": [
+      1024,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "e_root",
+    "frame_count": 12,
+    "dimensions": [
+      9216,
+      512
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "w_pad",
+    "frame_count": 10,
+    "dimensions": [
+      5120,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "w_trail",
+    "frame_count": 5,
+    "dimensions": [
+      3840,
+      512
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "w_blast",
+    "frame_count": 7,
+    "dimensions": [
+      3584,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "w_hit",
+    "frame_count": 4,
+    "dimensions": [
+      1024,
+      256
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "w_out",
+    "frame_count": 5,
+    "dimensions": [
+      1920,
+      1024
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  },
+  {
+    "name": "w_in",
+    "frame_count": 5,
+    "dimensions": [
+      1920,
+      1024
+    ],
+    "nonempty_frames": true,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "strict_8x_blocks": true,
+    "vertical_symmetry": null,
+    "verified_after_export": true
+  }
+]

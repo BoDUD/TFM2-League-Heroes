@@ -1,0 +1,10 @@
+{
+ "league_teemo_stealth": {
+  "anim": "asset/league/effects/league_teemo_fx",
+  "tag": "stealth"
+ },
+ "league_teemo_w_cast": {
+  "anim": "asset/league/effects/league_teemo_fx",
+  "tag": "w_cast"
+ }
+}

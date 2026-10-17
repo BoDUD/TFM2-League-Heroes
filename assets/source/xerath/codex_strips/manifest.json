@@ -1,0 +1,3588 @@
+{
+  "schema_version": 1,
+  "route": "lossless approved-source part rig, quarter turns and integer translations; no new body drawings",
+  "animations": {
+    "ult_shot": {
+      "grid": [
+        3,
+        1
+      ],
+      "size_8x": [
+        3072,
+        768
+      ],
+      "file_1x": "xerath_ult_shot_1x.png",
+      "file": "xerath_ult_shot.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            64,
+            70
+          ],
+          "bbox_local_1x": [
+            49,
+            38,
+            86,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 80,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            512,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            1,
+            -18
+          ],
+          "release_frame": true,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            80.8,
+            55.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            55,
+            38,
+            76,
+            51
+          ],
+          "front_claw_centroid_local_8x": [
+            650.4,
+            445.6
+          ],
+          "front_claw_centroid_sheet_8x": [
+            650.4,
+            445.6
+          ],
+          "release_tick": 0,
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult_shot",
+          "start_time_ms": 0,
+          "front_claw_source_centroid_1x": [
+            80.8,
+            55.2
+          ],
+          "front_claw_visible_pixels": 5,
+          "front_claw_source_pixels": 5,
+          "release_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "bbox_local_1x": [
+            50,
+            38,
+            87,
+            82
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 80,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            520,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            81.8,
+            55.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            56,
+            38,
+            77,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult_shot",
+          "start_time_ms": 80
+        },
+        {
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "bbox_local_1x": [
+            47,
+            38,
+            84,
+            82
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 73,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            504,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            78.8,
+            55.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            53,
+            38,
+            74,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult_shot",
+          "start_time_ms": 160
+        }
+      ],
+      "total_duration_ms": 233
+    },
+    "idle": {
+      "grid": [
+        3,
+        2
+      ],
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "file_1x": "xerath_idle_1x.png",
+      "file": "xerath_idle.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 200,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "supplied idle unchanged",
+          "prompt_id": null,
+          "rig_plan_key": "idle",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 200,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "supplied idle unchanged",
+          "prompt_id": null,
+          "rig_plan_key": "idle",
+          "start_time_ms": 200
+        },
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 200,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "supplied idle unchanged",
+          "prompt_id": null,
+          "rig_plan_key": "idle",
+          "start_time_ms": 400
+        },
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 4,
+          "frame_index": 3,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 200,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "supplied idle unchanged",
+          "prompt_id": null,
+          "rig_plan_key": "idle",
+          "start_time_ms": 600
+        },
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 5,
+          "frame_index": 4,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 200,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "supplied idle unchanged",
+          "prompt_id": null,
+          "rig_plan_key": "idle",
+          "start_time_ms": 800
+        },
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 6,
+          "frame_index": 5,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 200,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "supplied idle unchanged",
+          "prompt_id": null,
+          "rig_plan_key": "idle",
+          "start_time_ms": 1000
+        }
+      ],
+      "total_duration_ms": 1200
+    },
+    "dead": {
+      "grid": [
+        4,
+        2
+      ],
+      "size_8x": [
+        4096,
+        1536
+      ],
+      "file_1x": "xerath_dead_1x.png",
+      "file": "xerath_dead.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            45,
+            38,
+            87,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            81.8,
+            55.2
+          ],
+          "opaque_pixels": 745,
+          "head_bbox_local_1x": [
+            56,
+            38,
+            77,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "dead",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "bbox_local_1x": [
+            43,
+            37,
+            78,
+            81
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 110,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            496,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -3,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            74.2,
+            55.2
+          ],
+          "opaque_pixels": 710,
+          "head_bbox_local_1x": [
+            51,
+            37,
+            72,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "dead",
+          "start_time_ms": 100
+        },
+        {
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "bbox_local_1x": [
+            49,
+            36,
+            81,
+            80
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 120,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            520,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            1,
+            -20
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            75.8,
+            48.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            55,
+            36,
+            76,
+            49
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "dead",
+          "start_time_ms": 210
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            45,
+            37,
+            87,
+            81
+          ],
+          "frame_number": 4,
+          "frame_index": 3,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 130,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            81.8,
+            54.2
+          ],
+          "opaque_pixels": 745,
+          "head_bbox_local_1x": [
+            56,
+            37,
+            77,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "dead",
+          "start_time_ms": 330
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            43,
+            36,
+            89,
+            82
+          ],
+          "frame_number": 5,
+          "frame_index": 4,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 150,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -20
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 745,
+          "head_bbox_local_1x": [
+            56,
+            36,
+            77,
+            49
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "dead",
+          "start_time_ms": 460
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            48,
+            53,
+            82,
+            75
+          ],
+          "frame_number": 6,
+          "frame_index": 5,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 200,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -3
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 413,
+          "head_bbox_local_1x": [
+            56,
+            53,
+            77,
+            66
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "dead",
+          "start_time_ms": 610
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            48,
+            63,
+            82,
+            82
+          ],
+          "frame_number": 7,
+          "frame_index": 6,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 300,
+          "head_dark_death_exception": true,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            7
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 366,
+          "head_bbox_local_1x": [
+            56,
+            63,
+            77,
+            76
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "dead",
+          "start_time_ms": 810
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            48,
+            63,
+            82,
+            82
+          ],
+          "frame_number": 8,
+          "frame_index": 7,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 400,
+          "head_dark_death_exception": true,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            7
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": null,
+          "opaque_pixels": 366,
+          "head_bbox_local_1x": [
+            56,
+            63,
+            77,
+            76
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "dead",
+          "start_time_ms": 1110
+        }
+      ],
+      "total_duration_ms": 1510
+    },
+    "ult": {
+      "grid": [
+        3,
+        2
+      ],
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "file_1x": "xerath_ult_1x.png",
+      "file": "xerath_ult.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            68,
+            70
+          ],
+          "bbox_local_1x": [
+            52,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            544,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            4,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            76.2,
+            61.2
+          ],
+          "opaque_pixels": 740,
+          "head_bbox_local_1x": [
+            58,
+            38,
+            79,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "bbox_local_1x": [
+            45,
+            37,
+            77,
+            81
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            488,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -3,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            71.8,
+            49.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            51,
+            37,
+            72,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult",
+          "start_time_ms": 100
+        },
+        {
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "bbox_local_1x": [
+            44,
+            37,
+            76,
+            81
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            480,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -4,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            70.8,
+            49.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            50,
+            37,
+            71,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult",
+          "start_time_ms": 200
+        },
+        {
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "bbox_local_1x": [
+            45,
+            37,
+            77,
+            81
+          ],
+          "frame_number": 4,
+          "frame_index": 3,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            488,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -3,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            71.8,
+            49.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            51,
+            37,
+            72,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult",
+          "start_time_ms": 300
+        },
+        {
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "bbox_local_1x": [
+            47,
+            38,
+            84,
+            82
+          ],
+          "frame_number": 5,
+          "frame_index": 4,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            504,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            78.8,
+            55.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            53,
+            38,
+            74,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult",
+          "start_time_ms": 400
+        }
+      ],
+      "total_duration_ms": 500
+    },
+    "skill": {
+      "grid": [
+        4,
+        2
+      ],
+      "size_8x": [
+        4096,
+        1536
+      ],
+      "file_1x": "xerath_skill_1x.png",
+      "file": "xerath_skill.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            64,
+            70
+          ],
+          "bbox_local_1x": [
+            47,
+            38,
+            80,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 150,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            512,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            76.2,
+            56.2
+          ],
+          "opaque_pixels": 705,
+          "head_bbox_local_1x": [
+            53,
+            38,
+            74,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            68,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            83,
+            82
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 150,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            544,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            50.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill",
+          "start_time_ms": 150
+        },
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            50,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 150,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            76.8,
+            50.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            56,
+            38,
+            77,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill",
+          "start_time_ms": 300
+        },
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            83,
+            82
+          ],
+          "frame_number": 4,
+          "frame_index": 3,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 150,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            50.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill",
+          "start_time_ms": 450
+        },
+        {
+          "pivot_1x": [
+            68,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            83,
+            82
+          ],
+          "frame_number": 5,
+          "frame_index": 4,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 300,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            544,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            50.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill",
+          "start_time_ms": 600
+        },
+        {
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "bbox_local_1x": [
+            49,
+            38,
+            86,
+            82
+          ],
+          "frame_number": 6,
+          "frame_index": 5,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            504,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            1,
+            -18
+          ],
+          "release_frame": true,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            80.8,
+            55.2
+          ],
+          "opaque_pixels": 757,
+          "head_bbox_local_1x": [
+            55,
+            38,
+            76,
+            51
+          ],
+          "front_claw_centroid_local_8x": [
+            650.4,
+            445.6
+          ],
+          "front_claw_centroid_sheet_8x": [
+            1674.4,
+            1213.6
+          ],
+          "release_tick": 54,
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill",
+          "start_time_ms": 900,
+          "front_claw_source_centroid_1x": [
+            80.8,
+            55.2
+          ],
+          "front_claw_visible_pixels": 5,
+          "front_claw_source_pixels": 5,
+          "release_time_ms": 900
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            50,
+            38,
+            81,
+            82
+          ],
+          "frame_number": 7,
+          "frame_index": 6,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 67,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            62.8
+          ],
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            56,
+            38,
+            77,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill",
+          "start_time_ms": 1000
+        }
+      ],
+      "total_duration_ms": 1067
+    },
+    "skill2": {
+      "grid": [
+        3,
+        2
+      ],
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "file_1x": "xerath_skill2_1x.png",
+      "file": "xerath_skill2.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "bbox_local_1x": [
+            48,
+            38,
+            80,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 80,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            520,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            0,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            74.8,
+            50.2
+          ],
+          "opaque_pixels": 737,
+          "head_bbox_local_1x": [
+            54,
+            38,
+            75,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill2",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            48,
+            38,
+            80,
+            82
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 87,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            0,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            74.8,
+            50.2
+          ],
+          "opaque_pixels": 737,
+          "head_bbox_local_1x": [
+            54,
+            38,
+            75,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill2",
+          "start_time_ms": 80
+        },
+        {
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "bbox_local_1x": [
+            46,
+            38,
+            83,
+            82
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 80,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            480,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -2,
+            -18
+          ],
+          "release_frame": true,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            55.2
+          ],
+          "opaque_pixels": 757,
+          "head_bbox_local_1x": [
+            52,
+            38,
+            73,
+            51
+          ],
+          "front_claw_centroid_local_8x": [
+            626.4,
+            445.6
+          ],
+          "front_claw_centroid_sheet_8x": [
+            2674.4,
+            445.6
+          ],
+          "release_tick": 10,
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill2",
+          "start_time_ms": 167,
+          "front_claw_source_centroid_1x": [
+            77.8,
+            55.2
+          ],
+          "front_claw_visible_pixels": 5,
+          "front_claw_source_pixels": 5,
+          "release_time_ms": 167
+        },
+        {
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "bbox_local_1x": [
+            47,
+            38,
+            84,
+            82
+          ],
+          "frame_number": 4,
+          "frame_index": 3,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 83,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            496,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            78.8,
+            55.2
+          ],
+          "opaque_pixels": 757,
+          "head_bbox_local_1x": [
+            53,
+            38,
+            74,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill2",
+          "start_time_ms": 247
+        },
+        {
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "bbox_local_1x": [
+            45,
+            38,
+            77,
+            82
+          ],
+          "frame_number": 5,
+          "frame_index": 4,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 90,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            488,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            71.8,
+            50.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            51,
+            38,
+            72,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill2",
+          "start_time_ms": 330
+        },
+        {
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "bbox_local_1x": [
+            46,
+            38,
+            77,
+            82
+          ],
+          "frame_number": 6,
+          "frame_index": 5,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 80,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            496,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            73.8,
+            62.8
+          ],
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            52,
+            38,
+            73,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill2",
+          "start_time_ms": 420
+        }
+      ],
+      "total_duration_ms": 500
+    },
+    "attack": {
+      "grid": [
+        3,
+        2
+      ],
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "file_1x": "xerath_attack_1x.png",
+      "file": "xerath_attack.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            50,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 60,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            76.8,
+            50.2
+          ],
+          "opaque_pixels": 737,
+          "head_bbox_local_1x": [
+            56,
+            38,
+            77,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "attack",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            48,
+            38,
+            80,
+            82
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 60,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            0,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            74.8,
+            50.2
+          ],
+          "opaque_pixels": 737,
+          "head_bbox_local_1x": [
+            54,
+            38,
+            75,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "attack",
+          "start_time_ms": 60
+        },
+        {
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "bbox_local_1x": [
+            49,
+            38,
+            85,
+            82
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 50,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            520,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            1,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            81.8,
+            57.8
+          ],
+          "opaque_pixels": 755,
+          "head_bbox_local_1x": [
+            55,
+            38,
+            76,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "attack",
+          "start_time_ms": 120
+        },
+        {
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "bbox_local_1x": [
+            45,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 4,
+          "frame_index": 3,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 90,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            480,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -3,
+            -18
+          ],
+          "release_frame": true,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            76.8,
+            55.2
+          ],
+          "opaque_pixels": 757,
+          "head_bbox_local_1x": [
+            51,
+            38,
+            72,
+            51
+          ],
+          "front_claw_centroid_local_8x": [
+            618.4,
+            445.6
+          ],
+          "front_claw_centroid_sheet_8x": [
+            618.4,
+            1213.6
+          ],
+          "release_tick": 10,
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "attack",
+          "start_time_ms": 170,
+          "front_claw_source_centroid_1x": [
+            76.8,
+            55.2
+          ],
+          "front_claw_visible_pixels": 5,
+          "front_claw_source_pixels": 5,
+          "release_time_ms": 170
+        },
+        {
+          "pivot_1x": [
+            59,
+            70
+          ],
+          "bbox_local_1x": [
+            44,
+            38,
+            81,
+            82
+          ],
+          "frame_number": 5,
+          "frame_index": 4,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            472,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -4,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            75.8,
+            55.2
+          ],
+          "opaque_pixels": 757,
+          "head_bbox_local_1x": [
+            50,
+            38,
+            71,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "attack",
+          "start_time_ms": 260
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            50,
+            38,
+            81,
+            82
+          ],
+          "frame_number": 6,
+          "frame_index": 5,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 107,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            62.8
+          ],
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            56,
+            38,
+            77,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "attack",
+          "start_time_ms": 360
+        }
+      ],
+      "total_duration_ms": 467
+    },
+    "run": {
+      "grid": [
+        4,
+        2
+      ],
+      "size_8x": [
+        4096,
+        1536
+      ],
+      "file_1x": "xerath_run_1x.png",
+      "file": "xerath_run.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "bbox_local_1x": [
+            44,
+            38,
+            75,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 121,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            488,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            71.8,
+            62.8
+          ],
+          "opaque_pixels": 762,
+          "head_bbox_local_1x": [
+            51,
+            38,
+            72,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "run",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "bbox_local_1x": [
+            45,
+            37,
+            76,
+            81
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 121,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            496,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -2,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            72.8,
+            61.8
+          ],
+          "opaque_pixels": 762,
+          "head_bbox_local_1x": [
+            52,
+            37,
+            73,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "run",
+          "start_time_ms": 121
+        },
+        {
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "bbox_local_1x": [
+            46,
+            37,
+            77,
+            81
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 121,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            504,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            73.8,
+            61.8
+          ],
+          "opaque_pixels": 762,
+          "head_bbox_local_1x": [
+            53,
+            37,
+            74,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "run",
+          "start_time_ms": 242
+        },
+        {
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "bbox_local_1x": [
+            46,
+            38,
+            77,
+            82
+          ],
+          "frame_number": 4,
+          "frame_index": 3,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 121,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            504,
+            560
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            73.8,
+            62.8
+          ],
+          "opaque_pixels": 762,
+          "head_bbox_local_1x": [
+            53,
+            38,
+            74,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "run",
+          "start_time_ms": 363
+        },
+        {
+          "pivot_1x": [
+            64,
+            70
+          ],
+          "bbox_local_1x": [
+            47,
+            38,
+            78,
+            82
+          ],
+          "frame_number": 5,
+          "frame_index": 4,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 121,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            512,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            0,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            74.8,
+            62.8
+          ],
+          "opaque_pixels": 762,
+          "head_bbox_local_1x": [
+            54,
+            38,
+            75,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "run",
+          "start_time_ms": 484
+        },
+        {
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "bbox_local_1x": [
+            46,
+            37,
+            77,
+            81
+          ],
+          "frame_number": 6,
+          "frame_index": 5,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 121,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            504,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            73.8,
+            61.8
+          ],
+          "opaque_pixels": 762,
+          "head_bbox_local_1x": [
+            53,
+            37,
+            74,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "run",
+          "start_time_ms": 605
+        },
+        {
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "bbox_local_1x": [
+            46,
+            37,
+            77,
+            81
+          ],
+          "frame_number": 7,
+          "frame_index": 6,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 121,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            504,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            73.8,
+            61.8
+          ],
+          "opaque_pixels": 762,
+          "head_bbox_local_1x": [
+            53,
+            37,
+            74,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "run",
+          "start_time_ms": 726
+        },
+        {
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "bbox_local_1x": [
+            44,
+            38,
+            75,
+            82
+          ],
+          "frame_number": 8,
+          "frame_index": 7,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 121,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            488,
+            560
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            71.8,
+            62.8
+          ],
+          "opaque_pixels": 762,
+          "head_bbox_local_1x": [
+            51,
+            38,
+            72,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "run",
+          "start_time_ms": 847
+        }
+      ],
+      "total_duration_ms": 968
+    },
+    "skill_quick": {
+      "grid": [
+        3,
+        2
+      ],
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "file_1x": "xerath_skill_quick_1x.png",
+      "file": "xerath_skill_quick.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            64,
+            70
+          ],
+          "bbox_local_1x": [
+            47,
+            38,
+            80,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 120,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            512,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            76.2,
+            56.2
+          ],
+          "opaque_pixels": 705,
+          "head_bbox_local_1x": [
+            53,
+            38,
+            74,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill_quick",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "bbox_local_1x": [
+            50,
+            38,
+            82,
+            82
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 120,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            536,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            76.8,
+            50.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            56,
+            38,
+            77,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill_quick",
+          "start_time_ms": 120
+        },
+        {
+          "pivot_1x": [
+            68,
+            70
+          ],
+          "bbox_local_1x": [
+            51,
+            38,
+            83,
+            82
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 127,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            544,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            3,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            50.2
+          ],
+          "opaque_pixels": 701,
+          "head_bbox_local_1x": [
+            57,
+            38,
+            78,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill_quick",
+          "start_time_ms": 240
+        },
+        {
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "bbox_local_1x": [
+            49,
+            38,
+            86,
+            82
+          ],
+          "frame_number": 4,
+          "frame_index": 3,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            504,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            1,
+            -18
+          ],
+          "release_frame": true,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            80.8,
+            55.2
+          ],
+          "opaque_pixels": 757,
+          "head_bbox_local_1x": [
+            55,
+            38,
+            76,
+            51
+          ],
+          "front_claw_centroid_local_8x": [
+            650.4,
+            445.6
+          ],
+          "front_claw_centroid_sheet_8x": [
+            650.4,
+            1213.6
+          ],
+          "release_tick": 22,
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill_quick",
+          "start_time_ms": 367,
+          "front_claw_source_centroid_1x": [
+            80.8,
+            55.2
+          ],
+          "front_claw_visible_pixels": 5,
+          "front_claw_source_pixels": 5,
+          "release_time_ms": 367
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            50,
+            38,
+            81,
+            82
+          ],
+          "frame_number": 5,
+          "frame_index": 4,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 66,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            62.8
+          ],
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            56,
+            38,
+            77,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "skill_quick",
+          "start_time_ms": 467
+        }
+      ],
+      "total_duration_ms": 533
+    },
+    "hit": {
+      "grid": [
+        2,
+        1
+      ],
+      "size_8x": [
+        2048,
+        768
+      ],
+      "file_1x": "xerath_hit_1x.png",
+      "file": "xerath_hit.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            43,
+            38,
+            85,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            0,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            79.8,
+            55.2
+          ],
+          "opaque_pixels": 745,
+          "head_bbox_local_1x": [
+            54,
+            38,
+            75,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "hit",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "bbox_local_1x": [
+            50,
+            38,
+            81,
+            82
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 100,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            528,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            62.8
+          ],
+          "opaque_pixels": 765,
+          "head_bbox_local_1x": [
+            56,
+            38,
+            77,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "hit",
+          "start_time_ms": 100
+        }
+      ],
+      "total_duration_ms": 200
+    },
+    "ult_loop": {
+      "grid": [
+        3,
+        2
+      ],
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "file_1x": "xerath_ult_loop_1x.png",
+      "file": "xerath_ult_loop.png",
+      "frames": [
+        {
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "bbox_local_1x": [
+            47,
+            38,
+            84,
+            82
+          ],
+          "frame_number": 1,
+          "frame_index": 0,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 160,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            504,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -1,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            78.8,
+            55.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            53,
+            38,
+            74,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult_loop",
+          "start_time_ms": 0
+        },
+        {
+          "pivot_1x": [
+            64,
+            70
+          ],
+          "bbox_local_1x": [
+            48,
+            37,
+            85,
+            81
+          ],
+          "frame_number": 2,
+          "frame_index": 1,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 160,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            512,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            0,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            79.8,
+            54.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            54,
+            37,
+            75,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult_loop",
+          "start_time_ms": 160
+        },
+        {
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "bbox_local_1x": [
+            49,
+            37,
+            86,
+            81
+          ],
+          "frame_number": 3,
+          "frame_index": 2,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "duration_ms": 160,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            520,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            1,
+            -19
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            80.8,
+            54.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            55,
+            37,
+            76,
+            50
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult_loop",
+          "start_time_ms": 320
+        },
+        {
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "bbox_local_1x": [
+            49,
+            38,
+            86,
+            82
+          ],
+          "frame_number": 4,
+          "frame_index": 3,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 160,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            520,
+            560
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            1,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            80.8,
+            55.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            55,
+            38,
+            76,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult_loop",
+          "start_time_ms": 480
+        },
+        {
+          "pivot_1x": [
+            64,
+            70
+          ],
+          "bbox_local_1x": [
+            48,
+            38,
+            85,
+            82
+          ],
+          "frame_number": 5,
+          "frame_index": 4,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 160,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            512,
+            560
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            0,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            79.8,
+            55.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            54,
+            38,
+            75,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult_loop",
+          "start_time_ms": 640
+        },
+        {
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "bbox_local_1x": [
+            46,
+            38,
+            83,
+            82
+          ],
+          "frame_number": 6,
+          "frame_index": 5,
+          "head_visible_pixels": 232,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "duration_ms": 160,
+          "head_dark_death_exception": false,
+          "pivot_8x": [
+            496,
+            560
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "head_translation_from_design": [
+            -2,
+            -18
+          ],
+          "release_frame": false,
+          "head_exact": true,
+          "front_claw_centroid_1x": [
+            77.8,
+            55.2
+          ],
+          "opaque_pixels": 721,
+          "head_bbox_local_1x": [
+            52,
+            38,
+            73,
+            51
+          ],
+          "production_route": "approved source pixel part rig",
+          "prompt_id": null,
+          "rig_plan_key": "ult_loop",
+          "start_time_ms": 800
+        }
+      ],
+      "total_duration_ms": 960
+    }
+  },
+  "cell_size_1x": [
+    128,
+    96
+  ],
+  "pixel_scale": 8,
+  "feet_line_row": 81,
+  "source_design": "source/xerath_design_1x.png",
+  "frame_count_total": 62,
+  "bbox_convention": "exclusive right/bottom; sheet rect [x,y,width,height]; all claw positions are local unless sheet suffix",
+  "source_design_sha256": "8315dc3dda56e240f9dc73b585f3eb8c61e399c8cfc94bcb1692161464268852",
+  "artist_qa_status": "reviewable part-rig draft; technical invariants passed, motion fidelity limitations documented",
+  "raw_generation": [
+    {
+      "file": "raw/xerath_attack_generated_rejected.png",
+      "prompt_id": "attack experiment",
+      "accepted": false,
+      "reason": "redraws approved pixels and changes grid dimensions"
+    }
+  ]
+}

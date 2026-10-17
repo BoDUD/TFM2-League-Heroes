@@ -1,0 +1,328 @@
+{
+ "hero": "rakan",
+ "champ": "Rakan",
+ "camera": {
+  "yaw": 60,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.2,
+  "legs": 0.85
+ },
+ "hide_submeshes": [
+  "Rakan_Base_Rose_Mat"
+ ],
+ "height": 41,
+ "cell": [
+  112,
+  88,
+  12
+ ],
+ "design": "Rakan_Idle01@1500",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Rakan_Idle01@1500",
+     200
+    ],
+    [
+     "Rakan_Idle01@1500",
+     200
+    ],
+    [
+     "Rakan_Idle01@1500",
+     200
+    ],
+    [
+     "Rakan_Idle01@1500",
+     200
+    ],
+    [
+     "Rakan_Idle01@1500",
+     200
+    ],
+    [
+     "Rakan_Idle01@1500",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "Rakan_Idle01@1500",
+   "frames": [
+    [
+     "Rakan_Run@0",
+     100
+    ],
+    [
+     "Rakan_Run@125",
+     100
+    ],
+    [
+     "Rakan_Run@250",
+     100
+    ],
+    [
+     "Rakan_Run@375",
+     100
+    ],
+    [
+     "Rakan_Run@500",
+     100
+    ],
+    [
+     "Rakan_Run@625",
+     100
+    ],
+    [
+     "Rakan_Run@750",
+     100
+    ],
+    [
+     "Rakan_Run@875",
+     100
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "Rakan_Attack1@0",
+     100
+    ],
+    [
+     "Rakan_Attack1@250",
+     100
+    ],
+    [
+     "Rakan_Attack1@400",
+     90
+    ],
+    [
+     "Rakan_Attack1@520",
+     90
+    ],
+    [
+     "Rakan_Attack1@700",
+     100
+    ],
+    [
+     "Rakan_Attack1@1000",
+     120
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "Rakan_Spell1@0",
+     55
+    ],
+    [
+     "Rakan_Spell1@90",
+     55
+    ],
+    [
+     "Rakan_Spell1@180",
+     57
+    ],
+    [
+     "Rakan_Spell1@250",
+     60
+    ],
+    [
+     "Rakan_Spell1@300",
+     60
+    ],
+    [
+     "Rakan_Spell1@367",
+     60
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "frames": [
+    [
+     "Rakan_W_dash@0",
+     60
+    ],
+    [
+     "Rakan_W_dash@150",
+     60
+    ],
+    [
+     "Rakan_W_dash@300",
+     60
+    ],
+    [
+     "Rakan_W_dash@430",
+     300
+    ]
+   ]
+  },
+  "w_spin": {
+   "lunge": 0.3,
+   "rise": 0.35,
+   "frames": [
+    [
+     "Rakan_W_activate@100",
+     67
+    ],
+    [
+     "Rakan_W_activate@450",
+     67
+    ],
+    [
+     "Rakan_W_activate@560",
+     67
+    ],
+    [
+     "Rakan_W_activate@700",
+     67
+    ],
+    [
+     "Rakan_W_activate@860",
+     67
+    ],
+    [
+     "Rakan_W_activate@1100",
+     100
+    ]
+   ]
+  },
+  "e_dash": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "frames": [
+    [
+     "Rakan_E@0",
+     60
+    ],
+    [
+     "Rakan_E@140",
+     60
+    ],
+    [
+     "Rakan_E@280",
+     300
+    ]
+   ]
+  },
+  "e_land": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "frames": [
+    [
+     "Rakan_E_to_Idle@700",
+     80
+    ],
+    [
+     "Rakan_E_to_Idle@850",
+     80
+    ],
+    [
+     "Rakan_E_to_Idle@1050",
+     120
+    ]
+   ]
+  },
+  "ult": {
+   "head_like": "Rakan_Idle01@1500",
+   "frames": [
+    [
+     "Rakan_Spell4_Run@0",
+     107
+    ],
+    [
+     "Rakan_Spell4_Run@125",
+     107
+    ],
+    [
+     "Rakan_Spell4_Run@250",
+     107
+    ],
+    [
+     "Rakan_Spell4_Run@375",
+     107
+    ],
+    [
+     "Rakan_Spell4_Run@500",
+     107
+    ],
+    [
+     "Rakan_Spell4_Run@625",
+     107
+    ],
+    [
+     "Rakan_Spell4_Run@750",
+     107
+    ],
+    [
+     "Rakan_Spell4_Run@875",
+     107
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Rakan_Idle01@1500",
+     120,
+     {
+      "turn": -8
+     }
+    ],
+    [
+     "Rakan_Idle01@1500",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "Rakan_Death@0",
+     100
+    ],
+    [
+     "Rakan_Death@300",
+     100
+    ],
+    [
+     "Rakan_Death@700",
+     100
+    ],
+    [
+     "Rakan_Death@1100",
+     120
+    ],
+    [
+     "Rakan_Death@1600",
+     120
+    ],
+    [
+     "Rakan_Death@2300",
+     140
+    ],
+    [
+     "Rakan_Death@3000",
+     160
+    ],
+    [
+     "Rakan_Death@3900",
+     400
+    ]
+   ]
+  }
+ }
+}

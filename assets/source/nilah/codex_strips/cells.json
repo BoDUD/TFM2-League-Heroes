@@ -1,0 +1,322 @@
+{
+ "px_per_square": 7,
+ "grid": [
+  219,
+  146
+ ],
+ "soles_row": 140,
+ "standing_point": [
+  80,
+  140
+ ],
+ "design_squares": [
+  56,
+  106
+ ],
+ "frames": [
+  {
+   "file": "nilah_run_1.png",
+   "tag": "run",
+   "index": 0,
+   "ms": 115
+  },
+  {
+   "file": "nilah_run_2.png",
+   "tag": "run",
+   "index": 1,
+   "ms": 115
+  },
+  {
+   "file": "nilah_run_3.png",
+   "tag": "run",
+   "index": 2,
+   "ms": 115
+  },
+  {
+   "file": "nilah_run_4.png",
+   "tag": "run",
+   "index": 3,
+   "ms": 115
+  },
+  {
+   "file": "nilah_run_5.png",
+   "tag": "run",
+   "index": 4,
+   "ms": 115
+  },
+  {
+   "file": "nilah_run_6.png",
+   "tag": "run",
+   "index": 5,
+   "ms": 115
+  },
+  {
+   "file": "nilah_run_7.png",
+   "tag": "run",
+   "index": 6,
+   "ms": 115
+  },
+  {
+   "file": "nilah_run_8.png",
+   "tag": "run",
+   "index": 7,
+   "ms": 115
+  },
+  {
+   "file": "nilah_attack_1.png",
+   "tag": "attack",
+   "index": 0,
+   "ms": 70
+  },
+  {
+   "file": "nilah_attack_2.png",
+   "tag": "attack",
+   "index": 1,
+   "ms": 70
+  },
+  {
+   "file": "nilah_attack_3.png",
+   "tag": "attack",
+   "index": 2,
+   "ms": 70
+  },
+  {
+   "file": "nilah_attack_4.png",
+   "tag": "attack",
+   "index": 3,
+   "ms": 90
+  },
+  {
+   "file": "nilah_attack_5.png",
+   "tag": "attack",
+   "index": 4,
+   "ms": 100
+  },
+  {
+   "file": "nilah_attack_q_1.png",
+   "tag": "attack_q",
+   "index": 0,
+   "ms": 70
+  },
+  {
+   "file": "nilah_attack_q_2.png",
+   "tag": "attack_q",
+   "index": 1,
+   "ms": 70
+  },
+  {
+   "file": "nilah_attack_q_3.png",
+   "tag": "attack_q",
+   "index": 2,
+   "ms": 70
+  },
+  {
+   "file": "nilah_attack_q_4.png",
+   "tag": "attack_q",
+   "index": 3,
+   "ms": 90
+  },
+  {
+   "file": "nilah_attack_q_5.png",
+   "tag": "attack_q",
+   "index": 4,
+   "ms": 100
+  },
+  {
+   "file": "nilah_skill_1.png",
+   "tag": "skill",
+   "index": 0,
+   "ms": 60
+  },
+  {
+   "file": "nilah_skill_2.png",
+   "tag": "skill",
+   "index": 1,
+   "ms": 60
+  },
+  {
+   "file": "nilah_skill_3.png",
+   "tag": "skill",
+   "index": 2,
+   "ms": 70
+  },
+  {
+   "file": "nilah_skill_4.png",
+   "tag": "skill",
+   "index": 3,
+   "ms": 100
+  },
+  {
+   "file": "nilah_skill_5.png",
+   "tag": "skill",
+   "index": 4,
+   "ms": 110
+  },
+  {
+   "file": "nilah_q_spin_1.png",
+   "tag": "q_spin",
+   "index": 0,
+   "ms": 70
+  },
+  {
+   "file": "nilah_q_spin_2.png",
+   "tag": "q_spin",
+   "index": 1,
+   "ms": 70
+  },
+  {
+   "file": "nilah_q_spin_3.png",
+   "tag": "q_spin",
+   "index": 2,
+   "ms": 70
+  },
+  {
+   "file": "nilah_q_spin_4.png",
+   "tag": "q_spin",
+   "index": 3,
+   "ms": 70
+  },
+  {
+   "file": "nilah_q_spin_5.png",
+   "tag": "q_spin",
+   "index": 4,
+   "ms": 90
+  },
+  {
+   "file": "nilah_skill2_1.png",
+   "tag": "skill2",
+   "index": 0,
+   "ms": 60
+  },
+  {
+   "file": "nilah_skill2_2.png",
+   "tag": "skill2",
+   "index": 1,
+   "ms": 70
+  },
+  {
+   "file": "nilah_skill2_3.png",
+   "tag": "skill2",
+   "index": 2,
+   "ms": 80
+  },
+  {
+   "file": "nilah_skill2_4.png",
+   "tag": "skill2",
+   "index": 3,
+   "ms": 100
+  },
+  {
+   "file": "nilah_w_cast_1.png",
+   "tag": "w_cast",
+   "index": 0,
+   "ms": 60
+  },
+  {
+   "file": "nilah_w_cast_2.png",
+   "tag": "w_cast",
+   "index": 1,
+   "ms": 80
+  },
+  {
+   "file": "nilah_w_cast_3.png",
+   "tag": "w_cast",
+   "index": 2,
+   "ms": 80
+  },
+  {
+   "file": "nilah_w_cast_4.png",
+   "tag": "w_cast",
+   "index": 3,
+   "ms": 100
+  },
+  {
+   "file": "nilah_ult_1.png",
+   "tag": "ult",
+   "index": 0,
+   "ms": 125
+  },
+  {
+   "file": "nilah_ult_2.png",
+   "tag": "ult",
+   "index": 1,
+   "ms": 125
+  },
+  {
+   "file": "nilah_ult_3.png",
+   "tag": "ult",
+   "index": 2,
+   "ms": 125
+  },
+  {
+   "file": "nilah_ult_4.png",
+   "tag": "ult",
+   "index": 3,
+   "ms": 125
+  },
+  {
+   "file": "nilah_ult_5.png",
+   "tag": "ult",
+   "index": 4,
+   "ms": 125
+  },
+  {
+   "file": "nilah_ult_6.png",
+   "tag": "ult",
+   "index": 5,
+   "ms": 125
+  },
+  {
+   "file": "nilah_ult_7.png",
+   "tag": "ult",
+   "index": 6,
+   "ms": 125
+  },
+  {
+   "file": "nilah_ult_8.png",
+   "tag": "ult",
+   "index": 7,
+   "ms": 125
+  },
+  {
+   "file": "nilah_dead_1.png",
+   "tag": "dead",
+   "index": 0,
+   "ms": 120
+  },
+  {
+   "file": "nilah_dead_2.png",
+   "tag": "dead",
+   "index": 1,
+   "ms": 120
+  },
+  {
+   "file": "nilah_dead_3.png",
+   "tag": "dead",
+   "index": 2,
+   "ms": 150
+  },
+  {
+   "file": "nilah_dead_4.png",
+   "tag": "dead",
+   "index": 3,
+   "ms": 150
+  },
+  {
+   "file": "nilah_dead_5.png",
+   "tag": "dead",
+   "index": 4,
+   "ms": 200
+  },
+  {
+   "file": "nilah_dead_6.png",
+   "tag": "dead",
+   "index": 5,
+   "ms": 400
+  }
+ ],
+ "design_at": [
+  49,
+  35
+ ]
+}

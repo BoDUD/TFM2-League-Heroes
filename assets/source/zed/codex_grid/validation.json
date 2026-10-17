@@ -1,0 +1,32 @@
+{
+  "size": [
+    1024,
+    1536
+  ],
+  "native": [
+    39,
+    59
+  ],
+  "grid": 26,
+  "origin": [
+    0,
+    0
+  ],
+  "figure_bbox": [
+    9,
+    10,
+    30,
+    50
+  ],
+  "height": 40,
+  "colours": 16,
+  "binary_alpha": true,
+  "exact_grid_correspondence": true,
+  "raw_crop": [
+    228,
+    236,
+    853,
+    1440
+  ],
+  "engine_tested": false
+}

@@ -1,0 +1,183 @@
+{
+  "assets": 16,
+  "frames": 86,
+  "checks": [
+    {
+      "file": "sivir_fx_a_blade.png",
+      "dimensions_verified": [
+        1024,
+        256
+      ],
+      "frame_rects_verified": 4,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_w_blade.png",
+      "dimensions_verified": [
+        1024,
+        256
+      ],
+      "frame_rects_verified": 4,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_a_hit.png",
+      "dimensions_verified": [
+        1024,
+        256
+      ],
+      "frame_rects_verified": 4,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_w_cast.png",
+      "dimensions_verified": [
+        1280,
+        256
+      ],
+      "frame_rects_verified": 5,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_w_on.png",
+      "dimensions_verified": [
+        1536,
+        256
+      ],
+      "frame_rects_verified": 4,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_w_bounce.png",
+      "dimensions_verified": [
+        1024,
+        256
+      ],
+      "frame_rects_verified": 4,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_w_hit.png",
+      "dimensions_verified": [
+        1024,
+        256
+      ],
+      "frame_rects_verified": 4,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_q_blade.png",
+      "dimensions_verified": [
+        1024,
+        256
+      ],
+      "frame_rects_verified": 4,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_q_throw.png",
+      "dimensions_verified": [
+        1024,
+        256
+      ],
+      "frame_rects_verified": 4,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_q_hit.png",
+      "dimensions_verified": [
+        1280,
+        256
+      ],
+      "frame_rects_verified": 5,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_q_catch.png",
+      "dimensions_verified": [
+        1024,
+        256
+      ],
+      "frame_rects_verified": 4,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_e_shroud.png",
+      "dimensions_verified": [
+        1536,
+        1152
+      ],
+      "frame_rects_verified": 12,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_e_block.png",
+      "dimensions_verified": [
+        1280,
+        256
+      ],
+      "frame_rects_verified": 5,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_r_cast.png",
+      "dimensions_verified": [
+        3072,
+        256
+      ],
+      "frame_rects_verified": 6,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_r_hunt.png",
+      "dimensions_verified": [
+        2048,
+        768
+      ],
+      "frame_rects_verified": 12,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    },
+    {
+      "file": "sivir_fx_r_renew.png",
+      "dimensions_verified": [
+        1280,
+        256
+      ],
+      "frame_rects_verified": 5,
+      "palette_verified": true,
+      "binary_alpha_verified": true,
+      "raw_original_unchanged": true
+    }
+  ],
+  "scope": "Static files validated; no in-game integration or timing test performed."
+}

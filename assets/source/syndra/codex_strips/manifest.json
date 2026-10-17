@@ -1,0 +1,3501 @@
+{
+  "format": "syndra-character-strips-v1",
+  "units": "logical pixels unless named *_px",
+  "scale": 8,
+  "cell": [
+    96,
+    88
+  ],
+  "feetRow": 75,
+  "palette": [
+    "#100117",
+    "#9036de",
+    "#571d8b",
+    "#fccd3d",
+    "#2e0f48",
+    "#f50485",
+    "#a70743",
+    "#f0a924",
+    "#a7a1c0",
+    "#e3e5ee",
+    "#c47426",
+    "#fdc087",
+    "#dc4df2",
+    "#750242",
+    "#e88857",
+    "#ae1f10",
+    "#43176a",
+    "#725c24",
+    "#96412b",
+    "#ac8458",
+    "#562e23",
+    "#f1386e",
+    "#b78f35"
+  ],
+  "sourceDesignSha256": "db8a9b8a80fe98d499d91ddb0d1c22415676a5de44e4156df7414a3e3d2e7f84",
+  "sourceHeadSha256": "05caf219385bb25f6b0b153827a3c137547dcc4fdd6bc3cd6fa2e3f218281d44",
+  "headRule": "Exact source masked pixels translated; 90deg rigid whole-body rotation for death frames4-8; frame3 whole-body45deg raster rotation.",
+  "animations": {
+    "idle": {
+      "file": "syndra_idle.png",
+      "size_px": [
+        2304,
+        1408
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frameCount": 6,
+      "total_ms": 1200,
+      "releaseFrame": null,
+      "releaseTick": null,
+      "unusedCells": 0,
+      "source": "provided idle copied byte-for-byte",
+      "frames": [
+        {
+          "index": 1,
+          "ms": 200,
+          "cellRect": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            48,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d73427a8396a0c87df532c1253ff663be7615d363151267cbb1ba8421ca585b4"
+        },
+        {
+          "index": 2,
+          "ms": 200,
+          "cellRect": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            144,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            128,
+            34,
+            154,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d73427a8396a0c87df532c1253ff663be7615d363151267cbb1ba8421ca585b4"
+        },
+        {
+          "index": 3,
+          "ms": 200,
+          "cellRect": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            240,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            224,
+            34,
+            250,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d73427a8396a0c87df532c1253ff663be7615d363151267cbb1ba8421ca585b4"
+        },
+        {
+          "index": 4,
+          "ms": 200,
+          "cellRect": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            48,
+            152
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            32,
+            122,
+            58,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d73427a8396a0c87df532c1253ff663be7615d363151267cbb1ba8421ca585b4"
+        },
+        {
+          "index": 5,
+          "ms": 200,
+          "cellRect": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            144,
+            152
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            128,
+            122,
+            154,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d73427a8396a0c87df532c1253ff663be7615d363151267cbb1ba8421ca585b4"
+        },
+        {
+          "index": 6,
+          "ms": 200,
+          "cellRect": [
+            192,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            240,
+            152
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            224,
+            122,
+            250,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d73427a8396a0c87df532c1253ff663be7615d363151267cbb1ba8421ca585b4"
+        }
+      ]
+    },
+    "run": {
+      "file": "syndra_run.png",
+      "size_px": [
+        3072,
+        1408
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frameCount": 8,
+      "total_ms": 1064,
+      "releaseFrame": null,
+      "releaseTick": null,
+      "unusedCells": 0,
+      "source": "image_gen motion draft plus fixed authored pixel rig reconstruction",
+      "frames": [
+        {
+          "index": 1,
+          "ms": 133,
+          "cellRect": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            45,
+            64
+          ],
+          "pivot_sheet": [
+            45,
+            64
+          ],
+          "bbox": [
+            29,
+            34,
+            54,
+            76
+          ],
+          "bbox_sheet": [
+            29,
+            34,
+            54,
+            76
+          ],
+          "opaquePixels": 654,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              33.71,
+              59.57
+            ],
+            "right": [
+              51.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -19,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 8,
+            "rightArmDegrees": 8,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              -1,
+              0
+            ]
+          },
+          "sha256": "286dc9dd04afb31cf2b5a885831e12857caf6ab4008b15bdadc2085f7bbfb347"
+        },
+        {
+          "index": 2,
+          "ms": 133,
+          "cellRect": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            46,
+            64
+          ],
+          "pivot_sheet": [
+            142,
+            64
+          ],
+          "bbox": [
+            30,
+            33,
+            56,
+            76
+          ],
+          "bbox_sheet": [
+            126,
+            33,
+            152,
+            76
+          ],
+          "opaquePixels": 656,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              35,
+              59.14
+            ],
+            "right": [
+              53.33,
+              59.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -18,
+              -25
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 5,
+            "rightArmDegrees": 5,
+            "wholeTranslation": [
+              0,
+              -1
+            ],
+            "legsTranslation": [
+              -1,
+              1
+            ]
+          },
+          "sha256": "21de1386707aeb2576964185b031a5a4f4500657ff93d45706ebbbb8213677b7"
+        },
+        {
+          "index": 3,
+          "ms": 133,
+          "cellRect": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            47,
+            64
+          ],
+          "pivot_sheet": [
+            239,
+            64
+          ],
+          "bbox": [
+            31,
+            33,
+            57,
+            76
+          ],
+          "bbox_sheet": [
+            223,
+            33,
+            249,
+            76
+          ],
+          "opaquePixels": 655,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              36.43,
+              59.57
+            ],
+            "right": [
+              54.33,
+              59.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -17,
+              -25
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              -1
+            ],
+            "legsTranslation": [
+              0,
+              1
+            ]
+          },
+          "sha256": "1bbb9069eb3dd4915ae48a342cea931d2a5dc90b1142e11ba4ae3a385a182c22"
+        },
+        {
+          "index": 4,
+          "ms": 133,
+          "cellRect": [
+            288,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            2304,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            336,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            320,
+            34,
+            346,
+            76
+          ],
+          "opaquePixels": 655,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              38.14,
+              60.86
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -5,
+            "rightArmDegrees": -5,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              1,
+              0
+            ]
+          },
+          "sha256": "048fcaeaf468137cbf6a72ed36c36e5b080f923da5a36a58e7380805b965699a"
+        },
+        {
+          "index": 5,
+          "ms": 133,
+          "cellRect": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            48,
+            152
+          ],
+          "bbox": [
+            32,
+            34,
+            59,
+            76
+          ],
+          "bbox_sheet": [
+            32,
+            122,
+            59,
+            164
+          ],
+          "opaquePixels": 656,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              38.17,
+              62
+            ],
+            "right": [
+              56,
+              59.5
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -8,
+            "rightArmDegrees": -8,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              1,
+              0
+            ]
+          },
+          "sha256": "e84ebbc7d7d09d5bf359d0c99023c3d3c7a4bfb43862eb94030be68319fc21e1"
+        },
+        {
+          "index": 6,
+          "ms": 133,
+          "cellRect": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            46,
+            64
+          ],
+          "pivot_sheet": [
+            142,
+            152
+          ],
+          "bbox": [
+            30,
+            34,
+            56,
+            76
+          ],
+          "bbox_sheet": [
+            126,
+            122,
+            152,
+            164
+          ],
+          "opaquePixels": 655,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              36.14,
+              60.86
+            ],
+            "right": [
+              53.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -18,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -5,
+            "rightArmDegrees": -5,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "e6bd8338c3dedcf4e96c3cddfc45789f96f17b8786319e67ab1512984b6ad2f9"
+        },
+        {
+          "index": 7,
+          "ms": 133,
+          "cellRect": [
+            192,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            45,
+            64
+          ],
+          "pivot_sheet": [
+            237,
+            152
+          ],
+          "bbox": [
+            29,
+            34,
+            55,
+            76
+          ],
+          "bbox_sheet": [
+            221,
+            122,
+            247,
+            164
+          ],
+          "opaquePixels": 655,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              34.43,
+              60.57
+            ],
+            "right": [
+              52.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -19,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "18e9f5b9834364aa09d01a427270c98eb0e95422f129cecc5d833008cae56965"
+        },
+        {
+          "index": 8,
+          "ms": 133,
+          "cellRect": [
+            288,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            2304,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            45,
+            64
+          ],
+          "pivot_sheet": [
+            333,
+            152
+          ],
+          "bbox": [
+            29,
+            34,
+            55,
+            76
+          ],
+          "bbox_sheet": [
+            317,
+            122,
+            343,
+            164
+          ],
+          "opaquePixels": 655,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              34,
+              60.14
+            ],
+            "right": [
+              52.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -19,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 5,
+            "rightArmDegrees": 5,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              -1,
+              0
+            ]
+          },
+          "sha256": "d9a11d6c7afcce43ba4336b803d390a830230338fc7dfe6be0d0282dc4692f07"
+        }
+      ]
+    },
+    "attack": {
+      "file": "syndra_attack.png",
+      "size_px": [
+        2304,
+        1408
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frameCount": 5,
+      "total_ms": 467,
+      "releaseFrame": 3,
+      "releaseTick": 10,
+      "unusedCells": 1,
+      "source": "image_gen motion draft plus fixed authored pixel rig reconstruction",
+      "frames": [
+        {
+          "index": 1,
+          "ms": 83,
+          "cellRect": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            48,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d73427a8396a0c87df532c1253ff663be7615d363151267cbb1ba8421ca585b4"
+        },
+        {
+          "index": 2,
+          "ms": 84,
+          "cellRect": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            144,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            60,
+            76
+          ],
+          "bbox_sheet": [
+            128,
+            34,
+            156,
+            76
+          ],
+          "opaquePixels": 672,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              57.33,
+              54
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": -72,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "0c643a6ae81ef01eae7a67e27fc0c49d8746c6f681786b0981bbdbb452945ed5"
+        },
+        {
+          "index": 3,
+          "ms": 100,
+          "cellRect": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            47,
+            64
+          ],
+          "pivot_sheet": [
+            239,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            61,
+            76
+          ],
+          "bbox_sheet": [
+            224,
+            34,
+            253,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": true,
+          "release_tick": 10,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              57.5,
+              56.5
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": -48,
+            "wholeTranslation": [
+              1,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "265c2d489c2a9809b2206de5eef6780e64ccb45573d4255e626245d7f4eb1409"
+        },
+        {
+          "index": 4,
+          "ms": 100,
+          "cellRect": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            49,
+            152
+          ],
+          "bbox": [
+            34,
+            34,
+            63,
+            76
+          ],
+          "bbox_sheet": [
+            34,
+            122,
+            63,
+            164
+          ],
+          "opaquePixels": 672,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              39.43,
+              60.57
+            ],
+            "right": [
+              59.33,
+              56.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -14,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": -45,
+            "wholeTranslation": [
+              1,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "ccaf8971893071900adce07156a0fb08fc386ca428fd5217aed6032eeff8445e"
+        },
+        {
+          "index": 5,
+          "ms": 100,
+          "cellRect": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            50,
+            64
+          ],
+          "pivot_sheet": [
+            146,
+            152
+          ],
+          "bbox": [
+            34,
+            34,
+            60,
+            76
+          ],
+          "bbox_sheet": [
+            130,
+            122,
+            156,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              39.43,
+              60.57
+            ],
+            "right": [
+              57.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -14,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "2fb18899bb301a3b980687287325589671b701fdb1e9a51b8382d836962e967f"
+        }
+      ]
+    },
+    "skill": {
+      "file": "syndra_skill.png",
+      "size_px": [
+        3072,
+        704
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frameCount": 4,
+      "total_ms": 400,
+      "releaseFrame": 3,
+      "releaseTick": 8,
+      "unusedCells": 0,
+      "source": "image_gen motion draft plus fixed authored pixel rig reconstruction",
+      "frames": [
+        {
+          "index": 1,
+          "ms": 67,
+          "cellRect": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            50,
+            64
+          ],
+          "pivot_sheet": [
+            50,
+            64
+          ],
+          "bbox": [
+            34,
+            34,
+            63,
+            76
+          ],
+          "bbox_sheet": [
+            34,
+            34,
+            63,
+            76
+          ],
+          "opaquePixels": 672,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              39.43,
+              60.57
+            ],
+            "right": [
+              59.33,
+              56.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -14,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": -45,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "ccaf8971893071900adce07156a0fb08fc386ca428fd5217aed6032eeff8445e"
+        },
+        {
+          "index": 2,
+          "ms": 67,
+          "cellRect": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            145,
+            64
+          ],
+          "bbox": [
+            33,
+            34,
+            61,
+            76
+          ],
+          "bbox_sheet": [
+            129,
+            34,
+            157,
+            76
+          ],
+          "opaquePixels": 669,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              38.43,
+              60.57
+            ],
+            "right": [
+              57.67,
+              53.67
+            ]
+          },
+          "head": {
+            "translation": [
+              -15,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": -80,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "f1a527da4a9d744be019186b6b84d7b3b219e1774ff4ca0c98d8303afb2d713a"
+        },
+        {
+          "index": 3,
+          "ms": 100,
+          "cellRect": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            240,
+            64
+          ],
+          "bbox": [
+            33,
+            34,
+            61,
+            76
+          ],
+          "bbox_sheet": [
+            225,
+            34,
+            253,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": true,
+          "release_tick": 8,
+          "hands": {
+            "left": [
+              38.43,
+              60.57
+            ],
+            "right": [
+              57.67,
+              59
+            ]
+          },
+          "head": {
+            "translation": [
+              -15,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": -20,
+            "wholeTranslation": [
+              1,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "72d38f10f261edac7c56cfadf2dae48119e3859010408876fcaf17097410d4c9"
+        },
+        {
+          "index": 4,
+          "ms": 166,
+          "cellRect": [
+            288,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            2304,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            336,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            320,
+            34,
+            346,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d73427a8396a0c87df532c1253ff663be7615d363151267cbb1ba8421ca585b4"
+        }
+      ]
+    },
+    "skill2": {
+      "file": "syndra_skill2.png",
+      "size_px": [
+        2304,
+        1408
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frameCount": 5,
+      "total_ms": 500,
+      "releaseFrame": 3,
+      "releaseTick": 12,
+      "unusedCells": 1,
+      "source": "image_gen motion draft plus fixed authored pixel rig reconstruction",
+      "frames": [
+        {
+          "index": 1,
+          "ms": 100,
+          "cellRect": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            47,
+            64
+          ],
+          "pivot_sheet": [
+            47,
+            64
+          ],
+          "bbox": [
+            31,
+            34,
+            60,
+            76
+          ],
+          "bbox_sheet": [
+            31,
+            34,
+            60,
+            76
+          ],
+          "opaquePixels": 670,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              50.33,
+              56.17
+            ],
+            "right": [
+              56.33,
+              56.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -17,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -125,
+            "rightArmDegrees": -45,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "57da65bf46d17ed0cc6729274aa2f74e002b8b51a6a66c5795f21054df85c512"
+        },
+        {
+          "index": 2,
+          "ms": 100,
+          "cellRect": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            145,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            60,
+            76
+          ],
+          "bbox_sheet": [
+            128,
+            34,
+            156,
+            76
+          ],
+          "opaquePixels": 670,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.86,
+              49
+            ],
+            "right": [
+              56.67,
+              53.67
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 95,
+            "rightArmDegrees": -80,
+            "wholeTranslation": [
+              -1,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "61e8a0fb62b96a59073fb6073f62a9e45f36a8e6deaa1a93c2257669fc4ec770"
+        },
+        {
+          "index": 3,
+          "ms": 100,
+          "cellRect": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            47,
+            64
+          ],
+          "pivot_sheet": [
+            239,
+            64
+          ],
+          "bbox": [
+            33,
+            34,
+            61,
+            76
+          ],
+          "bbox_sheet": [
+            225,
+            34,
+            253,
+            76
+          ],
+          "opaquePixels": 672,
+          "release": true,
+          "release_tick": 12,
+          "hands": {
+            "left": [
+              51.86,
+              55.29
+            ],
+            "right": [
+              58,
+              58.5
+            ]
+          },
+          "head": {
+            "translation": [
+              -15,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -135,
+            "rightArmDegrees": -30,
+            "wholeTranslation": [
+              2,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "b85849b8f6699117ccb354cf84cdcd67552fbc9dcee1dd0be72d846f2b0a3ff7"
+        },
+        {
+          "index": 4,
+          "ms": 100,
+          "cellRect": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            50,
+            64
+          ],
+          "pivot_sheet": [
+            50,
+            152
+          ],
+          "bbox": [
+            35,
+            34,
+            62,
+            76
+          ],
+          "bbox_sheet": [
+            35,
+            122,
+            62,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              53.13,
+              58.38
+            ],
+            "right": [
+              59.33,
+              59.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -13,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -110,
+            "rightArmDegrees": -15,
+            "wholeTranslation": [
+              1,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "329795d6fa04c53148a9111a789ca8a7908c9c56b0ed061e145fedbba1198692"
+        },
+        {
+          "index": 5,
+          "ms": 100,
+          "cellRect": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            144,
+            152
+          ],
+          "bbox": [
+            32,
+            34,
+            58,
+            76
+          ],
+          "bbox_sheet": [
+            128,
+            122,
+            154,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              37.43,
+              60.57
+            ],
+            "right": [
+              55.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d73427a8396a0c87df532c1253ff663be7615d363151267cbb1ba8421ca585b4"
+        }
+      ]
+    },
+    "skill2_e": {
+      "file": "syndra_skill2_e.png",
+      "size_px": [
+        3072,
+        704
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frameCount": 4,
+      "total_ms": 400,
+      "releaseFrame": 3,
+      "releaseTick": 8,
+      "unusedCells": 0,
+      "source": "image_gen motion draft plus fixed authored pixel rig reconstruction",
+      "frames": [
+        {
+          "index": 1,
+          "ms": 67,
+          "cellRect": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            52,
+            64
+          ],
+          "pivot_sheet": [
+            52,
+            64
+          ],
+          "bbox": [
+            36,
+            34,
+            65,
+            76
+          ],
+          "bbox_sheet": [
+            36,
+            34,
+            65,
+            76
+          ],
+          "opaquePixels": 670,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              52.86,
+              59.86
+            ],
+            "right": [
+              61.5,
+              55
+            ]
+          },
+          "head": {
+            "translation": [
+              -12,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -95,
+            "rightArmDegrees": -65,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "d3d999e53e6fe38925ef11b52e8b9ebd4e941c80e34729d18ef8437af3d88d2e"
+        },
+        {
+          "index": 2,
+          "ms": 67,
+          "cellRect": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            52,
+            64
+          ],
+          "pivot_sheet": [
+            148,
+            64
+          ],
+          "bbox": [
+            35,
+            34,
+            63,
+            76
+          ],
+          "bbox_sheet": [
+            131,
+            34,
+            159,
+            76
+          ],
+          "opaquePixels": 669,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              53.83,
+              56
+            ],
+            "right": [
+              60.33,
+              54
+            ]
+          },
+          "head": {
+            "translation": [
+              -13,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -130,
+            "rightArmDegrees": -72,
+            "wholeTranslation": [
+              -1,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "65fc11c4e38938bccffa5bdd95d4e837391a756c453d8146b3b231861b99a3b7"
+        },
+        {
+          "index": 3,
+          "ms": 100,
+          "cellRect": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            241,
+            64
+          ],
+          "bbox": [
+            34,
+            34,
+            63,
+            76
+          ],
+          "bbox_sheet": [
+            226,
+            34,
+            255,
+            76
+          ],
+          "opaquePixels": 673,
+          "release": true,
+          "release_tick": 8,
+          "hands": {
+            "left": [
+              53.33,
+              56.17
+            ],
+            "right": [
+              59.5,
+              56.5
+            ]
+          },
+          "head": {
+            "translation": [
+              -14,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -125,
+            "rightArmDegrees": -48,
+            "wholeTranslation": [
+              1,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "b0437c4fa92945e167c8f5ecd2287cb427fb81747f2826df8e9f984127d28df3"
+        },
+        {
+          "index": 4,
+          "ms": 166,
+          "cellRect": [
+            288,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            2304,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            337,
+            64
+          ],
+          "bbox": [
+            33,
+            34,
+            59,
+            76
+          ],
+          "bbox_sheet": [
+            321,
+            34,
+            347,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              38.43,
+              60.57
+            ],
+            "right": [
+              56.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -15,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "2c6c7d3004eec21db930189e94d416abf4ea4fd6c989f2c41d653c8a62cd4c0c"
+        }
+      ]
+    },
+    "ult": {
+      "file": "syndra_ult.png",
+      "size_px": [
+        2304,
+        1408
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frameCount": 5,
+      "total_ms": 667,
+      "releaseFrame": 3,
+      "releaseTick": 14,
+      "unusedCells": 1,
+      "source": "image_gen motion draft plus fixed authored pixel rig reconstruction",
+      "frames": [
+        {
+          "index": 1,
+          "ms": 117,
+          "cellRect": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            48,
+            64
+          ],
+          "bbox": [
+            32,
+            33,
+            61,
+            75
+          ],
+          "bbox_sheet": [
+            32,
+            33,
+            61,
+            75
+          ],
+          "opaquePixels": 679,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              35.57,
+              51
+            ],
+            "right": [
+              57.6,
+              54.8
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -25
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 65,
+            "rightArmDegrees": -55,
+            "wholeTranslation": [
+              0,
+              -1
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "e8fb319ca4404a368ade426ec235f430edae9e7f3e677d80d3c1c334793f004d"
+        },
+        {
+          "index": 2,
+          "ms": 116,
+          "cellRect": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            46,
+            64
+          ],
+          "pivot_sheet": [
+            142,
+            64
+          ],
+          "bbox": [
+            30,
+            32,
+            58,
+            74
+          ],
+          "bbox_sheet": [
+            126,
+            32,
+            154,
+            74
+          ],
+          "opaquePixels": 670,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              35.86,
+              47
+            ],
+            "right": [
+              54.67,
+              51.67
+            ]
+          },
+          "head": {
+            "translation": [
+              -18,
+              -26
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 95,
+            "rightArmDegrees": -80,
+            "wholeTranslation": [
+              0,
+              -2
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "52ec3f4dfbd0bffe01636c201d58c339018e5b4174390773b88ae5f359ca819b"
+        },
+        {
+          "index": 3,
+          "ms": 150,
+          "cellRect": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            46,
+            64
+          ],
+          "pivot_sheet": [
+            238,
+            64
+          ],
+          "bbox": [
+            31,
+            32,
+            60,
+            74
+          ],
+          "bbox_sheet": [
+            223,
+            32,
+            252,
+            74
+          ],
+          "opaquePixels": 672,
+          "release": true,
+          "release_tick": 14,
+          "hands": {
+            "left": [
+              49.86,
+              53.29
+            ],
+            "right": [
+              56.5,
+              54.5
+            ]
+          },
+          "head": {
+            "translation": [
+              -17,
+              -26
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -135,
+            "rightArmDegrees": -48,
+            "wholeTranslation": [
+              1,
+              -2
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "41a0d0cd0d31ebf8d05c3eaf584e26e1e094d4c1f5ad0cfd83fe68b095a0e9f9"
+        },
+        {
+          "index": 4,
+          "ms": 150,
+          "cellRect": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            52,
+            64
+          ],
+          "pivot_sheet": [
+            52,
+            152
+          ],
+          "bbox": [
+            37,
+            33,
+            66,
+            75
+          ],
+          "bbox_sheet": [
+            37,
+            121,
+            66,
+            163
+          ],
+          "opaquePixels": 669,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              55.83,
+              55
+            ],
+            "right": [
+              62.33,
+              55.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -11,
+              -25
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -130,
+            "rightArmDegrees": -45,
+            "wholeTranslation": [
+              1,
+              -1
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "a6195b2fabd5cd085d381126d1b8c330e84554bca3051e14e56829f3e1163197"
+        },
+        {
+          "index": 5,
+          "ms": 134,
+          "cellRect": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            47,
+            64
+          ],
+          "pivot_sheet": [
+            143,
+            152
+          ],
+          "bbox": [
+            31,
+            34,
+            57,
+            76
+          ],
+          "bbox_sheet": [
+            127,
+            122,
+            153,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              36.43,
+              60.57
+            ],
+            "right": [
+              54.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -17,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "c13350642af2c41713b99f50be4e5c2cf84b402f0bf2c477674490137dcdddd3"
+        }
+      ]
+    },
+    "hit": {
+      "file": "syndra_hit.png",
+      "size_px": [
+        1536,
+        704
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "frameCount": 2,
+      "total_ms": 200,
+      "releaseFrame": null,
+      "releaseTick": null,
+      "unusedCells": 0,
+      "source": "image_gen motion draft plus fixed authored pixel rig reconstruction",
+      "frames": [
+        {
+          "index": 1,
+          "ms": 100,
+          "cellRect": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            47,
+            64
+          ],
+          "pivot_sheet": [
+            47,
+            64
+          ],
+          "bbox": [
+            29,
+            34,
+            55,
+            76
+          ],
+          "bbox_sheet": [
+            29,
+            34,
+            55,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              34.43,
+              60.57
+            ],
+            "right": [
+              52.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -19,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              -2,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "11d0a009e3c2db0d0af08b74bf14f2bb01ad6bf90ebb9c393f934b600f998902"
+        },
+        {
+          "index": 2,
+          "ms": 100,
+          "cellRect": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            47,
+            64
+          ],
+          "pivot_sheet": [
+            143,
+            64
+          ],
+          "bbox": [
+            31,
+            34,
+            57,
+            76
+          ],
+          "bbox_sheet": [
+            127,
+            34,
+            153,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              36.43,
+              60.57
+            ],
+            "right": [
+              54.33,
+              60.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -17,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "c13350642af2c41713b99f50be4e5c2cf84b402f0bf2c477674490137dcdddd3"
+        }
+      ]
+    },
+    "dead": {
+      "file": "syndra_dead.png",
+      "size_px": [
+        3072,
+        1408
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frameCount": 8,
+      "total_ms": 1470,
+      "releaseFrame": null,
+      "releaseTick": null,
+      "unusedCells": 0,
+      "source": "image_gen motion draft plus fixed authored pixel rig reconstruction",
+      "frames": [
+        {
+          "index": 1,
+          "ms": 100,
+          "cellRect": [
+            0,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            49,
+            64
+          ],
+          "bbox": [
+            31,
+            32,
+            57,
+            74
+          ],
+          "bbox_sheet": [
+            31,
+            32,
+            57,
+            74
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              36.43,
+              58.57
+            ],
+            "right": [
+              54.33,
+              58.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -17,
+              -26
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              -2,
+              -2
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "a54a5d817f15952bdd312536821969260f1267ddf4f3ab74782fcbc64a729511"
+        },
+        {
+          "index": 2,
+          "ms": 100,
+          "cellRect": [
+            96,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            144,
+            64
+          ],
+          "bbox": [
+            32,
+            34,
+            57,
+            76
+          ],
+          "bbox_sheet": [
+            128,
+            34,
+            153,
+            76
+          ],
+          "opaquePixels": 670,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              39.14,
+              61.86
+            ],
+            "right": [
+              54.33,
+              61.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -24
+            ],
+            "rotation": 0,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": -15,
+            "rightArmDegrees": 15,
+            "wholeTranslation": [
+              0,
+              0
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "259a4d57c9492f0ab61f7fcfe77e2564bfd7f02cec09350fba7d43435244d89f"
+        },
+        {
+          "index": 3,
+          "ms": 100,
+          "cellRect": [
+            192,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            240,
+            64
+          ],
+          "bbox": [
+            37,
+            40,
+            73,
+            76
+          ],
+          "bbox_sheet": [
+            229,
+            40,
+            265,
+            76
+          ],
+          "opaquePixels": 678,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              43,
+              56
+            ],
+            "right": [
+              56,
+              68.75
+            ]
+          },
+          "head": {
+            "translation": [
+              -16,
+              -22
+            ],
+            "rotation": 45,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              2
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "45512d4c514003f9e792d7194a1eb73df609b1f8a9457871deea64d7cb7a6c13"
+        },
+        {
+          "index": 4,
+          "ms": 120,
+          "cellRect": [
+            288,
+            0,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            2304,
+            0,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            337,
+            64
+          ],
+          "bbox": [
+            38,
+            50,
+            80,
+            76
+          ],
+          "bbox_sheet": [
+            326,
+            50,
+            368,
+            76
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              52.43,
+              55.43
+            ],
+            "right": [
+              52.67,
+              73.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -15,
+              -22
+            ],
+            "rotation": 90,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              2
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "adbff5102159d51154a87ba59d556e4ef339b35109145e5d203c7bd9198ee289"
+        },
+        {
+          "index": 5,
+          "ms": 150,
+          "cellRect": [
+            0,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            0,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            49,
+            152
+          ],
+          "bbox": [
+            38,
+            50,
+            80,
+            76
+          ],
+          "bbox_sheet": [
+            38,
+            138,
+            80,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              52.43,
+              55.43
+            ],
+            "right": [
+              52.67,
+              73.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -15,
+              -22
+            ],
+            "rotation": 90,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              2
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "adbff5102159d51154a87ba59d556e4ef339b35109145e5d203c7bd9198ee289"
+        },
+        {
+          "index": 6,
+          "ms": 200,
+          "cellRect": [
+            96,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            768,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            145,
+            152
+          ],
+          "bbox": [
+            38,
+            50,
+            80,
+            76
+          ],
+          "bbox_sheet": [
+            134,
+            138,
+            176,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              52.43,
+              55.43
+            ],
+            "right": [
+              52.67,
+              73.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -15,
+              -22
+            ],
+            "rotation": 90,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              2
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "adbff5102159d51154a87ba59d556e4ef339b35109145e5d203c7bd9198ee289"
+        },
+        {
+          "index": 7,
+          "ms": 300,
+          "cellRect": [
+            192,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            1536,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            49,
+            64
+          ],
+          "pivot_sheet": [
+            241,
+            152
+          ],
+          "bbox": [
+            38,
+            50,
+            80,
+            76
+          ],
+          "bbox_sheet": [
+            230,
+            138,
+            272,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              52.43,
+              55.43
+            ],
+            "right": [
+              52.67,
+              73.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -15,
+              -22
+            ],
+            "rotation": 90,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              2
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "adbff5102159d51154a87ba59d556e4ef339b35109145e5d203c7bd9198ee289"
+        },
+        {
+          "index": 8,
+          "ms": 400,
+          "cellRect": [
+            288,
+            88,
+            96,
+            88
+          ],
+          "cellRect_px": [
+            2304,
+            704,
+            768,
+            704
+          ],
+          "pivot": [
+            48,
+            64
+          ],
+          "pivot_sheet": [
+            336,
+            152
+          ],
+          "bbox": [
+            38,
+            50,
+            80,
+            76
+          ],
+          "bbox_sheet": [
+            326,
+            138,
+            368,
+            164
+          ],
+          "opaquePixels": 675,
+          "release": false,
+          "release_tick": null,
+          "hands": {
+            "left": [
+              52.43,
+              55.43
+            ],
+            "right": [
+              52.67,
+              73.33
+            ]
+          },
+          "head": {
+            "translation": [
+              -15,
+              -22
+            ],
+            "rotation": 90,
+            "mismatchedPixels": 0
+          },
+          "rig": {
+            "leftArmDegrees": 0,
+            "rightArmDegrees": 0,
+            "wholeTranslation": [
+              0,
+              2
+            ],
+            "legsTranslation": [
+              0,
+              0
+            ]
+          },
+          "sha256": "adbff5102159d51154a87ba59d556e4ef339b35109145e5d203c7bd9198ee289"
+        }
+      ]
+    }
+  }
+}

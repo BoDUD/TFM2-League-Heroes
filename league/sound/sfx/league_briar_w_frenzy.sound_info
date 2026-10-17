@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_briar_sfx_w_frenzy",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_briar_vo_w",
+      "volume": 0.9
+    }
+  ]
+}

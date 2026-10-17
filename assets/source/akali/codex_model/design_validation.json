@@ -1,0 +1,72 @@
+{
+  "A": {
+    "opaque_colors": 29,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "exact_8x_grid": true,
+    "crown_y": 32,
+    "sole_y": 111,
+    "crown_to_sole_px": 80,
+    "eye_boxes_xyxy": [
+      [
+        62,
+        40,
+        65,
+        42
+      ],
+      [
+        68,
+        40,
+        70,
+        42
+      ]
+    ],
+    "eye_colors_exclusive": true,
+    "pixels_below_sole": 0
+  },
+  "B": {
+    "opaque_colors": 29,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "exact_8x_grid": true,
+    "crown_y": 32,
+    "sole_y": 111,
+    "crown_to_sole_px": 80,
+    "eye_boxes_xyxy": [
+      [
+        62,
+        44,
+        66,
+        46
+      ],
+      [
+        69,
+        44,
+        72,
+        46
+      ]
+    ],
+    "eye_colors_exclusive": true,
+    "pixels_below_sole": 0
+  }
+}

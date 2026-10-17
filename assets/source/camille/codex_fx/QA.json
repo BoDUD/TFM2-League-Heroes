@@ -1,0 +1,218 @@
+{
+  "route": "built-in imagegen; raster cell extraction, palette cleanup, binary alpha, nearest-neighbor 8x; no code-drawn effect shapes",
+  "assets": {
+    "hit": {
+      "frames": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 10,
+      "strict_8x": true,
+      "nonempty_frames": 5,
+      "distinct_frames": 5
+    },
+    "q_hit": {
+      "frames": 6,
+      "size": [
+        1536,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 6,
+      "strict_8x": true,
+      "nonempty_frames": 6,
+      "distinct_frames": 6
+    },
+    "q2_hit": {
+      "frames": 7,
+      "size": [
+        1792,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 6,
+      "strict_8x": true,
+      "nonempty_frames": 7,
+      "distinct_frames": 7
+    },
+    "w_arc": {
+      "frames": 6,
+      "size": [
+        2400,
+        560
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 7,
+      "strict_8x": true,
+      "nonempty_frames": 6,
+      "distinct_frames": 6
+    },
+    "w_hit": {
+      "frames": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 5,
+      "strict_8x": true,
+      "nonempty_frames": 4,
+      "distinct_frames": 4
+    },
+    "w_edge": {
+      "frames": 6,
+      "size": [
+        1536,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 8,
+      "strict_8x": true,
+      "nonempty_frames": 6,
+      "distinct_frames": 6
+    },
+    "e_hook": {
+      "frames": 8,
+      "size": [
+        9216,
+        128
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 10,
+      "strict_8x": true,
+      "nonempty_frames": 8,
+      "distinct_frames": 8
+    },
+    "e_hit": {
+      "frames": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 9,
+      "strict_8x": true,
+      "nonempty_frames": 5,
+      "distinct_frames": 5
+    },
+    "e_stun": {
+      "frames": 8,
+      "size": [
+        2048,
+        160
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 5,
+      "strict_8x": true,
+      "nonempty_frames": 8,
+      "distinct_frames": 8
+    },
+    "p_shield": {
+      "frames": 6,
+      "size": [
+        2304,
+        640
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 6,
+      "strict_8x": true,
+      "nonempty_frames": 6,
+      "distinct_frames": 6
+    },
+    "r_mark": {
+      "frames": 4,
+      "size": [
+        2048,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 9,
+      "strict_8x": true,
+      "nonempty_frames": 4,
+      "distinct_frames": 4
+    },
+    "r_wall": {
+      "frames": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 9,
+      "strict_8x": true,
+      "nonempty_frames": 5,
+      "distinct_frames": 5
+    },
+    "r_hit": {
+      "frames": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 4,
+      "strict_8x": true,
+      "nonempty_frames": 4,
+      "distinct_frames": 4
+    },
+    "e_land": {
+      "frames": 7,
+      "size": [
+        3584,
+        256
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 8,
+      "strict_8x": true,
+      "nonempty_frames": 7,
+      "distinct_frames": 7
+    },
+    "r_land": {
+      "frames": 8,
+      "size": [
+        6144,
+        448
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 9,
+      "strict_8x": true,
+      "nonempty_frames": 8,
+      "distinct_frames": 8
+    },
+    "r_zone": {
+      "frames": 6,
+      "size": [
+        4608,
+        448
+      ],
+      "binary_alpha": true,
+      "palette_valid": true,
+      "colors_used": 10,
+      "strict_8x": true,
+      "nonempty_frames": 6,
+      "distinct_frames": 6
+    }
+  },
+  "runtime_tested": false,
+  "r_land_to_zone_first_frame_identical": true,
+  "saved_files_verified": true,
+  "total_assets": 16,
+  "total_frames": 95
+}

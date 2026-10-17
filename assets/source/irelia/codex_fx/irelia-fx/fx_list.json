@@ -1,0 +1,110 @@
+[
+ {
+  "file": "irelia_fx_a_hit.png",
+  "binding": "view_effects `league_irelia_a_hit`（跟随目标，画在人物上面；左右对称）",
+  "size": "14",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_p_hit.png",
+  "binding": "view_effects `league_irelia_p_hit`（跟随目标；左右对称）",
+  "size": "12",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_pv4.png",
+  "binding": "view_buffs `league_irelia_pv4`（画在人物上面，循环；左右对称）",
+  "size": "34 × 42",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_q_hit.png",
+  "binding": "view_effects `league_irelia_q_hit`（跟随目标；左右对称）",
+  "size": "18",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_mark.png",
+  "binding": "view_buffs `league_irelia_mark`（画在人物上面，5 秒；左右对称）",
+  "size": "10",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_e_cast.png",
+  "binding": "CasterViewEffect `league_irelia_e_cast`（跟随她，画在人物上面；左右对称）",
+  "size": "24 × 10",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_e_line.png",
+  "binding": "view_projectiles `league_irelia_e_line`（LineRangeProjectile 的画面：整条线，从她到 80 格外，朝方向转；上下对称）",
+  "size": "80 × 12",
+  "sheet": "league_irelia_big"
+ },
+ {
+  "file": "irelia_fx_e_hit.png",
+  "binding": "view_effects `league_irelia_e_hit`（跟随目标；左右对称）",
+  "size": "14",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_e_stun.png",
+  "binding": "view_buffs `league_irelia_e_stun`（画在人物上面，循环 0.75 秒；左右对称）",
+  "size": "14 × 6",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_w_on.png",
+  "binding": "view_buffs `league_irelia_w_on`（画在人物上面，蓄力约 1 秒；左右对称）",
+  "size": "34 × 40",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_w_slash.png",
+  "binding": "CasterViewEffect `league_irelia_w_slash`（跟随她，画在人物上面；左右对称）",
+  "size": "30",
+  "sheet": "league_irelia_big"
+ },
+ {
+  "file": "irelia_fx_w_line.png",
+  "binding": "view_projectiles `league_irelia_w_line`（LineRangeProjectile 的画面：整条线，从她到 55 格外，朝方向转；上下对称）",
+  "size": "55 × 14",
+  "sheet": "league_irelia_big"
+ },
+ {
+  "file": "irelia_fx_w_hit.png",
+  "binding": "view_effects `league_irelia_w_hit`（跟随目标；左右对称）",
+  "size": "16",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_r_blades.png",
+  "binding": "view_projectiles `league_irelia_r_blades`（直线弹，朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "26 × 16",
+  "sheet": "league_irelia_big"
+ },
+ {
+  "file": "irelia_fx_r_hit.png",
+  "binding": "view_effects `league_irelia_r_hit`（跟随目标；左右对称）",
+  "size": "20",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_r_wall_v.png",
+  "binding": "ViewEffect `league_irelia_r_wall_v`（在落点，画在人物下面 z -1，播一遍 5 秒；左右对称）",
+  "size": "60 × 28",
+  "sheet": "league_irelia_big"
+ },
+ {
+  "file": "irelia_fx_r_slow.png",
+  "binding": "view_buffs `league_irelia_r_slow`（画在人物下面 z -1，2 秒；左右对称）",
+  "size": "18 × 6",
+  "sheet": "league_irelia_fx"
+ },
+ {
+  "file": "irelia_fx_r_wslow.png",
+  "binding": "view_buffs `league_irelia_r_wslow`（画在人物下面 z -1，刀墙里每 10 tick 续；左右对称）",
+  "size": "16 × 6",
+  "sheet": "league_irelia_fx"
+ }
+]

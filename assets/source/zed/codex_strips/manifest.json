@@ -1,0 +1,2640 @@
+{
+  "cell": [
+    112,
+    96
+  ],
+  "scale": 8,
+  "palette": [
+    "#020206",
+    "#292A3E",
+    "#363955",
+    "#424462",
+    "#5A5D80",
+    "#686B8B",
+    "#73011C",
+    "#785634",
+    "#8991B1",
+    "#95001F",
+    "#A3ABC6",
+    "#B0722E",
+    "#C80823",
+    "#D7DEF0",
+    "#E39B33",
+    "#E6EBF8",
+    "#F70209",
+    "#FBBB40",
+    "#FCCD5E"
+  ],
+  "animations": {
+    "hit": {
+      "file": "zed_hit.png",
+      "raw": "raw/zed_hit_raw.png",
+      "raw_size": [
+        1915,
+        821
+      ],
+      "sampling": "majority per square block; pitch from reference cell width",
+      "raw_block_pitch": 8.549107142857142,
+      "grid": [
+        2,
+        1
+      ],
+      "frame_count": 2,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            39,
+            41,
+            79,
+            82
+          ],
+          "head_rect": [
+            50,
+            45,
+            63,
+            59
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            36,
+            39,
+            76,
+            80
+          ],
+          "whole_frame_translation": [
+            3,
+            2
+          ],
+          "clipped": false,
+          "opaque_area": 637,
+          "release_hand": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            49,
+            45,
+            71,
+            82
+          ],
+          "head_rect": [
+            55,
+            49,
+            68,
+            63
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            47,
+            43,
+            69,
+            80
+          ],
+          "whole_frame_translation": [
+            2,
+            2
+          ],
+          "clipped": false,
+          "opaque_area": 546,
+          "release_hand": null
+        }
+      ]
+    },
+    "attack": {
+      "file": "zed_attack.png",
+      "raw": "raw/zed_attack_raw.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "sampling": "majority per square block; pitch from reference cell width",
+      "raw_block_pitch": 4.9375,
+      "grid": [
+        3,
+        2
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            38,
+            38,
+            72,
+            82
+          ],
+          "head_rect": [
+            50,
+            40,
+            63,
+            54
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            34,
+            43,
+            68,
+            87
+          ],
+          "whole_frame_translation": [
+            4,
+            -5
+          ],
+          "clipped": false,
+          "opaque_area": 920,
+          "release_hand": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            42,
+            37,
+            74,
+            82
+          ],
+          "head_rect": [
+            51,
+            39,
+            64,
+            53
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            39,
+            42,
+            71,
+            87
+          ],
+          "whole_frame_translation": [
+            3,
+            -5
+          ],
+          "clipped": false,
+          "opaque_area": 831,
+          "release_hand": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 40,
+          "bbox": [
+            34,
+            45,
+            75,
+            82
+          ],
+          "head_rect": [
+            55,
+            47,
+            68,
+            61
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            39,
+            50,
+            80,
+            87
+          ],
+          "whole_frame_translation": [
+            -5,
+            -5
+          ],
+          "clipped": false,
+          "opaque_area": 924,
+          "release_hand": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            33,
+            44,
+            91,
+            82
+          ],
+          "head_rect": [
+            55,
+            46,
+            68,
+            60
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            33,
+            39,
+            91,
+            77
+          ],
+          "whole_frame_translation": [
+            0,
+            5
+          ],
+          "clipped": false,
+          "opaque_area": 973,
+          "release_hand": {
+            "point": [
+              79.6,
+              59.2
+            ],
+            "method": "estimated from outer gold bracer pixels; review required"
+          },
+          "release_tick": 9
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            36,
+            46,
+            76,
+            82
+          ],
+          "head_rect": [
+            58,
+            49,
+            71,
+            63
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            36,
+            41,
+            76,
+            77
+          ],
+          "whole_frame_translation": [
+            0,
+            5
+          ],
+          "clipped": false,
+          "opaque_area": 814,
+          "release_hand": null
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 110,
+          "bbox": [
+            41,
+            39,
+            71,
+            82
+          ],
+          "head_rect": [
+            48,
+            41,
+            61,
+            55
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            44,
+            34,
+            74,
+            77
+          ],
+          "whole_frame_translation": [
+            -3,
+            5
+          ],
+          "clipped": false,
+          "opaque_area": 906,
+          "release_hand": null
+        }
+      ]
+    },
+    "run": {
+      "file": "zed_run.png",
+      "raw": "raw/zed_run_raw.png",
+      "raw_size": [
+        1916,
+        821
+      ],
+      "sampling": "majority per square block; pitch from reference cell width",
+      "raw_block_pitch": 4.276785714285714,
+      "grid": [
+        4,
+        2
+      ],
+      "frame_count": 8,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            36,
+            42,
+            69,
+            82
+          ],
+          "head_rect": [
+            56,
+            45,
+            69,
+            59
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            37,
+            41,
+            70,
+            81
+          ],
+          "whole_frame_translation": [
+            -1,
+            1
+          ],
+          "clipped": false,
+          "opaque_area": 547,
+          "release_hand": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            36,
+            43,
+            69,
+            82
+          ],
+          "head_rect": [
+            56,
+            45,
+            69,
+            59
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            37,
+            42,
+            70,
+            81
+          ],
+          "whole_frame_translation": [
+            -1,
+            1
+          ],
+          "clipped": false,
+          "opaque_area": 571,
+          "release_hand": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            35,
+            44,
+            69,
+            82
+          ],
+          "head_rect": [
+            56,
+            47,
+            69,
+            61
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            36,
+            41,
+            70,
+            79
+          ],
+          "whole_frame_translation": [
+            -1,
+            3
+          ],
+          "clipped": false,
+          "opaque_area": 592,
+          "release_hand": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            36,
+            43,
+            70,
+            82
+          ],
+          "head_rect": [
+            56,
+            45,
+            69,
+            59
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            37,
+            42,
+            71,
+            81
+          ],
+          "whole_frame_translation": [
+            -1,
+            1
+          ],
+          "clipped": false,
+          "opaque_area": 545,
+          "release_hand": null
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            36,
+            43,
+            69,
+            82
+          ],
+          "head_rect": [
+            56,
+            45,
+            69,
+            59
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            37,
+            40,
+            70,
+            79
+          ],
+          "whole_frame_translation": [
+            -1,
+            3
+          ],
+          "clipped": false,
+          "opaque_area": 545,
+          "release_hand": null
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            36,
+            44,
+            69,
+            82
+          ],
+          "head_rect": [
+            56,
+            46,
+            69,
+            60
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            37,
+            40,
+            70,
+            78
+          ],
+          "whole_frame_translation": [
+            -1,
+            4
+          ],
+          "clipped": false,
+          "opaque_area": 553,
+          "release_hand": null
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            35,
+            44,
+            69,
+            82
+          ],
+          "head_rect": [
+            56,
+            46,
+            69,
+            60
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            36,
+            40,
+            70,
+            78
+          ],
+          "whole_frame_translation": [
+            -1,
+            4
+          ],
+          "clipped": false,
+          "opaque_area": 586,
+          "release_hand": null
+        },
+        {
+          "frame": 8,
+          "rect_1x": [
+            336,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            36,
+            43,
+            70,
+            82
+          ],
+          "head_rect": [
+            56,
+            45,
+            69,
+            59
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            37,
+            40,
+            71,
+            79
+          ],
+          "whole_frame_translation": [
+            -1,
+            3
+          ],
+          "clipped": false,
+          "opaque_area": 545,
+          "release_hand": null
+        }
+      ]
+    },
+    "skill": {
+      "file": "zed_skill.png",
+      "raw": "raw/zed_skill_raw.png",
+      "raw_size": [
+        2171,
+        724
+      ],
+      "sampling": "majority per square block; pitch from reference cell width",
+      "raw_block_pitch": 4.845982142857143,
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            39,
+            32,
+            76,
+            82
+          ],
+          "head_rect": [
+            54,
+            40,
+            67,
+            54
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": true,
+          "raw_bbox_on_lattice": [
+            35,
+            59,
+            72,
+            109
+          ],
+          "whole_frame_translation": [
+            4,
+            -27
+          ],
+          "clipped": false,
+          "opaque_area": 1035,
+          "release_hand": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            45,
+            35,
+            91,
+            82
+          ],
+          "head_rect": [
+            55,
+            40,
+            68,
+            54
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            39,
+            62,
+            85,
+            109
+          ],
+          "whole_frame_translation": [
+            6,
+            -27
+          ],
+          "clipped": false,
+          "opaque_area": 1056,
+          "release_hand": {
+            "point": [
+              79.9,
+              58.9
+            ],
+            "method": "estimated from outer gold bracer pixels; review required"
+          },
+          "release_tick": 3
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            44,
+            37,
+            79,
+            82
+          ],
+          "head_rect": [
+            56,
+            42,
+            69,
+            56
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": true,
+          "raw_bbox_on_lattice": [
+            41,
+            64,
+            76,
+            109
+          ],
+          "whole_frame_translation": [
+            3,
+            -27
+          ],
+          "clipped": false,
+          "opaque_area": 951,
+          "release_hand": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 90,
+          "bbox": [
+            41,
+            35,
+            74,
+            82
+          ],
+          "head_rect": [
+            52,
+            40,
+            65,
+            54
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": true,
+          "raw_bbox_on_lattice": [
+            39,
+            62,
+            72,
+            109
+          ],
+          "whole_frame_translation": [
+            2,
+            -27
+          ],
+          "clipped": false,
+          "opaque_area": 1046,
+          "release_hand": null
+        }
+      ]
+    },
+    "skill2": {
+      "file": "zed_skill2.png",
+      "raw": "raw/zed_skill2_raw.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "sampling": "majority per square block; pitch from reference cell width",
+      "raw_block_pitch": 4.9375,
+      "grid": [
+        3,
+        2
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            40,
+            35,
+            74,
+            82
+          ],
+          "head_rect": [
+            58,
+            39,
+            71,
+            53
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": true,
+          "raw_bbox_on_lattice": [
+            42,
+            39,
+            76,
+            86
+          ],
+          "whole_frame_translation": [
+            -2,
+            -4
+          ],
+          "clipped": false,
+          "opaque_area": 914,
+          "release_hand": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            48,
+            31,
+            77,
+            82
+          ],
+          "head_rect": [
+            57,
+            39,
+            70,
+            53
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            46,
+            35,
+            75,
+            86
+          ],
+          "whole_frame_translation": [
+            2,
+            -4
+          ],
+          "clipped": false,
+          "opaque_area": 874,
+          "release_hand": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            51,
+            42,
+            84,
+            82
+          ],
+          "head_rect": [
+            59,
+            43,
+            72,
+            57
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            44,
+            46,
+            77,
+            86
+          ],
+          "whole_frame_translation": [
+            7,
+            -4
+          ],
+          "clipped": false,
+          "opaque_area": 750,
+          "release_hand": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            35,
+            52,
+            96,
+            82
+          ],
+          "head_rect": [
+            59,
+            54,
+            72,
+            68
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            35,
+            53,
+            96,
+            83
+          ],
+          "whole_frame_translation": [
+            0,
+            -1
+          ],
+          "clipped": false,
+          "opaque_area": 824,
+          "release_hand": {
+            "point": [
+              82.0,
+              68.8
+            ],
+            "method": "estimated from outer gold bracer pixels; review required"
+          },
+          "release_tick": 10
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            49,
+            49,
+            91,
+            82
+          ],
+          "head_rect": [
+            68,
+            51,
+            81,
+            65
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": true,
+          "raw_bbox_on_lattice": [
+            37,
+            50,
+            79,
+            83
+          ],
+          "whole_frame_translation": [
+            12,
+            -1
+          ],
+          "clipped": false,
+          "opaque_area": 715,
+          "release_hand": null
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            45,
+            40,
+            73,
+            82
+          ],
+          "head_rect": [
+            57,
+            43,
+            70,
+            57
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": true,
+          "raw_bbox_on_lattice": [
+            44,
+            40,
+            72,
+            82
+          ],
+          "whole_frame_translation": [
+            1,
+            0
+          ],
+          "clipped": false,
+          "opaque_area": 807,
+          "release_hand": null
+        }
+      ]
+    },
+    "skill_e": {
+      "file": "zed_skill_e.png",
+      "raw": "raw/zed_skill_e_raw.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "sampling": "majority per square block; pitch from reference cell width",
+      "raw_block_pitch": 4.9375,
+      "grid": [
+        3,
+        2
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            42,
+            37,
+            70,
+            82
+          ],
+          "head_rect": [
+            50,
+            41,
+            63,
+            55
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            41,
+            46,
+            69,
+            91
+          ],
+          "whole_frame_translation": [
+            1,
+            -9
+          ],
+          "clipped": false,
+          "opaque_area": 774,
+          "release_hand": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 40,
+          "bbox": [
+            29,
+            37,
+            83,
+            82
+          ],
+          "head_rect": [
+            49,
+            40,
+            62,
+            54
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            33,
+            46,
+            87,
+            91
+          ],
+          "whole_frame_translation": [
+            -4,
+            -9
+          ],
+          "clipped": false,
+          "opaque_area": 1020,
+          "release_hand": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "ms": 43,
+          "bbox": [
+            40,
+            37,
+            87,
+            82
+          ],
+          "head_rect": [
+            47,
+            41,
+            60,
+            55
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            51,
+            46,
+            98,
+            91
+          ],
+          "whole_frame_translation": [
+            -11,
+            -9
+          ],
+          "clipped": false,
+          "opaque_area": 910,
+          "release_hand": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            24,
+            37,
+            96,
+            82
+          ],
+          "head_rect": [
+            53,
+            41,
+            66,
+            55
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            20,
+            37,
+            92,
+            82
+          ],
+          "whole_frame_translation": [
+            4,
+            0
+          ],
+          "clipped": false,
+          "opaque_area": 1051,
+          "release_hand": {
+            "point": [
+              78.2,
+              53.6
+            ],
+            "method": "estimated from outer gold bracer pixels; review required"
+          },
+          "release_tick": 8
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            29,
+            36,
+            101,
+            82
+          ],
+          "head_rect": [
+            58,
+            40,
+            71,
+            54
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            24,
+            36,
+            96,
+            82
+          ],
+          "whole_frame_translation": [
+            5,
+            0
+          ],
+          "clipped": false,
+          "opaque_area": 1040,
+          "release_hand": null
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            38,
+            70,
+            82
+          ],
+          "head_rect": [
+            49,
+            43,
+            62,
+            57
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            48,
+            38,
+            78,
+            82
+          ],
+          "whole_frame_translation": [
+            -8,
+            0
+          ],
+          "clipped": false,
+          "opaque_area": 938,
+          "release_hand": null
+        }
+      ]
+    },
+    "ult": {
+      "file": "zed_ult.png",
+      "raw": "raw/zed_ult_raw.png",
+      "raw_size": [
+        1916,
+        821
+      ],
+      "sampling": "majority per square block; pitch from reference cell width",
+      "raw_block_pitch": 4.276785714285714,
+      "grid": [
+        4,
+        2
+      ],
+      "frame_count": 7,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            45,
+            41,
+            78,
+            82
+          ],
+          "head_rect": [
+            57,
+            44,
+            70,
+            58
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            41,
+            45,
+            74,
+            86
+          ],
+          "whole_frame_translation": [
+            4,
+            -4
+          ],
+          "clipped": false,
+          "opaque_area": 992,
+          "release_hand": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            34,
+            38,
+            80,
+            82
+          ],
+          "head_rect": [
+            59,
+            42,
+            72,
+            56
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            28,
+            43,
+            74,
+            87
+          ],
+          "whole_frame_translation": [
+            6,
+            -5
+          ],
+          "clipped": false,
+          "opaque_area": 1009,
+          "release_hand": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            43,
+            45,
+            111,
+            82
+          ],
+          "head_rect": [
+            70,
+            49,
+            83,
+            63
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            22,
+            45,
+            90,
+            82
+          ],
+          "whole_frame_translation": [
+            21,
+            0
+          ],
+          "clipped": false,
+          "opaque_area": 1019,
+          "release_hand": {
+            "point": [
+              97.5,
+              59.7
+            ],
+            "method": "estimated from outer gold bracer pixels; review required"
+          },
+          "release_tick": 6
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            35,
+            52,
+            112,
+            82
+          ],
+          "head_rect": [
+            72,
+            54,
+            85,
+            68
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            22,
+            55,
+            99,
+            85
+          ],
+          "whole_frame_translation": [
+            13,
+            -3
+          ],
+          "clipped": false,
+          "opaque_area": 985,
+          "release_hand": null
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            47,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            28,
+            37,
+            78,
+            82
+          ],
+          "head_rect": [
+            52,
+            42,
+            65,
+            56
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            29,
+            35,
+            79,
+            80
+          ],
+          "whole_frame_translation": [
+            -1,
+            2
+          ],
+          "clipped": false,
+          "opaque_area": 1103,
+          "release_hand": null
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 90,
+          "bbox": [
+            26,
+            47,
+            93,
+            82
+          ],
+          "head_rect": [
+            53,
+            52,
+            66,
+            66
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            21,
+            45,
+            88,
+            80
+          ],
+          "whole_frame_translation": [
+            5,
+            2
+          ],
+          "clipped": false,
+          "opaque_area": 1081,
+          "release_hand": null
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 110,
+          "bbox": [
+            39,
+            37,
+            71,
+            82
+          ],
+          "head_rect": [
+            49,
+            40,
+            62,
+            54
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            43,
+            35,
+            75,
+            80
+          ],
+          "whole_frame_translation": [
+            -4,
+            2
+          ],
+          "clipped": false,
+          "opaque_area": 1086,
+          "release_hand": null
+        }
+      ]
+    },
+    "dead": {
+      "file": "zed_dead.png",
+      "raw": "raw/zed_dead_raw.png",
+      "raw_size": [
+        1916,
+        821
+      ],
+      "sampling": "majority per square block; pitch from reference cell width",
+      "raw_block_pitch": 4.276785714285714,
+      "grid": [
+        4,
+        2
+      ],
+      "frame_count": 8,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            36,
+            38,
+            76,
+            82
+          ],
+          "head_rect": [
+            45,
+            40,
+            58,
+            54
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            38,
+            46,
+            78,
+            90
+          ],
+          "whole_frame_translation": [
+            -2,
+            -8
+          ],
+          "clipped": false,
+          "opaque_area": 830,
+          "release_hand": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            49,
+            42,
+            81,
+            82
+          ],
+          "head_rect": [
+            63,
+            45,
+            76,
+            59
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            45,
+            50,
+            77,
+            90
+          ],
+          "whole_frame_translation": [
+            4,
+            -8
+          ],
+          "clipped": false,
+          "opaque_area": 748,
+          "release_hand": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            47,
+            45,
+            84,
+            82
+          ],
+          "head_rect": [
+            65,
+            49,
+            78,
+            63
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            36,
+            53,
+            73,
+            90
+          ],
+          "whole_frame_translation": [
+            11,
+            -8
+          ],
+          "clipped": false,
+          "opaque_area": 786,
+          "release_hand": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            336,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            41,
+            46,
+            72,
+            82
+          ],
+          "head_rect": [
+            55,
+            50,
+            68,
+            64
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            46,
+            54,
+            77,
+            90
+          ],
+          "whole_frame_translation": [
+            -5,
+            -8
+          ],
+          "clipped": false,
+          "opaque_area": 706,
+          "release_hand": null
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            54,
+            55,
+            97,
+            82
+          ],
+          "head_rect": [
+            77,
+            56,
+            90,
+            70
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            37,
+            53,
+            80,
+            80
+          ],
+          "whole_frame_translation": [
+            17,
+            2
+          ],
+          "clipped": false,
+          "opaque_area": 603,
+          "release_hand": null
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            49,
+            54,
+            101,
+            82
+          ],
+          "head_rect": [
+            77,
+            57,
+            90,
+            71
+          ],
+          "head_rotation": 0,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            33,
+            50,
+            85,
+            78
+          ],
+          "whole_frame_translation": [
+            16,
+            4
+          ],
+          "clipped": false,
+          "opaque_area": 647,
+          "release_hand": null
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            44,
+            63,
+            108,
+            82
+          ],
+          "head_rect": [
+            80,
+            65,
+            94,
+            78
+          ],
+          "head_rotation": 90,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            29,
+            60,
+            93,
+            79
+          ],
+          "whole_frame_translation": [
+            15,
+            3
+          ],
+          "clipped": false,
+          "opaque_area": 621,
+          "release_hand": null
+        },
+        {
+          "frame": 8,
+          "rect_1x": [
+            336,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 500,
+          "bbox": [
+            44,
+            63,
+            108,
+            82
+          ],
+          "head_rect": [
+            80,
+            65,
+            94,
+            78
+          ],
+          "head_rotation": 90,
+          "head_exact": true,
+          "raw_eye_detected": false,
+          "raw_bbox_on_lattice": [
+            29,
+            60,
+            93,
+            79
+          ],
+          "whole_frame_translation": [
+            15,
+            3
+          ],
+          "clipped": false,
+          "opaque_area": 621,
+          "release_hand": null
+        }
+      ]
+    },
+    "idle": {
+      "file": "zed_idle.png",
+      "grid": [
+        3,
+        2
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            42,
+            67,
+            82
+          ],
+          "release_hand": null,
+          "source": "provided idle copied unchanged"
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            112,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            42,
+            67,
+            82
+          ],
+          "release_hand": null,
+          "source": "provided idle copied unchanged"
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            224,
+            0,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            42,
+            67,
+            82
+          ],
+          "release_hand": null,
+          "source": "provided idle copied unchanged"
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            42,
+            67,
+            82
+          ],
+          "release_hand": null,
+          "source": "provided idle copied unchanged"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            112,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            42,
+            67,
+            82
+          ],
+          "release_hand": null,
+          "source": "provided idle copied unchanged"
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            224,
+            96,
+            112,
+            96
+          ],
+          "rect_8x": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            42,
+            67,
+            82
+          ],
+          "release_hand": null,
+          "source": "provided idle copied unchanged"
+        }
+      ],
+      "source": "provided file, unchanged"
+    }
+  },
+  "status": "review draft; technical formatting verified; visual fidelity has open issues",
+  "coordinate_convention": "cell-local 1x game pixels, x-right/y-down; bbox max edge exclusive; rectangles x,y,width,height; head_rect minx,miny,maxx,maxy",
+  "foot_row": 81,
+  "source_idle_sha256": "9ba74e0d3d57c10fc6e2e94e93ae3fd0aa03d821c88a12f91c2e5be8d7a17e37"
+}

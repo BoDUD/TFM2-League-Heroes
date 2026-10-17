@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.71.0"
+    }
+  ],
+  "description": "Test build of Vayne's Silver Bolts as in League (needs League of Legends Heroes): replaces the main pack's Vayne so the true-damage proc needs three hits in a row on the same target, counted on that target, instead of the data pack's stand-in (any three of her hits, on anyone). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-07",
+  "mod_id": "league_vayne_bolts",
+  "mod_type": "native",
+  "name": "League Heroes: Vayne's Silver Bolts per target (test)",
+  "version": "0.1.0"
+}

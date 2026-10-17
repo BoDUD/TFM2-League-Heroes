@@ -1,0 +1,2083 @@
+{
+  "version": 1,
+  "cell": [
+    96,
+    96
+  ],
+  "scale": 8,
+  "alpha": [
+    0,
+    255
+  ],
+  "palette": [
+    "#183A2A",
+    "#2D6940",
+    "#4BA85A",
+    "#87D46A",
+    "#C9EF9A",
+    "#F6EADB",
+    "#493328",
+    "#867469"
+  ],
+  "coordinate_system": "0-based logical pixels; bboxes right/bottom exclusive; frame numbers 1-based",
+  "generation": "built-in image_gen; user-authorized pixel cleanup and registration",
+  "effects": {
+    "q1": {
+      "file": "riven_fx_q1.png",
+      "name": "Q1 · 折翼之舞",
+      "action": "skill",
+      "frame_count": 7,
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "native_file": "native_1x/riven_fx_q1.png",
+      "layers": {
+        "back": "layers/riven_fx_q1_back.png",
+        "front": "layers/riven_fx_q1_front.png"
+      },
+      "hit_frame": 5,
+      "hit_tick": 13,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 50,
+          "cell": [
+            0,
+            0
+          ],
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            43,
+            70
+          ],
+          "requested_anchor": [
+            43,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 50,
+          "cell": [
+            1,
+            0
+          ],
+          "rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "requested_anchor": [
+            60,
+            64
+          ],
+          "effect_origin": [
+            51,
+            60
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 1,
+          "active": true,
+          "opaque_bbox": [
+            51,
+            60,
+            69,
+            69
+          ],
+          "opaque_area": 51,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 60,
+          "cell": [
+            2,
+            0
+          ],
+          "rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            47,
+            70
+          ],
+          "requested_anchor": [
+            61,
+            64
+          ],
+          "effect_origin": [
+            46,
+            56
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 2,
+          "active": true,
+          "opaque_bbox": [
+            49,
+            56,
+            76,
+            71
+          ],
+          "opaque_area": 118,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 60,
+          "cell": [
+            3,
+            0
+          ],
+          "rect_px": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "requested_anchor": [
+            63,
+            64
+          ],
+          "effect_origin": [
+            40,
+            54
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 4,
+          "active": true,
+          "opaque_bbox": [
+            40,
+            54,
+            87,
+            75
+          ],
+          "opaque_area": 326,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 70,
+          "cell": [
+            0,
+            1
+          ],
+          "rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "requested_anchor": [
+            59,
+            64
+          ],
+          "effect_origin": [
+            28,
+            50
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 5,
+          "active": true,
+          "opaque_bbox": [
+            28,
+            50,
+            90,
+            77
+          ],
+          "opaque_area": 589,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 80,
+          "cell": [
+            1,
+            1
+          ],
+          "rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "requested_anchor": [
+            60,
+            64
+          ],
+          "effect_origin": [
+            32,
+            52
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 6,
+          "active": true,
+          "opaque_bbox": [
+            36,
+            52,
+            88,
+            75
+          ],
+          "opaque_area": 232,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 90,
+          "cell": [
+            2,
+            1
+          ],
+          "rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "requested_anchor": [
+            44,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        }
+      ],
+      "prompt_file": "prompts/riven_fx_q1.txt"
+    },
+    "q2": {
+      "file": "riven_fx_q2.png",
+      "name": "Q2 · 低位横扫",
+      "action": "q2",
+      "frame_count": 7,
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "native_file": "native_1x/riven_fx_q2.png",
+      "layers": {
+        "back": "layers/riven_fx_q2_back.png",
+        "front": "layers/riven_fx_q2_front.png"
+      },
+      "hit_frame": 5,
+      "hit_tick": 13,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 50,
+          "cell": [
+            0,
+            0
+          ],
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "requested_anchor": [
+            46,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 50,
+          "cell": [
+            1,
+            0
+          ],
+          "rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "requested_anchor": [
+            58,
+            69
+          ],
+          "effect_origin": [
+            47,
+            65
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 1,
+          "active": true,
+          "opaque_bbox": [
+            47,
+            66,
+            66,
+            73
+          ],
+          "opaque_area": 41,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 60,
+          "cell": [
+            2,
+            0
+          ],
+          "rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            43,
+            70
+          ],
+          "requested_anchor": [
+            57,
+            69
+          ],
+          "effect_origin": [
+            38,
+            63
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 2,
+          "active": true,
+          "opaque_bbox": [
+            38,
+            65,
+            76,
+            75
+          ],
+          "opaque_area": 116,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 60,
+          "cell": [
+            3,
+            0
+          ],
+          "rect_px": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            42,
+            70
+          ],
+          "requested_anchor": [
+            56,
+            69
+          ],
+          "effect_origin": [
+            31,
+            61
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 4,
+          "active": true,
+          "opaque_bbox": [
+            31,
+            61,
+            80,
+            77
+          ],
+          "opaque_area": 312,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 70,
+          "cell": [
+            0,
+            1
+          ],
+          "rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "requested_anchor": [
+            58,
+            69
+          ],
+          "effect_origin": [
+            24,
+            58
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 5,
+          "active": true,
+          "opaque_bbox": [
+            24,
+            58,
+            91,
+            79
+          ],
+          "opaque_area": 546,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 80,
+          "cell": [
+            1,
+            1
+          ],
+          "rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "requested_anchor": [
+            58,
+            69
+          ],
+          "effect_origin": [
+            29,
+            60
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 6,
+          "active": true,
+          "opaque_bbox": [
+            29,
+            60,
+            87,
+            77
+          ],
+          "opaque_area": 239,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 90,
+          "cell": [
+            2,
+            1
+          ],
+          "rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "requested_anchor": [
+            44,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        }
+      ],
+      "prompt_file": "prompts/riven_fx_q2.txt"
+    },
+    "q3": {
+      "file": "riven_fx_q3.png",
+      "name": "Q3 · 地裂冲击",
+      "action": "q3",
+      "frame_count": 7,
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "native_file": "native_1x/riven_fx_q3.png",
+      "layers": {
+        "back": "layers/riven_fx_q3_back.png",
+        "front": "layers/riven_fx_q3_front.png"
+      },
+      "hit_frame": 5,
+      "hit_tick": 15,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 50,
+          "cell": [
+            0,
+            0
+          ],
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "requested_anchor": [
+            45,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 60,
+          "cell": [
+            1,
+            0
+          ],
+          "rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            47,
+            70
+          ],
+          "requested_anchor": [
+            47,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 80,
+          "cell": [
+            2,
+            0
+          ],
+          "rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            47,
+            70
+          ],
+          "requested_anchor": [
+            47,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 60,
+          "cell": [
+            3,
+            0
+          ],
+          "rect_px": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "requested_anchor": [
+            44,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 70,
+          "cell": [
+            0,
+            1
+          ],
+          "rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "requested_anchor": [
+            57,
+            70
+          ],
+          "effect_origin": [
+            23,
+            57
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 5,
+          "active": true,
+          "opaque_bbox": [
+            24,
+            57,
+            90,
+            81
+          ],
+          "opaque_area": 677,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 90,
+          "cell": [
+            1,
+            1
+          ],
+          "rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "requested_anchor": [
+            54,
+            70
+          ],
+          "effect_origin": [
+            16,
+            61
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 6,
+          "active": true,
+          "opaque_bbox": [
+            21,
+            61,
+            89,
+            81
+          ],
+          "opaque_area": 387,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 100,
+          "cell": [
+            2,
+            1
+          ],
+          "rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            39,
+            70
+          ],
+          "requested_anchor": [
+            44,
+            70
+          ],
+          "effect_origin": [
+            26,
+            69
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 7,
+          "active": true,
+          "opaque_bbox": [
+            28,
+            69,
+            54,
+            81
+          ],
+          "opaque_area": 50,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        }
+      ],
+      "prompt_file": "prompts/riven_fx_q3.txt"
+    },
+    "e": {
+      "file": "riven_fx_e.png",
+      "name": "E · 勇往直前护盾",
+      "action": "skill2",
+      "frame_count": 8,
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "native_file": "native_1x/riven_fx_e.png",
+      "layers": {
+        "back": "layers/riven_fx_e_back.png",
+        "front": "layers/riven_fx_e_front.png"
+      },
+      "hit_frame": null,
+      "hit_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 50,
+          "cell": [
+            0,
+            0
+          ],
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "requested_anchor": [
+            47,
+            56
+          ],
+          "effect_origin": [
+            25,
+            32
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 1,
+          "active": true,
+          "opaque_bbox": [
+            25,
+            32,
+            68,
+            80
+          ],
+          "opaque_area": 285,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 50,
+          "cell": [
+            1,
+            0
+          ],
+          "rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            41,
+            70
+          ],
+          "requested_anchor": [
+            42,
+            56
+          ],
+          "effect_origin": [
+            1,
+            32
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 2,
+          "active": true,
+          "opaque_bbox": [
+            3,
+            32,
+            62,
+            81
+          ],
+          "opaque_area": 800,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 50,
+          "cell": [
+            2,
+            0
+          ],
+          "rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "requested_anchor": [
+            45,
+            56
+          ],
+          "effect_origin": [
+            1,
+            32
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 3,
+          "active": true,
+          "opaque_bbox": [
+            1,
+            32,
+            69,
+            81
+          ],
+          "opaque_area": 1256,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 60,
+          "cell": [
+            3,
+            0
+          ],
+          "rect_px": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "requested_anchor": [
+            47,
+            56
+          ],
+          "effect_origin": [
+            7,
+            32
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 4,
+          "active": true,
+          "opaque_bbox": [
+            8,
+            32,
+            65,
+            80
+          ],
+          "opaque_area": 796,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 70,
+          "cell": [
+            0,
+            1
+          ],
+          "rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            47,
+            70
+          ],
+          "requested_anchor": [
+            48,
+            56
+          ],
+          "effect_origin": [
+            26,
+            32
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 5,
+          "active": true,
+          "opaque_bbox": [
+            26,
+            32,
+            69,
+            80
+          ],
+          "opaque_area": 612,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 80,
+          "cell": [
+            1,
+            1
+          ],
+          "rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "requested_anchor": [
+            53,
+            56
+          ],
+          "effect_origin": [
+            31,
+            32
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 6,
+          "active": true,
+          "opaque_bbox": [
+            31,
+            32,
+            74,
+            80
+          ],
+          "opaque_area": 449,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 90,
+          "cell": [
+            2,
+            1
+          ],
+          "rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "requested_anchor": [
+            52,
+            56
+          ],
+          "effect_origin": [
+            33,
+            36
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 7,
+          "active": true,
+          "opaque_bbox": [
+            33,
+            36,
+            69,
+            76
+          ],
+          "opaque_area": 243,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 8,
+          "duration_ms": 100,
+          "cell": [
+            3,
+            1
+          ],
+          "rect_px": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "requested_anchor": [
+            45,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        }
+      ],
+      "prompt_file": "prompts/riven_fx_e.txt"
+    },
+    "w": {
+      "file": "riven_fx_w.png",
+      "name": "W · 震魂怒吼",
+      "action": "skill2",
+      "frame_count": 8,
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "native_file": "native_1x/riven_fx_w.png",
+      "layers": {
+        "back": "layers/riven_fx_w_back.png",
+        "front": "layers/riven_fx_w_front.png"
+      },
+      "hit_frame": 5,
+      "hit_tick": 13,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 50,
+          "cell": [
+            0,
+            0
+          ],
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "requested_anchor": [
+            46,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 50,
+          "cell": [
+            1,
+            0
+          ],
+          "rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            41,
+            70
+          ],
+          "requested_anchor": [
+            41,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 50,
+          "cell": [
+            2,
+            0
+          ],
+          "rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "requested_anchor": [
+            44,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 60,
+          "cell": [
+            3,
+            0
+          ],
+          "rect_px": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "requested_anchor": [
+            46,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 70,
+          "cell": [
+            0,
+            1
+          ],
+          "rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            47,
+            70
+          ],
+          "requested_anchor": [
+            47,
+            69
+          ],
+          "effect_origin": [
+            9,
+            57
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 5,
+          "active": true,
+          "opaque_bbox": [
+            9,
+            57,
+            85,
+            82
+          ],
+          "opaque_area": 757,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 80,
+          "cell": [
+            1,
+            1
+          ],
+          "rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "requested_anchor": [
+            52,
+            69
+          ],
+          "effect_origin": [
+            10,
+            59
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 6,
+          "active": true,
+          "opaque_bbox": [
+            10,
+            59,
+            94,
+            82
+          ],
+          "opaque_area": 518,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 90,
+          "cell": [
+            2,
+            1
+          ],
+          "rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "requested_anchor": [
+            51,
+            69
+          ],
+          "effect_origin": [
+            10,
+            61
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 7,
+          "active": true,
+          "opaque_bbox": [
+            14,
+            61,
+            93,
+            82
+          ],
+          "opaque_area": 219,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 8,
+          "duration_ms": 100,
+          "cell": [
+            3,
+            1
+          ],
+          "rect_px": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "requested_anchor": [
+            45,
+            69
+          ],
+          "effect_origin": [
+            7,
+            66
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 8,
+          "active": true,
+          "opaque_bbox": [
+            7,
+            66,
+            83,
+            82
+          ],
+          "opaque_area": 81,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        }
+      ],
+      "prompt_file": "prompts/riven_fx_w.txt"
+    },
+    "r_on": {
+      "file": "riven_fx_r_on.png",
+      "name": "R · 放逐之锋",
+      "action": "ult",
+      "frame_count": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "native_file": "native_1x/riven_fx_r_on.png",
+      "layers": {
+        "back": "layers/riven_fx_r_on_back.png",
+        "front": "layers/riven_fx_r_on_front.png"
+      },
+      "hit_frame": 3,
+      "hit_tick": 8,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell": [
+            0,
+            0
+          ],
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "requested_anchor": [
+            49.28,
+            32.83
+          ],
+          "effect_origin": [
+            40,
+            26
+          ],
+          "rotation_degrees": 16.33,
+          "source_phase": 1,
+          "active": true,
+          "opaque_bbox": [
+            40,
+            26,
+            59,
+            39
+          ],
+          "opaque_area": 59,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell": [
+            1,
+            0
+          ],
+          "rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            41,
+            70
+          ],
+          "requested_anchor": [
+            59.21,
+            32.92
+          ],
+          "effect_origin": [
+            47,
+            27
+          ],
+          "rotation_degrees": -15.23,
+          "source_phase": 2,
+          "active": true,
+          "opaque_bbox": [
+            47,
+            27,
+            72,
+            38
+          ],
+          "opaque_area": 102,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 80,
+          "cell": [
+            2,
+            0
+          ],
+          "rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            41,
+            70
+          ],
+          "requested_anchor": [
+            62.74,
+            32.2
+          ],
+          "effect_origin": [
+            47,
+            24
+          ],
+          "rotation_degrees": -20.03,
+          "source_phase": 3,
+          "active": true,
+          "opaque_bbox": [
+            47,
+            24,
+            79,
+            41
+          ],
+          "opaque_area": 194,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 90,
+          "cell": [
+            0,
+            1
+          ],
+          "rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            41,
+            70
+          ],
+          "requested_anchor": [
+            65.23,
+            72.51
+          ],
+          "effect_origin": [
+            53,
+            57
+          ],
+          "rotation_degrees": -45.15,
+          "source_phase": 4,
+          "active": true,
+          "opaque_bbox": [
+            53,
+            57,
+            77,
+            82
+          ],
+          "opaque_area": 175,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 100,
+          "cell": [
+            1,
+            1
+          ],
+          "rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            42,
+            70
+          ],
+          "requested_anchor": [
+            73.12,
+            74.25
+          ],
+          "effect_origin": [
+            61,
+            65
+          ],
+          "rotation_degrees": -27.69,
+          "source_phase": 5,
+          "active": true,
+          "opaque_bbox": [
+            61,
+            65,
+            86,
+            82
+          ],
+          "opaque_area": 99,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 110,
+          "cell": [
+            2,
+            1
+          ],
+          "rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "requested_anchor": [
+            67.94,
+            72.93
+          ],
+          "effect_origin": [
+            62,
+            67
+          ],
+          "rotation_degrees": -39.33,
+          "source_phase": 6,
+          "active": true,
+          "opaque_bbox": [
+            62,
+            67,
+            74,
+            79
+          ],
+          "opaque_area": 26,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        }
+      ],
+      "prompt_file": "prompts/riven_fx_r_on.txt"
+    },
+    "r_slash": {
+      "file": "riven_fx_r_slash.png",
+      "name": "R · 疾风斩",
+      "action": "r_slash",
+      "frame_count": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "native_file": "native_1x/riven_fx_r_slash.png",
+      "layers": {
+        "back": "layers/riven_fx_r_slash_back.png",
+        "front": "layers/riven_fx_r_slash_front.png"
+      },
+      "hit_frame": 3,
+      "hit_tick": 8,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell": [
+            0,
+            0
+          ],
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "requested_anchor": [
+            46,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell": [
+            1,
+            0
+          ],
+          "rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "requested_anchor": [
+            51,
+            70
+          ],
+          "effect_origin": null,
+          "rotation_degrees": 0,
+          "source_phase": null,
+          "active": false,
+          "opaque_bbox": null,
+          "opaque_area": 0,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 70,
+          "cell": [
+            2,
+            0
+          ],
+          "rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "requested_anchor": [
+            66,
+            55
+          ],
+          "effect_origin": [
+            48,
+            33
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 3,
+          "active": true,
+          "opaque_bbox": [
+            48,
+            33,
+            83,
+            77
+          ],
+          "opaque_area": 724,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 80,
+          "cell": [
+            0,
+            1
+          ],
+          "rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "requested_anchor": [
+            75,
+            55
+          ],
+          "effect_origin": [
+            58,
+            36
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 4,
+          "active": true,
+          "opaque_bbox": [
+            58,
+            36,
+            91,
+            75
+          ],
+          "opaque_area": 595,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 90,
+          "cell": [
+            1,
+            1
+          ],
+          "rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "requested_anchor": [
+            82,
+            55
+          ],
+          "effect_origin": [
+            70,
+            38
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 5,
+          "active": true,
+          "opaque_bbox": [
+            71,
+            38,
+            94,
+            71
+          ],
+          "opaque_area": 297,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 110,
+          "cell": [
+            2,
+            1
+          ],
+          "rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "requested_anchor": [
+            85,
+            55
+          ],
+          "effect_origin": [
+            76,
+            42
+          ],
+          "rotation_degrees": 0,
+          "source_phase": 6,
+          "active": true,
+          "opaque_bbox": [
+            76,
+            43,
+            92,
+            66
+          ],
+          "opaque_area": 74,
+          "layer_order": [
+            "back",
+            "character",
+            "front"
+          ]
+        }
+      ],
+      "prompt_file": "prompts/riven_fx_r_slash.txt"
+    }
+  }
+}

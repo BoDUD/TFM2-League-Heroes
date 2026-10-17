@@ -1,0 +1,397 @@
+{
+  "hero": "jax",
+  "champ": "Jax",
+  "camera": {
+    "yaw": 55,
+    "pitch": 25,
+    "mirror": true
+  },
+  "chibi": {
+    "head": 2.0,
+    "legs": 0.8,
+    "hair": 0.6,
+    "scale": {
+      "L_Shoulder": 1.3,
+      "R_Shoulder": 1.3,
+      "Chest": 1.1,
+      "Weapon": 0.6
+    }
+  },
+  "weapon": "^Weapon$",
+  "hide_submeshes": [
+    "Bluefish",
+    "Goldfish"
+  ],
+  "submesh_textures": {
+    "Weapon": "Weapon"
+  },
+  "height": 34,
+  "cell": [
+    96,
+    96,
+    14
+  ],
+  "design": "Idle1_v04@0",
+  "tags": {
+    "idle": {
+      "frames": [
+        [
+          "Idle1_v04@0",
+          200
+        ],
+        [
+          "Idle1_v04@0",
+          200
+        ],
+        [
+          "Idle1_v04@0",
+          200
+        ],
+        [
+          "Idle1_v04@0",
+          200
+        ],
+        [
+          "Idle1_v04@0",
+          200
+        ],
+        [
+          "Idle1_v04@0",
+          200
+        ]
+      ]
+    },
+    "run": {
+      "flat": true,
+      "head_like": "Idle1_v04@0",
+      "frames": [
+        [
+          "Jax_Run2@0",
+          133
+        ],
+        [
+          "Jax_Run2@133",
+          133
+        ],
+        [
+          "Jax_Run2@266",
+          133
+        ],
+        [
+          "Jax_Run2@399",
+          133
+        ],
+        [
+          "Jax_Run2@532",
+          133
+        ],
+        [
+          "Jax_Run2@665",
+          133
+        ],
+        [
+          "Jax_Run2@798",
+          133
+        ],
+        [
+          "Jax_Run2@931",
+          133
+        ]
+      ]
+    },
+    "attack": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Idle1_v04@0>Attack_1@150:0.5",
+          60
+        ],
+        [
+          "Attack_1@250",
+          60
+        ],
+        [
+          "Attack_1@300",
+          50
+        ],
+        [
+          "Attack_1@350",
+          70
+        ],
+        [
+          "Attack_1@400",
+          80
+        ],
+        [
+          "Attack_1@450>Idle1_v04@0:0.6",
+          90
+        ]
+      ]
+    },
+    "attack_w": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Idle1_v04@0>Crit@120:0.5",
+          60
+        ],
+        [
+          "Crit@240",
+          60
+        ],
+        [
+          "Crit@360",
+          50
+        ],
+        [
+          "Crit@420",
+          80
+        ],
+        [
+          "Crit@540",
+          80
+        ],
+        [
+          "Crit@660>Idle1_v04@0:0.6",
+          90
+        ]
+      ]
+    },
+    "attack_e": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Idle1_v04@0>Spell3_Attack1@300:0.5",
+          60
+        ],
+        [
+          "Spell3_Attack1@300",
+          60
+        ],
+        [
+          "Spell3_Attack1@330",
+          50
+        ],
+        [
+          "Spell3_Attack1@360",
+          70
+        ],
+        [
+          "Spell3_Attack1@420",
+          80
+        ],
+        [
+          "Spell3_Attack1@540>Idle1_v04@0:0.5",
+          90
+        ]
+      ]
+    },
+    "attack_r": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Idle1_v04@0>Spell4_Attack_reverse@120:0.5",
+          60
+        ],
+        [
+          "Spell4_Attack_reverse@240",
+          60
+        ],
+        [
+          "Spell4_Attack_reverse@360",
+          50
+        ],
+        [
+          "Spell4_Attack_reverse@420",
+          70
+        ],
+        [
+          "Spell4_Attack_reverse@480",
+          80
+        ],
+        [
+          "Spell4_Attack_reverse@600>Idle1_v04@0:0.6",
+          90
+        ]
+      ]
+    },
+    "skill": {
+      "lunge": 0.7,
+      "rise": 0.35,
+      "frames": [
+        [
+          "Idle1_v04@0>Spell1@0:0.5",
+          60
+        ],
+        [
+          "Spell1@60",
+          60
+        ],
+        [
+          "Spell1@180",
+          60
+        ],
+        [
+          "Spell1@300",
+          60
+        ],
+        [
+          "Spell1@420",
+          90
+        ],
+        [
+          "Spell1@540",
+          90
+        ],
+        [
+          "Spell1@660>Idle1_v04@0:0.5",
+          100
+        ]
+      ]
+    },
+    "skill2": {
+      "frames": [
+        [
+          "Idle1_v04@0>Spell3_Idle_Cycle@100:0.5",
+          60
+        ],
+        [
+          "Spell3_Idle_Cycle@100",
+          60
+        ],
+        [
+          "Spell3_Idle_Cycle@200",
+          60
+        ],
+        [
+          "Spell3_Idle_Cycle@300",
+          60
+        ],
+        [
+          "Spell3_Idle_Cycle@400",
+          60
+        ],
+        [
+          "Spell3_Idle_Cycle@500",
+          60
+        ]
+      ]
+    },
+    "skill2_burst": {
+      "lunge": 0.7,
+      "rise": 0.3,
+      "frames": [
+        [
+          "Spell3_B_Idle@0",
+          60
+        ],
+        [
+          "Spell3_B_Idle@375",
+          70
+        ],
+        [
+          "Spell3_B_Idle@525",
+          70
+        ],
+        [
+          "Spell3_B_Idle@675",
+          70
+        ],
+        [
+          "Spell3_B_Idle@825",
+          80
+        ],
+        [
+          "Spell3_B_Idle@975>Idle1_v04@0:0.5",
+          90
+        ]
+      ]
+    },
+    "ult": {
+      "rise": 0.3,
+      "frames": [
+        [
+          "Idle1_v04@0>Spell4_test@33:0.5",
+          60
+        ],
+        [
+          "Spell4_test@66",
+          60
+        ],
+        [
+          "Spell4_test@198",
+          60
+        ],
+        [
+          "Spell4_test@330",
+          60
+        ],
+        [
+          "Spell4_test@429",
+          90
+        ],
+        [
+          "Spell4_Idle@100",
+          90
+        ],
+        [
+          "Spell4_Idle@300>Idle1_v04@0:0.5",
+          100
+        ]
+      ]
+    },
+    "hit": {
+      "flat": true,
+      "frames": [
+        [
+          "Idle1_v04@0>Stunned@300:0.35",
+          100
+        ],
+        [
+          "Idle1_v04@0>Stunned@300:0.15",
+          100
+        ]
+      ]
+    },
+    "dead": {
+      "anchor": "first",
+      "lunge": 0.5,
+      "flat": true,
+      "travel": 0.3,
+      "frames": [
+        [
+          "Death1@0",
+          100
+        ],
+        [
+          "Death1@300",
+          100
+        ],
+        [
+          "Death1@600",
+          100
+        ],
+        [
+          "Death1@1200",
+          120
+        ],
+        [
+          "Death1@2400",
+          120
+        ],
+        [
+          "Death1@2700",
+          120
+        ],
+        [
+          "Death1@3000",
+          150
+        ],
+        [
+          "Death1@3600",
+          400
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "source": "taric_run_legs_pack.zip/current/taric_run.png",
+  "scope": "legs within supplied white edit mask only",
+  "sheet_size": [
+    3072,
+    1536
+  ],
+  "logical_size": [
+    384,
+    192
+  ],
+  "frames": [
+    {
+      "frame": 1,
+      "changed_game_pixels": 137,
+      "outside_mask_changed_game_pixels": 0,
+      "outside_mask_changed_8x_pixels": 0,
+      "immutable_sha256": "719467f9051d810a56877b2ca885aef441b51e701e603583f22396b5d0d82aed",
+      "output_immutable_sha256": "719467f9051d810a56877b2ca885aef441b51e701e603583f22396b5d0d82aed",
+      "ground_row": 81,
+      "support_leg": "near",
+      "air_leg_below_floor": false,
+      "opaque_components_8_neighbors": 1,
+      "pose": "近腿向前落地，远腿在后弯曲离地。"
+    },
+    {
+      "frame": 2,
+      "changed_game_pixels": 176,
+      "outside_mask_changed_game_pixels": 0,
+      "outside_mask_changed_8x_pixels": 0,
+      "immutable_sha256": "71315c6a800e1dd689a9c8e97210fce2615186277b5cf0b902d65e0b3dc34539",
+      "output_immutable_sha256": "71315c6a800e1dd689a9c8e97210fce2615186277b5cf0b902d65e0b3dc34539",
+      "ground_row": 81,
+      "support_leg": "near",
+      "air_leg_below_floor": false,
+      "opaque_components_8_neighbors": 1,
+      "pose": "近腿支撑移到身下，远腿抬膝前摆。"
+    },
+    {
+      "frame": 3,
+      "changed_game_pixels": 188,
+      "outside_mask_changed_game_pixels": 0,
+      "outside_mask_changed_8x_pixels": 0,
+      "immutable_sha256": "567aae462fc5a92dca7c583bedf470a42176cd222aa9b2e64fe502f49782c635",
+      "output_immutable_sha256": "567aae462fc5a92dca7c583bedf470a42176cd222aa9b2e64fe502f49782c635",
+      "ground_row": 81,
+      "support_leg": "near",
+      "air_leg_below_floor": false,
+      "opaque_components_8_neighbors": 1,
+      "pose": "近腿向后蹬地，远腿前伸准备落地；近腿在前层。"
+    },
+    {
+      "frame": 4,
+      "changed_game_pixels": 118,
+      "outside_mask_changed_game_pixels": 0,
+      "outside_mask_changed_8x_pixels": 0,
+      "immutable_sha256": "473eaec73a24121b3057fff2c1d74c4b68d3843e9259b09a599066bf88c476f9",
+      "output_immutable_sha256": "473eaec73a24121b3057fff2c1d74c4b68d3843e9259b09a599066bf88c476f9",
+      "ground_row": 81,
+      "support_leg": "far",
+      "air_leg_below_floor": false,
+      "opaque_components_8_neighbors": 1,
+      "pose": "远腿向前着地，近腿向后弯曲收起。"
+    },
+    {
+      "frame": 5,
+      "changed_game_pixels": 160,
+      "outside_mask_changed_game_pixels": 0,
+      "outside_mask_changed_8x_pixels": 0,
+      "immutable_sha256": "92b64100a7c17cc65eda81ce55f8f54e490fb94460cdb5d6de71e9e39ca65afd",
+      "output_immutable_sha256": "92b64100a7c17cc65eda81ce55f8f54e490fb94460cdb5d6de71e9e39ca65afd",
+      "ground_row": 81,
+      "support_leg": "far",
+      "air_leg_below_floor": false,
+      "opaque_components_8_neighbors": 1,
+      "pose": "远腿在身下支撑，近腿收起前摆。"
+    },
+    {
+      "frame": 6,
+      "changed_game_pixels": 155,
+      "outside_mask_changed_game_pixels": 0,
+      "outside_mask_changed_8x_pixels": 0,
+      "immutable_sha256": "94cf8c3e33e8f577d4e9e16cc02acfdaef9023b9ae14079c45a29856802791bd",
+      "output_immutable_sha256": "94cf8c3e33e8f577d4e9e16cc02acfdaef9023b9ae14079c45a29856802791bd",
+      "ground_row": 81,
+      "support_leg": "far",
+      "air_leg_below_floor": false,
+      "opaque_components_8_neighbors": 1,
+      "pose": "远腿支撑后移，近腿抬膝前摆。"
+    },
+    {
+      "frame": 7,
+      "changed_game_pixels": 183,
+      "outside_mask_changed_game_pixels": 0,
+      "outside_mask_changed_8x_pixels": 0,
+      "immutable_sha256": "bb1e91c667d46bcfdc1f5524e0ba4398907e6c5d3d43256b34711291c57d612e",
+      "output_immutable_sha256": "bb1e91c667d46bcfdc1f5524e0ba4398907e6c5d3d43256b34711291c57d612e",
+      "ground_row": 81,
+      "support_leg": "far",
+      "air_leg_below_floor": false,
+      "opaque_components_8_neighbors": 1,
+      "pose": "远腿向后蹬地，近腿向前伸并盖在前层。"
+    },
+    {
+      "frame": 8,
+      "changed_game_pixels": 153,
+      "outside_mask_changed_game_pixels": 0,
+      "outside_mask_changed_8x_pixels": 0,
+      "immutable_sha256": "784510c0cc52a0b82e88d686a42b711dd0c920bb8d02c807380bc90a00c11e86",
+      "output_immutable_sha256": "784510c0cc52a0b82e88d686a42b711dd0c920bb8d02c807380bc90a00c11e86",
+      "ground_row": 81,
+      "support_leg": "near",
+      "air_leg_below_floor": false,
+      "opaque_components_8_neighbors": 1,
+      "pose": "近腿前方着地，远腿弯曲留在后方，接回第 1 帧。"
+    }
+  ],
+  "outside_mask_changed_total": 0,
+  "palette_is_subset_of_original": true,
+  "original_palette_count": 29,
+  "output_palette_count": 29,
+  "alpha_only_0_255": true,
+  "grid_8x8_solid": true,
+  "metadata_bytes_unchanged": true,
+  "game_runtime_tested": false
+}

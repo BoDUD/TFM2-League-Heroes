@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_fiora_duel": {
+        "ult": "【破绽测试版】<#ff9028ff>无双挑战<>：在一名敌方英雄身上亮出<#ffb900ff>4<>处<#ff9028ff>破绽<>（<#ffb900ff>8秒<>），只有他身上有。每次命中他刺中一处，<#ffb900ff>Q、W冷却减半<>；打别的英雄只出普通被动破绽。刺满4处或他被刺后死亡，留下<#6aff55ff>胜利之地<>：<#ffb900ff>3秒<>内每秒为友方英雄回复<#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>24% 攻击力<>生命值。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_fiora_duel": {
+        "ult": "【破綻測試版】<#ff9028ff>無雙挑戰<>：在一名敵方英雄身上亮出<#ffb900ff>4<>處<#ff9028ff>破綻<>（<#ffb900ff>8秒<>），只有他身上有。每次命中他刺中一處，<#ffb900ff>Q、W冷卻減半<>；打別的英雄只出普通被動破綻。刺滿4處或他被刺後死亡，留下<#6aff55ff>勝利之地<>：<#ffb900ff>3秒<>內每秒為友方英雄回復<#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>24% 攻擊力<>生命值。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_fiora_duel": {
+        "ult": "[Vitals test build] <#ff9028ff>Grand Challenge<>: reveals <#ffb900ff>4<> <#ff9028ff>Vitals<> on one enemy champion for <#ffb900ff>8s<>, on him alone. Each hit on him strikes one and <#ffb900ff>halves Q's and W's cooldowns<>; other champions only get the passive's Vital. All 4 struck, or his death after one, leaves a <#6aff55ff>Victory Zone<> healing allies <#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>24% AD<> a second for <#ffb900ff>3s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_fiora_duel": {
+        "ult": "[급소 테스트판] <#ff9028ff>대결 신청<>: 적 챔피언 하나에게 <#ffb900ff>4<>개의 <#ff9028ff>급소<>(<#ffb900ff>8초<>), 그에게만 생깁니다. 그를 맞힐 때마다 하나씩 찌르고 <#ffb900ff>Q·W 재사용 대기시간 절반<>; 다른 챔피언은 기본 급소만. 4개를 다 찌르거나 찌른 뒤 그가 죽으면 <#6aff55ff>승리의 영역<>: <#ffb900ff>3초<> 동안 매초 아군 챔피언 <#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>24% 공격력<> 회복."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_fiora_duel": {
+        "ult": "【急所テスト版】<#ff9028ff>グランドチャレンジ<>：敵チャンピオン1体に<#ffb900ff>4<>つの<#ff9028ff>急所<>（<#ffb900ff>8秒<>）、その相手だけ。命中ごとに1つ突き<#ffb900ff>Q・WのCD半減<>、他の敵はパッシブの急所だけ。4つ突くか突いた後に倒すと<#6aff55ff>勝利の地<>：<#ffb900ff>3秒<>間毎秒味方を<#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>24% 攻撃力<>回復。"
+      }
+    }
+  }
+}

@@ -1,0 +1,180 @@
+{
+ "hero": "jayce_cannon",
+ "champ": "Jayce",
+ "hide_submeshes": false,
+ "camera": {
+  "yaw": 60,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.3,
+  "legs": 0.9,
+  "hair": 1.0
+ },
+ "height": 38,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "jayce_ranged_idle1@0",
+ "tags": {
+  "c_run": {
+   "frames": [
+    [
+     "jayce_ranged_run1@0",
+     125
+    ],
+    [
+     "jayce_ranged_run1@125",
+     125
+    ],
+    [
+     "jayce_ranged_run1@250",
+     125
+    ],
+    [
+     "jayce_ranged_run1@375",
+     125
+    ],
+    [
+     "jayce_ranged_run1@500",
+     125
+    ],
+    [
+     "jayce_ranged_run1@625",
+     125
+    ],
+    [
+     "jayce_ranged_run1@750",
+     125
+    ],
+    [
+     "jayce_ranged_run1@875",
+     125
+    ]
+   ]
+  },
+  "c_attack": {
+   "lunge": 0.2,
+   "release": 2,
+   "frames": [
+    [
+     "jayce_ranged_attack1@0",
+     80
+    ],
+    [
+     "jayce_ranged_attack1@75",
+     80
+    ],
+    [
+     "jayce_ranged_attack1@150",
+     100
+    ],
+    [
+     "jayce_ranged_attack1@300>jayce_ranged_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "c_skill": {
+   "lunge": 0.2,
+   "release": 4,
+   "frames": [
+    [
+     "jayce_ranged_spell1@0",
+     100
+    ],
+    [
+     "jayce_ranged_spell1@375",
+     100
+    ],
+    [
+     "jayce_ranged_spell1@750",
+     120
+    ],
+    [
+     "jayce_ranged_spell1@1125",
+     120
+    ],
+    [
+     "jayce_ranged_spell1@1312>jayce_ranged_idle1@0:0.5",
+     140
+    ]
+   ]
+  },
+  "c_skill2": {
+   "release": 3,
+   "frames": [
+    [
+     "jayce_ranged_idle1@0>Jayce_ranged_spell3@200:0.4",
+     100
+    ],
+    [
+     "jayce_ranged_idle1@0>Jayce_ranged_spell3@200:0.8",
+     100
+    ],
+    [
+     "Jayce_ranged_spell3@400",
+     160
+    ],
+    [
+     "Jayce_ranged_spell3@700>jayce_ranged_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.2,
+   "release": 5,
+   "frames": [
+    [
+     "Jayce_ranged_spell3@0",
+     100
+    ],
+    [
+     "Jayce_ranged_spell3@250",
+     120
+    ],
+    [
+     "jayce_ranged_spell1@375",
+     100
+    ],
+    [
+     "jayce_ranged_spell1@750",
+     100
+    ],
+    [
+     "jayce_ranged_spell1@1125",
+     140
+    ],
+    [
+     "jayce_ranged_spell1@1312>jayce_ranged_idle1@0:0.5",
+     160
+    ]
+   ]
+  },
+  "tf_h": {
+   "release": 4,
+   "frames": [
+    [
+     "jayce_ranged_idle1@0>jayce_melee_idle1@0:0.15",
+     80
+    ],
+    [
+     "jayce_ranged_idle1@0>jayce_melee_idle1@0:0.45",
+     80
+    ],
+    [
+     "jayce_ranged_idle1@0>jayce_melee_idle1@0:0.75",
+     80
+    ],
+    [
+     "jayce_ranged_idle1@0>jayce_melee_idle1@0:1.0",
+     100
+    ]
+   ]
+  }
+ }
+}

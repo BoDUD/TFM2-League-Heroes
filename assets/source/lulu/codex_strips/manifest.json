@@ -1,0 +1,2781 @@
+{
+  "schema_version": 1,
+  "scale": 8,
+  "coordinate_units": "native game pixels unless suffixed _px",
+  "palette": [
+    "#180A14",
+    "#2A0E4A",
+    "#2E160E",
+    "#4A1A7A",
+    "#4E3040",
+    "#5A2E1A",
+    "#6E2CA8",
+    "#7A1450",
+    "#8A4A12",
+    "#8A7AD8",
+    "#8AD82A",
+    "#9A1830",
+    "#9A9AC8",
+    "#B47A4E",
+    "#B4A8F0",
+    "#C030D0",
+    "#D2283A",
+    "#DCD4FF",
+    "#E6E6F6",
+    "#F2584E",
+    "#F6C040",
+    "#FF80FF"
+  ],
+  "animations": {
+    "idle": {
+      "file": "lulu_idle.png",
+      "native_file": "lulu_idle_1x.png",
+      "layout": [
+        3,
+        2
+      ],
+      "cell_size": 96,
+      "frame_count": 6,
+      "baseline_row": 81,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_sheet_px": [
+            368,
+            560
+          ],
+          "ms": 200,
+          "bbox": [
+            21,
+            38,
+            64,
+            82
+          ],
+          "bbox_sheet_px": [
+            168,
+            304,
+            512,
+            656
+          ],
+          "opaque_pixels": 1168,
+          "whole_frame_placement_translation": [
+            0,
+            0
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "provided idle"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_sheet_px": [
+            1136,
+            560
+          ],
+          "ms": 200,
+          "bbox": [
+            21,
+            38,
+            64,
+            82
+          ],
+          "bbox_sheet_px": [
+            936,
+            304,
+            1280,
+            656
+          ],
+          "opaque_pixels": 1168,
+          "whole_frame_placement_translation": [
+            0,
+            0
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "provided idle"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_sheet_px": [
+            1904,
+            560
+          ],
+          "ms": 200,
+          "bbox": [
+            21,
+            38,
+            64,
+            82
+          ],
+          "bbox_sheet_px": [
+            1704,
+            304,
+            2048,
+            656
+          ],
+          "opaque_pixels": 1168,
+          "whole_frame_placement_translation": [
+            0,
+            0
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "provided idle"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_sheet_px": [
+            368,
+            1328
+          ],
+          "ms": 200,
+          "bbox": [
+            21,
+            38,
+            64,
+            82
+          ],
+          "bbox_sheet_px": [
+            168,
+            1072,
+            512,
+            1424
+          ],
+          "opaque_pixels": 1168,
+          "whole_frame_placement_translation": [
+            0,
+            0
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "provided idle"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_sheet_px": [
+            1136,
+            1328
+          ],
+          "ms": 200,
+          "bbox": [
+            21,
+            38,
+            64,
+            82
+          ],
+          "bbox_sheet_px": [
+            936,
+            1072,
+            1280,
+            1424
+          ],
+          "opaque_pixels": 1168,
+          "whole_frame_placement_translation": [
+            0,
+            0
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "provided idle"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_sheet_px": [
+            1904,
+            1328
+          ],
+          "ms": 200,
+          "bbox": [
+            21,
+            38,
+            64,
+            82
+          ],
+          "bbox_sheet_px": [
+            1704,
+            1072,
+            2048,
+            1424
+          ],
+          "opaque_pixels": 1168,
+          "whole_frame_placement_translation": [
+            0,
+            0
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "provided idle"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        }
+      ],
+      "unused_cells": [],
+      "prompt_files": [],
+      "raw_file": null
+    },
+    "run": {
+      "file": "lulu_run.png",
+      "native_file": "lulu_run_1x.png",
+      "layout": [
+        4,
+        2
+      ],
+      "cell_size": 64,
+      "frame_count": 7,
+      "baseline_row": 58,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "pivot_sheet_px": [
+            256,
+            376
+          ],
+          "ms": 75,
+          "bbox": [
+            7,
+            14,
+            51,
+            59
+          ],
+          "bbox_sheet_px": [
+            56,
+            112,
+            408,
+            472
+          ],
+          "opaque_pixels": 1149,
+          "whole_frame_placement_translation": [
+            -4,
+            -2
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -32,
+              -43
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              0,
+              4,
+              47,
+              42
+            ]
+          },
+          "bottom_row": 58,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "cell_rect_px": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "pivot_sheet_px": [
+            768,
+            376
+          ],
+          "ms": 75,
+          "bbox": [
+            7,
+            13,
+            51,
+            59
+          ],
+          "bbox_sheet_px": [
+            568,
+            104,
+            920,
+            472
+          ],
+          "opaque_pixels": 1148,
+          "whole_frame_placement_translation": [
+            -4,
+            -2
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -32,
+              -43
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              0,
+              4,
+              47,
+              42
+            ]
+          },
+          "bottom_row": 58,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "cell_rect_px": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "pivot_sheet_px": [
+            1280,
+            376
+          ],
+          "ms": 75,
+          "bbox": [
+            6,
+            12,
+            51,
+            59
+          ],
+          "bbox_sheet_px": [
+            1072,
+            96,
+            1432,
+            472
+          ],
+          "opaque_pixels": 1174,
+          "whole_frame_placement_translation": [
+            -4,
+            -2
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -32,
+              -43
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              0,
+              4,
+              47,
+              42
+            ]
+          },
+          "bottom_row": 58,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "pivot_sheet_px": [
+            1792,
+            376
+          ],
+          "ms": 75,
+          "bbox": [
+            7,
+            13,
+            51,
+            59
+          ],
+          "bbox_sheet_px": [
+            1592,
+            104,
+            1944,
+            472
+          ],
+          "opaque_pixels": 1166,
+          "whole_frame_placement_translation": [
+            -1,
+            -1
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -32,
+              -42
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              1,
+              5,
+              48,
+              43
+            ]
+          },
+          "bottom_row": 58,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            0,
+            64,
+            64,
+            64
+          ],
+          "cell_rect_px": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "pivot_sheet_px": [
+            256,
+            888
+          ],
+          "ms": 75,
+          "bbox": [
+            5,
+            13,
+            51,
+            59
+          ],
+          "bbox_sheet_px": [
+            40,
+            616,
+            408,
+            984
+          ],
+          "opaque_pixels": 1153,
+          "whole_frame_placement_translation": [
+            -6,
+            4
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -32,
+              -43
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              0,
+              5,
+              47,
+              43
+            ]
+          },
+          "bottom_row": 58,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            64,
+            64,
+            64,
+            64
+          ],
+          "cell_rect_px": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "pivot_sheet_px": [
+            768,
+            888
+          ],
+          "ms": 75,
+          "bbox": [
+            6,
+            12,
+            51,
+            59
+          ],
+          "bbox_sheet_px": [
+            560,
+            608,
+            920,
+            984
+          ],
+          "opaque_pixels": 1172,
+          "whole_frame_placement_translation": [
+            -4,
+            4
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -32,
+              -43
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              0,
+              5,
+              47,
+              43
+            ]
+          },
+          "bottom_row": 58,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 7,
+          "cell_rect": [
+            128,
+            64,
+            64,
+            64
+          ],
+          "cell_rect_px": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            47
+          ],
+          "pivot_sheet_px": [
+            1280,
+            888
+          ],
+          "ms": 75,
+          "bbox": [
+            6,
+            13,
+            51,
+            59
+          ],
+          "bbox_sheet_px": [
+            1072,
+            616,
+            1432,
+            984
+          ],
+          "opaque_pixels": 1176,
+          "whole_frame_placement_translation": [
+            -3,
+            4
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -32,
+              -42
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              0,
+              5,
+              47,
+              43
+            ]
+          },
+          "bottom_row": 58,
+          "pixels_below_baseline": 0
+        }
+      ],
+      "unused_cells": [
+        7
+      ],
+      "prompt_files": [
+        "prompts/run.txt"
+      ],
+      "raw_file": "raw/lulu_run_raw.png"
+    },
+    "attack": {
+      "file": "lulu_attack.png",
+      "native_file": "lulu_attack_1x.png",
+      "layout": [
+        3,
+        2
+      ],
+      "cell_size": 96,
+      "frame_count": 6,
+      "baseline_row": 81,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "pivot_sheet_px": [
+            352,
+            560
+          ],
+          "ms": 60,
+          "bbox": [
+            17,
+            22,
+            60,
+            82
+          ],
+          "bbox_sheet_px": [
+            136,
+            176,
+            480,
+            656
+          ],
+          "opaque_pixels": 1332,
+          "whole_frame_placement_translation": [
+            -3,
+            -6
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -20,
+              -21
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              12,
+              27,
+              59,
+              65
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            39,
+            70
+          ],
+          "pivot_sheet_px": [
+            1080,
+            560
+          ],
+          "ms": 60,
+          "bbox": [
+            7,
+            35,
+            79,
+            82
+          ],
+          "bbox_sheet_px": [
+            824,
+            280,
+            1400,
+            656
+          ],
+          "opaque_pixels": 1381,
+          "whole_frame_placement_translation": [
+            -12,
+            -7
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -25,
+              -19
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              8,
+              28,
+              55,
+              66
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            39,
+            70
+          ],
+          "pivot_sheet_px": [
+            1848,
+            560
+          ],
+          "ms": 70,
+          "bbox": [
+            10,
+            31,
+            83,
+            82
+          ],
+          "bbox_sheet_px": [
+            1616,
+            248,
+            2200,
+            656
+          ],
+          "opaque_pixels": 1282,
+          "whole_frame_placement_translation": [
+            -9,
+            -7
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -25,
+              -19
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              8,
+              28,
+              55,
+              66
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            38,
+            70
+          ],
+          "pivot_sheet_px": [
+            304,
+            1328
+          ],
+          "ms": 70,
+          "bbox": [
+            7,
+            37,
+            82,
+            82
+          ],
+          "bbox_sheet_px": [
+            56,
+            1064,
+            656,
+            1424
+          ],
+          "opaque_pixels": 1327,
+          "whole_frame_placement_translation": [
+            -14,
+            -3
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -26,
+              -19
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              6,
+              28,
+              53,
+              66
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0,
+          "release": {
+            "tick": 11,
+            "staff_tip_candidate": [
+              81,
+              55
+            ],
+            "method": "rightmost brown staff-hook cluster; inspect before import"
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            36,
+            70
+          ],
+          "pivot_sheet_px": [
+            1056,
+            1328
+          ],
+          "ms": 70,
+          "bbox": [
+            8,
+            31,
+            76,
+            82
+          ],
+          "bbox_sheet_px": [
+            832,
+            1016,
+            1376,
+            1424
+          ],
+          "opaque_pixels": 1399,
+          "whole_frame_placement_translation": [
+            -18,
+            -4
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -28,
+              -22
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              5,
+              25,
+              52,
+              63
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "pivot_sheet_px": [
+            1936,
+            1328
+          ],
+          "ms": 70,
+          "bbox": [
+            24,
+            30,
+            69,
+            82
+          ],
+          "bbox_sheet_px": [
+            1728,
+            1008,
+            2088,
+            1424
+          ],
+          "opaque_pixels": 1331,
+          "whole_frame_placement_translation": [
+            -1,
+            -3
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -14,
+              -21
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              18,
+              26,
+              65,
+              64
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        }
+      ],
+      "unused_cells": [],
+      "prompt_files": [
+        "prompts/attack.txt"
+      ],
+      "raw_file": "raw/lulu_attack_raw.png"
+    },
+    "skill": {
+      "file": "lulu_skill.png",
+      "native_file": "lulu_skill_1x.png",
+      "layout": [
+        3,
+        2
+      ],
+      "cell_size": 96,
+      "frame_count": 6,
+      "baseline_row": 81,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            43,
+            70
+          ],
+          "pivot_sheet_px": [
+            344,
+            560
+          ],
+          "ms": 55,
+          "bbox": [
+            18,
+            36,
+            71,
+            82
+          ],
+          "bbox_sheet_px": [
+            144,
+            288,
+            568,
+            656
+          ],
+          "opaque_pixels": 1163,
+          "whole_frame_placement_translation": [
+            -7,
+            -13
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -21,
+              -19
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              12,
+              29,
+              59,
+              67
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "pivot_sheet_px": [
+            1088,
+            560
+          ],
+          "ms": 55,
+          "bbox": [
+            11,
+            43,
+            79,
+            82
+          ],
+          "bbox_sheet_px": [
+            856,
+            344,
+            1400,
+            656
+          ],
+          "opaque_pixels": 1219,
+          "whole_frame_placement_translation": [
+            -9,
+            -10
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -24,
+              -18
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              8,
+              29,
+              55,
+              67
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            39,
+            70
+          ],
+          "pivot_sheet_px": [
+            1848,
+            560
+          ],
+          "ms": 57,
+          "bbox": [
+            8,
+            38,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            1600,
+            304,
+            2152,
+            656
+          ],
+          "opaque_pixels": 1147,
+          "whole_frame_placement_translation": [
+            -12,
+            -10
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -25,
+              -16
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              8,
+              32,
+              55,
+              70
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            38,
+            70
+          ],
+          "pivot_sheet_px": [
+            304,
+            1328
+          ],
+          "ms": 60,
+          "bbox": [
+            8,
+            43,
+            78,
+            82
+          ],
+          "bbox_sheet_px": [
+            64,
+            1112,
+            624,
+            1424
+          ],
+          "opaque_pixels": 1235,
+          "whole_frame_placement_translation": [
+            -15,
+            -4
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -26,
+              -18
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              7,
+              29,
+              54,
+              67
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0,
+          "release": {
+            "tick": 10,
+            "staff_tip_candidate": [
+              76,
+              60
+            ],
+            "method": "rightmost brown staff-hook cluster; inspect before import"
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            38,
+            70
+          ],
+          "pivot_sheet_px": [
+            1072,
+            1328
+          ],
+          "ms": 70,
+          "bbox": [
+            7,
+            38,
+            79,
+            82
+          ],
+          "bbox_sheet_px": [
+            824,
+            1072,
+            1400,
+            1424
+          ],
+          "opaque_pixels": 1240,
+          "whole_frame_placement_translation": [
+            -11,
+            -4
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -26,
+              -18
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              7,
+              30,
+              54,
+              68
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            42,
+            70
+          ],
+          "pivot_sheet_px": [
+            1872,
+            1328
+          ],
+          "ms": 70,
+          "bbox": [
+            16,
+            36,
+            68,
+            82
+          ],
+          "bbox_sheet_px": [
+            1664,
+            1056,
+            2080,
+            1424
+          ],
+          "opaque_pixels": 1205,
+          "whole_frame_placement_translation": [
+            1,
+            -4
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -22,
+              -17
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              10,
+              30,
+              57,
+              68
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        }
+      ],
+      "unused_cells": [],
+      "prompt_files": [
+        "prompts/skill.txt"
+      ],
+      "raw_file": "raw/lulu_skill_raw.png"
+    },
+    "skill2": {
+      "file": "lulu_skill2.png",
+      "native_file": "lulu_skill2_1x.png",
+      "layout": [
+        3,
+        2
+      ],
+      "cell_size": 96,
+      "frame_count": 6,
+      "baseline_row": 81,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "pivot_sheet_px": [
+            392,
+            560
+          ],
+          "ms": 55,
+          "bbox": [
+            21,
+            30,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            168,
+            240,
+            600,
+            656
+          ],
+          "opaque_pixels": 1363,
+          "whole_frame_placement_translation": [
+            -4,
+            -13
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -15,
+              -21
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              17,
+              26,
+              64,
+              64
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "pivot_sheet_px": [
+            1176,
+            560
+          ],
+          "ms": 55,
+          "bbox": [
+            25,
+            12,
+            68,
+            82
+          ],
+          "bbox_sheet_px": [
+            968,
+            96,
+            1312,
+            656
+          ],
+          "opaque_pixels": 1305,
+          "whole_frame_placement_translation": [
+            -3,
+            -13
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -13,
+              -20
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              20,
+              27,
+              67,
+              65
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "pivot_sheet_px": [
+            1936,
+            560
+          ],
+          "ms": 57,
+          "bbox": [
+            21,
+            16,
+            78,
+            82
+          ],
+          "bbox_sheet_px": [
+            1704,
+            128,
+            2160,
+            656
+          ],
+          "opaque_pixels": 1426,
+          "whole_frame_placement_translation": [
+            2,
+            -13
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -14,
+              -21
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              18,
+              26,
+              65,
+              64
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "pivot_sheet_px": [
+            384,
+            1328
+          ],
+          "ms": 55,
+          "bbox": [
+            15,
+            38,
+            93,
+            82
+          ],
+          "bbox_sheet_px": [
+            120,
+            1072,
+            744,
+            1424
+          ],
+          "opaque_pixels": 1366,
+          "whole_frame_placement_translation": [
+            -3,
+            3
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -16,
+              -20
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              16,
+              27,
+              63,
+              65
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0,
+          "release": {
+            "tick": 10,
+            "staff_tip_candidate": [
+              92,
+              57
+            ],
+            "method": "rightmost brown staff-hook cluster; inspect before import"
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "pivot_sheet_px": [
+            1168,
+            1328
+          ],
+          "ms": 55,
+          "bbox": [
+            20,
+            33,
+            92,
+            82
+          ],
+          "bbox_sheet_px": [
+            928,
+            1032,
+            1504,
+            1424
+          ],
+          "opaque_pixels": 1263,
+          "whole_frame_placement_translation": [
+            -4,
+            3
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -14,
+              -19
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              19,
+              28,
+              66,
+              66
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_sheet_px": [
+            1904,
+            1328
+          ],
+          "ms": 56,
+          "bbox": [
+            17,
+            31,
+            66,
+            82
+          ],
+          "bbox_sheet_px": [
+            1672,
+            1016,
+            2064,
+            1424
+          ],
+          "opaque_pixels": 1384,
+          "whole_frame_placement_translation": [
+            -8,
+            3
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -18,
+              -21
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              14,
+              26,
+              61,
+              64
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        }
+      ],
+      "unused_cells": [],
+      "prompt_files": [
+        "prompts/skill2.txt"
+      ],
+      "raw_file": "raw/lulu_skill2_raw.png"
+    },
+    "ult": {
+      "file": "lulu_ult.png",
+      "native_file": "lulu_ult_1x.png",
+      "layout": [
+        3,
+        2
+      ],
+      "cell_size": 96,
+      "frame_count": 6,
+      "baseline_row": 81,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "pivot_sheet_px": [
+            320,
+            560
+          ],
+          "ms": 60,
+          "bbox": [
+            8,
+            23,
+            54,
+            82
+          ],
+          "bbox_sheet_px": [
+            64,
+            184,
+            432,
+            656
+          ],
+          "opaque_pixels": 1364,
+          "whole_frame_placement_translation": [
+            -13,
+            -9
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -24,
+              -23
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              9,
+              24,
+              56,
+              62
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "pivot_sheet_px": [
+            1088,
+            560
+          ],
+          "ms": 60,
+          "bbox": [
+            11,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            856,
+            328,
+            1344,
+            656
+          ],
+          "opaque_pixels": 1215,
+          "whole_frame_placement_translation": [
+            -8,
+            -9
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -24,
+              -19
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              9,
+              29,
+              56,
+              67
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "pivot_sheet_px": [
+            1968,
+            560
+          ],
+          "ms": 70,
+          "bbox": [
+            23,
+            16,
+            69,
+            80
+          ],
+          "bbox_sheet_px": [
+            1720,
+            128,
+            2088,
+            640
+          ],
+          "opaque_pixels": 1364,
+          "whole_frame_placement_translation": [
+            -4,
+            -11
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -10,
+              -24
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              22,
+              23,
+              69,
+              61
+            ]
+          },
+          "bottom_row": 79,
+          "pixels_below_baseline": 0,
+          "release": {
+            "tick": 7,
+            "staff_tip_candidate": [
+              60,
+              30
+            ],
+            "method": "rightmost brown staff-hook cluster; inspect before import"
+          }
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "pivot_sheet_px": [
+            384,
+            1328
+          ],
+          "ms": 70,
+          "bbox": [
+            15,
+            16,
+            62,
+            82
+          ],
+          "bbox_sheet_px": [
+            120,
+            896,
+            496,
+            1424
+          ],
+          "opaque_pixels": 1413,
+          "whole_frame_placement_translation": [
+            -6,
+            3
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -16,
+              -23
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              17,
+              24,
+              64,
+              62
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "pivot_sheet_px": [
+            1216,
+            1328
+          ],
+          "ms": 70,
+          "bbox": [
+            22,
+            37,
+            85,
+            82
+          ],
+          "bbox_sheet_px": [
+            944,
+            1064,
+            1448,
+            1424
+          ],
+          "opaque_pixels": 1200,
+          "whole_frame_placement_translation": [
+            1,
+            3
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -8,
+              -18
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              24,
+              30,
+              71,
+              68
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "pivot_sheet_px": [
+            1896,
+            1328
+          ],
+          "ms": 70,
+          "bbox": [
+            12,
+            35,
+            59,
+            82
+          ],
+          "bbox_sheet_px": [
+            1632,
+            1048,
+            2008,
+            1424
+          ],
+          "opaque_pixels": 1202,
+          "whole_frame_placement_translation": [
+            -15,
+            3
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -19,
+              -19
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              13,
+              29,
+              60,
+              67
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        }
+      ],
+      "unused_cells": [],
+      "prompt_files": [
+        "prompts/ult.txt",
+        "prompts/ult_repair.txt"
+      ],
+      "raw_file": "raw/lulu_ult_raw.png"
+    },
+    "hit": {
+      "file": "lulu_hit.png",
+      "native_file": "lulu_hit_1x.png",
+      "layout": [
+        2,
+        1
+      ],
+      "cell_size": 96,
+      "frame_count": 2,
+      "baseline_row": 81,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            41,
+            70
+          ],
+          "pivot_sheet_px": [
+            328,
+            560
+          ],
+          "ms": 120,
+          "bbox": [
+            16,
+            41,
+            62,
+            82
+          ],
+          "bbox_sheet_px": [
+            128,
+            328,
+            496,
+            656
+          ],
+          "opaque_pixels": 1068,
+          "whole_frame_placement_translation": [
+            -6,
+            0
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -23,
+              -17
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              9,
+              30,
+              56,
+              68
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "pivot_sheet_px": [
+            1120,
+            560
+          ],
+          "ms": 120,
+          "bbox": [
+            19,
+            39,
+            62,
+            82
+          ],
+          "bbox_sheet_px": [
+            920,
+            312,
+            1264,
+            656
+          ],
+          "opaque_pixels": 1087,
+          "whole_frame_placement_translation": [
+            -9,
+            0
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -20,
+              -17
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              12,
+              30,
+              59,
+              68
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        }
+      ],
+      "unused_cells": [],
+      "prompt_files": [
+        "prompts/hit.txt"
+      ],
+      "raw_file": "raw/lulu_hit_raw.png"
+    },
+    "dead": {
+      "file": "lulu_dead.png",
+      "native_file": "lulu_dead_1x.png",
+      "layout": [
+        4,
+        2
+      ],
+      "cell_size": 96,
+      "frame_count": 8,
+      "baseline_row": 81,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "pivot_sheet_px": [
+            392,
+            560
+          ],
+          "ms": 100,
+          "bbox": [
+            17,
+            27,
+            70,
+            82
+          ],
+          "bbox_sheet_px": [
+            136,
+            216,
+            560,
+            656
+          ],
+          "opaque_pixels": 1702,
+          "whole_frame_placement_translation": [
+            -3,
+            -9
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -15,
+              -26
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              17,
+              21,
+              64,
+              59
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            37,
+            70
+          ],
+          "pivot_sheet_px": [
+            1064,
+            560
+          ],
+          "ms": 100,
+          "bbox": [
+            8,
+            29,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            832,
+            232,
+            1352,
+            656
+          ],
+          "opaque_pixels": 1794,
+          "whole_frame_placement_translation": [
+            -17,
+            -9
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -27,
+              -26
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              5,
+              21,
+              52,
+              59
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "pivot_sheet_px": [
+            1952,
+            560
+          ],
+          "ms": 100,
+          "bbox": [
+            22,
+            36,
+            85,
+            82
+          ],
+          "bbox_sheet_px": [
+            1712,
+            288,
+            2216,
+            656
+          ],
+          "opaque_pixels": 1333,
+          "whole_frame_placement_translation": [
+            3,
+            -12
+          ],
+          "head_lock": {
+            "applied": true,
+            "design_to_cell_translation": [
+              -12,
+              -12
+            ],
+            "exact_opaque_pixels": true,
+            "erase_region": [
+              20,
+              35,
+              67,
+              73
+            ]
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "pivot_sheet_px": [
+            2664,
+            560
+          ],
+          "ms": 100,
+          "bbox": [
+            14,
+            51,
+            76,
+            82
+          ],
+          "bbox_sheet_px": [
+            2416,
+            408,
+            2912,
+            656
+          ],
+          "opaque_pixels": 1008,
+          "whole_frame_placement_translation": [
+            -8,
+            -10
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "death empty hat phase"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "pivot_sheet_px": [
+            384,
+            1328
+          ],
+          "ms": 120,
+          "bbox": [
+            19,
+            51,
+            78,
+            82
+          ],
+          "bbox_sheet_px": [
+            152,
+            1176,
+            624,
+            1424
+          ],
+          "opaque_pixels": 959,
+          "whole_frame_placement_translation": [
+            -8,
+            3
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "death empty hat phase"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            37,
+            70
+          ],
+          "pivot_sheet_px": [
+            1064,
+            1328
+          ],
+          "ms": 150,
+          "bbox": [
+            8,
+            51,
+            68,
+            82
+          ],
+          "bbox_sheet_px": [
+            832,
+            1176,
+            1312,
+            1424
+          ],
+          "opaque_pixels": 956,
+          "whole_frame_placement_translation": [
+            -18,
+            3
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "death empty hat phase"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 7,
+          "cell_rect": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            47,
+            70
+          ],
+          "pivot_sheet_px": [
+            1912,
+            1328
+          ],
+          "ms": 200,
+          "bbox": [
+            8,
+            51,
+            68,
+            82
+          ],
+          "bbox_sheet_px": [
+            1600,
+            1176,
+            2080,
+            1424
+          ],
+          "opaque_pixels": 956,
+          "whole_frame_placement_translation": [
+            -8,
+            3
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "death empty hat phase"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        },
+        {
+          "frame": 8,
+          "cell_rect": [
+            288,
+            96,
+            96,
+            96
+          ],
+          "cell_rect_px": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "pivot": [
+            40,
+            70
+          ],
+          "pivot_sheet_px": [
+            2624,
+            1328
+          ],
+          "ms": 500,
+          "bbox": [
+            8,
+            51,
+            68,
+            82
+          ],
+          "bbox_sheet_px": [
+            2368,
+            1176,
+            2848,
+            1424
+          ],
+          "opaque_pixels": 956,
+          "whole_frame_placement_translation": [
+            -16,
+            3
+          ],
+          "head_lock": {
+            "applied": false,
+            "reason": "death empty hat phase"
+          },
+          "bottom_row": 81,
+          "pixels_below_baseline": 0
+        }
+      ],
+      "unused_cells": [],
+      "prompt_files": [
+        "prompts/dead.txt",
+        "prompts/dead_repair.txt"
+      ],
+      "raw_file": "raw/lulu_dead_raw.png"
+    }
+  },
+  "source_coordinate_issues": [
+    "lulu_cells.json dead frames 4-8 have head y outside the 96px cell; ignored those head coordinates. Run uses its seven-frame layout, not the obsolete eight-frame entry."
+  ]
+}

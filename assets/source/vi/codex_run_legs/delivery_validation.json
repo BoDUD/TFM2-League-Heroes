@@ -1,0 +1,98 @@
+[
+  {
+    "frame": 1,
+    "all_dimensions_checked": true,
+    "head_arms_upper_preserved": true,
+    "outside_mask_new_colors": 0,
+    "new_leg_alpha_binary": true,
+    "ground_contact_x_range": [
+      630,
+      751
+    ],
+    "ground_y": 1189
+  },
+  {
+    "frame": 2,
+    "all_dimensions_checked": true,
+    "head_arms_upper_preserved": true,
+    "outside_mask_new_colors": 0,
+    "new_leg_alpha_binary": true,
+    "ground_contact_x_range": [
+      593,
+      714
+    ],
+    "ground_y": 1189
+  },
+  {
+    "frame": 3,
+    "all_dimensions_checked": true,
+    "head_arms_upper_preserved": true,
+    "outside_mask_new_colors": 0,
+    "new_leg_alpha_binary": true,
+    "ground_contact_x_range": [
+      555,
+      676
+    ],
+    "ground_y": 1189
+  },
+  {
+    "frame": 4,
+    "all_dimensions_checked": true,
+    "head_arms_upper_preserved": true,
+    "outside_mask_new_colors": 0,
+    "new_leg_alpha_binary": true,
+    "ground_contact_x_range": [
+      602,
+      620
+    ],
+    "ground_y": 1189
+  },
+  {
+    "frame": 5,
+    "all_dimensions_checked": true,
+    "head_arms_upper_preserved": true,
+    "outside_mask_new_colors": 0,
+    "new_leg_alpha_binary": true,
+    "ground_contact_x_range": [
+      630,
+      751
+    ],
+    "ground_y": 1189
+  },
+  {
+    "frame": 6,
+    "all_dimensions_checked": true,
+    "head_arms_upper_preserved": true,
+    "outside_mask_new_colors": 0,
+    "new_leg_alpha_binary": true,
+    "ground_contact_x_range": [
+      593,
+      714
+    ],
+    "ground_y": 1189
+  },
+  {
+    "frame": 7,
+    "all_dimensions_checked": true,
+    "head_arms_upper_preserved": true,
+    "outside_mask_new_colors": 0,
+    "new_leg_alpha_binary": true,
+    "ground_contact_x_range": [
+      555,
+      676
+    ],
+    "ground_y": 1189
+  },
+  {
+    "frame": 8,
+    "all_dimensions_checked": true,
+    "head_arms_upper_preserved": true,
+    "outside_mask_new_colors": 0,
+    "new_leg_alpha_binary": true,
+    "ground_contact_x_range": [
+      602,
+      620
+    ],
+    "ground_y": 1189
+  }
+]

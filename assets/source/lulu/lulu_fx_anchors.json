@@ -1,0 +1,23 @@
+{
+  "a_bolt": {"cell": [17, 7], "anchor": [8, 3], "frames": 3},
+  "p_bolt": {"cell": [13, 7], "anchor": [6, 3], "frames": 3},
+  "a_hit": {"cell": [15, 13], "anchor": [7, 6], "frames": 4},
+  "p_hit": {"cell": [11, 11], "anchor": [5, 5], "frames": 3},
+  "q_lance": {"cell": [31, 11], "anchor": [15, 5], "frames": 4},
+  "q_pix": {"cell": [27, 9], "anchor": [13, 4], "frames": 4},
+  "q_hit": {"cell": [19, 19], "anchor": [9, 9], "frames": 5},
+  "q_slow2": {"cell": [21, 13], "anchor": [10, 6], "frames": 4},
+  "w_bolt": {"cell": [21, 11], "anchor": [10, 5], "frames": 4},
+  "w_poly_in": {"cell": [35, 71], "anchor": [17, 35], "frames": 4},
+  "w_poly": {"cell": [25, 67], "anchor": [12, 33], "frames": 6},
+  "w_poly_out": {"cell": [35, 73], "anchor": [17, 36], "frames": 4},
+  "e_pix": {"cell": [21, 11], "anchor": [10, 5], "frames": 4},
+  "e_land": {"cell": [17, 37], "anchor": [8, 18], "frames": 5},
+  "e_on": {"cell": [27, 59], "anchor": [13, 29], "frames": 6},
+  "w_haste": {"cell": [23, 25], "anchor": [11, 12], "frames": 4},
+  "r_burst": {"cell": [31, 101], "anchor": [15, 50], "frames": 7},
+  "r_hit": {"cell": [19, 55], "anchor": [9, 27], "frames": 5},
+  "r_on_in": {"cell": [55, 37], "anchor": [27, 18], "frames": 4},
+  "r_on": {"cell": [55, 43], "anchor": [27, 21], "frames": 6},
+  "r_on_out": {"cell": [53, 39], "anchor": [26, 19], "frames": 4}
+}

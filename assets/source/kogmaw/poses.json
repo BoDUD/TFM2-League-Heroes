@@ -1,0 +1,284 @@
+{
+ "hero": "kogmaw",
+ "champ": "KogMaw",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 28,
+ "cell": [
+  96,
+  80,
+  14
+ ],
+ "design": "kogmaw_idle1@0",
+ "head_joint": "C_Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "kogmaw_idle1@0",
+     200
+    ],
+    [
+     "kogmaw_idle1@0",
+     200
+    ],
+    [
+     "kogmaw_idle1@0",
+     200
+    ],
+    [
+     "kogmaw_idle1@0",
+     200
+    ],
+    [
+     "kogmaw_idle1@0",
+     200
+    ],
+    [
+     "kogmaw_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "kogmaw_idle1@0",
+   "frames": [
+    [
+     "kogmaw_run@0",
+     89
+    ],
+    [
+     "kogmaw_run@88",
+     89
+    ],
+    [
+     "kogmaw_run@177",
+     89
+    ],
+    [
+     "kogmaw_run@266",
+     89
+    ],
+    [
+     "kogmaw_run@355",
+     89
+    ],
+    [
+     "kogmaw_run@443",
+     89
+    ],
+    [
+     "kogmaw_run@532",
+     89
+    ],
+    [
+     "kogmaw_run@621",
+     89
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 3,
+   "frames": [
+    [
+     "kogmaw_idle1@0>kogmaw_attack1@150:0.6",
+     60
+    ],
+    [
+     "kogmaw_attack1@200",
+     60
+    ],
+    [
+     "kogmaw_attack1@306",
+     70
+    ],
+    [
+     "kogmaw_attack1@400",
+     70
+    ],
+    [
+     "kogmaw_attack1@560",
+     70
+    ],
+    [
+     "kogmaw_attack1@760>kogmaw_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "release": 5,
+   "frames": [
+    [
+     "kogmaw_idle1@0>kogmaw_spell1@81:0.6",
+     70
+    ],
+    [
+     "kogmaw_spell1@161",
+     70
+    ],
+    [
+     "kogmaw_spell1@220",
+     60
+    ],
+    [
+     "kogmaw_spell1@280",
+     70
+    ],
+    [
+     "kogmaw_spell1@360",
+     80
+    ],
+    [
+     "kogmaw_spell1@480",
+     80
+    ],
+    [
+     "kogmaw_spell1@640",
+     80
+    ],
+    [
+     "kogmaw_spell1@800>kogmaw_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "kogmaw_idle1@0>kogmaw_spell3@125:0.6",
+     70
+    ],
+    [
+     "kogmaw_spell3@200",
+     70
+    ],
+    [
+     "kogmaw_spell3@300",
+     80
+    ],
+    [
+     "kogmaw_spell3@400",
+     80
+    ],
+    [
+     "kogmaw_spell3@520",
+     90
+    ],
+    [
+     "kogmaw_spell3@700",
+     90
+    ],
+    [
+     "kogmaw_spell3@900",
+     90
+    ],
+    [
+     "kogmaw_spell3@1150>kogmaw_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "release": 5,
+   "frames": [
+    [
+     "kogmaw_idle1@0>kogmaw_spell4@81:0.6",
+     70
+    ],
+    [
+     "kogmaw_spell4@161",
+     70
+    ],
+    [
+     "kogmaw_spell4@220",
+     70
+    ],
+    [
+     "kogmaw_spell4@280",
+     70
+    ],
+    [
+     "kogmaw_spell4@340",
+     80
+    ],
+    [
+     "kogmaw_spell4@440",
+     90
+    ],
+    [
+     "kogmaw_spell4@600",
+     90
+    ],
+    [
+     "kogmaw_spell4@760>kogmaw_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "kogmaw_idle1@0>kogmaw_spell3@200:0.35",
+     120
+    ],
+    [
+     "kogmaw_idle1@0>kogmaw_spell3@200:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "lunge": 0.2,
+   "flat": true,
+   "frames": [
+    [
+     "kogmaw_idle1@0>kogmaw_spell3@200:0.5",
+     100
+    ],
+    [
+     "kogmaw_spell3@250",
+     100
+    ],
+    [
+     "kogmaw_spell3@375",
+     120
+    ],
+    [
+     "kogmaw_spell3@375",
+     120
+    ],
+    [
+     "kogmaw_spell3@375",
+     150
+    ],
+    [
+     "kogmaw_spell3@375",
+     150
+    ],
+    [
+     "kogmaw_spell3@375",
+     200
+    ],
+    [
+     "kogmaw_spell3@375",
+     500
+    ]
+   ]
+  }
+ }
+}

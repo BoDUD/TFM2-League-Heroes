@@ -1,0 +1,468 @@
+{
+  "delivery": "generated raw VFX",
+  "frames_total_requested_and_visually_counted": 77,
+  "entries": [
+    {
+      "file": "alistar_fx_a_hit.png",
+      "prompt_key": "a_hit",
+      "frames_requested": 4,
+      "frames_visual_count": 4,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        2172,
+        724
+      ],
+      "requested_size_px": [
+        1024,
+        256
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 436123,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 192.0,
+      "top_decile_luminance_opaque": 252.3,
+      "binding": "view_effects `league_alistar_a_hit`（跟随，画在人物上面）",
+      "target_game_size": "14",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_q_slam.png",
+      "prompt_key": "q_slam",
+      "frames_requested": 6,
+      "frames_visual_count": 6,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        2172,
+        724
+      ],
+      "requested_size_px": [
+        3072,
+        288
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 368361,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 172.4,
+      "top_decile_luminance_opaque": 236.9,
+      "binding": "view_effects `league_alistar_q_slam` 和 `w_slam`（同一张，BIG，画在人物下面，不跟随）",
+      "target_game_size": "64 × 36",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_q_up.png",
+      "prompt_key": "q_up",
+      "frames_requested": 5,
+      "frames_visual_count": 5,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        1983,
+        793
+      ],
+      "requested_size_px": [
+        1440,
+        352
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 318013,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 182.9,
+      "top_decile_luminance_opaque": 242.1,
+      "binding": "view_effects `league_alistar_q_up`（跟随，画在人物下面）",
+      "target_game_size": "18 × 22",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_w_dash.png",
+      "prompt_key": "w_dash",
+      "frames_requested": 6,
+      "frames_visual_count": 6,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        2172,
+        724
+      ],
+      "requested_size_px": [
+        3072,
+        320
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 161707,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 203.2,
+      "top_decile_luminance_opaque": 247.3,
+      "binding": "view_effects `league_alistar_w_dash`（BIG，施法者身上，第一 tick 跟随）",
+      "target_game_size": "48 × 30",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_w_butt.png",
+      "prompt_key": "w_butt",
+      "frames_requested": 4,
+      "frames_visual_count": 4,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        1983,
+        793
+      ],
+      "requested_size_px": [
+        1280,
+        256
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 325780,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 196.8,
+      "top_decile_luminance_opaque": 243.2,
+      "binding": "view_effects `league_alistar_w_butt`（落地时，施法者身上，不跟随；格子左边中点放到头槌那一帧的牛角尖）",
+      "target_game_size": "20 × 16",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_w_hit.png",
+      "prompt_key": "w_hit",
+      "frames_requested": 4,
+      "frames_visual_count": 4,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        2172,
+        724
+      ],
+      "requested_size_px": [
+        1024,
+        256
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 418830,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 215.8,
+      "top_decile_luminance_opaque": 252.3,
+      "binding": "view_effects `league_alistar_w_hit`（跟随，画在人物上面）",
+      "target_game_size": "16",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_e_stomp.png",
+      "prompt_key": "e_stomp",
+      "frames_requested": 4,
+      "frames_visual_count": 4,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        2172,
+        724
+      ],
+      "requested_size_px": [
+        2048,
+        256
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 136230,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 183.5,
+      "top_decile_luminance_opaque": 232.5,
+      "binding": "view_effects `league_alistar_e_stomp`（BIG，画在人物下面，不跟随；每 0.5 秒一次）",
+      "target_game_size": "52 × 26",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_e_hit.png",
+      "prompt_key": "e_hit",
+      "frames_requested": 3,
+      "frames_visual_count": 3,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        2172,
+        724
+      ],
+      "requested_size_px": [
+        768,
+        256
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 189357,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 185.3,
+      "top_decile_luminance_opaque": 235.4,
+      "binding": "view_effects `league_alistar_e_hit`（跟随，画在人物上面）",
+      "target_game_size": "10",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_e_ready.png",
+      "prompt_key": "e_ready",
+      "frames_requested": 5,
+      "frames_visual_count": 5,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        2103,
+        748
+      ],
+      "requested_size_px": [
+        1440,
+        192
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 497826,
+      "corner_alpha": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "mean_luminance_opaque": 166.2,
+      "top_decile_luminance_opaque": 250.1,
+      "binding": "view_effects `league_alistar_e_ready`（施法者身上，不跟随；头顶上方）",
+      "target_game_size": "18 × 12",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_e_hit_stun.png",
+      "prompt_key": "e_hit_stun",
+      "frames_requested": 5,
+      "frames_visual_count": 5,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        1983,
+        793
+      ],
+      "requested_size_px": [
+        1280,
+        256
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 591168,
+      "corner_alpha": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "mean_luminance_opaque": 184.5,
+      "top_decile_luminance_opaque": 251.6,
+      "binding": "view_effects `league_alistar_e_hit_stun`（跟随，画在人物上面）",
+      "target_game_size": "20",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_e_stun.png",
+      "prompt_key": "e_stun",
+      "frames_requested": 8,
+      "frames_visual_count": 8,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        1881,
+        836
+      ],
+      "requested_size_px": [
+        2304,
+        128
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 136870,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 209.3,
+      "top_decile_luminance_opaque": 249.9,
+      "binding": "view_buffs `league_alistar_e_stun`（循环，画在人物上面，1 秒）",
+      "target_game_size": "18 × 8",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_p_roar.png",
+      "prompt_key": "p_roar",
+      "frames_requested": 6,
+      "frames_visual_count": 6,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        1881,
+        836
+      ],
+      "requested_size_px": [
+        2304,
+        320
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 320436,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 209.3,
+      "top_decile_luminance_opaque": 252.4,
+      "binding": "view_effects `league_alistar_p_roar`（BIG，施法者身上，不跟随）",
+      "target_game_size": "48 × 40",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_p_heal.png",
+      "prompt_key": "p_heal",
+      "frames_requested": 5,
+      "frames_visual_count": 5,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        1983,
+        793
+      ],
+      "requested_size_px": [
+        1120,
+        288
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 565004,
+      "corner_alpha": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "mean_luminance_opaque": 120.7,
+      "top_decile_luminance_opaque": 235.2,
+      "binding": "view_effects `league_alistar_p_heal`（跟随，画在人物上面）",
+      "target_game_size": "14 × 18",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_r_cast.png",
+      "prompt_key": "r_cast",
+      "frames_requested": 6,
+      "frames_visual_count": 6,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        1881,
+        836
+      ],
+      "requested_size_px": [
+        2304,
+        384
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 418445,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 188.3,
+      "top_decile_luminance_opaque": 253.0,
+      "binding": "view_effects `league_alistar_r_cast`（BIG，施法者身上，不跟随）",
+      "target_game_size": "56 × 56",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing"
+    },
+    {
+      "file": "alistar_fx_r_on.png",
+      "prompt_key": "r_on",
+      "frames_requested": 6,
+      "frames_visual_count": 6,
+      "layout": "one horizontal row",
+      "actual_size_px": [
+        1842,
+        854
+      ],
+      "requested_size_px": [
+        2208,
+        400
+      ],
+      "dimensions_exact": false,
+      "has_transparency": true,
+      "partial_alpha_pixels": 670059,
+      "corner_alpha": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "mean_luminance_opaque": 136.1,
+      "top_decile_luminance_opaque": 235.9,
+      "binding": "view_buffs `league_alistar_r_on`（BIG，循环，画在人物上面，7 秒）",
+      "target_game_size": "46 × 50",
+      "status": "generated_raw_for_import_cleanup",
+      "frame_boundaries": "equal-width divisions are a preview assumption; verify effect separation before importing",
+      "cell_center_alpha": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "aliases": {
+    "w_slam": "q_slam"
+  },
+  "timing": "No per-frame durations supplied. Preview playback is illustrative only."
+}

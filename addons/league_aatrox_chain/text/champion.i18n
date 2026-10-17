@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_aatrox_chain": {
+        "skill2": "【W锁链测试版】甩出锁链，第一个敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害（小兵双倍伤害）；英雄或野怪被锁在原地<#ffb900ff>1.5秒<>：走出圈锁链就断，没走出就被<#ef5350ff>拖回圈中心<>再受一次伤害。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_aatrox_chain": {
+        "skill2": "【W鎖鏈測試版】甩出鎖鏈，第一個敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害（小兵雙倍傷害）；英雄或野怪被鎖在原地<#ffb900ff>1.5秒<>：走出圈鎖鏈就斷，沒走出就被<#ef5350ff>拖回圈中心<>再受一次傷害。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_aatrox_chain": {
+        "skill2": "[W chain test build] Aatrox fires a chain: the first enemy hit takes <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<> (double to minions); a champion or monster is chained to the spot for <#ffb900ff>1.5s<>: leaving the ring breaks the chain, otherwise it is <#ef5350ff>pulled back to its centre<> and hit again."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_aatrox_chain": {
+        "skill2": "[W 사슬 테스트판] 사슬을 던져 처음 맞은 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>물리 피해<>(미니언 2배)를 줍니다; 챔피언이나 몬스터는 <#ffb900ff>1.5초<> 동안 그 자리에 묶입니다: 범위를 벗어나면 사슬이 끊기고, 아니면 <#ef5350ff>중심으로 끌려와<> 다시 피해를 입습니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_aatrox_chain": {
+        "skill2": "【W鎖テスト版】鎖を放ち最初の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>（ミニオンには2倍）。チャンピオンとモンスターは<#ffb900ff>1.5秒<>その場に繋がれ、範囲外に出れば鎖が切れ、出なければ<#ef5350ff>中心へ引き戻され<>再びダメージ。"
+      }
+    }
+  }
+}

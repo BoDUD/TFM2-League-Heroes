@@ -1,0 +1,171 @@
+{
+  "stage": "design_selection",
+  "import_ready": false,
+  "coordinate_convention": "pixels; rect x,y,width,height; bbox left,top,right_exclusive,bottom_exclusive",
+  "assets": [
+    {
+      "file": "morgana_design_A.png",
+      "status": "concept_draft_not_import_ready",
+      "size": [
+        1254,
+        1254
+      ],
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            1254,
+            1254
+          ],
+          "standing_point": null,
+          "nontransparent_bbox_xyxy": [
+            103,
+            51,
+            1218,
+            1198
+          ]
+        }
+      ],
+      "validation": {
+        "required_size": [
+          1024,
+          1024
+        ],
+        "size_pass": false,
+        "uniform_8px_grid": false,
+        "visible_rgb_color_count": 63844,
+        "palette_limit_24_pass": false,
+        "binary_alpha": false,
+        "alpha_levels": 256,
+        "no_pixels_below_y799": false,
+        "head_ratio": "not_verified",
+        "exact_eye_layout": "not_verified",
+        "identity_pose_consistency": "approximate_only"
+      }
+    },
+    {
+      "file": "morgana_design_B.png",
+      "status": "concept_draft_not_import_ready",
+      "size": [
+        1254,
+        1254
+      ],
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            1254,
+            1254
+          ],
+          "standing_point": null,
+          "nontransparent_bbox_xyxy": [
+            65,
+            52,
+            1200,
+            1254
+          ]
+        }
+      ],
+      "validation": {
+        "required_size": [
+          1024,
+          1024
+        ],
+        "size_pass": false,
+        "uniform_8px_grid": false,
+        "visible_rgb_color_count": 49553,
+        "palette_limit_24_pass": false,
+        "binary_alpha": false,
+        "alpha_levels": 256,
+        "no_pixels_below_y799": false,
+        "head_ratio": "not_verified",
+        "exact_eye_layout": "not_verified",
+        "identity_pose_consistency": "approximate_only"
+      }
+    },
+    {
+      "file": "morgana_design_C.png",
+      "status": "concept_draft_not_import_ready",
+      "size": [
+        1254,
+        1254
+      ],
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            1254,
+            1254
+          ],
+          "standing_point": null,
+          "nontransparent_bbox_xyxy": [
+            97,
+            53,
+            1192,
+            1198
+          ]
+        }
+      ],
+      "validation": {
+        "required_size": [
+          1024,
+          1024
+        ],
+        "size_pass": false,
+        "uniform_8px_grid": false,
+        "visible_rgb_color_count": 58512,
+        "palette_limit_24_pass": false,
+        "binary_alpha": false,
+        "alpha_levels": 256,
+        "no_pixels_below_y799": false,
+        "head_ratio": "not_verified",
+        "exact_eye_layout": "not_verified",
+        "identity_pose_consistency": "approximate_only"
+      }
+    },
+    {
+      "file": "morgana_design_A_simplified.png",
+      "status": "concept_draft_not_import_ready",
+      "size": [
+        1254,
+        1254
+      ],
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            1254,
+            1254
+          ],
+          "standing_point": null,
+          "nontransparent_bbox_xyxy": [
+            59,
+            53,
+            1051,
+            1198
+          ]
+        }
+      ],
+      "validation": {
+        "required_size": [
+          1024,
+          1024
+        ],
+        "size_pass": false,
+        "uniform_8px_grid": false,
+        "visible_rgb_color_count": 41232,
+        "palette_limit_24_pass": false,
+        "binary_alpha": false,
+        "alpha_levels": 256,
+        "no_pixels_below_y799": false,
+        "head_ratio": "not_verified",
+        "exact_eye_layout": "not_verified",
+        "identity_pose_consistency": "approximate_only"
+      }
+    }
+  ]
+}

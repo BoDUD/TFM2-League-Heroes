@@ -1,0 +1,98 @@
+{
+  "kassadin-front-A": {
+    "canvas": [
+      1024,
+      1536
+    ],
+    "occupied_rows": [
+      20,
+      99
+    ],
+    "height_rows": 80,
+    "width_cells": 52,
+    "width_limit": 56,
+    "opaque_colors": 21,
+    "cell_uniform": true,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "below_99_empty": true,
+    "right_margin_empty": true,
+    "robe_center_cells": 39.0,
+    "robe_center_column": 39,
+    "head_shared": true
+  },
+  "kassadin-side-A": {
+    "canvas": [
+      1024,
+      1536
+    ],
+    "occupied_rows": [
+      20,
+      99
+    ],
+    "height_rows": 80,
+    "width_cells": 41,
+    "width_limit": 48,
+    "opaque_colors": 19,
+    "cell_uniform": true,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "below_99_empty": true,
+    "right_margin_empty": true,
+    "robe_center_cells": 39.0,
+    "robe_center_column": 39,
+    "head_shared": true
+  },
+  "kassadin-front-B": {
+    "canvas": [
+      1024,
+      1536
+    ],
+    "occupied_rows": [
+      20,
+      99
+    ],
+    "height_rows": 80,
+    "width_cells": 52,
+    "width_limit": 56,
+    "opaque_colors": 21,
+    "cell_uniform": true,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "below_99_empty": true,
+    "right_margin_empty": true,
+    "robe_center_cells": 39.0,
+    "robe_center_column": 39,
+    "head_shared": true
+  },
+  "kassadin-side-B": {
+    "canvas": [
+      1024,
+      1536
+    ],
+    "occupied_rows": [
+      20,
+      99
+    ],
+    "height_rows": 80,
+    "width_cells": 41,
+    "width_limit": 48,
+    "opaque_colors": 20,
+    "cell_uniform": true,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "below_99_empty": true,
+    "right_margin_empty": true,
+    "robe_center_cells": 39.0,
+    "robe_center_column": 39,
+    "head_shared": true
+  }
+}

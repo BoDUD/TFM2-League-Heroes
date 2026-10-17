@@ -1,0 +1,1025 @@
+{
+  "expected": 35,
+  "present": 35,
+  "raw_count": 38,
+  "all_sizes_correct": true,
+  "all_unchanged_raw": true,
+  "hard_alpha_pass_count": 0,
+  "frames": [
+    {
+      "file": "malzahar_run_1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 239349,
+      "nonzero_bbox": [
+        71,
+        24,
+        1488,
+        1001
+      ],
+      "alpha_ge128_bbox": [
+        428,
+        177,
+        1079,
+        942
+      ],
+      "nonzero_pixels_below_y960": 22,
+      "raw_file": "raw/malzahar_run_1.png",
+      "unchanged_from_raw": true,
+      "sha256": "8c8aca91ce2aa6b1e4061c834b8c42b1d2771f0caab567b428992080d3f2c676"
+    },
+    {
+      "file": "malzahar_run_2.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 252459,
+      "nonzero_bbox": [
+        25,
+        21,
+        1456,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        391,
+        181,
+        1130,
+        932
+      ],
+      "nonzero_pixels_below_y960": 2,
+      "raw_file": "raw/malzahar_run_2.png",
+      "unchanged_from_raw": true,
+      "sha256": "0e890f69426ab432a2da6bf99183262d4c1f8dccc6768c445ebacd43fe46f3ee"
+    },
+    {
+      "file": "malzahar_run_3.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 277168,
+      "nonzero_bbox": [
+        33,
+        21,
+        1492,
+        1004
+      ],
+      "alpha_ge128_bbox": [
+        406,
+        145,
+        1131,
+        934
+      ],
+      "nonzero_pixels_below_y960": 14,
+      "raw_file": "raw/malzahar_run_3.png",
+      "unchanged_from_raw": true,
+      "sha256": "6a9453542d0b4be4762e39424a377ffd8e78171fa3f0992b5c0312a939728009"
+    },
+    {
+      "file": "malzahar_run_4.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 291394,
+      "nonzero_bbox": [
+        0,
+        29,
+        1484,
+        992
+      ],
+      "alpha_ge128_bbox": [
+        409,
+        150,
+        1174,
+        943
+      ],
+      "nonzero_pixels_below_y960": 1,
+      "raw_file": "raw/malzahar_run_4.png",
+      "unchanged_from_raw": true,
+      "sha256": "2b8d7f334c0c9c1f50095d8a97330d61703f45b5a614ba71928c9960b86a1e0a"
+    },
+    {
+      "file": "malzahar_run_5.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 313219,
+      "nonzero_bbox": [
+        75,
+        9,
+        1506,
+        1002
+      ],
+      "alpha_ge128_bbox": [
+        409,
+        151,
+        1182,
+        947
+      ],
+      "nonzero_pixels_below_y960": 32,
+      "raw_file": "raw/malzahar_run_5.png",
+      "unchanged_from_raw": true,
+      "sha256": "dd941c92ae27b1ef4edac30e629a3b0875ccd6070e4a71c4167289b5b09a84cb"
+    },
+    {
+      "file": "malzahar_run_6.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 309712,
+      "nonzero_bbox": [
+        57,
+        19,
+        1480,
+        1000
+      ],
+      "alpha_ge128_bbox": [
+        379,
+        160,
+        1176,
+        940
+      ],
+      "nonzero_pixels_below_y960": 4,
+      "raw_file": "raw/malzahar_run_6.png",
+      "unchanged_from_raw": true,
+      "sha256": "cb741548325373a3b9e24b549863e6c8efb145210ee88673a4d94f020b900b6e"
+    },
+    {
+      "file": "malzahar_attack_1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 218802,
+      "nonzero_bbox": [
+        59,
+        61,
+        1444,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        478,
+        134,
+        1211,
+        950
+      ],
+      "nonzero_pixels_below_y960": 4,
+      "raw_file": "raw/malzahar_attack_1.png",
+      "unchanged_from_raw": true,
+      "sha256": "37b0ea9506be9c6b6e54b44fff292ece53adf6a6c0eb942e26dedad633d15a7d"
+    },
+    {
+      "file": "malzahar_attack_2.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 279906,
+      "nonzero_bbox": [
+        41,
+        21,
+        1450,
+        992
+      ],
+      "alpha_ge128_bbox": [
+        326,
+        130,
+        1254,
+        907
+      ],
+      "nonzero_pixels_below_y960": 3,
+      "raw_file": "raw/malzahar_attack_2.png",
+      "unchanged_from_raw": true,
+      "sha256": "2743e5b1f2acef873b6f0f994f845326f97981c95e289c250adbf1995e99a683"
+    },
+    {
+      "file": "malzahar_attack_3.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 246720,
+      "nonzero_bbox": [
+        41,
+        37,
+        1506,
+        998
+      ],
+      "alpha_ge128_bbox": [
+        376,
+        150,
+        1183,
+        925
+      ],
+      "nonzero_pixels_below_y960": 10,
+      "raw_file": "raw/malzahar_attack_3.png",
+      "unchanged_from_raw": true,
+      "sha256": "f65b8a8ca39d19fba2f597793f9979009a8f2216397c7f9aa4f0e1aaf146ee3f"
+    },
+    {
+      "file": "malzahar_attack_4.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 258031,
+      "nonzero_bbox": [
+        33,
+        33,
+        1496,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        477,
+        150,
+        1226,
+        988
+      ],
+      "nonzero_pixels_below_y960": 2123,
+      "raw_file": "raw/malzahar_attack_4.png",
+      "unchanged_from_raw": true,
+      "sha256": "a6e003f7e9dd2b3f8ba16622eb4d50858bf349454dfc4618abb47282aa16055d"
+    },
+    {
+      "file": "malzahar_attack_5.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 253631,
+      "nonzero_bbox": [
+        59,
+        31,
+        1514,
+        1006
+      ],
+      "alpha_ge128_bbox": [
+        384,
+        154,
+        1085,
+        982
+      ],
+      "nonzero_pixels_below_y960": 1746,
+      "raw_file": "raw/malzahar_attack_5.png",
+      "unchanged_from_raw": true,
+      "sha256": "c6b68b2eb04c26a8cb388fdbb5dd08fb766713ed7f763881d0cdcf67ff67e4ae"
+    },
+    {
+      "file": "malzahar_skill_1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 217090,
+      "nonzero_bbox": [
+        247,
+        53,
+        1488,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        286,
+        88,
+        1016,
+        910
+      ],
+      "nonzero_pixels_below_y960": 5,
+      "raw_file": "raw/malzahar_skill_1.png",
+      "unchanged_from_raw": true,
+      "sha256": "849d68d969fe9ad798b093b453378869aa1b68febb9949d18bcdb273ccf90d1b"
+    },
+    {
+      "file": "malzahar_skill_2.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 284592,
+      "nonzero_bbox": [
+        159,
+        49,
+        1452,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        273,
+        65,
+        1215,
+        944
+      ],
+      "nonzero_pixels_below_y960": 26,
+      "raw_file": "raw/malzahar_skill_2.png",
+      "unchanged_from_raw": true,
+      "sha256": "8813fc0b4d20e116f44d17de2af9e40850252ae5fdb60c97ff34f64f93757b5a"
+    },
+    {
+      "file": "malzahar_skill_3.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 304333,
+      "nonzero_bbox": [
+        49,
+        20,
+        1506,
+        1008
+      ],
+      "alpha_ge128_bbox": [
+        268,
+        65,
+        1238,
+        962
+      ],
+      "nonzero_pixels_below_y960": 116,
+      "raw_file": "raw/malzahar_skill_3.png",
+      "unchanged_from_raw": true,
+      "sha256": "5d2e1e0da345e54a8964de473ae333cb2f9e6a33a62116a24dffd54c88029043"
+    },
+    {
+      "file": "malzahar_skill_4.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 277073,
+      "nonzero_bbox": [
+        73,
+        47,
+        1508,
+        982
+      ],
+      "alpha_ge128_bbox": [
+        304,
+        137,
+        1222,
+        953
+      ],
+      "nonzero_pixels_below_y960": 7,
+      "raw_file": "raw/malzahar_skill_4.png",
+      "unchanged_from_raw": true,
+      "sha256": "466858311de82af5cfedaffefcd41d7ee44f969fdeec154f28fab4e88d50ef4a"
+    },
+    {
+      "file": "malzahar_skill_5.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 223522,
+      "nonzero_bbox": [
+        65,
+        55,
+        1514,
+        984
+      ],
+      "alpha_ge128_bbox": [
+        352,
+        142,
+        1008,
+        955
+      ],
+      "nonzero_pixels_below_y960": 17,
+      "raw_file": "raw/malzahar_skill_5.png",
+      "unchanged_from_raw": true,
+      "sha256": "2c927318ae0b24ba0829b6d5f45a5445699cb0db5359a8ec1e2b7f30b18c50d8"
+    },
+    {
+      "file": "malzahar_skill2_1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 195522,
+      "nonzero_bbox": [
+        0,
+        23,
+        1490,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        453,
+        176,
+        1041,
+        959
+      ],
+      "nonzero_pixels_below_y960": 13,
+      "raw_file": "raw/malzahar_skill2_1.png",
+      "unchanged_from_raw": true,
+      "sha256": "34513fda74fe11b677e915ded11597cd7f30f09f5ec4130776d797ae577dbe84"
+    },
+    {
+      "file": "malzahar_skill2_2.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 234019,
+      "nonzero_bbox": [
+        0,
+        21,
+        1522,
+        1000
+      ],
+      "alpha_ge128_bbox": [
+        419,
+        135,
+        1143,
+        954
+      ],
+      "nonzero_pixels_below_y960": 22,
+      "raw_file": "raw/malzahar_skill2_2.png",
+      "unchanged_from_raw": true,
+      "sha256": "4b0910cd78c26daac028e150693d6dc730c6095bcfc151cc882cf8d3f3d35bc9"
+    },
+    {
+      "file": "malzahar_skill2_3.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 249689,
+      "nonzero_bbox": [
+        0,
+        0,
+        1474,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        395,
+        92,
+        1085,
+        925
+      ],
+      "nonzero_pixels_below_y960": 9,
+      "raw_file": "raw/malzahar_skill2_3.png",
+      "unchanged_from_raw": true,
+      "sha256": "0fe35d2964e3ca67b6b80165462ceaa720524551ac2757bcbf5beeec36d1889a"
+    },
+    {
+      "file": "malzahar_skill2_4.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 219949,
+      "nonzero_bbox": [
+        0,
+        41,
+        1426,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        441,
+        148,
+        1092,
+        937
+      ],
+      "nonzero_pixels_below_y960": 41,
+      "raw_file": "raw/malzahar_skill2_4-retry2.png",
+      "unchanged_from_raw": true,
+      "sha256": "ba8cbd95e7d6184eba27f53bf8b4d885c8f7643a89bdea15826e8e9d2b855200"
+    },
+    {
+      "file": "malzahar_skill2_5.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 201548,
+      "nonzero_bbox": [
+        37,
+        29,
+        1498,
+        998
+      ],
+      "alpha_ge128_bbox": [
+        420,
+        185,
+        1003,
+        984
+      ],
+      "nonzero_pixels_below_y960": 1026,
+      "raw_file": "raw/malzahar_skill2_5.png",
+      "unchanged_from_raw": true,
+      "sha256": "189dd06a233549ab78d4f146ee43a1afbeaf0b1736466c8c6ed4d434a6ff953f"
+    },
+    {
+      "file": "malzahar_ult_1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 222646,
+      "nonzero_bbox": [
+        55,
+        31,
+        1498,
+        984
+      ],
+      "alpha_ge128_bbox": [
+        455,
+        78,
+        1061,
+        925
+      ],
+      "nonzero_pixels_below_y960": 3,
+      "raw_file": "raw/malzahar_ult_1.png",
+      "unchanged_from_raw": true,
+      "sha256": "727d0a643bf7322c3b9adfbabf60a084023f149417add2965bf8203693dc85d1"
+    },
+    {
+      "file": "malzahar_ult_2.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 215735,
+      "nonzero_bbox": [
+        49,
+        55,
+        1484,
+        1001
+      ],
+      "alpha_ge128_bbox": [
+        461,
+        101,
+        1155,
+        868
+      ],
+      "nonzero_pixels_below_y960": 31,
+      "raw_file": "raw/malzahar_ult_2.png",
+      "unchanged_from_raw": true,
+      "sha256": "652c10737ac972b68c7424a493b7375a30765aa2eb947c4922b42d74336b45a6"
+    },
+    {
+      "file": "malzahar_ult_3.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 248405,
+      "nonzero_bbox": [
+        47,
+        51,
+        1506,
+        1008
+      ],
+      "alpha_ge128_bbox": [
+        382,
+        153,
+        1193,
+        920
+      ],
+      "nonzero_pixels_below_y960": 36,
+      "raw_file": "raw/malzahar_ult_3.png",
+      "unchanged_from_raw": true,
+      "sha256": "8cdfb3fce7145271585a1fc7d96e662903a4803c777f12fd6d3b3a57a77b9aa1"
+    },
+    {
+      "file": "malzahar_ult_4.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 277682,
+      "nonzero_bbox": [
+        57,
+        39,
+        1490,
+        976
+      ],
+      "alpha_ge128_bbox": [
+        384,
+        143,
+        1225,
+        928
+      ],
+      "nonzero_pixels_below_y960": 15,
+      "raw_file": "raw/malzahar_ult_4-retry2.png",
+      "unchanged_from_raw": true,
+      "sha256": "4bfef36b95a4797ad763da3b00243b4041933657167026e22adc03d865951bed"
+    },
+    {
+      "file": "malzahar_ult_loop_1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 221367,
+      "nonzero_bbox": [
+        57,
+        39,
+        1484,
+        1005
+      ],
+      "alpha_ge128_bbox": [
+        413,
+        200,
+        1120,
+        932
+      ],
+      "nonzero_pixels_below_y960": 11,
+      "raw_file": "raw/malzahar_ult_loop_1.png",
+      "unchanged_from_raw": true,
+      "sha256": "1eae545a1653a3527c0a6f33b1821739f2231175f5994820b723ecb82723640b"
+    },
+    {
+      "file": "malzahar_ult_loop_2.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 250014,
+      "nonzero_bbox": [
+        41,
+        51,
+        1506,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        427,
+        184,
+        1197,
+        941
+      ],
+      "nonzero_pixels_below_y960": 9,
+      "raw_file": "raw/malzahar_ult_loop_2.png",
+      "unchanged_from_raw": true,
+      "sha256": "c6c5e513c7437618e4dc0563d265ada78b35aec2d892a81c3544ebac83b85301"
+    },
+    {
+      "file": "malzahar_ult_loop_3.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 218221,
+      "nonzero_bbox": [
+        63,
+        71,
+        1492,
+        998
+      ],
+      "alpha_ge128_bbox": [
+        432,
+        249,
+        1182,
+        949
+      ],
+      "nonzero_pixels_below_y960": 4,
+      "raw_file": "raw/malzahar_ult_loop_3.png",
+      "unchanged_from_raw": true,
+      "sha256": "676a0a457db6825a1c39a044681504a869525b80ce27cb8b8d0ddd90cfa8646b"
+    },
+    {
+      "file": "malzahar_ult_loop_4.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 227979,
+      "nonzero_bbox": [
+        35,
+        19,
+        1488,
+        997
+      ],
+      "alpha_ge128_bbox": [
+        434,
+        133,
+        1184,
+        950
+      ],
+      "nonzero_pixels_below_y960": 5,
+      "raw_file": "raw/malzahar_ult_loop_4.png",
+      "unchanged_from_raw": true,
+      "sha256": "4fd57d2ef790048ab8228b1dedb3f8f315e0803829aa8021f96f3a2a9a09b0ee"
+    },
+    {
+      "file": "malzahar_dead_1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 255487,
+      "nonzero_bbox": [
+        81,
+        19,
+        1506,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        329,
+        190,
+        1085,
+        958
+      ],
+      "nonzero_pixels_below_y960": 32,
+      "raw_file": "raw/malzahar_dead_1.png",
+      "unchanged_from_raw": true,
+      "sha256": "84a71b4e11107663ba783e5898109b39ba0ca0062fbc756883641e8b20ae8f2c"
+    },
+    {
+      "file": "malzahar_dead_2.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 217686,
+      "nonzero_bbox": [
+        33,
+        37,
+        1490,
+        1024
+      ],
+      "alpha_ge128_bbox": [
+        356,
+        233,
+        1017,
+        957
+      ],
+      "nonzero_pixels_below_y960": 12,
+      "raw_file": "raw/malzahar_dead_2.png",
+      "unchanged_from_raw": true,
+      "sha256": "345e6808fc72dee3cb2cebcd3558b9b97e49303f7e5aa9c8dad3e682f2914339"
+    },
+    {
+      "file": "malzahar_dead_3.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 207468,
+      "nonzero_bbox": [
+        0,
+        0,
+        1426,
+        984
+      ],
+      "alpha_ge128_bbox": [
+        430,
+        153,
+        1003,
+        903
+      ],
+      "nonzero_pixels_below_y960": 2,
+      "raw_file": "raw/malzahar_dead_3.png",
+      "unchanged_from_raw": true,
+      "sha256": "58b98607e7c6a1b2708c571a519e60a014593dfa23dfd2820c9ddbb7f4a5708a"
+    },
+    {
+      "file": "malzahar_dead_4.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 261673,
+      "nonzero_bbox": [
+        73,
+        39,
+        1492,
+        990
+      ],
+      "alpha_ge128_bbox": [
+        453,
+        180,
+        1120,
+        986
+      ],
+      "nonzero_pixels_below_y960": 879,
+      "raw_file": "raw/malzahar_dead_4.png",
+      "unchanged_from_raw": true,
+      "sha256": "960797f52acb37d956c8dbd5d17f9d42846ab4faf92535d933082a8bf476167b"
+    },
+    {
+      "file": "malzahar_dead_5.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 269263,
+      "nonzero_bbox": [
+        33,
+        21,
+        1518,
+        1000
+      ],
+      "alpha_ge128_bbox": [
+        248,
+        392,
+        1284,
+        811
+      ],
+      "nonzero_pixels_below_y960": 99,
+      "raw_file": "raw/malzahar_dead_5.png",
+      "unchanged_from_raw": true,
+      "sha256": "00e333461ba8271050f4f735d064abd635fe835d26876e73d89bc60d6a2678b7"
+    },
+    {
+      "file": "malzahar_dead_6.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_min_max": [
+        0,
+        254
+      ],
+      "semi_transparent_pixels": 358322,
+      "nonzero_bbox": [
+        33,
+        54,
+        1516,
+        1000
+      ],
+      "alpha_ge128_bbox": [
+        172,
+        396,
+        1405,
+        867
+      ],
+      "nonzero_pixels_below_y960": 181,
+      "raw_file": "raw/malzahar_dead_6-retry2.png",
+      "unchanged_from_raw": true,
+      "sha256": "1dad33832d699e393bb41a71e31c794e271a552dd2767059ef8826b7ae1c9610"
+    }
+  ]
+}

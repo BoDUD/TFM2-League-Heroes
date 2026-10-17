@@ -1,0 +1,457 @@
+{
+  "passed": true,
+  "assets": 11,
+  "frames": 53,
+  "checks": [
+    {
+      "name": "wings1",
+      "frames": 4,
+      "distinct_frames": 4,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          1,
+          22,
+          59,
+          42
+        ],
+        [
+          1,
+          22,
+          59,
+          42
+        ],
+        [
+          1,
+          22,
+          59,
+          42
+        ],
+        [
+          1,
+          22,
+          59,
+          42
+        ]
+      ]
+    },
+    {
+      "name": "wings2",
+      "frames": 4,
+      "distinct_frames": 4,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          1,
+          4,
+          75,
+          26
+        ],
+        [
+          1,
+          3,
+          75,
+          26
+        ],
+        [
+          1,
+          3,
+          75,
+          26
+        ],
+        [
+          1,
+          4,
+          75,
+          26
+        ]
+      ]
+    },
+    {
+      "name": "wings3",
+      "frames": 4,
+      "distinct_frames": 4,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          1,
+          3,
+          83,
+          33
+        ],
+        [
+          1,
+          3,
+          83,
+          33
+        ],
+        [
+          1,
+          3,
+          83,
+          33
+        ],
+        [
+          1,
+          3,
+          83,
+          33
+        ]
+      ]
+    },
+    {
+      "name": "bolt_x",
+      "frames": 4,
+      "distinct_frames": 4,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          1,
+          1,
+          19,
+          11
+        ],
+        [
+          1,
+          1,
+          19,
+          11
+        ],
+        [
+          2,
+          1,
+          19,
+          11
+        ],
+        [
+          1,
+          1,
+          19,
+          11
+        ]
+      ]
+    },
+    {
+      "name": "wave_x",
+      "frames": 4,
+      "distinct_frames": 4,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          1,
+          1,
+          17,
+          27
+        ],
+        [
+          1,
+          1,
+          17,
+          27
+        ],
+        [
+          1,
+          1,
+          17,
+          27
+        ],
+        [
+          1,
+          1,
+          17,
+          27
+        ]
+      ]
+    },
+    {
+      "name": "q_sword_x",
+      "frames": 4,
+      "distinct_frames": 4,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          4,
+          2,
+          33,
+          14
+        ],
+        [
+          3,
+          2,
+          33,
+          14
+        ],
+        [
+          2,
+          1,
+          33,
+          15
+        ],
+        [
+          3,
+          1,
+          33,
+          15
+        ]
+      ]
+    },
+    {
+      "name": "e_bolt_x",
+      "frames": 4,
+      "distinct_frames": 4,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          3,
+          1,
+          25,
+          15
+        ],
+        [
+          3,
+          1,
+          25,
+          15
+        ],
+        [
+          3,
+          1,
+          25,
+          15
+        ],
+        [
+          3,
+          1,
+          25,
+          15
+        ]
+      ]
+    },
+    {
+      "name": "bolt_hit_x",
+      "frames": 5,
+      "distinct_frames": 5,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          9,
+          9,
+          13,
+          13
+        ],
+        [
+          5,
+          6,
+          17,
+          16
+        ],
+        [
+          1,
+          2,
+          21,
+          20
+        ],
+        [
+          2,
+          3,
+          20,
+          18
+        ],
+        [
+          2,
+          6,
+          20,
+          11
+        ]
+      ]
+    },
+    {
+      "name": "e_hit_x",
+      "frames": 6,
+      "distinct_frames": 6,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          10,
+          7,
+          18,
+          27
+        ],
+        [
+          4,
+          6,
+          24,
+          25
+        ],
+        [
+          2,
+          3,
+          26,
+          30
+        ],
+        [
+          1,
+          1,
+          27,
+          31
+        ],
+        [
+          3,
+          2,
+          25,
+          30
+        ],
+        [
+          7,
+          4,
+          21,
+          27
+        ]
+      ]
+    },
+    {
+      "name": "q_blast_x",
+      "frames": 7,
+      "distinct_frames": 7,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          18,
+          10,
+          34,
+          24
+        ],
+        [
+          1,
+          11,
+          51,
+          23
+        ],
+        [
+          1,
+          4,
+          51,
+          30
+        ],
+        [
+          1,
+          1,
+          51,
+          33
+        ],
+        [
+          1,
+          10,
+          51,
+          24
+        ],
+        [
+          1,
+          8,
+          51,
+          26
+        ],
+        [
+          23,
+          12,
+          29,
+          22
+        ]
+      ]
+    },
+    {
+      "name": "e_blast_x",
+      "frames": 7,
+      "distinct_frames": 7,
+      "dimensions": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry": true,
+      "exact_16x": true,
+      "bboxes": [
+        [
+          13,
+          41,
+          39,
+          54
+        ],
+        [
+          6,
+          34,
+          46,
+          54
+        ],
+        [
+          3,
+          20,
+          49,
+          54
+        ],
+        [
+          1,
+          2,
+          51,
+          54
+        ],
+        [
+          2,
+          14,
+          50,
+          54
+        ],
+        [
+          6,
+          26,
+          46,
+          54
+        ],
+        [
+          12,
+          40,
+          40,
+          54
+        ]
+      ]
+    }
+  ]
+}

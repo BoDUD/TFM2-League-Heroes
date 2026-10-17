@@ -1,0 +1,21 @@
+{
+  "a_bolt": {"cell": [17, 7], "anchor": [8, 3], "frames": 3},
+  "a_hit": {"cell": [15, 17], "anchor": [7, 8], "frames": 4},
+  "q_drain": {"cell": [23, 23], "anchor": [11, 11], "frames": 5},
+  "q_orb": {"cell": [21, 11], "anchor": [10, 5], "frames": 4},
+  "q_rush": {"cell": [29, 13], "anchor": [14, 6], "frames": 4},
+  "q_heal": {"cell": [21, 31], "anchor": [10, 15], "frames": 5},
+  "q_ready": {"cell": [23, 21], "anchor": [11, 10], "frames": 4},
+  "e_charge": {"cell": [29, 51], "anchor": [14, 25], "frames": 4},
+  "e_burst": {"cell": [67, 51], "anchor": [33, 25], "frames": 5},
+  "e_bolt": {"cell": [17, 7], "anchor": [8, 3], "frames": 3},
+  "e_hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "w_splash": {"cell": [43, 61], "anchor": [21, 30], "frames": 5},
+  "w_pool": {"cell": [49, 33], "anchor": [24, 16], "frames": 6},
+  "w_drain": {"cell": [21, 47], "anchor": [10, 23], "frames": 4},
+  "r_cloud": {"cell": [55, 91], "anchor": [27, 45], "frames": 7},
+  "r_mark": {"cell": [21, 59], "anchor": [10, 29], "frames": 4},
+  "r_burst": {"cell": [23, 35], "anchor": [11, 17], "frames": 6},
+  "r_heal": {"cell": [25, 35], "anchor": [12, 17], "frames": 6},
+  "c_blink": {"cell": [19, 59], "anchor": [9, 29], "frames": 5}
+}

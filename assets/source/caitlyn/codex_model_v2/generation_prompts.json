@@ -1,0 +1,34 @@
+{
+  "mode": "edit",
+  "generator": "OpenAI built-in image generation",
+  "reference_roles": {
+    "generated_detail": "identity and rifle/clothing continuity",
+    "picture/caitlyn-model-A.png": "approved outfit identity",
+    "ours_now/caitlyn_head_now.png": "simple face language",
+    "ref_structure/oppi_caitlyn_structure.png": "proportion-only reference; no pixel tracing"
+  },
+  "shared_constraints": "One 3/4-right full-body idle Caitlyn; diagonal rifle; sparse hard square pixels; transparent background; slim body and close hair; no text or extra poses.",
+  "variants": {
+    "A": {
+      "hat": 8,
+      "face": 8,
+      "torso": 8,
+      "skirt": 7,
+      "legs_boots": 9
+    },
+    "B": {
+      "hat": 7,
+      "face": 8,
+      "torso": 7,
+      "skirt": 6,
+      "legs_boots": 12
+    },
+    "C": {
+      "hat": 8,
+      "face": 9,
+      "torso": 7,
+      "skirt": 6,
+      "legs_boots": 10
+    }
+  }
+}

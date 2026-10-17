@@ -1,0 +1,464 @@
+{
+ "hero": "yunara",
+ "champ": "Yunara",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  200,
+  160,
+  30
+ ],
+ "design": "Idle_1@0",
+ "submesh_textures": {
+  "Dragon_Head": "Weapon_TX_CM",
+  "Tail": "Weapon_TX_CM",
+  "Bead_1": "Weapon_TX_CM",
+  "Bead_2": "Weapon_TX_CM",
+  "Bead_3": "Weapon_TX_CM",
+  "Bead_4": "Weapon_TX_CM",
+  "Bead_5": "Weapon_TX_CM",
+  "Bead_6": "Weapon_TX_CM",
+  "Bead_7": "Weapon_TX_CM",
+  "Bead_8": "Weapon_TX_CM"
+ },
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "run@0",
+     125
+    ],
+    [
+     "run@125",
+     125
+    ],
+    [
+     "run@250",
+     125
+    ],
+    [
+     "run@375",
+     125
+    ],
+    [
+     "run@500",
+     125
+    ],
+    [
+     "run@625",
+     125
+    ],
+    [
+     "run@750",
+     125
+    ],
+    [
+     "run@875",
+     125
+    ]
+   ]
+  },
+  "attack": {
+   "frames": [
+    [
+     "attack1@0",
+     56
+    ],
+    [
+     "attack1@56",
+     56
+    ],
+    [
+     "attack1@111",
+     56
+    ],
+    [
+     "attack1@167",
+     56
+    ],
+    [
+     "attack1@222",
+     56
+    ],
+    [
+     "attack1@278",
+     56
+    ],
+    [
+     "attack1@333",
+     56
+    ]
+   ]
+  },
+  "attack2": {
+   "frames": [
+    [
+     "attack2@0",
+     56
+    ],
+    [
+     "attack2@56",
+     56
+    ],
+    [
+     "attack2@111",
+     56
+    ],
+    [
+     "attack2@167",
+     56
+    ],
+    [
+     "attack2@222",
+     56
+    ],
+    [
+     "attack2@278",
+     56
+    ],
+    [
+     "attack2@333",
+     56
+    ]
+   ]
+  },
+  "crit": {
+   "frames": [
+    [
+     "Crit1@0",
+     56
+    ],
+    [
+     "Crit1@56",
+     56
+    ],
+    [
+     "Crit1@111",
+     56
+    ],
+    [
+     "Crit1@167",
+     56
+    ],
+    [
+     "Crit1@222",
+     56
+    ],
+    [
+     "Crit1@278",
+     56
+    ],
+    [
+     "Crit1@333",
+     56
+    ]
+   ]
+  },
+  "q_attack": {
+   "frames": [
+    [
+     "Spell1_Attack1@0",
+     90
+    ],
+    [
+     "Spell1_Attack1@90",
+     90
+    ],
+    [
+     "Spell1_Attack1@180",
+     90
+    ],
+    [
+     "Spell1_Attack1@270",
+     90
+    ],
+    [
+     "Spell1_Attack1@360",
+     90
+    ],
+    [
+     "Spell1_Attack1@450",
+     90
+    ],
+    [
+     "Spell1_Attack1@540",
+     90
+    ],
+    [
+     "Spell1_Attack1@630",
+     90
+    ]
+   ]
+  },
+  "skill": {
+   "frames": [
+    [
+     "Spell2@0",
+     120
+    ],
+    [
+     "Spell2@120",
+     120
+    ],
+    [
+     "Spell2@240",
+     120
+    ],
+    [
+     "Spell2@360",
+     120
+    ],
+    [
+     "Spell2@450",
+     120
+    ],
+    [
+     "Spell2@540",
+     120
+    ],
+    [
+     "Spell2@660",
+     120
+    ],
+    [
+     "Spell2@780",
+     120
+    ],
+    [
+     "Spell2@900",
+     120
+    ],
+    [
+     "Spell2@1020",
+     120
+    ]
+   ]
+  },
+  "skill_r": {
+   "frames": [
+    [
+     "Spell4_W@0",
+     100
+    ],
+    [
+     "Spell4_W@100",
+     100
+    ],
+    [
+     "Spell4_W@200",
+     100
+    ],
+    [
+     "Spell4_W@300",
+     100
+    ],
+    [
+     "Spell4_W@400",
+     100
+    ],
+    [
+     "Spell4_W@500",
+     100
+    ],
+    [
+     "Spell4_W@600",
+     100
+    ],
+    [
+     "Spell4_W@700",
+     100
+    ],
+    [
+     "Spell4_W@800",
+     100
+    ],
+    [
+     "Spell4_W@900",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "frames": [
+    [
+     "Spell3@0",
+     100
+    ],
+    [
+     "Spell3@100",
+     100
+    ],
+    [
+     "Spell3@200",
+     100
+    ],
+    [
+     "Spell3@300",
+     100
+    ],
+    [
+     "Spell3@400",
+     100
+    ],
+    [
+     "Spell3@500",
+     100
+    ],
+    [
+     "Spell3@600",
+     100
+    ],
+    [
+     "Spell3@700",
+     100
+    ],
+    [
+     "Spell3@800",
+     100
+    ],
+    [
+     "Spell3@900",
+     100
+    ]
+   ]
+  },
+  "skill2_r": {
+   "frames": [
+    [
+     "Spell4_E_Long@0",
+     50
+    ],
+    [
+     "Spell4_E_Long@50",
+     50
+    ],
+    [
+     "Spell4_E_Long@100",
+     50
+    ],
+    [
+     "Spell4_E_Long@150",
+     50
+    ],
+    [
+     "Spell4_E_Long@200",
+     50
+    ],
+    [
+     "Spell4_E_Long@250",
+     50
+    ],
+    [
+     "Spell4_E_Long@300",
+     50
+    ],
+    [
+     "Spell4_E_Long@350",
+     50
+    ],
+    [
+     "Spell4_E_Long@400",
+     50
+    ]
+   ]
+  },
+  "ult": {
+   "frames": [
+    [
+     "Spell4_Nomove@0",
+     100
+    ],
+    [
+     "Spell4_Nomove@100",
+     100
+    ],
+    [
+     "Spell4_Nomove@200",
+     100
+    ],
+    [
+     "Spell4_Nomove@300",
+     100
+    ],
+    [
+     "Spell4_Nomove@400",
+     100
+    ],
+    [
+     "Spell4_Nomove@500",
+     100
+    ],
+    [
+     "Spell4_Nomove@600",
+     100
+    ],
+    [
+     "Spell4_Nomove@700",
+     100
+    ],
+    [
+     "Spell4_Nomove@800",
+     100
+    ],
+    [
+     "Spell4_Nomove@933",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "frames": [
+    [
+     "Death@0",
+     150
+    ],
+    [
+     "Death@150",
+     150
+    ],
+    [
+     "Death@300",
+     150
+    ],
+    [
+     "Death@450",
+     150
+    ],
+    [
+     "Death@600",
+     150
+    ],
+    [
+     "Death@800",
+     150
+    ],
+    [
+     "Death@1000",
+     150
+    ],
+    [
+     "Death@1300",
+     150
+    ],
+    [
+     "Death@1600",
+     150
+    ],
+    [
+     "Death@2000",
+     150
+    ]
+   ],
+   "flat": true
+  }
+ }
+}
