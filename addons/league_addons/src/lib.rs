@@ -10,6 +10,9 @@
 use mod_api_stable::*;
 
 #[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_unlock_guard/src/lib.rs"]
+mod unlock_guard;
+#[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_aatrox_chain/src/lib.rs"]
 mod aatrox_chain;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -207,6 +210,9 @@ impl StableMapCustomizer for MapReaders {
 
 fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new(ID);
+    // its hook runs after every other one whatever the order here (the top priority): a skill2 / ult still
+    // level-locked in the final input becomes an attack or a stand (league_unlock_guard/README.md)
+    unlock_guard::register(host, &mut module);
     nocturne_dark::register(host, &mut module);
     camille_wall::register(host, &mut module);
     zilean_rewind::register(host, &mut module);
