@@ -335,7 +335,8 @@ def build(p):
                                delayed(1, sw("r_fired", NONE, sw("c_e2", pick(p["r_range"],
                                                                               "EnemyChampionRecentlyAttacked",
                                                                               drop))))))
-    watch = on_me(casted(1000000, tick, count, delayed(1, sw("egg_on", NONE, fire))), egg_watch)
+    # in the add-on's copy the storm waits while she is an egg
+    watch = on_me(casted(1000000, tick, count, delayed(1, sw("egg_on", NONE, fire) if native else fire)), egg_watch)
     life = sw("init", NONE, combine(flag("init", None), watch))
 
     # ------------------------------------------------------------------ attack: the ice bolt
@@ -364,8 +365,9 @@ def build(p):
     Pj2 = lambda name, tag: {"type": "Animated", "name": n(name), "anim": FX, "tag": tag, "repeat": True, "z": 2}
     views_p = [Pj("a_bolt"), Pj("q_ball"), Pj("e_shard"), Pj2("e_combo", "e_shard")]
     views_e = [E("a_hit"), E("q_stun"), E("q_blast", BIG, 2, False), E("w_wall", BIG, 1, False), E("e_hit"),
-               E("e_iced"), E("r_cast"), E("r_storm", BIG, -1, False), E("r_formed", BIG, -1, False),
-               E("p_egg_in"), E("p_hatch")]
+               E("e_iced"), E("r_cast"), E("r_storm", BIG, -1, False), E("r_formed", BIG, -1, False)]
+    if native:          # the egg's pictures (main pack sheets) bound only in the add-on's copy, the one that plays them
+        views_e += [E("p_egg_in"), E("p_hatch")]
     views_b = [B_("iced", FX, 3)]
     extra = {}
     if native:
