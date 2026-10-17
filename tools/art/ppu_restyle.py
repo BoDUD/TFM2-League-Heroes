@@ -56,7 +56,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
-            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58,
+            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5,
             **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax')}, "yunara": 1.5}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
@@ -228,6 +228,10 @@ RESTYLE = {
     # outer outline grown a square like the others; the face point between her helmet and her mouth (she has no eyes;
     # the crown is the crest)
     "reksai": dict(ppu=1.2, edge=1, face_to=(15, -20)),
+    # league_swain (#118): posed by tools/art/rig_swain.py from Codex's step-1 take A-1 cut to 60 rows (the user's 40 game
+    # rows at 1.5), the demon form on the same body; no proportion or density change here; the outer outline grown a
+    # square like the others; the face point at his crown (tfm2_ase.py face: 39 px over the soles)
+    "swain": dict(ppu=1.5, edge=1, face_to=(-1, -39)),
     # the 2026-10-16 redo from Codex's pictures, posed by tools/art/rig_<hero>_hd.py (tools/art/ppu_rig.py) at PPU 1.5 -
     # Nami after League's own clips (tools/lol/league_joints.py): only the outer outline grown a square, the face point
     # at the new head

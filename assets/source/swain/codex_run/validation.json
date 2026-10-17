@@ -1,0 +1,140 @@
+{
+  "canvas": [
+    1920,
+    864
+  ],
+  "layout": [
+    4,
+    2
+  ],
+  "cell": [
+    480,
+    432
+  ],
+  "pixel_grid": 6,
+  "background": "#00FF00",
+  "generation_raw_size": [
+    1870,
+    841
+  ],
+  "processing": "image_gen character replacement, then shared-scale placement, chromakey cleanup, approved-palette majority grid sampling and whole-row foot alignment",
+  "frames": [
+    {
+      "frame": 1,
+      "bbox_px": [
+        78,
+        42,
+        354,
+        408
+      ],
+      "feet_y_local": 408,
+      "height_logical": 61,
+      "foreground_logical_pixels": 1898,
+      "sha256": "ff947ef7d090df4c9a70eda79ff0901e12e47bb2ccc248fb1e38406aa36b1b2d"
+    },
+    {
+      "frame": 2,
+      "bbox_px": [
+        66,
+        42,
+        354,
+        408
+      ],
+      "feet_y_local": 408,
+      "height_logical": 61,
+      "foreground_logical_pixels": 1897,
+      "sha256": "e371e2a32c3ae9d1275904fbbcfcbdc8478b88624f14d24e317c03186aa7f675"
+    },
+    {
+      "frame": 3,
+      "bbox_px": [
+        66,
+        42,
+        348,
+        408
+      ],
+      "feet_y_local": 408,
+      "height_logical": 61,
+      "foreground_logical_pixels": 1844,
+      "sha256": "59acbc9a001ecdf4f297a900bd92aaf9956180ac7e8d0ec8234dc985d4f817aa"
+    },
+    {
+      "frame": 4,
+      "bbox_px": [
+        60,
+        48,
+        354,
+        408
+      ],
+      "feet_y_local": 408,
+      "height_logical": 60,
+      "foreground_logical_pixels": 1908,
+      "sha256": "55c017abaa6919ac568232291af4f50a4c1260908934869b0743c31da972fff1"
+    },
+    {
+      "frame": 5,
+      "bbox_px": [
+        60,
+        48,
+        360,
+        408
+      ],
+      "feet_y_local": 408,
+      "height_logical": 60,
+      "foreground_logical_pixels": 1885,
+      "sha256": "bde5fd6497da2b209080663868a8a67cab79e0c53efc8b961e36a67d95651bcd"
+    },
+    {
+      "frame": 6,
+      "bbox_px": [
+        60,
+        54,
+        360,
+        408
+      ],
+      "feet_y_local": 408,
+      "height_logical": 59,
+      "foreground_logical_pixels": 1785,
+      "sha256": "b49dd6003a074f47fd7f7f4876b9d2e01bd5144914bcb75c5ca1e3c9283e4de9"
+    },
+    {
+      "frame": 7,
+      "bbox_px": [
+        72,
+        48,
+        360,
+        408
+      ],
+      "feet_y_local": 408,
+      "height_logical": 60,
+      "foreground_logical_pixels": 1834,
+      "sha256": "e2d309daf13e289e96a40d27a80deeb21e006d77b0b54c455c3e49c830054612"
+    },
+    {
+      "frame": 8,
+      "bbox_px": [
+        66,
+        48,
+        360,
+        408
+      ],
+      "feet_y_local": 408,
+      "height_logical": 60,
+      "foreground_logical_pixels": 1915,
+      "sha256": "5a1b21ca8df967210bdd0c7be3edbdd8e2ae900b9d03e6341c7386a06ed5daa0"
+    }
+  ],
+  "passed": true,
+  "checks": {
+    "same_canvas_as_skeleton": true,
+    "eight_distinct_frames": true,
+    "uniform_6px_grid": true,
+    "background_rgb": [
+      0,
+      255,
+      0
+    ],
+    "all_feet_local_y": 408,
+    "source_identity_pose_review": "visual inspection, not exact joint-coordinate parity"
+  }
+}
