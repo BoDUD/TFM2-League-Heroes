@@ -72,7 +72,8 @@ P = {
     "r_cd": 4200, "r_range": 70000, "r_count": 75000, "r_t": 900, "r_anim": 30,     # r_anim: the ult strip, 500 ms
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
-    # the add-on's copy (addons/league_yunara/make_override.py): 1 = R's dash direction left to league_yunara:faith
+    # the add-on's copy (addons/league_yunara/make_override.py): 1 = R's dash way, E's bonus toward a champion and R's
+    # health-read arming left to league_yunara:faith (flags re_f / re_b / re_go, e_toward, r_ok)
     "native": 0,
 }
 
@@ -283,10 +284,18 @@ def build(p):
 
     near = combine(*rm("e_near"), around(p["atk_range"], "EnemyChampion", [flag("e_near", 1)]))
     plain_e = combine(near, sw("e_near", speed(p["e_ms"]), speed(p["e_ms2"])), *rm("e_near"))
+    if p["native"]:
+        # the add-on adds e_ms2 - e_ms while she really moves toward an enemy champion (its e_toward buff)
+        plain_e = speed(p["e_ms"])
     dash = combine(anim("skill2_r", p["re_t"] + 2), sfx("re"), voice("vo_e", p), cview("re_trail"),
                    {"type": "MoveBack", "speed": p["re_v"], "tick": p["re_t"]})
     close = combine(*rm("e_close"), around(p["e_close"], "EnemyChampion", [flag("e_close", 1)]))
     r_e = combine(close, sw("e_close", dash, speed(p["e_ms2"])), *rm("e_close"))
+    if p["native"]:
+        # the add-on picks the way every tick (re_f forward, re_b back) and moves her once re_go is up; neither flag
+        # (no enemy champion near it judges): the main pack's rule
+        go = combine(refresh("re_go", 6), anim("skill2_r", p["re_t"] + 2), sfx("re"), voice("vo_e", p), cview("re_trail"))
+        r_e = sw("re_f", go, sw("re_b", go, r_e))
     skill2 = action("skill2", 12, p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion", sw("r_on", r_e, plain_e))
 
     # ------------------------------------------------------------------ R: only in a fight
@@ -297,9 +306,11 @@ def build(p):
                    cview("r_burst"))
     refund = flag("r_refund", 3, ult_cooldown_mult=4900)
     # a 3-tick action (an empty try costs 3 ticks of the idle, league_kalista's gate); the fire plays the ult strip
+    gate = sw("r_n2", fire, sw("r_cc", fire, refund))
+    if p["native"]:
+        gate = sw("r_ok", fire, gate)          # the add-on also arms R by real health (r_ok)
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(*rm("r_n1", "r_n2", "r_cc"), count, in_cc, sw("r_n2", fire, sw("r_cc", fire, refund)),
-                         *rm("r_n1", "r_n2", "r_cc")), key="ult")
+                 combine(*rm("r_n1", "r_n2", "r_cc"), count, in_cc, gate, *rm("r_n1", "r_n2", "r_cc")), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -315,8 +326,13 @@ def build(p):
                E("rw_hit"), E("e_cast", FX, -1), E("re_trail", FX, -1), E("r_burst", BIG, 3)]
     views_b = [B_("q_on", FX, 3), B_("r_on", BIG, -1), B_("e_ms", FX, -1), B_("w_slow0", FX, -1),
                B_("rw_slow0", FX, -1)]
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": f"{ID}:faith",
+                            "params": {k: p[k] for k in ("atk_range", "e_close", "re_v", "re_t", "r_range", "e_ms",
+                                                         "e_ms2")}}
     return {
-        "id": ID, "category": "Range", "tags": ["AD", "Range"],
+        "id": ID, "category": "Range", "tags": ["AD", "Range"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
