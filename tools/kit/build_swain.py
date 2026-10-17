@@ -54,32 +54,38 @@ ID = "league_swain"
 FX = "asset/league/effects/league_swain_fx"
 BIG = "asset/league/effects/league_swain_big"
 
-# Timings: placeholders until the strips (tools/art/rig_swain.py) fix the release frames.
+# Timings from the strips (tools/art/rig_swain.py): the raven bolt leaves on tick 8 (attack frame 3), Death's Hand's
+# bolts and Nevermove's hand on tick 9 (frame 3), the demon on tick 11 (ult frame 4), Demonflare's strip 16 ticks.
+# Numbers = the 10-min classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and
+# white_mage, three lineups, both sides, 2026-10-17): the draft s0 -1.77 (8 seeds; deal 6546, league_syndra +1.17,
+# league_vladimir +2.54); every damage and heal +40% (s1) -0.67; hp 1000 and Q every 4 s (s2) +0.52; R's drain heal
+# 40 + 15% AP and a fragment's 80 + 30% AP (s3) +0.83; Q 120 + 80% AP (s4) +0.85; both (s5) +1.38 on seeds 1-8 and
+# +2.20 on seeds 25-32 (league_syndra +1.42 there).
 P = {
     # stats (Magician base: attack 80 +6, ability power 40 +20, hp 900 +100, defence 20 +7, mr 20 +3, move 900);
     # League's Swain: 595 +99 hp, 525 range, a drain mage who stays in the fight
-    "hp": 940, "hp_g": 105, "atk": 76, "atk_g": 6, "mp": 40, "mp_g": 20, "def": 22, "def_g": 7, "mr": 22, "mr_g": 3,
+    "hp": 1000, "hp_g": 105, "atk": 76, "atk_g": 6, "mp": 40, "mp_g": 20, "def": 22, "def_g": 7, "mr": 22, "mr_g": 3,
     "ms": 900, "ms_g": 9,
     # attack: the raven bolt leaves the demon hand on a_rel
-    "atk_range": 52000, "atk_dur": 26, "atk_cd": 90, "a_rel": 11, "bolt_speed": 5000, "bolt_y": -3000,
+    "atk_range": 52000, "atk_dur": 26, "atk_cd": 90, "a_rel": 8, "bolt_speed": 5000, "bolt_y": -3000,
     # passive: Ravenous Flock (League: +15 max health a fragment, heal 6% max health; fragments from W, E2, deaths)
-    "p_hp": 15, "p_heal": 45, "p_heal_ap": 20, "p_win": 180,
+    "p_hp": 15, "p_heal": 80, "p_heal_ap": 30, "p_win": 180,
     # skill: Q Death's Hand (League: 725 range, 32 deg, 5 bolts, 60-180 + 45% AP, +25% a further bolt up to 2x, cd 7-3)
-    "q_cd": 300, "q_range": 55000, "q_dur": 24, "q_rel": 9, "q_len": 62000, "q_dot": 940, "q_near": 32000,
-    "q_dmg": 70, "q_ap": 50, "q_dmg2": 45, "q_ap2": 35, "q_speed": 9000,
+    "q_cd": 240, "q_range": 55000, "q_dur": 24, "q_rel": 9, "q_len": 62000, "q_dot": 940, "q_near": 32000,
+    "q_dmg": 120, "q_ap": 80, "q_dmg2": 60, "q_ap2": 45, "q_speed": 9000,
     # skill2: E Nevermove (League: 850 range, out 1125-1800, back 2000-2800, 90-250 + 70% AP, root 1.5 s, recast pull
     # 290 + fragment, cd 12-10)
     "e_cd": 600, "e_range": 65000, "e_dur": 26, "e_rel": 9, "e_len": 70000, "e_out": 4000, "e_back": 5000,
-    "e_rad": 9000, "e_dmg": 80, "e_ap": 60, "e_root": 90, "e_pull_at": 30, "e_pull_d": 29000, "e_pull_v": 1500,
+    "e_rad": 9000, "e_dmg": 110, "e_ap": 80, "e_root": 90, "e_pull_at": 30, "e_pull_d": 29000, "e_pull_v": 1500,
     # W Vision of Empire (League: 1.5 s fuse, 325 radius, 70-250 + 60% AP, 50% slow 1.5 s, fragment, cd 20-16)
-    "w_cd": 960, "w_range": 100000, "w_travel": 15, "w_delay": 90, "w_r": 30000, "w_dmg": 60, "w_ap": 50,
+    "w_cd": 960, "w_range": 100000, "w_travel": 15, "w_delay": 90, "w_r": 30000, "w_dmg": 90, "w_ap": 60,
     "w_slow": 50, "w_slow_t": 90,
     # ult: R Demonic Ascension (League: 650 radius, drain every 0.5 s 7.5-17.5 + 2% AP, heal 7.5-22.5 + 2.5% AP a
     # champion (10% vs minions), energy 50 lasting ~5 s alone, kept while draining champions; Demonflare after 2 s,
     # 8 s cd, 675 radius, 150-350 + 40% AP, 50% slow decaying 1.5 s; cd 120)
-    "r_cd": 3600, "r_range": 55000, "r_dur": 30, "r_r": 60000, "r_ally": 45000, "r_t0": 240, "r_keep": 120,
-    "r_max": 900, "r_pulse": 30, "r_dmg": 15, "r_ap": 5, "r_heal": 15, "r_heal_ap": 5, "r_heal_m": 2,
-    "r_flare_at": 120, "r_flare_cd": 480, "r_fl": 120, "r_fl_ap": 50, "r_fl_slow": 50, "r_fl_slow_t": 90,
+    "r_cd": 3600, "r_range": 55000, "r_dur": 30, "r_wings_at": 11, "r_r": 60000, "r_ally": 45000, "r_t0": 240, "r_keep": 120,
+    "r_max": 900, "r_pulse": 30, "r_dmg": 25, "r_ap": 8, "r_heal": 40, "r_heal_ap": 15, "r_heal_m": 2,
+    "r_flare_at": 120, "r_flare_cd": 480, "r_fl": 170, "r_fl_ap": 70, "r_fl_slow": 50, "r_fl_slow_t": 90,
     "r_fl_dur": 16,
     # the watch
     "watch_p": 12,
@@ -328,10 +334,13 @@ def build(p):
             # (r_hold), so never shortened; the pulses stop after r_max and r_on runs out
             sw("r_hold", NONE, refresh("r_on", p["r_keep"])),
             sw("r_early", NONE, sw("r_fcd", NONE, flare)))))))
+    # the crouch and the leap (the ult strip's frames 1-3) are still Swain; the demon - the wings' aura, the drain -
+    # comes on r_wings_at ticks in, as frame 4 shows him with the demon arm out
     rise = combine(anim("ult", p["r_dur"]), cview("r_cast"), sfx("r"), voice("vo_r", p),
-                   *rm("r_fcd", "r_hold", "r_early"), refresh("r_on", p["r_t0"]), flag("r_early", p["r_flare_at"]),
-                   flag("r_hold", p["r_t0"] - p["r_keep"]),
-                   on_me(casted(p["r_max"], p["r_pulse"], pulse)))
+                   delayed(p["r_wings_at"] - 1,
+                           *rm("r_fcd", "r_hold", "r_early"), refresh("r_on", p["r_t0"]),
+                           flag("r_early", p["r_flare_at"]), flag("r_hold", p["r_t0"] - p["r_keep"]),
+                           on_me(casted(p["r_max"], p["r_pulse"], pulse))))
     # league_orianna's x trick: the game's AI scores the branch the flags pick between ticks, and the drain sits in an
     # AddCasted it does not count - r_x is never there between ticks, so the AI reads Demonflare's burst; when the slot
     # runs, the flag is up and the real branch goes

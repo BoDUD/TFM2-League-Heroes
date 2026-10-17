@@ -127,13 +127,14 @@ def inpaint(a, hole, iters=400):
 class Design:
     """The picture at `ppu` squares a game pixel, `rows_1x` game rows from `pic_top` (the head's top in picture pixels
     from the figure's top: wings, a raised lamp or spear tip above it are left out of the measure) to the soles.
+    picture: the file's name in assets/source/<hero>/hd/ (a second form: league_swain's picture_b, the demon).
     coarse: pixelate on the picture's own colours; else Lanczos + crisp. foot_x: the picture column the hero stands on
     (default the soles' middle)."""
 
     def __init__(self, hero, ppu, rows_1x, pic_top=0, coarse=False, colours=24, foot_x=None, outline=None,
-                 regrid=None):
+                 regrid=None, picture="picture"):
         self.hero, self.ppu, self.coarse, self.colours = hero, ppu, coarse, colours
-        pic = load_picture(hero)
+        pic = load_picture(hero, picture)
         self.pic = pic
         self.k = rows_1x * ppu / (pic.shape[0] - pic_top)
         self.outline = tuple(outline) if outline else PD.edge_colour(pic)
