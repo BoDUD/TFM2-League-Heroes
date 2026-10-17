@@ -11,8 +11,9 @@ plus the pro combos):
           6): fast attacks can put more on. Next to it a second instance per stack (period 2) waits for the caster flag
           `e_pop` (3 ticks: league_ryze's window, each mark bursts once): Contaminate bursts every stack once,
           so every enemy takes damage for its own stack count
-          (league_ryze's Flux marks). His champion hits also climb a ladder h1..h6 on him (v_t ticks, refreshed by
-          each one) - nothing reads a target's count, so the ladder only decides when the combos throw E.
+          (league_ryze's Flux marks). His champion hits also climb a ladder h1..h<e_need + 1> on him (v_t ticks,
+          refreshed by each one; it stood for h_n hits, but only h<e_need> is read) - nothing reads a target's count,
+          so the ladder only decides when the combos throw E.
   attack  A crossbow bolt (homing, physical 100% AD); a twin on `EnemyWithoutTower` carries the venom, and through a
           champion picked at its hit (`RandomTarget` 1000 from the projectile) the ladder and league_jinx's kill check.
           While R runs the bolt is a piercing line instead (below); a tower still gets the plain bolt (a tick-1 probe on
@@ -218,7 +219,10 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 
 def build(p):
-    hs = [f"h{k}" for k in range(1, p["h_n"] + 1)]
+    # the ladder's rungs: only h<e_need> is read outside the climb (the combos' E), so every count above e_need is one
+    # rung, h<e_need + 1>, renewed by each hit as the top rung h<h_n> was: h<e_need> on and off at the same ticks, two
+    # rungs fewer in each climb (skill2 holds two; the game copies skill2 every tick: skill-tree slimming, 2026-10-18)
+    hs = [f"h{k}" for k in range(1, min(p["h_n"], p["e_need"] + 1) + 1)]
 
     # ------------------------------------------------------------------ takedowns: league_jinx's kill check -> Q reset
     reset = combine(refresh("q_reset", 2, skill_cooldown_mult=p["reset_mult"], ult_cooldown_mult=-p["reset_mult"]),
@@ -232,7 +236,7 @@ def build(p):
                 combine(casted(3, 1, *rm(k)), on_me(delayed(p["k_read"], sw(k, combine(*rm(k), reset))))))
 
     # ------------------------------------------------------------------ passive: Deadly Venom
-    # one flag at a time, read from the top: h6 renews itself, h<k> steps up to h<k+1>, none starts h1
+    # one flag at a time, read from the top: the top rung renews itself, h<k> steps up to h<k+1>, none starts h1
     climb = flag(hs[0], p["v_t"])
     for k in range(len(hs) - 1):
         climb = sw(hs[k], combine(*rm(hs[k]), flag(hs[k + 1], p["v_t"])), climb)
@@ -249,7 +253,8 @@ def build(p):
     # ------------------------------------------------------------------ skill2's E (also thrown by the combos)
     k_e = "k_e"
     e_kill = around(p["e_reach"], "EnemyChampion", [refresh(k_e, p["k_hold"]), delayed(3, casted(3, 1, *rm(k_e)))])
-    e_fire = combine(refresh("e_cd", p["e_cd"]), *rm(*hs), anim("skill2_e", p["e_anim"]), sfx("e_cast"),
+    # every way into e_fire reads e_cd off in the same run (e_ready, e_try), so it lays e_cd without taking it off first
+    e_fire = combine(flag("e_cd", p["e_cd"]), *rm(*hs), anim("skill2_e", p["e_anim"]), sfx("e_cast"),
                      voice("vo_e", p),
                      delayed(p["e_rel"], cview("e_cast"), sfx("e_pop"), e_kill, refresh("e_pop", 3),
                              on_me(delayed(p["k_read"] + 3, sw(k_e, combine(*rm(k_e), reset))))))

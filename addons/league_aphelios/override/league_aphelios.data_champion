@@ -3582,567 +3582,257 @@
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_mw_cal",
-                        "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_aphelios_mw_cal",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_aphelios_mw_cal"
+                        },
+                        {
                           "type": "AddCasterBuff",
                           "buff_state": {
-                            "name": "league_aphelios_t_o_cal",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
+                            "name": "league_aphelios_ow_cal",
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
                         }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_aphelios_ow_cal",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_aphelios_ow_cal"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_aphelios_mw_cal",
+                              "duration": "Permanent",
+                              "range": 10000
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_aphelios_swap_cal"
+                          }
+                        ]
                       },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_ow_cal",
-                        "effect_buff": {
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_aphelios_mw_sev",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_aphelios_mw_sev"
+                        },
+                        {
                           "type": "AddCasterBuff",
                           "buff_state": {
-                            "name": "league_aphelios_t_m_cal",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
+                            "name": "league_aphelios_ow_sev",
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
                         }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_aphelios_ow_sev",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_aphelios_ow_sev"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_aphelios_mw_sev",
+                              "duration": "Permanent",
+                              "vamp": 10,
+                              "attack_speed_mult": 20
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_aphelios_swap_sev"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
                       }
-                    ]
+                    }
                   },
                   {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_mw_sev",
-                        "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_aphelios_mw_grav",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_aphelios_mw_grav"
+                        },
+                        {
                           "type": "AddCasterBuff",
                           "buff_state": {
-                            "name": "league_aphelios_t_o_sev",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
+                            "name": "league_aphelios_ow_grav",
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
                         }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_aphelios_ow_grav",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_aphelios_ow_grav"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_aphelios_mw_grav",
+                              "duration": "Permanent"
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_aphelios_swap_grav"
+                          }
+                        ]
                       },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_ow_sev",
-                        "effect_buff": {
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_aphelios_mw_inf",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_aphelios_mw_inf"
+                        },
+                        {
                           "type": "AddCasterBuff",
                           "buff_state": {
-                            "name": "league_aphelios_t_m_sev",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
+                            "name": "league_aphelios_ow_inf",
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
                         }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_aphelios_ow_inf",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_aphelios_ow_inf"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_aphelios_mw_inf",
+                              "duration": "Permanent"
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_aphelios_swap_inf"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
                       }
-                    ]
+                    }
                   },
                   {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_mw_grav",
-                        "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_aphelios_mw_cre",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_aphelios_mw_cre"
+                        },
+                        {
                           "type": "AddCasterBuff",
                           "buff_state": {
-                            "name": "league_aphelios_t_o_grav",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
+                            "name": "league_aphelios_ow_cre",
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
                         }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_ow_grav",
-                        "effect_buff": {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_aphelios_t_m_grav",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_aphelios_ow_cre",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_aphelios_ow_cre"
                           },
-                          "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_mw_inf",
-                        "effect_buff": {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_aphelios_t_o_inf",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_aphelios_mw_cre",
+                              "duration": "Permanent"
+                            },
+                            "only_to_enemy": false
                           },
-                          "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
+                          {
+                            "type": "Sfx",
+                            "name": "league_aphelios_swap_cre"
+                          }
+                        ]
                       },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_ow_inf",
-                        "effect_buff": {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_aphelios_t_m_inf",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
                       }
-                    ]
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_mw_cre",
-                        "effect_buff": {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_aphelios_t_o_cre",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_ow_cre",
-                        "effect_buff": {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_aphelios_t_m_cre",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_mw_cal"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_mw_sev"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_mw_grav"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_mw_inf"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_mw_cre"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_ow_cal"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_ow_sev"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_ow_grav"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_ow_inf"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_aphelios_ow_cre"
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_m_cal",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_m_cal"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_mw_cal",
-                                "duration": "Permanent",
-                                "range": 10000
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_aphelios_swap_cal"
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_o_cal",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_o_cal"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_ow_cal",
-                                "duration": "Permanent"
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_m_sev",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_m_sev"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_mw_sev",
-                                "duration": "Permanent",
-                                "vamp": 10,
-                                "attack_speed_mult": 20
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_aphelios_swap_sev"
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_o_sev",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_o_sev"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_ow_sev",
-                                "duration": "Permanent"
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_m_grav",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_m_grav"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_mw_grav",
-                                "duration": "Permanent"
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_aphelios_swap_grav"
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_o_grav",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_o_grav"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_ow_grav",
-                                "duration": "Permanent"
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_m_inf",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_m_inf"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_mw_inf",
-                                "duration": "Permanent"
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_aphelios_swap_inf"
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_o_inf",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_o_inf"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_ow_inf",
-                                "duration": "Permanent"
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_m_cre",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_m_cre"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_mw_cre",
-                                "duration": "Permanent"
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_aphelios_swap_cre"
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_aphelios_t_o_cre",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_aphelios_t_o_cre"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_aphelios_ow_cre",
-                                "duration": "Permanent"
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
+                    }
                   },
                   {
                     "type": "CasterAnimation",

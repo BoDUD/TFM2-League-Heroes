@@ -229,10 +229,20 @@ def build(p):
 
     # ------------------------------------------------------------------ passive: empowered attacks
     def arm():
-        """A spell: +3 empowered attacks, at most 5 (p1..p5: the count, one flag at a time)."""
-        def to(k):
-            return combine(*rm("p1", "p2", "p3", "p4", "p5"), flag(f"p{min(k, 5)}", p["p_t"]), cview("p_on"))
-        return sw("p5", to(5), sw("p4", to(7), sw("p3", to(6), sw("p2", to(5), sw("p1", to(4), to(3))))))
+        """A spell: +3 empowered attacks, at most 5 (p1..p5: the count, one flag at a time).
+
+        Written once (skill-tree slimming, 2026-10-18: the game copies skill and skill2 every tick, docs/perf.md
+        section 8). The ladder `p5 ? to 5 : p4 ? to 5 : p3 ? to 5 : p2 ? to 5 : p1 ? to 4 : to 3` held the same five
+        removals, flag and picture six times (48 nodes packed, in skill, skill2 and ult). Now it only notes the new
+        count in a 1-tick flag (pk5, pk4; none for 3), then p1..p5 go, the noted count comes, the picture plays and the
+        note goes: the same effects in the same order for every state of p1..p5. pk5 / pk4 are hidden (no view_buffs
+        entry, no stats), added only here and taken off in the same run with nothing in between that can kill her
+        (flags and a picture), so they are never on outside it: what the AI reads through her buffs differs only in
+        flags without stats (+p3 and the note instead of +p5 / +p4)."""
+        note = sw("p5", flag("pk5", 1), sw("p4", flag("pk5", 1), sw("p3", flag("pk5", 1), sw("p2", flag("pk5", 1),
+                                                                                             sw("p1", flag("pk4", 1))))))
+        new = sw("pk5", flag("p5", p["p_t"]), sw("pk4", flag("p4", p["p_t"]), flag("p3", p["p_t"])))
+        return combine(note, *rm("p1", "p2", "p3", "p4", "p5"), new, cview("p_on"), *rm("pk5", "pk4"))
 
     def spend():
         out = NONE

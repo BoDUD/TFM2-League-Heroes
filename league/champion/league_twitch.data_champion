@@ -296,18 +296,18 @@
                                       },
                                       {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_twitch_h6",
+                                        "buff_name": "league_twitch_h4",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_twitch_h6"
+                                              "name": "league_twitch_h4"
                                             },
                                             {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_twitch_h6",
+                                                "name": "league_twitch_h4",
                                                 "duration": {
                                                   "Time": {
                                                     "tick": 360
@@ -320,18 +320,18 @@
                                         },
                                         "effect_none": {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_twitch_h5",
+                                          "buff_name": "league_twitch_h3",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_twitch_h5"
+                                                "name": "league_twitch_h3"
                                               },
                                               {
                                                 "type": "AddCasterBuff",
                                                 "buff_state": {
-                                                  "name": "league_twitch_h6",
+                                                  "name": "league_twitch_h4",
                                                   "duration": {
                                                     "Time": {
                                                       "tick": 360
@@ -344,18 +344,18 @@
                                           },
                                           "effect_none": {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_twitch_h4",
+                                            "buff_name": "league_twitch_h2",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
                                                 {
                                                   "type": "RemoveCasterBuff",
-                                                  "name": "league_twitch_h4"
+                                                  "name": "league_twitch_h2"
                                                 },
                                                 {
                                                   "type": "AddCasterBuff",
                                                   "buff_state": {
-                                                    "name": "league_twitch_h5",
+                                                    "name": "league_twitch_h3",
                                                     "duration": {
                                                       "Time": {
                                                         "tick": 360
@@ -368,18 +368,18 @@
                                             },
                                             "effect_none": {
                                               "type": "SwitchByBuff",
-                                              "buff_name": "league_twitch_h3",
+                                              "buff_name": "league_twitch_h1",
                                               "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
                                                     "type": "RemoveCasterBuff",
-                                                    "name": "league_twitch_h3"
+                                                    "name": "league_twitch_h1"
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
-                                                      "name": "league_twitch_h4",
+                                                      "name": "league_twitch_h2",
                                                       "duration": {
                                                         "Time": {
                                                           "tick": 360
@@ -391,66 +391,16 @@
                                                 ]
                                               },
                                               "effect_none": {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_twitch_h2",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_twitch_h2"
-                                                    },
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_twitch_h3",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 360
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_twitch_h1",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 360
                                                     }
-                                                  ]
-                                                },
-                                                "effect_none": {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_twitch_h1",
-                                                  "effect_buff": {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_twitch_h1"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_twitch_h2",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 360
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  },
-                                                  "effect_none": {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_twitch_h1",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 360
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
                                                   }
-                                                }
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             }
                                           }
@@ -683,18 +633,18 @@
                                           },
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_twitch_h6",
+                                            "buff_name": "league_twitch_h4",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
                                                 {
                                                   "type": "RemoveCasterBuff",
-                                                  "name": "league_twitch_h6"
+                                                  "name": "league_twitch_h4"
                                                 },
                                                 {
                                                   "type": "AddCasterBuff",
                                                   "buff_state": {
-                                                    "name": "league_twitch_h6",
+                                                    "name": "league_twitch_h4",
                                                     "duration": {
                                                       "Time": {
                                                         "tick": 360
@@ -707,18 +657,18 @@
                                             },
                                             "effect_none": {
                                               "type": "SwitchByBuff",
-                                              "buff_name": "league_twitch_h5",
+                                              "buff_name": "league_twitch_h3",
                                               "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
                                                     "type": "RemoveCasterBuff",
-                                                    "name": "league_twitch_h5"
+                                                    "name": "league_twitch_h3"
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
-                                                      "name": "league_twitch_h6",
+                                                      "name": "league_twitch_h4",
                                                       "duration": {
                                                         "Time": {
                                                           "tick": 360
@@ -731,18 +681,18 @@
                                               },
                                               "effect_none": {
                                                 "type": "SwitchByBuff",
-                                                "buff_name": "league_twitch_h4",
+                                                "buff_name": "league_twitch_h2",
                                                 "effect_buff": {
                                                   "type": "Combine",
                                                   "effects": [
                                                     {
                                                       "type": "RemoveCasterBuff",
-                                                      "name": "league_twitch_h4"
+                                                      "name": "league_twitch_h2"
                                                     },
                                                     {
                                                       "type": "AddCasterBuff",
                                                       "buff_state": {
-                                                        "name": "league_twitch_h5",
+                                                        "name": "league_twitch_h3",
                                                         "duration": {
                                                           "Time": {
                                                             "tick": 360
@@ -755,18 +705,18 @@
                                                 },
                                                 "effect_none": {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_twitch_h3",
+                                                  "buff_name": "league_twitch_h1",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
                                                         "type": "RemoveCasterBuff",
-                                                        "name": "league_twitch_h3"
+                                                        "name": "league_twitch_h1"
                                                       },
                                                       {
                                                         "type": "AddCasterBuff",
                                                         "buff_state": {
-                                                          "name": "league_twitch_h4",
+                                                          "name": "league_twitch_h2",
                                                           "duration": {
                                                             "Time": {
                                                               "tick": 360
@@ -778,66 +728,16 @@
                                                     ]
                                                   },
                                                   "effect_none": {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_twitch_h2",
-                                                    "effect_buff": {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_twitch_h2"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_twitch_h3",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 360
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_twitch_h1",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 360
                                                         }
-                                                      ]
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_twitch_h1",
-                                                      "effect_buff": {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_twitch_h1"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_twitch_h2",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 360
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_twitch_h1",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 360
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
                                                       }
-                                                    }
+                                                    },
+                                                    "only_to_enemy": false
                                                   }
                                                 }
                                               }
@@ -1137,25 +1037,16 @@
                                     "type": "Combine",
                                     "effects": [
                                       {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_twitch_e_cd"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_twitch_e_cd",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 600
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_twitch_e_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
+                                            }
                                           }
-                                        ]
+                                        },
+                                        "only_to_enemy": false
                                       },
                                       {
                                         "type": "RemoveCasterBuff",
@@ -1172,14 +1063,6 @@
                                       {
                                         "type": "RemoveCasterBuff",
                                         "name": "league_twitch_h4"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_twitch_h5"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_twitch_h6"
                                       },
                                       {
                                         "type": "CasterAnimation",
@@ -1530,25 +1413,16 @@
                                             "type": "Combine",
                                             "effects": [
                                               {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_twitch_e_cd"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_twitch_e_cd",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 600
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_twitch_e_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 600
+                                                    }
                                                   }
-                                                ]
+                                                },
+                                                "only_to_enemy": false
                                               },
                                               {
                                                 "type": "RemoveCasterBuff",
@@ -1565,14 +1439,6 @@
                                               {
                                                 "type": "RemoveCasterBuff",
                                                 "name": "league_twitch_h4"
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_twitch_h5"
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_twitch_h6"
                                               },
                                               {
                                                 "type": "CasterAnimation",
@@ -2153,18 +2019,18 @@
                                   },
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_twitch_h6",
+                                    "buff_name": "league_twitch_h4",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_twitch_h6"
+                                          "name": "league_twitch_h4"
                                         },
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_twitch_h6",
+                                            "name": "league_twitch_h4",
                                             "duration": {
                                               "Time": {
                                                 "tick": 360
@@ -2177,18 +2043,18 @@
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_twitch_h5",
+                                      "buff_name": "league_twitch_h3",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_twitch_h5"
+                                            "name": "league_twitch_h3"
                                           },
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_twitch_h6",
+                                              "name": "league_twitch_h4",
                                               "duration": {
                                                 "Time": {
                                                   "tick": 360
@@ -2201,18 +2067,18 @@
                                       },
                                       "effect_none": {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_twitch_h4",
+                                        "buff_name": "league_twitch_h2",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_twitch_h4"
+                                              "name": "league_twitch_h2"
                                             },
                                             {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_twitch_h5",
+                                                "name": "league_twitch_h3",
                                                 "duration": {
                                                   "Time": {
                                                     "tick": 360
@@ -2225,18 +2091,18 @@
                                         },
                                         "effect_none": {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_twitch_h3",
+                                          "buff_name": "league_twitch_h1",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_twitch_h3"
+                                                "name": "league_twitch_h1"
                                               },
                                               {
                                                 "type": "AddCasterBuff",
                                                 "buff_state": {
-                                                  "name": "league_twitch_h4",
+                                                  "name": "league_twitch_h2",
                                                   "duration": {
                                                     "Time": {
                                                       "tick": 360
@@ -2248,66 +2114,16 @@
                                             ]
                                           },
                                           "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_twitch_h2",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_twitch_h2"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_twitch_h3",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 360
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_twitch_h1",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 360
                                                 }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_twitch_h1",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_twitch_h1"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_twitch_h2",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 360
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_twitch_h1",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 360
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
                                               }
-                                            }
+                                            },
+                                            "only_to_enemy": false
                                           }
                                         }
                                       }
@@ -2551,18 +2367,18 @@
                                   },
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_twitch_h6",
+                                    "buff_name": "league_twitch_h4",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_twitch_h6"
+                                          "name": "league_twitch_h4"
                                         },
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_twitch_h6",
+                                            "name": "league_twitch_h4",
                                             "duration": {
                                               "Time": {
                                                 "tick": 360
@@ -2575,18 +2391,18 @@
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_twitch_h5",
+                                      "buff_name": "league_twitch_h3",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_twitch_h5"
+                                            "name": "league_twitch_h3"
                                           },
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_twitch_h6",
+                                              "name": "league_twitch_h4",
                                               "duration": {
                                                 "Time": {
                                                   "tick": 360
@@ -2599,18 +2415,18 @@
                                       },
                                       "effect_none": {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_twitch_h4",
+                                        "buff_name": "league_twitch_h2",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_twitch_h4"
+                                              "name": "league_twitch_h2"
                                             },
                                             {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_twitch_h5",
+                                                "name": "league_twitch_h3",
                                                 "duration": {
                                                   "Time": {
                                                     "tick": 360
@@ -2623,18 +2439,18 @@
                                         },
                                         "effect_none": {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_twitch_h3",
+                                          "buff_name": "league_twitch_h1",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_twitch_h3"
+                                                "name": "league_twitch_h1"
                                               },
                                               {
                                                 "type": "AddCasterBuff",
                                                 "buff_state": {
-                                                  "name": "league_twitch_h4",
+                                                  "name": "league_twitch_h2",
                                                   "duration": {
                                                     "Time": {
                                                       "tick": 360
@@ -2646,66 +2462,16 @@
                                             ]
                                           },
                                           "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_twitch_h2",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_twitch_h2"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_twitch_h3",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 360
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_twitch_h1",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 360
                                                 }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_twitch_h1",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_twitch_h1"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_twitch_h2",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 360
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_twitch_h1",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 360
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
                                               }
-                                            }
+                                            },
+                                            "only_to_enemy": false
                                           }
                                         }
                                       }
@@ -2949,18 +2715,18 @@
                             },
                             {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_twitch_h6",
+                              "buff_name": "league_twitch_h4",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": [
                                   {
                                     "type": "RemoveCasterBuff",
-                                    "name": "league_twitch_h6"
+                                    "name": "league_twitch_h4"
                                   },
                                   {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_twitch_h6",
+                                      "name": "league_twitch_h4",
                                       "duration": {
                                         "Time": {
                                           "tick": 360
@@ -2973,18 +2739,18 @@
                               },
                               "effect_none": {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_twitch_h5",
+                                "buff_name": "league_twitch_h3",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": [
                                     {
                                       "type": "RemoveCasterBuff",
-                                      "name": "league_twitch_h5"
+                                      "name": "league_twitch_h3"
                                     },
                                     {
                                       "type": "AddCasterBuff",
                                       "buff_state": {
-                                        "name": "league_twitch_h6",
+                                        "name": "league_twitch_h4",
                                         "duration": {
                                           "Time": {
                                             "tick": 360
@@ -2997,18 +2763,18 @@
                                 },
                                 "effect_none": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_twitch_h4",
+                                  "buff_name": "league_twitch_h2",
                                   "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_twitch_h4"
+                                        "name": "league_twitch_h2"
                                       },
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_twitch_h5",
+                                          "name": "league_twitch_h3",
                                           "duration": {
                                             "Time": {
                                               "tick": 360
@@ -3021,18 +2787,18 @@
                                   },
                                   "effect_none": {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_twitch_h3",
+                                    "buff_name": "league_twitch_h1",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_twitch_h3"
+                                          "name": "league_twitch_h1"
                                         },
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_twitch_h4",
+                                            "name": "league_twitch_h2",
                                             "duration": {
                                               "Time": {
                                                 "tick": 360
@@ -3044,66 +2810,16 @@
                                       ]
                                     },
                                     "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_twitch_h2",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_twitch_h2"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_twitch_h3",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 360
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_twitch_h1",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 360
                                           }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_twitch_h1",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_twitch_h1"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_twitch_h2",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 360
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_twitch_h1",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 360
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
                                         }
-                                      }
+                                      },
+                                      "only_to_enemy": false
                                     }
                                   }
                                 }
@@ -3490,25 +3206,16 @@
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_twitch_e_cd"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_twitch_e_cd",
-                          "duration": {
-                            "Time": {
-                              "tick": 600
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_twitch_e_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 600
+                        }
                       }
-                    ]
+                    },
+                    "only_to_enemy": false
                   },
                   {
                     "type": "RemoveCasterBuff",
@@ -3525,14 +3232,6 @@
                   {
                     "type": "RemoveCasterBuff",
                     "name": "league_twitch_h4"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_twitch_h5"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_twitch_h6"
                   },
                   {
                     "type": "CasterAnimation",
@@ -3928,18 +3627,18 @@
                             },
                             {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_twitch_h6",
+                              "buff_name": "league_twitch_h4",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": [
                                   {
                                     "type": "RemoveCasterBuff",
-                                    "name": "league_twitch_h6"
+                                    "name": "league_twitch_h4"
                                   },
                                   {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_twitch_h6",
+                                      "name": "league_twitch_h4",
                                       "duration": {
                                         "Time": {
                                           "tick": 360
@@ -3952,18 +3651,18 @@
                               },
                               "effect_none": {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_twitch_h5",
+                                "buff_name": "league_twitch_h3",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": [
                                     {
                                       "type": "RemoveCasterBuff",
-                                      "name": "league_twitch_h5"
+                                      "name": "league_twitch_h3"
                                     },
                                     {
                                       "type": "AddCasterBuff",
                                       "buff_state": {
-                                        "name": "league_twitch_h6",
+                                        "name": "league_twitch_h4",
                                         "duration": {
                                           "Time": {
                                             "tick": 360
@@ -3976,18 +3675,18 @@
                                 },
                                 "effect_none": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_twitch_h4",
+                                  "buff_name": "league_twitch_h2",
                                   "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_twitch_h4"
+                                        "name": "league_twitch_h2"
                                       },
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_twitch_h5",
+                                          "name": "league_twitch_h3",
                                           "duration": {
                                             "Time": {
                                               "tick": 360
@@ -4000,18 +3699,18 @@
                                   },
                                   "effect_none": {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_twitch_h3",
+                                    "buff_name": "league_twitch_h1",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_twitch_h3"
+                                          "name": "league_twitch_h1"
                                         },
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_twitch_h4",
+                                            "name": "league_twitch_h2",
                                             "duration": {
                                               "Time": {
                                                 "tick": 360
@@ -4023,66 +3722,16 @@
                                       ]
                                     },
                                     "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_twitch_h2",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_twitch_h2"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_twitch_h3",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 360
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_twitch_h1",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 360
                                           }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_twitch_h1",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_twitch_h1"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_twitch_h2",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 360
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_twitch_h1",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 360
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
                                         }
-                                      }
+                                      },
+                                      "only_to_enemy": false
                                     }
                                   }
                                 }
@@ -4315,18 +3964,18 @@
                                 },
                                 {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_twitch_h6",
+                                  "buff_name": "league_twitch_h4",
                                   "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_twitch_h6"
+                                        "name": "league_twitch_h4"
                                       },
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_twitch_h6",
+                                          "name": "league_twitch_h4",
                                           "duration": {
                                             "Time": {
                                               "tick": 360
@@ -4339,18 +3988,18 @@
                                   },
                                   "effect_none": {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_twitch_h5",
+                                    "buff_name": "league_twitch_h3",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_twitch_h5"
+                                          "name": "league_twitch_h3"
                                         },
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_twitch_h6",
+                                            "name": "league_twitch_h4",
                                             "duration": {
                                               "Time": {
                                                 "tick": 360
@@ -4363,18 +4012,18 @@
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_twitch_h4",
+                                      "buff_name": "league_twitch_h2",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_twitch_h4"
+                                            "name": "league_twitch_h2"
                                           },
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_twitch_h5",
+                                              "name": "league_twitch_h3",
                                               "duration": {
                                                 "Time": {
                                                   "tick": 360
@@ -4387,18 +4036,18 @@
                                       },
                                       "effect_none": {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_twitch_h3",
+                                        "buff_name": "league_twitch_h1",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_twitch_h3"
+                                              "name": "league_twitch_h1"
                                             },
                                             {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_twitch_h4",
+                                                "name": "league_twitch_h2",
                                                 "duration": {
                                                   "Time": {
                                                     "tick": 360
@@ -4410,66 +4059,16 @@
                                           ]
                                         },
                                         "effect_none": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_twitch_h2",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_twitch_h2"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_twitch_h3",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 360
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_twitch_h1",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 360
                                               }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_twitch_h1",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_twitch_h1"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_twitch_h2",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 360
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_twitch_h1",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 360
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
                                             }
-                                          }
+                                          },
+                                          "only_to_enemy": false
                                         }
                                       }
                                     }
@@ -4598,25 +4197,16 @@
                       "type": "Combine",
                       "effects": [
                         {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_twitch_e_cd"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_twitch_e_cd",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 600
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_twitch_e_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 600
+                              }
                             }
-                          ]
+                          },
+                          "only_to_enemy": false
                         },
                         {
                           "type": "RemoveCasterBuff",
@@ -4633,14 +4223,6 @@
                         {
                           "type": "RemoveCasterBuff",
                           "name": "league_twitch_h4"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_twitch_h5"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_twitch_h6"
                         },
                         {
                           "type": "CasterAnimation",
@@ -5082,25 +4664,16 @@
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_twitch_e_cd"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_twitch_e_cd",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 600
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_twitch_e_cd",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 600
+                                      }
                                     }
-                                  ]
+                                  },
+                                  "only_to_enemy": false
                                 },
                                 {
                                   "type": "RemoveCasterBuff",
@@ -5117,14 +4690,6 @@
                                 {
                                   "type": "RemoveCasterBuff",
                                   "name": "league_twitch_h4"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_twitch_h5"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_twitch_h6"
                                 },
                                 {
                                   "type": "CasterAnimation",
@@ -5555,18 +5120,18 @@
                                           },
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_twitch_h6",
+                                            "buff_name": "league_twitch_h4",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
                                                 {
                                                   "type": "RemoveCasterBuff",
-                                                  "name": "league_twitch_h6"
+                                                  "name": "league_twitch_h4"
                                                 },
                                                 {
                                                   "type": "AddCasterBuff",
                                                   "buff_state": {
-                                                    "name": "league_twitch_h6",
+                                                    "name": "league_twitch_h4",
                                                     "duration": {
                                                       "Time": {
                                                         "tick": 360
@@ -5579,18 +5144,18 @@
                                             },
                                             "effect_none": {
                                               "type": "SwitchByBuff",
-                                              "buff_name": "league_twitch_h5",
+                                              "buff_name": "league_twitch_h3",
                                               "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
                                                     "type": "RemoveCasterBuff",
-                                                    "name": "league_twitch_h5"
+                                                    "name": "league_twitch_h3"
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
-                                                      "name": "league_twitch_h6",
+                                                      "name": "league_twitch_h4",
                                                       "duration": {
                                                         "Time": {
                                                           "tick": 360
@@ -5603,18 +5168,18 @@
                                               },
                                               "effect_none": {
                                                 "type": "SwitchByBuff",
-                                                "buff_name": "league_twitch_h4",
+                                                "buff_name": "league_twitch_h2",
                                                 "effect_buff": {
                                                   "type": "Combine",
                                                   "effects": [
                                                     {
                                                       "type": "RemoveCasterBuff",
-                                                      "name": "league_twitch_h4"
+                                                      "name": "league_twitch_h2"
                                                     },
                                                     {
                                                       "type": "AddCasterBuff",
                                                       "buff_state": {
-                                                        "name": "league_twitch_h5",
+                                                        "name": "league_twitch_h3",
                                                         "duration": {
                                                           "Time": {
                                                             "tick": 360
@@ -5627,18 +5192,18 @@
                                                 },
                                                 "effect_none": {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_twitch_h3",
+                                                  "buff_name": "league_twitch_h1",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
                                                         "type": "RemoveCasterBuff",
-                                                        "name": "league_twitch_h3"
+                                                        "name": "league_twitch_h1"
                                                       },
                                                       {
                                                         "type": "AddCasterBuff",
                                                         "buff_state": {
-                                                          "name": "league_twitch_h4",
+                                                          "name": "league_twitch_h2",
                                                           "duration": {
                                                             "Time": {
                                                               "tick": 360
@@ -5650,66 +5215,16 @@
                                                     ]
                                                   },
                                                   "effect_none": {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_twitch_h2",
-                                                    "effect_buff": {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_twitch_h2"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_twitch_h3",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 360
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_twitch_h1",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 360
                                                         }
-                                                      ]
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_twitch_h1",
-                                                      "effect_buff": {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_twitch_h1"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_twitch_h2",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 360
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_twitch_h1",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 360
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
                                                       }
-                                                    }
+                                                    },
+                                                    "only_to_enemy": false
                                                   }
                                                 }
                                               }
@@ -5942,18 +5457,18 @@
                                               },
                                               {
                                                 "type": "SwitchByBuff",
-                                                "buff_name": "league_twitch_h6",
+                                                "buff_name": "league_twitch_h4",
                                                 "effect_buff": {
                                                   "type": "Combine",
                                                   "effects": [
                                                     {
                                                       "type": "RemoveCasterBuff",
-                                                      "name": "league_twitch_h6"
+                                                      "name": "league_twitch_h4"
                                                     },
                                                     {
                                                       "type": "AddCasterBuff",
                                                       "buff_state": {
-                                                        "name": "league_twitch_h6",
+                                                        "name": "league_twitch_h4",
                                                         "duration": {
                                                           "Time": {
                                                             "tick": 360
@@ -5966,18 +5481,18 @@
                                                 },
                                                 "effect_none": {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_twitch_h5",
+                                                  "buff_name": "league_twitch_h3",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
                                                         "type": "RemoveCasterBuff",
-                                                        "name": "league_twitch_h5"
+                                                        "name": "league_twitch_h3"
                                                       },
                                                       {
                                                         "type": "AddCasterBuff",
                                                         "buff_state": {
-                                                          "name": "league_twitch_h6",
+                                                          "name": "league_twitch_h4",
                                                           "duration": {
                                                             "Time": {
                                                               "tick": 360
@@ -5990,18 +5505,18 @@
                                                   },
                                                   "effect_none": {
                                                     "type": "SwitchByBuff",
-                                                    "buff_name": "league_twitch_h4",
+                                                    "buff_name": "league_twitch_h2",
                                                     "effect_buff": {
                                                       "type": "Combine",
                                                       "effects": [
                                                         {
                                                           "type": "RemoveCasterBuff",
-                                                          "name": "league_twitch_h4"
+                                                          "name": "league_twitch_h2"
                                                         },
                                                         {
                                                           "type": "AddCasterBuff",
                                                           "buff_state": {
-                                                            "name": "league_twitch_h5",
+                                                            "name": "league_twitch_h3",
                                                             "duration": {
                                                               "Time": {
                                                                 "tick": 360
@@ -6014,18 +5529,18 @@
                                                     },
                                                     "effect_none": {
                                                       "type": "SwitchByBuff",
-                                                      "buff_name": "league_twitch_h3",
+                                                      "buff_name": "league_twitch_h1",
                                                       "effect_buff": {
                                                         "type": "Combine",
                                                         "effects": [
                                                           {
                                                             "type": "RemoveCasterBuff",
-                                                            "name": "league_twitch_h3"
+                                                            "name": "league_twitch_h1"
                                                           },
                                                           {
                                                             "type": "AddCasterBuff",
                                                             "buff_state": {
-                                                              "name": "league_twitch_h4",
+                                                              "name": "league_twitch_h2",
                                                               "duration": {
                                                                 "Time": {
                                                                   "tick": 360
@@ -6037,66 +5552,16 @@
                                                         ]
                                                       },
                                                       "effect_none": {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_twitch_h2",
-                                                        "effect_buff": {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "RemoveCasterBuff",
-                                                              "name": "league_twitch_h2"
-                                                            },
-                                                            {
-                                                              "type": "AddCasterBuff",
-                                                              "buff_state": {
-                                                                "name": "league_twitch_h3",
-                                                                "duration": {
-                                                                  "Time": {
-                                                                    "tick": 360
-                                                                  }
-                                                                }
-                                                              },
-                                                              "only_to_enemy": false
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_twitch_h1",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 360
                                                             }
-                                                          ]
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "SwitchByBuff",
-                                                          "buff_name": "league_twitch_h1",
-                                                          "effect_buff": {
-                                                            "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twitch_h1"
-                                                              },
-                                                              {
-                                                                "type": "AddCasterBuff",
-                                                                "buff_state": {
-                                                                  "name": "league_twitch_h2",
-                                                                  "duration": {
-                                                                    "Time": {
-                                                                      "tick": 360
-                                                                    }
-                                                                  }
-                                                                },
-                                                                "only_to_enemy": false
-                                                              }
-                                                            ]
-                                                          },
-                                                          "effect_none": {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_twitch_h1",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 360
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
                                                           }
-                                                        }
+                                                        },
+                                                        "only_to_enemy": false
                                                       }
                                                     }
                                                   }
