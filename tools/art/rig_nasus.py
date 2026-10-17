@@ -434,8 +434,8 @@ def frames_a(F):
     out["skill2"] = [p(crouch=1), p(**raised), p(whole=(1, 0), staff_shift=(4, -1), **raised),
                      p(whole=(1, 0), staff_shift=(4, -1), **raised), p(crouch=1)]
     # W Wither (Nasus_Base_Spell2_Full): the far hand thrust out at the champion, the staff kept in the near hand
-    out["skill_w"] = [p(far=1, far_reach=(-2, 0)), p(far=1, whole=(1, 0)), p(far=1, whole=(1, 0)),
-                      p(far=1, far_reach=(-2, 0))]
+    out["skill_w"] = [p(far=1, far_reach=(-2, 0)), p(far=1, far_reach=(0, -2), whole=(1, 0)),
+                      p(far=1, far_reach=(0, -2), whole=(1, 0)), p(far=1, far_reach=(-2, 0))]
     # R Fury of the Sands (Nasus_Base_Spell4_Full): crouch, then up with the staff raised upright beside his head (the
     # big body from frame 4 - the kit's r_on_at; frames 4-6 are B's, set by frames())
     up = dict(near=2, near_reach=(-4, 0), staff="UP", staff_shift=(3, -14), behind="head")
@@ -467,8 +467,8 @@ def frames_b(F):
                       p(crouch=3, whole=(3, 0), staff_shift=(9, 0)), p(crouch=1, whole=(1, 0), staff_shift=(4, 0))]
     out["b_skill2"] = [p(crouch=1), p(**raised), p(whole=(1, 0), staff_shift=(5, -1), **raised),
                        p(whole=(1, 0), staff_shift=(5, -1), **raised), p(crouch=1)]
-    out["b_skill_w"] = [p(far=1, far_reach=(-3, 0)), p(far=1, whole=(1, 0)), p(far=1, whole=(1, 0)),
-                        p(far=1, far_reach=(-3, 0))]
+    out["b_skill_w"] = [p(far=1, far_reach=(-3, 0)), p(far=1, far_reach=(0, -3), whole=(1, 0)),
+                        p(far=1, far_reach=(0, -3), whole=(1, 0)), p(far=1, far_reach=(-3, 0))]
     out["b_hit"] = [R.flash(p(whole=(-3, 0))), p(whole=(-1, 0))]
     up = dict(near=2, near_reach=(-5, 0), staff="UP", staff_shift=(4, -19), behind="head")
     out["ult_b"] = [p(**up), p(**up), p(crouch=1, **up)]
@@ -492,8 +492,61 @@ def runs(fa, fb):
     return out
 
 
+# the swap sheets as packed (tools/art/pack_nasus_run.py FORMS): 3 x 3 cells of (width, height) squares, the soles on
+# row FEET of a cell, drawn Z px a square
+RUN_CELLS = {"A": (96, 62, 59), "B": (116, 82, 79)}
+RUN_Z = 4
+
+
 def read_run(F, path):
-    raise NotImplementedError("written when Codex's walk is delivered")
+    """Codex's 3 x 3 walk sheet -> nine canvases: read square by square (its own square size: the sheet's width / the
+    packed squares), the green key cleared, every colour snapped to the design's nearest (Codex's drift), each cell's
+    soles set on the design's ground row and the figure placed by its head (the design's head found in every frame,
+    one shift for the whole cycle - the head bobs with the walk as drawn)."""
+    form = "A" if F.D.H == 53 else "B"
+    cw, ch, feet = RUN_CELLS[form]
+    im = np.asarray(Image.open(lp(path)).convert("RGB")).astype(int)
+    z = im.shape[1] / (3 * cw)
+    ys = ((np.arange(3 * ch) + 0.5) * z).astype(int).clip(0, im.shape[0] - 1)
+    xs = ((np.arange(3 * cw) + 0.5) * z).astype(int).clip(0, im.shape[1] - 1)
+    a = im[np.ix_(ys, xs)]
+    key = (a[..., 1] > 200) & (a[..., 0] < 90) & (a[..., 2] < 90)
+    D = F.D
+    pal = np.array(sorted({tuple(c) for c in D.d[D.d[..., 3] > 0][:, :3].tolist()}))
+    flat = a.reshape(-1, 3)
+    near = pal[np.argmin(((flat[:, None, :] - pal[None]) ** 2).sum(-1), axis=1)].reshape(a.shape)
+    rgba = np.dstack([near, np.where(key, 0, 255)]).astype(np.uint8)
+    rgba[key] = 0
+    cells = [rgba[(k // 3) * ch:(k // 3 + 1) * ch, (k % 3) * cw:(k % 3 + 1) * cw] for k in range(9)]
+    hr = 18 if form == "A" else 25
+    head = D.d[:hr]
+    hm = head[..., 3] > 0
+    found = []
+    for c in cells:
+        sole = int(np.nonzero(c[..., 3].any(1))[0].max())
+        best = (-1, 0, 0)
+        for dy in range(-4, 5):
+            y0 = sole - (D.H - 1) + dy
+            if y0 < 0 or y0 + hr > ch:
+                continue
+            for dx in range(0, cw - D.W + 1):
+                sub = c[y0:y0 + hr, dx:dx + D.W]
+                n = int((hm & (sub[..., 3] > 0) & (np.abs(sub[..., :3].astype(int) - head[..., :3]).sum(-1) < 40)).sum())
+                if n > best[0]:
+                    best = (n, dx, dy)
+        found.append((c, sole, best))
+    gx = int(np.median([b[1] for _, _, b in found]))
+    out = []
+    for c, sole, (n, dx, dy) in found:
+        lay = np.zeros((D.H + 2 * P, D.W + 2 * P, 4), np.uint8)
+        top = sole - (D.H - 1)
+        for y, x in zip(*np.nonzero(c[..., 3])):
+            ty, tx = P + y - top, P + x - gx
+            if 0 <= ty < lay.shape[0] and 0 <= tx < lay.shape[1]:
+                lay[ty, tx] = c[y, x]
+        out.append(R.compose(F.rig, [(lay, dict())]))
+        print(f"run {form}: head match {n} squares at dx {dx - gx:+d} dy {dy:+d}")
+    return out
 
 
 def frames(fa, fb):
