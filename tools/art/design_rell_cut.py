@@ -72,10 +72,11 @@ def face_lines(d):
     return rows, cols
 
 
-def even_cut(d, rows, cols, keep):
+def even_cut(d, rows, cols, keep, index=False):
     """design_orianna_cut.even_cut with her face kept and no eye-colour rule: whole lines dropped one per equal window
     (the cheapest by design_orianna_cut.weights), never a kept line nor a neighbour of one just dropped; a window that is
-    all face gives its line to the nearest free one outside the face."""
+    all face gives its line to the nearest free one outside the face. index: also return the kept rows and columns
+    (league_anivia's rig maps its part outlines through them)."""
     wt = OC.weights(d)
 
     def drop(a, w, n_keep, hard):
@@ -102,6 +103,8 @@ def even_cut(d, rows, cols, keep):
     keep_r = drop(d, wt, rows, set(keep[0]))
     sub = d[keep_r]
     keep_c = drop(sub.transpose(1, 0, 2), wt[keep_r].T, cols, set(keep[1]))
+    if index:
+        return sub[:, keep_c], keep_r, keep_c
     return sub[:, keep_c]
 
 

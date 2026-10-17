@@ -35,9 +35,10 @@ TR = "<#f5f5f5ff>"     # true damage
 A = "<#ffb900ff>"      # durations, counts, percents
 E = "<>"
 # champion_view: the face at her crown (tfm2_ase.py face: 36 px over the feet); with League's folded machine floating
-# over her head (the user, 2026-10-17: 「背后没武器有点奇怪」) the idle tops 37.5 px over the pivot, above -28, so the card
-# rule's banpick_center y = -39 - top = -2 (the machine's top just under the card's top edge, her feet behind the name)
-VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -2}}
+# over her head (the user, 2026-10-17: 「背后没武器有点奇怪」) the idle's highest frame tops 38.0 px over the pivot (the
+# frame's centre; lo_idle / 1.5), above -28, so the card rule's banpick_center y = -39 - top = -1: the machine's top 1 px
+# under the card's top edge, her feet behind the name. -2 put that frame's top on the edge (「烈娜塔BP格子有点不对吧」)
+VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -1}}
 
 
 def mag(d, r):

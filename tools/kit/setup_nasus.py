@@ -35,9 +35,11 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 T = "<#ffffffff>"      # true damage
 E = "<>"
-# champion_view: the face on his glowing eye (set from tfm2_ase.py face after the sheet is written); the ear tips reach
-# 44 game px over the soles, the headdress 37: banpick_center by the headdress (never positive: card-banpick rule)
-VIEW = {"face": {"x": 7, "y": -36}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -2}}
+# champion_view: the face on his glowing eye (set from tfm2_ase.py face after the sheet is written). The card rule's top is
+# measured over the pivot (the frame's centre), not over the soles: the ear tips reach 33.3 px over it (lo_idle / 1.5),
+# so banpick_center y = -39 - top = -6 puts them 1 px under the card's top edge and his feet behind the name. The first
+# value, -2 (from the headdress's 37 px over the soles), drew him 9 px lower than every other hero (「狗头也是」)
+VIEW = {"face": {"x": 7, "y": -36}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -6}}
 
 
 def phy(d, r):

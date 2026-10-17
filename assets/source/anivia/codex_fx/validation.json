@@ -1,0 +1,228 @@
+[
+  {
+    "name": "a_bolt",
+    "frames": 4,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 3
+  },
+  {
+    "name": "a_hit",
+    "frames": 4,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "name": "q_ball",
+    "frames": 4,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "name": "q_blast",
+    "frames": 6,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "name": "q_stun",
+    "frames": 6,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "name": "w_wall",
+    "frames": 8,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 8
+  },
+  {
+    "name": "e_shard",
+    "frames": 3,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 3
+  },
+  {
+    "name": "e_hit",
+    "frames": 4,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "name": "e_iced",
+    "frames": 5,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 5
+  },
+  {
+    "name": "r_cast",
+    "frames": 6,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "name": "r_storm",
+    "frames": 6,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "name": "r_formed",
+    "frames": 8,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 8
+  },
+  {
+    "name": "iced",
+    "frames": 4,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "name": "p_egg_in",
+    "frames": 4,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "name": "p_hatch",
+    "frames": 4,
+    "binary_alpha": true,
+    "exact_symmetry": true,
+    "exact_size": true,
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  }
+]

@@ -1429,7 +1429,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -2
+        "y": -1
       }
     },
     "league_nasus": {
@@ -1443,7 +1443,21 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -2
+        "y": -6
+      }
+    },
+    "league_anivia": {
+      "face": {
+        "x": 4,
+        "y": -22
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -4
       }
     }
   }

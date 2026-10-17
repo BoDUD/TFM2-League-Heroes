@@ -123,6 +123,32 @@ pub fn min_amount(attack: bool, atk: usize, ap: usize) -> usize {
     MIN_SHARE * if attack { atk } else { atk.max(ap) } / 100
 }
 
+// ===================== 他自己的灼烧不算谁打中的 =====================
+// 游戏 0.6.4 的 deal_damage_typed 只把伤害排进效果队列（2026-10-17 反汇编）：打出去以后马上读生命还是原来的，下一 tick 才扣血，
+// 也是那时才触发他的 on_attack（0.1.1 的日志：同一个目标上他的「own hit」22 次都正好在上一次点燃后 15k+1 tick，友方「ordered at
+// it」打在烧着的目标上的 9 次里 6 次也是）。所以被动记下上一次 on_update 打给每个目标的灼烧，看掉血、看他的 on_attack 时先认出它。
+
+/// 他的一跳灼烧最多让目标掉多少：减免前的伤害再加一半。魔抗只会让它变小；让人多受伤害的 `damaged_amplify`（主包里一层 10-15%）
+/// 几个叠在一起也到不了一半。
+pub fn burn_cap(burned: usize) -> usize {
+    burned + burned / 2
+}
+
+/// 一个敌方单位从上一 tick 到这一 tick 掉了多少（生命 + 护盾；`now` 为 `None` = 它死了，剩的全算掉了），扣掉他上一 tick 打给它的
+/// 灼烧 `burned`（减免前，按 `burn_cap` 扣足）。被灼烧这一跳烧死的也不算掉血。
+pub fn lost(was: usize, now: Option<usize>, burned: usize) -> usize {
+    was.saturating_sub(now.unwrap_or(0)).saturating_sub(burn_cap(burned))
+}
+
+/// 主包米利欧 1 级的攻击力（build_milio 的 atk）：他自己最弱的一下真打（普攻 100% 攻击力；Q 120 起）。
+pub const HIS_ATTACK: usize = 85;
+
+/// 他的 on_attack 收到的这一下是不是他自己的灼烧（上一次 on_update 打给这个目标的共 `burned`，减免前）。他自己真的打中都比一跳
+/// 灼烧大得多（`HIS_ATTACK` 起，灼烧一跳最多 20）。
+pub fn own_burn(damage: usize, burned: usize) -> bool {
+    burned > 0 && damage <= burn_cap(burned)
+}
+
 // ===================== 生生不息：什么时候放 =====================
 
 /// 主包 R 的施放距离（r_arm_range）：这么近有敌方英雄才放得出（R 的施放目标是 `EnemyChampion`）。
@@ -278,6 +304,51 @@ mod tests {
         assert_eq!(min_amount(true, 200, 900), 50);
         assert_eq!(min_amount(false, 200, 900), 225);
         assert!(used(0, 60) && !used(30, 33) && !used(60, 59));
+    }
+
+    #[test]
+    fn his_burn_landing_is_no_drop() {
+        // the tick after a 12 burn part was dealt: magic resistance shrinks it, damaged_amplify grows it, still his
+        assert_eq!(lost(500, Some(490), 12), 0);
+        assert_eq!(lost(500, Some(486), 12), 0);
+        assert_eq!(lost(500, Some(482), 12), 0);
+        // an ally's hit landed on the same tick: past the burn, it is still a drop
+        assert_eq!(lost(500, Some(430), 12), 70 - 18);
+        // the burn finished it off: no drop; a hit finished it: a drop
+        assert_eq!(lost(9, None, 12), 0);
+        assert_eq!(lost(60, None, 12), 60 - 18);
+        // nothing of his burning on it: every drop counts, as before
+        assert_eq!(lost(500, Some(490), 0), 10);
+        assert_eq!(lost(80, None, 0), 80);
+        assert_eq!(lost(500, Some(520), 0), 0);
+    }
+
+    #[test]
+    fn an_ally_ordered_at_a_burning_target_waits_for_its_own_hit() {
+        // 0.1.1 compared health only (`burned` 0): the burn's own tick passed for the ally's hit and spent its mark early
+        let drops = |burned: usize| -> Vec<Drop> {
+            [(7, lost(500, Some(490), burned))].iter().filter(|d| d.1 > 0).map(|&(id, amount)| drop(id, 30_000.0, amount, false)).collect()
+        };
+        assert_eq!(hit_of(Some(7), &drops(0), 0), Some(7));
+        assert_eq!(hit_of(Some(7), &drops(12), 0), None);
+        assert_eq!(hit_of(None, &drops(12), 0), None);
+        // its own hit, on that tick or a later one, still counts
+        let hit = [drop(7, 30_000.0, lost(500, Some(420), 12), false)];
+        assert_eq!(hit_of(Some(7), &hit, 0), Some(7));
+    }
+
+    #[test]
+    fn his_on_attack_knows_his_burn() {
+        // the part as dealt, after magic resistance, amplified
+        assert!(own_burn(12, 12) && own_burn(9, 12) && own_burn(18, 12));
+        assert!(!own_burn(19, 12));
+        // nothing of his burning on that target
+        assert!(!own_burn(12, 0));
+        // two parts due on one tick (an update came late): both his
+        assert!(own_burn(16, 36) && own_burn(20, 36));
+        // his weakest real hit (a level-1 attack) never passes for the biggest part (level 12)
+        let top = burn_parts(&Params::default(), TOP_LEVEL, false).iter().map(|x| x.1).max().unwrap();
+        assert!(top <= 20 && !own_burn(HIS_ATTACK, top));
     }
 
     fn ally(id: usize, x: f64, hp: f64, drop: f64, cc: usize) -> Ally {
