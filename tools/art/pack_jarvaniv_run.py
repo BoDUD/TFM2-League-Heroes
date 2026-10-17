@@ -8,15 +8,15 @@ took for him: tools/art/pack_pantheon_run.py).
     python tools/art/pack_jarvaniv_run.py [--out %TEMP%/jv_work/jarvaniv_run_pack]
 
 Why Codex: re-posing the design's legs losslessly cannot make a walk - only whole moves and quarter turns are allowed,
-so the legs stay straight and vertical. Five walks built that way were turned down on 2026-10-17 (legs sliding apart,
-one leg laid over the other, stepping in place, legs parting, knee guards shrinking behind the hem: 「这两个都不对 也不
-自然」「膝盖那里怎么会缩进去啊」「感觉还是变形啊 这个问题其他英雄肯定碰到过啊 你看他们怎么解决的」) - and every merged
-humanoid in a skirt or tabard walks on drawn legs (league_pantheon: Codex legs on League's joints; league_swain and
-league_renata: Codex skin swaps).
-The pack: now/ (my run frames: the upper body, arms and the lance carried on the shoulder as League carries it, the
-body's bob, the skirt; the legs as the rig had them), guide/ (each frame with everything under the skirt's hem faded and
-League's leg skeleton drawn over it: near leg red, far leg blue, from tools/lol/pose_joints.py, scaled LEG to the
-design's legs), design/ (the design 10x + 1x), refs/ (League's run as a contact sheet), legs.json (the feet per frame).
+so the legs stay straight and vertical. Six walks built that way were turned down on 2026-10-17 (legs sliding apart,
+one leg laid over the other, stepping in place, legs parting, knee guards shrinking behind the hem, then the
+Braum / Nautilus walk: 「这两个都不对 也不自然」「膝盖那里怎么会缩进去啊」「感觉还是变形啊」「不对 让codex帮忙把」) - and
+league_pantheon's run was saved the same way: Codex redrew only the legs on League's run skeleton.
+The pack: now/ (the standing frame with the lance carried on the shoulder as League carries it - everything above the
+skirt's hem is kept from it; the legs are the design's, as a reference), guide/ (each frame with everything under the
+skirt's hem faded and League's leg skeleton drawn over it: near leg red, far leg blue, from tools/lol/pose_joints.py,
+scaled LEG to the design's legs), design/ (the design 10x + 1x), refs/ (League's run as a contact sheet), legs.json
+(the feet per frame).
 Every frame is drawn PX px a square on a CW square canvas, the design's squares on the same grid.
 """
 import argparse
@@ -67,7 +67,7 @@ def main():
     Image.fromarray(np.repeat(np.repeat(D.d, 10, 0), 10, 1)).save(os.path.join(out, "design", "jarvaniv_design.png"))
     Image.fromarray(D.d).save(os.path.join(out, "design", "jarvaniv_design_1x.png"))
     js = json.load(open(a.joints, encoding="utf-8"))
-    frames = J.walk(F)
+    frames = [F.pose(**J.CARRY)] * 8            # the standing body above the hem, every frame
     # the canvas window: the frame's squares with the soles' row 12 squares above the bottom edge, the pivot centred
     cells = CW // PX
     sole_row = cells - 12                       # the canvas square row the soles stand on
@@ -82,7 +82,7 @@ def main():
         sq[ys + oy, xs + ox] = f[ys, xs]
         big = Image.fromarray(np.repeat(np.repeat(sq, PX, 0), PX, 1))
         big.save(os.path.join(out, "now", name + ".png"))
-        bob = J.WALK_STEP["bob"][k]
+        bob = 0
         hem = r.oy + HEM + oy                  # the hem's canvas row (the skirt does not bob)
         j = js[k]["joints"] if isinstance(js[k], dict) and "joints" in js[k] else js[k]
         hip_x = (j["L_Thigh"][0] + j["R_Thigh"][0]) / 2.0
