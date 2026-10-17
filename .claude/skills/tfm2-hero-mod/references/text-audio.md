@@ -113,7 +113,9 @@ ahead of the helmet's crown so the portrait keeps the lenses on its right.
   The clip name has no extension, so a `.wav` can be swapped for an `.mp3` of the same name without editing
   anything - but never keep both (one replaces the other). Ship MP3: the game reads every clip into memory at
   start-up (mod-structure.md "Loading cost"); the league repo's `tools/package_mod.py` encodes VBR V0, which
-  decodes to the WAV's exact length.
+  decodes to the WAV's exact length, and puts the clips of the package in `sound/bgm/` (opened when played, not
+  read at start) with each clip's override entry pointing there - the sources keep them next to the
+  `.sound_info`.
 - `Sfx`/`TargetSfx` look sounds up in the base namespace, so every custom sound needs **two
   override entries** (the pattern used by both big packs):
   `asset/base/sound/sfx/<name>` -> `asset/<mod_id>/sound/sfx/<name>` and

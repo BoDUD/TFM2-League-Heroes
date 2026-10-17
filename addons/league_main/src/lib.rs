@@ -7,6 +7,9 @@
 //! 宽高，src/view.rs 把实体的绘制缩放写成 ÷ PPU。只在 src/build.rs 认得的游戏版本上挂钩（每处要改要调的代码逐字节核对指纹，现在认得 0.6.4）；别的版本、
 //! Mac / Linux（没有 DLL）什么都不改，英雄照旧画 1 倍的帧。
 //!
+//! src/warm.rs（0.7.27）：标题画面出来以后，后台线程把主包 `sound/bgm/` 里的音频按盘上的顺序读一遍进系统缓存，
+//! 比赛里音频第一次播放就不用在主线程等读盘。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
 
 use std::fs::OpenOptions;
@@ -22,9 +25,11 @@ pub mod hd;
 mod lookup;
 #[cfg(windows)]
 mod view;
+#[cfg(windows)]
+mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.7.25";
+const VERSION: &str = "0.7.27";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
@@ -90,7 +95,10 @@ fn init(host: &StableHost) -> StableMod {
             host.log(LogLevel::Info, "League Heroes: this game build is not known to league.dll yet - 1x frames.");
         }
     }
-    StableMod::new(ID)
+    let mut module = StableMod::new(ID);
+    #[cfg(windows)]
+    module.set_extension(warm::Warm);
+    module
 }
 
 declare_stable_mod!(init);
