@@ -8,6 +8,13 @@ The game reads every mod file except background music into memory when it starts
 - WAV clips -> MP3 (VBR, LAME quality V0; mono 44.1 kHz stays), the format of the base game's own sound
   effects. The clip name does not change, so no .sound_info needs an edit. Clips that no .sound_info plays
   are left out. MP3 clips are copied as they are.
+- Clips go to sound/bgm/ instead of sound/sfx/, and each clip's mod.override_info entry
+  (asset/base/sound/sfx/<clip>) points there. The game reads every mod file into memory at start except the
+  .mp3/.wav under /sound/bgm/, which it opens when they play; a clip there plays as a sound effect like before
+  (the sfx volume, the .sound_info's volume and delay), so the 2,088 clips (40% of the files) are no longer
+  opened at start. Measured 2026-10-17 (docs/perf.md): the first start after an update 16.1 -> 8.5 s, a cold
+  start on a hard disk with the files scattered 88 -> 51 s. The event names and their .sound_info stay in
+  sound/sfx/, so the add-ons and every Sfx name still find them.
 - Sprite sheets (#sheet.png + #anim.fanim) repacked: identical frames share one rect and the frames sit
   close together (1 px gap) - except the idle's, which keep IDLE_PAD clear pixels round them (a dense hero's hd_idle
   IDLE_PAD x its density): the ban/pick and
@@ -27,7 +34,8 @@ MP3 decoding to the WAV's length.
     python tools/package_mod.py --out <folder>                 # e.g. the Workshop upload folder
 
 --install merges the way the hero sessions' install scripts did: it writes the selected heroes' files,
-replaces a clip's .wav with the .mp3 of the same name, refreshes only the selected heroes' keys in
+removes a clip's older copies (the .wav of an .mp3, and the copy in sound/sfx/ that installs made before
+2026-10-17), refreshes only the selected heroes' keys in
 text/champion.i18n, style/champion_view and mod.override_info, and keeps the higher mod_info version.
 Every other hero's files stay as they are.
 
@@ -66,6 +74,8 @@ JSON_EXT = (".data_champion", ".fanim", ".i18n", ".champion_view", ".override_in
 SHARED = ("text/champion.i18n", "style/champion_view.champion_view", "mod.override_info")
 HERO_DIRS = ("champion", "champions", "effects", "icons", "sound/sfx")
 AUDIO_EXT = (".wav", ".mp3")
+SFX_DIR = "sound/sfx"      # where the sources keep the clips, next to their .sound_info
+STREAM_DIR = "sound/bgm"   # where the package puts them: opened when played, not read at start
 MP3_QUALITY = 0.0          # libsndfile compression level for VBR MP3: 0.0 = LAME V0 (best), 1.0 = V9
 MAX_SHEET = 2048           # repacked sheets stay within 2048 x 2048, like the sheets the mod ships today
 GAP = 1                    # transparent pixels between packed frames
@@ -399,10 +409,11 @@ def build(src, heroes, everything, workers):
             return [(rel, small)], None
         if kind == "audio":
             raw = read(path)
+            dst = streamed(rel)
             if rel.endswith(".mp3"):
-                return [(rel, raw)], None
+                return [(dst, raw)], None
             mp3, secs = wav_to_mp3(raw, rel)
-            return [(rel[:-4] + ".mp3", mp3)], ("audio", secs)
+            return [(dst[:-4] + ".mp3", mp3)], ("audio", secs)
         base = rel[:-len("#sheet.png")]
         png, fanim_raw = read(path), read(os.path.join(src, base + "#anim.fanim"))
         anim = parse_json(fanim_raw, base + "#anim.fanim")
@@ -421,7 +432,39 @@ def build(src, heroes, everything, workers):
                 report["audio_s"] += extra[1]
             elif extra:
                 report["sheets"].append(extra[1])
+    if "mod.override_info" in out:
+        mod_id = parse_json(read(os.path.join(src, "mod.mod_info")), "mod.mod_info")["mod_id"]
+        out["mod.override_info"], report["streamed"] = stream_overrides(out, mod_id)
     return out, report
+
+
+def streamed(rel):
+    """sound/sfx/<clip>.<ext> -> sound/bgm/<clip>.<ext>; other paths stay."""
+    if os.path.dirname(rel) == SFX_DIR:
+        return STREAM_DIR + "/" + os.path.basename(rel)
+    return rel
+
+
+def stream_overrides(pkg, mod_id):
+    """Point the override entry of every clip in the package (asset/base/sound/sfx/<clip>, the name a .sound_info's
+    play looks up) at the clip's place in STREAM_DIR. -> (minified override_info, clips pointed there).
+    A clip whose entry is missing or points somewhere else could not play before either: reported, left alone."""
+    ov = parse_json(pkg["mod.override_info"], "mod.override_info")
+    n = 0
+    for rel in sorted(pkg):
+        stem, ext = os.path.splitext(rel)
+        if ext not in AUDIO_EXT or os.path.dirname(rel) != STREAM_DIR:
+            continue
+        clip = os.path.basename(stem)
+        entry = ov.get(f"asset/base/sound/sfx/{clip}")
+        old, new = f"asset/{mod_id}/{SFX_DIR}/{clip}", f"asset/{mod_id}/{STREAM_DIR}/{clip}"
+        if isinstance(entry, dict) and entry.get("remapping") in (old, new) and entry.get("type") == "override":
+            entry["remapping"] = new
+            n += 1
+        else:
+            print(f"warning: {rel}: mod.override_info has no 'asset/base/sound/sfx/{clip}' -> '{old}' entry; "
+                  f"no .sound_info can play this clip")
+    return dump_min(ov), n
 
 
 def print_report(report, seconds):
@@ -442,6 +485,8 @@ def print_report(report, seconds):
               f"({4 * before / 1e6:.0f} -> {4 * after / 1e6:.0f} MB once decoded), {frames} frame rects -> {uniq} unique")
     if report["audio_s"]:
         print(f"audio encoded: {report['audio_s']:.0f} s of WAV -> MP3")
+    if report.get("streamed"):
+        print(f"clips in {STREAM_DIR}/ (opened when played, not read at start): {report['streamed']}")
     for d in report["dropped"]:
         print("left out:", d)
     print(f"built in {seconds:.1f} s")
@@ -486,19 +531,23 @@ def install(pkg, heroes, target, dry):
         if rel in SHARED or rel == "mod.mod_info":
             continue
         dst = os.path.join(target, rel)
-        stem, ext = os.path.splitext(dst)
-        if ext in AUDIO_EXT:
-            for other in AUDIO_EXT:
-                if other != ext and os.path.isfile(lp(stem + other)):
-                    removed += 1
-                    if not dry:
-                        os.remove(lp(stem + other))
+        stem, ext = os.path.splitext(rel)
+        if ext in AUDIO_EXT and os.path.dirname(rel) in (SFX_DIR, STREAM_DIR):
+            # the clip's older copies: the other format, or the place clips were installed before 2026-10-17
+            # (sound/sfx/, read at every start)
+            for d in (SFX_DIR, STREAM_DIR):
+                for e in AUDIO_EXT:
+                    old = os.path.join(target, d, os.path.basename(stem) + e)
+                    if (d, e) != (os.path.dirname(rel), ext) and os.path.isfile(lp(old)):
+                        removed += 1
+                        if not dry:
+                            os.remove(lp(old))
         if os.path.isfile(lp(dst)) and read(dst) == data:
             continue
         wrote += 1
         if not dry:
             write(dst, data)
-    print(f"{wrote} files written, {removed} clips of the other format removed" + (" (dry run)" if dry else ""))
+    print(f"{wrote} files written, {removed} older copies of clips removed" + (" (dry run)" if dry else ""))
     match = lambda k: any(h in k for h in heroes)
     for rel in SHARED:
         if rel not in pkg:
