@@ -1,6 +1,0 @@
-{
-  "fx": "league_ezreal_big",
-  "items": [
-    {"tag": "r_charge", "into": "ult", "at_ms": 50}
-  ]
-}
