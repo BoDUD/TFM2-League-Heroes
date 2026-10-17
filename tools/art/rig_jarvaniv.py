@@ -155,6 +155,19 @@ def leg_layer(D, name):
     return out
 
 
+def skirt_layer(D):
+    """The skirt with its own whole outline: the outline squares it shares with a leg (the middle flap's sides between
+    the knees) copied into it, so a leg stepping away leaves the flap edged as in the idle."""
+    sk = D.parts["skirt"]
+    dark = (D.d[..., :3].astype(int).sum(-1) < 70) & (D.d[..., 3] > 0)
+    near = ndimage.binary_dilation(sk & ~dark, structure=R.CROSS)
+    shared = near & dark & (D.parts["near_leg"] | D.parts["far_leg"])
+    out = np.zeros_like(D.d)
+    m = sk | shared
+    out[m] = D.d[m]
+    return out
+
+
 def whole_lance(D):
     """The lance layer with the shaft the fist hides (rows FIST) filled from its own column under the fist: each hidden
     row copies the row ROWS_BELOW rows down (the shaft below the fist is a plain gold stripe between two outline columns
@@ -196,7 +209,7 @@ class Form:
         self.far = pad(D.layer("far_arm"))
         self.near = pad(D.layer("near_arm"))
         self.upper = pad(D.layer("upper"))
-        self.skirt = pad(D.layer("skirt"))
+        self.skirt = pad(skirt_layer(D))
         self.near_leg = pad(leg_layer(D, "near_leg"))
         self.far_leg = pad(leg_layer(D, "far_leg"))
         self.ref_holes = None
@@ -230,10 +243,11 @@ class Form:
         layers = []
         if lance_l and not lance_front:
             layers.append(lance_l)
+        # both legs behind the skirt's hem, as the design draws them (a leg drawn over the hem when lifted covered its
+        # edge: the second walk, 「变形严重」), the near leg over the far one
         layers += [far_l,
-                   (self.far_leg, dict(dx=wx + flx, dy=wy + fly)), (self.skirt, dict(dx=wx, dy=wy)),
-                   # the near leg in front of the skirt's hem: lifted or stepping in, its knee guard stays whole
-                   (self.near_leg, dict(dx=wx + nlx, dy=wy + nly)), (self.upper, dict(dx=U[0], dy=U[1]))]
+                   (self.far_leg, dict(dx=wx + flx, dy=wy + fly)), (self.near_leg, dict(dx=wx + nlx, dy=wy + nly)),
+                   (self.skirt, dict(dx=wx, dy=wy)), (self.upper, dict(dx=U[0], dy=U[1]))]
         if lance_l and lance_front:
             layers += [lance_l, (self.fist_only(), far_l[1])]
         layers.append((self.near, dict(dx=U[0] + near_reach[0], dy=U[1] + near_reach[1], rot=near, about=NEAR_PIVOT)))
@@ -395,7 +409,28 @@ def _own_sides(stride, lifts):
                 bob=[1, 0, 0, 0, 1, 0, 0, 0])
 
 
-WALK_STEP = _steps(4, (2, 3, 2), far_lifts=(1, 2, 1))
+def _apart(near_back, far_front, lifts, far_lifts=None):
+    """Steps that only ever part the legs (the shins stand 2 columns apart, so any step inward laid one leg over the
+    other - 「变形严重」 on the inward walk): the near foot planted at home sliding back to near_back, lifted and carried
+    home again; the far foot planted at far_front sliding back home, lifted and carried forward; half a cycle apart."""
+    def cycle(front, back):
+        planted = [int(round(front + (back - front) * k / 4)) for k in range(5)]
+        swing = [int(round(back + (front - back) * k / 4)) for k in (1, 2, 3)]
+        return planted + swing
+    nd, fd = cycle(0, near_back), cycle(far_front, 0)
+    up = [0] * 5 + list(lifts)
+    fup = [0] * 5 + list(far_lifts or lifts)
+    return dict(near=list(zip(nd, up)), far=[(fd[(i + 4) % 8], fup[(i + 4) % 8]) for i in range(8)],
+                bob=[1, 0, 0, 0, 1, 0, 0, 0])
+
+
+def _in_place(lifts):
+    """Stepping in place: no foot moves sideways, each lifted in turn (a trot - the user's pick for Rengar's wide stance)."""
+    up = [0] * 5 + list(lifts)
+    return dict(near=[(0, u) for u in up], far=[(0, up[(i + 4) % 8]) for i in range(8)], bob=[1, 0, 0, 0, 1, 0, 0, 0])
+
+
+WALK_STEP = _apart(-2, 2, (1, 1, 1))
 # League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
 # the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
 CARRY = dict(far=1, lance="BACK", slide=4)
