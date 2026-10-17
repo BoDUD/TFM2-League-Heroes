@@ -55,7 +55,7 @@ BIG = "asset/league/effects/league_jarvaniv_big"
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Jarvan IV:
     # 64 AD +3, 640 +104 hp, 36 armour, 340 move, attack speed 0.658 +2.5%
-    "hp": 1000, "hp_g": 104, "atk": 84, "atk_g": 18, "def": 34, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
+    "hp": 1000, "hp_g": 104, "atk": 76, "atk_g": 16, "def": 34, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     # attack: the thrust lands on a_hit
     "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 9, "f_t": 180,
     # passive Martial Cadence (League: 8% current health, min 20, per target every 6-3 s)
@@ -67,15 +67,15 @@ P = {
     "e_cd": 660, "e_range": 55000, "e_dur": 34, "e_rel": 8, "e_travel": 8, "e_r": 16000, "e_dmg": 50, "e_ratio": 40,
     "fl_t": 480, "f_r": 40000, "f_as": 20, "f_p": 30,
     "q_gap": 2, "q_speed": 4000, "q_line": 6000, "q_w": 9000, "q_up": 45, "q_up_r": 16000,
-    "q_dmg": 40, "q_ratio": 90, "q_shred": 20, "q_shred_t": 180,
+    "q_dmg": 40, "q_ratio": 75, "q_shred": 20, "q_shred_t": 180,
     # skill2: Q alone
     "q_cd": 480, "q_range": 50000, "q_dur": 26, "q_rel": 11, "q_lock": 8, "q_len": 50000,
     # W Golden Aegis (League: 60-140 + 70% bonus AD shield 4 s, +1.3% max hp a champion, slow 15-35% 2 s, r 600, cd 9)
-    "w_cd": 600, "w_r": 30000, "w_dur": 18, "w_rel": 7, "w_sh": 60, "w_ratio": 40, "w_per": 25, "w_t": 240,
+    "w_cd": 600, "w_r": 30000, "w_dur": 18, "w_rel": 7, "w_sh": 60, "w_ratio": 30, "w_per": 25, "w_t": 240,
     "w_slow": 25, "w_slow_t": 120,
     # ult: R Cataclysm (League: 650 range leap, 200-450 + 180% bonus AD, ring r 350 for 3.5 s, cd 120-90)
     "r_cd": 3600, "r_range": 60000, "r_arm": 600, "r_dur": 30, "r_speed": 4500, "r_r": 36000, "r_t": 210,
-    "r_dmg": 120, "r_ratio": 120, "r_lp": 3, "r_leash": 28000, "r_gs": 2500, "r_gt": 5, "r_cnt": 45000,
+    "r_dmg": 90, "r_ratio": 100, "r_lp": 3, "r_leash": 28000, "r_gs": 2500, "r_gt": 5, "r_cnt": 45000,
     # the watch
     "watch_p": 12,
     # his spoken lines, at most one every vo_gap ticks

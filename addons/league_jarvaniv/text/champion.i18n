@@ -2,35 +2,35 @@
   "zh-hans": {
     "description": {
       "league_jarvaniv_addon": {
-        "ult": "【附加包】跃向敌方英雄砸下：周围敌人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>，落点周围升起一圈<#ef5350ff>真的岩墙3.5秒<>：圈里的出不去，圈外的进不来（两边都算，他自己也算）。有被击飞的敌人或2名敌方英雄在身边时才放。"
+        "ult": "【附加包】跃向敌方英雄砸下：周围敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，落点周围升起一圈<#ef5350ff>真的岩墙3.5秒<>：圈里的出不去，圈外的进不来（两边都算，他自己也算）。有被击飞的敌人或2名敌方英雄在身边时才放。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_jarvaniv_addon": {
-        "ult": "【附加包】躍向敵方英雄砸下：周圍敵人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>，落點周圍升起一圈<#ef5350ff>真的岩牆3.5秒<>：圈裡的出不去，圈外的進不來（兩邊都算，他自己也算）。有被擊飛的敵人或2名敵方英雄在身邊時才施放。"
+        "ult": "【附加包】躍向敵方英雄砸下：周圍敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，落點周圍升起一圈<#ef5350ff>真的岩牆3.5秒<>：圈裡的出不去，圈外的進不來（兩邊都算，他自己也算）。有被擊飛的敵人或2名敵方英雄在身邊時才施放。"
       }
     }
   },
   "en": {
     "description": {
       "league_jarvaniv_addon": {
-        "ult": "[Add-on] Leaps onto an enemy champion: <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> around him, and <#ef5350ff>a real ring of rock walls rises for 3.5s<>: no one inside can leave and no one outside can enter (both teams, him too). Cast on a knocked-up enemy or with 2 enemy champions near him."
+        "ult": "[Add-on] Leaps onto an enemy champion: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> around him, and <#ef5350ff>a real ring of rock walls rises for 3.5s<>: no one inside can leave and no one outside can enter (both teams, him too). Cast on a knocked-up enemy or with 2 enemy champions near him."
       }
     }
   },
   "ko": {
     "description": {
       "league_jarvaniv_addon": {
-        "ult": "[애드온] 적 챔피언에게 뛰어올라 주변에 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>의 <#ff9028ff>물리 피해<>, <#ef5350ff>3.5초<>간 진짜 바위 벽 고리: 안에서는 나갈 수 없고 밖에서는 들어올 수 없음(양 팀, 자신 포함). 띄워진 적이나 적 챔피언 2명이 가까울 때 사용."
+        "ult": "[애드온] 적 챔피언에게 뛰어올라 주변에 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>, <#ef5350ff>3.5초<>간 진짜 바위 벽 고리: 안에서는 나갈 수 없고 밖에서는 들어올 수 없음(양 팀, 자신 포함). 띄워진 적이나 적 챔피언 2명이 가까울 때 사용."
       }
     }
   },
   "ja": {
     "description": {
       "league_jarvaniv_addon": {
-        "ult": "【アドオン】敵チャンピオンへ跳びかかり周囲に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>、着地点の周りに<#ef5350ff>3.5秒本物の岩壁<>：中からは出られず外からは入れない（両チーム、自分も）。打ち上げた敵か敵2体が近い時に使う。"
+        "ult": "【アドオン】敵チャンピオンへ跳びかかり周囲に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、着地点の周りに<#ef5350ff>3.5秒本物の岩壁<>：中からは出られず外からは入れない（両チーム、自分も）。打ち上げた敵か敵2体が近い時に使う。"
       }
     }
   }

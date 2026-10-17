@@ -15,7 +15,7 @@
     "asset/league/icons/league_jarvaniv_ult"
   ],
   "stat": {
-    "attack": 84,
+    "attack": 76,
     "magic_power": 0,
     "hp": 1000,
     "defence": 34,
@@ -26,7 +26,7 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 18,
+    "attack": 16,
     "magic_power": 0,
     "hp": 104,
     "defence": 8,
@@ -316,8 +316,8 @@
                                             "effects": [
                                               {
                                                 "type": "Attack",
-                                                "damage": 120,
-                                                "attack_ratio": 120,
+                                                "damage": 90,
+                                                "attack_ratio": 100,
                                                 "hp_ratio": 0,
                                                 "target_hp_ratio": 0,
                                                 "attack_effect_type": "Target"
@@ -760,8 +760,8 @@
                                                 "effects": [
                                                   {
                                                     "type": "Attack",
-                                                    "damage": 120,
-                                                    "attack_ratio": 120,
+                                                    "damage": 90,
+                                                    "attack_ratio": 100,
                                                     "hp_ratio": 0,
                                                     "target_hp_ratio": 0,
                                                     "attack_effect_type": "Target"
@@ -1201,8 +1201,8 @@
                                                   "effects": [
                                                     {
                                                       "type": "Attack",
-                                                      "damage": 120,
-                                                      "attack_ratio": 120,
+                                                      "damage": 90,
+                                                      "attack_ratio": 100,
                                                       "hp_ratio": 0,
                                                       "target_hp_ratio": 0,
                                                       "attack_effect_type": "Target"
@@ -1619,7 +1619,7 @@
                                                         {
                                                           "type": "Shield",
                                                           "amount": 60,
-                                                          "attack_ratio": 40,
+                                                          "attack_ratio": 30,
                                                           "ap_ratio": 0,
                                                           "tick": 240
                                                         },
@@ -2123,7 +2123,7 @@
                                     "effect": {
                                       "type": "Attack",
                                       "damage": 40,
-                                      "attack_ratio": 90,
+                                      "attack_ratio": 75,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -2430,7 +2430,7 @@
                                 "effect": {
                                   "type": "Attack",
                                   "damage": 40,
-                                  "attack_ratio": 90,
+                                  "attack_ratio": 75,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -2809,8 +2809,8 @@
                                             "effects": [
                                               {
                                                 "type": "Attack",
-                                                "damage": 120,
-                                                "attack_ratio": 120,
+                                                "damage": 90,
+                                                "attack_ratio": 100,
                                                 "hp_ratio": 0,
                                                 "target_hp_ratio": 0,
                                                 "attack_effect_type": "Target"
@@ -3253,8 +3253,8 @@
                                                 "effects": [
                                                   {
                                                     "type": "Attack",
-                                                    "damage": 120,
-                                                    "attack_ratio": 120,
+                                                    "damage": 90,
+                                                    "attack_ratio": 100,
                                                     "hp_ratio": 0,
                                                     "target_hp_ratio": 0,
                                                     "attack_effect_type": "Target"
@@ -3694,8 +3694,8 @@
                                                   "effects": [
                                                     {
                                                       "type": "Attack",
-                                                      "damage": 120,
-                                                      "attack_ratio": 120,
+                                                      "damage": 90,
+                                                      "attack_ratio": 100,
                                                       "hp_ratio": 0,
                                                       "target_hp_ratio": 0,
                                                       "attack_effect_type": "Target"
@@ -4112,7 +4112,7 @@
                                                         {
                                                           "type": "Shield",
                                                           "amount": 60,
-                                                          "attack_ratio": 40,
+                                                          "attack_ratio": 30,
                                                           "ap_ratio": 0,
                                                           "tick": 240
                                                         },
