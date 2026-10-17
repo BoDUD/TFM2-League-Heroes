@@ -355,7 +355,16 @@ class Form:
             m = lbl == k
             if m.sum() <= self.MOST:
                 fill |= m
-        return R.fill_under(can, fill) if fill.any() else can
+        if not fill.any():
+            return can
+        out = R.fill_under(can, fill)
+        left = fill & (out[..., 3] == 0)
+        if left.any():
+            # walled in by outline squares: the nearest square that is not outline gives its colour
+            src = (out[..., 3] > 0) & (out[..., :3].astype(int).sum(-1) >= 70)
+            _, (iy, ix) = ndimage.distance_transform_edt(~src, return_indices=True)
+            out[left] = out[iy[left], ix[left]]
+        return out
 
     def close_slits(self, can):
         """Codex's walk: thin enclosed slits between an arm and the body (no idle has them; at most 2 squares across)
@@ -598,7 +607,7 @@ def read_run(F, path):
                 lay[ty, tx] = c[y, x]
         out.append(R.compose(F.rig, [(lay, dict())]))
         print(f"run {form}: {ch} rows, head match {n}/{int(hm.sum())} at x {-hx:+d}, its head {hy:+d} rows from the top")
-    return [F.close_slits(c) for c in rigid_staff(F, out)]
+    return [F.close_slits(c) for c in idle_top(F, out, [c.shape[0] for c, _ in found])]
 
 
 # The whole staff in the walk is the design's own (the user, 2026-10-17: 「跑步的时候武器变形了吧」): Codex drew it again in every
@@ -680,6 +689,107 @@ def rigid_staff(F, cans):
         out.append(cut)
     print(f"run {form}: Codex's staff at {[f'{h:+.1f}' for h in heights]} rows (slopes "
           f"{[f'{k:.2f}' for k, _ in fits]}) -> the design's at {smooth}")
+    return [drop_crumbs(c) for c in out]
+
+
+# The walk's upper body is the design's (the user, 2026-10-17, on Codex's arms with the design's staff: 「有点奇怪啊看起来 怎么感觉
+# 脱节了」 - Codex's hands sat 2-4 rows above the swapped shaft, its arms posed for its own staff): head, torso, both arms and
+# the staff exactly as in the idle, set on Codex's walking legs. Per form: Codex's arm boxes taken out of its frames (its
+# near fist left of `near_x`, its far arm right of `far_x`, both above the knees) and the blade's columns (`zone`).
+WALK = {"A": dict(near_x=37, far_x=50, zone=59, knee=12), "B": dict(near_x=46, far_x=60, zone=73, knee=16)}
+
+
+def belt_rows(a):
+    """The belt: the biggest piece of its deep blue squares -> (top row, bottom row)."""
+    from scipy import ndimage
+    rgb = a[..., :3].astype(int)
+    b = (a[..., 3] > 0) & (rgb[..., 2] > 80) & (rgb[..., 0] < 30) & (rgb[..., 1] < 60)
+    lbl, n = ndimage.label(b, structure=np.ones((3, 3)))
+    sizes = ndimage.sum(b, lbl, range(1, n + 1))
+    ys = np.nonzero(lbl == int(np.argmax(sizes)) + 1)[0]
+    return int(ys.min()), int(ys.max())
+
+
+def idle_top(F, cans, heights):
+    """Each walking frame = Codex's legs and loincloth (its rows from its belt down, its own staff, blade and arms taken
+    out, the body behind filled) under the design's upper body, arms and staff (the idle's layers, untouched), set as
+    high as Codex's head (its frame height: the walk's own bob, clamped so the blade never reaches under the soles)."""
+    from scipy import ndimage
+    D, rig = F.D, F.rig
+    form = "A" if D.H == 53 else "B"
+    cfg = WALK[form]
+    k_d, c_d = D.line
+    staff_rgb = {tuple(c) for c in D.layer("staff")[D.parts["staff"]][:, :3].tolist()}
+    wood = {c for c in staff_rgb if c[0] > c[2] + 40 and c[1] < 90}
+    teal = {c for c in staff_rgb if c[1] > c[0] + 40 and c[2] > c[0] + 40 and max(c) < 200}
+    bright = {c for c in staff_rgb if (c[0] > 240 and c[1] > 240) or (c[1] > 180 and c[2] > 180 and c[0] < 120)}
+    blade_low = int(np.nonzero(D.parts["staff"].any(1))[0].max())        # the blade's lowest design row
+    out, bobs = [], []
+    for c, h in zip(cans, heights):
+        rgb = c[..., :3].astype(int)
+        op = c[..., 3] > 0
+        yy, xx = np.mgrid[0:c.shape[0], 0:c.shape[1]]
+        dx_, dy_ = xx - rig.ox, yy - rig.oy
+        sub = c[rig.oy:rig.oy + D.H, rig.ox:rig.ox + D.W]
+        bt, bb = belt_rows(sub)
+        cols = [tuple(v) for v in rgb.reshape(-1, 3).tolist()]
+        is_wood = np.array([v in wood for v in cols]).reshape(op.shape) & op
+        is_teal = np.array([v in teal for v in cols]).reshape(op.shape) & op
+        is_bright = np.array([v in bright for v in cols]).reshape(op.shape) & op
+        dark = op & (rgb.sum(-1) < 40)
+        reds = op & (rgb[..., 0] > rgb[..., 1] + 60) & (rgb[..., 0] > rgb[..., 2] + 60) & (rgb[..., 1] < 70)
+        # Codex's shaft line (its wood near the design's line), for taking its shaft out of the loincloth
+        near = (np.abs(dy_ - (k_d * dx_ + c_d)) <= 7) & (dx_ >= 2) & (dx_ < cfg["zone"])
+        ys, xs = np.nonzero(is_wood & near)
+        k, c0 = np.polyfit(xs - rig.ox, ys - rig.oy, 1) if len(xs) > 4 else (k_d, c_d)
+        line = k * dx_ + c0
+        knee = bb + cfg["knee"]
+        gone = op & (dy_ < bt)                                                          # above the belt: the design's
+        gone |= op & (dx_ < cfg["near_x"] - 8) & (dy_ < knee)                           # its spike end
+        gone |= (np.abs(dy_ - line) <= 2.5) & (is_wood | is_teal | dark | reds)         # its shaft over the loincloth
+        gone |= reds & (dy_ > D.H * 0.4)
+        zone = dx_ >= cfg["zone"]
+        low = op & (dy_ >= D.H - 10)
+        lbl, nl = ndimage.label(low, structure=np.ones((3, 3)))
+        boot = np.zeros_like(op)
+        for kk in range(1, nl + 1):
+            m_ = lbl == kk
+            if (m_ & ~zone).any() and (m_ & zone).any():
+                boot |= m_ & zone & ~is_bright & ~is_teal
+        gone |= zone & op & ~boot                                                       # its blade
+        legs = c.copy()
+        legs[gone] = 0
+        # Codex's arms below the belt come loose once the rows above it are gone: keep the piece that stands on the
+        # ground (the loincloth and the legs) and whatever else touches the soles' rows
+        lo = legs[..., 3] > 0
+        lbl, nl = ndimage.label(lo, structure=np.ones((3, 3)))
+        if nl > 1:
+            sizes = ndimage.sum(lo, lbl, range(1, nl + 1))
+            keep = {int(np.argmax(sizes)) + 1} | set(np.unique(lbl[rig.oy + D.H - 3:rig.oy + D.H][lo[rig.oy + D.H - 3:rig.oy + D.H]]).tolist())
+            legs[lo & ~np.isin(lbl, list(keep))] = 0
+        inside = ndimage.binary_fill_holes(legs[..., 3] > 0) & (dy_ > bt)
+        legs = R.fill_under(legs, gone & inside & (legs[..., 3] == 0) & ~zone)
+        bob = min(D.H - h, D.H - 1 - blade_low)              # Codex's frame height = the head's; the blade above ground
+        bobs.append(bob)
+        U = (0, bob)
+        top = R.compose(rig, [(F.far_fore, dict(dx=U[0], dy=U[1])), (F.upper, dict(dx=U[0], dy=U[1])),
+                              (F.staff_exact, dict(dx=U[0], dy=U[1])), (F.far_hand, dict(dx=U[0], dy=U[1])),
+                              (F.near, dict(dx=U[0], dy=U[1]))])
+        m = top[..., 3] > 0
+        frame = legs.copy()
+        frame[m] = top[m]
+        # what was taken out under the belt and is now walled in (the shaft's band across the loincloth), any size
+        fop = frame[..., 3] > 0
+        walled = ndimage.binary_fill_holes(fop) & ~fop & gone & (dy_ > bb)
+        if walled.any():
+            frame = R.fill_under(frame, walled)
+            left = walled & (frame[..., 3] == 0)
+            if left.any():
+                src = (frame[..., 3] > 0) & (frame[..., :3].astype(int).sum(-1) >= 70)
+                _, (iy, ix) = ndimage.distance_transform_edt(~src, return_indices=True)
+                frame[left] = frame[iy[left], ix[left]]
+        out.append(frame)
+    print(f"run {form}: the design's upper body on Codex's legs, bob {bobs}")
     return [drop_crumbs(c) for c in out]
 
 
