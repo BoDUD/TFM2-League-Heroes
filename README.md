@@ -5249,7 +5249,7 @@ python addons/league_nasus/make_override.py          # 附加包的副本（主�
 | 数值 | 攻击 76（+6）、法术强度 40（+20）、生命 900（+95）、护甲 18（+7）、魔抗 22（+4）、移速 880（+9）、射程 55000 |
 | 平衡 | 中单对五个基础中单（pyromancer / ice_mage / lightning_mage / wind_mage / white_mage），三套阵容、两边各打、8 个种子，10 分钟经典引擎模拟：草案（Q 70 + 50%、E 55 + 55%、R 25 + 10%，生命 880）−0.40 / −0.67；伤害 +25% +0.70；+40% 且 Q 7 秒一次 +1.61 / +2.03（太强）；折中（Q 95 + 65%、穿过 55 + 32%、E 75 + 65%、R 32 + 13%、生命 900）Q 7 秒一次 +1.93，7.5 秒一次 +1.45（同批辛德拉 +1.22）；这些都带着第一版冰墙把人困在墙里 5 秒，改成拖拽区后 Q 7.5 秒一次只剩 +1.08 / +0.81（种子 9–16 / 17–24），7 秒一次 +1.70 / +0.88，平均 +1.29（定稿，英雄联盟满级也是 7 秒） |
 | 精灵图（高清帧 PPU 1.2） | Codex 第 0 步画了凤凰（A）和冰蛋（B）两张原画（[`tools/art/pack_anivia_picture.py`](tools/art/pack_anivia_picture.py)），[`tools/art/review_anivia_size.py`](tools/art/review_anivia_size.py) 和中单们按游戏大小并排，用户：「A 高 44，冰蛋是她身高的一半，头保持原样」。第 1 步 Codex 在游戏格子上重画（[`tools/art/pack_anivia_model.py`](tools/art/pack_anivia_model.py)），[`tools/art/design_anivia_cut.py`](tools/art/design_anivia_cut.py) 读回、整行整列删到游戏大小（脸的行列保留），取 A-2 和 B-1。动作不找 Codex（用户：「动作帧的话你参考塔姆怎么做的 做到完美后喊我review 你也要自己review」）：[`tools/art/rig_anivia.py`](tools/art/rig_anivia.py) 照英雄联盟的动作在定稿上摆——近侧、远侧的翅膀各是一整块，绕翅根整块镜像、转动（扬起、压下），身体上下起伏，爪子跟着身体；冰蛋从定稿 B 切出蛋壳上下两半，孵化时上半掀开。第一版用户：「模型有点大 翅膀有点变形」（翅膀做过切变摆动），改成高 38、翅膀只做整块的移动和镜像，用户：「高 38、翅膀这样可以」。动作：待机、走路（扇翅）、普攻、Q、E、R、挨打、阵亡，附加包的变蛋、蛋、蛋的待机 / 挨打、孵化 |
-| 特效 | 第 3 步 15 张特效（[`tools/art/pack_anivia_fx.py`](tools/art/pack_anivia_fx.py)，颜色照英雄联盟：冰蓝、雪白、深蓝三种色阶），Codex 画并读回成游戏大小（`assets/source/anivia/codex_fx`）。三张飞行的画面（冰弹、冰球、冰锥）朝右画、上下对称，游戏按飞行方向转；其余全部左右对称（游戏不镜像特效图）。[`tools/art/import_anivia_fx.py`](tools/art/import_anivia_fx.py)：打中的在身上，眩晕的冰壳在脚下撑满 1.1 秒，冰冻的雪花在头顶，冰墙的中间行在炸点的地面上（3–6 帧循环撑满 5 秒），冰川风暴在落点地上（长大 1.5 秒，成形后 3–6 帧循环），变蛋、孵化盖在她身上。写成 `league_anivia_fx` 和 `league_anivia_big` |
+| 特效 | 第 3 步 15 张特效（[`tools/art/pack_anivia_fx.py`](tools/art/pack_anivia_fx.py)，颜色照英雄联盟：冰蓝、雪白、深蓝三种色阶），Codex 画并读回成游戏大小（`assets/source/anivia/codex_fx`）。三张飞行的画面（冰弹、冰球、冰锥）朝右画、上下对称，游戏按飞行方向转；其余全部左右对称（游戏不镜像特效图）。[`tools/art/import_anivia_fx.py`](tools/art/import_anivia_fx.py)：打中的在身上，眩晕的冰壳在脚下撑满 1.1 秒，冰冻的雪花在头顶，冰墙的中间行在炸点的地面上（3–6 帧循环撑满 5 秒），冰川风暴在落点地上（长大 1.5 秒，成形后 3–6 帧循环），变蛋、孵化盖在她身上。写成 `league_anivia_fx` 和 `league_anivia_big`。眩晕冰壳和 R 施法风雪两组 Codex 读回时被抠成几根线，由 [`tools/art/readback_anivia_fx.py`](tools/art/readback_anivia_fx.py) 从它的生图原稿按原比例重新读回。冰墙画在人物下面（被拖到墙边的英雄站在冰柱前），冰川风暴画在冰墙下面。用户：「特效通过」 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_anivia.py`](tools/lol/extract_anivia.py)，19 段）：普攻出手 / 打中、寒冰闪耀出手 / 穿过 / 炸开 / 打中、寒冰屏障、霜寒刺骨出手 / 打中、冰川风暴出手 / 风暴 / 打中、变蛋、孵化，配音是她的 Q / W / E / R 和涅槃台词（中文） |
 | 图标 | 官方技能图标（寒冰闪耀、霜寒刺骨、冰川风暴，另有寒冰屏障），从本地客户端取 |
 
@@ -5263,6 +5263,7 @@ python tools/art/design_anivia_cut.py                # Codex 第 1 步的造型�
 python tools/art/rig_anivia.py                       # 1 倍帧和 1.2 的原帧（翅膀整块摆，高 38）
 python tools/art/ppu_restyle.py --hero anivia        # 描边（不要加 --preview）
 python tools/art/ppu_hd.py --hero anivia             # hd_ / lo_ 帧
+python tools/art/readback_anivia_fx.py --raw <Codex 的 raw/>   # 眩晕冰壳、R 施法风雪从原稿重新读回
 python tools/art/import_anivia_fx.py                 # 特效
 python tools/art/preview_anivia.py                   # 预览、演示 GIF 和附加包的寒霜涅槃 GIF
 python addons/league_anivia/make_override.py         # 附加包的副本（主包的艾尼维亚改了就重跑）
