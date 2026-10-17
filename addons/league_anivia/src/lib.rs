@@ -5,8 +5,9 @@
 //!
 //! - **寒霜涅槃**：每 `egg_cd` tick 一次（阵亡不重置），受到致命伤害时不倒下（本包一直挂着「不死」`league_anivia_p_guard`，
 //!   生命停在 1 就触发），变成冰蛋 `egg_t` tick：生命回满当作蛋的生命，禁普攻、禁技能；主包数据看到 `league_anivia_egg_go`
-//!   播缩进蛋里的动作、挂双抗降低的 `league_anivia_egg_on`、每 30 tick 续一次蛋的动作。蛋被打碎就是她阵亡（击杀算打碎蛋的人）；
-//!   撑过 `egg_t` tick 就挂 `league_anivia_egg_hatch`，数据播孵化，她带着蛋剩下的生命继续打（英雄联盟一样）。
+//!   挂双抗降低、99% 减速的 `league_anivia_egg_on`、播冰爆（蛋的样子由 `view.rs` 的显示钩子画，数据不播施法动作：0.6.4 的 AI
+//!   会因为「正在施法」的她 panic）。蛋被打碎就是她阵亡（击杀算打碎蛋的人）；
+//!   撑过 `egg_t` tick 就挂 `league_anivia_egg_hatch`，数据播孵化的碎冰，她带着蛋剩下的生命继续打（英雄联盟一样）。
 //!   别人给的「不死」在身上时不触发。
 //! - **真冰墙**：数据在 Q 晕到英雄 2 tick 后立墙（她身上新出现 `league_anivia_w_cd`），墙心就是那一 tick 她新放出、不在她脚下的
 //!   区域的位置（投射物信息里没有名字，只有位置）。之后 `w_t` tick 里，每个单位（英雄、小兵、野怪，两边都算，她自己也算）的中心
@@ -32,7 +33,7 @@ pub const FORM: &str = "league_anivia_egg_on";
 
 const ID: &str = "league_anivia";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 /// 「不死」挂多久、多久续一次。
 pub const GUARD_T: usize = 30;

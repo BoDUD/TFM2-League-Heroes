@@ -1,6 +1,9 @@
-//! 冰蛋整身替换：寒霜涅槃的蛋里，艾尼维亚站着、挨打都画成冰蛋（图里的 `egg_idle` / `egg_hit`）。主包没有蛋（用户：「主包不做蛋，
-//! 寒霜涅槃只放在扩展包里」）；本包的数据副本用 `CasterAnimation` 播缩进蛋里、蛋待机（每 30 tick 续一次）和孵化，这里再把游戏
-//! 按名字自动播的 idle / hit 换掉，两次续播之间、挨打时也不会闪回鸟的样子。只在游戏 0.6.4（Windows）上生效，别的版本什么都不做。
+//! 冰蛋整身替换：寒霜涅槃的蛋全由这里画——buff 刚出现时播一遍缩进蛋里（图里的 `egg_in`），之后站着、跑（蛋挂着 99% 减速，
+//! AI 下令走也几乎不动）画成 `egg_idle`、挨打画成 `egg_hit`，buff 刚消失时播一遍孵化（`hatch`）。主包没有蛋（用户：「主包不做蛋，
+//! 寒霜涅槃只放在扩展包里」）。0.1.0 的数据副本用 `CasterAnimation` 播这些动作：游戏 0.6.4 把正在播的施法动作记成控制
+//! （`CcKindV1::Animation`），自带 AI 估算「正在施法」的敌方英雄时，5 级以下读到空的大招数据就 panic（2026-10-18 01:15–01:17
+//! 后台比赛 7 次，过日卡住）；0.1.1 起数据不播任何蛋的动作，只在显示世界里换名字（只是画面）。只在游戏 0.6.4（Windows）上生效，
+//! 别的版本什么都不做（蛋期间就是不动的鸟）。
 //!
 //! 照 league_nasus 的 view.rs（源自 league_swain / league_rell / league_jayce / league_nidalee / league_kayn_form）：显示世界每帧
 //! 调用显示处理表里的更新函数（rva 0x23312a0），函数指针在槽 rva 0x3c82db8（别的附加包也挂在这里，一个接一个调用）。名字是
@@ -37,20 +40,39 @@ const BUFF_SIZE: usize = 0x28;
 /// 艾尼维亚在画面实体里的名字。
 pub const NAME: &[u8] = b"league_anivia";
 
-/// 游戏按名字自动播、蛋有自己一套的动作：待机、挨打（蛋不走；阵亡时 buff 已经没了）。
-pub const FORM_TAGS: [&str; 2] = ["idle", "hit"];
-const PREFIX: &str = "egg_";
+/// 游戏按名字自动播的动作在蛋里换成什么：待机、跑（蛋几乎不动）都是 `egg_idle`，挨打 `egg_hit`（阵亡时 buff 已经没了，`dead` 照旧）。
+pub const EGG_LOOK: [(&str, &str); 3] = [("idle", "egg_idle"), ("run", "egg_idle"), ("hit", "egg_hit")];
+/// 变蛋、孵化的过渡和它们的长度（图里 `egg_in` 70 + 80 + 90 ms，`hatch` 60 + 70 + 85 + 85 ms）：buff 刚出现 / 刚消失时先播一遍。
+pub const EGG_IN: (&str, u64) = ("egg_in", 240);
+pub const HATCH: (&str, u64) = ("hatch", 300);
 /// BUFFS lines per game start.
 const DUMP_CAP: usize = 30;
 
-/// 正在播的动画名 + 是不是在蛋里 → 该播的名字（不用换就是 None）。孵化后把本包换上去的 `egg_idle` 等换回来。
-pub fn anim_for(cur: &str, foot: bool) -> Option<String> {
-    let base = cur.strip_prefix(PREFIX).filter(|b| FORM_TAGS.contains(b)).unwrap_or(cur);
-    if !FORM_TAGS.contains(&base) {
+/// 正在播的动画名 + 是不是在蛋里 + 这个样子开始了多久（毫秒；None = 一看到就是这样，不播过渡）→ 该播的名字（不用换就是 None）。
+/// 只换游戏按名字自动播的 idle / run / hit 和本包换上去的名字；施法、阵亡这些照旧。孵化后把本包的名字换回鸟的。
+pub fn anim_for(cur: &str, egg: bool, since_ms: Option<u64>) -> Option<String> {
+    let ours = |n: &str| n == EGG_IN.0 || n == HATCH.0 || EGG_LOOK.iter().any(|(_, e)| *e == n);
+    if !(ours(cur) || EGG_LOOK.iter().any(|(b, _)| *b == cur)) {
         return None;
     }
-    let want = if foot { format!("{PREFIX}{base}") } else { base.to_string() };
-    (want != cur).then_some(want)
+    let want = if egg {
+        if since_ms.is_some_and(|t| t < EGG_IN.1) {
+            EGG_IN.0
+        } else if cur == "hit" || cur == "egg_hit" {
+            "egg_hit"
+        } else {
+            "egg_idle"
+        }
+    } else if since_ms.is_some_and(|t| t < HATCH.1) {
+        HATCH.0
+    } else if cur == "egg_hit" {
+        "hit"
+    } else if ours(cur) {
+        "idle"
+    } else {
+        return None;
+    };
+    (want != cur).then(|| want.to_string())
 }
 
 struct Stats {
@@ -58,8 +80,8 @@ struct Stats {
     seen: u64,
     writes: u64,
     last: Option<std::time::Instant>,
-    /// 每个（显示世界, 实体号）上次记下的形态：变了才记一行 FORM。
-    looks: Vec<(usize, u64, bool)>,
+    /// 每个（显示世界, 实体号）上次记下的样子（是不是蛋）和它开始的时刻（None = 一看到就是这样）：变了才记一行 FORM。
+    looks: Vec<(usize, u64, bool, Option<std::time::Instant>)>,
     /// BUFFS lines written and when the last one was.
     dumped: usize,
     last_dump: Option<std::time::Instant>,
@@ -179,19 +201,25 @@ unsafe fn dress(world: usize) {
         }
         let Ok(cur) = std::str::from_utf8(std::slice::from_raw_parts(aptr as *const u8, alen)) else { continue };
         let key = q(elem) as u64;
-        let look = (world, key, foot);
-        if !st.looks.contains(&look) {
-            st.looks.retain(|l| !(l.0 == world && l.1 == key));
-            st.looks.push(look);
-            if st.looks.len() > 64 {
-                st.looks.remove(0);
+        let since = match st.looks.iter().position(|l| l.0 == world && l.1 == key) {
+            Some(i) if st.looks[i].2 == foot => st.looks[i].3,
+            known => {
+                // a change seen happen plays its transition; the first sight of her does not
+                let since = known.map(|_| now);
+                st.looks.retain(|l| !(l.0 == world && l.1 == key));
+                st.looks.push((world, key, foot, since));
+                if st.looks.len() > 64 {
+                    st.looks.remove(0);
+                }
+                if let Some(k) = super::counted("form_view") {
+                    wlog(format!("FORM display world {world:#x} Anivia #{key}: {} (playing {cur}) #{k}",
+                        if foot { "EGG - egg_in, then idle/run/hit drawn as egg_*" } else { "Anivia" }));
+                }
+                since
             }
-            if let Some(k) = super::counted("form_view") {
-                wlog(format!("FORM display world {world:#x} Anivia #{key}: {} (playing {cur}) #{k}",
-                    if foot { "EGG - idle/hit drawn as egg_*" } else { "Anivia" }));
-            }
-        }
-        let Some(want) = anim_for(cur, foot) else { continue };
+        };
+        let since_ms = since.map(|t| now.duration_since(t).as_millis() as u64);
+        let Some(want) = anim_for(cur, foot, since_ms) else { continue };
         let heap = GetProcessHeap();
         let fresh = HeapAlloc(heap, 0, want.len());
         if fresh.is_null() {
@@ -253,13 +281,30 @@ mod tests {
 
     #[test]
     fn the_playing_animation_follows_the_egg() {
-        assert_eq!(anim_for("idle", true).as_deref(), Some("egg_idle"));
-        assert_eq!(anim_for("hit", true).as_deref(), Some("egg_hit"));
-        assert_eq!(anim_for("run", true), None);
-        assert_eq!(anim_for("hatch", true), None);
-        assert_eq!(anim_for("dead", true), None);
-        assert_eq!(anim_for("egg_idle", false).as_deref(), Some("idle"));
-        assert_eq!(anim_for("egg_hit", false).as_deref(), Some("hit"));
-        assert_eq!(anim_for("idle", false), None);
+        // in the egg (seen from the start or past the curl-up): idle and run as the egg, hit as the egg hit
+        for t in [None, Some(240), Some(5000)] {
+            assert_eq!(anim_for("idle", true, t).as_deref(), Some("egg_idle"));
+            assert_eq!(anim_for("run", true, t).as_deref(), Some("egg_idle"));
+            assert_eq!(anim_for("hit", true, t).as_deref(), Some("egg_hit"));
+            assert_eq!(anim_for("egg_in", true, t).as_deref(), Some("egg_idle"));
+            assert_eq!(anim_for("egg_idle", true, t), None);
+        }
+        // the curl-up right after the buff appears, whatever she was playing of idle / run / hit
+        assert_eq!(anim_for("idle", true, Some(0)).as_deref(), Some("egg_in"));
+        assert_eq!(anim_for("hit", true, Some(100)).as_deref(), Some("egg_in"));
+        assert_eq!(anim_for("egg_in", true, Some(239)), None);
+        // casts and death untouched
+        assert_eq!(anim_for("ult", true, Some(0)), None);
+        assert_eq!(anim_for("dead", true, None), None);
+        assert_eq!(anim_for("dead", false, Some(0)), None);
+        // hatched: the hatching first, then the bird
+        assert_eq!(anim_for("egg_idle", false, Some(0)).as_deref(), Some("hatch"));
+        assert_eq!(anim_for("hatch", false, Some(299)), None);
+        assert_eq!(anim_for("hatch", false, Some(300)).as_deref(), Some("idle"));
+        assert_eq!(anim_for("egg_hit", false, Some(400)).as_deref(), Some("hit"));
+        assert_eq!(anim_for("egg_idle", false, None).as_deref(), Some("idle"));
+        assert_eq!(anim_for("attack", false, Some(0)), None);
+        assert_eq!(anim_for("idle", false, None), None);
+        assert_eq!(anim_for("run", false, Some(1000)), None);
     }
 }

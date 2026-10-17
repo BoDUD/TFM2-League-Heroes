@@ -41,7 +41,8 @@ Kit (the user's picks, 2026-10-17: 「全按推荐做：主包近似蛋、W 折�
           resistance -egg_def, for egg_t ticks; the egg broken is her death (the killer's); whole, she hatches with the
           egg's health. Once every egg_cd ticks, kept across deaths. The main pack's tooltip says it needs the add-on.
 The add-on copy (--native): the passive `league_anivia:rebirth` decides the egg (the copy shows it: `egg_go` /
-`egg_hatch` flags, a 2-tick watch), the wall (real terrain: the copy's wall has no slow ring, `w_slow` 0) and the
+`egg_hatch` flags, a 2-tick watch; the egg's look is the add-on's display hook, no cast animation), the wall (real
+terrain: the copy's wall has no slow ring, `w_slow` 0) and the
 per-target Iced mark (both packs lay `iced` on the champions Q and the formed storm strike, ice_t ticks; in the copy
 E's hit raises `e_now` on her for a tick and the add-on's on_attack doubles it on an `iced` target).
 """
@@ -88,7 +89,7 @@ P = {
     "r_r0": 12000, "r_r1": 18000, "r_r2": 24000, "r_r": 32000, "r_p": 30, "r_dmg": 32, "r_ratio": 13, "r_full": 3,
     "r_slow": 25, "r_slow2": 45, "r_ice": 60, "r_cnt": 45000,
     # Rebirth, the add-on's (League: 6 s egg, -40..-20 armour / mr, cd 240 s)
-    "egg_t": 360, "egg_def": 20, "egg_cd": 14400, "egg_in": 12, "egg_out": 18,
+    "egg_t": 360, "egg_def": 20, "egg_cd": 14400, "egg_in": 12, "egg_out": 18,    # (the previews' curl-up / hatching)
     "watch_p": 12,
     "vo_gap": 600,
     "native": 0,
@@ -326,19 +327,22 @@ def build(p):
     # health and nothing fires on a death; a danger rule (two enemy champions near, a long fight, her in crowd control)
     # egged her at 20-100% health in the simulation. The add-on's passive `league_anivia:rebirth` catches the lethal hit
     # (league_sion's undying guard), fills her health as the egg's and raises `egg_go`; the egg breaking is her death.
-    # The data shows it: egg_go -> `egg_on` (armour and magic resistance -egg_def, egg_t ticks) and the curl-up, the egg
-    # held by its loop every 30 ticks; `egg_hatch` (the add-on, egg_t ticks later with her alive) -> the hatch.
+    # The data shows it: egg_go -> `egg_on` (armour and magic resistance -egg_def, a 99% slow: the egg stays put, egg_t
+    # ticks) and the ice flash; `egg_hatch` (the add-on, egg_t ticks later with her alive) -> the hatching burst.
+    # No CasterAnimation: game 0.6.4 records a playing cast animation as crowd control (CcKindV1::Animation) and its AI,
+    # sizing up an enemy champion "casting" below level 5, reads a missing ult entry and panics - the first version's
+    # egg played egg_in, `egg` every 30 ticks and hatch (6 s "casting"): 7 panics in the background games of 2026-10-18
+    # 01:15-01:17 and the day stuck, her R never earlier than level 6. The add-on's display hook (src/view.rs) draws the
+    # curl-up (egg_in, egg_in ticks), the egg (egg_idle / egg_hit for idle, run and hit) and the hatching (hatch,
+    # egg_out ticks) - pictures only.
     egg_watch = NONE
     if native:
         t_ = p["egg_t"]
         start = sw("egg_go", combine(*rm("egg_go"), refresh("egg_on", t_, defence=-p["egg_def"],
-                                                            magic_resistance=-p["egg_def"]),
-                                     refresh("egg_hold", p["egg_in"]), anim("egg_in", p["egg_in"] + 2),
+                                                            magic_resistance=-p["egg_def"], move_speed_mult=-99),
                                      cview("p_egg_in"), sfx("p_egg")))
-        hold = sw("egg_on", sw("egg_hold", NONE, combine(flag("egg_hold", 30), anim("egg", 32))))
-        out = sw("egg_hatch", combine(*rm("egg_hatch", "egg_on", "egg_hold"), anim("hatch", p["egg_out"]),
-                                      cview("p_hatch"), sfx("p_hatch"), voice("vo_p", p)))
-        egg_watch = casted(1000000, 2, start, hold, out)
+        out = sw("egg_hatch", combine(*rm("egg_hatch", "egg_on"), cview("p_hatch"), sfx("p_hatch"), voice("vo_p", p)))
+        egg_watch = casted(1000000, 2, start, out)
 
     # ------------------------------------------------------------------ the watch (R's moment)
     tick = p["watch_p"]

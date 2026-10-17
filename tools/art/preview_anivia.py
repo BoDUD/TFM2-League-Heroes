@@ -219,18 +219,18 @@ def rebirth(out, z=3):
     c.attack()
     lethal = blow(1600)
     c.wait(lethal - c.t)
-    # the add-on catches the lethal blow: the flash, she curls up (egg_in), the egg held by its loop (game 0.6.4's
-    # display hook shows egg_idle / egg_hit between the loops and on his blows)
+    # the add-on catches the lethal blow: the flash, she curls up (egg_in), the egg (egg_idle; egg_hit on his blows),
+    # the hatching - all drawn by the add-on's display hook (game 0.6.4), the data plays no cast animation
     c.on_me("p_egg_in", lethal)
     c.a("egg_in", tick(P["egg_in"] + 2))
     out_at = lethal + tick(P["egg_t"])
     at = lethal + 900
     while at + 250 + 200 < out_at - 300:
         h = blow(at)
-        c.a("egg", h - c.t, loop=True)
+        c.a("egg_idle", h - c.t, loop=True)
         c.a("egg_hit", 200)
         at += 1200
-    c.a("egg", out_at - c.t, loop=True)
+    c.a("egg_idle", out_at - c.t, loop=True)
     c.on_me("p_hatch", out_at)
     c.a("hatch", tick(P["egg_out"]))
     c.attack()

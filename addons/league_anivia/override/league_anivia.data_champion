@@ -987,37 +987,12 @@
                                       }
                                     },
                                     "defence": -20,
-                                    "magic_resistance": -20
+                                    "magic_resistance": -20,
+                                    "move_speed_mult": -99
                                   },
                                   "only_to_enemy": false
                                 }
                               ]
-                            },
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_anivia_egg_hold"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_anivia_egg_hold",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 12
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            {
-                              "type": "CasterAnimation",
-                              "name": "egg_in",
-                              "tick": 14
                             },
                             {
                               "type": "CasterViewEffect",
@@ -1028,44 +1003,6 @@
                               "name": "league_anivia_p_egg"
                             }
                           ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_anivia_egg_on",
-                        "effect_buff": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_anivia_egg_hold",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": []
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_anivia_egg_hold",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 30
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "CasterAnimation",
-                                "name": "egg",
-                                "tick": 32
-                              }
-                            ]
-                          }
                         },
                         "effect_none": {
                           "type": "Combine",
@@ -1085,15 +1022,6 @@
                             {
                               "type": "RemoveCasterBuff",
                               "name": "league_anivia_egg_on"
-                            },
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_anivia_egg_hold"
-                            },
-                            {
-                              "type": "CasterAnimation",
-                              "name": "hatch",
-                              "tick": 18
                             },
                             {
                               "type": "CasterViewEffect",
@@ -2859,37 +2787,12 @@
                                       }
                                     },
                                     "defence": -20,
-                                    "magic_resistance": -20
+                                    "magic_resistance": -20,
+                                    "move_speed_mult": -99
                                   },
                                   "only_to_enemy": false
                                 }
                               ]
-                            },
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_anivia_egg_hold"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_anivia_egg_hold",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 12
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            {
-                              "type": "CasterAnimation",
-                              "name": "egg_in",
-                              "tick": 14
                             },
                             {
                               "type": "CasterViewEffect",
@@ -2900,44 +2803,6 @@
                               "name": "league_anivia_p_egg"
                             }
                           ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_anivia_egg_on",
-                        "effect_buff": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_anivia_egg_hold",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": []
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_anivia_egg_hold",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 30
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "CasterAnimation",
-                                "name": "egg",
-                                "tick": 32
-                              }
-                            ]
-                          }
                         },
                         "effect_none": {
                           "type": "Combine",
@@ -2957,15 +2822,6 @@
                             {
                               "type": "RemoveCasterBuff",
                               "name": "league_anivia_egg_on"
-                            },
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_anivia_egg_hold"
-                            },
-                            {
-                              "type": "CasterAnimation",
-                              "name": "hatch",
-                              "tick": 18
                             },
                             {
                               "type": "CasterViewEffect",
