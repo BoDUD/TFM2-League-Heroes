@@ -448,9 +448,11 @@ def frames_all(F):
 # The user, 2026-10-18, on ae5a431a's walk: 「用之前这个在这个基础上略微修复到完美看不出严重的变形不就好了吗」.
 # Now (that walk, polished): the feet trade the lead within 2 columns (the near foot planted frames 1-4 sliding back,
 # lifted and carried forward 5-8; the far foot half a cycle later), the swinging leg lifted WHOLE a row (its knee
-# guard's top edge over the hem, nothing else changes), no body bob (ae5a431a's upper body settling a row onto the
-# skirt for the two frames after each landing squashed the skirt a row in four frames: 「还有上下摆动模型变形」), the
-# near arm a column forward (over the body, never back off it) while the near foot is back, the lance carried (CARRY).
+# guard's top edge over the hem, nothing else changes), the body bob the idle's dip - for the two frames after each
+# landing the whole figure above the shins a row lower, each leg one plain shin row shorter (DIP_ROWS), skirt and body
+# whole (ae5a431a set the upper body down onto the skirt, a row of it gone: 「还有上下摆动模型变形」; without any bob:
+# 「没上下摆动有点僵硬啊」), the near arm a column forward (over the body, never back off it) while the near foot is
+# back, the lance carried (CARRY).
 # The fix: the stride centred on the stance - ae5a431a
 # stepped only inward (near 0..+2, far -2..0), so with the shins 2 columns apart frames 1 and 8 laid the near shin
 # over 7 squares of the far one (the two legs one block); now near -1..+1 and far +1..-1: the shins at most touch
@@ -460,7 +462,7 @@ def frames_all(F):
 # now slides back to -1 a frame earlier (as in frames 8 and 1), its knee covering that gap again.
 WALK_STEP = dict(near=[(1, 0), (0, 0), (0, 0), (-1, 0), (-1, 0), (0, 1), (1, 1), (1, 0)],
                  far=[(-1, 0), (0, 1), (1, 1), (1, 0), (1, 0), (0, 0), (-1, 0), (-1, 0)],
-                 bob=[0] * 8,
+                 bob=[1, 1, 0, 0, 1, 1, 0, 0],
                  arm=[0, 0, 1, 1, 1, 0, 0, 0])
 # League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
 # the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
@@ -471,9 +473,11 @@ def walk(F, steps=None, carry=None):
     """The walk: a frame per WALK_STEP entry. -> canvases."""
     st = steps or WALK_STEP
     out = []
+    dip = {"far_leg": dipped(F.far_leg, DIP_ROWS["far_leg"]), "near_leg": dipped(F.near_leg, DIP_ROWS["near_leg"])}
     for (ndx, nup), (fdx, fup), bob, arm in zip(st["near"], st["far"], st["bob"], st["arm"]):
-        out.append(F.pose(crouch=bob, legs=((ndx, -nup), (fdx, -fup)), near_reach=(arm, 0), legs_front=True,
-                          **(carry or CARRY)))
+        legs = [(dip["far_leg"] if bob else F.far_leg, dict(dx=fdx, dy=-fup)),
+                (dip["near_leg"] if bob else F.near_leg, dict(dx=ndx, dy=-nup))]
+        out.append(F.pose(whole=(0, bob), leg_layers=legs, near_reach=(arm, 0), legs_front=True, **(carry or CARRY)))
     return out
 
 
