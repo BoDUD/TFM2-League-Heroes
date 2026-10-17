@@ -124,6 +124,19 @@ Read from the 0.6.2 exe (strings + disassembly) and measured on 2026-10-02 (leag
 - The league repo builds that copy with `tools/package_mod.py` (WAV -> VBR MP3 V0, identical frames merged and
   sheets packed tightly with frame sizes/pixels unchanged, whitespace-free JSON, each output checked against
   its source). Its `--install` merges one hero or all of them into `<game>/mods/league`.
+- The cost is per **file**, not per byte (re-measured 2026-10-17 on 0.6.4, league repo `docs/perf.md` section 7): a
+  cold start on a hard disk with the files scattered (as Steam writes them) paid ~16 ms a file, the first start
+  after an update ~3 ms a file of Defender scanning on top. A clip under `/sound/bgm/` is not opened at start and
+  still plays as a sound effect: keep the `.sound_info` in `sound/sfx/` and point the clip's override entry
+  (`asset/base/sound/sfx/<clip>`) at `asset/<mod_id>/sound/bgm/<clip>`. league packs its 2,088 clips that way
+  (5,282 -> 3,194 files opened at start; scattered cold start 88 -> 51 s).
+- Its price: the game opens a streamed clip **on the main thread** the first time it plays. In the OS file cache
+  that costs nothing; on a cold hard disk it waits for the seek (15-30 ms each, six new sounds at once gave a
+  frame over 100 ms). league's native `league.dll` reads the folder once after the title appears (disk order,
+  low I/O priority, *normal* memory priority - a background-mode thread's pages are the first Windows reclaims).
+  A native DLL is initialised only after `asset loading done!`, so it cannot speed up the start itself.
+- Each Sfx event needs its own `.sound_info`: the lookup takes the `SoundInfo` at that one path and never falls back
+  to playing a clip, so one file cannot hold several events.
 
 ## Local test loop
 
