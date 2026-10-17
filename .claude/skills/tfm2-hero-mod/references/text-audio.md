@@ -84,7 +84,12 @@ hero whose idle reaches higher than -28 sticks out, and base's answer for its ta
 (highest idle row), head 1 px under the canvas top and the feet hidden by the name band; every League
 hero whose idle reaches above -28 has it (league_masteryi -4 by his helmet - +5 by his sword tip, the
 only positive value, showed him at 1x in the default place -, league_kayle 0, league_nami -1 ...
-league_thresh -10). The collection grid (`new_game_component/custom_champion_slot`) ignores it: every
+league_thresh -10). The game's own math (0.6.4 exe, the grid card's draw, read 2026-10-17): the frame's
+**centre** goes to the canvas's bottom middle + 2.2 * banpick_center, drawn at 2.2x its width and height - so
+"highest idle row" is measured over the frame centre (the pivot), never over the soles (league_nasus first got
+-2 from his headdress's 37 px over the soles and sat 9 px lower than everyone; -6 by his ear tips at -33.3).
+HD heroes (PPU > 1) draw their `lo_` frames / 1.5 there (league.dll ui_table), the 1x size: take the highest
+opaque row of the highest-reaching lo_idle frame, (row - h / 2) / 1.5 (league_renata -38.0 -> -1). The collection grid (`new_game_component/custom_champion_slot`) ignores it: every
 hero's feet sit on the image bottom there (executioner's -10 too), so a hover shows as sitting higher.
 The tier-list card (`champion_info_component/champion_slot`, 85x93 image) cut league_nami's crown as
 well; how it places heroes is not measured yet. Measure it, don't guess: `python scripts/tfm2_ase.py face
