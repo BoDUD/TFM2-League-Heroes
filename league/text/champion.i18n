@@ -819,6 +819,13 @@
         "skill": "抛出电荷，落地后爆炸，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理伤害<>并减速45%。命中后开启<#ff9028ff>净除<><#ffb900ff>4秒<>：普攻换成机枪连射，每发<#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>。",
         "skill2": "获得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>护盾，冲向敌方英雄，撞上后造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、<#ef5350ff>晕眩1秒<>并把他甩到身后，开启<#ff9028ff>净除<>。",
         "ult": "缠斗中连续打中英雄4下时，朝他发射钻头钉住第一个敌方英雄，造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>并减速，<#ffb900ff>4秒<>后拽回来处决：造成其25%最大生命的<#ffffffff>真实伤害<>；处决成功时周围敌人<#ef5350ff>恐惧1.5秒<>。"
+      },
+      "league_swain": {
+        "name": "斯维因",
+        "attack": "恶魔手射出乌鸦弹。<#ff9028ff>狂食鸦群<>：帝国视界、永不复行抓到英雄或他打过的英雄阵亡时得到魂屑，回复<#7ee787ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>30%<><#7ee787ff>生命<>，最大生命+15（死后清空）。<#ff9028ff>帝国视界<>：每<#ffb900ff>16秒<>在远处交战的敌方英雄脚下睁眼，<#ffb900ff>1.5秒<>后炸开造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速<>。",
+        "skill": "恶魔手射出五道扇形散开的闪电，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>；近处的敌人被更多闪电打中，另受<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>。",
+        "skill2": "恶魔之手飞出再飞回，回程打中的敌人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并<#ef5350ff>禁锢1.5秒<>；被禁锢的英雄随后被拉近，留下一片魂屑。",
+        "ult": "化身恶魔，吸取周围敌人的生命：每<#ffb900ff>0.5秒<>造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>，每名英雄回复<#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<>；吸到英雄时形态延续。<#ffb900ff>2秒<>后放出<#ff9028ff>恶魔耀光<>：<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速<>。2名敌方英雄在身边或有队友围攻被控者时才放。"
       }
     },
     "skill_name": {
@@ -1406,6 +1413,11 @@
         "skill1": "腐蚀电荷",
         "skill2": "鄙弃",
         "ult": "超越死亡的恐惧"
+      },
+      "league_swain": {
+        "skill1": "解脱之触",
+        "skill2": "永不复行",
+        "ult": "恶魔升华"
       }
     }
   },
@@ -2229,6 +2241,13 @@
         "skill": "拋出榴彈，落地後爆炸，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理傷害<>並緩速45%。命中後開啟<#ff9028ff>殺戮射擊<><#ffb900ff>4秒<>：普攻換成機槍連射，每發<#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>。",
         "skill2": "獲得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>護盾，衝向敵方英雄，撞上後造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、<#ef5350ff>暈眩1秒<>並把他甩到身後，開啟<#ff9028ff>殺戮射擊<>。",
         "ult": "纏鬥中連續打中英雄4下時，朝他發射鑽頭釘住第一個敵方英雄，造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>並緩速，<#ffb900ff>4秒<>後拽回來處決：造成其25%最大生命的<#ffffffff>真實傷害<>；處決成功時周圍敵人<#ef5350ff>恐懼1.5秒<>。"
+      },
+      "league_swain": {
+        "name": "斯溫",
+        "attack": "惡魔之手射出渡鴉彈。<#ff9028ff>群鴉盛宴<>：真知魔眼、影之爪抓到英雄或他打過的英雄陣亡時得到靈魂碎片，回復<#7ee787ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>30%<><#7ee787ff>生命<>，最大生命+15（死後清空）。<#ff9028ff>真知魔眼<>：每<#ffb900ff>16秒<>在遠處交戰的敵方英雄腳下睜眼，<#ffb900ff>1.5秒<>後炸開造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速<>。",
+        "skill": "惡魔之手射出五道扇形散開的閃電，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>；近處的敵人被更多閃電擊中，另受<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>。",
+        "skill2": "惡魔之手飛出再飛回，回程擊中的敵人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並<#ef5350ff>定身1.5秒<>；被定身的英雄隨後被拉近，留下一片靈魂碎片。",
+        "ult": "化身惡魔，汲取周圍敵人的生命：每<#ffb900ff>0.5秒<>造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>，每名英雄回復<#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<>；汲取到英雄時型態延續。<#ffb900ff>2秒<>後放出<#ff9028ff>魔燄<>：<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速<>。2名敵方英雄在身邊或有隊友圍攻被控者時才施放。"
       }
     },
     "skill_name": {
@@ -2816,6 +2835,11 @@
         "skill1": "酸性榴彈",
         "skill2": "恐怖襲擊",
         "ult": "索命虐殺"
+      },
+      "league_swain": {
+        "skill1": "靈魂拷問",
+        "skill2": "影之爪",
+        "ult": "魔君降生"
       }
     }
   },
@@ -3639,6 +3663,13 @@
         "skill": "Fires a charge that explodes where it lands, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>physical damage<> and slowing 45%. A hit starts <#ff9028ff>Purge<> for <#ffb900ff>4s<>: his attacks become machine-gun shots of <#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>.",
         "skill2": "Gains a <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> shield and charges an enemy champion: on contact <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, a <#ef5350ff>1s stun<>, and he hurls it behind him, starting <#ff9028ff>Purge<>.",
         "ult": "On his 4th hit in a row on champions, fires a drill that impales the first enemy champion for <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> and a slow; after <#ffb900ff>4s<> he reels it in and executes it for 25% of its max health as <#ffffffff>true damage<>. An execution makes nearby enemies <#ef5350ff>flee for 1.5s<>."
+      },
+      "league_swain": {
+        "name": "Swain",
+        "attack": "A raven bolt from his demon hand. <#ff9028ff>Ravenous Flock<>: Soul Fragments from Vision of Empire, Nevermove's pull and the deaths of champions he hurt heal <#7ee787ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>30%<>, +15 max health (lost on death). <#ff9028ff>Vision of Empire<>: every <#ffb900ff>16s<> an eye opens under a far fighting enemy champion, bursting <#ffb900ff>1.5s<> later for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and a <#ef5350ff>slow<>.",
+        "skill": "Five bolts of demonic lightning fan out from his hand for <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>; a close enemy is struck by more of them for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> more.",
+        "skill2": "A demon hand flies out and back; on its way back it deals <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> and <#ef5350ff>roots 1.5s<>. Rooted champions are then pulled closer and drop a Soul Fragment.",
+        "ult": "He becomes the demon and drains nearby enemies: every <#ffb900ff>0.5s<> <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>magic damage<>, healing <#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<> per champion; draining champions keeps the form going. After <#ffb900ff>2s<>, <#ff9028ff>Demonflare<>: <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and a <#ef5350ff>slow<>. Cast with 2 enemy champions close, or an ally on a controlled one."
       }
     },
     "skill_name": {
@@ -4226,6 +4257,11 @@
         "skill1": "Corrosive Charge",
         "skill2": "Disdain",
         "ult": "Fear Beyond Death"
+      },
+      "league_swain": {
+        "skill1": "Death's Hand",
+        "skill2": "Nevermove",
+        "ult": "Demonic Ascension"
       }
     }
   },
@@ -5049,6 +5085,13 @@
         "skill": "폭약을 던져 떨어진 곳에서 폭발, <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>의 <#ff9028ff>물리 피해<>와 45% 둔화. 적중 시 <#ff9028ff>심판의 원<> <#ffb900ff>4초<>: 기본 공격이 기관총 연사로 바뀌어 발당 <#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>.",
         "skill2": "<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 보호막을 얻고 적 챔피언에게 돌진, 충돌 시 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>, <#ef5350ff>1초 기절<> 후 뒤로 던지며 <#ff9028ff>심판의 원<> 시작.",
         "ult": "챔피언을 연속 4회 맞히면 드릴을 쏘아 첫 적 챔피언을 꿰뚫어 <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 <#ff9028ff>물리 피해<>와 둔화, <#ffb900ff>4초<> 후 끌어당겨 처형: 최대 체력의 25% <#ffffffff>고정 피해<>. 처형 성공 시 주변 적 <#ef5350ff>1.5초 공포<>."
+      },
+      "league_swain": {
+        "name": "스웨인",
+        "attack": "악마의 손에서 까마귀 탄 발사. <#ff9028ff>굶주린 새떼<>: 제국의 눈, 속박명령, 그가 공격한 챔피언의 죽음으로 영혼 조각 획득: <#7ee787ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>30%<> 회복, 최대 체력 +15(사망 시 초기화). <#ff9028ff>제국의 눈<>: <#ffb900ff>16초<>마다 싸우는 먼 적 챔피언 발밑에 눈이 열려 <#ffb900ff>1.5초<> 후 폭발, <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>둔화<>.",
+        "skill": "악마의 손에서 부채꼴로 퍼지는 번개 다섯 줄기가 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>; 가까운 적은 더 많은 번개에 맞아 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>를 추가로 받습니다.",
+        "skill2": "악마의 손이 날아갔다 돌아오며 돌아올 때 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>1.5초 속박<>. 속박된 챔피언은 끌려오고 영혼 조각을 떨어뜨립니다.",
+        "ult": "악마로 변신해 주변 적의 생명력을 흡수: <#ffb900ff>0.5초<>마다 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>의 <#a974ffff>마법 피해<>, 챔피언마다 <#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<> 회복; 챔피언을 흡수하면 형태 유지. <#ffb900ff>2초<> 후 <#ff9028ff>악의 불길<>: <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>둔화<>. 적 챔피언 2명이 가까이 있거나 아군이 군중 제어된 적을 칠 때 사용."
       }
     },
     "skill_name": {
@@ -5636,6 +5679,11 @@
         "skill1": "부식성 폭약",
         "skill2": "경멸",
         "ult": "불사의 공포"
+      },
+      "league_swain": {
+        "skill1": "죽음의 손길",
+        "skill2": "속박명령",
+        "ult": "악의 승천"
       }
     }
   },
@@ -6459,6 +6507,13 @@
         "skill": "炸裂弾を放ち、着弾地点で爆発して<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の<#ff9028ff>物理ダメージ<>と45%スロウ。命中すると<#ff9028ff>パージ<>が<#ffb900ff>4秒<>発動：通常攻撃が機関銃の連射になり1発<#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>。",
         "skill2": "<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>のシールドを得て敵チャンピオンへ突進、衝突で<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>1秒スタン<>、背後へ投げ飛ばし<#ff9028ff>パージ<>発動。",
         "ult": "チャンピオンに4回連続で命中させるとドリルを撃ち最初の敵チャンピオンを貫き<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>とスロウ、<#ffb900ff>4秒<>後に引き寄せて処刑：最大体力の25%の<#ffffffff>確定ダメージ<>。処刑成功で周囲の敵が<#ef5350ff>1.5秒恐怖<>。"
+      },
+      "league_swain": {
+        "name": "スウェイン",
+        "attack": "悪魔の手から魔鴉弾。<#ff9028ff>恐襲の魔鴉<>：帝国の眼、束縛の爪、攻撃したチャンピオンの死で「魂のかけら」を得て<#7ee787ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>30%<>回復、最大体力+15（死亡で消える）。<#ff9028ff>帝国の眼<>：<#ffb900ff>16秒<>毎に戦う遠くの敵の足元に眼が開き、<#ffb900ff>1.5秒<>後に爆発し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>スロウ<>。",
+        "skill": "悪魔の手から扇状に広がる稲妻を5本放ち<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>。近い敵は多くの稲妻を受け、さらに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill2": "悪魔の手が飛んで戻り、戻る途中で当たった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.5秒スネア<>。スネアされたチャンピオンは引き寄せられ「魂のかけら」を落とす。",
+        "ult": "悪魔に変身し周囲の敵から吸収：<#ffb900ff>0.5秒<>毎に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>、チャンピオン毎に<#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<>回復。チャンピオンを吸収する間は持続。<#ffb900ff>2秒<>後「<#ff9028ff>悪魔の紅炎<>」：<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>スロウ<>。敵2体が近いか、味方がCC中の敵を攻撃中に使う。"
       }
     },
     "skill_name": {
@@ -7046,6 +7101,11 @@
         "skill1": "コラプトシェル",
         "skill2": "ディスデイン",
         "ult": "デスグラインダー"
+      },
+      "league_swain": {
+        "skill1": "死の手",
+        "skill2": "束縛の爪",
+        "ult": "魔帝戴冠"
       }
     }
   }

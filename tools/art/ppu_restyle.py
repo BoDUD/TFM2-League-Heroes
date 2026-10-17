@@ -230,8 +230,8 @@ RESTYLE = {
     "reksai": dict(ppu=1.2, edge=1, face_to=(15, -20)),
     # league_swain (#118): posed by tools/art/rig_swain.py from Codex's step-1 take A-1 cut to 60 rows (the user's 40 game
     # rows at 1.5), the demon form on the same body; no proportion or density change here; the outer outline grown a
-    # square like the others; the face point between his eyes (design row 8.5: 35 game px over the soles)
-    "swain": dict(ppu=1.5, edge=1, face_to=(1, -35)),
+    # square like the others; the face point at his crown (tfm2_ase.py face: 39 px over the soles)
+    "swain": dict(ppu=1.5, edge=1, face_to=(-1, -39)),
     # the 2026-10-16 redo from Codex's pictures, posed by tools/art/rig_<hero>_hd.py (tools/art/ppu_rig.py) at PPU 1.5 -
     # Nami after League's own clips (tools/lol/league_joints.py): only the outer outline grown a square, the face point
     # at the new head

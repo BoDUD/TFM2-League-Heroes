@@ -272,8 +272,7 @@ def build(p):
     eye = [view("w_eye"), sfx("w_open"),
            zone("w_burst", p["w_r"], p["w_delay"] + 1, p["w_delay"], "EnemyWithoutTower", eye_hit),
            zone("w_soul", p["w_r"], p["w_delay"] + 1, p["w_delay"], "EnemyChampion", [frag(), track()])]
-    vision = combine(flag("w_cd", p["w_cd"]), voice("vo_w", p), sfx("w_cast"), lob("w_lob", p["w_travel"], eye,
-                                                                                    "EnemyChampion"))
+    vision = combine(flag("w_cd", p["w_cd"]), voice("vo_w", p), lob("w_lob", p["w_travel"], eye, "EnemyChampion"))
 
     # ------------------------------------------------------------------ the watch (R's arming, W)
     tick = p["watch_p"]
@@ -287,7 +286,9 @@ def build(p):
     life = sw("init", NONE, combine(flag("init", None), watch))
 
     # ------------------------------------------------------------------ attack: the raven bolt
-    bolt = combine(homing("a_bolt", p["bolt_speed"], p["bolt_y"], "Enemy", [attack(0, 100), view("a_hit"),
+    # the click on the action's start, the raven bolt's whoosh with the bolt (memory shot-sounds-and-flashes)
+    bolt = combine(sfx("a_launch"),
+                   homing("a_bolt", p["bolt_speed"], p["bolt_y"], "Enemy", [attack(0, 100), view("a_hit"),
                                                                           tsfx("a_hit")]),
                    homing("a_twin", p["bolt_speed"], p["bolt_y"], "EnemyChampion", [track()]))
     a_eff = combine(life, sw("r_on", anim("r_attack", p["atk_dur"])), sfx("a_cast"),
@@ -298,7 +299,7 @@ def build(p):
     # ------------------------------------------------------------------ skill: Q Death's Hand
     q_hit = [ap(p["q_dmg"], p["q_ap"]), view("q_hit"), tsfx("q_hit")]
     q_more = [ap(p["q_dmg2"], p["q_ap2"])]
-    fan = combine(line("q_bolts", p["q_speed"], p["q_len"], 1, -2000, "Enemy", True, []),
+    fan = combine(sfx("q_launch"), line("q_bolts", p["q_speed"], p["q_len"], 1, -2000, "Enemy", True, []),
                   cone(p["q_len"], p["q_dot"], "EnemyWithoutTower", q_hit),
                   cone(p["q_near"], p["q_dot"], "EnemyWithoutTower", q_more),
                   cone(p["q_len"], p["q_dot"], "EnemyChampion", [track()]))
@@ -310,12 +311,12 @@ def build(p):
     pull = {"type": "Grab", "speed": p["e_pull_v"], "tick": p["e_pull_d"] // p["e_pull_v"]}
     e_hit = [ap(p["e_dmg"], p["e_ap"]), {"type": "Bind", "duration": p["e_root"]}, view("e_hit"), tsfx("e_hit")]
     e_champ = [track(), delayed(p["e_pull_at"], pull, view("e_pull"), tsfx("e_pull"), frag())]
-    hand_back = [back("e_back", p["e_back"], p["e_len"] + 20000, p["e_rad"], "EnemyWithoutTower", e_hit),
+    hand_back = [sfx("e_back"), back("e_back", p["e_back"], p["e_len"] + 20000, p["e_rad"], "EnemyWithoutTower", e_hit),
                  back("e_twin", p["e_back"], p["e_len"] + 20000, p["e_rad"], "EnemyChampion", e_champ)]
     hand = line("e_out", p["e_out"], p["e_len"], 1, -2000, "Enemy", True, [], end=hand_back)
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(life, sw("r_on", anim("r_skill2", p["e_dur"]), anim("skill2", p["e_dur"])), sfx("e"),
-                            voice("vo_e", p), delayed(p["e_rel"] - 1, hand)))
+                            voice("vo_e", p), delayed(p["e_rel"] - 1, sfx("e_launch"), hand)))
 
     # ------------------------------------------------------------------ ult: R Demonic Ascension
     drain_m = [ap(p["r_dmg"], p["r_ap"]), heal(p["r_heal_m"], 0), view("r_drain")]
@@ -337,7 +338,7 @@ def build(p):
     # the crouch and the leap (the ult strip's frames 1-3) are still Swain; the demon - the wings' aura, the drain -
     # comes on r_wings_at ticks in, as frame 4 shows him with the demon arm out
     rise = combine(anim("ult", p["r_dur"]), cview("r_cast"), sfx("r"), voice("vo_r", p),
-                   delayed(p["r_wings_at"] - 1,
+                   delayed(p["r_wings_at"] - 1, sfx("r_rise"),
                            *rm("r_fcd", "r_hold", "r_early"), refresh("r_on", p["r_t0"]),
                            flag("r_early", p["r_flare_at"]), flag("r_hold", p["r_t0"] - p["r_keep"]),
                            on_me(casted(p["r_max"], p["r_pulse"], pulse))))
@@ -356,8 +357,11 @@ def build(p):
                {"type": "Animated", "name": n("e_out"), "anim": FX, "tag": "e_out", "repeat": True, "z": 2},
                {"type": "Animated", "name": n("e_back"), "anim": FX, "tag": "e_back", "repeat": True, "z": 2}]
     views_e = [E("a_hit"), E("q_hit"), E("e_hit"), E("e_pull"), E("w_eye", BIG, -1, False), E("w_hit"),
-               E("p_frag", FX, 3), E("r_cast", BIG, 2), E("r_drain"), E("r_flare", BIG, 2), E("r_fl_hit")]
-    views_b = [{"type": "Animated", "name": n("r_on"), "anim": BIG, "tag": "r_wings", "repeat": True, "z": -1}]
+               E("p_frag", FX, 3), E("r_cast", BIG, 2, False), E("r_drain"), E("r_flare", BIG, -1, False), E("r_fl_hit")]
+    # the wings: a tag of his own sheet (tools/art/rig_swain.py r_wings), so league.dll draws them dense like him and they
+    # stand on his standing point like his frames (league_yone's e_body plays his sheet the same way)
+    views_b = [{"type": "Animated", "name": n("r_on"), "anim": f"asset/league/champions/{ID}", "tag": "r_wings",
+                "repeat": True, "z": -1}]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_swain:flock",

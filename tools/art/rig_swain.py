@@ -357,6 +357,10 @@ def frames(ps):
             out[t["flare"]] = [p(arm=90, reach=(-3, 0)), p(arm=180), p(arm=180), p(arm=90, reach=(-3, 0))]
         out[t["hit"]] = [R.flash(p(arm=rest, whole=(-2, 0))), p(arm=rest, whole=(-1, 0))]
         if form == "B":
+            # the wings: R's aura (view_buffs on league_swain_r_on plays this tag of his own sheet - league.dll draws it
+            # dense like him, and its frames sit on his standing point like his own), flapping a row
+            out["r_wings"] = [R.compose(ps.rig, [(ps.aura, dict(dy=d))]) for d in [0, 0, -1, -1, -1, -1, 0, 0]]
+            role["r_wings"] = "idle"
             continue
         # the death (Swain_Death): he staggers, sinks to his knees with the demon claw raised, falls back
         knelt = p(arm=180, up=(0, 7), whole=(-2, 0))
