@@ -27,9 +27,13 @@ TFM2 has three active slots: Death's Hand is `skill`, Nevermove `skill2`, Demoni
           (`EnemyChampionRecentlyAttacked`) within w_range and opens the eye at its feet (a hidden lob lands there):
           w_delay ticks later the eye bursts (w_r): w_dmg + w_ap% AP, w_slow% slow for w_slow_t ticks; each champion
           hit gives a fragment. The eye does not follow - walking out dodges it.
-  ult     R Demonic Ascension (恶魔升华), `Targeting` on `EnemyChampion` (r_range), armed by the watch (`r_ok`, the
-          user's rule 「看好时机」): two enemy champions within r_r of him, or an enemy champion in CC within r_range
-          while an allied champion stands within r_ally. He rises as the demon (`ult`, `r_on` for r_t0 ticks); every
+  ult     R Demonic Ascension (恶魔升华): the slot (a 3-tick `Targeting` on `EnemyChampion` within r_range) only arms
+          the ult for r_arm ticks (league_orianna's R); the watch raises the demon once the moment is right (the user:
+          「是乌鸦看情况开大吧」): two enemy champions within r_r of him, or an enemy champion in CC within r_range while
+          an allied champion stands within r_ally (`r_ok`). Unused, the window ends with the cooldown capped at 60
+          ticks (`r_retry`, league_tahmkench's way), so a press at the wrong moment never wastes the ult (the classic
+          AI pressed the old 30-tick slot whenever a champion stood in range: half its casts were empty, 2026-10-17).
+          He rises as the demon (`ult`, a CasterAnimation, `r_on` for r_t0 ticks); every
           r_pulse ticks while `r_on` lasts he drains every enemy within r_r: r_dmg + r_ap% AP, healing r_heal +
           r_heal_ap% AP per champion and r_heal_m per minion or monster; each pulse that reaches a champion keeps the
           form r_keep ticks longer (League: the form lasts while he drains champions), r_max at most. From r_flare_at
@@ -37,11 +41,13 @@ TFM2 has three active slots: Death's Hand is `skill`, Nevermove `skill2`, Demoni
           (r_flare_cd): r_fl + r_fl_ap% AP round him, r_fl_slow% slow for r_fl_slow_t ticks. While `r_on` lasts his
           attack, Q and E play the demon's strips (r_attack, r_skill, r_skill2; idle / run / hit can't change in data -
           the add-on swaps the whole body) and the wings aura (`r_on`'s view) follows him.
-  watch   A life-long `AddCasted` started by his first action of each life (`init`; buffs die with him), every
+  watch   A life-long `AddCasted` started by his first attack or R press of each life (`init`; buffs die with him;
+          not from Q and E, whose trees the engine clones every tick: they stay small, memory skill-tree-size-cpu), every
           watch_p ticks: counts enemy champions within r_r (c_e1, c_e2), allied champions within r_ally (c_a1, c_a2 =
-          one besides him), an enemy champion in CC within r_range (c_cc); sets r_ok; casts W when it is ready.
-The add-on copy (--native): the passive `league_swain:flock` keeps the fragments after death, swaps the whole body to
-the demon while `r_on` lasts and arms R on his real health too; the data keeps every hit, picture and sound.
+          one besides him), an enemy champion in CC within r_range (c_cc); sets r_ok; raises the demon when the
+          window is open (`r_arm`) and r_ok holds; casts W when it is ready.
+The add-on copy (--native): the passive `league_swain:flock` keeps the fragments after death and swaps the whole body
+to the demon while `r_on` lasts; R's moment stays the data's; the data keeps every hit, picture and sound.
 """
 import argparse
 import json
@@ -72,7 +78,7 @@ P = {
     "p_hp": 15, "p_heal": 80, "p_heal_ap": 30, "p_win": 180,
     # skill: Q Death's Hand (League: 725 range, 32 deg, 5 bolts, 60-180 + 45% AP, +25% a further bolt up to 2x, cd 7-3)
     "q_cd": 240, "q_range": 55000, "q_dur": 24, "q_rel": 9, "q_len": 62000, "q_dot": 940, "q_near": 32000,
-    "q_dmg": 120, "q_ap": 80, "q_dmg2": 60, "q_ap2": 45, "q_speed": 9000,
+    "q_dmg": 120, "q_ap": 80, "q_dmg2": 60, "q_ap2": 45, "q_speed": 9000, "q_flash": 5,
     # skill2: E Nevermove (League: 850 range, out 1125-1800, back 2000-2800, 90-250 + 70% AP, root 1.5 s, recast pull
     # 290 + fragment, cd 12-10)
     "e_cd": 600, "e_range": 65000, "e_dur": 26, "e_rel": 9, "e_len": 70000, "e_out": 4000, "e_back": 5000,
@@ -83,7 +89,7 @@ P = {
     # ult: R Demonic Ascension (League: 650 radius, drain every 0.5 s 7.5-17.5 + 2% AP, heal 7.5-22.5 + 2.5% AP a
     # champion (10% vs minions), energy 50 lasting ~5 s alone, kept while draining champions; Demonflare after 2 s,
     # 8 s cd, 675 radius, 150-350 + 40% AP, 50% slow decaying 1.5 s; cd 120)
-    "r_cd": 3600, "r_range": 55000, "r_dur": 30, "r_wings_at": 11, "r_r": 60000, "r_ally": 45000, "r_t0": 240, "r_keep": 120,
+    "r_cd": 3600, "r_range": 55000, "r_arm": 360, "r_dur": 30, "r_wings_at": 11, "r_r": 60000, "r_ally": 45000, "r_t0": 240, "r_keep": 120,
     "r_max": 900, "r_pulse": 30, "r_dmg": 25, "r_ap": 8, "r_heal": 40, "r_heal_ap": 15, "r_heal_m": 2,
     "r_flare_at": 120, "r_flare_cd": 480, "r_fl": 170, "r_fl_ap": 70, "r_fl_slow": 50, "r_fl_slow_t": 90,
     "r_fl_dur": 16,
@@ -274,50 +280,6 @@ def build(p):
            zone("w_soul", p["w_r"], p["w_delay"] + 1, p["w_delay"], "EnemyChampion", [frag(), track()])]
     vision = combine(flag("w_cd", p["w_cd"]), voice("vo_w", p), lob("w_lob", p["w_travel"], eye, "EnemyChampion"))
 
-    # ------------------------------------------------------------------ the watch (R's arming, W)
-    tick = p["watch_p"]
-    count = combine(*rm("c_e1", "c_e2", "c_a1", "c_a2", "c_cc"),
-                    around(p["r_r"], "EnemyChampion", [sw("c_e1", flag("c_e2", 3), flag("c_e1", 3))]),
-                    around(p["r_ally"], "AllyChampion", [sw("c_a1", flag("c_a2", 3), flag("c_a1", 3))]),
-                    pick(p["r_range"], "EnemyChampionInCC", flag("c_cc", 3)))
-    arm = sw("c_e2", refresh("r_ok", tick + 2), sw("c_cc", sw("c_a2", refresh("r_ok", tick + 2))))
-    cast_w = sw("w_cd", NONE, pick(p["w_range"], "EnemyChampionRecentlyAttacked", vision))
-    watch = on_me(casted(1000000, tick, count, delayed(1, arm, cast_w)))
-    life = sw("init", NONE, combine(flag("init", None), watch))
-
-    # ------------------------------------------------------------------ attack: the raven bolt
-    # the click on the action's start, the raven bolt's whoosh with the bolt (memory shot-sounds-and-flashes)
-    bolt = combine(sfx("a_launch"),
-                   homing("a_bolt", p["bolt_speed"], p["bolt_y"], "Enemy", [attack(0, 100), view("a_hit"),
-                                                                          tsfx("a_hit")]),
-                   homing("a_twin", p["bolt_speed"], p["bolt_y"], "EnemyChampion", [track()]))
-    a_eff = combine(life, sw("r_on", anim("r_attack", p["atk_dur"])), sfx("a_cast"),
-                    delayed(p["a_rel"] - 1, bolt))
-    attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy", a_eff,
-                      atype="BaseAttack", cancel=True)
-
-    # ------------------------------------------------------------------ skill: Q Death's Hand
-    q_hit = [ap(p["q_dmg"], p["q_ap"]), view("q_hit"), tsfx("q_hit")]
-    q_more = [ap(p["q_dmg2"], p["q_ap2"])]
-    fan = combine(sfx("q_launch"), line("q_bolts", p["q_speed"], p["q_len"], 1, -2000, "Enemy", True, []),
-                  cone(p["q_len"], p["q_dot"], "EnemyWithoutTower", q_hit),
-                  cone(p["q_near"], p["q_dot"], "EnemyWithoutTower", q_more),
-                  cone(p["q_len"], p["q_dot"], "EnemyChampion", [track()]))
-    skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(life, sw("r_on", anim("r_skill", p["q_dur"]), anim("skill", p["q_dur"])), sfx("q"),
-                           voice("vo_q", p), delayed(p["q_rel"] - 1, fan)))
-
-    # ------------------------------------------------------------------ skill2: E Nevermove
-    pull = {"type": "Grab", "speed": p["e_pull_v"], "tick": p["e_pull_d"] // p["e_pull_v"]}
-    e_hit = [ap(p["e_dmg"], p["e_ap"]), {"type": "Bind", "duration": p["e_root"]}, view("e_hit"), tsfx("e_hit")]
-    e_champ = [track(), delayed(p["e_pull_at"], pull, view("e_pull"), tsfx("e_pull"), frag())]
-    hand_back = [sfx("e_back"), back("e_back", p["e_back"], p["e_len"] + 20000, p["e_rad"], "EnemyWithoutTower", e_hit),
-                 back("e_twin", p["e_back"], p["e_len"] + 20000, p["e_rad"], "EnemyChampion", e_champ)]
-    hand = line("e_out", p["e_out"], p["e_len"], 1, -2000, "Enemy", True, [], end=hand_back)
-    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
-                    combine(life, sw("r_on", anim("r_skill2", p["e_dur"]), anim("skill2", p["e_dur"])), sfx("e"),
-                            voice("vo_e", p), delayed(p["e_rel"] - 1, sfx("e_launch"), hand)))
-
     # ------------------------------------------------------------------ ult: R Demonic Ascension
     drain_m = [ap(p["r_dmg"], p["r_ap"]), heal(p["r_heal_m"], 0), view("r_drain")]
     drain_c = [heal(p["r_heal"], p["r_heal_ap"]), refresh("r_hit", 3)]
@@ -342,12 +304,66 @@ def build(p):
                            *rm("r_fcd", "r_hold", "r_early"), refresh("r_on", p["r_t0"]),
                            flag("r_early", p["r_flare_at"]), flag("r_hold", p["r_t0"] - p["r_keep"]),
                            on_me(casted(p["r_max"], p["r_pulse"], pulse))))
-    # league_orianna's x trick: the game's AI scores the branch the flags pick between ticks, and the drain sits in an
-    # AddCasted it does not count - r_x is never there between ticks, so the AI reads Demonflare's burst; when the slot
-    # runs, the flag is up and the real branch goes
-    scored = combine(flag("r_x", 1), sw("r_x", combine(*rm("r_x"), rise), ap(p["r_fl"], p["r_fl_ap"])), *rm("r_x"))
-    ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(life, sw("r_ok", scored)))
+
+    # ------------------------------------------------------------------ the watch (R's moment, W)
+    tick = p["watch_p"]
+    count = combine(*rm("c_e1", "c_e2", "c_a1", "c_a2", "c_cc"),
+                    around(p["r_r"], "EnemyChampion", [sw("c_e1", flag("c_e2", 3), flag("c_e1", 3))]),
+                    around(p["r_ally"], "AllyChampion", [sw("c_a1", flag("c_a2", 3), flag("c_a1", 3))]),
+                    pick(p["r_range"], "EnemyChampionInCC", flag("c_cc", 3)))
+    # r_ok: two enemy champions close, or an ally with him on a champion in CC; with the window open the demon rises
+    ok = combine(refresh("r_ok", tick + 2), sw("r_arm", flag("r_go", 1)))
+    arm = sw("c_e2", ok, sw("c_cc", sw("c_a2", ok)))
+    fire = sw("r_go", combine(*rm("r_go", "r_arm"), rise))
+    cast_w = sw("w_cd", NONE, pick(p["w_range"], "EnemyChampionRecentlyAttacked", vision))
+    watch = on_me(casted(1000000, tick, count, delayed(1, arm, fire, cast_w)))
+    life = sw("init", NONE, combine(flag("init", None), watch))
+
+    # ------------------------------------------------------------------ attack: the raven bolt
+    # the click on the action's start, the raven bolt's whoosh with the bolt (memory shot-sounds-and-flashes)
+    bolt = combine(sfx("a_launch"),
+                   homing("a_bolt", p["bolt_speed"], p["bolt_y"], "Enemy", [attack(0, 100), view("a_hit"),
+                                                                          tsfx("a_hit")]),
+                   homing("a_twin", p["bolt_speed"], p["bolt_y"], "EnemyChampion", [track()]))
+    a_eff = combine(life, sw("r_on", anim("r_attack", p["atk_dur"])), sfx("a_cast"),
+                    delayed(p["a_rel"] - 1, bolt))
+    attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy", a_eff,
+                      atype="BaseAttack", cancel=True)
+
+    # ------------------------------------------------------------------ skill: Q Death's Hand
+    # the cones hit on the release tick (the aim locked); the flash waits for the bolts (q_flash ticks: ~45 px at 9 a tick)
+    q_hit = [ap(p["q_dmg"], p["q_ap"]), delayed(p["q_flash"], view("q_hit"), tsfx("q_hit"))]
+    q_more = [ap(p["q_dmg2"], p["q_ap2"])]
+    fan = combine(sfx("q_launch"), line("q_bolts", p["q_speed"], p["q_len"], 1, -2000, "Enemy", True, []),
+                  cone(p["q_len"], p["q_dot"], "EnemyWithoutTower", q_hit),
+                  cone(p["q_near"], p["q_dot"], "EnemyWithoutTower", q_more),
+                  cone(p["q_len"], p["q_dot"], "EnemyChampion", [track()]))
+    skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
+                   combine(sw("r_on", anim("r_skill", p["q_dur"]), anim("skill", p["q_dur"])), sfx("q"),
+                           voice("vo_q", p), delayed(p["q_rel"] - 1, fan)))
+
+    # ------------------------------------------------------------------ skill2: E Nevermove
+    pull = {"type": "Grab", "speed": p["e_pull_v"], "tick": p["e_pull_d"] // p["e_pull_v"]}
+    e_hit = [ap(p["e_dmg"], p["e_ap"]), {"type": "Bind", "duration": p["e_root"]}, view("e_hit"), tsfx("e_hit")]
+    e_champ = [track(), delayed(p["e_pull_at"], pull, view("e_pull"), tsfx("e_pull"), frag())]
+    hand_back = [sfx("e_back"), back("e_back", p["e_back"], p["e_len"] + 20000, p["e_rad"], "EnemyWithoutTower", e_hit),
+                 back("e_twin", p["e_back"], p["e_len"] + 20000, p["e_rad"], "EnemyChampion", e_champ)]
+    hand = line("e_out", p["e_out"], p["e_len"], 1, -2000, "Enemy", True, [], end=hand_back)
+    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
+                    combine(sw("r_on", anim("r_skill2", p["e_dur"]), anim("skill2", p["e_dur"])), sfx("e"),
+                            voice("vo_e", p), delayed(p["e_rel"] - 1, sfx("e_launch"), hand)))
+
+    # ------------------------------------------------------------------ ult: the slot arms the window
+    # unused, it ends with the cooldown capped at 60 ticks (cooltime x 100 / (100 + mult), league_tahmkench's r_retry)
+    retry = p["r_cd"] * 100 // 60 - 100
+    reset = sw("r_arm", combine(*rm("r_arm"), flag("r_retry", 3, ult_cooldown_mult=retry)))
+    arm_r = combine(refresh("r_arm", p["r_arm"]), on_me(delayed(p["r_arm"], reset)))
+    # league_orianna's x trick: the game's AI scores the branch the flags pick between ticks (a bare flag is worth
+    # nothing to it) - r_x is never there between ticks, so the AI reads Demonflare's burst; when the slot runs, the
+    # flag is up and the window opens
+    scored = combine(flag("r_x", 1), sw("r_x", combine(*rm("r_x"), arm_r), ap(p["r_fl"], p["r_fl_ap"])), *rm("r_x"))
+    ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", combine(life, scored),
+                 key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

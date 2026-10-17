@@ -222,6 +222,16 @@ FX = [
      row(4, 16, 16) + CENTER),
 ]
 BIG_FX = ("w_eye", "r_cast", "r_flare")
+NAME = "swain_fx_pack"
+# why an effect is drawn again (a redraw pack, --only): what the first delivery measured at game size (2026-10-17)
+REDO = {
+    "a_bolt": "第一版每帧只有约 13 个像素，几乎全是最深的两档黑紫，放在游戏地面上看不见。这次乌鸦要**实心**：身体加两只翅膀铺满约 10×7 格，"
+              "胸口的红白魂火至少 2×2 格（白芯），身后 3 格亮红拖尾；整体要比第一版亮很多（乌鸦用黑紫里较亮的三档，边缘可以有一圈深色）。",
+    "w_eye": "第一版第 3–6 帧的眼睛实际只有 36×22 格（要求 56 格宽），画在人物脚下时被身体挡住大半。W 的爆炸范围是直径 60 格，"
+             "**眼睛外圈要铺到 56 格宽、16 格高**（第 3–6 帧量一下实际像素），深红光圈再往外 2 格；第 8 帧的爆炸椭圆 50 格宽。",
+    "e_hit": "第一版的爪子太细太散（每只 1–2 格宽，加起来像几粒散点）。这次每只爪子 **2–3 格宽、7–9 格高的实心深红/洋红爪子**，白色爪尖，"
+             "第 1 帧地上的裂纹圈连成一圈完整的亮红椭圆（16×4 格）；中间 14 格宽的腿部位置照样留空。",
+}
 GROUPS = [
     ("a_bolt a_hit", ["Swain_Base_BA_Front", "Swain_Base_BA_mis_trail", "Swain_Base_BA_leadingedge_add",
                       "Swain_Base_BA_Flash_sharp", "Swain_Base_BA_Spark_cas"]),
@@ -382,8 +392,14 @@ def document(shape):
     a("> - **特效要亮**：每团光都要有白色或最亮一档的芯，暗底上一眼能看见。")
     a("> - **围着人的光只画外圈和两边，中间身体位置留空**，不要盖住人。")
     a("> - **方向（重要，红色方不会镜像）**：飞出去的 `a_bolt`、`q_bolts`、`e_out`、`e_back` 都画成朝右，**上下对称**（往左时会上下翻）。其余所有画面（打中、身上、脚下、地上）都要**严格左右对称**（逐格对称，游戏不会给它们镜像）。")
+    redo = [x[0] for x in FX if x[0] in REDO and len(FX) < 15]
+    if redo:
+        a("> **这是重画包**：只重画下面几张，其余已经导入不用动。第一版的问题（按游戏像素量的）：")
+        for nm in redo:
+            a(f"> - `{nm}`：{REDO[nm]}")
+        a(">")
     a("> - 每张生成后按格子取回（每格取多数颜色），交付 8 倍的 `swain_fx_<名字>.png` 和原尺寸的 `pixel_1x/`（严格按格子取色、透明度只有 0 和 255、"
-      "要求对称的逐格对称——Claude 直接用这一份切格导入），附 `HANDOFF.md`、`manifest.json` 和生图原稿 `raw/`，打包成 `swain_fx_pack_done.zip`。**请用生图画，不要用代码拼方块**。\n")
+      "要求对称的逐格对称——Claude 直接用这一份切格导入），附 `HANDOFF.md`、`manifest.json` 和生图原稿 `raw/`，" f"打包成 `{NAME}_done.zip`。**请用生图画，不要用代码拼方块**。\n")
     a("## 技能方案（每张图用在哪里）\n")
     a("| 技能位 | 内容 | 用到的图 |")
     a("|---|---|---|")
@@ -437,6 +453,8 @@ def main():
     ap.add_argument("--name", default="swain_fx_pack", help="the pack's name (folder and zip)")
     ap.add_argument("--out", default=os.path.join(ROOT, "dist", "swain_packs"), help="folder for the zip")
     a = ap.parse_args()
+    global NAME
+    NAME = a.name
     if a.only:
         keep = a.only.split(",")
         FX = [x for x in FX if x[0] in keep]
