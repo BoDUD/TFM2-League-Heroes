@@ -59,7 +59,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Swain: posed by tools/art/rig_swain.py at the user's 1.5 squares a game pixel (40 game rows hair to soles; the demon
     // form's tags on the same body), so no SIZES row
     ("league_swain", 1.5, include_str!("../../../league/champions/league_swain#anim.fanim")),
-    // Renata: posed by tools/art/rig_renata.py at the user's 1.5 squares a game pixel (40 game rows hair to soles; the R
+    // Renata: posed by tools/art/rig_renata.py at the user's 1.5 squares a game pixel (36 game rows hair to soles; the R
     // machine in her own ult frames), so no SIZES row
     ("league_renata", 1.5, include_str!("../../../league/champions/league_renata#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after

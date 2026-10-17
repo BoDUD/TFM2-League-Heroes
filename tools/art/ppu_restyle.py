@@ -232,10 +232,10 @@ RESTYLE = {
     # rows at 1.5), the demon form on the same body; no proportion or density change here; the outer outline grown a
     # square like the others; the face point at his crown (tfm2_ase.py face: 39 px over the soles)
     "swain": dict(ppu=1.5, edge=1, face_to=(-1, -39)),
-    # league_renata (#120): posed by tools/art/rig_renata.py from Codex's step-1 take 1 cut to 60 rows (the user's 40 game
-    # rows at 1.5, the R machine in her own ult frames); no proportion or density change here; the outer outline grown a
-    # square like the others; the face point at her crown (tfm2_ase.py face: 40 px over the soles)
-    "renata": dict(ppu=1.5, edge=1, face_to=(1, -40)),
+    # league_renata (#120): posed by tools/art/rig_renata.py from Codex's step-1 take 1 cut to 60 rows, then to 54 (36 game
+    # rows at 1.5, the user's 「模型太大」; the R machine in her own ult frames); no proportion or density change here; the
+    # outer outline grown a square like the others; the face point at her crown (tfm2_ase.py face: 36 px over the soles)
+    "renata": dict(ppu=1.5, edge=1, face_to=(1, -36)),
     # the 2026-10-16 redo from Codex's pictures, posed by tools/art/rig_<hero>_hd.py (tools/art/ppu_rig.py) at PPU 1.5 -
     # Nami after League's own clips (tools/lol/league_joints.py): only the outer outline grown a square, the face point
     # at the new head

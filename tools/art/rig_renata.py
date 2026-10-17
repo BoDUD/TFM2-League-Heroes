@@ -331,10 +331,11 @@ class Frame:
 
 
 def pose(bob=0, dx=0, legs=((0, 0, 0), (0, 0, 0)), arm=None, gun=None, upf=True, lift=0, hide=(), behind=(),
-         extra=()):
+         extra=(), walk=None):
     """One frame (a Frame): the body (all but the legs) bob rows down over the legs and dx columns on, the whole
     figure lift rows up; the near / far leg (knee columns, foot columns, lift rows: see swung); arm: None (the near arm
     as drawn) or a callable drawing it (gets the canvas and the body's origin) - moved away, the hair behind it shows;
+    walk: walking legs (both the far trouser leg, the near one this many columns over: run_frames);
     gun: None (the far forearm hanging empty, the pistol tucked in at her hip) or a callable drawing the forearm with the
     pistol drawn (the attack); upf: the far upper arm drawn; hide: parts left out; behind: callables
     drawn first (under everything: the R machine); extra: callables drawn last."""
@@ -342,17 +343,19 @@ def pose(bob=0, dx=0, legs=((0, 0, 0), (0, 0, 0)), arm=None, gun=None, upf=True,
     x0, y0 = OX + dx, OY - lift
     for f in behind:
         f(can, x0, y0 + bob)
-    # the legs' tops as they stand, under everything (nothing opens between the vest and a swinging leg)
-    for k in (LEG_F, LEG_N):
-        if k in hide:
+    # the legs' tops as they stand, under everything (nothing opens between the vest and a swinging leg); walking
+    # (walk = the columns from the far hip to the near one) both legs are the far one as drawn
+    pairs = ((LEG_F, 0), (LEG_N, 0)) if walk is None else ((LEG_F, 0), (LEG_F, walk))
+    for (k, shift), name in zip(pairs, (LEG_F, LEG_N)):
+        if name in hide:
             continue
         top = leg_rows(k)[0]
-        put(can, DESIGN, (LAB == k) & (np.arange(DH)[:, None] < top + UNDERLAY), x0 - dx, y0)
-    for k, spec in ((LEG_F, legs[1]), (LEG_N, legs[0])):
-        if k in hide:
+        put(can, DESIGN, (LAB == k) & (np.arange(DH)[:, None] < top + UNDERLAY), x0 - dx + shift, y0)
+    for (k, shift), spec, name in zip(pairs, (legs[1], legs[0]), (LEG_F, LEG_N)):
+        if name in hide:
             continue
         src, m, P = swung(k, *spec)
-        put(can, src, m, x0 - dx - P, y0 - P)
+        put(can, src, m, x0 - dx - P + shift, y0 - P)
     if arm is not None:
         put(can, HAIR_FILL[0], HAIR_FILL[1], x0, y0 + bob)
     body = part(BODY) & ~part(*hide)
@@ -389,6 +392,54 @@ MH, MW = MACHINE.shape[:2]
 _my, _mx = np.mgrid[0:MH, 0:MW]
 _mop = MACHINE[..., 3] > 0
 M_CY, M_CX = float(_my[_mop].mean()), float(_mx[_mop].mean())    # the machine's middle
+
+
+# ------------------------------------------------------------------------------------------------- her size
+# The user on the first review, 2026-10-17: 「模型太大」 (she stood as tall as Darius; the slim heroines are 35-38 rows).
+# The 60-row design (40 game rows) is brought to TARGET rows by whole rows and columns deleted (design_renata_cut.cut:
+# never two neighbours; the face, the magenta, the gold and the outline cost more - lossless, every square left as
+# drawn), and everything worked out on the 60 rows above - the parts, the hair behind the arm, every design point - is
+# carried over by the kept rows / columns; the R machine is cut by the same share and keeps its place against her
+# soles and standing column.
+import design_renata_cut as DC  # noqa: E402
+
+TARGET = 54                        # 36 game rows at PPU 1.5
+_keep = {}
+_D60 = DESIGN
+DESIGN = DC.cut(_D60, TARGET / _D60.shape[0], _keep)
+RK, CK = np.array(_keep["rows"]), np.array(_keep["cols"])
+SCALE = DESIGN.shape[0] / _D60.shape[0]
+LAB = LAB[np.ix_(RK, CK)]
+HAIR_FILL = (HAIR_FILL[0][np.ix_(RK, CK)], HAIR_FILL[1][np.ix_(RK, CK)])
+
+
+def mr(r):
+    """The new design row nearest to the 60-row design's row r."""
+    return int(np.argmin(np.abs(RK - r)))
+
+
+def mc(c):
+    return int(np.argmin(np.abs(CK - c)))
+
+
+def mp(p_):
+    return (mr(p_[0]), mc(p_[1]))
+
+
+_stand60 = TORSO_X
+DH, DW = DESIGN.shape[:2]
+TORSO_X = mc(TORSO_X)
+OX, OY = PIV_X - TORSO_X, SOLE - (DH - 1)
+WAIST, SHIN_ROW, BOOT = mr(WAIST), mr(SHIN_ROW), mr(BOOT)
+ARM_TOP, ARM_HAND, SHOULDER, ELBOW, TUCK, PISTOL_TOP_IN = (mp(q) for q in (ARM_TOP, ARM_HAND, SHOULDER, ELBOW, TUCK,
+                                                                         PISTOL_TOP_IN))
+MR = (DH - 1) + int(round((MR - (_D60.shape[0] - 1)) * SCALE))
+MC = TORSO_X + int(round((MC - _stand60) * SCALE))
+MACHINE = DC.cut(MACHINE, SCALE)
+MH, MW = MACHINE.shape[:2]
+_my, _mx = np.mgrid[0:MH, 0:MW]
+_mop = MACHINE[..., 3] > 0
+M_CY, M_CX = float(_my[_mop].mean()), float(_mx[_mop].mean())
 
 
 def machine(reach=1.0, dy=0, dx=0):
@@ -504,37 +555,17 @@ def finish(can, base):
 
 
 # ------------------------------------------------------------------------------------------------- idle, run
-BREATH = [0, 0, 1, 1, 2, 2, 1, 1]     # rows the body above the waist rises (the BP idle rule: >= 2 rows)
+# the user on the first review: 「上下摆动模型变形」 - the first idle lifted the upper body two rows and filled the waist
+# with the row under it (the vest's points grew). Now the upper body (both arms and the pistol with it) sinks a row OVER
+# the trousers' top and back: layering, every square as drawn.
+BREATH = [0, 0, 0, 1, 1, 1, 1, 0]
 IDLE_MS = 150
 
 
 def breathe(k):
-    """The design standing, everything above the waist (both arms and the tucked pistol carried whole) k rows up; the
-    squares left open over the waist take the square under them."""
-    fr = pose()
-    can = fr.can
-    out = can.copy()
-    if k:
-        up = np.zeros(can.shape[:2], bool)
-        up[:OY + WAIST] = can[:OY + WAIST, :, 3] > 0
-        carried = np.zeros(can.shape[:2], bool)
-        for p_ in (ARM, UPF):
-            ys, xs = np.nonzero(LAB == p_)
-            carried[ys + OY, xs + OX] = True
-        for f in (fore_hang(), pistol_tucked()):
-            alone = blank()
-            f(alone, OX, OY)
-            carried |= alone[..., 3] > 0
-        up |= carried
-        ys, xs = np.nonzero(up)
-        out[ys, xs] = 0
-        out[ys - k, xs] = can[ys, xs]
-        hole = (out[..., 3] == 0) & up & ~carried
-        for y in sorted(set(np.nonzero(hole)[0]), reverse=True):
-            for x in np.nonzero(hole[y])[0]:
-                if out[y + 1, x, 3] > 0:
-                    out[y, x] = out[y + 1, x]
-    return Frame(out, OX, OY)
+    """The design standing, everything but the legs k rows down over the trousers' top (memory
+    no-deformation-lossless-poses: layering, nothing stretched)."""
+    return pose(bob=k)
 
 
 RUN_MS = 133                           # League's Run: 3 cycles in 3.2 s, 1067 ms a cycle, 8 frames
@@ -551,31 +582,36 @@ LEAGUE_RUN = [  # (root y, (near knee dx, foot dx, lift), (far knee dx, foot dx,
     (-12.45, (2.2, 1.1, 1.7), (3.2, -1.0, 3.6)),
     (-14.05, (-1.3, -4.3, 3.1), (2.4, 4.3, 0.0)),
 ]
-LEG_K, LIFT_K, BOB_K = 1.0, 0.6, 0.45
-# League's foot x is from its own hip, so while she walks each boot starts under its hip: her A stance brought in -
-# the near boot (design columns 1-9) under the near hip (columns 13-19), the far boot 3 columns in (the feet then part
-# by at most 15.5 squares, 10 px; they cross in frames 4-6); the knees half as much. LEG_K 1.0 squares a League px (her 1.5 would part the feet up to 16 px: the walks the user
-# called too wide stayed under ~10 px at this height, memory run-stride-crossing)
-RUN_IN = (12, -3)
+# The user on the first review: 「走路姿势很奇怪」 - the first walk sheared her slanted near trouser leg (the A stance)
+# twelve columns to bring its boot under the hip: a fan, not a leg. Now both legs are the far trouser leg (upright in
+# the design) as drawn, each under its own hip (the near one over the far one), swung as two bones by whole-row shifts
+# (swung), the boots flat; League's foot travel at LEG_K squares a League px, the lift at LIFT_K, the near leg's step
+# back BACK_K of League's (behind her hip it hides under the hanging mechanical hand); no bob (the user: 「上下摆动」).
+LEG_K, LIFT_K, BACK_K = 0.9, 0.5, 0.6
+
+
+def _hips():
+    """Columns from the far hip's middle to the near hip's (the near trouser leg's first rows)."""
+    def mid(k):
+        top = leg_rows(k)[0]
+        xs = np.nonzero(LAB[top + 1] == k)[0]
+        return (xs.min() + xs.max()) / 2.0
+    return int(round(mid(LEG_N) - mid(LEG_F)))
 
 
 def run_frames():
-    tops = [h for h, _, _ in LEAGUE_RUN]
-    top = min(tops)
+    gap = _hips()
     out = []
     for i, (hy, n, f) in enumerate(LEAGUE_RUN):
-        def leg(t, inward):
-            return (int(round(t[0] * LEG_K + inward / 2)), int(round(t[1] * LEG_K + inward)),
-                    int(round(t[2] * LIFT_K)))
-        bob = int(round((hy - top) * BOB_K))
-        # the mechanical arm swings against the near leg: a column ahead while that foot is behind her, a column back
-        # while it is ahead (the arm moved whole; the hair behind it shows where it leaves)
-        swing = int(np.clip(-np.sign(round(n[1] * LEG_K + RUN_IN[0]) - RUN_IN[0]), -1, 1)) if abs(n[1]) > 3 else 0
-        arm = arm_at(swing) if swing else None
-        # and the far hand against the far leg: a column forward while that foot is behind her, back while it is ahead
-        far = (-1 if f[1] > 3 else 1) if abs(f[1]) > 3 else 0
-        out.append((pose(bob=bob, dx=1, legs=(leg(n, RUN_IN[0]), leg(f, RUN_IN[1])), arm=arm, gun=hanging(far)),
-                    RUN_MS))
+        def leg(t, back=1.0):
+            k = LEG_K * SCALE * (back if t[1] < 0 else 1.0)
+            return (int(round(t[0] * k)), int(round(t[1] * k)), int(round(t[2] * LIFT_K * SCALE)))
+        # the arms swing against the legs: the mechanical arm a column ahead while the near foot is behind her, the far
+        # hand a column ahead while the far foot is
+        swing = (1 if n[1] < -3 else -1) if abs(n[1]) > 3 else 0
+        far = (1 if f[1] < -3 else -1) if abs(f[1]) > 3 else 0
+        out.append((pose(dx=1, legs=(leg(n, BACK_K), leg(f)), arm=arm_at(swing) if swing else None,
+                         gun=hanging(far), walk=gap), RUN_MS))
     return out
 
 
