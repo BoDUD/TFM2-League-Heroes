@@ -127,6 +127,12 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   `EnemyWithoutTower`) behind a flag went out empty in fights and on camps, and its ult (`Targeting EnemyChampion`)
   right after every combo that set the flag - each cast also starting the slot's real cooldown. Do not hold a slot
   with a flag; let the slot play the combo (section 7, "Combos the slots play").
+- **A basic attack's own hit goes on `Enemy`** *(a player, 2026-10-17: 「劫的平A没办法攻击防御塔」; classic
+  simulation)*. The attack action is cast on `Enemy`, so the AI does walk up to towers and swing, but
+  league_zed, league_talon, league_reksai (her Queen's Wrath splash too) and league_rengar (his Savagery too)
+  carried the hit in a `TargetProjectile` on `EnemyWithoutTower`: 66 attacks at towers, 0 hits. On `Enemy`,
+  57 of 69 landed (the rest were cut short or turned into a skill). Skills stay on `EnemyWithoutTower`.
+  `lint_mod.py` warns when no damage of an attack can land on a tower.
 - **Damaging basic abilities go on `EnemyWithoutTower`** *(reported by players; measured in a 5v5
   simulation on the SDK)*. The AI only casts an action while a unit matching `casting_target` is
   within `range`, so a skill on `EnemyChampion` is never used on minions or jungle monsters: the

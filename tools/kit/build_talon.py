@@ -252,7 +252,7 @@ def build(p):
     # ------------------------------------------------------------------ the attack
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(sfx("a_swing"),
-                              delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "EnemyWithoutTower",
+                              delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "Enemy",
                                                            [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
                                       blades_end, break_r)),
                       atype="BaseAttack", cancel=True)

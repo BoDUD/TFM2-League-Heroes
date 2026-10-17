@@ -724,7 +724,7 @@
                       "name": "league_rengar_a_hit",
                       "speed": 100000,
                       "y_offset": 0,
-                      "applied_target": "EnemyWithoutTower",
+                      "applied_target": "Enemy",
                       "applied_effects": [
                         {
                           "casting_type": "Targeting",
@@ -877,7 +877,7 @@
                         "name": "league_rengar_q_slam",
                         "speed": 100000,
                         "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
+                        "applied_target": "Enemy",
                         "applied_effects": [
                           {
                             "casting_type": "Targeting",
@@ -917,7 +917,7 @@
                         "name": "league_rengar_q_rip",
                         "speed": 100000,
                         "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
+                        "applied_target": "Enemy",
                         "applied_effects": [
                           {
                             "casting_type": "Targeting",
@@ -1083,7 +1083,7 @@
                           "name": "league_rengar_a_hit",
                           "speed": 100000,
                           "y_offset": 0,
-                          "applied_target": "EnemyWithoutTower",
+                          "applied_target": "Enemy",
                           "applied_effects": [
                             {
                               "casting_type": "Targeting",
@@ -1233,7 +1233,7 @@
                           "name": "league_rengar_q_slam",
                           "speed": 100000,
                           "y_offset": 0,
-                          "applied_target": "EnemyWithoutTower",
+                          "applied_target": "Enemy",
                           "applied_effects": [
                             {
                               "casting_type": "Targeting",
@@ -1273,7 +1273,7 @@
                           "name": "league_rengar_q_rip",
                           "speed": 100000,
                           "y_offset": 0,
-                          "applied_target": "EnemyWithoutTower",
+                          "applied_target": "Enemy",
                           "applied_effects": [
                             {
                               "casting_type": "Targeting",

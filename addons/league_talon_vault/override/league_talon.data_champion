@@ -78,7 +78,7 @@
               "name": "league_talon_a_hit",
               "speed": 100000,
               "y_offset": 0,
-              "applied_target": "EnemyWithoutTower",
+              "applied_target": "Enemy",
               "applied_effects": [
                 {
                   "casting_type": "Targeting",
