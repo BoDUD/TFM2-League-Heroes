@@ -32,7 +32,7 @@ pub const FORM: &str = "league_anivia_egg_on";
 
 const ID: &str = "league_anivia";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.2";
 
 /// 「不死」挂多久、多久续一次。
 pub const GUARD_T: usize = 30;
@@ -41,8 +41,9 @@ pub const GUARD_EVERY: usize = 10;
 pub const FLAG_T: usize = 6;
 /// 单位半径读不到时用的值。
 pub const BODY: u64 = 6000;
-/// 立墙那一 tick 她脚下这么近的新投射物不算墙（普攻、E 从她身上出发）。
-pub const NEAR_ME: u64 = 25000;
+/// 立墙那一 tick 她脚下这么近的新投射物不算墙（普攻、E 从她身上出发）。0.1.0 是 25000：被晕的近战英雄贴着她时，
+/// 墙也被当成她脚下的东西丢掉。
+pub const NEAR_ME: u64 = 3000;
 
 fn sn(x: &str) -> String {
     format!("league_anivia_{x}")
@@ -182,19 +183,22 @@ pub fn hold(walls: &[Wall], p: &Params, last: Option<(u64, u64)>, now: (u64, u64
     }
 }
 
-/// 立墙那一 tick：她新放出的投射物（上一 tick 没有的位置）里，离她 `NEAR_ME` 以外、出现次数最多的位置。
+/// 立墙那一 tick 的墙心：她的投射物按位置（200 以内算一处）数个数，比上一 tick 多出来的那些位置里（离她 `NEAR_ME`
+/// 以外），多出来最多的；一样多取离她远的。0.1.0 只认「上一 tick 那里一个都没有」的位置，可墙立在 Q 的炸点上，
+/// 炸点上一 tick 就有 Q 挂的延时（2 tick 后立墙的那个），墙的两个区域就被当成旧的：游戏日志里六成的墙没立起来
+/// （`WALL?` 约 950 次，`WALL` 约 550 次）。
 pub fn wall_centre(prev: &[(u64, u64)], now: &[(u64, u64)], me: (u64, u64)) -> Option<(u64, u64)> {
     let near = |a: (u64, u64), b: (u64, u64)| a.0.abs_diff(b.0) < 200 && a.1.abs_diff(b.1) < 200;
-    let fresh: Vec<(u64, u64)> = now
-        .iter()
-        .copied()
-        .filter(|&q| !prev.iter().any(|&o| near(o, q)))
-        .filter(|&q| q.0.abs_diff(me.0).max(q.1.abs_diff(me.1)) > NEAR_ME)
-        .collect();
+    let from_me = |q: (u64, u64)| q.0.abs_diff(me.0).max(q.1.abs_diff(me.1));
     let mut best: Option<((u64, u64), usize)> = None;
-    for &q in &fresh {
-        let n = fresh.iter().filter(|&&o| near(o, q)).count();
-        if best.is_none_or(|(_, b)| n > b) {
+    for &q in now.iter().filter(|&&q| from_me(q) > NEAR_ME) {
+        let more = now.iter().filter(|&&o| near(o, q)).count();
+        let before = prev.iter().filter(|&&o| near(o, q)).count();
+        if more <= before {
+            continue;
+        }
+        let n = more - before;
+        if best.is_none_or(|(b, bn)| n > bn || (n == bn && from_me(q) > from_me(b))) {
             best = Some((q, n));
         }
     }
@@ -496,6 +500,24 @@ mod tests {
         let now = [(301000, 400000), (420000, 395000), (420000, 395000), (351600, 400000)];
         assert_eq!(wall_centre(&prev, &now, me), Some((420000, 395000)));
         assert_eq!(wall_centre(&prev, &[(301000, 400000)], me), None);
+    }
+
+    #[test]
+    fn the_wall_on_the_blast_point_the_delay_stood_on() {
+        // the tick before: Q's 2-tick delay stands on the blast point; now it is gone and the wall's two zones are there
+        let me = (300000, 400000);
+        let prev = [(420000, 395000)];
+        let now = [(420000, 395000), (420000, 395000)];
+        assert_eq!(wall_centre(&prev, &now, me), Some((420000, 395000)));
+        // the delay still listed this tick too: one more than before is enough
+        let now = [(420000, 395000), (420000, 395000), (420000, 395000)];
+        assert_eq!(wall_centre(&prev, &now, me), Some((420000, 395000)));
+        // a stunned melee champion right next to her: the wall 15000 away still counts, a new bolt at her feet loses
+        let prev = [(315000, 400000)];
+        let now = [(301000, 400000), (315000, 400000), (315000, 400000)];
+        assert_eq!(wall_centre(&prev, &now, me), Some((315000, 400000)));
+        // nothing new: no wall
+        assert_eq!(wall_centre(&prev, &[(315000, 400000)], me), None);
     }
 
     #[test]

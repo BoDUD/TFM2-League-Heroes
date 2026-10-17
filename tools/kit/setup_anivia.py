@@ -35,7 +35,8 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sheet exists
-VIEW = {"face": {"x": 4, "y": -30}, "center": {"x": 0, "y": -14}}
+# (2026-10-18 at 31 rows: --face 2,-20 --banpick -12 - the brow gem's row; her top 26.7 px over the frame centre)
+VIEW = {"face": {"x": 2, "y": -20}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):

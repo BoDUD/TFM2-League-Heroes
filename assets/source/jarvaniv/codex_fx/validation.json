@@ -1,0 +1,300 @@
+[
+  {
+    "name": "a_hit",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "opaque_per_frame": [
+      8,
+      24,
+      60,
+      26
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "32633298c52dfce48eb368c77388c8b26728bc09de4dc11d979e3c89a1c1d369"
+  },
+  {
+    "name": "p_hit",
+    "frames": 5,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "opaque_per_frame": [
+      8,
+      30,
+      52,
+      18,
+      14
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "fea9d615ebdf59e07c7f5235aaa36bc763b23ce13acadcf28706efcd86225a6b"
+  },
+  {
+    "name": "q_hit",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "opaque_per_frame": [
+      34,
+      26,
+      22,
+      10
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "dcd5df49d7601cefc469df85cd67970eb72f34106d37166fd8d31e3231069563"
+  },
+  {
+    "name": "q_shred",
+    "frames": 4,
+    "cell_1x": [
+      10,
+      12
+    ],
+    "opaque_per_frame": [
+      50,
+      48,
+      48,
+      48
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "78ba09ce773b9b10cc3d590aa307c8aa64ca162bb613ba021ea0317f70b0a15c"
+  },
+  {
+    "name": "q_land",
+    "frames": 6,
+    "cell_1x": [
+      40,
+      24
+    ],
+    "opaque_per_frame": [
+      62,
+      138,
+      204,
+      180,
+      170,
+      124
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "43ec69de41e9979ad2df7fc92db0149215913a007746abb66f9489316da138ff"
+  },
+  {
+    "name": "e_flag",
+    "frames": 8,
+    "cell_1x": [
+      24,
+      56
+    ],
+    "opaque_per_frame": [
+      350,
+      548,
+      330,
+      368,
+      330,
+      384,
+      326,
+      38
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "b0f32aa2fa4c92e1d4f7e7ed717fc2bfc667f97f1fe9ec469209fb19f88b753a"
+  },
+  {
+    "name": "e_hit",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "opaque_per_frame": [
+      12,
+      70,
+      36,
+      18
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "aff570a939307e7956fbf533016a07754b1465f2d66115b24ec4e2a284057ae0"
+  },
+  {
+    "name": "f_as",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      10
+    ],
+    "opaque_per_frame": [
+      36,
+      30,
+      36,
+      28
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "af3157a0e3d7086923dcf4939d43fab9a4f37a0a38980e6f6bd036ad7977e9bf"
+  },
+  {
+    "name": "w_cast",
+    "frames": 6,
+    "cell_1x": [
+      48,
+      54
+    ],
+    "opaque_per_frame": [
+      126,
+      326,
+      606,
+      686,
+      280,
+      208
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "b7eeb495e9f757872cd3de9460fa52be9bff2ead680f83987b4dcec5e89609da"
+  },
+  {
+    "name": "w_on",
+    "frames": 4,
+    "cell_1x": [
+      40,
+      50
+    ],
+    "opaque_per_frame": [
+      344,
+      340,
+      340,
+      336
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "288433594792dec01018cedbcf339419155a92c900b11e4432bc2d1ed3230e8e"
+  },
+  {
+    "name": "w_hit",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "opaque_per_frame": [
+      14,
+      22,
+      38,
+      8
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "551951a38c09911e301191af1c0e49b094cbfb0d569bd435df08dfb26dbd8d53"
+  },
+  {
+    "name": "w_slow",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      8
+    ],
+    "opaque_per_frame": [
+      42,
+      42,
+      42,
+      42
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "d55d9571984b9cd000576b6bc9036fde0249d474ac0deedae4fcc6f2aeedcd78"
+  },
+  {
+    "name": "r_ring",
+    "frames": 8,
+    "cell_1x": [
+      80,
+      40
+    ],
+    "opaque_per_frame": [
+      448,
+      1052,
+      1426,
+      1480,
+      1476,
+      1534,
+      1496,
+      1178
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "964372bcbc67726740b23330e46999f6ba3a4fc9148de66c3b85ecab55fdfa76"
+  },
+  {
+    "name": "r_hit",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "opaque_per_frame": [
+      22,
+      54,
+      42,
+      26
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "c114b5ac6bdbe46feda55caa7755a564bba38541e7fbf7ad45e8a3d90efa95fd"
+  },
+  {
+    "name": "r_zap",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "opaque_per_frame": [
+      4,
+      24,
+      30,
+      12
+    ],
+    "binary_alpha": true,
+    "palette_pass": true,
+    "exact_frame_symmetry": true,
+    "exact_8x": true,
+    "sha256_1x": "30a97bad52282282d057b48ea257c1ec7cee2572705b6b301178ba51ba531e7b"
+  }
+]

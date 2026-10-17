@@ -1,0 +1,2005 @@
+{
+  "version": 1,
+  "generator": "built-in image_gen",
+  "delivery_scale": 8,
+  "source_art_not_procedurally_drawn": true,
+  "effects": [
+    {
+      "name": "a_hit",
+      "frames": 4,
+      "cell": [
+        12,
+        12
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "gold"
+      ],
+      "type": "impact",
+      "file": "jarvaniv_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_a_hit.png",
+      "cell_1x": [
+        12,
+        12
+      ],
+      "binding": "view_effects `league_jarvaniv_a_hit`（跟随，画在人物上面；左右对称）",
+      "loop_frames_1based": null,
+      "anchor_1x": [
+        6.0,
+        6.0
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        96,
+        96
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/a_hit.png",
+      "source_size": [
+        1366,
+        1152
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/a_hit.png",
+          "source_box": [
+            0,
+            0,
+            683,
+            576
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 8,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 8
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/a_hit.png",
+          "source_box": [
+            683,
+            0,
+            1366,
+            576
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 24,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 24
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/a_hit.png",
+          "source_box": [
+            0,
+            576,
+            683,
+            1152
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 60,
+          "mirror_pairs_corrected": 28,
+          "bright_pixels": 60
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/a_hit.png",
+          "source_box": [
+            683,
+            576,
+            1366,
+            1152
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 26,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 26
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "p_hit",
+      "frames": 5,
+      "cell": [
+        16,
+        16
+      ],
+      "cols": 3,
+      "rows": 2,
+      "palettes": [
+        "gold"
+      ],
+      "type": "impact",
+      "file": "jarvaniv_fx_p_hit.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_p_hit.png",
+      "cell_1x": [
+        16,
+        16
+      ],
+      "binding": "view_effects `league_jarvaniv_p_hit`（跟随，画在人物上面；左右对称）",
+      "loop_frames_1based": null,
+      "anchor_1x": [
+        8.0,
+        8.0
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        128,
+        128
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/p_hit.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_layout": [
+        3,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/p_hit.png",
+          "source_box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 8,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 8
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/p_hit.png",
+          "source_box": [
+            512,
+            0,
+            1024,
+            512
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 30,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 30
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/p_hit.png",
+          "source_box": [
+            1024,
+            0,
+            1536,
+            512
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 52,
+          "mirror_pairs_corrected": 21,
+          "bright_pixels": 52
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/p_hit.png",
+          "source_box": [
+            0,
+            512,
+            512,
+            1024
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 18,
+          "mirror_pairs_corrected": 3,
+          "bright_pixels": 18
+        },
+        {
+          "frame": 5,
+          "source_file": "raw/p_hit.png",
+          "source_box": [
+            512,
+            512,
+            1024,
+            1024
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 14,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 14
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "q_hit",
+      "frames": 4,
+      "cell": [
+        14,
+        14
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "cyan"
+      ],
+      "type": "impact",
+      "file": "jarvaniv_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_q_hit.png",
+      "cell_1x": [
+        14,
+        14
+      ],
+      "binding": "view_effects `league_jarvaniv_q_hit`（跟随，画在人物上面；左右对称）",
+      "loop_frames_1based": null,
+      "anchor_1x": [
+        7.0,
+        7.0
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        112,
+        112
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/q_hit.png",
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#DDF4FF",
+        "#8ED2FF",
+        "#3C96F0"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/q_hit.png",
+          "source_box": [
+            0,
+            0,
+            887,
+            444
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 34,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 34
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/q_hit.png",
+          "source_box": [
+            887,
+            0,
+            1774,
+            444
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 26,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 26
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/q_hit-initial.png",
+          "source_box": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 22,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 22
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/q_hit.png",
+          "source_box": [
+            887,
+            444,
+            1774,
+            887
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 10,
+          "mirror_pairs_corrected": 5,
+          "bright_pixels": 10
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "q_shred",
+      "frames": 4,
+      "cell": [
+        10,
+        12
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "red"
+      ],
+      "type": "loop",
+      "file": "jarvaniv_fx_q_shred.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_q_shred.png",
+      "cell_1x": [
+        10,
+        12
+      ],
+      "binding": "view_buffs `league_jarvaniv_q_shred`（跟随，画在人物上面；左右对称；循环）",
+      "loop_frames_1based": [
+        1,
+        4
+      ],
+      "anchor_1x": [
+        5.0,
+        6.0
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": 3,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        80,
+        96
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/q_shred.png",
+      "source_size": [
+        1145,
+        1374
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFD6C8",
+        "#FF8060",
+        "#E2341E",
+        "#9C1610",
+        "#520A08"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/q_shred.png",
+          "source_box": [
+            0,
+            0,
+            572,
+            687
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 50,
+          "mirror_pairs_corrected": 17,
+          "bright_pixels": 18
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/q_shred.png",
+          "source_box": [
+            572,
+            0,
+            1145,
+            687
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 48,
+          "mirror_pairs_corrected": 15,
+          "bright_pixels": 16
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/q_shred.png",
+          "source_box": [
+            0,
+            687,
+            572,
+            1374
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 48,
+          "mirror_pairs_corrected": 16,
+          "bright_pixels": 16
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/q_shred.png",
+          "source_box": [
+            572,
+            687,
+            1145,
+            1374
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 48,
+          "mirror_pairs_corrected": 16,
+          "bright_pixels": 18
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "q_land",
+      "frames": 6,
+      "cell": [
+        40,
+        24
+      ],
+      "cols": 3,
+      "rows": 2,
+      "palettes": [
+        "cyan",
+        "rock"
+      ],
+      "type": "ground",
+      "file": "jarvaniv_fx_q_land.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_q_land.png",
+      "cell_1x": [
+        40,
+        24
+      ],
+      "binding": "view_effects `league_jarvaniv_q_land`（不跟随，画在人物下面 z -1；左右对称；大图表）",
+      "loop_frames_1based": null,
+      "anchor_1x": [
+        20.0,
+        18
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        320,
+        192
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/q_land.png",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_layout": [
+        3,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#DDF4FF",
+        "#8ED2FF",
+        "#3C96F0",
+        "#EFE6D6",
+        "#CDBD9E",
+        "#A08C6C",
+        "#74624A"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/q_land.png",
+          "source_box": [
+            0,
+            0,
+            661,
+            396
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 62,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 62
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/q_land.png",
+          "source_box": [
+            661,
+            0,
+            1322,
+            396
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 138,
+          "mirror_pairs_corrected": 3,
+          "bright_pixels": 114
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/q_land.png",
+          "source_box": [
+            1322,
+            0,
+            1983,
+            396
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 204,
+          "mirror_pairs_corrected": 16,
+          "bright_pixels": 156
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/q_land.png",
+          "source_box": [
+            0,
+            396,
+            661,
+            793
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 180,
+          "mirror_pairs_corrected": 12,
+          "bright_pixels": 118
+        },
+        {
+          "frame": 5,
+          "source_file": "raw/q_land.png",
+          "source_box": [
+            661,
+            396,
+            1322,
+            793
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 170,
+          "mirror_pairs_corrected": 8,
+          "bright_pixels": 34
+        },
+        {
+          "frame": 6,
+          "source_file": "raw/q_land.png",
+          "source_box": [
+            1322,
+            396,
+            1983,
+            793
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 124,
+          "mirror_pairs_corrected": 10,
+          "bright_pixels": 0
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "e_flag",
+      "frames": 8,
+      "cell": [
+        24,
+        56
+      ],
+      "cols": 4,
+      "rows": 2,
+      "palettes": [
+        "gold",
+        "blue",
+        "rock"
+      ],
+      "type": "flag",
+      "file": "jarvaniv_fx_e_flag.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_e_flag.png",
+      "cell_1x": [
+        24,
+        56
+      ],
+      "binding": "view_effects `league_jarvaniv_e_flag`（不跟随，画在人物上面 z 1；左右对称；大图表；3–6 帧循环铺满 8 秒）",
+      "loop_frames_1based": [
+        3,
+        6
+      ],
+      "anchor_1x": [
+        12.0,
+        54
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": 8,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        192,
+        448
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/e_flag.png",
+      "source_size": [
+        1469,
+        1071
+      ],
+      "source_layout": [
+        4,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C",
+        "#A86A14",
+        "#5C380A",
+        "#D2E2FF",
+        "#7CA4EA",
+        "#3566C4",
+        "#1F3E8A",
+        "#10224E",
+        "#EFE6D6",
+        "#CDBD9E",
+        "#A08C6C",
+        "#74624A",
+        "#4C4032",
+        "#2C241C"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/e_flag.png",
+          "source_box": [
+            0,
+            0,
+            367,
+            536
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": -5,
+          "opaque_pixels": 350,
+          "mirror_pairs_corrected": 132,
+          "bright_pixels": 216
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/e_flag.png",
+          "source_box": [
+            367,
+            0,
+            734,
+            536
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 548,
+          "mirror_pairs_corrected": 235,
+          "bright_pixels": 300
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/e_flag.png",
+          "source_box": [
+            734,
+            0,
+            1102,
+            536
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 330,
+          "mirror_pairs_corrected": 109,
+          "bright_pixels": 198
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/e_flag.png",
+          "source_box": [
+            1102,
+            0,
+            1469,
+            536
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 368,
+          "mirror_pairs_corrected": 158,
+          "bright_pixels": 218
+        },
+        {
+          "frame": 5,
+          "source_file": "raw/e_flag.png",
+          "source_box": [
+            0,
+            536,
+            367,
+            1071
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 6,
+          "opaque_pixels": 330,
+          "mirror_pairs_corrected": 114,
+          "bright_pixels": 194
+        },
+        {
+          "frame": 6,
+          "source_file": "raw/e_flag.png",
+          "source_box": [
+            367,
+            536,
+            734,
+            1071
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 6,
+          "opaque_pixels": 384,
+          "mirror_pairs_corrected": 158,
+          "bright_pixels": 190
+        },
+        {
+          "frame": 7,
+          "source_file": "raw/e_flag.png",
+          "source_box": [
+            734,
+            536,
+            1102,
+            1071
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 6,
+          "opaque_pixels": 326,
+          "mirror_pairs_corrected": 105,
+          "bright_pixels": 240
+        },
+        {
+          "frame": 8,
+          "source_file": "raw/e_flag.png",
+          "source_box": [
+            1102,
+            536,
+            1469,
+            1071
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 7,
+          "opaque_pixels": 38,
+          "mirror_pairs_corrected": 19,
+          "bright_pixels": 38
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "e_hit",
+      "frames": 4,
+      "cell": [
+        14,
+        14
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "gold",
+        "blue"
+      ],
+      "type": "impact",
+      "file": "jarvaniv_fx_e_hit.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_e_hit.png",
+      "cell_1x": [
+        14,
+        14
+      ],
+      "binding": "view_effects `league_jarvaniv_e_hit`（跟随，画在人物上面；左右对称）",
+      "loop_frames_1based": null,
+      "anchor_1x": [
+        7.0,
+        7.0
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        112,
+        112
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/e_hit.png",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C",
+        "#D2E2FF",
+        "#7CA4EA",
+        "#3566C4"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/e_hit.png",
+          "source_box": [
+            0,
+            0,
+            724,
+            543
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 12,
+          "mirror_pairs_corrected": 2,
+          "bright_pixels": 12
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/e_hit.png",
+          "source_box": [
+            724,
+            0,
+            1448,
+            543
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 70,
+          "mirror_pairs_corrected": 11,
+          "bright_pixels": 52
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/e_hit.png",
+          "source_box": [
+            0,
+            543,
+            724,
+            1086
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 36,
+          "mirror_pairs_corrected": 6,
+          "bright_pixels": 20
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/e_hit.png",
+          "source_box": [
+            724,
+            543,
+            1448,
+            1086
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 18,
+          "mirror_pairs_corrected": 3,
+          "bright_pixels": 18
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "f_as",
+      "frames": 4,
+      "cell": [
+        18,
+        10
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "gold",
+        "blue"
+      ],
+      "type": "loop_ground",
+      "file": "jarvaniv_fx_f_as.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_f_as.png",
+      "cell_1x": [
+        18,
+        10
+      ],
+      "binding": "view_buffs `league_jarvaniv_f_as`（跟随，画在人物下面；左右对称；循环）",
+      "loop_frames_1based": [
+        1,
+        4
+      ],
+      "anchor_1x": [
+        9.0,
+        7
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        144,
+        80
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/f_as.png",
+      "source_size": [
+        1683,
+        935
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C",
+        "#D2E2FF",
+        "#7CA4EA",
+        "#3566C4"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/f_as.png",
+          "source_box": [
+            0,
+            0,
+            842,
+            468
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 36,
+          "mirror_pairs_corrected": 10,
+          "bright_pixels": 32
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/f_as.png",
+          "source_box": [
+            842,
+            0,
+            1683,
+            468
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 30,
+          "mirror_pairs_corrected": 3,
+          "bright_pixels": 26
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/f_as.png",
+          "source_box": [
+            0,
+            468,
+            842,
+            935
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 36,
+          "mirror_pairs_corrected": 10,
+          "bright_pixels": 34
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/f_as.png",
+          "source_box": [
+            842,
+            468,
+            1683,
+            935
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 28,
+          "mirror_pairs_corrected": 4,
+          "bright_pixels": 28
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "w_cast",
+      "frames": 6,
+      "cell": [
+        48,
+        54
+      ],
+      "cols": 3,
+      "rows": 2,
+      "palettes": [
+        "gold",
+        "cyan"
+      ],
+      "type": "shield",
+      "file": "jarvaniv_fx_w_cast.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_w_cast.png",
+      "cell_1x": [
+        48,
+        54
+      ],
+      "binding": "view_effects `league_jarvaniv_w_cast`（跟随，画在他上面 z 2；左右对称；大图表）",
+      "loop_frames_1based": null,
+      "anchor_1x": [
+        24.0,
+        50
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        384,
+        432
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/w_cast.png",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_layout": [
+        3,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C",
+        "#DDF4FF",
+        "#8ED2FF",
+        "#3C96F0"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/w_cast.png",
+          "source_box": [
+            0,
+            0,
+            483,
+            543
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 126,
+          "mirror_pairs_corrected": 24,
+          "bright_pixels": 126
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/w_cast.png",
+          "source_box": [
+            483,
+            0,
+            965,
+            543
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 326,
+          "mirror_pairs_corrected": 82,
+          "bright_pixels": 326
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/w_cast.png",
+          "source_box": [
+            965,
+            0,
+            1448,
+            543
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 606,
+          "mirror_pairs_corrected": 176,
+          "bright_pixels": 606
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/w_cast.png",
+          "source_box": [
+            0,
+            543,
+            483,
+            1086
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 686,
+          "mirror_pairs_corrected": 217,
+          "bright_pixels": 686
+        },
+        {
+          "frame": 5,
+          "source_file": "raw/w_cast.png",
+          "source_box": [
+            483,
+            543,
+            965,
+            1086
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 280,
+          "mirror_pairs_corrected": 28,
+          "bright_pixels": 280
+        },
+        {
+          "frame": 6,
+          "source_file": "raw/w_cast.png",
+          "source_box": [
+            965,
+            543,
+            1448,
+            1086
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 208,
+          "mirror_pairs_corrected": 74,
+          "bright_pixels": 208
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "w_on",
+      "frames": 4,
+      "cell": [
+        40,
+        50
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "gold"
+      ],
+      "type": "shield_loop",
+      "file": "jarvaniv_fx_w_on.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_w_on.png",
+      "cell_1x": [
+        40,
+        50
+      ],
+      "binding": "view_buffs `league_jarvaniv_w_on`（跟随，画在他上面；左右对称；循环）",
+      "loop_frames_1based": [
+        1,
+        4
+      ],
+      "anchor_1x": [
+        20.0,
+        48
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": 4,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        320,
+        400
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/w_on.png",
+      "source_size": [
+        1122,
+        1402
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/w_on.png",
+          "source_box": [
+            0,
+            0,
+            561,
+            701
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 344,
+          "mirror_pairs_corrected": 169,
+          "bright_pixels": 344
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/w_on.png",
+          "source_box": [
+            561,
+            0,
+            1122,
+            701
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 340,
+          "mirror_pairs_corrected": 165,
+          "bright_pixels": 340
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/w_on.png",
+          "source_box": [
+            0,
+            701,
+            561,
+            1402
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 340,
+          "mirror_pairs_corrected": 163,
+          "bright_pixels": 340
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/w_on.png",
+          "source_box": [
+            561,
+            701,
+            1122,
+            1402
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 336,
+          "mirror_pairs_corrected": 165,
+          "bright_pixels": 336
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "w_hit",
+      "frames": 4,
+      "cell": [
+        12,
+        12
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "cyan"
+      ],
+      "type": "impact",
+      "file": "jarvaniv_fx_w_hit.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_w_hit.png",
+      "cell_1x": [
+        12,
+        12
+      ],
+      "binding": "view_effects `league_jarvaniv_w_hit`（跟随，画在人物上面；左右对称）",
+      "loop_frames_1based": null,
+      "anchor_1x": [
+        6.0,
+        6.0
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        96,
+        96
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/w_hit.png",
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#DDF4FF",
+        "#8ED2FF",
+        "#3C96F0"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/w_hit.png",
+          "source_box": [
+            0,
+            0,
+            887,
+            444
+          ],
+          "registration_shift_x": -4,
+          "registration_shift_y": 0,
+          "opaque_pixels": 14,
+          "mirror_pairs_corrected": 7,
+          "bright_pixels": 14
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/w_hit.png",
+          "source_box": [
+            887,
+            0,
+            1774,
+            444
+          ],
+          "registration_shift_x": 3,
+          "registration_shift_y": 0,
+          "opaque_pixels": 22,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 22
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/w_hit.png",
+          "source_box": [
+            0,
+            444,
+            887,
+            887
+          ],
+          "registration_shift_x": -4,
+          "registration_shift_y": 0,
+          "opaque_pixels": 38,
+          "mirror_pairs_corrected": 18,
+          "bright_pixels": 38
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/w_hit.png",
+          "source_box": [
+            887,
+            444,
+            1774,
+            887
+          ],
+          "registration_shift_x": 3,
+          "registration_shift_y": 0,
+          "opaque_pixels": 8,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 8
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "w_slow",
+      "frames": 4,
+      "cell": [
+        16,
+        8
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "cyan"
+      ],
+      "type": "loop_ground",
+      "file": "jarvaniv_fx_w_slow.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_w_slow.png",
+      "cell_1x": [
+        16,
+        8
+      ],
+      "binding": "view_buffs `league_jarvaniv_w_slow`（跟随，画在人物下面；左右对称；循环）",
+      "loop_frames_1based": [
+        1,
+        4
+      ],
+      "anchor_1x": [
+        8.0,
+        6
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": 2,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        128,
+        64
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/w_slow.png",
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#FFFFFF",
+        "#DDF4FF",
+        "#8ED2FF",
+        "#3C96F0"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/w_slow.png",
+          "source_box": [
+            44,
+            22,
+            843,
+            422
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 42,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 42
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/w_slow.png",
+          "source_box": [
+            931,
+            22,
+            1730,
+            422
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 42,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 42
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/w_slow.png",
+          "source_box": [
+            44,
+            466,
+            843,
+            865
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 42,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 42
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/w_slow.png",
+          "source_box": [
+            931,
+            466,
+            1730,
+            865
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 42,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 42
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "r_ring",
+      "frames": 8,
+      "cell": [
+        80,
+        40
+      ],
+      "cols": 2,
+      "rows": 4,
+      "palettes": [
+        "rock",
+        "gold"
+      ],
+      "type": "arena",
+      "file": "jarvaniv_fx_r_ring.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_r_ring.png",
+      "cell_1x": [
+        80,
+        40
+      ],
+      "binding": "view_effects `league_jarvaniv_r_ring`（不跟随，画在人物下面 z -1；左右对称；大图表；4–7 帧循环铺满 3.5 秒）",
+      "loop_frames_1based": [
+        4,
+        7
+      ],
+      "anchor_1x": [
+        40.0,
+        28
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": 3.5,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        640,
+        320
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/r_ring.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_layout": [
+        2,
+        4
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#EFE6D6",
+        "#CDBD9E",
+        "#A08C6C",
+        "#74624A",
+        "#4C4032",
+        "#2C241C",
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C",
+        "#A86A14",
+        "#5C380A"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/r_ring.png",
+          "source_box": [
+            0,
+            0,
+            627,
+            314
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 448,
+          "mirror_pairs_corrected": 128,
+          "bright_pixels": 294
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/r_ring.png",
+          "source_box": [
+            627,
+            0,
+            1254,
+            314
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 1052,
+          "mirror_pairs_corrected": 309,
+          "bright_pixels": 334
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/r_ring.png",
+          "source_box": [
+            0,
+            314,
+            627,
+            627
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 1426,
+          "mirror_pairs_corrected": 370,
+          "bright_pixels": 282
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/r_ring.png",
+          "source_box": [
+            627,
+            314,
+            1254,
+            627
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 1480,
+          "mirror_pairs_corrected": 158,
+          "bright_pixels": 130
+        },
+        {
+          "frame": 5,
+          "source_file": "raw/r_ring.png",
+          "source_box": [
+            0,
+            627,
+            627,
+            940
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 1476,
+          "mirror_pairs_corrected": 190,
+          "bright_pixels": 164
+        },
+        {
+          "frame": 6,
+          "source_file": "raw/r_ring.png",
+          "source_box": [
+            627,
+            627,
+            1254,
+            940
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 1534,
+          "mirror_pairs_corrected": 197,
+          "bright_pixels": 178
+        },
+        {
+          "frame": 7,
+          "source_file": "raw/r_ring.png",
+          "source_box": [
+            0,
+            940,
+            627,
+            1254
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 1496,
+          "mirror_pairs_corrected": 205,
+          "bright_pixels": 190
+        },
+        {
+          "frame": 8,
+          "source_file": "raw/r_ring.png",
+          "source_box": [
+            627,
+            940,
+            1254,
+            1254
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 1178,
+          "mirror_pairs_corrected": 401,
+          "bright_pixels": 244
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "r_hit",
+      "frames": 4,
+      "cell": [
+        14,
+        14
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "rock",
+        "gold"
+      ],
+      "type": "impact",
+      "file": "jarvaniv_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_r_hit.png",
+      "cell_1x": [
+        14,
+        14
+      ],
+      "binding": "view_effects `league_jarvaniv_r_hit`（跟随，画在人物上面；左右对称）",
+      "loop_frames_1based": null,
+      "anchor_1x": [
+        7.0,
+        7.0
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        112,
+        112
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/r_hit.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#EFE6D6",
+        "#CDBD9E",
+        "#A08C6C",
+        "#74624A",
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/r_hit.png",
+          "source_box": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 22,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 22
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/r_hit.png",
+          "source_box": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 54,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 24
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/r_hit.png",
+          "source_box": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 42,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 12
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/r_hit.png",
+          "source_box": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 26,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 6
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    },
+    {
+      "name": "r_zap",
+      "frames": 4,
+      "cell": [
+        12,
+        12
+      ],
+      "cols": 2,
+      "rows": 2,
+      "palettes": [
+        "rock",
+        "gold"
+      ],
+      "type": "impact",
+      "file": "jarvaniv_fx_r_zap.png",
+      "pixel_1x": "pixel_1x/jarvaniv_fx_r_zap.png",
+      "cell_1x": [
+        12,
+        12
+      ],
+      "binding": "view_effects `league_jarvaniv_r_zap`（跟随，画在人物上面；左右对称）",
+      "loop_frames_1based": null,
+      "anchor_1x": [
+        6.0,
+        6.0
+      ],
+      "anchor_status": "requested_spec; verify in engine",
+      "nominal_duration_seconds": null,
+      "preview_frame_ms": 120,
+      "engine_frame_durations": null,
+      "cell_8x": [
+        96,
+        96
+      ],
+      "layout": "one_horizontal_row",
+      "symmetry": "per_frame_horizontal_exact; brighter_source_pixel_mirrored",
+      "raw": "raw/r_zap.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_layout": [
+        2,
+        2
+      ],
+      "alpha": "binary_0_or_255",
+      "palette": [
+        "#EFE6D6",
+        "#CDBD9E",
+        "#A08C6C",
+        "#74624A",
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#E8A82C"
+      ],
+      "frame_stats": [
+        {
+          "frame": 1,
+          "source_file": "raw/r_zap.png",
+          "source_box": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 4,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 4
+        },
+        {
+          "frame": 2,
+          "source_file": "raw/r_zap.png",
+          "source_box": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 24,
+          "mirror_pairs_corrected": 2,
+          "bright_pixels": 10
+        },
+        {
+          "frame": 3,
+          "source_file": "raw/r_zap.png",
+          "source_box": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 30,
+          "mirror_pairs_corrected": 1,
+          "bright_pixels": 4
+        },
+        {
+          "frame": 4,
+          "source_file": "raw/r_zap.png",
+          "source_box": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "registration_shift_x": 0,
+          "registration_shift_y": 0,
+          "opaque_pixels": 12,
+          "mirror_pairs_corrected": 0,
+          "bright_pixels": 0
+        }
+      ],
+      "quality_status": "passed_artifact_checks; visual_review_complete; engine_import_not_tested"
+    }
+  ],
+  "validation": {
+    "effects": 15,
+    "total_frames": 73,
+    "all_checks_passed": true,
+    "engine_import_tested": false
+  }
+}

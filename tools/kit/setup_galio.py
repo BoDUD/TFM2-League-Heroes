@@ -38,7 +38,9 @@ G = "<#7dd87dff>"      # shields
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
 # 2026-10-13, at 100 % (rig_galio.py): the face on his head's crown (the eyes on row -21, the crown -27)
-VIEW = {"face": {"x": -1, "y": -42}, "center": {"x": 0, "y": -12}}
+# 2026-10-18, the user: 「加里奥头像位置裁剪的也不对」: -42 sat 5 px over his crest, between the wing tips (the portrait
+# showed wings and air); now on the crest's first full row over the feet line (the 1x idle, rows counted from its soles)
+VIEW = {"face": {"x": 1, "y": -37}, "center": {"x": 0, "y": -12}}
 
 
 def mag(k, ap="ap"):
