@@ -1,0 +1,121 @@
+{
+  "A": {
+    "source": "raw/B_pixel_generated.png",
+    "source_grid": "work/B_grid.json",
+    "source_shell_top_row": 8,
+    "source_sole_row": 47,
+    "removed_source_rows": [
+      2,
+      4,
+      6
+    ],
+    "removed_source_columns": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      27,
+      29,
+      49,
+      51,
+      53,
+      55,
+      57,
+      59,
+      61,
+      62
+    ],
+    "duplicated_body_rows": [],
+    "shell_to_sole_rows": 40,
+    "antennae_above_shell_rows": 5,
+    "total_height_rows": 45,
+    "total_width_columns": 42,
+    "feet_outer_span_columns": 34,
+    "right_claw_overhang_from_front_foot": 8,
+    "sole_row": 99,
+    "shell_top_row": 60,
+    "antenna_top_row": 55,
+    "feet_midpoint_x": 64.0,
+    "bbox_1x": [
+      47,
+      55,
+      89,
+      100
+    ],
+    "opaque_colors": 23,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "strict_8x8_grid": true
+  },
+  "B": {
+    "source": "raw/B_pixel_generated.png",
+    "source_grid": "work/B_grid.json",
+    "source_shell_top_row": 8,
+    "source_sole_row": 47,
+    "removed_source_rows": [
+      2,
+      4,
+      6
+    ],
+    "removed_source_columns": [
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      20,
+      24,
+      26,
+      28,
+      49,
+      51,
+      53,
+      55,
+      57,
+      59,
+      61,
+      62
+    ],
+    "duplicated_body_rows": [
+      29,
+      32,
+      36,
+      40
+    ],
+    "shell_to_sole_rows": 44,
+    "antennae_above_shell_rows": 5,
+    "total_height_rows": 49,
+    "total_width_columns": 44,
+    "feet_outer_span_columns": 36,
+    "right_claw_overhang_from_front_foot": 8,
+    "sole_row": 99,
+    "shell_top_row": 56,
+    "antenna_top_row": 51,
+    "feet_midpoint_x": 64.0,
+    "bbox_1x": [
+      46,
+      51,
+      90,
+      100
+    ],
+    "opaque_colors": 23,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "strict_8x8_grid": true
+  }
+}

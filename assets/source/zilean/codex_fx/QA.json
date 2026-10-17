@@ -1,0 +1,249 @@
+[
+  {
+    "id": "a_orb",
+    "frames": 4,
+    "colors": 6,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 197.4,
+    "brightest_10_percent_mean": 254.2,
+    "nonempty_frames": 4,
+    "game_nonempty_frames": 4
+  },
+  {
+    "id": "a_cast",
+    "frames": 4,
+    "colors": 4,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 203.2,
+    "brightest_10_percent_mean": 253.5,
+    "nonempty_frames": 4,
+    "game_nonempty_frames": 4
+  },
+  {
+    "id": "a_hit",
+    "frames": 4,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 205.2,
+    "brightest_10_percent_mean": 254.0,
+    "nonempty_frames": 4,
+    "game_nonempty_frames": 4
+  },
+  {
+    "id": "q_cast",
+    "frames": 4,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 204.8,
+    "brightest_10_percent_mean": 251.2,
+    "nonempty_frames": 4,
+    "game_nonempty_frames": 4
+  },
+  {
+    "id": "q_bomb",
+    "frames": 4,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 196.9,
+    "brightest_10_percent_mean": 255.0,
+    "nonempty_frames": 4,
+    "game_nonempty_frames": 4
+  },
+  {
+    "id": "q_bomb_on",
+    "frames": 4,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 198.5,
+    "brightest_10_percent_mean": 251.3,
+    "nonempty_frames": 4,
+    "game_nonempty_frames": 4
+  },
+  {
+    "id": "q_bomb_ground",
+    "frames": 12,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 211.8,
+    "brightest_10_percent_mean": 252.7,
+    "nonempty_frames": 12,
+    "game_nonempty_frames": 12
+  },
+  {
+    "id": "q_boom",
+    "frames": 7,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 217.0,
+    "brightest_10_percent_mean": 251.7,
+    "nonempty_frames": 7,
+    "game_nonempty_frames": 7
+  },
+  {
+    "id": "q_boom2",
+    "frames": 8,
+    "colors": 6,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 226.7,
+    "brightest_10_percent_mean": 255.0,
+    "nonempty_frames": 8,
+    "game_nonempty_frames": 8
+  },
+  {
+    "id": "q_hit",
+    "frames": 4,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 202.0,
+    "brightest_10_percent_mean": 252.4,
+    "nonempty_frames": 4,
+    "game_nonempty_frames": 4
+  },
+  {
+    "id": "q_stun",
+    "frames": 6,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 195.2,
+    "brightest_10_percent_mean": 246.0,
+    "nonempty_frames": 6,
+    "game_nonempty_frames": 6
+  },
+  {
+    "id": "w_rewind",
+    "frames": 6,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 229.7,
+    "brightest_10_percent_mean": 255.0,
+    "nonempty_frames": 6,
+    "game_nonempty_frames": 6
+  },
+  {
+    "id": "e_cast",
+    "frames": 4,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 189.2,
+    "brightest_10_percent_mean": 250.2,
+    "nonempty_frames": 4,
+    "game_nonempty_frames": 4
+  },
+  {
+    "id": "e_slow",
+    "frames": 6,
+    "colors": 4,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 157.1,
+    "brightest_10_percent_mean": 229.4,
+    "nonempty_frames": 6,
+    "game_nonempty_frames": 6
+  },
+  {
+    "id": "e_haste",
+    "frames": 6,
+    "colors": 5,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 188.9,
+    "brightest_10_percent_mean": 229.3,
+    "nonempty_frames": 6,
+    "game_nonempty_frames": 6
+  },
+  {
+    "id": "p_bottle",
+    "frames": 6,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 209.3,
+    "brightest_10_percent_mean": 252.5,
+    "nonempty_frames": 6,
+    "game_nonempty_frames": 6
+  },
+  {
+    "id": "r_cast",
+    "frames": 5,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 209.1,
+    "brightest_10_percent_mean": 241.7,
+    "nonempty_frames": 5,
+    "game_nonempty_frames": 5
+  },
+  {
+    "id": "r_rune",
+    "frames": 8,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 218.6,
+    "brightest_10_percent_mean": 255.0,
+    "nonempty_frames": 8,
+    "game_nonempty_frames": 8
+  },
+  {
+    "id": "r_rewind",
+    "frames": 8,
+    "colors": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "mean_luminance": 234.8,
+    "brightest_10_percent_mean": 255.0,
+    "nonempty_frames": 8,
+    "game_nonempty_frames": 8
+  }
+]

@@ -1,0 +1,3279 @@
+{
+  "status": "generated_vfx_package_not_game_imported",
+  "logical_scale": 1,
+  "display_scale": 16,
+  "frame_total": 85,
+  "effects": {
+    "a_hit": {
+      "file": "irelia_fx_a_hit.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_a_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "bbox": [
+            7,
+            7,
+            9,
+            9
+          ],
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_content_bbox": [
+            129,
+            144,
+            498,
+            480
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "bbox": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_content_bbox": [
+            14,
+            74,
+            588,
+            573
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "bbox": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_content_bbox": [
+            59,
+            58,
+            569,
+            542
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "bbox": [
+            3,
+            2,
+            13,
+            13
+          ],
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_content_bbox": [
+            91,
+            122,
+            511,
+            501
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        16,
+        16
+      ],
+      "size": [
+        1024,
+        256
+      ],
+      "native_size": [
+        64,
+        16
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#000000"
+      ],
+      "binding": "view_effects `league_irelia_a_hit`（跟随目标，画在人物上面；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "p_hit": {
+      "file": "irelia_fx_p_hit.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_p_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            14,
+            14
+          ],
+          "bbox": [
+            6,
+            6,
+            8,
+            8
+          ],
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_content_bbox": [
+            276,
+            270,
+            352,
+            352
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            14,
+            0,
+            14,
+            14
+          ],
+          "bbox": [
+            2,
+            2,
+            12,
+            12
+          ],
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_content_bbox": [
+            141,
+            140,
+            488,
+            488
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            28,
+            0,
+            14,
+            14
+          ],
+          "bbox": [
+            1,
+            1,
+            13,
+            13
+          ],
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_content_bbox": [
+            84,
+            66,
+            544,
+            521
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            42,
+            0,
+            14,
+            14
+          ],
+          "bbox": [
+            1,
+            1,
+            13,
+            13
+          ],
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_content_bbox": [
+            100,
+            84,
+            528,
+            498
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        14,
+        14
+      ],
+      "size": [
+        896,
+        224
+      ],
+      "native_size": [
+        56,
+        14
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#000000"
+      ],
+      "binding": "view_effects `league_irelia_p_hit`（跟随目标；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "pv4": {
+      "file": "irelia_fx_pv4.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_pv4.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            36,
+            44
+          ],
+          "bbox": [
+            6,
+            6,
+            30,
+            35
+          ],
+          "source_rect": [
+            0,
+            0,
+            568,
+            693
+          ],
+          "source_content_bbox": [
+            102,
+            95,
+            444,
+            552
+          ],
+          "human_hole": [
+            10,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            36,
+            0,
+            36,
+            44
+          ],
+          "bbox": [
+            7,
+            7,
+            29,
+            35
+          ],
+          "source_rect": [
+            568,
+            0,
+            1135,
+            693
+          ],
+          "source_content_bbox": [
+            109,
+            110,
+            471,
+            552
+          ],
+          "human_hole": [
+            10,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            72,
+            0,
+            36,
+            44
+          ],
+          "bbox": [
+            6,
+            7,
+            30,
+            34
+          ],
+          "source_rect": [
+            0,
+            693,
+            568,
+            1386
+          ],
+          "source_content_bbox": [
+            98,
+            107,
+            446,
+            532
+          ],
+          "human_hole": [
+            10,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            108,
+            0,
+            36,
+            44
+          ],
+          "bbox": [
+            7,
+            5,
+            29,
+            34
+          ],
+          "source_rect": [
+            568,
+            693,
+            1135,
+            1386
+          ],
+          "source_content_bbox": [
+            108,
+            89,
+            472,
+            532
+          ],
+          "human_hole": [
+            10,
+            4,
+            16,
+            40
+          ]
+        }
+      ],
+      "cell": [
+        36,
+        44
+      ],
+      "size": [
+        2304,
+        704
+      ],
+      "native_size": [
+        144,
+        44
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#000000"
+      ],
+      "binding": "view_buffs `league_irelia_pv4`（画在人物上面，循环；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "q_hit": {
+      "file": "irelia_fx_q_hit.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_q_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            20,
+            20
+          ],
+          "bbox": [
+            8,
+            9,
+            12,
+            11
+          ],
+          "source_rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_content_bbox": [
+            104,
+            148,
+            409,
+            377
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            20,
+            0,
+            20,
+            20
+          ],
+          "bbox": [
+            1,
+            1,
+            19,
+            19
+          ],
+          "source_rect": [
+            512,
+            0,
+            1024,
+            512
+          ],
+          "source_content_bbox": [
+            16,
+            74,
+            496,
+            455
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            40,
+            0,
+            20,
+            20
+          ],
+          "bbox": [
+            1,
+            1,
+            19,
+            18
+          ],
+          "source_rect": [
+            1024,
+            0,
+            1536,
+            512
+          ],
+          "source_content_bbox": [
+            13,
+            55,
+            499,
+            467
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            60,
+            0,
+            20,
+            20
+          ],
+          "bbox": [
+            1,
+            1,
+            19,
+            19
+          ],
+          "source_rect": [
+            0,
+            512,
+            512,
+            1024
+          ],
+          "source_content_bbox": [
+            30,
+            42,
+            483,
+            443
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            80,
+            0,
+            20,
+            20
+          ],
+          "bbox": [
+            2,
+            3,
+            18,
+            17
+          ],
+          "source_rect": [
+            512,
+            512,
+            1024,
+            1024
+          ],
+          "source_content_bbox": [
+            44,
+            102,
+            468,
+            377
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        20,
+        20
+      ],
+      "size": [
+        1600,
+        320
+      ],
+      "native_size": [
+        100,
+        20
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#000000"
+      ],
+      "binding": "view_effects `league_irelia_q_hit`（跟随目标；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "mark": {
+      "file": "irelia_fx_mark.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_mark.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            12,
+            48
+          ],
+          "bbox": [
+            1,
+            0,
+            11,
+            8
+          ],
+          "source_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "source_content_bbox": [
+            275,
+            147,
+            509,
+            547
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            12,
+            0,
+            12,
+            48
+          ],
+          "bbox": [
+            3,
+            0,
+            9,
+            8
+          ],
+          "source_rect": [
+            543,
+            0,
+            1086,
+            724
+          ],
+          "source_content_bbox": [
+            165,
+            116,
+            464,
+            592
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            24,
+            0,
+            12,
+            48
+          ],
+          "bbox": [
+            3,
+            0,
+            9,
+            8
+          ],
+          "source_rect": [
+            1086,
+            0,
+            1629,
+            724
+          ],
+          "source_content_bbox": [
+            65,
+            101,
+            402,
+            607
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            36,
+            0,
+            12,
+            48
+          ],
+          "bbox": [
+            1,
+            0,
+            11,
+            8
+          ],
+          "source_rect": [
+            1629,
+            0,
+            2172,
+            724
+          ],
+          "source_content_bbox": [
+            36,
+            153,
+            270,
+            547
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        12,
+        48
+      ],
+      "size": [
+        768,
+        768
+      ],
+      "native_size": [
+        48,
+        48
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#000000"
+      ],
+      "binding": "view_buffs `league_irelia_mark`（画在人物上面，5 秒；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "e_cast": {
+      "file": "irelia_fx_e_cast.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_e_cast.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            26,
+            12
+          ],
+          "bbox": [
+            12,
+            6,
+            14,
+            12
+          ],
+          "source_rect": [
+            0,
+            0,
+            916,
+            343
+          ],
+          "source_content_bbox": [
+            398,
+            35,
+            519,
+            292
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            26,
+            0,
+            26,
+            12
+          ],
+          "bbox": [
+            1,
+            2,
+            25,
+            12
+          ],
+          "source_rect": [
+            0,
+            343,
+            916,
+            687
+          ],
+          "source_content_bbox": [
+            91,
+            43,
+            826,
+            310
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            52,
+            0,
+            26,
+            12
+          ],
+          "bbox": [
+            1,
+            0,
+            25,
+            12
+          ],
+          "source_rect": [
+            0,
+            687,
+            916,
+            1030
+          ],
+          "source_content_bbox": [
+            76,
+            41,
+            841,
+            318
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            78,
+            0,
+            26,
+            12
+          ],
+          "bbox": [
+            1,
+            7,
+            25,
+            12
+          ],
+          "source_rect": [
+            0,
+            1030,
+            916,
+            1374
+          ],
+          "source_content_bbox": [
+            76,
+            78,
+            841,
+            313
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            104,
+            0,
+            26,
+            12
+          ],
+          "bbox": [
+            2,
+            8,
+            24,
+            12
+          ],
+          "source_rect": [
+            0,
+            1374,
+            916,
+            1717
+          ],
+          "source_content_bbox": [
+            112,
+            103,
+            804,
+            274
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        26,
+        12
+      ],
+      "size": [
+        2080,
+        192
+      ],
+      "native_size": [
+        130,
+        12
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#000000"
+      ],
+      "binding": "CasterViewEffect `league_irelia_e_cast`（跟随她，画在人物上面；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "e_line": {
+      "file": "irelia_fx_e_line.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_e_line.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            82,
+            14
+          ],
+          "bbox": [
+            2,
+            4,
+            80,
+            10
+          ],
+          "source_rect": [
+            0,
+            0,
+            1239,
+            212
+          ],
+          "source_content_bbox": [
+            38,
+            87,
+            1201,
+            178
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            82,
+            0,
+            82,
+            14
+          ],
+          "bbox": [
+            2,
+            4,
+            80,
+            10
+          ],
+          "source_rect": [
+            0,
+            212,
+            1239,
+            423
+          ],
+          "source_content_bbox": [
+            27,
+            58,
+            1212,
+            153
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            164,
+            0,
+            82,
+            14
+          ],
+          "bbox": [
+            2,
+            3,
+            80,
+            11
+          ],
+          "source_rect": [
+            0,
+            423,
+            1239,
+            634
+          ],
+          "source_content_bbox": [
+            27,
+            37,
+            1212,
+            133
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            246,
+            0,
+            82,
+            14
+          ],
+          "bbox": [
+            2,
+            0,
+            81,
+            14
+          ],
+          "source_rect": [
+            0,
+            634,
+            1239,
+            846
+          ],
+          "source_content_bbox": [
+            27,
+            19,
+            1212,
+            212
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            328,
+            0,
+            82,
+            14
+          ],
+          "bbox": [
+            2,
+            1,
+            81,
+            13
+          ],
+          "source_rect": [
+            0,
+            846,
+            1239,
+            1058
+          ],
+          "source_content_bbox": [
+            27,
+            0,
+            1212,
+            188
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 6,
+          "rect": [
+            410,
+            0,
+            82,
+            14
+          ],
+          "bbox": [
+            2,
+            4,
+            80,
+            10
+          ],
+          "source_rect": [
+            0,
+            1058,
+            1239,
+            1269
+          ],
+          "source_content_bbox": [
+            27,
+            37,
+            1212,
+            123
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        82,
+        14
+      ],
+      "size": [
+        7872,
+        224
+      ],
+      "native_size": [
+        492,
+        14
+      ],
+      "symmetry": "vertical",
+      "palette": [
+        "#0A081C",
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#4D6085",
+        "#344367",
+        "#222B51",
+        "#131A37",
+        "#000000"
+      ],
+      "binding": "view_projectiles `league_irelia_e_line`（LineRangeProjectile 的画面：整条线，从她到 80 格外，朝方向转；上下对称）",
+      "sheet": "league_irelia_big",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "e_hit": {
+      "file": "irelia_fx_e_hit.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_e_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "bbox": [
+            5,
+            7,
+            11,
+            9
+          ],
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_content_bbox": [
+            205,
+            299,
+            421,
+            346
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "bbox": [
+            2,
+            5,
+            14,
+            11
+          ],
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_content_bbox": [
+            31,
+            108,
+            596,
+            521
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "bbox": [
+            2,
+            1,
+            14,
+            15
+          ],
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_content_bbox": [
+            30,
+            57,
+            598,
+            569
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "bbox": [
+            2,
+            3,
+            14,
+            13
+          ],
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_content_bbox": [
+            57,
+            83,
+            553,
+            545
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        16,
+        16
+      ],
+      "size": [
+        1024,
+        256
+      ],
+      "native_size": [
+        64,
+        16
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#000000"
+      ],
+      "binding": "view_effects `league_irelia_e_hit`（跟随目标；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "e_stun": {
+      "file": "irelia_fx_e_stun.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_e_stun.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            16,
+            48
+          ],
+          "bbox": [
+            1,
+            1,
+            15,
+            7
+          ],
+          "source_rect": [
+            0,
+            0,
+            362,
+            1086
+          ],
+          "source_content_bbox": [
+            47,
+            546,
+            337,
+            651
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            16,
+            0,
+            16,
+            48
+          ],
+          "bbox": [
+            1,
+            1,
+            15,
+            7
+          ],
+          "source_rect": [
+            362,
+            0,
+            724,
+            1086
+          ],
+          "source_content_bbox": [
+            43,
+            519,
+            330,
+            646
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            32,
+            0,
+            16,
+            48
+          ],
+          "bbox": [
+            1,
+            1,
+            15,
+            7
+          ],
+          "source_rect": [
+            724,
+            0,
+            1086,
+            1086
+          ],
+          "source_content_bbox": [
+            41,
+            496,
+            328,
+            647
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            48,
+            0,
+            16,
+            48
+          ],
+          "bbox": [
+            1,
+            1,
+            15,
+            7
+          ],
+          "source_rect": [
+            1086,
+            0,
+            1448,
+            1086
+          ],
+          "source_content_bbox": [
+            25,
+            546,
+            315,
+            651
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        16,
+        48
+      ],
+      "size": [
+        1024,
+        768
+      ],
+      "native_size": [
+        64,
+        48
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#000000"
+      ],
+      "binding": "view_buffs `league_irelia_e_stun`（画在人物上面，循环 0.75 秒；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "w_on": {
+      "file": "irelia_fx_w_on.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_w_on.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            36,
+            44
+          ],
+          "bbox": [
+            1,
+            4,
+            35,
+            18
+          ],
+          "source_rect": [
+            0,
+            0,
+            567,
+            694
+          ],
+          "source_content_bbox": [
+            67,
+            117,
+            522,
+            473
+          ],
+          "human_hole": [
+            10,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            36,
+            0,
+            36,
+            44
+          ],
+          "bbox": [
+            1,
+            4,
+            35,
+            18
+          ],
+          "source_rect": [
+            567,
+            0,
+            1134,
+            694
+          ],
+          "source_content_bbox": [
+            50,
+            117,
+            501,
+            473
+          ],
+          "human_hole": [
+            10,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            72,
+            0,
+            36,
+            44
+          ],
+          "bbox": [
+            1,
+            5,
+            35,
+            18
+          ],
+          "source_rect": [
+            0,
+            694,
+            567,
+            1387
+          ],
+          "source_content_bbox": [
+            67,
+            63,
+            522,
+            441
+          ],
+          "human_hole": [
+            10,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            108,
+            0,
+            36,
+            44
+          ],
+          "bbox": [
+            1,
+            5,
+            35,
+            18
+          ],
+          "source_rect": [
+            567,
+            694,
+            1134,
+            1387
+          ],
+          "source_content_bbox": [
+            49,
+            39,
+            502,
+            441
+          ],
+          "human_hole": [
+            10,
+            4,
+            16,
+            40
+          ]
+        }
+      ],
+      "cell": [
+        36,
+        44
+      ],
+      "size": [
+        2304,
+        704
+      ],
+      "native_size": [
+        144,
+        44
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#0A081C",
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#4D6085",
+        "#344367",
+        "#222B51",
+        "#131A37",
+        "#000000"
+      ],
+      "binding": "view_buffs `league_irelia_w_on`（画在人物上面，蓄力约 1 秒；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "w_slash": {
+      "file": "irelia_fx_w_slash.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_w_slash.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            32,
+            44
+          ],
+          "bbox": [
+            6,
+            15,
+            26,
+            20
+          ],
+          "source_rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_content_bbox": [
+            49,
+            154,
+            462,
+            359
+          ],
+          "human_hole": [
+            8,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 2,
+          "rect": [
+            32,
+            0,
+            32,
+            44
+          ],
+          "bbox": [
+            1,
+            6,
+            31,
+            28
+          ],
+          "source_rect": [
+            512,
+            0,
+            1024,
+            512
+          ],
+          "source_content_bbox": [
+            34,
+            80,
+            512,
+            461
+          ],
+          "human_hole": [
+            8,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 3,
+          "rect": [
+            64,
+            0,
+            32,
+            44
+          ],
+          "bbox": [
+            1,
+            8,
+            31,
+            31
+          ],
+          "source_rect": [
+            1024,
+            0,
+            1536,
+            512
+          ],
+          "source_content_bbox": [
+            0,
+            20,
+            505,
+            462
+          ],
+          "human_hole": [
+            8,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 4,
+          "rect": [
+            96,
+            0,
+            32,
+            44
+          ],
+          "bbox": [
+            2,
+            7,
+            30,
+            29
+          ],
+          "source_rect": [
+            0,
+            512,
+            512,
+            1024
+          ],
+          "source_content_bbox": [
+            14,
+            34,
+            499,
+            447
+          ],
+          "human_hole": [
+            8,
+            4,
+            16,
+            40
+          ]
+        },
+        {
+          "frame": 5,
+          "rect": [
+            128,
+            0,
+            32,
+            44
+          ],
+          "bbox": [
+            2,
+            7,
+            30,
+            27
+          ],
+          "source_rect": [
+            512,
+            512,
+            1024,
+            1024
+          ],
+          "source_content_bbox": [
+            20,
+            84,
+            492,
+            457
+          ],
+          "human_hole": [
+            8,
+            4,
+            16,
+            40
+          ]
+        }
+      ],
+      "cell": [
+        32,
+        44
+      ],
+      "size": [
+        2560,
+        704
+      ],
+      "native_size": [
+        160,
+        44
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#000000"
+      ],
+      "binding": "CasterViewEffect `league_irelia_w_slash`（跟随她，画在人物上面；左右对称）",
+      "sheet": "league_irelia_big",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "w_line": {
+      "file": "irelia_fx_w_line.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_w_line.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            57,
+            16
+          ],
+          "bbox": [
+            0,
+            1,
+            17,
+            15
+          ],
+          "source_rect": [
+            0,
+            0,
+            1122,
+            280
+          ],
+          "source_content_bbox": [
+            0,
+            21,
+            325,
+            280
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            57,
+            0,
+            57,
+            16
+          ],
+          "bbox": [
+            2,
+            0,
+            33,
+            16
+          ],
+          "source_rect": [
+            0,
+            280,
+            1122,
+            561
+          ],
+          "source_content_bbox": [
+            0,
+            0,
+            662,
+            281
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            114,
+            0,
+            57,
+            16
+          ],
+          "bbox": [
+            18,
+            0,
+            45,
+            16
+          ],
+          "source_rect": [
+            0,
+            561,
+            1122,
+            841
+          ],
+          "source_content_bbox": [
+            0,
+            0,
+            920,
+            280
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            171,
+            0,
+            57,
+            16
+          ],
+          "bbox": [
+            34,
+            0,
+            53,
+            16
+          ],
+          "source_rect": [
+            0,
+            841,
+            1122,
+            1122
+          ],
+          "source_content_bbox": [
+            0,
+            0,
+            1089,
+            281
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            228,
+            0,
+            57,
+            16
+          ],
+          "bbox": [
+            47,
+            2,
+            52,
+            14
+          ],
+          "source_rect": [
+            0,
+            1122,
+            1122,
+            1402
+          ],
+          "source_content_bbox": [
+            0,
+            0,
+            1098,
+            218
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        57,
+        16
+      ],
+      "size": [
+        4560,
+        256
+      ],
+      "native_size": [
+        285,
+        16
+      ],
+      "symmetry": "vertical",
+      "palette": [
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#000000"
+      ],
+      "binding": "view_projectiles `league_irelia_w_line`（LineRangeProjectile 的画面：整条线，从她到 55 格外，朝方向转；上下对称）",
+      "sheet": "league_irelia_big",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "w_hit": {
+      "file": "irelia_fx_w_hit.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_w_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            18,
+            18
+          ],
+          "bbox": [
+            5,
+            8,
+            13,
+            10
+          ],
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_content_bbox": [
+            136,
+            294,
+            510,
+            391
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            18,
+            0,
+            18,
+            18
+          ],
+          "bbox": [
+            1,
+            7,
+            17,
+            11
+          ],
+          "source_rect": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_content_bbox": [
+            0,
+            210,
+            617,
+            462
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            36,
+            0,
+            18,
+            18
+          ],
+          "bbox": [
+            1,
+            2,
+            17,
+            16
+          ],
+          "source_rect": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_content_bbox": [
+            26,
+            71,
+            615,
+            526
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            54,
+            0,
+            18,
+            18
+          ],
+          "bbox": [
+            3,
+            3,
+            15,
+            15
+          ],
+          "source_rect": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_content_bbox": [
+            42,
+            171,
+            573,
+            440
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        18,
+        18
+      ],
+      "size": [
+        1152,
+        288
+      ],
+      "native_size": [
+        72,
+        18
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#000000"
+      ],
+      "binding": "view_effects `league_irelia_w_hit`（跟随目标；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "r_blades": {
+      "file": "irelia_fx_r_blades.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_r_blades.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            28,
+            18
+          ],
+          "bbox": [
+            3,
+            1,
+            27,
+            17
+          ],
+          "source_rect": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "source_content_bbox": [
+            133,
+            93,
+            723,
+            457
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            28,
+            0,
+            28,
+            18
+          ],
+          "bbox": [
+            6,
+            1,
+            27,
+            17
+          ],
+          "source_rect": [
+            768,
+            0,
+            1536,
+            512
+          ],
+          "source_content_bbox": [
+            141,
+            93,
+            721,
+            458
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            56,
+            0,
+            28,
+            18
+          ],
+          "bbox": [
+            6,
+            1,
+            27,
+            17
+          ],
+          "source_rect": [
+            0,
+            512,
+            768,
+            1024
+          ],
+          "source_content_bbox": [
+            172,
+            62,
+            730,
+            425
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            84,
+            0,
+            28,
+            18
+          ],
+          "bbox": [
+            3,
+            1,
+            27,
+            17
+          ],
+          "source_rect": [
+            768,
+            512,
+            1536,
+            1024
+          ],
+          "source_content_bbox": [
+            121,
+            62,
+            721,
+            426
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        28,
+        18
+      ],
+      "size": [
+        1792,
+        288
+      ],
+      "native_size": [
+        112,
+        18
+      ],
+      "symmetry": "vertical",
+      "palette": [
+        "#0A081C",
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#4D6085",
+        "#344367",
+        "#222B51",
+        "#131A37",
+        "#000000"
+      ],
+      "binding": "view_projectiles `league_irelia_r_blades`（直线弹，朝飞行方向转，画成朝右飞；上下对称）",
+      "sheet": "league_irelia_big",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "r_hit": {
+      "file": "irelia_fx_r_hit.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_r_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            22,
+            22
+          ],
+          "bbox": [
+            8,
+            8,
+            14,
+            14
+          ],
+          "source_rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_content_bbox": [
+            105,
+            124,
+            407,
+            439
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            22,
+            0,
+            22,
+            22
+          ],
+          "bbox": [
+            1,
+            2,
+            21,
+            20
+          ],
+          "source_rect": [
+            512,
+            0,
+            1024,
+            512
+          ],
+          "source_content_bbox": [
+            4,
+            68,
+            501,
+            496
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            44,
+            0,
+            22,
+            22
+          ],
+          "bbox": [
+            1,
+            2,
+            21,
+            20
+          ],
+          "source_rect": [
+            1024,
+            0,
+            1536,
+            512
+          ],
+          "source_content_bbox": [
+            26,
+            55,
+            471,
+            497
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            66,
+            0,
+            22,
+            22
+          ],
+          "bbox": [
+            1,
+            1,
+            21,
+            21
+          ],
+          "source_rect": [
+            0,
+            512,
+            512,
+            1024
+          ],
+          "source_content_bbox": [
+            42,
+            26,
+            512,
+            473
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            88,
+            0,
+            22,
+            22
+          ],
+          "bbox": [
+            2,
+            3,
+            20,
+            19
+          ],
+          "source_rect": [
+            512,
+            512,
+            1024,
+            1024
+          ],
+          "source_content_bbox": [
+            0,
+            66,
+            490,
+            472
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        22,
+        22
+      ],
+      "size": [
+        1760,
+        352
+      ],
+      "native_size": [
+        110,
+        22
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#000000"
+      ],
+      "binding": "view_effects `league_irelia_r_hit`（跟随目标；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "r_wall_v": {
+      "file": "irelia_fx_r_wall_v.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_r_wall_v.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            7,
+            62,
+            33
+          ],
+          "source_rect": [
+            0,
+            0,
+            529,
+            297
+          ],
+          "source_content_bbox": [
+            51,
+            126,
+            483,
+            245
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            64,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            5,
+            62,
+            33
+          ],
+          "source_rect": [
+            529,
+            0,
+            1058,
+            297
+          ],
+          "source_content_bbox": [
+            44,
+            94,
+            478,
+            252
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            128,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            1,
+            62,
+            33
+          ],
+          "source_rect": [
+            0,
+            297,
+            529,
+            595
+          ],
+          "source_content_bbox": [
+            42,
+            47,
+            493,
+            261
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            192,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            1,
+            62,
+            33
+          ],
+          "source_rect": [
+            529,
+            297,
+            1058,
+            595
+          ],
+          "source_content_bbox": [
+            36,
+            46,
+            488,
+            262
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 5,
+          "rect": [
+            256,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            1,
+            62,
+            33
+          ],
+          "source_rect": [
+            0,
+            595,
+            529,
+            892
+          ],
+          "source_content_bbox": [
+            42,
+            45,
+            493,
+            266
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 6,
+          "rect": [
+            320,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            1,
+            62,
+            33
+          ],
+          "source_rect": [
+            529,
+            595,
+            1058,
+            892
+          ],
+          "source_content_bbox": [
+            36,
+            45,
+            488,
+            263
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 7,
+          "rect": [
+            384,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            1,
+            62,
+            33
+          ],
+          "source_rect": [
+            0,
+            892,
+            529,
+            1190
+          ],
+          "source_content_bbox": [
+            42,
+            48,
+            493,
+            268
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 8,
+          "rect": [
+            448,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            1,
+            62,
+            33
+          ],
+          "source_rect": [
+            529,
+            892,
+            1058,
+            1190
+          ],
+          "source_content_bbox": [
+            36,
+            49,
+            488,
+            265
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 9,
+          "rect": [
+            512,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            4,
+            62,
+            33
+          ],
+          "source_rect": [
+            0,
+            1190,
+            529,
+            1487
+          ],
+          "source_content_bbox": [
+            45,
+            69,
+            489,
+            224
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 10,
+          "rect": [
+            576,
+            0,
+            64,
+            36
+          ],
+          "bbox": [
+            2,
+            7,
+            62,
+            33
+          ],
+          "source_rect": [
+            529,
+            1190,
+            1058,
+            1487
+          ],
+          "source_content_bbox": [
+            42,
+            98,
+            483,
+            219
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        64,
+        36
+      ],
+      "size": [
+        10240,
+        576
+      ],
+      "native_size": [
+        640,
+        36
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#0A081C",
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#D8FBFF",
+        "#84EBFF",
+        "#27CFF3",
+        "#098FBA",
+        "#E8F4FC",
+        "#BDCFDF",
+        "#96ACC3",
+        "#6C7A98",
+        "#4D6085",
+        "#344367",
+        "#222B51",
+        "#131A37",
+        "#000000"
+      ],
+      "binding": "ViewEffect `league_irelia_r_wall_v`（在落点，画在人物下面 z -1，播一遍 5 秒；左右对称）",
+      "sheet": "league_irelia_big",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": [
+        150,
+        150,
+        600,
+        600,
+        600,
+        600,
+        600,
+        600,
+        550,
+        550
+      ],
+      "preview_timing_is_game_binding": false
+    },
+    "r_slow": {
+      "file": "irelia_fx_r_slow.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_r_slow.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            20,
+            8
+          ],
+          "bbox": [
+            1,
+            2,
+            19,
+            8
+          ],
+          "source_rect": [
+            0,
+            0,
+            992,
+            396
+          ],
+          "source_content_bbox": [
+            90,
+            101,
+            902,
+            341
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            20,
+            0,
+            20,
+            8
+          ],
+          "bbox": [
+            1,
+            2,
+            19,
+            8
+          ],
+          "source_rect": [
+            992,
+            0,
+            1983,
+            396
+          ],
+          "source_content_bbox": [
+            89,
+            101,
+            901,
+            341
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            40,
+            0,
+            20,
+            8
+          ],
+          "bbox": [
+            1,
+            2,
+            19,
+            8
+          ],
+          "source_rect": [
+            0,
+            396,
+            992,
+            793
+          ],
+          "source_content_bbox": [
+            90,
+            86,
+            902,
+            336
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            60,
+            0,
+            20,
+            8
+          ],
+          "bbox": [
+            1,
+            2,
+            19,
+            8
+          ],
+          "source_rect": [
+            992,
+            396,
+            1983,
+            793
+          ],
+          "source_content_bbox": [
+            89,
+            95,
+            901,
+            336
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        20,
+        8
+      ],
+      "size": [
+        1280,
+        128
+      ],
+      "native_size": [
+        80,
+        8
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#FFC8D8",
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629",
+        "#000000"
+      ],
+      "binding": "view_buffs `league_irelia_r_slow`（画在人物下面 z -1，2 秒；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    },
+    "r_wslow": {
+      "file": "irelia_fx_r_wslow.png",
+      "pixel_1x_file": "pixel_1x/irelia_fx_r_wslow.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            18,
+            8
+          ],
+          "bbox": [
+            1,
+            3,
+            17,
+            8
+          ],
+          "source_rect": [
+            0,
+            0,
+            940,
+            418
+          ],
+          "source_content_bbox": [
+            92,
+            183,
+            849,
+            329
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 2,
+          "rect": [
+            18,
+            0,
+            18,
+            8
+          ],
+          "bbox": [
+            1,
+            3,
+            17,
+            8
+          ],
+          "source_rect": [
+            940,
+            0,
+            1881,
+            418
+          ],
+          "source_content_bbox": [
+            92,
+            191,
+            850,
+            329
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 3,
+          "rect": [
+            36,
+            0,
+            18,
+            8
+          ],
+          "bbox": [
+            1,
+            3,
+            17,
+            8
+          ],
+          "source_rect": [
+            0,
+            418,
+            940,
+            836
+          ],
+          "source_content_bbox": [
+            92,
+            149,
+            850,
+            301
+          ],
+          "human_hole": null
+        },
+        {
+          "frame": 4,
+          "rect": [
+            54,
+            0,
+            18,
+            8
+          ],
+          "bbox": [
+            1,
+            3,
+            17,
+            8
+          ],
+          "source_rect": [
+            940,
+            418,
+            1881,
+            836
+          ],
+          "source_content_bbox": [
+            92,
+            149,
+            850,
+            289
+          ],
+          "human_hole": null
+        }
+      ],
+      "cell": [
+        18,
+        8
+      ],
+      "size": [
+        1152,
+        128
+      ],
+      "native_size": [
+        72,
+        8
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#F32D5B",
+        "#D51046",
+        "#A80A36",
+        "#750629"
+      ],
+      "binding": "view_buffs `league_irelia_r_wslow`（画在人物下面 z -1，刀墙里每 10 tick 续；左右对称）",
+      "sheet": "league_irelia_fx",
+      "qa": {
+        "frame_count_and_size": true,
+        "binary_alpha": true,
+        "palette_only": true,
+        "symmetry": true,
+        "central_hole_clear": true,
+        "uniform16px_blocks": true
+      },
+      "preview_ms": 100,
+      "preview_timing_is_game_binding": false
+    }
+  },
+  "processing": "Generated art only; area-majority palette read, binary alpha, fitted sizes/anchors, half-frame mirror for exact symmetry. No code-generated VFX geometry."
+}

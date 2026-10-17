@@ -1,0 +1,64 @@
+[
+  {
+    "version": 1,
+    "canvas": [
+      1024,
+      1024
+    ],
+    "bbox_1x": [
+      49,
+      60,
+      75,
+      100
+    ],
+    "height": 40,
+    "colors": 23,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "8x_grid_exact": true,
+    "gold_eye_pixels": [
+      [
+        62,
+        72
+      ],
+      [
+        66,
+        72
+      ]
+    ],
+    "bottom_row": 99
+  },
+  {
+    "version": 2,
+    "canvas": [
+      1024,
+      1024
+    ],
+    "bbox_1x": [
+      49,
+      60,
+      75,
+      100
+    ],
+    "height": 40,
+    "colors": 23,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "8x_grid_exact": true,
+    "gold_eye_pixels": [
+      [
+        62,
+        70
+      ],
+      [
+        66,
+        70
+      ]
+    ],
+    "bottom_row": 99
+  }
+]

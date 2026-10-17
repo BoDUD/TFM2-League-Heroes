@@ -1,0 +1,74 @@
+{
+  "native_imagegen_attempt": {
+    "prompt": "Precise sprite edit. Image 1 is the approved 46-cell pixel Shaco design, Image 2 is the current RUN strip to EDIT, image 3 is the original run's leg guide: orange near leg, blue far leg. Change only the 8 frames' legs below the gold belt; keep ALL original head, torso, collar, pauldrons, arms, daggers, crimson coat flap, and their exact position in Image 2 unchanged. Output 4 columns x 2 rows, 3584x1536 px, each cell896x768, every authored pixel crisp8x8. Feet baseline logicalrow81. Both pantaloons must remain visibly black-and-white2x2 checks, gold knee cuffs, navy boots with silver spikes, crimson curled shoes in original17-color palette. Do not replace thighs with red or navy bars. Both legs use same palette and near leg overlaps far. Run pose sequence following Image3: 1 near leg planted straight under torso, far bent lifted behind;2 near planted slanting forward, far bent lifted behind;3 near planted, far swings forward through it, knees cross;4 near planted bent crouch, far knee lifted in front;5 near kicks back to left with toe still grounded, far lifted front ready to land;6 near airborne behind, far planted straight forward on right;7 far planted forward, near swings forward through it, knees cross;8 near lands under torso bent, far lifted back, flows into1. Every frame shoes stay at or above baseline, airborne foot actually several cells off ground. Keep source body's existing two-cell bob in4/8. No effects, text, grid, floating pieces, new face pixels. Transparent background. This is a precise legs-only edit on Image2, not a new model.",
+    "raw_file": "C:/Users/OWNER/.codex/generated_images/01a0f5de-f18c-73e3-8b27-6dfc394ddd3c/exec-a1b7a355-8ffb-44cc-a528-543dd0668344.png",
+    "route": "native imagegen run edit; native source-component leg correction for exact pixel preservation",
+    "native_output_status": "rejected as final pixels: upper body/scale not identical; inspected for pose only"
+  },
+  "final_route": "editable approved native pixel source, legs-only reauthoring; upper pixels frozen from current strips",
+  "actions": {
+    "run": {
+      "selected_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "instruction": "Restore two visible 2x2 checkered puffy thighs, approved gold knee cuffs, navy/silver boots and crimson shoes; keep original upper materials and all other frames byte-identical. Near leg supports1-5 and8; far leg supports6-7; knee/foot poses follow supplied orange/blue run guide.",
+      "actual_imagegen_call": true
+    },
+    "attack": {
+      "selected_frames": [
+        4
+      ],
+      "instruction": "Restore two visible 2x2 checkered puffy thighs, approved gold knee cuffs, navy/silver boots and crimson shoes; keep original upper materials and all other frames byte-identical. Bend the knees with both shoes on the original feet line; dying7/8 rotate fixed6 legs90deg while preserving original upper artwork.",
+      "actual_imagegen_call": false
+    },
+    "attack_q": {
+      "selected_frames": [
+        3,
+        4,
+        5
+      ],
+      "instruction": "Restore two visible 2x2 checkered puffy thighs, approved gold knee cuffs, navy/silver boots and crimson shoes; keep original upper materials and all other frames byte-identical. Bend the knees with both shoes on the original feet line; dying7/8 rotate fixed6 legs90deg while preserving original upper artwork.",
+      "actual_imagegen_call": false
+    },
+    "attack_e": {
+      "selected_frames": [
+        4,
+        5
+      ],
+      "instruction": "Restore two visible 2x2 checkered puffy thighs, approved gold knee cuffs, navy/silver boots and crimson shoes; keep original upper materials and all other frames byte-identical. Bend the knees with both shoes on the original feet line; dying7/8 rotate fixed6 legs90deg while preserving original upper artwork.",
+      "actual_imagegen_call": false
+    },
+    "skill": {
+      "selected_frames": [
+        3,
+        4
+      ],
+      "instruction": "Restore two visible 2x2 checkered puffy thighs, approved gold knee cuffs, navy/silver boots and crimson shoes; keep original upper materials and all other frames byte-identical. Bend the knees with both shoes on the original feet line; dying7/8 rotate fixed6 legs90deg while preserving original upper artwork.",
+      "actual_imagegen_call": false
+    },
+    "ult": {
+      "selected_frames": [
+        4
+      ],
+      "instruction": "Restore two visible 2x2 checkered puffy thighs, approved gold knee cuffs, navy/silver boots and crimson shoes; keep original upper materials and all other frames byte-identical. Bend the knees with both shoes on the original feet line; dying7/8 rotate fixed6 legs90deg while preserving original upper artwork.",
+      "actual_imagegen_call": false
+    },
+    "dead": {
+      "selected_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "instruction": "Restore two visible 2x2 checkered puffy thighs, approved gold knee cuffs, navy/silver boots and crimson shoes; keep original upper materials and all other frames byte-identical. Bend the knees with both shoes on the original feet line; dying7/8 rotate fixed6 legs90deg while preserving original upper artwork.",
+      "actual_imagegen_call": false
+    }
+  }
+}

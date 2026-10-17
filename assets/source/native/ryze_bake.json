@@ -1,0 +1,10 @@
+{
+  "fx": "league_ryze_fx",
+  "items": [
+    {"tag": "q_cast", "into": "skill", "at_ms": 133},
+    {"tag": "e_cast", "into": "skill2", "at_ms": 117},
+    {"tag": "q_cast", "into": "skill2", "at_ms": 450},
+    {"tag": "e_cast", "into": "skill2", "at_ms": 617},
+    {"tag": "q_cast", "into": "skill2", "at_ms": 783}
+  ]
+}

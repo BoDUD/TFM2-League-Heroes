@@ -1,0 +1,107 @@
+{
+  "mode": "built-in image_gen then pixel-grid extraction and compositing",
+  "base_preserved": true,
+  "pose_names": [
+    "wind_up",
+    "swing",
+    "release",
+    "follow_through"
+  ],
+  "frames": {
+    "1": {
+      "added_bbox_1x": [
+        50,
+        64,
+        66,
+        84
+      ],
+      "added_cells": 72,
+      "color_count": 21,
+      "checks": {
+        "base_opaque_changed": 0,
+        "grid8": 0,
+        "partial_alpha": 0,
+        "above_row63": 0,
+        "below_row99": 0,
+        "new_colors": 0,
+        "layer_over_base": 0,
+        "layer_composite_mismatch": 0
+      }
+    },
+    "2": {
+      "added_bbox_1x": [
+        73,
+        64,
+        90,
+        88
+      ],
+      "added_cells": 160,
+      "color_count": 21,
+      "checks": {
+        "base_opaque_changed": 0,
+        "grid8": 0,
+        "partial_alpha": 0,
+        "above_row63": 0,
+        "below_row99": 0,
+        "new_colors": 0,
+        "layer_over_base": 0,
+        "layer_composite_mismatch": 0
+      }
+    },
+    "3": {
+      "added_bbox_1x": [
+        73,
+        74,
+        104,
+        91
+      ],
+      "added_cells": 238,
+      "color_count": 21,
+      "checks": {
+        "base_opaque_changed": 0,
+        "grid8": 0,
+        "partial_alpha": 0,
+        "above_row63": 0,
+        "below_row99": 0,
+        "new_colors": 0,
+        "layer_over_base": 0,
+        "layer_composite_mismatch": 0
+      }
+    },
+    "4": {
+      "added_bbox_1x": [
+        73,
+        84,
+        90,
+        92
+      ],
+      "added_cells": 80,
+      "color_count": 21,
+      "checks": {
+        "base_opaque_changed": 0,
+        "grid8": 0,
+        "partial_alpha": 0,
+        "above_row63": 0,
+        "below_row99": 0,
+        "new_colors": 0,
+        "layer_over_base": 0,
+        "layer_composite_mismatch": 0
+      }
+    }
+  },
+  "release": {
+    "weapon_hole_center_1x": [
+      94.5,
+      82.5
+    ],
+    "open_glove_forward_tip_x": 91,
+    "center_ahead_of_fingertips_cells": 3.5,
+    "center_height_allowed_rows": [
+      80,
+      84
+    ]
+  },
+  "follow_through": "empty hand; gold cuff only",
+  "weapon_source": "approved start_pose; same gold and neighboring outline cells translated, portions behind hood hidden",
+  "timing": "not supplied; static poses only"
+}

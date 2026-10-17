@@ -1,0 +1,3711 @@
+{
+  "cell_game_pixels": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "baseline_row": 81,
+  "source_design_sha256": "eaa9800715870a8a2295999f76ab128869b11c9c1c5a808558c054042176afd3",
+  "idle_sha256": "bf2cde0fa3e9dfef32af6b5530f20b1a03432acb7c1c0e6c00aa081d4635b003",
+  "palette": [
+    "#036a2e",
+    "#140808",
+    "#2a0838",
+    "#2e4a10",
+    "#3a2c9a",
+    "#3e8a2a",
+    "#4a1aa0",
+    "#56c8fe",
+    "#5a1078",
+    "#8a4af0",
+    "#8a5a10",
+    "#9499fc",
+    "#9a2a08",
+    "#b1dc43",
+    "#b8075e",
+    "#d84a0a",
+    "#d88c68",
+    "#e8a010",
+    "#e8c890",
+    "#f00480",
+    "#f8c8a0",
+    "#fbd70b",
+    "#ff6eb8",
+    "#ff7f00",
+    "#fff0c8",
+    "#ffffff"
+  ],
+  "source_route": "approved pixel cutout rig; imagegen run trial rejected; no character resizing or deleted rows",
+  "tags": {
+    "idle": {
+      "size_output_pixels": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_game_pixels": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 200,
+          "bbox_cell": [
+            51,
+            36,
+            83,
+            82
+          ],
+          "bbox_output_pixels": [
+            408,
+            288,
+            664,
+            656
+          ],
+          "mode": "provided_idle",
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_game_pixels": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 200,
+          "bbox_cell": [
+            51,
+            36,
+            83,
+            82
+          ],
+          "bbox_output_pixels": [
+            1432,
+            288,
+            1688,
+            656
+          ],
+          "mode": "provided_idle",
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_game_pixels": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 200,
+          "bbox_cell": [
+            51,
+            36,
+            83,
+            82
+          ],
+          "bbox_output_pixels": [
+            2456,
+            288,
+            2712,
+            656
+          ],
+          "mode": "provided_idle",
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_game_pixels": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 200,
+          "bbox_cell": [
+            51,
+            36,
+            83,
+            82
+          ],
+          "bbox_output_pixels": [
+            408,
+            1056,
+            664,
+            1424
+          ],
+          "mode": "provided_idle",
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 5,
+          "rect_game_pixels": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 200,
+          "bbox_cell": [
+            51,
+            36,
+            83,
+            82
+          ],
+          "bbox_output_pixels": [
+            1432,
+            1056,
+            1688,
+            1424
+          ],
+          "mode": "provided_idle",
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 6,
+          "rect_game_pixels": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 200,
+          "bbox_cell": [
+            51,
+            36,
+            83,
+            82
+          ],
+          "bbox_output_pixels": [
+            2456,
+            1056,
+            2712,
+            1424
+          ],
+          "mode": "provided_idle",
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        }
+      ]
+    },
+    "run": {
+      "size_output_pixels": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_game_pixels": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 92,
+          "bbox_cell": [
+            43,
+            36,
+            76,
+            82
+          ],
+          "bbox_output_pixels": [
+            344,
+            288,
+            608,
+            656
+          ],
+          "mode": "trot",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            -1,
+            1,
+            -1,
+            1
+          ],
+          "lantern_center_cell": [
+            71.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 907,
+          "area_ratio_to_design": 1.0022,
+          "connected_components_8way": [
+            907
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_game_pixels": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 92,
+          "bbox_cell": [
+            44,
+            35,
+            77,
+            82
+          ],
+          "bbox_output_pixels": [
+            1376,
+            280,
+            1640,
+            656
+          ],
+          "mode": "trot",
+          "head_shift": [
+            0,
+            -1
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            68.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            2,
+            0,
+            2
+          ],
+          "leg_shifts_source_columns": [
+            -1,
+            1,
+            -1,
+            1
+          ],
+          "lantern_center_cell": [
+            72.56164383561644,
+            50.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 909,
+          "area_ratio_to_design": 1.0044,
+          "connected_components_8way": [
+            909
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_game_pixels": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 92,
+          "bbox_cell": [
+            46,
+            35,
+            78,
+            82
+          ],
+          "bbox_output_pixels": [
+            2416,
+            280,
+            2672,
+            656
+          ],
+          "mode": "trot",
+          "head_shift": [
+            0,
+            -1
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            68.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            2,
+            0,
+            2
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            73.56164383561644,
+            50.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 906,
+          "area_ratio_to_design": 1.0011,
+          "connected_components_8way": [
+            906
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_game_pixels": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 92,
+          "bbox_cell": [
+            48,
+            36,
+            79,
+            82
+          ],
+          "bbox_output_pixels": [
+            3456,
+            288,
+            3704,
+            656
+          ],
+          "mode": "trot",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            2,
+            0,
+            2
+          ],
+          "leg_shifts_source_columns": [
+            1,
+            -1,
+            1,
+            -1
+          ],
+          "lantern_center_cell": [
+            74.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 874,
+          "area_ratio_to_design": 0.9657,
+          "connected_components_8way": [
+            874
+          ]
+        },
+        {
+          "frame": 5,
+          "rect_game_pixels": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 92,
+          "bbox_cell": [
+            48,
+            36,
+            79,
+            82
+          ],
+          "bbox_output_pixels": [
+            384,
+            1056,
+            632,
+            1424
+          ],
+          "mode": "trot",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            1,
+            -1,
+            1,
+            -1
+          ],
+          "lantern_center_cell": [
+            74.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 884,
+          "area_ratio_to_design": 0.9768,
+          "connected_components_8way": [
+            884
+          ]
+        },
+        {
+          "frame": 6,
+          "rect_game_pixels": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 92,
+          "bbox_cell": [
+            49,
+            35,
+            80,
+            82
+          ],
+          "bbox_output_pixels": [
+            1416,
+            1048,
+            1664,
+            1424
+          ],
+          "mode": "trot",
+          "head_shift": [
+            0,
+            -1
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            68.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            2,
+            0,
+            2,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            1,
+            -1,
+            1,
+            -1
+          ],
+          "lantern_center_cell": [
+            75.56164383561644,
+            50.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 889,
+          "area_ratio_to_design": 0.9823,
+          "connected_components_8way": [
+            889
+          ]
+        },
+        {
+          "frame": 7,
+          "rect_game_pixels": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 92,
+          "bbox_cell": [
+            46,
+            35,
+            78,
+            82
+          ],
+          "bbox_output_pixels": [
+            2416,
+            1048,
+            2672,
+            1424
+          ],
+          "mode": "trot",
+          "head_shift": [
+            0,
+            -1
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            68.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            2,
+            0,
+            2,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            73.56164383561644,
+            50.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 907,
+          "area_ratio_to_design": 1.0022,
+          "connected_components_8way": [
+            907
+          ]
+        },
+        {
+          "frame": 8,
+          "rect_game_pixels": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 92,
+          "bbox_cell": [
+            42,
+            36,
+            75,
+            82
+          ],
+          "bbox_output_pixels": [
+            3408,
+            1056,
+            3672,
+            1424
+          ],
+          "mode": "trot",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            2,
+            0,
+            2,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            -1,
+            1,
+            -1,
+            1
+          ],
+          "lantern_center_cell": [
+            70.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 894,
+          "area_ratio_to_design": 0.9878,
+          "connected_components_8way": [
+            894
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "size_output_pixels": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": 3,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_game_pixels": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 60,
+          "bbox_cell": [
+            54,
+            36,
+            86,
+            82
+          ],
+          "bbox_output_pixels": [
+            432,
+            288,
+            688,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            81.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_game_pixels": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            75,
+            70
+          ],
+          "ms": 60,
+          "bbox_cell": [
+            63,
+            29,
+            95,
+            82
+          ],
+          "bbox_output_pixels": [
+            1528,
+            232,
+            1784,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561645,
+            62.150684931506845
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            90.56164383561645,
+            44.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 2,
+          "opaque_area": 917,
+          "area_ratio_to_design": 1.0133,
+          "connected_components_8way": [
+            917
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_game_pixels": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 80,
+          "bbox_cell": [
+            43,
+            40,
+            90,
+            82
+          ],
+          "bbox_output_pixels": [
+            2392,
+            320,
+            2768,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 135,
+          "lantern_center": [
+            89.56164383561645,
+            91.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            80.56164383561645,
+            73.15068493150685
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "release_lantern_center": [
+            80.56164383561645,
+            73.15068493150685
+          ],
+          "opaque_area": 933,
+          "area_ratio_to_design": 1.0309,
+          "connected_components_8way": [
+            933
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_game_pixels": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 80,
+          "bbox_cell": [
+            55,
+            40,
+            107,
+            82
+          ],
+          "bbox_output_pixels": [
+            440,
+            1088,
+            856,
+            1424
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 90,
+          "lantern_center": [
+            94.56164383561645,
+            88.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            97.56164383561645,
+            70.15068493150685
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 9,
+          "opaque_area": 936,
+          "area_ratio_to_design": 1.0343,
+          "connected_components_8way": [
+            936
+          ]
+        },
+        {
+          "frame": 5,
+          "rect_game_pixels": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            56,
+            36,
+            88,
+            82
+          ],
+          "bbox_output_pixels": [
+            1472,
+            1056,
+            1728,
+            1424
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            83.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        }
+      ],
+      "release_tick": 7
+    },
+    "skill": {
+      "size_output_pixels": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": 3,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_game_pixels": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 60,
+          "bbox_cell": [
+            51,
+            40,
+            86,
+            82
+          ],
+          "bbox_output_pixels": [
+            408,
+            320,
+            688,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": -90,
+          "lantern_center": [
+            57.56164383561645,
+            83.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            60.56164383561645,
+            65.15068493150685
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 57,
+          "opaque_area": 796,
+          "area_ratio_to_design": 0.8796,
+          "connected_components_8way": [
+            796
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_game_pixels": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 60,
+          "bbox_cell": [
+            50,
+            29,
+            83,
+            82
+          ],
+          "bbox_output_pixels": [
+            1424,
+            232,
+            1688,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            80.56164383561645,
+            62.150684931506845
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            78.56164383561645,
+            44.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 1,
+          "opaque_area": 927,
+          "area_ratio_to_design": 1.0243,
+          "connected_components_8way": [
+            927
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_game_pixels": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 70,
+          "bbox_cell": [
+            56,
+            40,
+            108,
+            82
+          ],
+          "bbox_output_pixels": [
+            2496,
+            320,
+            2912,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 90,
+          "lantern_center": [
+            94.56164383561645,
+            88.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            98.56164383561645,
+            70.15068493150685
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 9,
+          "release_lantern_center": [
+            98.56164383561645,
+            70.15068493150685
+          ],
+          "opaque_area": 936,
+          "area_ratio_to_design": 1.0343,
+          "connected_components_8way": [
+            936
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_game_pixels": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 70,
+          "bbox_cell": [
+            54,
+            40,
+            101,
+            82
+          ],
+          "bbox_output_pixels": [
+            432,
+            1088,
+            808,
+            1424
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 135,
+          "lantern_center": [
+            89.56164383561645,
+            91.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            91.56164383561645,
+            73.15068493150685
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 933,
+          "area_ratio_to_design": 1.0309,
+          "connected_components_8way": [
+            933
+          ]
+        },
+        {
+          "frame": 5,
+          "rect_game_pixels": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 70,
+          "bbox_cell": [
+            60,
+            40,
+            95,
+            82
+          ],
+          "bbox_output_pixels": [
+            1504,
+            1088,
+            1784,
+            1424
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": -90,
+          "lantern_center": [
+            57.56164383561645,
+            83.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            69.56164383561645,
+            65.15068493150685
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 57,
+          "opaque_area": 796,
+          "area_ratio_to_design": 0.8796,
+          "connected_components_8way": [
+            796
+          ]
+        },
+        {
+          "frame": 6,
+          "rect_game_pixels": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 80,
+          "bbox_cell": [
+            56,
+            36,
+            88,
+            82
+          ],
+          "bbox_output_pixels": [
+            2496,
+            1056,
+            2752,
+            1424
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            83.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        }
+      ],
+      "release_tick": 7
+    },
+    "skill2": {
+      "size_output_pixels": [
+        4096,
+        768
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "release_frame": 3,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_game_pixels": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 60,
+          "bbox_cell": [
+            49,
+            40,
+            84,
+            82
+          ],
+          "bbox_output_pixels": [
+            392,
+            320,
+            672,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": -90,
+          "lantern_center": [
+            57.56164383561645,
+            83.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            58.56164383561645,
+            65.15068493150685
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 57,
+          "opaque_area": 796,
+          "area_ratio_to_design": 0.8796,
+          "connected_components_8way": [
+            796
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_game_pixels": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "ms": 60,
+          "bbox_cell": [
+            58,
+            31,
+            90,
+            82
+          ],
+          "bbox_output_pixels": [
+            1488,
+            248,
+            1744,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561645,
+            64.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            85.56164383561645,
+            46.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 6,
+          "opaque_area": 917,
+          "area_ratio_to_design": 1.0133,
+          "connected_components_8way": [
+            917
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_game_pixels": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "ms": 70,
+          "bbox_cell": [
+            43,
+            25,
+            76,
+            82
+          ],
+          "bbox_output_pixels": [
+            2392,
+            200,
+            2656,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            80.56164383561645,
+            58.150684931506845
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            71.56164383561645,
+            40.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "release_lantern_center": [
+            71.56164383561645,
+            40.150684931506845
+          ],
+          "opaque_area": 930,
+          "area_ratio_to_design": 1.0276,
+          "connected_components_8way": [
+            930
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_game_pixels": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 80,
+          "bbox_cell": [
+            56,
+            36,
+            88,
+            82
+          ],
+          "bbox_output_pixels": [
+            3520,
+            288,
+            3776,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            83.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        }
+      ],
+      "release_tick": 7
+    },
+    "skill2_w": {
+      "size_output_pixels": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "release_frame": 5,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_game_pixels": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 80,
+          "bbox_cell": [
+            46,
+            40,
+            81,
+            82
+          ],
+          "bbox_output_pixels": [
+            368,
+            320,
+            648,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": -90,
+          "lantern_center": [
+            57.56164383561645,
+            81.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            55.56164383561645,
+            63.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 37,
+          "opaque_area": 799,
+          "area_ratio_to_design": 0.8829,
+          "connected_components_8way": [
+            799
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_game_pixels": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            51,
+            30,
+            83,
+            82
+          ],
+          "bbox_output_pixels": [
+            1432,
+            240,
+            1688,
+            656
+          ],
+          "mode": "rear",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561645,
+            63.150684931506845
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            78.56164383561645,
+            45.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 892,
+          "area_ratio_to_design": 0.9856,
+          "connected_components_8way": [
+            892
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_game_pixels": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            54,
+            25,
+            87,
+            82
+          ],
+          "bbox_output_pixels": [
+            2480,
+            200,
+            2744,
+            656
+          ],
+          "mode": "rear",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            80.56164383561645,
+            58.150684931506845
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            82.56164383561645,
+            40.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_game_pixels": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 150,
+          "bbox_cell": [
+            54,
+            25,
+            87,
+            82
+          ],
+          "bbox_output_pixels": [
+            3504,
+            200,
+            3768,
+            656
+          ],
+          "mode": "rear",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            80.56164383561645,
+            58.150684931506845
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            82.56164383561645,
+            40.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 5,
+          "rect_game_pixels": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 80,
+          "bbox_cell": [
+            49,
+            40,
+            96,
+            82
+          ],
+          "bbox_output_pixels": [
+            392,
+            1088,
+            768,
+            1424
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 135,
+          "lantern_center": [
+            89.56164383561645,
+            91.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            86.56164383561645,
+            73.15068493150685
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "release_lantern_center": [
+            86.56164383561645,
+            73.15068493150685
+          ],
+          "opaque_area": 933,
+          "area_ratio_to_design": 1.0309,
+          "connected_components_8way": [
+            933
+          ]
+        },
+        {
+          "frame": 6,
+          "rect_game_pixels": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 120,
+          "bbox_cell": [
+            45,
+            40,
+            92,
+            82
+          ],
+          "bbox_output_pixels": [
+            1384,
+            1088,
+            1760,
+            1424
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 135,
+          "lantern_center": [
+            89.56164383561645,
+            91.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            82.56164383561645,
+            73.15068493150685
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 933,
+          "area_ratio_to_design": 1.0309,
+          "connected_components_8way": [
+            933
+          ]
+        },
+        {
+          "frame": 7,
+          "rect_game_pixels": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 120,
+          "bbox_cell": [
+            48,
+            36,
+            80,
+            82
+          ],
+          "bbox_output_pixels": [
+            2432,
+            1056,
+            2688,
+            1424
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            75.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        }
+      ],
+      "release_tick": 26
+    },
+    "ult": {
+      "size_output_pixels": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": 3,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_game_pixels": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 80,
+          "bbox_cell": [
+            51,
+            35,
+            83,
+            82
+          ],
+          "bbox_output_pixels": [
+            408,
+            280,
+            664,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561645,
+            68.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            78.56164383561645,
+            50.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 21,
+          "opaque_area": 910,
+          "area_ratio_to_design": 1.0055,
+          "connected_components_8way": [
+            910
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_game_pixels": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 80,
+          "bbox_cell": [
+            42,
+            29,
+            75,
+            82
+          ],
+          "bbox_output_pixels": [
+            1360,
+            232,
+            1624,
+            656
+          ],
+          "mode": "small_rear",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            80.56164383561645,
+            62.150684931506845
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            70.56164383561645,
+            44.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 918,
+          "area_ratio_to_design": 1.0144,
+          "connected_components_8way": [
+            918
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_game_pixels": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            42,
+            25,
+            75,
+            82
+          ],
+          "bbox_output_pixels": [
+            2384,
+            200,
+            2648,
+            656
+          ],
+          "mode": "small_rear",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            80.56164383561645,
+            58.150684931506845
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            70.56164383561645,
+            40.150684931506845
+          ],
+          "head_exact": true,
+          "release_lantern_center": [
+            70.56164383561645,
+            40.150684931506845
+          ],
+          "opaque_area": 921,
+          "area_ratio_to_design": 1.0177,
+          "connected_components_8way": [
+            921
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_game_pixels": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            42,
+            33,
+            92,
+            82
+          ],
+          "bbox_output_pixels": [
+            336,
+            1032,
+            736,
+            1424
+          ],
+          "mode": "small_rear",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 45,
+          "lantern_center": [
+            96.56164383561645,
+            66.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            86.56164383561645,
+            48.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 933,
+          "area_ratio_to_design": 1.0309,
+          "connected_components_8way": [
+            933
+          ]
+        },
+        {
+          "frame": 5,
+          "rect_game_pixels": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            50,
+            25,
+            84,
+            82
+          ],
+          "bbox_output_pixels": [
+            1424,
+            968,
+            1696,
+            1424
+          ],
+          "mode": "small_rear",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            81.56164383561645,
+            58.150684931506845
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            79.56164383561645,
+            40.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 930,
+          "area_ratio_to_design": 1.0276,
+          "connected_components_8way": [
+            930
+          ]
+        },
+        {
+          "frame": 6,
+          "rect_game_pixels": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            52,
+            36,
+            84,
+            82
+          ],
+          "bbox_output_pixels": [
+            2464,
+            1056,
+            2720,
+            1424
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            79.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        }
+      ],
+      "release_tick": 10
+    },
+    "hit": {
+      "size_output_pixels": [
+        2048,
+        768
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_game_pixels": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            48,
+            36,
+            80,
+            82
+          ],
+          "bbox_output_pixels": [
+            384,
+            288,
+            640,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            -1,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            78.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            75.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_game_pixels": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            50,
+            36,
+            82,
+            82
+          ],
+          "bbox_output_pixels": [
+            1424,
+            288,
+            1680,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            77.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        }
+      ]
+    },
+    "dead": {
+      "size_output_pixels": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_game_pixels": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 100,
+          "bbox_cell": [
+            53,
+            36,
+            85,
+            82
+          ],
+          "bbox_output_pixels": [
+            424,
+            288,
+            680,
+            656
+          ],
+          "mode": "standing",
+          "head_shift": [
+            -1,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            81.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "standing_deer_source_exact": true,
+          "deer_foreground_occlusion_pixels": 0,
+          "opaque_area": 905,
+          "area_ratio_to_design": 1.0,
+          "connected_components_8way": [
+            905
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_game_pixels": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 110,
+          "bbox_cell": [
+            48,
+            36,
+            80,
+            82
+          ],
+          "bbox_output_pixels": [
+            1408,
+            288,
+            1664,
+            656
+          ],
+          "mode": "buckling",
+          "head_shift": [
+            0,
+            0
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            69.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            75.56164383561644,
+            51.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 888,
+          "area_ratio_to_design": 0.9812,
+          "connected_components_8way": [
+            888
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_game_pixels": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 110,
+          "bbox_cell": [
+            31,
+            39,
+            71,
+            77
+          ],
+          "bbox_output_pixels": [
+            2296,
+            312,
+            2616,
+            616
+          ],
+          "mode": "kneeling",
+          "head_shift": [
+            0,
+            3
+          ],
+          "weapon_angle": 0,
+          "lantern_center": [
+            79.56164383561644,
+            72.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            66.56164383561644,
+            54.150684931506845
+          ],
+          "head_exact": true,
+          "opaque_area": 834,
+          "area_ratio_to_design": 0.9215,
+          "connected_components_8way": [
+            834
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_game_pixels": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 120,
+          "bbox_cell": [
+            30,
+            55,
+            84,
+            82
+          ],
+          "bbox_output_pixels": [
+            3312,
+            440,
+            3744,
+            656
+          ],
+          "mode": "side_lying",
+          "head_shift": [
+            0,
+            -2
+          ],
+          "weapon_angle": 90,
+          "lantern_center": [
+            66.56164383561645,
+            86.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            55.56164383561645,
+            68.15068493150685
+          ],
+          "head_exact_quarter_turn": true,
+          "opaque_area": 703,
+          "area_ratio_to_design": 0.7768,
+          "connected_components_8way": [
+            703
+          ]
+        },
+        {
+          "frame": 5,
+          "rect_game_pixels": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 130,
+          "bbox_cell": [
+            33,
+            55,
+            87,
+            82
+          ],
+          "bbox_output_pixels": [
+            264,
+            1208,
+            696,
+            1424
+          ],
+          "mode": "side_lying",
+          "head_shift": [
+            0,
+            -2
+          ],
+          "weapon_angle": 90,
+          "lantern_center": [
+            66.56164383561645,
+            86.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            58.56164383561645,
+            68.15068493150685
+          ],
+          "head_exact_quarter_turn": true,
+          "opaque_area": 703,
+          "area_ratio_to_design": 0.7768,
+          "connected_components_8way": [
+            703
+          ]
+        },
+        {
+          "frame": 6,
+          "rect_game_pixels": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 150,
+          "bbox_cell": [
+            33,
+            55,
+            87,
+            82
+          ],
+          "bbox_output_pixels": [
+            1288,
+            1208,
+            1720,
+            1424
+          ],
+          "mode": "side_lying",
+          "head_shift": [
+            0,
+            -2
+          ],
+          "weapon_angle": 90,
+          "lantern_center": [
+            66.56164383561645,
+            86.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            58.56164383561645,
+            68.15068493150685
+          ],
+          "head_exact_quarter_turn": true,
+          "opaque_area": 703,
+          "area_ratio_to_design": 0.7768,
+          "connected_components_8way": [
+            703
+          ]
+        },
+        {
+          "frame": 7,
+          "rect_game_pixels": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 200,
+          "bbox_cell": [
+            33,
+            55,
+            87,
+            82
+          ],
+          "bbox_output_pixels": [
+            2312,
+            1208,
+            2744,
+            1424
+          ],
+          "mode": "side_lying",
+          "head_shift": [
+            0,
+            -2
+          ],
+          "weapon_angle": 90,
+          "lantern_center": [
+            66.56164383561645,
+            86.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            58.56164383561645,
+            68.15068493150685
+          ],
+          "head_exact_quarter_turn": true,
+          "opaque_area": 703,
+          "area_ratio_to_design": 0.7768,
+          "connected_components_8way": [
+            703
+          ]
+        },
+        {
+          "frame": 8,
+          "rect_game_pixels": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "rect_output_pixels": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 300,
+          "bbox_cell": [
+            33,
+            55,
+            87,
+            82
+          ],
+          "bbox_output_pixels": [
+            3336,
+            1208,
+            3768,
+            1424
+          ],
+          "mode": "side_lying",
+          "head_shift": [
+            0,
+            -2
+          ],
+          "weapon_angle": 90,
+          "lantern_center": [
+            66.56164383561645,
+            86.15068493150685
+          ],
+          "leg_part_order": [
+            "far_hind",
+            "near_hind",
+            "near_front",
+            "far_front"
+          ],
+          "leg_lifts_source_rows": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "leg_shifts_source_columns": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lantern_center_cell": [
+            58.56164383561645,
+            68.15068493150685
+          ],
+          "head_exact_quarter_turn": true,
+          "opaque_area": 703,
+          "area_ratio_to_design": 0.7768,
+          "connected_components_8way": [
+            703
+          ]
+        }
+      ]
+    }
+  },
+  "raw_files": [
+    "raw/lillia_run_generated_rejected.png"
+  ],
+  "head_mask_correction": {
+    "source_file": "approved_head_1x.png",
+    "effective_file": "head_mask_corrected_1x.png",
+    "reassigned_pixels_xy": [
+      [
+        72,
+        61
+      ],
+      [
+        73,
+        61
+      ],
+      [
+        72,
+        62
+      ],
+      [
+        73,
+        62
+      ],
+      [
+        73,
+        63
+      ]
+    ],
+    "reason": "detached bough leaf accidentally included in head cutout; main head remains pixel-identical"
+  },
+  "lantern_center_definition": "Alpha-weighted centroid of the opaque source lantern cutout, translated with its attachment; game pixel coordinates within cell.",
+  "qa_report": "qa_report.json"
+}

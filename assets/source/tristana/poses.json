@@ -1,0 +1,19 @@
+{
+  "hero": "tristana",
+  "champ": "Tristana",
+  "camera": {"yaw": 60, "pitch": 15, "mirror": true},
+  "chibi": {"head": 1.0, "legs": 1.0, "hair": 1.0},
+  "height": 41,
+  "cell": [96, 96, 14],
+  "design": "Tristana_Idle01@0",
+  "tags": {
+    "idle": {"frames": [["Tristana_Idle01@0", 200], ["Tristana_Idle01@0", 200], ["Tristana_Idle01@0", 200], ["Tristana_Idle01@0", 200], ["Tristana_Idle01@0", 200], ["Tristana_Idle01@0", 200]]},
+    "run": {"flat": true, "head_like": "Tristana_Idle01@0", "frames": [["Tristana_Run@0", 117], ["Tristana_Run@117", 117], ["Tristana_Run@233", 117], ["Tristana_Run@350", 117], ["Tristana_Run@467", 117], ["Tristana_Run@583", 117], ["Tristana_Run@700", 117], ["Tristana_Run@817", 114]]},
+    "attack": {"lunge": 0.3, "frames": [["Tristana_Idle01@0>Tristana_Attack1@60:0.6", 60], ["Tristana_Attack1@110", 60], ["Tristana_Attack1@160", 70], ["Tristana_Attack1@220", 70], ["Tristana_Attack1@300", 70], ["Tristana_Attack1@420>Tristana_Idle01@0:0.5", 70]]},
+    "skill": {"lunge": 0.3, "frames": [["Tristana_Idle01@0>Tristana_Spell3@40:0.6", 60], ["Tristana_Spell3@100", 60], ["Tristana_Spell3@160", 60], ["Tristana_Spell3@240", 60], ["Tristana_Spell3@240>Tristana_Idle01@0:0.5", 60]]},
+    "skill2": {"lunge": 0.0, "rise": 0.35, "frames": [["Tristana_Spell2_IN@0", 60], ["Tristana_Spell2_IN@130", 60], ["Tristana_Spell2_IN@250", 60], ["Tristana_Spell2_MID@100", 70], ["Tristana_Spell2_MID@250", 70], ["Tristana_Spell2_MID@450", 80], ["Tristana_Spell2_MID@650>Tristana_Idle01@0:0.5", 133]]},
+    "ult": {"lunge": 0.3, "rise": 0.35, "frames": [["Tristana_Idle01@0>Tristana_Spell4@100:0.6", 70], ["Tristana_Spell4@180", 70], ["Tristana_Spell4@260", 90], ["Tristana_Spell4@330", 90], ["Tristana_Spell4@450", 100], ["Tristana_Spell4@600", 110], ["Tristana_Spell4@850>Tristana_Idle01@0:0.5", 137]]},
+    "hit": {"frames": [["Tristana_Idle01@0>Tristana_Death@200:0.35", 120], ["Tristana_Idle01@0>Tristana_Death@200:0.15", 120]]},
+    "dead": {"anchor": "first", "lunge": 0.15, "flat": true, "travel": 0.12, "rise": 0.2, "frames": [["Tristana_Death@0", 100], ["Tristana_Death@200", 100], ["Tristana_Death@400", 110], ["Tristana_Death@600", 110], ["Tristana_Death@900", 120], ["Tristana_Death@1100", 130], ["Tristana_Death@1600", 150], ["Tristana_Death@1790", 500]]}
+  }
+}

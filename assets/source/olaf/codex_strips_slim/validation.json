@@ -1,0 +1,1065 @@
+{
+  "animations": {
+    "run": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            37,
+            40,
+            90,
+            82
+          ],
+          "new_bbox": [
+            36,
+            39,
+            90,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 1,
+          "skin_area_old": 54,
+          "skin_area_new": 139,
+          "opacity_area_ratio": 1.029,
+          "mouth_delta": [
+            0,
+            -1
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            30,
+            42,
+            80,
+            82
+          ],
+          "new_bbox": [
+            30,
+            41,
+            80,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 63,
+          "skin_area_new": 112,
+          "opacity_area_ratio": 1.032,
+          "mouth_delta": [
+            2,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            25,
+            38,
+            73,
+            81
+          ],
+          "new_bbox": [
+            25,
+            38,
+            73,
+            81
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 70,
+          "skin_area_new": 105,
+          "opacity_area_ratio": 0.976,
+          "mouth_delta": [
+            0,
+            -1
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            17,
+            41,
+            73,
+            82
+          ],
+          "new_bbox": [
+            16,
+            42,
+            73,
+            82
+          ],
+          "height_delta": -1,
+          "width_delta": 1,
+          "skin_area_old": 93,
+          "skin_area_new": 165,
+          "opacity_area_ratio": 1.004,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            39,
+            34,
+            98,
+            82
+          ],
+          "new_bbox": [
+            38,
+            34,
+            98,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 85,
+          "skin_area_new": 168,
+          "opacity_area_ratio": 1.055,
+          "mouth_delta": [
+            0,
+            -1
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            29,
+            39,
+            87,
+            82
+          ],
+          "new_bbox": [
+            29,
+            38,
+            88,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 1,
+          "skin_area_old": 84,
+          "skin_area_new": 150,
+          "opacity_area_ratio": 1.049,
+          "mouth_delta": [
+            2,
+            -1
+          ]
+        },
+        {
+          "frame": 7,
+          "reference_bbox": [
+            32,
+            43,
+            93,
+            82
+          ],
+          "new_bbox": [
+            32,
+            43,
+            94,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 75,
+          "skin_area_new": 122,
+          "opacity_area_ratio": 1.038,
+          "mouth_delta": [
+            1,
+            -1
+          ]
+        },
+        {
+          "frame": 8,
+          "reference_bbox": [
+            25,
+            31,
+            82,
+            78
+          ],
+          "new_bbox": [
+            25,
+            31,
+            82,
+            78
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 69,
+          "skin_area_new": 160,
+          "opacity_area_ratio": 1.039,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            41,
+            42,
+            98,
+            82
+          ],
+          "new_bbox": [
+            41,
+            42,
+            98,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 72,
+          "skin_area_new": 122,
+          "opacity_area_ratio": 1.015,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            33,
+            16,
+            80,
+            82
+          ],
+          "new_bbox": [
+            33,
+            16,
+            80,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 76,
+          "skin_area_new": 157,
+          "opacity_area_ratio": 1.017,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            39,
+            32,
+            86,
+            82
+          ],
+          "new_bbox": [
+            39,
+            32,
+            86,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 69,
+          "skin_area_new": 110,
+          "opacity_area_ratio": 1.005,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            35,
+            44,
+            73,
+            82
+          ],
+          "new_bbox": [
+            35,
+            44,
+            73,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 61,
+          "skin_area_new": 83,
+          "opacity_area_ratio": 1.021,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            23,
+            36,
+            73,
+            82
+          ],
+          "new_bbox": [
+            23,
+            37,
+            73,
+            82
+          ],
+          "height_delta": -1,
+          "width_delta": 0,
+          "skin_area_old": 39,
+          "skin_area_new": 50,
+          "opacity_area_ratio": 1.018,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            41,
+            46,
+            82,
+            82
+          ],
+          "new_bbox": [
+            41,
+            46,
+            82,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 61,
+          "skin_area_new": 109,
+          "opacity_area_ratio": 0.993,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "skill": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            34,
+            40,
+            82,
+            82
+          ],
+          "new_bbox": [
+            33,
+            41,
+            82,
+            82
+          ],
+          "height_delta": -1,
+          "width_delta": 1,
+          "skin_area_old": 86,
+          "skin_area_new": 132,
+          "opacity_area_ratio": 1.022,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            32,
+            15,
+            73,
+            82
+          ],
+          "new_bbox": [
+            32,
+            15,
+            74,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 122,
+          "skin_area_new": 167,
+          "opacity_area_ratio": 1.022,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            40,
+            36,
+            88,
+            82
+          ],
+          "new_bbox": [
+            40,
+            35,
+            89,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 1,
+          "skin_area_old": 83,
+          "skin_area_new": 107,
+          "opacity_area_ratio": 1.015,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            39,
+            43,
+            92,
+            82
+          ],
+          "new_bbox": [
+            39,
+            42,
+            92,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 108,
+          "skin_area_new": 169,
+          "opacity_area_ratio": 1.027,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            34,
+            47,
+            86,
+            82
+          ],
+          "new_bbox": [
+            34,
+            46,
+            87,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 1,
+          "skin_area_old": 91,
+          "skin_area_new": 123,
+          "opacity_area_ratio": 1.001,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            41,
+            39,
+            84,
+            82
+          ],
+          "new_bbox": [
+            40,
+            39,
+            84,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 105,
+          "skin_area_new": 144,
+          "opacity_area_ratio": 1.032,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "skill2": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            33,
+            46,
+            86,
+            82
+          ],
+          "new_bbox": [
+            33,
+            46,
+            86,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 75,
+          "skin_area_new": 97,
+          "opacity_area_ratio": 1.012,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            43,
+            7,
+            88,
+            74
+          ],
+          "new_bbox": [
+            42,
+            7,
+            88,
+            74
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 135,
+          "skin_area_new": 189,
+          "opacity_area_ratio": 1.012,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            30,
+            8,
+            76,
+            66
+          ],
+          "new_bbox": [
+            30,
+            7,
+            76,
+            66
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 158,
+          "skin_area_new": 202,
+          "opacity_area_ratio": 1.001,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            36,
+            18,
+            76,
+            82
+          ],
+          "new_bbox": [
+            36,
+            16,
+            76,
+            82
+          ],
+          "height_delta": 2,
+          "width_delta": 0,
+          "skin_area_old": 141,
+          "skin_area_new": 206,
+          "opacity_area_ratio": 1.015,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            47,
+            44,
+            106,
+            82
+          ],
+          "new_bbox": [
+            47,
+            43,
+            106,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 98,
+          "skin_area_new": 138,
+          "opacity_area_ratio": 1.041,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            41,
+            40,
+            93,
+            82
+          ],
+          "new_bbox": [
+            41,
+            38,
+            93,
+            82
+          ],
+          "height_delta": 2,
+          "width_delta": 0,
+          "skin_area_old": 83,
+          "skin_area_new": 113,
+          "opacity_area_ratio": 1.034,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "ult": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            40,
+            39,
+            91,
+            82
+          ],
+          "new_bbox": [
+            40,
+            39,
+            92,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 142,
+          "skin_area_new": 154,
+          "opacity_area_ratio": 1.001,
+          "mouth_delta": [
+            0,
+            -1
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            40,
+            22,
+            110,
+            82
+          ],
+          "new_bbox": [
+            40,
+            21,
+            110,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 174,
+          "skin_area_new": 233,
+          "opacity_area_ratio": 1.001,
+          "mouth_delta": [
+            -1,
+            -1
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            41,
+            20,
+            89,
+            82
+          ],
+          "new_bbox": [
+            41,
+            19,
+            89,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 199,
+          "skin_area_new": 232,
+          "opacity_area_ratio": 0.997,
+          "mouth_delta": [
+            0,
+            -1
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            38,
+            18,
+            87,
+            82
+          ],
+          "new_bbox": [
+            38,
+            17,
+            88,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 1,
+          "skin_area_old": 242,
+          "skin_area_new": 292,
+          "opacity_area_ratio": 1.024,
+          "mouth_delta": [
+            0,
+            -1
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            39,
+            26,
+            92,
+            82
+          ],
+          "new_bbox": [
+            39,
+            26,
+            93,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 231,
+          "skin_area_new": 273,
+          "opacity_area_ratio": 0.995,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            36,
+            38,
+            88,
+            82
+          ],
+          "new_bbox": [
+            35,
+            37,
+            89,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 2,
+          "skin_area_old": 136,
+          "skin_area_new": 161,
+          "opacity_area_ratio": 1.028,
+          "mouth_delta": [
+            0,
+            -1
+          ]
+        }
+      ]
+    },
+    "hit": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            21,
+            29,
+            88,
+            82
+          ],
+          "new_bbox": [
+            21,
+            29,
+            88,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 97,
+          "skin_area_new": 183,
+          "opacity_area_ratio": 0.963,
+          "mouth_delta": [
+            -1,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            31,
+            35,
+            90,
+            82
+          ],
+          "new_bbox": [
+            31,
+            35,
+            91,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 114,
+          "skin_area_new": 167,
+          "opacity_area_ratio": 0.971,
+          "mouth_delta": [
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "dead": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            31,
+            39,
+            78,
+            82
+          ],
+          "new_bbox": [
+            30,
+            38,
+            79,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 2,
+          "skin_area_old": 138,
+          "skin_area_new": 159,
+          "opacity_area_ratio": 1.014,
+          "mouth_delta": [
+            1,
+            -1
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            9,
+            23,
+            101,
+            82
+          ],
+          "new_bbox": [
+            9,
+            22,
+            101,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 227,
+          "skin_area_new": 270,
+          "opacity_area_ratio": 0.994,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            26,
+            24,
+            86,
+            82
+          ],
+          "new_bbox": [
+            26,
+            23,
+            86,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 242,
+          "skin_area_new": 284,
+          "opacity_area_ratio": 0.983,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            37,
+            39,
+            93,
+            82
+          ],
+          "new_bbox": [
+            36,
+            38,
+            93,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 1,
+          "skin_area_old": 215,
+          "skin_area_new": 262,
+          "opacity_area_ratio": 1.017,
+          "mouth_delta": [
+            1,
+            -1
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            23,
+            19,
+            83,
+            82
+          ],
+          "new_bbox": [
+            23,
+            18,
+            83,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 238,
+          "skin_area_new": 287,
+          "opacity_area_ratio": 1.025,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            18,
+            41,
+            92,
+            82
+          ],
+          "new_bbox": [
+            18,
+            41,
+            92,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 0,
+          "skin_area_old": 126,
+          "skin_area_new": 212,
+          "opacity_area_ratio": 1.009,
+          "mouth_delta": [
+            -2,
+            1
+          ]
+        },
+        {
+          "frame": 7,
+          "reference_bbox": [
+            14,
+            49,
+            95,
+            82
+          ],
+          "new_bbox": [
+            13,
+            49,
+            96,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 2,
+          "skin_area_old": 138,
+          "skin_area_new": 198,
+          "opacity_area_ratio": 1.022,
+          "mouth_delta": null
+        },
+        {
+          "frame": 8,
+          "reference_bbox": [
+            11,
+            54,
+            99,
+            82
+          ],
+          "new_bbox": [
+            11,
+            54,
+            100,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 150,
+          "skin_area_new": 229,
+          "opacity_area_ratio": 1.042,
+          "mouth_delta": null
+        }
+      ]
+    }
+  },
+  "format_pass": true,
+  "art_approval": false,
+  "art_approval_reason": "Body slimming and exact preservation of protected parts need visual revision."
+}

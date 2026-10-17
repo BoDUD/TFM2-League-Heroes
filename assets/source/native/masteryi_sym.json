@@ -1,0 +1,10 @@
+{
+ "league_masteryi_q_vanish": {
+  "anim": "asset/league/effects/league_masteryi_fx",
+  "tag": "q_vanish"
+ },
+ "league_masteryi_wuju": {
+  "anim": "asset/league/effects/league_masteryi_fx",
+  "tag": "wuju"
+ }
+}

@@ -1,0 +1,107 @@
+[
+  {
+    "animation": "run",
+    "frames": 8,
+    "size": [
+      3584,
+      1408
+    ],
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "head_exact": true,
+    "stage_exact": true,
+    "legs_exact_except_death": true,
+    "below_row75_empty": true
+  },
+  {
+    "animation": "attack",
+    "frames": 6,
+    "size": [
+      2688,
+      1408
+    ],
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "head_exact": true,
+    "stage_exact": true,
+    "legs_exact_except_death": true,
+    "below_row75_empty": true
+  },
+  {
+    "animation": "skill",
+    "frames": 6,
+    "size": [
+      2688,
+      1408
+    ],
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "head_exact": true,
+    "stage_exact": true,
+    "legs_exact_except_death": true,
+    "below_row75_empty": true
+  },
+  {
+    "animation": "skill2",
+    "frames": 8,
+    "size": [
+      3584,
+      1408
+    ],
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "head_exact": true,
+    "stage_exact": true,
+    "legs_exact_except_death": true,
+    "below_row75_empty": true
+  },
+  {
+    "animation": "ult",
+    "frames": 4,
+    "size": [
+      3584,
+      704
+    ],
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "head_exact": true,
+    "stage_exact": true,
+    "legs_exact_except_death": true,
+    "below_row75_empty": true
+  },
+  {
+    "animation": "hit",
+    "frames": 2,
+    "size": [
+      1792,
+      704
+    ],
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "head_exact": true,
+    "stage_exact": true,
+    "legs_exact_except_death": true,
+    "below_row75_empty": true
+  },
+  {
+    "animation": "dead",
+    "frames": 8,
+    "size": [
+      3584,
+      1408
+    ],
+    "grid_8x8": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "head_exact": true,
+    "stage_exact": true,
+    "legs_exact_except_death": true,
+    "below_row75_empty": true
+  }
+]

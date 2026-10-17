@@ -1,0 +1,194 @@
+[
+  {
+    "action": "run",
+    "frames": 8,
+    "size": [
+      2048,
+      1024
+    ],
+    "colors": 24,
+    "head_exact": true,
+    "strict_grid": true,
+    "binary_alpha": true,
+    "baseline_clear": true,
+    "frame_heights": [
+      46,
+      47,
+      45,
+      46,
+      46,
+      46,
+      46,
+      46
+    ]
+  },
+  {
+    "action": "attack",
+    "frames": 6,
+    "size": [
+      2688,
+      1536
+    ],
+    "colors": 25,
+    "head_exact": true,
+    "strict_grid": true,
+    "binary_alpha": true,
+    "baseline_clear": true,
+    "frame_heights": [
+      37,
+      44,
+      37,
+      38,
+      37,
+      38
+    ]
+  },
+  {
+    "action": "leap",
+    "frames": 8,
+    "size": [
+      3584,
+      1536
+    ],
+    "colors": 24,
+    "head_exact": true,
+    "strict_grid": true,
+    "binary_alpha": true,
+    "baseline_clear": true,
+    "frame_heights": [
+      30,
+      36,
+      31,
+      33,
+      33,
+      28,
+      31,
+      34
+    ]
+  },
+  {
+    "action": "skill",
+    "frames": 8,
+    "size": [
+      3584,
+      1536
+    ],
+    "colors": 25,
+    "head_exact": true,
+    "strict_grid": true,
+    "binary_alpha": true,
+    "baseline_clear": true,
+    "frame_heights": [
+      34,
+      56,
+      55,
+      34,
+      31,
+      38,
+      44,
+      33
+    ]
+  },
+  {
+    "action": "skill2",
+    "frames": 6,
+    "size": [
+      2688,
+      1536
+    ],
+    "colors": 25,
+    "head_exact": true,
+    "strict_grid": true,
+    "binary_alpha": true,
+    "baseline_clear": true,
+    "frame_heights": [
+      38,
+      46,
+      58,
+      38,
+      39,
+      39
+    ]
+  },
+  {
+    "action": "skill_w",
+    "frames": 7,
+    "size": [
+      3584,
+      1536
+    ],
+    "colors": 25,
+    "head_exact": true,
+    "strict_grid": true,
+    "binary_alpha": true,
+    "baseline_clear": true,
+    "frame_heights": [
+      37,
+      41,
+      41,
+      41,
+      42,
+      40,
+      37
+    ]
+  },
+  {
+    "action": "ult",
+    "frames": 4,
+    "size": [
+      3584,
+      768
+    ],
+    "colors": 25,
+    "head_exact": true,
+    "strict_grid": true,
+    "binary_alpha": true,
+    "baseline_clear": true,
+    "frame_heights": [
+      40,
+      28,
+      28,
+      38
+    ]
+  },
+  {
+    "action": "hit",
+    "frames": 2,
+    "size": [
+      1792,
+      768
+    ],
+    "colors": 25,
+    "head_exact": true,
+    "strict_grid": true,
+    "binary_alpha": true,
+    "baseline_clear": true,
+    "frame_heights": [
+      43,
+      42
+    ]
+  },
+  {
+    "action": "dead",
+    "frames": 8,
+    "size": [
+      3584,
+      1536
+    ],
+    "colors": 25,
+    "head_exact": true,
+    "strict_grid": true,
+    "binary_alpha": true,
+    "baseline_clear": true,
+    "frame_heights": [
+      49,
+      66,
+      30,
+      30,
+      37,
+      37,
+      37,
+      37
+    ]
+  }
+]

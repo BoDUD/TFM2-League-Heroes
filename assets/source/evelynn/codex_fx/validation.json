@@ -1,0 +1,259 @@
+{
+  "asset_count": 31,
+  "total_frames": 133,
+  "equal_cell_and_rect_checks": "PASS",
+  "shade_boundary_pixel_match": "PASS",
+  "r_slash_last_frame_empty": "PASS",
+  "game_import_tested": false,
+  "artwork_pixel_palette_and_exact_symmetry": "Not certified: generated originals retain edge noise and small asymmetries; normalize downstream.",
+  "assets": [
+    {
+      "file": "evelynn_fx_a_hit.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 458441,
+      "sha256": "51e92ea9d309898438024c551fab62c88f29868a1e850758b757495e69ea25f5"
+    },
+    {
+      "file": "evelynn_fx_e_hit.png",
+      "frames": 5,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 205837,
+      "sha256": "8ed9e3c4ca772fa466da0c9c59b1b47485bcc70b2784a9efb77307f8a071325b"
+    },
+    {
+      "file": "evelynn_fx_e2_trail.png",
+      "frames": 5,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 246249,
+      "sha256": "def4e93e46c20a29b8d63c0656484cf3e33952dfd0fbbc738d3e3dce8b37119d"
+    },
+    {
+      "file": "evelynn_fx_e2_hit.png",
+      "frames": 5,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 385116,
+      "sha256": "93f2499eca996c462019c632016583bf71bf0a17d9f0c8e3397d842592b177e2"
+    },
+    {
+      "file": "evelynn_fx_e_emp.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 199205,
+      "sha256": "8a1a245d72ceef1da4f0f0df3878227a22e51ecb15ba9d28f3d6df2a9da4da78"
+    },
+    {
+      "file": "evelynn_fx_e_haste.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 168040,
+      "sha256": "c2a9002db5fcb5c6970b90689900b7ab5b64732ffa09265328728688a06d30ab"
+    },
+    {
+      "file": "evelynn_fx_q_cast.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 293184,
+      "sha256": "538718749dce89435470bb3f0a9930099042aac014ddf031abb92e743c907447"
+    },
+    {
+      "file": "evelynn_fx_q_lash.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 306762,
+      "sha256": "54c4f322c33e828a8c8e8b1613b422005b579e4182e32da8c5761b84c25066ef"
+    },
+    {
+      "file": "evelynn_fx_q_spike.png",
+      "frames": 3,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 308400,
+      "sha256": "0591a692eefd012c2e96886e8483aac498e6185a0e98eec339c81692f0f57836"
+    },
+    {
+      "file": "evelynn_fx_q_hit.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 314096,
+      "sha256": "13be67775cbfee7d70d9ad297ef53a4a6485baf24485a9ba32ea35eeebd21221"
+    },
+    {
+      "file": "evelynn_fx_q_mark.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 234704,
+      "sha256": "d5be18bc4c138c6c269f329b9dfc48a886d77cd2b9cf73ed0d798824b7fb8ede"
+    },
+    {
+      "file": "evelynn_fx_qb_hit.png",
+      "frames": 3,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 297580,
+      "sha256": "eea423a1ddff0ec96f24e0c384ad712c111db764bc4c42e5e2542a1a0f0f6e40"
+    },
+    {
+      "file": "evelynn_fx_sp_cast.png",
+      "frames": 3,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 89010,
+      "sha256": "002951bf7caf318017fa9935f0e429a1b2bcf92febcf111ea86d3f18668da3ab"
+    },
+    {
+      "file": "evelynn_fx_sp_hit.png",
+      "frames": 3,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 249002,
+      "sha256": "a6fdb75883dc0fd113f49c5e66736b9d34670604d862f1bafec9ee32593dac67"
+    },
+    {
+      "file": "evelynn_fx_w_cast.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 125234,
+      "sha256": "11e86edccf65ca0a5813db624a8aca04c80e3bb62172c3b7fbd84bbc7f075fea"
+    },
+    {
+      "file": "evelynn_fx_w_bolt.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 244662,
+      "sha256": "e6261d4c96b7706d066f16d70f076da3e006061bc8e40ef1248e290629f3b8c9"
+    },
+    {
+      "file": "evelynn_fx_w_hit.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 150656,
+      "sha256": "8977c5ab6b57eadb8d01056e04ec7301df88012a5246250922f6033aad5da943"
+    },
+    {
+      "file": "evelynn_fx_w_mark.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 157934,
+      "sha256": "c2b7ac8741b0fcc93abb441fbc8a4c13aa2d5de601c1c29d9e0260d30ce5676c"
+    },
+    {
+      "file": "evelynn_fx_w_ripen.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 706140,
+      "sha256": "e84126daca3d0a0afac279bed154667010d84035a8fa8f23d574209d523a0d0a"
+    },
+    {
+      "file": "evelynn_fx_w_ripe.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 134967,
+      "sha256": "45565f6b727f575518229660261330e9a879211fa939e946c41bc4ebf2f588c5"
+    },
+    {
+      "file": "evelynn_fx_w_pop.png",
+      "frames": 5,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 220367,
+      "sha256": "c1625bd51acd37aad5c2ac15c6e255e33334d7936cf9e1dcc49aa82eabe6a1e6"
+    },
+    {
+      "file": "evelynn_fx_w_charmed.png",
+      "frames": 6,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 166532,
+      "sha256": "61fa2227d6697e7150cc6966bf74d4a689f411814ceb9d40f204d3745e2c8ffa"
+    },
+    {
+      "file": "evelynn_fx_w_shred.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 272061,
+      "sha256": "a305820db0671a9d5ddaa3e78b246229496a9cac90ad9df8c6238b6bc661f452"
+    },
+    {
+      "file": "evelynn_fx_sh_in.png",
+      "frames": 5,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 501619,
+      "sha256": "03c9e79e4129ae3c7882efe7a5296948b0c508b17ad1438423536efbdb72213c"
+    },
+    {
+      "file": "evelynn_fx_sh_loop.png",
+      "frames": 6,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 748562,
+      "sha256": "1af18c1a2966d6efac9f1b717b4bbbebdb5cef2d9b0e1753f9541d2f7b657f8b"
+    },
+    {
+      "file": "evelynn_fx_sh_out.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 404915,
+      "sha256": "027dbfbb73c96a1102b5fbf1fea0af3e9c77cbbaf96785a0e380f7fecb416fd7"
+    },
+    {
+      "file": "evelynn_fx_r_cast.png",
+      "frames": 5,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 596193,
+      "sha256": "557ff45796167b22bd13f505a7aef678d0a564719571f4566fc551a998d47074"
+    },
+    {
+      "file": "evelynn_fx_r_slash.png",
+      "frames": 6,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 240602,
+      "sha256": "08b6d71e6c7233b7c9b538a38e8f981f72357160d749441cb69bb49480061909"
+    },
+    {
+      "file": "evelynn_fx_r_hit.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 436024,
+      "sha256": "b5101bbbe39979f629d587e5e7c4d2320863339f83aca0dcb930fbc324d18884"
+    },
+    {
+      "file": "evelynn_fx_r_blink.png",
+      "frames": 5,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 528025,
+      "sha256": "6aeb0f9e17ffca1125c277e3f0064c935e337ea2de442f14beb2bdfe8b025cf5"
+    },
+    {
+      "file": "evelynn_fx_r_land.png",
+      "frames": 4,
+      "equal_cells": true,
+      "transparent_background": true,
+      "semi_transparent_pixel_count": 245668,
+      "sha256": "516fc0c12704cba16387bb91f9b605d83970360887ea877e2879cf62f7f8a43f"
+    }
+  ]
+}

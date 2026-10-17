@@ -1,0 +1,1747 @@
+{
+  "cell": [
+    96,
+    96
+  ],
+  "scale": 8,
+  "frames": [
+    {
+      "index": 0,
+      "rect": [
+        0,
+        0,
+        768,
+        768
+      ],
+      "native_rect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "pivot": [
+        43,
+        70
+      ],
+      "ms": 117,
+      "bbox_native_xyxy": [
+        30,
+        48,
+        70,
+        82
+      ],
+      "head_rect_native": [
+        30,
+        48,
+        35,
+        17
+      ],
+      "head_translation_from_source": [
+        -13,
+        -18
+      ],
+      "head_rotation_deg": 0,
+      "neck_anchor_native": [
+        50,
+        65
+      ],
+      "hip_anchor_native": [
+        47,
+        73
+      ],
+      "upper_body_translation": [
+        10,
+        21
+      ],
+      "leg_source_generated_frame": 1,
+      "upper_body_source_generated_frame": 2,
+      "head_to_hip_offset": [
+        3,
+        -8
+      ],
+      "eye_center_native": [
+        49.5,
+        61.0
+      ],
+      "reference_head_position": [
+        49.9,
+        60.9
+      ],
+      "pivot_output_px": [
+        344,
+        560
+      ],
+      "bbox_output_local_xyxy": [
+        240,
+        384,
+        560,
+        656
+      ],
+      "head_rect_output_local": [
+        240,
+        384,
+        280,
+        136
+      ]
+    },
+    {
+      "index": 1,
+      "rect": [
+        768,
+        0,
+        768,
+        768
+      ],
+      "native_rect": [
+        96,
+        0,
+        96,
+        96
+      ],
+      "pivot": [
+        43,
+        70
+      ],
+      "ms": 117,
+      "bbox_native_xyxy": [
+        30,
+        44,
+        70,
+        78
+      ],
+      "head_rect_native": [
+        30,
+        44,
+        35,
+        17
+      ],
+      "head_translation_from_source": [
+        -13,
+        -22
+      ],
+      "head_rotation_deg": 0,
+      "neck_anchor_native": [
+        50,
+        61
+      ],
+      "hip_anchor_native": [
+        47,
+        69
+      ],
+      "upper_body_translation": [
+        10,
+        17
+      ],
+      "leg_source_generated_frame": 2,
+      "upper_body_source_generated_frame": 2,
+      "head_to_hip_offset": [
+        3,
+        -8
+      ],
+      "eye_center_native": [
+        49.5,
+        57.0
+      ],
+      "reference_head_position": [
+        50.4,
+        46.0
+      ],
+      "pivot_output_px": [
+        344,
+        560
+      ],
+      "bbox_output_local_xyxy": [
+        240,
+        352,
+        560,
+        624
+      ],
+      "head_rect_output_local": [
+        240,
+        352,
+        280,
+        136
+      ]
+    },
+    {
+      "index": 2,
+      "rect": [
+        1536,
+        0,
+        768,
+        768
+      ],
+      "native_rect": [
+        192,
+        0,
+        96,
+        96
+      ],
+      "pivot": [
+        42,
+        70
+      ],
+      "ms": 117,
+      "bbox_native_xyxy": [
+        30,
+        44,
+        70,
+        77
+      ],
+      "head_rect_native": [
+        30,
+        44,
+        35,
+        17
+      ],
+      "head_translation_from_source": [
+        -13,
+        -22
+      ],
+      "head_rotation_deg": 0,
+      "neck_anchor_native": [
+        50,
+        61
+      ],
+      "hip_anchor_native": [
+        47,
+        69
+      ],
+      "upper_body_translation": [
+        10,
+        17
+      ],
+      "leg_source_generated_frame": 3,
+      "upper_body_source_generated_frame": 2,
+      "head_to_hip_offset": [
+        3,
+        -8
+      ],
+      "eye_center_native": [
+        49.5,
+        57.0
+      ],
+      "reference_head_position": [
+        50.1,
+        46.0
+      ],
+      "pivot_output_px": [
+        336,
+        560
+      ],
+      "bbox_output_local_xyxy": [
+        240,
+        352,
+        560,
+        616
+      ],
+      "head_rect_output_local": [
+        240,
+        352,
+        280,
+        136
+      ]
+    },
+    {
+      "index": 3,
+      "rect": [
+        2304,
+        0,
+        768,
+        768
+      ],
+      "native_rect": [
+        288,
+        0,
+        96,
+        96
+      ],
+      "pivot": [
+        41,
+        70
+      ],
+      "ms": 117,
+      "bbox_native_xyxy": [
+        28,
+        47,
+        68,
+        81
+      ],
+      "head_rect_native": [
+        28,
+        47,
+        35,
+        17
+      ],
+      "head_translation_from_source": [
+        -15,
+        -19
+      ],
+      "head_rotation_deg": 0,
+      "neck_anchor_native": [
+        48,
+        64
+      ],
+      "hip_anchor_native": [
+        45,
+        72
+      ],
+      "upper_body_translation": [
+        8,
+        20
+      ],
+      "leg_source_generated_frame": 4,
+      "upper_body_source_generated_frame": 2,
+      "head_to_hip_offset": [
+        3,
+        -8
+      ],
+      "eye_center_native": [
+        47.5,
+        60.0
+      ],
+      "reference_head_position": [
+        47.6,
+        56.6
+      ],
+      "pivot_output_px": [
+        328,
+        560
+      ],
+      "bbox_output_local_xyxy": [
+        224,
+        376,
+        544,
+        648
+      ],
+      "head_rect_output_local": [
+        224,
+        376,
+        280,
+        136
+      ]
+    },
+    {
+      "index": 4,
+      "rect": [
+        0,
+        768,
+        768,
+        768
+      ],
+      "native_rect": [
+        0,
+        96,
+        96,
+        96
+      ],
+      "pivot": [
+        43,
+        70
+      ],
+      "ms": 117,
+      "bbox_native_xyxy": [
+        30,
+        48,
+        70,
+        82
+      ],
+      "head_rect_native": [
+        30,
+        48,
+        35,
+        17
+      ],
+      "head_translation_from_source": [
+        -13,
+        -18
+      ],
+      "head_rotation_deg": 0,
+      "neck_anchor_native": [
+        50,
+        65
+      ],
+      "hip_anchor_native": [
+        47,
+        73
+      ],
+      "upper_body_translation": [
+        10,
+        21
+      ],
+      "leg_source_generated_frame": 8,
+      "upper_body_source_generated_frame": 2,
+      "head_to_hip_offset": [
+        3,
+        -8
+      ],
+      "eye_center_native": [
+        49.5,
+        61.0
+      ],
+      "reference_head_position": [
+        50.0,
+        61.5
+      ],
+      "pivot_output_px": [
+        344,
+        560
+      ],
+      "bbox_output_local_xyxy": [
+        240,
+        384,
+        560,
+        656
+      ],
+      "head_rect_output_local": [
+        240,
+        384,
+        280,
+        136
+      ]
+    },
+    {
+      "index": 5,
+      "rect": [
+        768,
+        768,
+        768,
+        768
+      ],
+      "native_rect": [
+        96,
+        96,
+        96,
+        96
+      ],
+      "pivot": [
+        44,
+        70
+      ],
+      "ms": 117,
+      "bbox_native_xyxy": [
+        32,
+        46,
+        72,
+        80
+      ],
+      "head_rect_native": [
+        32,
+        46,
+        35,
+        17
+      ],
+      "head_translation_from_source": [
+        -11,
+        -20
+      ],
+      "head_rotation_deg": 0,
+      "neck_anchor_native": [
+        52,
+        63
+      ],
+      "hip_anchor_native": [
+        49,
+        71
+      ],
+      "upper_body_translation": [
+        12,
+        19
+      ],
+      "leg_source_generated_frame": 6,
+      "upper_body_source_generated_frame": 2,
+      "head_to_hip_offset": [
+        3,
+        -8
+      ],
+      "eye_center_native": [
+        51.5,
+        59.0
+      ],
+      "reference_head_position": [
+        51.5,
+        53.6
+      ],
+      "pivot_output_px": [
+        352,
+        560
+      ],
+      "bbox_output_local_xyxy": [
+        256,
+        368,
+        576,
+        640
+      ],
+      "head_rect_output_local": [
+        256,
+        368,
+        280,
+        136
+      ]
+    },
+    {
+      "index": 6,
+      "rect": [
+        1536,
+        768,
+        768,
+        768
+      ],
+      "native_rect": [
+        192,
+        96,
+        96,
+        96
+      ],
+      "pivot": [
+        44,
+        70
+      ],
+      "ms": 117,
+      "bbox_native_xyxy": [
+        31,
+        44,
+        71,
+        77
+      ],
+      "head_rect_native": [
+        31,
+        44,
+        35,
+        17
+      ],
+      "head_translation_from_source": [
+        -12,
+        -22
+      ],
+      "head_rotation_deg": 0,
+      "neck_anchor_native": [
+        51,
+        61
+      ],
+      "hip_anchor_native": [
+        48,
+        69
+      ],
+      "upper_body_translation": [
+        11,
+        17
+      ],
+      "leg_source_generated_frame": 7,
+      "upper_body_source_generated_frame": 2,
+      "head_to_hip_offset": [
+        3,
+        -8
+      ],
+      "eye_center_native": [
+        50.5,
+        57.0
+      ],
+      "reference_head_position": [
+        51.1,
+        46.3
+      ],
+      "pivot_output_px": [
+        352,
+        560
+      ],
+      "bbox_output_local_xyxy": [
+        248,
+        352,
+        568,
+        616
+      ],
+      "head_rect_output_local": [
+        248,
+        352,
+        280,
+        136
+      ]
+    },
+    {
+      "index": 7,
+      "rect": [
+        2304,
+        768,
+        768,
+        768
+      ],
+      "native_rect": [
+        288,
+        96,
+        96,
+        96
+      ],
+      "pivot": [
+        43,
+        70
+      ],
+      "ms": 114,
+      "bbox_native_xyxy": [
+        28,
+        47,
+        68,
+        81
+      ],
+      "head_rect_native": [
+        28,
+        47,
+        35,
+        17
+      ],
+      "head_translation_from_source": [
+        -15,
+        -19
+      ],
+      "head_rotation_deg": 0,
+      "neck_anchor_native": [
+        48,
+        64
+      ],
+      "hip_anchor_native": [
+        45,
+        72
+      ],
+      "upper_body_translation": [
+        8,
+        20
+      ],
+      "leg_source_generated_frame": 5,
+      "upper_body_source_generated_frame": 2,
+      "head_to_hip_offset": [
+        3,
+        -8
+      ],
+      "eye_center_native": [
+        47.5,
+        60.0
+      ],
+      "reference_head_position": [
+        48.0,
+        57.8
+      ],
+      "pivot_output_px": [
+        344,
+        560
+      ],
+      "bbox_output_local_xyxy": [
+        224,
+        376,
+        544,
+        648
+      ],
+      "head_rect_output_local": [
+        224,
+        376,
+        280,
+        136
+      ]
+    }
+  ],
+  "tags": {
+    "run": [
+      {
+        "index": 0,
+        "rect": [
+          0,
+          0,
+          768,
+          768
+        ],
+        "native_rect": [
+          0,
+          0,
+          96,
+          96
+        ],
+        "pivot": [
+          43,
+          70
+        ],
+        "ms": 117,
+        "bbox_native_xyxy": [
+          30,
+          48,
+          70,
+          82
+        ],
+        "head_rect_native": [
+          30,
+          48,
+          35,
+          17
+        ],
+        "head_translation_from_source": [
+          -13,
+          -18
+        ],
+        "head_rotation_deg": 0,
+        "neck_anchor_native": [
+          50,
+          65
+        ],
+        "hip_anchor_native": [
+          47,
+          73
+        ],
+        "upper_body_translation": [
+          10,
+          21
+        ],
+        "leg_source_generated_frame": 1,
+        "upper_body_source_generated_frame": 2,
+        "head_to_hip_offset": [
+          3,
+          -8
+        ]
+      },
+      {
+        "index": 1,
+        "rect": [
+          768,
+          0,
+          768,
+          768
+        ],
+        "native_rect": [
+          96,
+          0,
+          96,
+          96
+        ],
+        "pivot": [
+          43,
+          70
+        ],
+        "ms": 117,
+        "bbox_native_xyxy": [
+          30,
+          44,
+          70,
+          78
+        ],
+        "head_rect_native": [
+          30,
+          44,
+          35,
+          17
+        ],
+        "head_translation_from_source": [
+          -13,
+          -22
+        ],
+        "head_rotation_deg": 0,
+        "neck_anchor_native": [
+          50,
+          61
+        ],
+        "hip_anchor_native": [
+          47,
+          69
+        ],
+        "upper_body_translation": [
+          10,
+          17
+        ],
+        "leg_source_generated_frame": 2,
+        "upper_body_source_generated_frame": 2,
+        "head_to_hip_offset": [
+          3,
+          -8
+        ]
+      },
+      {
+        "index": 2,
+        "rect": [
+          1536,
+          0,
+          768,
+          768
+        ],
+        "native_rect": [
+          192,
+          0,
+          96,
+          96
+        ],
+        "pivot": [
+          42,
+          70
+        ],
+        "ms": 117,
+        "bbox_native_xyxy": [
+          30,
+          44,
+          70,
+          77
+        ],
+        "head_rect_native": [
+          30,
+          44,
+          35,
+          17
+        ],
+        "head_translation_from_source": [
+          -13,
+          -22
+        ],
+        "head_rotation_deg": 0,
+        "neck_anchor_native": [
+          50,
+          61
+        ],
+        "hip_anchor_native": [
+          47,
+          69
+        ],
+        "upper_body_translation": [
+          10,
+          17
+        ],
+        "leg_source_generated_frame": 3,
+        "upper_body_source_generated_frame": 2,
+        "head_to_hip_offset": [
+          3,
+          -8
+        ]
+      },
+      {
+        "index": 3,
+        "rect": [
+          2304,
+          0,
+          768,
+          768
+        ],
+        "native_rect": [
+          288,
+          0,
+          96,
+          96
+        ],
+        "pivot": [
+          41,
+          70
+        ],
+        "ms": 117,
+        "bbox_native_xyxy": [
+          28,
+          47,
+          68,
+          81
+        ],
+        "head_rect_native": [
+          28,
+          47,
+          35,
+          17
+        ],
+        "head_translation_from_source": [
+          -15,
+          -19
+        ],
+        "head_rotation_deg": 0,
+        "neck_anchor_native": [
+          48,
+          64
+        ],
+        "hip_anchor_native": [
+          45,
+          72
+        ],
+        "upper_body_translation": [
+          8,
+          20
+        ],
+        "leg_source_generated_frame": 4,
+        "upper_body_source_generated_frame": 2,
+        "head_to_hip_offset": [
+          3,
+          -8
+        ]
+      },
+      {
+        "index": 4,
+        "rect": [
+          0,
+          768,
+          768,
+          768
+        ],
+        "native_rect": [
+          0,
+          96,
+          96,
+          96
+        ],
+        "pivot": [
+          43,
+          70
+        ],
+        "ms": 117,
+        "bbox_native_xyxy": [
+          30,
+          48,
+          70,
+          82
+        ],
+        "head_rect_native": [
+          30,
+          48,
+          35,
+          17
+        ],
+        "head_translation_from_source": [
+          -13,
+          -18
+        ],
+        "head_rotation_deg": 0,
+        "neck_anchor_native": [
+          50,
+          65
+        ],
+        "hip_anchor_native": [
+          47,
+          73
+        ],
+        "upper_body_translation": [
+          10,
+          21
+        ],
+        "leg_source_generated_frame": 8,
+        "upper_body_source_generated_frame": 2,
+        "head_to_hip_offset": [
+          3,
+          -8
+        ]
+      },
+      {
+        "index": 5,
+        "rect": [
+          768,
+          768,
+          768,
+          768
+        ],
+        "native_rect": [
+          96,
+          96,
+          96,
+          96
+        ],
+        "pivot": [
+          44,
+          70
+        ],
+        "ms": 117,
+        "bbox_native_xyxy": [
+          32,
+          46,
+          72,
+          80
+        ],
+        "head_rect_native": [
+          32,
+          46,
+          35,
+          17
+        ],
+        "head_translation_from_source": [
+          -11,
+          -20
+        ],
+        "head_rotation_deg": 0,
+        "neck_anchor_native": [
+          52,
+          63
+        ],
+        "hip_anchor_native": [
+          49,
+          71
+        ],
+        "upper_body_translation": [
+          12,
+          19
+        ],
+        "leg_source_generated_frame": 6,
+        "upper_body_source_generated_frame": 2,
+        "head_to_hip_offset": [
+          3,
+          -8
+        ]
+      },
+      {
+        "index": 6,
+        "rect": [
+          1536,
+          768,
+          768,
+          768
+        ],
+        "native_rect": [
+          192,
+          96,
+          96,
+          96
+        ],
+        "pivot": [
+          44,
+          70
+        ],
+        "ms": 117,
+        "bbox_native_xyxy": [
+          31,
+          44,
+          71,
+          77
+        ],
+        "head_rect_native": [
+          31,
+          44,
+          35,
+          17
+        ],
+        "head_translation_from_source": [
+          -12,
+          -22
+        ],
+        "head_rotation_deg": 0,
+        "neck_anchor_native": [
+          51,
+          61
+        ],
+        "hip_anchor_native": [
+          48,
+          69
+        ],
+        "upper_body_translation": [
+          11,
+          17
+        ],
+        "leg_source_generated_frame": 7,
+        "upper_body_source_generated_frame": 2,
+        "head_to_hip_offset": [
+          3,
+          -8
+        ]
+      },
+      {
+        "index": 7,
+        "rect": [
+          2304,
+          768,
+          768,
+          768
+        ],
+        "native_rect": [
+          288,
+          96,
+          96,
+          96
+        ],
+        "pivot": [
+          43,
+          70
+        ],
+        "ms": 114,
+        "bbox_native_xyxy": [
+          28,
+          47,
+          68,
+          81
+        ],
+        "head_rect_native": [
+          28,
+          47,
+          35,
+          17
+        ],
+        "head_translation_from_source": [
+          -15,
+          -19
+        ],
+        "head_rotation_deg": 0,
+        "neck_anchor_native": [
+          48,
+          64
+        ],
+        "hip_anchor_native": [
+          45,
+          72
+        ],
+        "upper_body_translation": [
+          8,
+          20
+        ],
+        "leg_source_generated_frame": 5,
+        "upper_body_source_generated_frame": 2,
+        "head_to_hip_offset": [
+          3,
+          -8
+        ]
+      }
+    ]
+  },
+  "bounce_pixels": 4,
+  "upper_block_sha256": "08f49909b9965bb4fc993bbc9155cc80e78a62d78dbab994f4f952240e6b33e4",
+  "rect_format": "xywh; rect in full8x atlas, native_rect in full1x atlas; head/bbox/pivot local to a cell",
+  "height_range_native": [
+    33,
+    34
+  ],
+  "visible_width_native": 40,
+  "loop_ms": 933,
+  "timing_source": "117ms x7 +114ms, input tristana_cells.json authoritative",
+  "bob_choice": "user_confirmed_2_to_4_pixels; implemented4",
+  "runtime_validation": "not_imported_into_game",
+  "assets": [
+    {
+      "id": "tristana_run",
+      "file": "tristana_run.png",
+      "native_file": "native/tristana_run_1x.png",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "native_rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 117,
+          "bbox_native_xyxy": [
+            30,
+            48,
+            70,
+            82
+          ],
+          "head_rect_native": [
+            30,
+            48,
+            35,
+            17
+          ],
+          "head_translation_from_source": [
+            -13,
+            -18
+          ],
+          "head_rotation_deg": 0,
+          "neck_anchor_native": [
+            50,
+            65
+          ],
+          "hip_anchor_native": [
+            47,
+            73
+          ],
+          "upper_body_translation": [
+            10,
+            21
+          ],
+          "leg_source_generated_frame": 1,
+          "upper_body_source_generated_frame": 2,
+          "head_to_hip_offset": [
+            3,
+            -8
+          ],
+          "eye_center_native": [
+            49.5,
+            61.0
+          ],
+          "reference_head_position": [
+            49.9,
+            60.9
+          ],
+          "pivot_output_px": [
+            344,
+            560
+          ],
+          "bbox_output_local_xyxy": [
+            240,
+            384,
+            560,
+            656
+          ],
+          "head_rect_output_local": [
+            240,
+            384,
+            280,
+            136
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "native_rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 117,
+          "bbox_native_xyxy": [
+            30,
+            44,
+            70,
+            78
+          ],
+          "head_rect_native": [
+            30,
+            44,
+            35,
+            17
+          ],
+          "head_translation_from_source": [
+            -13,
+            -22
+          ],
+          "head_rotation_deg": 0,
+          "neck_anchor_native": [
+            50,
+            61
+          ],
+          "hip_anchor_native": [
+            47,
+            69
+          ],
+          "upper_body_translation": [
+            10,
+            17
+          ],
+          "leg_source_generated_frame": 2,
+          "upper_body_source_generated_frame": 2,
+          "head_to_hip_offset": [
+            3,
+            -8
+          ],
+          "eye_center_native": [
+            49.5,
+            57.0
+          ],
+          "reference_head_position": [
+            50.4,
+            46.0
+          ],
+          "pivot_output_px": [
+            344,
+            560
+          ],
+          "bbox_output_local_xyxy": [
+            240,
+            352,
+            560,
+            624
+          ],
+          "head_rect_output_local": [
+            240,
+            352,
+            280,
+            136
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "native_rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            42,
+            70
+          ],
+          "ms": 117,
+          "bbox_native_xyxy": [
+            30,
+            44,
+            70,
+            77
+          ],
+          "head_rect_native": [
+            30,
+            44,
+            35,
+            17
+          ],
+          "head_translation_from_source": [
+            -13,
+            -22
+          ],
+          "head_rotation_deg": 0,
+          "neck_anchor_native": [
+            50,
+            61
+          ],
+          "hip_anchor_native": [
+            47,
+            69
+          ],
+          "upper_body_translation": [
+            10,
+            17
+          ],
+          "leg_source_generated_frame": 3,
+          "upper_body_source_generated_frame": 2,
+          "head_to_hip_offset": [
+            3,
+            -8
+          ],
+          "eye_center_native": [
+            49.5,
+            57.0
+          ],
+          "reference_head_position": [
+            50.1,
+            46.0
+          ],
+          "pivot_output_px": [
+            336,
+            560
+          ],
+          "bbox_output_local_xyxy": [
+            240,
+            352,
+            560,
+            616
+          ],
+          "head_rect_output_local": [
+            240,
+            352,
+            280,
+            136
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "native_rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            41,
+            70
+          ],
+          "ms": 117,
+          "bbox_native_xyxy": [
+            28,
+            47,
+            68,
+            81
+          ],
+          "head_rect_native": [
+            28,
+            47,
+            35,
+            17
+          ],
+          "head_translation_from_source": [
+            -15,
+            -19
+          ],
+          "head_rotation_deg": 0,
+          "neck_anchor_native": [
+            48,
+            64
+          ],
+          "hip_anchor_native": [
+            45,
+            72
+          ],
+          "upper_body_translation": [
+            8,
+            20
+          ],
+          "leg_source_generated_frame": 4,
+          "upper_body_source_generated_frame": 2,
+          "head_to_hip_offset": [
+            3,
+            -8
+          ],
+          "eye_center_native": [
+            47.5,
+            60.0
+          ],
+          "reference_head_position": [
+            47.6,
+            56.6
+          ],
+          "pivot_output_px": [
+            328,
+            560
+          ],
+          "bbox_output_local_xyxy": [
+            224,
+            376,
+            544,
+            648
+          ],
+          "head_rect_output_local": [
+            224,
+            376,
+            280,
+            136
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "native_rect": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 117,
+          "bbox_native_xyxy": [
+            30,
+            48,
+            70,
+            82
+          ],
+          "head_rect_native": [
+            30,
+            48,
+            35,
+            17
+          ],
+          "head_translation_from_source": [
+            -13,
+            -18
+          ],
+          "head_rotation_deg": 0,
+          "neck_anchor_native": [
+            50,
+            65
+          ],
+          "hip_anchor_native": [
+            47,
+            73
+          ],
+          "upper_body_translation": [
+            10,
+            21
+          ],
+          "leg_source_generated_frame": 8,
+          "upper_body_source_generated_frame": 2,
+          "head_to_hip_offset": [
+            3,
+            -8
+          ],
+          "eye_center_native": [
+            49.5,
+            61.0
+          ],
+          "reference_head_position": [
+            50.0,
+            61.5
+          ],
+          "pivot_output_px": [
+            344,
+            560
+          ],
+          "bbox_output_local_xyxy": [
+            240,
+            384,
+            560,
+            656
+          ],
+          "head_rect_output_local": [
+            240,
+            384,
+            280,
+            136
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "native_rect": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 117,
+          "bbox_native_xyxy": [
+            32,
+            46,
+            72,
+            80
+          ],
+          "head_rect_native": [
+            32,
+            46,
+            35,
+            17
+          ],
+          "head_translation_from_source": [
+            -11,
+            -20
+          ],
+          "head_rotation_deg": 0,
+          "neck_anchor_native": [
+            52,
+            63
+          ],
+          "hip_anchor_native": [
+            49,
+            71
+          ],
+          "upper_body_translation": [
+            12,
+            19
+          ],
+          "leg_source_generated_frame": 6,
+          "upper_body_source_generated_frame": 2,
+          "head_to_hip_offset": [
+            3,
+            -8
+          ],
+          "eye_center_native": [
+            51.5,
+            59.0
+          ],
+          "reference_head_position": [
+            51.5,
+            53.6
+          ],
+          "pivot_output_px": [
+            352,
+            560
+          ],
+          "bbox_output_local_xyxy": [
+            256,
+            368,
+            576,
+            640
+          ],
+          "head_rect_output_local": [
+            256,
+            368,
+            280,
+            136
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "native_rect": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 117,
+          "bbox_native_xyxy": [
+            31,
+            44,
+            71,
+            77
+          ],
+          "head_rect_native": [
+            31,
+            44,
+            35,
+            17
+          ],
+          "head_translation_from_source": [
+            -12,
+            -22
+          ],
+          "head_rotation_deg": 0,
+          "neck_anchor_native": [
+            51,
+            61
+          ],
+          "hip_anchor_native": [
+            48,
+            69
+          ],
+          "upper_body_translation": [
+            11,
+            17
+          ],
+          "leg_source_generated_frame": 7,
+          "upper_body_source_generated_frame": 2,
+          "head_to_hip_offset": [
+            3,
+            -8
+          ],
+          "eye_center_native": [
+            50.5,
+            57.0
+          ],
+          "reference_head_position": [
+            51.1,
+            46.3
+          ],
+          "pivot_output_px": [
+            352,
+            560
+          ],
+          "bbox_output_local_xyxy": [
+            248,
+            352,
+            568,
+            616
+          ],
+          "head_rect_output_local": [
+            248,
+            352,
+            280,
+            136
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "native_rect": [
+            288,
+            96,
+            96,
+            96
+          ],
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 114,
+          "bbox_native_xyxy": [
+            28,
+            47,
+            68,
+            81
+          ],
+          "head_rect_native": [
+            28,
+            47,
+            35,
+            17
+          ],
+          "head_translation_from_source": [
+            -15,
+            -19
+          ],
+          "head_rotation_deg": 0,
+          "neck_anchor_native": [
+            48,
+            64
+          ],
+          "hip_anchor_native": [
+            45,
+            72
+          ],
+          "upper_body_translation": [
+            8,
+            20
+          ],
+          "leg_source_generated_frame": 5,
+          "upper_body_source_generated_frame": 2,
+          "head_to_hip_offset": [
+            3,
+            -8
+          ],
+          "eye_center_native": [
+            47.5,
+            60.0
+          ],
+          "reference_head_position": [
+            48.0,
+            57.8
+          ],
+          "pivot_output_px": [
+            344,
+            560
+          ],
+          "bbox_output_local_xyxy": [
+            224,
+            376,
+            544,
+            648
+          ],
+          "head_rect_output_local": [
+            224,
+            376,
+            280,
+            136
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "strict8x": true,
+    "head_translation_only": true,
+    "shared_upper_body": true,
+    "head_to_hip_x": 3,
+    "binary_alpha": true,
+    "one_component_per_frame": true,
+    "nothing_below81": true
+  }
+}

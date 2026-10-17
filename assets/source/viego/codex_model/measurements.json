@@ -1,0 +1,44 @@
+{
+  "A": {
+    "crown_top_row": 60,
+    "sole_row": 99,
+    "crown_to_sole_rows": 40,
+    "head_crown_to_chin_rows": 11,
+    "sword_tip_above_crown_rows": 5,
+    "visible_width": 44,
+    "visible_bbox": [
+      44,
+      55,
+      88,
+      100
+    ],
+    "color_count": 20,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "feet_midpoint_column": 64,
+    "exact_8x_grid": true
+  },
+  "B": {
+    "crown_top_row": 60,
+    "sole_row": 99,
+    "crown_to_sole_rows": 40,
+    "head_crown_to_chin_rows": 11,
+    "sword_tip_above_crown_rows": 2,
+    "visible_width": 37,
+    "visible_bbox": [
+      44,
+      58,
+      81,
+      100
+    ],
+    "color_count": 20,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "feet_midpoint_column": 64,
+    "exact_8x_grid": true
+  }
+}

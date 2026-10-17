@@ -1,0 +1,7 @@
+{
+  "fx": "league_twistedfate_fx",
+  "items": [
+    {"tag": "e_cast", "into": "attack_fx1", "from": "attack", "slice_ms": 217, "length_ms": 217, "at_ms": 0},
+    {"tag": "q_cast", "into": "skill", "at_ms": 217}
+  ]
+}

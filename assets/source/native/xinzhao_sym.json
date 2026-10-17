@@ -1,0 +1,6 @@
+{
+ "league_xinzhao_p_heal": {
+  "anim": "asset/league/effects/league_xinzhao_fx",
+  "tag": "p_heal"
+ }
+}

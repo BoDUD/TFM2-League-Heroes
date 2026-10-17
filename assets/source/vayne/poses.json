@@ -1,0 +1,330 @@
+{
+ "hero": "vayne",
+ "champ": "Vayne",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 2.3,
+  "legs": 0.8,
+  "hair": 0.6
+ },
+ "height": 42,
+ "cell": [
+  96,
+  96,
+  14
+ ],
+ "design": "Vayne_idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Vayne_idle1@0",
+     200
+    ],
+    [
+     "Vayne_idle1@0",
+     200
+    ],
+    [
+     "Vayne_idle1@0",
+     200
+    ],
+    [
+     "Vayne_idle1@0",
+     200
+    ],
+    [
+     "Vayne_idle1@0",
+     200
+    ],
+    [
+     "Vayne_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "Vayne_idle1@0",
+   "frames": [
+    [
+     "Vayne_run@0",
+     125
+    ],
+    [
+     "Vayne_run@125",
+     125
+    ],
+    [
+     "Vayne_run@250",
+     125
+    ],
+    [
+     "Vayne_run@375",
+     125
+    ],
+    [
+     "Vayne_run@500",
+     125
+    ],
+    [
+     "Vayne_run@625",
+     125
+    ],
+    [
+     "Vayne_run@750",
+     125
+    ],
+    [
+     "Vayne_run@875",
+     125
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.7,
+   "frames": [
+    [
+     "Vayne_idle1@0>Vayne_attack1@100:0.5",
+     60
+    ],
+    [
+     "Vayne_attack1@170",
+     60
+    ],
+    [
+     "Vayne_attack1@230",
+     70
+    ],
+    [
+     "Vayne_attack1@300",
+     70
+    ],
+    [
+     "Vayne_attack1@400",
+     80
+    ],
+    [
+     "Vayne_attack1@550>Vayne_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "attack_q": {
+   "lunge": 0.7,
+   "frames": [
+    [
+     "Vayne_idle1@0>Vayne_tumble_attack1@0:0.6",
+     60
+    ],
+    [
+     "Vayne_tumble_attack1@100",
+     60
+    ],
+    [
+     "Vayne_tumble_attack1@200",
+     70
+    ],
+    [
+     "Vayne_tumble_attack1@280",
+     70
+    ],
+    [
+     "Vayne_tumble_attack1@400",
+     80
+    ],
+    [
+     "Vayne_tumble_attack1@600>Vayne_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.7,
+   "rise": 0.4,
+   "frames": [
+    [
+     "Vayne_idle1@0>Vayne_spell1@0:0.6",
+     50
+    ],
+    [
+     "Vayne_spell1@100",
+     50
+    ],
+    [
+     "Vayne_spell1@200",
+     50
+    ],
+    [
+     "Vayne_spell1@300",
+     60
+    ],
+    [
+     "Vayne_spell1@400",
+     60
+    ],
+    [
+     "Vayne_spell1@500",
+     70
+    ],
+    [
+     "Vayne_spell1@650>Vayne_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "skill_back": {
+   "lunge": 0.7,
+   "rise": 0.4,
+   "frames": [
+    [
+     "Vayne_idle1@0>Vayne_spell1@500:0.6",
+     50
+    ],
+    [
+     "Vayne_spell1@400",
+     50
+    ],
+    [
+     "Vayne_spell1@300",
+     50
+    ],
+    [
+     "Vayne_spell1@200",
+     60
+    ],
+    [
+     "Vayne_spell1@100",
+     60
+    ],
+    [
+     "Vayne_spell1@0",
+     70
+    ],
+    [
+     "Vayne_spell1@0>Vayne_idle1@0:0.6",
+     80
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "Vayne_idle1@0>Vayne_spell3@100:0.5",
+     60
+    ],
+    [
+     "Vayne_spell3@150",
+     70
+    ],
+    [
+     "Vayne_spell3@300",
+     70
+    ],
+    [
+     "Vayne_spell3@400",
+     70
+    ],
+    [
+     "Vayne_spell3@500",
+     80
+    ],
+    [
+     "Vayne_spell3@650",
+     80
+    ],
+    [
+     "Vayne_spell3@800>Vayne_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "Vayne_idle1@0>Vayne_spell3@150:0.5",
+     70
+    ],
+    [
+     "Vayne_spell3@150",
+     70
+    ],
+    [
+     "Vayne_ult_idle1@0",
+     90
+    ],
+    [
+     "Vayne_ult_idle1@0",
+     120
+    ],
+    [
+     "Vayne_ult_idle1@800",
+     120
+    ],
+    [
+     "Vayne_ult_idle1@800>Vayne_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "hit": {
+   "flat": true,
+   "frames": [
+    [
+     "Vayne_idle1@0>Vayne_death@100:0.35",
+     100
+    ],
+    [
+     "Vayne_idle1@0>Vayne_death@100:0.15",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.5,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "Vayne_death@0",
+     100
+    ],
+    [
+     "Vayne_death@200",
+     100
+    ],
+    [
+     "Vayne_death@400",
+     100
+    ],
+    [
+     "Vayne_death@600",
+     100
+    ],
+    [
+     "Vayne_death@800",
+     120
+    ],
+    [
+     "Vayne_death@1000",
+     150
+    ],
+    [
+     "Vayne_death@1300",
+     150
+    ],
+    [
+     "Vayne_death@1700",
+     400
+    ]
+   ]
+  }
+ }
+}

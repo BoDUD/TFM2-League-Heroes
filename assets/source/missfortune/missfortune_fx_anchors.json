@@ -1,0 +1,14 @@
+{
+  "bullet": {"cell": [26, 6], "anchor": [13, 3]},
+  "bullet_lt": {"cell": [30, 8], "anchor": [15, 4]},
+  "hit": {"cell": [18, 18], "anchor": [9, 9]},
+  "lovetap": {"cell": [22, 24], "anchor": [11, 12]},
+  "q_bullet": {"cell": [42, 10], "anchor": [21, 5]},
+  "q_hit": {"cell": [26, 22], "anchor": [13, 11]},
+  "q_bounce": {"cell": [28, 28], "anchor": [14, 14]},
+  "q_crit": {"cell": [36, 36], "anchor": [18, 18]},
+  "r_hit": {"cell": [14, 12], "anchor": [7, 6]},
+  "strut": {"cell": [26, 80], "anchor": [13, 40]},
+  "e_rain": {"cell": [64, 114], "anchor": [32, 57]},
+  "r_wave": {"cell": [100, 74], "anchor": [0, 37]}
+}

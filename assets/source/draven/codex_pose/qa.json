@@ -1,0 +1,116 @@
+[
+  {
+    "name": "idle_1",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "logical_bbox": [
+      38,
+      64,
+      86,
+      100
+    ],
+    "bottom_row": 99,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "raw_sha256": "0fdd1f5e5407429a93ea15bc8e7e73c83300f1b437b5f9d93de087a2fef0e2f9",
+    "method": "cell-center + source alpha threshold"
+  },
+  {
+    "name": "attack_1",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "logical_bbox": [
+      43,
+      64,
+      95,
+      100
+    ],
+    "bottom_row": 99,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "raw_sha256": "7c5a0a7b28a0d2f23df1f423068a072d51ca4fced3413386cbca8319d3d91f83",
+    "method": "cell-center + source alpha threshold"
+  },
+  {
+    "name": "attack_2",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "logical_bbox": [
+      44,
+      54,
+      90,
+      100
+    ],
+    "bottom_row": 99,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "raw_sha256": "0a419508be1de2779371a4239341563bb013742af0ca9d08d58ccbc305e6e5b1",
+    "method": "cell-center + source alpha threshold"
+  },
+  {
+    "name": "attack_3",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "logical_bbox": [
+      40,
+      48,
+      84,
+      100
+    ],
+    "bottom_row": 99,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "raw_sha256": "e9e6f7e233032ea4d2911fc0336b20bee71638bc771ad7f960bc1af7cce745bf",
+    "method": "cell-center + source alpha threshold"
+  },
+  {
+    "name": "attack_4",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "logical_bbox": [
+      42,
+      65,
+      99,
+      100
+    ],
+    "bottom_row": 99,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "raw_sha256": "ee641ea3401cc8030aea149cb5362b9ddd199a7dea5724af60389f576e18d046",
+    "method": "cell-center + source alpha threshold"
+  },
+  {
+    "name": "attack_5",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "logical_bbox": [
+      39,
+      64,
+      81,
+      102
+    ],
+    "bottom_row": 101,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "raw_sha256": "7a1f2596a26d61032f6e973ff717f6e21ae9224ff403d1333b9d29c8db69523f",
+    "method": "cell-center + source alpha threshold"
+  }
+]

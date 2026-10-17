@@ -1,0 +1,3627 @@
+{
+  "character": "Akali",
+  "version": "A40-redo",
+  "cell_native": [
+    96,
+    96
+  ],
+  "scale": 8,
+  "bbox_convention": "[x,y,width,height], local to cell; pixel_rect is atlas coordinates",
+  "source_design_sha256": "fdf7d3e9229b0bafee434892e0d5eb559bf7ac2428cd4a883df9c8b49c3cafe4",
+  "palette": [
+    "#094658",
+    "#0A0A14",
+    "#111C3E",
+    "#182E61",
+    "#1A3E8A",
+    "#1E6E7E",
+    "#441221",
+    "#5F5E69",
+    "#789336",
+    "#9B90BF",
+    "#A42D2F",
+    "#AEC926",
+    "#B8BCC8",
+    "#C0602A",
+    "#D46A0A",
+    "#EFF92A",
+    "#FDC58D",
+    "#FDFDFD"
+  ],
+  "animations": {
+    "idle": {
+      "file": "akali_idle.png",
+      "native_file": "native/akali_idle.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "frame_count": 6,
+      "release": null,
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 200,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            160,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            34,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 200,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            160,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            34,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 200,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            160,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            34,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 200,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            160,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            34,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 200,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            160,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            34,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        },
+        {
+          "index": 6,
+          "duration_ms": 200,
+          "cell_rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            160,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            34,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        }
+      ]
+    },
+    "run": {
+      "file": "akali_run.png",
+      "native_file": "native/akali_run.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "frame_count": 8,
+      "release": null,
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 105,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            24,
+            45,
+            37,
+            37
+          ],
+          "bbox_px": [
+            192,
+            360,
+            296,
+            296
+          ],
+          "head_rect_native": [
+            39,
+            47,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/run.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 105,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            27,
+            47,
+            35,
+            35
+          ],
+          "bbox_px": [
+            216,
+            376,
+            280,
+            280
+          ],
+          "head_rect_native": [
+            40,
+            48,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/run.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 105,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            24,
+            45,
+            36,
+            37
+          ],
+          "bbox_px": [
+            192,
+            360,
+            288,
+            296
+          ],
+          "head_rect_native": [
+            39,
+            48,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/run.png",
+            "frame": 3,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 105,
+          "cell_rect_native": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            25,
+            44,
+            35,
+            38
+          ],
+          "bbox_px": [
+            200,
+            352,
+            280,
+            304
+          ],
+          "head_rect_native": [
+            39,
+            47,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/run.png",
+            "frame": 4,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 105,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            25,
+            45,
+            37,
+            37
+          ],
+          "bbox_px": [
+            200,
+            360,
+            296,
+            296
+          ],
+          "head_rect_native": [
+            40,
+            47,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/run.png",
+            "frame": 5,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 6,
+          "duration_ms": 105,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            27,
+            45,
+            35,
+            37
+          ],
+          "bbox_px": [
+            216,
+            360,
+            280,
+            296
+          ],
+          "head_rect_native": [
+            40,
+            48,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/run.png",
+            "frame": 6,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 7,
+          "duration_ms": 105,
+          "cell_rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            25,
+            46,
+            36,
+            36
+          ],
+          "bbox_px": [
+            200,
+            368,
+            288,
+            288
+          ],
+          "head_rect_native": [
+            39,
+            48,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/run.png",
+            "frame": 7,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 8,
+          "duration_ms": 105,
+          "cell_rect_native": [
+            288,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            24,
+            45,
+            36,
+            37
+          ],
+          "bbox_px": [
+            192,
+            360,
+            288,
+            296
+          ],
+          "head_rect_native": [
+            39,
+            47,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/run.png",
+            "frame": 8,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        }
+      ]
+    },
+    "attack": {
+      "file": "akali_attack.png",
+      "native_file": "native/akali_attack.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "frame_count": 6,
+      "release": {
+        "frame": 3,
+        "tick": 7
+      },
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 60,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            52,
+            70
+          ],
+          "pivot_px": [
+            416,
+            560
+          ],
+          "bbox_native": [
+            32,
+            42,
+            34,
+            40
+          ],
+          "bbox_px": [
+            256,
+            336,
+            272,
+            320
+          ],
+          "head_rect_native": [
+            44,
+            44,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 60,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "bbox_native": [
+            26,
+            43,
+            38,
+            39
+          ],
+          "bbox_px": [
+            208,
+            344,
+            304,
+            312
+          ],
+          "head_rect_native": [
+            45,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 70,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            32,
+            70
+          ],
+          "pivot_px": [
+            256,
+            560
+          ],
+          "bbox_native": [
+            20,
+            44,
+            44,
+            38
+          ],
+          "bbox_px": [
+            160,
+            352,
+            352,
+            304
+          ],
+          "head_rect_native": [
+            33,
+            47,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack.png",
+            "frame": 3,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 70,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            34,
+            70
+          ],
+          "pivot_px": [
+            272,
+            560
+          ],
+          "bbox_native": [
+            19,
+            46,
+            43,
+            36
+          ],
+          "bbox_px": [
+            152,
+            368,
+            344,
+            288
+          ],
+          "head_rect_native": [
+            37,
+            50,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack.png",
+            "frame": 4,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 80,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_px": [
+            352,
+            560
+          ],
+          "bbox_native": [
+            25,
+            43,
+            32,
+            39
+          ],
+          "bbox_px": [
+            200,
+            344,
+            256,
+            312
+          ],
+          "head_rect_native": [
+            39,
+            46,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack.png",
+            "frame": 5,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 6,
+          "duration_ms": 80,
+          "cell_rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_px": [
+            360,
+            560
+          ],
+          "bbox_native": [
+            23,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            184,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            37,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        }
+      ]
+    },
+    "attack_p": {
+      "file": "akali_attack_p.png",
+      "native_file": "native/akali_attack_p.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "frame_count": 6,
+      "release": {
+        "frame": 3,
+        "tick": 8
+      },
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 60,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            28,
+            42,
+            30,
+            40
+          ],
+          "bbox_px": [
+            224,
+            336,
+            240,
+            320
+          ],
+          "head_rect_native": [
+            40,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack_p_windup.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 70,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            30,
+            45,
+            31,
+            37
+          ],
+          "bbox_px": [
+            240,
+            360,
+            248,
+            296
+          ],
+          "head_rect_native": [
+            43,
+            50,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack_p_windup.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 80,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            30,
+            70
+          ],
+          "pivot_px": [
+            240,
+            560
+          ],
+          "bbox_native": [
+            11,
+            46,
+            67,
+            36
+          ],
+          "bbox_px": [
+            88,
+            368,
+            536,
+            288
+          ],
+          "head_rect_native": [
+            29,
+            49,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack_p.png",
+            "frame": 3,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 80,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            35,
+            70
+          ],
+          "pivot_px": [
+            280,
+            560
+          ],
+          "bbox_native": [
+            14,
+            46,
+            62,
+            36
+          ],
+          "bbox_px": [
+            112,
+            368,
+            496,
+            288
+          ],
+          "head_rect_native": [
+            30,
+            49,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack_p.png",
+            "frame": 4,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 90,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_px": [
+            352,
+            560
+          ],
+          "bbox_native": [
+            24,
+            45,
+            41,
+            37
+          ],
+          "bbox_px": [
+            192,
+            360,
+            328,
+            296
+          ],
+          "head_rect_native": [
+            39,
+            48,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack_p.png",
+            "frame": 5,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 6,
+          "duration_ms": 100,
+          "cell_rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            160,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            34,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        }
+      ]
+    },
+    "skill": {
+      "file": "akali_skill.png",
+      "native_file": "native/akali_skill.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "frame_count": 6,
+      "release": {
+        "frame": 4,
+        "tick": 10
+      },
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            41,
+            70
+          ],
+          "pivot_px": [
+            328,
+            560
+          ],
+          "bbox_native": [
+            20,
+            40,
+            39,
+            42
+          ],
+          "bbox_px": [
+            160,
+            320,
+            312,
+            336
+          ],
+          "head_rect_native": [
+            33,
+            41,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/skill.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "bbox_native": [
+            31,
+            37,
+            38,
+            45
+          ],
+          "bbox_px": [
+            248,
+            296,
+            304,
+            360
+          ],
+          "head_rect_native": [
+            45,
+            40,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/skill.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 60,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "bbox_native": [
+            31,
+            37,
+            38,
+            45
+          ],
+          "bbox_px": [
+            248,
+            296,
+            304,
+            360
+          ],
+          "head_rect_native": [
+            45,
+            40,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/skill.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 70,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "bbox_native": [
+            24,
+            49,
+            43,
+            33
+          ],
+          "bbox_px": [
+            192,
+            392,
+            344,
+            264
+          ],
+          "head_rect_native": [
+            47,
+            54,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/throw_release.png",
+            "frame": 3,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 80,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            53,
+            70
+          ],
+          "pivot_px": [
+            424,
+            560
+          ],
+          "bbox_native": [
+            23,
+            49,
+            43,
+            33
+          ],
+          "bbox_px": [
+            184,
+            392,
+            344,
+            264
+          ],
+          "head_rect_native": [
+            46,
+            54,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/throw_release.png",
+            "frame": 3,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 6,
+          "duration_ms": 100,
+          "cell_rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            25,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            200,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            39,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        }
+      ]
+    },
+    "skill2": {
+      "file": "akali_skill2.png",
+      "native_file": "native/akali_skill2.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "frame_count": 6,
+      "release": {
+        "frame": 5,
+        "tick": 14
+      },
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            25,
+            48,
+            36,
+            34
+          ],
+          "bbox_px": [
+            200,
+            384,
+            288,
+            272
+          ],
+          "head_rect_native": [
+            41,
+            51,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/skill2.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 60,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            43,
+            70
+          ],
+          "pivot_px": [
+            344,
+            560
+          ],
+          "bbox_native": [
+            21,
+            42,
+            42,
+            40
+          ],
+          "bbox_px": [
+            168,
+            336,
+            336,
+            320
+          ],
+          "head_rect_native": [
+            36,
+            44,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/skill2.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 60,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_px": [
+            352,
+            560
+          ],
+          "bbox_native": [
+            22,
+            48,
+            36,
+            34
+          ],
+          "bbox_px": [
+            176,
+            384,
+            288,
+            272
+          ],
+          "head_rect_native": [
+            38,
+            51,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/skill2.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 60,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            25,
+            48,
+            35,
+            34
+          ],
+          "bbox_px": [
+            200,
+            384,
+            280,
+            272
+          ],
+          "head_rect_native": [
+            40,
+            50,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/skill2.png",
+            "frame": 4,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 70,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            16,
+            49,
+            43,
+            33
+          ],
+          "bbox_px": [
+            128,
+            392,
+            344,
+            264
+          ],
+          "head_rect_native": [
+            39,
+            54,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/throw_release.png",
+            "frame": 3,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 6,
+          "duration_ms": 90,
+          "cell_rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            27,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            216,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            41,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        }
+      ]
+    },
+    "skill2_dash": {
+      "file": "akali_skill2_dash.png",
+      "native_file": "native/akali_skill2_dash.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "frame_count": 5,
+      "release": {
+        "frame": 4,
+        "tick": 10
+      },
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "bbox_native": [
+            28,
+            46,
+            39,
+            36
+          ],
+          "bbox_px": [
+            224,
+            368,
+            312,
+            288
+          ],
+          "head_rect_native": [
+            49,
+            51,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "bbox_native": [
+            22,
+            50,
+            45,
+            32
+          ],
+          "bbox_px": [
+            176,
+            400,
+            360,
+            256
+          ],
+          "head_rect_native": [
+            50,
+            55,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 60,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "bbox_native": [
+            28,
+            46,
+            39,
+            36
+          ],
+          "bbox_px": [
+            224,
+            368,
+            312,
+            288
+          ],
+          "head_rect_native": [
+            49,
+            51,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 70,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            30,
+            37,
+            38,
+            45
+          ],
+          "bbox_px": [
+            240,
+            296,
+            304,
+            360
+          ],
+          "head_rect_native": [
+            44,
+            40,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/skill.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 90,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            25,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            200,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            39,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        }
+      ]
+    },
+    "ult": {
+      "file": "akali_ult.png",
+      "native_file": "native/akali_ult.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "frame_count": 6,
+      "release": {
+        "frame": 2,
+        "tick": 4
+      },
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 60,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "bbox_native": [
+            37,
+            48,
+            36,
+            34
+          ],
+          "bbox_px": [
+            296,
+            384,
+            288,
+            272
+          ],
+          "head_rect_native": [
+            53,
+            51,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/skill2.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            14,
+            50,
+            45,
+            32
+          ],
+          "bbox_px": [
+            112,
+            400,
+            360,
+            256
+          ],
+          "head_rect_native": [
+            42,
+            55,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            19,
+            49,
+            43,
+            33
+          ],
+          "bbox_px": [
+            152,
+            392,
+            344,
+            264
+          ],
+          "head_rect_native": [
+            42,
+            54,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 3,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 80,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_native": [
+            24,
+            42,
+            30,
+            40
+          ],
+          "bbox_px": [
+            192,
+            336,
+            240,
+            320
+          ],
+          "head_rect_native": [
+            36,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/attack_p_windup.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 90,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_px": [
+            352,
+            560
+          ],
+          "bbox_native": [
+            17,
+            46,
+            39,
+            36
+          ],
+          "bbox_px": [
+            136,
+            368,
+            312,
+            288
+          ],
+          "head_rect_native": [
+            38,
+            51,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 6,
+          "duration_ms": 100,
+          "cell_rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            24,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            192,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            38,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        }
+      ]
+    },
+    "ult2": {
+      "file": "akali_ult2.png",
+      "native_file": "native/akali_ult2.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2304,
+        1536
+      ],
+      "frame_count": 5,
+      "release": {
+        "frame": 4,
+        "tick": 9
+      },
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "bbox_native": [
+            28,
+            46,
+            39,
+            36
+          ],
+          "bbox_px": [
+            224,
+            368,
+            312,
+            288
+          ],
+          "head_rect_native": [
+            49,
+            51,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "bbox_native": [
+            19,
+            50,
+            45,
+            32
+          ],
+          "bbox_px": [
+            152,
+            400,
+            360,
+            256
+          ],
+          "head_rect_native": [
+            47,
+            55,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 50,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            14,
+            50,
+            45,
+            32
+          ],
+          "bbox_px": [
+            112,
+            400,
+            360,
+            256
+          ],
+          "head_rect_native": [
+            42,
+            55,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 70,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            20,
+            49,
+            43,
+            33
+          ],
+          "bbox_px": [
+            160,
+            392,
+            344,
+            264
+          ],
+          "head_rect_native": [
+            43,
+            54,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dash_correct.png",
+            "frame": 3,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 90,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            25,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            200,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            39,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        }
+      ]
+    },
+    "hit": {
+      "file": "akali_hit.png",
+      "native_file": "native/akali_hit.png",
+      "grid": [
+        2,
+        1
+      ],
+      "size_px": [
+        1536,
+        768
+      ],
+      "frame_count": 2,
+      "release": null,
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 120,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            35,
+            70
+          ],
+          "pivot_px": [
+            280,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            45,
+            40
+          ],
+          "bbox_px": [
+            160,
+            336,
+            360,
+            320
+          ],
+          "head_rect_native": [
+            33,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "closed",
+          "head_matches_approved": true,
+          "amber_pixels": 0,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/hit.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 120,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            40,
+            70
+          ],
+          "pivot_px": [
+            320,
+            560
+          ],
+          "bbox_native": [
+            18,
+            42,
+            37,
+            40
+          ],
+          "bbox_px": [
+            144,
+            336,
+            296,
+            320
+          ],
+          "head_rect_native": [
+            32,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "approved_idle",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "akali_idle.png (user supplied)",
+            "frame": 1,
+            "operation": "unchanged idle or translated approved recovery pose"
+          }
+        }
+      ]
+    },
+    "dead": {
+      "file": "akali_dead.png",
+      "native_file": "native/akali_dead.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "frame_count": 8,
+      "release": null,
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 100,
+          "cell_rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_native": [
+            23,
+            42,
+            45,
+            40
+          ],
+          "bbox_px": [
+            184,
+            336,
+            360,
+            320
+          ],
+          "head_rect_native": [
+            36,
+            45,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/hit.png",
+            "frame": 1,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 100,
+          "cell_rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            37,
+            70
+          ],
+          "pivot_px": [
+            296,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            35,
+            40
+          ],
+          "bbox_px": [
+            160,
+            336,
+            280,
+            320
+          ],
+          "head_rect_native": [
+            34,
+            44,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dead.png",
+            "frame": 2,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 120,
+          "cell_rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            36,
+            70
+          ],
+          "pivot_px": [
+            288,
+            560
+          ],
+          "bbox_native": [
+            19,
+            43,
+            33,
+            39
+          ],
+          "bbox_px": [
+            152,
+            344,
+            264,
+            312
+          ],
+          "head_rect_native": [
+            32,
+            46,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dead.png",
+            "frame": 3,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 120,
+          "cell_rect_native": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "pivot_native": [
+            38,
+            70
+          ],
+          "pivot_px": [
+            304,
+            560
+          ],
+          "bbox_native": [
+            21,
+            45,
+            32,
+            37
+          ],
+          "bbox_px": [
+            168,
+            360,
+            256,
+            296
+          ],
+          "head_rect_native": [
+            35,
+            47,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dead.png",
+            "frame": 4,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 120,
+          "cell_rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            43,
+            70
+          ],
+          "pivot_px": [
+            344,
+            560
+          ],
+          "bbox_native": [
+            20,
+            46,
+            39,
+            36
+          ],
+          "bbox_px": [
+            160,
+            368,
+            312,
+            288
+          ],
+          "head_rect_native": [
+            41,
+            52,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 81,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dead.png",
+            "frame": 5,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 6,
+          "duration_ms": 150,
+          "cell_rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            18,
+            58,
+            46,
+            26
+          ],
+          "bbox_px": [
+            144,
+            464,
+            368,
+            208
+          ],
+          "head_rect_native": [
+            46,
+            64,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "copied",
+          "head_matches_approved": true,
+          "amber_pixels": 2,
+          "max_y_native": 83,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dead.png",
+            "frame": 6,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 7,
+          "duration_ms": 150,
+          "cell_rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_px": [
+            360,
+            560
+          ],
+          "bbox_native": [
+            15,
+            64,
+            45,
+            20
+          ],
+          "bbox_px": [
+            120,
+            512,
+            360,
+            160
+          ],
+          "head_rect_native": [
+            44,
+            66,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "generated_fallen",
+          "head_matches_approved": null,
+          "amber_pixels": 0,
+          "max_y_native": 83,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dead.png",
+            "frame": 7,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        },
+        {
+          "index": 8,
+          "duration_ms": 500,
+          "cell_rect_native": [
+            288,
+            96,
+            96,
+            96
+          ],
+          "pixel_rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "pivot_native": [
+            41,
+            70
+          ],
+          "pivot_px": [
+            328,
+            560
+          ],
+          "bbox_native": [
+            12,
+            68,
+            52,
+            16
+          ],
+          "bbox_px": [
+            96,
+            544,
+            416,
+            128
+          ],
+          "head_rect_native": [
+            40,
+            67,
+            14,
+            15
+          ],
+          "head_angle": 0,
+          "head_mode": "generated_fallen",
+          "head_matches_approved": null,
+          "amber_pixels": 0,
+          "max_y_native": 83,
+          "notes": [],
+          "art_source": {
+            "file": "sources/dead.png",
+            "frame": 8,
+            "operation": "resample, palette map, replace head, align to cell"
+          }
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Some held and transition poses share source drawings; see per-frame art_source and HANDOFF.md.",
+    "Dash and throw poses are simplified and are not exact reproductions of every reference limb angle.",
+    "Engine import, skill events and in-game playback were not tested."
+  ]
+}

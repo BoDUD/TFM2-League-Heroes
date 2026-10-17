@@ -1,0 +1,130 @@
+{
+  "canvas": [
+    1254,
+    1254
+  ],
+  "target_floor_y": 1189,
+  "target_pivot_x": 635,
+  "actions": {
+    "run": {
+      "frame_count": 8,
+      "durations_ms": [
+        105,
+        105,
+        105,
+        105,
+        105,
+        105,
+        105,
+        105
+      ],
+      "loop": true,
+      "strike_frame": null
+    },
+    "attack": {
+      "frame_count": 6,
+      "durations_ms": [
+        60,
+        60,
+        70,
+        70,
+        70,
+        70
+      ],
+      "loop": false,
+      "strike_frame": 3
+    },
+    "attack_e": {
+      "frame_count": 6,
+      "durations_ms": [
+        60,
+        60,
+        50,
+        80,
+        80,
+        70
+      ],
+      "loop": false,
+      "strike_frame": 4
+    },
+    "skill": {
+      "frame_count": 4,
+      "durations_ms": [
+        125,
+        125,
+        125,
+        125
+      ],
+      "loop": false,
+      "strike_frame": null
+    },
+    "skill_dash": {
+      "frame_count": 3,
+      "durations_ms": [
+        90,
+        90,
+        87
+      ],
+      "loop": false,
+      "strike_frame": 1
+    },
+    "ult": {
+      "frame_count": 2,
+      "durations_ms": [
+        66,
+        67
+      ],
+      "loop": false,
+      "strike_frame": 2
+    },
+    "ult_dash": {
+      "frame_count": 6,
+      "durations_ms": [
+        125,
+        125,
+        125,
+        125,
+        125,
+        125
+      ],
+      "loop": true,
+      "strike_frame": null
+    },
+    "ult_slam": {
+      "frame_count": 5,
+      "durations_ms": [
+        60,
+        70,
+        70,
+        70,
+        63
+      ],
+      "loop": false,
+      "strike_frame": 2
+    },
+    "hit": {
+      "frame_count": 2,
+      "durations_ms": [
+        100,
+        100
+      ],
+      "loop": false,
+      "strike_frame": null
+    },
+    "dead": {
+      "frame_count": 8,
+      "durations_ms": [
+        100,
+        100,
+        110,
+        120,
+        130,
+        150,
+        200,
+        500
+      ],
+      "loop": false,
+      "strike_frame": null
+    }
+  }
+}

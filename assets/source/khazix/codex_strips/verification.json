@@ -1,0 +1,20 @@
+{
+  "checks": {
+    "sheet_dimensions_match_input": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "head_opaque_pixels_exact_all_46_frames": true,
+    "pivot_and_durations_match_input": true,
+    "no_pixels_below_row_81": true,
+    "blank_cells_transparent": true,
+    "idle_byte_identical": true,
+    "run_head_horizontal_stable": true,
+    "run_head_bob_one_row": true,
+    "death_last_three_poses_identical": true,
+    "release_tips_opaque": true
+  },
+  "frame_count": 46,
+  "new_frames": 40,
+  "palette_count": 23
+}

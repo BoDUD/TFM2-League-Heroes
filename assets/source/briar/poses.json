@@ -1,0 +1,41 @@
+{
+  "hero": "briar",
+  "champ": "Briar",
+  "camera": {"yaw": 45, "pitch": 25, "mirror": false},
+  "chibi": {"head": 2.3, "legs": 0.8, "hair": 0.6},
+  "height": 35,
+  "cell": [96, 96, 14],
+  "design": "Idle1_sway@0",
+  "tags": {
+    "idle": {"frames": [["Idle1_sway@0", 200], ["Idle1_sway@0", 200], ["Idle1_sway@0", 200],
+                        ["Idle1_sway@0", 200], ["Idle1_sway@0", 200], ["Idle1_sway@0", 200]]},
+    "run": {"flat": true, "head_like": "Idle1_sway@0", "frames": [
+      ["Run1@0", 125], ["Run1@125", 125], ["Run1@250", 125], ["Run1@375", 125],
+      ["Run1@500", 125], ["Run1@625", 125], ["Run1@750", 125], ["Run1@875", 125]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["Idle1_sway@0>Attack1@250:0.6", 60], ["Attack1@250", 60], ["Attack1@330", 70], ["Attack1@400", 70],
+      ["Attack1@520>Idle1_sway@0:0.35", 80], ["Attack1@650>Idle1_sway@0:0.65", 80]]},
+    "skill": {"lunge": 0.6, "rise": 0.35, "frames": [
+      ["Idle1_sway@0>Spell1_Enter@0:0.6", 50], ["Spell1_Enter@60", 50], ["Spell1_Enter@180", 60],
+      ["Spell1_Enter@240", 60], ["Spell1_Exit@100", 80], ["Spell1_Exit@300>Idle1_sway@0:0.4", 100]]},
+    "skill2": {"lunge": 0.6, "frames": [
+      ["Spell3_Windup@0", 160], ["Spell3_Windup@150", 160], ["Spell3_Windup@300", 170],
+      ["Spell3_Windup@450", 170], ["Spell3_Windup@600", 170], ["Spell3_Windup@800", 170]]},
+    "skill2_scream": {"lunge": 0.6, "frames": [
+      ["Spell3_Scream@240", 60], ["Spell3_Scream@300", 80], ["Spell3_Scream@360", 100],
+      ["Spell3_Scream@420>Idle1_sway@0:0.5", 100]]},
+    "ult": {"lunge": 0.6, "rise": 0.35, "frames": [
+      ["Spell4_Cast_In@0", 60], ["Spell4_Cast_In@80", 70], ["Spell4_Cast_In@160", 70],
+      ["Spell4_Cast_In@240", 90], ["Spell4_Cast_In@320", 100], ["Spell4_Cast_In@400>Idle1_sway@0:0.4", 110]]},
+    "ult_fly": {"lunge": 0.5, "rise": 0.2, "frames": [
+      ["Spell4_Dash_Enter@2333", 100], ["Spell4_Dash_Enter@2500", 100], ["Spell4_Dash_Enter@2666", 100],
+      ["Spell4_Dash_Enter@2833", 100]]},
+    "ult_land": {"lunge": 0.6, "frames": [
+      ["Spell4_Dash_Exit@240", 70], ["Spell4_Dash_Exit@320", 80], ["Spell4_Dash_Exit@400", 90],
+      ["Spell4_Dash_Exit@480", 100], ["Spell4_Dash_Exit@600>Idle1_sway@0:0.5", 100]]},
+    "hit": {"frames": [["Idle1_sway@0>Stunned@300:0.35", 120], ["Idle1_sway@0>Stunned@300:0.15", 120]]},
+    "dead": {"anchor": "first", "lunge": 0.4, "flat": true, "travel": 0.3, "frames": [
+      ["death@0", 100], ["death@400", 100], ["death@800", 120], ["death@1200", 120],
+      ["death@1600", 120], ["death@2000", 150], ["death@2800", 150], ["death@4200", 500]]}
+  }
+}

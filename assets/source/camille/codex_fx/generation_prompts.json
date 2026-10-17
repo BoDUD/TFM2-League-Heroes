@@ -1,0 +1,519 @@
+{
+  "hit": {
+    "index": 1,
+    "frames": 5,
+    "cell_8x": [
+      256,
+      256
+    ],
+    "final_size": [
+      1280,
+      256
+    ],
+    "target_game_size": [
+      14,
+      14
+    ],
+    "generation_grid": [
+      2,
+      3
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#E6E8F0",
+      "#B8C4D8",
+      "#7F8CA8",
+      "#4A5470",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8C4D8, #7F8CA8, #4A5470) with her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a BLADE KICK HIT, 5 frames: 1 a small white flash at the center; 2 a short bright diagonal slash of light (a narrow crescent, white core, pale steel-blue edge) across the center from upper left to lower right; 3 the slash at full length with 3-4 small cyan sparks flying outward; 4 the slash thins, the sparks fly further and dim; 5 a few cyan specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8C4D8, #7F8CA8, #4A5470) with her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a BLADE KICK HIT, 5 frames: 1 a small white flash at the center; 2 a short bright diagonal slash of light (a narrow crescent, white core, pale steel-blue edge) across the center from upper left to lower right; 3 the slash at full length with 3-4 small cyan sparks flying outward; 4 the slash thins, the sparks fly further and dim; 5 a few cyan specks.\nLayout for generation: 2 equal columns by 3 equal rows. Each cell aspect ratio exactly 256:256. Exactly 5 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "q_hit": {
+    "index": 2,
+    "frames": 6,
+    "cell_8x": [
+      256,
+      256
+    ],
+    "final_size": [
+      1536,
+      256
+    ],
+    "target_game_size": [
+      20,
+      20
+    ],
+    "generation_grid": [
+      2,
+      3
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a PRECISE STRIKE HIT, 6 frames: 1 a bright white dot at the center; 2 a sharp four-pointed star of light (white core, cyan points, the points about 80% of the cell) flashes; 3 the star at full size, a thin cyan ring expands around it and 4-6 short cyan needles of light shoot outward; 4 the star shrinks, the ring widens and thins; 5 the needles fade to deep blue; 6 a few cyan specks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a PRECISE STRIKE HIT, 6 frames: 1 a bright white dot at the center; 2 a sharp four-pointed star of light (white core, cyan points, the points about 80% of the cell) flashes; 3 the star at full size, a thin cyan ring expands around it and 4-6 short cyan needles of light shoot outward; 4 the star shrinks, the ring widens and thins; 5 the needles fade to deep blue; 6 a few cyan specks.\nLayout for generation: 2 equal columns by 3 equal rows. Each cell aspect ratio exactly 256:256. Exactly 6 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "q2_hit": {
+    "index": 3,
+    "frames": 7,
+    "cell_8x": [
+      256,
+      256
+    ],
+    "final_size": [
+      1792,
+      256
+    ],
+    "target_game_size": [
+      28,
+      28
+    ],
+    "generation_grid": [
+      2,
+      4
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with pure white.\nEffect: a CHARGED TRUE-DAMAGE STRIKE, 7 frames: 1 a bright white flash at the center; 2 a large white four-pointed star with a second, smaller diagonal star behind it (an eight-pointed burst), cyan edges, filling the cell; 3 the burst at full size, a white core blob, a cyan ring bursting outward and 8 cyan and white shards flying out; 4 a second, wider ring, the star shrinking; 5 the rings thin and the shards scatter; 6 fading to deep blue specks; 7 a few faint specks.\nLayout: one horizontal row of 7 equal square cells, image size 1792x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with pure white.\nEffect: a CHARGED TRUE-DAMAGE STRIKE, 7 frames: 1 a bright white flash at the center; 2 a large white four-pointed star with a second, smaller diagonal star behind it (an eight-pointed burst), cyan edges, filling the cell; 3 the burst at full size, a white core blob, a cyan ring bursting outward and 8 cyan and white shards flying out; 4 a second, wider ring, the star shrinking; 5 the rings thin and the shards scatter; 6 fading to deep blue specks; 7 a few faint specks.\nLayout for generation: 2 equal columns by 4 equal rows. Each cell aspect ratio exactly 256:256. Exactly 7 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "w_arc": {
+    "index": 4,
+    "frames": 6,
+    "cell_8x": [
+      400,
+      560
+    ],
+    "final_size": [
+      2400,
+      560
+    ],
+    "target_game_size": [
+      46,
+      66
+    ],
+    "generation_grid": [
+      2,
+      3
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A",
+      "#E6E8F0",
+      "#B8C4D8",
+      "#7F8CA8",
+      "#4A5470"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the steel ramp (#FFFFFF, #E6E8F0, #B8C4D8, #7F8CA8, #4A5470).\nEffect: a WIDE SWEEPING CRESCENT pointing RIGHT, 6 frames, SYMMETRIC above and below the middle line: the point of a fan (about 90 degrees wide) sits at the LEFT edge, middle height, and the fan opens to the right; 1 a thin bright line flashes along the fan's outer edge; 2 the whole fan fills with faint cyan streaks (sweep lines curving along the arc) and its outer edge (the outer quarter of the radius) becomes a thick bright band (white core, cyan sides); 3 the outer band at its brightest, short angular circuit lines glowing in the inner part; 4 the streaks thin, the band stays bright; 5 the band breaks into short bright dashes; 6 a few cyan specks along the arc.\nLayout: one horizontal row of 6 equal cells, each 5 wide to 7 tall, image size 2400x560 (each cell 400x560); the fan's point at the left edge, middle height, of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the steel ramp (#FFFFFF, #E6E8F0, #B8C4D8, #7F8CA8, #4A5470).\nEffect: a WIDE SWEEPING CRESCENT pointing RIGHT, 6 frames, SYMMETRIC above and below the middle line: the point of a fan (about 90 degrees wide) sits at the LEFT edge, middle height, and the fan opens to the right; 1 a thin bright line flashes along the fan's outer edge; 2 the whole fan fills with faint cyan streaks (sweep lines curving along the arc) and its outer edge (the outer quarter of the radius) becomes a thick bright band (white core, cyan sides); 3 the outer band at its brightest, short angular circuit lines glowing in the inner part; 4 the streaks thin, the band stays bright; 5 the band breaks into short bright dashes; 6 a few cyan specks along the arc.\nLayout for generation: 2 equal columns by 3 equal rows. Each cell aspect ratio exactly 400:560. Exactly 6 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "w_hit": {
+    "index": 5,
+    "frames": 4,
+    "cell_8x": [
+      256,
+      256
+    ],
+    "final_size": [
+      1024,
+      256
+    ],
+    "target_game_size": [
+      14,
+      14
+    ],
+    "generation_grid": [
+      2,
+      2
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a SWEEP HIT, 4 frames: 1 a small white-cyan flash; 2 a short horizontal slash of cyan light through the center with a crackle of tiny electric sparks; 3 the slash fades, the sparks jump outward; 4 two cyan specks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a SWEEP HIT, 4 frames: 1 a small white-cyan flash; 2 a short horizontal slash of cyan light through the center with a crackle of tiny electric sparks; 3 the slash fades, the sparks jump outward; 4 two cyan specks.\nLayout for generation: 2 equal columns by 2 equal rows. Each cell aspect ratio exactly 256:256. Exactly 4 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "w_edge": {
+    "index": 6,
+    "frames": 6,
+    "cell_8x": [
+      256,
+      256
+    ],
+    "final_size": [
+      1536,
+      256
+    ],
+    "target_game_size": [
+      20,
+      20
+    ],
+    "generation_grid": [
+      2,
+      3
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A",
+      "#B8D8FF",
+      "#5A9CFF",
+      "#2F5FD9",
+      "#1C2F80"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the deep blue (#B8D8FF, #5A9CFF, #2F5FD9, #1C2F80).\nEffect: an EDGE SWEEP HIT with an electric slow, 6 frames: 1 a bright white flash; 2 a long bright horizontal slash (white core, cyan edges) through the center; 3 jagged blue electric arcs crackle around the body area (zigzag lines, branching); 4 the slash fades, the arcs jump and flicker; 5 a few arcs and sparks falling downward; 6 faint blue specks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the deep blue (#B8D8FF, #5A9CFF, #2F5FD9, #1C2F80).\nEffect: an EDGE SWEEP HIT with an electric slow, 6 frames: 1 a bright white flash; 2 a long bright horizontal slash (white core, cyan edges) through the center; 3 jagged blue electric arcs crackle around the body area (zigzag lines, branching); 4 the slash fades, the arcs jump and flicker; 5 a few arcs and sparks falling downward; 6 faint blue specks.\nLayout for generation: 2 equal columns by 3 equal rows. Each cell aspect ratio exactly 256:256. Exactly 6 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "e_hook": {
+    "index": 7,
+    "frames": 8,
+    "cell_8x": [
+      1152,
+      128
+    ],
+    "final_size": [
+      9216,
+      128
+    ],
+    "target_game_size": [
+      144,
+      16
+    ],
+    "generation_grid": [
+      1,
+      8
+    ],
+    "allowed_colors": [
+      "#FFF4C2",
+      "#FFE487",
+      "#E2B644",
+      "#9A752C",
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her gold (#FFF4C2, #FFE487, #E2B644, #9A752C) and her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a GRAPPLING HOOK flying to the RIGHT with its cable, 8 frames, SYMMETRIC above and below the middle line: the hook head (about 8 squares long: a small three-pronged gold claw pointing right, a bright cyan glow at its base) is at the CENTER of every cell; behind it, to the LEFT, a thin glowing cable (2 squares thick: a dark blue core line with bright cyan edges) runs straight back toward the left edge; the cable grows each frame: 8 squares long in frame 1, 16 in frame 2, 24, 32, 40, 48, 56, and 64 squares in frame 8 (it never reaches past the left edge); a faint cyan shimmer runs along the cable.\nLayout: one horizontal row of 8 equal cells, each 9 wide to 1 tall, image size 9216x128 (each cell 1152x128); the hook head at the center of every cell, the cable extending left from it. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her gold (#FFF4C2, #FFE487, #E2B644, #9A752C) and her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a GRAPPLING HOOK flying to the RIGHT with its cable, 8 frames, SYMMETRIC above and below the middle line: the hook head (about 8 squares long: a small three-pronged gold claw pointing right, a bright cyan glow at its base) is at the CENTER of every cell; behind it, to the LEFT, a thin glowing cable (2 squares thick: a dark blue core line with bright cyan edges) runs straight back toward the left edge; the cable grows each frame: 8 squares long in frame 1, 16 in frame 2, 24, 32, 40, 48, 56, and 64 squares in frame 8 (it never reaches past the left edge); a faint cyan shimmer runs along the cable.\nLayout for generation: 1 equal columns by 8 equal rows. Each cell aspect ratio exactly 1152:128. Exactly 8 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "e_hit": {
+    "index": 8,
+    "frames": 5,
+    "cell_8x": [
+      256,
+      256
+    ],
+    "final_size": [
+      1280,
+      256
+    ],
+    "target_game_size": [
+      16,
+      16
+    ],
+    "generation_grid": [
+      2,
+      3
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A",
+      "#B8D8FF",
+      "#5A9CFF",
+      "#2F5FD9",
+      "#1C2F80"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the deep blue (#B8D8FF, #5A9CFF, #2F5FD9, #1C2F80).\nEffect: a HEAVY IMPACT, 5 frames: 1 a white flash at the center; 2 a round burst of blue-white light; 3 the burst breaks into 6 cyan sparks flying outward; 4 the sparks dim to deep blue; 5 a few specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the deep blue (#B8D8FF, #5A9CFF, #2F5FD9, #1C2F80).\nEffect: a HEAVY IMPACT, 5 frames: 1 a white flash at the center; 2 a round burst of blue-white light; 3 the burst breaks into 6 cyan sparks flying outward; 4 the sparks dim to deep blue; 5 a few specks.\nLayout for generation: 2 equal columns by 3 equal rows. Each cell aspect ratio exactly 256:256. Exactly 5 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "e_stun": {
+    "index": 9,
+    "frames": 8,
+    "cell_8x": [
+      256,
+      160
+    ],
+    "final_size": [
+      2048,
+      160
+    ],
+    "target_game_size": [
+      16,
+      10
+    ],
+    "generation_grid": [
+      2,
+      4
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with pure white.\nEffect: a STUN above a head, 8 frames: 1 small cyan sparks appear; 2-7 a flat ring (an ellipse, wider than tall) of 4 small glowing hexagons and white star points circling around, moving a little each frame; 8 the ring breaks into cyan specks.\nLayout: one horizontal row of 8 equal cells, each 8 wide to 5 tall, image size 2048x160 (each cell 256x160); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with pure white.\nEffect: a STUN above a head, 8 frames: 1 small cyan sparks appear; 2-7 a flat ring (an ellipse, wider than tall) of 4 small glowing hexagons and white star points circling around, moving a little each frame; 8 the ring breaks into cyan specks.\nLayout for generation: 2 equal columns by 4 equal rows. Each cell aspect ratio exactly 256:160. Exactly 8 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "p_shield": {
+    "index": 10,
+    "frames": 6,
+    "cell_8x": [
+      384,
+      640
+    ],
+    "final_size": [
+      2304,
+      640
+    ],
+    "target_game_size": [
+      30,
+      50
+    ],
+    "generation_grid": [
+      2,
+      3
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a HEXAGONAL ENERGY SHIELD around a standing figure (do NOT draw the figure), 6 frames, a seamless loop: a tall oval (about 3 to 5) outlined by a bright cyan rim 1-2 squares thick, inside it a honeycomb of thin hexagon outlines in pale cyan, most of the inside left empty so the figure shows through; a band of brighter hexagons travels up the shield, a little higher each frame, and a few hexagon cells flash white.\nLayout: one horizontal row of 6 equal cells, each 3 wide to 5 tall, image size 2304x640 (each cell 384x640); the oval centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Create a transparent pixel art animation sheet: exactly 6 frames in 3 columns 2 rows. Each frame contains the SAME tall oval shield with 1 logical-pixel cyan contour and a sparse THIN honeycomb wireframe of 1 logical-pixel lines. A few tiny white dots climb upwards between frames. Most important: ALL honeycomb hexagon interiors are completely empty TRANSPARENT HOLES, just like a wire fence. NO FILLED HEXAGON TILES. NO solid light surface inside the oval. NO glow gradients, NO bloom. A delicate skeletal wire shield, NOT a shining glass panel. Large empty gaps between the thin wires. Clearly visible square pixels. Palette only #FFFFFF #CFFBFF #6FF2FF #00C8F0 #0089C7 #00457A. Oval has aspect 3:5 and should occupy only the central 60 percent of each cell, with generous transparent margins. No text no characters no border. Each cell same aspect3:5."
+  },
+  "r_mark": {
+    "index": 11,
+    "frames": 4,
+    "cell_8x": [
+      512,
+      256
+    ],
+    "final_size": [
+      2048,
+      256
+    ],
+    "target_game_size": [
+      28,
+      14
+    ],
+    "generation_grid": [
+      2,
+      2
+    ],
+    "allowed_colors": [
+      "#F2D9FF",
+      "#C98CF0",
+      "#9447D1",
+      "#5E2491",
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from the violet (#F2D9FF, #C98CF0, #9447D1, #5E2491) with her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a HEXAGON MARK on the ground (seen from above at an angle: twice as wide as tall), 4 frames, a seamless loop: a hexagon outline 1-2 squares thick in violet, a small bright cyan node at each corner; the outline brightens in frames 2-3 and dims in 4 and 1.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from the violet (#F2D9FF, #C98CF0, #9447D1, #5E2491) with her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a HEXAGON MARK on the ground (seen from above at an angle: twice as wide as tall), 4 frames, a seamless loop: a hexagon outline 1-2 squares thick in violet, a small bright cyan node at each corner; the outline brightens in frames 2-3 and dims in 4 and 1.\nLayout for generation: 2 equal columns by 2 equal rows. Each cell aspect ratio exactly 512:256. Exactly 4 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "r_wall": {
+    "index": 12,
+    "frames": 5,
+    "cell_8x": [
+      256,
+      256
+    ],
+    "final_size": [
+      1280,
+      256
+    ],
+    "target_game_size": [
+      20,
+      20
+    ],
+    "generation_grid": [
+      2,
+      3
+    ],
+    "allowed_colors": [
+      "#F2D9FF",
+      "#C98CF0",
+      "#9447D1",
+      "#5E2491",
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from the violet (#F2D9FF, #C98CF0, #9447D1, #5E2491) with her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a FORCE FIELD ZAP, 5 frames: 1 a vertical flash of violet light through the center (a hit against an invisible wall); 2 a short violet energy line with cyan end nodes across the center and jagged violet arcs around it; 3 the arcs jump outward; 4 the line fades, a few arcs remain; 5 violet specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from the violet (#F2D9FF, #C98CF0, #9447D1, #5E2491) with her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A).\nEffect: a FORCE FIELD ZAP, 5 frames: 1 a vertical flash of violet light through the center (a hit against an invisible wall); 2 a short violet energy line with cyan end nodes across the center and jagged violet arcs around it; 3 the arcs jump outward; 4 the line fades, a few arcs remain; 5 violet specks.\nLayout for generation: 2 equal columns by 3 equal rows. Each cell aspect ratio exactly 256:256. Exactly 5 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "r_hit": {
+    "index": 13,
+    "frames": 4,
+    "cell_8x": [
+      256,
+      256
+    ],
+    "final_size": [
+      1024,
+      256
+    ],
+    "target_game_size": [
+      14,
+      14
+    ],
+    "generation_grid": [
+      2,
+      2
+    ],
+    "allowed_colors": [
+      "#F2D9FF",
+      "#C98CF0",
+      "#9447D1",
+      "#5E2491"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from the violet (#F2D9FF, #C98CF0, #9447D1, #5E2491) with pure white.\nEffect: a SMALL HEX SPARK, 4 frames: 1 a white flash; 2 a small hexagon of white-violet light bursting; 3 it breaks into 6 violet sparks; 4 two specks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from the violet (#F2D9FF, #C98CF0, #9447D1, #5E2491) with pure white.\nEffect: a SMALL HEX SPARK, 4 frames: 1 a white flash; 2 a small hexagon of white-violet light bursting; 3 it breaks into 6 violet sparks; 4 two specks.\nLayout for generation: 2 equal columns by 2 equal rows. Each cell aspect ratio exactly 256:256. Exactly 4 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "e_land": {
+    "index": 14,
+    "frames": 7,
+    "cell_8x": [
+      512,
+      256
+    ],
+    "final_size": [
+      3584,
+      256
+    ],
+    "target_game_size": [
+      56,
+      28
+    ],
+    "generation_grid": [
+      2,
+      4
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A",
+      "#C8BCA8",
+      "#9A8C78",
+      "#6E6252"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with dust (#C8BCA8, #9A8C78, #6E6252).\nEffect: a LANDING SHOCKWAVE on the ground (seen from above at an angle), 7 frames: 1 a bright white flash at the middle of the ground; 2 a thin ring of cyan light bursts out from it (an ellipse twice as wide as tall) and a ring of dust puffs; 3 the ring at half the cell, thick and bright; 4 the ring reaching the edges of the cell, thinning; 5 the ring breaks into bright dashes, the dust drifting; 6 faint dashes and dust; 7 a few specks.\nLayout: one horizontal row of 7 equal cells, each 2 wide to 1 tall, image size 3584x256 (each cell 512x256); the ground ellipse centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with dust (#C8BCA8, #9A8C78, #6E6252).\nEffect: a LANDING SHOCKWAVE on the ground (seen from above at an angle), 7 frames: 1 a bright white flash at the middle of the ground; 2 a thin ring of cyan light bursts out from it (an ellipse twice as wide as tall) and a ring of dust puffs; 3 the ring at half the cell, thick and bright; 4 the ring reaching the edges of the cell, thinning; 5 the ring breaks into bright dashes, the dust drifting; 6 faint dashes and dust; 7 a few specks.\nLayout for generation: 2 equal columns by 4 equal rows. Each cell aspect ratio exactly 512:256. Exactly 7 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "r_land": {
+    "index": 15,
+    "frames": 8,
+    "cell_8x": [
+      768,
+      448
+    ],
+    "final_size": [
+      6144,
+      448
+    ],
+    "target_game_size": [
+      96,
+      56
+    ],
+    "generation_grid": [
+      2,
+      4
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A",
+      "#B8D8FF",
+      "#5A9CFF",
+      "#2F5FD9",
+      "#1C2F80"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the deep blue (#B8D8FF, #5A9CFF, #2F5FD9, #1C2F80) and pure white.\nEffect: a HEXTECH ARENA FORMING on the ground (seen from above at an angle, do NOT draw a figure), 8 frames: 1 a bright white-cyan flash at the middle; 2 a shock ring bursts outward on the ground (an ellipse twice as wide as tall); 3 the ring reaches the edges and a large HEXAGON outline lights up on the ground (about 86 wide by 43 tall, its corners marked by bright nodes); 4-6 from the hexagon's six edges glowing walls of cyan light rise: each wall a vertical band about 14 squares tall standing on its edge, bright at the bottom and fading toward the top, with a few angular tech lines in it - the walls behind (top of the hexagon) seen over the ground, the walls in front (bottom) drawn lower; 7 the walls at full height, the corner nodes flashing; 8 the arena standing steady (this frame matches the loop r_zone).\nLayout: one horizontal row of 8 equal cells, each 12 wide to 7 tall, image size 6144x448 (each cell 768x448); the hexagon centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the deep blue (#B8D8FF, #5A9CFF, #2F5FD9, #1C2F80) and pure white.\nEffect: a HEXTECH ARENA FORMING on the ground (seen from above at an angle, do NOT draw a figure), 8 frames: 1 a bright white-cyan flash at the middle; 2 a shock ring bursts outward on the ground (an ellipse twice as wide as tall); 3 the ring reaches the edges and a large HEXAGON outline lights up on the ground (about 86 wide by 43 tall, its corners marked by bright nodes); 4-6 from the hexagon's six edges glowing walls of cyan light rise: each wall a vertical band about 14 squares tall standing on its edge, bright at the bottom and fading toward the top, with a few angular tech lines in it - the walls behind (top of the hexagon) seen over the ground, the walls in front (bottom) drawn lower; 7 the walls at full height, the corner nodes flashing; 8 the arena standing steady (this frame matches the loop r_zone).\nLayout for generation: 2 equal columns by 4 equal rows. Each cell aspect ratio exactly 768:448. Exactly 8 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages."
+  },
+  "r_zone": {
+    "index": 16,
+    "frames": 6,
+    "cell_8x": [
+      768,
+      448
+    ],
+    "final_size": [
+      4608,
+      448
+    ],
+    "target_game_size": [
+      96,
+      56
+    ],
+    "generation_grid": [
+      2,
+      3
+    ],
+    "allowed_colors": [
+      "#FFFFFF",
+      "#CFFBFF",
+      "#6FF2FF",
+      "#00C8F0",
+      "#0089C7",
+      "#00457A",
+      "#B8D8FF",
+      "#5A9CFF",
+      "#2F5FD9",
+      "#1C2F80"
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the deep blue (#B8D8FF, #5A9CFF, #2F5FD9, #1C2F80).\nEffect: a HEXTECH ARENA standing on the ground (seen from above at an angle, do NOT draw a figure), 6 frames, a seamless loop: the same hexagon as the last frame of the arena forming (about 86 wide by 43 tall on the ground, corner nodes), with its six glowing walls of cyan light (vertical bands about 14 squares tall standing on the edges, bright at the bottom, fading toward the top, angular tech lines in them); a brighter shimmer runs along the walls a little further each frame and the corner nodes light up in turn.\nLayout: one horizontal row of 6 equal cells, each 12 wide to 7 tall, image size 4608x448 (each cell 768x448); the hexagon centered in every cell, in the same place as in the arena forming. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, sparks or energy, colours only from her hextech cyan (#FFFFFF, #CFFBFF, #6FF2FF, #00C8F0, #0089C7, #00457A) with the deep blue (#B8D8FF, #5A9CFF, #2F5FD9, #1C2F80).\nEffect: a HEXTECH ARENA standing on the ground (seen from above at an angle, do NOT draw a figure), 6 frames, a seamless loop: the same hexagon as the last frame of the arena forming (about 86 wide by 43 tall on the ground, corner nodes), with its six glowing walls of cyan light (vertical bands about 14 squares tall standing on the edges, bright at the bottom, fading toward the top, angular tech lines in them); a brighter shimmer runs along the walls a little further each frame and the corner nodes light up in turn.\nLayout for generation: 2 equal columns by 3 equal rows. Each cell aspect ratio exactly 768:448. Exactly 6 animation frames, read left to right, top to bottom. Unused last cells fully transparent. All cells equally sized. Transparent background, no frame numbers, borders, labels, grid lines or human figures. Keep each effect fully inside its own cell. The final horizontal strip will be assembled from these generated cells without redrawing the effect.\n\nThe first reference gives only character scale/style, do not draw the character. The second reference gives texture shapes, NOT text or the reference sheet background. NEW original pixel VFX only, crisp square clusters. Avoid soft bloom, blurred halo, continuous gradients, black outlines or dark border rings. Highlights separated into hard colour clusters. Keep energy interiors mostly transparent; no solid opaque filled discs or solid filled cages.\nThe FIRST reference is the exact established arena artwork from the final r_land frame. Preserve its same six corner positions, outline, perspective, dimensions and wall height for ALL six frames; change only hard pixel brightness bands and corner light intensity. SECOND reference only provides character scale/style. Do not add objects or move geometry. Keep fully transparent space inside and outside."
+  }
+}

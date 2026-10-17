@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_veigar_power": {
+        "attack": "普攻射出暗能量弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>超凡邪力<>：技能每命中一名敌方英雄，永久获得<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>1 点法术强度<>；<#ff9028ff>黑暗祭祀<>每击杀一个单位 +1，击杀敌方英雄 +5。【扩展包】死后保留。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_veigar_power": {
+        "attack": "普攻射出暗能量彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>極度邪惡能量<>：技能每命中一名敵方英雄，永久獲得<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>1 點魔法強度<>；<#ff9028ff>黑暗祭祀<>每擊殺一個單位 +1，擊殺敵方英雄 +5。【擴充包】死後保留。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_veigar_power": {
+        "attack": "Basic attacks fire a dark bolt dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Phenomenal Evil Power<>: every spell hit on an enemy champion permanently grants <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>1 Ability Power<>; every unit killed by <#ff9028ff>Baleful Strike<> +1, every champion he kills +5. [Add-on] Kept through death."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_veigar_power": {
+        "attack": "기본 공격은 암흑 구체를 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>극악무도<>: 스킬이 적 챔피언에게 적중할 때마다 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력이 1<> 영구히 증가합니다. <#ff9028ff>사악한 일격<>(으)로 유닛을 처치하면 +1, 챔피언을 처치하면 +5. [확장팩] 사망해도 유지됩니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_veigar_power": {
+        "attack": "通常攻撃は闇の弾を放ち<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#ff9028ff>偉大なる悪の力<>：スキルが敵チャンピオンに命中するたび<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力が1<>永続的に増加。<#ff9028ff>イーヴィルストライク<>でユニットを倒すと+1、チャンピオンを倒すと+5。【拡張】デスでも失わない。"
+      }
+    }
+  }
+}

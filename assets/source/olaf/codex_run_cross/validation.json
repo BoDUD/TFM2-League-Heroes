@@ -1,0 +1,13 @@
+{
+  "size": [
+    3584,
+    1536
+  ],
+  "frames": 8,
+  "binary_alpha": true,
+  "palette_only": true,
+  "grid8": true,
+  "below_floor_empty": true,
+  "upper_exact_pass": false,
+  "boot_positions_certified": false
+}

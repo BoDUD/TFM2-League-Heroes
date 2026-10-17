@@ -1,0 +1,1508 @@
+{
+  "approved_reference": "approved-reference.png",
+  "style": "latest approved detailed pixel-art reference; earlier B2/40px head retired",
+  "processing": "full characters preserved; no head swapping or face repainting; alpha threshold and nearest-neighbor scaling only",
+  "animations": {
+    "idle": {
+      "name": "待机",
+      "file": "taric_idle.png",
+      "columns": 3,
+      "rows": 2,
+      "frame_count": 6,
+      "cell_px": [
+        768,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 200,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            155,
+            176,
+            548,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 200,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            155,
+            176,
+            548,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 200,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            155,
+            176,
+            548,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 200,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            155,
+            176,
+            548,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 200,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            155,
+            176,
+            548,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 200,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            155,
+            176,
+            548,
+            656
+          ],
+          "release": false
+        }
+      ],
+      "scale_from_source": 0.4878048780487805
+    },
+    "run": {
+      "name": "跑动",
+      "file": "taric_run.png",
+      "columns": 4,
+      "rows": 2,
+      "frame_count": 8,
+      "cell_px": [
+        768,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 150,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            109,
+            177,
+            610,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 150,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            129,
+            169,
+            611,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 150,
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox_px": [
+            103,
+            169,
+            592,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 4,
+          "rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 150,
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox_px": [
+            92,
+            170,
+            586,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 5,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 150,
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox_px": [
+            87,
+            178,
+            576,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 6,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 150,
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox_px": [
+            103,
+            177,
+            601,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 7,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 150,
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox_px": [
+            109,
+            175,
+            606,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 8,
+          "rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 150,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            105,
+            181,
+            607,
+            656
+          ],
+          "release": false
+        }
+      ],
+      "scale_from_source": 1.3389121338912133
+    },
+    "attack": {
+      "name": "普攻",
+      "file": "taric_attack.png",
+      "columns": 3,
+      "rows": 2,
+      "frame_count": 6,
+      "cell_px": [
+        768,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 60,
+          "pivot_native": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "bbox_px": [
+            94,
+            128,
+            649,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 60,
+          "pivot_native": [
+            52,
+            70
+          ],
+          "pivot_px": [
+            416,
+            560
+          ],
+          "bbox_px": [
+            20,
+            168,
+            555,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 70,
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_px": [
+            134,
+            181,
+            760,
+            656
+          ],
+          "release": true
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 70,
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox_px": [
+            19,
+            179,
+            582,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 80,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            209,
+            182,
+            733,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 90,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            136,
+            176,
+            539,
+            656
+          ],
+          "release": false
+        }
+      ],
+      "scale_from_source": 1.256544502617801
+    },
+    "attack_p": {
+      "name": "强化攻击",
+      "file": "taric_attack_p.png",
+      "columns": 3,
+      "rows": 2,
+      "frame_count": 6,
+      "cell_px": [
+        768,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 50,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            50,
+            163,
+            581,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 50,
+          "pivot_native": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "bbox_px": [
+            164,
+            21,
+            564,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 60,
+          "pivot_native": [
+            67,
+            70
+          ],
+          "pivot_px": [
+            536,
+            560
+          ],
+          "bbox_px": [
+            153,
+            285,
+            730,
+            656
+          ],
+          "release": true
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 70,
+          "pivot_native": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "bbox_px": [
+            8,
+            269,
+            570,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 80,
+          "pivot_native": [
+            53,
+            70
+          ],
+          "pivot_px": [
+            424,
+            560
+          ],
+          "bbox_px": [
+            110,
+            221,
+            593,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 90,
+          "pivot_native": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "bbox_px": [
+            245,
+            207,
+            677,
+            656
+          ],
+          "release": false
+        }
+      ],
+      "scale_from_source": 1.1913696060037522
+    },
+    "skill": {
+      "name": "炫光",
+      "file": "taric_skill.png",
+      "columns": 3,
+      "rows": 2,
+      "frame_count": 6,
+      "cell_px": [
+        768,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 60,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            8,
+            129,
+            596,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 70,
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox_px": [
+            64,
+            195,
+            610,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 80,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            47,
+            182,
+            663,
+            656
+          ],
+          "release": true
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 90,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            47,
+            176,
+            656,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            90,
+            180,
+            603,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_px": [
+            88,
+            176,
+            512,
+            656
+          ],
+          "release": false
+        }
+      ],
+      "scale_from_source": 1.2403100775193798
+    },
+    "skill2": {
+      "name": "星光之触",
+      "file": "taric_skill2.png",
+      "columns": 3,
+      "rows": 2,
+      "frame_count": 6,
+      "cell_px": [
+        768,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 60,
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_px": [
+            360,
+            560
+          ],
+          "bbox_px": [
+            79,
+            171,
+            516,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 70,
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox_px": [
+            108,
+            174,
+            571,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 80,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            110,
+            117,
+            571,
+            656
+          ],
+          "release": true
+        },
+        {
+          "frame": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 90,
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_px": [
+            92,
+            121,
+            537,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_px": [
+            92,
+            177,
+            559,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            110,
+            176,
+            557,
+            656
+          ],
+          "release": false
+        }
+      ],
+      "scale_from_source": 1.2060301507537687
+    },
+    "ult": {
+      "name": "宇宙之辉",
+      "file": "taric_ult.png",
+      "columns": 4,
+      "rows": 2,
+      "frame_count": 7,
+      "cell_px": [
+        768,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 80,
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox_px": [
+            101,
+            195,
+            522,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 90,
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox_px": [
+            98,
+            187,
+            625,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox_px": [
+            152,
+            21,
+            654,
+            656
+          ],
+          "release": true
+        },
+        {
+          "frame": 4,
+          "rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox_px": [
+            131,
+            61,
+            622,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 5,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox_px": [
+            107,
+            59,
+            616,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 6,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            158,
+            61,
+            644,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 7,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 97,
+          "pivot_native": [
+            52,
+            70
+          ],
+          "pivot_px": [
+            416,
+            560
+          ],
+          "bbox_px": [
+            133,
+            203,
+            541,
+            656
+          ],
+          "release": false
+        }
+      ],
+      "scale_from_source": 1.6579634464751958
+    },
+    "hit": {
+      "name": "受击",
+      "file": "taric_hit.png",
+      "columns": 2,
+      "rows": 1,
+      "frame_count": 2,
+      "cell_px": [
+        768,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "bbox_px": [
+            10,
+            182,
+            558,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "bbox_px": [
+            115,
+            176,
+            594,
+            656
+          ],
+          "release": false
+        }
+      ],
+      "scale_from_source": 0.7261724659606656
+    },
+    "dead": {
+      "name": "死亡",
+      "file": "taric_dead.png",
+      "columns": 4,
+      "rows": 2,
+      "frame_count": 8,
+      "cell_px": [
+        768,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox_px": [
+            8,
+            176,
+            527,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_px": [
+            8,
+            62,
+            595,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 100,
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox_px": [
+            8,
+            148,
+            636,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 4,
+          "rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "duration_ms": 120,
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_px": [
+            352,
+            560
+          ],
+          "bbox_px": [
+            149,
+            199,
+            735,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 5,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 120,
+          "pivot_native": [
+            43,
+            70
+          ],
+          "pivot_px": [
+            344,
+            560
+          ],
+          "bbox_px": [
+            8,
+            236,
+            652,
+            656
+          ],
+          "release": false
+        },
+        {
+          "frame": 6,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 120,
+          "pivot_native": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox_px": [
+            8,
+            278,
+            591,
+            672
+          ],
+          "release": false
+        },
+        {
+          "frame": 7,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 150,
+          "pivot_native": [
+            39,
+            70
+          ],
+          "pivot_px": [
+            312,
+            560
+          ],
+          "bbox_px": [
+            8,
+            321,
+            613,
+            672
+          ],
+          "release": false
+        },
+        {
+          "frame": 8,
+          "rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "duration_ms": 400,
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_px": [
+            352,
+            560
+          ],
+          "bbox_px": [
+            8,
+            322,
+            591,
+            672
+          ],
+          "release": false
+        }
+      ],
+      "scale_from_source": 1.6271186440677967
+    }
+  }
+}

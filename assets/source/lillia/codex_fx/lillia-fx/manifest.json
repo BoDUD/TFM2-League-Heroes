@@ -1,0 +1,2948 @@
+{
+  "route": "imagegen source; majority grid readback; approved palette; exact symmetry cleanup",
+  "scale": 16,
+  "timing_note": "No engine timings supplied; preview uses 100ms per frame only.",
+  "effects": {
+    "a_hit": {
+      "file": "lillia_fx_a_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "bbox_cell": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "opaque_area": 28,
+          "mean_luminance": 190.18,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 0,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            94,
+            543,
+            621
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "opaque_area": 104,
+          "mean_luminance": 188.0,
+          "brightest_10_percent_luminance": 241.64,
+          "symmetry_adjusted_pixels": 6,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            543,
+            94,
+            1086,
+            621
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "bbox_cell": [
+            0,
+            3,
+            16,
+            15
+          ],
+          "opaque_area": 56,
+          "mean_luminance": 183.94,
+          "brightest_10_percent_luminance": 233.24,
+          "symmetry_adjusted_pixels": 7,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1086,
+            94,
+            1629,
+            621
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "bbox_cell": [
+            2,
+            2,
+            14,
+            13
+          ],
+          "opaque_area": 18,
+          "mean_luminance": 179.49,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 3,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1629,
+            94,
+            2172,
+            621
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "size_1x": [
+        64,
+        16
+      ],
+      "size_16x": [
+        1024,
+        256
+      ],
+      "symmetry": "x",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#FFE0F0",
+        "#FF9AD0",
+        "#F04AA8",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8"
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "14f9d114f3f494072f1535d7d140d32ba7a60bf3807a5cc3071be3ac5f72e023",
+      "suggested_pivot_1x": [
+        8.0,
+        8.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_a_hit.png",
+        "binding": "view_effects `league_lillia_a_hit`（跟随，画在人物上面；左右对称）",
+        "size": "14"
+      },
+      "distinct_frame_count": 4
+    },
+    "q_spin": {
+      "file": "lillia_fx_q_spin.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            58,
+            24
+          ],
+          "bbox_cell": [
+            17,
+            7,
+            41,
+            17
+          ],
+          "opaque_area": 120,
+          "mean_luminance": 181.89,
+          "brightest_10_percent_luminance": 204.58,
+          "symmetry_adjusted_pixels": 173,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            168,
+            319,
+            551
+          ],
+          "normalized_shape_envelope": [
+            24,
+            10
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            58,
+            0,
+            58,
+            24
+          ],
+          "bbox_cell": [
+            7,
+            3,
+            51,
+            21
+          ],
+          "opaque_area": 376,
+          "mean_luminance": 150.18,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 387,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            319,
+            168,
+            682,
+            551
+          ],
+          "normalized_shape_envelope": [
+            44,
+            18
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            116,
+            0,
+            58,
+            24
+          ],
+          "bbox_cell": [
+            2,
+            2,
+            56,
+            22
+          ],
+          "opaque_area": 640,
+          "mean_luminance": 173.45,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 580,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            682,
+            168,
+            1092,
+            551
+          ],
+          "normalized_shape_envelope": [
+            54,
+            20
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            174,
+            0,
+            58,
+            24
+          ],
+          "bbox_cell": [
+            2,
+            2,
+            56,
+            22
+          ],
+          "opaque_area": 468,
+          "mean_luminance": 166.29,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 439,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1092,
+            168,
+            1467,
+            551
+          ],
+          "normalized_shape_envelope": [
+            54,
+            20
+          ]
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            232,
+            0,
+            58,
+            24
+          ],
+          "bbox_cell": [
+            1,
+            2,
+            57,
+            22
+          ],
+          "opaque_area": 376,
+          "mean_luminance": 141.08,
+          "brightest_10_percent_luminance": 226.55,
+          "symmetry_adjusted_pixels": 449,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1467,
+            168,
+            1745,
+            551
+          ],
+          "normalized_shape_envelope": [
+            56,
+            20
+          ]
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            290,
+            0,
+            58,
+            24
+          ],
+          "bbox_cell": [
+            2,
+            3,
+            56,
+            21
+          ],
+          "opaque_area": 196,
+          "mean_luminance": 142.56,
+          "brightest_10_percent_luminance": 238.16,
+          "symmetry_adjusted_pixels": 276,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1745,
+            168,
+            2134,
+            551
+          ],
+          "normalized_shape_envelope": [
+            54,
+            18
+          ]
+        }
+      ],
+      "frame_count": 6,
+      "cell_1x": [
+        58,
+        24
+      ],
+      "size_1x": [
+        348,
+        24
+      ],
+      "size_16x": [
+        5568,
+        384
+      ],
+      "symmetry": "xy",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#FFE0F0",
+        "#FF9AD0",
+        "#F04AA8",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#FFF6C0",
+        "#FBD70B",
+        "#E8A010"
+      ],
+      "source_size": [
+        2134,
+        737
+      ],
+      "raw_sha256": "4ef71dd033057c3a08588a7bf261f7efe8857cae9951057521b426d3b287f0ba",
+      "suggested_pivot_1x": [
+        29.0,
+        12.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_q_spin.png",
+        "binding": "view_effects `league_lillia_q_spin`（施法第一刻在她身上播放，跟随，画在人物下面；上下左右都对称）",
+        "size": "56 × 22"
+      },
+      "distinct_frame_count": 6
+    },
+    "q_hit": {
+      "file": "lillia_fx_q_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            18,
+            18
+          ],
+          "bbox_cell": [
+            2,
+            6,
+            16,
+            12
+          ],
+          "opaque_area": 36,
+          "mean_luminance": 208.38,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 0,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            141,
+            543,
+            585
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            18,
+            0,
+            18,
+            18
+          ],
+          "bbox_cell": [
+            1,
+            3,
+            17,
+            15
+          ],
+          "opaque_area": 76,
+          "mean_luminance": 183.75,
+          "brightest_10_percent_luminance": 251.68,
+          "symmetry_adjusted_pixels": 0,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            543,
+            141,
+            1086,
+            585
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            36,
+            0,
+            18,
+            18
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            17,
+            17
+          ],
+          "opaque_area": 162,
+          "mean_luminance": 174.23,
+          "brightest_10_percent_luminance": 252.25,
+          "symmetry_adjusted_pixels": 6,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1086,
+            141,
+            1629,
+            585
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            54,
+            0,
+            18,
+            18
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            17,
+            17
+          ],
+          "opaque_area": 66,
+          "mean_luminance": 181.02,
+          "brightest_10_percent_luminance": 244.01,
+          "symmetry_adjusted_pixels": 1,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1629,
+            141,
+            2172,
+            585
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "size_1x": [
+        72,
+        18
+      ],
+      "size_16x": [
+        1152,
+        288
+      ],
+      "symmetry": "x",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#FFE0F0",
+        "#FF9AD0",
+        "#F04AA8",
+        "#FFF6C0",
+        "#FBD70B",
+        "#E8A010",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8"
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "bdfddc15b983a7b37977879530bf2a88faff5e6bb2fb7b6e1ac05f77c9a735d6",
+      "suggested_pivot_1x": [
+        9.0,
+        9.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_q_hit.png",
+        "binding": "view_effects `league_lillia_q_hit`（跟随；左右对称）",
+        "size": "16"
+      },
+      "distinct_frame_count": 4
+    },
+    "e_seed": {
+      "file": "lillia_fx_e_seed.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            10,
+            10
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            10,
+            9
+          ],
+          "opaque_area": 48,
+          "mean_luminance": 180.82,
+          "brightest_10_percent_luminance": 235.49,
+          "symmetry_adjusted_pixels": 8,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            173,
+            496,
+            621
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            10,
+            0,
+            10,
+            10
+          ],
+          "bbox_cell": [
+            1,
+            2,
+            9,
+            8
+          ],
+          "opaque_area": 30,
+          "mean_luminance": 166.18,
+          "brightest_10_percent_luminance": 245.71,
+          "symmetry_adjusted_pixels": 2,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            496,
+            173,
+            992,
+            621
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            20,
+            0,
+            10,
+            10
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            9,
+            9
+          ],
+          "opaque_area": 42,
+          "mean_luminance": 200.87,
+          "brightest_10_percent_luminance": 241.06,
+          "symmetry_adjusted_pixels": 7,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            992,
+            173,
+            1487,
+            621
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            30,
+            0,
+            10,
+            10
+          ],
+          "bbox_cell": [
+            1,
+            2,
+            8,
+            8
+          ],
+          "opaque_area": 32,
+          "mean_luminance": 174.39,
+          "brightest_10_percent_luminance": 245.71,
+          "symmetry_adjusted_pixels": 5,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1487,
+            173,
+            1983,
+            621
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "size_1x": [
+        40,
+        10
+      ],
+      "size_16x": [
+        640,
+        160
+      ],
+      "symmetry": "y",
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#FFE0B0",
+        "#FFA840",
+        "#FF7F00",
+        "#D8FBFF",
+        "#8AE8FF",
+        "#56C8FE",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8"
+      ],
+      "source_size": [
+        1983,
+        793
+      ],
+      "raw_sha256": "d072e9da53eb4933f6e2fe2a8879f66a15a85fddc458ee2c854a273ecb382c7a",
+      "suggested_pivot_1x": [
+        5.0,
+        5.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_e_seed.png",
+        "binding": "view_projectiles `league_lillia_e_seed`（抛物线飞行；上下对称）",
+        "size": "8 × 8"
+      },
+      "distinct_frame_count": 4
+    },
+    "e_land": {
+      "file": "lillia_fx_e_land.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            22,
+            10
+          ],
+          "bbox_cell": [
+            8,
+            4,
+            14,
+            6
+          ],
+          "opaque_area": 12,
+          "mean_luminance": 172.4,
+          "brightest_10_percent_luminance": 227.12,
+          "symmetry_adjusted_pixels": 14,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            142,
+            416,
+            609
+          ],
+          "normalized_shape_envelope": [
+            6,
+            2
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            22,
+            0,
+            22,
+            10
+          ],
+          "bbox_cell": [
+            4,
+            2,
+            18,
+            8
+          ],
+          "opaque_area": 68,
+          "mean_luminance": 163.59,
+          "brightest_10_percent_luminance": 233.24,
+          "symmetry_adjusted_pixels": 51,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            416,
+            142,
+            804,
+            609
+          ],
+          "normalized_shape_envelope": [
+            14,
+            6
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            44,
+            0,
+            22,
+            10
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            21,
+            9
+          ],
+          "opaque_area": 72,
+          "mean_luminance": 162.97,
+          "brightest_10_percent_luminance": 206.93,
+          "symmetry_adjusted_pixels": 31,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            804,
+            142,
+            1260,
+            609
+          ],
+          "normalized_shape_envelope": [
+            20,
+            8
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            66,
+            0,
+            22,
+            10
+          ],
+          "bbox_cell": [
+            0,
+            1,
+            22,
+            9
+          ],
+          "opaque_area": 88,
+          "mean_luminance": 175.63,
+          "brightest_10_percent_luminance": 227.12,
+          "symmetry_adjusted_pixels": 47,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1260,
+            142,
+            1660,
+            609
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            88,
+            0,
+            22,
+            10
+          ],
+          "bbox_cell": [
+            6,
+            2,
+            16,
+            8
+          ],
+          "opaque_area": 28,
+          "mean_luminance": 183.98,
+          "brightest_10_percent_luminance": 233.24,
+          "symmetry_adjusted_pixels": 18,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1660,
+            142,
+            2079,
+            609
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 5,
+      "cell_1x": [
+        22,
+        10
+      ],
+      "size_1x": [
+        110,
+        10
+      ],
+      "size_16x": [
+        1760,
+        160
+      ],
+      "symmetry": "xy",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#FFE0B0",
+        "#FFA840",
+        "#FF7F00",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#E8FFD0",
+        "#B1DC43",
+        "#3E8A2A"
+      ],
+      "source_size": [
+        2079,
+        756
+      ],
+      "raw_sha256": "673c811a860127cb06956ab6c9381086067c407f45f200df1f7da2b9cc7e183c",
+      "suggested_pivot_1x": [
+        11.0,
+        5.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_e_land.png",
+        "binding": "view_effects `league_lillia_e_land`（落点上，不旋转，画在人物下面；上下左右都对称）",
+        "size": "20 × 8"
+      },
+      "distinct_frame_count": 5
+    },
+    "e_hit": {
+      "file": "lillia_fx_e_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "bbox_cell": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "opaque_area": 42,
+          "mean_luminance": 174.38,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 3,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            75,
+            543,
+            621
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "opaque_area": 122,
+          "mean_luminance": 170.76,
+          "brightest_10_percent_luminance": 238.45,
+          "symmetry_adjusted_pixels": 2,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            543,
+            75,
+            1086,
+            621
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            15,
+            14
+          ],
+          "opaque_area": 72,
+          "mean_luminance": 178.27,
+          "brightest_10_percent_luminance": 233.24,
+          "symmetry_adjusted_pixels": 0,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1086,
+            75,
+            1629,
+            621
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "bbox_cell": [
+            3,
+            2,
+            13,
+            13
+          ],
+          "opaque_area": 20,
+          "mean_luminance": 156.69,
+          "brightest_10_percent_luminance": 233.24,
+          "symmetry_adjusted_pixels": 2,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1629,
+            75,
+            2172,
+            621
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "size_1x": [
+        64,
+        16
+      ],
+      "size_16x": [
+        1024,
+        256
+      ],
+      "symmetry": "x",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#FFE0B0",
+        "#FFA840",
+        "#FF7F00",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8"
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "72f170b96d0a8e3967cda52067fc57f9ccd1f4b7d81c65c41379f9d0ad4f238c",
+      "suggested_pivot_1x": [
+        8.0,
+        8.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_e_hit.png",
+        "binding": "view_effects `league_lillia_e_hit`（跟随；左右对称）",
+        "size": "14"
+      },
+      "distinct_frame_count": 4
+    },
+    "e_slow": {
+      "file": "lillia_fx_e_slow.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            18,
+            8
+          ],
+          "bbox_cell": [
+            1,
+            2,
+            17,
+            7
+          ],
+          "opaque_area": 56,
+          "mean_luminance": 142.8,
+          "brightest_10_percent_luminance": 250.65,
+          "symmetry_adjusted_pixels": 5,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            185,
+            543,
+            524
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            18,
+            0,
+            18,
+            8
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            17,
+            7
+          ],
+          "opaque_area": 66,
+          "mean_luminance": 165.74,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 2,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            543,
+            185,
+            1086,
+            524
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            36,
+            0,
+            18,
+            8
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            17,
+            7
+          ],
+          "opaque_area": 60,
+          "mean_luminance": 149.94,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 5,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1086,
+            185,
+            1629,
+            524
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            54,
+            0,
+            18,
+            8
+          ],
+          "bbox_cell": [
+            1,
+            2,
+            17,
+            7
+          ],
+          "opaque_area": 56,
+          "mean_luminance": 140.9,
+          "brightest_10_percent_luminance": 250.65,
+          "symmetry_adjusted_pixels": 1,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1629,
+            185,
+            2172,
+            524
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        18,
+        8
+      ],
+      "size_1x": [
+        72,
+        8
+      ],
+      "size_16x": [
+        1152,
+        128
+      ],
+      "symmetry": "x",
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8"
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "a46d08f52d10df4cefb756c79c9243308370974ac50037cd055fd57fa08bece2",
+      "suggested_pivot_1x": [
+        9.0,
+        4.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_e_slow.png",
+        "binding": "view_buffs `league_lillia_e_slow`（画在脚下；左右对称）",
+        "size": "16 × 6"
+      },
+      "distinct_frame_count": 4
+    },
+    "w_mark": {
+      "file": "lillia_fx_w_mark.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            48,
+            20
+          ],
+          "bbox_cell": [
+            0,
+            1,
+            48,
+            19
+          ],
+          "opaque_area": 396,
+          "mean_luminance": 162.98,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 69,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            258,
+            362,
+            460
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            48,
+            0,
+            48,
+            20
+          ],
+          "bbox_cell": [
+            0,
+            1,
+            48,
+            19
+          ],
+          "opaque_area": 412,
+          "mean_luminance": 161.26,
+          "brightest_10_percent_luminance": 248.2,
+          "symmetry_adjusted_pixels": 40,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            362,
+            258,
+            724,
+            460
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            96,
+            0,
+            48,
+            20
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            47,
+            19
+          ],
+          "opaque_area": 396,
+          "mean_luminance": 172.03,
+          "brightest_10_percent_luminance": 249.57,
+          "symmetry_adjusted_pixels": 62,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            724,
+            258,
+            1086,
+            460
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            144,
+            0,
+            48,
+            20
+          ],
+          "bbox_cell": [
+            0,
+            1,
+            48,
+            19
+          ],
+          "opaque_area": 392,
+          "mean_luminance": 175.04,
+          "brightest_10_percent_luminance": 250.71,
+          "symmetry_adjusted_pixels": 71,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1086,
+            258,
+            1448,
+            460
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            192,
+            0,
+            48,
+            20
+          ],
+          "bbox_cell": [
+            0,
+            1,
+            48,
+            19
+          ],
+          "opaque_area": 380,
+          "mean_luminance": 166.29,
+          "brightest_10_percent_luminance": 249.72,
+          "symmetry_adjusted_pixels": 89,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1448,
+            258,
+            1810,
+            460
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            240,
+            0,
+            48,
+            20
+          ],
+          "bbox_cell": [
+            0,
+            1,
+            48,
+            19
+          ],
+          "opaque_area": 356,
+          "mean_luminance": 148.88,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 109,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1810,
+            258,
+            2172,
+            460
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 6,
+      "cell_1x": [
+        48,
+        20
+      ],
+      "size_1x": [
+        288,
+        20
+      ],
+      "size_16x": [
+        4608,
+        320
+      ],
+      "symmetry": "xy",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#D8FBFF",
+        "#8AE8FF",
+        "#56C8FE"
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "df478c1dad5037ca06669e6047e315a803a3a6a684ac356f77dfe29086a3113a",
+      "suggested_pivot_1x": [
+        24.0,
+        10.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_w_mark.png",
+        "binding": "view_effects `league_lillia_w_mark`（落点上，不旋转，画在人物最下面；上下左右都对称）",
+        "size": "46 × 18"
+      },
+      "distinct_frame_count": 6
+    },
+    "w_land": {
+      "file": "lillia_fx_w_land.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            50,
+            22
+          ],
+          "bbox_cell": [
+            20,
+            9,
+            30,
+            13
+          ],
+          "opaque_area": 28,
+          "mean_luminance": 233.57,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 117,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            177,
+            326,
+            572
+          ],
+          "normalized_shape_envelope": [
+            10,
+            4
+          ]
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            50,
+            0,
+            50,
+            22
+          ],
+          "bbox_cell": [
+            13,
+            5,
+            37,
+            17
+          ],
+          "opaque_area": 136,
+          "mean_luminance": 166.82,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 341,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            326,
+            177,
+            755,
+            572
+          ],
+          "normalized_shape_envelope": [
+            24,
+            12
+          ]
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            100,
+            0,
+            50,
+            22
+          ],
+          "bbox_cell": [
+            6,
+            3,
+            44,
+            19
+          ],
+          "opaque_area": 288,
+          "mean_luminance": 191.93,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 435,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            755,
+            177,
+            1117,
+            572
+          ],
+          "normalized_shape_envelope": [
+            38,
+            16
+          ]
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            150,
+            0,
+            50,
+            22
+          ],
+          "bbox_cell": [
+            3,
+            2,
+            47,
+            20
+          ],
+          "opaque_area": 280,
+          "mean_luminance": 184.12,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 382,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1117,
+            177,
+            1411,
+            572
+          ],
+          "normalized_shape_envelope": [
+            46,
+            18
+          ]
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            200,
+            0,
+            50,
+            22
+          ],
+          "bbox_cell": [
+            0,
+            1,
+            50,
+            21
+          ],
+          "opaque_area": 200,
+          "mean_luminance": 181.03,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 126,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1411,
+            177,
+            1855,
+            572
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            250,
+            0,
+            50,
+            22
+          ],
+          "bbox_cell": [
+            5,
+            3,
+            45,
+            19
+          ],
+          "opaque_area": 104,
+          "mean_luminance": 202.59,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 35,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1855,
+            177,
+            2172,
+            572
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 6,
+      "cell_1x": [
+        50,
+        22
+      ],
+      "size_1x": [
+        300,
+        22
+      ],
+      "size_16x": [
+        4800,
+        352
+      ],
+      "symmetry": "xy",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#D8FBFF",
+        "#8AE8FF",
+        "#56C8FE",
+        "#FFE0F0",
+        "#FF9AD0",
+        "#F04AA8"
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "bd0a2c39eea0cdaca78680665dc7a42da828466b79763b1f570fdf498a199910",
+      "suggested_pivot_1x": [
+        25.0,
+        11.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_w_land.png",
+        "binding": "view_effects `league_lillia_w_land`（落点上，不旋转，画在人物下面；上下左右都对称）",
+        "size": "48 × 20"
+      },
+      "distinct_frame_count": 6
+    },
+    "w_hit": {
+      "file": "lillia_fx_w_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            18,
+            18
+          ],
+          "bbox_cell": [
+            4,
+            5,
+            14,
+            13
+          ],
+          "opaque_area": 40,
+          "mean_luminance": 157.71,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 2,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            55,
+            543,
+            649
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            18,
+            0,
+            18,
+            18
+          ],
+          "bbox_cell": [
+            1,
+            2,
+            17,
+            16
+          ],
+          "opaque_area": 124,
+          "mean_luminance": 174.13,
+          "brightest_10_percent_luminance": 249.42,
+          "symmetry_adjusted_pixels": 7,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            543,
+            55,
+            1086,
+            649
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            36,
+            0,
+            18,
+            18
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            17,
+            17
+          ],
+          "opaque_area": 86,
+          "mean_luminance": 188.11,
+          "brightest_10_percent_luminance": 246.64,
+          "symmetry_adjusted_pixels": 3,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1086,
+            55,
+            1629,
+            649
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            54,
+            0,
+            18,
+            18
+          ],
+          "bbox_cell": [
+            3,
+            2,
+            15,
+            16
+          ],
+          "opaque_area": 38,
+          "mean_luminance": 193.32,
+          "brightest_10_percent_luminance": 243.85,
+          "symmetry_adjusted_pixels": 6,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1629,
+            55,
+            2172,
+            649
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "size_1x": [
+        72,
+        18
+      ],
+      "size_16x": [
+        1152,
+        288
+      ],
+      "symmetry": "x",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#D8FBFF",
+        "#8AE8FF",
+        "#56C8FE"
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "bd510160405f630a18f6ee217b0973b2348569c9bd2039dfdac8bd485cb7befe",
+      "suggested_pivot_1x": [
+        9.0,
+        9.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_w_hit.png",
+        "binding": "view_effects `league_lillia_w_hit`（跟随；左右对称）",
+        "size": "16"
+      },
+      "distinct_frame_count": 4
+    },
+    "w_sweet": {
+      "file": "lillia_fx_w_sweet.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            24,
+            24
+          ],
+          "bbox_cell": [
+            4,
+            8,
+            20,
+            18
+          ],
+          "opaque_area": 90,
+          "mean_luminance": 229.16,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 40,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            145,
+            387,
+            624
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            24,
+            0,
+            24,
+            24
+          ],
+          "bbox_cell": [
+            0,
+            3,
+            24,
+            21
+          ],
+          "opaque_area": 288,
+          "mean_luminance": 196.71,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 111,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            387,
+            145,
+            760,
+            624
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            48,
+            0,
+            24,
+            24
+          ],
+          "bbox_cell": [
+            0,
+            0,
+            24,
+            24
+          ],
+          "opaque_area": 304,
+          "mean_luminance": 181.01,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 22,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            760,
+            145,
+            1216,
+            624
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            72,
+            0,
+            24,
+            24
+          ],
+          "bbox_cell": [
+            0,
+            2,
+            24,
+            22
+          ],
+          "opaque_area": 180,
+          "mean_luminance": 177.25,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 19,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1216,
+            145,
+            1627,
+            624
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            96,
+            0,
+            24,
+            24
+          ],
+          "bbox_cell": [
+            2,
+            3,
+            22,
+            21
+          ],
+          "opaque_area": 102,
+          "mean_luminance": 177.57,
+          "brightest_10_percent_luminance": 245.58,
+          "symmetry_adjusted_pixels": 44,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1627,
+            145,
+            1983,
+            624
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 5,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "size_1x": [
+        120,
+        24
+      ],
+      "size_16x": [
+        1920,
+        384
+      ],
+      "symmetry": "x",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FBD70B",
+        "#E8A010",
+        "#FFE0F0",
+        "#FF9AD0",
+        "#F04AA8",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8"
+      ],
+      "source_size": [
+        1983,
+        793
+      ],
+      "raw_sha256": "d17c0affc4d4ae5a741bf631c7403c09a5b55858eb5e427e41e51632bfd9ae42",
+      "suggested_pivot_1x": [
+        12.0,
+        12.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_w_sweet.png",
+        "binding": "view_effects `league_lillia_w_sweet`（跟随；左右对称）",
+        "size": "22"
+      },
+      "distinct_frame_count": 5
+    },
+    "r_cast": {
+      "file": "lillia_fx_r_cast.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            46,
+            54
+          ],
+          "bbox_cell": [
+            2,
+            31,
+            44,
+            54
+          ],
+          "opaque_area": 220,
+          "mean_luminance": 152.54,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 354,
+          "central_slot_cleared_pixels": 160,
+          "source_rect": [
+            0,
+            49,
+            366,
+            689
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            46,
+            0,
+            46,
+            54
+          ],
+          "bbox_cell": [
+            2,
+            17,
+            44,
+            54
+          ],
+          "opaque_area": 380,
+          "mean_luminance": 163.37,
+          "brightest_10_percent_luminance": 251.56,
+          "symmetry_adjusted_pixels": 504,
+          "central_slot_cleared_pixels": 194,
+          "source_rect": [
+            366,
+            49,
+            731,
+            689
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            92,
+            0,
+            46,
+            54
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            45,
+            54
+          ],
+          "opaque_area": 740,
+          "mean_luminance": 184.83,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 963,
+          "central_slot_cleared_pixels": 390,
+          "source_rect": [
+            731,
+            49,
+            1097,
+            689
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            138,
+            0,
+            46,
+            54
+          ],
+          "bbox_cell": [
+            1,
+            6,
+            45,
+            54
+          ],
+          "opaque_area": 544,
+          "mean_luminance": 177.94,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 717,
+          "central_slot_cleared_pixels": 296,
+          "source_rect": [
+            1097,
+            49,
+            1463,
+            689
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            184,
+            0,
+            46,
+            54
+          ],
+          "bbox_cell": [
+            2,
+            14,
+            44,
+            54
+          ],
+          "opaque_area": 382,
+          "mean_luminance": 166.43,
+          "brightest_10_percent_luminance": 248.13,
+          "symmetry_adjusted_pixels": 523,
+          "central_slot_cleared_pixels": 222,
+          "source_rect": [
+            1463,
+            49,
+            1828,
+            689
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            230,
+            0,
+            46,
+            54
+          ],
+          "bbox_cell": [
+            3,
+            22,
+            43,
+            54
+          ],
+          "opaque_area": 190,
+          "mean_luminance": 158.2,
+          "brightest_10_percent_luminance": 253.85,
+          "symmetry_adjusted_pixels": 347,
+          "central_slot_cleared_pixels": 194,
+          "source_rect": [
+            1828,
+            49,
+            2194,
+            689
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 6,
+      "cell_1x": [
+        46,
+        54
+      ],
+      "size_1x": [
+        276,
+        54
+      ],
+      "size_16x": [
+        4416,
+        864
+      ],
+      "symmetry": "x",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#D8FBFF",
+        "#8AE8FF",
+        "#56C8FE",
+        "#FFE0F0",
+        "#FF9AD0",
+        "#F04AA8"
+      ],
+      "source_size": [
+        2194,
+        717
+      ],
+      "raw_sha256": "76dda0eec763a42325ec27b7673cc9d1d22fbec574a2d1e67387a369d085afb2",
+      "suggested_pivot_1x": [
+        23.0,
+        54
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_r_cast.png",
+        "binding": "view_effects `league_lillia_r_cast`（施法后播放、不跟随，画在人物上面；左右对称）",
+        "size": "44 × 52"
+      },
+      "distinct_frame_count": 6
+    },
+    "drowsy": {
+      "file": "lillia_fx_drowsy.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            20,
+            12
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            19,
+            10
+          ],
+          "opaque_area": 80,
+          "mean_luminance": 193.45,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 8,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            127,
+            496,
+            554
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            20,
+            0,
+            20,
+            12
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            19,
+            11
+          ],
+          "opaque_area": 78,
+          "mean_luminance": 186.07,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 6,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            496,
+            127,
+            992,
+            554
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            40,
+            0,
+            20,
+            12
+          ],
+          "bbox_cell": [
+            1,
+            2,
+            19,
+            11
+          ],
+          "opaque_area": 68,
+          "mean_luminance": 184.47,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 5,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            992,
+            127,
+            1487,
+            554
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            60,
+            0,
+            20,
+            12
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            19,
+            10
+          ],
+          "opaque_area": 80,
+          "mean_luminance": 195.33,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 8,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1487,
+            127,
+            1983,
+            554
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        20,
+        12
+      ],
+      "size_1x": [
+        80,
+        12
+      ],
+      "size_16x": [
+        1280,
+        192
+      ],
+      "symmetry": "x",
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8"
+      ],
+      "source_size": [
+        1983,
+        793
+      ],
+      "raw_sha256": "a8763797f5cfc4e57c9ccd003d6b7dcd26eb9e25e6dea791d7172066a7e79659",
+      "suggested_pivot_1x": [
+        10.0,
+        6.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_drowsy.png",
+        "binding": "view_buffs `league_lillia_drowsy`（跟随，画在人物上面；左右对称）",
+        "size": "18 × 10"
+      },
+      "distinct_frame_count": 4
+    },
+    "sleep": {
+      "file": "lillia_fx_sleep.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            20,
+            16
+          ],
+          "bbox_cell": [
+            2,
+            2,
+            18,
+            14
+          ],
+          "opaque_area": 120,
+          "mean_luminance": 177.88,
+          "brightest_10_percent_luminance": 244.12,
+          "symmetry_adjusted_pixels": 1,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            196,
+            496,
+            585
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            20,
+            0,
+            20,
+            16
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            19,
+            15
+          ],
+          "opaque_area": 178,
+          "mean_luminance": 188.05,
+          "brightest_10_percent_luminance": 246.04,
+          "symmetry_adjusted_pixels": 1,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            496,
+            196,
+            992,
+            585
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            40,
+            0,
+            20,
+            16
+          ],
+          "bbox_cell": [
+            2,
+            2,
+            18,
+            14
+          ],
+          "opaque_area": 120,
+          "mean_luminance": 177.51,
+          "brightest_10_percent_luminance": 240.49,
+          "symmetry_adjusted_pixels": 1,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            992,
+            196,
+            1487,
+            585
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            60,
+            0,
+            20,
+            16
+          ],
+          "bbox_cell": [
+            1,
+            3,
+            19,
+            14
+          ],
+          "opaque_area": 122,
+          "mean_luminance": 183.01,
+          "brightest_10_percent_luminance": 244.12,
+          "symmetry_adjusted_pixels": 1,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1487,
+            196,
+            1983,
+            585
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        20,
+        16
+      ],
+      "size_1x": [
+        80,
+        16
+      ],
+      "size_16x": [
+        1280,
+        256
+      ],
+      "symmetry": "x",
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#FFF6C0",
+        "#FBD70B",
+        "#E8A010",
+        "#D8FBFF",
+        "#8AE8FF",
+        "#56C8FE"
+      ],
+      "source_size": [
+        1983,
+        793
+      ],
+      "raw_sha256": "feb6b1ad3872351aa33d3c692e84b3b3daea5f199188fc0e1530a36ebcc4b0d1",
+      "suggested_pivot_1x": [
+        10.0,
+        8.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_sleep.png",
+        "binding": "view_buffs `league_lillia_sleep`（跟随，画在人物上面；左右对称）",
+        "size": "18 × 14"
+      },
+      "distinct_frame_count": 4
+    },
+    "wake": {
+      "file": "lillia_fx_wake.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            20,
+            20
+          ],
+          "bbox_cell": [
+            2,
+            3,
+            18,
+            17
+          ],
+          "opaque_area": 128,
+          "mean_luminance": 191.97,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 29,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            170,
+            384,
+            627
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            20,
+            0,
+            20,
+            20
+          ],
+          "bbox_cell": [
+            0,
+            1,
+            20,
+            19
+          ],
+          "opaque_area": 152,
+          "mean_luminance": 202.85,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 17,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            384,
+            170,
+            802,
+            627
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            40,
+            0,
+            20,
+            20
+          ],
+          "bbox_cell": [
+            1,
+            1,
+            19,
+            18
+          ],
+          "opaque_area": 124,
+          "mean_luminance": 188.61,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 34,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            802,
+            170,
+            1190,
+            627
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            60,
+            0,
+            20,
+            20
+          ],
+          "bbox_cell": [
+            1,
+            4,
+            19,
+            18
+          ],
+          "opaque_area": 62,
+          "mean_luminance": 195.72,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 14,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1190,
+            170,
+            1586,
+            627
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            80,
+            0,
+            20,
+            20
+          ],
+          "bbox_cell": [
+            2,
+            4,
+            18,
+            17
+          ],
+          "opaque_area": 28,
+          "mean_luminance": 185.01,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 8,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1586,
+            170,
+            1983,
+            627
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 5,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "size_1x": [
+        100,
+        20
+      ],
+      "size_16x": [
+        1600,
+        320
+      ],
+      "symmetry": "x",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#D8FBFF",
+        "#8AE8FF",
+        "#56C8FE"
+      ],
+      "source_size": [
+        1983,
+        793
+      ],
+      "raw_sha256": "422365b969885ab4d5f769bcb9cc3861067a773eb44840c20a472e298891c58a",
+      "suggested_pivot_1x": [
+        10.0,
+        10.0
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_wake.png",
+        "binding": "view_effects `league_lillia_wake`（跟随；左右对称）",
+        "size": "18"
+      },
+      "distinct_frame_count": 5
+    },
+    "dust": {
+      "file": "lillia_fx_dust.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            24,
+            32
+          ],
+          "bbox_cell": [
+            2,
+            1,
+            22,
+            30
+          ],
+          "opaque_area": 76,
+          "mean_luminance": 150.19,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 67,
+          "central_slot_cleared_pixels": 66,
+          "source_rect": [
+            0,
+            9,
+            543,
+            694
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            24,
+            0,
+            24,
+            32
+          ],
+          "bbox_cell": [
+            2,
+            2,
+            22,
+            30
+          ],
+          "opaque_area": 64,
+          "mean_luminance": 154.01,
+          "brightest_10_percent_luminance": 230.0,
+          "symmetry_adjusted_pixels": 58,
+          "central_slot_cleared_pixels": 60,
+          "source_rect": [
+            543,
+            9,
+            1086,
+            694
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            48,
+            0,
+            24,
+            32
+          ],
+          "bbox_cell": [
+            2,
+            2,
+            22,
+            30
+          ],
+          "opaque_area": 88,
+          "mean_luminance": 139.55,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 71,
+          "central_slot_cleared_pixels": 62,
+          "source_rect": [
+            1086,
+            9,
+            1629,
+            694
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            72,
+            0,
+            24,
+            32
+          ],
+          "bbox_cell": [
+            2,
+            1,
+            22,
+            30
+          ],
+          "opaque_area": 84,
+          "mean_luminance": 149.65,
+          "brightest_10_percent_luminance": 236.25,
+          "symmetry_adjusted_pixels": 61,
+          "central_slot_cleared_pixels": 56,
+          "source_rect": [
+            1629,
+            9,
+            2172,
+            694
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        24,
+        32
+      ],
+      "size_1x": [
+        96,
+        32
+      ],
+      "size_16x": [
+        1536,
+        512
+      ],
+      "symmetry": "x",
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#FFE0F0",
+        "#FF9AD0",
+        "#F04AA8"
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "43058113af4c79735f3569373bdcf817ad55c7f31870fd124d88e898a694e47f",
+      "suggested_pivot_1x": [
+        12.0,
+        32
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_dust.png",
+        "binding": "view_buffs `league_lillia_dust`（附加包里的梦尘 buff；跟随；左右对称）",
+        "size": "22 × 30"
+      },
+      "distinct_frame_count": 4
+    },
+    "prance": {
+      "file": "lillia_fx_prance.png",
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            28,
+            10
+          ],
+          "bbox_cell": [
+            1,
+            4,
+            27,
+            10
+          ],
+          "opaque_area": 68,
+          "mean_luminance": 199.93,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 93,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            0,
+            246,
+            524,
+            548
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            28,
+            0,
+            28,
+            10
+          ],
+          "bbox_cell": [
+            1,
+            3,
+            27,
+            10
+          ],
+          "opaque_area": 62,
+          "mean_luminance": 196.37,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 94,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            524,
+            246,
+            1049,
+            548
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            56,
+            0,
+            28,
+            10
+          ],
+          "bbox_cell": [
+            1,
+            2,
+            27,
+            10
+          ],
+          "opaque_area": 62,
+          "mean_luminance": 195.7,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 101,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1049,
+            246,
+            1574,
+            548
+          ],
+          "normalized_shape_envelope": null
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            84,
+            0,
+            28,
+            10
+          ],
+          "bbox_cell": [
+            1,
+            3,
+            27,
+            10
+          ],
+          "opaque_area": 66,
+          "mean_luminance": 205.98,
+          "brightest_10_percent_luminance": 255.0,
+          "symmetry_adjusted_pixels": 92,
+          "central_slot_cleared_pixels": 0,
+          "source_rect": [
+            1574,
+            246,
+            2098,
+            548
+          ],
+          "normalized_shape_envelope": null
+        }
+      ],
+      "frame_count": 4,
+      "cell_1x": [
+        28,
+        10
+      ],
+      "size_1x": [
+        112,
+        10
+      ],
+      "size_16x": [
+        1792,
+        160
+      ],
+      "symmetry": "x",
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#FFE0F0",
+        "#FF9AD0",
+        "#F04AA8",
+        "#E6E8FF",
+        "#A8B0FF",
+        "#6A6AE8",
+        "#E8FFD0",
+        "#B1DC43",
+        "#3E8A2A"
+      ],
+      "source_size": [
+        2098,
+        749
+      ],
+      "raw_sha256": "ea1d20312c2b73cacc9fd75bd7aa2fdfd194e5fe6018d35199c7a1bcb226ffff",
+      "suggested_pivot_1x": [
+        14.0,
+        10
+      ],
+      "binding_reference": {
+        "file": "lillia_fx_prance.png",
+        "binding": "view_buffs `league_lillia_p1`–`p4`（同一张，画在脚下；左右对称）",
+        "size": "26 × 8"
+      },
+      "distinct_frame_count": 4
+    }
+  }
+}

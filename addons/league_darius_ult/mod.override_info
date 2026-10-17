@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_darius": {
+    "remapping": "asset/league_darius_ult/override/league_darius",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_darius_ult/text/champion",
+    "type": "merge"
+  }
+}

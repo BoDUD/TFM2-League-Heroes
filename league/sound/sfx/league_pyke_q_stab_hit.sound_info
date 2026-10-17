@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_pyke_sfx_q_stab_hit",
+      "volume": 0.45
+    }
+  ]
+}

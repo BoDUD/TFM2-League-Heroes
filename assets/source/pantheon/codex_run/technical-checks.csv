@@ -1,0 +1,9 @@
+﻿file,technical_pass,pixel_mismatches,partial_alpha_pixels,pixels_below_ground,palette_violations,used_colors
+pantheon_run_1.png,True,0,0,0,0,35
+pantheon_run_2.png,True,0,0,0,0,33
+pantheon_run_3.png,True,0,0,0,0,33
+pantheon_run_4.png,True,0,0,0,0,33
+pantheon_run_5.png,True,0,0,0,0,33
+pantheon_run_6.png,True,0,0,0,0,32
+pantheon_run_7.png,True,0,0,0,0,30
+pantheon_run_8.png,True,0,0,0,0,31

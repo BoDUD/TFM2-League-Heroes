@@ -1,0 +1,230 @@
+{
+  "passed": true,
+  "sheets": 3,
+  "frames": 18,
+  "checks": {
+    "a_bolt": {
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "exact_8x": true,
+      "frames": [
+        {
+          "frame": 1,
+          "pixels": 41,
+          "chest_soulfire": [
+            2,
+            3
+          ],
+          "trail_length": 3
+        },
+        {
+          "frame": 2,
+          "pixels": 33,
+          "chest_soulfire": [
+            2,
+            3
+          ],
+          "trail_length": 3
+        },
+        {
+          "frame": 3,
+          "pixels": 33,
+          "chest_soulfire": [
+            2,
+            3
+          ],
+          "trail_length": 3
+        },
+        {
+          "frame": 4,
+          "pixels": 37,
+          "chest_soulfire": [
+            2,
+            3
+          ],
+          "trail_length": 3
+        }
+      ]
+    },
+    "e_hit": {
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "exact_8x": true,
+      "frames": [
+        {
+          "frame": 1,
+          "pixels": 56,
+          "ground_ring": [
+            16,
+            4
+          ],
+          "connected": true
+        },
+        {
+          "frame": 2,
+          "pixels": 94
+        },
+        {
+          "frame": 3,
+          "pixels": 104,
+          "four_claw_bboxes": [
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              7
+            ]
+          ]
+        },
+        {
+          "frame": 4,
+          "pixels": 110,
+          "four_claw_bboxes": [
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              7
+            ]
+          ]
+        },
+        {
+          "frame": 5,
+          "pixels": 110,
+          "four_claw_bboxes": [
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              7
+            ]
+          ]
+        },
+        {
+          "frame": 6,
+          "pixels": 110,
+          "four_claw_bboxes": [
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              7
+            ]
+          ]
+        }
+      ]
+    },
+    "w_eye": {
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "exact_8x": true,
+      "frames": [
+        {
+          "frame": 1,
+          "pixels": 40
+        },
+        {
+          "frame": 2,
+          "pixels": 164
+        },
+        {
+          "frame": 3,
+          "pixels": 776,
+          "eye_core_placement": [
+            56,
+            16
+          ],
+          "with_outer_ring": [
+            60,
+            20
+          ]
+        },
+        {
+          "frame": 4,
+          "pixels": 840,
+          "eye_core_placement": [
+            56,
+            16
+          ],
+          "with_outer_ring": [
+            60,
+            20
+          ]
+        },
+        {
+          "frame": 5,
+          "pixels": 760,
+          "eye_core_placement": [
+            56,
+            16
+          ],
+          "with_outer_ring": [
+            60,
+            20
+          ]
+        },
+        {
+          "frame": 6,
+          "pixels": 858,
+          "eye_core_placement": [
+            56,
+            16
+          ],
+          "with_outer_ring": [
+            60,
+            20
+          ]
+        },
+        {
+          "frame": 7,
+          "pixels": 82
+        },
+        {
+          "frame": 8,
+          "pixels": 550,
+          "explosion_width": 50
+        }
+      ]
+    }
+  }
+}

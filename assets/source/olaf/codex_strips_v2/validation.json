@@ -1,0 +1,259 @@
+{
+  "format_pass": true,
+  "animations": {
+    "run": {
+      "dimensions_px": [
+        3584,
+        1536
+      ],
+      "grid8": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_floor_empty": true,
+      "frame_bbox_sizes": [
+        [
+          52,
+          41
+        ],
+        [
+          50,
+          39
+        ],
+        [
+          47,
+          42
+        ],
+        [
+          56,
+          41
+        ],
+        [
+          59,
+          47
+        ],
+        [
+          58,
+          42
+        ],
+        [
+          61,
+          38
+        ],
+        [
+          55,
+          46
+        ]
+      ]
+    },
+    "attack": {
+      "dimensions_px": [
+        2688,
+        1536
+      ],
+      "grid8": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_floor_empty": true,
+      "frame_bbox_sizes": [
+        [
+          56,
+          39
+        ],
+        [
+          45,
+          65
+        ],
+        [
+          46,
+          49
+        ],
+        [
+          37,
+          38
+        ],
+        [
+          46,
+          45
+        ],
+        [
+          40,
+          35
+        ]
+      ]
+    },
+    "skill": {
+      "dimensions_px": [
+        2688,
+        1536
+      ],
+      "grid8": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_floor_empty": true,
+      "frame_bbox_sizes": [
+        [
+          47,
+          41
+        ],
+        [
+          41,
+          66
+        ],
+        [
+          47,
+          45
+        ],
+        [
+          52,
+          37
+        ],
+        [
+          52,
+          34
+        ],
+        [
+          42,
+          42
+        ]
+      ]
+    },
+    "skill2": {
+      "dimensions_px": [
+        2688,
+        1536
+      ],
+      "grid8": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_floor_empty": true,
+      "frame_bbox_sizes": [
+        [
+          52,
+          35
+        ],
+        [
+          44,
+          66
+        ],
+        [
+          44,
+          57
+        ],
+        [
+          39,
+          64
+        ],
+        [
+          58,
+          37
+        ],
+        [
+          51,
+          41
+        ]
+      ]
+    },
+    "ult": {
+      "dimensions_px": [
+        2688,
+        1536
+      ],
+      "grid8": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_floor_empty": true,
+      "frame_bbox_sizes": [
+        [
+          51,
+          42
+        ],
+        [
+          70,
+          55
+        ],
+        [
+          48,
+          62
+        ],
+        [
+          49,
+          64
+        ],
+        [
+          53,
+          55
+        ],
+        [
+          52,
+          43
+        ]
+      ]
+    },
+    "hit": {
+      "dimensions_px": [
+        1792,
+        768
+      ],
+      "grid8": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_floor_empty": true,
+      "frame_bbox_sizes": [
+        [
+          66,
+          50
+        ],
+        [
+          59,
+          45
+        ]
+      ]
+    },
+    "dead": {
+      "dimensions_px": [
+        3584,
+        1536
+      ],
+      "grid8": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_floor_empty": true,
+      "frame_bbox_sizes": [
+        [
+          47,
+          42
+        ],
+        [
+          92,
+          55
+        ],
+        [
+          60,
+          58
+        ],
+        [
+          56,
+          41
+        ],
+        [
+          60,
+          63
+        ],
+        [
+          74,
+          41
+        ],
+        [
+          81,
+          33
+        ],
+        [
+          88,
+          28
+        ]
+      ]
+    }
+  },
+  "art_approved": false,
+  "reason": "Part dimensions, face consistency and exact reference poses are not fully matched."
+}

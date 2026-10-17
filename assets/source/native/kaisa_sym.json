@@ -1,0 +1,10 @@
+{
+ "league_kaisa_e_aura": {
+  "anim": "asset/league/effects/league_kaisa_fx",
+  "tag": "e_aura"
+ },
+ "league_kaisa_e_invis": {
+  "anim": "asset/league/effects/league_kaisa_fx",
+  "tag": "e_invis"
+ }
+}

@@ -1,0 +1,6 @@
+{
+  "fx": "league_briar_fx",
+  "items": [
+    {"tag": "snack_heal", "into": "attack_fx1", "from": "attack", "slice_ms": 150, "length_ms": 267, "at_ms": 0}
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "run": [
+    {"head_origin": [35, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [69.689, 73.779], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [37, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [71.319, 72.261], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [35, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.0, 72.304], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [33, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.059, 73.806], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [33, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.98, 72.57], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [35, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [67.928, 71.69], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [33, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.261, 72.565], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [32, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [66.166, 74.783], "direction": [0.932568, 0.360994]}}
+  ],
+  "attack": [
+    {"head_origin": [34, 43], "head_rotation_clockwise": 0, "sword": {"hilt": [60, 59], "broken_end": [63.5, 42.5], "direction": [0.207504208, -0.978234125], "broken_edge_pixels": [[60, 45], [61, 44], [62, 43], [63, 44], [64, 42], [65, 41], [66, 40], [67, 41]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [32, 44], "head_rotation_clockwise": 0, "sword": {"hilt": [58, 60], "broken_end": [57.0, 43.285714], "direction": [-0.059722267, -0.998215032], "broken_edge_pixels": [[54, 46], [55, 45], [56, 44], [57, 43], [58, 42], [59, 41], [60, 42]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [36, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [69.89, 77.324], "direction": [0.882075, 0.471108]}},
+    {"head_origin": [36, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [73.55, 76.637], "direction": [0.953583, 0.301131]}},
+    {"head_origin": [36, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [73.628, 74.493], "direction": [0.902304, 0.431101]}},
+    {"head_origin": [32, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [66.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "skill": [
+    {"head_origin": [32, 51], "head_rotation_clockwise": 0, "sword": {"broken_end": [66.478, 78.152], "direction": [0.940376, 0.340136]}},
+    {"head_origin": [34, 43], "head_rotation_clockwise": 0, "sword": {"hilt": [59, 58], "broken_end": [61.5, 41.5], "direction": [0.149805379, -0.988715504], "broken_edge_pixels": [[58, 44], [59, 43], [60, 43], [61, 42], [62, 41], [63, 40], [64, 39], [65, 40]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [33, 47], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.023, 61.083], "direction": [0.998752, -0.049938]}},
+    {"head_origin": [36, 51], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.289, 77.601], "direction": [0.925705, 0.378245]}},
+    {"head_origin": [36, 47], "head_rotation_clockwise": 0, "sword": {"hilt": [60, 67], "broken_end": [78.888889, 69.333333], "direction": [0.992456466, 0.122597563], "broken_edge_pixels": [[78, 65], [78, 66], [78, 67], [80, 69], [80, 70], [80, 71], [79, 71], [79, 72], [78, 73]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [38, 48], "head_rotation_clockwise": 0, "sword": {"hilt": [62, 65], "broken_end": [81.3, 65.5], "direction": [0.999664589, 0.025898046], "broken_edge_pixels": [[80, 61], [81, 62], [81, 63], [81, 64], [81, 65], [82, 66], [83, 67], [82, 68], [81, 69], [81, 70]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [33, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [67.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "q2": [
+    {"head_origin": [34, 55], "head_rotation_clockwise": 0, "sword": {"broken_end": [71.652, 78.37], "direction": [0.911734, 0.410781]}},
+    {"head_origin": [32, 41], "head_rotation_clockwise": 0, "sword": {"hilt": [58, 56], "broken_end": [60.5, 39.75], "direction": [0.152057184, -0.988371698], "broken_edge_pixels": [[57, 43], [58, 42], [59, 41], [60, 40], [61, 39], [62, 38], [63, 37], [64, 38]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [31, 46], "head_rotation_clockwise": 0, "sword": {"hilt": [57, 62], "broken_end": [61.5, 45.5], "direction": [0.263117406, -0.964763821], "broken_edge_pixels": [[58, 48], [59, 47], [60, 46], [61, 47], [62, 45], [63, 44], [64, 43], [65, 44]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [29, 59], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.652, 78.0], "direction": [0.929164, 0.369667]}},
+    {"head_origin": [32, 51], "head_rotation_clockwise": 0, "sword": {"hilt": [55, 70], "broken_end": [73.888889, 72.333333], "direction": [0.992456466, 0.122597563], "broken_edge_pixels": [[73, 68], [73, 69], [73, 70], [75, 72], [75, 73], [75, 74], [74, 74], [74, 75], [73, 76]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [32, 51], "head_rotation_clockwise": 0, "sword": {"broken_end": [71.652, 77.0], "direction": [0.929164, 0.369667]}},
+    {"head_origin": [33, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [67.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "q3": [
+    {"head_origin": [33, 54], "head_rotation_clockwise": 0, "sword": {"broken_end": [67.5, 78.152], "direction": [0.947681, 0.319219]}},
+    {"head_origin": [36, 37], "head_rotation_clockwise": 0, "sword": {"hilt": [60, 52], "broken_end": [70.111111, 65.555556], "direction": [0.597895438, 0.801574104], "broken_edge_pixels": [[74, 64], [73, 64], [72, 65], [70, 64], [70, 65], [69, 66], [69, 68], [68, 68], [66, 66]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [36, 33], "head_rotation_clockwise": 0, "sword": {"hilt": [60, 48], "broken_end": [71.444444, 61.222222], "direction": [0.654446608, 0.756108218], "broken_edge_pixels": [[75, 59], [74, 59], [73, 60], [72, 60], [71, 61], [70, 62], [70, 63], [69, 63], [69, 64]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [32, 36], "head_rotation_clockwise": 0, "sword": {"hilt": [56, 52], "broken_end": [56.0, 71.545455], "direction": [0.0, 1.0], "broken_edge_pixels": [[61, 70], [60, 71], [59, 71], [58, 71], [57, 72], [56, 72], [55, 72], [54, 72], [53, 72], [52, 72], [51, 72]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [38, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [61.428, 77.986], "direction": [0.019996, 0.9998]}},
+    {"head_origin": [36, 49], "head_rotation_clockwise": 0, "sword": {"broken_end": [58.975, 77.954], "direction": [0.019996, 0.9998]}},
+    {"head_origin": [28, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [62.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "skill2": [
+    {"head_origin": [36, 49], "head_rotation_clockwise": 0, "sword": {"hilt": [55, 71], "broken_end": [68.875, 76.5], "direction": [0.929627375, 0.368500941], "broken_edge_pixels": [[68, 73], [69, 74], [69, 75], [69, 76], [69, 77], [69, 78], [69, 79], [69, 80]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [30, 48], "head_rotation_clockwise": 0, "sword": {"hilt": [26, 63], "broken_end": [8.0, 66.142857], "direction": [-0.985096771, 0.172001023], "broken_edge_pixels": [[8, 69], [8, 68], [7, 68], [8, 66], [8, 65], [8, 64], [9, 63]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [33, 49], "head_rotation_clockwise": 0, "sword": {"hilt": [32, 64], "broken_end": [15.111111, 68.0], "direction": [-0.973080287, 0.230466384], "broken_edge_pixels": [[15, 72], [14, 71], [14, 70], [14, 69], [16, 68], [15, 67], [15, 66], [16, 65], [17, 64]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [35, 47], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.522, 78.522], "direction": [0.940376, 0.340136]}},
+    {"head_origin": [35, 44], "head_rotation_clockwise": 0, "sword": {"hilt": [61, 60], "broken_end": [61.0, 43.285714], "direction": [0.0, -1.0], "broken_edge_pixels": [[58, 46], [59, 45], [60, 44], [61, 43], [62, 42], [63, 41], [64, 42]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [38, 44], "head_rotation_clockwise": 0, "sword": {"hilt": [64, 60], "broken_end": [64.0, 43.285714], "direction": [0.0, -1.0], "broken_edge_pixels": [[61, 46], [62, 45], [63, 44], [64, 43], [65, 42], [66, 41], [67, 42]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [37, 44], "head_rotation_clockwise": 0, "sword": {"hilt": [63, 60], "broken_end": [62.0, 43.285714], "direction": [-0.059722267, -0.998215032], "broken_edge_pixels": [[59, 46], [60, 45], [61, 44], [62, 43], [63, 42], [64, 41], [65, 42]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [34, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "ult": [
+    {"head_origin": [32, 44], "head_rotation_clockwise": 0, "sword": {"hilt": [57, 60], "broken_end": [76.3, 60.5], "direction": [0.999664589, 0.025898046], "broken_edge_pixels": [[75, 56], [76, 57], [76, 58], [76, 59], [76, 60], [77, 61], [78, 62], [77, 63], [76, 64], [76, 65]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [31, 43], "head_rotation_clockwise": 0, "sword": {"hilt": [56, 59], "broken_end": [74.111111, 63.888889], "direction": [0.965443986, 0.260610647], "broken_edge_pixels": [[74, 60], [74, 61], [74, 62], [74, 63], [75, 64], [75, 65], [75, 66], [75, 67], [71, 67]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [31, 40], "head_rotation_clockwise": 0, "sword": {"hilt": [55, 56], "broken_end": [71.5, 64.2], "direction": [0.895510023, 0.445041345], "broken_edge_pixels": [[71, 59], [73, 61], [73, 62], [72, 63], [73, 65], [72, 65], [72, 66], [71, 67], [70, 67], [68, 67]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [31, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [66.314, 78.164], "direction": [0.920691, 0.390293]}},
+    {"head_origin": [30, 46], "head_rotation_clockwise": 0, "sword": {"broken_end": [74.898, 78.537], "direction": [0.984183, 0.177153]}},
+    {"head_origin": [34, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "r_slash": [
+    {"head_origin": [34, 44], "head_rotation_clockwise": 0, "sword": {"hilt": [59, 61], "broken_end": [78.3, 61.5], "direction": [0.999664589, 0.025898046], "broken_edge_pixels": [[77, 57], [78, 58], [78, 59], [78, 60], [78, 61], [79, 62], [80, 63], [79, 64], [78, 65], [78, 66]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [38, 44], "head_rotation_clockwise": 0, "sword": {"hilt": [40, 61], "broken_end": [30.333333, 46.444444], "direction": [-0.553231875, -0.833027306], "broken_edge_pixels": [[27, 48], [28, 48], [28, 47], [30, 48], [31, 47], [31, 46], [32, 45], [33, 45], [33, 44]], "measurement": "mean of delivered terminal contour pixels; unit vector from visible grip/hilt to that mean"}},
+    {"head_origin": [32, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [75.294, 64.683], "direction": [0.99955, 0.029987]}},
+    {"head_origin": [40, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [79.377, 72.102], "direction": [0.882075, 0.471108]}},
+    {"head_origin": [36, 41], "head_rotation_clockwise": 0, "sword": {"broken_end": [72.668, 77.944], "direction": [0.882075, 0.471108]}},
+    {"head_origin": [35, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [69.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "hit": [
+    {"head_origin": [33, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [79.657, 77.391], "direction": [0.920691, 0.390293]}},
+    {"head_origin": [35, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [69.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "dead": [
+    {"head_origin": [32, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.087, 79.087], "direction": [0.898384, 0.43921]}},
+    {"head_origin": [38, 46], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.102, 78.333], "direction": [0.547786, 0.836619]}},
+    {"head_origin": [35, 51], "head_rotation_clockwise": 0, "sword": {"broken_end": [63.68, 77.47], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [36, 57], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.348, 79.319], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [36, 60], "head_rotation_clockwise": 90, "sword": {"broken_end": [72.739, 77.609], "direction": [0.995037, -0.099504]}},
+    {"head_origin": [39, 60], "head_rotation_clockwise": 90, "sword": {"broken_end": [75.478, 77.609], "direction": [0.995037, -0.099504]}},
+    {"head_origin": [44, 60], "head_rotation_clockwise": 90, "sword": {"broken_end": [80.348, 77.609], "direction": [0.995037, -0.099504]}},
+    {"head_origin": [42, 60], "head_rotation_clockwise": 90, "sword": {"broken_end": [78.348, 77.609], "direction": [0.995037, -0.099504]}}
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_nautilus_wall": {
+        "skill": "【钩墙版】抛出铁锚，钩中第一个敌方英雄，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>，并把双方拉向彼此。锚先撞到墙时把自己拉到墙边，返还一半冷却。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_nautilus_wall": {
+        "skill": "【鉤牆版】拋出鐵錨，鉤中第一個敵方英雄，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>，並把雙方拉向彼此。錨先撞到牆時把自己拉到牆邊，返還一半冷卻。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_nautilus_wall": {
+        "skill": "[Wall build] Throws his anchor at the first enemy champion: <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, and the two are pulled toward each other. If the anchor strikes a wall first, he pulls himself to it and gets half the cooldown back."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_nautilus_wall": {
+        "skill": "[벽 갈고리] 닻을 던져 처음 맞은 적 챔피언에게 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>를 입히고 서로를 끌어당김. 닻이 먼저 벽에 박히면 벽으로 끌려가고 재사용 대기시간의 절반을 돌려받음."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_nautilus_wall": {
+        "skill": "【壁フック】錨を投げ、最初に当たった敵チャンピオンに<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、互いを引き寄せる。錨が先に壁に刺さると壁まで自分を引き寄せ、クールダウンの半分が戻る。"
+      }
+    }
+  }
+}

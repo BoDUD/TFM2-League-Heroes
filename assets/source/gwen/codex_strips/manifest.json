@@ -1,0 +1,3092 @@
+{
+  "coordinate_units": "1x logical pixels unless stated",
+  "cell": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "palette": [
+    "#0187FA",
+    "#020375",
+    "#025FF8",
+    "#03ADFB",
+    "#08021A",
+    "#0B0BAA",
+    "#1D1444",
+    "#28DDFC",
+    "#3C2A71",
+    "#4516EB",
+    "#653A94",
+    "#7F6BE0",
+    "#8FF2FE",
+    "#AA93F3",
+    "#CEC1FA",
+    "#E0506A",
+    "#E89620",
+    "#F39378",
+    "#F3F8FA",
+    "#F6A6A0",
+    "#F8B899",
+    "#FABE38",
+    "#FBE169",
+    "#FCE3CD",
+    "#FCF6CB"
+  ],
+  "source_design_sha256": "c35f2cf0eef7bf5d7953d49b836fe11369e8c0dc9964415a42b6574fc7f8a818",
+  "route": "approved-pixel-part rig, no body resizing or row deletion; generated action sheets retained as pose drafts",
+  "animations": {
+    "idle": {
+      "frames": [
+        {
+          "index": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            39,
+            38,
+            92,
+            82
+          ],
+          "head_rect": [
+            59,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              59,
+              38,
+              22,
+              14
+            ],
+            "hand": null,
+            "pixels_below_before_cleanup": 0
+          }
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            39,
+            38,
+            92,
+            82
+          ],
+          "head_rect": [
+            59,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              59,
+              38,
+              22,
+              14
+            ],
+            "hand": null,
+            "pixels_below_before_cleanup": 0
+          }
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            39,
+            38,
+            92,
+            82
+          ],
+          "head_rect": [
+            59,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              59,
+              38,
+              22,
+              14
+            ],
+            "hand": null,
+            "pixels_below_before_cleanup": 0
+          }
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            39,
+            38,
+            92,
+            82
+          ],
+          "head_rect": [
+            59,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              59,
+              38,
+              22,
+              14
+            ],
+            "hand": null,
+            "pixels_below_before_cleanup": 0
+          }
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            39,
+            38,
+            92,
+            82
+          ],
+          "head_rect": [
+            59,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              59,
+              38,
+              22,
+              14
+            ],
+            "hand": null,
+            "pixels_below_before_cleanup": 0
+          }
+        },
+        {
+          "index": 6,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            39,
+            38,
+            92,
+            82
+          ],
+          "head_rect": [
+            59,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              59,
+              38,
+              22,
+              14
+            ],
+            "hand": null,
+            "pixels_below_before_cleanup": 0
+          }
+        }
+      ],
+      "frame_count": 6,
+      "image_size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "impact_frame": null,
+      "impact_tick": null
+    },
+    "run": {
+      "frames": [
+        {
+          "index": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            45,
+            9,
+            75,
+            81
+          ],
+          "head_rect": [
+            52,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            57,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              52,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              57,
+              54
+            ],
+            "tip": [
+              47,
+              9
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": -98,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            47,
+            8,
+            77,
+            81
+          ],
+          "head_rect": [
+            54,
+            37,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            59,
+            53
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              54,
+              37,
+              22,
+              14
+            ],
+            "hand": [
+              59,
+              53
+            ],
+            "tip": [
+              49,
+              8
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": -1,
+            "shift_x": 0,
+            "weapon_angle": -98,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            47,
+            9,
+            77,
+            82
+          ],
+          "head_rect": [
+            54,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            59,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              54,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              59,
+              54
+            ],
+            "tip": [
+              49,
+              9
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": -98,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            48,
+            9,
+            78,
+            81
+          ],
+          "head_rect": [
+            55,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            60,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              55,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              60,
+              54
+            ],
+            "tip": [
+              50,
+              9
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": -98,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            45,
+            9,
+            75,
+            81
+          ],
+          "head_rect": [
+            52,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            57,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              52,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              57,
+              54
+            ],
+            "tip": [
+              47,
+              9
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": -98,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 6,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            45,
+            8,
+            75,
+            81
+          ],
+          "head_rect": [
+            52,
+            37,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            57,
+            53
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              52,
+              37,
+              22,
+              14
+            ],
+            "hand": [
+              57,
+              53
+            ],
+            "tip": [
+              47,
+              8
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": -1,
+            "shift_x": 0,
+            "weapon_angle": -98,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 7,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            45,
+            9,
+            75,
+            82
+          ],
+          "head_rect": [
+            52,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            57,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              52,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              57,
+              54
+            ],
+            "tip": [
+              47,
+              9
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": -98,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 8,
+          "cell_rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            45,
+            9,
+            75,
+            81
+          ],
+          "head_rect": [
+            52,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            57,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              52,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              57,
+              54
+            ],
+            "tip": [
+              47,
+              9
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": -98,
+            "open_angle": 0
+          }
+        }
+      ],
+      "frame_count": 8,
+      "image_size": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "impact_frame": null,
+      "impact_tick": null
+    },
+    "attack": {
+      "frames": [
+        {
+          "index": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            73,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            40,
+            38,
+            95,
+            82
+          ],
+          "head_rect": [
+            63,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            86,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              63,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              86,
+              61
+            ],
+            "tip": [
+              40,
+              61
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": -20,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            64,
+            38,
+            128,
+            82
+          ],
+          "head_rect": [
+            64,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            89,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              64,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              89,
+              54
+            ],
+            "tip": [
+              135,
+              55
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 158,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            59,
+            38,
+            128,
+            82
+          ],
+          "head_rect": [
+            59,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            84,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              59,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              84,
+              54
+            ],
+            "tip": [
+              130,
+              55
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": -1,
+            "weapon_angle": 158,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            58,
+            38,
+            128,
+            82
+          ],
+          "head_rect": [
+            58,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": [
+            129,
+            55
+          ],
+          "gripping_hand": [
+            83,
+            54
+          ],
+          "impact": true,
+          "rig": {
+            "head_rect": [
+              58,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              83,
+              54
+            ],
+            "tip": [
+              129,
+              55
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 2,
+            "weapon_angle": 158,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            59,
+            25,
+            106,
+            82
+          ],
+          "head_rect": [
+            59,
+            25,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            84,
+            41
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              59,
+              25,
+              22,
+              14
+            ],
+            "hand": [
+              84,
+              41
+            ],
+            "tip": [
+              104,
+              82
+            ],
+            "pixels_below_before_cleanup": 48,
+            "body_bob": 0,
+            "shift_x": 1,
+            "weapon_angle": 95,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 6,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            78,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            48,
+            38,
+            101,
+            82
+          ],
+          "head_rect": [
+            68,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            91,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              68,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              91,
+              61
+            ],
+            "tip": [
+              48,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        }
+      ],
+      "frame_count": 6,
+      "image_size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "impact_frame": 4,
+      "impact_tick": 11
+    },
+    "skill": {
+      "frames": [
+        {
+          "index": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            50,
+            38,
+            118,
+            82
+          ],
+          "head_rect": [
+            50,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            73,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              50,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              73,
+              61
+            ],
+            "tip": [
+              117,
+              73
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 145,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            38,
+            38,
+            108,
+            82
+          ],
+          "head_rect": [
+            38,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            63,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              38,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              63,
+              54
+            ],
+            "tip": [
+              107,
+              66
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 145,
+            "open_angle": 26
+          }
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            38,
+            38,
+            109,
+            82
+          ],
+          "head_rect": [
+            38,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            63,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              38,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              63,
+              54
+            ],
+            "tip": [
+              109,
+              55
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 158,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            39,
+            38,
+            109,
+            82
+          ],
+          "head_rect": [
+            39,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            64,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              39,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              64,
+              54
+            ],
+            "tip": [
+              108,
+              66
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 145,
+            "open_angle": 26
+          }
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            50,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            40,
+            38,
+            111,
+            82
+          ],
+          "head_rect": [
+            40,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            65,
+            54
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              40,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              65,
+              54
+            ],
+            "tip": [
+              111,
+              55
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 158,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 6,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            43,
+            40,
+            112,
+            82
+          ],
+          "head_rect": [
+            43,
+            40,
+            22,
+            14
+          ],
+          "scissor_tip": [
+            111,
+            71
+          ],
+          "gripping_hand": [
+            68,
+            56
+          ],
+          "impact": true,
+          "rig": {
+            "head_rect": [
+              43,
+              40,
+              22,
+              14
+            ],
+            "hand": [
+              68,
+              56
+            ],
+            "tip": [
+              111,
+              71
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 2,
+            "shift_x": 2,
+            "weapon_angle": 140,
+            "open_angle": 36
+          }
+        },
+        {
+          "index": 7,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            45,
+            40,
+            114,
+            82
+          ],
+          "head_rect": [
+            45,
+            40,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            70,
+            56
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              45,
+              40,
+              22,
+              14
+            ],
+            "hand": [
+              70,
+              56
+            ],
+            "tip": [
+              113,
+              71
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 2,
+            "shift_x": 2,
+            "weapon_angle": 140,
+            "open_angle": 36
+          }
+        },
+        {
+          "index": 8,
+          "cell_rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            27,
+            38,
+            80,
+            82
+          ],
+          "head_rect": [
+            47,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            70,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              47,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              70,
+              61
+            ],
+            "tip": [
+              27,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        }
+      ],
+      "frame_count": 8,
+      "image_size": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "impact_frame": 6,
+      "impact_tick": 17
+    },
+    "skill2": {
+      "frames": [
+        {
+          "index": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 40,
+          "bbox": [
+            37,
+            38,
+            90,
+            81
+          ],
+          "head_rect": [
+            57,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            80,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              57,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              80,
+              61
+            ],
+            "tip": [
+              37,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 40,
+          "bbox": [
+            37,
+            39,
+            92,
+            81
+          ],
+          "head_rect": [
+            60,
+            39,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            83,
+            62
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              60,
+              39,
+              22,
+              14
+            ],
+            "hand": [
+              83,
+              62
+            ],
+            "tip": [
+              37,
+              58
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 1,
+            "shift_x": 2,
+            "weapon_angle": -25,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 40,
+          "bbox": [
+            41,
+            38,
+            94,
+            82
+          ],
+          "head_rect": [
+            61,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            84,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              61,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              84,
+              61
+            ],
+            "tip": [
+              41,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 3,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            27,
+            38,
+            80,
+            82
+          ],
+          "head_rect": [
+            47,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            70,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              47,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              70,
+              61
+            ],
+            "tip": [
+              27,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            53,
+            24,
+            104,
+            82
+          ],
+          "head_rect": [
+            55,
+            37,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            62,
+            37
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              55,
+              37,
+              22,
+              14
+            ],
+            "hand": [
+              62,
+              37
+            ],
+            "tip": [
+              104,
+              56
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": -1,
+            "shift_x": 0,
+            "weapon_angle": 135,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 6,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            50,
+            23,
+            105,
+            82
+          ],
+          "head_rect": [
+            52,
+            37,
+            22,
+            14
+          ],
+          "scissor_tip": [
+            105,
+            38
+          ],
+          "gripping_hand": [
+            59,
+            37
+          ],
+          "impact": true,
+          "rig": {
+            "head_rect": [
+              52,
+              37,
+              22,
+              14
+            ],
+            "hand": [
+              59,
+              37
+            ],
+            "tip": [
+              105,
+              38
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": -1,
+            "shift_x": 0,
+            "weapon_angle": 158,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 7,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            54,
+            27,
+            95,
+            82
+          ],
+          "head_rect": [
+            56,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            63,
+            38
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              56,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              63,
+              38
+            ],
+            "tip": [
+              93,
+              73
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 110,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 8,
+          "cell_rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            71,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            41,
+            38,
+            94,
+            82
+          ],
+          "head_rect": [
+            61,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            84,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              61,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              84,
+              61
+            ],
+            "tip": [
+              41,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        }
+      ],
+      "frame_count": 8,
+      "image_size": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "impact_frame": 6,
+      "impact_tick": 16
+    },
+    "ult": {
+      "frames": [
+        {
+          "index": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 50,
+          "bbox": [
+            35,
+            38,
+            88,
+            82
+          ],
+          "head_rect": [
+            55,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            78,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              55,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              78,
+              61
+            ],
+            "tip": [
+              35,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            38,
+            38,
+            91,
+            82
+          ],
+          "head_rect": [
+            58,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            81,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              58,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              81,
+              61
+            ],
+            "tip": [
+              38,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            34,
+            38,
+            87,
+            82
+          ],
+          "head_rect": [
+            54,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            77,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              54,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              77,
+              61
+            ],
+            "tip": [
+              34,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            34,
+            38,
+            87,
+            82
+          ],
+          "head_rect": [
+            54,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": [
+            34,
+            77
+          ],
+          "gripping_hand": [
+            77,
+            61
+          ],
+          "impact": true,
+          "rig": {
+            "head_rect": [
+              54,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              77,
+              61
+            ],
+            "tip": [
+              34,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            34,
+            38,
+            87,
+            82
+          ],
+          "head_rect": [
+            54,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            77,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              54,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              77,
+              61
+            ],
+            "tip": [
+              34,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 6,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            38,
+            93,
+            82
+          ],
+          "head_rect": [
+            60,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            83,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              60,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              83,
+              61
+            ],
+            "tip": [
+              40,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        }
+      ],
+      "frame_count": 6,
+      "image_size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "impact_frame": 4,
+      "impact_tick": 10
+    },
+    "hit": {
+      "frames": [
+        {
+          "index": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            38,
+            93,
+            82
+          ],
+          "head_rect": [
+            60,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            83,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              60,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              83,
+              61
+            ],
+            "tip": [
+              40,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": -2,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            38,
+            93,
+            82
+          ],
+          "head_rect": [
+            60,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            83,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              60,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              83,
+              61
+            ],
+            "tip": [
+              40,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        }
+      ],
+      "frame_count": 2,
+      "image_size": [
+        2048,
+        768
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "impact_frame": null,
+      "impact_tick": null
+    },
+    "dead": {
+      "frames": [
+        {
+          "index": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            45,
+            38,
+            98,
+            82
+          ],
+          "head_rect": [
+            65,
+            38,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": [
+            88,
+            61
+          ],
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              65,
+              38,
+              22,
+              14
+            ],
+            "hand": [
+              88,
+              61
+            ],
+            "tip": [
+              45,
+              77
+            ],
+            "pixels_below_before_cleanup": 0,
+            "body_bob": 0,
+            "shift_x": -1,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 110,
+          "bbox": [
+            17,
+            27,
+            80,
+            82
+          ],
+          "head_rect": [
+            57,
+            27,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              57,
+              27,
+              22,
+              14
+            ],
+            "hand": null,
+            "tip": null,
+            "pixels_below_before_cleanup": 60,
+            "body_bob": 0,
+            "shift_x": -2,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "ms": 110,
+          "bbox": [
+            18,
+            27,
+            81,
+            82
+          ],
+          "head_rect": [
+            58,
+            27,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              58,
+              27,
+              22,
+              14
+            ],
+            "hand": null,
+            "tip": null,
+            "pixels_below_before_cleanup": 60,
+            "body_bob": 1,
+            "shift_x": -2,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 4,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            15,
+            28,
+            76,
+            82
+          ],
+          "head_rect": [
+            50,
+            28,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              50,
+              28,
+              22,
+              14
+            ],
+            "hand": null,
+            "tip": null,
+            "pixels_below_before_cleanup": 61,
+            "body_bob": 10,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 5,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 130,
+          "bbox": [
+            15,
+            29,
+            77,
+            82
+          ],
+          "head_rect": [
+            46,
+            29,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              46,
+              29,
+              22,
+              14
+            ],
+            "hand": null,
+            "tip": null,
+            "pixels_below_before_cleanup": 60,
+            "body_bob": 15,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 6,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            15,
+            33,
+            78,
+            82
+          ],
+          "head_rect": [
+            41,
+            33,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              41,
+              33,
+              22,
+              14
+            ],
+            "hand": null,
+            "tip": null,
+            "pixels_below_before_cleanup": 60,
+            "body_bob": 18,
+            "shift_x": 0,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 7,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            15,
+            42,
+            77,
+            82
+          ],
+          "head_rect": [
+            37,
+            42,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              37,
+              42,
+              22,
+              14
+            ],
+            "hand": null,
+            "tip": null,
+            "pixels_below_before_cleanup": 60,
+            "body_bob": 26,
+            "shift_x": -3,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        },
+        {
+          "index": 8,
+          "cell_rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 300,
+          "bbox": [
+            15,
+            42,
+            77,
+            82
+          ],
+          "head_rect": [
+            37,
+            42,
+            22,
+            14
+          ],
+          "scissor_tip": null,
+          "gripping_hand": null,
+          "impact": false,
+          "rig": {
+            "head_rect": [
+              37,
+              42,
+              22,
+              14
+            ],
+            "hand": null,
+            "tip": null,
+            "pixels_below_before_cleanup": 60,
+            "body_bob": 26,
+            "shift_x": -3,
+            "weapon_angle": 0,
+            "open_angle": 0
+          }
+        }
+      ],
+      "frame_count": 8,
+      "image_size": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "impact_frame": null,
+      "impact_tick": null
+    }
+  }
+}

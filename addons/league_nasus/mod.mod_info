@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.135.0"
+    }
+  ],
+  "description": "Test build of Nasus as in League (needs League of Legends Heroes): replaces the main pack's Nasus so his Siphoning Strike stacks are kept through death, Fury of the Sands halves only Q's cooldown (E keeps its own) and, while it lasts, he stands, walks and flinches with his whole big body (game 0.6.4). His ult's moment stays the main pack's. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-17",
+  "mod_id": "league_nasus",
+  "mod_type": "native",
+  "name": "League Heroes: Nasus's stacks kept, Q-only Fury, whole big body (test)",
+  "version": "0.1.0"
+}

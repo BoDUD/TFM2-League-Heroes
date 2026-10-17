@@ -1,0 +1,52 @@
+[
+  {
+    "variant": "A",
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "occupied_bounds_1x": [
+      47,
+      60,
+      81,
+      100
+    ],
+    "occupied_height": 40,
+    "occupied_width": 34,
+    "opaque_colors": 23,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "strict_8x_blocks": true
+  },
+  {
+    "variant": "B",
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "occupied_bounds_1x": [
+      47,
+      60,
+      81,
+      100
+    ],
+    "occupied_height": 40,
+    "occupied_width": 34,
+    "opaque_colors": 23,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "strict_8x_blocks": true
+  }
+]

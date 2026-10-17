@@ -1,0 +1,2289 @@
+{
+  "schema_version": 1,
+  "delivery": "Morgana VFX generated raw atlases",
+  "import_ready": false,
+  "total_assets": 11,
+  "total_frames": 69,
+  "frame_rect_format": "[x,y,width,height] in delivered PNG, zero-based; bbox xyxy uses exclusive right/bottom. Each sheet is one horizontal row. Some cuts deviate from ideal equal widths to use clear gaps. Shared vertical crop removes blank margins only through metadata; source PNG files are unchanged.",
+  "measurement": "bounds alpha>=8; safe vertical cuts selected around nominal grid using alpha>=128; low-alpha edge traces may remain. Do not assume target cell dimensions in the raw PNG.",
+  "timing": "Per-frame timings are unspecified in supplied prompts. duration_ms=null. Preview uses adjustable illustrative FPS. Effect durations and loop ranges are copied from specification.",
+  "assets": [
+    {
+      "file": "morgana_fx_bolt.png",
+      "tag": "bolt",
+      "label": "普攻暗影弹",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        2043,
+        770
+      ],
+      "target_size": [
+        1024,
+        128
+      ],
+      "target_cell": [
+        256,
+        128
+      ],
+      "rows": 1,
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            234,
+            511,
+            299
+          ],
+          "nominal_column": [
+            0,
+            511
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            39,
+            300,
+            489,
+            473
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            511,
+            234,
+            510,
+            299
+          ],
+          "nominal_column": [
+            511,
+            1022
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            533,
+            277,
+            1002,
+            497
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1021,
+            234,
+            511,
+            299
+          ],
+          "nominal_column": [
+            1022,
+            1532
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1040,
+            254,
+            1520,
+            513
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1532,
+            234,
+            511,
+            299
+          ],
+          "nominal_column": [
+            1532,
+            2043
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1557,
+            269,
+            2014,
+            497
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": [
+        1,
+        4
+      ],
+      "effect_duration_seconds_from_spec": null,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 26643,
+        "transparent_pixels": 1339012,
+        "semi_transparent_pixels": 231420,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "四帧均朝右，弹核与尾焰大小有变化；上下镜像对称未达逐像素一致，需在整理时镜像校正。",
+      "sha256": "216275496fd178916bc1fb4705290d8d99bba094cc0793874485042f12586564"
+    },
+    {
+      "file": "morgana_fx_hit.png",
+      "tag": "hit",
+      "label": "普攻命中",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        1983,
+        793
+      ],
+      "target_size": [
+        1280,
+        256
+      ],
+      "target_cell": [
+        256,
+        256
+      ],
+      "rows": 1,
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            165,
+            397,
+            465
+          ],
+          "nominal_column": [
+            0,
+            397
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            143,
+            363,
+            234,
+            452
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            397,
+            165,
+            371,
+            465
+          ],
+          "nominal_column": [
+            397,
+            793
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            421,
+            264,
+            708,
+            551
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            165,
+            422,
+            465
+          ],
+          "nominal_column": [
+            793,
+            1190
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            768,
+            181,
+            1187,
+            614
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1190,
+            165,
+            396,
+            465
+          ],
+          "nominal_column": [
+            1190,
+            1586
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1236,
+            229,
+            1583,
+            575
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1586,
+            165,
+            397,
+            465
+          ],
+          "nominal_column": [
+            1586,
+            1983
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1673,
+            264,
+            1925,
+            568
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": null,
+      "effect_duration_seconds_from_spec": null,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 25779,
+        "transparent_pixels": 1370404,
+        "semi_transparent_pixels": 198948,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "五帧出现、爆开、烟丝和碎点齐全；第三帧较宽，切线按空隙微调。",
+      "sha256": "0a99a5ead6a3e81183cc683c4af83096ec0e40c0efe7d75e70118f108337afa9"
+    },
+    {
+      "file": "morgana_fx_q_orb.png",
+      "tag": "q_orb",
+      "label": "Q 暗之禁锢弹核",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        2172,
+        724
+      ],
+      "target_size": [
+        1024,
+        128
+      ],
+      "target_cell": [
+        256,
+        128
+      ],
+      "rows": 1,
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            214,
+            543,
+            296
+          ],
+          "nominal_column": [
+            0,
+            543
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            32,
+            236,
+            530,
+            488
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            214,
+            543,
+            296
+          ],
+          "nominal_column": [
+            543,
+            1086
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            579,
+            236,
+            1070,
+            486
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            214,
+            543,
+            296
+          ],
+          "nominal_column": [
+            1086,
+            1629
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1119,
+            236,
+            1602,
+            488
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            214,
+            543,
+            296
+          ],
+          "nominal_column": [
+            1629,
+            2172
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1666,
+            236,
+            2148,
+            488
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": [
+        1,
+        4
+      ],
+      "effect_duration_seconds_from_spec": null,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 60661,
+        "transparent_pixels": 1368646,
+        "semi_transparent_pixels": 202196,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "四帧冰蓝弹核在右、菱形尾迹在左；细碎粒子未严格上下对称，需镜像校正。",
+      "sha256": "b65053ca2f39f2e66a7d64e0e15682334b72423bcb19244b68663756921274e9"
+    },
+    {
+      "file": "morgana_fx_q_hit.png",
+      "tag": "q_hit",
+      "label": "Q 穿透命中",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        1983,
+        793
+      ],
+      "target_size": [
+        1280,
+        256
+      ],
+      "target_cell": [
+        256,
+        256
+      ],
+      "rows": 1,
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            185,
+            397,
+            406
+          ],
+          "nominal_column": [
+            0,
+            397
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            75,
+            249,
+            344,
+            535
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            397,
+            185,
+            396,
+            406
+          ],
+          "nominal_column": [
+            397,
+            793
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            461,
+            251,
+            733,
+            523
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            793,
+            185,
+            397,
+            406
+          ],
+          "nominal_column": [
+            793,
+            1190
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            809,
+            201,
+            1175,
+            575
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1190,
+            185,
+            396,
+            406
+          ],
+          "nominal_column": [
+            1190,
+            1586
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1281,
+            296,
+            1500,
+            485
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1586,
+            185,
+            397,
+            406
+          ],
+          "nominal_column": [
+            1586,
+            1983
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1749,
+            371,
+            1815,
+            427
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": null,
+      "effect_duration_seconds_from_spec": null,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 32009,
+        "transparent_pixels": 1459013,
+        "semi_transparent_pixels": 111429,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "五帧斜闪、四角星、最大闪光、收缩、末尾碎点齐全。",
+      "sha256": "81e786eb54cb72ccf8a579ce689f5bec4b74b71a196d522a331d976dbf0a4472"
+    },
+    {
+      "file": "morgana_fx_q_bind.png",
+      "tag": "q_bind",
+      "label": "Q 禁锢锁链",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        1881,
+        836
+      ],
+      "target_size": [
+        2304,
+        320
+      ],
+      "target_cell": [
+        256,
+        320
+      ],
+      "rows": 1,
+      "frame_count": 9,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            273,
+            209,
+            315
+          ],
+          "nominal_column": [
+            0,
+            209
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            27,
+            537,
+            171,
+            576
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            209,
+            273,
+            209,
+            315
+          ],
+          "nominal_column": [
+            209,
+            418
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            231,
+            352,
+            389,
+            579
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            418,
+            273,
+            209,
+            315
+          ],
+          "nominal_column": [
+            418,
+            627
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            443,
+            327,
+            603,
+            580
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            627,
+            273,
+            209,
+            315
+          ],
+          "nominal_column": [
+            627,
+            836
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            654,
+            301,
+            813,
+            579
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            836,
+            273,
+            209,
+            315
+          ],
+          "nominal_column": [
+            836,
+            1045
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            861,
+            291,
+            1019,
+            580
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1045,
+            273,
+            209,
+            315
+          ],
+          "nominal_column": [
+            1045,
+            1254
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1072,
+            281,
+            1228,
+            580
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1254,
+            273,
+            209,
+            315
+          ],
+          "nominal_column": [
+            1254,
+            1463
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1275,
+            294,
+            1435,
+            580
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 8,
+          "rect": [
+            1463,
+            273,
+            209,
+            315
+          ],
+          "nominal_column": [
+            1463,
+            1672
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1490,
+            281,
+            1647,
+            580
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 9,
+          "rect": [
+            1672,
+            273,
+            209,
+            315
+          ],
+          "nominal_column": [
+            1672,
+            1881
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1742,
+            426,
+            1848,
+            565
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            320
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": [
+        4,
+        7
+      ],
+      "effect_duration_seconds_from_spec": 2,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 51091,
+        "transparent_pixels": 1416821,
+        "semi_transparent_pixels": 155537,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "已减细链条、扩大空心区域，末帧改为散点；仍有腰部与脚踝链条覆盖，三条链的精确数量及角色叠加效果需游戏内核对。",
+      "sha256": "d04d5b426091ff15b96841ca68a90f7ef2d7fb85a62f7e40bd71b9878b5eabb8"
+    },
+    {
+      "file": "morgana_fx_w_pool.png",
+      "tag": "w_pool",
+      "label": "W 折磨之影",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        1586,
+        992
+      ],
+      "target_size": [
+        2048,
+        128
+      ],
+      "target_cell": [
+        256,
+        128
+      ],
+      "rows": 1,
+      "frame_count": 8,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            368,
+            198,
+            206
+          ],
+          "nominal_column": [
+            0,
+            198
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            58,
+            486,
+            137,
+            529
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            198,
+            368,
+            198,
+            206
+          ],
+          "nominal_column": [
+            198,
+            396
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            201,
+            413,
+            391,
+            561
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            396,
+            368,
+            199,
+            206
+          ],
+          "nominal_column": [
+            396,
+            595
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            402,
+            397,
+            593,
+            565
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            595,
+            368,
+            200,
+            206
+          ],
+          "nominal_column": [
+            595,
+            793
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            604,
+            376,
+            795,
+            566
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            795,
+            368,
+            202,
+            206
+          ],
+          "nominal_column": [
+            793,
+            991
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            807,
+            383,
+            997,
+            565
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            997,
+            368,
+            204,
+            206
+          ],
+          "nominal_column": [
+            991,
+            1190
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1007,
+            396,
+            1201,
+            565
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1201,
+            368,
+            187,
+            206
+          ],
+          "nominal_column": [
+            1190,
+            1388
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1225,
+            426,
+            1381,
+            556
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 8,
+          "rect": [
+            1388,
+            368,
+            198,
+            206
+          ],
+          "nominal_column": [
+            1388,
+            1586
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1447,
+            471,
+            1524,
+            530
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            128
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": [
+        3,
+        6
+      ],
+      "effect_duration_seconds_from_spec": 4,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 33030,
+        "transparent_pixels": 1447829,
+        "semi_transparent_pixels": 125249,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "八帧铺开、四帧循环、收缩齐全；实际地面透视和烟丝高度未精确到 2:1 与指定游戏范围。",
+      "sha256": "72b2742c7c026e785afa32f98e279084c72a8fa21cf34725ebdfde82aac7ca90"
+    },
+    {
+      "file": "morgana_fx_e_shield.png",
+      "tag": "e_shield",
+      "label": "E 黑暗之盾",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        1983,
+        793
+      ],
+      "target_size": [
+        3200,
+        384
+      ],
+      "target_cell": [
+        320,
+        384
+      ],
+      "rows": 1,
+      "frame_count": 10,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            284,
+            198,
+            242
+          ],
+          "nominal_column": [
+            0,
+            198
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            36,
+            431,
+            182,
+            508
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            198,
+            284,
+            199,
+            242
+          ],
+          "nominal_column": [
+            198,
+            397
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            220,
+            386,
+            382,
+            504
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            397,
+            284,
+            198,
+            242
+          ],
+          "nominal_column": [
+            397,
+            595
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            416,
+            306,
+            577,
+            503
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            595,
+            284,
+            198,
+            242
+          ],
+          "nominal_column": [
+            595,
+            793
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            614,
+            306,
+            775,
+            503
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            793,
+            284,
+            198,
+            242
+          ],
+          "nominal_column": [
+            793,
+            992
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            810,
+            292,
+            973,
+            503
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            991,
+            284,
+            199,
+            242
+          ],
+          "nominal_column": [
+            992,
+            1190
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1010,
+            306,
+            1174,
+            503
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1190,
+            284,
+            198,
+            242
+          ],
+          "nominal_column": [
+            1190,
+            1388
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1209,
+            306,
+            1387,
+            503
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 8,
+          "rect": [
+            1388,
+            284,
+            198,
+            242
+          ],
+          "nominal_column": [
+            1388,
+            1586
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1414,
+            306,
+            1570,
+            511
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 9,
+          "rect": [
+            1586,
+            284,
+            207,
+            242
+          ],
+          "nominal_column": [
+            1586,
+            1785
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1612,
+            316,
+            1792,
+            518
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 10,
+          "rect": [
+            1793,
+            284,
+            190,
+            242
+          ],
+          "nominal_column": [
+            1785,
+            1983
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1793,
+            364,
+            1919,
+            478
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            320,
+            384
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": [
+        4,
+        7
+      ],
+      "effect_duration_seconds_from_spec": 5,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 35986,
+        "transparent_pixels": 1460344,
+        "semi_transparent_pixels": 111822,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "已修成薄边空心椭圆，保留冰蓝下沿和顶部纹饰；五个闭合阶段与碎裂退出齐全，顶部纹饰不全是规则六边形。",
+      "sha256": "bea2178365e8c534f07474dc80d1b93913f7809c949e3d1b9822239d68cf402c"
+    },
+    {
+      "file": "morgana_fx_r_cast.png",
+      "tag": "r_cast",
+      "label": "R 出手爆环",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        1484,
+        1060
+      ],
+      "target_size": [
+        3584,
+        256
+      ],
+      "target_cell": [
+        512,
+        256
+      ],
+      "rows": 1,
+      "frame_count": 7,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            470,
+            188,
+            157
+          ],
+          "nominal_column": [
+            0,
+            212
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            44,
+            516,
+            120,
+            587
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            512,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            188,
+            470,
+            205,
+            157
+          ],
+          "nominal_column": [
+            212,
+            424
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            188,
+            501,
+            338,
+            600
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            512,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            393,
+            470,
+            234,
+            157
+          ],
+          "nominal_column": [
+            424,
+            636
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            393,
+            488,
+            581,
+            614
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            512,
+            256
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            627,
+            470,
+            221,
+            157
+          ],
+          "nominal_column": [
+            636,
+            848
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            628,
+            478,
+            842,
+            619
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            512,
+            256
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            848,
+            470,
+            220,
+            157
+          ],
+          "nominal_column": [
+            848,
+            1060
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            889,
+            496,
+            1068,
+            607
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            512,
+            256
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1068,
+            470,
+            220,
+            157
+          ],
+          "nominal_column": [
+            1060,
+            1272
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1123,
+            505,
+            1288,
+            604
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            512,
+            256
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1288,
+            470,
+            196,
+            157
+          ],
+          "nominal_column": [
+            1272,
+            1484
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1339,
+            516,
+            1457,
+            600
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            512,
+            256
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": null,
+      "effect_duration_seconds_from_spec": null,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 34885,
+        "transparent_pixels": 1507075,
+        "semi_transparent_pixels": 65832,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "七帧已分开，避免尖刺跨帧；实际等距排版偏差较大，按 manifest 切。环的扩张比例、2:1 地面透视仍需校正。",
+      "sha256": "6ed987620e9b32ca2460ee3a8a0c035c771847160b82f000d7f97747474173e4"
+    },
+    {
+      "file": "morgana_fx_r_hit.png",
+      "tag": "r_hit",
+      "label": "R 锁链扣中",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        1983,
+        793
+      ],
+      "target_size": [
+        1280,
+        256
+      ],
+      "target_cell": [
+        256,
+        256
+      ],
+      "rows": 1,
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            196,
+            397,
+            397
+          ],
+          "nominal_column": [
+            0,
+            397
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            5,
+            342,
+            251,
+            456
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            397,
+            196,
+            396,
+            397
+          ],
+          "nominal_column": [
+            397,
+            793
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            406,
+            278,
+            707,
+            515
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            793,
+            196,
+            397,
+            397
+          ],
+          "nominal_column": [
+            793,
+            1190
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            814,
+            240,
+            1167,
+            548
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1190,
+            196,
+            396,
+            397
+          ],
+          "nominal_column": [
+            1190,
+            1586
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1212,
+            275,
+            1535,
+            532
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1586,
+            196,
+            397,
+            397
+          ],
+          "nominal_column": [
+            1586,
+            1983
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1631,
+            358,
+            1921,
+            461
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            256
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": null,
+      "effect_duration_seconds_from_spec": null,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 60308,
+        "transparent_pixels": 1408096,
+        "semi_transparent_pixels": 163136,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "五帧由左侧链扣入、爆开、变暗；第一帧左端位于画布边缘，与进入方向一致，但不要额外裁掉链头。",
+      "sha256": "c33c446c080482ab7507d3a755004d119407891ab22eede655e819b8cbdabb45"
+    },
+    {
+      "file": "morgana_fx_r_chain.png",
+      "tag": "r_chain",
+      "label": "R 持续锁链",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        2172,
+        724
+      ],
+      "target_size": [
+        1024,
+        256
+      ],
+      "target_cell": [
+        256,
+        256
+      ],
+      "rows": 1,
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            169,
+            543,
+            543
+          ],
+          "nominal_column": [
+            0,
+            543
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            0,
+            324,
+            503,
+            564
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            169,
+            543,
+            543
+          ],
+          "nominal_column": [
+            543,
+            1086
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            544,
+            317,
+            1047,
+            564
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            169,
+            543,
+            543
+          ],
+          "nominal_column": [
+            1086,
+            1629
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1089,
+            317,
+            1592,
+            564
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            169,
+            543,
+            543
+          ],
+          "nominal_column": [
+            1629,
+            2172
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1633,
+            317,
+            2137,
+            564
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            256
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": [
+        1,
+        4
+      ],
+      "effect_duration_seconds_from_spec": 3,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 33047,
+        "transparent_pixels": 1435901,
+        "semi_transparent_pixels": 135054,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "四帧腰环加向左牵引链，空心保留；腰环中心偏右于整帧中心，导入时应以腰环而非整幅边界对齐角色。",
+      "sha256": "cf133b807ac234a02f8cbc5a4fef0a8859da69290093d46b9ec04d9c6deda13e"
+    },
+    {
+      "file": "morgana_fx_r_snap.png",
+      "tag": "r_snap",
+      "label": "R 崩断与眩晕",
+      "status": "raw_requires_import_cleanup",
+      "size": [
+        1983,
+        793
+      ],
+      "target_size": [
+        2048,
+        320
+      ],
+      "target_cell": [
+        256,
+        320
+      ],
+      "rows": 1,
+      "frame_count": 8,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            233,
+            248,
+            310
+          ],
+          "nominal_column": [
+            0,
+            248
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            55,
+            336,
+            203,
+            493
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            248,
+            233,
+            248,
+            310
+          ],
+          "nominal_column": [
+            248,
+            496
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            290,
+            313,
+            469,
+            507
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            496,
+            233,
+            248,
+            310
+          ],
+          "nominal_column": [
+            496,
+            744
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            549,
+            330,
+            709,
+            511
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            744,
+            233,
+            247,
+            310
+          ],
+          "nominal_column": [
+            744,
+            992
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            774,
+            279,
+            961,
+            372
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            991,
+            233,
+            248,
+            310
+          ],
+          "nominal_column": [
+            992,
+            1239
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1024,
+            265,
+            1209,
+            383
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1239,
+            233,
+            248,
+            310
+          ],
+          "nominal_column": [
+            1239,
+            1487
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1272,
+            277,
+            1456,
+            372
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1487,
+            233,
+            248,
+            310
+          ],
+          "nominal_column": [
+            1487,
+            1735
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1520,
+            277,
+            1701,
+            384
+          ],
+          "duration_ms": null,
+          "phase": "loop",
+          "target_cell": [
+            256,
+            320
+          ]
+        },
+        {
+          "index": 8,
+          "rect": [
+            1735,
+            233,
+            248,
+            310
+          ],
+          "nominal_column": [
+            1735,
+            1983
+          ],
+          "foreground_bbox_alpha8_xyxy": [
+            1806,
+            290,
+            1913,
+            354
+          ],
+          "duration_ms": null,
+          "phase": "transition",
+          "target_cell": [
+            256,
+            320
+          ]
+        }
+      ],
+      "loop_frames_1_based_inclusive": [
+        4,
+        7
+      ],
+      "effect_duration_seconds_from_spec": 1.5,
+      "background": "alpha",
+      "qa": {
+        "frame_count_visual_review": true,
+        "no_people_visual_review": true,
+        "target_dimensions_pass": false,
+        "binary_alpha_pass": false,
+        "alpha_level_count": 256,
+        "visible_rgb_color_count": 59992,
+        "transparent_pixels": 1455952,
+        "semi_transparent_pixels": 116173,
+        "vertical_cut_core_pixel_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cuts_clear_at_alpha128": true,
+        "no_frame_overlaps_at_faint_alpha": "not_verified",
+        "pixel_grid_and_palette_pass": false,
+        "in_game_tested": false
+      },
+      "notes": "八帧崩断、碎链、四帧头顶法阵与末帧散点齐全；已分开前三帧并压平法阵。法阵实际高度和每帧三颗星数量仍需核对。",
+      "sha256": "cc62d50fb3e950a7fc2c584526f6e20efd5aae6b08ac9cf25ddb999e735d27c7"
+    }
+  ]
+}

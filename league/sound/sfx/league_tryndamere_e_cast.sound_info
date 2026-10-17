@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_tryndamere_sfx_e",
+      "volume": 0.55
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_tryndamere_vo_e",
+      "volume": 0.85
+    }
+  ]
+}

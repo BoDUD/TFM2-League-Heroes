@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_olaf": {
+    "remapping": "asset/league_olaf_rage/override/league_olaf",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_olaf_rage/text/champion",
+    "type": "merge"
+  }
+}

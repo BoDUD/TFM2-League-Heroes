@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_teemo_sfx_r_cast",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_teemo_sfx_r_throw",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_teemo_vo_r",
+      "volume": 1.0
+    }
+  ]
+}

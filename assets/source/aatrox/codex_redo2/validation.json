@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "frames_total": 44,
+  "assets": [
+    {
+      "file": "aatrox_run.png",
+      "frames": 8,
+      "source_pixels_preserved": true,
+      "block_grid_8x8": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "ground_clear": true,
+      "added_components_attached": true,
+      "sha256": "925b71d822a581f80f55597b13171ad51ae0bff7d0fda84086fd24da580d8efa"
+    },
+    {
+      "file": "aatrox_attack_r.png",
+      "frames": 6,
+      "source_pixels_preserved": true,
+      "block_grid_8x8": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "ground_clear": true,
+      "added_components_attached": true,
+      "sha256": "40d7d72cb432993796ab047ccc326f704dc496808c52f6ddcbf4869c7a8b033b"
+    },
+    {
+      "file": "aatrox_attack_p_r.png",
+      "frames": 6,
+      "source_pixels_preserved": true,
+      "block_grid_8x8": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "ground_clear": true,
+      "added_components_attached": true,
+      "sha256": "91924b865d34cd4aac946fbe8716d9c7778829149a214605236b6bb6d012f80b"
+    },
+    {
+      "file": "aatrox_skill_r.png",
+      "frames": 8,
+      "source_pixels_preserved": true,
+      "block_grid_8x8": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "ground_clear": true,
+      "added_components_attached": true,
+      "sha256": "0d14bec7eb9ec093d0063453ff315db8ef224f2f525ff28458638fcc83c83ad0"
+    },
+    {
+      "file": "aatrox_q2_r.png",
+      "frames": 8,
+      "source_pixels_preserved": true,
+      "block_grid_8x8": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "ground_clear": true,
+      "added_components_attached": true,
+      "sha256": "167bb470e03d26ad1235d81d52f94526ce98e6092ea0b1a74e1cc776ca1cf1ff"
+    },
+    {
+      "file": "aatrox_q3_r.png",
+      "frames": 8,
+      "source_pixels_preserved": true,
+      "block_grid_8x8": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "ground_clear": true,
+      "added_components_attached": true,
+      "sha256": "c6f6e1dce224422766864e7cf4e627fd8530d98c2b27539515555e7aec295c03"
+    }
+  ]
+}

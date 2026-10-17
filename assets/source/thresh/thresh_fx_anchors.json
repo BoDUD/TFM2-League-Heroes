@@ -1,0 +1,16 @@
+{
+  "lash": {"cell": [29, 11], "anchor": [14, 5]},
+  "lash_flay": {"cell": [39, 15], "anchor": [19, 7]},
+  "hit": {"cell": [17, 15], "anchor": [8, 7]},
+  "flay_hit": {"cell": [25, 35], "anchor": [12, 17]},
+  "q_hook": {"cell": [53, 23], "anchor": [26, 11]},
+  "q_return": {"cell": [125, 23], "anchor": [62, 11]},
+  "q_hit": {"cell": [27, 37], "anchor": [13, 18]},
+  "w_lantern": {"cell": [41, 19], "anchor": [20, 9]},
+  "w_shield": {"cell": [39, 85], "anchor": [19, 42]},
+  "e_sweep": {"cell": [71, 41], "anchor": [35, 20]},
+  "e_hit": {"cell": [23, 17], "anchor": [11, 8]},
+  "r_box": {"cell": [91, 87], "anchor": [45, 43]},
+  "r_hit": {"cell": [29, 33], "anchor": [14, 16]},
+  "r_slow": {"cell": [27, 37], "anchor": [13, 18]}
+}

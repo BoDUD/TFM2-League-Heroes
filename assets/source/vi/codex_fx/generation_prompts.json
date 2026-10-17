@@ -1,0 +1,220 @@
+{
+  "tool": "native imagegen",
+  "assets": [
+    {
+      "id": "vi_fx_hit",
+      "count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white core (#FFFFFF, #E8FBFF), gold sparks (#8D6246, #D7A965, #F7D896) and hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF).\nEffect: a PUNCH IMPACT, 4 frames: 1 a white-gold star flash at the centre; 2 short white speed lines and gold sparks bursting out all round; 3 a ring of small blue hextech sparks; 4 a few fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is character palette/style ONLY, do NOT draw any character, body, fist or weapon. Reference2 is original LoL texture inspiration ONLY, never reproduce text, labels or the reference sheet. Make the entire requested 4-frame effect sheet. Exactly one horizontal row of 4 discrete equal cells, no second row, no merged panels. Big coarse pixel blocks, bright white/cyan-white luminous cores and saturated lightcolored arc surfaces. Dark shades only sparse outer fragments, NO dark outline, NO glow blur. Transparent canvas, no shadows or solid backgrounds. Direction and origins as specified, with generous 5% inner margins to prevent cross-cell clipping.",
+      "generated_file": "generated/vi_fx_hit_generated.png"
+    },
+    {
+      "id": "vi_fx_w_proc",
+      "count": 6,
+      "size": [
+        1536,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, a white flash (#FFFFFF, #E8FBFF), white shockwave arcs and hextech blue squiggles (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF).\nEffect: a DENTING BLOW, 6 frames: 1 a bright white-blue flash at the centre; 2 two curved white shockwave arcs bursting out to the left and right (like brackets ( ) opening); 3 the arcs at their widest, short blue zig-zag squiggles between them; 4 the arcs breaking into white dashes and blue sparks; 5-6 fading sparks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is character palette/style ONLY, do NOT draw any character, body, fist or weapon. Reference2 is original LoL texture inspiration ONLY, never reproduce text, labels or the reference sheet. Make the entire requested 6-frame effect sheet. Exactly one horizontal row of 6 discrete equal cells, no second row, no merged panels. Big coarse pixel blocks, bright white/cyan-white luminous cores and saturated lightcolored arc surfaces. Dark shades only sparse outer fragments, NO dark outline, NO glow blur. Transparent canvas, no shadows or solid backgrounds. Direction and origins as specified, with generous 5% inner margins to prevent cross-cell clipping.",
+      "generated_file": "generated/vi_fx_w_proc_generated.png"
+    },
+    {
+      "id": "vi_fx_bs_on",
+      "count": 10,
+      "size": [
+        1920,
+        256
+      ],
+      "cell": [
+        192,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF) and white highlights (#FFFFFF, #E8FBFF).\nEffect: a BLAST SHIELD round a character (the character is not drawn: imagine a 27x40-pixel figure standing in the middle of the cell, feet on the bottom row), 10 frames: 1 a flash of blue light at chest height; 2-3 a round hextech bubble grows round the figure: a bright cyan outline ring (2 squares), a white highlight arc on its upper left, a checker of small blue hexagon specks on its surface so the figure stays visible inside; 4-8 the bubble holds, its white highlight sliding round the ring a little each frame; 9 the ring cracks; 10 it breaks into blue shards.\nLayout: one horizontal row of 10 equal cells, each 3 wide to 4 tall, image size 1920x256 (each cell 192x256, the feet on the bottom row). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is character palette/style ONLY, do NOT draw any character, body, fist or weapon. Reference2 is original LoL texture inspiration ONLY, never reproduce text, labels or the reference sheet. Make the entire requested 10-frame effect sheet. Exactly one horizontal row of 10 discrete equal cells, no second row, no merged panels. Big coarse pixel blocks, bright white/cyan-white luminous cores and saturated lightcolored arc surfaces. Dark shades only sparse outer fragments, NO dark outline, NO glow blur. Transparent canvas, no shadows or solid backgrounds. Direction and origins as specified, with generous 5% inner margins to prevent cross-cell clipping.",
+      "generated_file": "generated/vi_fx_bs_on_generated.png"
+    },
+    {
+      "id": "vi_fx_q_charge",
+      "count": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF), a white-cyan core (#FFFFFF, #E8FBFF) and hot orange sparks (#7A2E08, #D2601A, #FF9A2E, #FFD27A, #FFF4D6).\nEffect: a CHARGING GAUNTLET, the fist at the middle of the cell, 5 frames: 1 a few blue specks drawn in toward the centre along curved lines; 2 a small white-cyan orb at the centre with short rays; 3 the orb bigger, small orange-gold heat sparks round it; 4-5 the orb pulsing at its brightest with two short crackling blue arcs.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is character palette/style ONLY, do NOT draw any character, body, fist or weapon. Reference2 is original LoL texture inspiration ONLY, never reproduce text, labels or the reference sheet. Make the entire requested 5-frame effect sheet. Exactly one horizontal row of 5 discrete equal cells, no second row, no merged panels. Big coarse pixel blocks, bright white/cyan-white luminous cores and saturated lightcolored arc surfaces. Dark shades only sparse outer fragments, NO dark outline, NO glow blur. Transparent canvas, no shadows or solid backgrounds. Direction and origins as specified, with generous 5% inner margins to prevent cross-cell clipping.",
+      "generated_file": "generated/vi_fx_q_charge_generated.png"
+    },
+    {
+      "id": "vi_fx_q_go",
+      "count": 6,
+      "size": [
+        1536,
+        128
+      ],
+      "cell": [
+        256,
+        128
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hot orange (#7A2E08, #D2601A, #FF9A2E, #FFD27A, #FFF4D6), dust (#3A3030, #6B5A50, #9C8A7A, #CFC2B0).\nEffect: a DASH LAUNCH BLAST on the ground behind a charging fighter (she rockets off to the RIGHT), seen from above at an angle, 6 frames: 1 a hot orange-white flash at the right of the cell; 2 brown dirt clumps and grey dust kicked up, a short glowing orange scorch line on the ground trailing to the left; 3 the dust cloud at its widest (a flat oval, twice as wide as tall), small orange sparks; 4-6 the dust settling and fading, the scorch line cooling to brown.\nLayout: one horizontal row of 6 equal cells, each 2 wide to 1 tall, image size 1536x128 (each cell 256x128). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is character palette/style ONLY, do NOT draw any character, body, fist or weapon. Reference2 is original LoL texture inspiration ONLY, never reproduce text, labels or the reference sheet. Make the entire requested 6-frame effect sheet. Exactly one horizontal row of 6 discrete equal cells, no second row, no merged panels. Big coarse pixel blocks, bright white/cyan-white luminous cores and saturated lightcolored arc surfaces. Dark shades only sparse outer fragments, NO dark outline, NO glow blur. Transparent canvas, no shadows or solid backgrounds. Direction and origins as specified, with generous 5% inner margins to prevent cross-cell clipping.",
+      "generated_file": "generated/vi_fx_q_go_generated.png"
+    },
+    {
+      "id": "vi_fx_q_hit",
+      "count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hot orange (#7A2E08, #D2601A, #FF9A2E, #FFD27A, #FFF4D6).\nEffect: an orange IMPACT, 4 frames: 1 a white-yellow flash at the centre; 2 a star of orange fire with short spikes; 3 orange-gold sparks flying out; 4 a few fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is palette/style only, do NOT draw any character, fist, glove or weapon. Reference2 is original LoL texture inspiration only, no reference labels or text. Exactly 4 frames in one horizontal row of equal cells. Preserve phase changes specified in order, no duplicated static diagrams. Strong white-cyan-white bright cores, saturated blue/orange highlights, coarse square pixels and flat hard color boundaries. No darkoutline, glowblur, antialiasing, grid, shadows or labels. Keep within own cell with 5% margin. Truly transparent background.",
+      "generated_file": "generated/vi_fx_q_hit_generated.png"
+    },
+    {
+      "id": "vi_fx_q_stop",
+      "count": 6,
+      "size": [
+        1536,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF), a white core (#FFFFFF, #E8FBFF) and hot orange sparks (#7A2E08, #D2601A, #FF9A2E, #FFD27A, #FFF4D6).\nEffect: a big COLLISION BLAST, 6 frames: 1 a white flash at the centre; 2 a round blue hextech sphere bursting, a white-hot core, orange sparks; 3 a white shockwave ring expanding round it (70% of the cell); 4 the ring at its widest and breaking into white dashes, blue shards flying; 5-6 fading shards and sparks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is palette/style only, do NOT draw any character, fist, glove or weapon. Reference2 is original LoL texture inspiration only, no reference labels or text. Exactly 6 frames in one horizontal row of equal cells. Preserve phase changes specified in order, no duplicated static diagrams. Strong white-cyan-white bright cores, saturated blue/orange highlights, coarse square pixels and flat hard color boundaries. No darkoutline, glowblur, antialiasing, grid, shadows or labels. Keep within own cell with 5% margin. Truly transparent background.",
+      "generated_file": "generated/vi_fx_q_stop_generated.png"
+    },
+    {
+      "id": "vi_fx_e_arm",
+      "count": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF) and a white-cyan core (#FFFFFF, #E8FBFF).\nEffect: a GAUNTLET POWER-UP on a fist at the middle of the cell, 5 frames: 1 a cyan glint on the knuckles; 2 cyan-blue light spreading over a fist-sized block (8x8 squares) with a white core; 3 a small ring of blue specks flashing round it; 4 the glow at its brightest with short rays; 5 the glow shrinking to a few specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is palette/style only, do NOT draw any character, fist, glove or weapon. Reference2 is original LoL texture inspiration only, no reference labels or text. Exactly 5 frames in one horizontal row of equal cells. Preserve phase changes specified in order, no duplicated static diagrams. Strong white-cyan-white bright cores, saturated blue/orange highlights, coarse square pixels and flat hard color boundaries. No darkoutline, glowblur, antialiasing, grid, shadows or labels. Keep within own cell with 5% margin. Truly transparent background.",
+      "generated_file": "generated/vi_fx_e_arm_generated.png"
+    },
+    {
+      "id": "vi_fx_e_cone",
+      "count": 6,
+      "size": [
+        2304,
+        256
+      ],
+      "cell": [
+        384,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, white arcs (#FFFFFF, #E8FBFF), hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF).\nEffect: a CONE SHOCKWAVE blasting to the RIGHT from a fist at the middle of the cell's LEFT edge, 6 frames: 1 a white flash at the left edge; 2 three curved white-blue shockwave arcs ) ) ) opening to the right, the cone 60% of the cell wide; 3 the arcs reach the right edge, the cone at its widest (spreading to 80% of the cell's height at the right), blue zig-zag squiggles and speed lines inside it; 4 the arcs breaking into white dashes; 5-6 fading blue sparks.\nLayout: one horizontal row of 6 equal cells, each 3 wide to 2 tall, image size 2304x256 (each cell 384x256); the fist at the middle of each cell's left edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is palette/style only, do NOT draw any character, fist, glove or weapon. Reference2 is original LoL texture inspiration only, no reference labels or text. Exactly 6 frames in one horizontal row of equal cells. Preserve phase changes specified in order, no duplicated static diagrams. Strong white-cyan-white bright cores, saturated blue/orange highlights, coarse square pixels and flat hard color boundaries. No darkoutline, glowblur, antialiasing, grid, shadows or labels. Keep within own cell with 5% margin. Truly transparent background.",
+      "generated_file": "generated/vi_fx_e_cone_generated.png"
+    },
+    {
+      "id": "vi_fx_e_hit",
+      "count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, white (#FFFFFF, #E8FBFF) and hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF).\nEffect: a small white-blue IMPACT, 4 frames: 1 a white flash; 2 a burst of blue sparks with a white core; 3 sparks flying out; 4 fading.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 is palette/style only, do NOT draw any character, fist, glove or weapon. Reference2 is original LoL texture inspiration only, no reference labels or text. Exactly 4 frames in one horizontal row of equal cells. Preserve phase changes specified in order, no duplicated static diagrams. Strong white-cyan-white bright cores, saturated blue/orange highlights, coarse square pixels and flat hard color boundaries. No darkoutline, glowblur, antialiasing, grid, shadows or labels. Keep within own cell with 5% margin. Truly transparent background.",
+      "generated_file": "generated/vi_fx_e_hit_generated.png"
+    },
+    {
+      "id": "vi_fx_r_cast",
+      "count": 5,
+      "size": [
+        960,
+        256
+      ],
+      "cell": [
+        192,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF) and white (#FFFFFF, #E8FBFF).\nEffect: a POWER-UP FLASH round a character (not drawn: a 27x40-pixel figure in the middle, feet on the bottom row), 5 frames: 1 a flat blue ring of light flashes round the feet (an oval, twice as wide as tall); 2 several thin blue-white light rays shoot up from the ring past the figure's shoulders; 3 the rays at their tallest, white sparks at their tips; 4 the rays fading upward; 5 a few rising specks.\nLayout: one horizontal row of 5 equal cells, each 3 wide to 4 tall, image size 960x256 (each cell 192x256, the feet on the bottom row). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 character is palette/style only, do NOT draw character, body, fist or glove; character-anchored effects must have hollow transparent interiors. Reference2 originaltexture inspiration only, no text or copied reference layout. Exactly 5 distinct frames in one horizontal row of equal cells. Broad flat chunky pixelblocks with bright white or cyanwhite highlights, no dark outline, softglow, blurred gradient, antialiasing, shadow orlabels. Phase changes clear and in specified order. R trail starts RIGHT and tapers LEFT, do not mirror. Groundslam stays FLAT ellipse 3wide1high viewed from above. Truly transparentbackground. No frame crosses its cell.",
+      "generated_file": "generated/vi_fx_r_cast_generated.png"
+    },
+    {
+      "id": "vi_fx_r_trail",
+      "count": 6,
+      "size": [
+        1536,
+        128
+      ],
+      "cell": [
+        256,
+        128
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF) and white speed lines (#FFFFFF, #E8FBFF).\nEffect: a SPEED TRAIL behind a charging fighter (the fighter is at the middle of the cell's RIGHT edge, not drawn), 6 frames, a seamless loop: long white and blue speed lines streaming to the left from the right edge, tapering and thinning toward the left, a checker band of blue light along the middle, the lines shifting and flickering each frame.\nLayout: one horizontal row of 6 equal cells, each 2 wide to 1 tall, image size 1536x128 (each cell 256x128); the fighter at the middle of each cell's right edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 character is palette/style only, do NOT draw character, body, fist or glove; character-anchored effects must have hollow transparent interiors. Reference2 originaltexture inspiration only, no text or copied reference layout. Exactly 6 distinct frames in one horizontal row of equal cells. Broad flat chunky pixelblocks with bright white or cyanwhite highlights, no dark outline, softglow, blurred gradient, antialiasing, shadow orlabels. Phase changes clear and in specified order. R trail starts RIGHT and tapers LEFT, do not mirror. Groundslam stays FLAT ellipse 3wide1high viewed from above. Truly transparentbackground. No frame crosses its cell.",
+      "generated_file": "generated/vi_fx_r_trail_generated.png"
+    },
+    {
+      "id": "vi_fx_r_side",
+      "count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF), white (#FFFFFF, #E8FBFF) and gold stars (#8D6246, #D7A965, #F7D896).\nEffect: a KNOCK-ASIDE IMPACT, 4 frames: 1 a white-blue flash at the centre; 2 a burst of blue sparks and two small white speed lines; 3 three small gold stars popping above the centre (dazed); 4 the stars and sparks fading.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centred in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 character is palette/style only, do NOT draw character, body, fist or glove; character-anchored effects must have hollow transparent interiors. Reference2 originaltexture inspiration only, no text or copied reference layout. Exactly 4 distinct frames in one horizontal row of equal cells. Broad flat chunky pixelblocks with bright white or cyanwhite highlights, no dark outline, softglow, blurred gradient, antialiasing, shadow orlabels. Phase changes clear and in specified order. R trail starts RIGHT and tapers LEFT, do not mirror. Groundslam stays FLAT ellipse 3wide1high viewed from above. Truly transparentbackground. No frame crosses its cell.",
+      "generated_file": "generated/vi_fx_r_side_generated.png"
+    },
+    {
+      "id": "vi_fx_r_hit",
+      "count": 6,
+      "size": [
+        1152,
+        288
+      ],
+      "cell": [
+        192,
+        288
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, hextech blue (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF), white (#FFFFFF, #E8FBFF) and gold sparks (#8D6246, #D7A965, #F7D896).\nEffect: an UPPERCUT IMPACT that knocks the target up, 6 frames: 1 a white-hot flash low in the cell; 2 a column of blue-white energy and vertical speed lines shooting UP from it (taller than wide); 3 the column at its tallest, gold sparks along it; 4 the column breaking into rising white dashes; 5-6 a few rising sparks fading.\nLayout: one horizontal row of 6 equal cells, each 2 wide to 3 tall, image size 1152x288 (each cell 192x288). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 character is palette/style only, do NOT draw character, body, fist or glove; character-anchored effects must have hollow transparent interiors. Reference2 originaltexture inspiration only, no text or copied reference layout. Exactly 6 distinct frames in one horizontal row of equal cells. Broad flat chunky pixelblocks with bright white or cyanwhite highlights, no dark outline, softglow, blurred gradient, antialiasing, shadow orlabels. Phase changes clear and in specified order. R trail starts RIGHT and tapers LEFT, do not mirror. Groundslam stays FLAT ellipse 3wide1high viewed from above. Truly transparentbackground. No frame crosses its cell.",
+      "generated_file": "generated/vi_fx_r_hit_generated.png"
+    },
+    {
+      "id": "vi_fx_r_slam",
+      "count": 8,
+      "size": [
+        3072,
+        128
+      ],
+      "cell": [
+        384,
+        128
+      ],
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, bright glowing colours that read on a dark battlefield, dust (#3A3030, #6B5A50, #9C8A7A, #CFC2B0), dark cracks and hextech blue light (#0D2A6E, #1E5BD8, #3FA8FF, #8FE3FF), a white flash (#FFFFFF, #E8FBFF).\nEffect: a GROUND SLAM seen from above at an angle (a flat oval), 8 frames: 1 a white flash at the centre; 2 a ring of dust bursting outward; 3 dark brown cracks radiating from the centre, glowing blue hextech light inside them; 4-6 the cracks glowing and pulsing, the dust settling; 7 the glow fading; 8 faint cracks.\nLayout: one horizontal row of 8 equal cells, each 3 wide to 1 tall, image size 3072x128 (each cell 384x128). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference1 character is palette/style only, do NOT draw character, body, fist or glove; character-anchored effects must have hollow transparent interiors. Reference2 originaltexture inspiration only, no text or copied reference layout. Exactly 8 distinct frames in one horizontal row of equal cells. Broad flat chunky pixelblocks with bright white or cyanwhite highlights, no dark outline, softglow, blurred gradient, antialiasing, shadow orlabels. Phase changes clear and in specified order. R trail starts RIGHT and tapers LEFT, do not mirror. Groundslam stays FLAT ellipse 3wide1high viewed from above. Truly transparentbackground. No frame crosses its cell.",
+      "generated_file": "generated/vi_fx_r_slam_generated.png"
+    }
+  ],
+  "optional_retry": {
+    "id": "vi_fx_bs_on",
+    "status": "failed",
+    "reason": "Image generation quota exhausted (429); existing generated shield cleaned with pixel postprocessing instead."
+  }
+}

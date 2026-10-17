@@ -1,0 +1,66 @@
+{
+  "colors": [
+    "#0C0204",
+    "#1C1945",
+    "#3C2F8E",
+    "#5A4CC0",
+    "#8FA3D8",
+    "#7B0624",
+    "#BD0A44",
+    "#FB1C5B",
+    "#FF7FA0",
+    "#5E0529",
+    "#9D1439",
+    "#D41644",
+    "#F08122",
+    "#FCC24F",
+    "#794552",
+    "#B08A9A",
+    "#B0705A",
+    "#E8A88C",
+    "#F8D2BC",
+    "#F2E6D0",
+    "#A0602E",
+    "#C02AB0",
+    "#FF5AC8",
+    "#FFC93A"
+  ],
+  "variants": [
+    {
+      "version": 1,
+      "height": 40,
+      "width": 28,
+      "head_rows": 11,
+      "ear_rows": 7,
+      "body_rows": 22,
+      "eye_row": 12,
+      "eye_x": [
+        13,
+        17
+      ],
+      "origin": [
+        48,
+        60
+      ],
+      "colors": 23
+    },
+    {
+      "version": 2,
+      "height": 40,
+      "width": 28,
+      "head_rows": 10,
+      "ear_rows": 6,
+      "body_rows": 24,
+      "eye_row": 10,
+      "eye_x": [
+        13,
+        17
+      ],
+      "origin": [
+        48,
+        60
+      ],
+      "colors": 23
+    }
+  ]
+}

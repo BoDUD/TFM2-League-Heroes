@@ -1,0 +1,6 @@
+{
+ "league_kayle_w_heal": {
+  "anim": "asset/league/effects/league_kayle_fx",
+  "tag": "w_heal"
+ }
+}

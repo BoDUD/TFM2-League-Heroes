@@ -1,0 +1,212 @@
+{
+  "passed": true,
+  "asset_count": 22,
+  "frame_count": 107,
+  "q_changed_tags": [
+    "q_bolt",
+    "q_muzzle",
+    "q_hit"
+  ],
+  "q_requested_visible_scales": {
+    "q_bolt": 1.3,
+    "q_muzzle": 1.25,
+    "q_hit": 1.3
+  },
+  "frame_canvases_unchanged": false,
+  "q_game_sizes": {
+    "q_bolt": [
+      32,
+      14
+    ],
+    "q_muzzle": [
+      24,
+      18
+    ],
+    "q_hit": [
+      22,
+      22
+    ]
+  },
+  "binding_keys_unchanged": true,
+  "timings_unchanged": true,
+  "non_q_root_assets_byte_identical": true,
+  "live_game_tested": false,
+  "checks": [
+    {
+      "tag": "bolt",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "hs_bolt",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "q_bolt",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": null
+    },
+    {
+      "tag": "e_net",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "w_throw",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "r_bullet",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "shot",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "hs_shot",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "e_shot",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "q_muzzle",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": null
+    },
+    {
+      "tag": "r_muzzle",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "hit",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "hs_hit",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "q_hit",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": null
+    },
+    {
+      "tag": "e_hit",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "r_hit",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "w_land",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "w_trap",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "w_fade",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "w_snap",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "r_mark",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    },
+    {
+      "tag": "e_slow",
+      "root_size_ok": true,
+      "game_size_ok": true,
+      "binary_alpha": true,
+      "frame_count_ok": true,
+      "non_q_root_unchanged": true
+    }
+  ]
+}

@@ -1,0 +1,1908 @@
+{
+  "run": [
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 3,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          3,
+          0,
+          -12
+        ],
+        "far_leg": [
+          -2,
+          -2,
+          14
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -13,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          -1
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          -1
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          82
+        ],
+        "staff_angle": 0,
+        "far_angle": -2,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          2,
+          -1,
+          4
+        ],
+        "far_leg": [
+          -1,
+          0,
+          -9
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -20,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          -2
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          -2
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          81
+        ],
+        "staff_angle": 0,
+        "far_angle": -4,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          -2,
+          17
+        ],
+        "far_leg": [
+          0,
+          -2,
+          -3
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -25,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          -1
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          -1
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          82
+        ],
+        "staff_angle": 0,
+        "far_angle": -1,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          -1,
+          -1,
+          8
+        ],
+        "far_leg": [
+          2,
+          -1,
+          -9
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -30,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 3,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          -2,
+          -2,
+          14
+        ],
+        "far_leg": [
+          3,
+          0,
+          -12
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -31,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          -1
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          -1
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          82
+        ],
+        "staff_angle": 0,
+        "far_angle": 5,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          -1,
+          0,
+          -9
+        ],
+        "far_leg": [
+          2,
+          -1,
+          4
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -34,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          -2
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          -2
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          81
+        ],
+        "staff_angle": 0,
+        "far_angle": 5,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          -2,
+          -3
+        ],
+        "far_leg": [
+          0,
+          -2,
+          17
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -28,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          -1
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          -1
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          82
+        ],
+        "staff_angle": 0,
+        "far_angle": 2,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          2,
+          0,
+          -9
+        ],
+        "far_leg": [
+          -1,
+          -1,
+          8
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -18,
+        -18
+      ]
+    }
+  ],
+  "attack": [
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 0,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": true
+      },
+      "translation": [
+        -29,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          -1,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          -1,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          54,
+          77
+        ],
+        "staff_angle": 18,
+        "far_angle": -10,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -25,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          -1,
+          1
+        ],
+        "body_angle": 0,
+        "head": [
+          -1,
+          1
+        ],
+        "head_angle": 0,
+        "hand": [
+          55,
+          78
+        ],
+        "staff_angle": -38,
+        "far_angle": -12,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -18,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          1,
+          1
+        ],
+        "body_angle": 0,
+        "head": [
+          1,
+          1
+        ],
+        "head_angle": 0,
+        "hand": [
+          64,
+          83
+        ],
+        "staff_angle": 90,
+        "far_angle": -8,
+        "far_delta": [
+          2,
+          0
+        ],
+        "near_leg": [
+          -1,
+          0,
+          0
+        ],
+        "far_leg": [
+          2,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -28,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          1,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          1,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          63,
+          83
+        ],
+        "staff_angle": 84,
+        "far_angle": -5,
+        "far_delta": [
+          2,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          1,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -36,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 0,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": true
+      },
+      "translation": [
+        -24,
+        -18
+      ]
+    }
+  ],
+  "skill": [
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 0,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": true
+      },
+      "translation": [
+        -28,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          -1,
+          2
+        ],
+        "body_angle": 0,
+        "head": [
+          -1,
+          2
+        ],
+        "head_angle": 0,
+        "hand": [
+          53,
+          87
+        ],
+        "staff_angle": -75,
+        "far_angle": -4,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          -1,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -27,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          -1,
+          3
+        ],
+        "body_angle": 0,
+        "head": [
+          -1,
+          3
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          87
+        ],
+        "staff_angle": -92,
+        "far_angle": -10,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          -2,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -27,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          2,
+          2
+        ],
+        "body_angle": 0,
+        "head": [
+          2,
+          2
+        ],
+        "head_angle": 0,
+        "hand": [
+          65,
+          84
+        ],
+        "staff_angle": 92,
+        "far_angle": -6,
+        "far_delta": [
+          3,
+          0
+        ],
+        "near_leg": [
+          -2,
+          0,
+          0
+        ],
+        "far_leg": [
+          3,
+          0,
+          -4
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -38,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          2,
+          1
+        ],
+        "body_angle": 0,
+        "head": [
+          2,
+          1
+        ],
+        "head_angle": 0,
+        "hand": [
+          64,
+          84
+        ],
+        "staff_angle": 90,
+        "far_angle": -3,
+        "far_delta": [
+          3,
+          0
+        ],
+        "near_leg": [
+          -1,
+          0,
+          0
+        ],
+        "far_leg": [
+          2,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -33,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 0,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": true
+      },
+      "translation": [
+        -25,
+        -18
+      ]
+    }
+  ],
+  "skill2": [
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 0,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": true
+      },
+      "translation": [
+        -24,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          53,
+          77
+        ],
+        "staff_angle": 26,
+        "far_angle": -8,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -29,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          2
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          2
+        ],
+        "head_angle": 0,
+        "hand": [
+          54,
+          83
+        ],
+        "staff_angle": -66,
+        "far_angle": 9,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -32,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          2
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          2
+        ],
+        "head_angle": 0,
+        "hand": [
+          53,
+          84
+        ],
+        "staff_angle": -125,
+        "far_angle": 3,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -14,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          -1,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          -1,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          49,
+          84
+        ],
+        "staff_angle": -95,
+        "far_angle": 12,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -8,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          51,
+          83
+        ],
+        "staff_angle": -34,
+        "far_angle": 5,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -12,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 0,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": true
+      },
+      "translation": [
+        -28,
+        -18
+      ]
+    }
+  ],
+  "ult": [
+    {
+      "pose": {
+        "body": [
+          0,
+          1
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          1
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          84
+        ],
+        "staff_angle": 0,
+        "far_angle": 3,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -28,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          3
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          3
+        ],
+        "head_angle": 0,
+        "hand": [
+          54,
+          84
+        ],
+        "staff_angle": 12,
+        "far_angle": 11,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -32,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          -5
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          -5
+        ],
+        "head_angle": 0,
+        "hand": [
+          54,
+          76
+        ],
+        "staff_angle": 8,
+        "far_angle": -18,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          1,
+          -7,
+          14
+        ],
+        "far_leg": [
+          -1,
+          -5,
+          -12
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 4,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -28,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          -10
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          -10
+        ],
+        "head_angle": 0,
+        "hand": [
+          55,
+          62
+        ],
+        "staff_angle": 16,
+        "far_angle": -30,
+        "far_delta": [
+          2,
+          -7
+        ],
+        "near_leg": [
+          2,
+          -10,
+          24
+        ],
+        "far_leg": [
+          -1,
+          -9,
+          -18
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 9,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -18,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          -2
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          -2
+        ],
+        "head_angle": 0,
+        "hand": [
+          53,
+          79
+        ],
+        "staff_angle": 6,
+        "far_angle": -7,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          1,
+          -1,
+          8
+        ],
+        "far_leg": [
+          -1,
+          -2,
+          -8
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -31,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          3
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          3
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          85
+        ],
+        "staff_angle": -8,
+        "far_angle": 10,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -29,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 0,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": true
+      },
+      "translation": [
+        -30,
+        -18
+      ]
+    }
+  ],
+  "hit": [
+    {
+      "pose": {
+        "body": [
+          -2,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          -3,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          50,
+          82
+        ],
+        "staff_angle": -8,
+        "far_angle": -8,
+        "far_delta": [
+          -1,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": true,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -27,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 0,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": true
+      },
+      "translation": [
+        -26,
+        -18
+      ]
+    }
+  ],
+  "dead": [
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          83
+        ],
+        "staff_angle": 0,
+        "far_angle": 0,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": true
+      },
+      "translation": [
+        -27,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          -2,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          -3,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          51,
+          84
+        ],
+        "staff_angle": -28,
+        "far_angle": -14,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          1,
+          -1,
+          15
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -29,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          -2,
+          2
+        ],
+        "body_angle": 0,
+        "head": [
+          -3,
+          2
+        ],
+        "head_angle": 0,
+        "hand": [
+          51,
+          86
+        ],
+        "staff_angle": -60,
+        "far_angle": -25,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          2,
+          -1,
+          22
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -26,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          -1,
+          4
+        ],
+        "body_angle": 0,
+        "head": [
+          -2,
+          4
+        ],
+        "head_angle": 0,
+        "hand": [
+          51,
+          87
+        ],
+        "staff_angle": -80,
+        "far_angle": 18,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          2,
+          0,
+          28
+        ],
+        "far_leg": [
+          1,
+          0,
+          -18
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": 0,
+        "exact": false
+      },
+      "translation": [
+        -23,
+        -18
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          85
+        ],
+        "staff_angle": -75,
+        "far_angle": 15,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 81,
+        "air": 0,
+        "whole_angle": -32,
+        "exact": false
+      },
+      "translation": [
+        -23,
+        -21
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          85
+        ],
+        "staff_angle": -55,
+        "far_angle": 65,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 83,
+        "air": 0,
+        "whole_angle": -58,
+        "exact": false
+      },
+      "translation": [
+        -23,
+        -24
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          84
+        ],
+        "staff_angle": -20,
+        "far_angle": 100,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 83,
+        "air": 0,
+        "whole_angle": -79,
+        "exact": false
+      },
+      "translation": [
+        -23,
+        -25
+      ]
+    },
+    {
+      "pose": {
+        "body": [
+          0,
+          0
+        ],
+        "body_angle": 0,
+        "head": [
+          0,
+          0
+        ],
+        "head_angle": 0,
+        "hand": [
+          52,
+          84
+        ],
+        "staff_angle": -10,
+        "far_angle": 118,
+        "far_delta": [
+          0,
+          0
+        ],
+        "near_leg": [
+          0,
+          0,
+          0
+        ],
+        "far_leg": [
+          0,
+          0,
+          0
+        ],
+        "squint": false,
+        "ground": 83,
+        "air": 0,
+        "whole_angle": -88,
+        "exact": false
+      },
+      "translation": [
+        -23,
+        -26
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.70.0"
+    }
+  ],
+  "description": "Test build of Brand's Blaze as in League (needs League of Legends Heroes): replaces the main pack's Brand so his spells stack Blaze on each enemy champion they hit, counted separately per champion (the data pack can only count the stacks on Brand himself). At 3 stacks that champion turns unstable and 2 seconds later detonates, dealing magic damage plus 4% of each nearby enemy's maximum health as magic damage (the data pack's max-health part is true damage) and setting them ablaze. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-07",
+  "mod_id": "league_brand",
+  "mod_type": "native",
+  "name": "League Heroes: Brand's Blaze stacks (test)",
+  "version": "0.1.1"
+}

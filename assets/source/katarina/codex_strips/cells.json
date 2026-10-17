@@ -1,0 +1,274 @@
+{
+ "px_per_square": 8,
+ "grid": [
+  192,
+  128
+ ],
+ "soles_row": 118,
+ "standing_point": [
+  90,
+  118
+ ],
+ "design_squares": [
+  58,
+  68
+ ],
+ "frames": [
+  {
+   "file": "katarina_run_1.png",
+   "tag": "run",
+   "index": 0,
+   "ms": 100
+  },
+  {
+   "file": "katarina_run_2.png",
+   "tag": "run",
+   "index": 1,
+   "ms": 100
+  },
+  {
+   "file": "katarina_run_3.png",
+   "tag": "run",
+   "index": 2,
+   "ms": 100
+  },
+  {
+   "file": "katarina_run_4.png",
+   "tag": "run",
+   "index": 3,
+   "ms": 100
+  },
+  {
+   "file": "katarina_run_5.png",
+   "tag": "run",
+   "index": 4,
+   "ms": 100
+  },
+  {
+   "file": "katarina_run_6.png",
+   "tag": "run",
+   "index": 5,
+   "ms": 100
+  },
+  {
+   "file": "katarina_run_7.png",
+   "tag": "run",
+   "index": 6,
+   "ms": 100
+  },
+  {
+   "file": "katarina_run_8.png",
+   "tag": "run",
+   "index": 7,
+   "ms": 100
+  },
+  {
+   "file": "katarina_attack_1.png",
+   "tag": "attack",
+   "index": 0,
+   "ms": 90
+  },
+  {
+   "file": "katarina_attack_2.png",
+   "tag": "attack",
+   "index": 1,
+   "ms": 90
+  },
+  {
+   "file": "katarina_attack_3.png",
+   "tag": "attack",
+   "index": 2,
+   "ms": 110
+  },
+  {
+   "file": "katarina_attack_4.png",
+   "tag": "attack",
+   "index": 3,
+   "ms": 110
+  },
+  {
+   "file": "katarina_attack_5.png",
+   "tag": "attack",
+   "index": 4,
+   "ms": 120
+  },
+  {
+   "file": "katarina_skill_1.png",
+   "tag": "skill",
+   "index": 0,
+   "ms": 90
+  },
+  {
+   "file": "katarina_skill_2.png",
+   "tag": "skill",
+   "index": 1,
+   "ms": 90
+  },
+  {
+   "file": "katarina_skill_3.png",
+   "tag": "skill",
+   "index": 2,
+   "ms": 110
+  },
+  {
+   "file": "katarina_skill_4.png",
+   "tag": "skill",
+   "index": 3,
+   "ms": 110
+  },
+  {
+   "file": "katarina_skill_5.png",
+   "tag": "skill",
+   "index": 4,
+   "ms": 120
+  },
+  {
+   "file": "katarina_skill2_1.png",
+   "tag": "skill2",
+   "index": 0,
+   "ms": 80
+  },
+  {
+   "file": "katarina_skill2_2.png",
+   "tag": "skill2",
+   "index": 1,
+   "ms": 80
+  },
+  {
+   "file": "katarina_skill2_3.png",
+   "tag": "skill2",
+   "index": 2,
+   "ms": 110
+  },
+  {
+   "file": "katarina_skill2_4.png",
+   "tag": "skill2",
+   "index": 3,
+   "ms": 110
+  },
+  {
+   "file": "katarina_skill2_5.png",
+   "tag": "skill2",
+   "index": 4,
+   "ms": 120
+  },
+  {
+   "file": "katarina_blink_1.png",
+   "tag": "blink",
+   "index": 0,
+   "ms": 50
+  },
+  {
+   "file": "katarina_blink_2.png",
+   "tag": "blink",
+   "index": 1,
+   "ms": 50
+  },
+  {
+   "file": "katarina_blink_3.png",
+   "tag": "blink",
+   "index": 2,
+   "ms": 40
+  },
+  {
+   "file": "katarina_spin_1.png",
+   "tag": "spin",
+   "index": 0,
+   "ms": 50
+  },
+  {
+   "file": "katarina_spin_2.png",
+   "tag": "spin",
+   "index": 1,
+   "ms": 50
+  },
+  {
+   "file": "katarina_spin_3.png",
+   "tag": "spin",
+   "index": 2,
+   "ms": 50
+  },
+  {
+   "file": "katarina_spin_4.png",
+   "tag": "spin",
+   "index": 3,
+   "ms": 50
+  },
+  {
+   "file": "katarina_ult_1.png",
+   "tag": "ult",
+   "index": 0,
+   "ms": 100
+  },
+  {
+   "file": "katarina_ult_2.png",
+   "tag": "ult",
+   "index": 1,
+   "ms": 100
+  },
+  {
+   "file": "katarina_ult_3.png",
+   "tag": "ult",
+   "index": 2,
+   "ms": 100
+  },
+  {
+   "file": "katarina_ult_4.png",
+   "tag": "ult",
+   "index": 3,
+   "ms": 100
+  },
+  {
+   "file": "katarina_ult_5.png",
+   "tag": "ult",
+   "index": 4,
+   "ms": 100
+  },
+  {
+   "file": "katarina_ult_6.png",
+   "tag": "ult",
+   "index": 5,
+   "ms": 100
+  },
+  {
+   "file": "katarina_dead_1.png",
+   "tag": "dead",
+   "index": 0,
+   "ms": 120
+  },
+  {
+   "file": "katarina_dead_2.png",
+   "tag": "dead",
+   "index": 1,
+   "ms": 120
+  },
+  {
+   "file": "katarina_dead_3.png",
+   "tag": "dead",
+   "index": 2,
+   "ms": 120
+  },
+  {
+   "file": "katarina_dead_4.png",
+   "tag": "dead",
+   "index": 3,
+   "ms": 150
+  },
+  {
+   "file": "katarina_dead_5.png",
+   "tag": "dead",
+   "index": 4,
+   "ms": 200
+  },
+  {
+   "file": "katarina_dead_6.png",
+   "tag": "dead",
+   "index": 5,
+   "ms": 400
+  }
+ ],
+ "design_at": [
+  60,
+  51
+ ]
+}

@@ -1,0 +1,2151 @@
+{
+  "status": "generated_raw_assets",
+  "total_requested_assets": 21,
+  "total_requested_frames": 91,
+  "asset_count": 21,
+  "frame_count": 91,
+  "rect_coordinate_space": "original PNG pixels; [x,y,width,height]",
+  "originals_preserved": true,
+  "notes": [
+    "Native generation originals; no code-drawn effects or palette/grid cleanup applied.",
+    "Cut coordinates follow actual layout gaps; original cells may not be equal-sized.",
+    "Preview timing 100 ms/frame is illustrative; configure real game timing on import."
+  ],
+  "assets": [
+    {
+      "name": "senna_fx_a_shot",
+      "file": "senna_fx_a_shot.png",
+      "source_file": "raw/senna_fx_a_shot.png",
+      "prompt_number": 1,
+      "prompt_file": "prompts/senna_fx_a_shot.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1152,
+        160
+      ],
+      "requested_cell": [
+        288,
+        160
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_projectiles `league_senna_a_shot`（循环，朝飞行方向转）",
+      "game_size": "14 × 7",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            53,
+            543,
+            647
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            69,
+            533,
+            645
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "3ea900aab0d4d8fbede3ea9181759f96fd6aca7ef9656c288411f2bbb61539fb"
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            53,
+            543,
+            647
+          ],
+          "alpha_bbox_in_rect": [
+            5,
+            2,
+            543,
+            613
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "804727e7b66b47cd8badf20d0cda9ad1d767fd0c1856688f06d59dba8ecb19a7"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            53,
+            543,
+            647
+          ],
+          "alpha_bbox_in_rect": [
+            1,
+            18,
+            543,
+            550
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "6ed7a74a54ef92ad97a3df7784987102a75ac6e63e4fb37a08acc50aa17eb30b"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            53,
+            543,
+            647
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            34,
+            537,
+            554
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "f535fc2190802806bb7734ba5a231a991608202290a57a10a3273c120c73c57d"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_a_hit",
+      "file": "senna_fx_a_hit.png",
+      "source_file": "raw/senna_fx_a_hit.png",
+      "prompt_number": 2,
+      "prompt_file": "prompts/senna_fx_a_hit.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1024,
+        256
+      ],
+      "requested_cell": [
+        256,
+        256
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_effects `league_senna_a_hit`（跟随，画在人物上面）",
+      "game_size": "14 × 14",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            446,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            41,
+            446,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "76212afddfc800406d1385c84a01896d0bbbf4261544ae741fb271565c2cb64e"
+        },
+        {
+          "index": 1,
+          "rect": [
+            446,
+            0,
+            548,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            548,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "0d60f92c11130329b0ea93cc0fbdee6edc9a046509e6116eb0898aad831199c4"
+        },
+        {
+          "index": 2,
+          "rect": [
+            994,
+            0,
+            638,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            9,
+            638,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "570db2195403a9275863322d56b828f073725e8e6ab941f381fc42a7819a9d03"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1632,
+            0,
+            540,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            19,
+            524,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "ef66a63bb161e8717237ea8cd6576a6c8e7e920a707d68c3a789d1a0b03b12e1"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_p_mark",
+      "file": "senna_fx_p_mark.png",
+      "source_file": "raw/senna_fx_p_mark.png",
+      "prompt_number": 3,
+      "prompt_file": "prompts/senna_fx_p_mark.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1664,
+        224
+      ],
+      "requested_cell": [
+        416,
+        224
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_buffs `league_senna_p_mark`（循环，跟随，画在人物上面；4 秒）",
+      "game_size": "22 × 10",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            16,
+            543,
+            708
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            543,
+            682
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "643998fde0559dd3fbe8ac4bff0a498b51b8aff68548efc34ef55696cb215ea5"
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            16,
+            543,
+            708
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            3,
+            543,
+            708
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "529934d70ca11f5d478e7e0c3c9b10158453f5ca2265a9e84cb162ea13409032"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            16,
+            543,
+            708
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            7,
+            543,
+            676
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "b0ef8f32ce81e008ea7945d0cb3a2b344e210ad48e0a8531f4730035bd12f43f"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            16,
+            543,
+            708
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            23,
+            534,
+            708
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "72b9e25328c20b4a1ba8876d9c19d2eb482e4e4afbec2c42973e3ce853eb1c5d"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_p_take",
+      "file": "senna_fx_p_take.png",
+      "source_file": "raw/senna_fx_p_take.png",
+      "prompt_number": 4,
+      "prompt_file": "prompts/senna_fx_p_take.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        1983,
+        793
+      ],
+      "requested_canvas": [
+        1600,
+        448
+      ],
+      "requested_cell": [
+        320,
+        448
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_effects `league_senna_p_take`（跟随，画在人物上面）",
+      "game_size": "18 × 26",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            17,
+            403,
+            776
+          ],
+          "alpha_bbox_in_rect": [
+            25,
+            69,
+            403,
+            744
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "001353177c38998d126312c071aa081126ff9c4da804070532ce5e9662b87aad"
+        },
+        {
+          "index": 1,
+          "rect": [
+            403,
+            17,
+            390,
+            776
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            15,
+            389,
+            744
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "a1b4a725c558069aa3a285a24419048d779aa79463c4352c8c410e7e093cbb6b"
+        },
+        {
+          "index": 2,
+          "rect": [
+            793,
+            17,
+            397,
+            776
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            397,
+            758
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "c3eb597bdf9f1a9abbe18bb02fec30cc84b53a448ed410b046cf047fa7f5d954"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1190,
+            17,
+            396,
+            776
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            20,
+            396,
+            776
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "856a7892dd49c9d5b34453364a1366c386b25985d25ced07280cf44c4a5cf414"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1586,
+            17,
+            397,
+            776
+          ],
+          "alpha_bbox_in_rect": [
+            1,
+            2,
+            371,
+            760
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "839220ae5bbea7acd1019673c729ddda86ab5093a8f7dcc267c3ad4ec72c40b6"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_p_gain",
+      "file": "senna_fx_p_gain.png",
+      "source_file": "raw/senna_fx_p_gain.png",
+      "prompt_number": 5,
+      "prompt_file": "prompts/senna_fx_p_gain.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1536,
+        480
+      ],
+      "requested_cell": [
+        384,
+        480
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_effects `league_senna_p_gain`（跟随，画在人物最上面）",
+      "game_size": "22 × 28",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            13,
+            543,
+            711
+          ],
+          "alpha_bbox_in_rect": [
+            17,
+            12,
+            543,
+            641
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "4f9f463d39b1a33bceb7581d9073fa47d5758f014fc27290bfdc5084b4625559"
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            13,
+            543,
+            711
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            8,
+            543,
+            696
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "cdb9c2e03eb6a368a59e712fd2e6e7a2a20a42dce1442237a1bcb5e2fe027939"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            13,
+            543,
+            711
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            543,
+            711
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "11bf41cada550db51835808203e9da0c9b134b1394bcf68e05e3eb1736857879"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            13,
+            543,
+            711
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            54,
+            529,
+            665
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "c118e0e494a4ef95c1fefaf2c285923eab8d73e0c9bcc3fe07000b3400799583"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_q_beam",
+      "file": "senna_fx_q_beam.png",
+      "source_file": "raw/senna_fx_q_beam.png",
+      "prompt_number": 6,
+      "prompt_file": "prompts/senna_fx_q_beam.txt",
+      "layout": "vertical_column",
+      "loop": false,
+      "source_canvas": [
+        1070,
+        1470
+      ],
+      "requested_canvas": [
+        1088,
+        560
+      ],
+      "requested_cell": [
+        1088,
+        112
+      ],
+      "requested_pixel_scale": 8,
+      "binding": "view_projectiles `league_senna_q_beam`（BIG；光束，从她身前一直伸到 130 格外）",
+      "game_size": "130 × 10",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            1070,
+            294
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            1058,
+            294
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "6791752c2cc4a27da694cd09eb920eccbb0afa2bd88803f8c430f6a7173a29d1"
+        },
+        {
+          "index": 1,
+          "rect": [
+            0,
+            294,
+            1070,
+            294
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            1070,
+            294
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "577251987f827f7972c342c83e168b8f5e3ed39e7cf20c4479b8ba5446760014"
+        },
+        {
+          "index": 2,
+          "rect": [
+            0,
+            588,
+            1070,
+            327
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            1070,
+            327
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "7179865c99bc9125682f6b21759976fde358f55ec94dc7db4a534b49a73c58a3"
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            915,
+            1070,
+            272
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            1069,
+            272
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "d56a87686676e8657ea36f5a46fe92d6764d6336fecaddc571331ac621f216b9"
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            1187,
+            1070,
+            283
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            1070,
+            283
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "50afb2df05f0ff4856abcf630c3c2f72269cf33312a504c9f1fa0a5303085417"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_q_hit",
+      "file": "senna_fx_q_hit.png",
+      "source_file": "raw/senna_fx_q_hit.png",
+      "prompt_number": 7,
+      "prompt_file": "prompts/senna_fx_q_hit.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        1881,
+        836
+      ],
+      "requested_canvas": [
+        1152,
+        256
+      ],
+      "requested_cell": [
+        288,
+        256
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_effects `league_senna_q_hit`（跟随，画在人物上面）",
+      "game_size": "16 × 14",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            27,
+            470,
+            779
+          ],
+          "alpha_bbox_in_rect": [
+            17,
+            58,
+            470,
+            753
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "e8165e9f6be62b274f41056915200c8c4f21a25bff8e30f1944d9ab2d030c2ff"
+        },
+        {
+          "index": 1,
+          "rect": [
+            470,
+            27,
+            470,
+            779
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            470,
+            745
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "958f4027d113a6e824d4ab8ab42a1176cedb0bb587b2742e299d47f6d0cdc89a"
+        },
+        {
+          "index": 2,
+          "rect": [
+            940,
+            27,
+            471,
+            779
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            60,
+            471,
+            753
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "a545da4b281495440ea5593623f1267b64e7cd6cd06228551b899e859ef21edb"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1411,
+            27,
+            470,
+            779
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            36,
+            464,
+            777
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "26fa1a44fb111d7af37b80b1d852aae2afb707432589f30547ed634de55221ee"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_q_heal",
+      "file": "senna_fx_q_heal.png",
+      "source_file": "raw/senna_fx_q_heal.png",
+      "prompt_number": 8,
+      "prompt_file": "prompts/senna_fx_q_heal.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1536,
+        480
+      ],
+      "requested_cell": [
+        384,
+        480
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_effects `league_senna_q_heal`（跟随，画在人物上面）",
+      "game_size": "22 × 28",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            11,
+            543,
+            713
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            10,
+            543,
+            713
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "830c49acc9445a6f28287a0a8adc6407a0e587e7e8c040d9fc49960ce6f031d6"
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            11,
+            543,
+            713
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            4,
+            543,
+            713
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "399e55d951d412c7968296d78d06d7785b6c1969de01b17a3ccb1b58082174d1"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            11,
+            543,
+            713
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            4,
+            543,
+            713
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "5b1abb9130874216d6b8f1d3ce1bdef58d5bdae3229b9d4f1d408dca336226ce"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            11,
+            543,
+            713
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            542,
+            713
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "3f7c70ebb3ecf0621bac7ee2ac71ad62190ecb3336197b4f57d310cdf5861390"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_q_slow",
+      "file": "senna_fx_q_slow.png",
+      "source_file": "raw/senna_fx_q_slow.png",
+      "prompt_number": 9,
+      "prompt_file": "prompts/senna_fx_q_slow.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        2079,
+        756
+      ],
+      "requested_canvas": [
+        1408,
+        160
+      ],
+      "requested_cell": [
+        352,
+        160
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_buffs `league_senna_q_slow`（循环，跟随，画在人物下面；1.25 秒）",
+      "game_size": "18 × 6",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            122,
+            520,
+            634
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            39,
+            520,
+            634
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "39971bd7b9a121b62ecdb0586ee3970a5f9d6b828718d20aaffaa1b7f44fd460"
+        },
+        {
+          "index": 1,
+          "rect": [
+            520,
+            122,
+            519,
+            634
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            519,
+            634
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "45185b74381bf01863d8a1ab88221f84f8093ad8e66f4c3d93a9b251da199f43"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1039,
+            122,
+            520,
+            634
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            43,
+            520,
+            634
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "9338c365ef8d6fa54efb9b272e1abc32c6bec9ff7bd8cba1db316959921056da"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1559,
+            122,
+            520,
+            634
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            62,
+            506,
+            634
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "af38d288d14579a711c33771ab5430c4bcb82f64cf5020d89f4c113153a7c708"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_w_mist",
+      "file": "senna_fx_w_mist.png",
+      "source_file": "raw/senna_fx_w_mist.png",
+      "prompt_number": 10,
+      "prompt_file": "prompts/senna_fx_w_mist.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        2062,
+        763
+      ],
+      "requested_canvas": [
+        1280,
+        192
+      ],
+      "requested_cell": [
+        320,
+        192
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_projectiles `league_senna_w_mist`（循环，朝飞行方向转）",
+      "game_size": "16 × 9",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            24,
+            515,
+            722
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            30,
+            515,
+            707
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "4e5907cc8bde7f73dfa4060d899ba6b9c8146ceb3ff96e2776bb315613c33998"
+        },
+        {
+          "index": 1,
+          "rect": [
+            515,
+            24,
+            516,
+            722
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            13,
+            516,
+            666
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "9eece085b4c26a534a1b3adcd4422ab9f645bb935cdce11283b1405bbf6873ff"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1031,
+            24,
+            515,
+            722
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            515,
+            720
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "9235ea7ee965f4590f140ac82eee9e204ca8751655a830e4795d0d1c6482bca5"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1546,
+            24,
+            516,
+            722
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            13,
+            506,
+            707
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "ca94ea6c3a3e0985e0164c0ddd3cceaaac18356994073ae943748da91f8774b4"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_w_hit",
+      "file": "senna_fx_w_hit.png",
+      "source_file": "raw/senna_fx_w_hit.png",
+      "prompt_number": 11,
+      "prompt_file": "prompts/senna_fx_w_hit.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1280,
+        320
+      ],
+      "requested_cell": [
+        320,
+        320
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_effects `league_senna_w_hit`（跟随，画在人物上面）",
+      "game_size": "18 × 18",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            5,
+            414,
+            719
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            44,
+            414,
+            719
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "56eb84e12099116b590953b69ba14734de0ae407371e97a8652249e7fdb26de8"
+        },
+        {
+          "index": 1,
+          "rect": [
+            414,
+            5,
+            742,
+            719
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            4,
+            742,
+            719
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "410e3c150334a47dca7e99b9be0faece60c592659588b7df59f3b6e25a47e723"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1156,
+            5,
+            469,
+            719
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            4,
+            469,
+            719
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "d94cf7227eb1ef60cfbe1bc3a604790844e89d39c90cb915f0a48570c89b5ebf"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1625,
+            5,
+            547,
+            719
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            547,
+            719
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "04aba9e6e365a760def025b38d4c33f979a7687bb3eacc9ce9bf92528a70792b"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_w_cling",
+      "file": "senna_fx_w_cling.png",
+      "source_file": "raw/senna_fx_w_cling.png",
+      "prompt_number": 12,
+      "prompt_file": "prompts/senna_fx_w_cling.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1536,
+        448
+      ],
+      "requested_cell": [
+        384,
+        448
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_buffs `league_senna_w_cling`（循环，跟随，画在人物上面；1 秒后炸开）",
+      "game_size": "20 × 26",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            7,
+            543,
+            717
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            543,
+            717
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "07a289ccb5e01500f0b2c9c811e302c692a1563361d326f2bb37246d23e1642f"
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            7,
+            543,
+            717
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            543,
+            717
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "47bd46929179a6d25e638bfb46b1e40d403f7f72c8ff539ee68dead7a75b0c6c"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            7,
+            543,
+            717
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            10,
+            543,
+            717
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "b7e230c12ffb8f2a467c11e51c66f61e522cec28bb674c8b9886532487790498"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            7,
+            543,
+            717
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            529,
+            717
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "34295a05f53d57d20549dae5d6da2b8661cd863e117b5ba10f69c1988411b79e"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_w_burst",
+      "file": "senna_fx_w_burst.png",
+      "source_file": "raw/senna_fx_w_burst.png",
+      "prompt_number": 13,
+      "prompt_file": "prompts/senna_fx_w_burst.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        2138,
+        736
+      ],
+      "requested_canvas": [
+        2976,
+        256
+      ],
+      "requested_cell": [
+        496,
+        256
+      ],
+      "requested_pixel_scale": 8,
+      "binding": "view_effects `league_senna_w_burst`（BIG；不跟随，画在人物上面；炸开的位置）",
+      "game_size": "58 × 30",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            63,
+            300,
+            673
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            240,
+            300,
+            673
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "d73bc6d76436b6efbf8ee20e1994fc5d4d0980f2e89977dfaba23920ba1a66b0"
+        },
+        {
+          "index": 1,
+          "rect": [
+            300,
+            63,
+            373,
+            673
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            40,
+            373,
+            633
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "6d5adece597170ae63329fbe273ba23d241f632a1e0658be4ef91eb3b9f46821"
+        },
+        {
+          "index": 2,
+          "rect": [
+            673,
+            63,
+            439,
+            673
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            438,
+            657
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "c837125c8198645dc540c18260acd7b0923a6c0ce356ac6c38c206eb39dd2b69"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1112,
+            63,
+            353,
+            673
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            72,
+            353,
+            656
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "c194a1e0dbf57e4cc603483d385054dde319a757380fbff129760c679a0ca33e"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1465,
+            63,
+            349,
+            673
+          ],
+          "alpha_bbox_in_rect": [
+            8,
+            64,
+            349,
+            673
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "33cc32ab1697b9391c09bb9074dcc506764ca6b02755520538cfc3b2a805abf0"
+        },
+        {
+          "index": 5,
+          "rect": [
+            1814,
+            63,
+            324,
+            673
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            100,
+            310,
+            583
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "1174c0a2bd9f8314625e50578529bd7aff8aefc0fd16dc7302af3523a5c7e122"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_w_root",
+      "file": "senna_fx_w_root.png",
+      "source_file": "raw/senna_fx_w_root.png",
+      "prompt_number": 14,
+      "prompt_file": "prompts/senna_fx_w_root.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1536,
+        256
+      ],
+      "requested_cell": [
+        384,
+        256
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_buffs `league_senna_w_root`（循环，跟随，画在人物下面；1.5 秒）",
+      "game_size": "20 × 12",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            31,
+            130,
+            543,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "44c84d5fa29cc844376d96df932a91207943f3f0d94e42e796e3c595f64d79a1"
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            37,
+            543,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "09edfc784f86b58dbe285f2527c7f8c2408864c7fe2302332211f4ddaac95b71"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "f9c8e9e45bf60abd9761b4fa11c1ac0ea1b2a783a0da26e0b41ca04433f2ad6e"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            79,
+            529,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "6d6dc2ccc897967115541cb89f0ec022a5b1877df9acd8283324ae731e7d690d"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_e_mist",
+      "file": "senna_fx_e_mist.png",
+      "source_file": "raw/senna_fx_e_mist.png",
+      "prompt_number": 15,
+      "prompt_file": "prompts/senna_fx_e_mist.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        4224,
+        352
+      ],
+      "requested_cell": [
+        704,
+        352
+      ],
+      "requested_pixel_scale": 8,
+      "binding": "view_effects `league_senna_e_mist`（BIG；不跟随，画在人物下面；她的位置，半径约 40 格内的队友一起隐身）",
+      "game_size": "84 × 40",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            21,
+            257,
+            703
+          ],
+          "alpha_bbox_in_rect": [
+            23,
+            127,
+            257,
+            657
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "83569626e6fa630bdea2235b0f910f73badac2d337cdf9cabf3eab73d424c15d"
+        },
+        {
+          "index": 1,
+          "rect": [
+            257,
+            21,
+            342,
+            703
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            48,
+            342,
+            671
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "7953a510bae21fc92b1922608b9294d268c2545b5cfcb08e478238c904978ce9"
+        },
+        {
+          "index": 2,
+          "rect": [
+            599,
+            21,
+            556,
+            703
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            30,
+            556,
+            703
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "9e339525c98d85cebeb8d6a7edf8764758b130b7b537f559618a3c97b0037939"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1155,
+            21,
+            399,
+            703
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            399,
+            679
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "aebad8f2b6ed43e26c01d972861e063cf36b4bad865914be5e07b25cae3f3375"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1554,
+            21,
+            318,
+            703
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            141,
+            318,
+            703
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "125a4b8b0562d5688462c75f24bd43bef5e68745a1d61ff152637e0d21ea416d"
+        },
+        {
+          "index": 5,
+          "rect": [
+            1872,
+            21,
+            300,
+            703
+          ],
+          "alpha_bbox_in_rect": [
+            1,
+            171,
+            286,
+            639
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "4cf8e1d1d06bf44fdcae4c892700cdbcf7aabf159b572281d37804530f2eaf78"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_e_ms",
+      "file": "senna_fx_e_ms.png",
+      "source_file": "raw/senna_fx_e_ms.png",
+      "prompt_number": 16,
+      "prompt_file": "prompts/senna_fx_e_ms.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        2079,
+        756
+      ],
+      "requested_canvas": [
+        1408,
+        192
+      ],
+      "requested_cell": [
+        352,
+        192
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_buffs `league_senna_e_ms`（循环，跟随，画在人物下面；4 秒）",
+      "game_size": "18 × 8",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            62,
+            520,
+            664
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            11,
+            520,
+            662
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "726db3dd863961be21e5eb08926fd3d86a3f47df8e8a43da791a0b39dddf0440"
+        },
+        {
+          "index": 1,
+          "rect": [
+            520,
+            62,
+            519,
+            664
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            514,
+            626
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "16ad2e3d8de1d18386a5841fb7662ddcca913831ef5f71ba9d7261d930cea168"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1039,
+            62,
+            520,
+            664
+          ],
+          "alpha_bbox_in_rect": [
+            1,
+            7,
+            520,
+            662
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "1063d0c5a94c57baf66b63c9cbaff2b46c95cc8337f71da8ceb9571588f851ad"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1559,
+            62,
+            520,
+            664
+          ],
+          "alpha_bbox_in_rect": [
+            1,
+            54,
+            519,
+            628
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "bbd633660ede11d555472527c9d217ca3824fa440b4e678cc4502d6d0585e4cc"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_r_core",
+      "file": "senna_fx_r_core.png",
+      "source_file": "raw/senna_fx_r_core.png",
+      "prompt_number": 17,
+      "prompt_file": "prompts/senna_fx_r_core.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1536,
+        160
+      ],
+      "requested_cell": [
+        384,
+        160
+      ],
+      "requested_pixel_scale": 8,
+      "binding": "view_projectiles `league_senna_r_core`（BIG；循环，朝飞行方向转；伤害敌方英雄的那一道）",
+      "game_size": "44 × 16",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            61,
+            543,
+            625
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            543,
+            575
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "3cf6b532e22f58f403e392d73447647fd6882722e68a6231cfc145cff6048013"
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            61,
+            543,
+            625
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            56,
+            535,
+            623
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "243eeac17e037b30577f0cfd59c4eee23831f6b292fcaa3226d6710d420de06d"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            61,
+            543,
+            625
+          ],
+          "alpha_bbox_in_rect": [
+            7,
+            34,
+            541,
+            609
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "d82c4603c1c059e153cb69d1352b20568bf8e489ca24a1bee0d275e4cb212aea"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            61,
+            543,
+            625
+          ],
+          "alpha_bbox_in_rect": [
+            10,
+            42,
+            535,
+            569
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "626e779c70f0f55b24761ce3bbc1c6ed9837a6b254ec99e67f5374e0fd123ae7"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_r_light",
+      "file": "senna_fx_r_light.png",
+      "source_file": "raw/senna_fx_r_light.png",
+      "prompt_number": 18,
+      "prompt_file": "prompts/senna_fx_r_light.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        1983,
+        793
+      ],
+      "requested_canvas": [
+        1024,
+        816
+      ],
+      "requested_cell": [
+        256,
+        816
+      ],
+      "requested_pixel_scale": 8,
+      "binding": "view_projectiles `league_senna_r_light`（BIG；循环，朝飞行方向转；给友方英雄护盾的那一道，很宽）",
+      "game_size": "24 × 96",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            9,
+            496,
+            793
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "72d1aad6dce0a40a8de96cf74bf0feab6cc4ea95619ca1fd8c431cd974f89b68"
+        },
+        {
+          "index": 1,
+          "rect": [
+            496,
+            0,
+            495,
+            793
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            495,
+            793
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "981604853be68e8ad3c23a868da15c83ba97ba6b232452b1a2f003740f0e7c90"
+        },
+        {
+          "index": 2,
+          "rect": [
+            991,
+            0,
+            496,
+            793
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "58c0331b0bb5c0d324a7ea5e5361bff2607b63ded33e47169e8c32f19ca57503"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            17,
+            496,
+            793
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "32fd6a101a6908bdcc2e917604c65d7aefc9c31112c75d5e3eadfd8b67772bbb"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_r_hit",
+      "file": "senna_fx_r_hit.png",
+      "source_file": "raw/senna_fx_r_hit.png",
+      "prompt_number": 19,
+      "prompt_file": "prompts/senna_fx_r_hit.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        1983,
+        793
+      ],
+      "requested_canvas": [
+        2560,
+        544
+      ],
+      "requested_cell": [
+        512,
+        544
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_effects `league_senna_r_hit`（BIG；跟随，画在人物上面）",
+      "game_size": "28 × 30",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            5,
+            300,
+            788
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            83,
+            300,
+            788
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "68be630ac3e3a7e55a16a2ec769848a14b18214b022d97a2e6b5d677254367cc"
+        },
+        {
+          "index": 1,
+          "rect": [
+            300,
+            5,
+            389,
+            788
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            18,
+            389,
+            788
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "ee8380086f41863716d0a8200660f00cf017fafd25af5ffede80bdde927d5b1c"
+        },
+        {
+          "index": 2,
+          "rect": [
+            689,
+            5,
+            518,
+            788
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            518,
+            788
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "8433a8643781ca5787b776e2253412137dce4168f7958fd177f547330b2066a7"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1207,
+            5,
+            454,
+            788
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            454,
+            788
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "ab0cc2d82d18549111748a1afcbc4108158ba8e20bb32451d7ba0dcb068d21d6"
+        },
+        {
+          "index": 4,
+          "rect": [
+            1661,
+            5,
+            322,
+            788
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            61,
+            316,
+            758
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "81584b1ca832f003d83251a99d406235ddf51089265ae4051de1d0494160b3c9"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_r_sh",
+      "file": "senna_fx_r_sh.png",
+      "source_file": "raw/senna_fx_r_sh.png",
+      "prompt_number": 20,
+      "prompt_file": "prompts/senna_fx_r_sh.txt",
+      "layout": "horizontal_row",
+      "loop": false,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        2048,
+        608
+      ],
+      "requested_cell": [
+        512,
+        608
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_effects `league_senna_r_sh`（跟随，画在人物上面）",
+      "game_size": "28 × 34",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "2ffb20a71e9b085c3d0a27842615599ed8038ce43da11c1a6d28f3a28cf58f02"
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            534,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            21,
+            534,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "20b0178883a5ce425941aa1498f560c9e5fd69cca6e588aad654573230eef7b1"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1077,
+            0,
+            552,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            39,
+            552,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "28578952c075da502f73f71f4dfdc6ead2b39ec98690dd402858509d1f8ecaac"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            15,
+            529,
+            724
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "c5408d2bc2b668c4f7f09b846f913c20d6cff563c69da61a243b849fe855f24c"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    },
+    {
+      "name": "senna_fx_r_shield",
+      "file": "senna_fx_r_shield.png",
+      "source_file": "raw/senna_fx_r_shield.png",
+      "prompt_number": 21,
+      "prompt_file": "prompts/senna_fx_r_shield.txt",
+      "layout": "horizontal_row",
+      "loop": true,
+      "source_canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        2048,
+        608
+      ],
+      "requested_cell": [
+        512,
+        608
+      ],
+      "requested_pixel_scale": 16,
+      "binding": "view_buffs `league_senna_r_shield`（循环，跟随，画在人物上面；有护盾时）",
+      "game_size": "28 × 34",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            6,
+            543,
+            718
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            3,
+            543,
+            718
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "8a288eae13e3d4c915bd2b3efabed005a9bb30a8720414358768e85c3336d71d"
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            6,
+            543,
+            718
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            2,
+            543,
+            718
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "e1f9c39042c56248ff22ec8edaf28bb7a37b869c0a7cfbd50301e323773a84bc"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            6,
+            543,
+            718
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            3,
+            543,
+            718
+          ],
+          "cut_boundary_opaque_pixels": 0.0,
+          "sha256_rgba": "24c308bb0df61392edc9507017d0770b4501b6b4e79a285522d1bb99f8384e96"
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            6,
+            543,
+            718
+          ],
+          "alpha_bbox_in_rect": [
+            0,
+            11,
+            529,
+            718
+          ],
+          "cut_boundary_opaque_pixels": 0,
+          "sha256_rgba": "52095ef619670f934b4d8cdd991ade9af896e4de0775182150cc70560cded700"
+        }
+      ],
+      "preview_frame_duration_ms": 100,
+      "preview_timing_is_game_timing": false
+    }
+  ]
+}

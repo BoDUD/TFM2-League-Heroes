@@ -1,0 +1,717 @@
+{
+  "assets": [
+    {
+      "file": "ryze_run_raw.png",
+      "frame_duration_ms": 133,
+      "loop": true,
+      "source_type": "unmodified_image_generation_raw",
+      "image_size": [
+        1844,
+        853
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.66545,
+      "partial_alpha_fraction": 0.33418,
+      "sha256": "13ee9187e05f5f328ca0950aee6e99ca12378386d34aaaabda60778ecc96b54d",
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            49,
+            461,
+            372
+          ],
+          "visible_bbox": [
+            111,
+            61,
+            283,
+            348
+          ],
+          "alpha_visible_pixels": 57764,
+          "mean_visible_luma": 60.8,
+          "brightest_decile_luma": 191.27
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            461,
+            49,
+            461,
+            372
+          ],
+          "visible_bbox": [
+            592,
+            62,
+            282,
+            347
+          ],
+          "alpha_visible_pixels": 57557,
+          "mean_visible_luma": 59.97,
+          "brightest_decile_luma": 189.45
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            922,
+            49,
+            461,
+            372
+          ],
+          "visible_bbox": [
+            1045,
+            62,
+            237,
+            347
+          ],
+          "alpha_visible_pixels": 55194,
+          "mean_visible_luma": 60.37,
+          "brightest_decile_luma": 190.92
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1383,
+            49,
+            461,
+            372
+          ],
+          "visible_bbox": [
+            1497,
+            61,
+            264,
+            348
+          ],
+          "alpha_visible_pixels": 54728,
+          "mean_visible_luma": 58.94,
+          "brightest_decile_luma": 191.33
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 0,
+          "rect": [
+            0,
+            432,
+            461,
+            385
+          ],
+          "visible_bbox": [
+            113,
+            452,
+            255,
+            353
+          ],
+          "alpha_visible_pixels": 57698,
+          "mean_visible_luma": 61.24,
+          "brightest_decile_luma": 191.09
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 1,
+          "rect": [
+            461,
+            432,
+            461,
+            385
+          ],
+          "visible_bbox": [
+            593,
+            452,
+            242,
+            353
+          ],
+          "alpha_visible_pixels": 57518,
+          "mean_visible_luma": 61.08,
+          "brightest_decile_luma": 191.19
+        },
+        {
+          "index": 6,
+          "row": 1,
+          "column": 2,
+          "rect": [
+            922,
+            432,
+            461,
+            385
+          ],
+          "visible_bbox": [
+            1045,
+            451,
+            269,
+            354
+          ],
+          "alpha_visible_pixels": 55599,
+          "mean_visible_luma": 61.01,
+          "brightest_decile_luma": 191.71
+        },
+        {
+          "index": 7,
+          "row": 1,
+          "column": 3,
+          "rect": [
+            1383,
+            432,
+            461,
+            385
+          ],
+          "visible_bbox": [
+            1480,
+            444,
+            298,
+            361
+          ],
+          "alpha_visible_pixels": 64245,
+          "mean_visible_luma": 58.35,
+          "brightest_decile_luma": 188.92
+        }
+      ]
+    },
+    {
+      "file": "ryze_run_raw_B.png",
+      "frame_duration_ms": 133,
+      "loop": true,
+      "source_type": "unmodified_image_generation_raw",
+      "image_size": [
+        1846,
+        852
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.80016,
+      "partial_alpha_fraction": 0.19896,
+      "sha256": "0b83bf9f9641cfc10d6d36f351bfa96f8d13290527324f5281aa840c9c990f18",
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            137,
+            461,
+            289
+          ],
+          "visible_bbox": [
+            137,
+            164,
+            224,
+            262
+          ],
+          "alpha_visible_pixels": 34464,
+          "mean_visible_luma": 58.08,
+          "brightest_decile_luma": 183.68
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            461,
+            137,
+            462,
+            289
+          ],
+          "visible_bbox": [
+            619,
+            174,
+            187,
+            252
+          ],
+          "alpha_visible_pixels": 31606,
+          "mean_visible_luma": 61.71,
+          "brightest_decile_luma": 184.66
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            923,
+            137,
+            461,
+            289
+          ],
+          "visible_bbox": [
+            1060,
+            169,
+            169,
+            257
+          ],
+          "alpha_visible_pixels": 31684,
+          "mean_visible_luma": 62.44,
+          "brightest_decile_luma": 185.24
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1384,
+            137,
+            462,
+            289
+          ],
+          "visible_bbox": [
+            1497,
+            149,
+            208,
+            277
+          ],
+          "alpha_visible_pixels": 35348,
+          "mean_visible_luma": 58.49,
+          "brightest_decile_luma": 182.25
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 0,
+          "rect": [
+            0,
+            426,
+            461,
+            372
+          ],
+          "visible_bbox": [
+            159,
+            426,
+            182,
+            360
+          ],
+          "alpha_visible_pixels": 33876,
+          "mean_visible_luma": 60.65,
+          "brightest_decile_luma": 182.49
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 1,
+          "rect": [
+            461,
+            426,
+            462,
+            372
+          ],
+          "visible_bbox": [
+            627,
+            426,
+            206,
+            360
+          ],
+          "alpha_visible_pixels": 32654,
+          "mean_visible_luma": 58.04,
+          "brightest_decile_luma": 184.1
+        },
+        {
+          "index": 6,
+          "row": 1,
+          "column": 2,
+          "rect": [
+            923,
+            426,
+            461,
+            372
+          ],
+          "visible_bbox": [
+            1075,
+            426,
+            164,
+            360
+          ],
+          "alpha_visible_pixels": 31634,
+          "mean_visible_luma": 59.9,
+          "brightest_decile_luma": 183.25
+        },
+        {
+          "index": 7,
+          "row": 1,
+          "column": 3,
+          "rect": [
+            1384,
+            426,
+            462,
+            372
+          ],
+          "visible_bbox": [
+            1485,
+            426,
+            215,
+            360
+          ],
+          "alpha_visible_pixels": 33699,
+          "mean_visible_luma": 58.12,
+          "brightest_decile_luma": 182.98
+        }
+      ]
+    },
+    {
+      "file": "ryze_run_raw_C.png",
+      "frame_duration_ms": 133,
+      "loop": true,
+      "source_type": "unmodified_image_generation_raw",
+      "image_size": [
+        1846,
+        852
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.71187,
+      "partial_alpha_fraction": 0.28739,
+      "sha256": "e21ae1333ee3b4eb025f95e30564ce4ba480062a64962e13941bd8bb42a26586",
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            92,
+            461,
+            330
+          ],
+          "visible_bbox": [
+            126,
+            104,
+            230,
+            304
+          ],
+          "alpha_visible_pixels": 40112,
+          "mean_visible_luma": 57.17,
+          "brightest_decile_luma": 182.01
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            461,
+            92,
+            462,
+            330
+          ],
+          "visible_bbox": [
+            610,
+            105,
+            226,
+            305
+          ],
+          "alpha_visible_pixels": 39918,
+          "mean_visible_luma": 56.02,
+          "brightest_decile_luma": 179.18
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            923,
+            92,
+            461,
+            330
+          ],
+          "visible_bbox": [
+            1067,
+            108,
+            183,
+            301
+          ],
+          "alpha_visible_pixels": 37070,
+          "mean_visible_luma": 58.17,
+          "brightest_decile_luma": 183.2
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1384,
+            92,
+            462,
+            330
+          ],
+          "visible_bbox": [
+            1496,
+            104,
+            243,
+            305
+          ],
+          "alpha_visible_pixels": 42024,
+          "mean_visible_luma": 55.0,
+          "brightest_decile_luma": 180.15
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 0,
+          "rect": [
+            0,
+            490,
+            461,
+            340
+          ],
+          "visible_bbox": [
+            133,
+            510,
+            204,
+            308
+          ],
+          "alpha_visible_pixels": 38866,
+          "mean_visible_luma": 56.62,
+          "brightest_decile_luma": 181.35
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 1,
+          "rect": [
+            461,
+            490,
+            462,
+            340
+          ],
+          "visible_bbox": [
+            596,
+            505,
+            230,
+            313
+          ],
+          "alpha_visible_pixels": 40815,
+          "mean_visible_luma": 57.24,
+          "brightest_decile_luma": 181.33
+        },
+        {
+          "index": 6,
+          "row": 1,
+          "column": 2,
+          "rect": [
+            923,
+            490,
+            461,
+            340
+          ],
+          "visible_bbox": [
+            1066,
+            502,
+            187,
+            316
+          ],
+          "alpha_visible_pixels": 37774,
+          "mean_visible_luma": 58.55,
+          "brightest_decile_luma": 183.36
+        },
+        {
+          "index": 7,
+          "row": 1,
+          "column": 3,
+          "rect": [
+            1384,
+            490,
+            462,
+            340
+          ],
+          "visible_bbox": [
+            1516,
+            513,
+            234,
+            305
+          ],
+          "alpha_visible_pixels": 42064,
+          "mean_visible_luma": 54.44,
+          "brightest_decile_luma": 182.28
+        }
+      ]
+    },
+    {
+      "file": "ryze_run_raw_D.png",
+      "frame_duration_ms": 133,
+      "loop": true,
+      "source_type": "unmodified_image_generation_raw",
+      "image_size": [
+        1844,
+        853
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.66176,
+      "partial_alpha_fraction": 0.33655,
+      "sha256": "2a9664dfc2bdcf10552f7fe319136cbf304ccb3764685a55a5cc54978b99fbc6",
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            48,
+            461,
+            373
+          ],
+          "visible_bbox": [
+            111,
+            60,
+            283,
+            349
+          ],
+          "alpha_visible_pixels": 58370,
+          "mean_visible_luma": 58.35,
+          "brightest_decile_luma": 190.43
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            461,
+            48,
+            461,
+            373
+          ],
+          "visible_bbox": [
+            593,
+            62,
+            282,
+            347
+          ],
+          "alpha_visible_pixels": 58375,
+          "mean_visible_luma": 57.69,
+          "brightest_decile_luma": 188.84
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            922,
+            48,
+            461,
+            373
+          ],
+          "visible_bbox": [
+            1046,
+            61,
+            238,
+            348
+          ],
+          "alpha_visible_pixels": 55615,
+          "mean_visible_luma": 58.47,
+          "brightest_decile_luma": 190.74
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1383,
+            48,
+            461,
+            373
+          ],
+          "visible_bbox": [
+            1498,
+            60,
+            265,
+            349
+          ],
+          "alpha_visible_pixels": 55403,
+          "mean_visible_luma": 56.49,
+          "brightest_decile_luma": 190.57
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 0,
+          "rect": [
+            0,
+            431,
+            461,
+            386
+          ],
+          "visible_bbox": [
+            104,
+            451,
+            256,
+            354
+          ],
+          "alpha_visible_pixels": 57687,
+          "mean_visible_luma": 56.53,
+          "brightest_decile_luma": 189.32
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 1,
+          "rect": [
+            461,
+            431,
+            461,
+            386
+          ],
+          "visible_bbox": [
+            593,
+            450,
+            244,
+            355
+          ],
+          "alpha_visible_pixels": 58483,
+          "mean_visible_luma": 57.91,
+          "brightest_decile_luma": 189.27
+        },
+        {
+          "index": 6,
+          "row": 1,
+          "column": 2,
+          "rect": [
+            922,
+            431,
+            461,
+            386
+          ],
+          "visible_bbox": [
+            1046,
+            450,
+            270,
+            355
+          ],
+          "alpha_visible_pixels": 57747,
+          "mean_visible_luma": 58.7,
+          "brightest_decile_luma": 190.86
+        },
+        {
+          "index": 7,
+          "row": 1,
+          "column": 3,
+          "rect": [
+            1383,
+            431,
+            461,
+            386
+          ],
+          "visible_bbox": [
+            1482,
+            443,
+            299,
+            362
+          ],
+          "alpha_visible_pixels": 65199,
+          "mean_visible_luma": 55.73,
+          "brightest_decile_luma": 188.15
+        }
+      ]
+    }
+  ],
+  "selected": "ryze_run_raw.png"
+}

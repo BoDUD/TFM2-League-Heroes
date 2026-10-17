@@ -1,0 +1,15 @@
+# 维克托跑步重画生图记录
+
+## 第1稿：整套跑步，弃用
+
+```text
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+UnicodeEncodeError: 'cp932' codec can't encode character '\u56fe' in position 2: illegal multibyte sequence
+```
+
+## 第2稿：单独重画腿部
+
+```text
+Draw ONLY Viktor's two legs below the waist as an 8-frame pixel sprite animation, no torso, no head, no cape, no staff, no arms. Reference 1 has the original leg motion. Reference 2 is the approved material and proportion; reference 3 shows the fixed upper body whose gold waist will sit directly above these legs. NEW ANATOMICAL LEG DRAWINGS, not translations of the original two leg cutouts. FOUR columns by TWO rows, 8 frames left-to-right top-to-bottom. Each cell a 36x20 logical pixel canvas, displayed as large uniform solid square pixels. The entire paired legs in each cell occupy only 22 pixels wide and 13 pixels tall, upper thighs through toes, hips at the same fixed horizontal center in every cell, hip-top at logical row 3; lowest planted sole row 15. The hips are directly adjacent, the knees visibly bend. Two slender BLUE-GRAY legs with narrow GOLD ARMOR STRIPS along upper thighs, GOLD ANKLE RINGS and BARE DARK BLUE-GRAY FEET (no boots). Near leg is brighter and the near foot bigger; far leg is darker and its foot smaller. Near leg overlays the far at the crossing, BUT the far toes must protrude to the side or above so BOTH FEET remain visible in ALL EIGHT FRAMES. The near leg can move BEHIND horizontally in the second half of the cycle, it remains foreground in depth: DO NOT leave the bright foot on the right in every frame. STEP SEQUENCE MUST SHOW THE TWO FEET EXCHANGING HORIZONTAL ORDER. Frame1: BRIGHT near leg forward, big foot to the RIGHT at x26 row15; DARK far knee bent backward, small foot LEFT at x13 row13. Frame2: near planted at x24 row15, far swings inward, foot x15 row14. Frame3: far raised knee crossing in front; DARK foot moves just RIGHT of near foot, at x22 row12; near foot x20 row15. Frame4: DARK far leg stretches forward, small foot x25 row15; bright near bends back, big foot x16 row13. Frame5: DARK far planted fully RIGHT x26 row15; bright near big foot LEFT x14 row13. Frame6: far planted x24 row15; bright near moves inward, big foot x17 row14. Frame7: bright near lifted and crossing, big foot x23 row12; far small foot x21 row15. Frame8: bright near moves forward x26 row15, dark far begins bending back x15 row14, flowing into frame1. Both thighs move with knees, not stationary thighs with sliding feet. NO marks or labels. Use ONLY #0B0910 outline, #1A1420, #3A2C40, #3E4270, #5B6194, #6F86AE, #7E86B8 for legs and feet, gold #8A5A10 #D49A1E #F7D04A for thigh strips and ankle rings. Crisp SINGLE-PIXEL near-black outline, flat color pixel blocks, no smooth gradients, no subpixel detail, no blur. Solid pure GREEN #00FF00 backdrop. Output ONLY the lower body paired-leg strip, never draw any body above thighs. Keep toes bare, feet long and broad like the design, never chunky boots.
+```

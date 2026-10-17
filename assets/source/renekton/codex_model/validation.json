@@ -1,0 +1,186 @@
+{
+  "A": {
+    "source_raw": "raw/renekton_A_weapon_corrected.png",
+    "source_native_grid_bbox": [
+      21,
+      74,
+      92,
+      113
+    ],
+    "source_native_size": [
+      71,
+      39
+    ],
+    "source_grid_pitch": 9.796875,
+    "removed_whole_columns": [
+      1,
+      3,
+      5,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      17,
+      19,
+      21,
+      30,
+      32,
+      34,
+      35,
+      37,
+      39
+    ],
+    "removed_whole_rows": [
+      27
+    ],
+    "face_columns_from_42_untouched": true,
+    "face_rows_0_through_22_untouched": true,
+    "final_bbox_1x": [
+      37,
+      62,
+      90,
+      100
+    ],
+    "height": 38,
+    "width": 53,
+    "colors": 25,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "feet_groups_local": [
+      [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49
+      ]
+    ],
+    "feet_midpoint_column": 64,
+    "lowest_row": 99,
+    "below_feet_empty": true,
+    "strict_8x8_blocks": true
+  },
+  "B": {
+    "source_raw": "raw/renekton_B_weapon_corrected.png",
+    "source_native_grid_bbox": [
+      18,
+      64,
+      95,
+      105
+    ],
+    "source_native_size": [
+      77,
+      41
+    ],
+    "source_grid_pitch": 9.796875,
+    "removed_whole_columns": [
+      1,
+      3,
+      4,
+      6,
+      7,
+      9,
+      10,
+      12,
+      13,
+      15,
+      17,
+      18,
+      20,
+      21,
+      30,
+      31,
+      33,
+      34,
+      36,
+      37,
+      39
+    ],
+    "removed_whole_rows": [
+      29
+    ],
+    "face_columns_from_42_untouched": true,
+    "face_rows_0_through_22_untouched": true,
+    "final_bbox_1x": [
+      36,
+      60,
+      92,
+      100
+    ],
+    "height": 40,
+    "width": 56,
+    "colors": 26,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "feet_groups_local": [
+      [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ]
+    ],
+    "feet_midpoint_column": 64,
+    "lowest_row": 99,
+    "below_feet_empty": true,
+    "strict_8x8_blocks": true
+  }
+}

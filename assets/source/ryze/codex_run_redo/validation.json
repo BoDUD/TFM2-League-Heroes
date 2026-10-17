@@ -1,0 +1,39 @@
+{
+  "artifact_checks": [
+    {
+      "file": "ryze_run_raw.png",
+      "frames": 8,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_run_raw_B.png",
+      "frames": 8,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_run_raw_C.png",
+      "frames": 8,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_run_raw_D.png",
+      "frames": 8,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    }
+  ],
+  "visual_frame_count_review": true,
+  "game_import_tested": false,
+  "strict_single_pixel_grid_palette_symmetry_verified": false
+}

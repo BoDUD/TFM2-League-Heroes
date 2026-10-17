@@ -1,0 +1,2760 @@
+{
+  "generation": "native imagegen; one generation per effect",
+  "pixel_block": 16,
+  "duration_note": "Input has no VFX durations. 100ms per frame is used ONLY for review GIFs; importer must set runtime timings.",
+  "effects": [
+    {
+      "tag": "a_hit",
+      "file": "khazix_fx_a_hit.png",
+      "frames": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "cell_game_pixels": [
+        16,
+        16
+      ],
+      "binding": {
+        "file": "khazix_fx_a_hit.png",
+        "binding": "view_effects `league_khazix_a_hit`（跟随，画在人物上面）",
+        "size": "14"
+      },
+      "raw": "raw/a_hit_generated.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "symmetry_x": false,
+      "symmetry_y": false,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6F0",
+        "#F2DCD4",
+        "#C8A8A8",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#a_hit",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            78,
+            543,
+            569
+          ],
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "opaque_pixels": 64,
+          "mean_luminance": 241.13,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 33,
+          "pixel_sha256": "3908b16dab147516a48c608d7973002e5d54a949417814ea4914ad697c93444c"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            543,
+            78,
+            543,
+            569
+          ],
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            13,
+            15
+          ],
+          "opaque_pixels": 45,
+          "mean_luminance": 215.84,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 27,
+          "pixel_sha256": "f2fb47ff67073d29a0bf3d5bab5b7101a525f757f0c2830df725798b1e5e1713"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            1086,
+            78,
+            543,
+            569
+          ],
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            13,
+            14
+          ],
+          "opaque_pixels": 21,
+          "mean_luminance": 163.68,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 7,
+          "pixel_sha256": "b6fa441253303d086e8066d309090eb8b036fa9882b549334ad5b82c551757b4"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1629,
+            78,
+            543,
+            569
+          ],
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "bbox_1x": [
+            4,
+            5,
+            13,
+            12
+          ],
+          "opaque_pixels": 4,
+          "mean_luminance": 176.51,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 1,
+          "pixel_sha256": "7445ba0985d5e2eac7c490d38a06ae2664a98b500651f994e344afaa74c12263"
+        }
+      ]
+    },
+    {
+      "tag": "p_hit",
+      "file": "khazix_fx_p_hit.png",
+      "frames": 5,
+      "size": [
+        1600,
+        320
+      ],
+      "cell": [
+        320,
+        320
+      ],
+      "cell_game_pixels": [
+        20,
+        20
+      ],
+      "binding": {
+        "file": "khazix_fx_p_hit.png",
+        "binding": "view_effects `league_khazix_p_hit`（跟随，画在人物上面）",
+        "size": "18"
+      },
+      "raw": "raw/p_hit_generated.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "symmetry_x": false,
+      "symmetry_y": false,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#p_hit",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            128,
+            397,
+            543
+          ],
+          "rect": [
+            0,
+            0,
+            320,
+            320
+          ],
+          "bbox_1x": [
+            3,
+            4,
+            17,
+            17
+          ],
+          "opaque_pixels": 80,
+          "mean_luminance": 154.66,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 29,
+          "pixel_sha256": "5508cb3acf893ecbaa3cf26e53a843f193fe9fae214caea6d151c1e7cd899466"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            397,
+            128,
+            396,
+            543
+          ],
+          "rect": [
+            320,
+            0,
+            320,
+            320
+          ],
+          "bbox_1x": [
+            0,
+            2,
+            20,
+            19
+          ],
+          "opaque_pixels": 183,
+          "mean_luminance": 169.74,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 71,
+          "pixel_sha256": "e0ed2ad52a15d8aad8483da10c10c466f26e5b26bf53cdcdcd21c0484c90f933"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            793,
+            128,
+            397,
+            543
+          ],
+          "rect": [
+            640,
+            0,
+            320,
+            320
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            19,
+            18
+          ],
+          "opaque_pixels": 136,
+          "mean_luminance": 150.45,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 40,
+          "pixel_sha256": "e6249f59a111a14a76c9fc78a29a1fc7d60e6e03f350717e4cba7df0f4f95d55"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1190,
+            128,
+            396,
+            543
+          ],
+          "rect": [
+            960,
+            0,
+            320,
+            320
+          ],
+          "bbox_1x": [
+            3,
+            1,
+            18,
+            18
+          ],
+          "opaque_pixels": 93,
+          "mean_luminance": 171.14,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 39,
+          "pixel_sha256": "c941d2efd7451a64077b88cc98dbab035ea4ac31c436e8307d0e9f0c21e33b7c"
+        },
+        {
+          "frame": 5,
+          "raw_cell_rect": [
+            1586,
+            128,
+            397,
+            543
+          ],
+          "rect": [
+            1280,
+            0,
+            320,
+            320
+          ],
+          "bbox_1x": [
+            4,
+            5,
+            16,
+            17
+          ],
+          "opaque_pixels": 29,
+          "mean_luminance": 192.07,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 17,
+          "pixel_sha256": "23684041420eeafe263d5c1309938cfb602e02133fbdde9ec59b14eae1a965aa"
+        }
+      ]
+    },
+    {
+      "tag": "ut",
+      "file": "khazix_fx_ut.png",
+      "frames": 4,
+      "size": [
+        1792,
+        224
+      ],
+      "cell": [
+        448,
+        224
+      ],
+      "cell_game_pixels": [
+        28,
+        14
+      ],
+      "binding": {
+        "file": "khazix_fx_ut.png",
+        "binding": "view_buffs `league_khazix_ut`（跟随，画在他身上，左右对称）",
+        "size": "26 × 12"
+      },
+      "raw": "raw/ut_generated.png",
+      "raw_size": [
+        2004,
+        785
+      ],
+      "symmetry_x": true,
+      "symmetry_y": false,
+      "central_empty_width": 12,
+      "palette": [
+        "#FFFFFF",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#ut",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            188,
+            501,
+            371
+          ],
+          "rect": [
+            0,
+            0,
+            448,
+            224
+          ],
+          "bbox_1x": [
+            3,
+            3,
+            25,
+            13
+          ],
+          "opaque_pixels": 58,
+          "mean_luminance": 143.05,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 14,
+          "pixel_sha256": "3bbe0b1b673b6806a2afebc418e8b5b5ffdd5386dc948c86199c85d7ee4dcb28"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            501,
+            188,
+            501,
+            371
+          ],
+          "rect": [
+            448,
+            0,
+            448,
+            224
+          ],
+          "bbox_1x": [
+            3,
+            1,
+            25,
+            13
+          ],
+          "opaque_pixels": 64,
+          "mean_luminance": 138.62,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 14,
+          "pixel_sha256": "348802743378f9d9fcffe78b87ab9b0b6e14aaee9fcda43ce4e03c10ad4dc4b4"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            1002,
+            188,
+            501,
+            371
+          ],
+          "rect": [
+            896,
+            0,
+            448,
+            224
+          ],
+          "bbox_1x": [
+            3,
+            4,
+            25,
+            13
+          ],
+          "opaque_pixels": 46,
+          "mean_luminance": 136.22,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 10,
+          "pixel_sha256": "0afbf879bdac36b889db79c37bad657fc60ae645e7b3fbe6c1e27c8a8500f7e5"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1503,
+            188,
+            501,
+            371
+          ],
+          "rect": [
+            1344,
+            0,
+            448,
+            224
+          ],
+          "bbox_1x": [
+            4,
+            3,
+            24,
+            13
+          ],
+          "opaque_pixels": 48,
+          "mean_luminance": 134.74,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 12,
+          "pixel_sha256": "fc20a214419e34d4c2980436946c0c4e2a00d57363fc7c68201dbcb3862f1884"
+        }
+      ]
+    },
+    {
+      "tag": "p_ready",
+      "file": "khazix_fx_p_ready.png",
+      "frames": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "cell_game_pixels": [
+        16,
+        16
+      ],
+      "binding": {
+        "file": "khazix_fx_p_ready.png",
+        "binding": "view_effects `league_khazix_p_ready`（不跟随，左右对称；中心在站位点上面约 36 格）",
+        "size": "16"
+      },
+      "raw": "raw/p_ready_generated.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "symmetry_x": true,
+      "symmetry_y": false,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#p_ready",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            216,
+            397,
+            362
+          ],
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "bbox_1x": [
+            5,
+            7,
+            11,
+            8
+          ],
+          "opaque_pixels": 6,
+          "mean_luminance": 79.67,
+          "brightest_decile_mean": 111.92,
+          "white_pixels": 0,
+          "pixel_sha256": "70c51dd994c95484aa36734dbdd05d6575cb7f5d4fcf5eb3534dbdd2ae18c432"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            397,
+            216,
+            396,
+            362
+          ],
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "bbox_1x": [
+            1,
+            4,
+            15,
+            12
+          ],
+          "opaque_pixels": 68,
+          "mean_luminance": 108.39,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 6,
+          "pixel_sha256": "b990e528ea6e41bb287f3029fca9a47bb31d10154eb0cddaecd29e356d20620e"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            793,
+            216,
+            397,
+            362
+          ],
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "bbox_1x": [
+            0,
+            1,
+            16,
+            15
+          ],
+          "opaque_pixels": 102,
+          "mean_luminance": 156.51,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 14,
+          "pixel_sha256": "571bf427d5578aff66df3017492613a54c0f4816f7e39a69f78443a983e1db1a"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1190,
+            216,
+            396,
+            362
+          ],
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "bbox_1x": [
+            1,
+            4,
+            15,
+            12
+          ],
+          "opaque_pixels": 68,
+          "mean_luminance": 114.74,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 8,
+          "pixel_sha256": "96dc72f1d16ea3b8aa647ba4b3e84d36c9ddeb6fbc4f40778673a8996c5189f3"
+        },
+        {
+          "frame": 5,
+          "raw_cell_rect": [
+            1586,
+            216,
+            397,
+            362
+          ],
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "bbox_1x": [
+            6,
+            6,
+            10,
+            10
+          ],
+          "opaque_pixels": 12,
+          "mean_luminance": 127.36,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 4,
+          "pixel_sha256": "32a79d7c218907e96999c0d98bc4b77b52082fe799f1dae379b1578257b48c93"
+        }
+      ]
+    },
+    {
+      "tag": "q_hit",
+      "file": "khazix_fx_q_hit.png",
+      "frames": 4,
+      "size": [
+        1152,
+        288
+      ],
+      "cell": [
+        288,
+        288
+      ],
+      "cell_game_pixels": [
+        18,
+        18
+      ],
+      "binding": {
+        "file": "khazix_fx_q_hit.png",
+        "binding": "view_effects `league_khazix_q_hit`（跟随，画在人物上面）",
+        "size": "16"
+      },
+      "raw": "raw/q_hit_generated.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "symmetry_x": false,
+      "symmetry_y": false,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6F0",
+        "#F2DCD4",
+        "#C8A8A8",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#q_hit",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            107,
+            543,
+            544
+          ],
+          "rect": [
+            0,
+            0,
+            288,
+            288
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            18,
+            16
+          ],
+          "opaque_pixels": 113,
+          "mean_luminance": 165.99,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 48,
+          "pixel_sha256": "6a623106600e232af5470f37444c3b9b60fc950e4490e2ce2d61b5aaab9e5739"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            543,
+            107,
+            543,
+            544
+          ],
+          "rect": [
+            288,
+            0,
+            288,
+            288
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            17,
+            15
+          ],
+          "opaque_pixels": 75,
+          "mean_luminance": 189.81,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 43,
+          "pixel_sha256": "91a983cabc65d681b2fc72c76e57b7128740a1c07b4335bef59c6f34ba8738d8"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            1086,
+            107,
+            543,
+            544
+          ],
+          "rect": [
+            576,
+            0,
+            288,
+            288
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            16,
+            15
+          ],
+          "opaque_pixels": 49,
+          "mean_luminance": 204.41,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 29,
+          "pixel_sha256": "f313bf53365c2cf5f4eb26b5b742e533a0a2ffb3829d4b51fbd29173775ad8f2"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1629,
+            107,
+            543,
+            544
+          ],
+          "rect": [
+            864,
+            0,
+            288,
+            288
+          ],
+          "bbox_1x": [
+            5,
+            4,
+            16,
+            12
+          ],
+          "opaque_pixels": 18,
+          "mean_luminance": 231.27,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 13,
+          "pixel_sha256": "f06b75de00ca7f3851125bc282d26461e2338bcb819fd463e9f19cba7692e509"
+        }
+      ]
+    },
+    {
+      "tag": "q_iso_hit",
+      "file": "khazix_fx_q_iso_hit.png",
+      "frames": 6,
+      "size": [
+        2688,
+        448
+      ],
+      "cell": [
+        448,
+        448
+      ],
+      "cell_game_pixels": [
+        28,
+        28
+      ],
+      "binding": {
+        "file": "khazix_fx_q_iso_hit.png",
+        "binding": "view_effects `league_khazix_q_iso_hit`（跟随，画在人物上面）",
+        "size": "26"
+      },
+      "raw": "raw/q_iso_hit_generated.png",
+      "raw_size": [
+        2032,
+        774
+      ],
+      "symmetry_x": false,
+      "symmetry_y": false,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6F0",
+        "#F2DCD4",
+        "#C8A8A8",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#q_iso_hit",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            162,
+            339,
+            414
+          ],
+          "rect": [
+            0,
+            0,
+            448,
+            448
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            28,
+            26
+          ],
+          "opaque_pixels": 293,
+          "mean_luminance": 174.31,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 131,
+          "pixel_sha256": "6695419e6e507f7d12c32978934cba1f88e14db3ab6d8634ec6072f4838e7f67"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            339,
+            162,
+            338,
+            414
+          ],
+          "rect": [
+            448,
+            0,
+            448,
+            448
+          ],
+          "bbox_1x": [
+            0,
+            1,
+            28,
+            27
+          ],
+          "opaque_pixels": 357,
+          "mean_luminance": 186.43,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 174,
+          "pixel_sha256": "1f3b285802e66cd8b88a54be541fba5efd130ff78e3529e93f65a03ba51b54b0"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            677,
+            162,
+            339,
+            414
+          ],
+          "rect": [
+            896,
+            0,
+            448,
+            448
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            28,
+            27
+          ],
+          "opaque_pixels": 356,
+          "mean_luminance": 196.37,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 196,
+          "pixel_sha256": "7e5f30022c914d1921844de2d89a3149d551617034ee0a3cd33be36b2ee7ceb7"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1016,
+            162,
+            339,
+            414
+          ],
+          "rect": [
+            1344,
+            0,
+            448,
+            448
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            27,
+            27
+          ],
+          "opaque_pixels": 263,
+          "mean_luminance": 208.88,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 160,
+          "pixel_sha256": "0e36322c99c6b2e4a2cc67d075db29c27fb6671dc44f42ba9acc91956b5fc2bf"
+        },
+        {
+          "frame": 5,
+          "raw_cell_rect": [
+            1355,
+            162,
+            338,
+            414
+          ],
+          "rect": [
+            1792,
+            0,
+            448,
+            448
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            27,
+            27
+          ],
+          "opaque_pixels": 187,
+          "mean_luminance": 186.02,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 94,
+          "pixel_sha256": "ad63ea8565287cea7c720fff6255132ebfdc29223ffb993ffc9d63ce90d34f09"
+        },
+        {
+          "frame": 6,
+          "raw_cell_rect": [
+            1693,
+            162,
+            339,
+            414
+          ],
+          "rect": [
+            2240,
+            0,
+            448,
+            448
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            26,
+            25
+          ],
+          "opaque_pixels": 69,
+          "mean_luminance": 188.88,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 35,
+          "pixel_sha256": "53fe793e290d7d7cacae81301be2c9a5c09e0f0230572bb3923d1ae5f405060b"
+        }
+      ]
+    },
+    {
+      "tag": "e_land",
+      "file": "khazix_fx_e_land.png",
+      "frames": 6,
+      "size": [
+        4032,
+        288
+      ],
+      "cell": [
+        672,
+        288
+      ],
+      "cell_game_pixels": [
+        42,
+        18
+      ],
+      "binding": {
+        "file": "khazix_fx_e_land.png",
+        "binding": "view_effects `league_khazix_e_land`（落地点的地上，不跟随，不旋转）",
+        "size": "40 × 16"
+      },
+      "raw": "raw/e_land_generated.png",
+      "raw_size": [
+        1484,
+        1060
+      ],
+      "symmetry_x": true,
+      "symmetry_y": true,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#E8E0FF",
+        "#B8A8FF",
+        "#7C6CF0",
+        "#4A3CB0",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#e_land",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            397,
+            247,
+            255
+          ],
+          "rect": [
+            0,
+            0,
+            672,
+            288
+          ],
+          "bbox_1x": [
+            5,
+            4,
+            37,
+            14
+          ],
+          "opaque_pixels": 152,
+          "mean_luminance": 197.61,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 84,
+          "pixel_sha256": "5394c3a9202b3a3bf46c487e660b975721950efc7a43006a2f1749c37f2fbb57"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            247,
+            397,
+            248,
+            255
+          ],
+          "rect": [
+            672,
+            0,
+            672,
+            288
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            41,
+            16
+          ],
+          "opaque_pixels": 236,
+          "mean_luminance": 193.39,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 108,
+          "pixel_sha256": "0dbe472efc23b01b03faf164f5a4f011a622ce24eaa7930443d2b48f6edafbfb"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            495,
+            397,
+            247,
+            255
+          ],
+          "rect": [
+            1344,
+            0,
+            672,
+            288
+          ],
+          "bbox_1x": [
+            0,
+            0,
+            42,
+            18
+          ],
+          "opaque_pixels": 252,
+          "mean_luminance": 186.85,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 100,
+          "pixel_sha256": "bbb6a00a29d1d96129196c51c6f5f47c67a5be5d9e0bdf30709a6f9dfec151ab"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            742,
+            397,
+            247,
+            255
+          ],
+          "rect": [
+            2016,
+            0,
+            672,
+            288
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            40,
+            15
+          ],
+          "opaque_pixels": 172,
+          "mean_luminance": 170.73,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 52,
+          "pixel_sha256": "07101efb199e34fcefe32ee0df9f2ae59d3888aed8ee4e1de509c1b4ae196c34"
+        },
+        {
+          "frame": 5,
+          "raw_cell_rect": [
+            989,
+            397,
+            248,
+            255
+          ],
+          "rect": [
+            2688,
+            0,
+            672,
+            288
+          ],
+          "bbox_1x": [
+            4,
+            4,
+            38,
+            14
+          ],
+          "opaque_pixels": 56,
+          "mean_luminance": 151.98,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 12,
+          "pixel_sha256": "219a72272860c55d96dd42ce4c58ca23c69d78a648a7e6261348a0789d7ed764"
+        },
+        {
+          "frame": 6,
+          "raw_cell_rect": [
+            1237,
+            397,
+            247,
+            255
+          ],
+          "rect": [
+            3360,
+            0,
+            672,
+            288
+          ],
+          "bbox_1x": [
+            6,
+            5,
+            36,
+            13
+          ],
+          "opaque_pixels": 8,
+          "mean_luminance": 159.27,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 4,
+          "pixel_sha256": "8afe6385af4725cb1603eb291eb9ad564d6a4a64dfa11b7cf6756154e0de368f"
+        }
+      ]
+    },
+    {
+      "tag": "e_hit",
+      "file": "khazix_fx_e_hit.png",
+      "frames": 4,
+      "size": [
+        1152,
+        288
+      ],
+      "cell": [
+        288,
+        288
+      ],
+      "cell_game_pixels": [
+        18,
+        18
+      ],
+      "binding": {
+        "file": "khazix_fx_e_hit.png",
+        "binding": "view_effects `league_khazix_e_hit`（跟随，画在人物上面）",
+        "size": "16"
+      },
+      "raw": "raw/e_hit_generated.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "symmetry_x": false,
+      "symmetry_y": false,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#FFF6F0",
+        "#F2DCD4",
+        "#C8A8A8",
+        "#E8E0FF",
+        "#B8A8FF",
+        "#7C6CF0",
+        "#4A3CB0"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#e_hit",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "rect": [
+            0,
+            0,
+            288,
+            288
+          ],
+          "bbox_1x": [
+            4,
+            1,
+            14,
+            18
+          ],
+          "opaque_pixels": 101,
+          "mean_luminance": 231.76,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 53,
+          "pixel_sha256": "6a917e79cfde8064718b5da0e208d8830bfb2eaee55d7d5123bd9acef9a1efdf"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "rect": [
+            288,
+            0,
+            288,
+            288
+          ],
+          "bbox_1x": [
+            4,
+            2,
+            14,
+            17
+          ],
+          "opaque_pixels": 83,
+          "mean_luminance": 233.26,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 57,
+          "pixel_sha256": "faef27dcb32601461875192394eb8c223a2e9d56d35add0ebf1155862b4767dd"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "rect": [
+            576,
+            0,
+            288,
+            288
+          ],
+          "bbox_1x": [
+            4,
+            1,
+            14,
+            17
+          ],
+          "opaque_pixels": 50,
+          "mean_luminance": 239.51,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 38,
+          "pixel_sha256": "34bc72c1e08091269664c0f90aaddf86c279062489bac10d8319ac224fdd9d3b"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "rect": [
+            864,
+            0,
+            288,
+            288
+          ],
+          "bbox_1x": [
+            4,
+            4,
+            13,
+            17
+          ],
+          "opaque_pixels": 23,
+          "mean_luminance": 232.19,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 14,
+          "pixel_sha256": "1435bf9bc0953629e2a3aa7bf04e334f26c742b4cbf7a44aa33f39d2a48bd3e3"
+        }
+      ]
+    },
+    {
+      "tag": "w_spike",
+      "file": "khazix_fx_w_spike.png",
+      "frames": 4,
+      "size": [
+        1152,
+        128
+      ],
+      "cell": [
+        288,
+        128
+      ],
+      "cell_game_pixels": [
+        18,
+        8
+      ],
+      "binding": {
+        "file": "khazix_fx_w_spike.png",
+        "binding": "view_projectiles `league_khazix_w_spike`（朝飞行方向转，画成朝右飞；上下对称）",
+        "size": "16 × 6"
+      },
+      "raw": "raw/w_spike_generated.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "symmetry_x": false,
+      "symmetry_y": true,
+      "central_empty_width": null,
+      "palette": [
+        "#0B0814",
+        "#2A1A5C",
+        "#46309A",
+        "#6A4ED0",
+        "#9478F0",
+        "#F08CFF",
+        "#FFFFFF"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#w_spike",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            242,
+            543,
+            233
+          ],
+          "rect": [
+            0,
+            0,
+            288,
+            128
+          ],
+          "bbox_1x": [
+            3,
+            1,
+            17,
+            7
+          ],
+          "opaque_pixels": 52,
+          "mean_luminance": 73.89,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 8,
+          "pixel_sha256": "0abaf035b9ffe1913a9cb6fc93a211015160ffaaead047f9a93d0256118563ff"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            543,
+            242,
+            543,
+            233
+          ],
+          "rect": [
+            288,
+            0,
+            288,
+            128
+          ],
+          "bbox_1x": [
+            3,
+            1,
+            17,
+            7
+          ],
+          "opaque_pixels": 56,
+          "mean_luminance": 97.7,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 14,
+          "pixel_sha256": "849c66c017328c57c087c3febaff332a109d3f4e0ab65dca13d239714475ef09"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            1086,
+            242,
+            543,
+            233
+          ],
+          "rect": [
+            576,
+            0,
+            288,
+            128
+          ],
+          "bbox_1x": [
+            3,
+            1,
+            17,
+            7
+          ],
+          "opaque_pixels": 50,
+          "mean_luminance": 87.36,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 12,
+          "pixel_sha256": "86c4e9a3ade4259dda3d146909cc079fe9bb783c46225b2eac41e5c69d9857a4"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1629,
+            242,
+            543,
+            233
+          ],
+          "rect": [
+            864,
+            0,
+            288,
+            128
+          ],
+          "bbox_1x": [
+            4,
+            1,
+            17,
+            7
+          ],
+          "opaque_pixels": 48,
+          "mean_luminance": 71.49,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 6,
+          "pixel_sha256": "0462626fb453489edee27b9d78959713147fc011b2a936cb4f69ff978e0c1e6f"
+        }
+      ]
+    },
+    {
+      "tag": "w_hit",
+      "file": "khazix_fx_w_hit.png",
+      "frames": 5,
+      "size": [
+        1760,
+        352
+      ],
+      "cell": [
+        352,
+        352
+      ],
+      "cell_game_pixels": [
+        22,
+        22
+      ],
+      "binding": {
+        "file": "khazix_fx_w_hit.png",
+        "binding": "view_effects `league_khazix_w_hit`（跟随，画在人物上面）",
+        "size": "20"
+      },
+      "raw": "raw/w_hit_generated.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "symmetry_x": false,
+      "symmetry_y": false,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A",
+        "#E8E0FF",
+        "#B8A8FF",
+        "#7C6CF0",
+        "#4A3CB0"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#w_hit",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            178,
+            397,
+            424
+          ],
+          "rect": [
+            0,
+            0,
+            352,
+            352
+          ],
+          "bbox_1x": [
+            6,
+            6,
+            17,
+            17
+          ],
+          "opaque_pixels": 52,
+          "mean_luminance": 182.27,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 23,
+          "pixel_sha256": "c41db6a676fac9cca5bf20cf860c0e655d34442180823bdfb527658c08d05967"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            397,
+            178,
+            396,
+            424
+          ],
+          "rect": [
+            352,
+            0,
+            352,
+            352
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            21,
+            20
+          ],
+          "opaque_pixels": 203,
+          "mean_luminance": 163.4,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 63,
+          "pixel_sha256": "d74f86860564c684613af1886ed64422d8050ee966ed61df1703427776868a69"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            793,
+            178,
+            397,
+            424
+          ],
+          "rect": [
+            704,
+            0,
+            352,
+            352
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            21,
+            21
+          ],
+          "opaque_pixels": 174,
+          "mean_luminance": 155.68,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 47,
+          "pixel_sha256": "965112ebd43f82799cc0f7feb9a381cdeb2fc406c3b2bdee9a8042c2707a1d70"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1190,
+            178,
+            396,
+            424
+          ],
+          "rect": [
+            1056,
+            0,
+            352,
+            352
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            21,
+            20
+          ],
+          "opaque_pixels": 73,
+          "mean_luminance": 161.55,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 25,
+          "pixel_sha256": "171d8821cf03921d3fc18a0376119a70a5d792b20ea89b1cedbfe9bb8a487ce1"
+        },
+        {
+          "frame": 5,
+          "raw_cell_rect": [
+            1586,
+            178,
+            397,
+            424
+          ],
+          "rect": [
+            1408,
+            0,
+            352,
+            352
+          ],
+          "bbox_1x": [
+            5,
+            6,
+            17,
+            17
+          ],
+          "opaque_pixels": 11,
+          "mean_luminance": 230.62,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 9,
+          "pixel_sha256": "016c5fca1315f1514cc4a2e787294b4842e8284f39b8a973b50bf35b4a388636"
+        }
+      ]
+    },
+    {
+      "tag": "w_heal",
+      "file": "khazix_fx_w_heal.png",
+      "frames": 5,
+      "size": [
+        1920,
+        512
+      ],
+      "cell": [
+        384,
+        512
+      ],
+      "cell_game_pixels": [
+        24,
+        32
+      ],
+      "binding": {
+        "file": "khazix_fx_w_heal.png",
+        "binding": "view_effects `league_khazix_w_heal`（不跟随，左右对称；中心在站位点上面约 16 格）",
+        "size": "22 × 30"
+      },
+      "raw": "raw/w_heal_generated.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "symmetry_x": true,
+      "symmetry_y": false,
+      "central_empty_width": 10,
+      "palette": [
+        "#FFFFFF",
+        "#ECFFD8",
+        "#BCF08C",
+        "#72C84C",
+        "#2E7A28"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#w_heal",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            62,
+            397,
+            681
+          ],
+          "rect": [
+            0,
+            0,
+            384,
+            512
+          ],
+          "bbox_1x": [
+            3,
+            20,
+            21,
+            29
+          ],
+          "opaque_pixels": 48,
+          "mean_luminance": 236.4,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 30,
+          "pixel_sha256": "8533d501cd79965cdac799c56863c4bf4bc72db12ca7794c2155b9b10b0ad043"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            397,
+            62,
+            396,
+            681
+          ],
+          "rect": [
+            384,
+            0,
+            384,
+            512
+          ],
+          "bbox_1x": [
+            2,
+            13,
+            22,
+            30
+          ],
+          "opaque_pixels": 58,
+          "mean_luminance": 221.45,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 26,
+          "pixel_sha256": "f30baf47e2e437eec6d6d78355b079cb4a1c5a77d7b8262e4adf60d1e111bacc"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            793,
+            62,
+            397,
+            681
+          ],
+          "rect": [
+            768,
+            0,
+            384,
+            512
+          ],
+          "bbox_1x": [
+            2,
+            9,
+            22,
+            29
+          ],
+          "opaque_pixels": 82,
+          "mean_luminance": 232.84,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 48,
+          "pixel_sha256": "a72a5c51658e5ff9c722a2c56c784b6d2b460b0d7360ef7c29eca041a9b28c9b"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1190,
+            62,
+            396,
+            681
+          ],
+          "rect": [
+            1152,
+            0,
+            384,
+            512
+          ],
+          "bbox_1x": [
+            2,
+            6,
+            22,
+            28
+          ],
+          "opaque_pixels": 104,
+          "mean_luminance": 232.48,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 66,
+          "pixel_sha256": "b1d46ee988ba39cdba24860e9a04156ca976506d0187c54c55babc9ac237da93"
+        },
+        {
+          "frame": 5,
+          "raw_cell_rect": [
+            1586,
+            62,
+            397,
+            681
+          ],
+          "rect": [
+            1536,
+            0,
+            384,
+            512
+          ],
+          "bbox_1x": [
+            3,
+            3,
+            21,
+            29
+          ],
+          "opaque_pixels": 74,
+          "mean_luminance": 227.38,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 42,
+          "pixel_sha256": "43e2a0fcdc41d07bfa92e84550de3ff1f69c27d76fb3dd84715c043b9712e3c0"
+        }
+      ]
+    },
+    {
+      "tag": "slow",
+      "file": "khazix_fx_slow.png",
+      "frames": 4,
+      "size": [
+        1152,
+        128
+      ],
+      "cell": [
+        288,
+        128
+      ],
+      "cell_game_pixels": [
+        18,
+        8
+      ],
+      "binding": {
+        "file": "khazix_fx_slow.png",
+        "binding": "view_buffs `league_khazix_p_slow` 和 `league_khazix_w_slow`（同一张，画在脚下，左右对称）",
+        "size": "16 × 6"
+      },
+      "raw": "raw/slow_generated.png",
+      "raw_size": [
+        2079,
+        756
+      ],
+      "symmetry_x": true,
+      "symmetry_y": false,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#slow",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            148,
+            520,
+            451
+          ],
+          "rect": [
+            0,
+            0,
+            288,
+            128
+          ],
+          "bbox_1x": [
+            1,
+            4,
+            17,
+            6
+          ],
+          "opaque_pixels": 24,
+          "mean_luminance": 106.0,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 2,
+          "pixel_sha256": "f5941e2cca908a45e6e49aeb77d8d99f01011d984b83a1eb78a3f0e35db00601"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            520,
+            148,
+            520,
+            451
+          ],
+          "rect": [
+            288,
+            0,
+            288,
+            128
+          ],
+          "bbox_1x": [
+            1,
+            4,
+            17,
+            7
+          ],
+          "opaque_pixels": 30,
+          "mean_luminance": 136.3,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 4,
+          "pixel_sha256": "d911ae9d6484364f3eaf2f6ead37dae0400d6d367aafbee5f3cde81795ef4234"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            1040,
+            148,
+            519,
+            451
+          ],
+          "rect": [
+            576,
+            0,
+            288,
+            128
+          ],
+          "bbox_1x": [
+            3,
+            3,
+            15,
+            7
+          ],
+          "opaque_pixels": 38,
+          "mean_luminance": 187.03,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 16,
+          "pixel_sha256": "a70d829ef55bdb15f0c636d11bef94cb4f400b1f1eb35860424a4284aaf300d6"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1559,
+            148,
+            520,
+            451
+          ],
+          "rect": [
+            864,
+            0,
+            288,
+            128
+          ],
+          "bbox_1x": [
+            1,
+            4,
+            17,
+            6
+          ],
+          "opaque_pixels": 24,
+          "mean_luminance": 110.03,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 2,
+          "pixel_sha256": "85cc12605c7dba1ce67dd788cd426bb9788c4d63bbbcbcdb3b51cd59cddde2cb"
+        }
+      ]
+    },
+    {
+      "tag": "r_cast",
+      "file": "khazix_fx_r_cast.png",
+      "frames": 6,
+      "size": [
+        3456,
+        608
+      ],
+      "cell": [
+        576,
+        608
+      ],
+      "cell_game_pixels": [
+        36,
+        38
+      ],
+      "binding": {
+        "file": "khazix_fx_r_cast.png",
+        "binding": "view_effects `league_khazix_r_cast`（技能第一 tick 播放、跟随；中心在站位点上面约 16 格）",
+        "size": "34 × 36"
+      },
+      "raw": "raw/r_cast_generated.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "symmetry_x": true,
+      "symmetry_y": false,
+      "central_empty_width": 12,
+      "palette": [
+        "#FFFFFF",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#r_cast",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            82,
+            362,
+            546
+          ],
+          "rect": [
+            0,
+            0,
+            576,
+            608
+          ],
+          "bbox_1x": [
+            5,
+            23,
+            31,
+            31
+          ],
+          "opaque_pixels": 52,
+          "mean_luminance": 245.14,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 46,
+          "pixel_sha256": "65ca5ccaaadcc6fac1d1aa9d32c8a39513a0c0e918856a0ebd4c6019986a4ca3"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            362,
+            82,
+            362,
+            546
+          ],
+          "rect": [
+            576,
+            0,
+            576,
+            608
+          ],
+          "bbox_1x": [
+            0,
+            14,
+            36,
+            35
+          ],
+          "opaque_pixels": 268,
+          "mean_luminance": 128.12,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 64,
+          "pixel_sha256": "b03e4788b1e119abd2ac43040519d44b2febcb46d49d76dc4c2b012c466f29ee"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            724,
+            82,
+            362,
+            546
+          ],
+          "rect": [
+            1152,
+            0,
+            576,
+            608
+          ],
+          "bbox_1x": [
+            0,
+            5,
+            36,
+            37
+          ],
+          "opaque_pixels": 470,
+          "mean_luminance": 123.08,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 92,
+          "pixel_sha256": "6230bd8cb50d9e210c8b4bc2f97023d3aefdb2f03c953b79a68f03f1252f0596"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1086,
+            82,
+            362,
+            546
+          ],
+          "rect": [
+            1728,
+            0,
+            576,
+            608
+          ],
+          "bbox_1x": [
+            0,
+            8,
+            36,
+            37
+          ],
+          "opaque_pixels": 402,
+          "mean_luminance": 105.21,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 44,
+          "pixel_sha256": "1c7dd48b5167d62360364127f4b95aa779127e0b650ef3c439aa4caeb5e06bee"
+        },
+        {
+          "frame": 5,
+          "raw_cell_rect": [
+            1448,
+            82,
+            362,
+            546
+          ],
+          "rect": [
+            2304,
+            0,
+            576,
+            608
+          ],
+          "bbox_1x": [
+            0,
+            13,
+            36,
+            37
+          ],
+          "opaque_pixels": 194,
+          "mean_luminance": 70.53,
+          "brightest_decile_mean": 142.25,
+          "white_pixels": 0,
+          "pixel_sha256": "4064a92e5ecb338d5b13dfdff5b80dc048249cc1ee2c3c8fa2e82e59568b0d2e"
+        },
+        {
+          "frame": 6,
+          "raw_cell_rect": [
+            1810,
+            82,
+            362,
+            546
+          ],
+          "rect": [
+            2880,
+            0,
+            576,
+            608
+          ],
+          "bbox_1x": [
+            0,
+            10,
+            36,
+            35
+          ],
+          "opaque_pixels": 76,
+          "mean_luminance": 73.97,
+          "brightest_decile_mean": 128.39,
+          "white_pixels": 0,
+          "pixel_sha256": "7fd29de5a21ca8aad8d1ac7a502342006af5f40cda55c483cf453afeebf546e4"
+        }
+      ]
+    },
+    {
+      "tag": "r_on",
+      "file": "khazix_fx_r_on.png",
+      "frames": 4,
+      "size": [
+        2048,
+        672
+      ],
+      "cell": [
+        512,
+        672
+      ],
+      "cell_game_pixels": [
+        32,
+        42
+      ],
+      "binding": {
+        "file": "khazix_fx_r_on.png",
+        "binding": "view_buffs `league_khazix_r_on`（跟随，画在他身上，左右对称）",
+        "size": "30 × 40"
+      },
+      "raw": "raw/r_on_generated.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "symmetry_x": true,
+      "symmetry_y": false,
+      "central_empty_width": 20,
+      "palette": [
+        "#FFFFFF",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#r_on",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            28,
+            543,
+            674
+          ],
+          "rect": [
+            0,
+            0,
+            512,
+            672
+          ],
+          "bbox_1x": [
+            3,
+            11,
+            29,
+            36
+          ],
+          "opaque_pixels": 42,
+          "mean_luminance": 159.32,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 20,
+          "pixel_sha256": "bdc937ad2f5feb08190bd99f5dc07eda69a3bf090db042d91b19635692d0868a"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            543,
+            28,
+            543,
+            674
+          ],
+          "rect": [
+            512,
+            0,
+            512,
+            672
+          ],
+          "bbox_1x": [
+            3,
+            7,
+            29,
+            33
+          ],
+          "opaque_pixels": 48,
+          "mean_luminance": 175.86,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 20,
+          "pixel_sha256": "80746b3f721b27c21a829a69ab139ac87fbad121be69f49baa3ca6eb937f44ae"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            1086,
+            28,
+            543,
+            674
+          ],
+          "rect": [
+            1024,
+            0,
+            512,
+            672
+          ],
+          "bbox_1x": [
+            3,
+            9,
+            29,
+            34
+          ],
+          "opaque_pixels": 62,
+          "mean_luminance": 158.61,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 20,
+          "pixel_sha256": "d6df26d436b1eefc4dac97d5050a78bfda57183e663f680cadcfd14507cb09e7"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1629,
+            28,
+            543,
+            674
+          ],
+          "rect": [
+            1536,
+            0,
+            512,
+            672
+          ],
+          "bbox_1x": [
+            3,
+            10,
+            29,
+            36
+          ],
+          "opaque_pixels": 54,
+          "mean_luminance": 190.23,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 32,
+          "pixel_sha256": "524da91f304138198c4936ed099be843be038d63d91e490d74d6bdf2492d00d7"
+        }
+      ]
+    },
+    {
+      "tag": "e_reset",
+      "file": "khazix_fx_e_reset.png",
+      "frames": 5,
+      "size": [
+        2080,
+        416
+      ],
+      "cell": [
+        416,
+        416
+      ],
+      "cell_game_pixels": [
+        26,
+        26
+      ],
+      "binding": {
+        "file": "khazix_fx_e_reset.png",
+        "binding": "view_effects `league_khazix_e_reset`（不跟随，左右对称；中心在站位点上面约 20 格）",
+        "size": "24"
+      },
+      "raw": "raw/e_reset_generated.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "symmetry_x": true,
+      "symmetry_y": false,
+      "central_empty_width": null,
+      "palette": [
+        "#FFFFFF",
+        "#E8E0FF",
+        "#B8A8FF",
+        "#7C6CF0",
+        "#4A3CB0",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#e_reset",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            158,
+            397,
+            476
+          ],
+          "rect": [
+            0,
+            0,
+            416,
+            416
+          ],
+          "bbox_1x": [
+            1,
+            3,
+            25,
+            23
+          ],
+          "opaque_pixels": 176,
+          "mean_luminance": 168.34,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 46,
+          "pixel_sha256": "6d7636519bb97c11805776a8b5aa71af7bf74cea3b6ad45b4bf461061c9d58c0"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            397,
+            158,
+            396,
+            476
+          ],
+          "rect": [
+            416,
+            0,
+            416,
+            416
+          ],
+          "bbox_1x": [
+            0,
+            6,
+            26,
+            20
+          ],
+          "opaque_pixels": 154,
+          "mean_luminance": 199.2,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 72,
+          "pixel_sha256": "f4bde9638268c6f40b99692b267eaa1e448d191d037d88d62cfce197483a8cc3"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            793,
+            158,
+            397,
+            476
+          ],
+          "rect": [
+            832,
+            0,
+            416,
+            416
+          ],
+          "bbox_1x": [
+            0,
+            6,
+            26,
+            20
+          ],
+          "opaque_pixels": 138,
+          "mean_luminance": 204.94,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 68,
+          "pixel_sha256": "3dd92e7aba7b3853eb78503e783047bdfd018bc8c917991b6c49c33b452e4a49"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            1190,
+            158,
+            396,
+            476
+          ],
+          "rect": [
+            1248,
+            0,
+            416,
+            416
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            24,
+            25
+          ],
+          "opaque_pixels": 242,
+          "mean_luminance": 215.7,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 140,
+          "pixel_sha256": "4ec9b835ff404d71f05c223a09de97ff2429b578810056b270fd6d21646f1d31"
+        },
+        {
+          "frame": 5,
+          "raw_cell_rect": [
+            1586,
+            158,
+            397,
+            476
+          ],
+          "rect": [
+            1664,
+            0,
+            416,
+            416
+          ],
+          "bbox_1x": [
+            2,
+            5,
+            24,
+            22
+          ],
+          "opaque_pixels": 76,
+          "mean_luminance": 210.11,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 42,
+          "pixel_sha256": "755999a4bdb9c6cd462e9a95f112df9bd1921c7fc53c429f9f217ca7682e7634"
+        }
+      ]
+    },
+    {
+      "tag": "evo",
+      "file": "khazix_fx_evo.png",
+      "frames": 8,
+      "size": [
+        4608,
+        672
+      ],
+      "cell": [
+        576,
+        672
+      ],
+      "cell_game_pixels": [
+        36,
+        42
+      ],
+      "binding": {
+        "file": "khazix_fx_evo.png",
+        "binding": "view_effects `league_khazix_evo`（不跟随，左右对称；中心在站位点上面约 18 格）",
+        "size": "34 × 40"
+      },
+      "raw": "raw/evo_generated.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "symmetry_x": true,
+      "symmetry_y": false,
+      "central_empty_width": 12,
+      "palette": [
+        "#FFFFFF",
+        "#FFD8FF",
+        "#F08CFF",
+        "#C04CE8",
+        "#7A22B8",
+        "#3A0E6A",
+        "#E8E0FF",
+        "#B8A8FF",
+        "#7C6CF0",
+        "#4A3CB0"
+      ],
+      "generation_prompt": "raw/generation_prompts.json#evo",
+      "correction": "equal cell regrid; palette votes; binary alpha; reflect generated half where required; clear actor interior except evolution frame 6",
+      "frame_data": [
+        {
+          "frame": 1,
+          "raw_cell_rect": [
+            0,
+            21,
+            272,
+            672
+          ],
+          "rect": [
+            0,
+            0,
+            576,
+            672
+          ],
+          "bbox_1x": [
+            2,
+            24,
+            34,
+            40
+          ],
+          "opaque_pixels": 152,
+          "mean_luminance": 104.39,
+          "brightest_decile_mean": 215.13,
+          "white_pixels": 8,
+          "pixel_sha256": "3b7e1a2e0decd7650a6561c23e10b27ccfc8bfe0c4b905a52e512be4bf10fc85"
+        },
+        {
+          "frame": 2,
+          "raw_cell_rect": [
+            272,
+            21,
+            271,
+            672
+          ],
+          "rect": [
+            576,
+            0,
+            576,
+            672
+          ],
+          "bbox_1x": [
+            2,
+            19,
+            34,
+            40
+          ],
+          "opaque_pixels": 186,
+          "mean_luminance": 113.06,
+          "brightest_decile_mean": 245.51,
+          "white_pixels": 16,
+          "pixel_sha256": "600da236728be9beaa0e572b8617e46ee76a7eaf9c455b2e5e59972dcc2232a4"
+        },
+        {
+          "frame": 3,
+          "raw_cell_rect": [
+            543,
+            21,
+            271,
+            672
+          ],
+          "rect": [
+            1152,
+            0,
+            576,
+            672
+          ],
+          "bbox_1x": [
+            2,
+            9,
+            34,
+            40
+          ],
+          "opaque_pixels": 314,
+          "mean_luminance": 119.73,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 36,
+          "pixel_sha256": "cec4be7cd179475545e8fb255df89647f395e4602d5e524825bc2a948a3b50d3"
+        },
+        {
+          "frame": 4,
+          "raw_cell_rect": [
+            814,
+            21,
+            272,
+            672
+          ],
+          "rect": [
+            1728,
+            0,
+            576,
+            672
+          ],
+          "bbox_1x": [
+            2,
+            4,
+            34,
+            41
+          ],
+          "opaque_pixels": 392,
+          "mean_luminance": 133.29,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 62,
+          "pixel_sha256": "589ffaf94829d8f992867ec93c464c899787fe5d4d07de2220e25bc2afbe2602"
+        },
+        {
+          "frame": 5,
+          "raw_cell_rect": [
+            1086,
+            21,
+            272,
+            672
+          ],
+          "rect": [
+            2304,
+            0,
+            576,
+            672
+          ],
+          "bbox_1x": [
+            2,
+            11,
+            34,
+            40
+          ],
+          "opaque_pixels": 330,
+          "mean_luminance": 132.9,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 54,
+          "pixel_sha256": "e2ee2e3fc18a5775bae2bbd4bca43f70b9a690d40aaa9c1a174083f43be3c473"
+        },
+        {
+          "frame": 6,
+          "raw_cell_rect": [
+            1358,
+            21,
+            271,
+            672
+          ],
+          "rect": [
+            2880,
+            0,
+            576,
+            672
+          ],
+          "bbox_1x": [
+            0,
+            5,
+            36,
+            41
+          ],
+          "opaque_pixels": 762,
+          "mean_luminance": 158.36,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 184,
+          "pixel_sha256": "b8a8c6d0979c38eb31b0619bc36723b7024083bd8c5cf662da8ad428887b3248"
+        },
+        {
+          "frame": 7,
+          "raw_cell_rect": [
+            1629,
+            21,
+            271,
+            672
+          ],
+          "rect": [
+            3456,
+            0,
+            576,
+            672
+          ],
+          "bbox_1x": [
+            0,
+            9,
+            36,
+            40
+          ],
+          "opaque_pixels": 288,
+          "mean_luminance": 129.45,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 46,
+          "pixel_sha256": "c78da812decf352a426b54f063ec75742802f950a2b571393fcb7fef67fac4f7"
+        },
+        {
+          "frame": 8,
+          "raw_cell_rect": [
+            1900,
+            21,
+            272,
+            672
+          ],
+          "rect": [
+            4032,
+            0,
+            576,
+            672
+          ],
+          "bbox_1x": [
+            0,
+            16,
+            36,
+            39
+          ],
+          "opaque_pixels": 118,
+          "mean_luminance": 132.68,
+          "brightest_decile_mean": 255.0,
+          "white_pixels": 16,
+          "pixel_sha256": "dfc20a139ca583d963814231c15be6d6a2ffc82f2519d54f4e6bb6b5dadfc532"
+        }
+      ]
+    }
+  ]
+}

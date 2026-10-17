@@ -1,0 +1,212 @@
+{
+ "hero": "tahmkench",
+ "champ": "TahmKench",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 42,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "TahmKench_Idle1@0",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "TahmKench_run@0",
+     100
+    ],
+    [
+     "TahmKench_run@150",
+     100
+    ],
+    [
+     "TahmKench_run@300",
+     100
+    ],
+    [
+     "TahmKench_run@450",
+     100
+    ],
+    [
+     "TahmKench_run@600",
+     100
+    ],
+    [
+     "TahmKench_run@750",
+     100
+    ],
+    [
+     "TahmKench_run@900",
+     100
+    ],
+    [
+     "TahmKench_run@1050",
+     100
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "TahmKench_Idle1@0>TahmKench_attack1@0:0.6",
+     80
+    ],
+    [
+     "TahmKench_attack1@154",
+     80
+    ],
+    [
+     "TahmKench_attack1@308",
+     90
+    ],
+    [
+     "TahmKench_attack1@462",
+     90
+    ],
+    [
+     "TahmKench_attack1@1000>TahmKench_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.2,
+   "release": 4,
+   "frames": [
+    [
+     "TahmKench_Idle1@0>TahmKench_spell1@0:0.6",
+     80
+    ],
+    [
+     "TahmKench_spell1@133",
+     80
+    ],
+    [
+     "TahmKench_spell1@267",
+     80
+    ],
+    [
+     "TahmKench_spell1@400",
+     100
+    ],
+    [
+     "TahmKench_spell1_out@150",
+     110
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "TahmKench_spell2_channel@0",
+     100
+    ],
+    [
+     "TahmKench_spell2_channel@100",
+     100
+    ],
+    [
+     "TahmKench_spell2_channel@200",
+     100
+    ],
+    [
+     "TahmKench_spell2_channel@300",
+     100
+    ]
+   ],
+   "rise": 0.3
+  },
+  "w_land": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "Spell2_Channel_Arrive@350",
+     80
+    ],
+    [
+     "Spell2_Channel_Arrive@600",
+     80
+    ],
+    [
+     "Spell2_Channel_Arrive@800",
+     90
+    ],
+    [
+     "Spell2_Channel_Arrive@1050>TahmKench_Idle1@0:0.5",
+     90
+    ]
+   ],
+   "rise": 0.3
+  },
+  "ult": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "TahmKench_Idle1@0>TahmKench_spell4_short@0:0.6",
+     100
+    ],
+    [
+     "TahmKench_spell4_short@188",
+     100
+    ],
+    [
+     "TahmKench_spell4_short@375",
+     100
+    ],
+    [
+     "TahmKench_spell4_short@600",
+     100
+    ],
+    [
+     "TahmKench_spell4_short@938>TahmKench_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "TahmKench_Death@0",
+     120
+    ],
+    [
+     "TahmKench_Death@412",
+     120
+    ],
+    [
+     "TahmKench_Death@825",
+     140
+    ],
+    [
+     "TahmKench_Death@1237",
+     160
+    ],
+    [
+     "TahmKench_Death@1856",
+     200
+    ],
+    [
+     "TahmKench_Death@2700",
+     400
+    ]
+   ]
+  }
+ }
+}

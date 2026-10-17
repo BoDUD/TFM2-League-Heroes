@@ -1,0 +1,374 @@
+{
+  "canvas": [
+    1024,
+    1024
+  ],
+  "logical_canvas": [
+    128,
+    128
+  ],
+  "pixel_scale": 8,
+  "feet_row": 99,
+  "palette": [
+    [
+      11,
+      1,
+      15
+    ],
+    [
+      15,
+      12,
+      48
+    ],
+    [
+      17,
+      2,
+      24
+    ],
+    [
+      18,
+      15,
+      59
+    ],
+    [
+      27,
+      27,
+      86
+    ],
+    [
+      32,
+      32,
+      98
+    ],
+    [
+      35,
+      21,
+      72
+    ],
+    [
+      38,
+      38,
+      118
+    ],
+    [
+      43,
+      23,
+      26
+    ],
+    [
+      44,
+      44,
+      141
+    ],
+    [
+      48,
+      45,
+      71
+    ],
+    [
+      52,
+      30,
+      26
+    ],
+    [
+      61,
+      36,
+      30
+    ],
+    [
+      81,
+      75,
+      80
+    ],
+    [
+      87,
+      51,
+      39
+    ],
+    [
+      88,
+      59,
+      149
+    ],
+    [
+      89,
+      60,
+      156
+    ],
+    [
+      96,
+      102,
+      215
+    ],
+    [
+      97,
+      188,
+      219
+    ],
+    [
+      104,
+      106,
+      129
+    ],
+    [
+      118,
+      122,
+      139
+    ],
+    [
+      120,
+      70,
+      48
+    ],
+    [
+      138,
+      141,
+      152
+    ],
+    [
+      152,
+      161,
+      186
+    ],
+    [
+      163,
+      165,
+      171
+    ],
+    [
+      182,
+      115,
+      70
+    ],
+    [
+      195,
+      195,
+      197
+    ],
+    [
+      222,
+      224,
+      227
+    ],
+    [
+      238,
+      169,
+      109
+    ],
+    [
+      239,
+      226,
+      246
+    ]
+  ],
+  "actions": {
+    "run": [
+      {
+        "file": "run_1.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "run_2.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "run_3.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "run_4.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "run_5.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "run_6.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "run_7.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "run_8.png",
+        "duration_ms": 100,
+        "release_frame": false
+      }
+    ],
+    "attack": [
+      {
+        "file": "attack_1.png",
+        "duration_ms": 50,
+        "release_frame": false
+      },
+      {
+        "file": "attack_2.png",
+        "duration_ms": 60,
+        "release_frame": false
+      },
+      {
+        "file": "attack_3.png",
+        "duration_ms": 60,
+        "release_frame": false
+      },
+      {
+        "file": "attack_4.png",
+        "duration_ms": 90,
+        "release_frame": true
+      },
+      {
+        "file": "attack_5.png",
+        "duration_ms": 80,
+        "release_frame": false
+      },
+      {
+        "file": "attack_6.png",
+        "duration_ms": 60,
+        "release_frame": false
+      }
+    ],
+    "skill": [
+      {
+        "file": "skill_1.png",
+        "duration_ms": 60,
+        "release_frame": false
+      },
+      {
+        "file": "skill_2.png",
+        "duration_ms": 60,
+        "release_frame": false
+      },
+      {
+        "file": "skill_3.png",
+        "duration_ms": 80,
+        "release_frame": true
+      },
+      {
+        "file": "skill_4.png",
+        "duration_ms": 100,
+        "release_frame": false
+      }
+    ],
+    "skill2": [
+      {
+        "file": "skill2_1.png",
+        "duration_ms": 50,
+        "release_frame": false
+      },
+      {
+        "file": "skill2_2.png",
+        "duration_ms": 50,
+        "release_frame": false
+      },
+      {
+        "file": "skill2_3.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "skill2_4.png",
+        "duration_ms": 100,
+        "release_frame": false
+      }
+    ],
+    "ult": [
+      {
+        "file": "ult_1.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "ult_2.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "ult_3.png",
+        "duration_ms": 100,
+        "release_frame": false
+      }
+    ],
+    "ult_loop": [
+      {
+        "file": "ult_loop_1.png",
+        "duration_ms": 200,
+        "release_frame": false
+      },
+      {
+        "file": "ult_loop_2.png",
+        "duration_ms": 200,
+        "release_frame": false
+      },
+      {
+        "file": "ult_loop_3.png",
+        "duration_ms": 200,
+        "release_frame": false
+      },
+      {
+        "file": "ult_loop_4.png",
+        "duration_ms": 200,
+        "release_frame": false
+      }
+    ],
+    "hit": [
+      {
+        "file": "hit_1.png",
+        "duration_ms": 100,
+        "release_frame": false
+      }
+    ],
+    "dead": [
+      {
+        "file": "dead_1.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "dead_2.png",
+        "duration_ms": 100,
+        "release_frame": false
+      },
+      {
+        "file": "dead_3.png",
+        "duration_ms": 120,
+        "release_frame": false
+      },
+      {
+        "file": "dead_4.png",
+        "duration_ms": 150,
+        "release_frame": false
+      },
+      {
+        "file": "dead_5.png",
+        "duration_ms": 150,
+        "release_frame": false
+      },
+      {
+        "file": "dead_6.png",
+        "duration_ms": 200,
+        "release_frame": false
+      },
+      {
+        "file": "dead_7.png",
+        "duration_ms": 250,
+        "release_frame": false
+      },
+      {
+        "file": "dead_8.png",
+        "duration_ms": 400,
+        "release_frame": false
+      }
+    ]
+  },
+  "status": "export_complete",
+  "game_integration_tested": false
+}

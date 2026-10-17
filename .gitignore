@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+# League of Legends audio (c) Riot Games: re-extract locally with tools/lol/extract_garen.py, never committed
+league/sound/sfx/*.wav
+league/sound/sfx/*.mp3
+league/sound/sfx/*.ogg
+
+# tools/package_mod.py output (installed / uploaded copy of league/)
+dist/

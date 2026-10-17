@@ -1,0 +1,44 @@
+{
+  "katarina-side-1.png": {
+    "size": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "visible_bbox": [
+      210,
+      601,
+      982,
+      1512
+    ],
+    "visible_height": 911,
+    "bottom_margin": 24,
+    "rgb_unchanged": true,
+    "processing": "alpha threshold 128 only; no resize, regrid, RGB edits or palette quantization"
+  },
+  "katarina-side-2.png": {
+    "size": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "visible_bbox": [
+      230,
+      612,
+      929,
+      1504
+    ],
+    "visible_height": 892,
+    "bottom_margin": 32,
+    "rgb_unchanged": true,
+    "processing": "alpha threshold 128 only; no resize, regrid, RGB edits or palette quantization"
+  }
+}

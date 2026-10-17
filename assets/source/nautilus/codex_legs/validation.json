@@ -1,0 +1,180 @@
+{
+  "run": [
+    {
+      "frame": 1,
+      "source_raw": "run_fixed.png",
+      "raw_belt_row": 318,
+      "raw_leg_crop": [
+        117,
+        319,
+        379,
+        421
+      ],
+      "belt_row_1x": 85,
+      "placement": [
+        48,
+        86
+      ],
+      "original_opaque_pixels_unchanged": true,
+      "all_pixels_above_belt_unchanged": true,
+      "below_ground_pixels": 0
+    },
+    {
+      "frame": 2,
+      "source_raw": "run_fixed.png",
+      "raw_belt_row": 319,
+      "raw_leg_crop": [
+        117,
+        320,
+        377,
+        421
+      ],
+      "belt_row_1x": 84,
+      "placement": [
+        45,
+        85
+      ],
+      "original_opaque_pixels_unchanged": true,
+      "all_pixels_above_belt_unchanged": true,
+      "below_ground_pixels": 0
+    },
+    {
+      "frame": 3,
+      "source_raw": "run_fixed.png",
+      "raw_belt_row": 318,
+      "raw_leg_crop": [
+        118,
+        319,
+        380,
+        421
+      ],
+      "belt_row_1x": 84,
+      "placement": [
+        45,
+        85
+      ],
+      "original_opaque_pixels_unchanged": true,
+      "all_pixels_above_belt_unchanged": true,
+      "below_ground_pixels": 0
+    },
+    {
+      "frame": 4,
+      "source_raw": "run_fixed.png",
+      "raw_belt_row": 318,
+      "raw_leg_crop": [
+        119,
+        319,
+        382,
+        421
+      ],
+      "belt_row_1x": 84,
+      "placement": [
+        46,
+        85
+      ],
+      "original_opaque_pixels_unchanged": true,
+      "all_pixels_above_belt_unchanged": true,
+      "below_ground_pixels": 0
+    },
+    {
+      "frame": 5,
+      "source_raw": "run_fixed.png",
+      "raw_belt_row": 284,
+      "raw_leg_crop": [
+        127,
+        285,
+        389,
+        387
+      ],
+      "belt_row_1x": 85,
+      "placement": [
+        48,
+        86
+      ],
+      "original_opaque_pixels_unchanged": true,
+      "all_pixels_above_belt_unchanged": true,
+      "below_ground_pixels": 0
+    },
+    {
+      "frame": 6,
+      "source_raw": "run_fixed.png",
+      "raw_belt_row": 285,
+      "raw_leg_crop": [
+        124,
+        286,
+        384,
+        387
+      ],
+      "belt_row_1x": 84,
+      "placement": [
+        45,
+        85
+      ],
+      "original_opaque_pixels_unchanged": true,
+      "all_pixels_above_belt_unchanged": true,
+      "below_ground_pixels": 0
+    },
+    {
+      "frame": 7,
+      "source_raw": "run_fixed.png",
+      "raw_belt_row": 284,
+      "raw_leg_crop": [
+        124,
+        285,
+        386,
+        387
+      ],
+      "belt_row_1x": 84,
+      "placement": [
+        45,
+        85
+      ],
+      "original_opaque_pixels_unchanged": true,
+      "all_pixels_above_belt_unchanged": true,
+      "below_ground_pixels": 0
+    },
+    {
+      "frame": 8,
+      "source_raw": "run_fixed.png",
+      "raw_belt_row": 285,
+      "raw_leg_crop": [
+        121,
+        286,
+        381,
+        387
+      ],
+      "belt_row_1x": 84,
+      "placement": [
+        46,
+        85
+      ],
+      "original_opaque_pixels_unchanged": true,
+      "all_pixels_above_belt_unchanged": true,
+      "below_ground_pixels": 0
+    }
+  ],
+  "idle": [
+    {
+      "frame": 1,
+      "source_raw": "idle.png",
+      "raw_belt_row": 841,
+      "raw_leg_crop": [
+        457,
+        842,
+        835,
+        989
+      ],
+      "belt_row_1x": 85,
+      "placement": [
+        48,
+        86
+      ],
+      "original_opaque_pixels_unchanged": true,
+      "all_pixels_above_belt_unchanged": true,
+      "below_ground_pixels": 0
+    }
+  ],
+  "grid_8x8": true,
+  "sizes_pass": true,
+  "visual_status": "Near/far shading exchanged; exact guide knee and ankle positions and constant boot contours remain approximate."
+}

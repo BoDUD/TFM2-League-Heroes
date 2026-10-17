@@ -1,0 +1,37 @@
+{
+ "hero": "sivir",
+ "champ": "Sivir",
+ "camera": {"yaw": 30, "pitch": 20, "mirror": true},
+ "chibi": {"head": 2.6, "legs": 0.85},
+ "height": 40,
+ "cell": [96, 80, 12],
+ "design": "Sivir_Base_Idle@0",
+ "tags": {
+  "idle": {"frames": [["Sivir_Base_Idle@0", 200], ["Sivir_Base_Idle@0", 200], ["Sivir_Base_Idle@0", 200],
+                      ["Sivir_Base_Idle@0", 200], ["Sivir_Base_Idle@0", 200], ["Sivir_Base_Idle@0", 200]]},
+  "run": {"head_like": "Sivir_Base_Idle@0", "frames": [
+   ["Sivir_Base_Run@0", 125], ["Sivir_Base_Run@125", 125], ["Sivir_Base_Run@250", 125], ["Sivir_Base_Run@375", 125],
+   ["Sivir_Base_Run@500", 125], ["Sivir_Base_Run@625", 125], ["Sivir_Base_Run@750", 125], ["Sivir_Base_Run@875", 125]]},
+  "attack": {"lunge": 0.4, "frames": [
+   ["Sivir_Base_Idle@0>Sivir_Base_Attack_01@80:0.5", 50], ["Sivir_Base_Attack_01@180", 50],
+   ["Sivir_Base_Attack_01@290", 70], ["Sivir_Base_Attack_01@430", 70], ["Sivir_Base_Attack_01@700", 80],
+   ["Sivir_Base_Attack_01@1150>Sivir_Base_Idle@0:0.5", 80]]},
+  "skill": {"lunge": 0.4, "rise": 0.2, "frames": [
+   ["Sivir_Base_Idle@0>Sivir_Base_Spell1@0:0.6", 50], ["Sivir_Base_Spell1@120", 50], ["Sivir_Base_Spell1@180", 50],
+   ["Sivir_Base_Spell1@260", 60]]},
+  "skill_wait": {"lunge": 0.3, "frames": [["Sivir_Base_Spell1@680", 150], ["Sivir_Base_Spell1@680", 150]]},
+  "skill_catch": {"lunge": 0.3, "frames": [
+   ["Sivir_Base_Spell1@560", 60], ["Sivir_Base_Spell1_catch@0", 60],
+   ["Sivir_Base_Spell1_catch@300>Sivir_Base_Idle@0:0.5", 60]]},
+  "skill2": {"lunge": 0.3, "frames": [
+   ["Sivir_Base_Idle@0>Sivir_Idle1@0:0.5", 60], ["Sivir_Idle1@200", 80], ["Sivir_Idle1@500", 100],
+   ["Sivir_Idle1@800>Sivir_Base_Idle@0:0.5", 100]]},
+  "ult": {"lunge": 0.3, "rise": 0.2, "frames": [
+   ["Sivir_Base_Spell4@0", 80], ["Sivir_Base_Spell4@125", 80], ["Sivir_Base_Spell4@250", 100],
+   ["Sivir_Base_Spell4@375", 120], ["Sivir_Base_Spell4@438>Sivir_Base_Idle@0:0.5", 120]]},
+  "hit": {"frames": [["Sivir_Base_Idle@0>Sivir_Base_Death@80:0.35", 100], ["Sivir_Base_Idle@0>Sivir_Base_Death@80:0.15", 100]]},
+  "dead": {"anchor": "first", "lunge": 0.3, "flat": true, "travel": 0.2, "frames": [
+   ["Sivir_Base_Death@0", 100], ["Sivir_Base_Death@120", 100], ["Sivir_Base_Death@250", 110], ["Sivir_Base_Death@400", 110],
+   ["Sivir_Base_Death@600", 120], ["Sivir_Base_Death@900", 150], ["Sivir_Base_Death@1300", 300], ["Sivir_Base_Death@1700", 500]]}
+ }
+}

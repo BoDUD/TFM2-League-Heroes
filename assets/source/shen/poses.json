@@ -1,0 +1,247 @@
+{
+ "hero": "shen",
+ "champ": "Shen",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.6,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "shen_idle1@0",
+ "head_joint": "Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "shen_idle1@0",
+     160
+    ],
+    [
+     "shen_idle1@0",
+     160
+    ],
+    [
+     "shen_idle1@0",
+     160
+    ],
+    [
+     "shen_idle1@0",
+     160
+    ],
+    [
+     "shen_idle1@0",
+     160
+    ],
+    [
+     "shen_idle1@0",
+     160
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "frames": [
+    [
+     "shen_run@0",
+     100
+    ],
+    [
+     "shen_run@100",
+     100
+    ],
+    [
+     "shen_run@200",
+     100
+    ],
+    [
+     "shen_run@300",
+     100
+    ],
+    [
+     "shen_run@400",
+     100
+    ],
+    [
+     "shen_run@500",
+     100
+    ],
+    [
+     "shen_run@600",
+     100
+    ],
+    [
+     "shen_run@700",
+     100
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "shen_attack1@0",
+     50
+    ],
+    [
+     "shen_attack1@160",
+     60
+    ],
+    [
+     "shen_attack1@240",
+     60
+    ],
+    [
+     "shen_attack1@320",
+     90
+    ],
+    [
+     "shen_attack1@400",
+     80
+    ],
+    [
+     "shen_attack1@560",
+     60
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "shen_spell1@0",
+     60
+    ],
+    [
+     "shen_spell1@180",
+     60
+    ],
+    [
+     "shen_spell1@300",
+     80
+    ],
+    [
+     "shen_spell1@450",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "shen_spell3@0",
+     50
+    ],
+    [
+     "shen_spell3@80",
+     50
+    ],
+    [
+     "shen_spell3@200",
+     100
+    ],
+    [
+     "shen_spell3@500",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "shen_spell4@0",
+     100
+    ],
+    [
+     "shen_spell4@250",
+     100
+    ],
+    [
+     "shen_spell4@500",
+     100
+    ]
+   ]
+  },
+  "ult_loop": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "shen_spell4@750",
+     200
+    ],
+    [
+     "shen_spell4@1250",
+     200
+    ],
+    [
+     "shen_spell4@1750",
+     200
+    ],
+    [
+     "shen_spell4@2250",
+     200
+    ]
+   ]
+  },
+  "hit": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "shen_death@200",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "travel": 0.3,
+   "lunge": 0.5,
+   "frames": [
+    [
+     "shen_death@0",
+     100
+    ],
+    [
+     "shen_death@200",
+     100
+    ],
+    [
+     "shen_death@400",
+     120
+    ],
+    [
+     "shen_death@700",
+     150
+    ],
+    [
+     "shen_death@1000",
+     150
+    ],
+    [
+     "shen_death@1500",
+     200
+    ],
+    [
+     "shen_death@2000",
+     250
+    ],
+    [
+     "shen_death@3000",
+     400
+    ]
+   ]
+  }
+ }
+}

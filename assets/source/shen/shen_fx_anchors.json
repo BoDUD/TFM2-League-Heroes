@@ -1,0 +1,17 @@
+{
+  "a_hit": {"cell": [16, 14], "anchor": [8.0, 7.0], "frames": 4},
+  "a_emp": {"cell": [22, 20], "anchor": [11.0, 10.0], "frames": 5},
+  "q_blade": {"cell": [32, 14], "anchor": [16.0, 7.0], "frames": 4},
+  "q_hit": {"cell": [16, 16], "anchor": [8.0, 8.0], "frames": 4},
+  "q_slow": {"cell": [20, 8], "anchor": [10.0, 4.0], "frames": 4},
+  "q_1": {"cell": [36, 26], "anchor": [18.0, 24.0], "frames": 4},
+  "p_on": {"cell": [48, 56], "anchor": [24.0, 54.0], "frames": 4},
+  "w_zone": {"cell": [50, 34], "anchor": [25.0, 24.0], "frames": 7},
+  "w_safe": {"cell": [30, 36], "anchor": [15.0, 33.0], "frames": 4},
+  "e_dash": {"cell": [64, 16], "anchor": [32.0, 8.0], "frames": 3},
+  "e_hit": {"cell": [28, 28], "anchor": [14.0, 14.0], "frames": 5},
+  "r_cast": {"cell": [48, 64], "anchor": [24.0, 61.0], "frames": 6},
+  "r_ch": {"cell": [44, 64], "anchor": [22.0, 61.0], "frames": 4},
+  "r_shield": {"cell": [48, 64], "anchor": [24.0, 62.0], "frames": 4},
+  "r_land": {"cell": [52, 72], "anchor": [26.0, 64.0], "frames": 6}
+}

@@ -1,0 +1,43 @@
+{
+ "hero": "nocturne",
+ "champ": "Nocturne",
+ "camera": {"yaw": 10, "pitch": 20, "mirror": true},
+ "chibi": {"head": 2.4, "legs": 1.0, "scale": {"weapon": 0.6, "weapon2": 0.6}},
+ "legs": "^hip$",
+ "weapon": "^weapon",
+ "height": 34,
+ "hover": 6,
+ "cell": [120, 104, 14],
+ "design": "nocturne_idle1@0",
+ "tags": {
+  "idle": {"frames": [["nocturne_idle1@0", 180], ["nocturne_idle1@0", 180], ["nocturne_idle1@0", 180],
+                      ["nocturne_idle1@0", 180], ["nocturne_idle1@0", 180], ["nocturne_idle1@0", 180]]},
+  "run": {"rise": 0.0, "flat": true, "head_like": "nocturne_idle1@0", "frames": [
+   ["nocturne_run@0>nocturne_idle1@0:0.6", 100], ["nocturne_run@208>nocturne_idle1@0:0.6", 100],
+   ["nocturne_run@417>nocturne_idle1@0:0.6", 100], ["nocturne_run@625>nocturne_idle1@0:0.6", 100],
+   ["nocturne_run@833>nocturne_idle1@0:0.6", 100], ["nocturne_run@1042>nocturne_idle1@0:0.6", 100],
+   ["nocturne_run@1250>nocturne_idle1@0:0.6", 100], ["nocturne_run@1458>nocturne_idle1@0:0.6", 100]]},
+  "attack": {"lunge": 0.5, "frames": [
+   ["nocturne_idle1@0>nocturne_attack1@100:0.5", 60], ["nocturne_attack1@200", 60], ["nocturne_attack1@300", 60],
+   ["nocturne_attack1@420", 70], ["nocturne_attack1@560", 80], ["nocturne_attack1@750>nocturne_idle1@0:0.5", 90]]},
+  "attack_p": {"lunge": 0.5, "frames": [
+   ["nocturne_idle1@0>nocturne_crit@120:0.5", 60], ["nocturne_crit@240", 60], ["nocturne_crit@360", 70],
+   ["nocturne_crit@480", 80], ["nocturne_crit@620", 80], ["nocturne_crit@820>nocturne_idle1@0:0.5", 90]]},
+  "skill": {"lunge": 0.4, "frames": [
+   ["nocturne_idle1@0>nocturne_Spell1@120:0.5", 60], ["nocturne_Spell1@240", 70], ["nocturne_Spell1@360", 70],
+   ["nocturne_Spell1@500", 80], ["nocturne_Spell1@760>nocturne_idle1@0:0.5", 100]]},
+  "skill2": {"lunge": 0.4, "frames": [
+   ["nocturne_idle1@0>nocturne_Spell3@140:0.5", 60], ["nocturne_Spell3@280", 70], ["nocturne_Spell3@420", 70],
+   ["nocturne_Spell3@600", 80], ["nocturne_Spell3@820>nocturne_idle1@0:0.5", 100]]},
+  "ult": {"lunge": 0.4, "rise": 0.0, "flat": true, "frames": [
+   ["nocturne_idle1@0>nocturne_Spell4_activate@300:0.5", 60], ["nocturne_Spell4_activate@600", 70],
+   ["nocturne_Spell4@0", 155], ["nocturne_Spell4@50", 155], ["nocturne_Spell4@100", 155], ["nocturne_Spell4@150", 155]]},
+  "ult_hit": {"lunge": 0.4, "frames": [
+   ["nocturne_attack3@300", 80], ["nocturne_attack3@420", 80], ["nocturne_attack3@540", 80],
+   ["nocturne_attack3@700>nocturne_idle1@0:0.5", 100]]},
+  "hit": {"frames": [["nocturne_idle1@0>nocturne_death@200:0.35", 100], ["nocturne_idle1@0>nocturne_death@200:0.15", 100]]},
+  "dead": {"anchor": "first", "lunge": 0.4, "flat": true, "rise": 0.3, "travel": 0.3, "frames": [
+   ["nocturne_death@0", 100], ["nocturne_death@150", 100], ["nocturne_death@300", 100], ["nocturne_death@450", 120],
+   ["nocturne_death@600", 120], ["nocturne_death@800", 150], ["nocturne_death@1100", 200], ["nocturne_death@1500", 400]]}
+ }
+}

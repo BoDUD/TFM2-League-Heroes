@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_ekko_sfx_w_cast",
+      "volume": 0.7
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_ekko_vo_w",
+      "volume": 1.0
+    }
+  ]
+}

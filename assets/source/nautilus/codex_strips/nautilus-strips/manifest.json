@@ -1,0 +1,2645 @@
+{
+  "schema_version": 1,
+  "cell": [
+    128,
+    128
+  ],
+  "scale": 8,
+  "ground_row": 99,
+  "design": "p35",
+  "source_idle_sha256": "e80419f93cfb0ea6a419379ceb2627351b62e2414e0e44aa0ddcd89f8496a02b",
+  "actions": {
+    "idle": {
+      "file": "nautilus_idle.png",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            45,
+            52,
+            84,
+            100
+          ],
+          "ms": 160,
+          "head_translation": [
+            0,
+            0
+          ],
+          "anchor": null
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            45,
+            52,
+            84,
+            100
+          ],
+          "ms": 160,
+          "head_translation": [
+            0,
+            0
+          ],
+          "anchor": null
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            45,
+            52,
+            84,
+            100
+          ],
+          "ms": 160,
+          "head_translation": [
+            0,
+            0
+          ],
+          "anchor": null
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            45,
+            52,
+            84,
+            100
+          ],
+          "ms": 160,
+          "head_translation": [
+            0,
+            0
+          ],
+          "anchor": null
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            45,
+            52,
+            84,
+            100
+          ],
+          "ms": 160,
+          "head_translation": [
+            0,
+            0
+          ],
+          "anchor": null
+        },
+        {
+          "frame": 6,
+          "cell_rect_px": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            45,
+            52,
+            84,
+            100
+          ],
+          "ms": 160,
+          "head_translation": [
+            0,
+            0
+          ],
+          "anchor": null
+        },
+        {
+          "frame": 7,
+          "cell_rect_px": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            45,
+            52,
+            84,
+            100
+          ],
+          "ms": 160,
+          "head_translation": [
+            0,
+            0
+          ],
+          "anchor": null
+        },
+        {
+          "frame": 8,
+          "cell_rect_px": [
+            3072,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            45,
+            52,
+            84,
+            100
+          ],
+          "ms": 160,
+          "head_translation": [
+            0,
+            0
+          ],
+          "anchor": null
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ]
+    },
+    "run": {
+      "file": "nautilus_run.png",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            83,
+            100
+          ],
+          "ms": 116,
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              52,
+              79,
+              100
+            ]
+          },
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "run_leg_row_shift": -2
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "bbox": [
+            42,
+            52,
+            82,
+            100
+          ],
+          "ms": 116,
+          "anchor": {
+            "grip": [
+              50,
+              83
+            ],
+            "crown": [
+              63,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              42,
+              52,
+              78,
+              100
+            ]
+          },
+          "head_translation": [
+            -1,
+            0
+          ],
+          "hands": [
+            [
+              50,
+              83
+            ],
+            [
+              78,
+              87
+            ]
+          ],
+          "run_leg_row_shift": 2
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "bbox": [
+            42,
+            51,
+            82,
+            99
+          ],
+          "ms": 116,
+          "anchor": {
+            "grip": [
+              50,
+              82
+            ],
+            "crown": [
+              63,
+              55
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              42,
+              51,
+              78,
+              99
+            ]
+          },
+          "head_translation": [
+            -1,
+            -1
+          ],
+          "hands": [
+            [
+              50,
+              82
+            ],
+            [
+              78,
+              86
+            ]
+          ],
+          "run_leg_row_shift": 8
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            51,
+            83,
+            99
+          ],
+          "ms": 116,
+          "anchor": {
+            "grip": [
+              51,
+              82
+            ],
+            "crown": [
+              64,
+              55
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              51,
+              79,
+              99
+            ]
+          },
+          "head_translation": [
+            0,
+            -1
+          ],
+          "hands": [
+            [
+              51,
+              82
+            ],
+            [
+              79,
+              86
+            ]
+          ],
+          "run_leg_row_shift": 12
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            83,
+            100
+          ],
+          "ms": 116,
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              52,
+              79,
+              100
+            ]
+          },
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "run_leg_row_shift": 18
+        },
+        {
+          "frame": 6,
+          "cell_rect_px": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            83,
+            100
+          ],
+          "ms": 116,
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              52,
+              79,
+              100
+            ]
+          },
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "run_leg_row_shift": 12
+        },
+        {
+          "frame": 7,
+          "cell_rect_px": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            51,
+            83,
+            99
+          ],
+          "ms": 116,
+          "anchor": {
+            "grip": [
+              51,
+              82
+            ],
+            "crown": [
+              64,
+              55
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              51,
+              79,
+              99
+            ]
+          },
+          "head_translation": [
+            0,
+            -1
+          ],
+          "hands": [
+            [
+              51,
+              82
+            ],
+            [
+              79,
+              86
+            ]
+          ],
+          "run_leg_row_shift": 8
+        },
+        {
+          "frame": 8,
+          "cell_rect_px": [
+            3072,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            51,
+            83,
+            99
+          ],
+          "ms": 116,
+          "anchor": {
+            "grip": [
+              51,
+              82
+            ],
+            "crown": [
+              64,
+              55
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              51,
+              79,
+              99
+            ]
+          },
+          "head_translation": [
+            0,
+            -1
+          ],
+          "hands": [
+            [
+              51,
+              82
+            ],
+            [
+              79,
+              86
+            ]
+          ],
+          "run_leg_row_shift": 2
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ]
+    },
+    "attack": {
+      "file": "nautilus_attack.png",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            63,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            82,
+            100
+          ],
+          "ms": 70,
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            67,
+            88
+          ],
+          "bbox": [
+            34,
+            51,
+            80,
+            100
+          ],
+          "ms": 80,
+          "anchor": {
+            "grip": [
+              42,
+              82
+            ],
+            "crown": [
+              55,
+              55
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              34,
+              51,
+              70,
+              99
+            ]
+          },
+          "head_translation": [
+            -2,
+            0
+          ],
+          "hands": [
+            [
+              42,
+              82
+            ],
+            [
+              77,
+              85
+            ]
+          ]
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            60,
+            88
+          ],
+          "bbox": [
+            54,
+            63,
+            106,
+            100
+          ],
+          "ms": 60,
+          "anchor": {
+            "grip": [
+              74,
+              72
+            ],
+            "crown": [
+              101,
+              85
+            ],
+            "quarter_turns": 1,
+            "bbox": [
+              58,
+              64,
+              106,
+              100
+            ]
+          },
+          "head_translation": [
+            1,
+            0
+          ],
+          "hands": [
+            [
+              74,
+              72
+            ],
+            [
+              78,
+              85
+            ]
+          ]
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            59,
+            88
+          ],
+          "bbox": [
+            55,
+            64,
+            110,
+            100
+          ],
+          "ms": 90,
+          "anchor": {
+            "grip": [
+              78,
+              72
+            ],
+            "crown": [
+              105,
+              85
+            ],
+            "quarter_turns": 1,
+            "bbox": [
+              62,
+              64,
+              110,
+              100
+            ]
+          },
+          "head_translation": [
+            3,
+            1
+          ],
+          "hands": [
+            [
+              78,
+              72
+            ],
+            [
+              79,
+              86
+            ]
+          ],
+          "impact_tick": 13
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "bbox": [
+            54,
+            45,
+            106,
+            100
+          ],
+          "ms": 80,
+          "anchor": {
+            "grip": [
+              78,
+              76
+            ],
+            "crown": [
+              91,
+              49
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              70,
+              45,
+              106,
+              93
+            ]
+          },
+          "head_translation": [
+            1,
+            0
+          ],
+          "hands": [
+            [
+              78,
+              76
+            ],
+            [
+              78,
+              84
+            ]
+          ]
+        },
+        {
+          "frame": 6,
+          "cell_rect_px": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            62,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            82,
+            100
+          ],
+          "ms": 80,
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        }
+      ],
+      "grid": [
+        3,
+        2
+      ]
+    },
+    "skill": {
+      "file": "nautilus_skill.png",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "bbox": [
+            46,
+            48,
+            82,
+            100
+          ],
+          "ms": 60,
+          "anchor": {
+            "grip": [
+              54,
+              79
+            ],
+            "crown": [
+              67,
+              52
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              46,
+              48,
+              82,
+              96
+            ]
+          },
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              54,
+              79
+            ],
+            [
+              79,
+              83
+            ]
+          ]
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            63,
+            88
+          ],
+          "bbox": [
+            47,
+            33,
+            83,
+            100
+          ],
+          "ms": 60,
+          "anchor": {
+            "grip": [
+              55,
+              64
+            ],
+            "crown": [
+              68,
+              37
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              47,
+              33,
+              83,
+              81
+            ]
+          },
+          "head_translation": [
+            -1,
+            0
+          ],
+          "hands": [
+            [
+              55,
+              64
+            ],
+            [
+              76,
+              65
+            ]
+          ]
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            63,
+            88
+          ],
+          "bbox": [
+            40,
+            34,
+            80,
+            100
+          ],
+          "ms": 60,
+          "anchor": {
+            "grip": [
+              48,
+              65
+            ],
+            "crown": [
+              61,
+              38
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              40,
+              34,
+              76,
+              82
+            ]
+          },
+          "head_translation": [
+            -2,
+            0
+          ],
+          "hands": [
+            [
+              48,
+              65
+            ],
+            [
+              74,
+              65
+            ]
+          ]
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            62,
+            88
+          ],
+          "bbox": [
+            54,
+            57,
+            107,
+            100
+          ],
+          "ms": 60,
+          "anchor": {
+            "grip": [
+              75,
+              65
+            ],
+            "crown": [
+              102,
+              78
+            ],
+            "quarter_turns": 1,
+            "bbox": [
+              59,
+              57,
+              107,
+              93
+            ]
+          },
+          "head_translation": [
+            2,
+            0
+          ],
+          "hands": [
+            [
+              75,
+              65
+            ],
+            [
+              79,
+              69
+            ]
+          ]
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            61,
+            88
+          ],
+          "bbox": [
+            56,
+            63,
+            128,
+            100
+          ],
+          "ms": 80,
+          "head_translation": [
+            3,
+            0
+          ],
+          "hands": [
+            [
+              87,
+              78
+            ],
+            [
+              81,
+              81
+            ]
+          ],
+          "impact_tick": 14,
+          "anchor": null
+        },
+        {
+          "frame": 6,
+          "cell_rect_px": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            62,
+            88
+          ],
+          "bbox": [
+            52,
+            63,
+            128,
+            100
+          ],
+          "ms": 140,
+          "head_translation": [
+            -1,
+            0
+          ],
+          "hands": [
+            [
+              82,
+              80
+            ],
+            [
+              87,
+              80
+            ]
+          ],
+          "anchor": null
+        }
+      ],
+      "grid": [
+        3,
+        2
+      ]
+    },
+    "skill_pull": {
+      "file": "nautilus_skill_pull.png",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            63,
+            88
+          ],
+          "bbox": [
+            54,
+            61,
+            128,
+            98
+          ],
+          "ms": 100,
+          "head_translation": [
+            3,
+            -2
+          ],
+          "hands": [
+            [
+              85,
+              78
+            ],
+            [
+              90,
+              78
+            ]
+          ],
+          "anchor": null
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "bbox": [
+            55,
+            62,
+            128,
+            99
+          ],
+          "ms": 120,
+          "head_translation": [
+            3,
+            -1
+          ],
+          "hands": [
+            [
+              86,
+              80
+            ],
+            [
+              91,
+              80
+            ]
+          ],
+          "anchor": null
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "bbox": [
+            54,
+            63,
+            110,
+            100
+          ],
+          "ms": 100,
+          "anchor": {
+            "grip": [
+              78,
+              72
+            ],
+            "crown": [
+              105,
+              85
+            ],
+            "quarter_turns": 1,
+            "bbox": [
+              62,
+              64,
+              110,
+              100
+            ]
+          },
+          "head_translation": [
+            1,
+            0
+          ],
+          "hands": [
+            [
+              78,
+              72
+            ],
+            [
+              80,
+              84
+            ]
+          ]
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            82,
+            100
+          ],
+          "ms": 80,
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        }
+      ],
+      "grid": [
+        4,
+        1
+      ]
+    },
+    "skill2": {
+      "file": "nautilus_skill2.png",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            82,
+            100
+          ],
+          "ms": 70,
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            87,
+            100
+          ],
+          "ms": 70,
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              52,
+              79,
+              100
+            ]
+          },
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              83,
+              64
+            ]
+          ]
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            67,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            88,
+            100
+          ],
+          "ms": 100,
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              52,
+              79,
+              100
+            ]
+          },
+          "head_translation": [
+            2,
+            3
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              85,
+              96
+            ]
+          ],
+          "impact_tick": 8
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            67,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            87,
+            100
+          ],
+          "ms": 90,
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              52,
+              79,
+              100
+            ]
+          },
+          "head_translation": [
+            1,
+            1
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              84,
+              89
+            ]
+          ]
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            84,
+            100
+          ],
+          "ms": 90,
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              43,
+              52,
+              79,
+              100
+            ]
+          },
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              81,
+              84
+            ]
+          ]
+        },
+        {
+          "frame": 6,
+          "cell_rect_px": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            82,
+            100
+          ],
+          "ms": 90,
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        }
+      ],
+      "grid": [
+        3,
+        2
+      ]
+    },
+    "ult": {
+      "file": "nautilus_ult.png",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            82,
+            100
+          ],
+          "ms": 60,
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "bbox": [
+            48,
+            31,
+            84,
+            100
+          ],
+          "ms": 70,
+          "anchor": {
+            "grip": [
+              56,
+              62
+            ],
+            "crown": [
+              69,
+              35
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              48,
+              31,
+              84,
+              79
+            ]
+          },
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              56,
+              62
+            ],
+            [
+              76,
+              63
+            ]
+          ]
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            63,
+            88
+          ],
+          "bbox": [
+            39,
+            32,
+            81,
+            100
+          ],
+          "ms": 60,
+          "anchor": {
+            "grip": [
+              47,
+              63
+            ],
+            "crown": [
+              60,
+              36
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              39,
+              32,
+              75,
+              80
+            ]
+          },
+          "head_translation": [
+            -2,
+            0
+          ],
+          "hands": [
+            [
+              47,
+              63
+            ],
+            [
+              74,
+              63
+            ]
+          ]
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            58,
+            88
+          ],
+          "bbox": [
+            54,
+            55,
+            109,
+            100
+          ],
+          "ms": 70,
+          "anchor": {
+            "grip": [
+              77,
+              63
+            ],
+            "crown": [
+              104,
+              76
+            ],
+            "quarter_turns": 1,
+            "bbox": [
+              61,
+              55,
+              109,
+              91
+            ]
+          },
+          "head_translation": [
+            2,
+            0
+          ],
+          "hands": [
+            [
+              77,
+              63
+            ],
+            [
+              81,
+              67
+            ]
+          ]
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            55,
+            88
+          ],
+          "bbox": [
+            55,
+            52,
+            97,
+            100
+          ],
+          "ms": 100,
+          "anchor": {
+            "grip": [
+              88,
+              68
+            ],
+            "crown": [
+              75,
+              95
+            ],
+            "quarter_turns": 2,
+            "bbox": [
+              61,
+              52,
+              97,
+              100
+            ]
+          },
+          "head_translation": [
+            3,
+            3
+          ],
+          "hands": [
+            [
+              88,
+              68
+            ],
+            [
+              86,
+              77
+            ]
+          ],
+          "impact_tick": 16
+        },
+        {
+          "frame": 6,
+          "cell_rect_px": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            55,
+            88
+          ],
+          "bbox": [
+            54,
+            52,
+            97,
+            100
+          ],
+          "ms": 110,
+          "anchor": {
+            "grip": [
+              88,
+              68
+            ],
+            "crown": [
+              75,
+              95
+            ],
+            "quarter_turns": 2,
+            "bbox": [
+              61,
+              52,
+              97,
+              100
+            ]
+          },
+          "head_translation": [
+            2,
+            3
+          ],
+          "hands": [
+            [
+              88,
+              68
+            ],
+            [
+              86,
+              77
+            ]
+          ]
+        },
+        {
+          "frame": 7,
+          "cell_rect_px": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            59,
+            88
+          ],
+          "bbox": [
+            54,
+            41,
+            108,
+            100
+          ],
+          "ms": 90,
+          "anchor": {
+            "grip": [
+              80,
+              72
+            ],
+            "crown": [
+              93,
+              45
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              72,
+              41,
+              108,
+              89
+            ]
+          },
+          "head_translation": [
+            1,
+            0
+          ],
+          "hands": [
+            [
+              80,
+              72
+            ],
+            [
+              79,
+              78
+            ]
+          ]
+        },
+        {
+          "frame": 8,
+          "cell_rect_px": [
+            3072,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            43,
+            52,
+            82,
+            100
+          ],
+          "ms": 90,
+          "head_translation": [
+            0,
+            0
+          ],
+          "hands": [
+            [
+              51,
+              83
+            ],
+            [
+              79,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              51,
+              83
+            ],
+            "crown": [
+              64,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ]
+    },
+    "hit": {
+      "file": "nautilus_hit.png",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            68,
+            88
+          ],
+          "bbox": [
+            41,
+            52,
+            80,
+            100
+          ],
+          "ms": 100,
+          "head_translation": [
+            -2,
+            0
+          ],
+          "hands": [
+            [
+              49,
+              83
+            ],
+            [
+              77,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              49,
+              83
+            ],
+            "crown": [
+              62,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            67,
+            88
+          ],
+          "bbox": [
+            42,
+            52,
+            81,
+            100
+          ],
+          "ms": 100,
+          "head_translation": [
+            -1,
+            0
+          ],
+          "hands": [
+            [
+              50,
+              83
+            ],
+            [
+              78,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              50,
+              83
+            ],
+            "crown": [
+              63,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        }
+      ],
+      "grid": [
+        2,
+        1
+      ]
+    },
+    "dead": {
+      "file": "nautilus_dead.png",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "bbox": [
+            41,
+            52,
+            80,
+            100
+          ],
+          "ms": 100,
+          "head_translation": [
+            -2,
+            0
+          ],
+          "hands": [
+            [
+              49,
+              83
+            ],
+            [
+              77,
+              87
+            ]
+          ],
+          "anchor": {
+            "grip": [
+              49,
+              83
+            ],
+            "crown": [
+              62,
+              56
+            ],
+            "quarter_turns": 0
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            70,
+            88
+          ],
+          "bbox": [
+            34,
+            52,
+            82,
+            100
+          ],
+          "ms": 100,
+          "anchor": {
+            "grip": [
+              42,
+              83
+            ],
+            "crown": [
+              55,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              34,
+              52,
+              70,
+              100
+            ]
+          },
+          "head_translation": [
+            -1,
+            0
+          ],
+          "hands": [
+            [
+              42,
+              83
+            ],
+            [
+              78,
+              87
+            ]
+          ]
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            73,
+            88
+          ],
+          "bbox": [
+            33,
+            52,
+            83,
+            100
+          ],
+          "ms": 120,
+          "anchor": {
+            "grip": [
+              41,
+              83
+            ],
+            "crown": [
+              54,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              33,
+              52,
+              69,
+              100
+            ]
+          },
+          "head_translation": [
+            1,
+            2
+          ],
+          "hands": [
+            [
+              41,
+              83
+            ],
+            [
+              79,
+              89
+            ]
+          ]
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            74,
+            88
+          ],
+          "bbox": [
+            33,
+            52,
+            84,
+            100
+          ],
+          "ms": 150,
+          "anchor": {
+            "grip": [
+              41,
+              83
+            ],
+            "crown": [
+              54,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              33,
+              52,
+              69,
+              100
+            ]
+          },
+          "head_translation": [
+            0,
+            4
+          ],
+          "hands": [
+            [
+              41,
+              83
+            ],
+            [
+              80,
+              91
+            ]
+          ]
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            72,
+            88
+          ],
+          "bbox": [
+            33,
+            52,
+            83,
+            100
+          ],
+          "ms": 200,
+          "anchor": {
+            "grip": [
+              41,
+              83
+            ],
+            "crown": [
+              54,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              33,
+              52,
+              69,
+              100
+            ]
+          },
+          "head_translation": [
+            -1,
+            6
+          ],
+          "hands": [
+            [
+              41,
+              83
+            ],
+            [
+              80,
+              93
+            ]
+          ]
+        },
+        {
+          "frame": 6,
+          "cell_rect_px": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            71,
+            88
+          ],
+          "bbox": [
+            33,
+            52,
+            83,
+            100
+          ],
+          "ms": 150,
+          "anchor": {
+            "grip": [
+              41,
+              83
+            ],
+            "crown": [
+              54,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              33,
+              52,
+              69,
+              100
+            ]
+          },
+          "head_translation": [
+            -2,
+            8
+          ],
+          "hands": [
+            [
+              41,
+              83
+            ],
+            [
+              80,
+              95
+            ]
+          ]
+        },
+        {
+          "frame": 7,
+          "cell_rect_px": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "bbox": [
+            33,
+            52,
+            83,
+            100
+          ],
+          "ms": 200,
+          "anchor": {
+            "grip": [
+              41,
+              83
+            ],
+            "crown": [
+              54,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              33,
+              52,
+              69,
+              100
+            ]
+          },
+          "head_translation": [
+            -2,
+            9
+          ],
+          "hands": [
+            [
+              41,
+              83
+            ],
+            [
+              80,
+              95
+            ]
+          ]
+        },
+        {
+          "frame": 8,
+          "cell_rect_px": [
+            3072,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "bbox": [
+            33,
+            52,
+            83,
+            100
+          ],
+          "ms": 400,
+          "anchor": {
+            "grip": [
+              41,
+              83
+            ],
+            "crown": [
+              54,
+              56
+            ],
+            "quarter_turns": 0,
+            "bbox": [
+              33,
+              52,
+              69,
+              100
+            ]
+          },
+          "head_translation": [
+            -2,
+            9
+          ],
+          "hands": [
+            [
+              41,
+              83
+            ],
+            [
+              80,
+              95
+            ]
+          ]
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ]
+    }
+  },
+  "provenance": {
+    "generation_tool": "built-in image_gen",
+    "prompts": "prompts.json",
+    "final_method": "approved-source part rig and palette-matched arm reconstruction",
+    "raw_sha256": {
+      "nautilus_attack.png": "b5bef6298f2e68faa4764b229af65bdc73d004e706b5d28580a138bccd4b4caa",
+      "nautilus_dead.png": "94797ca6f5d7598b140b7f165cae42649d134b42c733b0eef8244641be4c8ea7",
+      "nautilus_hit.png": "661c7f5b164db6de512700fc96882181dae0e7619a615c7753e3497853087313",
+      "nautilus_run.png": "35b40b548b14e4d912bd08ff39255f9b036ed49b801d81c1db228fc7e2a1af28",
+      "nautilus_skill.png": "a14f21fa4aa00a0f47769bf3908279916182cab87f87e6b3d3212e57d26c73ef",
+      "nautilus_skill2.png": "42d9c9c8281efe799676478b97d58e8b55136914eb21c70eb02dd532f4722ec7",
+      "nautilus_skill_pull.png": "2460a2d8960772ccec047e352e8a2c394d6f0facb1576bd8cd81786de7aeb293",
+      "nautilus_ult.png": "05c0b586ede45188da28ad4ceeb2f364b62ba78ffdbdc2ab6b78f284ba1e6cf0"
+    }
+  }
+}

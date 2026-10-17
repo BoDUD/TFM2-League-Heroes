@@ -1,0 +1,2544 @@
+{
+  "cell_1x": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "palette": [
+    "#0d0b12",
+    "#171925",
+    "#1a3cd0",
+    "#262a3a",
+    "#3a2214",
+    "#3a4057",
+    "#5a9cff",
+    "#5c0c14",
+    "#6b3b26",
+    "#6b4224",
+    "#7a4a0e",
+    "#7af4ff",
+    "#a3141e",
+    "#a8643e",
+    "#a8743a",
+    "#b8bcc8",
+    "#c08a1c",
+    "#d58c5c",
+    "#e0302a",
+    "#f2c23a",
+    "#f2f2f6"
+  ],
+  "animations": {
+    "idle": {
+      "image": "twistedfate_idle.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 200,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            384,
+            328,
+            576,
+            656
+          ],
+          "head_transform": "source_idle",
+          "hand": [
+            55,
+            66
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 200,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            1408,
+            328,
+            1600,
+            656
+          ],
+          "head_transform": "source_idle",
+          "hand": [
+            55,
+            66
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 200,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            2432,
+            328,
+            2624,
+            656
+          ],
+          "head_transform": "source_idle",
+          "hand": [
+            55,
+            66
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 200,
+          "cell_rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            384,
+            1096,
+            576,
+            1424
+          ],
+          "head_transform": "source_idle",
+          "hand": [
+            55,
+            66
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 200,
+          "cell_rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            1408,
+            1096,
+            1600,
+            1424
+          ],
+          "head_transform": "source_idle",
+          "hand": [
+            55,
+            66
+          ]
+        },
+        {
+          "frame": 6,
+          "ms": 200,
+          "cell_rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            2432,
+            1096,
+            2624,
+            1424
+          ],
+          "head_transform": "source_idle",
+          "hand": [
+            55,
+            66
+          ]
+        }
+      ]
+    },
+    "run": {
+      "image": "twistedfate_run.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        4096,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 217,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "pivot_cell_px": [
+            536,
+            560
+          ],
+          "bbox_cell_1x": [
+            52,
+            41,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            416,
+            328,
+            616,
+            656
+          ],
+          "head_rect": [
+            52,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            56,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            59,
+            68
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 2,
+          "ms": 217,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            40,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            1432,
+            320,
+            1624,
+            656
+          ],
+          "head_rect": [
+            51,
+            40,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            55,
+            62,
+            8,
+            6
+          ],
+          "hand": [
+            58,
+            67
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 3,
+          "ms": 217,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            41,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            2456,
+            328,
+            2648,
+            656
+          ],
+          "head_rect": [
+            51,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            55,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            58,
+            68
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 4,
+          "ms": 217,
+          "cell_rect_px": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            40,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            3480,
+            320,
+            3672,
+            656
+          ],
+          "head_rect": [
+            51,
+            40,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            55,
+            62,
+            8,
+            6
+          ],
+          "hand": [
+            58,
+            67
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 5,
+          "ms": 217,
+          "cell_rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            41,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            408,
+            1096,
+            600,
+            1424
+          ],
+          "head_rect": [
+            51,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            55,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            58,
+            68
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 6,
+          "ms": 217,
+          "cell_rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            40,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            1432,
+            1088,
+            1624,
+            1424
+          ],
+          "head_rect": [
+            51,
+            40,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            55,
+            62,
+            8,
+            6
+          ],
+          "hand": [
+            58,
+            67
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 7,
+          "ms": 217,
+          "cell_rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            41,
+            76,
+            82
+          ],
+          "bbox_sheet_px": [
+            2456,
+            1096,
+            2656,
+            1424
+          ],
+          "head_rect": [
+            51,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            55,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            58,
+            68
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 8,
+          "ms": 217,
+          "cell_rect_px": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            40,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            3480,
+            1088,
+            3688,
+            1424
+          ],
+          "head_rect": [
+            51,
+            40,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            55,
+            62,
+            8,
+            6
+          ],
+          "hand": [
+            58,
+            67
+          ],
+          "pose": "standing"
+        }
+      ]
+    },
+    "attack": {
+      "image": "twistedfate_attack.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            64,
+            70
+          ],
+          "pivot_cell_px": [
+            512,
+            560
+          ],
+          "bbox_cell_1x": [
+            49,
+            41,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            392,
+            328,
+            584,
+            656
+          ],
+          "head_rect": [
+            49,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            51,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            54,
+            68
+          ],
+          "pose": "exact_idle"
+        },
+        {
+          "frame": 2,
+          "ms": 70,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            1408,
+            328,
+            1600,
+            656
+          ],
+          "head_rect": [
+            48,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            59,
+            60,
+            8,
+            6
+          ],
+          "hand": [
+            62,
+            65
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 3,
+          "ms": 70,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            2432,
+            328,
+            2624,
+            656
+          ],
+          "head_rect": [
+            48,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            50,
+            59,
+            8,
+            6
+          ],
+          "hand": [
+            53,
+            64
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 4,
+          "ms": 70,
+          "cell_rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "pivot_cell_px": [
+            488,
+            560
+          ],
+          "bbox_cell_1x": [
+            46,
+            41,
+            78,
+            82
+          ],
+          "bbox_sheet_px": [
+            368,
+            1096,
+            624,
+            1424
+          ],
+          "head_rect": [
+            46,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            70,
+            59,
+            8,
+            6
+          ],
+          "hand": [
+            73,
+            64
+          ],
+          "pose": "standing",
+          "release_tick": 12,
+          "release_hand_cell_px": [
+            584,
+            512
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 80,
+          "cell_rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "pivot_cell_px": [
+            488,
+            560
+          ],
+          "bbox_cell_1x": [
+            46,
+            41,
+            76,
+            82
+          ],
+          "bbox_sheet_px": [
+            1392,
+            1096,
+            1632,
+            1424
+          ],
+          "head_rect": [
+            46,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            68,
+            62,
+            8,
+            6
+          ],
+          "hand": [
+            71,
+            67
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 6,
+          "ms": 83,
+          "cell_rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "pivot_cell_px": [
+            480,
+            560
+          ],
+          "bbox_cell_1x": [
+            45,
+            41,
+            69,
+            82
+          ],
+          "bbox_sheet_px": [
+            2408,
+            1096,
+            2600,
+            1424
+          ],
+          "head_rect": [
+            45,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            47,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            50,
+            68
+          ],
+          "pose": "exact_idle"
+        }
+      ]
+    },
+    "skill": {
+      "image": "twistedfate_skill.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "pivot_cell_px": [
+            480,
+            560
+          ],
+          "bbox_cell_1x": [
+            45,
+            41,
+            69,
+            82
+          ],
+          "bbox_sheet_px": [
+            360,
+            328,
+            552,
+            656
+          ],
+          "head_rect": [
+            45,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            55,
+            59,
+            8,
+            6
+          ],
+          "hand": [
+            58,
+            64
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 2,
+          "ms": 70,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "pivot_cell_px": [
+            480,
+            560
+          ],
+          "bbox_cell_1x": [
+            45,
+            39,
+            69,
+            80
+          ],
+          "bbox_sheet_px": [
+            1384,
+            312,
+            1576,
+            640
+          ],
+          "head_rect": [
+            45,
+            39,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            48,
+            57,
+            8,
+            6
+          ],
+          "hand": [
+            51,
+            62
+          ],
+          "pose": "hop"
+        },
+        {
+          "frame": 3,
+          "ms": 70,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "pivot_cell_px": [
+            536,
+            560
+          ],
+          "bbox_cell_1x": [
+            52,
+            45,
+            76,
+            82
+          ],
+          "bbox_sheet_px": [
+            2464,
+            360,
+            2656,
+            656
+          ],
+          "head_rect": [
+            52,
+            45,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            54,
+            64,
+            8,
+            6
+          ],
+          "hand": [
+            57,
+            69
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 4,
+          "ms": 70,
+          "cell_rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            45,
+            83,
+            82
+          ],
+          "bbox_sheet_px": [
+            408,
+            1128,
+            664,
+            1424
+          ],
+          "head_rect": [
+            51,
+            45,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            75,
+            64,
+            8,
+            6
+          ],
+          "hand": [
+            78,
+            69
+          ],
+          "pose": "crouch",
+          "release_tick": 12,
+          "release_hand_cell_px": [
+            624,
+            552
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 70,
+          "cell_rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_cell_px": [
+            464,
+            560
+          ],
+          "bbox_cell_1x": [
+            43,
+            44,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            1368,
+            1120,
+            1608,
+            1424
+          ],
+          "head_rect": [
+            43,
+            44,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            65,
+            66,
+            8,
+            6
+          ],
+          "hand": [
+            68,
+            71
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 6,
+          "ms": 60,
+          "cell_rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "pivot_cell_px": [
+            480,
+            560
+          ],
+          "bbox_cell_1x": [
+            45,
+            41,
+            69,
+            82
+          ],
+          "bbox_sheet_px": [
+            2408,
+            1096,
+            2600,
+            1424
+          ],
+          "head_rect": [
+            45,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            47,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            50,
+            68
+          ],
+          "pose": "exact_idle"
+        }
+      ]
+    },
+    "skill2": {
+      "image": "twistedfate_skill2.png",
+      "grid": [
+        2,
+        1
+      ],
+      "size_px": [
+        2048,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 80,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            64,
+            70
+          ],
+          "pivot_cell_px": [
+            512,
+            560
+          ],
+          "bbox_cell_1x": [
+            49,
+            41,
+            73,
+            82
+          ],
+          "bbox_sheet_px": [
+            392,
+            328,
+            584,
+            656
+          ],
+          "head_rect": [
+            49,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            60,
+            60,
+            8,
+            6
+          ],
+          "hand": [
+            63,
+            65
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 2,
+          "ms": 87,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            1408,
+            328,
+            1600,
+            656
+          ],
+          "head_rect": [
+            48,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            62,
+            59,
+            8,
+            6
+          ],
+          "hand": [
+            65,
+            64
+          ],
+          "pose": "standing"
+        }
+      ]
+    },
+    "ult": {
+      "image": "twistedfate_ult.png",
+      "grid": [
+        4,
+        1
+      ],
+      "size_px": [
+        4096,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "pivot_cell_px": [
+            496,
+            560
+          ],
+          "bbox_cell_1x": [
+            47,
+            41,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            376,
+            328,
+            600,
+            656
+          ],
+          "head_rect": [
+            47,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            48,
+            60,
+            8,
+            6
+          ],
+          "hand": [
+            51,
+            65
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 2,
+          "ms": 130,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "pivot_cell_px": [
+            488,
+            560
+          ],
+          "bbox_cell_1x": [
+            39,
+            41,
+            81,
+            82
+          ],
+          "bbox_sheet_px": [
+            1336,
+            328,
+            1672,
+            656
+          ],
+          "head_rect": [
+            46,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            39,
+            58,
+            8,
+            6
+          ],
+          "hand": [
+            42,
+            63
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 3,
+          "ms": 130,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "pivot_cell_px": [
+            496,
+            560
+          ],
+          "bbox_cell_1x": [
+            40,
+            41,
+            82,
+            82
+          ],
+          "bbox_sheet_px": [
+            2368,
+            328,
+            2704,
+            656
+          ],
+          "head_rect": [
+            47,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            40,
+            58,
+            8,
+            6
+          ],
+          "hand": [
+            43,
+            63
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 4,
+          "ms": 140,
+          "cell_rect_px": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "pivot_cell_px": [
+            496,
+            560
+          ],
+          "bbox_cell_1x": [
+            40,
+            41,
+            82,
+            82
+          ],
+          "bbox_sheet_px": [
+            3392,
+            328,
+            3728,
+            656
+          ],
+          "head_rect": [
+            47,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            40,
+            58,
+            8,
+            6
+          ],
+          "hand": [
+            43,
+            63
+          ],
+          "pose": "standing"
+        }
+      ]
+    },
+    "ult_gate": {
+      "image": "twistedfate_ult_gate.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 250,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "pivot_cell_px": [
+            520,
+            560
+          ],
+          "bbox_cell_1x": [
+            50,
+            50,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            400,
+            400,
+            616,
+            656
+          ],
+          "head_rect": [
+            50,
+            50,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            61,
+            69,
+            8,
+            6
+          ],
+          "hand": [
+            64,
+            74
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 2,
+          "ms": 250,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "pivot_cell_px": [
+            520,
+            560
+          ],
+          "bbox_cell_1x": [
+            50,
+            50,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            1424,
+            400,
+            1640,
+            656
+          ],
+          "head_rect": [
+            50,
+            50,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            61,
+            69,
+            8,
+            6
+          ],
+          "hand": [
+            64,
+            74
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 3,
+          "ms": 250,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            51,
+            78,
+            82
+          ],
+          "bbox_sheet_px": [
+            2456,
+            408,
+            2672,
+            656
+          ],
+          "head_rect": [
+            51,
+            51,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            62,
+            69,
+            8,
+            6
+          ],
+          "hand": [
+            65,
+            74
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 4,
+          "ms": 250,
+          "cell_rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            66,
+            70
+          ],
+          "pivot_cell_px": [
+            528,
+            560
+          ],
+          "bbox_cell_1x": [
+            51,
+            51,
+            78,
+            82
+          ],
+          "bbox_sheet_px": [
+            408,
+            1176,
+            624,
+            1424
+          ],
+          "head_rect": [
+            51,
+            51,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            62,
+            69,
+            8,
+            6
+          ],
+          "hand": [
+            65,
+            74
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 5,
+          "ms": 250,
+          "cell_rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "pivot_cell_px": [
+            536,
+            560
+          ],
+          "bbox_cell_1x": [
+            52,
+            50,
+            79,
+            82
+          ],
+          "bbox_sheet_px": [
+            1440,
+            1168,
+            1656,
+            1424
+          ],
+          "head_rect": [
+            52,
+            50,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            63,
+            69,
+            8,
+            6
+          ],
+          "hand": [
+            66,
+            74
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 6,
+          "ms": 250,
+          "cell_rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "pivot_cell_px": [
+            536,
+            560
+          ],
+          "bbox_cell_1x": [
+            52,
+            50,
+            79,
+            82
+          ],
+          "bbox_sheet_px": [
+            2464,
+            1168,
+            2680,
+            1424
+          ],
+          "head_rect": [
+            52,
+            50,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            63,
+            69,
+            8,
+            6
+          ],
+          "hand": [
+            66,
+            74
+          ],
+          "pose": "crouch"
+        }
+      ]
+    },
+    "ult_land": {
+      "image": "twistedfate_ult_land.png",
+      "grid": [
+        3,
+        1
+      ],
+      "size_px": [
+        3072,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 110,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "pivot_cell_px": [
+            536,
+            560
+          ],
+          "bbox_cell_1x": [
+            52,
+            50,
+            79,
+            82
+          ],
+          "bbox_sheet_px": [
+            416,
+            400,
+            632,
+            656
+          ],
+          "head_rect": [
+            52,
+            50,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            63,
+            69,
+            8,
+            6
+          ],
+          "hand": [
+            66,
+            74
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 2,
+          "ms": 110,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            64,
+            70
+          ],
+          "pivot_cell_px": [
+            512,
+            560
+          ],
+          "bbox_cell_1x": [
+            49,
+            45,
+            75,
+            82
+          ],
+          "bbox_sheet_px": [
+            1416,
+            360,
+            1624,
+            656
+          ],
+          "head_rect": [
+            49,
+            45,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            58,
+            64,
+            8,
+            6
+          ],
+          "hand": [
+            61,
+            69
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 3,
+          "ms": 113,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            41,
+            72,
+            82
+          ],
+          "bbox_sheet_px": [
+            2432,
+            328,
+            2624,
+            656
+          ],
+          "head_rect": [
+            48,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            50,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            53,
+            68
+          ],
+          "pose": "exact_idle"
+        }
+      ]
+    },
+    "hit": {
+      "image": "twistedfate_hit.png",
+      "grid": [
+        2,
+        1
+      ],
+      "size_px": [
+        2048,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            69,
+            70
+          ],
+          "pivot_cell_px": [
+            552,
+            560
+          ],
+          "bbox_cell_1x": [
+            52,
+            41,
+            77,
+            82
+          ],
+          "bbox_sheet_px": [
+            416,
+            328,
+            616,
+            656
+          ],
+          "head_rect": [
+            52,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            56,
+            61,
+            8,
+            6
+          ],
+          "hand": [
+            59,
+            66
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 2,
+          "ms": 100,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "pivot_cell_px": [
+            520,
+            560
+          ],
+          "bbox_cell_1x": [
+            50,
+            41,
+            74,
+            82
+          ],
+          "bbox_sheet_px": [
+            1424,
+            328,
+            1616,
+            656
+          ],
+          "head_rect": [
+            50,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            52,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            55,
+            68
+          ],
+          "pose": "exact_idle"
+        }
+      ]
+    },
+    "dead": {
+      "image": "twistedfate_dead.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        4096,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "cell_rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_cell_px": [
+            504,
+            560
+          ],
+          "bbox_cell_1x": [
+            47,
+            43,
+            71,
+            82
+          ],
+          "bbox_sheet_px": [
+            376,
+            344,
+            568,
+            656
+          ],
+          "head_rect": [
+            47,
+            43,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            50,
+            64,
+            8,
+            6
+          ],
+          "hand": [
+            53,
+            69
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 2,
+          "ms": 110,
+          "cell_rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            71,
+            70
+          ],
+          "pivot_cell_px": [
+            568,
+            560
+          ],
+          "bbox_cell_1x": [
+            54,
+            41,
+            78,
+            82
+          ],
+          "bbox_sheet_px": [
+            1456,
+            328,
+            1648,
+            656
+          ],
+          "head_rect": [
+            54,
+            41,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            57,
+            61,
+            8,
+            6
+          ],
+          "hand": [
+            60,
+            66
+          ],
+          "pose": "standing"
+        },
+        {
+          "frame": 3,
+          "ms": 110,
+          "cell_rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            91,
+            70
+          ],
+          "pivot_cell_px": [
+            728,
+            560
+          ],
+          "bbox_cell_1x": [
+            75,
+            42,
+            99,
+            82
+          ],
+          "bbox_sheet_px": [
+            2648,
+            336,
+            2840,
+            656
+          ],
+          "head_rect": [
+            75,
+            42,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            79,
+            63,
+            8,
+            6
+          ],
+          "hand": [
+            82,
+            68
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 4,
+          "ms": 120,
+          "cell_rect_px": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            108,
+            70
+          ],
+          "pivot_cell_px": [
+            864,
+            560
+          ],
+          "bbox_cell_1x": [
+            91,
+            43,
+            115,
+            82
+          ],
+          "bbox_sheet_px": [
+            3800,
+            344,
+            3992,
+            656
+          ],
+          "head_rect": [
+            91,
+            43,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            95,
+            64,
+            8,
+            6
+          ],
+          "hand": [
+            98,
+            69
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 5,
+          "ms": 130,
+          "cell_rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            68,
+            70
+          ],
+          "pivot_cell_px": [
+            544,
+            560
+          ],
+          "bbox_cell_1x": [
+            52,
+            47,
+            76,
+            82
+          ],
+          "bbox_sheet_px": [
+            416,
+            1144,
+            608,
+            1424
+          ],
+          "head_rect": [
+            52,
+            47,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            61,
+            68,
+            8,
+            6
+          ],
+          "hand": [
+            64,
+            73
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 6,
+          "ms": 150,
+          "cell_rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            67,
+            70
+          ],
+          "pivot_cell_px": [
+            536,
+            560
+          ],
+          "bbox_cell_1x": [
+            50,
+            48,
+            74,
+            82
+          ],
+          "bbox_sheet_px": [
+            1424,
+            1152,
+            1616,
+            1424
+          ],
+          "head_rect": [
+            50,
+            48,
+            24,
+            18
+          ],
+          "head_transform": "translate",
+          "cards_rect": [
+            58,
+            70,
+            8,
+            6
+          ],
+          "hand": [
+            61,
+            75
+          ],
+          "pose": "crouch"
+        },
+        {
+          "frame": 7,
+          "ms": 200,
+          "cell_rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            70,
+            70
+          ],
+          "pivot_cell_px": [
+            560,
+            560
+          ],
+          "bbox_cell_1x": [
+            50,
+            58,
+            91,
+            82
+          ],
+          "bbox_sheet_px": [
+            2448,
+            1232,
+            2776,
+            1424
+          ],
+          "head_rect": [
+            50,
+            58,
+            18,
+            24
+          ],
+          "head_transform": "rotate_90_ccw",
+          "cards_rect": [
+            72,
+            72,
+            6,
+            8
+          ],
+          "cards_transform": "rotate_90_ccw",
+          "hand": [
+            77,
+            76
+          ],
+          "pose": "lying"
+        },
+        {
+          "frame": 8,
+          "ms": 300,
+          "cell_rect_px": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            68,
+            70
+          ],
+          "pivot_cell_px": [
+            544,
+            560
+          ],
+          "bbox_cell_1x": [
+            48,
+            58,
+            89,
+            82
+          ],
+          "bbox_sheet_px": [
+            3456,
+            1232,
+            3784,
+            1424
+          ],
+          "head_rect": [
+            48,
+            58,
+            18,
+            24
+          ],
+          "head_transform": "rotate_90_ccw",
+          "cards_rect": [
+            70,
+            72,
+            6,
+            8
+          ],
+          "cards_transform": "rotate_90_ccw",
+          "hand": [
+            75,
+            76
+          ],
+          "pose": "lying"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "hero": "kayle",
+  "champ": "Kayle",
+  "camera": {"yaw": 45, "pitch": 25, "mirror": false},
+  "chibi": {"head": 3.0, "legs": 0.7, "hair": 0.5, "scale": {
+    "L_Wing_Up_Root": 0.9, "R_Wing_Up_Root": 0.9, "Sword": 0.65}},
+  "weapon": "^Sword$",
+  "parts": [{"name": "wings", "joints": "Wing_Up", "outline": true, "materials": [
+    {"name": "lilac", "hue": [255, 330], "sat": [0.3, 1], "ramp": [["6A4CA8", 0.62], ["9A76D8", 0.76], ["C8A8F0"]]},
+    {"name": "blue", "hue": [200, 255], "ramp": [["5E68B0", 0.66], ["8C98DC", 0.8], ["BCC6F4"]]},
+    {"name": "ice", "ramp": [["5A8CB0", 0.7], ["86B8D8", 0.84], ["BEE4F4"]]}]}],
+  "hide_submeshes": ["level1", "wings_mid", "wings_bot", "sword_hilt", "sword_blade"],
+  "submesh_textures": {"level11": "lvl11_TX", "sword_blade_combined": "Sword_TX", "sword_hilt_combined": "Sword_TX",
+                       "wings_up": "Wings_TX"},
+  "height": 32,
+  "hover": 3,
+  "cell": [112, 112, 14],
+  "design": "kayle_idle1@0",
+  "restyle": {
+    "head": {"rect": [53, 53, 15, 15], "dx": -2, "dy": -2, "forward": true},
+    "fill_holes": 12,
+    "outline": "1E1624",
+    "cover": 0.3,
+    "close": 1,
+    "weapon": [["0E5A50", 0.45], ["189C88", 0.65], ["30D0B4", 0.82], ["9CFFE8"]],
+    "weapon_materials": [
+      {"name": "hilt", "hue": [22, 62], "sat": [0.4, 1], "ramp": [["6E4614", 0.5], ["B07A28", 0.7], ["E8B84C"]]}
+    ],
+    "materials": [
+      {"name": "skin", "hue": [345, 40], "sat": [0.15, 0.55], "val": [0.55, 1],
+       "ramp": [["B07058", 0.62], ["D89A80", 0.76], ["F2C4AC"]]},
+      {"name": "gold", "hue": [0, 62], "sat": [0.35, 1],
+       "ramp": [["6A4018", 0.3], ["9A6620", 0.45], ["C89238", 0.62], ["ECC464", 0.8], ["FFF0A8"]]},
+      {"name": "suit", "hue": [50, 140],
+       "ramp": [["66704E", 0.35], ["8E9A74", 0.5], ["B6C29C", 0.68], ["DCE4C4"]]},
+      {"name": "dark", "ramp": [["3A3440", 0.3], ["5C5868"]]}
+    ]
+  },
+  "tags": {
+    "idle": {"frames": [["kayle_idle1@0", 200], ["kayle_idle1@0", 200], ["kayle_idle1@0", 200],
+                        ["kayle_idle1@0", 200], ["kayle_idle1@0", 200], ["kayle_idle1@0", 200]]},
+    "run": {"head_like": "kayle_idle1@0", "sink": -8, "weapon_yaw": 45, "frames": [
+      ["Kayle_Run1@0", 267], ["Kayle_Run1@267", 267], ["Kayle_Run1@533", 267], ["Kayle_Run1@800", 267],
+      ["Kayle_Run1@1067", 267], ["Kayle_Run1@1333", 267], ["Kayle_Run1@1600", 267], ["Kayle_Run1@1867", 267],
+      ["Kayle_Run1@2133", 267], ["Kayle_Run1@2400", 267], ["Kayle_Run1@2667", 267], ["Kayle_Run1@2933", 267],
+      ["Kayle_Run1@3200", 267], ["Kayle_Run1@3467", 267], ["Kayle_Run1@3733", 267], ["Kayle_Run1@4000", 267]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["kayle_idle1@0>Kayle_AttackRanged2@0:0.5", 50], ["Kayle_AttackRanged2@112", 50], ["Kayle_AttackRanged2@225", 60],
+      ["Kayle_AttackRanged2@338", 60], ["Kayle_AttackRanged2@450>kayle_idle1@0:0.35", 70],
+      ["Kayle_AttackRanged2@560>kayle_idle1@0:0.6", 77]]},
+    "attack_melee": {"lunge": 0.7, "frames": [
+      ["kayle_idle1@0>kayle_attack1@0:0.5", 50], ["kayle_attack1@112", 50], ["kayle_attack1@225", 60],
+      ["kayle_attack1@338", 60], ["kayle_attack1@400>kayle_idle1@0:0.35", 70],
+      ["kayle_attack1@450>kayle_idle1@0:0.6", 77]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["kayle_idle1@0>kayle_spell1@0:0.5", 60], ["kayle_spell1@200", 60], ["kayle_spell1@400", 60],
+      ["kayle_spell1@600", 70], ["kayle_spell1@800", 70], ["kayle_spell1@1000>kayle_idle1@0:0.5", 80]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["kayle_idle1@0>Kayle_Spell3_L@0:0.5", 50], ["Kayle_Spell3_L@150", 60], ["Kayle_Spell3_L@300", 60],
+      ["Kayle_Spell3_L@450", 70], ["Kayle_Spell3_L@600", 70], ["Kayle_Spell3_L@750>kayle_idle1@0:0.5", 90]]},
+    "ult": {"lunge": 0.5, "rise": 0.25, "frames": [
+      ["kayle_idle1@0>kayle_spell4@0:0.5", 70], ["kayle_spell4@91", 70], ["kayle_spell4@182", 80],
+      ["kayle_spell4@274", 90], ["kayle_spell4@365", 100], ["kayle_spell4@456", 100],
+      ["kayle_spell4@548", 110], ["kayle_spell4@733>kayle_idle1@0:0.4", 120]]},
+    "hit": {"frames": [["kayle_idle1@0>kayle_death@150:0.3", 120], ["kayle_idle1@0>kayle_death@150:0.12", 120]]},
+    "dead": {"anchor": "first", "lunge": 0.4, "flat": true, "travel": 0.3, "frames": [
+      ["kayle_death@0", 100], ["kayle_death@150", 100, {"hide": ["^Sword$"]}],
+      ["kayle_death@1300", 150, {"hide": ["^Sword$"]}], ["kayle_death@3300", 150, {"hide": ["^Sword$"]}],
+      ["kayle_death@3500", 100, {"hide": ["^Sword$"]}], ["kayle_death@3700", 100, {"hide": ["^Sword$"]}],
+      ["kayle_death@4150", 500, {"hide": ["^Sword$"]}]]}
+  }
+}

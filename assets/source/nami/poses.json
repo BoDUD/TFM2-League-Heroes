@@ -1,0 +1,41 @@
+{
+  "hero": "nami",
+  "champ": "Nami",
+  "camera": {"yaw": 45, "pitch": 25, "mirror": true},
+  "chibi": {"head": 1.4, "legs": 1.0, "hair": 0.6},
+  "legs": "^Tail1$",
+  "glue": {"joint": "Weapon", "to": "R_Hand"},
+  "height": 47,
+  "hover": 3,
+  "cell": [96, 96, 14],
+  "design": "Nami_idle1@0",
+  "tags": {
+    "idle": {"frames": [["Nami_idle1@0", 200], ["Nami_idle1@0", 200], ["Nami_idle1@0", 200],
+                        ["Nami_idle1@0", 200], ["Nami_idle1@0", 200], ["Nami_idle1@0", 200]]},
+    "run": {"rise": 0.0, "flat": true, "head_like": "Nami_idle1@0", "frames": [
+      ["Nami_run_L@0", 125], ["Nami_run_L@125", 125], ["Nami_run_L@250", 125], ["Nami_run_L@375", 125],
+      ["Nami_run_L@500", 125], ["Nami_run_L@625", 125], ["Nami_run_L@750", 125], ["Nami_run_L@875", 125]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["Nami_idle1@0>Nami_attack1@50:0.6", 60], ["Nami_attack1@150", 60], ["Nami_attack1@200", 70],
+      ["Nami_attack1@275", 70], ["Nami_attack1@350>Nami_idle1@0:0.4", 90], ["Nami_attack1@350>Nami_idle1@0:0.75", 110]]},
+    "skill": {"lunge": 0.7, "rise": 0.3, "flat": true, "frames": [
+      ["Nami_idle1@0>Nami_spell2@100:0.5", 60], ["Nami_spell2@100", 70], ["Nami_spell2@300", 80],
+      ["Nami_spell2@300>Nami_idle1@0:0.3", 90], ["Nami_spell2@1800>Nami_idle1@0:0.3", 100],
+      ["Nami_idle1@0>Nami_spell2@1900:0.4", 100]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["Nami_idle1@0>Nami_spell1@150:0.5", 60, {"sink": -3}], ["Nami_spell1@200", 70, {"sink": -3}],
+      ["Nami_spell1@250", 60, {"sink": -3}],
+      ["Nami_spell1@400", 70], ["Nami_spell1@550>Nami_idle1@0:0.35", 100], ["Nami_spell1@750>Nami_idle1@0:0.65", 120]]},
+    "ult": {"lunge": 0.7, "rise": 0.2, "flat": true, "frames": [
+      ["Nami_spell4@0", 60], ["Nami_spell4@110", 70], ["Nami_spell4@330", 80], ["Nami_spell4@440", 80],
+      ["Nami_spell4@550", 100], ["Nami_spell4@880", 120], ["Nami_spell4@1430>Nami_idle1@0:0.5", 140]]},
+    "hit": {"frames": [["Nami_idle1@0>Nami_Death@150:0.35", 100], ["Nami_idle1@0>Nami_Death@150:0.15", 100]]},
+    "dead": {"anchor": "first", "lunge": 0.4, "flat": true, "travel": 0.3, "rise": 0.3, "frames": [
+      ["Nami_Death@0", 100], ["Nami_Death@240", 100, {"hide": ["^Weapon$"]}],
+      ["Nami_Death@720", 120, {"hide": ["^Weapon$"]}], ["Nami_Death@960", 120, {"hide": ["^Weapon$"]}],
+      ["Nami_Death@1200", 120, {"hide": ["^Weapon$"], "sink": 2}],
+      ["Nami_Death@1440", 150, {"hide": ["^Weapon$"], "sink": 3}],
+      ["Nami_Death@1920", 150, {"hide": ["^Weapon$"], "sink": 3}],
+      ["Nami_Death@3600", 500, {"hide": ["^Weapon$"], "sink": 3}]]}
+  }
+}

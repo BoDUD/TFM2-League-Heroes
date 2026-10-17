@@ -1,0 +1,12 @@
+{
+  "hit": {"cell": [19, 21], "anchor": [9, 10], "frames": 5},
+  "w_hit": {"cell": [31, 29], "anchor": [15, 14], "frames": 6},
+  "r_proc": {"cell": [25, 23], "anchor": [12, 11], "frames": 6},
+  "q_hit": {"cell": [35, 41], "anchor": [17, 20], "frames": 6},
+  "stun": {"cell": [23, 17], "anchor": [11, 8], "frames": 8},
+  "e_stance": {"cell": [69, 43], "anchor": [34, 21], "frames": 4},
+  "e_burst": {"cell": [111, 99], "anchor": [55, 49], "frames": 7},
+  "r_slam": {"cell": [121, 101], "anchor": [60, 50], "frames": 8},
+  "r_hit": {"cell": [23, 23], "anchor": [11, 11], "frames": 5},
+  "r_aura": {"cell": [59, 119], "anchor": [29, 59], "frames": 4}
+}

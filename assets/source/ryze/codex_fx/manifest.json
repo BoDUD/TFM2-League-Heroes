@@ -1,0 +1,2576 @@
+{
+  "version": 1,
+  "asset_count": 19,
+  "notes": "Actual raw-image rectangles, not requested canvas dimensions. Rect widths may vary to avoid cutting generated art. Frames are zero-based in row-major order. Raw alpha and colors need importer cleanup; no generated art was redrawn by code.",
+  "assets": [
+    {
+      "name": "orb",
+      "file": "ryze_fx_orb.png",
+      "target_game_pixels": [
+        10,
+        7
+      ],
+      "binding_group": "view_projectiles",
+      "bindings": [
+        "league_ryze_orb"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.89672,
+      "partial_alpha_fraction": 0.10226,
+      "sha256": "8a96292ff5611c8d423586dc4b688c2205f4202b22a5f6a6d68bfe626176ed42",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            239,
+            543,
+            271
+          ],
+          "visible_bbox": [
+            119,
+            253,
+            339,
+            243
+          ],
+          "alpha_visible_pixels": 36040,
+          "mean_visible_luma": 156.34,
+          "brightest_decile_luma": 252.95
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            543,
+            239,
+            543,
+            271
+          ],
+          "visible_bbox": [
+            662,
+            253,
+            341,
+            243
+          ],
+          "alpha_visible_pixels": 37828,
+          "mean_visible_luma": 159.87,
+          "brightest_decile_luma": 252.94
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1086,
+            239,
+            543,
+            271
+          ],
+          "visible_bbox": [
+            1183,
+            265,
+            359,
+            231
+          ],
+          "alpha_visible_pixels": 35009,
+          "mean_visible_luma": 160.32,
+          "brightest_decile_luma": 253.06
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1629,
+            239,
+            543,
+            271
+          ],
+          "visible_bbox": [
+            1713,
+            265,
+            331,
+            231
+          ],
+          "alpha_visible_pixels": 31684,
+          "mean_visible_luma": 159.57,
+          "brightest_decile_luma": 253.02
+        }
+      ]
+    },
+    {
+      "name": "hit",
+      "file": "ryze_fx_hit.png",
+      "target_game_pixels": [
+        12,
+        12
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_hit"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.91174,
+      "partial_alpha_fraction": 0.08674,
+      "sha256": "778e9810f10ff4f78ad0455e45e43042fd7a3797e9517833bf6910f8284cc55a",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            162,
+            543,
+            404
+          ],
+          "visible_bbox": [
+            155,
+            244,
+            231,
+            236
+          ],
+          "alpha_visible_pixels": 16657,
+          "mean_visible_luma": 184.57,
+          "brightest_decile_luma": 253.85
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            543,
+            162,
+            543,
+            404
+          ],
+          "visible_bbox": [
+            653,
+            186,
+            323,
+            345
+          ],
+          "alpha_visible_pixels": 34981,
+          "mean_visible_luma": 157.79,
+          "brightest_decile_luma": 253.23
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1086,
+            162,
+            543,
+            404
+          ],
+          "visible_bbox": [
+            1115,
+            176,
+            486,
+            376
+          ],
+          "alpha_visible_pixels": 44993,
+          "mean_visible_luma": 149.38,
+          "brightest_decile_luma": 253.11
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1629,
+            162,
+            543,
+            404
+          ],
+          "visible_bbox": [
+            1753,
+            243,
+            303,
+            266
+          ],
+          "alpha_visible_pixels": 9645,
+          "mean_visible_luma": 152.26,
+          "brightest_decile_luma": 252.6
+        }
+      ]
+    },
+    {
+      "name": "q_bolt",
+      "file": "ryze_fx_q_bolt.png",
+      "target_game_pixels": [
+        20,
+        9
+      ],
+      "binding_group": "view_projectiles",
+      "bindings": [
+        "league_ryze_q_bolt"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.88143,
+      "partial_alpha_fraction": 0.11749,
+      "sha256": "41af865482a33f578cc280cac64998566efd4a641dc8ac7ae79b6f5cc5f513a2",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            262,
+            543,
+            204
+          ],
+          "visible_bbox": [
+            57,
+            300,
+            445,
+            138
+          ],
+          "alpha_visible_pixels": 32423,
+          "mean_visible_luma": 160.79,
+          "brightest_decile_luma": 253.35
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            543,
+            262,
+            543,
+            204
+          ],
+          "visible_bbox": [
+            578,
+            276,
+            480,
+            167
+          ],
+          "alpha_visible_pixels": 38183,
+          "mean_visible_luma": 162.38,
+          "brightest_decile_luma": 253.44
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1086,
+            262,
+            543,
+            204
+          ],
+          "visible_bbox": [
+            1126,
+            285,
+            460,
+            158
+          ],
+          "alpha_visible_pixels": 37027,
+          "mean_visible_luma": 161.77,
+          "brightest_decile_luma": 253.45
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1629,
+            262,
+            543,
+            204
+          ],
+          "visible_bbox": [
+            1655,
+            286,
+            463,
+            166
+          ],
+          "alpha_visible_pixels": 38474,
+          "mean_visible_luma": 162.02,
+          "brightest_decile_luma": 253.35
+        }
+      ]
+    },
+    {
+      "name": "q_cast",
+      "file": "ryze_fx_q_cast.png",
+      "target_game_pixels": [
+        14,
+        14
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_q_cast"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.90507,
+      "partial_alpha_fraction": 0.09419,
+      "sha256": "bd041b9bf61076be2d41c31b41c66f11b268ba61ef59af85c75d8c2f9ce693b4",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            117,
+            543,
+            498
+          ],
+          "visible_bbox": [
+            210,
+            311,
+            123,
+            119
+          ],
+          "alpha_visible_pixels": 5665,
+          "mean_visible_luma": 174.37,
+          "brightest_decile_luma": 253.87
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            543,
+            117,
+            543,
+            498
+          ],
+          "visible_bbox": [
+            666,
+            203,
+            299,
+            303
+          ],
+          "alpha_visible_pixels": 28559,
+          "mean_visible_luma": 164.46,
+          "brightest_decile_luma": 253.66
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1086,
+            117,
+            543,
+            498
+          ],
+          "visible_bbox": [
+            1120,
+            131,
+            473,
+            470
+          ],
+          "alpha_visible_pixels": 37417,
+          "mean_visible_luma": 178.59,
+          "brightest_decile_luma": 253.58
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1629,
+            117,
+            543,
+            498
+          ],
+          "visible_bbox": [
+            1730,
+            208,
+            339,
+            321
+          ],
+          "alpha_visible_pixels": 18989,
+          "mean_visible_luma": 154.26,
+          "brightest_decile_luma": 253.36
+        }
+      ]
+    },
+    {
+      "name": "q_hit",
+      "file": "ryze_fx_q_hit.png",
+      "target_game_pixels": [
+        18,
+        18
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_q_hit"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        1983,
+        793
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.79175,
+      "partial_alpha_fraction": 0.20766,
+      "sha256": "57b35224ff65fc863a0b67c4f1f882b269e1ded30404377d469f9cc519512e33",
+      "columns": 5,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            195,
+            397,
+            414
+          ],
+          "visible_bbox": [
+            79,
+            287,
+            234,
+            231
+          ],
+          "alpha_visible_pixels": 19140,
+          "mean_visible_luma": 185.28,
+          "brightest_decile_luma": 254.03
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            397,
+            195,
+            393,
+            414
+          ],
+          "visible_bbox": [
+            424,
+            244,
+            320,
+            317
+          ],
+          "alpha_visible_pixels": 44949,
+          "mean_visible_luma": 178.67,
+          "brightest_decile_luma": 253.4
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            790,
+            195,
+            400,
+            414
+          ],
+          "visible_bbox": [
+            791,
+            205,
+            382,
+            385
+          ],
+          "alpha_visible_pixels": 73024,
+          "mean_visible_luma": 171.41,
+          "brightest_decile_luma": 253.3
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1190,
+            195,
+            396,
+            414
+          ],
+          "visible_bbox": [
+            1233,
+            205,
+            346,
+            394
+          ],
+          "alpha_visible_pixels": 37185,
+          "mean_visible_luma": 161.25,
+          "brightest_decile_luma": 252.63
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1586,
+            195,
+            397,
+            414
+          ],
+          "visible_bbox": [
+            1701,
+            274,
+            225,
+            276
+          ],
+          "alpha_visible_pixels": 12315,
+          "mean_visible_luma": 152.51,
+          "brightest_decile_luma": 252.52
+        }
+      ]
+    },
+    {
+      "name": "q_pop",
+      "file": "ryze_fx_q_pop.png",
+      "target_game_pixels": [
+        20,
+        20
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_q_pop"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        1983,
+        793
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.72242,
+      "partial_alpha_fraction": 0.27663,
+      "sha256": "167a2570d4914e867941835b6c332750153c8d36b408ac1ae58af4614517756a",
+      "columns": 5,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            69,
+            397,
+            668
+          ],
+          "visible_bbox": [
+            81,
+            79,
+            272,
+            624
+          ],
+          "alpha_visible_pixels": 47550,
+          "mean_visible_luma": 186.74,
+          "brightest_decile_luma": 253.87
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            397,
+            69,
+            368,
+            668
+          ],
+          "visible_bbox": [
+            404,
+            291,
+            327,
+            372
+          ],
+          "alpha_visible_pixels": 42747,
+          "mean_visible_luma": 148.14,
+          "brightest_decile_luma": 253.59
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            765,
+            69,
+            448,
+            668
+          ],
+          "visible_bbox": [
+            766,
+            188,
+            447,
+            539
+          ],
+          "alpha_visible_pixels": 98238,
+          "mean_visible_luma": 163.35,
+          "brightest_decile_luma": 253.79
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1213,
+            69,
+            375,
+            668
+          ],
+          "visible_bbox": [
+            1216,
+            211,
+            372,
+            492
+          ],
+          "alpha_visible_pixels": 49482,
+          "mean_visible_luma": 147.15,
+          "brightest_decile_luma": 253.36
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1588,
+            69,
+            395,
+            668
+          ],
+          "visible_bbox": [
+            1670,
+            295,
+            259,
+            373
+          ],
+          "alpha_visible_pixels": 8665,
+          "mean_visible_luma": 138.66,
+          "brightest_decile_luma": 253.18
+        }
+      ]
+    },
+    {
+      "name": "e_orb",
+      "file": "ryze_fx_e_orb.png",
+      "target_game_pixels": [
+        12,
+        10
+      ],
+      "binding_group": "view_projectiles",
+      "bindings": [
+        "league_ryze_e_orb"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.83489,
+      "partial_alpha_fraction": 0.16285,
+      "sha256": "2a7c9d7b4e3e1a6e0e6d3130b9a237222802eed8edfbed208c15d384fb79528a",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            151,
+            543,
+            422
+          ],
+          "visible_bbox": [
+            87,
+            165,
+            405,
+            394
+          ],
+          "alpha_visible_pixels": 49620,
+          "mean_visible_luma": 212.21,
+          "brightest_decile_luma": 253.3
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            543,
+            151,
+            543,
+            422
+          ],
+          "visible_bbox": [
+            592,
+            165,
+            424,
+            394
+          ],
+          "alpha_visible_pixels": 52905,
+          "mean_visible_luma": 212.79,
+          "brightest_decile_luma": 253.31
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1086,
+            151,
+            543,
+            422
+          ],
+          "visible_bbox": [
+            1093,
+            165,
+            487,
+            394
+          ],
+          "alpha_visible_pixels": 56464,
+          "mean_visible_luma": 213.31,
+          "brightest_decile_luma": 253.28
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1629,
+            151,
+            543,
+            422
+          ],
+          "visible_bbox": [
+            1678,
+            165,
+            419,
+            394
+          ],
+          "alpha_visible_pixels": 52084,
+          "mean_visible_luma": 212.79,
+          "brightest_decile_luma": 253.28
+        }
+      ]
+    },
+    {
+      "name": "e_cast",
+      "file": "ryze_fx_e_cast.png",
+      "target_game_pixels": [
+        12,
+        12
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_e_cast"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.93026,
+      "partial_alpha_fraction": 0.06816,
+      "sha256": "a4c43620eb9f8dd76f50eb981303c6c5720b8929d432b689cec3c021f1f4326f",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            159,
+            543,
+            403
+          ],
+          "visible_bbox": [
+            235,
+            321,
+            77,
+            79
+          ],
+          "alpha_visible_pixels": 3239,
+          "mean_visible_luma": 121.0,
+          "brightest_decile_luma": 234.79
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            543,
+            159,
+            543,
+            403
+          ],
+          "visible_bbox": [
+            659,
+            205,
+            310,
+            307
+          ],
+          "alpha_visible_pixels": 24386,
+          "mean_visible_luma": 135.48,
+          "brightest_decile_luma": 248.77
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1086,
+            159,
+            543,
+            403
+          ],
+          "visible_bbox": [
+            1141,
+            173,
+            433,
+            375
+          ],
+          "alpha_visible_pixels": 43800,
+          "mean_visible_luma": 140.2,
+          "brightest_decile_luma": 252.98
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1629,
+            159,
+            543,
+            403
+          ],
+          "visible_bbox": [
+            1726,
+            220,
+            359,
+            284
+          ],
+          "alpha_visible_pixels": 8548,
+          "mean_visible_luma": 146.68,
+          "brightest_decile_luma": 239.34
+        }
+      ]
+    },
+    {
+      "name": "e_hit",
+      "file": "ryze_fx_e_hit.png",
+      "target_game_pixels": [
+        22,
+        22
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_e_hit"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        1983,
+        793
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.8311,
+      "partial_alpha_fraction": 0.16766,
+      "sha256": "f96acf3a74510779257f627a61c1eded013b22825532f6502e35c175dc71bca6",
+      "columns": 5,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            172,
+            386,
+            440
+          ],
+          "visible_bbox": [
+            44,
+            257,
+            283,
+            291
+          ],
+          "alpha_visible_pixels": 17941,
+          "mean_visible_luma": 210.92,
+          "brightest_decile_luma": 254.26
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            386,
+            172,
+            407,
+            440
+          ],
+          "visible_bbox": [
+            387,
+            247,
+            351,
+            313
+          ],
+          "alpha_visible_pixels": 41203,
+          "mean_visible_luma": 143.83,
+          "brightest_decile_luma": 253.5
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            793,
+            172,
+            397,
+            440
+          ],
+          "visible_bbox": [
+            798,
+            182,
+            370,
+            411
+          ],
+          "alpha_visible_pixels": 49271,
+          "mean_visible_luma": 147.3,
+          "brightest_decile_luma": 253.72
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1190,
+            172,
+            411,
+            440
+          ],
+          "visible_bbox": [
+            1221,
+            190,
+            380,
+            412
+          ],
+          "alpha_visible_pixels": 30190,
+          "mean_visible_luma": 160.91,
+          "brightest_decile_luma": 251.64
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1601,
+            172,
+            382,
+            440
+          ],
+          "visible_bbox": [
+            1654,
+            256,
+            304,
+            288
+          ],
+          "alpha_visible_pixels": 8520,
+          "mean_visible_luma": 139.95,
+          "brightest_decile_luma": 251.12
+        }
+      ]
+    },
+    {
+      "name": "flux",
+      "file": "ryze_fx_flux.png",
+      "target_game_pixels": [
+        20,
+        10
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_flux"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.88929,
+      "partial_alpha_fraction": 0.10981,
+      "sha256": "a58e28b5a323f23f22ebddd7d52d99a0c226e006ab71f3edf6e8c4cd5a7c66f2",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            198,
+            543,
+            335
+          ],
+          "visible_bbox": [
+            45,
+            213,
+            476,
+            299
+          ],
+          "alpha_visible_pixels": 23156,
+          "mean_visible_luma": 137.07,
+          "brightest_decile_luma": 253.24
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            543,
+            198,
+            543,
+            335
+          ],
+          "visible_bbox": [
+            582,
+            212,
+            476,
+            301
+          ],
+          "alpha_visible_pixels": 23003,
+          "mean_visible_luma": 134.7,
+          "brightest_decile_luma": 252.9
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1086,
+            198,
+            543,
+            335
+          ],
+          "visible_bbox": [
+            1126,
+            212,
+            472,
+            307
+          ],
+          "alpha_visible_pixels": 23617,
+          "mean_visible_luma": 135.49,
+          "brightest_decile_luma": 252.82
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1629,
+            198,
+            543,
+            335
+          ],
+          "visible_bbox": [
+            1674,
+            213,
+            464,
+            291
+          ],
+          "alpha_visible_pixels": 23246,
+          "mean_visible_luma": 136.03,
+          "brightest_decile_luma": 253.11
+        }
+      ],
+      "playback": {
+        "duration_ms": 50,
+        "loop": true,
+        "restart_every_ticks": 12
+      }
+    },
+    {
+      "name": "w_cage",
+      "file": "ryze_fx_w_cage.png",
+      "target_game_pixels": [
+        24,
+        30
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_w_root",
+        "league_ryze_w_cage"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.81017,
+      "partial_alpha_fraction": 0.18871,
+      "sha256": "5f731c2892df7d29a04c28cf807f02e2a6989d4306c93e13a2727d3707c7863c",
+      "columns": 8,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            292,
+            222,
+            347
+          ],
+          "visible_bbox": [
+            23,
+            541,
+            193,
+            89
+          ],
+          "alpha_visible_pixels": 8442,
+          "mean_visible_luma": 165.63,
+          "brightest_decile_luma": 252.51
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            222,
+            292,
+            221,
+            347
+          ],
+          "visible_bbox": [
+            241,
+            387,
+            195,
+            243
+          ],
+          "alpha_visible_pixels": 15642,
+          "mean_visible_luma": 171.42,
+          "brightest_decile_luma": 252.18
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            443,
+            292,
+            222,
+            347
+          ],
+          "visible_bbox": [
+            462,
+            358,
+            195,
+            273
+          ],
+          "alpha_visible_pixels": 23116,
+          "mean_visible_luma": 172.89,
+          "brightest_decile_luma": 252.42
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            665,
+            292,
+            222,
+            347
+          ],
+          "visible_bbox": [
+            680,
+            350,
+            198,
+            280
+          ],
+          "alpha_visible_pixels": 30182,
+          "mean_visible_luma": 175.68,
+          "brightest_decile_luma": 252.68
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            887,
+            292,
+            222,
+            347
+          ],
+          "visible_bbox": [
+            897,
+            350,
+            200,
+            281
+          ],
+          "alpha_visible_pixels": 30395,
+          "mean_visible_luma": 177.58,
+          "brightest_decile_luma": 252.63
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            1109,
+            292,
+            221,
+            347
+          ],
+          "visible_bbox": [
+            1116,
+            350,
+            200,
+            281
+          ],
+          "alpha_visible_pixels": 30412,
+          "mean_visible_luma": 176.48,
+          "brightest_decile_luma": 252.86
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "rect": [
+            1330,
+            292,
+            222,
+            347
+          ],
+          "visible_bbox": [
+            1339,
+            300,
+            193,
+            330
+          ],
+          "alpha_visible_pixels": 19182,
+          "mean_visible_luma": 172.25,
+          "brightest_decile_luma": 252.57
+        },
+        {
+          "index": 7,
+          "row": 0,
+          "column": 7,
+          "rect": [
+            1552,
+            292,
+            222,
+            347
+          ],
+          "visible_bbox": [
+            1558,
+            475,
+            192,
+            144
+          ],
+          "alpha_visible_pixels": 6232,
+          "mean_visible_luma": 155.23,
+          "brightest_decile_luma": 250.03
+        }
+      ],
+      "playback": {
+        "hold_frames_zero_based": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "root_duration_ticks": 75
+      }
+    },
+    {
+      "name": "rune_out",
+      "file": "ryze_fx_rune_out.png",
+      "target_game_pixels": [
+        26,
+        20
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_rune_out"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        1983,
+        793
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.91169,
+      "partial_alpha_fraction": 0.08784,
+      "sha256": "1b0df1ae3fc6ad591aa2791db96f87caa1d026c4042395cb5f7b08b58f39d917",
+      "columns": 5,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            298,
+            397,
+            282
+          ],
+          "visible_bbox": [
+            85,
+            385,
+            248,
+            120
+          ],
+          "alpha_visible_pixels": 10416,
+          "mean_visible_luma": 172.99,
+          "brightest_decile_luma": 253.45
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            397,
+            298,
+            396,
+            282
+          ],
+          "visible_bbox": [
+            431,
+            346,
+            310,
+            175
+          ],
+          "alpha_visible_pixels": 13191,
+          "mean_visible_luma": 175.06,
+          "brightest_decile_luma": 253.36
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            793,
+            298,
+            397,
+            282
+          ],
+          "visible_bbox": [
+            803,
+            308,
+            367,
+            249
+          ],
+          "alpha_visible_pixels": 23190,
+          "mean_visible_luma": 175.31,
+          "brightest_decile_luma": 253.02
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1190,
+            298,
+            398,
+            282
+          ],
+          "visible_bbox": [
+            1206,
+            326,
+            382,
+            244
+          ],
+          "alpha_visible_pixels": 12379,
+          "mean_visible_luma": 175.57,
+          "brightest_decile_luma": 245.88
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1588,
+            298,
+            395,
+            282
+          ],
+          "visible_bbox": [
+            1589,
+            359,
+            320,
+            148
+          ],
+          "alpha_visible_pixels": 2098,
+          "mean_visible_luma": 158.61,
+          "brightest_decile_luma": 248.46
+        }
+      ]
+    },
+    {
+      "name": "runes",
+      "file": "ryze_fx_runes.png",
+      "target_game_pixels": [
+        28,
+        14
+      ],
+      "binding_group": "view_buffs",
+      "bindings": [
+        "league_ryze_rune1",
+        "league_ryze_rune2"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.86964,
+      "partial_alpha_fraction": 0.13031,
+      "sha256": "db571529bb54a2210dbdfc6e366dcb7d60ec38a9c58e66f58c9a5c5522d671be",
+      "columns": 6,
+      "rows": 2,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            119,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            66,
+            156,
+            282,
+            100
+          ],
+          "alpha_visible_pixels": 4521,
+          "mean_visible_luma": 153.83,
+          "brightest_decile_luma": 253.07
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            362,
+            119,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            424,
+            128,
+            266,
+            127
+          ],
+          "alpha_visible_pixels": 4556,
+          "mean_visible_luma": 158.92,
+          "brightest_decile_luma": 252.29
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            724,
+            119,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            777,
+            128,
+            270,
+            127
+          ],
+          "alpha_visible_pixels": 4627,
+          "mean_visible_luma": 160.55,
+          "brightest_decile_luma": 251.56
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1086,
+            119,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            1118,
+            156,
+            282,
+            100
+          ],
+          "alpha_visible_pixels": 4731,
+          "mean_visible_luma": 151.97,
+          "brightest_decile_luma": 252.05
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1448,
+            119,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            1491,
+            156,
+            268,
+            127
+          ],
+          "alpha_visible_pixels": 4981,
+          "mean_visible_luma": 151.48,
+          "brightest_decile_luma": 251.26
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            1810,
+            119,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            1848,
+            156,
+            270,
+            127
+          ],
+          "alpha_visible_pixels": 5138,
+          "mean_visible_luma": 155.24,
+          "brightest_decile_luma": 252.06
+        },
+        {
+          "index": 6,
+          "row": 1,
+          "column": 0,
+          "rect": [
+            0,
+            460,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            60,
+            497,
+            288,
+            99
+          ],
+          "alpha_visible_pixels": 7537,
+          "mean_visible_luma": 160.97,
+          "brightest_decile_luma": 253.31
+        },
+        {
+          "index": 7,
+          "row": 1,
+          "column": 1,
+          "rect": [
+            362,
+            460,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            424,
+            469,
+            266,
+            155
+          ],
+          "alpha_visible_pixels": 7321,
+          "mean_visible_luma": 159.59,
+          "brightest_decile_luma": 253.15
+        },
+        {
+          "index": 8,
+          "row": 1,
+          "column": 2,
+          "rect": [
+            724,
+            460,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            778,
+            469,
+            269,
+            155
+          ],
+          "alpha_visible_pixels": 7681,
+          "mean_visible_luma": 156.48,
+          "brightest_decile_luma": 252.66
+        },
+        {
+          "index": 9,
+          "row": 1,
+          "column": 3,
+          "rect": [
+            1086,
+            460,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            1118,
+            496,
+            298,
+            100
+          ],
+          "alpha_visible_pixels": 7660,
+          "mean_visible_luma": 160.45,
+          "brightest_decile_luma": 252.75
+        },
+        {
+          "index": 10,
+          "row": 1,
+          "column": 4,
+          "rect": [
+            1448,
+            460,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            1491,
+            469,
+            268,
+            155
+          ],
+          "alpha_visible_pixels": 7433,
+          "mean_visible_luma": 157.48,
+          "brightest_decile_luma": 252.68
+        },
+        {
+          "index": 11,
+          "row": 1,
+          "column": 5,
+          "rect": [
+            1810,
+            460,
+            362,
+            173
+          ],
+          "visible_bbox": [
+            1849,
+            469,
+            268,
+            155
+          ],
+          "alpha_visible_pixels": 7465,
+          "mean_visible_luma": 157.33,
+          "brightest_decile_luma": 252.44
+        }
+      ],
+      "playback": {
+        "loop": true,
+        "row_bindings": [
+          "league_ryze_rune1",
+          "league_ryze_rune2"
+        ]
+      }
+    },
+    {
+      "name": "w_slow",
+      "file": "ryze_fx_w_slow.png",
+      "target_game_pixels": [
+        22,
+        8
+      ],
+      "binding_group": "view_buffs",
+      "bindings": [
+        "league_ryze_w_slow"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        1983,
+        793
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.87574,
+      "partial_alpha_fraction": 0.12358,
+      "sha256": "82883f14ec4d67e5a1f8bb0b0dc038b2540af8a2b184d43e050ab80bc0efa6a0",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            326,
+            496,
+            231
+          ],
+          "visible_bbox": [
+            37,
+            338,
+            423,
+            207
+          ],
+          "alpha_visible_pixels": 35687,
+          "mean_visible_luma": 176.18,
+          "brightest_decile_luma": 254.01
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            496,
+            326,
+            495,
+            231
+          ],
+          "visible_bbox": [
+            534,
+            338,
+            421,
+            207
+          ],
+          "alpha_visible_pixels": 35722,
+          "mean_visible_luma": 176.19,
+          "brightest_decile_luma": 254.06
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            991,
+            326,
+            496,
+            231
+          ],
+          "visible_bbox": [
+            1029,
+            343,
+            423,
+            202
+          ],
+          "alpha_visible_pixels": 35531,
+          "mean_visible_luma": 177.0,
+          "brightest_decile_luma": 254.06
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1487,
+            326,
+            496,
+            231
+          ],
+          "visible_bbox": [
+            1525,
+            339,
+            422,
+            206
+          ],
+          "alpha_visible_pixels": 35813,
+          "mean_visible_luma": 176.14,
+          "brightest_decile_luma": 253.98
+        }
+      ]
+    },
+    {
+      "name": "q_haste",
+      "file": "ryze_fx_q_haste.png",
+      "target_game_pixels": [
+        24,
+        10
+      ],
+      "binding_group": "view_buffs",
+      "bindings": [
+        "league_ryze_q_haste"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.80643,
+      "partial_alpha_fraction": 0.19345,
+      "sha256": "e03d3c4ec5186fcd78f57c9257e161af322a3c39be9aff5c4b624215a2c61fde",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            226,
+            543,
+            349
+          ],
+          "visible_bbox": [
+            29,
+            347,
+            493,
+            214
+          ],
+          "alpha_visible_pixels": 30679,
+          "mean_visible_luma": 187.29,
+          "brightest_decile_luma": 253.81
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            543,
+            226,
+            543,
+            349
+          ],
+          "visible_bbox": [
+            588,
+            289,
+            466,
+            272
+          ],
+          "alpha_visible_pixels": 33078,
+          "mean_visible_luma": 192.38,
+          "brightest_decile_luma": 253.82
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1086,
+            226,
+            543,
+            349
+          ],
+          "visible_bbox": [
+            1126,
+            240,
+            474,
+            321
+          ],
+          "alpha_visible_pixels": 36358,
+          "mean_visible_luma": 179.97,
+          "brightest_decile_luma": 253.47
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1629,
+            226,
+            543,
+            349
+          ],
+          "visible_bbox": [
+            1662,
+            337,
+            474,
+            224
+          ],
+          "alpha_visible_pixels": 30852,
+          "mean_visible_luma": 186.13,
+          "brightest_decile_luma": 253.74
+        }
+      ]
+    },
+    {
+      "name": "r_portal",
+      "file": "ryze_fx_r_portal.png",
+      "target_game_pixels": [
+        60,
+        30
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_r_portal",
+        "league_ryze_r_dest"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.88972,
+      "partial_alpha_fraction": 0.11028,
+      "sha256": "c5d9a0f0b349823ffc2f5097220746069c2fefc4991e13149d39922236706c6a",
+      "columns": 10,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            368,
+            160,
+            151
+          ],
+          "visible_bbox": [
+            40,
+            420,
+            94,
+            69
+          ],
+          "alpha_visible_pixels": 1108,
+          "mean_visible_luma": 182.87,
+          "brightest_decile_luma": 253.08
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            160,
+            368,
+            174,
+            151
+          ],
+          "visible_bbox": [
+            161,
+            403,
+            173,
+            88
+          ],
+          "alpha_visible_pixels": 6018,
+          "mean_visible_luma": 129.39,
+          "brightest_decile_luma": 248.31
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            334,
+            368,
+            183,
+            151
+          ],
+          "visible_bbox": [
+            334,
+            383,
+            174,
+            128
+          ],
+          "alpha_visible_pixels": 15009,
+          "mean_visible_luma": 103.03,
+          "brightest_decile_luma": 239.87
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            517,
+            368,
+            188,
+            151
+          ],
+          "visible_bbox": [
+            518,
+            379,
+            178,
+            132
+          ],
+          "alpha_visible_pixels": 15158,
+          "mean_visible_luma": 103.5,
+          "brightest_decile_luma": 241.76
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            705,
+            368,
+            182,
+            151
+          ],
+          "visible_bbox": [
+            706,
+            385,
+            178,
+            126
+          ],
+          "alpha_visible_pixels": 15065,
+          "mean_visible_luma": 103.79,
+          "brightest_decile_luma": 242.13
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            887,
+            368,
+            183,
+            151
+          ],
+          "visible_bbox": [
+            894,
+            378,
+            176,
+            133
+          ],
+          "alpha_visible_pixels": 14789,
+          "mean_visible_luma": 100.66,
+          "brightest_decile_luma": 239.75
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "rect": [
+            1070,
+            368,
+            185,
+            151
+          ],
+          "visible_bbox": [
+            1078,
+            376,
+            177,
+            135
+          ],
+          "alpha_visible_pixels": 14902,
+          "mean_visible_luma": 101.52,
+          "brightest_decile_luma": 240.79
+        },
+        {
+          "index": 7,
+          "row": 0,
+          "column": 7,
+          "rect": [
+            1255,
+            368,
+            185,
+            151
+          ],
+          "visible_bbox": [
+            1269,
+            377,
+            171,
+            134
+          ],
+          "alpha_visible_pixels": 14857,
+          "mean_visible_luma": 102.54,
+          "brightest_decile_luma": 241.73
+        },
+        {
+          "index": 8,
+          "row": 0,
+          "column": 8,
+          "rect": [
+            1440,
+            368,
+            177,
+            151
+          ],
+          "visible_bbox": [
+            1440,
+            400,
+            177,
+            106
+          ],
+          "alpha_visible_pixels": 6811,
+          "mean_visible_luma": 124.47,
+          "brightest_decile_luma": 245.47
+        },
+        {
+          "index": 9,
+          "row": 0,
+          "column": 9,
+          "rect": [
+            1617,
+            368,
+            157,
+            151
+          ],
+          "visible_bbox": [
+            1617,
+            422,
+            111,
+            66
+          ],
+          "alpha_visible_pixels": 626,
+          "mean_visible_luma": 181.65,
+          "brightest_decile_luma": 253.77
+        }
+      ],
+      "playback": {
+        "hold_frames_zero_based": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "channel_duration_ticks": 60
+      }
+    },
+    {
+      "name": "r_out",
+      "file": "ryze_fx_r_out.png",
+      "target_game_pixels": [
+        28,
+        44
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_r_out"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.78093,
+      "partial_alpha_fraction": 0.21845,
+      "sha256": "4abfe99a80c19cd6cc29974311fb33105aec0fef5d743847d4c81aa9609e151e",
+      "columns": 6,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            124,
+            296,
+            663
+          ],
+          "visible_bbox": [
+            35,
+            646,
+            231,
+            133
+          ],
+          "alpha_visible_pixels": 12824,
+          "mean_visible_luma": 185.28,
+          "brightest_decile_luma": 253.97
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            296,
+            124,
+            295,
+            663
+          ],
+          "visible_bbox": [
+            323,
+            132,
+            231,
+            646
+          ],
+          "alpha_visible_pixels": 67961,
+          "mean_visible_luma": 193.38,
+          "brightest_decile_luma": 253.8
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            591,
+            124,
+            296,
+            663
+          ],
+          "visible_bbox": [
+            621,
+            132,
+            242,
+            647
+          ],
+          "alpha_visible_pixels": 92193,
+          "mean_visible_luma": 191.05,
+          "brightest_decile_luma": 253.8
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            887,
+            124,
+            296,
+            663
+          ],
+          "visible_bbox": [
+            935,
+            149,
+            215,
+            629
+          ],
+          "alpha_visible_pixels": 33960,
+          "mean_visible_luma": 196.05,
+          "brightest_decile_luma": 253.83
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1183,
+            124,
+            295,
+            663
+          ],
+          "visible_bbox": [
+            1242,
+            191,
+            194,
+            570
+          ],
+          "alpha_visible_pixels": 14826,
+          "mean_visible_luma": 183.67,
+          "brightest_decile_luma": 253.91
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            1478,
+            124,
+            296,
+            663
+          ],
+          "visible_bbox": [
+            1568,
+            380,
+            97,
+            371
+          ],
+          "alpha_visible_pixels": 1775,
+          "mean_visible_luma": 153.71,
+          "brightest_decile_luma": 251.45
+        }
+      ]
+    },
+    {
+      "name": "r_in",
+      "file": "ryze_fx_r_in.png",
+      "target_game_pixels": [
+        34,
+        34
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_r_in"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.79662,
+      "partial_alpha_fraction": 0.20295,
+      "sha256": "9166773fe96f7e69cbcf1046400c7794f9a9d3d09f19e554a5539dfd71a101aa",
+      "columns": 6,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            180,
+            362,
+            398
+          ],
+          "visible_bbox": [
+            35,
+            218,
+            301,
+            351
+          ],
+          "alpha_visible_pixels": 43012,
+          "mean_visible_luma": 194.67,
+          "brightest_decile_luma": 253.9
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            362,
+            180,
+            362,
+            398
+          ],
+          "visible_bbox": [
+            404,
+            207,
+            285,
+            362
+          ],
+          "alpha_visible_pixels": 43628,
+          "mean_visible_luma": 187.22,
+          "brightest_decile_luma": 253.74
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            724,
+            180,
+            362,
+            398
+          ],
+          "visible_bbox": [
+            739,
+            189,
+            323,
+            380
+          ],
+          "alpha_visible_pixels": 38640,
+          "mean_visible_luma": 184.33,
+          "brightest_decile_luma": 253.54
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1086,
+            180,
+            362,
+            398
+          ],
+          "visible_bbox": [
+            1117,
+            198,
+            310,
+            367
+          ],
+          "alpha_visible_pixels": 19348,
+          "mean_visible_luma": 166.67,
+          "brightest_decile_luma": 252.78
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1448,
+            180,
+            362,
+            398
+          ],
+          "visible_bbox": [
+            1499,
+            228,
+            289,
+            337
+          ],
+          "alpha_visible_pixels": 10269,
+          "mean_visible_luma": 169.8,
+          "brightest_decile_luma": 252.38
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            1810,
+            180,
+            362,
+            398
+          ],
+          "visible_bbox": [
+            1862,
+            298,
+            257,
+            267
+          ],
+          "alpha_visible_pixels": 3989,
+          "mean_visible_luma": 151.72,
+          "brightest_decile_luma": 235.2
+        }
+      ]
+    },
+    {
+      "name": "r_ally",
+      "file": "ryze_fx_r_ally.png",
+      "target_game_pixels": [
+        16,
+        24
+      ],
+      "binding_group": "view_effects",
+      "bindings": [
+        "league_ryze_r_ally"
+      ],
+      "source_type": "unmodified_image_generation_raw",
+      "rect_units": "source_image_pixels",
+      "image_size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alpha_zero_fraction": 0.83621,
+      "partial_alpha_fraction": 0.16212,
+      "sha256": "46a8a08724159d74a285a19d08ae4b8c1cc6b51770c9089bb27c43634d8d6ae4",
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            104,
+            362,
+            856
+          ],
+          "visible_bbox": [
+            97,
+            352,
+            189,
+            572
+          ],
+          "alpha_visible_pixels": 31892,
+          "mean_visible_luma": 158.8,
+          "brightest_decile_luma": 252.32
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            362,
+            104,
+            362,
+            856
+          ],
+          "visible_bbox": [
+            397,
+            335,
+            306,
+            615
+          ],
+          "alpha_visible_pixels": 61551,
+          "mean_visible_luma": 194.61,
+          "brightest_decile_luma": 254.04
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            724,
+            104,
+            362,
+            856
+          ],
+          "visible_bbox": [
+            805,
+            113,
+            238,
+            838
+          ],
+          "alpha_visible_pixels": 37665,
+          "mean_visible_luma": 179.23,
+          "brightest_decile_luma": 253.57
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1086,
+            104,
+            362,
+            856
+          ],
+          "visible_bbox": [
+            1165,
+            426,
+            235,
+            489
+          ],
+          "alpha_visible_pixels": 8633,
+          "mean_visible_luma": 160.96,
+          "brightest_decile_luma": 252.13
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "total_actions": 12,
+  "total_frames": 75,
+  "strict_grid_all": true,
+  "empty_cells_all": true,
+  "binary_alpha_all": true,
+  "palette_all": true,
+  "feet_failures": [
+    [
+      "attack_p",
+      4
+    ],
+    [
+      "attack_p",
+      5
+    ],
+    [
+      "attack_p",
+      6
+    ],
+    [
+      "q1",
+      1
+    ],
+    [
+      "q1",
+      6
+    ],
+    [
+      "q2",
+      2
+    ],
+    [
+      "q3",
+      1
+    ],
+    [
+      "q3",
+      4
+    ],
+    [
+      "q3",
+      6
+    ],
+    [
+      "q3",
+      7
+    ],
+    [
+      "skill2",
+      2
+    ],
+    [
+      "dead",
+      2
+    ],
+    [
+      "dead",
+      3
+    ]
+  ],
+  "idle_unchanged": true,
+  "import_ready": false
+}

@@ -1,0 +1,43 @@
+{
+  "mode": "built-in image_gen for A; discrete generated-cell variants for B/C",
+  "source_references": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-02/new-chat-4/work/kennen-arm-input/kennen_arm_pack/kennen/1_base_8x.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-02/new-chat-4/work/kennen-arm-input/kennen_arm_pack/kennen/2_picture_B.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-02/new-chat-4/work/kennen-arm-input/kennen_arm_pack/kennen/3_picture_B_at_scale.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-02/new-chat-4/work/kennen-arm-input/kennen_arm_pack/kennen/4_rejected_arms.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-02/new-chat-4/work/kennen-arm-input/kennen_arm_pack/kennen/5_quality_bar.png"
+  ],
+  "successful_generation": {
+    "variant": "A",
+    "prompt": "Edit image1 ONLY ADD the missing far arm and golden shuriken. Preserve ALL existing pixels, headfacehoodbodylegs exactly. Keep original1024square composition and empty transparent margins. Only add in x>=592(logicalcol74), y>=504(row63), y<720(row90). Reference2pose, reference3placementrightside, reference4rejected unnaturalarmsavoid, reference5pixelstyle. One tiny pixelgamearm: shoulder at logical(74,85), upperarm slanting OUTWARD RIGHT DOWN toward elbow(83,87), forearm bends INWARD UP to wrist(81,80), plum clawglove at(81,79) grippinglowerblade of fourpoint GOLDshuriken immediatelyabovebesidehoodright. Clearly angled elbow, no 90degree L,no straightverticalpost,no blob byface. Interiorarm2-3pixelswide, wide purplesleeve,goldcuff,smallsteelbluehandplate. Bigshuriken~13pixelwide,toprow63,bottomaroundeyeheight79,2x2centerhole,fourcurvedgoldpoints withsimplegoldshading. Onlysolid8x8pixelblocks exactlyonsourcegrid. No addedbits overexisting opaque pixels. NEVER covereyesorface. UseONLYbasepalette #0B060E #3A1452 #5E2386 #8A36B8 #B657DE #251324 #452348 #6E3E75 #7A3E1C #CB7420 #F8A23B #FEDC80 #4A4E70 #8A8FB0. Onepixeloutline #0B060E; no gradients,antialias,text,guides,shadow. VariantA relaxed slanted bend. Output fullspriteonoriginalcanvas with allbasepixelsunchanged.",
+    "raw": "raw/generated_arm_A.png"
+  },
+  "additional_generation_status": "usage_limit_reached (HTTP429); no independent B/C generations available",
+  "variants": {
+    "A": "median grid read of generated A; composite only onto originally transparent allowed pixels",
+    "B": "A native cell positions: y>=79 moved up1; x moved right1 or right2 for rows82..86. Weaponupperpart stays at originalheight.",
+    "C": "A cells moved down1; elbowarea rows81..86 moved left1."
+  },
+  "export": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      128,
+      128
+    ],
+    "cell_pitch": [
+      9.796875,
+      9.796875
+    ],
+    "sampling": "3x3 median; alpha>=128; fixed base arm palette; scale8 nearest replication",
+    "mask": {
+      "min_x": 74,
+      "min_y": 63,
+      "max_y_exclusive": 90,
+      "base_opaque_protected": true
+    },
+    "cleanup": "Add missing outline cells outside colored additions, restricted by mask; discard fringe disconnected from base."
+  }
+}

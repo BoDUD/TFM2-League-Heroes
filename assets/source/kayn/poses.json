@@ -1,0 +1,308 @@
+{
+ "hero": "kayn",
+ "champ": "Kayn",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.4,
+  "legs": 0.8,
+  "hair": 1.0
+ },
+ "weapon": "^C_Weapon$",
+ "hide_submeshes": true,
+ "height": 40,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "kayn_idle1_loop@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "kayn_idle1_loop@0",
+     200
+    ],
+    [
+     "kayn_idle1_loop@0",
+     200
+    ],
+    [
+     "kayn_idle1_loop@0",
+     200
+    ],
+    [
+     "kayn_idle1_loop@0",
+     200
+    ],
+    [
+     "kayn_idle1_loop@0",
+     200
+    ],
+    [
+     "kayn_idle1_loop@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "kayn_idle1_loop@0",
+   "frames": [
+    [
+     "kayn_run@0",
+     150
+    ],
+    [
+     "kayn_run@150",
+     150
+    ],
+    [
+     "kayn_run@300",
+     150
+    ],
+    [
+     "kayn_run@450",
+     150
+    ],
+    [
+     "kayn_run@600",
+     150
+    ],
+    [
+     "kayn_run@750",
+     150
+    ],
+    [
+     "kayn_run@900",
+     150
+    ],
+    [
+     "kayn_run@1050",
+     150
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "kayn_idle1_loop@0>kayn_attack1@100:0.5",
+     50
+    ],
+    [
+     "kayn_attack1@150",
+     55
+    ],
+    [
+     "kayn_attack1@250",
+     62
+    ],
+    [
+     "kayn_attack1@400",
+     70
+    ],
+    [
+     "kayn_attack1@550",
+     65
+    ],
+    [
+     "kayn_attack1@700>kayn_idle1_loop@0:0.5",
+     65
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "kayn_spell1_dash@83",
+     50
+    ],
+    [
+     "kayn_spell1_dash@250",
+     67
+    ],
+    [
+     "kayn_spell1_circle@111",
+     66
+    ],
+    [
+     "kayn_spell1_circle@333",
+     84
+    ],
+    [
+     "kayn_spell1_circle@444",
+     100
+    ],
+    [
+     "kayn_spell1_circle@556>kayn_idle1_loop@0:0.5",
+     133
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.4,
+   "rise": 0.3,
+   "release": 5,
+   "frames": [
+    [
+     "kayn_spell2@0",
+     100
+    ],
+    [
+     "kayn_spell2@142",
+     140
+    ],
+    [
+     "kayn_spell2@283",
+     150
+    ],
+    [
+     "kayn_spell2@425",
+     160
+    ],
+    [
+     "kayn_spell2@567",
+     117
+    ],
+    [
+     "kayn_spell2@708",
+     83
+    ],
+    [
+     "kayn_spell2@850>kayn_idle1_loop@0:0.5",
+     50
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.4,
+   "rise": 0.2,
+   "travel": 0.2,
+   "release": 1,
+   "frames": [
+    [
+     "kayn_idle1_loop@0>kayn_spell1_dash@83:0.6",
+     67
+    ],
+    [
+     "kayn_spell1_dash@83>kayn_spell4_hit@0:0.5",
+     67
+    ],
+    [
+     "kayn_spell4_hit@0",
+     66
+    ]
+   ]
+  },
+  "ult_exit": {
+   "lunge": 0.4,
+   "rise": 0.3,
+   "release": 1,
+   "frames": [
+    [
+     "kayn_spell4_hit@83",
+     67
+    ],
+    [
+     "kayn_spell4_hit@167",
+     67
+    ],
+    [
+     "kayn_spell4_hit@250",
+     90
+    ],
+    [
+     "kayn_spell4_hit@333",
+     88
+    ],
+    [
+     "kayn_spell4_hit@417>kayn_idle1_loop@0:0.5",
+     88
+    ]
+   ]
+  },
+  "transform": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "frames": [
+    [
+     "kayn_transform_slayer@2400",
+     100
+    ],
+    [
+     "kayn_transform_slayer@3000",
+     120
+    ],
+    [
+     "kayn_transform_slayer@3600",
+     120
+    ],
+    [
+     "kayn_transform_slayer@4800",
+     130
+    ],
+    [
+     "kayn_transform_slayer@5400",
+     130
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "kayn_idle1_loop@0>kayn_death@150:0.5",
+     100
+    ],
+    [
+     "kayn_idle1_loop@0>kayn_death@300:0.5",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "travel": 0.4,
+   "frames": [
+    [
+     "kayn_death@0",
+     120
+    ],
+    [
+     "kayn_death@371",
+     120
+    ],
+    [
+     "kayn_death@742",
+     120
+    ],
+    [
+     "kayn_death@1113",
+     140
+    ],
+    [
+     "kayn_death@1483",
+     160
+    ],
+    [
+     "kayn_death@1854",
+     160
+    ],
+    [
+     "kayn_death@2225",
+     200
+    ],
+    [
+     "kayn_death@2596",
+     400
+    ]
+   ]
+  }
+ }
+}

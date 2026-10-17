@@ -1,0 +1,168 @@
+{
+  "assets": 25,
+  "frames": 114,
+  "checks": [
+    "exact file count and dimensions",
+    "binary alpha",
+    "palette membership",
+    "per-frame symmetry",
+    "16x nearest-neighbor equality",
+    "nonempty frames",
+    "body clearance for notes/shield/spotlight"
+  ],
+  "result": "PASS",
+  "runtime_tested": false,
+  "art_direction_exact_match": false,
+  "assets_detail": [
+    {
+      "name": "a_bolt",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 7
+    },
+    {
+      "name": "a_note",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 8
+    },
+    {
+      "name": "a_hit",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 9
+    },
+    {
+      "name": "a_note_hit",
+      "format_pass": true,
+      "frames": 5,
+      "palette_colors": 11
+    },
+    {
+      "name": "q_note",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 9
+    },
+    {
+      "name": "q_land",
+      "format_pass": true,
+      "frames": 6,
+      "palette_colors": 12
+    },
+    {
+      "name": "q_hit",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 8
+    },
+    {
+      "name": "q_amp",
+      "format_pass": true,
+      "frames": 5,
+      "palette_colors": 7
+    },
+    {
+      "name": "e_wave",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 11
+    },
+    {
+      "name": "e_hit",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 8
+    },
+    {
+      "name": "e_root",
+      "format_pass": true,
+      "frames": 6,
+      "palette_colors": 6
+    },
+    {
+      "name": "e_stun",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 12
+    },
+    {
+      "name": "w_cast",
+      "format_pass": true,
+      "frames": 6,
+      "palette_colors": 14
+    },
+    {
+      "name": "w_on",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 5
+    },
+    {
+      "name": "w_heal",
+      "format_pass": true,
+      "frames": 6,
+      "palette_colors": 8
+    },
+    {
+      "name": "r_wave",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 12
+    },
+    {
+      "name": "r_cast",
+      "format_pass": true,
+      "frames": 6,
+      "palette_colors": 12
+    },
+    {
+      "name": "r_hit",
+      "format_pass": true,
+      "frames": 5,
+      "palette_colors": 10
+    },
+    {
+      "name": "echo",
+      "format_pass": true,
+      "frames": 5,
+      "palette_colors": 14
+    },
+    {
+      "name": "n1",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 6
+    },
+    {
+      "name": "n2",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 5
+    },
+    {
+      "name": "n3",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 5
+    },
+    {
+      "name": "n4",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 15
+    },
+    {
+      "name": "echo_ready",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 10
+    },
+    {
+      "name": "e_slow",
+      "format_pass": true,
+      "frames": 4,
+      "palette_colors": 5
+    }
+  ]
+}

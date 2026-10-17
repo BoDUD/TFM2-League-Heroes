@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_talon_vault": {
+        "attack": "【翻墙版】腕刃攻击。<#ff9028ff>刀锋之末<>：技能命中英雄叠一层伤口，叠满3层后下次普攻使其<#ff9028ff>流血<>，<#ffb900ff>2秒<>内受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>伤害。<#ff9028ff>刺客之道<>（自动，<#ffb900ff>10秒<>）：被围或残血时翻墙撤离，残血敌人在墙后时翻墙追击；没墙时收刀或Q击杀被2人包围就跃开。之后加速。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_talon_vault": {
+        "attack": "【翻牆版】腕刃攻擊。<#ff9028ff>終焉殘刃<>：技能命中英雄疊一層傷口，疊滿3層後下次普攻使其<#ff9028ff>流血<>，<#ffb900ff>2秒<>內受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>傷害。<#ff9028ff>刺客身法<>（自動，<#ffb900ff>10秒<>）：被圍或殘血時翻牆撤離，殘血敵人在牆後時翻牆追擊；沒牆時收刀或Q擊殺被2人包圍就躍開。之後加速。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_talon_vault": {
+        "attack": "[Wall build] Wrist-blade strikes. <#ff9028ff>Blade's End<>: his spells wound champions they hit; at 3 wounds his next attack makes it <#ff9028ff>bleed<> for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> over <#ffb900ff>2s<>. <#ff9028ff>Assassin's Path<> (automatic, <#ffb900ff>10s<>): outnumbered or low, he vaults over a wall to escape, or onto a hurt champion behind one (no wall: away from 2 foes after W/Q), then runs faster."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_talon_vault": {
+        "attack": "[벽 넘기] 손목 칼날로 공격합니다. <#ff9028ff>검의 최후<>: 스킬이 챔피언에게 적중하면 상처 1중첩, 3중첩이면 다음 기본 공격이 <#ff9028ff>출혈<>을 일으켜 <#ffb900ff>2초<>에 걸쳐 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>의 피해. <#ff9028ff>암살자의 길<>(자동, <#ffb900ff>10초<>): 포위·저체력이면 벽을 넘어 도주, 벽 뒤 약한 적은 넘어서 추격(벽이 없으면 W·Q 후 적 2명 근처에서 이탈). 이후 가속."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_talon_vault": {
+        "attack": "【壁越え】手首の刃で攻撃。<#ff9028ff>血塗られし慈悲<>：スキルがチャンピオンに命中すると傷を1つ、3つで次の通常攻撃が<#ff9028ff>出血<>させ<#ffb900ff>2秒<>で<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>のダメージ。<#ff9028ff>暗殺者の跳躍<>（自動、<#ffb900ff>10秒<>）：囲まれるか瀕死で壁を越えて離脱、壁裏の弱った敵へは壁越えで追撃（壁なしはW・Q後に敵2体で離脱）、加速。"
+      }
+    }
+  }
+}

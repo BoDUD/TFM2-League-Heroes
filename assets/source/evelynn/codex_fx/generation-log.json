@@ -1,0 +1,328 @@
+[
+  {
+    "prompt_number": 1,
+    "file": "generated-originals/evelynn_fx_a_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a CLAW HIT, 4 frames: 1 a white flash; 2 three parallel pink-white claw slashes 12 squares long cutting down from upper left to lower right, a violet glow behind them; 3 the slashes thinning, 4 pink sparks flying out; 4 a few fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nIMPORTANT: This is ONLY a VFX animation strip, no character. Exactly 4 frames in ONE horizontal row. Four square cells arranged side by side; crop the overall canvas tightly to the complete row. Uniform frame centers. Pixel units are large flat square blocks, not finely detailed illustration. The reference character is for chunky pixel style only. Do not draw the reference character.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 2,
+    "file": "generated-originals/evelynn_fx_e_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70) and a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a WHIP CRACK, 5 frames: 1 a thin bright violet arc appears at the upper left; 2 the arc sweeps down to the lower right as a curved whip mark 16 squares long with a white core; 3 a pink heart-shaped flash 6 squares across bursts where the whip ends, violet sparks; 4 the whip mark fades, the heart breaks into pink sparks; 5 fading sparks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 5 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 3,
+    "file": "generated-originals/evelynn_fx_e2_trail.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a smoke ramp (#D2A4FF, #A468F0, #7A34D2, #4A1C96, #2A0E5C) and a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a DASH TRAIL along the ground, pointing RIGHT, 5 frames: 1 a burst of violet smoke at the LEFT MIDDLE of the cell (where she leaps); 2 a long streak of violet-black smoke with bright violet edges stretches to the right edge of the cell, 8 squares thick, pink sparks along it; 3 the streak at full length; 4 it thins and breaks into wisps; 5 fading wisps.\nLayout: one horizontal row of 5 equal 4:1 cells, image size 2560x128 (each cell 512x128); the start point at the left edge, halfway down, of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 5 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 4,
+    "file": "generated-originals/evelynn_fx_e2_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70) and a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a POUNCE BURST, 5 frames: 1 a white flash; 2 two crossing pink-white slashes (an X 18 squares across) over a violet burst; 3 the X at full size, a ring of pink sparks flying out; 4 the slashes fading into violet wisps; 5 fading sparks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 5 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 5,
+    "file": "generated-originals/evelynn_fx_e_emp.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a READY GLOW around a body, 4 frames, a seamless loop, left-right symmetric: 6 small bright violet sparks (2x2 squares with a white core) drifting upward in a loose ring around the lower half of the cell, two faint violet wisps rising between them; leave the middle of the cell empty (the body is there).\nLayout: one horizontal row of 4 equal 6:5 cells, image size 1536x320 (each cell 384x320); the ring's middle at the cell's middle, 2/3 down. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 6,
+    "file": "generated-originals/evelynn_fx_e_haste.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: SPEED WISPS at the feet, 4 frames, a seamless loop: 3 short horizontal violet light streaks (6-10 squares long, 1 square thick) and 2 faint wisps sliding along the ground, left-right symmetric overall, a flat oval 24 squares wide and 6 tall.\nLayout: one horizontal row of 4 equal 4:1 cells, image size 1536x96 (each cell 384x96); on the cell's middle line. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 7,
+    "file": "generated-originals/evelynn_fx_q_cast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a CAST FLASH at a hand, pointing RIGHT, 4 frames: 1 a pink-white star at the LEFT MIDDLE of the cell (the hand); 2 three sharp pink spikes of light shoot out to the right from that point over a violet burst; 3 the spikes thin, 4 sparks; 4 fading sparks.\nLayout: one horizontal row of 4 equal 7:5 cells, image size 1120x200 (each cell 280x200); the start point at the left edge, halfway down, of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 8,
+    "file": "generated-originals/evelynn_fx_q_lash.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a FLYING THORNED LASH moving to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a sharp magenta-pink crystal spike head 6 squares long with a white core at the RIGHT end, small thorns above and below it; behind it to the LEFT a violet ribbon of light 12 squares long, rippling slightly from frame to frame.\nLayout: one horizontal row of 4 equal 2:1 cells, image size 2048x256 (each cell 512x256); the head at the RIGHT half, on the middle line, of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 9,
+    "file": "generated-originals/evelynn_fx_q_spike.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a FLYING LINE OF SPIKES moving to the RIGHT, 3 frames, a seamless loop, SYMMETRIC above and below the middle line: three magenta-pink crystal spikes in a row, the front one biggest (5 squares) with a white tip at the RIGHT end, growing out of a violet streak 20 squares long; the spikes flicker in size from frame to frame.\nLayout: one horizontal row of 3 equal 2:1 cells, image size 1536x256 (each cell 512x256); the front spike at the RIGHT end, on the middle line, of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 3 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 10,
+    "file": "generated-originals/evelynn_fx_q_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a SPIKE BURST, 4 frames: 1 a white flash; 2 five sharp pink crystal spikes (2-5 squares long) burst outward from the middle over a violet glow; 3 the spikes at full length, sparks; 4 fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 11,
+    "file": "generated-originals/evelynn_fx_q_mark.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a SMALL THORN CROWN floating over a head, 4 frames, a seamless loop, left-right symmetric: a ring of 5 small pink crystal thorns (2-3 squares each) with a faint violet glow between them, 10 squares wide, pulsing brighter and dimmer.\nLayout: one horizontal row of 4 equal 5:3 cells, image size 1280x192 (each cell 320x192); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 12,
+    "file": "generated-originals/evelynn_fx_qb_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a THORN POP, 3 frames: 1 a pink crystal thorn 4 squares long flashes white; 2 it shatters into 5 pink shards flying out; 3 fading shards.\nLayout: one horizontal row of 3 equal square cells, image size 768x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 3 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 13,
+    "file": "generated-originals/evelynn_fx_sp_cast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a SMALL BURST, 3 frames: 1 a pink-white spark 4 squares across; 2 a ring of 6 small pink and violet sparks flying out; 3 fading sparks. Left-right symmetric.\nLayout: one horizontal row of 3 equal square cells, image size 768x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 3 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 14,
+    "file": "generated-originals/evelynn_fx_sp_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a SPIKE STAB, 3 frames: 1 a pink crystal spike 6 squares long stabs in from the left with a white flash at its tip; 2 the spike breaks into 4 pink shards; 3 fading sparks.\nLayout: one horizontal row of 3 equal square cells, image size 768x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 3 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 15,
+    "file": "generated-originals/evelynn_fx_w_cast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a BLOWN KISS from a hand, pointing RIGHT, 4 frames: 1 a pink-white spark at the LEFT MIDDLE of the cell (the hand); 2 a small bright pink heart (5 squares wide) pops out of it with 3 sparkles; 3 the heart drifts to the right, bigger; 4 the heart fades into sparkles.\nLayout: one horizontal row of 4 equal 7:5 cells, image size 1120x200 (each cell 280x200); the start point at the left edge, halfway down, of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 16,
+    "file": "generated-originals/evelynn_fx_w_bolt.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a FLYING CURSE moving to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a bright pink four-pointed star core 5 squares across with a white center at the RIGHT end, a pink-violet ribbon trailing 10 squares to the LEFT with tiny pink sparkles in it.\nLayout: one horizontal row of 4 equal 2:1 cells, image size 2048x256 (each cell 512x256); the core at the RIGHT half, on the middle line, of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 17,
+    "file": "generated-originals/evelynn_fx_w_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a CURSE LANDING, 4 frames: 1 a thin pink ring 16 squares across; 2 the ring shrinks to 10 squares, sparkles; 3 it shrinks to a small pink spark at the upper middle of the cell; 4 a fading spark.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 18,
+    "file": "generated-originals/evelynn_fx_w_mark.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a DIM HEART MARK floating over a head, 4 frames, a seamless loop, left-right symmetric: the outline of a heart 10 squares wide drawn in mid pink (no white), its inside empty, a soft pink glow pulsing slowly.\nLayout: one horizontal row of 4 equal 10:9 cells, image size 1280x288 (each cell 320x288); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 19,
+    "file": "generated-originals/evelynn_fx_w_ripen.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a HEART FILLING, 4 frames: 1 a heart outline 10 squares wide fills with bright pink from the bottom up; 2 full, a white flash and a ring of sparkles; 3 the flash fading; 4 the full heart alone, glowing.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; the heart in the upper middle of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 20,
+    "file": "generated-originals/evelynn_fx_w_ripe.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a BRIGHT HEART MARK floating over a head, 4 frames, a seamless loop, left-right symmetric: a solid bright pink heart 10 squares wide with a white highlight, beating (a little bigger in frame 2), 2-3 sparkles around it.\nLayout: one horizontal row of 4 equal 10:9 cells, image size 1280x288 (each cell 320x288); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 21,
+    "file": "generated-originals/evelynn_fx_w_pop.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: a HEART BURST, 5 frames: 1 a bright pink heart 10 squares wide at the middle, a white flash; 2 the heart cracks and bursts into 6 pink heart-shaped shards flying out, a thin pink ring 14 squares across; 3 shards further out, the ring 20 squares; 4 the shards fading; 5 a few sparkles.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 5 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 22,
+    "file": "generated-originals/evelynn_fx_w_charmed.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: THREE SMALL HEARTS CIRCLING over a head, 6 frames, a seamless loop: three bright pink hearts (3 squares wide each, a white highlight) moving round a flat ellipse 14 squares wide and 4 tall, the one in front bigger and brighter, the one behind smaller and dimmer.\nLayout: one horizontal row of 6 equal 7:3 cells, image size 1680x120 (each cell 280x120); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 6 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 23,
+    "file": "generated-originals/evelynn_fx_w_shred.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a CRACKED RUNE RING on the ground, 4 frames, a seamless loop: a flat ellipse 16 squares wide and 6 tall drawn as a broken pink-violet ring (4 arcs with gaps), small cracks of light across it, pulsing dim and bright.\nLayout: one horizontal row of 4 equal 8:3 cells, image size 1280x120 (each cell 320x120); the ellipse on the cell's middle line. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 24,
+    "file": "generated-originals/evelynn_fx_sh_in.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a smoke ramp (#D2A4FF, #A468F0, #7A34D2, #4A1C96, #2A0E5C).\nEffect: a SHADOW GATHERING around a standing figure, 5 frames: 1 a flat ring of dark violet smoke at the bottom of the cell; 2 wisps curl up both sides; 3 the wisps reach shoulder height, a thin veil of violet smoke around the figure's outline; 4 the veil closes into a loose shroud of wisps 36 squares wide; 5 settled - the same shroud as the loop's first frame. Leave the middle of the cell (the figure, about 24 squares wide and 40 tall) mostly empty; the smoke has bright violet edges and darker violet middles, no black.\nLayout: one horizontal row of 5 equal 9:10 cells, image size 1440x320 (each cell 288x320); the figure's feet at the bottom middle of every cell, 8 squares above the bottom. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 5 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 25,
+    "file": "generated-originals/evelynn_fx_sh_loop.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a smoke ramp (#D2A4FF, #A468F0, #7A34D2, #4A1C96, #2A0E5C).\nEffect: a SHADOW SHROUD around a standing figure, 6 frames, a seamless loop: the loose shroud of violet wisps from the previous sheet's last frame, the wisps slowly turning and rising, 3 small violet sparks blinking; the middle of the cell mostly empty.\nLayout: one horizontal row of 6 equal 9:10 cells, image size 1728x320 (each cell 288x320); the figure's feet at the bottom middle, 8 squares above the bottom. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 6 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 26,
+    "file": "generated-originals/evelynn_fx_sh_out.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a smoke ramp (#D2A4FF, #A468F0, #7A34D2, #4A1C96, #2A0E5C).\nEffect: a SHADOW DISPERSING, 4 frames: 1 the shroud; 2 it blows outward into separate wisps; 3 wisps further out, thinning; 4 a few fading wisps at the edges.\nLayout: one horizontal row of 4 equal 9:10 cells, image size 1152x320 (each cell 288x320); the figure's feet at the bottom middle, 8 squares above the bottom. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 27,
+    "file": "generated-originals/evelynn_fx_r_cast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240), a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70) and a smoke ramp (#D2A4FF, #A468F0, #7A34D2, #4A1C96, #2A0E5C).\nEffect: a DEMONIC BURST around a standing figure, 5 frames: 1 a magenta-white flash at the figure's chest (the middle of the cell, 2/3 down); 2 a burst of magenta-violet light 30 squares across, violet smoke curling up both sides; 3 two shadowy wings of violet smoke spread behind (left and right), the light at full size; 4 the light fading, the smoke rising; 5 fading wisps.\nLayout: one horizontal row of 5 equal square cells, image size 1600x320 (each cell 320x320); the figure's feet at the bottom middle, 8 squares above the bottom. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 5 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 28,
+    "file": "generated-originals/evelynn_fx_r_slash.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a WIDE FAN SLASH pointing RIGHT, 6 frames, not looping, SYMMETRIC above and below the middle line: 1 a white spark at the LEFT MIDDLE of the cell; 2 two crossing pink-white slash arcs sweep out to the right, opening like a fan of 100 degrees; 3 the fan at full size (56 squares long, 40 tall), a magenta-violet glow inside it, 4 thin claw scratches along its edge; 4 the slashes thinning; 5 breaking into pink sparks; 6 empty (the slash gone).\nLayout: one horizontal row of 6 equal 7:5 cells, image size 2688x320 (each cell 448x320); the start point at the left edge, halfway down, of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 6 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 29,
+    "file": "generated-originals/evelynn_fx_r_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a BIG X SLASH, 4 frames: 1 a white flash; 2 a bright pink X 18 squares across with a white core over a violet burst; 3 the X breaking into pink and violet sparks; 4 fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 30,
+    "file": "generated-originals/evelynn_fx_r_blink.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a smoke ramp (#D2A4FF, #A468F0, #7A34D2, #4A1C96, #2A0E5C) and a violet ramp (#FFFFFF, #F4DEFF, #D2A4FF, #A468F0, #7034C8, #3A1A70).\nEffect: a SHADOW AFTERIMAGE breaking up, 5 frames: 1 a standing smoke silhouette (a slim figure 14 squares wide, 34 tall) of dark violet smoke with bright violet edges; 2 it starts to blow apart from the top; 3 half of it is wisps; 4 only wisps and sparks; 5 fading wisps.\nLayout: one horizontal row of 5 equal 7:9 cells, image size 1120x288 (each cell 224x288); the figure's feet at the bottom middle, 8 squares above the bottom. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 5 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "prompt_number": 31,
+    "file": "generated-originals/evelynn_fx_r_land.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, smoke, trails or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield; the smoke keeps lit violet edges), colours only from a smoke ramp (#D2A4FF, #A468F0, #7A34D2, #4A1C96, #2A0E5C) and a pink ramp (#FFFFFF, #FFE0F0, #FF9ACA, #F05AA0, #C0306A, #6E1240).\nEffect: an ARRIVAL PUFF, 4 frames: 1 a violet flash at the feet; 2 a ring of violet smoke bursts outward along the ground (a flat ellipse 28 squares wide), pink sparks rising; 3 the smoke ring wider and thinner; 4 fading wisps.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; the feet at the bottom middle, 8 squares above the bottom. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nSTRICT DELIVERY: ONLY the VFX animation, no characters. EXACTLY 4 consecutive equal cells in ONE SINGLE HORIZONTAL ROW. Do not arrange frames in multiple rows. Fill the overall wide canvas with that single row. Frame count is more important than requested raster dimensions. Large coarse square pixels, flat limited palette, no shaded 3D cubes, no fine noise, no dark outlines, transparent space between sparks. Reference character establishes chunky pixel art language only: never draw the character. Keep frame content inside its own equal-width cell.",
+    "references": [
+      "design/evelynn_design.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "file": "generated-revisions/evelynn_fx_q_lash.png",
+    "prompt": "Edit this VFX sprite strip. Make the violet ribbon completely straight on the horizontal center line, with identical top and bottom ripples mirrored across that center. All thorns and floating sparks come in mirrored pairs. The bright pink thorned crystal head at right stays centered. EXACT vertical reflection symmetry per frame; no asymmetrical curved tail. Preserve chunky coarse flat square pixel art, bright magenta-violet palette except the explicitly dim W mark. Remove dark outlines, beveled cubes, fine noise, soft haze and semitransparent glow. Transparent background. Exactly 4 equal-width cells in ONE horizontal row. No labels, no characters, no gaps or borders. Keep entire effect inside its own frame. Do not crop shapes.",
+    "references": [
+      "generated-originals/evelynn_fx_q_lash.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "file": "generated-revisions/evelynn_fx_w_bolt.png",
+    "prompt": "Edit this VFX sprite strip. Keep the right-pointing four-point pink star. Replace asymmetric swirly trail with a straight tapered pink-violet horizontal light ribbon; mirror every upper ripple and spark below the horizontal axis. EXACT top-bottom reflection symmetry in each frame. Never a heart. Preserve chunky coarse flat square pixel art, bright magenta-violet palette except the explicitly dim W mark. Remove dark outlines, beveled cubes, fine noise, soft haze and semitransparent glow. Transparent background. Exactly 4 equal-width cells in ONE horizontal row. No labels, no characters, no gaps or borders. Keep entire effect inside its own frame. Do not crop shapes.",
+    "references": [
+      "generated-originals/evelynn_fx_w_bolt.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "file": "generated-revisions/evelynn_fx_w_mark.png",
+    "prompt": "Edit this VFX sprite strip. Replace all four effects by small hollow upright pixel heart outlines, transparent empty interior. Dim mid-tone pink only #F05AA0 #C0306A, absolutely NO white, NO pale pink, NO stars, NO surrounding aura or glow. Four frames lightly pulse mid pink intensity, unchanged position, left-right symmetry. Preserve chunky coarse flat square pixel art, bright magenta-violet palette except the explicitly dim W mark. Remove dark outlines, beveled cubes, fine noise, soft haze and semitransparent glow. Transparent background. Exactly 4 equal-width cells in ONE horizontal row. No labels, no characters, no gaps or borders. Keep entire effect inside its own frame. Do not crop shapes.",
+    "references": [
+      "generated-originals/evelynn_fx_w_mark.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "file": "generated-revisions/evelynn_fx_sh_loop.png",
+    "prompt": "Edit this VFX sprite strip. Use the fourth frame of the second reference (the sh_in strip) as the silhouette template: a full-height loose veil with an empty upright human-shaped center and two slim violet smoke columns down both sides, joined by a flat ground smoke ellipse. Every one of the six loop frames has that same full-height empty-center shroud; no heap of smoke at the feet, no actual character, no filled center. Wisps move gently up sides. The smoke top is near top of each cell, base 20 percent above bottom. Exactly 6 similar tall shrouds in a single horizontal row. Preserve chunky coarse flat square pixel art, bright magenta-violet palette except the explicitly dim W mark. Remove dark outlines, beveled cubes, fine noise, soft haze and semitransparent glow. Transparent background. Exactly 6 equal-width cells in ONE horizontal row. No labels, no characters, no gaps or borders. Keep entire effect inside its own frame. Do not crop shapes.",
+    "references": [
+      "generated-originals/evelynn_fx_sh_loop.png",
+      "generated-originals/evelynn_fx_sh_in.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "file": "generated-revisions/evelynn_fx_r_slash.png",
+    "prompt": "Edit this VFX sprite strip. Most important correction: the two pink-white diagonal arcs MUST CROSS each other in each active frame, forming a clear large letter X inside the right-opening fan. Not a V, not two arcs that meet at left and diverge. One goes from upper left across the center to lower right, the other from lower left across center to upper right. Mirror above and below horizontal axis. Frame 1 small left-mid flash, frame 2 two crossing slashes, frame 3 full violet-filled rightward fan with a big X and paired pink edge claws, frame 4 thinning X, frame 5 paired faint sparks, frame 6 entirely transparent empty. Single row of 6 equal cells, sixth reserved blank. Preserve chunky coarse flat square pixel art, bright magenta-violet palette except the explicitly dim W mark. Remove dark outlines, beveled cubes, fine noise, soft haze and semitransparent glow. Transparent background. Exactly 6 equal-width cells in ONE horizontal row. No labels, no characters, no gaps or borders. Keep entire effect inside its own frame. Do not crop shapes.",
+    "references": [
+      "generated-originals/evelynn_fx_r_slash.png"
+    ],
+    "transparent_background": true
+  },
+  {
+    "file": "generated-revisions/evelynn_fx_r_slash_x.png",
+    "prompt": "Create a coarse 16-bit PIXEL ART magic attack animation spritesheet, transparent PNG. Exactly SIX equal cells in ONE horizontal row, whole image 2688x320. Cell 6 completely blank transparent. No text, borders, grids. Magenta pink and violet, white brightest core, NO black outlines or soft glow. A giant DOUBLE SLASH: TWO SEPARATE DIAGONAL STROKES CROSS THROUGH ONE ANOTHER, visibly forming an X like scissors or crossed swords. Frame 1 small four-point flash at left middle. Frame 2 a pink-white X made of two thin diagonal sword trails from top left to bottom right AND bottom left to top right. Frame 3 same large unmistakable X, with a violet triangle of magic behind it which widens toward RIGHT. Frame 4 the X fades thinner, its two diagonals still cross at center. Frame 5 sparse pink and violet square sparks only. Frame 6 blank transparent. The X crossing is at CENTER of each active cell, not at the left point. All active frames symmetrical about horizontal center. Use large clearly flat square pixels, not beveled 3D tiles. Dominant image is a letter X, not chevrons, not a V, not a less-than sign. All shapes stay inside their own equally sized frame.",
+    "references": [],
+    "transparent_background": true
+  }
+]

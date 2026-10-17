@@ -1,0 +1,3441 @@
+{
+  "schema_version": 1,
+  "delivery_stage": "generated_raw_vfx_repacked",
+  "generator": "built-in image_gen",
+  "assets": [
+    {
+      "id": "a_hit",
+      "file": "rengar_fx_a_hit.png",
+      "source_prompt_number": 1,
+      "frame_count": 4,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        14,
+        14
+      ],
+      "requested_cell_size": [
+        224,
+        224
+      ],
+      "actual_cell_size": [
+        630,
+        630
+      ],
+      "image_size": [
+        2520,
+        630
+      ],
+      "raw_file": "raw/rengar_fx_a_hit.png",
+      "raw_image_size": [
+        1254,
+        1254
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_a_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            630,
+            630
+          ],
+          "source_rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_paste_offset": [
+            1,
+            1
+          ],
+          "anchor_hint": [
+            314.5,
+            314.5
+          ],
+          "visible_bbox": [
+            173,
+            166,
+            291,
+            304
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            630,
+            0,
+            630,
+            630
+          ],
+          "source_rect": [
+            627,
+            0,
+            627,
+            627
+          ],
+          "source_paste_offset": [
+            1,
+            1
+          ],
+          "anchor_hint": [
+            314.5,
+            314.5
+          ],
+          "visible_bbox": [
+            37,
+            79,
+            537,
+            500
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1260,
+            0,
+            630,
+            630
+          ],
+          "source_rect": [
+            0,
+            627,
+            627,
+            627
+          ],
+          "source_paste_offset": [
+            1,
+            1
+          ],
+          "anchor_hint": [
+            314.5,
+            314.5
+          ],
+          "visible_bbox": [
+            70,
+            76,
+            495,
+            467
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1890,
+            0,
+            630,
+            630
+          ],
+          "source_rect": [
+            627,
+            627,
+            627,
+            627
+          ],
+          "source_paste_offset": [
+            1,
+            1
+          ],
+          "anchor_hint": [
+            314.5,
+            314.5
+          ],
+          "visible_bbox": [
+            87,
+            96,
+            461,
+            443
+          ]
+        }
+      ],
+      "sha256": "0f373e469c8711658fe0e919c73895960b02267e1a3ac888bbea5575fa7bf135",
+      "raw_sha256": "0a19c6f171812605726bc39c27420c9775b05508fbf35486344d68408fdde2ce",
+      "quality_notes": "X 划痕和明暗阶段完整；火星布局为近似对称。"
+    },
+    {
+      "id": "l_dust",
+      "file": "rengar_fx_l_dust.png",
+      "source_prompt_number": 2,
+      "frame_count": 4,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        22,
+        8
+      ],
+      "requested_cell_size": [
+        352,
+        128
+      ],
+      "actual_cell_size": [
+        1056,
+        384
+      ],
+      "image_size": [
+        4224,
+        384
+      ],
+      "raw_file": "raw/rengar_fx_l_dust.png",
+      "raw_image_size": [
+        2079,
+        756
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_l_dust`（不跟随，画在人物下面；起跳和落地各一次）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            1056,
+            384
+          ],
+          "source_rect": [
+            2,
+            2,
+            1035,
+            374
+          ],
+          "source_paste_offset": [
+            10,
+            5
+          ],
+          "anchor_hint": [
+            527.5,
+            192.0
+          ],
+          "visible_bbox": [
+            414,
+            160,
+            280,
+            173
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            1056,
+            0,
+            1056,
+            384
+          ],
+          "source_rect": [
+            1041,
+            2,
+            1036,
+            374
+          ],
+          "source_paste_offset": [
+            10,
+            5
+          ],
+          "anchor_hint": [
+            528.0,
+            192.0
+          ],
+          "visible_bbox": [
+            128,
+            138,
+            801,
+            220
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            2112,
+            0,
+            1056,
+            384
+          ],
+          "source_rect": [
+            2,
+            380,
+            1035,
+            374
+          ],
+          "source_paste_offset": [
+            10,
+            5
+          ],
+          "anchor_hint": [
+            527.5,
+            192.0
+          ],
+          "visible_bbox": [
+            68,
+            96,
+            945,
+            240
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            3168,
+            0,
+            1056,
+            384
+          ],
+          "source_rect": [
+            1041,
+            380,
+            1036,
+            374
+          ],
+          "source_paste_offset": [
+            10,
+            5
+          ],
+          "anchor_hint": [
+            528.0,
+            192.0
+          ],
+          "visible_bbox": [
+            83,
+            112,
+            873,
+            207
+          ]
+        }
+      ],
+      "sha256": "07ce421da40fb2280187291839694a572323782d12624eb50717251ccf1f2718",
+      "raw_sha256": "6514fdf2633e90abf4de6b5acfca53351c6c5e6d4ce2f2e6ffdd4865ef41a8b2",
+      "quality_notes": "扁椭圆尘环完整；切片内缩 2 像素去掉原稿分格细线；灰尘团的对称和色阶未严格量化。"
+    },
+    {
+      "id": "l_hit",
+      "file": "rengar_fx_l_hit.png",
+      "source_prompt_number": 3,
+      "frame_count": 5,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        18,
+        20
+      ],
+      "requested_cell_size": [
+        288,
+        320
+      ],
+      "actual_cell_size": [
+        486,
+        540
+      ],
+      "image_size": [
+        2430,
+        540
+      ],
+      "raw_file": "raw/rengar_fx_l_hit.png",
+      "raw_image_size": [
+        1457,
+        1080
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_l_hit`（跟随，画在人物上面；被动飞扑落地那一下）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            486,
+            540
+          ],
+          "source_rect": [
+            0,
+            0,
+            485,
+            540
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            242.5,
+            270.0
+          ],
+          "visible_bbox": [
+            99,
+            110,
+            288,
+            430
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            486,
+            0,
+            486,
+            540
+          ],
+          "source_rect": [
+            485,
+            0,
+            486,
+            540
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            243.0,
+            270.0
+          ],
+          "visible_bbox": [
+            1,
+            0,
+            485,
+            540
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            972,
+            0,
+            486,
+            540
+          ],
+          "source_rect": [
+            971,
+            0,
+            486,
+            540
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            243.0,
+            270.0
+          ],
+          "visible_bbox": [
+            0,
+            18,
+            469,
+            522
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1458,
+            0,
+            486,
+            540
+          ],
+          "source_rect": [
+            0,
+            540,
+            485,
+            540
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            242.5,
+            270.0
+          ],
+          "visible_bbox": [
+            34,
+            0,
+            419,
+            502
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1944,
+            0,
+            486,
+            540
+          ],
+          "source_rect": [
+            485,
+            540,
+            486,
+            540
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            243.0,
+            270.0
+          ],
+          "visible_bbox": [
+            1,
+            0,
+            485,
+            540
+          ]
+        }
+      ],
+      "sha256": "c7ecd2ddb1c53f356899e5eac15e7150239bdc17e4a1c7d7a665c9df2df6349f",
+      "raw_sha256": "ad756c672a189f874b41bfa52d3843586c4f0dc8d7b10a99f57de03af81c9a2b",
+      "quality_notes": "三道向下爪痕完整；火星略不对称，末帧仍保留少量较亮碎光。"
+    },
+    {
+      "id": "p_ready",
+      "file": "rengar_fx_p_ready.png",
+      "source_prompt_number": 4,
+      "frame_count": 4,
+      "playback": "loop",
+      "target_game_cell_size": [
+        10,
+        6
+      ],
+      "requested_cell_size": [
+        160,
+        96
+      ],
+      "actual_cell_size": [
+        810,
+        486
+      ],
+      "image_size": [
+        3240,
+        486
+      ],
+      "raw_file": "raw/rengar_fx_p_ready.png",
+      "raw_image_size": [
+        1619,
+        972
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_buffs `league_rengar_p_ready`（循环，跟随；下一次普攻会飞扑的时候一直在）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            810,
+            486
+          ],
+          "source_rect": [
+            0,
+            0,
+            809,
+            486
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            404.5,
+            243.0
+          ],
+          "visible_bbox": [
+            202,
+            189,
+            434,
+            196
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            810,
+            0,
+            810,
+            486
+          ],
+          "source_rect": [
+            809,
+            0,
+            810,
+            486
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            405.0,
+            243.0
+          ],
+          "visible_bbox": [
+            158,
+            189,
+            469,
+            196
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1620,
+            0,
+            810,
+            486
+          ],
+          "source_rect": [
+            0,
+            486,
+            809,
+            486
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            404.5,
+            243.0
+          ],
+          "visible_bbox": [
+            214,
+            132,
+            410,
+            195
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2430,
+            0,
+            810,
+            486
+          ],
+          "source_rect": [
+            809,
+            486,
+            810,
+            486
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            405.0,
+            243.0
+          ],
+          "visible_bbox": [
+            185,
+            132,
+            414,
+            195
+          ]
+        }
+      ],
+      "sha256": "fa3195653eea122537413d1225fac993923578217d449de78d6cf70226f0f39e",
+      "raw_sha256": "ef94c3a1ba2021615df0056856faa60f6400f0c323db0bac9df7ec5c758f551d",
+      "quality_notes": "四帧金眼脉动；按英文提示词居中，未按中文描述移到格子上半部。"
+    },
+    {
+      "id": "f_stack",
+      "file": "rengar_fx_f_stack.png",
+      "source_prompt_number": 5,
+      "frame_count": 4,
+      "playback": "states",
+      "target_game_cell_size": [
+        14,
+        5
+      ],
+      "requested_cell_size": [
+        224,
+        80
+      ],
+      "actual_cell_size": [
+        1050,
+        375
+      ],
+      "image_size": [
+        4200,
+        375
+      ],
+      "raw_file": "raw/rengar_fx_f_stack.png",
+      "raw_image_size": [
+        2098,
+        750
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_buffs `league_rengar_f1`…`f4`（每层用一格，跟随，在头顶）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            1050,
+            375
+          ],
+          "source_rect": [
+            0,
+            0,
+            1049,
+            375
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            524.5,
+            187.5
+          ],
+          "visible_bbox": [
+            371,
+            131,
+            359,
+            131
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            1050,
+            0,
+            1050,
+            375
+          ],
+          "source_rect": [
+            1049,
+            0,
+            1049,
+            375
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            524.5,
+            187.5
+          ],
+          "visible_bbox": [
+            317,
+            131,
+            359,
+            131
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            2100,
+            0,
+            1050,
+            375
+          ],
+          "source_rect": [
+            0,
+            375,
+            1049,
+            375
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            524.5,
+            187.5
+          ],
+          "visible_bbox": [
+            371,
+            126,
+            359,
+            131
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            3150,
+            0,
+            1050,
+            375
+          ],
+          "source_rect": [
+            1049,
+            375,
+            1049,
+            375
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            524.5,
+            187.5
+          ],
+          "visible_bbox": [
+            249,
+            60,
+            495,
+            236
+          ]
+        }
+      ],
+      "sha256": "cb7ccc37a862901faf0818ddb47805bed2d769c48e67811c1d39f31de77beaab",
+      "raw_sha256": "ba1b11ecb015e5972d37f25060d6a1f18083bbdedb327041571a121f458322ff",
+      "quality_notes": "四个静态状态正确显示 1/2/3/4 颗亮牙；按逐颗点亮规则，前三状态的亮色分布不左右对称。"
+    },
+    {
+      "id": "q_slam",
+      "file": "rengar_fx_q_slam.png",
+      "source_prompt_number": 6,
+      "frame_count": 5,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        24,
+        12
+      ],
+      "requested_cell_size": [
+        384,
+        192
+      ],
+      "actual_cell_size": [
+        744,
+        372
+      ],
+      "image_size": [
+        3720,
+        372
+      ],
+      "raw_file": "raw/rengar_fx_q_slam.png",
+      "raw_image_size": [
+        2172,
+        724
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_q_slam`（不跟随，画在人物下面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            744,
+            372
+          ],
+          "source_rect": [
+            0,
+            0,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            10,
+            5
+          ],
+          "anchor_hint": [
+            372.0,
+            186.0
+          ],
+          "visible_bbox": [
+            235,
+            84,
+            287,
+            241
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            744,
+            0,
+            744,
+            372
+          ],
+          "source_rect": [
+            724,
+            0,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            10,
+            5
+          ],
+          "anchor_hint": [
+            372.0,
+            186.0
+          ],
+          "visible_bbox": [
+            12,
+            5,
+            720,
+            331
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1488,
+            0,
+            744,
+            372
+          ],
+          "source_rect": [
+            1448,
+            0,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            10,
+            5
+          ],
+          "anchor_hint": [
+            372.0,
+            186.0
+          ],
+          "visible_bbox": [
+            18,
+            85,
+            704,
+            265
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2232,
+            0,
+            744,
+            372
+          ],
+          "source_rect": [
+            0,
+            362,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            10,
+            5
+          ],
+          "anchor_hint": [
+            372.0,
+            186.0
+          ],
+          "visible_bbox": [
+            33,
+            74,
+            677,
+            226
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            2976,
+            0,
+            744,
+            372
+          ],
+          "source_rect": [
+            724,
+            362,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            10,
+            5
+          ],
+          "anchor_hint": [
+            372.0,
+            186.0
+          ],
+          "visible_bbox": [
+            12,
+            126,
+            641,
+            168
+          ]
+        }
+      ],
+      "sha256": "6d13ca75f70ee3ffc39ae9ea9434f211c45c3ce09f9ceaa8e01422dd34d2e4e0",
+      "raw_sha256": "f6135ee25613efb03f494f72340261a877d954d92782c75b854a56e1e97e9206",
+      "quality_notes": "闪光、扩环、碎石和消退五阶段完整；末帧裂纹和碎石比“仅淡裂纹”更丰富。"
+    },
+    {
+      "id": "q_rip",
+      "file": "rengar_fx_q_rip.png",
+      "source_prompt_number": 7,
+      "frame_count": 4,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        12,
+        20
+      ],
+      "requested_cell_size": [
+        192,
+        320
+      ],
+      "actual_cell_size": [
+        540,
+        900
+      ],
+      "image_size": [
+        2160,
+        900
+      ],
+      "raw_file": "raw/rengar_fx_q_rip.png",
+      "raw_image_size": [
+        971,
+        1619
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_q_rip`（跟随，画在人物上面；Q 的第二下）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            540,
+            900
+          ],
+          "source_rect": [
+            0,
+            0,
+            485,
+            768
+          ],
+          "source_paste_offset": [
+            27,
+            45
+          ],
+          "anchor_hint": [
+            269.5,
+            449.5
+          ],
+          "visible_bbox": [
+            124,
+            523,
+            318,
+            267
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            540,
+            0,
+            540,
+            900
+          ],
+          "source_rect": [
+            485,
+            0,
+            486,
+            768
+          ],
+          "source_paste_offset": [
+            27,
+            45
+          ],
+          "anchor_hint": [
+            270.0,
+            449.5
+          ],
+          "visible_bbox": [
+            102,
+            68,
+            297,
+            722
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1080,
+            0,
+            540,
+            900
+          ],
+          "source_rect": [
+            0,
+            768,
+            485,
+            851
+          ],
+          "source_paste_offset": [
+            27,
+            4
+          ],
+          "anchor_hint": [
+            269.5,
+            450.0
+          ],
+          "visible_bbox": [
+            109,
+            22,
+            349,
+            787
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1620,
+            0,
+            540,
+            900
+          ],
+          "source_rect": [
+            485,
+            768,
+            486,
+            851
+          ],
+          "source_paste_offset": [
+            27,
+            4
+          ],
+          "anchor_hint": [
+            270.0,
+            450.0
+          ],
+          "visible_bbox": [
+            118,
+            65,
+            266,
+            744
+          ]
+        }
+      ],
+      "sha256": "28d2804c3e06827f966f3142dfc556f7a3f524525a3dd8fac6a885139be3a210",
+      "raw_sha256": "604ee794fa12a5628b54353453e88a0d2cf770bc59e5ce871bfd2536e4eeb05d",
+      "quality_notes": "已生图修正为直立刀光和对称碎光；尾帧仍偏亮、偏粗，运行时可追加淡出。"
+    },
+    {
+      "id": "q_buff",
+      "file": "rengar_fx_q_buff.png",
+      "source_prompt_number": 8,
+      "frame_count": 4,
+      "playback": "loop",
+      "target_game_cell_size": [
+        22,
+        8
+      ],
+      "requested_cell_size": [
+        352,
+        128
+      ],
+      "actual_cell_size": [
+        1056,
+        384
+      ],
+      "image_size": [
+        4224,
+        384
+      ],
+      "raw_file": "raw/rengar_fx_q_buff.png",
+      "raw_image_size": [
+        2079,
+        756
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_buffs `league_rengar_q_buff`（循环，跟随，画在人物下面；Q 之后 3 秒攻速）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            1056,
+            384
+          ],
+          "source_rect": [
+            0,
+            0,
+            1039,
+            378
+          ],
+          "source_paste_offset": [
+            8,
+            3
+          ],
+          "anchor_hint": [
+            527.5,
+            192.0
+          ],
+          "visible_bbox": [
+            168,
+            130,
+            727,
+            197
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            1056,
+            0,
+            1056,
+            384
+          ],
+          "source_rect": [
+            1039,
+            0,
+            1040,
+            378
+          ],
+          "source_paste_offset": [
+            8,
+            3
+          ],
+          "anchor_hint": [
+            528.0,
+            192.0
+          ],
+          "visible_bbox": [
+            161,
+            124,
+            732,
+            203
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            2112,
+            0,
+            1056,
+            384
+          ],
+          "source_rect": [
+            0,
+            378,
+            1039,
+            378
+          ],
+          "source_paste_offset": [
+            8,
+            3
+          ],
+          "anchor_hint": [
+            527.5,
+            192.0
+          ],
+          "visible_bbox": [
+            163,
+            111,
+            732,
+            202
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            3168,
+            0,
+            1056,
+            384
+          ],
+          "source_rect": [
+            1039,
+            378,
+            1040,
+            378
+          ],
+          "source_paste_offset": [
+            8,
+            3
+          ],
+          "anchor_hint": [
+            528.0,
+            192.0
+          ],
+          "visible_bbox": [
+            162,
+            111,
+            731,
+            203
+          ]
+        }
+      ],
+      "sha256": "f6d79f6be1bd1a719e2171c1dbd36910de28da7ed41cd7b5d90627111d854c4c",
+      "raw_sha256": "39308ab444c82983bcbbbee11284eceb2e7660a8a164dac14951cebf27d2d9de",
+      "quality_notes": "已生图修正为六道刀光和透明内部；循环主要表现脉动，未严格完成每帧旋转六分之一圈。"
+    },
+    {
+      "id": "q_emp",
+      "file": "rengar_fx_q_emp.png",
+      "source_prompt_number": 9,
+      "frame_count": 4,
+      "playback": "loop",
+      "target_game_cell_size": [
+        28,
+        30
+      ],
+      "requested_cell_size": [
+        448,
+        480
+      ],
+      "actual_cell_size": [
+        616,
+        660
+      ],
+      "image_size": [
+        2464,
+        660
+      ],
+      "raw_file": "raw/rengar_fx_q_emp.png",
+      "raw_image_size": [
+        1212,
+        1298
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_buffs `league_rengar_q_emp`（循环，跟随，画在人物上面；强化 Q 的攻速期间）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            616,
+            660
+          ],
+          "source_rect": [
+            0,
+            0,
+            606,
+            649
+          ],
+          "source_paste_offset": [
+            5,
+            5
+          ],
+          "anchor_hint": [
+            308.0,
+            589.1
+          ],
+          "visible_bbox": [
+            87,
+            68,
+            471,
+            531
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            616,
+            0,
+            616,
+            660
+          ],
+          "source_rect": [
+            606,
+            0,
+            606,
+            649
+          ],
+          "source_paste_offset": [
+            5,
+            5
+          ],
+          "anchor_hint": [
+            308.0,
+            589.1
+          ],
+          "visible_bbox": [
+            52,
+            53,
+            487,
+            546
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1232,
+            0,
+            616,
+            660
+          ],
+          "source_rect": [
+            0,
+            649,
+            606,
+            649
+          ],
+          "source_paste_offset": [
+            5,
+            5
+          ],
+          "anchor_hint": [
+            308.0,
+            589.1
+          ],
+          "visible_bbox": [
+            80,
+            56,
+            488,
+            515
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1848,
+            0,
+            616,
+            660
+          ],
+          "source_rect": [
+            606,
+            649,
+            606,
+            649
+          ],
+          "source_paste_offset": [
+            5,
+            5
+          ],
+          "anchor_hint": [
+            308.0,
+            589.1
+          ],
+          "visible_bbox": [
+            51,
+            48,
+            494,
+            520
+          ]
+        }
+      ],
+      "sha256": "48f2b9a560ccb6878e670847344021af322be7818ec0a8ae3a55d396bf2015db",
+      "raw_sha256": "ddfb6866f7edcf54188aa98716174dda65ac43b1e3cb4c1cb5722010ed6c228b",
+      "quality_notes": "红橙火光的中部透明；轮廓为上端开口的火焰圈，火舌不是逐像素严格对称。"
+    },
+    {
+      "id": "w_roar",
+      "file": "rengar_fx_w_roar.png",
+      "source_prompt_number": 10,
+      "frame_count": 6,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        40,
+        20
+      ],
+      "requested_cell_size": [
+        320,
+        160
+      ],
+      "actual_cell_size": [
+        760,
+        380
+      ],
+      "image_size": [
+        4560,
+        380
+      ],
+      "raw_file": "raw/rengar_fx_w_roar.png",
+      "raw_image_size": [
+        2172,
+        724
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_w_roar`（不跟随，画在人物下面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            760,
+            380
+          ],
+          "source_rect": [
+            0,
+            0,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            18,
+            9
+          ],
+          "anchor_hint": [
+            380.0,
+            190.0
+          ],
+          "visible_bbox": [
+            263,
+            141,
+            235,
+            117
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            760,
+            0,
+            760,
+            380
+          ],
+          "source_rect": [
+            724,
+            0,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            18,
+            9
+          ],
+          "anchor_hint": [
+            380.0,
+            190.0
+          ],
+          "visible_bbox": [
+            113,
+            81,
+            535,
+            236
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1520,
+            0,
+            760,
+            380
+          ],
+          "source_rect": [
+            1448,
+            0,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            18,
+            9
+          ],
+          "anchor_hint": [
+            380.0,
+            190.0
+          ],
+          "visible_bbox": [
+            66,
+            62,
+            626,
+            274
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2280,
+            0,
+            760,
+            380
+          ],
+          "source_rect": [
+            0,
+            362,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            18,
+            9
+          ],
+          "anchor_hint": [
+            380.0,
+            190.0
+          ],
+          "visible_bbox": [
+            34,
+            26,
+            694,
+            300
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            3040,
+            0,
+            760,
+            380
+          ],
+          "source_rect": [
+            724,
+            362,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            18,
+            9
+          ],
+          "anchor_hint": [
+            380.0,
+            190.0
+          ],
+          "visible_bbox": [
+            63,
+            41,
+            634,
+            272
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            3800,
+            0,
+            760,
+            380
+          ],
+          "source_rect": [
+            1448,
+            362,
+            724,
+            362
+          ],
+          "source_paste_offset": [
+            18,
+            9
+          ],
+          "anchor_hint": [
+            380.0,
+            190.0
+          ],
+          "visible_bbox": [
+            70,
+            72,
+            619,
+            208
+          ]
+        }
+      ],
+      "sha256": "01c8459e8c4ada1b431902a94391ac24f3a2c6920c7d5c16229938f05d9dc674",
+      "raw_sha256": "602ba08c8a208f4e91d4a7ff76fbf0556c66b7fa04871ff515557acb8699578c",
+      "quality_notes": "六帧扩散双椭圆完整；峰值两侧留白较小，波环比例为近似 2:1。"
+    },
+    {
+      "id": "w_heal",
+      "file": "rengar_fx_w_heal.png",
+      "source_prompt_number": 11,
+      "frame_count": 5,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        18,
+        24
+      ],
+      "requested_cell_size": [
+        288,
+        384
+      ],
+      "actual_cell_size": [
+        450,
+        600
+      ],
+      "image_size": [
+        2250,
+        600
+      ],
+      "raw_file": "raw/rengar_fx_w_heal.png",
+      "raw_image_size": [
+        1330,
+        1182
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_w_heal`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            450,
+            600
+          ],
+          "source_rect": [
+            0,
+            0,
+            443,
+            591
+          ],
+          "source_paste_offset": [
+            3,
+            4
+          ],
+          "anchor_hint": [
+            224.5,
+            299.5
+          ],
+          "visible_bbox": [
+            76,
+            184,
+            298,
+            274
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            450,
+            0,
+            450,
+            600
+          ],
+          "source_rect": [
+            443,
+            0,
+            443,
+            591
+          ],
+          "source_paste_offset": [
+            3,
+            4
+          ],
+          "anchor_hint": [
+            224.5,
+            299.5
+          ],
+          "visible_bbox": [
+            74,
+            102,
+            301,
+            434
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            900,
+            0,
+            450,
+            600
+          ],
+          "source_rect": [
+            886,
+            0,
+            444,
+            591
+          ],
+          "source_paste_offset": [
+            3,
+            4
+          ],
+          "anchor_hint": [
+            225.0,
+            299.5
+          ],
+          "visible_bbox": [
+            70,
+            69,
+            293,
+            446
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1350,
+            0,
+            450,
+            600
+          ],
+          "source_rect": [
+            0,
+            591,
+            443,
+            591
+          ],
+          "source_paste_offset": [
+            3,
+            4
+          ],
+          "anchor_hint": [
+            224.5,
+            299.5
+          ],
+          "visible_bbox": [
+            108,
+            56,
+            243,
+            414
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1800,
+            0,
+            450,
+            600
+          ],
+          "source_rect": [
+            443,
+            591,
+            443,
+            591
+          ],
+          "source_paste_offset": [
+            3,
+            4
+          ],
+          "anchor_hint": [
+            224.5,
+            299.5
+          ],
+          "visible_bbox": [
+            121,
+            53,
+            206,
+            155
+          ]
+        }
+      ],
+      "sha256": "951bb7f5bba98edf5e503a4d207231e9fdf1c6203e84331631b2de813b1753e0",
+      "raw_sha256": "aef1a7849d05105cdeacd889371f236a15b01ba3be735eb47c4e16a3ffd025af",
+      "quality_notes": "绿白光点、十字与上升消退完整；左右光点为近似对称。"
+    },
+    {
+      "id": "w_emp",
+      "file": "rengar_fx_w_emp.png",
+      "source_prompt_number": 12,
+      "frame_count": 4,
+      "playback": "loop",
+      "target_game_cell_size": [
+        26,
+        30
+      ],
+      "requested_cell_size": [
+        416,
+        480
+      ],
+      "actual_cell_size": [
+        598,
+        690
+      ],
+      "image_size": [
+        2392,
+        690
+      ],
+      "raw_file": "raw/rengar_fx_w_emp.png",
+      "raw_image_size": [
+        1167,
+        1347
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_buffs `league_rengar_w_emp`（循环，跟随，画在人物上面；1.5 秒）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            598,
+            690
+          ],
+          "source_rect": [
+            0,
+            0,
+            583,
+            673
+          ],
+          "source_paste_offset": [
+            7,
+            8
+          ],
+          "anchor_hint": [
+            298.5,
+            613.7
+          ],
+          "visible_bbox": [
+            67,
+            83,
+            472,
+            533
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            598,
+            0,
+            598,
+            690
+          ],
+          "source_rect": [
+            583,
+            0,
+            584,
+            673
+          ],
+          "source_paste_offset": [
+            7,
+            8
+          ],
+          "anchor_hint": [
+            299.0,
+            613.7
+          ],
+          "visible_bbox": [
+            34,
+            58,
+            505,
+            558
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1196,
+            0,
+            598,
+            690
+          ],
+          "source_rect": [
+            0,
+            673,
+            583,
+            674
+          ],
+          "source_paste_offset": [
+            7,
+            8
+          ],
+          "anchor_hint": [
+            298.5,
+            614.6
+          ],
+          "visible_bbox": [
+            70,
+            83,
+            466,
+            529
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1794,
+            0,
+            598,
+            690
+          ],
+          "source_rect": [
+            583,
+            673,
+            584,
+            674
+          ],
+          "source_paste_offset": [
+            7,
+            8
+          ],
+          "anchor_hint": [
+            299.0,
+            614.6
+          ],
+          "visible_bbox": [
+            59,
+            79,
+            473,
+            541
+          ]
+        }
+      ],
+      "sha256": "ebb026fd72b3e544e3734283fe96d7bce46e65d9b68a5132ca6bd1fa19104fc3",
+      "raw_sha256": "d6d6813cca96955e6f0a598b9a4a7b21e21ef36c0dceefc012250488fda42c58",
+      "quality_notes": "中部透明、红金保护圈完整；链条断片表现为金色短条，辨识度较弱。"
+    },
+    {
+      "id": "e_bola",
+      "file": "rengar_fx_e_bola.png",
+      "source_prompt_number": 13,
+      "frame_count": 4,
+      "playback": "loop",
+      "target_game_cell_size": [
+        12,
+        8
+      ],
+      "requested_cell_size": [
+        192,
+        128
+      ],
+      "actual_cell_size": [
+        768,
+        512
+      ],
+      "image_size": [
+        3072,
+        512
+      ],
+      "raw_file": "raw/rengar_fx_e_bola.png",
+      "raw_image_size": [
+        1536,
+        1024
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_projectiles `league_rengar_e_bola`（循环，朝飞行方向转）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "source_rect": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            645.12,
+            256.0
+          ],
+          "visible_bbox": [
+            129,
+            149,
+            577,
+            232
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "source_rect": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            645.12,
+            256.0
+          ],
+          "visible_bbox": [
+            196,
+            74,
+            498,
+            380
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            512
+          ],
+          "source_rect": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            645.12,
+            256.0
+          ],
+          "visible_bbox": [
+            137,
+            121,
+            573,
+            247
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            512
+          ],
+          "source_rect": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            645.12,
+            256.0
+          ],
+          "visible_bbox": [
+            201,
+            58,
+            493,
+            387
+          ]
+        }
+      ],
+      "sha256": "a004e5c0fa6de172cc059389d4d7f5d902fda27b310cbfe636ce1d99845765bf",
+      "raw_sha256": "fc57742e59a54c3143afe789793341487a06e3c63f6643a2bd30d72dc185d1f6",
+      "quality_notes": "朝右飞行、左侧白金尾迹，已生图简化为硬边；四帧未严格形成等角度四分之一圈旋转。"
+    },
+    {
+      "id": "e_slow",
+      "file": "rengar_fx_e_slow.png",
+      "source_prompt_number": 14,
+      "frame_count": 4,
+      "playback": "loop",
+      "target_game_cell_size": [
+        18,
+        8
+      ],
+      "requested_cell_size": [
+        288,
+        128
+      ],
+      "actual_cell_size": [
+        954,
+        424
+      ],
+      "image_size": [
+        3816,
+        424
+      ],
+      "raw_file": "raw/rengar_fx_e_slow.png",
+      "raw_image_size": [
+        1882,
+        836
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_buffs `league_rengar_e_slow`（循环，跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            954,
+            424
+          ],
+          "source_rect": [
+            0,
+            0,
+            941,
+            418
+          ],
+          "source_paste_offset": [
+            6,
+            3
+          ],
+          "anchor_hint": [
+            476.5,
+            212.0
+          ],
+          "visible_bbox": [
+            96,
+            149,
+            763,
+            230
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            954,
+            0,
+            954,
+            424
+          ],
+          "source_rect": [
+            941,
+            0,
+            941,
+            418
+          ],
+          "source_paste_offset": [
+            6,
+            3
+          ],
+          "anchor_hint": [
+            476.5,
+            212.0
+          ],
+          "visible_bbox": [
+            94,
+            149,
+            764,
+            188
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1908,
+            0,
+            954,
+            424
+          ],
+          "source_rect": [
+            0,
+            418,
+            941,
+            418
+          ],
+          "source_paste_offset": [
+            6,
+            3
+          ],
+          "anchor_hint": [
+            476.5,
+            212.0
+          ],
+          "visible_bbox": [
+            96,
+            97,
+            763,
+            201
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2862,
+            0,
+            954,
+            424
+          ],
+          "source_rect": [
+            941,
+            418,
+            941,
+            418
+          ],
+          "source_paste_offset": [
+            6,
+            3
+          ],
+          "anchor_hint": [
+            476.5,
+            212.0
+          ],
+          "visible_bbox": [
+            94,
+            148,
+            764,
+            150
+          ]
+        }
+      ],
+      "sha256": "730c452458068a29cefea30613815f692ff514a10a606b8527bd56aced16840d",
+      "raw_sha256": "6c63b31018047bf5aa5382ffc62de338372cedd2629d73d88c7f7890aa8a182d",
+      "quality_notes": "已生图修正为两端同高、成对摆动；幅度为近似一格。"
+    },
+    {
+      "id": "e_root",
+      "file": "rengar_fx_e_root.png",
+      "source_prompt_number": 15,
+      "frame_count": 4,
+      "playback": "loop",
+      "target_game_cell_size": [
+        20,
+        12
+      ],
+      "requested_cell_size": [
+        320,
+        192
+      ],
+      "actual_cell_size": [
+        820,
+        492
+      ],
+      "image_size": [
+        3280,
+        492
+      ],
+      "raw_file": "raw/rengar_fx_e_root.png",
+      "raw_image_size": [
+        1619,
+        971
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_buffs `league_rengar_e_root`（循环，跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            820,
+            492
+          ],
+          "source_rect": [
+            0,
+            0,
+            809,
+            485
+          ],
+          "source_paste_offset": [
+            5,
+            3
+          ],
+          "anchor_hint": [
+            409.5,
+            326.333
+          ],
+          "visible_bbox": [
+            115,
+            146,
+            617,
+            290
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            820,
+            0,
+            820,
+            492
+          ],
+          "source_rect": [
+            809,
+            0,
+            810,
+            485
+          ],
+          "source_paste_offset": [
+            5,
+            3
+          ],
+          "anchor_hint": [
+            410.0,
+            326.333
+          ],
+          "visible_bbox": [
+            84,
+            117,
+            621,
+            321
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1640,
+            0,
+            820,
+            492
+          ],
+          "source_rect": [
+            0,
+            485,
+            809,
+            486
+          ],
+          "source_paste_offset": [
+            5,
+            3
+          ],
+          "anchor_hint": [
+            409.5,
+            327.0
+          ],
+          "visible_bbox": [
+            115,
+            78,
+            617,
+            298
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2460,
+            0,
+            820,
+            492
+          ],
+          "source_rect": [
+            809,
+            485,
+            810,
+            486
+          ],
+          "source_paste_offset": [
+            5,
+            3
+          ],
+          "anchor_hint": [
+            410.0,
+            327.0
+          ],
+          "visible_bbox": [
+            85,
+            68,
+            620,
+            312
+          ]
+        }
+      ],
+      "sha256": "6c7f94bdc3742ee503bd934db86806cf0bb98a8229c6dc9b2356bfc04cb942eb",
+      "raw_sha256": "d2abec1a5782a50c488545c29ed935447016e167d93f4c206eb7c1f172014fa5",
+      "quality_notes": "两道红橙绳圈、地环和两侧骨锤完整；少量点光不逐像素镜像。"
+    },
+    {
+      "id": "r_smoke",
+      "file": "rengar_fx_r_smoke.png",
+      "source_prompt_number": 16,
+      "frame_count": 6,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        28,
+        24
+      ],
+      "requested_cell_size": [
+        448,
+        384
+      ],
+      "actual_cell_size": [
+        616,
+        528
+      ],
+      "image_size": [
+        3696,
+        528
+      ],
+      "raw_file": "raw/rengar_fx_r_smoke.png",
+      "raw_image_size": [
+        1659,
+        948
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_r_smoke`（不跟随，画在人物上面；开 R 隐身和扑出去的时候）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            616,
+            528
+          ],
+          "source_rect": [
+            0,
+            0,
+            553,
+            474
+          ],
+          "source_paste_offset": [
+            31,
+            27
+          ],
+          "anchor_hint": [
+            307.5,
+            461.5
+          ],
+          "visible_bbox": [
+            215,
+            246,
+            183,
+            165
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            616,
+            0,
+            616,
+            528
+          ],
+          "source_rect": [
+            553,
+            0,
+            532,
+            474
+          ],
+          "source_paste_offset": [
+            31,
+            27
+          ],
+          "anchor_hint": [
+            307.5,
+            461.5
+          ],
+          "visible_bbox": [
+            87,
+            172,
+            400,
+            295
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1232,
+            0,
+            616,
+            528
+          ],
+          "source_rect": [
+            1085,
+            0,
+            574,
+            474
+          ],
+          "source_paste_offset": [
+            10,
+            27
+          ],
+          "anchor_hint": [
+            307.5,
+            461.5
+          ],
+          "visible_bbox": [
+            25,
+            131,
+            525,
+            351
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1848,
+            0,
+            616,
+            528
+          ],
+          "source_rect": [
+            0,
+            474,
+            553,
+            474
+          ],
+          "source_paste_offset": [
+            31,
+            27
+          ],
+          "anchor_hint": [
+            307.5,
+            461.5
+          ],
+          "visible_bbox": [
+            82,
+            83,
+            484,
+            336
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            2464,
+            0,
+            616,
+            528
+          ],
+          "source_rect": [
+            553,
+            474,
+            553,
+            474
+          ],
+          "source_paste_offset": [
+            31,
+            27
+          ],
+          "anchor_hint": [
+            307.5,
+            461.5
+          ],
+          "visible_bbox": [
+            78,
+            116,
+            427,
+            299
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            3080,
+            0,
+            616,
+            528
+          ],
+          "source_rect": [
+            1106,
+            474,
+            553,
+            474
+          ],
+          "source_paste_offset": [
+            31,
+            27
+          ],
+          "anchor_hint": [
+            307.5,
+            461.5
+          ],
+          "visible_bbox": [
+            119,
+            144,
+            347,
+            248
+          ]
+        }
+      ],
+      "sha256": "bf3b5b494446de4f3b59a943c0a75f223c7349e5dccc3fe396aa43ae65ef4f8e",
+      "raw_sha256": "adcd53b0e5554b10feb8aa5b889303e1a2f11a9bf516bc820f12e3f0566d3c93",
+      "quality_notes": "六阶段蓝灰烟雾完整；峰值左沿越过名义分格少许，切片区域已扩展以保留完整云团。"
+    },
+    {
+      "id": "r_mark",
+      "file": "rengar_fx_r_mark.png",
+      "source_prompt_number": 17,
+      "frame_count": 4,
+      "playback": "loop",
+      "target_game_cell_size": [
+        12,
+        8
+      ],
+      "requested_cell_size": [
+        192,
+        128
+      ],
+      "actual_cell_size": [
+        768,
+        512
+      ],
+      "image_size": [
+        3072,
+        512
+      ],
+      "raw_file": "raw/rengar_fx_r_mark.png",
+      "raw_image_size": [
+        1536,
+        1024
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "binding_from_input": "view_buffs `league_rengar_r_mark`（循环，跟随，在目标头顶）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "source_rect": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            384.0,
+            256.0
+          ],
+          "visible_bbox": [
+            171,
+            182,
+            428,
+            181
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "source_rect": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            384.0,
+            256.0
+          ],
+          "visible_bbox": [
+            127,
+            162,
+            515,
+            222
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            512
+          ],
+          "source_rect": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            384.0,
+            256.0
+          ],
+          "visible_bbox": [
+            89,
+            89,
+            592,
+            294
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            512
+          ],
+          "source_rect": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "source_paste_offset": [
+            0,
+            0
+          ],
+          "anchor_hint": [
+            384.0,
+            256.0
+          ],
+          "visible_bbox": [
+            131,
+            129,
+            507,
+            214
+          ]
+        }
+      ],
+      "sha256": "1ceee47c0f3681482b585992840e56e9f1cacc481ce337ddb77f80644234332a",
+      "raw_sha256": "7bd5f598cd32efc116d0e8597b3b83841b5076c31e09204ceada22d26bb2cc45",
+      "quality_notes": "红白竖瞳眼与脉动完整，已生图简化色阶；角落小光点近似对称。"
+    },
+    {
+      "id": "r_hit",
+      "file": "rengar_fx_r_hit.png",
+      "source_prompt_number": 18,
+      "frame_count": 6,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        24,
+        24
+      ],
+      "requested_cell_size": [
+        384,
+        384
+      ],
+      "actual_cell_size": [
+        528,
+        528
+      ],
+      "image_size": [
+        3168,
+        528
+      ],
+      "raw_file": "raw/rengar_fx_r_hit.png",
+      "raw_image_size": [
+        1536,
+        1024
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_r_hit`（跟随，画在人物上面；大招扑上去那一下）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            528,
+            528
+          ],
+          "source_rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            8,
+            8
+          ],
+          "anchor_hint": [
+            264.0,
+            264.0
+          ],
+          "visible_bbox": [
+            72,
+            73,
+            384,
+            365
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            528,
+            0,
+            528,
+            528
+          ],
+          "source_rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            8,
+            8
+          ],
+          "anchor_hint": [
+            264.0,
+            264.0
+          ],
+          "visible_bbox": [
+            92,
+            52,
+            348,
+            420
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1056,
+            0,
+            528,
+            528
+          ],
+          "source_rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            8,
+            8
+          ],
+          "anchor_hint": [
+            264.0,
+            264.0
+          ],
+          "visible_bbox": [
+            36,
+            51,
+            445,
+            422
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1584,
+            0,
+            528,
+            528
+          ],
+          "source_rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            8,
+            8
+          ],
+          "anchor_hint": [
+            264.0,
+            264.0
+          ],
+          "visible_bbox": [
+            36,
+            17,
+            476,
+            483
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            2112,
+            0,
+            528,
+            528
+          ],
+          "source_rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            8,
+            8
+          ],
+          "anchor_hint": [
+            264.0,
+            264.0
+          ],
+          "visible_bbox": [
+            77,
+            38,
+            375,
+            438
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            2640,
+            0,
+            528,
+            528
+          ],
+          "source_rect": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            8,
+            8
+          ],
+          "anchor_hint": [
+            264.0,
+            264.0
+          ],
+          "visible_bbox": [
+            90,
+            60,
+            351,
+            409
+          ]
+        }
+      ],
+      "sha256": "d3410782220e71ad48c1de41547a9e1a96592baf191b7c6f85bdc6058e1334ba",
+      "raw_sha256": "57e8f3d46e3175917f688a870730ab8d172ebf4bf37dfb243723b9ec719f8779",
+      "quality_notes": "闪光、三爪、碎光、消退六阶段完整，已生图强化硬边；碎光布局近似对称。"
+    },
+    {
+      "id": "t_trophy",
+      "file": "rengar_fx_t_trophy.png",
+      "source_prompt_number": 19,
+      "frame_count": 6,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        14,
+        14
+      ],
+      "requested_cell_size": [
+        224,
+        224
+      ],
+      "actual_cell_size": [
+        518,
+        518
+      ],
+      "image_size": [
+        3108,
+        518
+      ],
+      "raw_file": "raw/rengar_fx_t_trophy.png",
+      "raw_image_size": [
+        1536,
+        1024
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_t_trophy`（跟随，在他头顶；第一次杀死卡兹克时）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            518,
+            518
+          ],
+          "source_rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            3,
+            3
+          ],
+          "anchor_hint": [
+            259.0,
+            259.0
+          ],
+          "visible_bbox": [
+            170,
+            178,
+            180,
+            184
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            518,
+            0,
+            518,
+            518
+          ],
+          "source_rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            3,
+            3
+          ],
+          "anchor_hint": [
+            259.0,
+            259.0
+          ],
+          "visible_bbox": [
+            107,
+            107,
+            307,
+            340
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1036,
+            0,
+            518,
+            518
+          ],
+          "source_rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            3,
+            3
+          ],
+          "anchor_hint": [
+            259.0,
+            259.0
+          ],
+          "visible_bbox": [
+            50,
+            56,
+            418,
+            421
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1554,
+            0,
+            518,
+            518
+          ],
+          "source_rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            3,
+            3
+          ],
+          "anchor_hint": [
+            259.0,
+            259.0
+          ],
+          "visible_bbox": [
+            35,
+            54,
+            441,
+            414
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            2072,
+            0,
+            518,
+            518
+          ],
+          "source_rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            3,
+            3
+          ],
+          "anchor_hint": [
+            259.0,
+            259.0
+          ],
+          "visible_bbox": [
+            125,
+            96,
+            262,
+            342
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            2590,
+            0,
+            518,
+            518
+          ],
+          "source_rect": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            3,
+            3
+          ],
+          "anchor_hint": [
+            259.0,
+            259.0
+          ],
+          "visible_bbox": [
+            110,
+            134,
+            287,
+            263
+          ]
+        }
+      ],
+      "sha256": "d72fbee2760b75d833e50240919310653037c7e6793ab3cb9e899d72e078fbe7",
+      "raw_sha256": "b552ba7943cca379d988415265a81233b086d8ae1d7d5db38914df53c3a315d4",
+      "quality_notes": "紫色虫首、骨牙、金环与消退六阶段完整；保留初稿的渐隐，第五帧比修订稿更符合消退要求。"
+    },
+    {
+      "id": "k_meet",
+      "file": "rengar_fx_k_meet.png",
+      "source_prompt_number": 20,
+      "frame_count": 5,
+      "playback": "one_shot",
+      "target_game_cell_size": [
+        12,
+        12
+      ],
+      "requested_cell_size": [
+        192,
+        192
+      ],
+      "actual_cell_size": [
+        516,
+        516
+      ],
+      "image_size": [
+        2580,
+        516
+      ],
+      "raw_file": "raw/rengar_fx_k_meet.png",
+      "raw_image_size": [
+        1536,
+        1024
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "binding_from_input": "view_effects `league_rengar_k_meet`（跟随，在头顶；两人第一次碰面时，两边都放）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            516,
+            516
+          ],
+          "source_rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            2,
+            2
+          ],
+          "anchor_hint": [
+            258.0,
+            258.0
+          ],
+          "visible_bbox": [
+            187,
+            206,
+            157,
+            154
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            516,
+            0,
+            516,
+            516
+          ],
+          "source_rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            2,
+            2
+          ],
+          "anchor_hint": [
+            258.0,
+            258.0
+          ],
+          "visible_bbox": [
+            105,
+            130,
+            305,
+            295
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1032,
+            0,
+            516,
+            516
+          ],
+          "source_rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            2,
+            2
+          ],
+          "anchor_hint": [
+            258.0,
+            258.0
+          ],
+          "visible_bbox": [
+            36,
+            83,
+            427,
+            385
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1548,
+            0,
+            516,
+            516
+          ],
+          "source_rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            2,
+            2
+          ],
+          "anchor_hint": [
+            258.0,
+            258.0
+          ],
+          "visible_bbox": [
+            57,
+            54,
+            420,
+            407
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            2064,
+            0,
+            516,
+            516
+          ],
+          "source_rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "source_paste_offset": [
+            2,
+            2
+          ],
+          "anchor_hint": [
+            258.0,
+            258.0
+          ],
+          "visible_bbox": [
+            74,
+            113,
+            374,
+            300
+          ]
+        }
+      ],
+      "sha256": "77c551f3d5fca3adeabf4f4c8ead33dd524a8fdc25dede88c695cb8ed97eefaa",
+      "raw_sha256": "41f671b0077e15de3c770fa540ae2e6a33af57add24d79c94dd9f3c6ee0599d7",
+      "quality_notes": "五帧怒气符号完整，没有文字；弯折笔画带深红外沿，没有完全满足光效不使用暗色描边的规则。"
+    }
+  ],
+  "notes": [
+    "PNG files in the package root are one-row strips. Use assets[].frames[].rect to cut them.",
+    "RGBA art is unscaled and unquantized; only complete-frame cropping, transparent padding and rearrangement were performed.",
+    "target_game_cell_size is an import sizing hint, not the current PNG size.",
+    "Preview timing is illustrative and is not game configuration."
+  ]
+}

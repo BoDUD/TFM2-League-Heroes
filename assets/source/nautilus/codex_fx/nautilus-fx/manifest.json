@@ -1,0 +1,2371 @@
+{
+  "scale": 8,
+  "layout": "horizontal row",
+  "coordinate_units": "bbox and pivot in logical cell pixels; rectangles in output pixels",
+  "timing": "Not supplied by pack. duration_ms null; GIF preview uses 100ms only. Importer must assign runtime timing.",
+  "effects": [
+    {
+      "name": "a_hit",
+      "file": "nautilus_fx_a_hit.png",
+      "cell_1x": [
+        16,
+        16
+      ],
+      "dimensions": [
+        512,
+        128
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "bbox_1x": [
+            6,
+            6,
+            10,
+            10
+          ],
+          "pivot_1x": [
+            8.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 10
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "bbox_1x": [
+            3,
+            5,
+            13,
+            12
+          ],
+          "pivot_1x": [
+            8.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 40
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "bbox_1x": [
+            1,
+            6,
+            15,
+            11
+          ],
+          "pivot_1x": [
+            8.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 40
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "bbox_1x": [
+            4,
+            7,
+            12,
+            10
+          ],
+          "pivot_1x": [
+            8.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 10
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_a_hit.png",
+        "binding": "view_effects `league_nautilus_a_hit`（跟随，画在人物上面；左右对称）",
+        "size": "14"
+      },
+      "raw_file": "a_hit.png",
+      "source_frame_boundaries_x": [
+        0,
+        421,
+        981,
+        1676,
+        2172
+      ],
+      "normalization_source_pixels_per_logical_pixel": 46.214285714285715,
+      "raw_sha256": "b1a945919e57e10a32f6d39c5fbd16b1afa18ed04dec2e9b2eb4fd0bcdcbbf66",
+      "raw_dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "name": "p_hit",
+      "file": "nautilus_fx_p_hit.png",
+      "cell_1x": [
+        20,
+        24
+      ],
+      "dimensions": [
+        800,
+        192
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            160,
+            192
+          ],
+          "bbox_1x": [
+            5,
+            18,
+            15,
+            24
+          ],
+          "pivot_1x": [
+            10.0,
+            24
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 48
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            160,
+            0,
+            160,
+            192
+          ],
+          "bbox_1x": [
+            5,
+            2,
+            15,
+            24
+          ],
+          "pivot_1x": [
+            10.0,
+            24
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 138
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            320,
+            0,
+            160,
+            192
+          ],
+          "bbox_1x": [
+            3,
+            8,
+            17,
+            24
+          ],
+          "pivot_1x": [
+            10.0,
+            24
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 124
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            480,
+            0,
+            160,
+            192
+          ],
+          "bbox_1x": [
+            5,
+            9,
+            15,
+            24
+          ],
+          "pivot_1x": [
+            10.0,
+            24
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 52
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            640,
+            0,
+            160,
+            192
+          ],
+          "bbox_1x": [
+            5,
+            16,
+            15,
+            24
+          ],
+          "pivot_1x": [
+            10.0,
+            24
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 20
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#0E7C86",
+        "#0B5D6E",
+        "#0A4158",
+        "#082A3F",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_p_hit.png",
+        "binding": "view_effects `league_nautilus_p_hit`（跟随，画在人物上面；左右对称）",
+        "size": "18"
+      },
+      "raw_file": "p_hit.png",
+      "source_frame_boundaries_x": [
+        0,
+        405,
+        764,
+        1211,
+        1594,
+        1983
+      ],
+      "normalization_source_pixels_per_logical_pixel": 31.636363636363637,
+      "raw_sha256": "3f38f54fe29aa0c3e2578d1ff850dfd40f27331a93f9891be653f27c27887b2b",
+      "raw_dimensions": [
+        1983,
+        793
+      ]
+    },
+    {
+      "name": "p_root",
+      "file": "nautilus_fx_p_root.png",
+      "cell_1x": [
+        20,
+        9
+      ],
+      "dimensions": [
+        640,
+        72
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            160,
+            72
+          ],
+          "bbox_1x": [
+            4,
+            1,
+            16,
+            7
+          ],
+          "pivot_1x": [
+            10.0,
+            4.5
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 58
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            160,
+            0,
+            160,
+            72
+          ],
+          "bbox_1x": [
+            4,
+            1,
+            16,
+            7
+          ],
+          "pivot_1x": [
+            10.0,
+            4.5
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 56
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            320,
+            0,
+            160,
+            72
+          ],
+          "bbox_1x": [
+            4,
+            1,
+            16,
+            7
+          ],
+          "pivot_1x": [
+            10.0,
+            4.5
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 56
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            480,
+            0,
+            160,
+            72
+          ],
+          "bbox_1x": [
+            4,
+            1,
+            16,
+            7
+          ],
+          "pivot_1x": [
+            10.0,
+            4.5
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 56
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#0E7C86",
+        "#0B5D6E",
+        "#0A4158",
+        "#082A3F",
+        "#000000"
+      ],
+      "loop": true,
+      "binding": {
+        "file": "nautilus_fx_p_root.png",
+        "binding": "view_buffs `league_nautilus_p_root`（跟随，画在人物下面；左右对称）",
+        "size": "18 × 7"
+      },
+      "raw_file": "p_root.png",
+      "source_frame_boundaries_x": [
+        0,
+        498,
+        991,
+        1487,
+        1983
+      ],
+      "normalization_source_pixels_per_logical_pixel": 38.714285714285715,
+      "raw_sha256": "c7fc5b1ae6ac6c8dd89c18f4d073819c51c3016f58e7fdcb19888d253a7a5ef8",
+      "raw_dimensions": [
+        1983,
+        793
+      ]
+    },
+    {
+      "name": "q_anchor",
+      "file": "nautilus_fx_q_anchor.png",
+      "cell_1x": [
+        24,
+        16
+      ],
+      "dimensions": [
+        768,
+        128
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            192,
+            128
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            23,
+            14
+          ],
+          "pivot_1x": [
+            12.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 126
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            192,
+            0,
+            192,
+            128
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            23,
+            14
+          ],
+          "pivot_1x": [
+            12.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 130
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            384,
+            0,
+            192,
+            128
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            23,
+            14
+          ],
+          "pivot_1x": [
+            12.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 140
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            576,
+            0,
+            192,
+            128
+          ],
+          "bbox_1x": [
+            4,
+            2,
+            23,
+            14
+          ],
+          "pivot_1x": [
+            12.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 120
+        }
+      ],
+      "symmetry": "vertical",
+      "palette": [
+        "#F6E4C8",
+        "#B2B0A8",
+        "#70747A",
+        "#3D4150",
+        "#2D3041",
+        "#070211",
+        "#FAAC2A",
+        "#DC741C",
+        "#A84217",
+        "#6F2610",
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#000000"
+      ],
+      "loop": true,
+      "binding": {
+        "file": "nautilus_fx_q_anchor.png",
+        "binding": "view_projectiles `league_nautilus_q_anchor`（朝飞行方向转，画成朝右飞；上下对称）",
+        "size": "22 × 14"
+      },
+      "raw_file": "q_anchor_coarse.png",
+      "source_frame_boundaries_x": [
+        0,
+        533,
+        1090,
+        1655,
+        2172
+      ],
+      "normalization_source_pixels_per_logical_pixel": 24.318181818181817,
+      "raw_sha256": "283382077b3b7d41f175026cb637063d06411b50ece8e0e9a087d8fe5b5dd3af",
+      "raw_dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "name": "q_hit",
+      "file": "nautilus_fx_q_hit.png",
+      "cell_1x": [
+        18,
+        18
+      ],
+      "dimensions": [
+        576,
+        144
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            144,
+            144
+          ],
+          "bbox_1x": [
+            6,
+            6,
+            12,
+            12
+          ],
+          "pivot_1x": [
+            9.0,
+            9.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 22
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            144,
+            0,
+            144,
+            144
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            17,
+            16
+          ],
+          "pivot_1x": [
+            9.0,
+            9.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 124
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            288,
+            0,
+            144,
+            144
+          ],
+          "bbox_1x": [
+            1,
+            3,
+            17,
+            15
+          ],
+          "pivot_1x": [
+            9.0,
+            9.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 76
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            432,
+            0,
+            144,
+            144
+          ],
+          "bbox_1x": [
+            2,
+            6,
+            16,
+            14
+          ],
+          "pivot_1x": [
+            9.0,
+            9.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 16
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_q_hit.png",
+        "binding": "view_effects `league_nautilus_q_hit`（跟随，画在人物上面；左右对称）",
+        "size": "16"
+      },
+      "raw_file": "q_hit.png",
+      "source_frame_boundaries_x": [
+        0,
+        484,
+        1079,
+        1643,
+        2172
+      ],
+      "normalization_source_pixels_per_logical_pixel": 31.6875,
+      "raw_sha256": "bea986ae31ce391abc2364beb4e86e4124baa93e7779f82c12eb462f912a3860",
+      "raw_dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "name": "w_on",
+      "file": "nautilus_fx_w_on.png",
+      "cell_1x": [
+        32,
+        44
+      ],
+      "dimensions": [
+        1024,
+        352
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            256,
+            352
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            31,
+            43
+          ],
+          "pivot_1x": [
+            16.0,
+            22.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 362
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            256,
+            0,
+            256,
+            352
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            31,
+            42
+          ],
+          "pivot_1x": [
+            16.0,
+            22.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 328
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            512,
+            0,
+            256,
+            352
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            31,
+            42
+          ],
+          "pivot_1x": [
+            16.0,
+            22.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 336
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            768,
+            0,
+            256,
+            352
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            31,
+            43
+          ],
+          "pivot_1x": [
+            16.0,
+            22.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 344
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#CFFFE9",
+        "#7DF5C8",
+        "#00E9BE",
+        "#03A688",
+        "#000000"
+      ],
+      "loop": true,
+      "binding": {
+        "file": "nautilus_fx_w_on.png",
+        "binding": "view_buffs `league_nautilus_w_on`（跟随，画在人物上面；左右对称）",
+        "size": "30 × 42"
+      },
+      "raw_file": "w_on.png",
+      "source_frame_boundaries_x": [
+        0,
+        535,
+        1066,
+        1599,
+        2137
+      ],
+      "normalization_source_pixels_per_logical_pixel": 16.433333333333334,
+      "raw_sha256": "77498b8c35ef96277a6a42c57fb024b788f53ac60574f55a239f82abb3571379",
+      "raw_dimensions": [
+        2137,
+        736
+      ]
+    },
+    {
+      "name": "w_hit",
+      "file": "nautilus_fx_w_hit.png",
+      "cell_1x": [
+        22,
+        12
+      ],
+      "dimensions": [
+        704,
+        96
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            176,
+            96
+          ],
+          "bbox_1x": [
+            8,
+            3,
+            14,
+            9
+          ],
+          "pivot_1x": [
+            11.0,
+            6.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 24
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            176,
+            0,
+            176,
+            96
+          ],
+          "bbox_1x": [
+            5,
+            3,
+            17,
+            9
+          ],
+          "pivot_1x": [
+            11.0,
+            6.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 46
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            352,
+            0,
+            176,
+            96
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            20,
+            9
+          ],
+          "pivot_1x": [
+            11.0,
+            6.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 50
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            528,
+            0,
+            176,
+            96
+          ],
+          "bbox_1x": [
+            6,
+            2,
+            16,
+            10
+          ],
+          "pivot_1x": [
+            11.0,
+            6.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 12
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#CFFFE9",
+        "#7DF5C8",
+        "#00E9BE",
+        "#03A688",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_w_hit.png",
+        "binding": "view_effects `league_nautilus_w_hit`（跟随；左右对称）",
+        "size": "20 × 10"
+      },
+      "raw_file": "w_hit.png",
+      "source_frame_boundaries_x": [
+        0,
+        431,
+        951,
+        1635,
+        2079
+      ],
+      "normalization_source_pixels_per_logical_pixel": 31.7,
+      "raw_sha256": "4ae08118f38a66a8807772dc0c088f8d038ea63d4278ba42da930837b5e7a914",
+      "raw_dimensions": [
+        2079,
+        756
+      ]
+    },
+    {
+      "name": "e_wave1",
+      "file": "nautilus_fx_e_wave1.png",
+      "cell_1x": [
+        38,
+        16
+      ],
+      "dimensions": [
+        1520,
+        128
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            304,
+            128
+          ],
+          "bbox_1x": [
+            15,
+            5,
+            23,
+            11
+          ],
+          "pivot_1x": [
+            19.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 48
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            304,
+            0,
+            304,
+            128
+          ],
+          "bbox_1x": [
+            12,
+            3,
+            26,
+            13
+          ],
+          "pivot_1x": [
+            19.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 100
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            608,
+            0,
+            304,
+            128
+          ],
+          "bbox_1x": [
+            10,
+            3,
+            28,
+            13
+          ],
+          "pivot_1x": [
+            19.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 152
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            912,
+            0,
+            304,
+            128
+          ],
+          "bbox_1x": [
+            8,
+            1,
+            30,
+            15
+          ],
+          "pivot_1x": [
+            19.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 256
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            1216,
+            0,
+            304,
+            128
+          ],
+          "bbox_1x": [
+            8,
+            3,
+            30,
+            13
+          ],
+          "pivot_1x": [
+            19.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 164
+        }
+      ],
+      "symmetry": "both",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#0E7C86",
+        "#0B5D6E",
+        "#0A4158",
+        "#082A3F",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_e_wave1.png",
+        "binding": "view_effects `league_nautilus_e_wave1`（施法时，不跟随，画在人物下面；上下左右都对称）",
+        "size": "36 × 14"
+      },
+      "raw_file": "e_wave1.png",
+      "source_frame_boundaries_x": [
+        0,
+        283,
+        640,
+        1101,
+        1638,
+        2161
+      ],
+      "normalization_source_pixels_per_logical_pixel": 23.357142857142858,
+      "raw_sha256": "fce1f4d0b712ed29fbfb2f2893fd6334843f2d14d88cec1e60a1813011f737fc",
+      "raw_dimensions": [
+        2161,
+        728
+      ]
+    },
+    {
+      "name": "e_wave2",
+      "file": "nautilus_fx_e_wave2.png",
+      "cell_1x": [
+        54,
+        22
+      ],
+      "dimensions": [
+        2160,
+        176
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            432,
+            176
+          ],
+          "bbox_1x": [
+            20,
+            7,
+            34,
+            15
+          ],
+          "pivot_1x": [
+            27.0,
+            11.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 72
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            432,
+            0,
+            432,
+            176
+          ],
+          "bbox_1x": [
+            18,
+            5,
+            36,
+            17
+          ],
+          "pivot_1x": [
+            27.0,
+            11.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 152
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            864,
+            0,
+            432,
+            176
+          ],
+          "bbox_1x": [
+            17,
+            4,
+            37,
+            18
+          ],
+          "pivot_1x": [
+            27.0,
+            11.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 176
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            1296,
+            0,
+            432,
+            176
+          ],
+          "bbox_1x": [
+            15,
+            2,
+            39,
+            20
+          ],
+          "pivot_1x": [
+            27.0,
+            11.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 284
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            1728,
+            0,
+            432,
+            176
+          ],
+          "bbox_1x": [
+            18,
+            6,
+            36,
+            16
+          ],
+          "pivot_1x": [
+            27.0,
+            11.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 132
+        }
+      ],
+      "symmetry": "both",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#0E7C86",
+        "#0B5D6E",
+        "#0A4158",
+        "#082A3F",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_e_wave2.png",
+        "binding": "view_effects `league_nautilus_e_wave2`（施法时，不跟随，画在人物下面；上下左右都对称）",
+        "size": "52 × 20"
+      },
+      "raw_file": "e_wave2.png",
+      "source_frame_boundaries_x": [
+        0,
+        305,
+        685,
+        1118,
+        1592,
+        1967
+      ],
+      "normalization_source_pixels_per_logical_pixel": 19.9,
+      "raw_sha256": "d58739be1e292cb1acad569e3ae2dc8209cc3215feb30d5336a4f4d0322836e0",
+      "raw_dimensions": [
+        1967,
+        799
+      ]
+    },
+    {
+      "name": "e_wave3",
+      "file": "nautilus_fx_e_wave3.png",
+      "cell_1x": [
+        70,
+        28
+      ],
+      "dimensions": [
+        2800,
+        224
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            560,
+            224
+          ],
+          "bbox_1x": [
+            23,
+            6,
+            47,
+            22
+          ],
+          "pivot_1x": [
+            35.0,
+            14.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 260
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            560,
+            0,
+            560,
+            224
+          ],
+          "bbox_1x": [
+            20,
+            3,
+            50,
+            25
+          ],
+          "pivot_1x": [
+            35.0,
+            14.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 468
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            1120,
+            0,
+            560,
+            224
+          ],
+          "bbox_1x": [
+            18,
+            2,
+            52,
+            26
+          ],
+          "pivot_1x": [
+            35.0,
+            14.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 560
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            1680,
+            0,
+            560,
+            224
+          ],
+          "bbox_1x": [
+            13,
+            1,
+            57,
+            27
+          ],
+          "pivot_1x": [
+            35.0,
+            14.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 816
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            2240,
+            0,
+            560,
+            224
+          ],
+          "bbox_1x": [
+            17,
+            4,
+            53,
+            24
+          ],
+          "pivot_1x": [
+            35.0,
+            14.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 484
+        }
+      ],
+      "symmetry": "both",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#0E7C86",
+        "#0B5D6E",
+        "#0A4158",
+        "#082A3F",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_e_wave3.png",
+        "binding": "view_effects `league_nautilus_e_wave3`（施法时，不跟随，画在人物下面；上下左右都对称）",
+        "size": "68 × 26"
+      },
+      "raw_file": "e_wave3.png",
+      "source_frame_boundaries_x": [
+        0,
+        319,
+        682,
+        1070,
+        1561,
+        1983
+      ],
+      "normalization_source_pixels_per_logical_pixel": 11.26923076923077,
+      "raw_sha256": "c8fb7da7b67e6c7a60bde7441a14369931bf53952545364448c4c904e95d9ed0",
+      "raw_dimensions": [
+        1983,
+        793
+      ]
+    },
+    {
+      "name": "e_hit",
+      "file": "nautilus_fx_e_hit.png",
+      "cell_1x": [
+        14,
+        14
+      ],
+      "dimensions": [
+        448,
+        112
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "bbox_1x": [
+            2,
+            6,
+            12,
+            10
+          ],
+          "pivot_1x": [
+            7.0,
+            7.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 20
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            112,
+            0,
+            112,
+            112
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            13,
+            12
+          ],
+          "pivot_1x": [
+            7.0,
+            7.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 70
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            224,
+            0,
+            112,
+            112
+          ],
+          "bbox_1x": [
+            1,
+            5,
+            13,
+            11
+          ],
+          "pivot_1x": [
+            7.0,
+            7.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 38
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            336,
+            0,
+            112,
+            112
+          ],
+          "bbox_1x": [
+            2,
+            9,
+            12,
+            11
+          ],
+          "pivot_1x": [
+            7.0,
+            7.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 12
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_e_hit.png",
+        "binding": "view_effects `league_nautilus_e_hit`（跟随；左右对称）",
+        "size": "12"
+      },
+      "raw_file": "e_hit.png",
+      "source_frame_boundaries_x": [
+        0,
+        515,
+        1041,
+        1565,
+        2079
+      ],
+      "normalization_source_pixels_per_logical_pixel": 38.416666666666664,
+      "raw_sha256": "02ec07b30df257a81d343ee93269c1703a2dab30afcdd27565cad7fcd343893b",
+      "raw_dimensions": [
+        2079,
+        756
+      ]
+    },
+    {
+      "name": "e_slow",
+      "file": "nautilus_fx_e_slow.png",
+      "cell_1x": [
+        18,
+        8
+      ],
+      "dimensions": [
+        576,
+        64
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            144,
+            64
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            16,
+            7
+          ],
+          "pivot_1x": [
+            9.0,
+            4.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 66
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            144,
+            0,
+            144,
+            64
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            16,
+            7
+          ],
+          "pivot_1x": [
+            9.0,
+            4.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 70
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            288,
+            0,
+            144,
+            64
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            16,
+            7
+          ],
+          "pivot_1x": [
+            9.0,
+            4.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 66
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            432,
+            0,
+            144,
+            64
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            16,
+            7
+          ],
+          "pivot_1x": [
+            9.0,
+            4.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 66
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#0E7C86",
+        "#0B5D6E",
+        "#0A4158",
+        "#082A3F",
+        "#000000"
+      ],
+      "loop": true,
+      "binding": {
+        "file": "nautilus_fx_e_slow.png",
+        "binding": "view_buffs `league_nautilus_e_slow`（跟随，画在人物下面；左右对称）",
+        "size": "16 × 6"
+      },
+      "raw_file": "e_slow.png",
+      "source_frame_boundaries_x": [
+        0,
+        467,
+        939,
+        1414,
+        1881
+      ],
+      "normalization_source_pixels_per_logical_pixel": 30.0,
+      "raw_sha256": "c61ebed4e8bd55d98f813e1143552575b4c151956099c0ec09e63b8506e8f1c7",
+      "raw_dimensions": [
+        1881,
+        836
+      ]
+    },
+    {
+      "name": "r_cast",
+      "file": "nautilus_fx_r_cast.png",
+      "cell_1x": [
+        30,
+        14
+      ],
+      "dimensions": [
+        1200,
+        112
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            240,
+            112
+          ],
+          "bbox_1x": [
+            10,
+            11,
+            20,
+            14
+          ],
+          "pivot_1x": [
+            15.0,
+            14
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 18
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            240,
+            0,
+            240,
+            112
+          ],
+          "bbox_1x": [
+            7,
+            4,
+            23,
+            14
+          ],
+          "pivot_1x": [
+            15.0,
+            14
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 86
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            480,
+            0,
+            240,
+            112
+          ],
+          "bbox_1x": [
+            7,
+            2,
+            23,
+            14
+          ],
+          "pivot_1x": [
+            15.0,
+            14
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 114
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            720,
+            0,
+            240,
+            112
+          ],
+          "bbox_1x": [
+            7,
+            5,
+            23,
+            14
+          ],
+          "pivot_1x": [
+            15.0,
+            14
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 68
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            960,
+            0,
+            240,
+            112
+          ],
+          "bbox_1x": [
+            8,
+            10,
+            22,
+            14
+          ],
+          "pivot_1x": [
+            15.0,
+            14
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 24
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#0E7C86",
+        "#0B5D6E",
+        "#0A4158",
+        "#082A3F",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_r_cast.png",
+        "binding": "view_effects `league_nautilus_r_cast`（施法时，不跟随，画在人物下面；左右对称）",
+        "size": "28 × 12"
+      },
+      "raw_file": "r_cast.png",
+      "source_frame_boundaries_x": [
+        0,
+        351,
+        752,
+        1167,
+        1559,
+        1920
+      ],
+      "normalization_source_pixels_per_logical_pixel": 23.583333333333332,
+      "raw_sha256": "89ddc7b6772800eba4c06e70e0425c48b95e7d7c2dd135a1b6e1cc1a61c02e5b",
+      "raw_dimensions": [
+        1920,
+        819
+      ]
+    },
+    {
+      "name": "r_wave",
+      "file": "nautilus_fx_r_wave.png",
+      "cell_1x": [
+        26,
+        16
+      ],
+      "dimensions": [
+        832,
+        128
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            208,
+            128
+          ],
+          "bbox_1x": [
+            13,
+            2,
+            25,
+            14
+          ],
+          "pivot_1x": [
+            13.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 52
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            208,
+            0,
+            208,
+            128
+          ],
+          "bbox_1x": [
+            12,
+            2,
+            25,
+            14
+          ],
+          "pivot_1x": [
+            13.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 68
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            416,
+            0,
+            208,
+            128
+          ],
+          "bbox_1x": [
+            12,
+            1,
+            25,
+            15
+          ],
+          "pivot_1x": [
+            13.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 96
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            624,
+            0,
+            208,
+            128
+          ],
+          "bbox_1x": [
+            12,
+            2,
+            25,
+            14
+          ],
+          "pivot_1x": [
+            13.0,
+            8.0
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 62
+        }
+      ],
+      "symmetry": "vertical",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#0E7C86",
+        "#0B5D6E",
+        "#0A4158",
+        "#082A3F",
+        "#000000"
+      ],
+      "loop": true,
+      "binding": {
+        "file": "nautilus_fx_r_wave.png",
+        "binding": "view_projectiles `league_nautilus_r_wave`（朝飞行方向转，画成朝右走；上下对称）",
+        "size": "24 × 14"
+      },
+      "raw_file": "r_wave.png",
+      "source_frame_boundaries_x": [
+        0,
+        513,
+        1019,
+        1524,
+        2022
+      ],
+      "normalization_source_pixels_per_logical_pixel": 36.642857142857146,
+      "raw_sha256": "86a72befd192008679bf69d7c46c85b148e706fa3bb5994a46f375dba2d383bb",
+      "raw_dimensions": [
+        2022,
+        778
+      ]
+    },
+    {
+      "name": "r_up",
+      "file": "nautilus_fx_r_up.png",
+      "cell_1x": [
+        16,
+        20
+      ],
+      "dimensions": [
+        512,
+        160
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            128,
+            160
+          ],
+          "bbox_1x": [
+            1,
+            16,
+            15,
+            20
+          ],
+          "pivot_1x": [
+            8.0,
+            20
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 38
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            128,
+            0,
+            128,
+            160
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            15,
+            20
+          ],
+          "pivot_1x": [
+            8.0,
+            20
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 112
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            256,
+            0,
+            128,
+            160
+          ],
+          "bbox_1x": [
+            1,
+            3,
+            15,
+            20
+          ],
+          "pivot_1x": [
+            8.0,
+            20
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 98
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            384,
+            0,
+            128,
+            160
+          ],
+          "bbox_1x": [
+            2,
+            7,
+            14,
+            20
+          ],
+          "pivot_1x": [
+            8.0,
+            20
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 38
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_r_up.png",
+        "binding": "view_effects `league_nautilus_r_up`（跟随；左右对称）",
+        "size": "14 × 18"
+      },
+      "raw_file": "r_up.png",
+      "source_frame_boundaries_x": [
+        0,
+        541,
+        1082,
+        1640,
+        2172
+      ],
+      "normalization_source_pixels_per_logical_pixel": 35.22222222222222,
+      "raw_sha256": "3f3349771cf96227eccc56f2e47798e4991ed92b68435d1090b8e962a9b1db1e",
+      "raw_dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "name": "r_hit",
+      "file": "nautilus_fx_r_hit.png",
+      "cell_1x": [
+        32,
+        42
+      ],
+      "dimensions": [
+        1536,
+        336
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            256,
+            336
+          ],
+          "bbox_1x": [
+            3,
+            25,
+            29,
+            41
+          ],
+          "pivot_1x": [
+            16.0,
+            42
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 132
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            256,
+            0,
+            256,
+            336
+          ],
+          "bbox_1x": [
+            3,
+            3,
+            29,
+            42
+          ],
+          "pivot_1x": [
+            16.0,
+            42
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 454
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            512,
+            0,
+            256,
+            336
+          ],
+          "bbox_1x": [
+            3,
+            2,
+            29,
+            42
+          ],
+          "pivot_1x": [
+            16.0,
+            42
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 510
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            768,
+            0,
+            256,
+            336
+          ],
+          "bbox_1x": [
+            3,
+            6,
+            29,
+            42
+          ],
+          "pivot_1x": [
+            16.0,
+            42
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 390
+        },
+        {
+          "frame": 5,
+          "cell_rect_px": [
+            1024,
+            0,
+            256,
+            336
+          ],
+          "bbox_1x": [
+            3,
+            9,
+            29,
+            42
+          ],
+          "pivot_1x": [
+            16.0,
+            42
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 204
+        },
+        {
+          "frame": 6,
+          "cell_rect_px": [
+            1280,
+            0,
+            256,
+            336
+          ],
+          "bbox_1x": [
+            4,
+            17,
+            28,
+            41
+          ],
+          "pivot_1x": [
+            16.0,
+            42
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 80
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#0E7C86",
+        "#0B5D6E",
+        "#0A4158",
+        "#082A3F",
+        "#000000"
+      ],
+      "loop": false,
+      "binding": {
+        "file": "nautilus_fx_r_hit.png",
+        "binding": "view_effects `league_nautilus_r_hit`（跟随，画在人物上面；左右对称）",
+        "size": "30 × 40"
+      },
+      "raw_file": "r_hit.png",
+      "source_frame_boundaries_x": [
+        0,
+        360,
+        725,
+        1085,
+        1449,
+        1813,
+        2172
+      ],
+      "normalization_source_pixels_per_logical_pixel": 14.225,
+      "raw_sha256": "0f56d8e81a03f4400d95018d37b2e04ef13d0ea8f8ff9908cce9d79beaf75b4e",
+      "raw_dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "name": "r_stun",
+      "file": "nautilus_fx_r_stun.png",
+      "cell_1x": [
+        18,
+        9
+      ],
+      "dimensions": [
+        576,
+        72
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_px": [
+            0,
+            0,
+            144,
+            72
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            16,
+            8
+          ],
+          "pivot_1x": [
+            9.0,
+            4.5
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 28
+        },
+        {
+          "frame": 2,
+          "cell_rect_px": [
+            144,
+            0,
+            144,
+            72
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            16,
+            8
+          ],
+          "pivot_1x": [
+            9.0,
+            4.5
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 32
+        },
+        {
+          "frame": 3,
+          "cell_rect_px": [
+            288,
+            0,
+            144,
+            72
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            16,
+            7
+          ],
+          "pivot_1x": [
+            9.0,
+            4.5
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 30
+        },
+        {
+          "frame": 4,
+          "cell_rect_px": [
+            432,
+            0,
+            144,
+            72
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            16,
+            8
+          ],
+          "pivot_1x": [
+            9.0,
+            4.5
+          ],
+          "duration_ms": null,
+          "opaque_pixels": 32
+        }
+      ],
+      "symmetry": "horizontal",
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF7",
+        "#8CF2E6",
+        "#3FD3C8",
+        "#12A3A8",
+        "#000000"
+      ],
+      "loop": true,
+      "binding": {
+        "file": "nautilus_fx_r_stun.png",
+        "binding": "view_buffs `league_nautilus_r_stun`（跟随；左右对称）",
+        "size": "16 × 7"
+      },
+      "raw_file": "r_stun.png",
+      "source_frame_boundaries_x": [
+        0,
+        542,
+        1085,
+        1633,
+        2172
+      ],
+      "normalization_source_pixels_per_logical_pixel": 36.57142857142857,
+      "raw_sha256": "93962c0d74fd4bd201765f108b805484eca1e108517e4cae358dc161f40ffd53",
+      "raw_dimensions": [
+        2172,
+        724
+      ]
+    }
+  ]
+}

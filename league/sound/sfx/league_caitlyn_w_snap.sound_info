@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_caitlyn_sfx_w_snap",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_caitlyn_vo_snap",
+      "volume": 0.9
+    }
+  ]
+}

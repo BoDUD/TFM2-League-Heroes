@@ -1,0 +1,64 @@
+{
+  "A": {
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "grid_8x8_exact": true,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "opaque_colors": 24,
+    "body_height_cells": 34,
+    "sole_row": 99,
+    "below_soles_empty": true,
+    "feet_midpoint": 64.0,
+    "eye_widths": [
+      3,
+      2
+    ],
+    "eye_rows": [
+      73,
+      74
+    ],
+    "eye_green_only_in_eyes": true,
+    "weapon_silhouette_width": 57,
+    "head_height_including_outline": 13
+  },
+  "B": {
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "grid_8x8_exact": true,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "opaque_colors": 24,
+    "body_height_cells": 34,
+    "sole_row": 99,
+    "below_soles_empty": true,
+    "feet_midpoint": 64.0,
+    "eye_widths": [
+      3,
+      3
+    ],
+    "eye_rows": [
+      75,
+      76
+    ],
+    "eye_green_only_in_eyes": true,
+    "weapon_silhouette_width": 57,
+    "head_height_including_outline": 15
+  }
+}

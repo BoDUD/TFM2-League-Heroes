@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_zed": {
+    "remapping": "asset/league_zed_mark/override/league_zed",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_zed_mark/text/champion",
+    "type": "merge"
+  }
+}

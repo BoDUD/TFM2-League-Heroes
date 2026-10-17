@@ -1,0 +1,57 @@
+{
+  "hero": "masteryi",
+  "champ": "MasterYi",
+  "camera": {"yaw": 40, "pitch": 25, "mirror": false},
+  "chibi": {"head": 1.8, "legs": 0.8, "hair": 1.0},
+  "weapon": "^sword$",
+  "hide": ["^[lr]_sword$"],
+  "height": 34,
+  "cell": [96, 104, 12],
+  "design": "masteryi_2013_idle1@0",
+  "restyle": {
+    "head": {"rect": [57, 61, 18, 19], "dy": -3, "forward": true,
+             "cut": [[57, 67], [57, 68], [58, 68], [57, 69], [58, 69], [57, 70], [58, 70], [59, 70], [57, 71], [58, 71], [59, 71], [57, 72],
+                     [58, 72], [59, 72], [57, 73], [58, 73], [59, 73], [57, 74], [58, 74], [59, 74], [58, 75], [59, 75], [58, 76], [59, 76],
+                     [60, 76], [58, 77], [59, 77], [60, 77], [72, 77], [59, 78], [60, 78], [61, 78], [71, 78], [72, 78], [60, 79], [61, 79],
+                     [62, 79], [63, 79], [64, 79], [65, 79], [66, 79], [67, 79], [68, 79], [69, 79], [71, 79], [72, 79]]},
+    "outline": "16141E",
+    "weapon": [["2F5A1C", 0.35], ["5E9A26", 0.55], ["98CE3E", 0.75], ["D6F58A"]],
+    "weights": {"9A6A26": 1.5, "D9A93C": 1.6, "F5DC7A": 1.6},
+    "materials": [
+      {"name": "gold", "hue": [38, 62], "sat": [0.45, 1], "val": [0.4, 1], "ramp": [["9A6A26", 0.7], ["D9A93C", 0.9], ["F5DC7A"]]},
+      {"name": "orange", "hue": [12, 38], "sat": [0.6, 1], "val": [0.35, 1], "ramp": [["B8561C", 0.6], ["F08A2A"]]},
+      {"name": "brown", "hue": [8, 40], "sat": [0.45, 1], "val": [0, 0.35], "ramp": [["4A2A18", 0.14], ["704624"]]},
+      {"name": "silver", "sat": [0, 0.25], "val": [0.33, 1], "ramp": [["6E7688", 0.33], ["9EA6B4", 0.5], ["C8CDD6"]]},
+      {"name": "armour", "hue": [170, 260], "ramp": [["232838", 0.13], ["343C54", 0.19], ["4E5A78"]]},
+      {"name": "dark", "ramp": [["232838", 0.12], ["343C54"]]}
+    ]
+  },
+  "tags": {
+    "idle": {"frames": [
+      ["masteryi_2013_idle1@0", 200], ["masteryi_2013_idle1@400", 200], ["masteryi_2013_idle1@800", 200],
+      ["masteryi_2013_idle1@1200", 200], ["masteryi_2013_idle1@1600", 200], ["masteryi_2013_idle1@2000", 200]]},
+    "run": {"head_like": "masteryi_2013_idle1@0", "frames": [
+      ["masteryi_2013_run@0", 125], ["masteryi_2013_run@125", 125], ["masteryi_2013_run@250", 125],
+      ["masteryi_2013_run@375", 125], ["masteryi_2013_run@500", 125], ["masteryi_2013_run@625", 125],
+      ["masteryi_2013_run@750", 125], ["masteryi_2013_run@875", 125]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["masteryi_2013_idle1@0>masteryi_2013_attack1@120:0.5", 60], ["masteryi_2013_attack1@180", 70], ["masteryi_2013_attack1@240", 70],
+      ["masteryi_2013_attack1@300", 70], ["masteryi_2013_attack1@360", 70], ["masteryi_2013_attack1@420>masteryi_2013_idle1@0:0.5", 80]]},
+    "attack2": {"lunge": 0.7, "frames": [
+      ["masteryi_2013_passive@300", 60], ["masteryi_2013_passive@360", 70], ["masteryi_2013_passive@420", 70],
+      ["masteryi_2013_passive@480>masteryi_2013_idle1@0:0.5", 70]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["masteryi_2013_crit@150", 60], ["masteryi_2013_crit@200", 70], ["masteryi_2013_crit@250", 70]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["masteryi_2013_idle1@0>masteryi_2013_spell2@100:0.5", 100], ["masteryi_2013_spell2@200", 100], ["masteryi_2013_spell2@300", 100],
+      ["masteryi_2013_spell2_loop@0", 150], ["masteryi_2013_spell2_loop@400", 150], ["masteryi_2013_spell2_loop@800", 150]]},
+    "ult": {"lunge": 0.7, "frames": [
+      ["masteryi_2013_idle1@0>masteryi_2013_channelwindup@300:0.5", 100], ["masteryi_2013_channelwindup@300", 110], ["masteryi_2013_channelwindup@600", 130]]},
+    "hit": {"flat": true, "frames": [
+      ["masteryi_2013_idle1@0>masteryi_2013_death@150:0.3", 120], ["masteryi_2013_idle1@0>masteryi_2013_death@150:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "frames": [
+      ["masteryi_2013_death@0", 100], ["masteryi_2013_death@200", 100], ["masteryi_2013_death@400", 120],
+      ["masteryi_2013_death@600", 120], ["masteryi_2013_death@850", 150], ["masteryi_2013_death@1100", 150],
+      ["masteryi_2013_death@1400", 150], ["masteryi_2013_death@1650", 400]]}
+  }
+}

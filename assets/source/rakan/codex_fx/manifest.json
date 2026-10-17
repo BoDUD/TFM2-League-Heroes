@@ -1,0 +1,2239 @@
+{
+  "stage": 3,
+  "asset_status": "generated_source_for_import",
+  "coordinate_convention": "frames[].rect=[x,y,width,height] in ORIGINAL PNG pixels; bbox is frame-local [left,top,right,bottom); anchor_hint is approximate frame-local position, must be checked in game",
+  "timing_status": "Source pack specifies counts but no durations; preview uses100ms/frame only. No gameplay timings assigned.",
+  "assets": [
+    {
+      "id": "a_feather",
+      "name": "普攻飞羽",
+      "file": "rakan_fx_a_feather.png",
+      "frame_count": 3,
+      "loop": true,
+      "original_size": [
+        2172,
+        724
+      ],
+      "requested_cell_size": [
+        256,
+        128
+      ],
+      "requested_sheet_size": [
+        768,
+        128
+      ],
+      "game_size_hint": [
+        12,
+        5
+      ],
+      "binding_hint": "view_projectiles `league_rakan_a_feather`（循环，朝飞行方向转）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "bbox_alpha96": [
+            32,
+            213,
+            695,
+            462
+          ],
+          "anchor_hint_px": [
+            362,
+            362
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "bbox_alpha96": [
+            40,
+            202,
+            690,
+            462
+          ],
+          "anchor_hint_px": [
+            362,
+            362
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "bbox_alpha96": [
+            33,
+            236,
+            689,
+            449
+          ],
+          "anchor_hint_px": [
+            362,
+            362
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#4FE0C8",
+        "#5AA0F0",
+        "#6A2A9A",
+        "#7A6CE8",
+        "#94F7EF",
+        "#9A2A1C",
+        "#A64CD0",
+        "#D04A1A",
+        "#DBF7FF",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "a_feather",
+      "notes": "飞羽朝右；上下有轻微不对称，仍有半透明边缘和非指定色。",
+      "source_sha256": "f6f680df5444f2f87d6dd38c13195689a8ed185968051ba7a66c6564ffd8054b"
+    },
+    {
+      "id": "a_hit",
+      "name": "普攻命中",
+      "file": "rakan_fx_a_hit.png",
+      "frame_count": 4,
+      "loop": false,
+      "original_size": [
+        2172,
+        724
+      ],
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "requested_sheet_size": [
+        1024,
+        256
+      ],
+      "game_size_hint": [
+        12,
+        12
+      ],
+      "binding_hint": "view_effects `league_rakan_a_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox_alpha96": [
+            51,
+            98,
+            490,
+            583
+          ],
+          "anchor_hint_px": [
+            272,
+            362
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox_alpha96": [
+            43,
+            129,
+            485,
+            562
+          ],
+          "anchor_hint_px": [
+            272,
+            362
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox_alpha96": [
+            44,
+            97,
+            505,
+            579
+          ],
+          "anchor_hint_px": [
+            272,
+            362
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox_alpha96": [
+            108,
+            155,
+            461,
+            555
+          ],
+          "anchor_hint_px": [
+            272,
+            362
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#4FE0C8",
+        "#5AA0F0",
+        "#6A2A9A",
+        "#7A6CE8",
+        "#94F7EF",
+        "#9A2A1C",
+        "#A64CD0",
+        "#D04A1A",
+        "#DBF7FF",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "a_hit",
+      "notes": "4 帧齐；末帧除两颗主火星外还有小碎点。",
+      "source_sha256": "50dc7d1ddd863074fdb05372ea7ff78860cfced5518e6decef6483f829c5d588"
+    },
+    {
+      "id": "q_feather",
+      "name": "Q 飞羽",
+      "file": "rakan_fx_q_feather.png",
+      "frame_count": 4,
+      "loop": true,
+      "original_size": [
+        2089,
+        753
+      ],
+      "requested_cell_size": [
+        448,
+        192
+      ],
+      "requested_sheet_size": [
+        1792,
+        192
+      ],
+      "game_size_hint": [
+        22,
+        9
+      ],
+      "binding_hint": "view_projectiles `league_rakan_q_feather`（循环，朝飞行方向转）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            522,
+            753
+          ],
+          "bbox_alpha96": [
+            15,
+            262,
+            522,
+            449
+          ],
+          "anchor_hint_px": [
+            261,
+            376
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            522,
+            0,
+            522,
+            753
+          ],
+          "bbox_alpha96": [
+            25,
+            273,
+            515,
+            449
+          ],
+          "anchor_hint_px": [
+            261,
+            376
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1044,
+            0,
+            523,
+            753
+          ],
+          "bbox_alpha96": [
+            17,
+            273,
+            507,
+            450
+          ],
+          "anchor_hint_px": [
+            262,
+            376
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1567,
+            0,
+            522,
+            753
+          ],
+          "bbox_alpha96": [
+            16,
+            276,
+            514,
+            448
+          ],
+          "anchor_hint_px": [
+            261,
+            376
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#4FE0C8",
+        "#5AA0F0",
+        "#6A2A9A",
+        "#7A6CE8",
+        "#94F7EF",
+        "#9A2A1C",
+        "#A64CD0",
+        "#D04A1A",
+        "#DBF7FF",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "q_feather",
+      "notes": "孔雀眼与虹彩尾齐；尾端靠近格边，导入时留透明边距。",
+      "source_sha256": "2e8d5e6741ec0acbc9c510a8a78216d288b86b86459f18a7db2fedc0cbd5ae4c"
+    },
+    {
+      "id": "q_hit",
+      "name": "Q 命中",
+      "file": "rakan_fx_q_hit.png",
+      "frame_count": 5,
+      "loop": false,
+      "original_size": [
+        1983,
+        793
+      ],
+      "requested_cell_size": [
+        320,
+        320
+      ],
+      "requested_sheet_size": [
+        1600,
+        320
+      ],
+      "game_size_hint": [
+        18,
+        18
+      ],
+      "binding_hint": "view_effects `league_rakan_q_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            375,
+            793
+          ],
+          "bbox_alpha96": [
+            40,
+            232,
+            324,
+            524
+          ],
+          "anchor_hint_px": [
+            188,
+            396
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            375,
+            0,
+            365,
+            793
+          ],
+          "bbox_alpha96": [
+            6,
+            195,
+            349,
+            557
+          ],
+          "anchor_hint_px": [
+            182,
+            396
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            740,
+            0,
+            450,
+            793
+          ],
+          "bbox_alpha96": [
+            8,
+            156,
+            436,
+            628
+          ],
+          "anchor_hint_px": [
+            225,
+            396
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1190,
+            0,
+            433,
+            793
+          ],
+          "bbox_alpha96": [
+            27,
+            179,
+            408,
+            668
+          ],
+          "anchor_hint_px": [
+            216,
+            396
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1623,
+            0,
+            360,
+            793
+          ],
+          "bbox_alpha96": [
+            1,
+            210,
+            314,
+            611
+          ],
+          "anchor_hint_px": [
+            180,
+            396
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#4FE0C8",
+        "#5AA0F0",
+        "#6A2A9A",
+        "#7A6CE8",
+        "#94F7EF",
+        "#9A2A1C",
+        "#A64CD0",
+        "#D04A1A",
+        "#DBF7FF",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "q_hit",
+      "notes": "5 帧齐，但大小变化导致间距不均，必须按 manifest 的实际 rect 切。",
+      "source_sha256": "8088323af6fc7049139ce1b6020c76fa7e7ff17b0578f159dcb069faa34e03e1"
+    },
+    {
+      "id": "q_heal",
+      "name": "Q 待发治疗",
+      "file": "rakan_fx_q_heal.png",
+      "frame_count": 4,
+      "loop": true,
+      "original_size": [
+        2048,
+        768
+      ],
+      "requested_cell_size": [
+        512,
+        384
+      ],
+      "requested_sheet_size": [
+        2048,
+        384
+      ],
+      "game_size_hint": [
+        32,
+        24
+      ],
+      "binding_hint": "view_buffs `league_rakan_q_heal`（循环，画在人物下面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            512,
+            768
+          ],
+          "bbox_alpha96": [
+            26,
+            321,
+            488,
+            593
+          ],
+          "anchor_hint_px": [
+            256,
+            550
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            512,
+            768
+          ],
+          "bbox_alpha96": [
+            30,
+            267,
+            491,
+            595
+          ],
+          "anchor_hint_px": [
+            256,
+            550
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1024,
+            0,
+            512,
+            768
+          ],
+          "bbox_alpha96": [
+            21,
+            197,
+            492,
+            609
+          ],
+          "anchor_hint_px": [
+            256,
+            550
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1536,
+            0,
+            512,
+            768
+          ],
+          "bbox_alpha96": [
+            28,
+            141,
+            486,
+            589
+          ],
+          "anchor_hint_px": [
+            256,
+            550
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#3E7A22",
+        "#6AAE2C",
+        "#9A2A1C",
+        "#9AD83A",
+        "#C6F04E",
+        "#D04A1A",
+        "#E2FF7A",
+        "#F07018",
+        "#F6FFD6",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "q_heal",
+      "notes": "4 帧齐；修订稿柔光更强，因此保留初稿。软光仍存在；环高度较要求偏扁，漂浮光点首尾位置有跳变。",
+      "source_sha256": "cd8f8c914f7d643ce6e11c07b248644fae3d03fc0f98ab36512aba304f863d73"
+    },
+    {
+      "id": "q_burst",
+      "name": "Q 治疗扩散",
+      "file": "rakan_fx_q_burst.png",
+      "frame_count": 6,
+      "loop": false,
+      "original_size": [
+        2172,
+        724
+      ],
+      "requested_cell_size": [
+        672,
+        384
+      ],
+      "requested_sheet_size": [
+        4032,
+        384
+      ],
+      "game_size_hint": [
+        84,
+        48
+      ],
+      "binding_hint": "view_effects `league_rakan_q_burst`（BIG，洛脚下，不跟随，画在人物下面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            285,
+            724
+          ],
+          "bbox_alpha96": [
+            45,
+            332,
+            265,
+            574
+          ],
+          "anchor_hint_px": [
+            142,
+            478
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            285,
+            0,
+            330,
+            724
+          ],
+          "bbox_alpha96": [
+            30,
+            331,
+            289,
+            564
+          ],
+          "anchor_hint_px": [
+            165,
+            478
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            615,
+            0,
+            495,
+            724
+          ],
+          "bbox_alpha96": [
+            13,
+            184,
+            471,
+            584
+          ],
+          "anchor_hint_px": [
+            248,
+            478
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1110,
+            0,
+            420,
+            724
+          ],
+          "bbox_alpha96": [
+            18,
+            194,
+            415,
+            574
+          ],
+          "anchor_hint_px": [
+            210,
+            478
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1530,
+            0,
+            400,
+            724
+          ],
+          "bbox_alpha96": [
+            55,
+            277,
+            360,
+            573
+          ],
+          "anchor_hint_px": [
+            200,
+            478
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1930,
+            0,
+            242,
+            724
+          ],
+          "bbox_alpha96": [
+            33,
+            324,
+            190,
+            544
+          ],
+          "anchor_hint_px": [
+            121,
+            478
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#3E7A22",
+        "#6AAE2C",
+        "#9A2A1C",
+        "#9AD83A",
+        "#C6F04E",
+        "#D04A1A",
+        "#E2FF7A",
+        "#F07018",
+        "#F6FFD6",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "q_burst_repair",
+      "notes": "6 帧齐；修订后仍非等宽视觉分帧，提供实际 rect。圈内光面偏多，需清理柔光并按 80×40 地面范围重排。",
+      "source_sha256": "e585172e2f7ed9a2c40810a60bc9d7f8e274ed4cc2f5c3e8a4324fe7be6fe442"
+    },
+    {
+      "id": "q_healed",
+      "name": "接受治疗",
+      "file": "rakan_fx_q_healed.png",
+      "frame_count": 5,
+      "loop": false,
+      "original_size": [
+        1983,
+        793
+      ],
+      "requested_cell_size": [
+        256,
+        384
+      ],
+      "requested_sheet_size": [
+        1280,
+        384
+      ],
+      "game_size_hint": [
+        16,
+        24
+      ],
+      "binding_hint": "view_effects `league_rakan_q_healed`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "bbox_alpha96": [
+            65,
+            416,
+            357,
+            723
+          ],
+          "anchor_hint_px": [
+            198,
+            793
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "bbox_alpha96": [
+            55,
+            235,
+            356,
+            724
+          ],
+          "anchor_hint_px": [
+            198,
+            793
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "bbox_alpha96": [
+            40,
+            153,
+            369,
+            732
+          ],
+          "anchor_hint_px": [
+            198,
+            793
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "bbox_alpha96": [
+            28,
+            152,
+            353,
+            724
+          ],
+          "anchor_hint_px": [
+            198,
+            793
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "bbox_alpha96": [
+            51,
+            153,
+            326,
+            724
+          ],
+          "anchor_hint_px": [
+            198,
+            793
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#3E7A22",
+        "#6AAE2C",
+        "#9A2A1C",
+        "#9AD83A",
+        "#C6F04E",
+        "#D04A1A",
+        "#E2FF7A",
+        "#F07018",
+        "#F6FFD6",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "q_healed",
+      "notes": "5 帧齐；有柔光柱；末帧仍有底部微光，而非只剩两点。",
+      "source_sha256": "0424405e5c5f049785972d675022fdf68d183d321c630fe196dbc58fea459b1d"
+    },
+    {
+      "id": "w_burst",
+      "name": "W 旋升爆发",
+      "file": "rakan_fx_w_burst.png",
+      "frame_count": 7,
+      "loop": false,
+      "original_size": [
+        1659,
+        948
+      ],
+      "requested_cell_size": [
+        256,
+        320
+      ],
+      "requested_sheet_size": [
+        1792,
+        320
+      ],
+      "game_size_hint": [
+        32,
+        40
+      ],
+      "binding_hint": "view_effects `league_rakan_w_burst`（BIG，洛脚下，不跟随，画在人物下面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            237,
+            948
+          ],
+          "bbox_alpha96": [
+            14,
+            660,
+            237,
+            844
+          ],
+          "anchor_hint_px": [
+            118,
+            806
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            237,
+            0,
+            237,
+            948
+          ],
+          "bbox_alpha96": [
+            0,
+            521,
+            220,
+            849
+          ],
+          "anchor_hint_px": [
+            118,
+            806
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            474,
+            0,
+            237,
+            948
+          ],
+          "bbox_alpha96": [
+            7,
+            166,
+            223,
+            867
+          ],
+          "anchor_hint_px": [
+            118,
+            806
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            711,
+            0,
+            237,
+            948
+          ],
+          "bbox_alpha96": [
+            11,
+            16,
+            228,
+            859
+          ],
+          "anchor_hint_px": [
+            118,
+            806
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            948,
+            0,
+            237,
+            948
+          ],
+          "bbox_alpha96": [
+            16,
+            77,
+            230,
+            855
+          ],
+          "anchor_hint_px": [
+            118,
+            806
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1185,
+            0,
+            237,
+            948
+          ],
+          "bbox_alpha96": [
+            21,
+            246,
+            234,
+            851
+          ],
+          "anchor_hint_px": [
+            118,
+            806
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 7,
+          "rect": [
+            1422,
+            0,
+            237,
+            948
+          ],
+          "bbox_alpha96": [
+            32,
+            429,
+            213,
+            836
+          ],
+          "anchor_hint_px": [
+            118,
+            806
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#9A2A1C",
+        "#D04A1A",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "w_burst",
+      "notes": "7 帧齐；金色羽毛螺旋清楚，但第 4 帧顶端接近画布边缘，地面碎石与细节需像素化简化。",
+      "source_sha256": "18aa9bde5c683ab2ec850a36ec8a20fe9384e3e833c4efd7275b572f76cc2ab7"
+    },
+    {
+      "id": "w_hit",
+      "name": "W 击飞命中",
+      "file": "rakan_fx_w_hit.png",
+      "frame_count": 5,
+      "loop": false,
+      "original_size": [
+        2200,
+        715
+      ],
+      "requested_cell_size": [
+        256,
+        416
+      ],
+      "requested_sheet_size": [
+        1280,
+        416
+      ],
+      "game_size_hint": [
+        16,
+        26
+      ],
+      "binding_hint": "view_effects `league_rakan_w_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            440,
+            715
+          ],
+          "bbox_alpha96": [
+            55,
+            450,
+            367,
+            683
+          ],
+          "anchor_hint_px": [
+            220,
+            715
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            440,
+            0,
+            440,
+            715
+          ],
+          "bbox_alpha96": [
+            52,
+            125,
+            354,
+            683
+          ],
+          "anchor_hint_px": [
+            220,
+            715
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            880,
+            0,
+            440,
+            715
+          ],
+          "bbox_alpha96": [
+            58,
+            32,
+            370,
+            683
+          ],
+          "anchor_hint_px": [
+            220,
+            715
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1320,
+            0,
+            440,
+            715
+          ],
+          "bbox_alpha96": [
+            99,
+            53,
+            370,
+            683
+          ],
+          "anchor_hint_px": [
+            220,
+            715
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1760,
+            0,
+            440,
+            715
+          ],
+          "bbox_alpha96": [
+            161,
+            136,
+            385,
+            683
+          ],
+          "anchor_hint_px": [
+            220,
+            715
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#9A2A1C",
+        "#D04A1A",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "w_hit_repair",
+      "notes": "5 帧齐；采用修订稿，第 3 帧顶端已留空。末帧仍有地面余光。",
+      "source_sha256": "e0c6a069f4e56372cd301c2c7bdfc36ad07f108b60a1ba8cb912bdcc49f3e7a8"
+    },
+    {
+      "id": "e_shield",
+      "name": "E 上盾",
+      "file": "rakan_fx_e_shield.png",
+      "frame_count": 6,
+      "loop": false,
+      "original_size": [
+        1958,
+        803
+      ],
+      "requested_cell_size": [
+        416,
+        480
+      ],
+      "requested_sheet_size": [
+        2496,
+        480
+      ],
+      "game_size_hint": [
+        26,
+        30
+      ],
+      "binding_hint": "view_effects `league_rakan_e_shield`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            326,
+            803
+          ],
+          "bbox_alpha96": [
+            20,
+            208,
+            297,
+            603
+          ],
+          "anchor_hint_px": [
+            163,
+            402
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            326,
+            0,
+            327,
+            803
+          ],
+          "bbox_alpha96": [
+            31,
+            130,
+            327,
+            637
+          ],
+          "anchor_hint_px": [
+            164,
+            402
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            653,
+            0,
+            326,
+            803
+          ],
+          "bbox_alpha96": [
+            0,
+            130,
+            311,
+            675
+          ],
+          "anchor_hint_px": [
+            163,
+            402
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            979,
+            0,
+            326,
+            803
+          ],
+          "bbox_alpha96": [
+            3,
+            91,
+            326,
+            687
+          ],
+          "anchor_hint_px": [
+            163,
+            402
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1305,
+            0,
+            327,
+            803
+          ],
+          "bbox_alpha96": [
+            0,
+            91,
+            327,
+            677
+          ],
+          "anchor_hint_px": [
+            164,
+            402
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1632,
+            0,
+            326,
+            803
+          ],
+          "bbox_alpha96": [
+            0,
+            202,
+            292,
+            648
+          ],
+          "anchor_hint_px": [
+            163,
+            402
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#9A2A1C",
+        "#D04A1A",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "e_shield",
+      "notes": "6 帧齐；保留环形火焰羽饰，但弧光较密，需删柔光以免遮挡身体。",
+      "source_sha256": "bf50b14fa5f70ded342dc583a1a85ad76acadee1ed0e664b83bdf2fce112c607"
+    },
+    {
+      "id": "e_on",
+      "name": "E 持续护盾",
+      "file": "rakan_fx_e_on.png",
+      "frame_count": 6,
+      "loop": true,
+      "original_size": [
+        2103,
+        748
+      ],
+      "requested_cell_size": [
+        480,
+        640
+      ],
+      "requested_sheet_size": [
+        2880,
+        640
+      ],
+      "game_size_hint": [
+        30,
+        40
+      ],
+      "binding_hint": "view_buffs `league_rakan_e_on`（循环，画在人物上面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            350,
+            748
+          ],
+          "bbox_alpha96": [
+            20,
+            91,
+            322,
+            627
+          ],
+          "anchor_hint_px": [
+            175,
+            598
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            350,
+            0,
+            351,
+            748
+          ],
+          "bbox_alpha96": [
+            34,
+            86,
+            321,
+            626
+          ],
+          "anchor_hint_px": [
+            176,
+            598
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            701,
+            0,
+            351,
+            748
+          ],
+          "bbox_alpha96": [
+            32,
+            104,
+            320,
+            627
+          ],
+          "anchor_hint_px": [
+            176,
+            598
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1052,
+            0,
+            350,
+            748
+          ],
+          "bbox_alpha96": [
+            31,
+            92,
+            329,
+            627
+          ],
+          "anchor_hint_px": [
+            175,
+            598
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1402,
+            0,
+            350,
+            748
+          ],
+          "bbox_alpha96": [
+            31,
+            96,
+            324,
+            627
+          ],
+          "anchor_hint_px": [
+            175,
+            598
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1752,
+            0,
+            351,
+            748
+          ],
+          "bbox_alpha96": [
+            30,
+            92,
+            327,
+            627
+          ],
+          "anchor_hint_px": [
+            176,
+            598
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#9A2A1C",
+        "#D04A1A",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "e_on",
+      "notes": "6 帧齐；空心边和两枚金羽齐；上下边未完全断开，脚下光面较亮。",
+      "source_sha256": "af2f139713b1d8a9e5fb27c14d3f122a8d0ece34b5256c89fa4b6f774e02f685"
+    },
+    {
+      "id": "p_on",
+      "name": "被动护盾",
+      "file": "rakan_fx_p_on.png",
+      "frame_count": 6,
+      "loop": true,
+      "original_size": [
+        2109,
+        746
+      ],
+      "requested_cell_size": [
+        544,
+        736
+      ],
+      "requested_sheet_size": [
+        3264,
+        736
+      ],
+      "game_size_hint": [
+        34,
+        46
+      ],
+      "binding_hint": "view_buffs `league_rakan_p_on`（循环，画在人物上面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            352,
+            746
+          ],
+          "bbox_alpha96": [
+            16,
+            53,
+            342,
+            675
+          ],
+          "anchor_hint_px": [
+            176,
+            656
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            352,
+            0,
+            351,
+            746
+          ],
+          "bbox_alpha96": [
+            24,
+            53,
+            339,
+            675
+          ],
+          "anchor_hint_px": [
+            176,
+            656
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            703,
+            0,
+            351,
+            746
+          ],
+          "bbox_alpha96": [
+            20,
+            61,
+            335,
+            675
+          ],
+          "anchor_hint_px": [
+            176,
+            656
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1054,
+            0,
+            352,
+            746
+          ],
+          "bbox_alpha96": [
+            16,
+            61,
+            334,
+            675
+          ],
+          "anchor_hint_px": [
+            176,
+            656
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1406,
+            0,
+            352,
+            746
+          ],
+          "bbox_alpha96": [
+            13,
+            53,
+            328,
+            675
+          ],
+          "anchor_hint_px": [
+            176,
+            656
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1758,
+            0,
+            351,
+            746
+          ],
+          "bbox_alpha96": [
+            10,
+            53,
+            334,
+            675
+          ],
+          "anchor_hint_px": [
+            176,
+            656
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#4FE0C8",
+        "#5AA0F0",
+        "#6A2A9A",
+        "#7A6CE8",
+        "#94F7EF",
+        "#9A2A1C",
+        "#A64CD0",
+        "#D04A1A",
+        "#DBF7FF",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "p_on",
+      "notes": "6 帧齐；中心空心；边框比 1–2 格更厚，羽毛卷纹较大，需适当收细。",
+      "source_sha256": "7c19892c332ae157155607987e12430c4fb29ce29b89c985c91aac231a22f5b3"
+    },
+    {
+      "id": "r_start",
+      "name": "R 开大",
+      "file": "rakan_fx_r_start.png",
+      "frame_count": 6,
+      "loop": false,
+      "original_size": [
+        2172,
+        724
+      ],
+      "requested_cell_size": [
+        320,
+        352
+      ],
+      "requested_sheet_size": [
+        1920,
+        352
+      ],
+      "game_size_hint": [
+        40,
+        44
+      ],
+      "binding_hint": "view_effects `league_rakan_r_start`（跟随，开大第一 tick 放，画在人物上面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            265,
+            724
+          ],
+          "bbox_alpha96": [
+            33,
+            243,
+            244,
+            464
+          ],
+          "anchor_hint_px": [
+            132,
+            623
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            265,
+            0,
+            330,
+            724
+          ],
+          "bbox_alpha96": [
+            20,
+            192,
+            301,
+            504
+          ],
+          "anchor_hint_px": [
+            165,
+            623
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            595,
+            0,
+            420,
+            724
+          ],
+          "bbox_alpha96": [
+            17,
+            145,
+            413,
+            574
+          ],
+          "anchor_hint_px": [
+            210,
+            623
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1015,
+            0,
+            490,
+            724
+          ],
+          "bbox_alpha96": [
+            15,
+            117,
+            470,
+            613
+          ],
+          "anchor_hint_px": [
+            245,
+            623
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1505,
+            0,
+            399,
+            724
+          ],
+          "bbox_alpha96": [
+            3,
+            143,
+            351,
+            591
+          ],
+          "anchor_hint_px": [
+            200,
+            623
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1904,
+            0,
+            268,
+            724
+          ],
+          "bbox_alpha96": [
+            1,
+            187,
+            202,
+            532
+          ],
+          "anchor_hint_px": [
+            134,
+            623
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#4FE0C8",
+        "#5AA0F0",
+        "#6A2A9A",
+        "#7A6CE8",
+        "#94F7EF",
+        "#9A2A1C",
+        "#A64CD0",
+        "#D04A1A",
+        "#DBF7FF",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "r_start_repair",
+      "notes": "6 帧齐；采用修订稿，向左的光箭明显。仍非等宽视觉分帧，按 rect 切；羽毛数量为近似。",
+      "source_sha256": "733f9198a646df29407a2eb0affdec9a9a6bb5be298b07028f8f9ba121c5c711"
+    },
+    {
+      "id": "r_on",
+      "name": "R 速度光尾",
+      "file": "rakan_fx_r_on.png",
+      "frame_count": 4,
+      "loop": true,
+      "original_size": [
+        1983,
+        793
+      ],
+      "requested_cell_size": [
+        384,
+        240
+      ],
+      "requested_sheet_size": [
+        1536,
+        240
+      ],
+      "game_size_hint": [
+        48,
+        30
+      ],
+      "binding_hint": "view_buffs `league_rakan_r_on`（循环，画在人物下面，朝左时镜像）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox_alpha96": [
+            42,
+            293,
+            476,
+            508
+          ],
+          "anchor_hint_px": [
+            413,
+            688
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "bbox_alpha96": [
+            29,
+            294,
+            475,
+            500
+          ],
+          "anchor_hint_px": [
+            413,
+            688
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            992,
+            0,
+            495,
+            793
+          ],
+          "bbox_alpha96": [
+            23,
+            295,
+            475,
+            508
+          ],
+          "anchor_hint_px": [
+            412,
+            688
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "bbox_alpha96": [
+            23,
+            294,
+            476,
+            507
+          ],
+          "anchor_hint_px": [
+            413,
+            688
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#4FE0C8",
+        "#5AA0F0",
+        "#6A2A9A",
+        "#7A6CE8",
+        "#94F7EF",
+        "#9A2A1C",
+        "#A64CD0",
+        "#D04A1A",
+        "#DBF7FF",
+        "#F07018",
+        "#FF9E21",
+        "#FFC63A",
+        "#FFE47A",
+        "#FFF8D6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "r_on",
+      "notes": "4 帧齐；三色尾向左，右端金光较亮，需对齐实际角色站位后检查遮挡；无缝性未运行时验证。",
+      "source_sha256": "8989a89fb0b1fc9e33a610c0712a172e74e87ec8a76458e3709f93781c9dad0e"
+    },
+    {
+      "id": "r_charmed",
+      "name": "R 魅惑",
+      "file": "rakan_fx_r_charmed.png",
+      "frame_count": 8,
+      "loop": false,
+      "original_size": [
+        1881,
+        836
+      ],
+      "requested_cell_size": [
+        288,
+        384
+      ],
+      "requested_sheet_size": [
+        2304,
+        384
+      ],
+      "game_size_hint": [
+        18,
+        24
+      ],
+      "binding_hint": "view_effects `league_rakan_r_charmed`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            235,
+            836
+          ],
+          "bbox_alpha96": [
+            81,
+            623,
+            190,
+            767
+          ],
+          "anchor_hint_px": [
+            118,
+            836
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            235,
+            0,
+            235,
+            836
+          ],
+          "bbox_alpha96": [
+            34,
+            610,
+            200,
+            762
+          ],
+          "anchor_hint_px": [
+            118,
+            836
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            470,
+            0,
+            235,
+            836
+          ],
+          "bbox_alpha96": [
+            27,
+            540,
+            200,
+            745
+          ],
+          "anchor_hint_px": [
+            118,
+            836
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            705,
+            0,
+            235,
+            836
+          ],
+          "bbox_alpha96": [
+            24,
+            424,
+            207,
+            725
+          ],
+          "anchor_hint_px": [
+            118,
+            836
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            940,
+            0,
+            236,
+            836
+          ],
+          "bbox_alpha96": [
+            28,
+            347,
+            204,
+            689
+          ],
+          "anchor_hint_px": [
+            118,
+            836
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1176,
+            0,
+            235,
+            836
+          ],
+          "bbox_alpha96": [
+            31,
+            278,
+            206,
+            635
+          ],
+          "anchor_hint_px": [
+            118,
+            836
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 7,
+          "rect": [
+            1411,
+            0,
+            235,
+            836
+          ],
+          "bbox_alpha96": [
+            17,
+            218,
+            210,
+            545
+          ],
+          "anchor_hint_px": [
+            118,
+            836
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 8,
+          "rect": [
+            1646,
+            0,
+            235,
+            836
+          ],
+          "bbox_alpha96": [
+            45,
+            518,
+            184,
+            687
+          ],
+          "anchor_hint_px": [
+            118,
+            836
+          ],
+          "duration_ms": null
+        }
+      ],
+      "palette_hex": [
+        "#A82048",
+        "#E0405A",
+        "#F06A2A",
+        "#FFAC12",
+        "#FFD554",
+        "#FFF3C6",
+        "#FFFFFF"
+      ],
+      "prompt_key": "r_charmed",
+      "notes": "8 帧齐；金橙心白芯玫红边，末帧两颗主火星；漂浮节奏以生成稿为准。",
+      "source_sha256": "fe213744d7b38836266a1291f868d51ff5dc553f44e15b3be7dd035441e67f99"
+    }
+  ]
+}

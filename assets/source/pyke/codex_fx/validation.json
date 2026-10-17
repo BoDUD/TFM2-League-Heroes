@@ -1,0 +1,1512 @@
+[
+  {
+    "number": 1,
+    "file": "pyke_fx_a_hit.png",
+    "frames": 4,
+    "size": [
+      1024,
+      256
+    ],
+    "cell_native": [
+      16,
+      16
+    ],
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_y_crop": [
+      78,
+      633
+    ],
+    "symmetry": "",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          0,
+          16,
+          16
+        ],
+        "opaque_pixels": 99,
+        "mean_luminance": 208.99,
+        "brightest_10pct_luminance": 253.39,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          2,
+          0,
+          15,
+          15
+        ],
+        "opaque_pixels": 87,
+        "mean_luminance": 203.05,
+        "brightest_10pct_luminance": 251.38,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          1,
+          14,
+          15
+        ],
+        "opaque_pixels": 56,
+        "mean_luminance": 177.22,
+        "brightest_10pct_luminance": 247.76,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          3,
+          4,
+          13,
+          13
+        ],
+        "opaque_pixels": 17,
+        "mean_luminance": 166.66,
+        "brightest_10pct_luminance": 220.88,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 4,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 2,
+    "file": "pyke_fx_q_charge.png",
+    "frames": 4,
+    "size": [
+      768,
+      192
+    ],
+    "cell_native": [
+      12,
+      12
+    ],
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_y_crop": [
+      122,
+      597
+    ],
+    "symmetry": "LR",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          2,
+          1,
+          10,
+          11
+        ],
+        "opaque_pixels": 28,
+        "mean_luminance": 153.74,
+        "brightest_10pct_luminance": 220.88,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          1,
+          11,
+          11
+        ],
+        "opaque_pixels": 40,
+        "mean_luminance": 169.57,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          0,
+          11,
+          12
+        ],
+        "opaque_pixels": 50,
+        "mean_luminance": 187.59,
+        "brightest_10pct_luminance": 253.24,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          1,
+          1,
+          11,
+          11
+        ],
+        "opaque_pixels": 30,
+        "mean_luminance": 151.53,
+        "brightest_10pct_luminance": 220.88,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 4,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 3,
+    "file": "pyke_fx_q_hook.png",
+    "frames": 4,
+    "size": [
+      1792,
+      160
+    ],
+    "cell_native": [
+      28,
+      10
+    ],
+    "raw_size": [
+      1659,
+      948
+    ],
+    "raw_y_crop": [
+      380,
+      546
+    ],
+    "symmetry": "TB",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          1,
+          28,
+          9
+        ],
+        "opaque_pixels": 112,
+        "mean_luminance": 106.0,
+        "brightest_10pct_luminance": 222.71,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          1,
+          27,
+          9
+        ],
+        "opaque_pixels": 114,
+        "mean_luminance": 107.84,
+        "brightest_10pct_luminance": 216.95,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          0,
+          1,
+          27,
+          9
+        ],
+        "opaque_pixels": 126,
+        "mean_luminance": 99.73,
+        "brightest_10pct_luminance": 216.08,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          0,
+          1,
+          27,
+          9
+        ],
+        "opaque_pixels": 106,
+        "mean_luminance": 100.88,
+        "brightest_10pct_luminance": 217.04,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      }
+    ],
+    "unique_frames": 4,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 4,
+    "file": "pyke_fx_q_hit.png",
+    "frames": 5,
+    "size": [
+      1440,
+      288
+    ],
+    "cell_native": [
+      18,
+      18
+    ],
+    "raw_size": [
+      1983,
+      793
+    ],
+    "raw_y_crop": [
+      190,
+      593
+    ],
+    "symmetry": "",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          2,
+          2,
+          16,
+          17
+        ],
+        "opaque_pixels": 88,
+        "mean_luminance": 239.27,
+        "brightest_10pct_luminance": 255.0,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          0,
+          2,
+          17,
+          17
+        ],
+        "opaque_pixels": 140,
+        "mean_luminance": 207.73,
+        "brightest_10pct_luminance": 247.46,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          0,
+          0,
+          18,
+          18
+        ],
+        "opaque_pixels": 131,
+        "mean_luminance": 206.51,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          1,
+          3,
+          17,
+          18
+        ],
+        "opaque_pixels": 61,
+        "mean_luminance": 205.38,
+        "brightest_10pct_luminance": 253.53,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          2,
+          4,
+          16,
+          17
+        ],
+        "opaque_pixels": 23,
+        "mean_luminance": 191.85,
+        "brightest_10pct_luminance": 250.6,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 5,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 5,
+    "file": "pyke_fx_q_stab_hit.png",
+    "frames": 4,
+    "size": [
+      1152,
+      192
+    ],
+    "cell_native": [
+      18,
+      12
+    ],
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_y_crop": [
+      152,
+      557
+    ],
+    "symmetry": "TB",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          2,
+          0,
+          17,
+          12
+        ],
+        "opaque_pixels": 82,
+        "mean_luminance": 233.38,
+        "brightest_10pct_luminance": 255.0,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          3,
+          1,
+          17,
+          11
+        ],
+        "opaque_pixels": 66,
+        "mean_luminance": 215.41,
+        "brightest_10pct_luminance": 250.17,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          2,
+          1,
+          16,
+          11
+        ],
+        "opaque_pixels": 44,
+        "mean_luminance": 191.5,
+        "brightest_10pct_luminance": 251.38,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          4,
+          2,
+          14,
+          10
+        ],
+        "opaque_pixels": 22,
+        "mean_luminance": 161.98,
+        "brightest_10pct_luminance": 220.88,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      }
+    ],
+    "unique_frames": 4,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 6,
+    "file": "pyke_fx_w_cast.png",
+    "frames": 5,
+    "size": [
+      2400,
+      288
+    ],
+    "cell_native": [
+      30,
+      18
+    ],
+    "raw_size": [
+      1983,
+      793
+    ],
+    "raw_y_crop": [
+      152,
+      629
+    ],
+    "symmetry": "LR",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          2,
+          13,
+          28,
+          18
+        ],
+        "opaque_pixels": 62,
+        "mean_luminance": 204.26,
+        "brightest_10pct_luminance": 237.76,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          2,
+          6,
+          28,
+          18
+        ],
+        "opaque_pixels": 168,
+        "mean_luminance": 204.99,
+        "brightest_10pct_luminance": 255.0,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          1,
+          29,
+          18
+        ],
+        "opaque_pixels": 240,
+        "mean_luminance": 206.31,
+        "brightest_10pct_luminance": 254.27,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          1,
+          5,
+          29,
+          18
+        ],
+        "opaque_pixels": 164,
+        "mean_luminance": 205.83,
+        "brightest_10pct_luminance": 250.6,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          2,
+          13,
+          28,
+          18
+        ],
+        "opaque_pixels": 60,
+        "mean_luminance": 202.49,
+        "brightest_10pct_luminance": 237.76,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 5,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 7,
+    "file": "pyke_fx_e_left.png",
+    "frames": 6,
+    "size": [
+      2688,
+      288
+    ],
+    "cell_native": [
+      28,
+      18
+    ],
+    "raw_size": [
+      2032,
+      774
+    ],
+    "raw_y_crop": [
+      199,
+      590
+    ],
+    "symmetry": "LR",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          3,
+          12,
+          25,
+          15
+        ],
+        "opaque_pixels": 52,
+        "mean_luminance": 145.42,
+        "brightest_10pct_luminance": 193.5,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          2,
+          10,
+          26,
+          15
+        ],
+        "opaque_pixels": 64,
+        "mean_luminance": 156.08,
+        "brightest_10pct_luminance": 229.32,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          2,
+          5,
+          26,
+          15
+        ],
+        "opaque_pixels": 98,
+        "mean_luminance": 166.93,
+        "brightest_10pct_luminance": 237.76,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          2,
+          0,
+          26,
+          15
+        ],
+        "opaque_pixels": 138,
+        "mean_luminance": 186.16,
+        "brightest_10pct_luminance": 250.26,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          2,
+          3,
+          26,
+          15
+        ],
+        "opaque_pixels": 122,
+        "mean_luminance": 183.83,
+        "brightest_10pct_luminance": 247.67,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          2,
+          11,
+          26,
+          15
+        ],
+        "opaque_pixels": 68,
+        "mean_luminance": 150.02,
+        "brightest_10pct_luminance": 220.88,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 6,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 8,
+    "file": "pyke_fx_e_phantom.png",
+    "frames": 4,
+    "size": [
+      1664,
+      224
+    ],
+    "cell_native": [
+      26,
+      14
+    ],
+    "raw_size": [
+      2156,
+      729
+    ],
+    "raw_y_crop": [
+      186,
+      531
+    ],
+    "symmetry": "TB",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          0,
+          26,
+          14
+        ],
+        "opaque_pixels": 190,
+        "mean_luminance": 185.57,
+        "brightest_10pct_luminance": 248.06,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          0,
+          26,
+          14
+        ],
+        "opaque_pixels": 194,
+        "mean_luminance": 189.62,
+        "brightest_10pct_luminance": 248.06,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          0,
+          25,
+          14
+        ],
+        "opaque_pixels": 206,
+        "mean_luminance": 187.29,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          0,
+          0,
+          25,
+          14
+        ],
+        "opaque_pixels": 210,
+        "mean_luminance": 188.25,
+        "brightest_10pct_luminance": 247.04,
+        "lr_symmetric": false,
+        "tb_symmetric": true
+      }
+    ],
+    "unique_frames": 4,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 9,
+    "file": "pyke_fx_e_hit.png",
+    "frames": 5,
+    "size": [
+      1600,
+      320
+    ],
+    "cell_native": [
+      20,
+      20
+    ],
+    "raw_size": [
+      1983,
+      793
+    ],
+    "raw_y_crop": [
+      167,
+      611
+    ],
+    "symmetry": "",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          0,
+          6,
+          20,
+          14
+        ],
+        "opaque_pixels": 91,
+        "mean_luminance": 172.4,
+        "brightest_10pct_luminance": 251.09,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          1,
+          20,
+          19
+        ],
+        "opaque_pixels": 162,
+        "mean_luminance": 183.37,
+        "brightest_10pct_luminance": 248.4,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          0,
+          19,
+          20
+        ],
+        "opaque_pixels": 179,
+        "mean_luminance": 196.73,
+        "brightest_10pct_luminance": 248.27,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          1,
+          2,
+          20,
+          19
+        ],
+        "opaque_pixels": 136,
+        "mean_luminance": 179.58,
+        "brightest_10pct_luminance": 224.77,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          3,
+          2,
+          18,
+          20
+        ],
+        "opaque_pixels": 48,
+        "mean_luminance": 156.81,
+        "brightest_10pct_luminance": 220.88,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 5,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 10,
+    "file": "pyke_fx_e_stun.png",
+    "frames": 4,
+    "size": [
+      1024,
+      128
+    ],
+    "cell_native": [
+      16,
+      8
+    ],
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_y_crop": [
+      213,
+      500
+    ],
+    "symmetry": "LR",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          0,
+          15,
+          8
+        ],
+        "opaque_pixels": 30,
+        "mean_luminance": 180.32,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          1,
+          15,
+          8
+        ],
+        "opaque_pixels": 32,
+        "mean_luminance": 171.89,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          0,
+          15,
+          7
+        ],
+        "opaque_pixels": 34,
+        "mean_luminance": 164.69,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          1,
+          0,
+          15,
+          8
+        ],
+        "opaque_pixels": 32,
+        "mean_luminance": 168.72,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 4,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 11,
+    "file": "pyke_fx_q_slow.png",
+    "frames": 4,
+    "size": [
+      1152,
+      128
+    ],
+    "cell_native": [
+      18,
+      8
+    ],
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_y_crop": [
+      209,
+      492
+    ],
+    "symmetry": "LR",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          4,
+          2,
+          14,
+          6
+        ],
+        "opaque_pixels": 32,
+        "mean_luminance": 191.84,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          4,
+          1,
+          14,
+          7
+        ],
+        "opaque_pixels": 36,
+        "mean_luminance": 200.37,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          4,
+          1,
+          14,
+          7
+        ],
+        "opaque_pixels": 36,
+        "mean_luminance": 198.11,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          2,
+          2,
+          16,
+          7
+        ],
+        "opaque_pixels": 36,
+        "mean_luminance": 191.36,
+        "brightest_10pct_luminance": 237.76,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 4,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 12,
+    "file": "pyke_fx_r_mark.png",
+    "frames": 6,
+    "size": [
+      5568,
+      480
+    ],
+    "cell_native": [
+      58,
+      30
+    ],
+    "raw_size": [
+      2067,
+      761
+    ],
+    "raw_y_crop": [
+      237,
+      524
+    ],
+    "symmetry": "LRTB",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          3,
+          1,
+          55,
+          29
+        ],
+        "opaque_pixels": 496,
+        "mean_luminance": 42.23,
+        "brightest_10pct_luminance": 78.06,
+        "lr_symmetric": true,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          2,
+          1,
+          56,
+          29
+        ],
+        "opaque_pixels": 500,
+        "mean_luminance": 52.7,
+        "brightest_10pct_luminance": 144.02,
+        "lr_symmetric": true,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          2,
+          1,
+          56,
+          29
+        ],
+        "opaque_pixels": 504,
+        "mean_luminance": 69.45,
+        "brightest_10pct_luminance": 193.33,
+        "lr_symmetric": true,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          1,
+          1,
+          57,
+          29
+        ],
+        "opaque_pixels": 528,
+        "mean_luminance": 98.84,
+        "brightest_10pct_luminance": 229.35,
+        "lr_symmetric": true,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          1,
+          1,
+          57,
+          29
+        ],
+        "opaque_pixels": 540,
+        "mean_luminance": 130.07,
+        "brightest_10pct_luminance": 248.16,
+        "lr_symmetric": true,
+        "tb_symmetric": true
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          1,
+          1,
+          57,
+          29
+        ],
+        "opaque_pixels": 532,
+        "mean_luminance": 151.89,
+        "brightest_10pct_luminance": 251.51,
+        "lr_symmetric": true,
+        "tb_symmetric": true
+      }
+    ],
+    "unique_frames": 6,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 13,
+    "file": "pyke_fx_r_strike.png",
+    "frames": 5,
+    "size": [
+      4800,
+      576
+    ],
+    "cell_native": [
+      60,
+      36
+    ],
+    "raw_size": [
+      1983,
+      793
+    ],
+    "raw_y_crop": [
+      47,
+      685
+    ],
+    "symmetry": "LR",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          4,
+          19,
+          56,
+          28
+        ],
+        "opaque_pixels": 222,
+        "mean_luminance": 116.52,
+        "brightest_10pct_luminance": 223.08,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          3,
+          12,
+          57,
+          28
+        ],
+        "opaque_pixels": 408,
+        "mean_luminance": 122.86,
+        "brightest_10pct_luminance": 229.8,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          2,
+          0,
+          58,
+          28
+        ],
+        "opaque_pixels": 654,
+        "mean_luminance": 139.83,
+        "brightest_10pct_luminance": 245.98,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          2,
+          6,
+          58,
+          28
+        ],
+        "opaque_pixels": 428,
+        "mean_luminance": 125.0,
+        "brightest_10pct_luminance": 241.06,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          3,
+          18,
+          57,
+          28
+        ],
+        "opaque_pixels": 134,
+        "mean_luminance": 123.52,
+        "brightest_10pct_luminance": 211.12,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 5,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 14,
+    "file": "pyke_fx_r_hit.png",
+    "frames": 5,
+    "size": [
+      1760,
+      352
+    ],
+    "cell_native": [
+      22,
+      22
+    ],
+    "raw_size": [
+      1983,
+      793
+    ],
+    "raw_y_crop": [
+      60,
+      760
+    ],
+    "symmetry": "",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          4,
+          0,
+          22,
+          22
+        ],
+        "opaque_pixels": 121,
+        "mean_luminance": 107.74,
+        "brightest_10pct_luminance": 244.03,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          0,
+          1,
+          22,
+          21
+        ],
+        "opaque_pixels": 162,
+        "mean_luminance": 68.8,
+        "brightest_10pct_luminance": 200.25,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          0,
+          1,
+          22,
+          20
+        ],
+        "opaque_pixels": 208,
+        "mean_luminance": 56.33,
+        "brightest_10pct_luminance": 136.28,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          0,
+          2,
+          22,
+          20
+        ],
+        "opaque_pixels": 126,
+        "mean_luminance": 53.99,
+        "brightest_10pct_luminance": 115.45,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          1,
+          3,
+          19,
+          20
+        ],
+        "opaque_pixels": 44,
+        "mean_luminance": 57.26,
+        "brightest_10pct_luminance": 123.92,
+        "lr_symmetric": false,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 5,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 15,
+    "file": "pyke_fx_r_reset.png",
+    "frames": 6,
+    "size": [
+      2496,
+      416
+    ],
+    "cell_native": [
+      26,
+      26
+    ],
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_y_crop": [
+      129,
+      558
+    ],
+    "symmetry": "LR",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          4,
+          25,
+          24
+        ],
+        "opaque_pixels": 178,
+        "mean_luminance": 199.19,
+        "brightest_10pct_luminance": 255.0,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          3,
+          4,
+          23,
+          21
+        ],
+        "opaque_pixels": 166,
+        "mean_luminance": 165.95,
+        "brightest_10pct_luminance": 239.61,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          2,
+          25,
+          24
+        ],
+        "opaque_pixels": 126,
+        "mean_luminance": 148.41,
+        "brightest_10pct_luminance": 246.21,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          1,
+          0,
+          25,
+          26
+        ],
+        "opaque_pixels": 96,
+        "mean_luminance": 130.17,
+        "brightest_10pct_luminance": 227.47,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          1,
+          4,
+          25,
+          23
+        ],
+        "opaque_pixels": 56,
+        "mean_luminance": 165.95,
+        "brightest_10pct_luminance": 237.41,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          2,
+          5,
+          24,
+          24
+        ],
+        "opaque_pixels": 28,
+        "mean_luminance": 96.07,
+        "brightest_10pct_luminance": 160.62,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 6,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  },
+  {
+    "number": 16,
+    "file": "pyke_fx_p_heal.png",
+    "frames": 6,
+    "size": [
+      2304,
+      544
+    ],
+    "cell_native": [
+      24,
+      34
+    ],
+    "raw_size": [
+      1881,
+      836
+    ],
+    "raw_y_crop": [
+      102,
+      766
+    ],
+    "symmetry": "LR",
+    "frames_stats": [
+      {
+        "frame": 1,
+        "bbox": [
+          2,
+          22,
+          22,
+          33
+        ],
+        "opaque_pixels": 58,
+        "mean_luminance": 168.66,
+        "brightest_10pct_luminance": 249.72,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          2,
+          16,
+          22,
+          33
+        ],
+        "opaque_pixels": 98,
+        "mean_luminance": 180.85,
+        "brightest_10pct_luminance": 243.39,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          10,
+          23,
+          32
+        ],
+        "opaque_pixels": 126,
+        "mean_luminance": 172.73,
+        "brightest_10pct_luminance": 249.14,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          3,
+          6,
+          21,
+          32
+        ],
+        "opaque_pixels": 118,
+        "mean_luminance": 177.55,
+        "brightest_10pct_luminance": 243.9,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          3,
+          5,
+          21,
+          21
+        ],
+        "opaque_pixels": 44,
+        "mean_luminance": 183.17,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          3,
+          0,
+          21,
+          15
+        ],
+        "opaque_pixels": 38,
+        "mean_luminance": 197.28,
+        "brightest_10pct_luminance": 246.2,
+        "lr_symmetric": true,
+        "tb_symmetric": false
+      }
+    ],
+    "unique_frames": 6,
+    "source": "ImageGen",
+    "preview_frame_ms": 100
+  }
+]

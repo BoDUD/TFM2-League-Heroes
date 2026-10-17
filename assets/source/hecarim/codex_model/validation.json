@@ -1,0 +1,103 @@
+{
+  "sprites": [
+    {
+      "version": 1,
+      "native_canvas": [
+        128,
+        128
+      ],
+      "preview_canvas": [
+        1024,
+        1024
+      ],
+      "bbox": [
+        35,
+        55,
+        96,
+        99
+      ],
+      "height": 45,
+      "width": 62,
+      "opaque_colors": 18,
+      "alpha_violations": 0,
+      "grid_violations": 0,
+      "hoof_runs": [
+        [
+          44,
+          50
+        ],
+        [
+          53,
+          57
+        ],
+        [
+          60,
+          66
+        ],
+        [
+          77,
+          84
+        ]
+      ],
+      "helmet_band": [
+        60,
+        69
+      ],
+      "eye_rgba": [
+        -11605294,
+        -15856878,
+        -11605294
+      ]
+    },
+    {
+      "version": 2,
+      "native_canvas": [
+        128,
+        128
+      ],
+      "preview_canvas": [
+        1024,
+        1024
+      ],
+      "bbox": [
+        35,
+        57,
+        96,
+        99
+      ],
+      "height": 43,
+      "width": 62,
+      "opaque_colors": 18,
+      "alpha_violations": 0,
+      "grid_violations": 0,
+      "hoof_runs": [
+        [
+          44,
+          50
+        ],
+        [
+          53,
+          57
+        ],
+        [
+          60,
+          66
+        ],
+        [
+          77,
+          84
+        ]
+      ],
+      "helmet_band": [
+        62,
+        69
+      ],
+      "eye_rgba": [
+        -11605294,
+        -15856878,
+        -11605294
+      ]
+    }
+  ],
+  "body_difference_pixels": 0
+}

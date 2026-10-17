@@ -1,0 +1,187 @@
+{
+  "sheet_size": [
+    1254,
+    1254
+  ],
+  "grid": [
+    3,
+    3
+  ],
+  "frame_count": 9,
+  "all_frames_distinct": true,
+  "native_image_unmodified": true,
+  "preview_ms": 120,
+  "preview_timing_note": "Preview only; pack did not specify game timing.",
+  "requested_sheet_size": [
+    1344,
+    1344
+  ],
+  "size_matches_request": false,
+  "strict_8x8_grid_verified": false,
+  "pure_green_background_verified": false,
+  "game_import_tested": false,
+  "frames": [
+    {
+      "frame": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        418,
+        418
+      ],
+      "approximate_foreground_box": [
+        66,
+        46,
+        358,
+        383
+      ],
+      "sha256": "0d800515dcae48134c30b7a1303e0644fba72ae3e204447f0ec56652b1f687e0"
+    },
+    {
+      "frame": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "size": [
+        418,
+        418
+      ],
+      "approximate_foreground_box": [
+        68,
+        45,
+        356,
+        383
+      ],
+      "sha256": "239ae21a66085eda2d5ead026133d7a70931723b738574debb2cbc949b051ed0"
+    },
+    {
+      "frame": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "size": [
+        418,
+        418
+      ],
+      "approximate_foreground_box": [
+        72,
+        50,
+        368,
+        383
+      ],
+      "sha256": "7a2954b9362c7edd6878e7ad88485de7c6ce19b3e336c3dbed8719461d6fa59f"
+    },
+    {
+      "frame": 4,
+      "cell": [
+        0,
+        1
+      ],
+      "size": [
+        418,
+        418
+      ],
+      "approximate_foreground_box": [
+        56,
+        43,
+        357,
+        376
+      ],
+      "sha256": "d44921d73d4bff66a33cc2771060ad6ae0dffb4ad97244ae88daeb35e635b66a"
+    },
+    {
+      "frame": 5,
+      "cell": [
+        1,
+        1
+      ],
+      "size": [
+        418,
+        418
+      ],
+      "approximate_foreground_box": [
+        55,
+        43,
+        362,
+        376
+      ],
+      "sha256": "e218406baebdf1c1efab63b49728cd0e642f6d12cab6952f53c2383daabf17fa"
+    },
+    {
+      "frame": 6,
+      "cell": [
+        2,
+        1
+      ],
+      "size": [
+        418,
+        418
+      ],
+      "approximate_foreground_box": [
+        50,
+        32,
+        373,
+        382
+      ],
+      "sha256": "1104085827e17683399d712b1eaf47df8a16b9874ac7ebd220eceecfc26583f5"
+    },
+    {
+      "frame": 7,
+      "cell": [
+        0,
+        2
+      ],
+      "size": [
+        418,
+        418
+      ],
+      "approximate_foreground_box": [
+        37,
+        36,
+        380,
+        384
+      ],
+      "sha256": "d3a1724de1a44cdbccd94ceb5897d77154d97e06c433cfe0b85acbc2b3d4818e"
+    },
+    {
+      "frame": 8,
+      "cell": [
+        1,
+        2
+      ],
+      "size": [
+        418,
+        418
+      ],
+      "approximate_foreground_box": [
+        35,
+        44,
+        384,
+        384
+      ],
+      "sha256": "34d39137c4a582995ea63bfcba31bcb564d311dd80535f46582b8e7251bf0e69"
+    },
+    {
+      "frame": 9,
+      "cell": [
+        2,
+        2
+      ],
+      "size": [
+        418,
+        418
+      ],
+      "approximate_foreground_box": [
+        43,
+        48,
+        381,
+        388
+      ],
+      "sha256": "2805a3e2436587432ad703484b98e1f3cf0b26b021072c446ff116e480e81e5d"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "bolt": {"cell": [21, 7], "anchor": [10, 3], "frames": 4},
+  "shot": {"cell": [29, 13], "anchor": [14, 6], "frames": 4},
+  "hit": {"cell": [15, 13], "anchor": [7, 6], "frames": 4},
+  "pl_stack": {"cell": [19, 17], "anchor": [9, 8], "frames": 24},
+  "p_burst": {"cell": [27, 31], "anchor": [13, 15], "frames": 7},
+  "e_cast": {"cell": [37, 79], "anchor": [18, 39], "frames": 6},
+  "e_aura": {"cell": [27, 71], "anchor": [13, 35], "frames": 6},
+  "e_invis": {"cell": [29, 87], "anchor": [14, 43], "frames": 5},
+  "q_pod": {"cell": [13, 27], "anchor": [6, 13], "frames": 5},
+  "q_hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 5},
+  "w_charge": {"cell": [33, 21], "anchor": [16, 10], "frames": 5},
+  "w_muzzle": {"cell": [53, 31], "anchor": [26, 15], "frames": 5},
+  "w_hit": {"cell": [31, 35], "anchor": [15, 17], "frames": 6},
+  "r_launch": {"cell": [31, 53], "anchor": [15, 26], "frames": 6},
+  "r_trail": {"cell": [75, 21], "anchor": [37, 10], "frames": 4},
+  "r_land": {"cell": [29, 43], "anchor": [14, 21], "frames": 5},
+  "r_shield": {"cell": [43, 91], "anchor": [21, 45], "frames": 12},
+  "evolve": {"cell": [27, 109], "anchor": [13, 54], "frames": 8}
+}

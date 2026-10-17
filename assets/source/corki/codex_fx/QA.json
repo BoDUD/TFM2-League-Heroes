@@ -1,0 +1,177 @@
+{
+  "asset_count": 17,
+  "total_frames": 85,
+  "checks": [
+    {
+      "file": "corki_fx_a_bolt.png",
+      "frames": 2,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_a_hit.png",
+      "frames": 4,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_q_bomb.png",
+      "frames": 4,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_q_boom.png",
+      "frames": 6,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_q_hit.png",
+      "frames": 4,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_e_hit.png",
+      "frames": 3,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_e_shred.png",
+      "frames": 4,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_w_fire.png",
+      "frames": 10,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_w_fire_big.png",
+      "frames": 12,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_w_burn.png",
+      "frames": 4,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_pk_blast.png",
+      "frames": 6,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_pk_hit.png",
+      "frames": 4,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_r_missile.png",
+      "frames": 3,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_r_big_missile.png",
+      "frames": 3,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_r_boom.png",
+      "frames": 5,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_r_big_boom.png",
+      "frames": 7,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    },
+    {
+      "file": "corki_fx_r_hit.png",
+      "frames": 4,
+      "symmetry": true,
+      "hard_alpha": true,
+      "palette": true,
+      "nonempty_frames": true,
+      "transparent_border": true,
+      "nearest_8x": true
+    }
+  ],
+  "in_game_verified": false
+}

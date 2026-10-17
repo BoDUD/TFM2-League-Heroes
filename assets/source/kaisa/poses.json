@@ -1,0 +1,288 @@
+{
+ "hero": "kaisa",
+ "champ": "Kaisa",
+ "camera": {
+  "yaw": 20,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 3.0,
+  "legs": 0.75,
+  "hair": 0.45
+ },
+ "hide_submeshes": true,
+ "height": 44,
+ "cell": [
+  96,
+  96,
+  14
+ ],
+ "design": "kaisa_spell4_ready_loop@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "kaisa_spell4_ready_loop@0",
+     200
+    ],
+    [
+     "kaisa_spell4_ready_loop@0",
+     200
+    ],
+    [
+     "kaisa_spell4_ready_loop@0",
+     200
+    ],
+    [
+     "kaisa_spell4_ready_loop@0",
+     200
+    ],
+    [
+     "kaisa_spell4_ready_loop@0",
+     200
+    ],
+    [
+     "kaisa_spell4_ready_loop@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "kaisa_spell4_ready_loop@0",
+   "frames": [
+    [
+     "kaisa_run@0",
+     116
+    ],
+    [
+     "kaisa_run@108",
+     116
+    ],
+    [
+     "kaisa_run@217",
+     116
+    ],
+    [
+     "kaisa_run@325",
+     116
+    ],
+    [
+     "kaisa_run@433",
+     116
+    ],
+    [
+     "kaisa_run@542",
+     116
+    ],
+    [
+     "kaisa_run@650",
+     116
+    ],
+    [
+     "kaisa_run@758",
+     116
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "head_like": "kaisa_spell4_ready_loop@0",
+   "frames": [
+    [
+     "kaisa_spell4_ready_loop@0>kaisa_attack1_0@200:0.6",
+     60
+    ],
+    [
+     "kaisa_attack1_0@267",
+     60
+    ],
+    [
+     "kaisa_attack1_0@333",
+     70
+    ],
+    [
+     "kaisa_attack1_0@400",
+     70
+    ],
+    [
+     "kaisa_attack1_0@500",
+     70
+    ],
+    [
+     "kaisa_attack1_0@600>kaisa_spell4_ready_loop@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "head_like": "kaisa_spell4_ready_loop@0",
+   "frames": [
+    [
+     "kaisa_spell4_ready_loop@0>kaisa_spell1@133:0.6",
+     70
+    ],
+    [
+     "kaisa_spell1@200",
+     70
+    ],
+    [
+     "kaisa_spell1@267",
+     80
+    ],
+    [
+     "kaisa_spell1@333",
+     80
+    ],
+    [
+     "kaisa_spell1@500",
+     100
+    ],
+    [
+     "kaisa_spell1@833>kaisa_spell4_ready_loop@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "head_like": "kaisa_spell4_ready_loop@0",
+   "frames": [
+    [
+     "kaisa_spell4_ready_loop@0>kaisa_spell2@100:0.6",
+     80
+    ],
+    [
+     "kaisa_spell2@200",
+     90
+    ],
+    [
+     "kaisa_spell2@300",
+     100
+    ],
+    [
+     "kaisa_spell2@367",
+     110
+    ],
+    [
+     "kaisa_spell2@400",
+     80
+    ],
+    [
+     "kaisa_spell2@467",
+     70
+    ],
+    [
+     "kaisa_spell2@700>kaisa_spell4_ready_loop@0:0.5",
+     70
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "head_like": "kaisa_spell4_ready_loop@0",
+   "frames": [
+    [
+     "kaisa_spell4_ready_loop@0>kaisa_spell4_in@67:0.6",
+     60
+    ],
+    [
+     "kaisa_spell4_in@133",
+     60
+    ],
+    [
+     "kaisa_spell4_in@267",
+     60,
+     {
+      "turn": 35
+     }
+    ],
+    [
+     "kaisa_spell4@0",
+     600,
+     {
+      "turn": 50
+     }
+    ]
+   ]
+  },
+  "ult_land": {
+   "lunge": 0.3,
+   "head_like": "kaisa_spell4_ready_loop@0",
+   "frames": [
+    [
+     "kaisa_spell4_out@100",
+     60
+    ],
+    [
+     "kaisa_spell4_out@400",
+     60
+    ],
+    [
+     "kaisa_spell4_out@1200>kaisa_spell4_ready_loop@0:0.5",
+     60
+    ],
+    [
+     "kaisa_spell4_out@1600>kaisa_spell4_ready_loop@0:0.7",
+     60
+    ]
+   ]
+  },
+  "hit": {
+   "head_like": "kaisa_spell4_ready_loop@0",
+   "frames": [
+    [
+     "kaisa_spell4_ready_loop@0>kaisa_death01@400:0.35",
+     100
+    ],
+    [
+     "kaisa_spell4_ready_loop@0>kaisa_death01@400:0.15",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "flat": true,
+   "travel": 0.3,
+   "rise": 0.3,
+   "frames": [
+    [
+     "kaisa_death01@200",
+     100
+    ],
+    [
+     "kaisa_death01@400",
+     100
+    ],
+    [
+     "kaisa_death01@600",
+     110
+    ],
+    [
+     "kaisa_death01@900",
+     110
+    ],
+    [
+     "kaisa_death01@1150",
+     120
+    ],
+    [
+     "kaisa_death01@1300",
+     130
+    ],
+    [
+     "kaisa_death01@1600",
+     150
+    ],
+    [
+     "kaisa_death01@2300",
+     500
+    ]
+   ]
+  }
+ }
+}

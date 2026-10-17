@@ -1,0 +1,502 @@
+{
+  "frames_checked": 55,
+  "checks": [
+    {
+      "action": "idle",
+      "frame": 1,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 66.2,
+      "visible_colored_pixels": 205,
+      "root_overlap_pixels": 17,
+      "pass": true
+    },
+    {
+      "action": "idle",
+      "frame": 2,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 66.2,
+      "visible_colored_pixels": 205,
+      "root_overlap_pixels": 17,
+      "pass": true
+    },
+    {
+      "action": "idle",
+      "frame": 3,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 66.2,
+      "visible_colored_pixels": 205,
+      "root_overlap_pixels": 17,
+      "pass": true
+    },
+    {
+      "action": "idle",
+      "frame": 4,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 66.2,
+      "visible_colored_pixels": 205,
+      "root_overlap_pixels": 17,
+      "pass": true
+    },
+    {
+      "action": "idle",
+      "frame": 5,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 66.2,
+      "visible_colored_pixels": 205,
+      "root_overlap_pixels": 17,
+      "pass": true
+    },
+    {
+      "action": "idle",
+      "frame": 6,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 66.2,
+      "visible_colored_pixels": 205,
+      "root_overlap_pixels": 17,
+      "pass": true
+    },
+    {
+      "action": "run",
+      "frame": 1,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 75.4,
+      "visible_colored_pixels": 190,
+      "root_overlap_pixels": 33,
+      "pass": true
+    },
+    {
+      "action": "run",
+      "frame": 2,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 60.2,
+      "visible_colored_pixels": 131,
+      "root_overlap_pixels": 22,
+      "pass": true
+    },
+    {
+      "action": "run",
+      "frame": 3,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 78.2,
+      "visible_colored_pixels": 221,
+      "root_overlap_pixels": 28,
+      "pass": true
+    },
+    {
+      "action": "run",
+      "frame": 4,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 61.0,
+      "visible_colored_pixels": 150,
+      "root_overlap_pixels": 25,
+      "pass": true
+    },
+    {
+      "action": "run",
+      "frame": 5,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 74.9,
+      "visible_colored_pixels": 198,
+      "root_overlap_pixels": 30,
+      "pass": true
+    },
+    {
+      "action": "run",
+      "frame": 6,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 76.2,
+      "visible_colored_pixels": 182,
+      "root_overlap_pixels": 21,
+      "pass": true
+    },
+    {
+      "action": "run",
+      "frame": 7,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 62.1,
+      "visible_colored_pixels": 157,
+      "root_overlap_pixels": 27,
+      "pass": true
+    },
+    {
+      "action": "run",
+      "frame": 8,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 65.6,
+      "visible_colored_pixels": 169,
+      "root_overlap_pixels": 30,
+      "pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 1,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 65.9,
+      "visible_colored_pixels": 196,
+      "root_overlap_pixels": 32,
+      "pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 2,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 85.9,
+      "visible_colored_pixels": 252,
+      "root_overlap_pixels": 20,
+      "pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 3,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 92.9,
+      "visible_colored_pixels": 296,
+      "root_overlap_pixels": 18,
+      "pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 4,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 67.6,
+      "visible_colored_pixels": 199,
+      "root_overlap_pixels": 31,
+      "pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 5,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 63.1,
+      "visible_colored_pixels": 178,
+      "root_overlap_pixels": 28,
+      "pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 6,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 91.3,
+      "visible_colored_pixels": 277,
+      "root_overlap_pixels": 16,
+      "pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 7,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 70.1,
+      "visible_colored_pixels": 214,
+      "root_overlap_pixels": 33,
+      "pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 1,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 68.6,
+      "visible_colored_pixels": 219,
+      "root_overlap_pixels": 31,
+      "pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 2,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 59.2,
+      "visible_colored_pixels": 159,
+      "root_overlap_pixels": 18,
+      "pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 3,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 63.9,
+      "visible_colored_pixels": 182,
+      "root_overlap_pixels": 22,
+      "pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 4,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 66.8,
+      "visible_colored_pixels": 170,
+      "root_overlap_pixels": 23,
+      "pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 5,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 63.8,
+      "visible_colored_pixels": 163,
+      "root_overlap_pixels": 34,
+      "pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 6,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 72.8,
+      "visible_colored_pixels": 191,
+      "root_overlap_pixels": 20,
+      "pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 7,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 67.8,
+      "visible_colored_pixels": 151,
+      "root_overlap_pixels": 35,
+      "pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 8,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 65.9,
+      "visible_colored_pixels": 200,
+      "root_overlap_pixels": 34,
+      "pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 1,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 82.9,
+      "visible_colored_pixels": 289,
+      "root_overlap_pixels": 32,
+      "pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 2,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 86.2,
+      "visible_colored_pixels": 302,
+      "root_overlap_pixels": 26,
+      "pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 3,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 90.5,
+      "visible_colored_pixels": 298,
+      "root_overlap_pixels": 31,
+      "pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 4,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 91.2,
+      "visible_colored_pixels": 275,
+      "root_overlap_pixels": 20,
+      "pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 5,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 80.0,
+      "visible_colored_pixels": 244,
+      "root_overlap_pixels": 35,
+      "pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 6,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 90.6,
+      "visible_colored_pixels": 312,
+      "root_overlap_pixels": 21,
+      "pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 7,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 66.7,
+      "visible_colored_pixels": 209,
+      "root_overlap_pixels": 30,
+      "pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 1,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 55.6,
+      "visible_colored_pixels": 146,
+      "root_overlap_pixels": 27,
+      "pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 2,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 80.9,
+      "visible_colored_pixels": 178,
+      "root_overlap_pixels": 40,
+      "pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 3,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 97.3,
+      "visible_colored_pixels": 234,
+      "root_overlap_pixels": 9,
+      "pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 4,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 96.3,
+      "visible_colored_pixels": 248,
+      "root_overlap_pixels": 13,
+      "pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 5,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 71.5,
+      "visible_colored_pixels": 168,
+      "root_overlap_pixels": 40,
+      "pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 6,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 90.8,
+      "visible_colored_pixels": 223,
+      "root_overlap_pixels": 23,
+      "pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 7,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 73.5,
+      "visible_colored_pixels": 161,
+      "root_overlap_pixels": 33,
+      "pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 8,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 63.0,
+      "visible_colored_pixels": 171,
+      "root_overlap_pixels": 39,
+      "pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 9,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 65.9,
+      "visible_colored_pixels": 180,
+      "root_overlap_pixels": 18,
+      "pass": true
+    },
+    {
+      "action": "hit",
+      "frame": 1,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 87.1,
+      "visible_colored_pixels": 300,
+      "root_overlap_pixels": 28,
+      "pass": true
+    },
+    {
+      "action": "hit",
+      "frame": 2,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 63.5,
+      "visible_colored_pixels": 209,
+      "root_overlap_pixels": 32,
+      "pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 1,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 57.6,
+      "visible_colored_pixels": 168,
+      "root_overlap_pixels": 29,
+      "pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 2,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 53.1,
+      "visible_colored_pixels": 135,
+      "root_overlap_pixels": 34,
+      "pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 3,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 68.3,
+      "visible_colored_pixels": 160,
+      "root_overlap_pixels": 15,
+      "pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 4,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 81.1,
+      "visible_colored_pixels": 195,
+      "root_overlap_pixels": 28,
+      "pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 5,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 85.9,
+      "visible_colored_pixels": 196,
+      "root_overlap_pixels": 27,
+      "pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 6,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 86.3,
+      "visible_colored_pixels": 217,
+      "root_overlap_pixels": 24,
+      "pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 7,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 88.4,
+      "visible_colored_pixels": 104,
+      "root_overlap_pixels": 15,
+      "pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 8,
+      "body_changed_pixels": 0,
+      "tail_visible_percent": 87.7,
+      "visible_colored_pixels": 88,
+      "root_overlap_pixels": 15,
+      "pass": true
+    }
+  ],
+  "result": "PASS",
+  "game_runtime_tested": false
+}

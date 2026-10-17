@@ -1,0 +1,304 @@
+{
+ "hero": "vladimir",
+ "champ": "Vladimir",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  96,
+  96,
+  14
+ ],
+ "design": "vladimir_idle1@0",
+ "head_joint": "C_Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "vladimir_idle1@0",
+     200
+    ],
+    [
+     "vladimir_idle1@0",
+     200
+    ],
+    [
+     "vladimir_idle1@0",
+     200
+    ],
+    [
+     "vladimir_idle1@0",
+     200
+    ],
+    [
+     "vladimir_idle1@0",
+     200
+    ],
+    [
+     "vladimir_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "vladimir_idle1@0",
+   "frames": [
+    [
+     "vladimir_run@0",
+     120
+    ],
+    [
+     "vladimir_run@100",
+     120
+    ],
+    [
+     "vladimir_run@200",
+     120
+    ],
+    [
+     "vladimir_run@300",
+     120
+    ],
+    [
+     "vladimir_run@400",
+     120
+    ],
+    [
+     "vladimir_run@500",
+     120
+    ],
+    [
+     "vladimir_run@600",
+     120
+    ],
+    [
+     "vladimir_run@700",
+     120
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "vladimir_idle1@0>vladimir_attack1@60:0.6",
+     60
+    ],
+    [
+     "vladimir_attack1@121",
+     60
+    ],
+    [
+     "vladimir_attack1@200",
+     70
+    ],
+    [
+     "vladimir_attack1@260",
+     70
+    ],
+    [
+     "vladimir_attack1@400",
+     80
+    ],
+    [
+     "vladimir_attack1@700>vladimir_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "vladimir_idle1@0>vladimir_spell1@80:0.6",
+     60
+    ],
+    [
+     "vladimir_spell1@167",
+     60
+    ],
+    [
+     "vladimir_spell1@280",
+     70
+    ],
+    [
+     "vladimir_spell1@333",
+     70
+    ],
+    [
+     "vladimir_spell1@500",
+     90
+    ],
+    [
+     "vladimir_spell1@800>vladimir_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.4,
+   "release": 6,
+   "frames": [
+    [
+     "vladimir_idle1@0>Vladimir_spell3_windup@200:0.6",
+     80
+    ],
+    [
+     "Vladimir_spell3_windup@417",
+     100
+    ],
+    [
+     "Vladimir_spell3_windup@833",
+     120
+    ],
+    [
+     "Vladimir_spell3_windup@1250",
+     150
+    ],
+    [
+     "Vladimir_spell3_cast@183",
+     60
+    ],
+    [
+     "Vladimir_spell3_cast@367",
+     80
+    ],
+    [
+     "Vladimir_spell3_cast@917>vladimir_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill_w": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "vladimir_idle1@0>vladimir_spell2_down@60:0.6",
+     60
+    ],
+    [
+     "vladimir_spell2_down@150",
+     60
+    ],
+    [
+     "vladimir_spell2_down@300",
+     70
+    ],
+    [
+     "vladimir_spell2_down@438",
+     600
+    ],
+    [
+     "vladimir_spell2_down@875",
+     600
+    ],
+    [
+     "vladimir_spell2_up@200",
+     70
+    ],
+    [
+     "vladimir_spell2_up@375",
+     70
+    ],
+    [
+     "vladimir_spell2_up@750>vladimir_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "vladimir_idle1@0>vladimir_spell4@60:0.6",
+     60
+    ],
+    [
+     "vladimir_spell4@121",
+     60
+    ],
+    [
+     "vladimir_spell4@200",
+     70
+    ],
+    [
+     "vladimir_spell4@260",
+     80
+    ],
+    [
+     "vladimir_spell4@484",
+     80
+    ],
+    [
+     "vladimir_spell4@800>vladimir_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "vladimir_idle1@0>vladimir_death@300:0.35",
+     120
+    ],
+    [
+     "vladimir_idle1@0>vladimir_death@300:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "vladimir_death@0",
+     100
+    ],
+    [
+     "vladimir_death@300",
+     100
+    ],
+    [
+     "vladimir_death@583",
+     100
+    ],
+    [
+     "vladimir_death@1000",
+     120
+    ],
+    [
+     "vladimir_death@1750",
+     120
+    ],
+    [
+     "vladimir_death@2333",
+     150
+    ],
+    [
+     "vladimir_death@2917",
+     200
+    ],
+    [
+     "vladimir_death@4083",
+     500
+    ]
+   ]
+  }
+ }
+}

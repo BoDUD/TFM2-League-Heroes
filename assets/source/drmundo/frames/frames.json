@@ -1,0 +1,201 @@
+{
+ "canvas": [
+  219,
+  146
+ ],
+ "soles_row": 138,
+ "standing_point": [
+  100,
+  138
+ ],
+ "tags": {
+  "run": [
+   {
+    "file": "run_1.png",
+    "ms": 133
+   },
+   {
+    "file": "run_2.png",
+    "ms": 133
+   },
+   {
+    "file": "run_3.png",
+    "ms": 133
+   },
+   {
+    "file": "run_4.png",
+    "ms": 133
+   },
+   {
+    "file": "run_5.png",
+    "ms": 133
+   },
+   {
+    "file": "run_6.png",
+    "ms": 133
+   },
+   {
+    "file": "run_7.png",
+    "ms": 133
+   },
+   {
+    "file": "run_8.png",
+    "ms": 133
+   }
+  ],
+  "attack": [
+   {
+    "file": "attack_1.png",
+    "ms": 80
+   },
+   {
+    "file": "attack_2.png",
+    "ms": 80
+   },
+   {
+    "file": "attack_3.png",
+    "ms": 90
+   },
+   {
+    "file": "attack_4.png",
+    "ms": 70
+   },
+   {
+    "file": "attack_5.png",
+    "ms": 80
+   }
+  ],
+  "attack_e": [
+   {
+    "file": "attack_e_1.png",
+    "ms": 70
+   },
+   {
+    "file": "attack_e_2.png",
+    "ms": 70
+   },
+   {
+    "file": "attack_e_3.png",
+    "ms": 100
+   },
+   {
+    "file": "attack_e_4.png",
+    "ms": 90
+   },
+   {
+    "file": "attack_e_5.png",
+    "ms": 103
+   }
+  ],
+  "skill": [
+   {
+    "file": "skill_1.png",
+    "ms": 60
+   },
+   {
+    "file": "skill_2.png",
+    "ms": 60
+   },
+   {
+    "file": "skill_3.png",
+    "ms": 60
+   },
+   {
+    "file": "skill_4.png",
+    "ms": 100
+   },
+   {
+    "file": "skill_5.png",
+    "ms": 153
+   }
+  ],
+  "skill2": [
+   {
+    "file": "skill2_1.png",
+    "ms": 50
+   },
+   {
+    "file": "skill2_2.png",
+    "ms": 60
+   },
+   {
+    "file": "skill2_3.png",
+    "ms": 60
+   },
+   {
+    "file": "skill2_4.png",
+    "ms": 63
+   }
+  ],
+  "skill2_end": [
+   {
+    "file": "skill2_end_1.png",
+    "ms": 50
+   },
+   {
+    "file": "skill2_end_2.png",
+    "ms": 50
+   },
+   {
+    "file": "skill2_end_3.png",
+    "ms": 50
+   },
+   {
+    "file": "skill2_end_4.png",
+    "ms": 50
+   }
+  ],
+  "ult": [
+   {
+    "file": "ult_1.png",
+    "ms": 80
+   },
+   {
+    "file": "ult_2.png",
+    "ms": 80
+   },
+   {
+    "file": "ult_3.png",
+    "ms": 80
+   },
+   {
+    "file": "ult_4.png",
+    "ms": 80
+   },
+   {
+    "file": "ult_5.png",
+    "ms": 90
+   },
+   {
+    "file": "ult_6.png",
+    "ms": 90
+   }
+  ],
+  "dead": [
+   {
+    "file": "dead_1.png",
+    "ms": 100
+   },
+   {
+    "file": "dead_2.png",
+    "ms": 100
+   },
+   {
+    "file": "dead_3.png",
+    "ms": 110
+   },
+   {
+    "file": "dead_4.png",
+    "ms": 120
+   },
+   {
+    "file": "dead_5.png",
+    "ms": 150
+   },
+   {
+    "file": "dead_6.png",
+    "ms": 400
+   }
+  ]
+ }
+}

@@ -1,0 +1,2210 @@
+{
+  "id": "league_olaf",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee"
+  ],
+  "sprite": "asset/league/champions/league_olaf",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_olaf_skill",
+    "asset/league/icons/league_olaf_skill2",
+    "asset/league/icons/league_olaf_ult"
+  ],
+  "stat": {
+    "attack": 100,
+    "magic_power": 0,
+    "hp": 1100,
+    "defence": 34,
+    "magic_resistance": 25,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 108,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_olaf.attack",
+    "duration": 24,
+    "cooltime": 64,
+    "start_timing": 12,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_olaf_a_swing"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_olaf_sense",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_olaf_p_4",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_olaf_p_1"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_olaf_p_2"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_olaf_p_3"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_olaf_p_4"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_olaf_p_1",
+                        "duration": {
+                          "Time": {
+                            "tick": 450
+                          }
+                        },
+                        "attack_speed_mult": 20
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_olaf_p_2",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        },
+                        "attack_speed_mult": 20
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_olaf_p_3",
+                        "duration": {
+                          "Time": {
+                            "tick": 270
+                          }
+                        },
+                        "attack_speed_mult": 20,
+                        "vamp": 12
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_olaf_p_4",
+                        "duration": {
+                          "Time": {
+                            "tick": 180
+                          }
+                        },
+                        "attack_speed_mult": 20,
+                        "vamp": 12
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_olaf_p_3",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_olaf_p_1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_olaf_p_2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_olaf_p_3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_olaf_p_4"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_olaf_p_1",
+                          "duration": {
+                            "Time": {
+                              "tick": 450
+                            }
+                          },
+                          "attack_speed_mult": 20
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_olaf_p_2",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 20
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_olaf_p_3",
+                          "duration": {
+                            "Time": {
+                              "tick": 270
+                            }
+                          },
+                          "attack_speed_mult": 20,
+                          "vamp": 12
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_olaf_p_4",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          },
+                          "attack_speed_mult": 20,
+                          "vamp": 12
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_olaf_p_2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_olaf_p_1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_olaf_p_2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_olaf_p_3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_olaf_p_4"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_olaf_p_1",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 20
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_olaf_p_2",
+                            "duration": {
+                              "Time": {
+                                "tick": 270
+                              }
+                            },
+                            "attack_speed_mult": 20
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_olaf_p_3",
+                            "duration": {
+                              "Time": {
+                                "tick": 180
+                              }
+                            },
+                            "attack_speed_mult": 20,
+                            "vamp": 12
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_olaf_p_1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_p_1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_p_2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_p_3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_p_4"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_olaf_p_1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 270
+                                }
+                              },
+                              "attack_speed_mult": 20
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_olaf_p_2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "attack_speed_mult": 20
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_p_1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_p_2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_p_3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_p_4"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_olaf_p_1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "attack_speed_mult": 20
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Shield",
+                        "amount": 1,
+                        "attack_ratio": 0,
+                        "ap_ratio": 0,
+                        "tick": 36000
+                      }
+                    ]
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_olaf_sense",
+                      "duration": "WithShield"
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "SwitchByLevel3",
+          "effect_start": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_level3": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_olaf_r_on",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_olaf_r_pass",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_olaf_r_pass",
+                  "duration": "Permanent",
+                  "defence": 12,
+                  "magic_resistance": 12
+                },
+                "only_to_enemy": false
+              }
+            }
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_olaf_w_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RandomTarget",
+                "range": 30000,
+                "casting_target": "EnemyChampion",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_olaf_w_go",
+                      "duration": {
+                        "Time": {
+                          "tick": 1
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_olaf_w_go",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_olaf_w_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 780
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_olaf_w_on"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_olaf_w_on",
+                            "duration": {
+                              "Time": {
+                                "tick": 240
+                              }
+                            },
+                            "attack_speed_mult": 40
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Shield",
+                          "amount": 100,
+                          "attack_ratio": 40,
+                          "ap_ratio": 0,
+                          "tick": 150
+                        }
+                      ]
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_olaf_w_cast"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_olaf_w"
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_olaf_vo_cd",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_olaf_vo_cd",
+                              "duration": {
+                                "Time": {
+                                  "tick": 600
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_olaf_vo_w"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_olaf_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "league_olaf_a_hit"
+            }
+          ]
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_olaf_a_twin",
+          "speed": 100000,
+          "y_offset": 0,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_olaf_r_on",
+                    "effect_buff": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_olaf_r_cap",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_r_on"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_olaf_r_on",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "attack_mult": 30,
+                              "move_speed_mult": 20,
+                              "cc_immune": true
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_olaf.skill",
+    "duration": 24,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "skill",
+          "tick": 24
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_olaf_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_olaf_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_olaf_vo_q"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_olaf_q"
+            },
+            {
+              "type": "LinearProjectile",
+              "name": "league_olaf_q_blade",
+              "penetrate": true,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 100,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_olaf_q_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      },
+                      "move_speed_mult": -30
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_olaf_q_shred",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      },
+                      "defence_mult": -20
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_olaf_q_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_olaf_q_hit"
+                  }
+                }
+              ],
+              "end_effects": [],
+              "speed": 5500,
+              "range": 55000,
+              "shape": {
+                "Circle": {
+                  "radius": 7000
+                }
+              },
+              "y_offset": 4000
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_olaf_q_gen",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_olaf_q_gen"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_axe_b"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_olaf_axe_b",
+                              "duration": {
+                                "Time": {
+                                  "tick": 310
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "league_olaf_q_axe",
+                        "travel_time": 10,
+                        "range": 1000000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_olaf_q_land"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_olaf_q_land"
+                          },
+                          {
+                            "type": "RangePeriodProjectile",
+                            "name": "league_olaf_q_zone",
+                            "shape": {
+                              "Circle": {
+                                "radius": 9000
+                              }
+                            },
+                            "tick": 300,
+                            "period": 3,
+                            "first_delay": 0,
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "RandomTarget",
+                                  "range": 9000,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": true,
+                                  "effects": [
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_olaf_axe_b",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_olaf_axe_b"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_olaf_q_ref",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 2
+                                                }
+                                              },
+                                              "skill_cooldown_mult": 120,
+                                              "ult_cooldown_mult": -120
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_olaf_q_pick"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_olaf_q_pick"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 15,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 30,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 45,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 60,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 75,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 90,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 105,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 120,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 135,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 150,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 165,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 180,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 195,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 210,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 225,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 240,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 255,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 270,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 285,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_b",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_olaf_q_gen",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_axe_a"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_olaf_axe_a",
+                              "duration": {
+                                "Time": {
+                                  "tick": 310
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "league_olaf_q_axe",
+                        "travel_time": 10,
+                        "range": 1000000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_olaf_q_land"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_olaf_q_land"
+                          },
+                          {
+                            "type": "RangePeriodProjectile",
+                            "name": "league_olaf_q_zone",
+                            "shape": {
+                              "Circle": {
+                                "radius": 9000
+                              }
+                            },
+                            "tick": 300,
+                            "period": 3,
+                            "first_delay": 0,
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "RandomTarget",
+                                  "range": 9000,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": true,
+                                  "effects": [
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_olaf_axe_a",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_olaf_axe_a"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_olaf_q_ref",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 2
+                                                }
+                                              },
+                                              "skill_cooldown_mult": 120,
+                                              "ult_cooldown_mult": -120
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_olaf_q_pick"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_olaf_q_pick"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 15,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 30,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 45,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 60,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 75,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 90,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 105,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 120,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 135,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 150,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 165,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 180,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 195,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 210,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 225,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 240,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 255,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 270,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 285,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_olaf_axe_a",
+                                "effect_buff": {
+                                  "type": "ViewEffect",
+                                  "name": "league_olaf_q_axe"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_olaf.skill2",
+    "duration": 22,
+    "cooltime": 300,
+    "start_timing": 14,
+    "cancelable": false,
+    "range": 28000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_olaf_e"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_olaf_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_olaf_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_olaf_vo_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_olaf_k_e"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_olaf_k_e",
+                    "duration": {
+                      "Time": {
+                        "tick": 40
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "FixedAttack",
+              "damage": 110,
+              "attack_ratio": 90,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_olaf_e_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "league_olaf_e_hit"
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasted",
+                  "casted_type": "Heal",
+                  "duration": 3,
+                  "period": 1,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_olaf_k_e"
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Delayed",
+                      "tick": 4,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_olaf_k_e",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_olaf_k_e"
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
+                                },
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Heal",
+                                    "amount": 33,
+                                    "attack_ratio": 27,
+                                    "ap_ratio": 0,
+                                    "heal_type": "Caster"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "FixedAttack",
+                  "damage": 33,
+                  "attack_ratio": 27,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_olaf_e_twin",
+          "speed": 100000,
+          "y_offset": 0,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_olaf_r_on",
+                    "effect_buff": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_olaf_r_cap",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_olaf_r_on"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_olaf_r_on",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "attack_mult": 30,
+                              "move_speed_mult": 20,
+                              "cc_immune": true
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_olaf.ult",
+    "duration": 28,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 28
+        },
+        {
+          "type": "Sfx",
+          "name": "league_olaf_r"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_olaf_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_olaf_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_olaf_vo_r"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_olaf_r_cast"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_olaf_r_pass"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_olaf_r_on"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_olaf_r_on",
+                "duration": {
+                  "Time": {
+                    "tick": 180
+                  }
+                },
+                "attack_mult": 30,
+                "move_speed_mult": 20,
+                "cc_immune": true
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_olaf_r_cap"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_olaf_r_cap",
+                "duration": {
+                  "Time": {
+                    "tick": 600
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_olaf_q_axe",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "q_fly",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_olaf_a_hit",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_olaf_q_hit",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_olaf_q_land",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "q_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_olaf_q_axe",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "q_axe",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_olaf_q_pick",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "q_pick",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_olaf_e_hit",
+      "anim": "asset/league/effects/league_olaf_big",
+      "tag": "e_hit",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_olaf_w_cast",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "w_cast",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_olaf_r_cast",
+      "anim": "asset/league/effects/league_olaf_big",
+      "tag": "r_cast",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_olaf_r_on",
+      "anim": "asset/league/effects/league_olaf_big",
+      "tag": "r_on",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_olaf_w_on",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "w_on",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_olaf_q_slow",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "q_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_olaf_p_4",
+      "anim": "asset/league/effects/league_olaf_fx",
+      "tag": "p_4",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

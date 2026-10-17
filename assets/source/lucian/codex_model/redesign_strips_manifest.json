@@ -1,0 +1,3245 @@
+{
+  "stage": "face-refined strips",
+  "scale": 8,
+  "cell": [
+    96,
+    96
+  ],
+  "source": "lucian_strips_pack.zip",
+  "coordinate_system": "Output pixels. Rect=[x,y,w,h]; bbox sheet-global [left,top,right_exclusive,bottom_exclusive]; pivot, head anchor and eye center cell-local.",
+  "head_master": "head_master.png",
+  "assets": [
+    {
+      "tag": "idle",
+      "name": "待机",
+      "cols": 3,
+      "rows": 2,
+      "shot_frames_one_based": [],
+      "metadata": {
+        "file": "lucian_idle.png",
+        "width": 2304,
+        "height": 1536,
+        "frame_count": 6,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              384,
+              560
+            ],
+            "duration_ms": 200,
+            "head_anchor": [
+              384,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              224,
+              288,
+              600,
+              656
+            ],
+            "eye_center": [
+              404,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              384,
+              560
+            ],
+            "duration_ms": 200,
+            "head_anchor": [
+              384,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              992,
+              288,
+              1368,
+              656
+            ],
+            "eye_center": [
+              404,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 2,
+            "rect": [
+              1536,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              384,
+              560
+            ],
+            "duration_ms": 200,
+            "head_anchor": [
+              384,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              1760,
+              288,
+              2136,
+              656
+            ],
+            "eye_center": [
+              404,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 3,
+            "rect": [
+              0,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              384,
+              560
+            ],
+            "duration_ms": 200,
+            "head_anchor": [
+              384,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              224,
+              1056,
+              600,
+              1424
+            ],
+            "eye_center": [
+              404,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 4,
+            "rect": [
+              768,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              384,
+              560
+            ],
+            "duration_ms": 200,
+            "head_anchor": [
+              384,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              992,
+              1056,
+              1368,
+              1424
+            ],
+            "eye_center": [
+              404,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 5,
+            "rect": [
+              1536,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              384,
+              560
+            ],
+            "duration_ms": 200,
+            "head_anchor": [
+              384,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              1760,
+              1056,
+              2136,
+              1424
+            ],
+            "eye_center": [
+              404,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          }
+        ]
+      }
+    },
+    {
+      "tag": "run",
+      "name": "移动",
+      "cols": 4,
+      "rows": 2,
+      "shot_frames_one_based": [],
+      "metadata": {
+        "file": "lucian_run.png",
+        "width": 3072,
+        "height": 1536,
+        "frame_count": 8,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              328,
+              560
+            ],
+            "duration_ms": 117,
+            "head_anchor": [
+              368,
+              392
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              190,
+              120,
+              282,
+              214
+            ],
+            "source_bbox": [
+              77,
+              90,
+              396,
+              396
+            ],
+            "source_scale": [
+              0.13186813186813187,
+              0.13186813186813187
+            ],
+            "source": "raw/lucian_run.png",
+            "bbox": [
+              200,
+              336,
+              536,
+              656
+            ],
+            "eye_center": [
+              388,
+              428
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              344,
+              560
+            ],
+            "duration_ms": 117,
+            "head_anchor": [
+              384,
+              400
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              635,
+              120,
+              725,
+              212
+            ],
+            "source_bbox": [
+              535,
+              90,
+              839,
+              402
+            ],
+            "source_scale": [
+              0.12105263157894737,
+              0.12105263157894737
+            ],
+            "source": "raw/lucian_run.png",
+            "bbox": [
+              1008,
+              344,
+              1304,
+              656
+            ],
+            "eye_center": [
+              404,
+              436
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 2,
+            "rect": [
+              1536,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              344,
+              560
+            ],
+            "duration_ms": 117,
+            "head_anchor": [
+              384,
+              392
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1077,
+              118,
+              1171,
+              238
+            ],
+            "source_bbox": [
+              964,
+              90,
+              1283,
+              389
+            ],
+            "source_scale": [
+              0.15894039735099338,
+              0.15894039735099338
+            ],
+            "source": "raw/lucian_run.png",
+            "bbox": [
+              1720,
+              272,
+              2120,
+              656
+            ],
+            "eye_center": [
+              404,
+              428
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 3,
+            "rect": [
+              2304,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              328,
+              560
+            ],
+            "duration_ms": 117,
+            "head_anchor": [
+              368,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1530,
+              120,
+              1618,
+              212
+            ],
+            "source_bbox": [
+              1423,
+              96,
+              1732,
+              402
+            ],
+            "source_scale": [
+              0.13157894736842105,
+              0.13157894736842105
+            ],
+            "source": "raw/lucian_run.png",
+            "bbox": [
+              2512,
+              328,
+              2840,
+              656
+            ],
+            "eye_center": [
+              388,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 4,
+            "rect": [
+              0,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              320,
+              560
+            ],
+            "duration_ms": 117,
+            "head_anchor": [
+              360,
+              392
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              192,
+              547,
+              282,
+              641
+            ],
+            "source_bbox": [
+              81,
+              524,
+              397,
+              825
+            ],
+            "source_scale": [
+              0.13043478260869565,
+              0.13043478260869565
+            ],
+            "source": "raw/lucian_run.png",
+            "bbox": [
+              200,
+              1104,
+              528,
+              1424
+            ],
+            "eye_center": [
+              380,
+              428
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 5,
+            "rect": [
+              768,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              320,
+              560
+            ],
+            "duration_ms": 117,
+            "head_anchor": [
+              360,
+              400
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              635,
+              547,
+              725,
+              641
+            ],
+            "source_bbox": [
+              535,
+              522,
+              839,
+              825
+            ],
+            "source_scale": [
+              0.125,
+              0.125
+            ],
+            "source": "raw/lucian_run.png",
+            "bbox": [
+              984,
+              1112,
+              1288,
+              1424
+            ],
+            "eye_center": [
+              380,
+              436
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 6,
+            "rect": [
+              1536,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              312,
+              560
+            ],
+            "duration_ms": 117,
+            "head_anchor": [
+              352,
+              392
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1079,
+              547,
+              1169,
+              641
+            ],
+            "source_bbox": [
+              971,
+              522,
+              1283,
+              825
+            ],
+            "source_scale": [
+              0.13043478260869565,
+              0.13043478260869565
+            ],
+            "source": "raw/lucian_run.png",
+            "bbox": [
+              1728,
+              1104,
+              2056,
+              1424
+            ],
+            "eye_center": [
+              372,
+              428
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 7,
+            "rect": [
+              2304,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              312,
+              560
+            ],
+            "duration_ms": 117,
+            "head_anchor": [
+              352,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1530,
+              547,
+              1618,
+              641
+            ],
+            "source_bbox": [
+              1457,
+              523,
+              1732,
+              820
+            ],
+            "source_scale": [
+              0.13966480446927373,
+              0.13966480446927373
+            ],
+            "source": "raw/lucian_run.png",
+            "bbox": [
+              2528,
+              1096,
+              2832,
+              1424
+            ],
+            "eye_center": [
+              372,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          }
+        ]
+      }
+    },
+    {
+      "tag": "attack",
+      "name": "普攻",
+      "cols": 3,
+      "rows": 2,
+      "shot_frames_one_based": [
+        3
+      ],
+      "metadata": {
+        "file": "lucian_attack.png",
+        "width": 2304,
+        "height": 1536,
+        "frame_count": 6,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              360,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              360,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              200,
+              288,
+              576,
+              656
+            ],
+            "eye_center": [
+              380,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              344,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              312,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              709,
+              183,
+              807,
+              285
+            ],
+            "source_bbox": [
+              625,
+              152,
+              931,
+              447
+            ],
+            "source_scale": [
+              0.15432098765432098,
+              0.15432098765432098
+            ],
+            "source": "raw/lucian_attack.png",
+            "bbox": [
+              912,
+              288,
+              1296,
+              656
+            ],
+            "eye_center": [
+              332,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 2,
+            "rect": [
+              1536,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              360,
+              560
+            ],
+            "duration_ms": 70,
+            "head_anchor": [
+              312,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1231,
+              183,
+              1329,
+              285
+            ],
+            "source_bbox": [
+              1145,
+              151,
+              1467,
+              447
+            ],
+            "source_scale": [
+              0.15432098765432098,
+              0.15432098765432098
+            ],
+            "source": "raw/lucian_attack.png",
+            "bbox": [
+              1680,
+              288,
+              2080,
+              656
+            ],
+            "eye_center": [
+              332,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 3,
+            "rect": [
+              0,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              376,
+              560
+            ],
+            "duration_ms": 70,
+            "head_anchor": [
+              336,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              213,
+              657,
+              311,
+              759
+            ],
+            "source_bbox": [
+              130,
+              624,
+              416,
+              922
+            ],
+            "source_scale": [
+              0.15337423312883436,
+              0.15337423312883436
+            ],
+            "source": "raw/lucian_attack.png",
+            "bbox": [
+              176,
+              1056,
+              528,
+              1424
+            ],
+            "eye_center": [
+              356,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 4,
+            "rect": [
+              768,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              384,
+              560
+            ],
+            "duration_ms": 80,
+            "head_anchor": [
+              344,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              709,
+              657,
+              807,
+              759
+            ],
+            "source_bbox": [
+              625,
+              624,
+              930,
+              922
+            ],
+            "source_scale": [
+              0.15337423312883436,
+              0.15337423312883436
+            ],
+            "source": "raw/lucian_attack.png",
+            "bbox": [
+              952,
+              1056,
+              1320,
+              1424
+            ],
+            "eye_center": [
+              364,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 5,
+            "rect": [
+              1536,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              368,
+              560
+            ],
+            "duration_ms": 90,
+            "head_anchor": [
+              368,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              1744,
+              1056,
+              2120,
+              1424
+            ],
+            "eye_center": [
+              388,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          }
+        ]
+      }
+    },
+    {
+      "tag": "passive",
+      "name": "圣光银弹",
+      "cols": 4,
+      "rows": 2,
+      "shot_frames_one_based": [
+        3,
+        5
+      ],
+      "metadata": {
+        "file": "lucian_passive.png",
+        "width": 3072,
+        "height": 1536,
+        "frame_count": 7,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              336,
+              560
+            ],
+            "duration_ms": 50,
+            "head_anchor": [
+              336,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              176,
+              288,
+              552,
+              656
+            ],
+            "eye_center": [
+              356,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              352,
+              560
+            ],
+            "duration_ms": 50,
+            "head_anchor": [
+              328,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              613,
+              122,
+              709,
+              216
+            ],
+            "source_bbox": [
+              533,
+              122,
+              829,
+              391
+            ],
+            "source_scale": [
+              0.14285714285714285,
+              0.14285714285714285
+            ],
+            "source": "raw/lucian_passive.png",
+            "bbox": [
+              952,
+              328,
+              1288,
+              656
+            ],
+            "eye_center": [
+              348,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 2,
+            "rect": [
+              1536,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              352,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              328,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1022,
+              121,
+              1124,
+              223
+            ],
+            "source_bbox": [
+              954,
+              86,
+              1292,
+              392
+            ],
+            "source_scale": [
+              0.14792899408284024,
+              0.14792899408284024
+            ],
+            "source": "raw/lucian_passive.png",
+            "bbox": [
+              1720,
+              296,
+              2120,
+              656
+            ],
+            "eye_center": [
+              348,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 3,
+            "rect": [
+              2304,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              360,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              336,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1474,
+              122,
+              1568,
+              220
+            ],
+            "source_bbox": [
+              1390,
+              122,
+              1698,
+              391
+            ],
+            "source_scale": [
+              0.14619883040935672,
+              0.14619883040935672
+            ],
+            "source": "raw/lucian_passive.png",
+            "bbox": [
+              2488,
+              328,
+              2848,
+              656
+            ],
+            "eye_center": [
+              356,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 4,
+            "rect": [
+              0,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              352,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              320,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              152,
+              547,
+              250,
+              643
+            ],
+            "source_bbox": [
+              74,
+              547,
+              441,
+              817
+            ],
+            "source_scale": [
+              0.14367816091954022,
+              0.14367816091954022
+            ],
+            "source": "raw/lucian_passive.png",
+            "bbox": [
+              176,
+              1096,
+              592,
+              1424
+            ],
+            "eye_center": [
+              340,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 5,
+            "rect": [
+              768,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              368,
+              560
+            ],
+            "duration_ms": 70,
+            "head_anchor": [
+              336,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              590,
+              546,
+              692,
+              654
+            ],
+            "source_bbox": [
+              517,
+              547,
+              827,
+              817
+            ],
+            "source_scale": [
+              0.15337423312883436,
+              0.15337423312883436
+            ],
+            "source": "raw/lucian_passive.png",
+            "bbox": [
+              952,
+              1096,
+              1336,
+              1424
+            ],
+            "eye_center": [
+              356,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 6,
+            "rect": [
+              1536,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              352,
+              560
+            ],
+            "duration_ms": 90,
+            "head_anchor": [
+              352,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              1728,
+              1056,
+              2104,
+              1424
+            ],
+            "eye_center": [
+              372,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          }
+        ]
+      }
+    },
+    {
+      "tag": "skill",
+      "name": "透体圣光 · Q",
+      "cols": 4,
+      "rows": 2,
+      "shot_frames_one_based": [
+        4
+      ],
+      "metadata": {
+        "file": "lucian_skill.png",
+        "width": 3072,
+        "height": 1536,
+        "frame_count": 7,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              312,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              312,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              152,
+              288,
+              528,
+              656
+            ],
+            "eye_center": [
+              332,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              352,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              352,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              545,
+              108,
+              659,
+              228
+            ],
+            "source_bbox": [
+              445,
+              107,
+              812,
+              408
+            ],
+            "source_scale": [
+              0.1388888888888889,
+              0.1388888888888889
+            ],
+            "source": "raw/lucian_skill.png",
+            "bbox": [
+              944,
+              328,
+              1352,
+              656
+            ],
+            "eye_center": [
+              372,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 2,
+            "rect": [
+              1536,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              336,
+              560
+            ],
+            "duration_ms": 70,
+            "head_anchor": [
+              328,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1001,
+              108,
+              1119,
+              230
+            ],
+            "source_bbox": [
+              905,
+              107,
+              1280,
+              408
+            ],
+            "source_scale": [
+              0.1404494382022472,
+              0.1404494382022472
+            ],
+            "source": "raw/lucian_skill.png",
+            "bbox": [
+              1688,
+              328,
+              2112,
+              656
+            ],
+            "eye_center": [
+              348,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 3,
+            "rect": [
+              2304,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              400,
+              560
+            ],
+            "duration_ms": 70,
+            "head_anchor": [
+              312,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1442,
+              108,
+              1558,
+              226
+            ],
+            "source_bbox": [
+              1348,
+              107,
+              1749,
+              408
+            ],
+            "source_scale": [
+              0.13736263736263737,
+              0.13736263736263737
+            ],
+            "source": "raw/lucian_skill.png",
+            "bbox": [
+              2448,
+              328,
+              2888,
+              656
+            ],
+            "eye_center": [
+              332,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 4,
+            "rect": [
+              0,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              432,
+              560
+            ],
+            "duration_ms": 80,
+            "head_anchor": [
+              392,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              126,
+              545,
+              242,
+              665
+            ],
+            "source_bbox": [
+              37,
+              545,
+              407,
+              844
+            ],
+            "source_scale": [
+              0.13966480446927373,
+              0.13966480446927373
+            ],
+            "source": "raw/lucian_skill.png",
+            "bbox": [
+              224,
+              1096,
+              640,
+              1424
+            ],
+            "eye_center": [
+              412,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 5,
+            "rect": [
+              768,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              440,
+              560
+            ],
+            "duration_ms": 80,
+            "head_anchor": [
+              416,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              611,
+              567,
+              719,
+              685
+            ],
+            "source_bbox": [
+              480,
+              520,
+              752,
+              844
+            ],
+            "source_scale": [
+              0.15723270440251572,
+              0.15723270440251572
+            ],
+            "source": "raw/lucian_skill.png",
+            "bbox": [
+              952,
+              1016,
+              1296,
+              1424
+            ],
+            "eye_center": [
+              436,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 6,
+            "rect": [
+              1536,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              376,
+              560
+            ],
+            "duration_ms": 90,
+            "head_anchor": [
+              376,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              1752,
+              1056,
+              2128,
+              1424
+            ],
+            "eye_center": [
+              396,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          }
+        ]
+      }
+    },
+    {
+      "tag": "skill2",
+      "name": "向前冲刺 + W",
+      "cols": 4,
+      "rows": 2,
+      "shot_frames_one_based": [
+        6
+      ],
+      "metadata": {
+        "file": "lucian_skill2.png",
+        "width": 3072,
+        "height": 1536,
+        "frame_count": 8,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              344,
+              560
+            ],
+            "duration_ms": 50,
+            "head_anchor": [
+              360,
+              448
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              214,
+              250,
+              298,
+              336
+            ],
+            "source_bbox": [
+              102,
+              238,
+              384,
+              439
+            ],
+            "source_scale": [
+              0.1650485436893204,
+              0.1650485436893204
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              160,
+              392,
+              528,
+              656
+            ],
+            "eye_center": [
+              380,
+              484
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              408,
+              560
+            ],
+            "duration_ms": 50,
+            "head_anchor": [
+              480,
+              464
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              646,
+              237,
+              748,
+              323
+            ],
+            "source_bbox": [
+              495,
+              237,
+              826,
+              388
+            ],
+            "source_scale": [
+              0.1744186046511628,
+              0.1744186046511628
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              968,
+              408,
+              1424,
+              624
+            ],
+            "eye_center": [
+              500,
+              500
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 77
+          },
+          {
+            "index": 2,
+            "rect": [
+              1536,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              408,
+              560
+            ],
+            "duration_ms": 50,
+            "head_anchor": [
+              480,
+              464
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1113,
+              242,
+              1211,
+              322
+            ],
+            "source_bbox": [
+              964,
+              241,
+              1295,
+              388
+            ],
+            "source_scale": [
+              0.1875,
+              0.1875
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              1720,
+              408,
+              2216,
+              632
+            ],
+            "eye_center": [
+              500,
+              500
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 78
+          },
+          {
+            "index": 3,
+            "rect": [
+              2304,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              344,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              360,
+              480
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1514,
+              272,
+              1608,
+              358
+            ],
+            "source_bbox": [
+              1401,
+              270,
+              1673,
+              439
+            ],
+            "source_scale": [
+              0.16049382716049382,
+              0.16049382716049382
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              2456,
+              424,
+              2808,
+              656
+            ],
+            "eye_center": [
+              380,
+              516
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 4,
+            "rect": [
+              0,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              336,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              336,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              186,
+              585,
+              272,
+              671
+            ],
+            "source_bbox": [
+              76,
+              550,
+              374,
+              810
+            ],
+            "source_scale": [
+              0.17985611510791366,
+              0.17985611510791366
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              112,
+              1048,
+              544,
+              1424
+            ],
+            "eye_center": [
+              356,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 5,
+            "rect": [
+              768,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              320,
+              560
+            ],
+            "duration_ms": 70,
+            "head_anchor": [
+              320,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              594,
+              586,
+              684,
+              688
+            ],
+            "source_bbox": [
+              496,
+              551,
+              869,
+              810
+            ],
+            "source_scale": [
+              0.20491803278688525,
+              0.20491803278688525
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              856,
+              1000,
+              1464,
+              1424
+            ],
+            "eye_center": [
+              340,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 6,
+            "rect": [
+              1536,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              416,
+              560
+            ],
+            "duration_ms": 80,
+            "head_anchor": [
+              416,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1063,
+              589,
+              1151,
+              677
+            ],
+            "source_bbox": [
+              958,
+              554,
+              1237,
+              809
+            ],
+            "source_scale": [
+              0.1893939393939394,
+              0.1893939393939394
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              1728,
+              1040,
+              2152,
+              1424
+            ],
+            "eye_center": [
+              436,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 7,
+            "rect": [
+              2304,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              424,
+              560
+            ],
+            "duration_ms": 90,
+            "head_anchor": [
+              424,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              2568,
+              1056,
+              2944,
+              1424
+            ],
+            "eye_center": [
+              444,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          }
+        ]
+      }
+    },
+    {
+      "tag": "skill2_back",
+      "name": "向后冲刺 + W",
+      "cols": 4,
+      "rows": 2,
+      "shot_frames_one_based": [
+        6
+      ],
+      "metadata": {
+        "file": "lucian_skill2_back.png",
+        "width": 3072,
+        "height": 1536,
+        "frame_count": 8,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              400,
+              560
+            ],
+            "duration_ms": 50,
+            "head_anchor": [
+              416,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              206,
+              168,
+              288,
+              260
+            ],
+            "source_bbox": [
+              109,
+              136,
+              375,
+              432
+            ],
+            "source_scale": [
+              0.14534883720930233,
+              0.14534883720930233
+            ],
+            "source": "raw/lucian_skill2_back.png",
+            "bbox": [
+              256,
+              312,
+              568,
+              656
+            ],
+            "eye_center": [
+              436,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              424,
+              560
+            ],
+            "duration_ms": 50,
+            "head_anchor": [
+              464,
+              368
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              633,
+              166,
+              721,
+              254
+            ],
+            "source_bbox": [
+              628,
+              163,
+              829,
+              396
+            ],
+            "source_scale": [
+              0.17045454545454544,
+              0.17045454545454544
+            ],
+            "source": "raw/lucian_skill2_back.png",
+            "bbox": [
+              1168,
+              312,
+              1440,
+              632
+            ],
+            "eye_center": [
+              484,
+              404
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 78
+          },
+          {
+            "index": 2,
+            "rect": [
+              1536,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              424,
+              560
+            ],
+            "duration_ms": 50,
+            "head_anchor": [
+              464,
+              376
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1077,
+              166,
+              1165,
+              256
+            ],
+            "source_bbox": [
+              1071,
+              163,
+              1265,
+              396
+            ],
+            "source_scale": [
+              0.16666666666666666,
+              0.16666666666666666
+            ],
+            "source": "raw/lucian_skill2_back.png",
+            "bbox": [
+              1936,
+              320,
+              2192,
+              632
+            ],
+            "eye_center": [
+              484,
+              412
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 78
+          },
+          {
+            "index": 3,
+            "rect": [
+              2304,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              400,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              416,
+              440
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1530,
+              218,
+              1614,
+              304
+            ],
+            "source_bbox": [
+              1421,
+              211,
+              1705,
+              432
+            ],
+            "source_scale": [
+              0.140625,
+              0.140625
+            ],
+            "source": "raw/lucian_skill2_back.png",
+            "bbox": [
+              2552,
+              384,
+              2872,
+              656
+            ],
+            "eye_center": [
+              436,
+              476
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 4,
+            "rect": [
+              0,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              336,
+              560
+            ],
+            "duration_ms": 60,
+            "head_anchor": [
+              336,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              186,
+              585,
+              272,
+              671
+            ],
+            "source_bbox": [
+              76,
+              550,
+              374,
+              810
+            ],
+            "source_scale": [
+              0.17985611510791366,
+              0.17985611510791366
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              112,
+              1048,
+              544,
+              1424
+            ],
+            "eye_center": [
+              356,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 5,
+            "rect": [
+              768,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              320,
+              560
+            ],
+            "duration_ms": 70,
+            "head_anchor": [
+              320,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              594,
+              586,
+              684,
+              688
+            ],
+            "source_bbox": [
+              496,
+              551,
+              869,
+              810
+            ],
+            "source_scale": [
+              0.20491803278688525,
+              0.20491803278688525
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              856,
+              1000,
+              1464,
+              1424
+            ],
+            "eye_center": [
+              340,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 6,
+            "rect": [
+              1536,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              416,
+              560
+            ],
+            "duration_ms": 80,
+            "head_anchor": [
+              416,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1063,
+              589,
+              1151,
+              677
+            ],
+            "source_bbox": [
+              958,
+              554,
+              1237,
+              809
+            ],
+            "source_scale": [
+              0.1893939393939394,
+              0.1893939393939394
+            ],
+            "source": "raw/lucian_skill2.png",
+            "bbox": [
+              1728,
+              1040,
+              2152,
+              1424
+            ],
+            "eye_center": [
+              436,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 7,
+            "rect": [
+              2304,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              424,
+              560
+            ],
+            "duration_ms": 90,
+            "head_anchor": [
+              424,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              2568,
+              1056,
+              2944,
+              1424
+            ],
+            "eye_center": [
+              444,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          }
+        ]
+      }
+    },
+    {
+      "tag": "ult",
+      "name": "圣枪洗礼 · R",
+      "cols": 4,
+      "rows": 1,
+      "shot_frames_one_based": [
+        1,
+        3
+      ],
+      "metadata": {
+        "file": "lucian_ult.png",
+        "width": 3072,
+        "height": 768,
+        "frame_count": 4,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              328,
+              560
+            ],
+            "duration_ms": 75,
+            "head_anchor": [
+              312,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              155,
+              201,
+              283,
+              341
+            ],
+            "source_bbox": [
+              59,
+              181,
+              454,
+              587
+            ],
+            "source_scale": [
+              0.1016260162601626,
+              0.1016260162601626
+            ],
+            "source": "raw/lucian_ult.png",
+            "bbox": [
+              184,
+              328,
+              504,
+              656
+            ],
+            "eye_center": [
+              332,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              328,
+              560
+            ],
+            "duration_ms": 75,
+            "head_anchor": [
+              312,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              704,
+              201,
+              828,
+              341
+            ],
+            "source_bbox": [
+              606,
+              199,
+              1002,
+              587
+            ],
+            "source_scale": [
+              0.1016260162601626,
+              0.1016260162601626
+            ],
+            "source": "raw/lucian_ult.png",
+            "bbox": [
+              952,
+              328,
+              1272,
+              656
+            ],
+            "eye_center": [
+              332,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 2,
+            "rect": [
+              1536,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              312,
+              560
+            ],
+            "duration_ms": 75,
+            "head_anchor": [
+              296,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1243,
+              201,
+              1371,
+              341
+            ],
+            "source_bbox": [
+              1149,
+              199,
+              1574,
+              587
+            ],
+            "source_scale": [
+              0.1016260162601626,
+              0.1016260162601626
+            ],
+            "source": "raw/lucian_ult.png",
+            "bbox": [
+              1704,
+              328,
+              2048,
+              656
+            ],
+            "eye_center": [
+              316,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 3,
+            "rect": [
+              2304,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              312,
+              560
+            ],
+            "duration_ms": 75,
+            "head_anchor": [
+              296,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              1784,
+              201,
+              1912,
+              341
+            ],
+            "source_bbox": [
+              1696,
+              199,
+              2088,
+              587
+            ],
+            "source_scale": [
+              0.1016260162601626,
+              0.1016260162601626
+            ],
+            "source": "raw/lucian_ult.png",
+            "bbox": [
+              2472,
+              328,
+              2792,
+              656
+            ],
+            "eye_center": [
+              316,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          }
+        ]
+      }
+    },
+    {
+      "tag": "hit",
+      "name": "受击",
+      "cols": 2,
+      "rows": 1,
+      "shot_frames_one_based": [],
+      "metadata": {
+        "file": "lucian_hit.png",
+        "width": 1536,
+        "height": 768,
+        "frame_count": 2,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              376,
+              560
+            ],
+            "duration_ms": 100,
+            "head_anchor": [
+              360,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": [
+              375,
+              265,
+              555,
+              463
+            ],
+            "source_bbox": [
+              209,
+              144,
+              747,
+              817
+            ],
+            "source_scale": [
+              0.07062146892655367,
+              0.07062146892655367
+            ],
+            "source": "raw/lucian_hit.png",
+            "bbox": [
+              216,
+              272,
+              520,
+              656
+            ],
+            "eye_center": [
+              380,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              384,
+              560
+            ],
+            "duration_ms": 100,
+            "head_anchor": [
+              384,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              992,
+              288,
+              1368,
+              656
+            ],
+            "eye_center": [
+              404,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          }
+        ]
+      }
+    },
+    {
+      "tag": "dead",
+      "name": "死亡",
+      "cols": 4,
+      "rows": 2,
+      "shot_frames_one_based": [],
+      "metadata": {
+        "file": "lucian_dead.png",
+        "width": 3072,
+        "height": 1536,
+        "frame_count": 8,
+        "colors": 19,
+        "frames": [
+          {
+            "index": 0,
+            "rect": [
+              0,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              328,
+              560
+            ],
+            "duration_ms": 100,
+            "head_anchor": [
+              328,
+              384
+            ],
+            "tilt": 0,
+            "source_head_bbox": null,
+            "source_bbox": null,
+            "source_scale": [
+              1,
+              1
+            ],
+            "source": "lucian_native.png",
+            "bbox": [
+              168,
+              288,
+              544,
+              656
+            ],
+            "eye_center": [
+              348,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 1,
+            "rect": [
+              768,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              344,
+              560
+            ],
+            "duration_ms": 100,
+            "head_anchor": [
+              328,
+              376
+            ],
+            "tilt": -12,
+            "source_head_bbox": [
+              599,
+              158,
+              683,
+              252
+            ],
+            "source_bbox": [
+              558,
+              137,
+              808,
+              419
+            ],
+            "source_scale": [
+              0.1595744680851064,
+              0.1595744680851064
+            ],
+            "source": "raw/lucian_dead.png",
+            "bbox": [
+              1000,
+              288,
+              1320,
+              648
+            ],
+            "eye_center": [
+              348,
+              408
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 80
+          },
+          {
+            "index": 2,
+            "rect": [
+              1536,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              416,
+              560
+            ],
+            "duration_ms": 100,
+            "head_anchor": [
+              400,
+              392
+            ],
+            "tilt": -20,
+            "source_head_bbox": [
+              1031,
+              182,
+              1121,
+              270
+            ],
+            "source_bbox": [
+              970,
+              149,
+              1265,
+              419
+            ],
+            "source_scale": [
+              0.16666666666666666,
+              0.16666666666666666
+            ],
+            "source": "raw/lucian_dead.png",
+            "bbox": [
+              1816,
+              288,
+              2208,
+              648
+            ],
+            "eye_center": [
+              432,
+              420
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 80
+          },
+          {
+            "index": 3,
+            "rect": [
+              2304,
+              0,
+              768,
+              768
+            ],
+            "pivot": [
+              448,
+              560
+            ],
+            "duration_ms": 100,
+            "head_anchor": [
+              416,
+              456
+            ],
+            "tilt": 18,
+            "source_head_bbox": [
+              1500,
+              208,
+              1588,
+              306
+            ],
+            "source_bbox": [
+              1390,
+              207,
+              1645,
+              419
+            ],
+            "source_scale": [
+              0.15306122448979592,
+              0.15306122448979592
+            ],
+            "source": "raw/lucian_dead.png",
+            "bbox": [
+              2512,
+              392,
+              2824,
+              656
+            ],
+            "eye_center": [
+              424,
+              492
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 81
+          },
+          {
+            "index": 4,
+            "rect": [
+              0,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              432,
+              560
+            ],
+            "duration_ms": 120,
+            "head_anchor": [
+              416,
+              464
+            ],
+            "tilt": 20,
+            "source_head_bbox": [
+              211,
+              606,
+              305,
+              708
+            ],
+            "source_bbox": [
+              48,
+              606,
+              409,
+              827
+            ],
+            "source_scale": [
+              0.14705882352941177,
+              0.14705882352941177
+            ],
+            "source": "raw/lucian_dead.png",
+            "bbox": [
+              144,
+              1168,
+              568,
+              1432
+            ],
+            "eye_center": [
+              420,
+              500
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 82
+          },
+          {
+            "index": 5,
+            "rect": [
+              768,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              432,
+              560
+            ],
+            "duration_ms": 150,
+            "head_anchor": [
+              376,
+              512
+            ],
+            "tilt": -65,
+            "source_head_bbox": [
+              490,
+              662,
+              596,
+              762
+            ],
+            "source_bbox": [
+              484,
+              627,
+              854,
+              827
+            ],
+            "source_scale": [
+              0.14150943396226415,
+              0.14150943396226415
+            ],
+            "source": "raw/lucian_dead.png",
+            "bbox": [
+              1080,
+              1208,
+              1496,
+              1440
+            ],
+            "eye_center": [
+              416,
+              512
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 83
+          },
+          {
+            "index": 6,
+            "rect": [
+              1536,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              416,
+              560
+            ],
+            "duration_ms": 150,
+            "head_anchor": [
+              336,
+              552
+            ],
+            "tilt": -90,
+            "source_head_bbox": [
+              927,
+              695,
+              1025,
+              791
+            ],
+            "source_bbox": [
+              921,
+              696,
+              1293,
+              835
+            ],
+            "source_scale": [
+              0.15306122448979592,
+              0.15306122448979592
+            ],
+            "source": "raw/lucian_dead.png",
+            "bbox": [
+              1816,
+              1264,
+              2264,
+              1432
+            ],
+            "eye_center": [
+              372,
+              540
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 82
+          },
+          {
+            "index": 7,
+            "rect": [
+              2304,
+              768,
+              768,
+              768
+            ],
+            "pivot": [
+              408,
+              560
+            ],
+            "duration_ms": 400,
+            "head_anchor": [
+              336,
+              560
+            ],
+            "tilt": -90,
+            "source_head_bbox": [
+              1366,
+              701,
+              1464,
+              789
+            ],
+            "source_bbox": [
+              1355,
+              700,
+              1734,
+              835
+            ],
+            "source_scale": [
+              0.15306122448979592,
+              0.15306122448979592
+            ],
+            "source": "raw/lucian_dead.png",
+            "bbox": [
+              2576,
+              1272,
+              3040,
+              1440
+            ],
+            "eye_center": [
+              372,
+              548
+            ],
+            "eye_color_logical_pixels": 2,
+            "head_mismatches": 0,
+            "exact_head": true,
+            "lowest_logical_row": 83
+          }
+        ]
+      }
+    }
+  ],
+  "head_source": {
+    "file": "head_master.png",
+    "native_anchor": [
+      64,
+      66
+    ],
+    "method": "User-approved refined face. Exact pixel mask translated; integer shear rotation for death only."
+  },
+  "normalization": {
+    "palette": 19,
+    "alpha": "Threshold 200 to binary 0/255; no soft glow.",
+    "scale": 8,
+    "idle": "Six translated copies of face-refined native.",
+    "run": "Head x fixed relative to pivot; y midpoint ±1 logical pixel.",
+    "dash": "Backward frames 5–8 exactly reuse forward frames 5–8.",
+    "ult": "Torso and legs fixed relative to pivot.",
+    "q": "Both pistols at shoulder height. Frame 4 muzzle flash; separate beam not included."
+  }
+}

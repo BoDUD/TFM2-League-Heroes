@@ -1,0 +1,6 @@
+{
+  "fx": "league_twitch_fx",
+  "items": [
+    {"tag": "a_flash", "into": "attack", "at_ms": 120}
+  ]
+}

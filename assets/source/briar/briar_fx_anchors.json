@@ -1,0 +1,18 @@
+{
+  "hit": {"cell": [19, 19], "anchor": [9, 9], "frames": 5},
+  "snack": {"cell": [27, 35], "anchor": [13, 17], "frames": 6},
+  "snack_heal": {"cell": [23, 25], "anchor": [11, 12], "frames": 5},
+  "q_hit": {"cell": [27, 31], "anchor": [13, 15], "frames": 4},
+  "q_stars": {"cell": [21, 9], "anchor": [10, 4], "frames": 2},
+  "frenzy": {"cell": [47, 91], "anchor": [23, 45], "frames": 4},
+  "hema": {"cell": [41, 99], "anchor": [20, 49], "frames": 4},
+  "e_guard": {"cell": [33, 43], "anchor": [16, 21], "frames": 4},
+  "e_wave": {"cell": [53, 31], "anchor": [26, 15], "frames": 5},
+  "e_hit": {"cell": [23, 19], "anchor": [11, 9], "frames": 4},
+  "e_stun": {"cell": [21, 15], "anchor": [10, 7], "frames": 4},
+  "r_gem": {"cell": [39, 15], "anchor": [19, 7], "frames": 4},
+  "r_mark": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "r_boom": {"cell": [73, 67], "anchor": [36, 33], "frames": 7},
+  "r_hit": {"cell": [21, 23], "anchor": [10, 11], "frames": 4},
+  "r_fear": {"cell": [17, 19], "anchor": [8, 9], "frames": 4}
+}

@@ -1,0 +1,3102 @@
+{
+  "version": 1,
+  "pixel_scale": 16,
+  "frame_rect_units": "export PNG pixels",
+  "raw_rect_units": "unaltered raw PNG pixels",
+  "duration_note": "Preview durations are editorial suggestions, except w_zone which totals the specified 105 game ticks at 60 Hz. Runtime importer may override them.",
+  "generation": "Built-in image_gen: one generation per VFX sheet, 15 sheets.",
+  "assets": [
+    {
+      "name": "a_hit",
+      "file": "shen_fx_a_hit.png",
+      "raw_file": "raw/shen_fx_a_hit.png",
+      "prompt_number": 1,
+      "frame_count": 4,
+      "size": [
+        1024,
+        224
+      ],
+      "cell_size": [
+        256,
+        224
+      ],
+      "logical_cell": [
+        16,
+        14
+      ],
+      "game_effect_size": [
+        14,
+        12
+      ],
+      "pivot": [
+        128,
+        112
+      ],
+      "loop": false,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_a_hit",
+      "view_type": "view_effects",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            224
+          ],
+          "raw_rect": [
+            0,
+            0,
+            520,
+            756
+          ],
+          "raw_art_bbox": [
+            98,
+            237,
+            320,
+            327
+          ],
+          "logical_art_target": [
+            6,
+            5,
+            4,
+            4
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            0,
+            256,
+            224
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            224
+          ],
+          "raw_rect": [
+            520,
+            0,
+            520,
+            756
+          ],
+          "raw_art_bbox": [
+            540,
+            228,
+            461,
+            297
+          ],
+          "logical_art_target": [
+            1,
+            2,
+            14,
+            10
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            256,
+            0,
+            256,
+            224
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            224
+          ],
+          "raw_rect": [
+            1040,
+            0,
+            519,
+            756
+          ],
+          "raw_art_bbox": [
+            1064,
+            218,
+            469,
+            296
+          ],
+          "logical_art_target": [
+            1,
+            1,
+            14,
+            12
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            512,
+            0,
+            256,
+            224
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            224
+          ],
+          "raw_rect": [
+            1559,
+            0,
+            520,
+            756
+          ],
+          "raw_art_bbox": [
+            1612,
+            247,
+            398,
+            251
+          ],
+          "logical_art_target": [
+            2,
+            3,
+            12,
+            8
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            768,
+            0,
+            256,
+            224
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "18d428498166b2cf3a659aaa17101005c10eaa024b3c8b6ba02d7ec443f6a3a0",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: a SWORD SLASH HIT, 4 frames: 1 a white flash 4 squares across; 2 a curved crescent of blade light arching over the target like an upside-down U, 14 squares wide and 7 tall, 2 squares thick in the middle and thin at both ends (white core, violet edges), a few white-violet sparks; 3 the crescent thinner and 2 squares higher, the sparks farther out; 4 a few fading violet motes. Left-right symmetric.\nLayout: one horizontal row of 4 equal cells, each 256x224 (image 1024x224) (16 px a square here); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: a_hit.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "a_emp",
+      "file": "shen_fx_a_emp.png",
+      "raw_file": "raw/shen_fx_a_emp.png",
+      "prompt_number": 2,
+      "frame_count": 5,
+      "size": [
+        1760,
+        320
+      ],
+      "cell_size": [
+        352,
+        320
+      ],
+      "logical_cell": [
+        22,
+        20
+      ],
+      "game_effect_size": [
+        20,
+        18
+      ],
+      "pivot": [
+        176,
+        160
+      ],
+      "loop": false,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_a_emp",
+      "view_type": "view_effects",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            352,
+            320
+          ],
+          "raw_rect": [
+            0,
+            0,
+            416,
+            756
+          ],
+          "raw_art_bbox": [
+            73,
+            245,
+            278,
+            285
+          ],
+          "logical_art_target": [
+            8,
+            7,
+            6,
+            6
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            224,
+            352,
+            320
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            352,
+            0,
+            352,
+            320
+          ],
+          "raw_rect": [
+            416,
+            0,
+            416,
+            756
+          ],
+          "raw_art_bbox": [
+            440,
+            209,
+            359,
+            312
+          ],
+          "logical_art_target": [
+            1,
+            2,
+            20,
+            16
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            352,
+            224,
+            352,
+            320
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            704,
+            0,
+            352,
+            320
+          ],
+          "raw_rect": [
+            832,
+            0,
+            415,
+            756
+          ],
+          "raw_art_bbox": [
+            848,
+            172,
+            384,
+            393
+          ],
+          "logical_art_target": [
+            1,
+            1,
+            20,
+            18
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            704,
+            224,
+            352,
+            320
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1056,
+            0,
+            352,
+            320
+          ],
+          "raw_rect": [
+            1247,
+            0,
+            416,
+            756
+          ],
+          "raw_art_bbox": [
+            1280,
+            209,
+            370,
+            321
+          ],
+          "logical_art_target": [
+            2,
+            1,
+            18,
+            18
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1056,
+            224,
+            352,
+            320
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1408,
+            0,
+            352,
+            320
+          ],
+          "raw_rect": [
+            1663,
+            0,
+            416,
+            756
+          ],
+          "raw_art_bbox": [
+            1709,
+            254,
+            320,
+            283
+          ],
+          "logical_art_target": [
+            3,
+            3,
+            16,
+            14
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1408,
+            224,
+            352,
+            320
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "dfdec2cbac53cfe6d69239e29dbb11b0f956ea9de4ed35cff709932b367b1e44",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: an EMPOWERED SWORD HIT, brighter and bigger than a plain hit, 5 frames: 1 a white-violet star flare 6 squares across; 2 two stacked crescents of blade light arching over the target (upside-down U shapes, 20 and 14 squares wide, white cores, violet edges); 3 the crescents at their brightest, small violet blade-shaped shards (2 x 4 squares) flying out in all directions; 4 the crescents thinning, the shards farther out (18 squares across); 5 a few fading shards and motes. Left-right symmetric.\nLayout: one horizontal row of 5 equal cells, each 352x320 (image 1760x320) (16 px a square here); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: a_emp.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "q_blade",
+      "file": "shen_fx_q_blade.png",
+      "raw_file": "raw/shen_fx_q_blade.png",
+      "prompt_number": 3,
+      "frame_count": 4,
+      "size": [
+        2048,
+        224
+      ],
+      "cell_size": [
+        512,
+        224
+      ],
+      "logical_cell": [
+        32,
+        14
+      ],
+      "game_effect_size": [
+        30,
+        12
+      ],
+      "pivot": [
+        256,
+        112
+      ],
+      "loop": true,
+      "horizontal_symmetry": false,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_q_blade",
+      "view_type": "view_projectiles",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            224
+          ],
+          "raw_rect": [
+            0,
+            0,
+            529,
+            743
+          ],
+          "raw_art_bbox": [
+            50,
+            208,
+            470,
+            250
+          ],
+          "logical_art_target": [
+            0,
+            2,
+            28,
+            10
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            544,
+            512,
+            224
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            224
+          ],
+          "raw_rect": [
+            529,
+            0,
+            529,
+            743
+          ],
+          "raw_art_bbox": [
+            557,
+            278,
+            484,
+            188
+          ],
+          "logical_art_target": [
+            0,
+            2,
+            28,
+            10
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            512,
+            544,
+            512,
+            224
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            224
+          ],
+          "raw_rect": [
+            1058,
+            0,
+            528,
+            743
+          ],
+          "raw_art_bbox": [
+            1080,
+            208,
+            482,
+            242
+          ],
+          "logical_art_target": [
+            0,
+            2,
+            28,
+            10
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1024,
+            544,
+            512,
+            224
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            224
+          ],
+          "raw_rect": [
+            1586,
+            0,
+            529,
+            743
+          ],
+          "raw_art_bbox": [
+            1612,
+            281,
+            475,
+            169
+          ],
+          "logical_art_target": [
+            0,
+            2,
+            28,
+            10
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1536,
+            544,
+            512,
+            224
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2",
+        "#E4F3FF",
+        "#ABD8FF",
+        "#63AEF7",
+        "#3277DE",
+        "#1D49AB"
+      ],
+      "raw_sha256": "636ae74de0c9c9c15451e6301ddf08b54a11e5eb4a3d666aac813466f96b76fa",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A) and, for the blade's cold core and the pommel glint, an azure ramp (#FFFFFF, #E4F3FF, #ABD8FF, #63AEF7, #3277DE, #1D49AB, #102866).\nEffect: THE SPIRIT BLADE flying RIGHT, 4 frames, a seamless loop: a ghostly sword made of light (NOT metal: NO outline), a straight blade 2 squares thick and about 18 squares long with its POINT TO THE RIGHT (a pale white-blue core, violet edges), a short guard and hilt at its left end in brighter violet with an ice-blue glint on the pommel; behind it (to the left) a wavering violet light trail 10 squares long that sways a little every frame, small sparkles falling off the trail.\nLayout: one horizontal row of 4 equal cells, each 512x224 (image 2048x224) (16 px a square here); the blade's middle at the middle of every cell, its point 4 squares (64 px) from the right edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: q_blade.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "q_hit",
+      "file": "shen_fx_q_hit.png",
+      "raw_file": "raw/shen_fx_q_hit.png",
+      "prompt_number": 4,
+      "frame_count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "logical_cell": [
+        16,
+        16
+      ],
+      "game_effect_size": [
+        14,
+        14
+      ],
+      "pivot": [
+        128,
+        128
+      ],
+      "loop": false,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_q_hit",
+      "view_type": "view_effects",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            106,
+            216,
+            321,
+            310
+          ],
+          "logical_art_target": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            768,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            598,
+            116,
+            451,
+            499
+          ],
+          "logical_art_target": [
+            1,
+            1,
+            14,
+            14
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            256,
+            768,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            1110,
+            140,
+            515,
+            470
+          ],
+          "logical_art_target": [
+            1,
+            1,
+            14,
+            14
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            512,
+            768,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            1724,
+            167,
+            382,
+            396
+          ],
+          "logical_art_target": [
+            2,
+            2,
+            12,
+            12
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            768,
+            768,
+            256,
+            256
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "bb59abd07776226ac695fa26b2f575295aa9f21dc5a6c701a9786a67748c17aa",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: a SPIRIT BLADE PASSING HIT, 4 frames: 1 a white flash 5 squares across; 2 a tall thin spindle of violet light 14 squares tall and 2 wide (white core, pointed ends) crossed by a short horizontal streak 8 squares long, a ring of violet swirl motes round it; 3 the spindle thinner, the motes spiralling out to 14 squares; 4 a few fading motes. Left-right symmetric.\nLayout: one horizontal row of 4 equal cells, each 256x256 (image 1024x256) (16 px a square here); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: q_hit.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "q_slow",
+      "file": "shen_fx_q_slow.png",
+      "raw_file": "raw/shen_fx_q_slow.png",
+      "prompt_number": 5,
+      "frame_count": 4,
+      "size": [
+        1280,
+        128
+      ],
+      "cell_size": [
+        320,
+        128
+      ],
+      "logical_cell": [
+        20,
+        8
+      ],
+      "game_effect_size": [
+        16,
+        5
+      ],
+      "pivot": [
+        160,
+        64
+      ],
+      "loop": true,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_q_slow",
+      "view_type": "view_buffs",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            320,
+            128
+          ],
+          "raw_rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "raw_art_bbox": [
+            32,
+            342,
+            427,
+            248
+          ],
+          "logical_art_target": [
+            2,
+            1,
+            16,
+            6
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            1024,
+            320,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            320,
+            0,
+            320,
+            128
+          ],
+          "raw_rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "raw_art_bbox": [
+            529,
+            342,
+            425,
+            240
+          ],
+          "logical_art_target": [
+            2,
+            1,
+            16,
+            6
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            320,
+            1024,
+            320,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            640,
+            0,
+            320,
+            128
+          ],
+          "raw_rect": [
+            992,
+            0,
+            495,
+            793
+          ],
+          "raw_art_bbox": [
+            1029,
+            342,
+            425,
+            246
+          ],
+          "logical_art_target": [
+            2,
+            1,
+            16,
+            6
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            640,
+            1024,
+            320,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            960,
+            0,
+            320,
+            128
+          ],
+          "raw_rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "raw_art_bbox": [
+            1520,
+            342,
+            427,
+            247
+          ],
+          "logical_art_target": [
+            2,
+            1,
+            16,
+            6
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            960,
+            1024,
+            320,
+            128
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "168b8c9b9558d504998d79fd7f2e4609bf355ca05b353dc02e22297ac700f657",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: LOOPING SLOW WAVES at a figure's feet (do NOT draw the figure), 4 frames, a seamless loop: a flat ellipse 16 x 5 squares made of two wavy violet-white light bands circling on the ground, the waves moving round a little every frame, a few small motes rising. Left-right symmetric.\nLayout: one horizontal row of 4 equal cells, each 320x128 (image 1280x128) (16 px a square here); the ellipse's middle at the middle of every cell (the feet). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: q_slow.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "q_1",
+      "file": "shen_fx_q_1.png",
+      "raw_file": "raw/shen_fx_q_1.png",
+      "prompt_number": 6,
+      "frame_count": 4,
+      "size": [
+        2304,
+        416
+      ],
+      "cell_size": [
+        576,
+        416
+      ],
+      "logical_cell": [
+        36,
+        26
+      ],
+      "game_effect_size": [
+        34,
+        10
+      ],
+      "pivot": [
+        288,
+        384
+      ],
+      "loop": true,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_q_1",
+      "view_type": "view_buffs",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            576,
+            416
+          ],
+          "raw_rect": [
+            0,
+            0,
+            522,
+            754
+          ],
+          "raw_art_bbox": [
+            38,
+            287,
+            450,
+            245
+          ],
+          "logical_art_target": [
+            1,
+            3,
+            34,
+            10
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            1152,
+            576,
+            416
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            576,
+            0,
+            576,
+            416
+          ],
+          "raw_rect": [
+            522,
+            0,
+            521,
+            754
+          ],
+          "raw_art_bbox": [
+            570,
+            254,
+            449,
+            283
+          ],
+          "logical_art_target": [
+            1,
+            3,
+            34,
+            10
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            576,
+            1152,
+            576,
+            416
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1152,
+            0,
+            576,
+            416
+          ],
+          "raw_rect": [
+            1043,
+            0,
+            521,
+            754
+          ],
+          "raw_art_bbox": [
+            1091,
+            229,
+            432,
+            293
+          ],
+          "logical_art_target": [
+            1,
+            3,
+            34,
+            10
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1152,
+            1152,
+            576,
+            416
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1728,
+            0,
+            576,
+            416
+          ],
+          "raw_rect": [
+            1564,
+            0,
+            522,
+            754
+          ],
+          "raw_art_bbox": [
+            1609,
+            285,
+            436,
+            252
+          ],
+          "logical_art_target": [
+            1,
+            3,
+            34,
+            10
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1728,
+            1152,
+            576,
+            416
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "85fb577334c86cd5a069f892a3038db29edd3e40271cc29d1110045447b3119a",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: LOOPING CHARGED KI round a figure (do NOT draw the figure; leave the inside EMPTY), 4 frames, a seamless loop: three small violet-white ki flames (3 x 4 squares each, white cores, violet edges) orbiting the body at waist height on a flat ellipse 30 x 8 squares (seen from above at an angle), a quarter of a turn further every frame, the one passing behind the body dimmer, each leaving a short fading arc. Left-right symmetric.\nLayout: one horizontal row of 4 equal cells, each 576x416 (image 2304x416) (16 px a square here); the figure's feet 2 squares (32 px) above the bottom, horizontally centered, the orbit's middle 16 squares (256 px) above the feet, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: q_1.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "p_on",
+      "file": "shen_fx_p_on.png",
+      "raw_file": "raw/shen_fx_p_on.png",
+      "prompt_number": 7,
+      "frame_count": 4,
+      "size": [
+        3072,
+        896
+      ],
+      "cell_size": [
+        768,
+        896
+      ],
+      "logical_cell": [
+        48,
+        56
+      ],
+      "game_effect_size": [
+        44,
+        52
+      ],
+      "pivot": [
+        384,
+        864
+      ],
+      "loop": true,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_p_on",
+      "view_type": "view_buffs",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            896
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            47,
+            114,
+            451,
+            519
+          ],
+          "logical_art_target": [
+            2,
+            2,
+            44,
+            52
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            1568,
+            768,
+            896
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            896
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            589,
+            114,
+            453,
+            518
+          ],
+          "logical_art_target": [
+            2,
+            2,
+            44,
+            52
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            768,
+            1568,
+            768,
+            896
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            896
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            1129,
+            114,
+            455,
+            519
+          ],
+          "logical_art_target": [
+            2,
+            2,
+            44,
+            52
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1536,
+            1568,
+            768,
+            896
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            896
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            1674,
+            114,
+            453,
+            519
+          ],
+          "logical_art_target": [
+            2,
+            2,
+            44,
+            52
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            2304,
+            1568,
+            768,
+            896
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "a5b9deb63aa25766a044dab664b3695d55c5aeb47c411278926f09173365e7d0",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: A LOOPING KI SHIELD round a figure (do NOT draw the figure; leave the inside EMPTY), 4 frames, a seamless loop: the rim of a round upright shield bubble 44 x 52 squares, 1-2 squares thick, white-violet light, short thin violet rays pointing outwards all round it, three brighter glints sliding round the rim a little every frame; the inside empty (at most a very faint violet haze near the rim). Left-right symmetric.\nLayout: one horizontal row of 4 equal cells, each 768x896 (image 3072x896) (16 px a square here); the figure's feet 2 squares (32 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: p_on.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "w_zone",
+      "file": "shen_fx_w_zone.png",
+      "raw_file": "raw/shen_fx_w_zone.png",
+      "prompt_number": 8,
+      "frame_count": 7,
+      "size": [
+        5600,
+        544
+      ],
+      "cell_size": [
+        800,
+        544
+      ],
+      "logical_cell": [
+        50,
+        34
+      ],
+      "game_effect_size": [
+        46,
+        30
+      ],
+      "pivot": [
+        400,
+        384
+      ],
+      "loop": false,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_big",
+      "view_id": "league_shen_w_zone",
+      "view_type": "view_effects",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            800,
+            544
+          ],
+          "raw_rect": [
+            0,
+            0,
+            182,
+            1237
+          ],
+          "raw_art_bbox": [
+            25,
+            577,
+            141,
+            198
+          ],
+          "logical_art_target": [
+            22,
+            21,
+            6,
+            6
+          ],
+          "duration_ticks": 3,
+          "preview_duration_ms": 50,
+          "atlas_rect": [
+            0,
+            0,
+            800,
+            544
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            800,
+            0,
+            800,
+            544
+          ],
+          "raw_rect": [
+            182,
+            0,
+            181,
+            1237
+          ],
+          "raw_art_bbox": [
+            198,
+            588,
+            165,
+            185
+          ],
+          "logical_art_target": [
+            2,
+            3,
+            46,
+            30
+          ],
+          "duration_ticks": 5,
+          "preview_duration_ms": 80,
+          "atlas_rect": [
+            800,
+            0,
+            800,
+            544
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1600,
+            0,
+            800,
+            544
+          ],
+          "raw_rect": [
+            363,
+            0,
+            182,
+            1237
+          ],
+          "raw_art_bbox": [
+            384,
+            556,
+            161,
+            210
+          ],
+          "logical_art_target": [
+            2,
+            3,
+            46,
+            30
+          ],
+          "duration_ticks": 23,
+          "preview_duration_ms": 380,
+          "atlas_rect": [
+            1600,
+            0,
+            800,
+            544
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2400,
+            0,
+            800,
+            544
+          ],
+          "raw_rect": [
+            545,
+            0,
+            182,
+            1237
+          ],
+          "raw_art_bbox": [
+            563,
+            558,
+            163,
+            208
+          ],
+          "logical_art_target": [
+            2,
+            3,
+            46,
+            30
+          ],
+          "duration_ticks": 23,
+          "preview_duration_ms": 380,
+          "atlas_rect": [
+            2400,
+            0,
+            800,
+            544
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            3200,
+            0,
+            800,
+            544
+          ],
+          "raw_rect": [
+            727,
+            0,
+            182,
+            1237
+          ],
+          "raw_art_bbox": [
+            742,
+            556,
+            164,
+            210
+          ],
+          "logical_art_target": [
+            2,
+            3,
+            46,
+            30
+          ],
+          "duration_ticks": 23,
+          "preview_duration_ms": 380,
+          "atlas_rect": [
+            3200,
+            0,
+            800,
+            544
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            4000,
+            0,
+            800,
+            544
+          ],
+          "raw_rect": [
+            909,
+            0,
+            181,
+            1237
+          ],
+          "raw_art_bbox": [
+            923,
+            589,
+            162,
+            177
+          ],
+          "logical_art_target": [
+            2,
+            3,
+            46,
+            30
+          ],
+          "duration_ticks": 23,
+          "preview_duration_ms": 380,
+          "atlas_rect": [
+            4000,
+            0,
+            800,
+            544
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            4800,
+            0,
+            800,
+            544
+          ],
+          "raw_rect": [
+            1090,
+            0,
+            182,
+            1237
+          ],
+          "raw_art_bbox": [
+            1114,
+            571,
+            139,
+            188
+          ],
+          "logical_art_target": [
+            2,
+            7,
+            46,
+            26
+          ],
+          "duration_ticks": 5,
+          "preview_duration_ms": 80,
+          "atlas_rect": [
+            4800,
+            0,
+            800,
+            544
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4F3FF",
+        "#ABD8FF",
+        "#63AEF7",
+        "#3277DE",
+        "#1D49AB",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "d4f4d0d46e486bc68fbcf137b4e14b2982988bc0e6c8ce62cafe211cc26b2eea",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from an azure ward-light ramp (#FFFFFF, #E4F3FF, #ABD8FF, #63AEF7, #3277DE, #1D49AB, #102866) and, for small accents, a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: A WARD ZONE OPENING ON THE GROUND, UPRIGHT (motes rise; never upside down), played once, 7 frames: 1 a white-blue flash at the middle 6 squares across and a small ring; 2 the ring spreading to its full size - an ellipse 46 x 18 squares seen from above at an angle - a sweep of bright light running round its rim; 3, 4, 5, 6 the zone held: a bright azure rim 1-2 squares thick, a faint blue glow inside with a few soft spiral ki marks, small azure motes rising from the rim up to 12 squares above the ground, each frame a little different so they flow; 7 the zone fading. Left-right symmetric.\nLayout: one horizontal row of 7 equal cells, each 800x544 (image 5600x544) (16 px a square here); the ellipse's middle 10 squares (160 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: w_zone.",
+      "atlas_file": "league_shen_big.png"
+    },
+    {
+      "name": "w_safe",
+      "file": "shen_fx_w_safe.png",
+      "raw_file": "raw/shen_fx_w_safe.png",
+      "prompt_number": 9,
+      "frame_count": 4,
+      "size": [
+        1920,
+        576
+      ],
+      "cell_size": [
+        480,
+        576
+      ],
+      "logical_cell": [
+        30,
+        36
+      ],
+      "game_effect_size": [
+        24,
+        30
+      ],
+      "pivot": [
+        240,
+        528
+      ],
+      "loop": true,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_w_safe",
+      "view_type": "view_buffs",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            480,
+            576
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            56,
+            237,
+            436,
+            372
+          ],
+          "logical_art_target": [
+            3,
+            6,
+            24,
+            30
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            2464,
+            480,
+            576
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            480,
+            0,
+            480,
+            576
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            596,
+            236,
+            438,
+            374
+          ],
+          "logical_art_target": [
+            3,
+            6,
+            24,
+            30
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            480,
+            2464,
+            480,
+            576
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            960,
+            0,
+            480,
+            576
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            1138,
+            243,
+            438,
+            367
+          ],
+          "logical_art_target": [
+            3,
+            6,
+            24,
+            30
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            960,
+            2464,
+            480,
+            576
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1440,
+            0,
+            480,
+            576
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            1681,
+            243,
+            437,
+            367
+          ],
+          "logical_art_target": [
+            3,
+            6,
+            24,
+            30
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1440,
+            2464,
+            480,
+            576
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4F3FF",
+        "#ABD8FF",
+        "#63AEF7",
+        "#3277DE",
+        "#1D49AB",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "e1fb9bff75a8e7437b38b1e4c90a52ecd4e98e149fe3b6dd445cb3394b3e7676",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from an azure ward-light ramp (#FFFFFF, #E4F3FF, #ABD8FF, #63AEF7, #3277DE, #1D49AB, #102866) and, for small accents, a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: A LOOPING WARD round a figure (do NOT draw the figure; leave the inside EMPTY), 4 frames, a seamless loop with frames nearly alike (it may restart at any frame): a thin azure ring on the ground at the feet (an ellipse 22 x 6 squares, 1 square thick), two or three small azure-white glints drifting round the body at chest height (16-20 squares above the feet), faint and small. Left-right symmetric.\nLayout: one horizontal row of 4 equal cells, each 480x576 (image 1920x576) (16 px a square here); the figure's feet 3 squares (48 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: w_safe.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "e_dash",
+      "file": "shen_fx_e_dash.png",
+      "raw_file": "raw/shen_fx_e_dash.png",
+      "prompt_number": 10,
+      "frame_count": 3,
+      "size": [
+        3072,
+        256
+      ],
+      "cell_size": [
+        1024,
+        256
+      ],
+      "logical_cell": [
+        64,
+        16
+      ],
+      "game_effect_size": [
+        30,
+        10
+      ],
+      "pivot": [
+        512,
+        128
+      ],
+      "loop": true,
+      "horizontal_symmetry": false,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_e_dash",
+      "view_type": "view_projectiles",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            1024,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "raw_art_bbox": [
+            27,
+            236,
+            667,
+            294
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            24,
+            8
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            3040,
+            1024,
+            256
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            1024,
+            0,
+            1024,
+            256
+          ],
+          "raw_rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "raw_art_bbox": [
+            756,
+            236,
+            644,
+            290
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            24,
+            8
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1024,
+            3040,
+            1024,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            2048,
+            0,
+            1024,
+            256
+          ],
+          "raw_rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "raw_art_bbox": [
+            1475,
+            232,
+            643,
+            298
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            24,
+            8
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            2048,
+            3040,
+            1024,
+            256
+          ]
+        }
+      ],
+      "palette": [
+        "#E9E2F5",
+        "#B9A9D6",
+        "#8572AE",
+        "#5A4884",
+        "#3A2C5C",
+        "#22183A",
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "a61ef6a25295a43de2f08d3a3219f5603cc85304734674e0218e11d994ff06f0",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a dusky shadow-smoke ramp (#E9E2F5, #B9A9D6, #8572AE, #5A4884, #3A2C5C, #22183A) for the smoke and a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A) for its glow.\nEffect: A SHADOW DASH TRAIL for a figure dashing RIGHT (do NOT draw the figure), 3 frames, a seamless loop: a streak of dusky violet shadow smoke 24 squares long and 8 tall with ragged drifting edges and a thin bright violet line through its core, fading out towards its left end; its front (right) end 6 squares LEFT of the middle column - the figure is at the middle, the trail behind it - the right half of the cell EMPTY; the smoke curls a little differently every frame.\nLayout: one horizontal row of 3 equal cells, each 1024x256 (image 3072x256) (16 px a square here); the trail's middle row at the middle row of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: e_dash.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "e_hit",
+      "file": "shen_fx_e_hit.png",
+      "raw_file": "raw/shen_fx_e_hit.png",
+      "prompt_number": 11,
+      "frame_count": 5,
+      "size": [
+        2240,
+        448
+      ],
+      "cell_size": [
+        448,
+        448
+      ],
+      "logical_cell": [
+        28,
+        28
+      ],
+      "game_effect_size": [
+        22,
+        22
+      ],
+      "pivot": [
+        224,
+        224
+      ],
+      "loop": false,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_fx",
+      "view_id": "league_shen_e_hit",
+      "view_type": "view_effects",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            448,
+            448
+          ],
+          "raw_rect": [
+            0,
+            0,
+            434,
+            724
+          ],
+          "raw_art_bbox": [
+            80,
+            277,
+            354,
+            247
+          ],
+          "logical_art_target": [
+            11,
+            11,
+            6,
+            6
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            3296,
+            448,
+            448
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            448,
+            0,
+            448,
+            448
+          ],
+          "raw_rect": [
+            434,
+            0,
+            435,
+            724
+          ],
+          "raw_art_bbox": [
+            434,
+            213,
+            435,
+            424
+          ],
+          "logical_art_target": [
+            6,
+            6,
+            16,
+            16
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            448,
+            3296,
+            448,
+            448
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            896,
+            0,
+            448,
+            448
+          ],
+          "raw_rect": [
+            869,
+            0,
+            434,
+            724
+          ],
+          "raw_art_bbox": [
+            869,
+            149,
+            433,
+            475
+          ],
+          "logical_art_target": [
+            3,
+            3,
+            22,
+            22
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            896,
+            3296,
+            448,
+            448
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1344,
+            0,
+            448,
+            448
+          ],
+          "raw_rect": [
+            1303,
+            0,
+            435,
+            724
+          ],
+          "raw_art_bbox": [
+            1340,
+            177,
+            398,
+            417
+          ],
+          "logical_art_target": [
+            3,
+            3,
+            22,
+            22
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1344,
+            3296,
+            448,
+            448
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1792,
+            0,
+            448,
+            448
+          ],
+          "raw_rect": [
+            1738,
+            0,
+            434,
+            724
+          ],
+          "raw_art_bbox": [
+            1738,
+            218,
+            411,
+            362
+          ],
+          "logical_art_target": [
+            4,
+            5,
+            20,
+            18
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1792,
+            3296,
+            448,
+            448
+          ]
+        }
+      ],
+      "palette": [
+        "#E9E2F5",
+        "#B9A9D6",
+        "#8572AE",
+        "#5A4884",
+        "#3A2C5C",
+        "#22183A",
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "ea689ac64872145566f4a640eb2aaa844f3127b5b4d7d64480929f22dfee0424",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a dusky shadow-smoke ramp (#E9E2F5, #B9A9D6, #8572AE, #5A4884, #3A2C5C, #22183A) for the smoke and a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A) for its glow.\nEffect: a SHADOW DASH IMPACT, UPRIGHT, 5 frames: 1 a white flash 6 squares across; 2 a violet shock ring bursting out to 14 squares, a puff of dusky shadow smoke behind it, a short X of violet slash light at the middle; 3 the ring at 22 squares and thinner, smoke wisps flying out; 4 the ring breaking up, the smoke thinning; 5 a few fading smoke wisps and motes. Left-right symmetric.\nLayout: one horizontal row of 5 equal cells, each 448x448 (image 2240x448) (16 px a square here); centered in every cell (the target's middle). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: e_hit.",
+      "atlas_file": "league_shen_fx.png"
+    },
+    {
+      "name": "r_cast",
+      "file": "shen_fx_r_cast.png",
+      "raw_file": "raw/shen_fx_r_cast.png",
+      "prompt_number": 12,
+      "frame_count": 6,
+      "size": [
+        4608,
+        1024
+      ],
+      "cell_size": [
+        768,
+        1024
+      ],
+      "logical_cell": [
+        48,
+        64
+      ],
+      "game_effect_size": [
+        44,
+        60
+      ],
+      "pivot": [
+        384,
+        976
+      ],
+      "loop": false,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_big",
+      "view_id": "league_shen_r_cast",
+      "view_type": "view_effects",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            31,
+            255,
+            331,
+            401
+          ],
+          "logical_art_target": [
+            19,
+            36,
+            10,
+            10
+          ],
+          "duration_ticks": 5,
+          "preview_duration_ms": 80,
+          "atlas_rect": [
+            0,
+            544,
+            768,
+            1024
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            362,
+            330,
+            326,
+            356
+          ],
+          "logical_art_target": [
+            6,
+            34,
+            36,
+            30
+          ],
+          "duration_ticks": 5,
+          "preview_duration_ms": 80,
+          "atlas_rect": [
+            768,
+            544,
+            768,
+            1024
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            745,
+            151,
+            313,
+            535
+          ],
+          "logical_art_target": [
+            2,
+            16,
+            44,
+            48
+          ],
+          "duration_ticks": 5,
+          "preview_duration_ms": 80,
+          "atlas_rect": [
+            1536,
+            544,
+            768,
+            1024
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            1126,
+            27,
+            305,
+            659
+          ],
+          "logical_art_target": [
+            2,
+            6,
+            44,
+            58
+          ],
+          "duration_ticks": 5,
+          "preview_duration_ms": 80,
+          "atlas_rect": [
+            2304,
+            544,
+            768,
+            1024
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            3072,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            1521,
+            73,
+            277,
+            506
+          ],
+          "logical_art_target": [
+            6,
+            8,
+            36,
+            42
+          ],
+          "duration_ticks": 5,
+          "preview_duration_ms": 80,
+          "atlas_rect": [
+            3072,
+            544,
+            768,
+            1024
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            3840,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            1962,
+            91,
+            129,
+            245
+          ],
+          "logical_art_target": [
+            12,
+            0,
+            24,
+            14
+          ],
+          "duration_ticks": 5,
+          "preview_duration_ms": 80,
+          "atlas_rect": [
+            3840,
+            544,
+            768,
+            1024
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "109ab732ef1a77d17b686e69c1e32ce4d82846605c65d8eb4e022f1748ef74b2",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: STAND UNITED'S CALL round a figure (do NOT draw the figure; leave the inside EMPTY), UPRIGHT (light rises; never upside down), 6 frames: 1 a magenta-violet star flare at chest height (20 squares above the feet) 10 squares across; 2 a violet light ring opening on the ground at the feet (an ellipse 36 x 12 squares), two white-violet light ribbons starting to spiral up round the body; 3 the ribbons spiralling up past the shoulders, sparks flying; 4 the ribbons above the head (56 squares above the feet), motes rising; 5 the ribbons breaking into motes; 6 a few motes above the head. Left-right symmetric.\nLayout: one horizontal row of 6 equal cells, each 768x1024 (image 4608x1024) (16 px a square here); the figure's feet 3 squares (48 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: r_cast.",
+      "atlas_file": "league_shen_big.png"
+    },
+    {
+      "name": "r_ch",
+      "file": "shen_fx_r_ch.png",
+      "raw_file": "raw/shen_fx_r_ch.png",
+      "prompt_number": 13,
+      "frame_count": 4,
+      "size": [
+        2816,
+        1024
+      ],
+      "cell_size": [
+        704,
+        1024
+      ],
+      "logical_cell": [
+        44,
+        64
+      ],
+      "game_effect_size": [
+        40,
+        60
+      ],
+      "pivot": [
+        352,
+        976
+      ],
+      "loop": true,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_big",
+      "view_id": "league_shen_r_ch",
+      "view_type": "view_buffs",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            704,
+            1024
+          ],
+          "raw_rect": [
+            0,
+            0,
+            520,
+            756
+          ],
+          "raw_art_bbox": [
+            54,
+            122,
+            413,
+            573
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            40,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            1568,
+            704,
+            1024
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            704,
+            0,
+            704,
+            1024
+          ],
+          "raw_rect": [
+            520,
+            0,
+            520,
+            756
+          ],
+          "raw_art_bbox": [
+            575,
+            114,
+            411,
+            581
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            40,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            704,
+            1568,
+            704,
+            1024
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1408,
+            0,
+            704,
+            1024
+          ],
+          "raw_rect": [
+            1040,
+            0,
+            519,
+            756
+          ],
+          "raw_art_bbox": [
+            1094,
+            95,
+            410,
+            600
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            40,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1408,
+            1568,
+            704,
+            1024
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2112,
+            0,
+            704,
+            1024
+          ],
+          "raw_rect": [
+            1559,
+            0,
+            520,
+            756
+          ],
+          "raw_art_bbox": [
+            1613,
+            88,
+            411,
+            607
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            40,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            2112,
+            1568,
+            704,
+            1024
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "9a0c21b37c93d1184baf864c1d6c205ff00e90f5cabcd0e43c62faab7ca4615f",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: A LOOPING CHANNEL round a figure (do NOT draw the figure; leave the inside EMPTY), 4 frames, a seamless loop: a glowing violet ring on the ground at the feet (an ellipse 34 x 11 squares), a column of light rising from it drawn ONLY as its two side edges (two vertical violet-white light bands 34 squares apart, fading upwards, reaching 56 squares above the feet), violet motes and thin streaks rising inside the column, a little higher every frame. Left-right symmetric.\nLayout: one horizontal row of 4 equal cells, each 704x1024 (image 2816x1024) (16 px a square here); the figure's feet 3 squares (48 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: r_ch.",
+      "atlas_file": "league_shen_big.png"
+    },
+    {
+      "name": "r_shield",
+      "file": "shen_fx_r_shield.png",
+      "raw_file": "raw/shen_fx_r_shield.png",
+      "prompt_number": 14,
+      "frame_count": 4,
+      "size": [
+        3072,
+        1024
+      ],
+      "cell_size": [
+        768,
+        1024
+      ],
+      "logical_cell": [
+        48,
+        64
+      ],
+      "game_effect_size": [
+        44,
+        60
+      ],
+      "pivot": [
+        384,
+        992
+      ],
+      "loop": true,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_big",
+      "view_id": "league_shen_r_shield",
+      "view_type": "view_buffs",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            48,
+            40,
+            449,
+            617
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            44,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            2592,
+            768,
+            1024
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            588,
+            56,
+            449,
+            601
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            44,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            768,
+            2592,
+            768,
+            1024
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            1136,
+            39,
+            447,
+            618
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            44,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1536,
+            2592,
+            768,
+            1024
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            1024
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "raw_art_bbox": [
+            1682,
+            64,
+            450,
+            592
+          ],
+          "logical_art_target": [
+            2,
+            4,
+            44,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            2304,
+            2592,
+            768,
+            1024
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "0f1ad2b7b704869a0179315e7a07e507fddc24175bd98b588466cafc0e1ecc66",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: A LOOPING GUARDIAN SHIELD round a figure (do NOT draw the figure; leave the inside EMPTY), 4 frames, a seamless loop: the rim of a round upright shield bubble 44 x 52 squares, 1-2 squares thick, bright white-violet light, glints sliding round it; a thin violet ring on the ground at the feet (an ellipse 30 x 9 squares); above the head (54 squares above the feet) a small violet-white chevron arrow 6 x 6 squares pointing DOWN, bobbing up and down 1 square. Left-right symmetric.\nLayout: one horizontal row of 4 equal cells, each 768x1024 (image 3072x1024) (16 px a square here); the figure's feet 2 squares (32 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: r_shield.",
+      "atlas_file": "league_shen_big.png"
+    },
+    {
+      "name": "r_land",
+      "file": "shen_fx_r_land.png",
+      "raw_file": "raw/shen_fx_r_land.png",
+      "prompt_number": 15,
+      "frame_count": 6,
+      "size": [
+        4992,
+        1152
+      ],
+      "cell_size": [
+        832,
+        1152
+      ],
+      "logical_cell": [
+        52,
+        72
+      ],
+      "game_effect_size": [
+        48,
+        64
+      ],
+      "pivot": [
+        416,
+        1024
+      ],
+      "loop": false,
+      "horizontal_symmetry": true,
+      "sheet_group": "league_shen_big",
+      "view_id": "league_shen_r_land",
+      "view_type": "view_effects",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            832,
+            1152
+          ],
+          "raw_rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            177,
+            102,
+            17,
+            554
+          ],
+          "logical_art_target": [
+            25,
+            0,
+            2,
+            64
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            0,
+            3616,
+            832,
+            1152
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            832,
+            0,
+            832,
+            1152
+          ],
+          "raw_rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            387,
+            102,
+            309,
+            564
+          ],
+          "logical_art_target": [
+            19,
+            11,
+            14,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            832,
+            3616,
+            832,
+            1152
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1664,
+            0,
+            832,
+            1152
+          ],
+          "raw_rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            741,
+            111,
+            335,
+            546
+          ],
+          "logical_art_target": [
+            2,
+            11,
+            48,
+            60
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            1664,
+            3616,
+            832,
+            1152
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            2496,
+            0,
+            832,
+            1152
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            1109,
+            207,
+            324,
+            452
+          ],
+          "logical_art_target": [
+            2,
+            15,
+            48,
+            56
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            2496,
+            3616,
+            832,
+            1152
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            3328,
+            0,
+            832,
+            1152
+          ],
+          "raw_rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            1476,
+            287,
+            309,
+            370
+          ],
+          "logical_art_target": [
+            4,
+            41,
+            44,
+            30
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            3328,
+            3616,
+            832,
+            1152
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            4160,
+            0,
+            832,
+            1152
+          ],
+          "raw_rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "raw_art_bbox": [
+            1963,
+            373,
+            25,
+            133
+          ],
+          "logical_art_target": [
+            14,
+            30,
+            24,
+            18
+          ],
+          "duration_ticks": 6,
+          "preview_duration_ms": 100,
+          "atlas_rect": [
+            4160,
+            3616,
+            832,
+            1152
+          ]
+        }
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#F3EAFF",
+        "#D9C2FF",
+        "#B18AFF",
+        "#8456F2",
+        "#5A2EC2"
+      ],
+      "raw_sha256": "de0c653bc3957bc22f83e3ed7743467a73dfd08be3e903e0ddee8c282f39956f",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, sparks or glows, BRIGHT colours (each shape lit with its lightest shades and a white or pale core - it must read on a dark battlefield), colours only from a violet spirit-light ramp (#FFFFFF, #F3EAFF, #D9C2FF, #B18AFF, #8456F2, #5A2EC2, #31167A).\nEffect: A TELEPORT LANDING, UPRIGHT (never upside down), 6 frames: 1 a thin vertical line of white-violet light dropping from the top of the cell to the ground; 2 a column of violet light 10 squares wide striking the ground, a white flash 12 squares across at the feet; 3 a violet shock ring bursting out on the ground (an ellipse 44 x 14 squares), motes flying up; 4 the column thinning, the ring at full size; 5 the column gone, the ring fading, motes rising; 6 a few faint motes. Left-right symmetric.\nLayout: one horizontal row of 6 equal cells, each 832x1152 (image 4992x1152) (16 px a square here); the feet (the ground point) 8 squares (128 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\nReference images: 1 Shen VFX texture collection for named SHAPES only, 2 LoL skill icons for color mood. Do not reproduce reference labels, photo gradients or characters. Render the exact number of time-ordered animation frames in a single horizontal row of equal-width cells. Use large coarse square pixel clusters corresponding to the stated logical dimensions, no outlines, no fake checkerboard, no black shadow edging. Keep every cell with the same camera and registration point; retain full shapes inside each cell with transparent margins. Make violet and blue luminous, white cores prominent, fading with smaller or fewer opaque pixels, NOT with a blurred glow. This is one asset: r_land.",
+      "atlas_file": "league_shen_big.png"
+    }
+  ],
+  "asset_count": 15,
+  "total_frames": 68,
+  "status": "export_complete",
+  "game_integration_tested": false,
+  "notes": [
+    "All effects originate in built-in generated sheets; scripts process export copies only.",
+    "Raw frame cells use equal-width partition of actual generated dimensions. Source dimensions differ from the requested layout.",
+    "export rect refers to the individual sheet; atlas_rect refers to the optional grouped atlas; both are pixel coordinates.",
+    "Source reference texture/icon sheets are excluded from delivery."
+  ]
+}

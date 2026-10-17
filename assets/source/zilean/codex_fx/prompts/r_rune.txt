@@ -1,0 +1,7 @@
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, rings or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold ramp (#FFFFFF, #FFF2B0, #FFD24A, #E39A1E, #9C5A10) and a bright cyan ramp (#FFFFFF, #D8FFFF, #7FF4FF, #2FC8E8, #1A7FB0).
+Effect: a CHRONOSHIFT RUNE over a figure (do NOT draw the figure; leave its place empty), 8 frames, a seamless loop: a golden clock 10 squares across floating in the top part of the cell (a gold rim with 12 ticks, a white face, two cyan hands turning slowly - the long hand a quarter round over the 8 frames), under it a faint thin gold ring hanging round the figure's place down to the bottom of the cell, a few gold motes drifting up.
+Layout: one horizontal row of 8 equal square cells, image size 2048x256 (each cell 256x256). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+
+Generation refinements: no character; equal spacing; generous padding; bright coarse square pixels.
+Source layout changed to 4 columns x 2 rows to keep frames separate. Final export reassembled into one horizontal row.

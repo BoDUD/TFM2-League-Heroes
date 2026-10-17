@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_malphite_sfx_w_hit",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_malphite_sfx_attack_hit",
+      "volume": 0.35
+    }
+  ]
+}

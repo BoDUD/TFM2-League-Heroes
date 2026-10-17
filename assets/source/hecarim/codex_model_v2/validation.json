@@ -1,0 +1,36 @@
+[
+  {
+    "version": 1,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "alpha_128_bbox": [
+      62,
+      407,
+      1220,
+      1166
+    ],
+    "opaque_rgb_colors": 444,
+    "intermediate_alpha_pixels": 363435,
+    "nonuniform_8px_blocks": 6445,
+    "raw_unchanged": true
+  },
+  {
+    "version": 2,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "alpha_128_bbox": [
+      59,
+      407,
+      1223,
+      1165
+    ],
+    "opaque_rgb_colors": 372,
+    "intermediate_alpha_pixels": 366537,
+    "nonuniform_8px_blocks": 6396,
+    "raw_unchanged": true
+  }
+]

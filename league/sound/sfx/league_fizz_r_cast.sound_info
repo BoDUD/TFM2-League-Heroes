@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_fizz_sfx_r_cast",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.15,
+      "clip": "league_fizz_sfx_r_throw",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_fizz_vo_r",
+      "volume": 0.9
+    }
+  ]
+}

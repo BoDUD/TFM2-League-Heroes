@@ -1,0 +1,82 @@
+[
+ {
+  "file": "khazix_fx_a_hit.png",
+  "binding": "view_effects `league_khazix_a_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "khazix_fx_p_hit.png",
+  "binding": "view_effects `league_khazix_p_hit`（跟随，画在人物上面）",
+  "size": "18"
+ },
+ {
+  "file": "khazix_fx_ut.png",
+  "binding": "view_buffs `league_khazix_ut`（跟随，画在他身上，左右对称）",
+  "size": "26 × 12"
+ },
+ {
+  "file": "khazix_fx_p_ready.png",
+  "binding": "view_effects `league_khazix_p_ready`（不跟随，左右对称；中心在站位点上面约 36 格）",
+  "size": "16"
+ },
+ {
+  "file": "khazix_fx_q_hit.png",
+  "binding": "view_effects `league_khazix_q_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "khazix_fx_q_iso_hit.png",
+  "binding": "view_effects `league_khazix_q_iso_hit`（跟随，画在人物上面）",
+  "size": "26"
+ },
+ {
+  "file": "khazix_fx_e_land.png",
+  "binding": "view_effects `league_khazix_e_land`（落地点的地上，不跟随，不旋转）",
+  "size": "40 × 16"
+ },
+ {
+  "file": "khazix_fx_e_hit.png",
+  "binding": "view_effects `league_khazix_e_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "khazix_fx_w_spike.png",
+  "binding": "view_projectiles `league_khazix_w_spike`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "khazix_fx_w_hit.png",
+  "binding": "view_effects `league_khazix_w_hit`（跟随，画在人物上面）",
+  "size": "20"
+ },
+ {
+  "file": "khazix_fx_w_heal.png",
+  "binding": "view_effects `league_khazix_w_heal`（不跟随，左右对称；中心在站位点上面约 16 格）",
+  "size": "22 × 30"
+ },
+ {
+  "file": "khazix_fx_slow.png",
+  "binding": "view_buffs `league_khazix_p_slow` 和 `league_khazix_w_slow`（同一张，画在脚下，左右对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "khazix_fx_r_cast.png",
+  "binding": "view_effects `league_khazix_r_cast`（技能第一 tick 播放、跟随；中心在站位点上面约 16 格）",
+  "size": "34 × 36"
+ },
+ {
+  "file": "khazix_fx_r_on.png",
+  "binding": "view_buffs `league_khazix_r_on`（跟随，画在他身上，左右对称）",
+  "size": "30 × 40"
+ },
+ {
+  "file": "khazix_fx_e_reset.png",
+  "binding": "view_effects `league_khazix_e_reset`（不跟随，左右对称；中心在站位点上面约 20 格）",
+  "size": "24"
+ },
+ {
+  "file": "khazix_fx_evo.png",
+  "binding": "view_effects `league_khazix_evo`（不跟随，左右对称；中心在站位点上面约 18 格）",
+  "size": "34 × 40"
+ }
+]

@@ -1,0 +1,219 @@
+{
+  "canvas": [
+    1024,
+    1024
+  ],
+  "logical_canvas": [
+    128,
+    128
+  ],
+  "pixel_scale": 8,
+  "ground_row": 99,
+  "frames": [
+    {
+      "name": "run_1",
+      "duration_ms": 125,
+      "motion": "running to the right: the near leg (image right) reaching forward, the far leg kicked back with its heel high"
+    },
+    {
+      "name": "run_2",
+      "duration_ms": 125,
+      "motion": "running: the legs passing under her, the near knee up, the far foot leaving the ground behind"
+    },
+    {
+      "name": "run_3",
+      "duration_ms": 125,
+      "motion": "running: the far leg now reaching forward, the near leg pushing off behind"
+    },
+    {
+      "name": "run_4",
+      "duration_ms": 125,
+      "motion": "running: the near leg kicked back with its heel high, the far foot planted ahead"
+    },
+    {
+      "name": "run_5",
+      "duration_ms": 125,
+      "motion": "running: like frame 1 again, the body one square lower (the bounce)"
+    },
+    {
+      "name": "run_6",
+      "duration_ms": 125,
+      "motion": "running: like frame 2, the body one square lower"
+    },
+    {
+      "name": "run_7",
+      "duration_ms": 125,
+      "motion": "running: like frame 3"
+    },
+    {
+      "name": "run_8",
+      "duration_ms": 125,
+      "motion": "running: like frame 4"
+    },
+    {
+      "name": "attack_1",
+      "duration_ms": 70,
+      "motion": "drops into a low, wide lunge facing right: the near knee bent forward, the far leg stretched back; the cannon brought down level at her hip, the claw grip at her back, the maroon wing plates and the crystal reaching forward to the right (the muzzle)"
+    },
+    {
+      "name": "attack_2",
+      "duration_ms": 80,
+      "motion": "the same lunge, a little lower, the cannon level and aimed right"
+    },
+    {
+      "name": "attack_3",
+      "duration_ms": 100,
+      "motion": "the same lunge, steady, aiming along the cannon"
+    },
+    {
+      "name": "attack_4",
+      "duration_ms": 90,
+      "motion": "FIRE: the same lunge, the cannon pushed back a square by the shot"
+    },
+    {
+      "name": "attack_5",
+      "duration_ms": 110,
+      "motion": "recoil: her body rises, the cannon kicked up - the muzzle pointing up-right, the claw grip down at her hip"
+    },
+    {
+      "name": "attack_6",
+      "duration_ms": 120,
+      "motion": "recovering: back into a lower stance, the cannon level again"
+    },
+    {
+      "name": "skill_1",
+      "duration_ms": 70,
+      "motion": "crouched behind the cannon, swinging it down from her shoulder: the cannon diagonal, the claw grip up at her shoulder, the muzzle down-forward near her feet"
+    },
+    {
+      "name": "skill_2",
+      "duration_ms": 80,
+      "motion": "still swinging: the cannon steeper, she rises"
+    },
+    {
+      "name": "skill_3",
+      "duration_ms": 90,
+      "motion": "standing, the cannon pointing down-forward, both hands on it"
+    },
+    {
+      "name": "skill_4",
+      "duration_ms": 120,
+      "motion": "FIRE: the cannon raised level at chest height, aimed straight right, the wing plates opening at the muzzle"
+    },
+    {
+      "name": "skill_5",
+      "duration_ms": 100,
+      "motion": "the cannon level, the shot's recoil leaning her back a little"
+    },
+    {
+      "name": "skill_6",
+      "duration_ms": 100,
+      "motion": "holding the cannon level, leaning back, the far foot back"
+    },
+    {
+      "name": "skill2_1",
+      "duration_ms": 60,
+      "motion": "crouching low, the cannon held diagonally down in front of her"
+    },
+    {
+      "name": "skill2_2",
+      "duration_ms": 70,
+      "motion": "crouching lower, gathering, the cannon still diagonal"
+    },
+    {
+      "name": "skill2_3",
+      "duration_ms": 70,
+      "motion": "swinging the cannon up level, aimed right, still crouched"
+    },
+    {
+      "name": "skill2_4",
+      "duration_ms": 110,
+      "motion": "FIRE: crouched, the cannon level and aimed right, pushed back by the shot"
+    },
+    {
+      "name": "skill2_5",
+      "duration_ms": 90,
+      "motion": "standing up, the cannon swung down behind her near hip, the claw grip down, her far hand reaching out"
+    },
+    {
+      "name": "skill2_6",
+      "duration_ms": 100,
+      "motion": "standing, the cannon held behind her at her side, back toward the idle"
+    },
+    {
+      "name": "ult_1",
+      "duration_ms": 120,
+      "motion": "crouching low over the cannon, gathering"
+    },
+    {
+      "name": "ult_2",
+      "duration_ms": 120,
+      "motion": "rising, lifting the cannon upright in front of her"
+    },
+    {
+      "name": "ult_3",
+      "duration_ms": 150,
+      "motion": "CHARGE: standing tall, both arms out to the right holding the cannon level at shoulder height, the wing plates opening"
+    },
+    {
+      "name": "ult_4",
+      "duration_ms": 160,
+      "motion": "CHARGE: the same, the cannon a little higher, the wings fully open"
+    },
+    {
+      "name": "ult_5",
+      "duration_ms": 200,
+      "motion": "bringing the cannon down to her chest, aimed down-right"
+    },
+    {
+      "name": "ult_6",
+      "duration_ms": 120,
+      "motion": "FIRE: the cannon level at her chest, aimed straight right, her feet set"
+    },
+    {
+      "name": "ult_7",
+      "duration_ms": 120,
+      "motion": "firing: the same, the recoil leaning her back"
+    },
+    {
+      "name": "ult_8",
+      "duration_ms": 100,
+      "motion": "firing: the same, holding"
+    },
+    {
+      "name": "hit_1",
+      "duration_ms": 100,
+      "motion": "hit: flinching back, the body leaning back, the cannon pushed up against her shoulder"
+    },
+    {
+      "name": "dead_1",
+      "duration_ms": 100,
+      "motion": "hit hard: staggering back, the cannon slipping from her hands"
+    },
+    {
+      "name": "dead_2",
+      "duration_ms": 100,
+      "motion": "dropping to one knee, the cannon falling in front of her"
+    },
+    {
+      "name": "dead_3",
+      "duration_ms": 120,
+      "motion": "on one knee, bent forward, the cannon lying on the ground in front"
+    },
+    {
+      "name": "dead_4",
+      "duration_ms": 150,
+      "motion": "sinking lower, one hand on the ground"
+    },
+    {
+      "name": "dead_5",
+      "duration_ms": 200,
+      "motion": "falling onto her side"
+    },
+    {
+      "name": "dead_6",
+      "duration_ms": 400,
+      "motion": "lying on the ground, still, the cannon beside her"
+    }
+  ]
+}
