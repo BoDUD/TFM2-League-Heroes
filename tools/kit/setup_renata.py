@@ -34,8 +34,9 @@ M = "<#a974ffff>"      # magic
 TR = "<#f5f5f5ff>"     # true damage
 A = "<#ffb900ff>"      # durations, counts, percents
 E = "<>"
-# champion_view: set from tfm2_ase.py face once the sprite exists (--face / --banpick)
-VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -3}}
+# champion_view: the face at her crown (tfm2_ase.py face: 40 px over the feet); the idle tops ~30 px over the pivot
+# (breathing 2 rows), above -28 -> banpick_center y = -39 - (-30) (the card rule)
+VIEW = {"face": {"x": 1, "y": -40}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -9}}
 
 
 def mag(d, r):

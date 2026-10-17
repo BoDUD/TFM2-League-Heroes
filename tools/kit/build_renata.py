@@ -49,8 +49,8 @@ P = {
     # 545 +94 hp, 27 armour, 330 move, attack speed 0.625
     "hp": 900, "hp_g": 85, "atk": 80, "atk_g": 6, "ap": 30, "ap_g": 15, "def": 20, "def_g": 8, "mr": 22, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
-    # attack (the strip's shot on a_st; timings wait for the strips)
-    "atk_range": 55000, "atk_dur": 30, "atk_cd": 90, "a_st": 11, "a_ratio": 100, "shot_speed": 6000, "shot_y": -2500,
+    # attack (tools/art/rig_renata.py: 60 + 60 ms of the pistol coming down level, the shot on frame 3 at 120 ms)
+    "atk_range": 55000, "atk_dur": 30, "atk_cd": 90, "a_st": 8, "a_ratio": 100, "shot_speed": 6000, "shot_y": -2500,
     # passive Leverage (League: 1-6% max health + 2% per 100 AP on her hits; the same again when an ally pops the mark,
     # mark 4 s? -> p_t)
     "p_hp": 2, "p_t": 240, "p_per": 15, "p_reach": 60000, "p_gap": 45, "p_pop": 30, "p_pop_ap": 20, "p_pop_hp": 3,
@@ -59,7 +59,8 @@ P = {
     "w_cd": 1500, "w_range": 80000, "w_r2": 60000, "w_t": 300, "w_as": 30, "w_ms": 20,
     "w_heal": 150, "w_heal_ap": 60, "w_anim": 18,
     # skill: E (League: 800 range, 65-245 + 55% AP, slow 30% 2 s, shield 50-230 + 50% AP 3 s, cd 14-10 s)
-    "e_cd": 600, "e_range": 80000, "e_dur": 26, "e_rel": 11, "e_lock": 8, "e_speed": 4000, "e_len": 80000,
+    # (the strip: 70 ms crouch, 80 ms the arm swept up, the missiles leave as it is thrown forward on frame 3, 150 ms)
+    "e_cd": 600, "e_range": 80000, "e_dur": 26, "e_rel": 9, "e_lock": 8, "e_speed": 4000, "e_len": 80000,
     "e_rad": 5000, "e_y": -2500, "e_r": 12000, "e_dmg": 70, "e_ap": 50, "e_slow": 30, "e_slow_t": 120,
     "e_sh": 90, "e_sh_ap": 50, "e_sh_t": 180,
     # skill2: Q (League: 900 range, 80-280 + 100% AP, root 1 s, recast throws ~400 units: 80-280 + 100% AP to what it
@@ -67,6 +68,8 @@ P = {
     "q_cd": 900, "q_range": 85000, "q_dur": 30, "q_rel": 12, "q_lock": 8, "q_speed": 4500, "q_len": 90000,
     "q_rad": 5000, "q_y": -2500, "q_dmg": 80, "q_ap": 70, "q_root": 50, "q_pull": 3000, "q_pull_t": 12,
     "q_land_r": 14000, "q2_dmg": 60, "q2_ap": 50, "q_stun": 30,
+    # (the strip: the lunge's thrust on frame 3 at 200 ms = q_rel; the fling plays skill2_fling, 400 ms)
+    "q_fling_anim": 24,
     # ult: R (League: 2000 range, berserk 1.25 / 1.75 / 2.25 s, cd 150-110 s)
     "r_cd": 4800, "r_range": 75000, "r_arm": 360, "r_ally": 45000, "fight_r": 70000, "watch_p": 15, "r_anim": 40, "r_rel": 18, "r_speed": 2000, "r_len": 100000,
     "r_w": 14000, "r_t": 105, "r_per": 30, "r_lash_r": 25000, "r_hit": 55, "r_hit_ap": 40,
@@ -286,7 +289,9 @@ def build(p):
                  [magic(p["q2_dmg"], p["q2_ap"]), sw("q_champ", {"type": "Stun", "duration": p["q_stun"]}),
                   view("q_crash_hit"), tsfx("q_crash")])
     land = lob("q_land", 1, 1000, "Enemy", [], end=[crash, view("q_land")])
-    fling = combine({"type": "Pull", "speed": p["q_pull"], "tick": p["q_pull_t"]}, view("q_fling"), tsfx("q_fling"))
+    # the fling: the pull through her, and her yank (the skill2_fling strip; the casted effect's caster is still her)
+    fling = combine({"type": "Pull", "speed": p["q_pull"], "tick": p["q_pull_t"]}, view("q_fling"), tsfx("q_fling"),
+                    anim("skill2_fling", p["q_fling_anim"]))
     caught = [magic(p["q_dmg"], p["q_ap"]), {"type": "Bind", "duration": p["q_root"]}, view("q_hit"), tsfx("q_hit"),
               pick(1000, "EnemyChampion", flag("q_champ", p["q_root"] + p["q_pull_t"] + 6), fp=True),
               casted(p["q_root"], p["q_root"], fling),

@@ -1,0 +1,209 @@
+{
+ "hero": "renata",
+ "champ": "Renata",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  200,
+  160,
+  30
+ ],
+ "design": "Weapon_Idle1@0",
+ "hide_submeshes": [
+  "Recall_Jacket",
+  "Pocket",
+  "Potion",
+  "Q_Arm",
+  "Q_Arm_Tubes",
+  "Wing_Folded",
+  "Wing",
+  "Weapon",
+  "Weapon_Glass",
+  "Canisters",
+  "Canister_Glass"
+ ],
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "Run@0",
+     133
+    ],
+    [
+     "Run@133",
+     133
+    ],
+    [
+     "Run@267",
+     133
+    ],
+    [
+     "Run@400",
+     133
+    ],
+    [
+     "Run@533",
+     133
+    ],
+    [
+     "Run@667",
+     133
+    ],
+    [
+     "Run@800",
+     133
+    ],
+    [
+     "Run@933",
+     133
+    ]
+   ]
+  },
+  "attack": {
+   "frames": [
+    [
+     "Attack1@0",
+     60
+    ],
+    [
+     "Attack1@60",
+     60
+    ],
+    [
+     "Attack1@120",
+     80
+    ],
+    [
+     "Attack1@200",
+     90
+    ],
+    [
+     "Attack1@290",
+     80
+    ],
+    [
+     "Attack1@370",
+     130
+    ]
+   ]
+  },
+  "skill": {
+   "frames": [
+    [
+     "Spell3@0",
+     70
+    ],
+    [
+     "Spell3@155",
+     80
+    ],
+    [
+     "Spell3@330",
+     90
+    ],
+    [
+     "Spell3@530",
+     100
+    ],
+    [
+     "Spell3@750",
+     93
+    ]
+   ]
+  },
+  "skill2": {
+   "frames": [
+    [
+     "Spell1_Activate@0",
+     90
+    ],
+    [
+     "Spell1_Activate@170",
+     110
+    ],
+    [
+     "Spell1_Activate@370",
+     110
+    ],
+    [
+     "Spell1_Activate@580",
+     100
+    ],
+    [
+     "Spell1_Activate@770",
+     90
+    ]
+   ]
+  },
+  "skill2_fling": {
+   "frames": [
+    [
+     "Spell1_Fling_Back@0",
+     70
+    ],
+    [
+     "Spell1_Fling_Back@40",
+     90
+    ],
+    [
+     "Spell1_Fling_Back@80",
+     120
+    ],
+    [
+     "Spell1_Fling_Back@120",
+     120
+    ]
+   ]
+  },
+  "skill_w": {
+   "frames": [
+    [
+     "Spell2_Idle@0",
+     90
+    ],
+    [
+     "Spell2_Idle@350",
+     120
+    ],
+    [
+     "Spell2_Idle@700",
+     90
+    ]
+   ]
+  },
+  "dead": {
+   "frames": [
+    [
+     "Death@0",
+     100
+    ],
+    [
+     "Death@600",
+     120
+    ],
+    [
+     "Death@1250",
+     150
+    ],
+    [
+     "Death@2500",
+     150
+    ],
+    [
+     "Death@3100",
+     400
+    ]
+   ],
+   "flat": true
+  }
+ }
+}

@@ -833,6 +833,13 @@
         "skill": "恶魔手射出五道扇形散开的闪电，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>；近处的敌人被更多闪电打中，另受<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>。",
         "skill2": "恶魔之手飞出再飞回，回程打中的敌人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并<#ef5350ff>禁锢1.5秒<>；被禁锢的英雄随后被拉近，留下一片魂屑。",
         "ult": "化身恶魔，吸取周围敌人的生命：每<#ffb900ff>0.5秒<>造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>，每名英雄回复<#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<>；吸到英雄时形态延续。<#ffb900ff>2秒<>后放出<#ff9028ff>恶魔耀光<>：<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速<>。2名敌方英雄在身边或有队友围攻被控者时才放。"
+      },
+      "league_renata": {
+        "name": "烈娜塔",
+        "attack": "手枪普攻。<#ff9028ff>物尽其用<>：命中英雄时额外造成最大生命<#ffb900ff>2%<><#f5f5f5ff>真实伤害<>并标记；队友在旁攻击时引爆，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法伤害<>。<#ff9028ff>及时救难<>：队友被控或团战时自动施放，攻速+<#ffb900ff>30%<>、移速+<#ffb900ff>20%<>，<#ffb900ff>5秒<>内不会阵亡，结束时回复<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
+        "skill": "发射一对飞弹，命中敌人或飞到尽头时爆炸，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>30%<>；途经的友方英雄获得<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>护盾，持续<#ffb900ff>3秒<>。",
+        "skill2": "射出机械手，抓住第一个敌人，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并禁锢<#ffb900ff>0.83秒<>，随后把它甩向身后；落点周围的敌人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>，甩出的是英雄时还会被眩晕<#ffb900ff>0.5秒<>。",
+        "ult": "附近有2个以上敌方英雄，或敌方英雄被控制时，放出化学波：命中的敌方英雄狂暴<#ffb900ff>1.75秒<>，不能攻击我方、不能施法，每<#ffb900ff>0.5秒<>攻击身边的队友，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -1430,6 +1437,11 @@
         "skill1": "解脱之触",
         "skill2": "永不复行",
         "ult": "恶魔升华"
+      },
+      "league_renata": {
+        "skill1": "忠诚激励",
+        "skill2": "铁腕竞合",
+        "ult": "恶意收购"
       }
     }
   },
@@ -2267,6 +2279,13 @@
         "skill": "惡魔之手射出五道扇形散開的閃電，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>；近處的敵人被更多閃電擊中，另受<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>。",
         "skill2": "惡魔之手飛出再飛回，回程擊中的敵人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並<#ef5350ff>定身1.5秒<>；被定身的英雄隨後被拉近，留下一片靈魂碎片。",
         "ult": "化身惡魔，汲取周圍敵人的生命：每<#ffb900ff>0.5秒<>造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>，每名英雄回復<#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<>；汲取到英雄時型態延續。<#ffb900ff>2秒<>後放出<#ff9028ff>魔燄<>：<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速<>。2名敵方英雄在身邊或有隊友圍攻被控者時才施放。"
+      },
+      "league_renata": {
+        "name": "睿娜妲",
+        "attack": "手槍普攻。<#ff9028ff>唯利是圖<>：命中英雄時額外造成最大生命<#ffb900ff>2%<><#f5f5f5ff>真實傷害<>並標記；隊友在旁攻擊時引爆，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法傷害<>。<#ff9028ff>急難救助<>：隊友被控或團戰時自動施放，攻速+<#ffb900ff>30%<>、跑速+<#ffb900ff>20%<>，<#ffb900ff>5秒<>內不會陣亡，結束時回復<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
+        "skill": "發射一對飛彈，命中敵人或飛到盡頭時爆炸，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>30%<>；途經的友方英雄獲得<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>護盾，持續<#ffb900ff>3秒<>。",
+        "skill2": "射出機械手，抓住第一個敵人，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並定身<#ffb900ff>0.83秒<>，隨後把它甩向身後；落點周圍的敵人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>，甩出的是英雄時還會被暈眩<#ffb900ff>0.5秒<>。",
+        "ult": "附近有2個以上敵方英雄，或敵方英雄被控制時，放出化學波：命中的敵方英雄狂暴<#ffb900ff>1.75秒<>，不能攻擊我方、不能施法，每<#ffb900ff>0.5秒<>攻擊身邊的隊友，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -2864,6 +2883,11 @@
         "skill1": "靈魂拷問",
         "skill2": "影之爪",
         "ult": "魔君降生"
+      },
+      "league_renata": {
+        "skill1": "有酬必報",
+        "skill2": "霸道手腕",
+        "ult": "惡意收購"
       }
     }
   },
@@ -3701,6 +3725,13 @@
         "skill": "Five bolts of demonic lightning fan out from his hand for <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>; a close enemy is struck by more of them for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> more.",
         "skill2": "A demon hand flies out and back; on its way back it deals <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> and <#ef5350ff>roots 1.5s<>. Rooted champions are then pulled closer and drop a Soul Fragment.",
         "ult": "He becomes the demon and drains nearby enemies: every <#ffb900ff>0.5s<> <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>magic damage<>, healing <#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<> per champion; draining champions keeps the form going. After <#ffb900ff>2s<>, <#ff9028ff>Demonflare<>: <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and a <#ef5350ff>slow<>. Cast with 2 enemy champions close, or an ally on a controlled one."
+      },
+      "league_renata": {
+        "name": "Renata",
+        "attack": "Pistol attacks. <#ff9028ff>Leverage<>: hits on champions deal <#ffb900ff>2%<> of their max health as <#f5f5f5ff>true damage<> and mark them; an ally attacking beside her pops the mark for <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>. <#ff9028ff>Bailout<>: cast by itself on an ally in crowd control or in a teamfight: +<#ffb900ff>30%<> attack speed, +<#ffb900ff>20%<> move speed, cannot die for <#ffb900ff>5s<>, then heals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
+        "skill": "Fires a pair of missiles that burst on the first enemy or at the end: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and a <#ffb900ff>30%<> slow; allied champions they pass get a <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> shield for <#ffb900ff>3s<>.",
+        "skill2": "Launches a chemtech hand that grabs the first enemy: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and a <#ffb900ff>0.83s<> root, then flings it behind her; enemies where it lands take <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and, if a champion was thrown, a <#ffb900ff>0.5s<> stun.",
+        "ult": "With 2+ enemy champions near, or one in crowd control, sends out a chemical wave: enemy champions hit go berserk for <#ffb900ff>1.75s<>, unable to attack her team or cast, lashing out at their own allies every <#ffb900ff>0.5s<> for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>."
       }
     },
     "skill_name": {
@@ -4298,6 +4329,11 @@
         "skill1": "Death's Hand",
         "skill2": "Nevermove",
         "ult": "Demonic Ascension"
+      },
+      "league_renata": {
+        "skill1": "Loyalty Program",
+        "skill2": "Handshake",
+        "ult": "Hostile Takeover"
       }
     }
   },
@@ -5135,6 +5171,13 @@
         "skill": "악마의 손에서 부채꼴로 퍼지는 번개 다섯 줄기가 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>; 가까운 적은 더 많은 번개에 맞아 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>를 추가로 받습니다.",
         "skill2": "악마의 손이 날아갔다 돌아오며 돌아올 때 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>1.5초 속박<>. 속박된 챔피언은 끌려오고 영혼 조각을 떨어뜨립니다.",
         "ult": "악마로 변신해 주변 적의 생명력을 흡수: <#ffb900ff>0.5초<>마다 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>의 <#a974ffff>마법 피해<>, 챔피언마다 <#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<> 회복; 챔피언을 흡수하면 형태 유지. <#ffb900ff>2초<> 후 <#ff9028ff>악의 불길<>: <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>둔화<>. 적 챔피언 2명이 가까이 있거나 아군이 군중 제어된 적을 칠 때 사용."
+      },
+      "league_renata": {
+        "name": "레나타",
+        "attack": "권총 공격. <#ff9028ff>영향력<>: 챔피언 적중 시 최대 체력의 <#ffb900ff>2%<> <#f5f5f5ff>고정 피해<>를 주고 표식을 남김. 아군이 곁에서 공격하면 터져 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>의 <#a974ffff>마법 피해<>. <#ff9028ff>긴급 구제<>: 아군이 군중 제어되거나 한타 중이면 자동 시전, 공격 속도 +<#ffb900ff>30%<>, 이동 속도 +<#ffb900ff>20%<>, <#ffb900ff>5초<> 동안 죽지 않고 끝날 때 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 회복.",
+        "skill": "미사일 한 쌍 발사, 첫 적이나 끝에서 폭발해 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>와 <#ffb900ff>30%<> 둔화. 지나간 아군 챔피언은 <#ffb900ff>3초<> 동안 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 보호막.",
+        "skill2": "화공 손을 날려 첫 적을 잡아 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>의 <#a974ffff>마법 피해<>와 <#ffb900ff>0.83초<> 속박, 이어서 뒤로 던짐. 떨어진 곳의 적은 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>, 던진 대상이 챔피언이면 <#ffb900ff>0.5초<> 기절.",
+        "ult": "근처에 적 챔피언이 2명 이상이거나 군중 제어된 적이 있으면 화학 파동 발사: 맞은 적 챔피언은 <#ffb900ff>1.75초<> 동안 광폭해져 우리 편을 공격하거나 스킬을 쓰지 못하고, <#ffb900ff>0.5초<>마다 자기 아군에게 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>."
       }
     },
     "skill_name": {
@@ -5732,6 +5775,11 @@
         "skill1": "죽음의 손길",
         "skill2": "속박명령",
         "ult": "악의 승천"
+      },
+      "league_renata": {
+        "skill1": "충성 고객 우대",
+        "skill2": "악수",
+        "ult": "적대적 인수"
       }
     }
   },
@@ -6569,6 +6617,13 @@
         "skill": "悪魔の手から扇状に広がる稲妻を5本放ち<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>。近い敵は多くの稲妻を受け、さらに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>。",
         "skill2": "悪魔の手が飛んで戻り、戻る途中で当たった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.5秒スネア<>。スネアされたチャンピオンは引き寄せられ「魂のかけら」を落とす。",
         "ult": "悪魔に変身し周囲の敵から吸収：<#ffb900ff>0.5秒<>毎に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>、チャンピオン毎に<#7ee787ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>15%<>回復。チャンピオンを吸収する間は持続。<#ffb900ff>2秒<>後「<#ff9028ff>悪魔の紅炎<>」：<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>スロウ<>。敵2体が近いか、味方がCC中の敵を攻撃中に使う。"
+      },
+      "league_renata": {
+        "name": "レナータ",
+        "attack": "拳銃で通常攻撃。<#ff9028ff>レバレッジ<>：チャンピオンに最大体力の<#ffb900ff>2%<>の<#f5f5f5ff>確定ダメージ<>とマーク。味方がそばで攻撃すると爆発し<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>緊急支援<>：味方が行動妨害中か集団戦で自動発動、攻撃速度+<#ffb900ff>30%<>、移動速度+<#ffb900ff>20%<>、<#ffb900ff>5秒<>倒れず、終了時<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>回復。",
+        "skill": "ミサイル2発を放ち、最初の敵か射程端で爆発して<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>30%<>スロウ。通過した味方チャンピオンに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>のシールド（<#ffb900ff>3秒<>）。",
+        "skill2": "ケミテックの手で最初の敵を掴み<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>0.83秒<>スネア、背後へ投げ飛ばす。落下地点の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、投げたのがチャンピオンなら<#ffb900ff>0.5秒<>スタン。",
+        "ult": "敵チャンピオン2体以上が近いか行動妨害中の敵がいる時、化学波を放つ：命中した敵チャンピオンは<#ffb900ff>1.75秒<>狂乱し、こちらへの攻撃とスキルが不可、<#ffb900ff>0.5秒<>ごとに自分の味方を攻撃して<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。"
       }
     },
     "skill_name": {
@@ -7166,6 +7221,11 @@
         "skill1": "死の手",
         "skill2": "束縛の爪",
         "ult": "魔帝戴冠"
+      },
+      "league_renata": {
+        "skill1": "ロイヤリティープログラム",
+        "skill2": "手荒い挨拶",
+        "ult": "敵対的買収"
       }
     }
   }
