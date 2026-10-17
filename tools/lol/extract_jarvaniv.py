@@ -1,6 +1,6 @@
 r"""Pull Jarvan IV's sounds and ability icons out of a local League of Legends install.
 
-    python tools/lol/extract_jarvaniv.py --lol "D:\WeGameApps\lol" --vgmstream path	ogmstream-cli.exe
+    python tools/lol/extract_jarvaniv.py --lol "D:\WeGameApps\lol" --vgmstream path\to\vgmstream-cli.exe
 
 Same route as extract_nasus.py: reads (never writes) Game/DATA/FINAL/Champions/JarvanIV.wad.client and
 JarvanIV.<lang>.wad.client, resolves the base-skin Wwise events below to their media (the first variant of each event

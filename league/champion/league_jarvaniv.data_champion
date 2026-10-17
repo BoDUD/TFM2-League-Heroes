@@ -391,7 +391,7 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "RandomTarget",
-                                                                      "range": 40000,
+                                                                      "range": 28000,
                                                                       "casting_target": "AllyOnlySelf",
                                                                       "from_projectile": true,
                                                                       "effects": [
@@ -835,7 +835,7 @@
                                                                         "casting_type": "Targeting",
                                                                         "effect": {
                                                                           "type": "RandomTarget",
-                                                                          "range": 40000,
+                                                                          "range": 28000,
                                                                           "casting_target": "AllyOnlySelf",
                                                                           "from_projectile": true,
                                                                           "effects": [
@@ -1276,7 +1276,7 @@
                                                                           "casting_type": "Targeting",
                                                                           "effect": {
                                                                             "type": "RandomTarget",
-                                                                            "range": 40000,
+                                                                            "range": 28000,
                                                                             "casting_target": "AllyOnlySelf",
                                                                             "from_projectile": true,
                                                                             "effects": [
@@ -2884,7 +2884,7 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "RandomTarget",
-                                                                      "range": 40000,
+                                                                      "range": 28000,
                                                                       "casting_target": "AllyOnlySelf",
                                                                       "from_projectile": true,
                                                                       "effects": [
@@ -3328,7 +3328,7 @@
                                                                         "casting_type": "Targeting",
                                                                         "effect": {
                                                                           "type": "RandomTarget",
-                                                                          "range": 40000,
+                                                                          "range": 28000,
                                                                           "casting_target": "AllyOnlySelf",
                                                                           "from_projectile": true,
                                                                           "effects": [
@@ -3769,7 +3769,7 @@
                                                                           "casting_type": "Targeting",
                                                                           "effect": {
                                                                             "type": "RandomTarget",
-                                                                            "range": 40000,
+                                                                            "range": 28000,
                                                                             "casting_target": "AllyOnlySelf",
                                                                             "from_projectile": true,
                                                                             "effects": [

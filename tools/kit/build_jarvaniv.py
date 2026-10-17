@@ -7,7 +7,7 @@ TFM2 has three active slots: the E -> Q combo is `skill`, Dragon Strike alone `s
 (W) has no slot - the watch casts it in fights (league_swain's / league_nasus's W the same way).
   passive Martial Cadence (战争律动): an attack on a champion after a p_rest-tick rest deals p_pct% of its max health more
           (League: 8% of current health, per target every 6-3 s: nothing reads current health or a target's own timer,
-          so the rest is his - league_ekko's Z-Drive way; the add-on keeps League's per-target rest and current health).
+          so the rest is his - league_ekko's Z-Drive way).
   attack  a lance thrust (100% AD) struck by a hidden homing hit on `Enemy` (towers too) on a_hit; its champion-only twin
           marks the fight (`fight`, f_t ticks) and carries the passive.
   E passive: +e_as% attack speed (a Permanent caster buff laid at each life's first attack or R press).
@@ -21,7 +21,7 @@ TFM2 has three active slots: the E -> Q combo is `skill`, Dragon Strike alone `s
   skill2  Q Dragon Strike (巨龙撞击) alone, `Targeting` on `EnemyWithoutTower` (q_range): the aim is locked by a hidden lob
           (q_lock ticks before the thrust), then the lance flies to that point: q_dmg + q_ratio% AD, armour -q_shred%.
           League's Q also drags him to a standard already standing on its line: data can't tell where a standard
-          stands, so in the main pack only the combo drags him (the add-on does the rest).
+          stands, so only the combo drags him.
   W       Golden Aegis (黄金圣盾), automatic: in a fight (`fight`), w_cd off, an enemy champion within w_r: a shield of
           w_sh + w_ratio% AD for w_t ticks plus w_per for each enemy champion within w_r, and every enemy there slowed
           w_slow% for w_slow_t.
@@ -75,7 +75,7 @@ P = {
     "w_slow": 25, "w_slow_t": 120,
     # ult: R Cataclysm (League: 650 range leap, 200-450 + 180% bonus AD, ring r 350 for 3.5 s, cd 120-90)
     "r_cd": 3600, "r_range": 60000, "r_arm": 600, "r_dur": 30, "r_speed": 4500, "r_r": 36000, "r_t": 210,
-    "r_dmg": 120, "r_ratio": 120, "r_lp": 3, "r_leash": 40000, "r_gs": 2500, "r_gt": 5, "r_cnt": 45000,
+    "r_dmg": 120, "r_ratio": 120, "r_lp": 3, "r_leash": 28000, "r_gs": 2500, "r_gt": 5, "r_cnt": 45000,
     # the watch
     "watch_p": 12,
     # his spoken lines, at most one every vo_gap ticks
