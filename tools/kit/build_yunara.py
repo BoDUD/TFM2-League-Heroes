@@ -41,30 +41,35 @@ ID = "league_yunara"
 FX = "asset/league/effects/league_yunara_fx"
 BIG = "asset/league/effects/league_yunara_big"
 
+# Numbers: the 10-min classic-SDK simulations (Temp/yu_sim, sim/kd.py --lane 3 against gunner, soldier, archer and
+# gambler, three lineups, both sides, 12 seeds each, 2026-10-17): the League-ratio draft y0 (atk 106, Q 45% AS, W 90,
+# laser 200, hp 1000) +2.47; y1 atk 100 + Q 40% +2.72 (noise); y2 + W 70, laser 160 +2.30; y3 + hp 950 +1.73 and +1.48
+# on seeds 13-24 (+1.61 over 24, here); y4 Q 35% + W 60 +1.43 / +0.80.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Yunara: 575 range,
     # 55 AD, 590 +110 hp, 25 armour, 325 move, attack speed 0.65
-    "hp": 1000, "hp_g": 90, "atk": 106, "atk_g": 19, "def": 22, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
+    "hp": 950, "hp_g": 90, "atk": 100, "atk_g": 19, "def": 22, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     "crit": 10,
     # attack: the bead leaves her hand on a_st
+    # (the strip: 67 + 66 ms of the beads rising into their arc, the push on frame 3 at 133 ms = tick 8)
     "atk_range": 57500, "atk_dur": 24, "atk_cd": 50, "a_st": 8, "a_ratio": 100, "bead_speed": 7000, "bead_y": -3000,
     # passive magic part (League: Q's passive 3-28 + 20% AP on-hit; the crit's bonus magic)
     "p_dmg": 18, "p_ap": 20,
     # Unleash (League: 2 a champion hit, 1 else, 8 to fill, 6 s before it drains) and Q (5 s, 10-70% AS, 3-28 + 20% AP
     # more on-hit, 30% AD to enemies within 300)
-    "u_t": 360, "q_t": 300, "q_as": 45, "q_dmg": 18, "q_sp": 30, "q_sp_r": 30000,
+    "u_t": 360, "q_t": 300, "q_as": 40, "q_dmg": 18, "q_sp": 30, "q_sp_r": 30000,
     # skill: W (League: 1150 range, 0.45 s cast, 55-255 + 85% bonus AD + 50% AP, slow 99% decaying over 1.5 s, spins 1 s
     # at the end for 60% of that a second, cd 10 s)
     "w_cd": 600, "w_range": 90000, "w_dur": 27, "w_rel": 15, "w_lock": 8, "w_speed": 3600, "w_len": 110000,
-    "w_rad": 6000, "w_y": -3000, "w_dmg": 90, "w_ratio": 85, "w_slow": (45, 30, 20),
+    "w_rad": 6000, "w_y": -3000, "w_dmg": 70, "w_ratio": 85, "w_slow": (45, 30, 20),
     "w_linger": 60, "w_per": 15, "w_zone": 12000, "w_dps": 14, "w_dps_r": 12,
     # R's W: the laser (League: 0.6 s cast, 160-480 + 120% bonus AD + 75% AP, slow 99% decaying over 1 s)
-    "rw_dur": 40, "rw_apply": 34, "rw_len": 120000, "rw_w": 9000, "rw_dmg": 200, "rw_ratio": 120, "rw_slow": (50, 30),
+    "rw_dur": 40, "rw_apply": 34, "rw_len": 120000, "rw_w": 9000, "rw_dmg": 160, "rw_ratio": 120, "rw_slow": (50, 30),
     # skill2: E (League: 1.5 s, 25-55% MS, x1.5 toward an enemy champion, ghosted, cd 9 s); R's E: a dash
     # (1200-2100 speed; about 350 units)
     "e_cd": 540, "e_range": 80000, "e_t": 90, "e_ms": 40, "e_ms2": 60, "e_close": 35000, "re_v": 2600, "re_t": 14,
     # ult: R (League: 15 s, cd 100/90/80 s)
-    "r_cd": 4200, "r_range": 70000, "r_count": 75000, "r_t": 900, "r_anim": 30,
+    "r_cd": 4200, "r_range": 70000, "r_count": 75000, "r_t": 900, "r_anim": 30,     # r_anim: the ult strip, 500 ms
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # the add-on's copy (addons/league_yunara/make_override.py): 1 = R's dash direction left to league_yunara:faith
@@ -210,6 +215,13 @@ def voice(name, p):
     return sw("vo_cd", NONE, combine(flag("vo_cd", p["vo_gap"]), sfx(name)))
 
 
+def lives(*effects):
+    """A `Delayed` chain's effects only while she lives (a dead caster's Delayed effects run in the game): a 1-tick
+    flag from a search that finds no dead caster; the copy in the search is what the AI reads (champion-data 5)."""
+    return combine(pick(1, "AllyOnlySelf", flag("live", 1)),
+                   sw("live", combine(*effects), pick(1, "AllyOnlySelf", *effects)), *rm("live"))
+
+
 def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel=False, key=None):
     return {"action_name": name, "description": f"#asset/base/text/champion?description.{ID}.{key or name}",
             "duration": dur, "cooltime": cd, "start_timing": st, "cancelable": cancel, "range": rng,
@@ -260,9 +272,10 @@ def build(p):
                          [attack(p["rw_dmg"], p["rw_ratio"]), *slows("rw_slow", p["rw_slow"]), view("rw_hit"),
                           tsfx("rw_hit")]),
                     delayed(p["rw_apply"] - 1, sfx("rw_beam")))
-    # the bead's lob starts w_lock ticks before the release (start_timing), the laser on the action's first tick
-    skill = action("skill", p["w_dur"], p["w_cd"], p["w_rel"] - p["w_lock"], p["w_range"], "Targeting",
-                   "EnemyWithoutTower", sw("r_on", laser, w_bead))
+    # both start on the action's first tick: the laser's strip (skill_r, a CasterAnimation) at once, the bead's lob
+    # w_lock ticks before the release (a Delayed, guarded: a dead caster's Delayed effects run)
+    skill = action("skill", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
+                   sw("r_on", laser, delayed(p["w_rel"] - p["w_lock"] - 1, lives(w_bead))))
 
     # ------------------------------------------------------------------ E: the speed, or R's dash
     def speed(pct):
@@ -283,9 +296,10 @@ def build(p):
                    flag("r_cdr", 3, skill_cooldown_mult=400), anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
                    cview("r_burst"))
     refund = flag("r_refund", 3, ult_cooldown_mult=4900)
-    ult = action("ult", p["r_anim"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+    # a 3-tick action (an empty try costs 3 ticks of the idle, league_kalista's gate); the fire plays the ult strip
+    ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(*rm("r_n1", "r_n2", "r_cc"), count, in_cc, sw("r_n2", fire, sw("r_cc", fire, refund)),
-                         *rm("r_n1", "r_n2", "r_cc")))
+                         *rm("r_n1", "r_n2", "r_cc")), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

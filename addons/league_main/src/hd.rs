@@ -61,6 +61,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
     ("league_nami", 1.5, include_str!("../../../league/champions/league_nami#anim.fanim")),
     ("league_janna", 1.5, include_str!("../../../league/champions/league_janna#anim.fanim")),
+    // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
+    // (40 game rows ornaments to soles), so no SIZES row
+    ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
