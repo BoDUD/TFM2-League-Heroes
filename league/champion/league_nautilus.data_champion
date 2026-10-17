@@ -385,8 +385,7 @@
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "Grab",
-                    "speed": 2500,
-                    "tick": 8
+                    "speed": 2500
                   }
                 },
                 {
@@ -451,10 +450,16 @@
                         "tick": 24
                       },
                       {
-                        "type": "MoveToTarget",
-                        "speed": 2500,
-                        "range": 115000,
-                        "end_effects": []
+                        "type": "Delayed",
+                        "tick": 33,
+                        "effects": [
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 2500,
+                            "range": 115000,
+                            "end_effects": []
+                          }
+                        ]
                       }
                     ]
                   }
