@@ -32,8 +32,9 @@ has no slot - the watch casts it on its own (league_swain's W the same way).
           in data - the add-on swaps the whole body; the sandstorm (`r_on`'s view) follows him.
   watch   A life-long `AddCasted` started by his first attack or R press of each life (`init`), every watch_p ticks:
           counts enemy champions within r_r (c_e1, c_e2); raises R when the window is open and r_ok holds; casts W.
-The add-on copy (--native): the passive `league_nasus:soul_eater` keeps the stacks after death, halves only Q while
-`r_on` lasts and swaps the whole body to the big one; the data keeps every hit, picture and sound.
+The add-on copy (--native): the passive `league_nasus:soul_eater` keeps the stacks after death and halves only Q's
+cooldown while `r_on` lasts (the copy's `r_on` has no skill_cooldown_mult: E keeps its own); the add-on's display hook
+swaps the whole body to the big one; the data keeps every hit, picture and sound.
 """
 import argparse
 import json
@@ -248,7 +249,7 @@ def build(p):
     rise = combine(anim("ult", p["r_dur"]), cview("r_cast"), sfx("r"), voice("vo_r", p),
                    delayed(p["r_on_at"] - 1, sfx("r_storm"),
                            refresh("r_on", p["r_t"], hp=p["r_hp"], defence=p["r_def"], magic_resistance=p["r_def"],
-                                   range=p["r_rng"], skill_cooldown_mult=100),
+                                   range=p["r_rng"], **({} if native else {"skill_cooldown_mult": 100})),
                            heal(p["r_hp"]), on_me(casted(p["r_t"], p["r_p"], storm))))
 
     # ------------------------------------------------------------------ the watch (R's moment, W)
@@ -317,7 +318,8 @@ def build(p):
     views_b = [B_("w_slow", FX, 3), B_("e_shred", FX, 3), B_("r_on", BIG, -1)]
     extra = {}
     if native:
-        extra["passive"] = {"passive_ref": "league_nasus:soul_eater", "params": {"q_s": p["q_s"], "q_sc": p["q_sc"]}}
+        extra["passive"] = {"passive_ref": "league_nasus:soul_eater", "params": {"q_s": p["q_s"], "q_sc": p["q_sc"],
+                                                                                   "r_r": p["r_r"]}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
