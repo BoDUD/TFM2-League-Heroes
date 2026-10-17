@@ -19,6 +19,9 @@
 //!   `TF_REACH` 以内的我方英雄，`TF_FIGHT` 内贴着敌方英雄（在打架）。
 //! - 克格莫（`league_kogmaw`，R `Targeting EnemyChampionRecentlyAttacked`，射程 `KOG_RANGE`）：射程内引擎接受的敌方英雄
 //!   （最近被我方打过的）里挑生命比例最低的按 R（大招对残血伤害更高）；一轮三发、之后锁 20 秒都是主包的数据。
+//!   不限时游戏里每 10 分钟打了 31.7 发，经典模拟的设计是每局 16.9 发（用户：「大嘴 R 限一限，接近经典模拟设计的频率」）：
+//!   开一轮要用一次配额（每 `KOG_VOLLEY_EVERY` tick 攒一次、最多 `KOG_VOLLEYS_MAX` 次），而且要好时机——目标被控住、
+//!   生命不到 `KOG_GOOD_HP`、射程内能打的敌方英雄有两个以上，或配额攒满了；一轮开着（`KOG_VOLLEY`）就接着打完。
 //! - 卡密尔（`league_camille`，E `Targeting EnemyChampion`）：E 好了、`CAMILLE_RANGE`（主包 E 的射程；附加包钩墙版是
 //!   85000，取小的）内有敌方英雄——按 E，目标是最近的那个；钩索、钩墙、冲向敌人由主包 / league_camille_wall 决定。
 //! - 被控住（眩晕、击飞、沉默等）、格子在冷却或还没解锁时不按。冷却由钩子自己看（引擎的「输入合法」不看冷却，
@@ -75,6 +78,14 @@ pub const TF_JUMP: f64 = 50_000.0;
 pub const KOG_RANGE: f64 = 130_000.0;
 /// 引擎每 tick 最多问几个克格莫 R 的目标（生命比例从低到高）。
 const KOG_ASK: usize = 5;
+/// 主包克格莫一轮炮击开着时挂的 buff（第一发挂上，第三发去掉）。
+pub const KOG_VOLLEY: &str = "league_kogmaw_r_vol";
+/// 克格莫开一轮的配额：每这么多 tick 攒一次、最多攒这么多次（用户：「大嘴 R 限一限，接近经典模拟设计的频率」：
+/// 经典模拟每局 16.9 发 = 每 10 分钟约 5.6 轮；不限时游戏里每 10 分钟 31.7 发）。
+pub const KOG_VOLLEY_EVERY: usize = 6_000;
+pub const KOG_VOLLEYS_MAX: f64 = 2.0;
+/// 有配额时这样才开一轮：目标生命不到这个比例、或被控住、或射程内能打的敌方英雄有两个以上、或配额攒满了。
+pub const KOG_GOOD_HP: f64 = 0.5;
 /// 卡密尔 E：主包的射程（league_camille_wall 的副本是 85000）。
 pub const CAMILLE_RANGE: f64 = 60_000.0;
 /// 按下后这么多 tick 内冷却开始走，就算按下去了；之后这么多 tick 内看有没有放出真大招 / 传送。
@@ -220,6 +231,30 @@ pub fn kog_targets(me: (f64, f64), enemies: &[Unit]) -> Vec<usize> {
     v.into_iter().take(KOG_ASK).map(|u| u.id).collect()
 }
 
+/// 克格莫：引擎接受的目标（生命比例从低到高：`(生命比例, 被控住没有)`）里打哪一个、为什么。一轮开着就接着打；
+/// 没开着要有配额（`volleys` >= 1），而且是好时机：被控住的、残血的、两个以上能打的、或者配额攒满了。
+pub fn kog_pick(open: bool, volleys: f64, valid: &[(f64, bool)]) -> Option<(usize, &'static str)> {
+    if valid.is_empty() {
+        return None;
+    }
+    if open {
+        return Some((0, "volley open"));
+    }
+    if volleys < 1.0 {
+        return None;
+    }
+    if let Some(i) = valid.iter().position(|v| v.1) {
+        return Some((i, "in crowd control"));
+    }
+    if valid[0].0 <= KOG_GOOD_HP {
+        return Some((0, "low health"));
+    }
+    if valid.len() >= 2 {
+        return Some((0, "two or more in reach"));
+    }
+    (volleys >= KOG_VOLLEYS_MAX).then_some((0, "volleys saved up"))
+}
+
 /// 放不出技能的控制。
 const NO_CAST: [CcKindV1; 7] =
     [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockSkill];
@@ -285,6 +320,10 @@ struct UltPress {
     last_tick: usize,
     /// 上一次下的命令（哪个格子、哪一 tick）：一串连着按的只记一行日志。
     last_order: Option<(&'static str, usize)>,
+    /// 克格莫开一轮的配额、上次算到的 tick、上一 tick 一轮开着没有。
+    volleys: f64,
+    volley_tick: usize,
+    vol_prev: bool,
 }
 
 impl StablePlayerAi for UltPress {
@@ -307,6 +346,8 @@ impl StablePlayerAi for UltPress {
     fn think(&mut self, ctx: &mut StableAiContext<'_>, _base: Option<InputV1>) -> Option<InputV1> {
         let player = ctx.player_id();
         let tick = ctx.tick();
+        // Kog'Maw: a volley open, his saved volleys, and each candidate's (health share, controlled)
+        let mut kog: Option<(bool, f64, Vec<(f64, bool)>)> = None;
         let (main_key, cands): (&'static str, Vec<(InputV1, &'static str, String)>) = {
             let sim = ctx.sim()?;
             let pl = sim.get_player(player)?;
@@ -315,9 +356,14 @@ impl StablePlayerAi for UltPress {
             let name = me.name().unwrap_or_default();
             let (slot, kind, key) = slot_of(&name)?;
             let my_at = at(&me);
-            if tick < self.last_tick {
+            if tick < self.last_tick || self.volley_tick > tick {
                 self.best_grade = 0;
+                self.volleys = 1.0;
+                self.volley_tick = tick;
             }
+            self.volleys = (self.volleys + (tick - self.volley_tick) as f64 / KOG_VOLLEY_EVERY as f64).min(KOG_VOLLEYS_MAX);
+            self.volley_tick = tick;
+            let vol_open = name == KOGMAW && has_buff(&me, KOG_VOLLEY);
             self.last_tick = tick;
             let grade = if name == SAMIRA { samira_grade(&me) } else { 0 };
             if grade > self.best_grade {
@@ -342,9 +388,14 @@ impl StablePlayerAi for UltPress {
                         wlog(format!("{} {key} CAST {why}{style} #{k}", head(&sim, mid)));
                     }
                     self.cast_at = Some(tick);
+                    // Kog'Maw's first shell opens a volley: one saved volley spent
+                    if name == KOGMAW && !self.vol_prev {
+                        self.volleys = (self.volleys - 1.0).max(0.0);
+                    }
                 }
             }
             self.last_cd = remaining;
+            self.vol_prev = vol_open;
             // what the press led to: Samira's real R (S grade), Twisted Fate's jump
             if let Some(t0) = self.cast_at {
                 if tick > t0 + WATCH_AFTER {
@@ -374,6 +425,7 @@ impl StablePlayerAi for UltPress {
             }
             let mut allies = Vec::new();
             let mut enemies = Vec::new();
+            let mut held = Vec::new();
             for i in 0..sim.entity_count() {
                 let Some(e) = sim.entity_at(i) else { continue };
                 if !e.is_champion() || !e.is_alive() || !e.is_targetable() || e.id() == mid {
@@ -384,6 +436,9 @@ impl StablePlayerAi for UltPress {
                     allies.push(u);
                 } else if sim.is_visible(team, e.id()) {
                     enemies.push(u);
+                    if controlled(&e) {
+                        held.push(e.id());
+                    }
                 }
             }
             let press = |t: usize| InputV1::action(kind, InputTargetV1::target(t));
@@ -415,13 +470,20 @@ impl StablePlayerAi for UltPress {
                 },
                 KOGMAW => {
                     let v = kog_targets(my_at, &enemies);
-                    let n = v.len();
-                    v.into_iter()
-                        .map(|t| {
-                            let hp = enemies.iter().find(|u| u.id == t).map_or(f64::NAN, |u| u.hp);
-                            (press(t), key, format!("{} at {:.0}% (lowest first of {n} in range)", who(&sim, t), hp * 100.0))
+                    let info: Vec<(f64, bool)> = v
+                        .iter()
+                        .map(|t| (enemies.iter().find(|u| u.id == *t).map_or(1.0, |u| u.hp), held.contains(t)))
+                        .collect();
+                    let c = v
+                        .iter()
+                        .zip(&info)
+                        .map(|(&t, &(hp, cc))| {
+                            let ctl = if cc { ", in crowd control" } else { "" };
+                            (press(t), key, format!("{} at {:.0}%{ctl}", who(&sim, t), hp * 100.0))
                         })
-                        .collect()
+                        .collect();
+                    kog = Some((vol_open, self.volleys, info));
+                    c
                 }
                 _ => match tf_fight(my_at, hp_share(me.hp()), &allies, &enemies) {
                     Some((e, a)) => {
@@ -434,7 +496,17 @@ impl StablePlayerAi for UltPress {
             (key, cands)
         };
         // the first press the engine takes (Kog'Maw's R: only champions his side hit lately; Samira: R, else E, else Q)
-        let (input, key, why) = cands.into_iter().find(|(i, _, _)| ctx.is_valid_input(i))?;
+        let (input, key, why) = match kog {
+            // Kog'Maw: the targets the engine takes, then the pacing (kog_pick) picks one - or none yet
+            Some((open, volleys, info)) => {
+                let ok: Vec<usize> = (0..cands.len()).filter(|&i| ctx.is_valid_input(&cands[i].0)).collect();
+                let valid: Vec<(f64, bool)> = ok.iter().map(|&i| info[i]).collect();
+                let (j, reason) = kog_pick(open, volleys, &valid)?;
+                let (input, key, why) = cands.into_iter().nth(ok[j])?;
+                (input, key, format!("{why} - {reason} ({volleys:.1} volleys saved)"))
+            }
+            None => cands.into_iter().find(|(i, _, _)| ctx.is_valid_input(i))?,
+        };
         if key == main_key && self.order.as_ref().is_none_or(|o| tick > o.tick + ORDER_FRESH) {
             self.order = Some(Order { tick, why: why.clone() });
         }
@@ -535,6 +607,24 @@ mod tests {
         // out of E's reach (65000), in Q's (70000)
         assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[u(1, 65_000.0, 0.0, 1.0)]), vec![('Q', 1)]);
         assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[]), vec![]);
+    }
+
+    #[test]
+    fn kogmaw_paces_his_volleys() {
+        let full = [(0.9, false)];
+        // a volley open: keep firing whatever is saved
+        assert_eq!(kog_pick(true, 0.0, &full), Some((0, "volley open")));
+        // nothing saved: no new volley
+        assert_eq!(kog_pick(false, 0.7, &[(0.2, true)]), None);
+        // one saved: only at a good moment
+        assert_eq!(kog_pick(false, 1.0, &full), None);
+        assert_eq!(kog_pick(false, 1.0, &[(0.4, false)]), Some((0, "low health")));
+        assert_eq!(kog_pick(false, 1.0, &[(0.8, false), (0.9, true)]), Some((1, "in crowd control")));
+        assert_eq!(kog_pick(false, 1.0, &[(0.8, false), (0.9, false)]), Some((0, "two or more in reach")));
+        // saved up: any target
+        assert_eq!(kog_pick(false, KOG_VOLLEYS_MAX, &full), Some((0, "volleys saved up")));
+        // nobody the engine takes
+        assert_eq!(kog_pick(true, 2.0, &[]), None);
     }
 
     #[test]
