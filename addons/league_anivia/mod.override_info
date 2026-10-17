@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_anivia": {
+    "remapping": "asset/league_anivia/override/league_anivia",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_anivia/text/champion",
+    "type": "merge"
+  }
+}

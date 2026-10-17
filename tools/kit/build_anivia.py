@@ -264,6 +264,9 @@ def build(p):
         rise.append(field("w_ice", rect(p["w_w"], p["w_h"]), p["w_t"], p["w_p"],
                           [buff("w_stuck", p["w_p"] + 2, move_speed_mult=-p["w_slow"])] if not p["w_mode"] else
                           [{"type": "Bind", "duration": p["w_p"] + 1}, buff("w_stuck", p["w_p"] + 2)], first=1))
+    else:       # the add-on's copy: the wall is real terrain; this hitless field only marks where it stands (the add-on
+                # finds it among her zones the tick w_cd rises - the one-tick w_rise may be gone by then)
+        rise.append(field("w_mark", circle(1), p["w_t"], p["w_t"], [], first=p["w_t"], target="EnemyChampion"))
     wall = sw("w_cd", NONE, combine(flag("w_cd", p["w_cd"]), voice("vo_w", p), *wall_view, *rise))
 
     # ------------------------------------------------------------------ skill: Q Flash Frost
