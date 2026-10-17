@@ -1,0 +1,39 @@
+{
+  "canvas": [
+    504,
+    760
+  ],
+  "logical_canvas": [
+    63,
+    95
+  ],
+  "grid": 8,
+  "placement_box_1x": [
+    16,
+    17,
+    36,
+    40
+  ],
+  "machine_bbox_px": [
+    128,
+    136,
+    288,
+    320
+  ],
+  "original_character_changed_pixels": 0,
+  "source_crop_px": [
+    118,
+    186,
+    836,
+    1095
+  ],
+  "machine_color_count": 20,
+  "pure_green_background": [
+    0,
+    255,
+    0
+  ],
+  "exact_grid": true,
+  "same_machine_layer_used_in_composite": true,
+  "in_game_tested": false
+}

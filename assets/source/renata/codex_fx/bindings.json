@@ -1,0 +1,122 @@
+[
+ {
+  "file": "renata_fx_a_shot.png",
+  "binding": "view_projectiles `league_renata_a_shot`（朝目标飞，画面随方向转；上下对称）",
+  "size": "10 × 4"
+ },
+ {
+  "file": "renata_fx_a_flash.png",
+  "binding": "不进特效表：Claude 画进她自己的 attack 第 3、4 帧（枪口；跟着她翻面）",
+  "size": "10 × 9（她的细格子）"
+ },
+ {
+  "file": "renata_fx_a_hit.png",
+  "binding": "view_effects `league_renata_a_hit`（跟随，画在人物上面；左右对称）",
+  "size": "12"
+ },
+ {
+  "file": "renata_fx_p_mark.png",
+  "binding": "view_buffs `league_renata_p_mark`（跟随，头顶上方；左右对称）",
+  "size": "12 × 13"
+ },
+ {
+  "file": "renata_fx_p_pop.png",
+  "binding": "view_effects `league_renata_p_pop`（跟随，画在人物上面；左右对称）",
+  "size": "16"
+ },
+ {
+  "file": "renata_fx_e_missile.png",
+  "binding": "view_projectiles `league_renata_e_missile`（朝目标飞，画面随方向转；上下对称）",
+  "size": "14 × 10"
+ },
+ {
+  "file": "renata_fx_e_boom.png",
+  "binding": "view_effects `league_renata_e_boom`（不跟随，画在人物上面；左右对称）",
+  "size": "26 × 16"
+ },
+ {
+  "file": "renata_fx_e_hit.png",
+  "binding": "view_effects `league_renata_e_hit`（跟随，画在人物上面；左右对称）",
+  "size": "12"
+ },
+ {
+  "file": "renata_fx_e_slow.png",
+  "binding": "view_buffs `league_renata_e_slow`（跟随，画在人物下面；左右对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "renata_fx_e_shield.png",
+  "binding": "view_effects `league_renata_e_shield`（跟随，画在人物上面；左右对称）",
+  "size": "26 × 36"
+ },
+ {
+  "file": "renata_fx_q_hand.png",
+  "binding": "view_projectiles `league_renata_q_hand`（朝目标飞，画面随方向转；上下对称）",
+  "size": "14 × 11"
+ },
+ {
+  "file": "renata_fx_q_hit.png",
+  "binding": "view_effects `league_renata_q_hit`（跟随，画在人物上面；左右对称）",
+  "size": "24 × 30"
+ },
+ {
+  "file": "renata_fx_q_fling.png",
+  "binding": "view_effects `league_renata_q_fling`（跟随，画在人物上面；左右对称）",
+  "size": "22 × 28"
+ },
+ {
+  "file": "renata_fx_q_land.png",
+  "binding": "view_effects `league_renata_q_land`（不跟随，画在人物下面；左右对称）",
+  "size": "30 × 14"
+ },
+ {
+  "file": "renata_fx_q_crash_hit.png",
+  "binding": "view_effects `league_renata_q_crash_hit`（跟随，画在人物上面；左右对称）",
+  "size": "12"
+ },
+ {
+  "file": "renata_fx_w_cast.png",
+  "binding": "view_effects `league_renata_w_cast`（跟随，画在人物上面；左右对称）",
+  "size": "28 × 34"
+ },
+ {
+  "file": "renata_fx_w_buff.png",
+  "binding": "view_buffs `league_renata_w_buff`（跟随，画在人物下面；左右对称）",
+  "size": "22 × 10"
+ },
+ {
+  "file": "renata_fx_w_save.png",
+  "binding": "view_effects `league_renata_w_save`（跟随，画在人物上面；左右对称）",
+  "size": "24 × 38"
+ },
+ {
+  "file": "renata_fx_r_cast.png",
+  "binding": "view_effects `league_renata_r_cast`（她身上播一次，跟随，画在她和机甲下面；左右对称；大图表）",
+  "size": "64 × 30"
+ },
+ {
+  "file": "renata_fx_r_wave.png",
+  "binding": "view_projectiles `league_renata_r_wave`（朝目标飞，画面随方向转；上下对称；大图表）",
+  "size": "18 × 32"
+ },
+ {
+  "file": "renata_fx_r_hit.png",
+  "binding": "view_effects `league_renata_r_hit`（跟随，画在人物上面；左右对称）",
+  "size": "18 × 20"
+ },
+ {
+  "file": "renata_fx_r_berserk.png",
+  "binding": "view_buffs `league_renata_r_berserk`（跟随，头顶上方；左右对称）",
+  "size": "14 × 10"
+ },
+ {
+  "file": "renata_fx_r_lash.png",
+  "binding": "view_effects `league_renata_r_lash`（不跟随，画在人物下面；左右对称）",
+  "size": "50 × 14"
+ },
+ {
+  "file": "renata_fx_r_lash_hit.png",
+  "binding": "view_effects `league_renata_r_lash_hit`（跟随，画在人物上面；左右对称）",
+  "size": "12"
+ }
+]

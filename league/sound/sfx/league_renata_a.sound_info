@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_renata_sfx_a",
+      "volume": 0.4
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_renata_sfx_a_fly",
+      "volume": 0.3
+    }
+  ]
+}

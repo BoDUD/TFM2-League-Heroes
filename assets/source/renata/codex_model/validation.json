@@ -1,0 +1,110 @@
+{
+  "renata-machine-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "bbox_alpha_at_least_128": [
+      122,
+      167,
+      1227,
+      1140
+    ],
+    "raw_byte_identical": true
+  },
+  "renata-machine-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "bbox_alpha_at_least_128": [
+      100,
+      165,
+      1221,
+      1166
+    ],
+    "raw_byte_identical": true
+  },
+  "renata-model-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "bbox_alpha_at_least_128": [
+      390,
+      300,
+      852,
+      1204
+    ],
+    "raw_byte_identical": true
+  },
+  "renata-model-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "bbox_alpha_at_least_128": [
+      361,
+      166,
+      932,
+      1194
+    ],
+    "raw_byte_identical": true
+  },
+  "renata-ult-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "bbox_alpha_at_least_128": [
+      148,
+      179,
+      1207,
+      1237
+    ],
+    "raw_byte_identical": true
+  },
+  "renata-ult-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "bbox_alpha_at_least_128": [
+      137,
+      205,
+      1200,
+      1235
+    ],
+    "raw_byte_identical": true
+  }
+}

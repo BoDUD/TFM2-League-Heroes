@@ -1,0 +1,1607 @@
+[
+  {
+    "name": "renata_fx_a_shot",
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_row_boundaries": [
+      0,
+      459,
+      887
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        904,
+        1774
+      ],
+      [
+        0,
+        906,
+        1774
+      ]
+    ],
+    "pixel_size": [
+      48,
+      6
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 24,
+        "mean_luminance": 118.48,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 28,
+        "mean_luminance": 128.03,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 32,
+        "mean_luminance": 112.69,
+        "p90_luminance": 200.89,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 32,
+        "mean_luminance": 120.31,
+        "p90_luminance": 208.41,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_a_flash",
+    "raw_size": [
+      2206,
+      713
+    ],
+    "raw_row_boundaries": [
+      0,
+      713
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        935,
+        1480,
+        2206
+      ]
+    ],
+    "pixel_size": [
+      30,
+      9
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 33,
+        "mean_luminance": 117.12,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 10,
+        "mean_luminance": 127.7,
+        "p90_luminance": 213.07,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 19,
+        "mean_luminance": 114.06,
+        "p90_luminance": 148.26,
+        "has_white": false
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_a_hit",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_row_boundaries": [
+      0,
+      611,
+      1254
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        526,
+        1254
+      ],
+      [
+        0,
+        657,
+        1254
+      ]
+    ],
+    "pixel_size": [
+      56,
+      14
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 8,
+        "mean_luminance": 116.95,
+        "p90_luminance": 208.41,
+        "has_white": false
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 40,
+        "mean_luminance": 180.08,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 72,
+        "mean_luminance": 164.58,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 18,
+        "mean_luminance": 156.21,
+        "p90_luminance": 255.0,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_p_mark",
+    "raw_size": [
+      1642,
+      958
+    ],
+    "raw_row_boundaries": [
+      0,
+      493,
+      958
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        807,
+        1642
+      ],
+      [
+        0,
+        820,
+        1642
+      ]
+    ],
+    "pixel_size": [
+      48,
+      14
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 32,
+        "mean_luminance": 173.88,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 46,
+        "mean_luminance": 204.53,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 46,
+        "mean_luminance": 170.05,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 36,
+        "mean_luminance": 167.76,
+        "p90_luminance": 255.0,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_p_pop",
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_row_boundaries": [
+      0,
+      524,
+      1024
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        458,
+        1008,
+        1536
+      ],
+      [
+        0,
+        524,
+        1251,
+        1536
+      ]
+    ],
+    "pixel_size": [
+      90,
+      18
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 12,
+        "mean_luminance": 198.88,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 44,
+        "mean_luminance": 168.68,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 106,
+        "mean_luminance": 146.2,
+        "p90_luminance": 237.99,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 62,
+        "mean_luminance": 151.03,
+        "p90_luminance": 215.25,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 16,
+        "mean_luminance": 109.84,
+        "p90_luminance": 133.22,
+        "has_white": false
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_e_missile",
+    "raw_size": [
+      2048,
+      768
+    ],
+    "raw_row_boundaries": [
+      0,
+      387,
+      768
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        1018,
+        2048
+      ],
+      [
+        0,
+        1018,
+        2048
+      ]
+    ],
+    "pixel_size": [
+      64,
+      12
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 88,
+        "mean_luminance": 139.46,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 84,
+        "mean_luminance": 149.76,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 86,
+        "mean_luminance": 151.85,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 76,
+        "mean_luminance": 148.01,
+        "p90_luminance": 255.0,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_e_boom",
+    "raw_size": [
+      2131,
+      738
+    ],
+    "raw_row_boundaries": [
+      0,
+      411,
+      738
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        651,
+        1428,
+        2131
+      ],
+      [
+        0,
+        729,
+        1422,
+        2131
+      ]
+    ],
+    "pixel_size": [
+      156,
+      18
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 20,
+        "mean_luminance": 187.6,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 124,
+        "mean_luminance": 135.72,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 208,
+        "mean_luminance": 145.96,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 84,
+        "mean_luminance": 137.75,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 66,
+        "mean_luminance": 135.17,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 6,
+        "visible_pixels": 34,
+        "mean_luminance": 104.72,
+        "p90_luminance": 133.22,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_e_hit",
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_row_boundaries": [
+      0,
+      436,
+      887
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        857,
+        1774
+      ],
+      [
+        0,
+        921,
+        1774
+      ]
+    ],
+    "pixel_size": [
+      56,
+      14
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 16,
+        "mean_luminance": 183.75,
+        "p90_luminance": 231.71,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 58,
+        "mean_luminance": 123.32,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 62,
+        "mean_luminance": 118.51,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 16,
+        "mean_luminance": 107.55,
+        "p90_luminance": 170.82,
+        "has_white": false
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_e_slow",
+    "raw_size": [
+      1881,
+      836
+    ],
+    "raw_row_boundaries": [
+      0,
+      472,
+      836
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        941,
+        1881
+      ],
+      [
+        0,
+        941,
+        1881
+      ]
+    ],
+    "pixel_size": [
+      72,
+      8
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 52,
+        "mean_luminance": 109.2,
+        "p90_luminance": 133.22,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 56,
+        "mean_luminance": 110.91,
+        "p90_luminance": 133.22,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 56,
+        "mean_luminance": 116.93,
+        "p90_luminance": 133.22,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 54,
+        "mean_luminance": 106.65,
+        "p90_luminance": 133.22,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_e_shield",
+    "raw_size": [
+      1037,
+      1517
+    ],
+    "raw_row_boundaries": [
+      0,
+      732,
+      1517
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        312,
+        663,
+        1037
+      ],
+      [
+        0,
+        346,
+        703,
+        1037
+      ]
+    ],
+    "pixel_size": [
+      156,
+      38
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 36,
+        "mean_luminance": 210.41,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 10,
+        "mean_luminance": 105.16,
+        "p90_luminance": 133.22,
+        "has_white": false
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 224,
+        "mean_luminance": 155.49,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 144,
+        "mean_luminance": 152.31,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 184,
+        "mean_luminance": 162.13,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 6,
+        "visible_pixels": 110,
+        "mean_luminance": 156.08,
+        "p90_luminance": 255.0,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_q_hand",
+    "raw_size": [
+      1962,
+      801
+    ],
+    "raw_row_boundaries": [
+      0,
+      415,
+      801
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        982,
+        1962
+      ],
+      [
+        0,
+        982,
+        1962
+      ]
+    ],
+    "pixel_size": [
+      64,
+      13
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 63,
+        "mean_luminance": 122.81,
+        "p90_luminance": 237.37,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 90,
+        "mean_luminance": 122.84,
+        "p90_luminance": 212.03,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 75,
+        "mean_luminance": 125.97,
+        "p90_luminance": 244.61,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 76,
+        "mean_luminance": 118.91,
+        "p90_luminance": 226.51,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_q_hit",
+    "raw_size": [
+      1958,
+      803
+    ],
+    "raw_row_boundaries": [
+      0,
+      399,
+      803
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        615,
+        1313,
+        1958
+      ],
+      [
+        0,
+        657,
+        1302,
+        1958
+      ]
+    ],
+    "pixel_size": [
+      156,
+      32
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 182,
+        "mean_luminance": 169.48,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 246,
+        "mean_luminance": 97.11,
+        "p90_luminance": 133.22,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 208,
+        "mean_luminance": 110.36,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 186,
+        "mean_luminance": 110.1,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 194,
+        "mean_luminance": 116.93,
+        "p90_luminance": 215.25,
+        "has_white": true
+      },
+      {
+        "frame": 6,
+        "visible_pixels": 198,
+        "mean_luminance": 118.12,
+        "p90_luminance": 215.25,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_q_fling",
+    "raw_size": [
+      1122,
+      1402
+    ],
+    "raw_row_boundaries": [
+      0,
+      713,
+      1402
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        545,
+        1122
+      ],
+      [
+        0,
+        565,
+        1122
+      ]
+    ],
+    "pixel_size": [
+      96,
+      30
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 156,
+        "mean_luminance": 140.91,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 142,
+        "mean_luminance": 100.87,
+        "p90_luminance": 133.22,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 96,
+        "mean_luminance": 111.09,
+        "p90_luminance": 143.03,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 36,
+        "mean_luminance": 103.54,
+        "p90_luminance": 174.24,
+        "has_white": false
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_q_land",
+    "raw_size": [
+      1717,
+      916
+    ],
+    "raw_row_boundaries": [
+      0,
+      563,
+      916
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        524,
+        1115,
+        1717
+      ],
+      [
+        0,
+        569,
+        1138,
+        1717
+      ]
+    ],
+    "pixel_size": [
+      180,
+      16
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 32,
+        "mean_luminance": 179.53,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 118,
+        "mean_luminance": 134.38,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 188,
+        "mean_luminance": 116.72,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 76,
+        "mean_luminance": 105.08,
+        "p90_luminance": 133.22,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 44,
+        "mean_luminance": 97.64,
+        "p90_luminance": 133.22,
+        "has_white": false
+      },
+      {
+        "frame": 6,
+        "visible_pixels": 14,
+        "mean_luminance": 100.01,
+        "p90_luminance": 133.22,
+        "has_white": false
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_q_crash_hit",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_row_boundaries": [
+      0,
+      591,
+      1254
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        581,
+        1254
+      ],
+      [
+        0,
+        636,
+        1254
+      ]
+    ],
+    "pixel_size": [
+      56,
+      14
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 8,
+        "mean_luminance": 231.71,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 42,
+        "mean_luminance": 159.21,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 88,
+        "mean_luminance": 130.06,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 42,
+        "mean_luminance": 84.92,
+        "p90_luminance": 86.73,
+        "has_white": false
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_w_cast",
+    "raw_size": [
+      1915,
+      821
+    ],
+    "raw_row_boundaries": [
+      0,
+      395,
+      821
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        649,
+        1252,
+        1915
+      ],
+      [
+        0,
+        650,
+        1308,
+        1915
+      ]
+    ],
+    "pixel_size": [
+      168,
+      36
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 138,
+        "mean_luminance": 140.2,
+        "p90_luminance": 198.14,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 74,
+        "mean_luminance": 100.37,
+        "p90_luminance": 198.14,
+        "has_white": false
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 108,
+        "mean_luminance": 122.44,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 190,
+        "mean_luminance": 107.1,
+        "p90_luminance": 198.14,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 100,
+        "mean_luminance": 92.69,
+        "p90_luminance": 101.91,
+        "has_white": false
+      },
+      {
+        "frame": 6,
+        "visible_pixels": 12,
+        "mean_luminance": 115.62,
+        "p90_luminance": 239.69,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_w_buff",
+    "raw_size": [
+      1698,
+      926
+    ],
+    "raw_row_boundaries": [
+      0,
+      483,
+      926
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        848,
+        1698
+      ],
+      [
+        0,
+        852,
+        1698
+      ]
+    ],
+    "pixel_size": [
+      88,
+      12
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 74,
+        "mean_luminance": 136.07,
+        "p90_luminance": 243.08,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 58,
+        "mean_luminance": 133.33,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 68,
+        "mean_luminance": 126.1,
+        "p90_luminance": 215.25,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 70,
+        "mean_luminance": 124.4,
+        "p90_luminance": 215.25,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_w_save",
+    "raw_size": [
+      1683,
+      935
+    ],
+    "raw_row_boundaries": [
+      0,
+      467,
+      935
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        560,
+        1108,
+        1683
+      ],
+      [
+        0,
+        559,
+        1137,
+        1683
+      ]
+    ],
+    "pixel_size": [
+      144,
+      40
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 62,
+        "mean_luminance": 171.67,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 78,
+        "mean_luminance": 168.81,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 90,
+        "mean_luminance": 182.01,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 138,
+        "mean_luminance": 192.68,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 166,
+        "mean_luminance": 199.38,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 6,
+        "visible_pixels": 14,
+        "mean_luminance": 176.09,
+        "p90_luminance": 243.08,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_r_cast",
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_row_boundaries": [
+      0,
+      537,
+      887
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        560,
+        1144,
+        1774
+      ],
+      [
+        0,
+        591,
+        1314,
+        1774
+      ]
+    ],
+    "pixel_size": [
+      384,
+      32
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 114,
+        "mean_luminance": 146.57,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 240,
+        "mean_luminance": 124.0,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 458,
+        "mean_luminance": 113.22,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 368,
+        "mean_luminance": 104.76,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 484,
+        "mean_luminance": 111.95,
+        "p90_luminance": 143.03,
+        "has_white": true
+      },
+      {
+        "frame": 6,
+        "visible_pixels": 72,
+        "mean_luminance": 105.49,
+        "p90_luminance": 143.03,
+        "has_white": false
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_r_wave",
+    "raw_size": [
+      962,
+      1635
+    ],
+    "raw_row_boundaries": [
+      0,
+      811,
+      1635
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        459,
+        962
+      ],
+      [
+        0,
+        479,
+        962
+      ]
+    ],
+    "pixel_size": [
+      80,
+      34
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 302,
+        "mean_luminance": 123.66,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 382,
+        "mean_luminance": 119.57,
+        "p90_luminance": 215.25,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 372,
+        "mean_luminance": 128.03,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 344,
+        "mean_luminance": 123.64,
+        "p90_luminance": 215.25,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_r_hit",
+    "raw_size": [
+      1464,
+      1074
+    ],
+    "raw_row_boundaries": [
+      0,
+      555,
+      1074
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        476,
+        970,
+        1464
+      ],
+      [
+        0,
+        507,
+        978,
+        1464
+      ]
+    ],
+    "pixel_size": [
+      120,
+      22
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 76,
+        "mean_luminance": 215.94,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 130,
+        "mean_luminance": 120.34,
+        "p90_luminance": 208.41,
+        "has_white": false
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 194,
+        "mean_luminance": 100.74,
+        "p90_luminance": 185.86,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 192,
+        "mean_luminance": 125.67,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 132,
+        "mean_luminance": 111.55,
+        "p90_luminance": 133.22,
+        "has_white": false
+      },
+      {
+        "frame": 6,
+        "visible_pixels": 52,
+        "mean_luminance": 99.34,
+        "p90_luminance": 143.03,
+        "has_white": false
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_r_berserk",
+    "raw_size": [
+      1448,
+      1086
+    ],
+    "raw_row_boundaries": [
+      0,
+      579,
+      1086
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        732,
+        1448
+      ],
+      [
+        0,
+        736,
+        1448
+      ]
+    ],
+    "pixel_size": [
+      64,
+      12
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 70,
+        "mean_luminance": 131.56,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 60,
+        "mean_luminance": 134.48,
+        "p90_luminance": 208.41,
+        "has_white": false
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 78,
+        "mean_luminance": 138.29,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 70,
+        "mean_luminance": 147.67,
+        "p90_luminance": 208.41,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_r_lash",
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_row_boundaries": [
+      0,
+      384,
+      724
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        683,
+        1417,
+        2172
+      ],
+      [
+        0,
+        738,
+        1446,
+        2172
+      ]
+    ],
+    "pixel_size": [
+      312,
+      16
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 72,
+        "mean_luminance": 182.24,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 148,
+        "mean_luminance": 154.2,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 262,
+        "mean_luminance": 150.73,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 168,
+        "mean_luminance": 160.88,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 5,
+        "visible_pixels": 86,
+        "mean_luminance": 141.38,
+        "p90_luminance": 208.41,
+        "has_white": true
+      },
+      {
+        "frame": 6,
+        "visible_pixels": 14,
+        "mean_luminance": 148.0,
+        "p90_luminance": 241.02,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  },
+  {
+    "name": "renata_fx_r_lash_hit",
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_row_boundaries": [
+      0,
+      436,
+      887
+    ],
+    "raw_column_boundaries": [
+      [
+        0,
+        857,
+        1774
+      ],
+      [
+        0,
+        889,
+        1774
+      ]
+    ],
+    "pixel_size": [
+      56,
+      14
+    ],
+    "frames": [
+      {
+        "frame": 1,
+        "visible_pixels": 26,
+        "mean_luminance": 205.4,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 2,
+        "visible_pixels": 38,
+        "mean_luminance": 157.51,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 3,
+        "visible_pixels": 60,
+        "mean_luminance": 141.29,
+        "p90_luminance": 255.0,
+        "has_white": true
+      },
+      {
+        "frame": 4,
+        "visible_pixels": 20,
+        "mean_luminance": 149.26,
+        "p90_luminance": 255.0,
+        "has_white": true
+      }
+    ],
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "empty_frames": []
+  }
+]
