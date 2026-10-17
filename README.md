@@ -224,7 +224,7 @@
 
 ![斯维因演示：对德莱厄斯：恶魔手射出乌鸦弹；帝国视界：他脚下睁开一只深红的恶魔之眼，1.5 秒后炸开，两只乌鸦叼着魂屑飞回斯维因胸口；Q 解脱之触：五道洋红闪电扇形散开打中他；E 永不复行：恶魔之手飞出去再飞回，回程把他禁锢在地上伸出的爪子里，随后拽近、又一块魂屑；R 恶魔升华：魂火和黑羽爆开，身后展开黑红翅膀，每半秒吸取他的魂魄，2 秒后放出恶魔耀光，地上一圈深红火环，他倒下，乌鸦带回魂屑](docs/preview/league_swain_showcase.gif?v=1017a)
 ![芸阿娜演示：对德莱厄斯：两颗铜念珠打中，灵蕴攒满，灵蕴拳开启（她两边冒起紫色的灵气火苗）；强化念珠打中，他脚下扩散一圈紫色波纹；W 善恶轮：旋转的大念珠穿过他、他脚下减速，飞到终点原地旋转；E 明踪步：脚下一圈风；R 定圣诀：她身后亮起金色四芒星，脚下金色光环、身后金光上升；寂灭掌：她把龙头珠举过头顶、金星蓄力，一道金色瞄准线亮起，随后整条射线爆开打中他；夜影翻：后空翻往后冲；再两颗强化念珠，他倒下](docs/preview/league_yunara_showcase.gif?v=1017a)
-![烈娜塔演示：和金克丝对德莱厄斯、盖伦：手枪子弹打中德莱厄斯，他头顶挂上玫红的化学印记，金克丝一枪把印记引爆；E 忠诚激励：两枚化学飞弹经过金克丝时给她套上玫红泡泡护盾，在德莱厄斯身上炸开，他脚下一摊减速药剂；Q 铁腕竞合：化学之手抓住他，把他甩过烈娜塔身边砸到地上；W 及时救难：金克丝脚下冒起品红烟、加速；R 恶意收购：召出化学科技机甲喷出毒气，一道毒气浪扫过德莱厄斯和盖伦，两人头顶冒起毒气云，互相乱打](docs/preview/league_renata_showcase.gif?v=1017a)
+![烈娜塔演示：和金克丝对德莱厄斯、盖伦：手枪子弹打中德莱厄斯，他头顶挂上玫红的化学印记，金克丝一枪把印记引爆；E 忠诚激励：两枚化学飞弹经过金克丝时给她套上玫红泡泡护盾，在德莱厄斯身上炸开，他脚下一摊减速药剂；Q 铁腕竞合：化学之手抓住他，把他甩过烈娜塔身边砸到地上；W 及时救难：金克丝脚下冒起品红烟、加速；R 恶意收购：召出化学科技机甲喷出毒气，一道毒气浪扫过德莱厄斯和盖伦，两人头顶冒起毒气云，互相乱打](docs/preview/league_renata_showcase.gif?v=1017b)
 
 ## 英雄：盖伦
 
@@ -5142,7 +5142,7 @@ python addons/league_yunara/make_override.py         # 附加包的副本（主�
 | 附加包 | 可选的附加包 [`addons/league_renata`](addons/league_renata/README.md)（在附加包合集里，原生代码，主包不装它也完整）：**物尽其用由队友真的打中才引爆**（league_braum 读队友出手的做法）；**及时救难照英雄联盟**（受到致命伤害时回满生命、3 秒内流失，参与击杀才保命，没参与就阵亡）；**真的狂暴**（AI 钩子让被扫中的敌方英雄走向最近的队友，按他自己的攻击间隔、用他自己的攻击力打）。日志 `league_renata.log`（POP、BAILOUT、REVIVE、SAVED、DOOMED、BERSERK、LASH） |
 | 数值 | 攻击 80（+6）、法强 30（+15）、生命 950（+85）、护甲 20（+8）、魔抗 22（+4）、移速 1000（+10）、射程 55000 |
 | 平衡 | 辅助对五个基础辅助（priest / bard / enchanter / monk / taoist），三套阵容、两边各打，10 分钟经典引擎模拟，按动作条的出手时间：草案 r3 +0.12 / +0.06（种子 1–16 / 17–32），同一批娜美 +0.78、璐璐 +0.90；定稿 r6（E 85 + 60%、Q 95 + 85%、甩落 75、生命 950、救难攻速 40% 回复 200、狂暴 70）+0.75 / +0.74 |
-| 精灵图（高清帧 PPU 1.5） | Codex 第 0 步画了待机（A）、开枪（B）和大招（C，带机甲）三张原画（[`tools/art/pack_renata_picture.py`](tools/art/pack_renata_picture.py)），[`tools/art/review_renata_size.py`](tools/art/review_renata_size.py) 读回，用户：「选 A，40 行，第 1 步按游戏格子重画，头放大到约四分之一，C 去掉多余的手臂、机械单独一张」。第 1 步 Codex 在游戏格子上重画（[`tools/art/pack_renata_model.py`](tools/art/pack_renata_model.py)），[`tools/art/design_renata_cut.py`](tools/art/design_renata_cut.py) 取第 1 稿，[`tools/art/design_renata.py`](tools/art/design_renata.py) 读回机甲。动作照塔姆的方式（用户：「动作帧按照塔姆那样做吧」）：[`tools/art/rig_renata.py`](tools/art/rig_renata.py) 在定稿上无损摆（整块平移、90° 转动、翻转、叠层）。用户「烈娜塔在游戏里不拿枪吧」后改成平时空手、枪插在胯上，只有普攻拔枪开枪（英雄联盟的 Idle1 / Run / Attack1）；「上下摆动模型变形 模型太大 走路姿势很奇怪」后：待机改成上身往下沉一行（不再拉伸腰）、整体删行列缩到 36 行（「感觉模型还是有变形」后保护头、胯、大腿、裤脚和靴子的行）、走路找 Codex 换皮（[`tools/art/pack_renata_run.py`](tools/art/pack_renata_run.py)：英雄联盟自己的 Run 当骨架、我们的待机当皮；[`tools/art/import_renata_run.py`](tools/art/import_renata_run.py) 按它自己的格子读回，腿按固定间隔缩到定稿的长度，每帧贴回定稿的头）。机甲画进她自己的大招帧里。用户：「动作帧通过，可以做特效包了」 |
+| 精灵图（高清帧 PPU 1.5） | Codex 第 0 步画了待机（A）、开枪（B）和大招（C，带机甲）三张原画（[`tools/art/pack_renata_picture.py`](tools/art/pack_renata_picture.py)），[`tools/art/review_renata_size.py`](tools/art/review_renata_size.py) 读回，用户：「选 A，40 行，第 1 步按游戏格子重画，头放大到约四分之一，C 去掉多余的手臂、机械单独一张」。第 1 步 Codex 在游戏格子上重画（[`tools/art/pack_renata_model.py`](tools/art/pack_renata_model.py)），[`tools/art/design_renata_cut.py`](tools/art/design_renata_cut.py) 取第 1 稿，[`tools/art/design_renata.py`](tools/art/design_renata.py) 读回机甲。动作照塔姆的方式（用户：「动作帧按照塔姆那样做吧」）：[`tools/art/rig_renata.py`](tools/art/rig_renata.py) 在定稿上无损摆（整块平移、90° 转动、翻转、叠层）。用户「烈娜塔在游戏里不拿枪吧」后改成平时空手、枪插在胯上，只有普攻拔枪开枪（英雄联盟的 Idle1 / Run / Attack1）；「上下摆动模型变形 模型太大 走路姿势很奇怪」后：待机改成上身往下沉一行（不再拉伸腰）、整体删行列缩到 36 行（「感觉模型还是有变形」后保护头、胯、大腿、裤脚和靴子的行）、走路找 Codex 换皮（[`tools/art/pack_renata_run.py`](tools/art/pack_renata_run.py)：英雄联盟自己的 Run 当骨架、我们的待机当皮；[`tools/art/import_renata_run.py`](tools/art/import_renata_run.py) 按它自己的格子读回，腿按固定间隔缩到定稿的长度，每帧贴回定稿的头）。机甲画进她自己的大招帧里。用户：「动作帧通过，可以做特效包了」。之后用户：「感觉不放大招时候背后没武器有点奇怪啊 和英雄联盟有点不一样」——原版平时就带着折叠的化学科技机甲（skin0.bin 出场时只隐藏展开的机翼等 6 个零件，每段动作都在摆机甲的骨骼），之前做参考图时我把它隐藏了。补上：Codex 按原版画折叠的机甲（[`tools/art/pack_renata_back.py`](tools/art/pack_renata_back.py)，原版大小的 80%，用户：「缩小一点」），[`tools/art/import_renata_back.py`](tools/art/import_renata_back.py) 读回；`rig_renata.py` 按原版每一帧机甲的位置（`assets/source/renata/machine_track.json`，移动也按 80%）整块摆在她身后，W 时原版机甲俯冲到她身侧，被她挡住超过六成就往上挪到露出四成；死亡最后两帧侧躺在地上；大招第 2 帧起换成展开的机甲。选人卡片按机甲顶设 `banpick_center` −2 |
 | 特效 | 第 3 步 24 张特效（[`tools/art/pack_renata_fx.py`](tools/art/pack_renata_fx.py)，颜色照英雄联盟：她的化学药剂是玫红色，从深酒红到白芯，最亮处带一点淡青白；W 的烟偏品红紫；金色只做点缀），Codex 画并读回成游戏大小（`assets/source/renata/codex_fx`）。[`tools/art/import_renata_fx.py`](tools/art/import_renata_fx.py)：子弹、两枚飞弹、化学之手、毒气浪朝方向转（上下对称），其余全部左右对称（游戏不镜像特效图）；印记和狂暴的毒气云在头顶，护盾泡泡、救难、抓人的大手在身上，飞弹的爆炸、砸地、狂暴冲击环在地上；枪口火光按她的细格子画进普攻开枪的三帧，描边之后才叠上（光外面没有黑边）。写成 `league_renata_fx` 和 `league_renata_big` |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_renata.py`](tools/lol/extract_renata.py)）：普攻开枪 / 打中、印记 / 引爆、铁腕竞合出手 / 飞行 / 抓住 / 甩出 / 落地、及时救难施放 / 增益 / 回血、忠诚激励出手 / 飞行 / 命中 / 爆炸 / 护盾、恶意收购召出机甲 / 毒气浪 / 命中，配音是她的 Q / W / E / R 台词（中文） |
 | 图标 | 官方技能图标（忠诚激励、铁腕竞合、恶意收购，另有及时救难、被动和铁腕竞合的再次施放），从本地客户端取 |
@@ -5156,6 +5156,7 @@ python tools/kit/setup_renata.py                     # 五种语言的文字、�
 python tools/art/design_renata_cut.py                # Codex 第 1 步的造型读回（第 1 稿）
 python tools/art/design_renata.py                    # 定稿和机甲
 python tools/art/import_renata_run.py                # Codex 换皮的走路读回
+python tools/art/import_renata_back.py               # Codex 画的折叠机甲读回
 python tools/art/rig_renata.py                       # 1 倍帧和 1.5 的原帧（无损摆姿，枪口火光单独一层）
 python tools/art/ppu_restyle.py --hero renata        # 描边（不要加 --preview）
 python tools/art/ppu_hd.py --hero renata             # hd_ / lo_ 帧
@@ -5166,7 +5167,7 @@ python addons/league_renata/make_override.py         # 附加包的副本（主�
 
 美术提示词见 [`assets/source/renata/`](assets/source/renata/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_run/`、`codex_fx/`。
 
-逐帧预览：[`docs/preview/league_renata_frames.png`](docs/preview/league_renata_frames.png?v=1017a)，特效：[`docs/preview/league_renata_effects.png`](docs/preview/league_renata_effects.png?v=1017a)。
+逐帧预览：[`docs/preview/league_renata_frames.png`](docs/preview/league_renata_frames.png?v=1017b)，特效：[`docs/preview/league_renata_effects.png`](docs/preview/league_renata_effects.png?v=1017b)。
 
 ## 选人卡片位置（`banpick_center`）
 
