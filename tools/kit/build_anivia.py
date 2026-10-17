@@ -271,7 +271,7 @@ def build(p):
     combo_e = []
     if p["e_combo"]:
         combo_e = [sw("e_cc", NONE, combine(flag("e_cc", p["e_cd"]),
-                                            delayed(p["e_combo_at"], cview("e_cast"), sfx("e"), shard("e_combo"))))]
+                                            delayed(p["e_combo_at"], sfx("e"), shard("e_combo"))))]
     stc = [refresh("q_stc", 4), iced] + marked + combo_e
     blast = [view("q_blast"), sfx("q_blast"), zone("q_burst", circle(p["q_r"]), burst),
              zone("q_burst_c", circle(p["q_r"]), stc, target="EnemyChampion"),
@@ -359,11 +359,14 @@ def build(p):
                                       "z": z}
     Pj = lambda name, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                  "z": 2}
-    views_p = [Pj("a_bolt"), Pj("q_ball"), Pj("e_shard"), Pj("e_combo")]
+    # the projectiles are drawn pointing right and turned with the flight, so each is symmetric top to bottom (a ball, a
+    # bolt, a shard); everything else is left-right symmetric (the client never mirrors a picture on the red side)
+    Pj2 = lambda name, tag: {"type": "Animated", "name": n(name), "anim": FX, "tag": tag, "repeat": True, "z": 2}
+    views_p = [Pj("a_bolt"), Pj("q_ball"), Pj("e_shard"), Pj2("e_combo", "e_shard")]
     views_e = [E("a_hit"), E("q_stun"), E("q_blast", BIG, 2, False), E("w_wall", BIG, 1, False), E("e_hit"),
-               E("e_iced"), E("e_cast"), E("r_cast"), E("r_storm", BIG, -1, False), E("r_formed", BIG, -1, False),
-               E("p_egg_in"), E("p_hatch"), E("p_crack", FX, 2, False)]
-    views_b = [B_("iced", FX, 3), B_("w_stuck", FX, 3), B_("egg_on", FX, 3)]
+               E("e_iced"), E("r_cast"), E("r_storm", BIG, -1, False), E("r_formed", BIG, -1, False),
+               E("p_egg_in"), E("p_hatch")]
+    views_b = [B_("iced", FX, 3)]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_anivia:rebirth", "params": {
