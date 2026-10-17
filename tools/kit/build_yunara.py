@@ -64,7 +64,8 @@ P = {
     "w_rad": 6000, "w_y": -3000, "w_dmg": 70, "w_ratio": 85, "w_slow": (45, 30, 20),
     "w_linger": 60, "w_per": 15, "w_zone": 12000, "w_dps": 14, "w_dps_r": 12,
     # R's W: the laser (League: 0.6 s cast, 160-480 + 120% bonus AD + 75% AP, slow 99% decaying over 1 s)
-    "rw_dur": 40, "rw_apply": 34, "rw_len": 120000, "rw_w": 9000, "rw_dmg": 160, "rw_ratio": 120, "rw_slow": (50, 30),
+    # rw_show: ticks the beam's picture stays after the hit (the view plays while the line lives: delay = apply + show)
+    "rw_dur": 40, "rw_apply": 34, "rw_show": 14, "rw_len": 120000, "rw_w": 9000, "rw_dmg": 160, "rw_ratio": 120, "rw_slow": (50, 30),
     # skill2: E (League: 1.5 s, 25-55% MS, x1.5 toward an enemy champion, ghosted, cd 9 s); R's E: a dash
     # (1200-2100 speed; about 350 units)
     "e_cd": 540, "e_range": 80000, "e_t": 90, "e_ms": 40, "e_ms2": 60, "e_close": 35000, "re_v": 2600, "re_t": 14,
@@ -269,7 +270,7 @@ def build(p):
     w_bead = combine(sfx("w"), voice("vo_w", p),
                      lob("w_aim", p["w_lock"], 1000, "EnemyWithoutTower", [], end=[w_line, sfx("w_fly")]))
     laser = combine(anim("skill_r", p["rw_dur"]), sfx("rw"), voice("vo_rw", p), cview("rw_charge"),
-                    beam("rw_beam", p["rw_len"], p["rw_w"], p["rw_apply"] + 4, p["rw_apply"], "EnemyWithoutTower",
+                    beam("rw_beam", p["rw_len"], p["rw_w"], p["rw_apply"] + p["rw_show"], p["rw_apply"], "EnemyWithoutTower",
                          [attack(p["rw_dmg"], p["rw_ratio"]), *slows("rw_slow", p["rw_slow"]), view("rw_hit"),
                           tsfx("rw_hit")]),
                     delayed(p["rw_apply"] - 1, sfx("rw_beam")))
@@ -321,9 +322,9 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
     views_p = [P_("a_bead"), P_("q_bead"), P_("w_bead"), P_("rw_beam", BIG, 3)]
-    views_e = [E("a_hit"), E("q_hit"), E("q_sp_hit"), E("q_spread", FX, -1, **LATE), E("q_burst", FX, 3),
-               E("w_hit"), E("w_end", FX, -1, **LATE), E("w_tick", FX, 2, **LATE), E("rw_charge", FX, 3),
-               E("rw_hit"), E("e_cast", FX, -1), E("re_trail", FX, -1), E("r_burst", BIG, 3)]
+    views_e = [E("a_hit"), E("q_hit"), E("q_sp_hit"), E("q_spread", BIG, -1, **LATE), E("q_burst", BIG, 3),
+               E("w_hit"), E("w_end", FX, -1, **LATE), E("w_tick", FX, 2, **LATE), E("rw_charge", BIG, 3),
+               E("rw_hit"), E("e_cast", FX, -1), E("re_trail", BIG, -1), E("r_burst", BIG, -1)]
     views_b = [B_("q_on", FX, 3), B_("r_on", BIG, -1), B_("e_ms", FX, -1), B_("w_slow0", FX, -1),
                B_("rw_slow0", FX, -1)]
     extra = {}
