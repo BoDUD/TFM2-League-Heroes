@@ -11,10 +11,10 @@
       "version": ">=0.136.0"
     }
   ],
-  "description": "Test build of Renata Glasc as in League (needs League of Legends Heroes): replaces the main pack's Renata so an ally's real hit pops her Leverage mark, Bailout catches an ally's lethal hit (full health that drains away unless they score a takedown in 3 s) and the champions her Hostile Takeover sends berserk walk to their own allies and hit them with their own attack. Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Renata Glasc as in League (needs League of Legends Heroes): replaces the main pack's Renata so an ally's real hit pops her Leverage mark, Bailout catches an ally's lethal hit (full health that drains away unless they score a takedown in 3 s) and the champions her Hostile Takeover sends berserk walk to their own allies and hit them with their own attack, the kills and assists credited to Renata as in League. Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-17",
   "mod_id": "league_renata",
   "mod_type": "native",
   "name": "League Heroes: Renata's Leverage, Bailout and berserk as in League (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
