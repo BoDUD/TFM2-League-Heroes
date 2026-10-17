@@ -1,0 +1,20 @@
+{
+ "q_stun": {
+  "frames": 6,
+  "cell_1x": [
+   22,
+   40
+  ],
+  "scale": 16.2,
+  "source": "raw/anivia_fx_q_stun.png"
+ },
+ "r_cast": {
+  "frames": 6,
+  "cell_1x": [
+   40,
+   52
+  ],
+  "scale": 9.1,
+  "source": "raw/anivia_fx_r_cast.png"
+ }
+}

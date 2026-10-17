@@ -65,6 +65,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Nasus: posed by tools/art/rig_nasus.py at the user's 1.2 squares a game pixel (44 game rows ear tips to soles; the big
     // body of Fury of the Sands its own design, 59 rows), so no SIZES row
     ("league_nasus", 1.2, include_str!("../../../league/champions/league_nasus#anim.fanim")),
+    // Anivia: posed by tools/art/rig_anivia.py at the user's 1.2 squares a game pixel (38 game rows crown to the lowest
+    // wing tip; the Rebirth egg half of that, its own tags), so no SIZES row
+    ("league_anivia", 1.2, include_str!("../../../league/champions/league_anivia#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
