@@ -1,0 +1,110 @@
+{
+  "all_8_frames_pass_structural_checks": true,
+  "all_8_frames_distinct": true,
+  "frame_checks": [
+    {
+      "frame": 1,
+      "rawSize": [
+        1254,
+        1254
+      ],
+      "upperPixelsChanged": 0,
+      "partialAlphaPixels": 0,
+      "outsideDesignPalette": 0,
+      "belowGroundPixels": 0,
+      "gridMismatchPixels": 0,
+      "sourceGridErrors": 0
+    },
+    {
+      "frame": 2,
+      "rawSize": [
+        1676,
+        938
+      ],
+      "upperPixelsChanged": 0,
+      "partialAlphaPixels": 0,
+      "outsideDesignPalette": 0,
+      "belowGroundPixels": 0,
+      "gridMismatchPixels": 0,
+      "sourceGridErrors": 0
+    },
+    {
+      "frame": 3,
+      "rawSize": [
+        1677,
+        938
+      ],
+      "upperPixelsChanged": 0,
+      "partialAlphaPixels": 0,
+      "outsideDesignPalette": 0,
+      "belowGroundPixels": 0,
+      "gridMismatchPixels": 0,
+      "sourceGridErrors": 0
+    },
+    {
+      "frame": 4,
+      "rawSize": [
+        1676,
+        938
+      ],
+      "upperPixelsChanged": 0,
+      "partialAlphaPixels": 0,
+      "outsideDesignPalette": 0,
+      "belowGroundPixels": 0,
+      "gridMismatchPixels": 0,
+      "sourceGridErrors": 0
+    },
+    {
+      "frame": 5,
+      "rawSize": [
+        1677,
+        938
+      ],
+      "upperPixelsChanged": 0,
+      "partialAlphaPixels": 0,
+      "outsideDesignPalette": 0,
+      "belowGroundPixels": 0,
+      "gridMismatchPixels": 0,
+      "sourceGridErrors": 0
+    },
+    {
+      "frame": 6,
+      "rawSize": [
+        1676,
+        938
+      ],
+      "upperPixelsChanged": 0,
+      "partialAlphaPixels": 0,
+      "outsideDesignPalette": 0,
+      "belowGroundPixels": 0,
+      "gridMismatchPixels": 0,
+      "sourceGridErrors": 0
+    },
+    {
+      "frame": 7,
+      "rawSize": [
+        1677,
+        938
+      ],
+      "upperPixelsChanged": 0,
+      "partialAlphaPixels": 0,
+      "outsideDesignPalette": 0,
+      "belowGroundPixels": 0,
+      "gridMismatchPixels": 0,
+      "sourceGridErrors": 0
+    },
+    {
+      "frame": 8,
+      "rawSize": [
+        1677,
+        938
+      ],
+      "upperPixelsChanged": 0,
+      "partialAlphaPixels": 0,
+      "outsideDesignPalette": 0,
+      "belowGroundPixels": 0,
+      "gridMismatchPixels": 0,
+      "sourceGridErrors": 0
+    }
+  ]
+}
