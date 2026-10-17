@@ -110,7 +110,6 @@ NEAR_PIVOT = (6.5, 38.5)                        # the near shoulder under the pa
 FAR_PIVOT = (20.5, 38.5)                        # the far shoulder
 GRIP = (29.5, 42.5)                             # the middle of the far fist, on the shaft's line (column 29)
 UPPER_END = 46                                  # head, pauldrons, breastplate and belt: rows 0..46
-KNEE_SPLIT = 59                                 # the walk's legs: knee guard + greave top above, lower leg from here
 SHAFT = 29                                      # the lance's middle column
 # the legs from the knee guards down (the skirt's hem stays with the body)
 NEAR_LEG = {y: (0, 12) for y in range(54, 73)}
@@ -213,15 +212,6 @@ class Form:
         self.skirt = pad(skirt_layer(D))
         self.near_leg = pad(leg_layer(D, "near_leg"))
         self.far_leg = pad(leg_layer(D, "far_leg"))
-        # each leg in two rigid blocks for the walk: the knee guard with the greave's top (rows < KNEE_SPLIT) and the
-        # lower leg (greave, ankle, boot); lifted, the lower leg slides up behind its knee guard (a bent knee)
-        self.legs2 = {}
-        for name in ("near_leg", "far_leg"):
-            whole = leg_layer(D, name)
-            top, low = whole.copy(), whole.copy()
-            top[KNEE_SPLIT:] = 0
-            low[:KNEE_SPLIT] = 0
-            self.legs2[name] = (pad(top), pad(low))
         self.ref_holes = None
 
     def grip_at(self, far=0, far_reach=(0, 0), U=(0, 0)):
@@ -229,7 +219,8 @@ class Form:
         return g[0] + U[0] + far_reach[0], g[1] + U[1] + far_reach[1]
 
     def pose(self, crouch=0, whole=(0, 0), near=0, far=0, near_reach=(0, 0), far_reach=(0, 0), lance="UP",
-             slide=0, lance_shift=(0, 0), legs=None, behind=False, fill=True, lance_front=False, leg_layers=None):
+             slide=0, lance_shift=(0, 0), legs=None, behind=False, fill=True, lance_front=False, leg_layers=None,
+             legs_front=False):
         """crouch: rows the upper body (with both arms and the lance) sets down over the skirt (never up); whole: the
         whole figure; near / far: quarter turns of an arm counter-clockwise about its shoulder; *_reach: whole squares
         an arm moves after turning; lance: one of LANCE, turned about the grip and set into the far fist, slid `slide`
@@ -257,7 +248,10 @@ class Form:
         # edge: the second walk, 「变形严重」), the near leg over the far one
         legs_l = leg_layers if leg_layers is not None else [(self.far_leg, dict(dx=wx + flx, dy=wy + fly)),
                                                              (self.near_leg, dict(dx=wx + nlx, dy=wy + nly))]
-        layers += [far_l, *legs_l, (self.skirt, dict(dx=wx, dy=wy)), (self.upper, dict(dx=U[0], dy=U[1]))]
+        skirt_l = (self.skirt, dict(dx=wx, dy=wy))
+        # legs_front (the walk): the legs over the skirt, so the hem and the middle flap never cut a knee guard
+        layers += [far_l, skirt_l, *legs_l] if legs_front else [far_l, *legs_l, skirt_l]
+        layers.append((self.upper, dict(dx=U[0], dy=U[1])))
         if lance_l and lance_front:
             layers += [lance_l, (self.fist_only(), far_l[1])]
         layers.append((self.near, dict(dx=U[0] + near_reach[0], dy=U[1] + near_reach[1], rot=near, about=NEAR_PIVOT)))
@@ -390,108 +384,42 @@ def frames_all(F):
 
 
 # ------------------------------------------------------------------------------------------------- the walk
-def _steps(stride, lifts, far_lifts=None):
-    """rig_nasus._steps: each leg planted five frames sliding back, then lifted and swung forward in three, the far leg
-    four frames after the near one; the body a row down as each foot lands. Each foot keeps to the inner side of its own
-    place (the near one between home and stride columns forward, the far one between stride columns back and home):
-    outward a leg would leave the skirt's hanging middle flap alone between the knees with no edge - the user's
-    「走路时腿部有点变形啊」 on the first walk (feet 3 columns out each way). far_lifts: the far leg's own lifts (lifted it
-    slides up behind the skirt, so lifted as high as the near one its knee guard would vanish under the hem)."""
-    near = [round(stride * (1 - k / 4) + 1e-9) for k in range(5)]
-    swing = [1, stride - 1 - (stride > 4), stride]
-    dx = near + swing
-    up = [0] * 5 + list(lifts)
-    fup = [0] * 5 + list(far_lifts or lifts)
-    return dict(near=list(zip(dx, up)), far=[(dx[(i + 4) % 8] - stride, fup[(i + 4) % 8]) for i in range(8)],
-                bob=[1, 0, 0, 0, 1, 0, 0, 0])
-
-
-def _own_sides(stride, lifts):
-    """Each foot steps on its own side (oppi's front-ish runs: the feet never cross, they open and close): planted ahead
-    at +stride/2 and sliding back to -stride/2 in five frames, lifted and carried forward in three, the far foot half a
-    cycle later - so the feet are close (the near one forward, the far one back) and wide apart in turn."""
-    a = stride / 2
-    planted = [int(round(a - stride * k / 4)) for k in range(5)]
-    swing = [int(round(-a + stride * k / 4)) for k in (1, 2, 3)]
-    dx = planted + swing
-    up = [0] * 5 + list(lifts)
-    return dict(near=list(zip(dx, up)), far=[(dx[(i + 4) % 8], up[(i + 4) % 8]) for i in range(8)],
-                bob=[1, 0, 0, 0, 1, 0, 0, 0])
-
-
-def _apart(near_back, far_front, lifts, far_lifts=None):
-    """Steps that only ever part the legs (the shins stand 2 columns apart, so any step inward laid one leg over the
-    other - 「变形严重」 on the inward walk): the near foot planted at home sliding back to near_back, lifted and carried
-    home again; the far foot planted at far_front sliding back home, lifted and carried forward; half a cycle apart."""
-    def cycle(front, back):
-        planted = [int(round(front + (back - front) * k / 4)) for k in range(5)]
-        swing = [int(round(back + (front - back) * k / 4)) for k in (1, 2, 3)]
-        return planted + swing
-    nd, fd = cycle(0, near_back), cycle(far_front, 0)
-    up = [0] * 5 + list(lifts)
-    fup = [0] * 5 + list(far_lifts or lifts)
-    return dict(near=list(zip(nd, up)), far=[(fd[(i + 4) % 8], fup[(i + 4) % 8]) for i in range(8)],
-                bob=[1, 0, 0, 0, 1, 0, 0, 0])
-
-
-def _in_place(lifts):
-    """Stepping in place: no foot moves sideways, each lifted in turn (a trot - the user's pick for Rengar's wide stance)."""
-    up = [0] * 5 + list(lifts)
-    return dict(near=[(0, u) for u in up], far=[(0, up[(i + 4) % 8]) for i in range(8)], bob=[1, 0, 0, 0, 1, 0, 0, 0])
-
-
-WALK_STEP = _apart(-2, 2, (1, 1, 1))
+# The design's own legs moved whole (every square the design's), behind the skirt's hem as the design draws them.
+# What the user turned down on the way (2026-10-17), so the next try does not repeat it:
+#   - feet 3 columns out each way: the skirt's hanging middle flap left alone between the knees (「腿部有点变形」);
+#   - feet stepping inward 4 columns: Jarvan's shins stand only 2 columns apart, so the near leg lay over the far one
+#     (one thick leg) and, drawn over the hem when lifted, covered the skirt's edge (「变形严重」);
+#   - stepping in place / legs only parting: 「这两个都不对 也不自然」;
+#   - league_shen's knee blocks (the lifted lower leg slid up behind its knee guard, the knee guards bobbing over the
+#     shins): 「膝盖那里怎么会缩进去啊」.
+# Now: the feet trade the lead within 2 columns (the near foot planted frames 1-4 sliding back from 2 to 0, lifted and
+# carried forward 5-8; the far foot half a cycle later, from 0 back to -2), the swinging leg lifted WHOLE a row (its knee
+# guard's top edge slips behind the hem, nothing else changes), the body bob only the upper body settling a row onto
+# the skirt (the idle's breath) for the two frames after each landing, the near arm a column forward (over the body,
+# never back off it) while the near foot is back, the lance carried (CARRY).
+WALK_STEP = dict(near=[(2, 0), (1, 0), (1, 0), (0, 0), (0, 0), (1, 1), (2, 1), (2, 0)],
+                 far=[(-2, 0), (-1, 1), (0, 1), (0, 0), (0, 0), (-1, 0), (-1, 0), (-2, 0)],
+                 bob=[1, 1, 0, 0, 1, 1, 0, 0],
+                 arm=[0, 0, 1, 1, 1, 0, 0, 0])
 # League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
 # the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
 CARRY = dict(far=1, lance="BACK", slide=4)
 
 
 def walk(F, steps=None, carry=None):
-    """The walk: a frame per WALK_STEP entry, every square the design's, only moved: each leg whole (planted and sliding
-    back, lifted and carried forward), the body a row down as each foot lands, the near arm swinging a column against
-    the near leg, the lance carried (CARRY). -> canvases."""
+    """The walk: a frame per WALK_STEP entry. -> canvases."""
     st = steps or WALK_STEP
-    back = min(dx for dx, _ in st["near"])
     out = []
-    for (ndx, nup), (fdx, fup), bob in zip(st["near"], st["far"], st["bob"]):
-        # the near arm swings forward (over the body) while the near foot is back; it never moves back off the body
-        # (that would open a slot between the arm and the breastplate)
-        arm = 1 if ndx <= back + 1 and not nup else 0
-        out.append(F.pose(crouch=bob, legs=((ndx, -nup), (fdx, -fup)), near_reach=(arm, 0), **(carry or CARRY)))
-    return out
-
-
-# The walk the user took for league_shen after every other try (「Ok了推送吧」): each leg two rigid blocks, knee guard and
-# lower leg; the swinging foot rises by lifting only its lower leg behind its own knee guard (a bent knee), the feet
-# trade the lead with small steps, the body (knee guards, skirt, upper body, arms and lance) a row down as a foot lands.
-# (dx, lift) per frame: the near foot planted frames 1-4 sliding back, lifted 5-8 and carried forward; the far foot
-# half a cycle later. Jarvan's shins stand only 2 columns apart, so the steps stay within 2 columns.
-KNEE_NEAR = [(2, 0), (1, 0), (1, 0), (0, 0), (0, 1), (1, 2), (2, 2), (2, 1)]
-KNEE_FAR = [(-2, 1), (-1, 2), (0, 2), (0, 1), (0, 0), (-1, 0), (-1, 0), (-2, 0)]
-# the body low for the two frames after a foot lands, up for the two as the other foot passes (one frame low read as a
-# jolt: every edge of the body blinked a row for 125 ms)
-KNEE_BOB = [1, 1, 0, 0, 1, 1, 0, 0]
-# the near arm a column forward (over the body, never back off it) while the near foot is back
-KNEE_ARM = [0, 0, 1, 1, 1, 0, 0, 0]
-
-
-def walk_knees(F, near_steps=None, far_steps=None, bob=None, arm=None, carry=None):
-    """The walk in knee blocks (see KNEE_NEAR). -> canvases."""
-    ns, fs, bb, aa = near_steps or KNEE_NEAR, far_steps or KNEE_FAR, bob or KNEE_BOB, arm or KNEE_ARM
-    ntop, nlow = F.legs2["near_leg"]
-    ftop, flow = F.legs2["far_leg"]
-    out = []
-    for (ndx, nup), (fdx, fup), b, a in zip(ns, fs, bb, aa):
-        legs = [(flow, dict(dx=fdx, dy=-fup)), (ftop, dict(dx=fdx, dy=b)),
-                (nlow, dict(dx=ndx, dy=-nup)), (ntop, dict(dx=ndx, dy=b))]
-        out.append(F.pose(whole=(0, b), leg_layers=legs, near_reach=(a, 0), **(carry or CARRY)))
+    for (ndx, nup), (fdx, fup), bob, arm in zip(st["near"], st["far"], st["bob"], st["arm"]):
+        out.append(F.pose(crouch=bob, legs=((ndx, -nup), (fdx, -fup)), near_reach=(arm, 0), legs_front=True,
+                          **(carry or CARRY)))
     return out
 
 
 def frames(F):
     """{tag: [(canvas, ms)]} in the sheet's order."""
     a = frames_all(F)
-    a = {"idle": a["idle"], "run": walk_knees(F), **{k: v for k, v in a.items() if k != "idle"}}
+    a = {"idle": a["idle"], "run": walk(F), **{k: v for k, v in a.items() if k != "idle"}}
     out = {}
     for tag, cans in a.items():
         ms = MS[tag]
