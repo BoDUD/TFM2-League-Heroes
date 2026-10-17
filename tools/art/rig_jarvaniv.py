@@ -140,7 +140,17 @@ def design():
     D.part("far_leg", D.rows(FAR_LEG) & D.rest() & ~cloth)
     D.part("skirt", D.rest())
     crotch_cloth(D)
+    if FACE and os.path.isfile(lp(os.path.join(SRC, FACE))):
+        # the face (「脸部太糊」): skin, eyes, brows and jaw line from Codex's redesign take 2 (tools/art/face_jarvaniv.py),
+        # laid on the design's own squares only
+        f = load(FACE)
+        m = (f[..., 3] > 0) & (D.d[..., 3] > 0)
+        D.d[m] = f[m]
+        D.d0 = D.d.copy()
     return D
+
+
+FACE = "face.png"                   # in hd/; None: the design's face as drawn
 
 
 # Between the knees (rows 54-58) the design's dark navy trousers sat in a ring of outline squares, with pockets the
@@ -366,12 +376,30 @@ MS = {"idle": [140] * 8, "run": [125] * 8, "attack": [70, 70, 60, 90, 80, 63], "
       "ult": [60, 70, 70, 100, 100, 100], "hit": [100, 100], "dead": [100, 100, 120, 120, 120, 150, 150, 500]}
 
 
+# The idle's breath: the shin row each leg loses while the figure above sinks a row - a row as wide as the one over it,
+# so the outline runs on unbroken (near 61-63 and far 60-62 are plain greave rows)
+DIP_ROWS = {"near_leg": 62, "far_leg": 61}
+
+
+def dipped(layer, row):
+    """A padded leg layer one row shorter: design row `row` out, the rows over it a row down (the boot stays)."""
+    y = P + row
+    out = layer.copy()
+    out[1:y + 1] = layer[:y]
+    out[0] = 0
+    return out
+
+
 def frames_all(F):
     p = F.pose
     out = {}
-    # idle: the upper body sinks a row over the skirt and rises (League's idle breath); the lance stays planted, the fist
-    # sliding a row down its shaft
-    out["idle"] = [p(crouch=b, lance_shift=(0, -b)) for b in [0, 0, 1, 1, 1, 1, 0, 0]]
+    # idle: League's idle breath the way the pack's idles breathe (tools/art/idle_breathe.py, approved 2026-10-08): the
+    # whole figure above the shins sinks a row and rises - each leg one plain shin row shorter (DIP_ROWS), the boots
+    # where they stand - so the skirt and the body keep every row (the first idle set the upper body down onto the
+    # skirt, a row of it gone: 「还有上下摆动模型变形」); the lance stays planted, the fist sliding a row down its shaft
+    dip = [(dipped(F.far_leg, DIP_ROWS["far_leg"]), {}), (dipped(F.near_leg, DIP_ROWS["near_leg"]), {})]
+    out["idle"] = [p(whole=(0, 1), leg_layers=dip, lance_shift=(0, -1)) if b else p()
+                   for b in [0, 0, 1, 1, 1, 1, 0, 0]]
     # auto attack (League's jarvanIV_attack1: the lance brought down level, drawn back and thrust): level and drawn back,
     # further back with the body, the thrust (frame 3 from tick 8.4, the hit on tick 9), held, back, upright again
     fwd = dict(lance="FWD")
@@ -430,9 +458,10 @@ def frames_all(F):
 # The user, 2026-10-18, on ae5a431a's walk: 「用之前这个在这个基础上略微修复到完美看不出严重的变形不就好了吗」.
 # Now (that walk, polished): the feet trade the lead within 2 columns (the near foot planted frames 1-4 sliding back,
 # lifted and carried forward 5-8; the far foot half a cycle later), the swinging leg lifted WHOLE a row (its knee
-# guard's top edge over the hem, nothing else changes), the body bob only the upper body settling a row onto the skirt
-# (the idle's breath) for the two frames after each landing, the near arm a column forward (over the body, never back
-# off it) while the near foot is back, the lance carried (CARRY). The fix: the stride centred on the stance - ae5a431a
+# guard's top edge over the hem, nothing else changes), no body bob (ae5a431a's upper body settling a row onto the
+# skirt for the two frames after each landing squashed the skirt a row in four frames: 「还有上下摆动模型变形」), the
+# near arm a column forward (over the body, never back off it) while the near foot is back, the lance carried (CARRY).
+# The fix: the stride centred on the stance - ae5a431a
 # stepped only inward (near 0..+2, far -2..0), so with the shins 2 columns apart frames 1 and 8 laid the near shin
 # over 7 squares of the far one (the two legs one block); now near -1..+1 and far +1..-1: the shins at most touch
 # (gap 0..4 columns, never over each other) and the far leg is whole in every frame. Frame 7 (「这里有问题你真的看不出吗」,
@@ -441,7 +470,7 @@ def frames_all(F):
 # now slides back to -1 a frame earlier (as in frames 8 and 1), its knee covering that gap again.
 WALK_STEP = dict(near=[(1, 0), (0, 0), (0, 0), (-1, 0), (-1, 0), (0, 1), (1, 1), (1, 0)],
                  far=[(-1, 0), (0, 1), (1, 1), (1, 0), (1, 0), (0, 0), (-1, 0), (-1, 0)],
-                 bob=[1, 1, 0, 0, 1, 1, 0, 0],
+                 bob=[0] * 8,
                  arm=[0, 0, 1, 1, 1, 0, 0, 0])
 # League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
 # the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
