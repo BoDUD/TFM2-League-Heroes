@@ -64,6 +64,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
     ("league_nami", 1.5, include_str!("../../../league/champions/league_nami#anim.fanim")),
     ("league_janna", 1.5, include_str!("../../../league/champions/league_janna#anim.fanim")),
+    // Jax: Codex's redrawn chibi design facing front-right (assets/source/jax/PICTURE_PROMPT.md), posed after League's own
+    // clips by tools/art/rig_jax_hd.py (his run league_braum's walk), PPU 1.5 at his old 36 rows, so no SIZES row
+    ("league_jax", 1.5, include_str!("../../../league/champions/league_jax#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

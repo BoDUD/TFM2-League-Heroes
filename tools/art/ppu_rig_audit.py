@@ -25,7 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
 
-HEROES = ["morgana", "nami", "janna"]
+HEROES = ["morgana", "nami", "janna", "jax"]
 CROSS = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
 
 
