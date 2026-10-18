@@ -7,8 +7,8 @@
   league_nautilus_effects.png   every effect animation, 3x
   league_nautilus_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
                                 (tools/kit/build_nautilus.py, 60 ticks a second): an anchor swing on Darius - the
-                                passive's surge and root; Q from afar - the anchor flies, hooks Darius and the two are
-                                pulled together; W + E - the shield round him, the three waves, Darius slowed, the
+                                passive's surge and root; Q from afar - the anchor flies, hooks Darius and hauls him
+                                the whole way to Nautilus; W + E - the shield round him, the three waves, Darius slowed, the
                                 next swing splashing round him; R - the slam, the shockwave rushing under Darius
                                 (knocked up) to Garen behind him, the eruption and the stun; 3x
 """
@@ -74,7 +74,7 @@ def showcase(out, z=3, step=40):
     d.holds.append((sw, sw + tick(P["p_root"])))
     a("attack", tick(P["atk_dur"]))
     a("idle", 300, loop=True)
-    # back off, then Q: the anchor flies, hooks Darius, the two pulled together
+    # back off, then Q: the anchor flies, hooks Darius, hauls him the whole way in
     me.moves.append((t, t + 600, me.pos(t)[0], me.pos(t)[0] - 34))
     a("run", 600, loop=True)
     q0 = t
@@ -85,10 +85,11 @@ def showcase(out, z=3, step=40):
     over.append(Anim(frames_of(small, "q_anchor"), rel, sx, gy - 8, until=arrive, x1=d.pos(rel)[0], y1=gy - 8))
     hit(d, "q_hit", arrive)
     gap = d.pos(arrive)[0] - me.pos(arrive)[0] - 14
-    pull_t = tick(P["q_pull_t"])
-    d.slides.append((arrive, arrive + pull_t, -min(gap / 2, P["q_pull"] * P["q_pull_t"] / 1000)))
+    # the drag has no length of its own since 2026-10-17 (build_nautilus.py): Darius is hauled the whole gap at q_pull
+    # a tick, and Nautilus's dash q_catch ticks later finds nothing left to close
+    pull_t = tick(gap / (P["q_pull"] / 1000))
+    d.slides.append((arrive, arrive + pull_t, -gap))
     a("skill", arrive - t)
-    me.moves.append((t, t + 400, me.pos(t)[0], me.pos(t)[0] + gap / 2))
     a("skill_pull", tick(P["q_anim"]))
     a("idle", 300, loop=True)
     # W + E: the shield, the slam's three waves, Darius slowed
