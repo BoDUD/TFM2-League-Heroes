@@ -3,7 +3,7 @@
 
     python tools/art/preview_xinzhao.py [--out docs/preview] [--only frames|effects|showcase|red]
 
-  league_xinzhao_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_xinzhao_frames.png    every animation's dense frames (hd_, PPU 1.5, as league.dll shows them)
   league_xinzhao_effects.png   every effect animation, 3x
   league_xinzhao_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
                                (tools/kit/build_xinzhao.py, 60 ticks a second): Xin Zhao runs in; Audacious Charge leaps
@@ -27,6 +27,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_jinx import Follow  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -55,7 +56,7 @@ def showcase(out, z=3, step=40, mirror=False):
 
     def a(tag, dur=None, loop=False, to=None):
         nonlocal t, x
-        an = Anim(frames_of(me_sp, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=to)
+        an = Anim(dense(me_sp, tag, "xinzhao", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
         if to is not None:
@@ -98,7 +99,7 @@ def showcase(out, z=3, step=40, mirror=False):
     dist = (d.x - 26) - x
     flight = tick(dist / E_SPEED)
     mine(big, "e_dash", e0)
-    body.append(Anim(frames_of(me_sp, "skill"), e0, x, gy, until=e0 + max(flight, tick(E_ANIM)), x1=x + dist))
+    body.append(Anim(dense(me_sp, "skill", "xinzhao", z), e0, x, gy, until=e0 + max(flight, tick(E_ANIM)), x1=x + dist))
     t = e0 + max(flight, tick(E_ANIM))
     x += dist
     here(big, "e_land", t, ground=True)
@@ -154,12 +155,14 @@ def showcase(out, z=3, step=40, mirror=False):
 
     def place(img, f, px, py, flip=False):
         if flip:
-            f = f.transpose(Image.FLIP_LEFT_RIGHT)
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+            g = f.transpose(Image.FLIP_LEFT_RIGHT)
+            g.info = dict(f.info)
+            f = g
+        put(img, f, px, py, z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -179,7 +182,7 @@ def showcase(out, z=3, step=40, mirror=False):
                 place(img, f, *an.pos(tt))
         if mirror:      # the red side: the whole scene seen from the other side (he faces left)
             img = img.transpose(Image.FLIP_LEFT_RIGHT)
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -199,8 +202,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_xinzhao_frames.png")))
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_xinzhao_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():
