@@ -896,6 +896,13 @@
         "skill": "<#ffb900ff>0.4秒<>后在目标处炸开，敌人中毒<#ffb900ff>3秒<>，共受<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害；毒到英雄时她移速+45%，<#ffb900ff>3秒<>内渐退。",
         "skill2": "放出持续<#ffb900ff>5秒<>的毒雾：每秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>魔法伤害，<#ef5350ff>减速50%、禁锢<>（不能用位移技能）。",
         "ult": "朝面前扇形石化凝视，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害：近处交战的敌人<#ef5350ff>石化2秒<>，远处的<#ef5350ff>减速40%<>。前方有2个以上敌方英雄或被突进时才放。"
+      },
+      "league_poppy": {
+        "name": "波比",
+        "attack": "<#ff9028ff>钢铁大使<>：每<#ffb900ff>8秒<>普攻远远扔出圆盾，多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害；盾落在地上，捡起得<#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<>护盾。<#ff9028ff>坚定风采<>：双抗+16%；敌方英雄靠近时移速+40%，<#ffb900ff>2秒<>内身边敌人<#ef5350ff>不能位移<>。",
+        "skill": "锤击地面，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害（英雄另受4%最大生命），地面<#ef5350ff>减速25%<>，<#ffb900ff>1秒<>后再炸一次。",
+        "skill2": "冲向敌方英雄，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害并推着他走，结束时<#ef5350ff>眩晕0.5秒<>。",
+        "ult": "身边有2个以上敌方英雄时砸地：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害并<#ef5350ff>击飞1秒<>；否则蓄力抡锤推出冲击波，打中的英雄受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害并<#ef5350ff>被打飞到远处<>。"
       }
     },
     "skill_name": {
@@ -1538,6 +1545,11 @@
         "skill1": "瘟毒爆炸",
         "skill2": "剧毒迷雾",
         "ult": "石化凝视"
+      },
+      "league_poppy": {
+        "skill1": "圣锤猛击",
+        "skill2": "英勇冲锋",
+        "ult": "持卫的裁决"
       }
     }
   },
@@ -2438,6 +2450,13 @@
         "skill": "<#ffb900ff>0.4秒<>後在目標處炸開，敵人中毒<#ffb900ff>3秒<>，共受<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害；毒到英雄時她移速+45%，<#ffb900ff>3秒<>內漸退。",
         "skill2": "放出持續<#ffb900ff>5秒<>的毒霧：每秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>魔法傷害，<#ef5350ff>緩速50%、禁錮<>（不能用位移技能）。",
         "ult": "朝面前扇形石化凝視，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害：近處交戰的敵人<#ef5350ff>石化2秒<>，遠處的<#ef5350ff>緩速40%<>。前方有2個以上敵方英雄或被突進時才放。"
+      },
+      "league_poppy": {
+        "name": "波比",
+        "attack": "<#ff9028ff>鋼鐵使者<>：每<#ffb900ff>8秒<>普攻遠遠擲出圓盾，多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害；盾落在地上，撿起得<#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<>護盾。<#ff9028ff>堅定不移<>：雙抗+16%；敵方英雄靠近時移速+40%，<#ffb900ff>2秒<>內身邊敵人<#ef5350ff>不能位移<>。",
+        "skill": "錘擊地面，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害（英雄另受4%最大生命），地面<#ef5350ff>緩速25%<>，<#ffb900ff>1秒<>後再炸一次。",
+        "skill2": "衝向敵方英雄，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害並推著他走，結束時<#ef5350ff>暈眩0.5秒<>。",
+        "ult": "身邊有2個以上敵方英雄時砸地：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害並<#ef5350ff>擊飛1秒<>；否則蓄力掄錘推出衝擊波，打中的英雄受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害並<#ef5350ff>被打飛到遠處<>。"
       }
     },
     "skill_name": {
@@ -3080,6 +3099,11 @@
         "skill1": "毒霧爆擊",
         "skill2": "劇毒瘴氣",
         "ult": "石化凝視"
+      },
+      "league_poppy": {
+        "skill1": "戰槌衝擊",
+        "skill2": "英勇衝鋒",
+        "ult": "守護者裁決"
       }
     }
   },
@@ -3980,6 +4004,13 @@
         "skill": "Blasts the target's spot after <#ffb900ff>0.4s<>, poisoning enemies there for <#ffb900ff>3s<>: <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> in all. Poisoning a champion gives her 45% move speed, fading over <#ffb900ff>3s<>.",
         "skill2": "Releases a poison cloud for <#ffb900ff>5s<>: <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<> a second, <#ef5350ff>50% slow and grounded<> (no dashes) inside.",
         "ult": "Gazes in a cone in front of her: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>; nearby enemies in the fight are <#ef5350ff>petrified for 2s<>, farther ones <#ef5350ff>slowed 40%<>. Cast with 2+ enemy champions in front or when dived."
+      },
+      "league_poppy": {
+        "name": "Poppy",
+        "attack": "<#ff9028ff>Iron Ambassador<>: every <#ffb900ff>8s<> her attack throws her buckler from afar for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> more; it lands nearby and picking it up gives a <#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<> <#66bb6aff>shield<>. <#ff9028ff>Steadfast Presence<>: +16% armour and magic resist; with an enemy champion close she gains 40% move speed and for <#ffb900ff>2s<> enemies near her <#ef5350ff>can't dash<>.",
+        "skill": "Slams the ground for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage (+4% max health to champions); the ground <#ef5350ff>slows 25%<> and ruptures again after <#ffb900ff>1s<>.",
+        "skill2": "Charges an enemy champion for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage and carries them; at the end they are <#ef5350ff>stunned 0.5s<>.",
+        "ult": "With 2+ enemy champions close she slams the ground: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage and <#ef5350ff>knock-up 1s<>. Otherwise she charges and swings a shockwave: champions hit take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage and are <#ef5350ff>knocked far away<>."
       }
     },
     "skill_name": {
@@ -4622,6 +4653,11 @@
         "skill1": "Noxious Blast",
         "skill2": "Miasma",
         "ult": "Petrifying Gaze"
+      },
+      "league_poppy": {
+        "skill1": "Hammer Shock",
+        "skill2": "Heroic Charge",
+        "ult": "Keeper's Verdict"
       }
     }
   },
@@ -5522,6 +5558,13 @@
         "skill": "<#ffb900ff>0.4초<> 뒤 대상 위치에서 폭발, 적을 <#ffb900ff>3초<> 중독시켜 총 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해; 챔피언 적중 시 이동 속도 +45%, <#ffb900ff>3초<>에 걸쳐 감소.",
         "skill2": "<#ffb900ff>5초<>간 독구름: 매초 <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> 마법 피해, <#ef5350ff>50% 둔화, 이동 불가<>(돌진 불가).",
         "ult": "앞쪽 부채꼴로 응시: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해; 가까이서 싸우는 적은 <#ef5350ff>2초 석화<>, 먼 적은 <#ef5350ff>40% 둔화<>. 앞에 적 챔피언 2명 이상이거나 돌진당할 때 사용."
+      },
+      "league_poppy": {
+        "name": "뽀삐",
+        "attack": "<#ff9028ff>강철의 외교관<>: <#ffb900ff>8초<>마다 기본 공격이 방패를 멀리 던져 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해 추가; 떨어진 방패를 주우면 <#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<> 보호막. <#ff9028ff>굳건한 태세<>: 방어력·마법 저항력 +16%; 적 챔피언이 가까우면 이동 속도 +40%, <#ffb900ff>2초<> 동안 주변 적 <#ef5350ff>돌진 불가<>.",
+        "skill": "땅을 내리쳐 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해(챔피언은 최대 체력 4% 추가), 땅이 <#ef5350ff>25% 둔화<>, <#ffb900ff>1초<> 뒤 다시 폭발.",
+        "skill2": "적 챔피언에게 돌진해 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해를 주고 밀고 나가며, 끝에 <#ef5350ff>0.5초 기절<>.",
+        "ult": "주변에 적 챔피언 2명 이상이면 땅을 내리쳐 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해와 <#ef5350ff>1초 에어본<>; 아니면 모았다 휘둘러 충격파: 맞은 챔피언은 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해를 입고 <#ef5350ff>멀리 날아감<>."
       }
     },
     "skill_name": {
@@ -6164,6 +6207,11 @@
         "skill1": "맹독 폭발",
         "skill2": "독기의 늪",
         "ult": "석화의 응시"
+      },
+      "league_poppy": {
+        "skill1": "망치 강타",
+        "skill2": "용감한 돌진",
+        "ult": "수호자의 심판"
       }
     }
   },
@@ -7064,6 +7112,13 @@
         "skill": "<#ffb900ff>0.4秒<>後に対象地点で爆発、敵を<#ffb900ff>3秒<>毒状態にし計<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ；チャンピオンに命中で移動速度+45%（<#ffb900ff>3秒<>で減衰）。",
         "skill2": "<#ffb900ff>5秒<>の毒霧：毎秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の魔法ダメージ、<#ef5350ff>50%スロウ・移動阻害<>（突進不可）。",
         "ult": "前方の扇形に魔眼：<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ；近くで戦う敵は<#ef5350ff>2秒石化<>、遠くの敵は<#ef5350ff>40%スロウ<>。前方に敵2体以上か突進された時に使う。"
+      },
+      "league_poppy": {
+        "name": "ポッピー",
+        "attack": "<#ff9028ff>鋼鉄の大使<>：<#ffb900ff>8秒<>ごとに通常攻撃で盾を遠くへ投げ<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ追加；落ちた盾を拾うと<#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<>のシールド。<#ff9028ff>ステッドファスト<>：物防・魔防+16%；敵チャンピオンが近いと移動速度+40%、<#ffb900ff>2秒<>周りの敵は<#ef5350ff>ダッシュ不可<>。",
+        "skill": "地面を叩き<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージ（チャンピオンは最大体力の4%追加）、地面は<#ef5350ff>25%スロウ<>、<#ffb900ff>1秒<>後に再び爆発。",
+        "skill2": "敵チャンピオンへ突進し<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージを与えて押し運び、最後に<#ef5350ff>0.5秒スタン<>。",
+        "ult": "近くに敵チャンピオン2体以上なら地面を叩き<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージと<#ef5350ff>1秒ノックアップ<>；そうでなければ溜めて衝撃波：当たったチャンピオンは<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージで<#ef5350ff>遠くへ吹き飛ぶ<>。"
       }
     },
     "skill_name": {
@@ -7706,6 +7761,11 @@
         "skill1": "ノクサスブラスト",
         "skill2": "ミアズマ",
         "ult": "石化の魔眼"
+      },
+      "league_poppy": {
+        "skill1": "ハンマーショック",
+        "skill2": "ヒロイックチャージ",
+        "ult": "守護者の鉄鎚"
       }
     }
   }
