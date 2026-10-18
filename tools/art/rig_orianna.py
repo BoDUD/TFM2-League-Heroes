@@ -23,15 +23,15 @@ Actions (League's clips, tools/lol/pose_ref.py --hide-joints 'Ball|Spinnig', for
             squares mirrored, toe forward, for both, the far one behind) swinging straight from the design's hips like a
             pendulum, the swinging foot just clear of the ground with its knee a little ahead; the body (the arm with
             it) bobbing over them
-  attack 5  the flick (Orianna_attack1): the near arm back and up, swung forward over the chest (the bolt leaves on
+  attack 6  the flick (Orianna_attack1): the near arm back and up, swung forward over the chest (the bolt leaves on
             frame 3), held, back
-  skill 4   Command (orianna_spell1): the near arm back, then pointing ahead over the chest, held, back
+  skill 5   Command (orianna_spell1): the near arm back, then pointing ahead over the chest, held, back
   skill_w 4 Dissonance (Orianna_spell2's hop): up with the near arm raised behind her, down
   skill_e 4 Protect (Orianna_spell3's rise on the toes): up a little, the arm raised, then pointing ahead
   ult 5     Shockwave (Orianna_spell4's crouch): the arm raised behind, the body sinking over the legs, the arm out
             behind, then thrust ahead at the blast (frame 5, 480 ms: the kit's r_delay 30)
   hit 2     moved back with a white flash
-  dead 6    a flinch back, the near knee going out as the body sinks into the skirt, the head dropping forward over the
+  dead 8    a flinch back, the near knee going out as the body sinks into the skirt, the head dropping forward over the
             neck, the eyes shut
 """
 import argparse
@@ -370,9 +370,13 @@ def frames():
     out = {}
     out["idle"] = [(pose(bob=b), IDLE_MS) for b in BREATH]
     out["run"] = [(run_frame(i), RUN_MS) for i in range(8)]
-    out["attack"] = [(pose("back", dx=-2), 90), (pose("up", dx=-2), 90), (pose("point", dx=2), 100),
-                     (pose("point", dx=2), 100), (pose(), 87)]
-    out["skill"] = [(pose("back", dx=-2), 60), (pose("point", dx=2), 80), (pose("point", dx=2), 100), (pose(), 93)]
+    # 2026-10-19 audit: the attack's frames 3-4 and Q's 2-3 were one picture held - each hold is now a follow-through
+    # (the body settling back over the legs, the arm still pointing) and the arm comes down by the rest pose a column
+    # ahead, so every frame is its own (attack 6 frames, Q 5; the same lengths, the bolt still on frame 3 / Q's cast on 2)
+    out["attack"] = [(pose("back", dx=-2), 90), (pose("up", dx=-2, bob=1), 90), (pose("point", dx=3), 100),
+                     (pose("point", dx=2, bob=1), 70), (pose(dx=1), 60), (pose(), 57)]
+    out["skill"] = [(pose("back", dx=-2), 60), (pose("point", dx=3), 80), (pose("point", dx=2, bob=1), 70),
+                    (pose("point", dx=1), 60), (pose(dx=1), 63)]
     out["skill_w"] = [(pose("up", lift=3), 60), (pose("up", lift=6), 80), (pose("up", lift=3), 80), (pose(bob=2), 80)]
     out["skill_e"] = [(pose("up", lift=2), 70), (pose("point", lift=2, dx=2), 90), (pose("point", dx=2), 80),
                       (pose(), 60)]
@@ -381,9 +385,12 @@ def frames():
     out["hit"] = [(shift(pose(), -4, 0), 90), (shift(pose(), -2, 0), 120)]
     # the collapse: thrown back, the near knee going out as she sinks into her skirt, the head dropping, the eyes shut
     d5 = shut_eyes(pose(sink=21, dx=-2, splay=6, bow=(2, 3)))
+    # 8 frames (2026-10-19 audit, the pack's deaths have 8): a step more between each sinking pose, the eyes shutting
+    # last
     out["dead"] = [(shift(pose("back"), -3, 0), 120), (pose("back", sink=4, dx=-3, splay=2), 120),
-                   (pose("rest", sink=10, dx=-2, splay=3), 140), (pose(sink=16, dx=-2, splay=4, bow=(1, 2)), 160),
-                   (d5, 200), (d5.copy(), 400)]
+                   (pose("rest", sink=10, dx=-2, splay=3), 120), (pose(sink=13, dx=-2, splay=3, bow=(0, 1)), 100),
+                   (pose(sink=16, dx=-2, splay=4, bow=(1, 2)), 120), (pose(sink=19, dx=-2, splay=5, bow=(2, 3)), 100),
+                   (d5, 160), (d5.copy(), 400)]
     done = {t: [(tidy(a), ms) for a, ms in out[t]] for t in ORDER}
     # the hit's flash after the finish (flashed, the outline is light and the finish ringed it again, closing gaps)
     done["hit"][0] = (flash(done["hit"][0][0]), done["hit"][0][1])
