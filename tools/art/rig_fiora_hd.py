@@ -60,19 +60,22 @@ IDLE_SINK = [0, 0, 1, 1, 1, 1, 0, 0]
 # the blade: from the guard's mouth (EXIT, square edges, on the line between its two rows) BLADE_LEN squares on
 BLADE_X0, EXIT, BLADE_LEN = 56, (56.0, 23.0), 31
 ARM_FLAT = 60
+GUARD45 = os.path.join(R.ROOT, "assets", "source", HERO, "hd", "guard45.png")
+SWORD_STEP = 45 if os.path.isfile(R.lp(GUARD45)) else 90
 BLADE_HI, BLADE_LO = (250, 250, 252), (168, 176, 198)     # design_fiora_hd.BLADE: the white edge, the blue-grey face
 
 
 class Design(XZ.Design):
-    """XZ.Design (parts turned only losslessly) with the rapier's blade free: her blade is one straight two-colour line
-    (design_fiora_hd draws it so), so at League's own angle it is drawn again square by square - two squares across,
-    the white edge up (left when it stands upright) - where a quarter turn could only point it up or through her body
-    (the user's rule against deformed pictures is about drawn parts; the guard stays lossless: the one of the 8 ways
-    nearest League's turn)."""
+    """XZ.Design (parts turned only losslessly) with the rapier straight in one of SWORD_STEP's directions: the guard
+    turned losslessly to it (as drawn, mirrored or quarter-turned) and the blade - one straight two-colour line
+    (design_fiora_hd draws it so) - drawn again square by square along it, two squares across, the white edge up (left
+    when it stands upright). The user, 2026-10-18: 「剑别歪啊 歪的地方全部修复」 - at League's own angle the blade came out
+    in uneven steps and bent off a guard that can only take quarter turns; so guard and blade always point the same way,
+    level, upright or (once Codex's 45-degree guard is in, GUARD45) on the diagonal."""
 
     def snap(self, name, angle):
         if name == "rapier":
-            return float(angle)
+            return float(round(R.wrap(angle) / SWORD_STEP) * SWORD_STEP)
         if name == "arm":
             # the arm takes the nearest quarter turn, held out straight while League's is within ARM_FLAT of it: her
             # thrusts hold the arm 20-45 degrees down and often half toward the camera (2-5 game px seen), which a
@@ -215,7 +218,7 @@ def driver(rig, joints):
                     arm=dict(name="arm", shoulder=SHOULDER, hand=GRIP, relative=False, league_hand="r",
                              with_weapon=True, over_weapon=True),
                     weapons=[dict(name="rapier", grip=GRIP, tip=TIP, league=("weapon_b", "weapon_a"), relative=False,
-                                  floor=2, always_front=True)],
+                                  floor=2, always_front=True, back_when_back=True)],
                     src=rig.D.leg_src, leg_max=0, max_lean=1)
 
 
@@ -255,7 +258,8 @@ def frames(rig, joints):
         if tag == "hit":
             fr[0] = R.flash(fr[0])
         if tag == "dead":
-            lie = R.lie(rig, drv.frame(rows[3]["j"]), k=1, dx=-2)
+            # arm and rapier held down before she is laid a quarter turn: they lie along the ground, not up in the air
+            lie = R.lie(rig, drv.frame(rows[3]["j"], dict(keep=True, arm=-90, weapon=-90)), k=1, dx=-2)
             fr = fr[:4] + [lie.copy() for _ in fr[4:]]
         out[tag] = list(zip(fr, ms))
     acts = {t: out[t] for t in sheet if t in out}

@@ -1034,7 +1034,7 @@ class Driver:
     turn of at most that many degrees is none; league_hand:
     League's weapon hand when its grip joint misleads; over_weapon: the fist drawn over the hilt.
     weapons: [dict(name, grip, tip, league=(joint, joint), relative, aim, chest, floor, on_arm, always_front, rest_back,
-    src)] -
+    back_when_back, src)] -
     turned about the grip (carried by the arm's turn) to League's direction from its first joint to the second (the end
     matching our `tip`), absolute or relative as the arm; aim: aimed instead from our grip at where League's end is
     against its chest (our `chest` point), since a short chibi arm cannot lift the grip as high; floor: never more than
@@ -1269,6 +1269,11 @@ class Driver:
             wz = (j["weapon_a"][2] + j["weapon_b"][2]) / 2
             wz0 = (d["weapon_a"][2] + d["weapon_b"][2]) / 2
             in_back = behind(wz, wz0) and not w.get("always_front")
+            if w.get("back_when_back") and not o.get("keep") and                     (np.cos(np.radians(heading(np.array(w["tip"], float) - grip) + wr)) < -0.1 or abs(wrap(arm_r)) > 135):
+                # pointing back, or held by an arm turned back, a weapon in front lay across the whole body
+                # (league_fiora's rapier through her chest in the attack's follow-through, out of her chest in the W):
+                # behind it, only the part past the body shows
+                in_back = True
             if w.get("rest_back"):
                 # a weapon the picture draws behind the body (league_xinzhao's spear across his back): in front only
                 # when League's came forward from its place in the design pose by more than the margin
