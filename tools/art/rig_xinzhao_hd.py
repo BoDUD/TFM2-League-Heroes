@@ -16,15 +16,25 @@ the design exactly, its own 40 colours as the palette).
 Parts (design squares, 63 rows topknot to soles): the spear - its purple blade with the silver crescent hook, the
 streamer and the gold collar (low behind him at the left), the shaft's two visible stretches and the iron butt over his
 front shoulder: ONE rigid prop on one straight line (SPEAR_A -> SPEAR_B; the stretch hidden behind his body drawn as a
-straight shaft of its own brown, ppu_rig.Design.shaft), turned whole about his fist with League's weapon (the blade end
-weapon_a to the butt weapon_b) and drawn BEHIND the body unless League's spear comes forward; his near arm (gold-trimmed
-purple sleeve, brown forearm guard, the gloved fist on the shaft) turned about the shoulder with League's shoulder-to-
-hand, the fist over the shaft; both legs as a stub of trousers and a shin (gold knee, steel greave, boot) turned at the
-knee with League's thigh (rigid, rig_jax_hd's way); the upper body (head, ribbons, coat, the open far hand) moved with
-League's pelvis and leaning with its chest, never turned. The run: the design's own two legs moved whole (rig_jax_hd's
-WALK, league_braum's approved walk). The idle: the upper body, the arm and the spear sinking whole rows over the standing
-legs (breathing, the sheet's 8 frames). skill2 and ult end with the W slash and the R tell drawn into the frames as
-before (assets/source/native/xinzhao_bake.json, Rig.bake). The death ends lying: the figure a quarter turn.
+straight shaft of its own brown), and his near arm (gold-trimmed purple sleeve, brown forearm guard, the gloved fist on
+the shaft). Both are only ever moved losslessly (the user, on the first actions: 「还有武器变形？」 - RotSprite turns of the
+spear redrew its blade, hook and rings differently in every frame): as drawn, mirrored or quarter-turned (8 ways,
+Design.snap picks the one nearest League's angle, ppu_rig.Driver puts the fist and the spear where that one puts them),
+the spear also slid along its own line through the fist as League's hand moves along League's spear (League holds it by
+the butt to thrust). The spear is drawn BEHIND the body unless League's comes forward. The legs never turn in the
+actions: as drawn, moved with the figure. The upper body (head, ribbons, coat, the open far hand) moves with League's
+pelvis and leans with its chest, never turned.
+
+The run (the user: 「跑步腿不对吧？这样跑步的？」「你参考原版赵兴怎么跑步的？」 - the first run moved the wide stance's legs a
+column or two) is League's Runbase frame for frame, the way his approved 1x run was made (rig_xinzhao.run): the hips
+together under the middle of the waist, the front flap cut short (FLAP_END), the body as drawn leaning RUN_LEAN columns
+forward and bobbing a row; each leg's thigh drawn on League's thigh angle in the design's own trouser shades (the near
+leg lit, the far leg shaded), its shin - the design's own gold knee guard, steel greave and boot - on League's shin angle
+by a lossless orientation and, when upright, whole rows slid at most RUN_SLIDE a row; the near leg over the flap.
+The idle: the upper body, the arm and the spear sinking whole rows over the standing legs (breathing, the sheet's 8
+frames). skill2 and ult end with the W slash and the R tell drawn into the frames as before
+(assets/source/native/xinzhao_bake.json, Rig.bake). The death ends lying: the figure without the spear a quarter turn,
+the spear flat on the ground under him (its columns slid level: no lossless turn lays it flat).
 """
 import argparse
 import json
@@ -68,7 +78,10 @@ ARM = [(31.6, 30.6), (34.5, 28.0), (38.5, 26.6), (41.5, 24.0), (44.6, 22.0), (48
 SPEAR_LOW = [(-1.0, 51.0), (-1.0, 44.0), (19.0, 24.4), (31.6, 24.4), (31.6, 36.4), (39.6, 36.4), (39.6, 50.5)]
 SPEAR_MID = R.band(on_spear(31.0), on_spear(42.0), 1.3)
 SPEAR_HIGH = R.band(on_spear(72.6), on_spear(102.0), 4.4)
-SHAFT = (on_spear(29.0), on_spear(72.0))     # under the fist and hidden behind his body: a straight line
+# the shaft's stretches the picture never shows, drawn as straight lines of its brown wherever the spear moves them
+# into view: under the fist (no outline round it: at rest the fist covers it whole) and behind the body (outlined)
+SHAFT_FIST = (on_spear(29.0), on_spear(40.5))
+SHAFT = (on_spear(40.0), on_spear(72.0))
 # the legs below the coat: lavender trousers, gold knee, steel greave, brown boot
 NEAR = dict(name="nl", side="near", rigid=True, hip=(48.0, 47.0), knee=(43.5, 53.5), sole=(39.0, 62.0),
             area=[(41.4, 45.6), (54.6, 45.6), (54.6, 50.0), (50.0, 54.0), (47.0, 57.0), (44.0, 63.0), (33.0, 63.0),
@@ -88,6 +101,7 @@ def E(p):
 GRIP, BUTT, SHOULDER, CHEST = E(GRIP), E(BUTT), E(SHOULDER), E(CHEST)
 ARM, SPEAR_LOW, SPEAR_MID, SPEAR_HIGH = ([E(p) for p in poly] for poly in (ARM, SPEAR_LOW, SPEAR_MID, SPEAR_HIGH))
 SHAFT = (E(SHAFT[0]), E(SHAFT[1]))
+SHAFT_FIST = (E(SHAFT_FIST[0]), E(SHAFT_FIST[1]))
 for _lg in (NEAR, FAR):
     _lg.update(hip=E(_lg["hip"]), knee=E(_lg["knee"]), sole=E(_lg["sole"]), area=[E(p) for p in _lg["area"]])
 
@@ -136,9 +150,40 @@ def shaft_colour(D):
 
 class Design(R.Design):
     """ppu_rig.Design with the parts kept square for square: pixel_down.pixelate (its outline unification and
-    despeckle) would change design squares, so a part is the picture's pixels in its mask turned (nearest) at 12 px a
-    square and each square the commonest colour of its pixels where half or more are drawn - at angle 0 the design's own
-    squares exactly."""
+    despeckle) would change design squares, so a part is the design's own squares; turned, it is mirrored and / or
+    quarter-turned about the point (every square kept, none redrawn) - the one of the 8 ways nearest the angle asked
+    (snap), its axis (AXES) measuring the angle."""
+
+    AXES = {}
+    SHAFTS = {}
+
+    def ops(self, name):
+        """{(flip, rot): the angle (degrees, counter-clockwise) the part's axis turns by under that move}."""
+        ax = np.array(self.AXES[name], float)
+        out = {}
+        for flip in (False, True):
+            for rot in range(4):
+                v = lossless(ax[None], flip, rot)[0]
+                out[(flip, rot)] = round(R.wrap(R.heading(v) - R.heading(ax)), 3)
+        return out
+
+    def op_for(self, name, angle):
+        best = None
+        for (flip, rot), eff in self.ops(name).items():
+            key = (round(abs(R.wrap(eff - angle)), 3), flip, rot)
+            if best is None or key < best[0]:
+                best = (key, (flip, rot), eff)
+        return best[1], best[2]
+
+    def snap(self, name, angle):
+        """The angle the part can really take nearest `angle` (0 for a part that never turns)."""
+        if name not in self.AXES:
+            return 0
+        return self.op_for(name, angle)[1]
+
+    def turn(self, name, angle, about, src=None):
+        self._turning = name
+        return super().turn(name, angle, about, src)
 
     def turned(self, poly_pts, angle, about, src=None, shaft=None, mask=None):
         P, S = self.TURN_PAD, SQUARE
@@ -151,24 +196,21 @@ class Design(R.Design):
         part = np.zeros((self.H + 2 * P, self.W + 2 * P, 4), np.uint8)
         part[P:P + self.H, P:P + self.W][sq] = pic[S // 2::S, S // 2::S][:self.H, :self.W][sq]
         Hd, Wd = part.shape[:2]
-        if angle:
-            # RotSprite: Scale2x three times (8x, its diagonals kept whole), turned nearest about the point, each
-            # square the commonest colour of its 8 x 8 where half or more is drawn
-            big = scale2x(scale2x(scale2x(part)))
-            cx, cy = (about[0] + P) * 8, (about[1] + P) * 8
-            big = np.asarray(Image.fromarray(big).rotate(angle, resample=Image.NEAREST, center=(cx, cy))).copy()
-            out = vote(big, 8)
-        else:
-            out = part
-        if shaft is not None and angle:              # at rest the fist and the body hide the line (as drawn)
-            (x0, y0), (x1, y1), w, colour, _, rim = shaft
-            th = np.radians(angle)
-            ax_, ay_ = about
-
-            def rot(x, y):
-                return (ax_ + (x - ax_) * np.cos(th) + (y - ay_) * np.sin(th) + P,
-                        ay_ - (x - ax_) * np.sin(th) + (y - ay_) * np.cos(th) + P)
-            (X0, Y0), (X1, Y1) = rot(x0, y0), rot(x1, y1)
+        name = getattr(self, "_turning", None)
+        if angle and name not in self.AXES:
+            sys.exit(f"{name}: turned {angle} degrees but only {sorted(self.AXES)} turn")
+        (flip, rot), _ = self.op_for(name, angle) if angle else ((False, 0), 0.0)
+        out = np.zeros_like(part)
+        ys, xs = np.nonzero(part[..., 3] > 0)
+        v = np.stack([xs - P + 0.5 - about[0], ys - P + 0.5 - about[1]], 1)
+        v = lossless(v, flip, rot)
+        tx = np.floor(about[0] + v[:, 0] + P).astype(int)
+        ty = np.floor(about[1] + v[:, 1] + P).astype(int)
+        ok = (tx >= 0) & (tx < Wd) & (ty >= 0) & (ty < Hd)
+        out[ty[ok], tx[ok]] = part[ys[ok], xs[ok]]
+        for (x0, y0), (x1, y1), w, colour, rim in self.SHAFTS.get(name, ()):
+            ends = lossless(np.array([[x0 - about[0], y0 - about[1]], [x1 - about[0], y1 - about[1]]]), flip, rot)
+            (X0, Y0), (X1, Y1) = ends + np.array(about) + P
             yy, xx = np.mgrid[0:Hd, 0:Wd]
             cx_, cy_ = xx + 0.5, yy + 0.5
             dx_, dy_ = X1 - X0, Y1 - Y0
@@ -185,40 +227,14 @@ class Design(R.Design):
         return out
 
 
-def vote(a, S):
-    """Each S x S block of `a`: the commonest colour of its drawn pixels where half or more are drawn, else clear."""
-    Hd, Wd = a.shape[0] // S, a.shape[1] // S
-    b = a[:Hd * S, :Wd * S].reshape(Hd, S, Wd, S, 4).transpose(0, 2, 1, 3, 4).reshape(Hd * Wd, S * S, 4)
-    op = b[..., 3] > 0
-    cnt = op.sum(1)
-    out = np.zeros((Hd * Wd, 4), np.uint8)
-    keep = np.nonzero(cnt * 2 >= S * S)[0]
-    if len(keep):
-        code = (b[keep, :, 0].astype(np.int64) << 16) | (b[keep, :, 1].astype(np.int64) << 8) | b[keep, :, 2]
-        code = np.where(op[keep], code, -1)
-        for i, k in enumerate(keep):
-            vals, n = np.unique(code[i][code[i] >= 0], return_counts=True)
-            c = int(vals[n.argmax()])
-            out[k] = (c >> 16, (c >> 8) & 255, c & 255, 255)
-    return out.reshape(Hd, Wd, 4)
-
-
-def scale2x(a):
-    """EPX / Scale2x on an RGBA array (colours compared exactly, clear as a colour of its own)."""
-    code = np.where(a[..., 3] > 0, (a[..., 0].astype(np.int64) << 16) | (a[..., 1].astype(np.int64) << 8) | a[..., 2], -1)
-    pc = np.pad(code, 1, mode="edge")
-    A, B, C, Dn = pc[:-2, 1:-1], pc[1:-1, 2:], pc[1:-1, :-2], pc[2:, 1:-1]       # up, right, left, down
-    pa = np.pad(a, ((1, 1), (1, 1), (0, 0)), mode="edge")
-    up, right, left, down = pa[:-2, 1:-1], pa[1:-1, 2:], pa[1:-1, :-2], pa[2:, 1:-1]
-    H, W = code.shape
-    out = np.repeat(np.repeat(a, 2, 0), 2, 1)
-    for (oy, ox), cond, src in (((0, 0), (C == A) & (C != Dn) & (A != B), up),
-                                ((0, 1), (A == B) & (A != C) & (B != Dn), right),
-                                ((1, 0), (Dn == C) & (Dn != B) & (C != A), left),
-                                ((1, 1), (B == Dn) & (B != A) & (Dn != C), down)):
-        q = out[oy::2, ox::2]
-        q[cond] = src[cond]
-    return out
+def lossless(v, flip, rot):
+    """Offsets (n, 2) mirrored left-right (flip), then turned `rot` quarter turns counter-clockwise on screen (y down)."""
+    x, y = np.array(v[:, 0], float), np.array(v[:, 1], float)
+    if flip:
+        x = -x
+    for _ in range(rot % 4):
+        x, y = y, -x
+    return np.stack([x, y], 1)
 
 
 def square_mask(D, m):
@@ -261,7 +277,10 @@ def design():
         D.parts[k] &= D.d[..., 3] > 0
     D.polys["arm"] = ARM
     D.polys["spear"] = R.band(E(SPEAR_A), E(SPEAR_B), 3.0)                  # the floor check's outline of the whole spear
-    D.shaft("spear", SHAFT[0], SHAFT[1], 1.8, colour=shaft_colour(D), keep=[ARM], rim=1.0)
+    brown = shaft_colour(D)
+    D.SHAFTS = {"spear": [(SHAFT_FIST[0], SHAFT_FIST[1], 1.8, brown, 0.0), (SHAFT[0], SHAFT[1], 1.8, brown, 1.0)]}
+    D.AXES = {"spear": (E(SPEAR_B)[0] - E(SPEAR_A)[0], E(SPEAR_B)[1] - E(SPEAR_A)[1]),
+              "arm": (GRIP[0] - SHOULDER[0], GRIP[1] - SHOULDER[1])}
     D.part("upper", D.rest(), take=False)
     D.taken = taken
     return D
@@ -286,17 +305,178 @@ def make_rig(D):
 
 def driver(rig, joints):
     return R.Driver(rig, joints, SPEC_HEIGHT, ROWS, legs=[NEAR, FAR],
-                    arm=dict(name="arm", shoulder=SHOULDER, hand=GRIP, over_weapon=True, relative=True),
+                    arm=dict(name="arm", shoulder=SHOULDER, hand=GRIP, over_weapon=True, relative=True, dead=ARM_DEAD,
+                             with_weapon=True),
                     weapons=[dict(name="spear", grip=GRIP, tip=BUTT, league=("weapon_a", "weapon_b"), relative=True,
-                                  floor=2, rest_back=True, slide=dict(blade=E(SPEAR_A), lo=0.2, hi=0.8))],
-                    src=rig.D.leg_src, leg_max=25)
+                                  floor=2, rest_back=True, slide=dict(blade=E(SPEAR_A), lo=0.2, hi=SLIDE_HI), face=(*FACE, 7.0))],
+                    src=rig.D.leg_src, leg_max=0)                 # the legs as drawn: never turned
 
 
-# the run's legs: rig_jax_hd's WALK (league_braum's approved walk): per frame the near leg's (columns forward, rows
-# lifted), the far leg's, the figure's rise
-WALK = [((0, 0), (0, 3), 2), ((0, 0), (2, 5), 3), ((0, 0), (2, 2), 2), ((0, 0), (2, 0), 0),
-        ((0, 3), (0, 0), 2), ((2, 5), (0, 0), 3), ((2, 2), (0, 0), 2), ((2, 0), (0, 0), 0)]
-RUN_LEAN = 2
+# the run (see the module's doc): hips HIP_DX either side of the pivot on the waist's row, thighs RUN_THIGH long and
+# RUN_HW half wide, the shins' rows slid at most RUN_SLIDE a row, a thigh swinging forward never folds its shin flatter
+# than RUN_TRAIL degrees back
+RUN_LEAN = 3
+RUN_HIP_DX = 3.5
+RUN_HIP_ROW = 47.5
+RUN_THIGH = 10.5
+RUN_HW = 2.8
+RUN_SLIDE = 0.55
+RUN_TRAIL = -50.0
+FLAP_END = 53                                  # design row: the front flap cut here in the run (it hangs to 59)
+TROUSER = ((208, 151, 247), (169, 111, 208))    # the design's trouser shades: lit, shade
+# each shin: the design's knee guard, greave and boot (design squares of the leg's parts) and its two joints
+RUN_SHIN = {"near": dict(rows=54, guard=(50, 46, "le"), knee=(44.0, 53.0), sole=(39.0, 62.5)),
+            "far": dict(rows=54, guard=(51, 73, "ge"), knee=(76.0, 53.0), sole=(81.0, 62.5))}
+FACE = (66.0, 25.0)                            # between the eyes (square edges): the spear in front keeps 7 clear
+SLIDE_HI = 0.6                                 # the fist at most this share of the spear back from the blade
+ARM_DEAD = 30                                  # League's arm turned less than this from its idle: the arm as drawn
+
+
+def run_shins(D):
+    """{"near" | "far": (offsets from the knee joint (n, 2), colours (n, 4))}: the leg's squares from its shin rows down
+    and, over them, its knee guard (the guard's corner rows / columns)."""
+    yy, xx = np.mgrid[0:D.H, 0:D.W]
+    out = {}
+    for key, lg in (("near", NEAR), ("far", FAR)):
+        leg = np.zeros((D.H, D.W), bool)
+        for part in ("_thigh", "_shin"):
+            leg |= square_mask(D, D.prop_masks[lg["name"] + part])[0]
+        sp = RUN_SHIN[key]
+        r0, c0, side = sp["guard"]
+        guard = (yy >= r0) & ((xx <= c0) if side == "le" else (xx >= c0))
+        m = leg & ((yy >= sp["rows"]) | guard)
+        ys, xs = np.nonzero(m)
+        k = sp["knee"]
+        out[key] = (np.stack([xs + 0.5 - k[0], ys + 0.5 - k[1]], 1), D.d0[ys, xs])
+    return out
+
+
+def shin_pose(offs, axis, want):
+    """The shin's lossless orientation nearest League's angle (degrees from straight down, + forward); an upright one
+    then slides its rows (at most RUN_SLIDE a row) to finish the angle, a turned one never (its boot stays whole).
+    -> (offsets, the knee -> sole vector)."""
+    import math
+    best = None
+    t = math.radians(want)
+    for flip in (False, True):
+        for rot in (0, 1, 3):
+            v = lossless(np.array([axis], float), flip, rot)[0]
+            k = 0.0
+            if rot % 2 == 0 and abs(v[1]) > 1e-6 and (v[1] > 0) == (math.cos(t) > 0) and abs(math.cos(t)) > 1e-6:
+                k = max(-RUN_SLIDE, min(RUN_SLIDE, math.tan(t) - v[0] / v[1]))
+            got = math.degrees(math.atan2(v[0] + k * v[1], v[1]))
+            d = abs((got - want + 180) % 360 - 180)
+            if best is None or d < best[0] - 1e-6:
+                best = (d, flip, rot, v, k)
+    _, flip, rot, v, k = best
+    o = lossless(offs, flip, rot)
+    o[:, 0] = o[:, 0] + np.round(k * o[:, 1])
+    return o, np.array([v[0] + round(k * v[1]), v[1]])
+
+
+def thigh_cells(H, K, far):
+    """{(x, y): rgba} the thigh from hip H to knee K (canvas): squares within RUN_HW of the bone in the trouser shades
+    (the near one lit with its back edge shaded, the far one shaded with its front edge lit), one outline ring."""
+    import math
+    lit, shade = (np.array((*c, 255), np.uint8) for c in TROUSER)
+    vx, vy = K[0] - H[0], K[1] - H[1]
+    n = math.hypot(vx, vy) or 1e-9
+    cells = {}
+    for y in range(int(min(H[1], K[1])) - 4, int(max(H[1], K[1])) + 4):
+        for x in range(int(min(H[0], K[0])) - 5, int(max(H[0], K[0])) + 6):
+            px, py = x + 0.5, y + 0.5
+            t = max(0.0, min(n, ((px - H[0]) * vx + (py - H[1]) * vy) / n))
+            qx, qy = H[0] + vx / n * t, H[1] + vy / n * t
+            if math.hypot(px - qx, py - qy) > RUN_HW:
+                continue
+            side = (px - qx) * (vy / n) - (py - qy) * (vx / n)
+            cells[(x, y)] = (lit if side > 1.6 else shade) if far else (shade if side < -0.8 else lit)
+    ring = {}
+    for (x, y) in cells:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            if (x + dx, y + dy) not in cells:
+                ring[(x + dx, y + dy)] = None
+    return cells, list(ring)
+
+
+def run_frame(rig, j, shins):
+    """One run frame after League's joints j."""
+    import math
+    D = rig.D
+    side = {"near": "r", "far": "l"}
+    legs = {}
+    for key in ("far", "near"):
+        sd = side[key]
+        t_ang = math.degrees(math.atan2(j[f"{sd}_knee"][0] - j[f"{sd}_hip"][0], j[f"{sd}_knee"][1] - j[f"{sd}_hip"][1]))
+        s_ang = math.degrees(math.atan2(j[f"{sd}_foot"][0] - j[f"{sd}_knee"][0], j[f"{sd}_foot"][1] - j[f"{sd}_knee"][1]))
+        if t_ang > 5 and s_ang < RUN_TRAIL:
+            s_ang = RUN_TRAIL
+        H = np.array([rig.CX + (-RUN_HIP_DX if key == "near" else RUN_HIP_DX), rig.oy + RUN_HIP_ROW])
+        K = H + RUN_THIGH * np.array([math.sin(math.radians(t_ang)), math.cos(math.radians(t_ang))])
+        K = np.round(K * 2) / 2
+        sp = RUN_SHIN[key]
+        offs, cols = shins[key]
+        so, send = shin_pose(offs, np.array(sp["sole"]) - np.array(sp["knee"]), s_ang)
+        legs[key] = (H, K, so, cols, K + send)
+    return legs
+
+
+def run_compose(rig, legs, dy, upright):
+    """The run's frame: the spear behind, the far leg, the body (its flap cut), the near leg over the flap."""
+    D = rig.D
+    spear = R.compose(rig, [("spear", dict(angle=0, about=GRIP, dx=RUN_LEAN, dy=dy))])
+    top = R.compose(rig, [("upper", dict(dx=RUN_LEAN, dy=dy)),
+                          ("arm", dict(angle=0, about=SHOULDER, dx=RUN_LEAN, dy=dy))])
+    top[rig.oy + FLAP_END + dy:] = 0
+    out = rig.canvas()
+    m = spear[..., 3] > 0
+    out[m] = spear[m]
+    outline = np.array((*D.outline, 255), np.uint8)
+    for key in ("far", "near"):
+        H, K, so, cols, _ = legs[key]
+        H, K = H + (0, dy), K + (0, dy)
+        leg = rig.canvas()
+        cells, ring = thigh_cells(H, K, far=(key == "far"))
+        for (x, y) in ring:
+            if 0 <= y < leg.shape[0] and 0 <= x < leg.shape[1]:
+                leg[y, x] = outline
+        for (x, y), c in cells.items():
+            if 0 <= y < leg.shape[0] and 0 <= x < leg.shape[1]:
+                leg[y, x] = c
+        tx = np.floor(K[0] + so[:, 0]).astype(int)
+        ty = np.floor(K[1] + so[:, 1]).astype(int)
+        ok = (tx >= 0) & (tx < leg.shape[1]) & (ty >= 0) & (ty < leg.shape[0])
+        leg[ty[ok], tx[ok]] = cols[ok]
+        if key == "near":
+            m = top[..., 3] > 0
+            out[m] = top[m]
+            hem = int(rig.oy + RUN_HIP_ROW + dy)       # above the hips the coat stays over the near leg
+            lm = leg[..., 3] > 0
+            lm[:hem] &= ~m[:hem]
+            out[lm] = leg[lm]
+        else:
+            m = leg[..., 3] > 0
+            out[m] = leg[m]
+    out[rig.GY:] = 0
+    return out
+
+
+def run_frames(rig, rows):
+    """The run's frames: League's Runbase on the design (run_frame), the lowest sole on the ground, both feet off it in
+    League's flight frames a row higher, the body bobbing a row with League's pelvis."""
+    shins = run_shins(rig.D)
+    pel = sorted(r["j"]["pelvis"][1] for r in rows)
+    mid = pel[len(pel) // 2]
+    out = []
+    for r in rows:
+        j = r["j"]
+        legs = run_frame(rig, j, shins)
+        low = max(L[4][1] for L in legs.values())
+        air = all(-j[f"{s}_foot"][1] * PPU > 14 for s in "rl")
+        bob = int(round(max(-1, min(1, (mid - j["pelvis"][1]) * PPU * 0.15))))
+        dy = int(round(rig.GY - low)) - (1 if air else 0) - bob
+        out.append(run_compose(rig, legs, dy, True))
+    return out
 
 
 def leg_piece(D, lg):
@@ -306,21 +486,6 @@ def leg_piece(D, lg):
     m = th[..., 3] > 0
     out[m] = th[m]
     return out
-
-
-def walk(legs, step):
-    near_step, far_step, _ = step
-
-    def layers(hx, dy):
-        out = []
-        for lg, (dx, lift) in ((FAR, far_step), (NEAR, near_step)):
-            a = legs[lg["name"]]
-            if lift:
-                a = a.copy()
-                a[:np.nonzero(a[..., 3].any(1))[0].min() + lift] = 0
-            out.append((a, dict(dx=hx + dx, dy=dy - lift)))
-        return out
-    return layers
 
 
 def idle_frame(rig, legs, sink):
@@ -335,25 +500,27 @@ def idle_frame(rig, legs, sink):
 
 def lying(rig, drv, j):
     """The death's end: the figure as it falls (League's frame 4) without the spear a quarter turn onto the ground, his
-    head forward as League's falls (rig_jax_hd); the spear turned flat on the ground under him - turned with him, its
-    108 squares stood straight up and lifted the lying body off the ground."""
+    head forward as League's falls (rig_jax_hd); the spear flat on the ground under him - no lossless turn lays its 24
+    degrees flat (turned with him it stood straight up and lifted the lying body off the ground), so its columns slide
+    level, every square kept."""
     keep = drv.weapons
     drv.weapons = []
     try:
         body = R.lie(rig, drv.frame(j), k=-1, dx=2)
     finally:
         drv.weapons = keep
-    a = -R.heading((SPEAR_B[0] - SPEAR_A[0], SPEAR_B[1] - SPEAR_A[1]))
-    a = round(a / 2) * 2
-    L = float(np.hypot(SPEAR_B[0] - SPEAR_A[0], SPEAR_B[1] - SPEAR_A[1]))
-    mid = L / 2 - float(np.hypot(GRIP[0] - E(SPEAR_A)[0], GRIP[1] - E(SPEAR_A)[1]))   # grip -> the spear's middle
-    dx = int(round(rig.CX - (rig.ox + GRIP[0] + mid)))
-    dy = int(round(rig.GY - 2 - (rig.oy + GRIP[1])))
-    spear = R.compose(rig, [("spear", dict(angle=a, about=GRIP, dx=dx, dy=dy))])
-    spear[rig.GY:] = 0
+    sp = R.compose(rig, [("spear", dict(angle=0, about=GRIP))])
+    ys, xs = np.nonzero(sp[..., 3] > 0)
+    k = (SPEAR_B[1] - SPEAR_A[1]) / (SPEAR_B[0] - SPEAR_A[0])
+    ys = ys - np.round(k * (xs - xs.min())).astype(int)
+    flat = rig.canvas()
+    ys0 = ys - ys.max() + rig.GY - 1                 # its lowest square on the ground's row
+    xs0 = xs - int(round((xs.min() + xs.max()) / 2)) + rig.CX
+    ok = (ys0 >= 0) & (ys0 < flat.shape[0]) & (xs0 >= 0) & (xs0 < flat.shape[1])
+    flat[ys0[ok], xs0[ok]] = sp[ys[ok] + np.round(k * (xs[ok] - xs.min())).astype(int), xs[ok]]
     m = body[..., 3] > 0
-    spear[m] = body[m]
-    return spear
+    flat[m] = body[m]
+    return flat
 
 
 def frames(rig, joints):
@@ -375,15 +542,7 @@ def frames(rig, joints):
         if tag == "idle":
             fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)]) for i in range(len(ms))]
         elif tag == "run":
-            fr = []
-            for i, r in enumerate(rows):
-                j = r["j"]
-                pel = (j["pelvis"][0] - joints["design"]["pelvis"][0]) * drv.s * drv.lunge
-                lean = ((j["chest"][0] - j["pelvis"][0]) -
-                        (joints["design"]["chest"][0] - joints["design"]["pelvis"][0])) * drv.s * drv.lean
-                st = WALK[(i - 1) % len(WALK)]
-                fr.append(drv.frame(j, {"walk": walk(legs, st), "dy": -st[2], "dx": -pel,
-                                        "lean": RUN_LEAN - int(round(max(-5, min(5, lean))))}))
+            fr = run_frames(rig, rows)
         else:
             fr = [drv.frame(r["j"]) for r in rows]
         if tag == "hit":

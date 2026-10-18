@@ -1137,6 +1137,9 @@ class Driver:
             return (z - chest_z) < (z0 - d["chest"][2]) - self.margin
         arm_r = 0
         arm_layer = None
+        # a design that turns its limbs and props only losslessly (league_xinzhao: mirrored / quarter-turned, the
+        # RotSprite turns read as 「武器变形」) snaps each angle to the nearest one it can draw: D.snap(name, angle)
+        snap = getattr(self.D, "snap", None)
         if self.arm is not None:
             h_ = self.hand
             if o.get("keep"):
@@ -1160,6 +1163,8 @@ class Driver:
                                     j[f"{h_}_hand"][1] - j[f"{h_}_shoulder"][1]) * s
                     turn_ *= min(1.0, seen / (self.arm["short"] * float(np.hypot(*v_arm))))
                 arm_r = round(turn_ / 2) * 2 + o.get("arm", 0)
+            if snap is not None:
+                arm_r = snap(self.arm["name"], arm_r)
             arm_layer = (back if behind(j[f"{h_}_hand"][2], d[f"{h_}_hand"][2]) else front,
                          (self.arm["name"], dict(dx=ux, dy=dy, angle=arm_r, about=tuple(self.arm["shoulder"]))))
             if not self.arm.get("over_weapon"):
@@ -1200,6 +1205,9 @@ class Driver:
                 ours = heading(np.array(w["tip"], float) - np.array(w.get("ref", w["grip"]), float))
                 wr = round(wrap(want - ours) / 2) * 2 + o.get("weapon", 0)
 
+            if snap is not None:
+                wr = snap(w["name"], wr)
+
             def slide_at(a_ang):
                 """(dx, dy) the weapon slides through the hand along its own line at angle a_ang: as League's hand
                 moves along League's weapon (league_xinzhao: League holds the spear by the butt to thrust, the picture
@@ -1239,7 +1247,8 @@ class Driver:
                 if low(wr) > lim:
                     best = None
                     for k in range(2, 182, 2):
-                        ok = [a for a in (wr + k, wr - k) if low(a) <= lim]
+                        cand = (wr + k, wr - k) if snap is None else (snap(w["name"], wr + k), snap(w["name"], wr - k))
+                        ok = [a for a in cand if low(a) <= lim]
                         same = [a for a in ok if np.sign(np.cos(np.radians(h0 + a))) == side]
                         if same:
                             best = same[0]
@@ -1248,8 +1257,6 @@ class Driver:
                             best = ok[0]
                     if best is not None:
                         wr = best
-            sx_, sy_ = slide_at(wr)
-            gx, gy = gx + int(round(sx_)), gy + int(round(sy_))
             wz = (j["weapon_a"][2] + j["weapon_b"][2]) / 2
             wz0 = (d["weapon_a"][2] + d["weapon_b"][2]) / 2
             in_back = behind(wz, wz0) and not w.get("always_front")
@@ -1257,8 +1264,47 @@ class Driver:
                 # a weapon the picture draws behind the body (league_xinzhao's spear across his back): in front only
                 # when League's came forward from its place in the design pose by more than the margin
                 in_back = not ((wz - chest_z) > (wz0 - d["chest"][2]) + self.margin)
-            (back if in_back else front).append(
-                (w["name"], dict(dx=ux + gx, dy=dy + gy, angle=wr, about=tuple(grip), src=w.get("src"))))
+            if w.get("face") and not in_back and not o.get("keep"):
+                # a long weapon in front of the body never across the face (league_xinzhao's spear over his eyes): the
+                # next angle it can take nearest League's that keeps `face` (x, y, r: design squares, moving with the
+                # upper body) r clear of its line and stays out of the ground; none within `face_turn` degrees - behind
+                fx_, fy_, fr_ = w["face"]
+                blade_ = np.array(w["slide"]["blade"] if w.get("slide") else w["grip"], float)
+                tip0 = np.array(w["tip"], float)
+                lim_ = (max(lg["sole"][1] for lg in self.legs) + w.get("floor", 99) - (dy + gy)) if self.legs else 1e9
+
+                def face_ok(a):
+                    sx2, sy2 = slide_at(a)
+                    p0 = turn_pt(blade_, grip, a) + (sx2, sy2)
+                    p1 = turn_pt(tip0, grip, a) + (sx2, sy2)
+                    q = np.array((fx_, fy_), float) - (gx, gy)        # the face against the weapon's own frame
+                    v = p1 - p0
+                    t = float(np.clip(np.dot(q - p0, v) / max(1e-9, np.dot(v, v)), 0, 1))
+                    return float(np.hypot(*(q - (p0 + t * v)))) > fr_
+
+                def low_ok(a):
+                    if w.get("floor") is None or not self.legs:
+                        return True
+                    pts_ = np.array(self.D.polys[w["name"]], float)
+                    return max(turn_pt(p_, grip, a)[1] for p_ in pts_) + slide_at(a)[1] <= lim_
+                if not face_ok(wr):
+                    target = wr
+                    cands = sorted({(snap(w["name"], wr + k) if snap is not None else wr + k) for k in range(-180, 181, 2)},
+                                   key=lambda a: abs(wrap(a - target)))
+                    pick = next((a for a in cands if abs(wrap(a - target)) <= w.get("face_turn", 70)
+                                 and face_ok(a) and low_ok(a)), None)
+                    if pick is None:
+                        in_back = True
+                    else:
+                        wr = pick
+            sx_, sy_ = slide_at(wr)
+            gx, gy = gx + int(round(sx_)), gy + int(round(sy_))
+            wlist = back if in_back else front
+            wlist.append((w["name"], dict(dx=ux + gx, dy=dy + gy, angle=wr, about=tuple(grip), src=w.get("src"))))
+            if arm_layer is not None and self.arm.get("with_weapon"):
+                # the fist on the same side of the body as the weapon it holds (league_xinzhao: the spear came in front
+                # while League's hand went behind him - a spear in front of his face with no hand on it)
+                arm_layer = (wlist, arm_layer[1])
         if arm_layer is not None and self.arm.get("over_weapon"):
             arm_layer[0].append(arm_layer[1])          # the fist over the hilt
         for at in self.attach:
