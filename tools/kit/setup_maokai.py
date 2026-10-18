@@ -35,8 +35,9 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#7dd87dff>"      # heals
 E = "<>"
 # champion_view: the face between the eyes of the face in his trunk (ppu_restyle face_to); the card's top at the moss
-# crown (30 px over the frame centre on lo_idle: banpick_center y = -39 + 30)
-VIEW = {"face": {"x": 8, "y": -23}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -9}}
+# crown (29.3 px over the frame centre on lo_idle at PPU 1.3, tools/art/bp_card_audit.py: banpick_center y = -39 + 29;
+# -9 at 1.5)
+VIEW = {"face": {"x": 8, "y": -23}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

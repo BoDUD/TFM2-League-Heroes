@@ -233,7 +233,7 @@
 
 ![吉格斯演示：对德莱厄斯：Q 弹跳炸弹一跳一跳飞过去，第一跳落地没碰到人弹起来，第二跳落在他身上炸开；E 海克斯爆破雷区：一把地雷撒在他脚下，他踩中第一颗被减速，往前走又踩中一颗；他贴到吉格斯身边，W 定点爆破：炸药包在吉格斯脚下炸开，德莱厄斯被炸退、吉格斯被炸飞到后面；一触即发的海克斯强化炸弹；R 科学的地狱火炮：吉格斯举起大炸弹扔出去，德莱厄斯脚下亮起红色骷髅预警圈，大炸弹落地炸出蘑菇云，把他炸倒](docs/preview/league_ziggs_showcase.gif?v=1018a)
 
-![茂凯演示：对德莱厄斯：E 树苗投掷：树苗翻滚着飞到他身前、扎根站岗，他在旁边，树苗跳起来扑到他身上炸开，脚下一摊黏液减速；W 扭曲突刺：茂凯沉进地里，一团树根在地下冲到德莱厄斯身边，茂凯破土而出把他禁锢；马上接 Q 荆棘重击：巨拳砸地，德莱厄斯被推开，冲击波沿地面往前推；吸元秘术的一下：绿色的魔法爆开、回血的光从茂凯脚下卷上来；R 自然之握：两臂砸地，一道荆棘墙慢慢推过去，缠住德莱厄斯，茂凯脚下起风加速](docs/preview/league_maokai_showcase.gif?v=1018a)
+![茂凯演示：对德莱厄斯：E 树苗投掷：树苗翻滚着飞到他身前、扎根站岗，他在旁边，树苗跳起来扑到他身上炸开，脚下一摊黏液减速；W 扭曲突刺：茂凯沉进地里，一团树根在地下冲到德莱厄斯身边，茂凯破土而出把他禁锢；马上接 Q 荆棘重击：巨拳砸地，德莱厄斯被推开，冲击波沿地面往前推；吸元秘术的一下：绿色的魔法爆开、回血的光从茂凯脚下卷上来；R 自然之握：两臂砸地，一道荆棘墙慢慢推过去，缠住德莱厄斯，茂凯脚下起风加速](docs/preview/league_maokai_showcase.gif?v=1018b)
 
 ## 英雄：盖伦
 
@@ -5358,7 +5358,7 @@ python addons/league_ziggs/make_override.py          # 附加包的副本（主�
 
 | 部分 | 内容 |
 |---|---|
-| 定位 | 辅助（Util，标签 AP / Magic / Melee / Tank / CC / Heal），第 125 位英雄。扭曲树精 茂凯：被暗影岛的黑雾逼得愤怒的巨大树精（10-17 的分组计划 A 组的辅助）。用户的选择：「全按推荐做：辅助、布局A、做扩展包、PPU 1.2、加高手连招」（PPU 后来改成 1.5，见精灵图）。技能 1 = Q 荆棘重击，技能 2 = W 扭曲突刺，大招 = R 自然之握；E 树苗投掷没有自己的格子，守望自动扔。技能名照英雄联盟 16.20 的官方中文 |
+| 定位 | 辅助（Util，标签 AP / Magic / Melee / Tank / CC / Heal），第 125 位英雄。扭曲树精 茂凯：被暗影岛的黑雾逼得愤怒的巨大树精（10-17 的分组计划 A 组的辅助）。用户的选择：「全按推荐做：辅助、布局A、做扩展包、PPU 1.2、加高手连招」（PPU 后来改成 1.5，再降到 1.3，见精灵图）。技能 1 = Q 荆棘重击，技能 2 = W 扭曲突刺，大招 = R 自然之握；E 树苗投掷没有自己的格子，守望自动扔。技能名照英雄联盟 16.20 的官方中文 |
 | 普攻 / 被动 | 巨臂砸击（第 11 tick 打中，防御塔也打），攻击间隔 75 tick，射程 26000。**吸元秘术**：他的技能打中敌人后（`sap` 5 秒），下一次普攻额外造成他最大生命 2% 的魔法伤害，并回复 40 + 60% 法术强度的生命，两次之间至少 4 秒（英雄联盟是回复最大生命的 4.5%–12%，冷却随施法缩短：数据读不到生命，按最大生命回血在附加包里） |
 | E | **树苗投掷**（守望自动扔，10 秒一次）：有敌方英雄在 60000 内、他没在施法时，把树苗扔向那名英雄出手时站的位置（走开就砸不到人）；树苗落地 0.5 秒后戒备 12 秒（英雄联盟 30 秒：包里的陷阱最长 12 秒，再长技能树太大），一次一棵；敌人（小兵也算）走到 14000 以内就扑上去炸开：24000 内 100 + 50% 法术强度的魔法伤害，减速 35% 2 秒（照提莫蘑菇的触发 / 爆炸标记）。草丛里更强在附加包里（数据读不到地形） |
 | 技能1 | **Q 荆棘重击**（对 30000 内的敌人放，小兵、野怪也打）：第 12 tick 巨拳砸地，身边 16000 内的敌人被推开，一道冲击波往前推 45000：100 + 40% 法术强度的魔法伤害外加目标最大生命 2%（真实伤害：魔法伤害没有按目标生命的字段），减速 95% 很快减弱（两层减速叠在一起）。冷却 6 秒 |
@@ -5368,7 +5368,7 @@ python addons/league_ziggs/make_override.py          # 附加包的副本（主�
 | 附加包 | 可选的附加包 [`addons/league_maokai`](addons/league_maokai/README.md)（在附加包合集里，原生代码，主包不装它也完整）：**吸元秘术按等级回复最大生命的 4.5%–12%**；**被敌方技能打中也会充好吸元秘术**（近似：打他的敌方英雄的技能 1.5 秒内刚进入冷却就算技能打中——原生被动收到伤害时分不出普攻和技能）；**草丛里的树苗更强**（读地图的草丛格子：爆炸半径 34000、伤害 ×1.6、减速 45%）。日志 `league_maokai.log`（HEAL、STRUCK、SAPLING、BUSHES） |
 | 数值 | 攻击 72（+6）、法强 25（+15）、生命 1420（+135）、护甲 50（+9）、魔抗 36（+4）、移速 1000（+10）、射程 26000 |
 | 平衡 | 10 分钟经典引擎模拟，辅助位对原版五个辅助（牧师、吟游诗人、附魔师、武僧、道士），三套阵容两边各打：初稿 -0.85，只加数值几乎不动（-1.2 ~ -0.9，单批噪声约 ±0.7）；定稿缩短 E / W 冷却（10 秒）、W 身边有友方英雄的距离放宽到 70000、禁锢 1.3 秒，Q / W / E 伤害 100、R 180，生命 1420（+135）、护甲 50（+9）、魔抗 36：种子 1–16 平均 **+0.04**（每局输出 5222、阵亡 1.6；同批对照布隆 +0.48、芮尔 +0.60、蕾欧娜 +1.31，种子 1–8） |
-| 精灵图（高清帧 PPU 1.5） | Codex 第 0 步画了待机（A）和树苗（C）两张原画（[`tools/art/pack_maokai_picture.py`](tools/art/pack_maokai_picture.py)），[`tools/art/review_maokai_size.py`](tools/art/review_maokai_size.py) 和塔姆、布隆、芮尔、内瑟斯、加里奥、墨菲特、阿利斯塔按游戏大小并排，用户：「用40的吧」。第 1 步 Codex 在游戏格子上重画（[`tools/art/pack_maokai_model.py`](tools/art/pack_maokai_model.py)），按 PPU 1.2 删到 48 行太糊，用户：「太模糊了 PPU调整一下像素」，改成 PPU 1.5：[`tools/art/design_maokai_cut.py`](tools/art/design_maokai_cut.py) 读回 A-2（80 行）、每次删掉「删了损失最小」的一行 / 一列到 60 行（蓝色发光和描边权重更高），树苗 C-2 12×18。动作照塔姆的做法（用户：「动作帧的话你参考塔姆怎么做的 做完后自己review 完美了再喊我review」）：[`tools/art/rig_maokai.py`](tools/art/rig_maokai.py) 把定稿切成巨臂（连拳头落地的根须指头）、远侧爪子和树苗、灯笼、腰带下垂着的根须、远侧树根腿和树干，只整格平移、分层、逐行平移（腿绕胯摆）。腿改了三轮：蹲下时从树根里抽掉一行、巨臂往前盖住膝根（「腿部变形了吧 少了像素？」）→ 腿一格不抽，树干沉到腿后面；把垂饰当膝盖、把拳头的根须当脚横着挪（「左腿完全不动啊？」「左右腿还是太奇怪了」）→ 按材质图重认结构：近侧腿整个藏在巨拳后面，走路是拳头和远侧腿轮流迈步（像大猩猩那样撑着拳头走），远侧腿绕胯摆动、整条腿每一格都在，垂饰被拳头推着晃，用户：「走路可以了」。动作：待机（树干下沉、灯笼晃）、走路、普攻、Q 砸地、W 钻地 / 冒出、E 扔树苗、R 两臂砸地、挨打、阵亡（往前扑倒，灯笼掉在地上立着） |
+| 精灵图（高清帧 PPU 1.3） | Codex 第 0 步画了待机（A）和树苗（C）两张原画（[`tools/art/pack_maokai_picture.py`](tools/art/pack_maokai_picture.py)），[`tools/art/review_maokai_size.py`](tools/art/review_maokai_size.py) 和塔姆、布隆、芮尔、内瑟斯、加里奥、墨菲特、阿利斯塔按游戏大小并排，用户：「用40的吧」。第 1 步 Codex 在游戏格子上重画（[`tools/art/pack_maokai_model.py`](tools/art/pack_maokai_model.py)），按 PPU 1.2 删到 48 行太糊，用户：「太模糊了 PPU调整一下像素」，改成 PPU 1.5：[`tools/art/design_maokai_cut.py`](tools/art/design_maokai_cut.py) 读回 A-2（80 行）、每次删掉「删了损失最小」的一行 / 一列到 60 行（蓝色发光和描边权重更高），树苗 C-2 12×18。动作照塔姆的做法（用户：「动作帧的话你参考塔姆怎么做的 做完后自己review 完美了再喊我review」）：[`tools/art/rig_maokai.py`](tools/art/rig_maokai.py) 把定稿切成巨臂（连拳头落地的根须指头）、远侧爪子和树苗、灯笼、腰带下垂着的根须、远侧树根腿和树干，只整格平移、分层、逐行平移（腿绕胯摆）。腿改了三轮：蹲下时从树根里抽掉一行、巨臂往前盖住膝根（「腿部变形了吧 少了像素？」）→ 腿一格不抽，树干沉到腿后面；把垂饰当膝盖、把拳头的根须当脚横着挪（「左腿完全不动啊？」「左右腿还是太奇怪了」）→ 按材质图重认结构：近侧腿整个藏在巨拳后面，走路是拳头和远侧腿轮流迈步（像大猩猩那样撑着拳头走），远侧腿绕胯摆动、整条腿每一格都在，垂饰被拳头推着晃，用户：「走路可以了」。看了演示：「太高清了 降低点像素」，[`tools/art/review_maokai_ppu.py`](tools/art/review_maokai_ppu.py) 按游戏大小并排 1.5 / 1.4 / 1.3 / 1.2，用户：「1.3吧 怎么感觉右手和身体是断开的」：60 行的删减把胡子和手之间隔一列删一列，描边权重又高，原画里从胡子下面连进手腕的苔藓袖子成了苔藓和描边一格一格交错；`rig_maokai.SLEEVE` 把那里 10 个描边格按 A-2 换回袖子的苔藓色（只换描边格，别的不动），再由 `ppu_restyle` 降到 **PPU 1.3**（hd.rs 已登记，大小不变）。动作：待机（树干下沉、灯笼晃）、走路、普攻、Q 砸地、W 钻地 / 冒出、E 扔树苗、R 两臂砸地、挨打、阵亡（往前扑倒，灯笼掉在地上立着） |
 | 特效 | 第 3 步 21 张特效（[`tools/art/pack_maokai_fx.py`](tools/art/pack_maokai_fx.py)，颜色照英雄联盟：被动的绿色自然魔法，Q 的橄榄褐尘土和白色光刺，W 带青色光纹的树根和泥块，树苗爆炸的青绿色，R 带刺的树根、荆棘和发青光的地裂），Codex 画并读回成游戏大小（`assets/source/maokai/codex_fx`），地上和身上的全部左右对称（游戏不镜像特效图），四张飞行图（树苗、Q 冲击波、W 地下的树根团、R 荆棘墙）朝右、上下对称（图跟着飞行方向转，荆棘墙斜着放就是斜的），地上的树苗正面朝前。[`tools/art/import_maokai_fx.py`](tools/art/import_maokai_fx.py)：打中的在身上，Q / W / R 的砸地在他脚下，飞行图以弹道为中心，树苗落地的最后一帧撑到戒备开始，站岗 4 帧正好 0.5 秒（每 0.5 秒重放一次），W / R 的禁锢是缠住腿的树根。写成 `league_maokai_fx` 和 `league_maokai_big` |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_maokai.py`](tools/lol/extract_maokai.py)，21 段）：普攻出手 / 打中、吸元秘术打中 / 回血、Q 出手 / 冲击波 / 打中、W 出手 / 树根缠住 / 打中、E 出手 / 落地 / 扑人 / 爆炸、R 出手 / 荆棘墙 / 打中，配音是他的 Q / E / R 台词和一句喊话（中文）；几个事件名在音效库里解析不到，用最接近的代替（脚本开头写了） |
 | 图标 | 官方技能图标（荆棘重击、扭曲突刺、自然之握，另有树苗投掷和吸元秘术），从本地客户端取 |
@@ -5380,8 +5380,8 @@ python tools/lol/extract_maokai.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstr
 python tools/kit/build_maokai.py                    # 技能数据，数字都在脚本的参数表 P 里
 python tools/kit/setup_maokai.py                    # 五种语言的文字、音效配置、共享文件里他的键
 python tools/art/design_maokai_cut.py               # Codex 第 1 步的造型读回（PPU 1.5，A-2 / C-2）
-python tools/art/rig_maokai.py                      # 1 倍帧和 1.5 的原帧（整块摆，腿绕胯摆）
-python tools/art/ppu_restyle.py --hero maokai       # 描边（不要加 --preview）
+python tools/art/rig_maokai.py                      # 1 倍帧和 1.5 的原帧（整块摆，腿绕胯摆，补回右手的袖子）
+python tools/art/ppu_restyle.py --hero maokai       # 描边、降到 PPU 1.3（不要加 --preview）
 python tools/art/ppu_hd.py --hero maokai            # hd_ / lo_ 帧
 python tools/art/import_maokai_fx.py                # 特效
 python tools/art/preview_maokai.py                  # 预览和演示 GIF
@@ -5390,7 +5390,7 @@ python addons/league_maokai/make_override.py        # 附加包的副本（主�
 
 美术提示词见 [`assets/source/maokai/`](assets/source/maokai/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
 
-逐帧预览：[`docs/preview/league_maokai_frames.png`](docs/preview/league_maokai_frames.png?v=1018a)，特效：[`docs/preview/league_maokai_effects.png`](docs/preview/league_maokai_effects.png?v=1018a)。
+逐帧预览：[`docs/preview/league_maokai_frames.png`](docs/preview/league_maokai_frames.png?v=1018b)，特效：[`docs/preview/league_maokai_effects.png`](docs/preview/league_maokai_effects.png?v=1018b)。
 
 ## 选人卡片位置（`banpick_center`）
 

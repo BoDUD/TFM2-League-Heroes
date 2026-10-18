@@ -146,8 +146,24 @@ def violet(d):
     return (d[..., 3] > 0) & (rgb[..., 2] > rgb[..., 0] + 40) & (rgb[..., 2] > rgb[..., 1] + 40)
 
 
+# The far forearm (2026-10-18, the user on the PPU choices: 「怎么感觉右手和身体是断开的」): in Codex's A-2 (80 rows) the
+# moss sleeve runs from under the beard straight into the wooden hand that holds the sapling; the 60-row cut dropped every
+# other column between them (49, 51 ... 59), and the cut's outline weight (x3) kept the outline columns over the
+# sleeve's, so the sleeve came out moss and outline in turn and the hand looked cut off. Every outline square between
+# the beard and the hand (rows 30-40, columns 44-48) whose A-2 squares are sleeve takes the sleeve's commonest moss
+# there (tools: the cut's kept rows / columns recomputed, design_maokai_cut.dp_cut) - the moss now runs into the wrist
+# as in A-2 (and the two squares where A-2's light moss meets the hand, columns 58-60 rows 47-50, column 47 here);
+# nothing else changes.
+SLEEVE = {(33, 44): (69, 85, 43), (33, 46): (167, 190, 52), (34, 45): (112, 137, 49), (36, 48): (112, 137, 49),
+          (37, 44): (50, 61, 37), (37, 48): (69, 85, 43), (38, 48): (112, 137, 49), (39, 48): (50, 61, 37),
+          (34, 47): (112, 137, 49), (35, 47): (112, 137, 49)}
+
+
 def design():
     d = load("design.png")
+    for (y, x), rgb in SLEEVE.items():
+        assert d[y, x, 3] and max(d[y, x, :3]) < 45, (y, x, d[y, x])   # outline squares only
+        d[y, x] = (*rgb, 255)
     D = CutDesign(d, px=31)
     D.part("far_leg", D.rows(FAR_LEG) & ~violet(d))
     D.part("tassel", D.rows(TASSEL) & ~violet(d))

@@ -271,10 +271,11 @@ RESTYLE = {
     # outer outline grown a square like the others; the face point between his goggles
     "ziggs": dict(ppu=1.2, edge=1, face_to=(2, -26)),
     # league_maokai (#125): posed from the design's own squares at 1.5 squares a game pixel (the user picked 40 game rows
-    # at 1.2, then 「太模糊了 PPU调整一下像素」: Codex's step-1 take A-2 cut to 60 rows) by tools/art/rig_maokai.py, so no
-    # proportion or density change here; the outer outline grown a square like the others; the face point between the
-    # eyes of the face in his trunk
-    "maokai": dict(ppu=1.5, edge=1, face_to=(8, -23)),
+    # at 1.2, then 「太模糊了 PPU调整一下像素」: Codex's step-1 take A-2 cut to 60 rows) by tools/art/rig_maokai.py, then
+    # brought to 1.3 here (the user, 2026-10-18, on the PR: 「太高清了 降低点像素」 - shown 1.5 / 1.4 / 1.3 / 1.2 by
+    # tools/art/review_maokai_ppu.py: 「1.3吧」); the outer outline grown a square like the others; the face point between
+    # the eyes of the face in his trunk
+    "maokai": dict(ppu=1.3, edge=1, face_to=(8, -23)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
