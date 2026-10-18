@@ -556,6 +556,91 @@ def drawn_frame(rig, drv, joints, parts, j, r_form=False):
     return out
 
 
+# ------------------------------------------------------------------------------------------------- redrawn actions
+# The user, 2026-10-18 「让 Codex 按定稿设计图逐帧重画平A三套、E、Q（参考英雄联盟关键帧和 oppi 画风）」: these tags'
+# bodies are Codex's whole-frame drawings (tools/art/pack_riven_actions.py, read back by tools/art/actions_riven_hd.py
+# into hd/actions/), each stood on the ground by its pivot, the sword put in the fist marked by eye, pointing the way
+# League's weapon points in that frame - in front of her or behind as League's is, behind where a front one would
+# cross her head (HAIR's squares in that frame).
+REDRAWN = {"attack", "attack2", "attack3", "skill", "q2", "q3", "skill2"}
+HAIR = [(251, 235, 215), (236, 234, 234), (210, 188, 174), (213, 209, 204), (192, 164, 144), (176, 172, 170),
+        (173, 147, 134)]
+_ACTIONS = {}
+SHOWN_MIN = 0.4                        # a sword behind her shows at least this share of itself, else it comes in front
+REDRAWN_TURN = 120                     # a fist by her head: the sword may turn this far off League's to clear her head
+
+
+def action(name):
+    if not _ACTIONS:
+        ad = os.path.join(R.ROOT, "assets", "source", HERO, "hd", "actions")
+        with open(lp(os.path.join(ad, "actions.json")), encoding="utf-8") as f:
+            info = json.load(f)
+        for k, v in info.items():
+            _ACTIONS[k] = (np.asarray(Image.open(lp(os.path.join(ad, k + ".png"))).convert("RGBA")), v)
+    return _ACTIONS[name]
+
+
+def crosses_head(img, fist, heading, length):
+    """Does a blade from GUARD_AT to `length` squares along `heading` from `fist` pass over her hair or face?"""
+    hair = np.zeros(img.shape[:2], bool)
+    for c in HAIR:
+        hair |= (img[..., :3] == c).all(-1) & (img[..., 3] > 0)
+    ys, xs = np.nonzero(hair)
+    if not len(ys):
+        return False
+    u = np.array((np.cos(np.radians(heading)), -np.sin(np.radians(heading))))
+    for t in np.arange(GUARD_AT, length, 0.5):
+        x, y = np.array(fist) + u * t
+        xi, yi = int(np.floor(x)), int(np.floor(y))
+        if 0 <= yi < hair.shape[0] and 0 <= xi < hair.shape[1] and \
+                hair[max(0, yi - 1):yi + 2, max(0, xi - 1):xi + 2].any():
+            return True
+    return False
+
+
+def redrawn_frame(rig, drv, base, n, j, kind):
+    img, info = action(f"{base}_{n}")
+    D = rig.D
+    x0 = int(round(rig.CX - info["pivot"][0]))
+    y0 = int(round(rig.GY - info["pivot"][1]))
+    body = rig.canvas()
+    h, w = img.shape[:2]
+    body[y0:y0 + h, x0:x0 + w] = img
+    fist = np.array(info["fist"], float) + 0.5
+    heading = drv.ang(j, "weapon", "weapon_tip")
+    d = drv.d
+    wz = (j["weapon_a"][2] + j["weapon_b"][2]) / 2
+    wz0 = (d["weapon_a"][2] + d["weapon_b"][2]) / 2
+    front = (wz - j["chest"][2]) >= (wz0 - d["chest"][2]) - drv.margin
+    length = reach(D.swords, kind)[1]
+    if not front:
+        # behind her and hidden: a swing with no sword in it (her second attack, the dash) - in front instead
+        sw = stamp(rig, D.swords, kind, heading, (x0 + fist[0], y0 + fist[1]))[..., 3] > 0
+        if (sw & ~(body[..., 3] > 0)).sum() < SHOWN_MIN * max(1, sw.sum()):
+            front = True
+    if front and crosses_head(img, fist, heading, length):
+        turned = next((heading + s * k for k in range(4, REDRAWN_TURN + 1, 4) for s in (1, -1)
+                       if not crosses_head(img, fist, heading + s * k, length)), None)
+        if turned is None:
+            front = False
+        else:
+            heading = turned
+    sword = stamp(rig, D.swords, kind, heading, (x0 + fist[0], y0 + fist[1]))
+    sword[rig.GY:] = 0                                   # never into the ground
+    if front:
+        out = body.copy()
+        over(out, sword)
+        # her fist over the grip: the hand's own squares round the fist point drawn again
+        yy, xx = np.mgrid[0:h, 0:w]
+        near = (np.hypot(xx + 0.5 - fist[0], yy + 0.5 - fist[1]) <= 2.2) & (img[..., 3] > 0)
+        sub = out[y0:y0 + h, x0:x0 + w]
+        sub[near] = img[near]
+        return out
+    out = sword
+    over(out, body)
+    return out
+
+
 def frames(rig, joints):
     drvs = {False: driver(rig, joints), True: driver(rig, joints, "reforged")}
     swings = {False: driver(rig, joints, front=True), True: driver(rig, joints, "reforged", front=True)}
@@ -584,7 +669,14 @@ def frames(rig, joints):
         rows = R.fit_rows(joints["tags"][clip], len(timing[tag]))
         ms = [m for _, m in timing[tag]]
         drv = (drvs if tag in ("run", "hit", "dead") else swings)[tag in R_TAGS or tag in R_FORM]
-        if tag == "idle":
+        if base in REDRAWN:
+            # Codex's frames, League's frame of the base tag each (the R forms take the same drawings)
+            lg = joints["tags"][base]
+            idx = [min(len(lg) - 1, int(i * len(lg) / len(ms))) for i in range(len(ms))] if len(lg) != len(ms) \
+                else list(range(len(ms)))
+            kind = "reforged" if (tag in R_TAGS or tag in R_FORM) else "normal"
+            fr = [redrawn_frame(rig, drv, base, k + 1, lg[k]["j"], kind) for k in idx]
+        elif tag == "idle":
             fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)], IDLE_HOLD) for i in range(len(ms))]
         elif base in LEG_TAGS:
             fr = [drawn_frame(rig, drv, joints, parts, r["j"]) for r in rows]

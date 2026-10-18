@@ -1,0 +1,202 @@
+{
+ "square": 8,
+ "cell": [
+  512,
+  1024
+ ],
+ "ground": 874,
+ "per_sheet": 3,
+ "sheets": [
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "attack",
+   "action": "basic attack 1 (riven_attack1)"
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "attack",
+   "action": "basic attack 1 (riven_attack1)"
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "attack",
+   "action": "basic attack 2 (riven_attack2)"
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "attack",
+   "action": "basic attack 2 (riven_attack2)"
+  },
+  {
+   "tag": "attack3",
+   "name": "attack3_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "attack",
+   "action": "basic attack 3 (riven_attack3)"
+  },
+  {
+   "tag": "attack3",
+   "name": "attack3_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "attack",
+   "action": "basic attack 3 (riven_attack3)"
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "skill",
+   "action": "Broken Wings, 1st strike (riven_spell1a)"
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "skill",
+   "action": "Broken Wings, 1st strike (riven_spell1a)"
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    7
+   ],
+   "oppi": "skill",
+   "action": "Broken Wings, 1st strike (riven_spell1a)"
+  },
+  {
+   "tag": "q2",
+   "name": "q2_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "skillp2",
+   "action": "Broken Wings, 2nd strike (riven_spell1b)"
+  },
+  {
+   "tag": "q2",
+   "name": "q2_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "skillp2",
+   "action": "Broken Wings, 2nd strike (riven_spell1b)"
+  },
+  {
+   "tag": "q2",
+   "name": "q2_3",
+   "frames": [
+    7
+   ],
+   "oppi": "skillp2",
+   "action": "Broken Wings, 2nd strike (riven_spell1b)"
+  },
+  {
+   "tag": "q3",
+   "name": "q3_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "flip",
+   "action": "Broken Wings, 3rd strike - the leap (riven_spell1c)"
+  },
+  {
+   "tag": "q3",
+   "name": "q3_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "flip",
+   "action": "Broken Wings, 3rd strike - the leap (riven_spell1c)"
+  },
+  {
+   "tag": "q3",
+   "name": "q3_3",
+   "frames": [
+    7
+   ],
+   "oppi": "flip",
+   "action": "Broken Wings, 3rd strike - the leap (riven_spell1c)"
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "skill2",
+   "action": "Valor dash then Ki Burst (riven_spell3 -> riven_spell2)"
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "skill2",
+   "action": "Valor dash then Ki Burst (riven_spell3 -> riven_spell2)"
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    7,
+    8
+   ],
+   "oppi": "skill2",
+   "action": "Valor dash then Ki Burst (riven_spell3 -> riven_spell2)"
+  }
+ ]
+}
