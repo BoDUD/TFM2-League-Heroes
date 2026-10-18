@@ -81,6 +81,11 @@ FX = {
 }
 
 
+# a stray 4-square bar Codex left floating 20 rows above the quake's dust in r_tap's last frame (rows 0-3 are otherwise
+# empty there): (effect, frame index) -> rows cleared
+STRAY = {("r_tap", 4): (0, 4)}
+
+
 def cells(name, meta):
     a = np.asarray(Image.open(lp(os.path.join(SRC, meta["pixel_1x"]))).convert("RGBA")).copy()
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
@@ -89,6 +94,9 @@ def cells(name, meta):
     if a.shape[1] != w * meta["frames"] or a.shape[0] != h:
         sys.exit(f"{name}: sheet {a.shape[1]}x{a.shape[0]} is not {meta['frames']} cells of {w}x{h}")
     out = [a[:h, k * w:(k + 1) * w].copy() for k in range(meta["frames"])]
+    for (nm, k), (r0, r1) in STRAY.items():
+        if nm == name:
+            out[k][r0:r1] = 0
     for k, c in enumerate(out):
         mirror = c[::-1] if name in FLYING else c[:, ::-1]
         if not (c == mirror).all():
@@ -110,9 +118,8 @@ def main():
     ap.add_argument("--review", help="write every effect's game-size cells at 6x here")
     a = ap.parse_args()
     man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
-    # Codex's manifest (2026-10-18): "effects", each with name, file (the 8x sheet's name, the same in pixel_1x/), frames
-    # and cell_1x
-    meta = {e["name"]: dict(e, pixel_1x=os.path.join("pixel_1x", e["file"])) for e in man["effects"]}
+    # Codex's manifest (2026-10-18): "assets", each with name, file, pixel_1x, frames and cell_1x ("effects" in older ones)
+    meta = {e["name"]: dict(e, pixel_1x=e.get("pixel_1x") or os.path.join("pixel_1x", e["file"])) for e in man.get("effects") or man["assets"]}
     if set(meta) != set(FX):
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
     allc = {n: cells(n, meta[n]) for n in FX}
