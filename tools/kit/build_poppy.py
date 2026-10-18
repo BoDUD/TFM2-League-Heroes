@@ -55,6 +55,9 @@ P = {
     # W Steadfast Presence (League: +16% armour / MR, x2 under 40% hp; +40% ms, aura r 400 for 2 s, dashers knocked
     # up 0.5 s, then grounded + 25% slow 2 s, cd 20-12)
     "w_def": 16, "w_cd": 900, "w_go": 40000, "w_r": 35000, "w_t": 120, "w_p": 3, "w_hold": 6, "w_ms": 40,
+    # the add-on's interrupt (League: 70-230 +70% AP magic, knock-up 0.5 s, then grounded + 25% slow 2 s; armour / MR
+    # doubled under 40% health) and its buckler shield (League: 11-21% max health by level)
+    "w_dmg": 70, "w_ap": 70, "w_up": 30, "w_ground": 120, "w_slow": 25, "w_low": 40, "p_sh_min": 11, "p_sh_max": 21,
     # Q Hammer Shock (League: 430 range, 30-130 +75% bonus AD +7-9% max hp, slow 20-32% 1 s, then again, cd 8-4)
     "q_cd": 420, "q_range": 30000, "q_dur": 28, "q_rel": 12, "q_r": 18000, "q_dmg": 40, "q_ratio": 50, "q_hp": 4,
     "q_t": 60, "q_slow": 25, "q_p": 10,
@@ -67,6 +70,8 @@ P = {
     "r_cd": 3600, "r_range": 55000, "r_tap_r": 28000, "r_tap_dmg": 80, "r_tap_ratio": 40, "r_up": 60, "r_tap_t": 20,
     "r_tap_rel": 8, "r_ch": 40, "r_rel": 8, "r_rec": 14, "r_len": 70000, "r_speed": 7000, "r_w": 9000,
     "r_dmg": 150, "r_ratio": 70, "r_kb_speed": 3000, "r_kb_t": 18,
+    # the add-on's flight toward his own fountain (League: up to 3400 units, a quarter of the map)
+    "r_far": 150000, "r_far_speed": 6000,
     "vo_gap": 600,
     "native": 0,
 }
@@ -227,15 +232,16 @@ def build(p):
     # ------------------------------------------------------------------ W Steadfast Presence
     w_passive = sw("w_pas", NONE, flag("w_pas", None, defence_mult=p["w_def"], magic_resistance_mult=p["w_def"]))
     pulse = around(p["w_r"], "EnemyChampion", [{"type": "BlockMoveSkill", "tick": p["w_hold"]}])
+    # (the add-on grounds only the enemies it catches dashing: no pulses in its copy)
+    grounds = [] if nat else [pulse, on_me(casted(p["w_t"], p["w_p"], pulse))]
     steadfast = combine(flag("w_cd", p["w_cd"]), refresh("w_ms", p["w_t"], move_speed_mult=p["w_ms"]),
-                        refresh("w_on", p["w_t"]), cview("w_cast"), sfx("w"), voice("vo_w", p),
-                        pulse, on_me(casted(p["w_t"], p["w_p"], pulse)))
+                        refresh("w_on", p["w_t"]), cview("w_cast"), sfx("w"), voice("vo_w", p), *grounds)
     w_check = combine(w_passive, sw("w_cd", NONE, pick(p["w_go"], "EnemyChampion", on_me(steadfast))))
 
     # ------------------------------------------------------------------ passive Iron Ambassador (in the attack)
-    shield = on_me({"type": "Shield", "amount": p["p_sh"], "attack_ratio": p["p_sh_ad"], "ap_ratio": 0,
-                    "tick": p["p_sh_t"]}, flag("p_shown", p["p_sh_t"]),
-                   delayed(p["p_sh_t"], *rm("p_shown")))
+    give = native("pick") if nat else {"type": "Shield", "amount": p["p_sh"], "attack_ratio": p["p_sh_ad"], "ap_ratio": 0,
+                                         "tick": p["p_sh_t"]}
+    shield = on_me(give, flag("p_shown", p["p_sh_t"]), delayed(p["p_sh_t"], *rm("p_shown")))
     grab = sw("p_got", NONE, combine(flag("p_got", p["p_lie"]), shield, cview("p_pick"), sfx("p_pick")))
     lying = [delayed(k, sw("p_got", NONE, view("p_lie"))) for k in range(0, p["p_lie"], 15)]
     lands = [sfx("p_land"), field("p_ground", p["p_catch"], p["p_lie"], 3, [grab], target="AllyOnlySelf", first=0),
@@ -268,8 +274,8 @@ def build(p):
     # ------------------------------------------------------------------ skill2: E Heroic Charge
     wall = [native("charge")] if nat else [delayed(p["e_kb_t"], {"type": "Stun", "duration": p["e_stun_m"]},
                                                    buff("e_stun", p["e_stun_m"]))]
-    contact = [attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit"),
-               {"type": "Knockback", "speed": p["e_kb_speed"], "tick": p["e_kb_t"]}, *wall]
+    push = [] if nat else [{"type": "Knockback", "speed": p["e_kb_speed"], "tick": p["e_kb_t"]}]
+    contact = [attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit"), *push, *wall]
     follow = {"type": "MoveToTarget", "speed": p["e_kb_speed"], "range": p["e_kb_speed"] * p["e_kb_t"] + 20000,
               "end_effects": []}
     charge = {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 40000,
@@ -305,15 +311,17 @@ def build(p):
                                  "z": 2}
     views_p = [Pj("p_buckler"), Pj("r_wave", BIG)]
     # (the pack's 19 pictures, tools/art/pack_poppy_fx.py; w_block / e_wall are the add-on's interrupt and wall slam)
-    views_e = [E("a_hit"), E("p_lie", FX, -1, False), E("p_pick"), E("w_cast", BIG, -1), E("w_block"),
+    views_e = [E("a_hit"), E("p_lie", FX, -1, False), E("p_pick"), E("w_cast", BIG, -1),
                E("q_slam", BIG, -1, False), E("q_burst", BIG, -1, False), E("q_crack", BIG, -2, False), E("q_hit"),
-               E("e_hit"), E("e_wall"), E("r_charge", BIG, 3), E("r_tap", BIG, -1, False), E("r_hit")]
-    views_b = [B_("p_shown", FX, -1), B_("w_on", BIG, -1), B_("e_stun")]
+               E("e_hit"), E("r_charge", BIG, 3), E("r_tap", BIG, -1, False), E("r_hit")]
+    # w_block / e_wall: buffs the add-on hangs on the enemy it catches dashing / slams into a wall (pictures by name)
+    views_b = [B_("p_shown", FX, -1), B_("w_on", BIG, -1), B_("e_stun"), *([B_("w_block"), B_("e_wall")] if nat else [])]
     extra = {}
     if nat:
         extra["passive"] = {"passive_ref": f"{ID}:steadfast", "params": {
-            "w_def": p["w_def"], "w_r": p["w_r"], "e_kb_speed": p["e_kb_speed"], "e_kb_t": p["e_kb_t"],
-            "e_stun": p["e_stun"], "r_kb_speed": p["r_kb_speed"]}}
+            k: p[k] for k in ("w_def", "w_low", "w_r", "w_dmg", "w_ap", "w_up", "w_ground", "w_slow", "e_dmg", "e_ratio",
+                              "e_kb_speed", "e_kb_t", "e_stun", "p_sh_min", "p_sh_max", "p_sh_t", "r_kb_speed", "r_kb_t",
+                              "r_far", "r_far_speed")}}
     return {
         "id": ID, "category": "Util", "tags": ["AD", "Melee", "Tank", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

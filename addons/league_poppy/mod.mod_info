@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.150.0"
+    }
+  ],
+  "description": "Test build of Poppy as in League (needs League of Legends Heroes): replaces the main pack's Poppy so Steadfast Presence knocks up and grounds the enemies caught dashing in her aura (the main pack: no new dashes inside it) and doubles its armour and magic resist under 40% health, Heroic Charge stuns only when it carries the target into a wall (the main pack: a short stun after every carry), Keeper's Verdict sends the champions it hits flying toward their own fountain (the main pack: knocked away from her), and Iron Ambassador's shield grows with her max health. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-18",
+  "mod_id": "league_poppy",
+  "mod_type": "native",
+  "name": "League Heroes: Poppy's dash interrupt, wall stun and fountain-ward verdict (test)",
+  "version": "0.1.0"
+}

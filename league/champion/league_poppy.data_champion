@@ -2071,14 +2071,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_poppy_w_block",
-      "anim": "asset/league/effects/league_poppy_fx",
-      "tag": "w_block",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_poppy_q_slam",
       "anim": "asset/league/effects/league_poppy_big",
       "tag": "q_slam",
@@ -2114,14 +2106,6 @@
       "name": "league_poppy_e_hit",
       "anim": "asset/league/effects/league_poppy_fx",
       "tag": "e_hit",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_poppy_e_wall",
-      "anim": "asset/league/effects/league_poppy_fx",
-      "tag": "e_wall",
       "z": 2,
       "is_follow": true
     },
