@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_akshan": {
+    "remapping": "asset/league_akshan/override/league_akshan",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_akshan/text/champion",
+    "type": "merge"
+  }
+}

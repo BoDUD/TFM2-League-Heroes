@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_akshan": {
+        "attack": "【扩展包】普攻开两枪。<#ff9028ff>无所不用<>：对同一目标每打中3下，多造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理伤害，英雄还给他<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<>护盾。<#ff9028ff>赴险夺人<>：被围时伪装<#ffb900ff>2秒<>；杀了队友的敌人成为恶徒<#ffb900ff>60秒<>，他参与击杀恶徒时，被恶徒杀死的队友<#66bb6aff>1秒后复活<>，他得100金。",
+        "skill2": "【扩展包】甩出钩索朝敌方英雄荡过去，<#ffb900ff>1.4秒<>内每<#ffb900ff>0.23秒<>朝最近的敌人开一枪，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害，最后翻滚再开一枪。参与击杀英雄后冷却刷新。",
+        "ult": "【扩展包】锁定受伤的敌方英雄蓄力<#ffb900ff>2.5秒<>，最多存5发，被<#ef5350ff>控制<>会中断；打得死或目标要跑时提前开火。每发打中路上第一个敌人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害，目标每少1%生命伤害更高，少67%时3倍。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_akshan": {
+        "attack": "【擴充包】普攻開兩槍。<#ff9028ff>無賴之道<>：對同一目標每打中3下，多造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理傷害，英雄還給他<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<>護盾。<#ff9028ff>離經叛道<>：被圍時偽裝<#ffb900ff>2秒<>；殺了隊友的敵人成為惡徒<#ffb900ff>60秒<>，他參與擊殺惡徒時，被惡徒殺死的隊友<#66bb6aff>1秒後復活<>，他得100金。",
+        "skill2": "【擴充包】甩出勾索朝敵方英雄盪過去，<#ffb900ff>1.4秒<>內每<#ffb900ff>0.23秒<>朝最近的敵人開一槍，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害，最後翻滾再開一槍。參與擊殺英雄後冷卻刷新。",
+        "ult": "【擴充包】鎖定受傷的敵方英雄蓄力<#ffb900ff>2.5秒<>，最多存5發，被<#ef5350ff>控制<>會中斷；打得死或目標要跑時提前開火。每發打中路上第一個敵人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害，目標每少1%生命傷害更高，少67%時3倍。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_akshan": {
+        "attack": "[Add-on] Two shots an attack. <#ff9028ff>Dirty Fighting<>: every third hit on the same target deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> physical damage more, and a <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<> shield on a champion. <#ff9028ff>Going Rogue<>: camouflage for <#ffb900ff>2s<> when surrounded; an ally's killer is a Scoundrel for <#ffb900ff>60s<>: taking him down makes the allies he killed <#66bb6aff>revive 1s later<> (+100 gold).",
+        "skill2": "[Add-on] Hooks and swings toward an enemy champion: for <#ffb900ff>1.4s<> he shoots the nearest enemy every <#ffb900ff>0.23s<> for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage, then rolls off with a last shot. A champion takedown refreshes it.",
+        "ult": "[Add-on] Locks onto a wounded enemy champion and charges for <#ffb900ff>2.5s<>, up to 5 bullets (<#ef5350ff>crowd control<> stops it), firing early when they kill or he is escaping: each hits the first enemy in its path for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage, more the more health he has lost (3x at 67% lost)."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_akshan": {
+        "attack": "[확장] 공격마다 두 발. <#ff9028ff>비열한 싸움<>: 같은 대상 3회 적중마다 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 물리 피해 추가, 챔피언이면 <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<> 보호막. <#ff9028ff>악당 처단<>: 포위 시 <#ffb900ff>2초<> 위장; 아군을 죽인 적은 <#ffb900ff>60초<> 악당: 아크샨이 처치에 관여하면 그가 죽인 아군이 <#66bb6aff>1초 후 부활<>, 아크샨 100골드.",
+        "skill2": "[확장] 갈고리를 걸고 적 챔피언 쪽으로 날아감: <#ffb900ff>1.4초<> 동안 <#ffb900ff>0.23초<>마다 가장 가까운 적에게 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해, 마지막에 한 발 더. 챔피언 처치 관여 시 초기화.",
+        "ult": "[확장] 부상당한 적 챔피언을 조준해 <#ffb900ff>2.5초<> 충전, 최대 5발(<#ef5350ff>군중 제어<> 시 중단), 처치 가능하거나 도망치면 바로 발사: 처음 맞는 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해, 잃은 체력에 비례해 증가(67%에서 3배)."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_akshan": {
+        "attack": "【拡張】通常攻撃は2発。<#ff9028ff>ダーティーファイト<>：同じ対象への3回目の命中で<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の物理ダメージ追加、チャンピオンなら<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<>のシールド。<#ff9028ff>義賊の流儀<>：囲まれると<#ffb900ff>2秒<>迷彩；味方を倒した敵は<#ffb900ff>60秒<>悪党：倒すと味方が<#66bb6aff>1秒後に復活<>、100ゴールド。",
+        "skill2": "【拡張】フックで敵チャンピオンへスイング：<#ffb900ff>1.4秒<>間、<#ffb900ff>0.23秒<>毎に最も近い敵へ<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ、最後にもう1発。チャンピオンキル関与で解消。",
+        "ult": "【拡張】負傷した敵チャンピオンを狙い<#ffb900ff>2.5秒<>チャージ、最大5発（<#ef5350ff>行動妨害<>で中断）、倒せるか逃げる時は即発射：最初に当たった敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージ、失った体力が多いほど増加（67%で3倍）。"
+      }
+    }
+  }
+}
