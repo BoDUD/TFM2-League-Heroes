@@ -278,7 +278,7 @@ def sheet(cans, path, z=4):
 # flare on tick 10
 MS = {"idle": [140] * 8, "run": [110] * 8, "attack": [60, 80, 100, 100, 93], "skill": [80, 80, 90, 90, 60],
       "skill2": [70, 80, 90, 70, 57], "skill_w": [80, 90, 60, 60, 43], "ult": [80, 90, 100, 80, 50],
-      "hit": [100, 100], "dead": [100, 100, 120, 150, 200, 500]}
+      "hit": [100, 100], "dead": [100, 100, 120, 70, 100, 60, 120, 500]}
 
 # The idle's breath and the walk's bob: the body (thighs too) sets down a row onto the lower legs, which are drawn over
 # it - the cuffs hide the thighs' lowest row, the boots stay where they stand (league_jarvaniv's dip)
@@ -298,19 +298,25 @@ def frames_all(F):
     # Q Parrrley (League's Gangplank_Spell1: the arm held straight out, the pistol aimed forward at the chest): Codex's
     # pose Q (tools/art/design_gangplank_poses.py) - the near arm out from the shoulder, the cannon aimed past the beard,
     # the near shoulder and the coat's side drawn whole - on the design's own body (the arm posed from the design's
-    # squares read 「左手攻击导致身体看起来非常非常奇怪」); stepping in, the shot (frame 3, q_rel), the recoil back, back
-    out["skill"] = [p(stamp="Q"), p(whole=(1, 0), stamp="Q"), p(whole=(1, 0), stamp="Q"), p(stamp="Q"), p()]
+    # squares read 「左手攻击导致身体看起来非常非常奇怪」); stepping in, the shot (frame 3, q_rel), the recoil (frame 4:
+    # the cannon kicked up to the sky - Codex's pose R - as League's frames 4-6; 2026-10-19 frame audit: it only stepped
+    # back), back
+    out["skill"] = [p(stamp="Q"), p(whole=(1, 0), stamp="Q"), p(whole=(1, 0), stamp="Q"), p(stamp="R"), p()]
     # E Powder Keg (League's Gangplank_Spell3: a keg set down with a stoop): he bends at the knees as he puts it down (frame 3, e_rel - the keg itself is thrown by the kit at the enemy's feet), up again
-    # (the arms go down with the body: a fist moved off its forearm pulled the wrist apart - 「左手...变形」)
-    out["skill2"] = [p(crouch=1), p(crouch=2), p(whole=(1, 0), crouch=2), p(crouch=1), p()]
+    # (the arms go down with the body: a fist moved off its forearm pulled the wrist apart - 「左手...变形」); up with the
+    # cutlass raised as League's frames 4-6 (the attack's first two poses, the whole sword arm turned about the shoulder;
+    # 2026-10-19 frame audit: it only stooped)
+    out["skill2"] = [p(crouch=1), p(crouch=2), p(whole=(1, 0), crouch=2), p(sword=1, sword_at=(-1, 6)),
+                     p(sword=1, sword_at=(0, 3))]
     # W Remove Scurvy (League's Gangplank_Spell2: a bite of citrus): his near hand is at his mouth already - he bows into
     # the bite and chews (frames 2-3, w_rel; the fruit is the effect w_cast); the hand never moves toward the face (a
     # square nearer, the cannon covered the hat's brim and his cheek)
     out["skill_w"] = [p(crouch=1), p(crouch=2), p(crouch=1), p(crouch=2), p()]
     # R Cannon Barrage (League's Gangplank_Spell4: the pistol held straight up as the signal): Codex's pose R - the near
     # arm raised straight up beside the hat, the cannon to the sky - on the design's own body; up on his toes as the
-    # flare is fired (frame 3, r_rel; the flare is the effect r_cast), down
-    out["ult"] = [p(stamp="R"), p(stamp="R"), p(whole=(0, -1), stamp="R"), p(stamp="R"), p()]
+    # flare is fired (frame 3, r_rel; the flare is the effect r_cast), down; first a crouch with the cannon still on his
+    # shoulder, as League's frames 1-2 (2026-10-19 frame audit: four frames of one pose)
+    out["ult"] = [p(crouch=1), p(stamp="R"), p(whole=(0, -1), stamp="R"), p(stamp="R"), p()]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's Gangplank_Death: he staggers and falls back): back, down on his knees, on his back (a quarter
     # turn counter-clockwise, the head to the back), lying sunk into the ground line
@@ -318,7 +324,13 @@ def frames_all(F):
     sit = p(crouch=4, whole=(-1, 0))
     # (turned from his standing frame: from the crouch the lower legs, drawn over the body, piled onto it)
     lying = R.lie(F.rig, p(no_blade=True), k=1, dx=-2, sink=6)   # the cutlass dropped under him
-    out["dead"] = [p(whole=(-1, 0)), sink, sit, lying, lying, lying]
+
+    # (8 frames since the 2026-10-19 frame audit: the fall lands 3 rows above the ground, lies, bounces a row, lies)
+    def off(n):
+        f = np.zeros_like(lying)
+        f[:-n] = lying[n:]
+        return f
+    out["dead"] = [p(whole=(-1, 0)), sink, sit, off(3), lying, off(1), lying.copy(), lying.copy()]
     return out
 
 

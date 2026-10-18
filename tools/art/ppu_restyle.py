@@ -321,7 +321,9 @@ RESTYLE = {
     # 那个手啊」, 「PPU 用 1.5」) by tools/art/rig_gangplank.py, Q / R from Codex's gun-hand poses, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
     # 2026-10-18 the user: 「船长猴子阿克尚波比蛇女像素太高需要降低 船长猴子局内太大」 -> PPU 1.2 and Wukong 85%; Gangplank 90% kept at 1.5 (「船长保留1.5 但是要缩小体型」)
-    "gangplank": dict(ppu=1.5, grow=0.9, edge=1, lift_sq=-1, face_to=(2, -29)),
+    # Q's flash, W's orange and R's flare baked into his frames (orig/gangplank_<tag>.over.png) laid on after the outline
+    # (fx; 2026-10-19 frame audit: without it the three never reached the game since #126)
+    "gangplank": dict(ppu=1.5, grow=0.9, edge=1, lift_sq=-1, face_to=(2, -29), fx=True),
     # league_wukong (#127): posed from the design's own squares at the user's 1.5 squares a game pixel (「用 A，游戏里 38
     # 像素高」, then on the step-1 guide 「太模糊了 起码PPU1.5」: Codex's step-1 take A-1 cut to 57 rows hair to soles) by
     # tools/art/rig_wukong.py, so no proportion or density change here; the outer outline grown a square like the others;
