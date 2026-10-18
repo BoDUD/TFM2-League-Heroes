@@ -18,13 +18,14 @@ design's own colours:
 Actions (League's clips, tools/lol/native_pose.py / assets/source/tahmkench/poses.json, for the beats):
   run 8     a waddle: the body bobs over the feet, the feet step half a cycle apart (lifted while swinging forward),
             the tail sways, the far arm swings (his two short legs stand 39 squares apart: they cannot cross)
-  attack 5  the tongue slap: lean back with the mouth opening, the tongue curling up, the slap forward (frame 3)
-  skill 5   Tongue Lash: crouch, rear back, lurch forward mouth wide, the tongue's root out (frame 4; the lash is an
+  attack 6  the tongue slap: lean back with the mouth opening, the tongue curling up, the slap forward (frame 3)
+  skill 6   Tongue Lash: crouch, rear back, lurch forward mouth wide, the tongue's root out (frame 4; the lash is an
             effect), recover
   skill2 4  Abyssal Dive under: squat, hop, head-first into the ground (a quarter turn cut at the ground), tail only
   w_land 4  up: mouth-first out of the ground (a quarter turn, mouth open), in the air, landing squat, stand
-  ult 5     Devour: lean back opening, the mouth at its widest, the gulp (shut, sunk), full, stand
-  dead 6    flinch, stagger, slump, sink, lie (sunk into the ground line, tongue out, eye shut), still
+  ult 6     Devour: lean back opening, the mouth at its widest, the lunge, the gulp (shut, sunk), full, stand
+  r_spit 5  Devour's end (League's spit): rear back, the mouth thrown open lurching forward, closing, stand
+  dead 8    flinch, stagger, slump, sink, sink more, the tongue lolling out, lie (eye shut), still
   idle      breathing (the body over the feet 0 / 1 row), hit: moved back with a white flash
 """
 import argparse
@@ -365,47 +366,57 @@ def frames():
         run.append((pose(bob=bob, lean=2, nf=nf, ff=(ff[0], ff[1]), tail=[2, 4, 2, 0, -2, -4, -2, 0][i],
                          arm=([2, 2, 0, -2, -2, -2, 0, 2][i], [0, -1, -2, -1, 0, -1, -2, -1][i])), 100))
     out["run"] = run
-    # attack: the tongue slap (release on frame 3)
-    a1 = pose(d=4, lean=-2)
-    a2 = pose(d=9, lean=-3)
-    x, y = mouth_spot(9, lean=-3)
+    # attack: the tongue slap (release on frame 3). 2026-10-19 audit: the body leaned 2-3 design squares (under a game
+    # pixel: 2.98 squares a game pixel) and the attack, Q and R moved 8-9 % of his squares a frame against the pack's
+    # 40 % - the leans and the mouth about three times wider, a recovery frame more
+    a1 = pose(d=6, lean=-6, bob=1)
+    a2 = pose(d=12, lean=-9)
+    x, y = mouth_spot(12, lean=-9)
     a2 = tongue(a2, [(x - 4, y), (x + 14, y - 2), (x + 30, y - 10), (x + 36, y - 24), (x + 30, y - 32)], 6)
-    a3 = pose(d=6, lean=3, bob=1)
-    x, y = mouth_spot(6, lean=3, bob=1)
+    a3 = pose(d=8, lean=8, bob=2)
+    x, y = mouth_spot(8, lean=8, bob=2)
     a3 = tongue(a3, [(x - 6, y), (x + 14, y - 2), (x + 34, y + 6), (x + 46, y + 22)], 6)
-    a4 = pose(d=4, lean=1)
-    x, y = mouth_spot(4, lean=1)
+    a4 = pose(d=5, lean=5, bob=1)
+    x, y = mouth_spot(5, lean=5, bob=1)
     a4 = tongue(a4, [(x - 6, y), (x + 8, y), (x + 16, y + 4)], 5)
-    out["attack"] = [(a1, 80), (a2, 80), (a3, 90), (a4, 90), (pose(), 100)]
+    out["attack"] = [(a1, 80), (a2, 80), (a3, 90), (a4, 70), (pose(d=2, lean=2), 60), (pose(), 60)]
     # Q: Tongue Lash (release on frame 4: the lash itself is an effect)
-    q4 = pose(d=12, lean=4)
-    x, y = mouth_spot(12, lean=4)
+    q4 = pose(d=16, lean=10, bob=1)
+    x, y = mouth_spot(16, lean=10, bob=1)
     q4 = tongue(q4, [(x - 6, y), (x + 14, y - 1), (x + 30, y + 1), (x + 40, y + 4)], 6)
-    out["skill"] = [(pose(bob=2), 80), (pose(d=4, lean=-2), 80), (pose(d=9, lean=2), 80), (q4, 100),
-                    (pose(d=2), 110)]
+    out["skill"] = [(pose(bob=4, lean=-2), 80), (pose(d=6, lean=-8, bob=1), 80), (pose(d=12, lean=4), 80),
+                    (q4, 100), (pose(d=8, lean=5), 60), (pose(d=2, lean=1), 50)]
     # W: under and up
     out["skill2"] = [(pose(bob=5), 100), (pose(lift=12), 100), (cut_ground(pose(lift=-55)), 100),
                      (cut_ground(pose(lift=-105)), 100)]
     out["w_land"] = [(cut_ground(pose(d=14, lift=-45)), 80), (pose(d=10, lift=18), 80), (pose(bob=6), 90),
                      (pose(), 90)]
-    # R: Devour
-    out["ult"] = [(pose(d=6, lean=-2), 100), (pose(d=16, lean=-3), 100), (pose(bob=2, lean=1), 100),
-                  (pose(bob=1, arm=(-4, 0)), 100), (pose(), 100)]
+    # R: Devour - lean back opening, the mouth at its widest, the lunge, the gulp (shut, sunk), full, stand
+    out["ult"] = [(pose(d=8, lean=-6, bob=1), 80), (pose(d=20, lean=-9), 90), (pose(d=18, lean=8, bob=2), 80),
+                  (pose(bob=6, lean=4), 90), (pose(bob=3, lean=2, arm=(-4, 0)), 80), (pose(bob=1), 80)]
+    # R's end: the unit spat out (League's spit, 0.57 s; the kit plays it as its Devour ends, 20 ticks): rear back,
+    # the mouth thrown open lurching forward, closing, stand
+    out["r_spit"] = [(pose(d=8, lean=-7, bob=1), 70), (pose(d=18, lean=9, bob=2), 90), (pose(d=10, lean=6, bob=1), 80),
+                     (pose(d=3, lean=2), 50), (pose(), 43)]
     # death
     # lying: sunk to the ground line, the hat slid down over the shut eye, the tongue lolling to the ground
     d5 = pose(d=4, bob=22, hat=(3, 8))
     x, y = mouth_spot(4, bob=22)
     d5 = shut_eye(tongue(d5, [(x - 4, y), (x + 8, y + 3), (x + 14, y + 10), (x + 16, y + 18)], 5), bob=22)
     d5 = cut_ground(d5)
-    out["dead"] = [(pose(d=4, lean=-2), 120), (pose(d=2, lean=-3, hat=(0, -5)), 120),
-                   (pose(bob=6, lean=1, hat=(1, -2)), 140), (cut_ground(pose(bob=14, hat=(2, 4))), 160),
-                   (d5, 200), (d5.copy(), 400)]
+    # 8 frames (2026-10-19 audit, the pack's deaths have 8): a step more of the slump, the tongue lolling out before
+    # the eye shuts
+    d5o = pose(d=4, bob=22, hat=(3, 8))
+    d5o = cut_ground(tongue(d5o, [(x - 4, y), (x + 6, y + 2), (x + 10, y + 7)], 5))
+    out["dead"] = [(pose(d=4, lean=-4), 120), (pose(d=2, lean=-6, hat=(0, -5)), 120),
+                   (pose(bob=6, lean=1, hat=(1, -2)), 120), (cut_ground(pose(bob=14, hat=(2, 4))), 120),
+                   (cut_ground(pose(bob=18, hat=(2, 6))), 100), (d5o, 120), (d5, 200), (d5.copy(), 400)]
     out["hit"] = [(flash(pose(lean=-4)), 90), (pose(lean=-2), 120)]
     return out
 
 
 # ------------------------------------------------------------------------------------------------- the game's frames
-ORDER = ["idle", "run", "attack", "skill", "skill2", "w_land", "ult", "hit", "dead"]
+ORDER = ["idle", "run", "attack", "skill", "skill2", "w_land", "ult", "hit", "dead", "r_spit"]
 FEET = 11                                   # 1x rows from the pivot down to the ground row
 PAL = np.unique(DESIGN[DESIGN[..., 3] > 0][:, :3], axis=0)
 PALF = PAL.astype(float)
