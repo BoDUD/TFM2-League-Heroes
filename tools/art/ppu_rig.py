@@ -694,7 +694,8 @@ class Rig:
     def bake(self, frames, hero=None):
         """assets/source/native/<hero>_bake.json applied to the rig's frames the way tools/art/import_native.bake
         applies it to a 1x sheet (the effects drawn into the old frames keep their timing: 「特效还是老样子」): each
-        effect frame brought to PPU (nearest) and laid centred on the pivot into an "over" or "under" layer.
+        effect frame brought to PPU (nearest) and laid centred on the pivot into an "over" or "under" layer; an item's
+        "side" ("left" / "right") keeps only that half of the picture (two things in one picture moved apart).
         frames {tag: [(canvas, ms)]} -> {tag: [({"body", "over", "under"}, ms)]}, the `from` copies made too."""
         import tfm2_ase
         hero = hero or self.D.hero
@@ -744,6 +745,13 @@ class Rig:
                 yy = np.minimum(((np.arange(round(h * ppu)) + 0.5) / ppu).astype(int), h - 1)
                 xx = np.minimum(((np.arange(round(w * ppu)) + 0.5) / ppu).astype(int), w - 1)
                 b = a[yy][:, xx].copy()
+                if e.get("side") in ("left", "right"):
+                    # one half of a picture that shows two things (league_kaisa's Q flash over each pod), moved apart
+                    half = b.shape[1] // 2
+                    if e["side"] == "left":
+                        b[:, half:] = 0
+                    else:
+                        b[:, :half] = 0
                 # sparks under 4 squares dropped (ppu_hd's check: no specks on a frame; ppu_restyle's scale_fx mote)
                 lbl, n = ndimage.label(b[..., 3] > 0, structure=np.ones((3, 3)))
                 if n:
@@ -1037,17 +1045,18 @@ class Driver:
     units) - the pictures draw arms and weapons in front. A frame override `keep` holds the arm and the weapons as drawn
     (an idle drawn unlike League's); `walk` (hx, dy) -> leg layers drawn instead of the turned legs, the figure then on
     the design's ground moved by dy alone; the others: dx, dy, lean, arm, weapon (degrees added), rise, extra(j, ux, dy)
-    -> (back, front), after. Pieces under `crumb` squares left apart from the figure go."""
+    -> (back, front), after. Pieces under `crumb` squares left apart from the figure go. max_lean: columns the upper
+    body may lean off the hips (league_kaisa: her bare hip plates sit on the thighs, 1 is all they cover)."""
 
     def __init__(self, rig, joints, spec_height, rows, legs=(), arm=None, weapons=(), upper="upper", lunge=0.7,
-                 lean=0.8, src=None, depth_margin=15.0, attach=(), leg_max=None, crumb=12):
+                 lean=0.8, src=None, depth_margin=15.0, attach=(), leg_max=None, crumb=12, max_lean=5):
         self.rig, self.D = rig, rig.D
         self.J = joints
         self.s = self.D.ppu * rows / spec_height              # design squares per League game px
         self.legs, self.arm, self.weapons, self.upper = list(legs), arm, list(weapons), upper
         self.lunge, self.lean, self.src, self.margin = lunge, lean, src, depth_margin
         self.attach = list(attach)
-        self.leg_max, self.crumb = leg_max, crumb
+        self.leg_max, self.crumb, self.max_lean = leg_max, crumb, max_lean
         d = joints["design"]
         self.d = d
         # League's near leg: the nearer hip in the design pose
@@ -1077,7 +1086,7 @@ class Driver:
         lean = ((j["chest"][0] - j["pelvis"][0]) - (d["chest"][0] - d["pelvis"][0])) * s * self.lean
         layers_legs, soles = [], []
         hx = int(round(dx))
-        ux = hx + int(round(max(-5, min(5, lean)))) + o.get("lean", 0)
+        ux = hx + int(round(max(-self.max_lean, min(self.max_lean, lean)))) + o.get("lean", 0)
         for lg in self.legs:
             sd = self.side[lg["side"]]
             hip, knee, sole = (np.array(v, float) for v in (lg["hip"], lg["knee"], lg["sole"]))
@@ -1319,6 +1328,10 @@ class Driver:
                     mx_, my_ = mx_ * at["max_move"] / mv, my_ * at["max_move"] / mv
             rot_ = round(self.delta(j, *at["turn"]) / 2) * 2 if at.get("turn") else 0
             rot_ = max(-at.get("max_turn", 30), min(at.get("max_turn", 30), rot_))
+            if o.get("keep"):
+                # held as drawn with the arm (league_kaisa's R landing: League's arms swing back behind a body bent
+                # double, which the upright figure cannot show)
+                mx_ = my_ = rot_ = 0
             z_ = j[jn][2]
             (back if behind(z_, d[jn][2]) and not at.get("always_front") else front).append(
                 (at["name"], dict(dx=ux + int(round(mx_)), dy=dy + int(round(my_)), angle=rot_,
