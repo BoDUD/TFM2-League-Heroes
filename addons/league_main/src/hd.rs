@@ -121,6 +121,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // grid, nothing cut (56 x 61), posed after League's own clips by tools/art/rig_darius_hd.py (the axe hand and the axe
     // turned losslessly, the run on his own legs moved whole), PPU 1.45 at his old 42 rows, so no SIZES row
     ("league_darius", 1.45, include_str!("../../../league/champions/league_darius#anim.fanim")),
+    // Riven (2026-10-18): Codex's design picture (assets/source/riven/PICTURE_PROMPT_PPU.md) read back on its own grid
+    // (68 x 61), her sword one of Codex's angle drawings in her fist (tools/art/swords_riven_hd.py); idle, run, ult, hit
+    // and death posed after League's clips by tools/art/rig_riven_hd.py, her three attacks (taking turns), Broken Wings
+    // and Valor Codex's whole-frame redraws (tools/art/actions_riven_hd.py); PPU 1.5 at her old 40 rows, so no SIZES row
+    ("league_riven", 1.5, include_str!("../../../league/champions/league_riven#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
