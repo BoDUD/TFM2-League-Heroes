@@ -25,7 +25,9 @@ attack; Noxious Blast is `skill`, Miasma `skill2`, Petrifying Gaze the `ult`.
           80 degrees x 1000), one diving her (within r_dive), or - after r_wait ticks - one in the cone. Every enemy
           in the cone takes r_dmg + r_ratio% AP; League stuns those facing her and slows the rest - nothing in data
           reads where a unit faces, so the main pack stuns those within r_near (fighting her side) for r_stun and
-          slows the farther ones r_slow% for r_stun. The add-on copy decides by the enemy's real facing. Unused,
+          slows the farther ones r_slow% for r_stun (a stone crust, the buff `r_stone`, shows on the petrified); the
+          wave flies out as a picture on a projectile (r_wave, r_fly ticks). The add-on copy decides by the enemy's
+          real facing. Unused,
           the window ends with the cooldown capped at 60 ticks (`r_retry`).
 The add-on copy (--native, addons/league_cassiopeia): poison also hangs the marker buff `poison` on the unit for its
 length; the fang's bonus and heal are the Native effect league_cassiopeia:fang (only on a target carrying the marker);
@@ -60,7 +62,7 @@ P = {
     "w_dmg": 6, "w_ratio": 3, "w_slow": 50, "w_hold": 20, "w_show": 15,
     # R Petrifying Gaze (League: cone 80 deg r 850, 125-325 +75% AP, stun 2 s facing / slow 40% 2 s, cd 120-80)
     "r_cd": 3000, "r_range": 72000, "r_cos": 766, "r_near": 45000, "r_dive": 25000, "r_arm": 600, "r_wait": 240,
-    "r_dur": 33, "r_rel": 15, "r_dmg": 160, "r_ratio": 70, "r_stun": 120, "r_slow": 40,
+    "r_dur": 33, "r_rel": 15, "r_dmg": 160, "r_ratio": 70, "r_stun": 120, "r_slow": 40, "r_fly": 12, "r_y": 14000,
     "vo_gap": 600,
     "native": 0,
 }
@@ -234,10 +236,15 @@ def build(p):
         hold = [buff("r_slow", p["r_stun"], move_speed_mult=-p["r_slow"])]
     blast = [ap(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit"), *hold]
     stone = [] if nat else [cone(p["r_near"], "EnemyChampion", [{"type": "Stun", "duration": p["r_stun"]},
-                                                                  view("r_stone")], p["r_cos"])]
+                                                                  buff("r_stone", p["r_stun"])], p["r_cos"])]
+    # the gaze's wave points at them: a picture riding a projectile toward the fang's target (turned with its flight,
+    # so the red side reads too - a caster picture is never mirrored)
+    wave_ = {"type": "LinearProjectile", "name": n("r_wave"), "speed": max(1, p["r_range"] // p["r_fly"]),
+             "range": p["r_range"], "y_offset": p["r_y"], "penetrate": True, "shape": circle(1000),
+             "applied_target": "EnemyChampion", "applied_effects": [], "end_effects": []}
     gaze = combine(*rm("r_arm", "r_late"), refresh("r_now", p["r_dur"]), anim("ult", p["r_dur"]), cview("r_cast"),
                    sfx("r"), voice("vo_r", p),
-                   delayed(p["r_rel"] - 1, alive(cview("r_wave"), sfx("r_wave"),
+                   delayed(p["r_rel"] - 1, alive(wave_, sfx("r_wave"),
                                                  cone(p["r_range"], "EnemyChampion", blast, p["r_cos"]), *stone)))
     count = cone(p["r_range"], "EnemyChampion", [sw("n1", flag("n2", 3), flag("n1", 3))], p["r_cos"])
     dive = around(p["r_dive"], "EnemyChampion", [flag("r_dive", 3)])
@@ -300,11 +307,11 @@ def build(p):
                                       "z": z}
     Pj = lambda name, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                  "z": 2}
-    views_p = [Pj("a_fang"), Pj("w_bolt")]
+    # projectiles are turned with their flight: the fang and the wave are drawn pointing right, top-bottom symmetric
+    views_p = [Pj("a_fang"), Pj("w_bolt"), Pj("r_wave", BIG)]
     views_e = [E("a_hit"), E("q_warn", BIG, -2, False), E("q_blast", BIG, 2, False), E("q_hit"),
-               E("w_land", BIG, -1, False), E("w_field", BIG, -1, False), E("r_cast", BIG, 3), E("r_wave", BIG, 3),
-               E("r_hit"), E("r_stone")]
-    views_b = [B_("w_slow"), B_("r_slow")]
+               E("w_land", BIG, -1, False), E("w_field", BIG, -1, False), E("r_cast", BIG, 3), E("r_hit")]
+    views_b = [B_("w_slow"), B_("r_slow"), B_("r_stone")]
     extra = {}
     if nat:
         extra["passive"] = {"passive_ref": f"{ID}:venom", "params": {

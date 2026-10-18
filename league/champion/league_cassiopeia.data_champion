@@ -251,8 +251,20 @@
                                     "type": "Combine",
                                     "effects": [
                                       {
-                                        "type": "CasterViewEffect",
-                                        "name": "league_cassiopeia_r_wave"
+                                        "type": "LinearProjectile",
+                                        "name": "league_cassiopeia_r_wave",
+                                        "speed": 6000,
+                                        "range": 72000,
+                                        "y_offset": 14000,
+                                        "penetrate": true,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [],
+                                        "end_effects": []
                                       },
                                       {
                                         "type": "Sfx",
@@ -322,8 +334,15 @@
                                             "duration": 120
                                           },
                                           {
-                                            "type": "ViewEffect",
-                                            "name": "league_cassiopeia_r_stone"
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_cassiopeia_r_stone",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 120
+                                                }
+                                              }
+                                            }
                                           }
                                         ]
                                       }
@@ -455,8 +474,20 @@
                                       "type": "Combine",
                                       "effects": [
                                         {
-                                          "type": "CasterViewEffect",
-                                          "name": "league_cassiopeia_r_wave"
+                                          "type": "LinearProjectile",
+                                          "name": "league_cassiopeia_r_wave",
+                                          "speed": 6000,
+                                          "range": 72000,
+                                          "y_offset": 14000,
+                                          "penetrate": true,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [],
+                                          "end_effects": []
                                         },
                                         {
                                           "type": "Sfx",
@@ -526,8 +557,15 @@
                                               "duration": 120
                                             },
                                             {
-                                              "type": "ViewEffect",
-                                              "name": "league_cassiopeia_r_stone"
+                                              "type": "AddBuff",
+                                              "buff_state": {
+                                                "name": "league_cassiopeia_r_stone",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 120
+                                                  }
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -662,8 +700,20 @@
                                           "type": "Combine",
                                           "effects": [
                                             {
-                                              "type": "CasterViewEffect",
-                                              "name": "league_cassiopeia_r_wave"
+                                              "type": "LinearProjectile",
+                                              "name": "league_cassiopeia_r_wave",
+                                              "speed": 6000,
+                                              "range": 72000,
+                                              "y_offset": 14000,
+                                              "penetrate": true,
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [],
+                                              "end_effects": []
                                             },
                                             {
                                               "type": "Sfx",
@@ -733,8 +783,15 @@
                                                   "duration": 120
                                                 },
                                                 {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_cassiopeia_r_stone"
+                                                  "type": "AddBuff",
+                                                  "buff_state": {
+                                                    "name": "league_cassiopeia_r_stone",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 120
+                                                      }
+                                                    }
+                                                  }
                                                 }
                                               ]
                                             }
@@ -1761,6 +1818,14 @@
       "tag": "w_bolt",
       "repeat": true,
       "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_cassiopeia_r_wave",
+      "anim": "asset/league/effects/league_cassiopeia_big",
+      "tag": "r_wave",
+      "repeat": true,
+      "z": 2
     }
   ],
   "view_effects": [
@@ -1822,25 +1887,9 @@
     },
     {
       "type": "Animation",
-      "name": "league_cassiopeia_r_wave",
-      "anim": "asset/league/effects/league_cassiopeia_big",
-      "tag": "r_wave",
-      "z": 3,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_cassiopeia_r_hit",
       "anim": "asset/league/effects/league_cassiopeia_fx",
       "tag": "r_hit",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_cassiopeia_r_stone",
-      "anim": "asset/league/effects/league_cassiopeia_fx",
-      "tag": "r_stone",
       "z": 2,
       "is_follow": true
     }
@@ -1859,6 +1908,14 @@
       "name": "league_cassiopeia_r_slow",
       "anim": "asset/league/effects/league_cassiopeia_fx",
       "tag": "r_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_cassiopeia_r_stone",
+      "anim": "asset/league/effects/league_cassiopeia_fx",
+      "tag": "r_stone",
       "repeat": true,
       "z": 3
     }
