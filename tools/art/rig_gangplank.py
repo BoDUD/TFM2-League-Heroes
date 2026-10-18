@@ -95,7 +95,9 @@ def pad(a):
 
 
 # ------------------------------------------------------------------------------------------------- the design's parts
-LEG_TOP = 37                                    # the legs from here down (the red sash ends on row 36)
+LEG_TOP = 42                                    # the lower legs from here down: the cuffs' top outline and the boots
+                                                # (the thighs stay on the body: moved, they slid under the sash -
+                                                # 「移动时腿部还是有点变形」)
 STAND = 21                                      # the column between the boots: the standing point
 GUN_PIVOT = (9.5, 10.5)                         # the cannon's middle (its mirror axis for a shot)
 ELBOW = (11.5, 23.5)                            # the near forearm's lower end: it turns about it
@@ -122,9 +124,9 @@ def design():
     D.part("far_upper", D.box(19, 30, 28, 33))
     D.part("far_hand", D.box(30, 35, 30, 36))
     D.part("blade", D.box(35, 45, 34, 45) | D.box(36, 37, 33, 33))
-    # the legs: the trousers from LEG_TOP and the boots, the coat's purple left with the body
-    D.part("near_leg", (D.box(LEG_TOP, 49, 13, 21) | D.box(42, 49, 9, 18)) & ~coat)
-    D.part("far_leg", D.box(LEG_TOP - 1, 49, 22, 30) & ~coat)
+    # the lower legs: the gold cuff and the boot of each, the coat's purple left with the body
+    D.part("near_leg", D.box(LEG_TOP, 49, 9, 21) & ~coat)
+    D.part("far_leg", D.box(LEG_TOP, 49, 22, 30) & ~coat)
     D.part("body", D.rest())
     return D
 
@@ -179,7 +181,8 @@ class Form:
         blade = hand if blade is None else blade
         legs_l = leg_layers if leg_layers is not None else [(L["far_leg"], dict(dx=wx + flx, dy=wy + fly)),
                                                              (L["near_leg"], dict(dx=wx + nlx, dy=wy + nly))]
-        layers = [*legs_l, (L["body"], dict(dx=U[0], dy=U[1])),
+        # the lower legs over the body: a cuff lifted or the body sunk hides the thigh's lowest rows (the knee bends)
+        layers = [(L["body"], dict(dx=U[0], dy=U[1])), *legs_l,
                   (L["near_arm"], dict(dx=U[0] + arm[0], dy=U[1] + arm[1], rot=arm_rot, about=ELBOW)),
                   (self.gun_fwd if gun_fwd else L["gun"], dict(dx=U[0] + gun[0], dy=U[1] + gun[1], rot=gun_rot,
                                                                 about=GUN_PIVOT))]
@@ -259,46 +262,33 @@ MS = {"idle": [140] * 8, "run": [110] * 8, "attack": [60, 80, 100, 100, 93], "sk
       "skill2": [70, 80, 90, 70, 57], "skill_w": [80, 90, 60, 60, 43], "ult": [80, 90, 100, 80, 50],
       "hit": [100, 100], "dead": [100, 100, 120, 150, 200, 500]}
 
-# The idle's breath and the walk's bob (tools/art/idle_breathe.py's recipe, league_jarvaniv's dip): the figure above the
-# shins sinks a row, each leg one plain trouser row shorter, the boots where they stand
-DIP_ROWS = {"near_leg": 39, "far_leg": 39}
-
-
-def dipped(layer, row):
-    """A padded leg layer one row shorter: design row `row` out, the rows over it a row down (the boot stays)."""
-    y = P + row
-    out = layer.copy()
-    out[1:y + 1] = layer[:y]
-    out[0] = 0
-    return out
+# The idle's breath and the walk's bob: the body (thighs too) sets down a row onto the lower legs, which are drawn over
+# it - the cuffs hide the thighs' lowest row, the boots stay where they stand (league_jarvaniv's dip)
 
 
 def frames_all(F):
     p = F.pose
     out = {}
-    L = F.L
-    dip = [(dipped(L["far_leg"], DIP_ROWS["far_leg"]), {}), (dipped(L["near_leg"], DIP_ROWS["near_leg"]), {})]
-    out["idle"] = [p(whole=(0, 1), leg_layers=dip) if b else p() for b in [0, 0, 1, 1, 1, 1, 0, 0]]
+    out["idle"] = [p(crouch=1) if b else p() for b in [0, 0, 1, 1, 1, 1, 0, 0]]
     # auto attack (League's Gangplank_Attack1/2: the cutlass raised and brought down in a big chop): the whole sword arm
     # - upper arm, red-wrapped forearm, fist and cutlass, one piece - turned a quarter about the far shoulder so it
     # reaches forward with the blade up (the user: the blade mirrored up from a fist at the hip read 「很奇怪 变形」),
-    # leaning back; the chop down to its hanging place (frame 3, the hit on a_hit), stepping in; back
-    out["attack"] = [p(whole=(-1, 0), sword=1, sword_at=(-3, 2)), p(whole=(-1, 0), sword=1, sword_at=(-2, 0)),
-                     p(crouch=1, whole=(1, 0)), p(crouch=1, whole=(1, 0), hand=(0, 1)), p()]
+    # moved down 4-7 rows so it leaves the shoulder line UNDER the beard (turned about the shoulder point alone its top
+    # edge ran along the beard: 「左手攻击时候头部感觉很怪」), the head still; the chop down to its hanging place (frame 3, the hit on a_hit), stepping in; back
+    out["attack"] = [p(sword=1, sword_at=(-1, 7)), p(sword=1, sword_at=(0, 4)),
+                     p(crouch=1, whole=(1, 0)), p(crouch=1, whole=(1, 0)), p()]
     # Q Parrrley (League's Gangplank_Spell1: the arm straight out, the pistol fired forward, the kick throws it up): the
     # near forearm turned flat (a quarter about its lower end) and held out across the chest, the cannon mirrored to
     # point forward in its hand at shoulder height; the shot (frame 3, q_rel), the kick (the cannon turned up), back
     aim = dict(arm_rot=3, arm=(3, -3), gun_fwd=True, gun=(22, 10))
     kick = dict(arm_rot=3, arm=(3, -3), gun_fwd=True, gun_rot=1, gun=(19, 7))
     out["skill"] = [p(**aim), p(whole=(1, 0), **aim), p(whole=(1, 0), **aim), p(**kick), p()]
-    # E Powder Keg (League's Gangplank_Spell3: a keg set down with a stoop): he bends at the knees, both hands low as he
-    # puts it down (frame 3, e_rel - the keg itself is thrown by the kit at the enemy's feet), up again
-    low = dict(hand=(1, 2), gun=(0, 1))
-    out["skill2"] = [p(crouch=1, hand=(1, 1)), p(crouch=2, **low), p(whole=(1, 0), crouch=2, **low),
-                     p(crouch=1, hand=(0, 1)), p()]
+    # E Powder Keg (League's Gangplank_Spell3: a keg set down with a stoop): he bends at the knees as he puts it down (frame 3, e_rel - the keg itself is thrown by the kit at the enemy's feet), up again
+    # (the arms go down with the body: a fist moved off its forearm pulled the wrist apart - 「左手...变形」)
+    out["skill2"] = [p(crouch=1), p(crouch=2), p(whole=(1, 0), crouch=2), p(crouch=1), p()]
     # W Remove Scurvy (League's Gangplank_Spell2: a bite of citrus): the near hand a square nearer the mouth (never over
     # the face), a bite (frame 2-3, w_rel; the fruit is the effect w_cast), chewing, back
-    out["skill_w"] = [p(crouch=1, gun=(1, 0)), p(crouch=1, gun=(1, 1)), p(gun=(1, 0)), p(crouch=1), p()]
+    out["skill_w"] = [p(crouch=1, gun=(1, 0)), p(crouch=2, gun=(1, 0)), p(gun=(1, 0)), p(crouch=1), p()]
     # R Cannon Barrage (League's Gangplank_Spell4: the pistol held straight up as the signal): the cannon turned to
     # point at the sky (a quarter turn clockwise) and raised high beside his head with the arm, the flare fired (frame
     # 3, r_rel; the flare is the effect r_cast), down
@@ -308,17 +298,20 @@ def frames_all(F):
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's Gangplank_Death: he staggers and falls back): back, down on his knees, on his back (a quarter
     # turn counter-clockwise, the head to the back), lying sunk into the ground line
-    sink = p(crouch=2, whole=(-1, 0), hand=(0, 2))
-    sit = p(crouch=4, whole=(-1, 0), hand=(0, 3))
-    lying = R.lie(F.rig, p(crouch=4, no_blade=True), k=1, dx=-2, sink=4)   # the cutlass dropped under him
+    sink = p(crouch=2, whole=(-1, 0))
+    sit = p(crouch=4, whole=(-1, 0))
+    # (turned from his standing frame: from the crouch the lower legs, drawn over the body, piled onto it)
+    lying = R.lie(F.rig, p(no_blade=True), k=1, dx=-2, sink=6)   # the cutlass dropped under him
     out["dead"] = [p(whole=(-1, 0)), sink, sit, lying, lying, lying]
     return out
 
 
 # ------------------------------------------------------------------------------------------------- the walk
-# The design's own legs moved whole (memory codex-legs-deform), league_ziggs's picked walk (D): the boots step on their
-# own sides, the dip on each contact and the whole figure a row up as the legs pass (league_braum's spring); the hands
-# never move against the body (「手臂有点变形吧」).
+# The design's own lower legs moved whole (memory codex-legs-deform) under thighs that stay on the body: each cuff and
+# boot steps on its own side, planted and sliding back, then lifted and carried forward, the far one half a cycle later
+# - a stride of 4 (the cuffs never slide more than 2 squares off the thighs) - the body set down a row on each contact
+# and the whole figure a row up as the legs pass (league_ziggs's D walk, league_braum's spring); the hands never move
+# against the body (「手臂有点变形吧」).
 def _steps(stride, lifts):
     near = [round(stride * (1 - k / 4) + 1e-9) for k in range(5)]
     swing = [1, stride - 1 - (stride > 4), stride]
@@ -328,18 +321,16 @@ def _steps(stride, lifts):
                 bob=[1, 0, 0, 0, 1, 0, 0, 0])
 
 
-WALK_STEP = dict(_steps(6, (2, 3, 2)), rise=[0, 0, 1, 0, 0, 0, 1, 0])
+WALK_STEP = dict(_steps(4, (1, 2, 1)), rise=[0, 0, 1, 0, 0, 0, 1, 0])
 
 
 def walk(F, steps=None):
     st = steps or WALK_STEP
     out = []
     L = F.L
-    dip = {"far_leg": dipped(L["far_leg"], DIP_ROWS["far_leg"]), "near_leg": dipped(L["near_leg"], DIP_ROWS["near_leg"])}
     rise = st.get("rise", [0] * len(st["bob"]))
     for (ndx, nup), (fdx, fup), bob, up in zip(st["near"], st["far"], st["bob"], rise):
-        legs = [(dip["far_leg"] if bob else L["far_leg"], dict(dx=fdx, dy=-fup - up)),
-                (dip["near_leg"] if bob else L["near_leg"], dict(dx=ndx, dy=-nup - up))]
+        legs = [(L["far_leg"], dict(dx=fdx, dy=-fup - up)), (L["near_leg"], dict(dx=ndx, dy=-nup - up))]
         out.append(F.pose(whole=(0, bob - up), leg_layers=legs))
     return out
 
@@ -433,8 +424,8 @@ def main():
     ref = F.rig.canvas()
     ref[F.rig.oy:F.rig.oy + D.H, F.rig.ox:F.rig.ox + D.W] = D.d
     print("idle vs design: squares differing", int((np.abs(idle.astype(int) - ref.astype(int)).sum(-1) > 0).sum()))
-    tries = [F.pose(), F.pose(gun_fwd=True, gun=(3, 6)), F.pose(hand=(0, -2), blade_up=True), F.pose(hand=(1, 2)),
-             F.pose(crouch=2)]
+    tries = [F.pose(), F.pose(arm_rot=3, arm=(3, -3), gun_fwd=True, gun=(22, 10)), F.pose(sword=1, sword_at=(0, 4)),
+             F.pose(gun_rot=3, gun=(0, -6), arm=(0, -4)), F.pose(crouch=2)]
     sheet([F.rig.finish(c) for c in tries], os.path.join(a.parts, f"{HERO}_tries.png"))
 
 
