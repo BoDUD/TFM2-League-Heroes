@@ -19,7 +19,7 @@ of Codex frames, re-ordered, reused or moved by whole squares (lossless - the no
   * ult_leap: the three frames stood at one height -> lifted LEAP squares more each;
   * ult_land: 3 put the spear's gem on the shield, 4 did not come back to the stance -> 1, 2, 2 rising RISE squares,
     the design;
-  * dead: 6 = 4 (the last picture still);
+  * dead: 6 = 4 (the last picture still); the first lying picture dropped onto the ground with a bounce (8 frames);
   * run: Codex's run redo (assets/source/pantheon/codex_run, the legs on League's run; RUN_ORDER below);
   * idle: the design breathing (above the waist up BREATH squares, the spear and the shield carried whole);
     hit: the design moved HIT_DX back, a white flash on the first frame;
@@ -90,15 +90,21 @@ TABLE = {
     "ult_leap": [(f"ult_leap_{k}", 0, -LEAP[k - 1], ms) for k, ms in zip(range(1, 4), (80, 80, 120))],
     "ult_land": [("ult_land_1", 0, 0, 80), ("ult_land_2", 0, 0, 120), ("ult_land_2", 0, -RISE, 150),
                  (IDLE_SRC, 0, 0, 150)],
-    "dead": [(f"dead_{k}", 0, 0, ms) for k, ms in zip((1, 2, 3, 4, 5, 4), (100, 100, 110, 120, 150, 400))],
+    # 8 frames (2026-10-19 frame audit, the pack's deaths have 8): the first lying picture also 4 squares above the
+    # ground before it lands and 1 after (a bounce)
+    "dead": [("dead_1", 0, 0, 100), ("dead_2", 0, 0, 100), ("dead_3", 0, -4, 50), ("dead_3", 0, 0, 70),
+             ("dead_3", 0, -1, 50), ("dead_4", 0, 0, 120), ("dead_5", 0, 0, 150), ("dead_4", 0, 0, 400)],
 }
 # the run: Codex's leg redo (RUN_REDO.md) - RUN_ORDER: 1-2 the near leg ahead, 3 the legs crossing, 4-6 the far leg ahead; its 7
 # and 8 came back broken (outline gaps round the loincloth, loose pieces by the shield), so the loop is 7 frames with 3
 # again as the second crossing (League's cycle 933 ms: 7 x 133). Its far-leg-ahead frames put the planted foot 79, 83,
 # 80 squares out (4, 5, 6): played 5, 6, 4 and 4 moved 2 back, 2 moved 2 back too, each planted foot goes back under
 # the body frame by frame (69, 67 / 83, 80, 77) - no glide forward.
-RUN_ORDER = [(1, 0), (2, -2), (3, 0), (5, 0), (6, 0), (4, -2), (3, 0)]
-RUN_MS = 133
+# 2026-10-19 frame audit: 8 frames like the pack's runs - the near-leg-ahead half gets a third frame as the far half
+# has, 1 moved 2 forward before it (its planted foot going back under the body frame by frame, as 5, 6, 4 do), 117 ms
+# each so the cycle stays League's 933 ms
+RUN_ORDER = [(1, 2), (1, 0), (2, -2), (3, 0), (5, 0), (6, 0), (4, -2), (3, 0)]
+RUN_MS = 117
 # Codex drew the run redo bigger than the design: its helmet 11 squares wide and 17 tall against the idle's 9 and 15 -
 # the user: 「还有模型会变大变小」 (idle <-> run). The run is brought to the idle's size by taking whole rows and columns
 # out (tools/art/shrink_frames.py, league_senna's way: nothing resampled, the soles on their row).

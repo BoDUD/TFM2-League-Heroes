@@ -180,15 +180,42 @@ def hit_frames():
     return out
 
 
+# 2026-10-19 frame audit: his run moved 9 % of his squares a frame against the pack's 40 % (the strips' short front-on
+# stride, his body bobbing about a game pixel) and his death had 6 frames against the pack's 8. Without redrawing the
+# strips' legs: the whole figure hops RUN_HOP more design squares off the ground between the strides' ends (run_1 the
+# feet closest, run_5 widest), and the death gets the lying frame twice more, DEAD_DROP squares above the ground before
+# it lands and DEAD_BOUNCE after.
+RUN_HOP = [0, 1, 2, 1, 0, 1, 2, 1]
+DEAD_LIE = 2                      # dead_3.png: the first frame lying
+DEAD_DROP, DEAD_BOUNCE = 5, 2
+DEAD_MS = [100, 100, 60, 90, 60, 110, 150, 400]
+
+
+def lifted(a, k):
+    """a moved k rows up (nothing wraps round)."""
+    if k == 0:
+        return a
+    out = np.zeros_like(a)
+    out[:-k] = a[k:]
+    return out
+
+
 def actions():
     table = json.load(open(lp(os.path.join(FRAMES, "frames.json")), encoding="utf-8"))["tags"]
     out = {"idle": idle_frames(), "hit": hit_frames()}
     for tag, frames in table.items():
         out[tag] = []
-        for e in frames:
-            a = np.asarray(Image.open(lp(os.path.join(FRAMES, e["file"]))).convert("RGBA")).copy()
+        src = [(np.asarray(Image.open(lp(os.path.join(FRAMES, e["file"]))).convert("RGBA")).copy(), e["ms"])
+               for e in frames]
+        if tag == "run":
+            src = [(lifted(a, RUN_HOP[i]), ms) for i, (a, ms) in enumerate(src)]
+        if tag == "dead":
+            lie = src[DEAD_LIE][0]
+            src = src[:DEAD_LIE] + [(lifted(lie, DEAD_DROP), 0), (lie, 0), (lifted(lie, DEAD_BOUNCE), 0)] + src[DEAD_LIE + 1:]
+            src = [(a, ms) for (a, _), ms in zip(src, DEAD_MS)]
+        for a, ms in src:
             p, corner = to_ppu(a)
-            out[tag].append((p, corner, e["ms"]))
+            out[tag].append((p, corner, ms))
     return {t: out[t] for t in ORDER}
 
 
