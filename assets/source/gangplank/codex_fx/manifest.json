@@ -1,0 +1,1884 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "name": "gangplank_fx_a_hit",
+      "file": "gangplank_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "view_effects `league_gangplank_a_hit`（跟随，画在人物上面；左右对称）",
+      "raw_file": "raw/gangplank_fx_a_hit.png",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "crop_in_slot": [
+            61,
+            72,
+            541,
+            551
+          ]
+        },
+        {
+          "slot": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            61,
+            72,
+            541,
+            551
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "crop_in_slot": [
+            61,
+            72,
+            541,
+            551
+          ]
+        },
+        {
+          "slot": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            61,
+            72,
+            541,
+            551
+          ]
+        }
+      ],
+      "raw_sha256": "4e8cda197f6f59ea73ab1e776f2221f39d39bac0d5fb2883644d6893d94eb1b7",
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410"
+      ]
+    },
+    {
+      "name": "gangplank_fx_p_hit",
+      "file": "gangplank_fx_p_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "view_effects `league_gangplank_p_hit`（跟随，画在人物上面；左右对称）",
+      "raw_file": "raw/gangplank_fx_p_hit.png",
+      "raw_grid": [
+        3,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            418,
+            702
+          ],
+          "crop_in_slot": [
+            35,
+            92,
+            396,
+            656
+          ]
+        },
+        {
+          "slot": [
+            418,
+            0,
+            836,
+            702
+          ],
+          "crop_in_slot": [
+            35,
+            92,
+            396,
+            656
+          ]
+        },
+        {
+          "slot": [
+            836,
+            0,
+            1254,
+            702
+          ],
+          "crop_in_slot": [
+            35,
+            92,
+            396,
+            656
+          ]
+        },
+        {
+          "slot": [
+            0,
+            702,
+            418,
+            1254
+          ],
+          "crop_in_slot": [
+            35,
+            72,
+            396,
+            516
+          ]
+        },
+        {
+          "slot": [
+            418,
+            702,
+            836,
+            1254
+          ],
+          "crop_in_slot": [
+            35,
+            72,
+            396,
+            516
+          ]
+        }
+      ],
+      "raw_sha256": "a93c302de60a4de15e43a531d77a4af379e0b52215db13f8cfa257e712d398fb",
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410",
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424"
+      ]
+    },
+    {
+      "name": "gangplank_fx_p_ms",
+      "file": "gangplank_fx_p_ms.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        8
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": true,
+      "binding": "view_buffs `league_gangplank_p_ms`（跟随，画在人物下面 z -1；左右对称；循环）",
+      "raw_file": "raw/gangplank_fx_p_ms.png",
+      "raw_grid": [
+        1,
+        4
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            1254,
+            314
+          ],
+          "crop_in_slot": [
+            153,
+            103,
+            1102,
+            246
+          ]
+        },
+        {
+          "slot": [
+            0,
+            314,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            153,
+            103,
+            1102,
+            245
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            1254,
+            940
+          ],
+          "crop_in_slot": [
+            153,
+            103,
+            1102,
+            245
+          ]
+        },
+        {
+          "slot": [
+            0,
+            940,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            153,
+            103,
+            1102,
+            246
+          ]
+        }
+      ],
+      "raw_sha256": "3a0a1142e9a4cf7b62df91f5336e216364381b2cc9598659b6b782523624245c",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F2A82E",
+        "#B86A18",
+        "#5E3008"
+      ]
+    },
+    {
+      "name": "gangplank_fx_q_flash",
+      "file": "gangplank_fx_q_flash.png",
+      "frames": 3,
+      "cell_1x": [
+        16,
+        12
+      ],
+      "symmetry": "none",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "画进他的动作帧（skill 第 3 帧的炮口）；可以有方向",
+      "raw_file": "raw/gangplank_fx_q_flash.png",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "crop_in_slot": [
+            40,
+            179,
+            590,
+            498
+          ]
+        },
+        {
+          "slot": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            40,
+            179,
+            590,
+            498
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "crop_in_slot": [
+            40,
+            179,
+            590,
+            498
+          ]
+        }
+      ],
+      "raw_sha256": "1714ffdf686b2884b2dd52c38b0f2e3183a9f0d28662e7b10cc1eeabf639726c",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F2A82E",
+        "#B86A18",
+        "#5E3008",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410",
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424"
+      ]
+    },
+    {
+      "name": "gangplank_fx_q_bullet",
+      "file": "gangplank_fx_q_bullet.png",
+      "frames": 2,
+      "cell_1x": [
+        10,
+        6
+      ],
+      "symmetry": "top_bottom",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": true,
+      "binding": "view_projectiles `league_gangplank_q_bullet`（随飞行方向转动；上下对称；循环）",
+      "raw_file": "raw/gangplank_fx_q_bullet.png",
+      "raw_grid": [
+        1,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            417,
+            222,
+            857,
+            448
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            417,
+            222,
+            857,
+            448
+          ]
+        }
+      ],
+      "raw_sha256": "45a916032035721f0c8a9b921616ec7d98d5b73191a6e1c2588e1f6c570498ec",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F2A82E",
+        "#B86A18",
+        "#5E3008",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410"
+      ]
+    },
+    {
+      "name": "gangplank_fx_q_hit",
+      "file": "gangplank_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "view_effects `league_gangplank_q_hit`（跟随，画在人物上面；左右对称）",
+      "raw_file": "raw/gangplank_fx_q_hit.png",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "crop_in_slot": [
+            95,
+            91,
+            534,
+            502
+          ]
+        },
+        {
+          "slot": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            95,
+            91,
+            534,
+            502
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "crop_in_slot": [
+            95,
+            91,
+            534,
+            502
+          ]
+        },
+        {
+          "slot": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            95,
+            91,
+            534,
+            502
+          ]
+        }
+      ],
+      "raw_sha256": "0796dd939f23995b44433ba4d9dba87131047978422ab8aca3a8f5d7ee82f25d",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F2A82E",
+        "#B86A18",
+        "#5E3008",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410"
+      ]
+    },
+    {
+      "name": "gangplank_fx_e_throw",
+      "file": "gangplank_fx_e_throw.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        10
+      ],
+      "symmetry": "top_bottom",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": true,
+      "binding": "view_projectiles `league_gangplank_e_throw`（随飞行方向转动；上下对称；循环）",
+      "raw_file": "raw/gangplank_fx_e_throw.png",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "crop_in_slot": [
+            85,
+            163,
+            546,
+            520
+          ]
+        },
+        {
+          "slot": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            85,
+            163,
+            546,
+            520
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "crop_in_slot": [
+            85,
+            163,
+            546,
+            520
+          ]
+        }
+      ],
+      "raw_sha256": "9f72b35a5002b53bea8428525eb5a7501e637966eb3fb2994359a7119dc3e185",
+      "palette": [
+        "#F2D2A2",
+        "#C89058",
+        "#94602E",
+        "#64401E",
+        "#3E2612",
+        "#1E120A",
+        "#E8E8EC",
+        "#A8AAB2",
+        "#6E727C",
+        "#464A52",
+        "#2A2C32",
+        "#141418"
+      ]
+    },
+    {
+      "name": "gangplank_fx_e_land",
+      "file": "gangplank_fx_e_land.png",
+      "frames": 4,
+      "cell_1x": [
+        26,
+        10
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "view_effects `league_gangplank_e_land`（不跟随，画在人物下面 z -1；左右对称）",
+      "raw_file": "raw/gangplank_fx_e_land.png",
+      "raw_grid": [
+        1,
+        4
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            1254,
+            350
+          ],
+          "crop_in_slot": [
+            100,
+            68,
+            1155,
+            305
+          ]
+        },
+        {
+          "slot": [
+            0,
+            350,
+            1254,
+            700
+          ],
+          "crop_in_slot": [
+            100,
+            68,
+            1155,
+            305
+          ]
+        },
+        {
+          "slot": [
+            0,
+            700,
+            1254,
+            1000
+          ],
+          "crop_in_slot": [
+            100,
+            58,
+            1155,
+            261
+          ]
+        },
+        {
+          "slot": [
+            0,
+            1000,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            100,
+            49,
+            1155,
+            221
+          ]
+        }
+      ],
+      "raw_sha256": "8b552722b2a7439f8caf66fabbd179ef8b28b76ad9d608429ea4e3036cec1a6c",
+      "palette": [
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424"
+      ]
+    },
+    {
+      "name": "gangplank_fx_e_keg",
+      "file": "gangplank_fx_e_keg.png",
+      "frames": 2,
+      "cell_1x": [
+        14,
+        16
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": true,
+      "binding": "view_effects `league_gangplank_e_keg`（不跟随，画在人物上面 z 1；左右对称；每 0.17 秒重贴）",
+      "raw_file": "raw/gangplank_fx_e_keg.png",
+      "raw_grid": [
+        2,
+        1
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            830,
+            948
+          ],
+          "crop_in_slot": [
+            151,
+            206,
+            710,
+            810
+          ]
+        },
+        {
+          "slot": [
+            830,
+            0,
+            1659,
+            948
+          ],
+          "crop_in_slot": [
+            151,
+            206,
+            709,
+            810
+          ]
+        }
+      ],
+      "raw_sha256": "ea2079cefa3cdae7f1761de335659fc313de817478f621c1f930357849408c64",
+      "palette": [
+        "#F2D2A2",
+        "#C89058",
+        "#94602E",
+        "#64401E",
+        "#3E2612",
+        "#1E120A",
+        "#E8E8EC",
+        "#A8AAB2",
+        "#6E727C",
+        "#464A52",
+        "#2A2C32",
+        "#141418"
+      ],
+      "frame_durations_ms": [
+        83,
+        83
+      ]
+    },
+    {
+      "name": "gangplank_fx_e_keg_lit",
+      "file": "gangplank_fx_e_keg_lit.png",
+      "frames": 2,
+      "cell_1x": [
+        14,
+        18
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": true,
+      "binding": "view_effects `league_gangplank_e_keg_lit`（不跟随，画在人物上面 z 1；左右对称）",
+      "raw_file": "raw/gangplank_fx_e_keg_lit.png",
+      "raw_grid": [
+        2,
+        1
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "crop_in_slot": [
+            117,
+            147,
+            641,
+            911
+          ]
+        },
+        {
+          "slot": [
+            768,
+            0,
+            1536,
+            1024
+          ],
+          "crop_in_slot": [
+            117,
+            147,
+            641,
+            911
+          ]
+        }
+      ],
+      "raw_sha256": "14bf88436bc3cfeb015258c08e0de409a2c9cf2ee919feeb5e7d1b72c2081e47",
+      "palette": [
+        "#F2D2A2",
+        "#C89058",
+        "#94602E",
+        "#64401E",
+        "#3E2612",
+        "#1E120A",
+        "#E8E8EC",
+        "#A8AAB2",
+        "#6E727C",
+        "#464A52",
+        "#2A2C32",
+        "#141418",
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410"
+      ],
+      "frame_durations_ms": [
+        83,
+        83
+      ]
+    },
+    {
+      "name": "gangplank_fx_e_boom",
+      "file": "gangplank_fx_e_boom.png",
+      "frames": 7,
+      "cell_1x": [
+        64,
+        48
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "view_effects `league_gangplank_e_boom`（不跟随，画在人物上面 z 2；左右对称；大图表）",
+      "raw_file": "raw/gangplank_fx_e_boom.png",
+      "raw_grid": [
+        3,
+        3
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            418,
+            418
+          ],
+          "crop_in_slot": [
+            7,
+            51,
+            411,
+            399
+          ]
+        },
+        {
+          "slot": [
+            418,
+            0,
+            836,
+            418
+          ],
+          "crop_in_slot": [
+            7,
+            51,
+            411,
+            399
+          ]
+        },
+        {
+          "slot": [
+            836,
+            0,
+            1254,
+            418
+          ],
+          "crop_in_slot": [
+            7,
+            51,
+            411,
+            399
+          ]
+        },
+        {
+          "slot": [
+            0,
+            418,
+            418,
+            836
+          ],
+          "crop_in_slot": [
+            7,
+            51,
+            411,
+            399
+          ]
+        },
+        {
+          "slot": [
+            418,
+            418,
+            836,
+            836
+          ],
+          "crop_in_slot": [
+            7,
+            51,
+            411,
+            399
+          ]
+        },
+        {
+          "slot": [
+            836,
+            418,
+            1254,
+            836
+          ],
+          "crop_in_slot": [
+            7,
+            51,
+            411,
+            399
+          ]
+        },
+        {
+          "slot": [
+            0,
+            836,
+            418,
+            1254
+          ],
+          "crop_in_slot": [
+            7,
+            51,
+            411,
+            399
+          ]
+        }
+      ],
+      "raw_sha256": "b318c15cef44be6ca9391bce4ad254ff669723c295a1bf34cf73ab3bc3389087",
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410",
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424",
+        "#F2D2A2",
+        "#C89058",
+        "#94602E",
+        "#64401E",
+        "#3E2612",
+        "#1E120A"
+      ]
+    },
+    {
+      "name": "gangplank_fx_e_hit",
+      "file": "gangplank_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "view_effects `league_gangplank_e_hit`（跟随，画在人物上面；左右对称）",
+      "raw_file": "raw/gangplank_fx_e_hit.png",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "crop_in_slot": [
+            68,
+            70,
+            588,
+            547
+          ]
+        },
+        {
+          "slot": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            68,
+            70,
+            588,
+            547
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "crop_in_slot": [
+            68,
+            70,
+            588,
+            547
+          ]
+        },
+        {
+          "slot": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            68,
+            70,
+            588,
+            547
+          ]
+        }
+      ],
+      "raw_sha256": "e477c6df71e8b2358dcd044529c0ecda92b9f0c2429aec49c90e7ac6b3d1457f",
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410",
+        "#F2D2A2",
+        "#C89058",
+        "#94602E",
+        "#64401E",
+        "#3E2612",
+        "#1E120A",
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424"
+      ]
+    },
+    {
+      "name": "gangplank_fx_e_slow",
+      "file": "gangplank_fx_e_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        6
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": true,
+      "binding": "view_buffs `league_gangplank_e_slow`（跟随，画在人物下面 z -1；左右对称；循环）",
+      "raw_file": "raw/gangplank_fx_e_slow.png",
+      "raw_grid": [
+        1,
+        4
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            1003,
+            392
+          ],
+          "crop_in_slot": [
+            150,
+            75,
+            854,
+            322
+          ]
+        },
+        {
+          "slot": [
+            0,
+            392,
+            1003,
+            784
+          ],
+          "crop_in_slot": [
+            150,
+            75,
+            854,
+            322
+          ]
+        },
+        {
+          "slot": [
+            0,
+            784,
+            1003,
+            1176
+          ],
+          "crop_in_slot": [
+            150,
+            75,
+            854,
+            322
+          ]
+        },
+        {
+          "slot": [
+            0,
+            1176,
+            1003,
+            1568
+          ],
+          "crop_in_slot": [
+            150,
+            75,
+            854,
+            322
+          ]
+        }
+      ],
+      "raw_sha256": "58277143454f841a935be593d7a43540384ca0e9920d11d0b168a7d2720af7fc",
+      "palette": [
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424",
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410"
+      ]
+    },
+    {
+      "name": "gangplank_fx_w_cast",
+      "file": "gangplank_fx_w_cast.png",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "symmetry": "none",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "画进他的动作帧（skill_w 第 2–3 帧，嘴边的手上）；可以有方向",
+      "raw_file": "raw/gangplank_fx_w_cast.png",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "crop_in_slot": [
+            98,
+            117,
+            545,
+            556
+          ]
+        },
+        {
+          "slot": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            98,
+            117,
+            545,
+            556
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "crop_in_slot": [
+            98,
+            117,
+            545,
+            556
+          ]
+        }
+      ],
+      "raw_sha256": "c8bc46440333ac3a06f4343a6263196e126c232d69dc688d34bab7fb58a94ba3",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFD04A",
+        "#FF9E1E",
+        "#E06A10",
+        "#8A3A08",
+        "#7CC24A",
+        "#3E7A28"
+      ]
+    },
+    {
+      "name": "gangplank_fx_w_imm",
+      "file": "gangplank_fx_w_imm.png",
+      "frames": 4,
+      "cell_1x": [
+        36,
+        14
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": true,
+      "binding": "view_buffs `league_gangplank_w_imm`（跟随，画在人物下面 z -1；左右对称；循环）",
+      "raw_file": "raw/gangplank_fx_w_imm.png",
+      "raw_grid": [
+        1,
+        4
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            1254,
+            314
+          ],
+          "crop_in_slot": [
+            383,
+            46,
+            871,
+            311
+          ]
+        },
+        {
+          "slot": [
+            0,
+            314,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            383,
+            46,
+            871,
+            310
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            1254,
+            940
+          ],
+          "crop_in_slot": [
+            383,
+            46,
+            871,
+            310
+          ]
+        },
+        {
+          "slot": [
+            0,
+            940,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            383,
+            46,
+            871,
+            311
+          ]
+        }
+      ],
+      "raw_sha256": "09b9c763c0ca80a9f46c932fd76fdcca8fb0918adfa39b63119db19eb6d850fc",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFD04A",
+        "#FF9E1E",
+        "#E06A10",
+        "#8A3A08",
+        "#7CC24A",
+        "#3E7A28"
+      ]
+    },
+    {
+      "name": "gangplank_fx_r_cast",
+      "file": "gangplank_fx_r_cast.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        44
+      ],
+      "symmetry": "none",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "画进他的动作帧（ult 第 3–4 帧，朝天的炮口上方）；可以有方向",
+      "raw_file": "raw/gangplank_fx_r_cast.png",
+      "raw_grid": [
+        4,
+        1
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            444,
+            887
+          ],
+          "crop_in_slot": [
+            59,
+            77,
+            399,
+            853
+          ]
+        },
+        {
+          "slot": [
+            444,
+            0,
+            887,
+            887
+          ],
+          "crop_in_slot": [
+            59,
+            77,
+            398,
+            853
+          ]
+        },
+        {
+          "slot": [
+            887,
+            0,
+            1330,
+            887
+          ],
+          "crop_in_slot": [
+            59,
+            77,
+            398,
+            853
+          ]
+        },
+        {
+          "slot": [
+            1330,
+            0,
+            1774,
+            887
+          ],
+          "crop_in_slot": [
+            59,
+            77,
+            399,
+            853
+          ]
+        }
+      ],
+      "raw_sha256": "5b816a3e183cb60b801f38217a90e2fd728a49ea702b2c98713e37885e50239e",
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410",
+        "#FFD0B0",
+        "#FF8A4A",
+        "#E2481E",
+        "#A0241A",
+        "#56100C",
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424"
+      ]
+    },
+    {
+      "name": "gangplank_fx_r_warn",
+      "file": "gangplank_fx_r_warn.png",
+      "frames": 8,
+      "cell_1x": [
+        92,
+        34
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "view_effects `league_gangplank_r_warn`（不跟随，画在人物下面 z -2；左右对称；大图表）",
+      "raw_file": "raw/gangplank_fx_r_warn.png",
+      "raw_grid": [
+        2,
+        4
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            627,
+            314
+          ],
+          "crop_in_slot": [
+            21,
+            29,
+            606,
+            283
+          ]
+        },
+        {
+          "slot": [
+            627,
+            0,
+            1254,
+            314
+          ],
+          "crop_in_slot": [
+            21,
+            29,
+            606,
+            283
+          ]
+        },
+        {
+          "slot": [
+            0,
+            314,
+            627,
+            627
+          ],
+          "crop_in_slot": [
+            21,
+            29,
+            606,
+            282
+          ]
+        },
+        {
+          "slot": [
+            627,
+            314,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            21,
+            29,
+            606,
+            282
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            627,
+            940
+          ],
+          "crop_in_slot": [
+            21,
+            29,
+            606,
+            282
+          ]
+        },
+        {
+          "slot": [
+            627,
+            627,
+            1254,
+            940
+          ],
+          "crop_in_slot": [
+            21,
+            29,
+            606,
+            282
+          ]
+        },
+        {
+          "slot": [
+            0,
+            940,
+            627,
+            1254
+          ],
+          "crop_in_slot": [
+            21,
+            29,
+            606,
+            283
+          ]
+        },
+        {
+          "slot": [
+            627,
+            940,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            21,
+            29,
+            606,
+            283
+          ]
+        }
+      ],
+      "raw_sha256": "9f565066fc77a5715d271db26b778dbbee00b152060bb9f7880044513e6ebdba",
+      "palette": [
+        "#FFFFFF",
+        "#FFD0B0",
+        "#FF8A4A",
+        "#E2481E",
+        "#A0241A",
+        "#56100C"
+      ],
+      "frame_durations_ms": [
+        125,
+        125,
+        125,
+        125,
+        125,
+        125,
+        125,
+        125
+      ]
+    },
+    {
+      "name": "gangplank_fx_r_wave",
+      "file": "gangplank_fx_r_wave.png",
+      "frames": 6,
+      "cell_1x": [
+        96,
+        84
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "view_effects `league_gangplank_r_wave`（不跟随，画在人物上面 z 2；左右对称；大图表；每 0.5 秒一波，共 12 波）",
+      "raw_file": "raw/gangplank_fx_r_wave.png",
+      "raw_grid": [
+        3,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            418,
+            627
+          ],
+          "crop_in_slot": [
+            24,
+            139,
+            394,
+            551
+          ]
+        },
+        {
+          "slot": [
+            418,
+            0,
+            836,
+            627
+          ],
+          "crop_in_slot": [
+            24,
+            139,
+            394,
+            551
+          ]
+        },
+        {
+          "slot": [
+            836,
+            0,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            24,
+            139,
+            394,
+            551
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            418,
+            1254
+          ],
+          "crop_in_slot": [
+            24,
+            139,
+            394,
+            551
+          ]
+        },
+        {
+          "slot": [
+            418,
+            627,
+            836,
+            1254
+          ],
+          "crop_in_slot": [
+            24,
+            139,
+            394,
+            551
+          ]
+        },
+        {
+          "slot": [
+            836,
+            627,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            24,
+            139,
+            394,
+            551
+          ]
+        }
+      ],
+      "raw_sha256": "04245b95bb67a24d8c1444198219af559c193efb947a3fe858b49a05e98ee756",
+      "palette": [
+        "#E8E8EC",
+        "#A8AAB2",
+        "#6E727C",
+        "#464A52",
+        "#2A2C32",
+        "#141418",
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410",
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424"
+      ],
+      "frame_durations_ms": [
+        83,
+        83,
+        84,
+        83,
+        83,
+        84
+      ]
+    },
+    {
+      "name": "gangplank_fx_r_hit",
+      "file": "gangplank_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": false,
+      "binding": "view_effects `league_gangplank_r_hit`（跟随，画在人物上面；左右对称）",
+      "raw_file": "raw/gangplank_fx_r_hit.png",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "crop_in_slot": [
+            46,
+            46,
+            582,
+            560
+          ]
+        },
+        {
+          "slot": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "crop_in_slot": [
+            46,
+            46,
+            582,
+            560
+          ]
+        },
+        {
+          "slot": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "crop_in_slot": [
+            46,
+            46,
+            582,
+            560
+          ]
+        },
+        {
+          "slot": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "crop_in_slot": [
+            46,
+            46,
+            582,
+            560
+          ]
+        }
+      ],
+      "raw_sha256": "ab944ad7af3fba92f1dae1ac87da0ff8afa750ad2cc59ff0fce7d9e87d2be9b0",
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410",
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424"
+      ]
+    },
+    {
+      "name": "gangplank_fx_r_slow",
+      "file": "gangplank_fx_r_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        6
+      ],
+      "symmetry": "left_right",
+      "layout": "horizontal_strip",
+      "scale": 8,
+      "loop": true,
+      "binding": "view_buffs `league_gangplank_r_slow`（跟随，画在人物下面 z -1；左右对称；循环）",
+      "raw_file": "raw/gangplank_fx_r_slow.png",
+      "raw_grid": [
+        1,
+        4
+      ],
+      "source_rects": [
+        {
+          "slot": [
+            0,
+            0,
+            1086,
+            362
+          ],
+          "crop_in_slot": [
+            175,
+            79,
+            911,
+            318
+          ]
+        },
+        {
+          "slot": [
+            0,
+            362,
+            1086,
+            724
+          ],
+          "crop_in_slot": [
+            175,
+            79,
+            911,
+            318
+          ]
+        },
+        {
+          "slot": [
+            0,
+            724,
+            1086,
+            1086
+          ],
+          "crop_in_slot": [
+            175,
+            79,
+            911,
+            318
+          ]
+        },
+        {
+          "slot": [
+            0,
+            1086,
+            1086,
+            1448
+          ],
+          "crop_in_slot": [
+            175,
+            79,
+            911,
+            318
+          ]
+        }
+      ],
+      "raw_sha256": "a98af2a15706cd5b0a3a7c4c551f9542ac073efd281bcfd47b85a6d9cd4deba2",
+      "palette": [
+        "#F4F0EA",
+        "#CFC8BE",
+        "#A29A90",
+        "#756E68",
+        "#4A4644",
+        "#262424"
+      ]
+    }
+  ],
+  "postprocess": {
+    "method": "generated artwork only; nearest allowed palette; per logical cell majority opaque color; visible coverage >= 0.20; source alpha >=224; binary output alpha; exact mirror using brighter member of each source pair; nearest-neighbor 8x",
+    "raw_untouched": true,
+    "reference_atlas_included": false
+  }
+}

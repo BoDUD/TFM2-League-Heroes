@@ -1,0 +1,248 @@
+{
+  "assets": 20,
+  "frames": 81,
+  "checks": [
+    {
+      "name": "gangplank_fx_a_hit",
+      "opaque_pixels_per_frame": [
+        18,
+        64,
+        58,
+        26
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_p_hit",
+      "opaque_pixels_per_frame": [
+        26,
+        52,
+        104,
+        78,
+        70
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_p_ms",
+      "opaque_pixels_per_frame": [
+        16,
+        20,
+        10,
+        6
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_q_flash",
+      "opaque_pixels_per_frame": [
+        66,
+        69,
+        93
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_q_bullet",
+      "opaque_pixels_per_frame": [
+        26,
+        30
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_q_hit",
+      "opaque_pixels_per_frame": [
+        16,
+        50,
+        66,
+        26
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_e_throw",
+      "opaque_pixels_per_frame": [
+        44,
+        44,
+        44
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_e_land",
+      "opaque_pixels_per_frame": [
+        28,
+        82,
+        68,
+        12
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_e_keg",
+      "opaque_pixels_per_frame": [
+        126,
+        124
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_e_keg_lit",
+      "opaque_pixels_per_frame": [
+        132,
+        128
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_e_boom",
+      "opaque_pixels_per_frame": [
+        174,
+        522,
+        1400,
+        2082,
+        1634,
+        1176,
+        310
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_e_hit",
+      "opaque_pixels_per_frame": [
+        28,
+        108,
+        156,
+        126
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_e_slow",
+      "opaque_pixels_per_frame": [
+        20,
+        28,
+        32,
+        24
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_w_cast",
+      "opaque_pixels_per_frame": [
+        41,
+        43,
+        36
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_w_imm",
+      "opaque_pixels_per_frame": [
+        96,
+        94,
+        110,
+        96
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_r_cast",
+      "opaque_pixels_per_frame": [
+        52,
+        106,
+        137,
+        68
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_r_warn",
+      "opaque_pixels_per_frame": [
+        178,
+        220,
+        308,
+        378,
+        502,
+        534,
+        612,
+        646
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_r_wave",
+      "opaque_pixels_per_frame": [
+        398,
+        440,
+        1706,
+        3404,
+        2720,
+        1546
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_r_hit",
+      "opaque_pixels_per_frame": [
+        28,
+        76,
+        124,
+        84
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_r_slow",
+      "opaque_pixels_per_frame": [
+        10,
+        26,
+        34,
+        24
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "scale_8x_exact": true
+    }
+  ],
+  "keg_body_identical": true
+}

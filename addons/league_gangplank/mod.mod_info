@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.145.0"
+    }
+  ],
+  "description": "Test build of Gangplank as in League (needs League of Legends Heroes): replaces the main pack's Gangplank so Remove Scurvy really cleanses the crowd control already on him and is also eaten below 40% health, and a Powder Keg blowing up chains the other lit keg within reach even with no enemy beside it - the main pack's data cannot end a stun, read health or measure between kegs. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-18",
+  "mod_id": "league_gangplank",
+  "mod_type": "native",
+  "name": "League Heroes: Gangplank's cleanse and keg chains (test)",
+  "version": "0.1.0"
+}

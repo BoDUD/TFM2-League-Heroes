@@ -424,7 +424,9 @@ def main():
     a = ap.parse_args()
     if not (a.audit or a.review or a.parts):
         F = form()
-        F.rig.export(frames(F))
+        # Q's muzzle flash, W's orange and R's flare drawn into his own frames (assets/source/native/gangplank_bake.json;
+        # import_gangplank_fx.py first): they turn with him, the red side included
+        F.rig.export(F.rig.bake(frames(F), hero=HERO.replace("league_", "")))
         return
     if a.audit or a.review:
         F = form()

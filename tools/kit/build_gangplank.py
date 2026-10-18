@@ -38,10 +38,20 @@ slot - the watch eats the orange (league_jarvaniv's / league_ziggs's W the same 
           40-100 + 10% AP each, r 580, slow 30% 0.5 s). Unused, the window ends with the cooldown capped (`r_retry`).
   watch   A life-long `AddCasted` started by his first attack or R press of each life (`init`): every watch_p ticks
           the ult's moment and W; every 2 ticks (a second `AddCasted`) the keg throw.
-The add-on copy (--native, addons/league_gangplank): the passive league_gangplank:scurvy ends the crowd control on
-him the tick W is eaten (`w_now`, sim.entity_clear_cc - League's cleanse) and raises `w_low` below w_low% health so
-the watch eats it then too; league_gangplank:kegs chains kegs - when one blows, the other ripe keg within e_chain
-blows a tick later even with no enemy in it. The add-on presses no key.
+The add-on copy (--native, addons/league_gangplank), one native passive league_gangplank:scurvy:
+  W       the tick the watch eats the orange (`w_now`) the passive ends the hard crowd control on him
+          (sim.entity_clear_cc - League's cleanse); the orange's animation, sound and heal start 2 ticks after the
+          decision in both copies, as clearing would end a playing cast animation too (game 0.6.4 keeps it as a crowd
+          control entry). Below w_low% health the passive keeps `w_low` on him, so the watch eats it then too.
+  chain   when a keg blows (`k{s}_now`, a tick after its blast) and the other one is ripe within e_chain of it, the
+          passive raises `k{o}_cn` (the data's trigger blows it on the next tick with an enemy inside - this copy reads
+          `k{o}_cn` in place of the plain copy's `k{s}_chain`, which has no distance), or with no enemy unit within
+          e_r + 20000 of it blows it empty: `k{o}_blew` (its next link draws the boom), the keg gone, `p_cd` off and the
+          passive's speed, as the data's blast. Keg positions: his two new zones at one point the tick `k{s}_live` rises.
+The add-on presses no key.
+Balance (sim/kd.py 600 8, top lane against the six base top laners, 2026-10-18): +1.89 (league_darius +1.99,
+league_nasus +1.55 on the same seeds); per 10 minutes about 20 kegs landed and 11 blown, the orange eaten 9 times,
+5 Cannon Barrages.
 """
 import argparse
 import json
@@ -75,7 +85,7 @@ P = {
     "w_cd": 900, "w_dur": 20, "w_rel": 10, "w_heal": 80, "w_ratio": 60, "w_imm": 60, "w_crowd": 35000, "w_low": 40,
     # R Cannon Barrage (League: global, r 580 (inner 170), 12 waves 40-100 + 10% AP, slow 30% 0.5 s, cd 160-120)
     "r_cd": 3600, "r_range": 400000, "r_arm": 600, "r_wait": 300, "r_dur": 24, "r_rel": 10, "r_call": 60,
-    "r_waves": 12, "r_p": 30, "r_r": 44000, "r_dmg": 30, "r_ratio": 25, "r_slow": 30, "r_slow_t": 30,
+    "r_waves": 12, "r_p": 30, "r_r": 58000, "r_dmg": 30, "r_ratio": 25, "r_slow": 30, "r_slow_t": 30,
     "watch_p": 12,
     "vo_gap": 600,
     "native": 0,
@@ -247,16 +257,17 @@ def keg(p, s, native, ms):
     pen = flag("e_pen", 1, defence_penetration=p["e_pen"])
     out = delayed(1, *rm(live, ripe, "p_cd"), ms, *([refresh(f"k{s}_now", 2)] if native else []))
     hit = combine(pen, attack(p["e_dmg"], p["e_ratio"]), slow, view("e_hit"), tsfx("e_hit"),
-                  refresh(blew, p["e_link"] + 1), refresh(chain, 3), out)
+                  refresh(blew, p["e_link"] + 1), *([] if native else [refresh(chain, 3)]), out)
+    chained = f"k{s}_cn" if native else f"k{o}_chain"   # the add-on: the other keg blew within e_chain
     bonus = combine(pen, attack(p["e_champ"], 0))
 
     def why(blow):   # a shot, a hit beside it or the other keg's blast
-        return sw(ripe, sw("q_fire", blow, sw(f"k{o}_chain", blow, sw("a_fire", pick(
+        return sw(ripe, sw("q_fire", blow, sw(chained, blow, sw("a_fire", pick(
             p["e_near"], "AllyOnlySelf", flag(f"k{s}_near", 1), here=True)))))
 
     near_blow = lambda blow: sw(f"k{s}_near", combine(*rm(f"k{s}_near"), blow))
     trigger = field(f"k{s}_trig", p["e_r"], life, 1, [why(hit), near_blow(hit)], first=1)
-    champ = field(f"k{s}_champ", p["e_r"], life, 1, [sw(ripe, sw("q_fire", bonus, sw(f"k{o}_chain", bonus, sw(
+    champ = field(f"k{s}_champ", p["e_r"], life, 1, [sw(ripe, sw("q_fire", bonus, sw(chained, bonus, sw(
         "a_fire", pick(p["e_near"], "AllyOnlySelf", bonus, here=True)))))], target="EnemyChampion", first=1)
     links = [delayed(t, sw(blew, combine(*rm(blew), view("e_boom"), sfx("e_boom")),
                            sw(ripe, view("e_keg_lit"), sw(live, view("e_keg")))))
@@ -280,10 +291,13 @@ def build(p):
     lit = combine(flag("p_cd", p["p_t"]), ms)
 
     # ------------------------------------------------------------------ W: Remove Scurvy (eaten by the watch)
-    eat = combine(flag("w_cd", p["w_cd"]), anim("skill_w", p["w_dur"]), sfx("w"), voice("vo_w", p),
-                  flag("w_imm", p["w_imm"], cc_immune=True), *([refresh("w_now", 2)] if native else []),
-                  delayed(p["w_rel"] - 1, alive(cview("w_cast"), on_me(heal(p["w_heal"], p["w_ratio"]))),
-                          sfx("w_eat")))
+    # the orange 2 ticks after the decision: the add-on clears the crowd control on him at `w_now` first, and
+    # clearing would end a playing cast animation too (0.6.4 keeps one as a crowd control entry)
+    eat = combine(flag("w_cd", p["w_cd"]), flag("w_imm", p["w_imm"], cc_immune=True),
+                  *([refresh("w_now", 2)] if native else []),
+                  delayed(2, alive(anim("skill_w", p["w_dur"]), sfx("w"), voice("vo_w", p)),
+                          delayed(p["w_rel"] - 1, alive(on_me(heal(p["w_heal"], p["w_ratio"]))),
+                                  sfx("w_eat"))))
     count = combine(*rm("c_e1", "c_e2"),
                     around(p["w_crowd"], "EnemyChampion", [sw("c_e1", flag("c_e2", 3), flag("c_e1", 3))]))
     # w_go lives 3 ticks: set on tick 0 (crowd control) or 1 (crowded, low health), read on tick 2
@@ -299,7 +313,7 @@ def build(p):
     barrage = [sfx("r_call")] + [delayed(k * p["r_p"], wave) for k in range(p["r_waves"])]
     call = combine(*rm("r_arm", "r_late"), refresh("r_fired", 4), refresh("busy", p["r_dur"]),
                    anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
-                   delayed(p["r_rel"] - 1, alive(cview("r_cast"), lob("r_flare", p["r_call"], barrage,
+                   delayed(p["r_rel"] - 1, alive(lob("r_flare", p["r_call"], barrage,
                                                                       target="EnemyChampion", seen="r_warn"))))
     fire_r = sw("r_arm", combine(pick(p["r_range"], "EnemyChampionInCC", call),
                                  delayed(1, sw("r_fired", NONE, sw("r_late", pick(p["r_range"],
@@ -324,7 +338,7 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Parrrley
     shot = [attack(p["q_dmg"], p["q_ratio"]), refresh("q_fire", p["e_arm"]), view("q_hit"), tsfx("q_hit")]
-    bang = combine(cview("q_flash"), sfx("q_shot"),
+    bang = combine(sfx("q_shot"),
                    sw("p_cd", homing("q_bullet", "EnemyWithoutTower", shot, p["q_speed"]),
                       combine(lit, homing("q_bullet_p", "EnemyWithoutTower", shot + fire_on, p["q_speed"]))),
                    homing("q_twin", "EnemyChampion", marked, p["q_speed"]))
@@ -347,7 +361,8 @@ def build(p):
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", scored,
                  key="ult")
 
-    # ------------------------------------------------------------------ views
+    # ------------------------------------------------------------------ views (Q's flash, W's orange and R's flare are drawn
+    # into his frames: rig_gangplank.py's bake)
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
                                                    "z": z, "is_follow": follow}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
@@ -357,15 +372,15 @@ def build(p):
     # a projectile's picture is turned with its flight: the bullet is symmetric top to bottom, the keg round
     views_p = [Pj("q_bullet", "q_bullet"), Pj("q_bullet_p", "q_bullet"), Pj("e_throw1", "e_throw"),
                Pj("e_throw2", "e_throw")]
-    views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("q_flash", FX, 3), E("e_land", BIG, -1, False),
-               E("e_keg", BIG, 1, False), E("e_keg_lit", BIG, 1, False), E("e_boom", BIG, 2, False), E("e_hit"),
-               E("w_cast", FX, 3), E("r_cast", BIG, 3), E("r_warn", BIG, -2, False), E("r_wave", BIG, 2, False),
+    views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("e_land", FX, -1, False),
+               E("e_keg", FX, 1, False), E("e_keg_lit", FX, 1, False), E("e_boom", BIG, 2, False), E("e_hit"),
+               E("r_warn", BIG, -2, False), E("r_wave", BIG, 2, False),
                E("r_hit")]
     views_b = [B_("e_slow", FX, 3), B_("r_slow", FX, 3), B_("p_ms", FX, -1), B_("w_imm", FX, 3)]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_gangplank:scurvy", "params": {
-            "w_low": p["w_low"], "e_chain": p["e_chain"]}}
+            k: p[k] for k in ("w_low", "e_chain", "e_r", "e_link", "p_ms", "p_ms_t")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

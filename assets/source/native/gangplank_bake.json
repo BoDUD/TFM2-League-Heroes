@@ -1,0 +1,8 @@
+{
+  "fx": "league_gangplank_fx",
+  "items": [
+    {"tag": "q_flash", "into": "skill", "at_ms": 160, "dx": 29, "dy": -16},
+    {"tag": "w_cast", "into": "skill_w", "at_ms": 80, "dx": 2, "dy": -19},
+    {"tag": "r_cast", "into": "ult", "at_ms": 170, "dx": -8, "dy": -56}
+  ]
+}
