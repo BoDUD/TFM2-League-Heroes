@@ -1,0 +1,15 @@
+RIVEN A — INITIAL
+Create a production pixel-art Riven champion full-body design sprite, 1024x1024 transparent PNG. Reference images 1-4 define POSE AND VIEW ONLY: three-quarter front-right facing, far hand holds gigantic broken greatsword BEHIND HER BACK, blade pointing diagonally UP RIGHT above shoulder; near hand OPEN in front of chest, bent knees, feet staggered but both soles on same baseline. Reference 5 mood; reference 6 COSTUME, COLORS, wide thick broken sword ONLY; reference 7 sturdy chibi body proportions ONLY (hair+head one THIRD body height); reference 8 layout ONLY: hair tips y=300, soles y=960, body height 660px; references 9-11 STYLE ONLY. Keep WHOLE figure and whole sword visible with margin.
+White warm-gray short spiky swept-back hair and small rear tuft; warm tan face, faint pale cheek warpaint, TWO eyes at SAME height. Green top, ONE large GREEN metal shoulder plate with rim on near shoulder (image left), brown leather waist guard and belt, white forearm wraps, short dark purple-brown trousers, bandaged legs and brown boots. Massive broad dark steel BROKEN greatsword with a distinctly jagged snapped end, silver edges, green runes near guard, leather grip. Near arm and leg brighter, far limbs darker. Match reference 1 idle posture, NOT sword-down stance from refs 6-7. Sword behind shoulder, never hanging in front.
+STRICT COARSE PIXEL ART like refs 9-11. Every pixel-art block exactly 11x11 output pixels aligned to one grid, 2-block near-black external outline, each material 3-4 flat shades, no dithering, no gradients or antialiasing. Large readable contiguous color clusters, shaded white hair, green armor lit edges. Transparent background REAL alpha, only alpha 0 or 255, NO shadow, glow, halo, floor, text, guide lines, grid lines, frame or other characters. One single character asset.
+Reference correction: only FIVE references attached: 1 pose and view (idle); 2 costume/colors (approved sprite); 3 proportions (current sprite); 4 layout silhouette, IGNORE its sword-down posture; 5 pixel-art style (Fiora) only. These five are authoritative; the 11-image indexing above describes the original pack roles.
+
+RIVEN A — REFINEMENT
+undefined
+
+RIVEN R — ISOLATED REFORGED SWORD
+undefined
+
+RIVEN R — ORIENTATION CORRECTION
+undefined
+
