@@ -24,8 +24,9 @@ League's four buttons, so Steadfast Presence's active rides in her other casts (
   ult     R Keeper's Verdict (持卫的裁决), `Direction` on `EnemyChampion` (r_range): League's hold-to-charge as a
           smart choice (league_varus Q): two or more enemy champions within r_tap_r -> the quick slam (r_tap_dmg,
           a ring round her, airborne r_up); else she charges r_ch ticks (slowed, aim locked) and the swing sends a
-          shockwave down the line (r_len): every enemy champion hit takes r_dmg + r_ratio% AD and is knocked far
-          away (the main pack: Knockback r_kb_speed x r_kb_t, away from her; the add-on: toward his own fountain).
+          shockwave down the line (r_len): every enemy champion hit takes r_dmg + r_ratio% AD and flies far away, in
+          the air (the main pack: Airborne r_air + Knockback r_kb_speed x r_kb_t, away from her; the add-on: toward his
+          own fountain).
 The add-on copy (--native, addons/league_poppy): the passive league_poppy:steadfast doubles W's armour / MR under
 40% health and interrupts dashes inside the aura; E's contact is league_poppy:charge (the wall check); R's hit is
 league_poppy:verdict (the fountain-ward flight).
@@ -72,7 +73,7 @@ P = {
     # knock-back up to 3400 toward their fountain; channel up to 4 s, 15% slow; cd 140-100)
     "r_cd": 3600, "r_range": 55000, "r_tap_r": 28000, "r_tap_dmg": 80, "r_tap_ratio": 40, "r_up": 60, "r_tap_t": 20,
     "r_tap_rel": 8, "r_ch": 40, "r_rel": 8, "r_rec": 14, "r_len": 70000, "r_speed": 7000, "r_w": 9000,
-    "r_dmg": 150, "r_ratio": 70, "r_kb_speed": 3000, "r_kb_t": 18,
+    "r_dmg": 150, "r_ratio": 70, "r_kb_speed": 6000, "r_kb_t": 25, "r_air": 25,
     # the add-on's flight toward his own fountain (League: up to 3400 units, a quarter of the map)
     "r_far": 150000, "r_far_speed": 6000,
     "vo_gap": 600,
@@ -290,7 +291,9 @@ def build(p):
     if nat:
         fly = [native("verdict")]
     else:
-        fly = [{"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb_t"]}]
+        # League's charged Verdict sends them flying far (up to 3400 units, a quarter of the map): knocked up for the
+        # whole flight and knocked back 150000 (an Airborne beside the Knockback still lets it carry them - measured)
+        fly = [{"type": "Airborne", "duration": p["r_air"]}, {"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb_t"]}]
     struck = [attack(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit"), *fly]
     wave = line("r_wave", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion", True, struck)
     full = combine(anim("ult_charge", p["r_ch"]), refresh("r_slow", p["r_ch"], move_speed_mult=-15),
@@ -324,7 +327,7 @@ def build(p):
         extra["passive"] = {"passive_ref": f"{ID}:steadfast", "params": {
             k: p[k] for k in ("w_def", "w_low", "w_r", "w_dmg", "w_ap", "w_up", "w_ground", "w_slow", "e_dmg", "e_ratio",
                               "e_kb_speed", "e_kb_t", "e_stun", "p_sh_min", "p_sh_max", "p_sh_t", "r_kb_speed", "r_kb_t",
-                              "r_far", "r_far_speed")}}
+                              "r_air", "r_far", "r_far_speed")}}
     return {
         "id": ID, "category": "Util", "tags": ["AD", "Melee", "Tank", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

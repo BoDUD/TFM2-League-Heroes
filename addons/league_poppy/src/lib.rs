@@ -12,7 +12,8 @@
 //!   推 `E_KB_SPEED` x `E_KB_T` 的路上碰到墙就推到墙边，到的那一刻（被动看他身上的 `league_poppy_e_due` 到期）再受一次
 //!   `E_DMG` + `E_RATIO`% 攻击力物理伤害并眩晕 `E_STUN` tick；没碰到墙就照常推开、不晕。主包：每次推完都晕一下。
 //! - **持卫的裁决打回泉水**（原生效果 `league_poppy:verdict`，冲击波打中英雄时）：5v5 地图上朝他自己的水晶方向强制位移
-//!   `R_FAR`（速度 `R_FAR_SPEED`，撞墙会停）；别的地图照数据从她身边击退。主包：从她身边击退 `R_KB_SPEED` x `R_KB_T`。
+//!   `R_FAR`（速度 `R_FAR_SPEED`，撞墙会停），一路在空中（击飞）；别的地图照数据从她身边击飞击退。主包：击飞 `R_AIR` tick
+//!   并从她身边击退 `R_KB_SPEED` x `R_KB_T`。
 //! - **钢铁大使的护盾按最大生命算**（原生效果 `league_poppy:pick`，捡起圆盾时）：最大生命的 `P_SH_MIN`%（1 级）到
 //!   `P_SH_MAX`%（18 级），`P_SH_T` tick。主包：固定值 + 攻击力加成。
 //!
@@ -56,8 +57,10 @@ pub const P_SH_MIN: usize = 11;
 pub const P_SH_MAX: usize = 21;
 pub const P_SH_T: usize = 180;
 /// 持卫的裁决：别的地图的击退（速度、tick）；5v5 打回泉水的距离、速度。
-pub const R_KB_SPEED: usize = 3_000;
-pub const R_KB_T: usize = 18;
+pub const R_KB_SPEED: usize = 6_000;
+pub const R_KB_T: usize = 25;
+/// 飞的时候在空中（击飞）的 tick（r_air）。
+pub const R_AIR: usize = 25;
 pub const R_FAR: usize = 150_000;
 pub const R_FAR_SPEED: usize = 6_000;
 
@@ -333,11 +336,13 @@ fn verdict(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         Some((h, dir)) => {
             let len = (R_FAR as f64).min(dist(h, at));
             let ticks = shove(sim, target, dir, len, R_FAR_SPEED);
+            sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, ticks.max(R_AIR) as u64));
             if let Some(k) = counted("verdict") {
                 wlog(format!("{} VERDICT #{target} at {}: toward his nexus {} - {len:.0} in {ticks} ticks #{k}", head(sim, me), pt(at), pt(h)));
             }
         }
         None => {
+            sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, R_AIR as u64));
             sim.entity_knockback(me, target, R_KB_SPEED, R_KB_T);
             sim.add_buff(target, &BuffV1::timed(&n("push"), R_KB_T + 2));
             if let Some(k) = counted("verdict") {
@@ -572,7 +577,7 @@ mod tests {
         for (k, v) in [("w_def", W_DEF), ("w_low", W_LOW), ("w_r", W_R), ("w_dmg", W_DMG), ("w_ap", W_AP), ("w_up", W_UP),
                        ("w_ground", W_GROUND), ("w_slow", W_SLOW), ("e_dmg", E_DMG), ("e_ratio", E_RATIO),
                        ("e_kb_speed", E_KB_SPEED), ("e_kb_t", E_KB_T), ("e_stun", E_STUN), ("p_sh_min", P_SH_MIN),
-                       ("p_sh_max", P_SH_MAX), ("p_sh_t", P_SH_T), ("r_kb_speed", R_KB_SPEED), ("r_kb_t", R_KB_T),
+                       ("p_sh_max", P_SH_MAX), ("p_sh_t", P_SH_T), ("r_kb_speed", R_KB_SPEED), ("r_kb_t", R_KB_T), ("r_air", R_AIR),
                        ("r_far", R_FAR), ("r_far_speed", R_FAR_SPEED)] {
             assert!(copy.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in the copy's passive params");
         }

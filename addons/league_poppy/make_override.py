@@ -81,7 +81,7 @@ TEXT = {
 
 CONSTS = {k: k.upper() for k in ("w_def", "w_low", "w_r", "w_dmg", "w_ap", "w_up", "w_ground", "w_slow", "e_dmg", "e_ratio",
                                   "e_kb_speed", "e_kb_t", "e_stun", "p_sh_min", "p_sh_max", "p_sh_t", "r_kb_speed",
-                                  "r_kb_t", "r_far", "r_far_speed")}
+                                  "r_kb_t", "r_air", "r_far", "r_far_speed")}
 
 
 def lp(path):

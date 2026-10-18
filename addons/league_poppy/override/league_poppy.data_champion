@@ -27,8 +27,9 @@
       "p_sh_min": 11,
       "p_sh_max": 21,
       "p_sh_t": 180,
-      "r_kb_speed": 3000,
-      "r_kb_t": 18,
+      "r_kb_speed": 6000,
+      "r_kb_t": 25,
+      "r_air": 25,
       "r_far": 150000,
       "r_far_speed": 6000
     }

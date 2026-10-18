@@ -1979,9 +1979,16 @@
                                     {
                                       "casting_type": "Targeting",
                                       "effect": {
+                                        "type": "Airborne",
+                                        "duration": 25
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
                                         "type": "Knockback",
-                                        "speed": 3000,
-                                        "tick": 18
+                                        "speed": 6000,
+                                        "tick": 25
                                       }
                                     }
                                   ],
