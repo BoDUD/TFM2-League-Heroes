@@ -1621,6 +1621,20 @@
         "x": 0,
         "y": -10
       }
+    },
+    "league_gangplank": {
+      "face": {
+        "x": 2,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
     }
   }
 }

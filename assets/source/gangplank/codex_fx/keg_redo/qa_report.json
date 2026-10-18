@@ -1,0 +1,77 @@
+{
+  "assets": 3,
+  "frames": 7,
+  "all_checks_passed": true,
+  "lit_barrel_opaque_body_identical": true,
+  "checks": [
+    {
+      "name": "gangplank_fx_e_throw",
+      "frames": 3,
+      "frame_bboxes_exclusive": [
+        [
+          2,
+          2,
+          14,
+          11
+        ],
+        [
+          2,
+          2,
+          14,
+          11
+        ],
+        [
+          2,
+          2,
+          14,
+          11
+        ]
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_e_keg",
+      "frames": 2,
+      "frame_bboxes_exclusive": [
+        [
+          2,
+          1,
+          18,
+          22
+        ],
+        [
+          2,
+          1,
+          18,
+          22
+        ]
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "scale_8x_exact": true
+    },
+    {
+      "name": "gangplank_fx_e_keg_lit",
+      "frames": 2,
+      "frame_bboxes_exclusive": [
+        [
+          2,
+          0,
+          18,
+          25
+        ],
+        [
+          2,
+          0,
+          18,
+          25
+        ]
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "scale_8x_exact": true
+    }
+  ]
+}
