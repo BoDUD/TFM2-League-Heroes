@@ -8,6 +8,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
       }
     },
     "league_ashe": {
@@ -55,7 +59,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -10
+        "y": -12
       }
     },
     "league_darius": {
@@ -90,6 +94,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_jinx": {
@@ -171,7 +179,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -2
+        "y": -3
       }
     },
     "league_malphite": {
@@ -272,6 +280,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_morgana": {
@@ -285,7 +297,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -6
+        "y": -4
       }
     },
     "league_lucian": {
@@ -324,6 +336,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_vayne": {
@@ -334,6 +350,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_akali": {
@@ -344,6 +364,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_nami": {
@@ -357,7 +381,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -1
+        "y": 0
       }
     },
     "league_veigar": {
@@ -368,6 +392,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_jax": {
@@ -402,6 +430,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_tristana": {
@@ -474,6 +506,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_blitzcrank": {
@@ -512,6 +548,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_leblanc": {
@@ -588,6 +628,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_vi": {
@@ -598,6 +642,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_kayn": {
@@ -608,6 +656,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_aatrox": {
@@ -618,6 +670,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_sivir": {
@@ -652,6 +708,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_evelynn": {
@@ -662,6 +722,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_sett": {
@@ -714,6 +778,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_tryndamere": {
@@ -789,7 +857,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -9
+        "y": -4
       }
     },
     "league_khazix": {
@@ -813,7 +881,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -6
       }
     },
     "league_twitch": {
@@ -862,6 +930,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": 0
       }
     },
     "league_viktor": {
@@ -948,6 +1020,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_olaf": {
@@ -1047,7 +1123,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -9
+        "y": -6
       }
     },
     "league_viego": {
@@ -1061,7 +1137,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -6
       }
     },
     "league_zeri": {
@@ -1085,7 +1161,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -5
+        "y": -2
       }
     },
     "league_gragas": {
@@ -1096,6 +1172,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
       }
     },
     "league_irelia": {
@@ -1106,6 +1186,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
       }
     },
     "league_kassadin": {
@@ -1116,6 +1200,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
       }
     },
     "league_corki": {
@@ -1126,6 +1214,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_braum": {
@@ -1136,6 +1228,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
       }
     },
     "league_mordekaiser": {
@@ -1146,6 +1242,10 @@
       "center": {
         "x": 0,
         "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": 0
       }
     },
     "league_nidalee": {
@@ -1156,6 +1256,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
       }
     },
     "league_galio": {
@@ -1166,6 +1270,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": 0
       }
     },
     "league_nilah": {
@@ -1196,6 +1304,10 @@
       "center": {
         "x": 0,
         "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -4
       }
     },
     "league_kindred": {
@@ -1219,7 +1331,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -5
       }
     },
     "league_smolder": {
@@ -1250,6 +1362,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -1
       }
     },
     "league_katarina": {
@@ -1260,6 +1376,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
       }
     },
     "league_elise": {
@@ -1273,7 +1393,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -3
+        "y": -2
       }
     },
     "league_tahmkench": {
@@ -1287,7 +1407,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -6
       }
     },
     "league_kalista": {
@@ -1301,7 +1421,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -9
+        "y": -8
       }
     },
     "league_drmundo": {
@@ -1315,7 +1435,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -6
       }
     },
     "league_pantheon": {
@@ -1353,7 +1473,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -10
+        "y": -8
       }
     },
     "league_rell": {
@@ -1367,7 +1487,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -6
+        "y": -5
       }
     },
     "league_reksai": {
@@ -1416,6 +1536,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
       }
     },
     "league_renata": {

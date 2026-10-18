@@ -3173,32 +3173,116 @@
           "tick": 18
         },
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_xayah_p5",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p1"
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_xayah_p5",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_xayah_pk5",
+                  "duration": {
+                    "Time": {
+                      "tick": 1
+                    }
+                  }
+                },
+                "only_to_enemy": false
               },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p2"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p3"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p4"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p5"
-              },
-              {
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_xayah_p4",
+                "effect_buff": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_xayah_pk5",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_xayah_p3",
+                  "effect_buff": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_xayah_pk5",
+                      "duration": {
+                        "Time": {
+                          "tick": 1
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_xayah_p2",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_xayah_pk5",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_xayah_p1",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_xayah_pk4",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p1"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p2"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p3"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p4"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p5"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_xayah_pk5",
+              "effect_buff": {
                 "type": "AddCasterBuff",
                 "buff_state": {
                   "name": "league_xayah_p5",
@@ -3210,42 +3294,13 @@
                 },
                 "only_to_enemy": false
               },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_xayah_p_on"
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "SwitchByBuff",
-            "buff_name": "league_xayah_p4",
-            "effect_buff": {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p1"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p2"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p3"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p4"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p5"
-                },
-                {
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_xayah_pk4",
+                "effect_buff": {
                   "type": "AddCasterBuff",
                   "buff_state": {
-                    "name": "league_xayah_p5",
+                    "name": "league_xayah_p4",
                     "duration": {
                       "Time": {
                         "tick": 480
@@ -3254,189 +3309,33 @@
                   },
                   "only_to_enemy": false
                 },
-                {
-                  "type": "CasterViewEffect",
-                  "name": "league_xayah_p_on"
-                }
-              ]
-            },
-            "effect_none": {
-              "type": "SwitchByBuff",
-              "buff_name": "league_xayah_p3",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p1"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p2"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p3"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p4"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p5"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_xayah_p5",
-                      "duration": {
-                        "Time": {
-                          "tick": 480
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_xayah_p_on"
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_xayah_p2",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p1"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p2"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p3"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p4"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p5"
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_xayah_p5",
-                        "duration": {
-                          "Time": {
-                            "tick": 480
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_xayah_p_on"
-                    }
-                  ]
-                },
                 "effect_none": {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_xayah_p1",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p1"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p2"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p3"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p4"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p5"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_xayah_p4",
-                          "duration": {
-                            "Time": {
-                              "tick": 480
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_xayah_p_on"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_xayah_p3",
+                    "duration": {
+                      "Time": {
+                        "tick": 480
                       }
-                    ]
+                    }
                   },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p1"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p2"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p3"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p4"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p5"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_xayah_p3",
-                          "duration": {
-                            "Time": {
-                              "tick": 480
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_xayah_p_on"
-                      }
-                    ]
-                  }
+                  "only_to_enemy": false
                 }
               }
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_xayah_p_on"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_pk5"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_pk4"
             }
-          }
+          ]
         },
         {
           "type": "Combine",
@@ -4562,32 +4461,116 @@
           "name": "league_xayah_w_cast"
         },
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_xayah_p5",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p1"
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_xayah_p5",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_xayah_pk5",
+                  "duration": {
+                    "Time": {
+                      "tick": 1
+                    }
+                  }
+                },
+                "only_to_enemy": false
               },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p2"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p3"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p4"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p5"
-              },
-              {
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_xayah_p4",
+                "effect_buff": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_xayah_pk5",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_xayah_p3",
+                  "effect_buff": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_xayah_pk5",
+                      "duration": {
+                        "Time": {
+                          "tick": 1
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_xayah_p2",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_xayah_pk5",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_xayah_p1",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_xayah_pk4",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p1"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p2"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p3"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p4"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p5"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_xayah_pk5",
+              "effect_buff": {
                 "type": "AddCasterBuff",
                 "buff_state": {
                   "name": "league_xayah_p5",
@@ -4599,42 +4582,13 @@
                 },
                 "only_to_enemy": false
               },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_xayah_p_on"
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "SwitchByBuff",
-            "buff_name": "league_xayah_p4",
-            "effect_buff": {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p1"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p2"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p3"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p4"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p5"
-                },
-                {
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_xayah_pk4",
+                "effect_buff": {
                   "type": "AddCasterBuff",
                   "buff_state": {
-                    "name": "league_xayah_p5",
+                    "name": "league_xayah_p4",
                     "duration": {
                       "Time": {
                         "tick": 480
@@ -4643,189 +4597,33 @@
                   },
                   "only_to_enemy": false
                 },
-                {
-                  "type": "CasterViewEffect",
-                  "name": "league_xayah_p_on"
-                }
-              ]
-            },
-            "effect_none": {
-              "type": "SwitchByBuff",
-              "buff_name": "league_xayah_p3",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p1"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p2"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p3"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p4"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p5"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_xayah_p5",
-                      "duration": {
-                        "Time": {
-                          "tick": 480
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_xayah_p_on"
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_xayah_p2",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p1"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p2"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p3"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p4"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p5"
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_xayah_p5",
-                        "duration": {
-                          "Time": {
-                            "tick": 480
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_xayah_p_on"
-                    }
-                  ]
-                },
                 "effect_none": {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_xayah_p1",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p1"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p2"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p3"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p4"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p5"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_xayah_p4",
-                          "duration": {
-                            "Time": {
-                              "tick": 480
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_xayah_p_on"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_xayah_p3",
+                    "duration": {
+                      "Time": {
+                        "tick": 480
                       }
-                    ]
+                    }
                   },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p1"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p2"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p3"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p4"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p5"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_xayah_p3",
-                          "duration": {
-                            "Time": {
-                              "tick": 480
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_xayah_p_on"
-                      }
-                    ]
-                  }
+                  "only_to_enemy": false
                 }
               }
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_xayah_p_on"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_pk5"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_pk4"
             }
-          }
+          ]
         },
         {
           "type": "RangeEffect",
@@ -4900,32 +4698,116 @@
           "name": "league_xayah_r_cast"
         },
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_xayah_p5",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p1"
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_xayah_p5",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_xayah_pk5",
+                  "duration": {
+                    "Time": {
+                      "tick": 1
+                    }
+                  }
+                },
+                "only_to_enemy": false
               },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p2"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p3"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p4"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_xayah_p5"
-              },
-              {
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_xayah_p4",
+                "effect_buff": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_xayah_pk5",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_xayah_p3",
+                  "effect_buff": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_xayah_pk5",
+                      "duration": {
+                        "Time": {
+                          "tick": 1
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_xayah_p2",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_xayah_pk5",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_xayah_p1",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_xayah_pk4",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p1"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p2"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p3"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p4"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_p5"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_xayah_pk5",
+              "effect_buff": {
                 "type": "AddCasterBuff",
                 "buff_state": {
                   "name": "league_xayah_p5",
@@ -4937,42 +4819,13 @@
                 },
                 "only_to_enemy": false
               },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_xayah_p_on"
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "SwitchByBuff",
-            "buff_name": "league_xayah_p4",
-            "effect_buff": {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p1"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p2"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p3"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p4"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_xayah_p5"
-                },
-                {
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_xayah_pk4",
+                "effect_buff": {
                   "type": "AddCasterBuff",
                   "buff_state": {
-                    "name": "league_xayah_p5",
+                    "name": "league_xayah_p4",
                     "duration": {
                       "Time": {
                         "tick": 480
@@ -4981,189 +4834,33 @@
                   },
                   "only_to_enemy": false
                 },
-                {
-                  "type": "CasterViewEffect",
-                  "name": "league_xayah_p_on"
-                }
-              ]
-            },
-            "effect_none": {
-              "type": "SwitchByBuff",
-              "buff_name": "league_xayah_p3",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p1"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p2"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p3"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p4"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_xayah_p5"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_xayah_p5",
-                      "duration": {
-                        "Time": {
-                          "tick": 480
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_xayah_p_on"
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_xayah_p2",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p1"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p2"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p3"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p4"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_xayah_p5"
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_xayah_p5",
-                        "duration": {
-                          "Time": {
-                            "tick": 480
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_xayah_p_on"
-                    }
-                  ]
-                },
                 "effect_none": {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_xayah_p1",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p1"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p2"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p3"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p4"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p5"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_xayah_p4",
-                          "duration": {
-                            "Time": {
-                              "tick": 480
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_xayah_p_on"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_xayah_p3",
+                    "duration": {
+                      "Time": {
+                        "tick": 480
                       }
-                    ]
+                    }
                   },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p1"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p2"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p3"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p4"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_xayah_p5"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_xayah_p3",
-                          "duration": {
-                            "Time": {
-                              "tick": 480
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_xayah_p_on"
-                      }
-                    ]
-                  }
+                  "only_to_enemy": false
                 }
               }
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_xayah_p_on"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_pk5"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_xayah_pk4"
             }
-          }
+          ]
         },
         {
           "type": "Delayed",

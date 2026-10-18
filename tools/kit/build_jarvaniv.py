@@ -17,7 +17,8 @@ TFM2 has three active slots: the E -> Q combo is `skill`, Dragon Strike alone `s
           every allied champion within f_r (him too) f_as% attack speed. q_gap ticks after the landing the lance
           flies at the flag (q_dmg + q_ratio% AD, armour -q_shred% for q_shred_t) and he dashes after it (`MoveTo` in the
           lob's end_effects: ForceMove steps onto the point), knocking up for q_up ticks every enemy the lance passes and
-          every enemy within q_up_r of the flag when he lands.
+          every enemy within q_up_r of the flag when he lands. The slot opens at level 1, so below level 3 (eq_lv3)
+          it throws the standard alone; the lance and the dash join from level 3 (`SwitchByLevel3`).
   skill2  Q Dragon Strike (巨龙撞击) alone, `Targeting` on `EnemyWithoutTower` (q_range): the aim is locked by a hidden lob
           (q_lock ticks before the thrust), then the lance flies to that point: q_dmg + q_ratio% AD, armour -q_shred%.
           League's Q also drags him to a standard already standing on its line: data can't tell where a standard
@@ -64,8 +65,10 @@ P = {
     "e_as": 20,
     # skill: E -> Q (League: E 860 range, 80-240 + 80% AP, flag 8 s, aura +20-30% attack speed, cd 12-10;
     # Q 770 range, 90-250 + 145% bonus AD, armour -10-26% 3 s, knock-up 0.75 s, cd 10-6)
-    "e_cd": 660, "e_range": 55000, "e_dur": 34, "e_rel": 8, "e_travel": 8, "e_r": 16000, "e_dmg": 50, "e_ratio": 40,
+    "e_cd": 660, "e_range": 55000, "e_dur": 34, "e_rel": 8, "e_travel": 8, "e_r": 16000, "e_dmg": 60, "e_ratio": 40,
     "fl_t": 480, "f_r": 40000, "f_as": 20, "f_p": 30,
+    # 1 = the standard alone below level 3, E -> Q from 3 (the user: 「皇子为什么1级就可以EQ二连」); 0 = E -> Q from level 1
+    "eq_lv3": 1,
     "q_gap": 2, "q_speed": 4000, "q_line": 6000, "q_w": 9000, "q_up": 45, "q_up_r": 16000,
     "q_dmg": 40, "q_ratio": 75, "q_shred": 20, "q_shred_t": 180,
     # skill2: Q alone
@@ -303,9 +306,13 @@ def build(p):
                field("e_aura", p["f_r"], p["fl_t"], p["f_p"],
                      [buff("f_as", p["f_p"], attack_speed_mult=p["f_as"])], target="AllyChampion", first=1),
                delayed(p["q_gap"], alive(*drag))]
+    throw = lambda landed: delayed(p["e_rel"] - 1, lob("e_lob", p["e_travel"], landed))
+    # the slot opens at level 1 (League has E and Q only from level 2): below level 3 the standard alone, the lance
+    # and the dash after it from 3 (SwitchByLevel3 is the only level data reads; skill2, Q alone, opens at 3 too)
+    eq = ({"type": "SwitchByLevel3", "effect_start": throw(planted[:-1]), "effect_level3": throw(planted)}
+          if p["eq_lv3"] else throw(planted))
     skill = action("skill", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
-                   combine(refresh("busy", p["e_dur"] + 20), anim("skill", p["e_dur"]), sfx("e"), voice("vo_e", p),
-                           delayed(p["e_rel"] - 1, lob("e_lob", p["e_travel"], planted))))
+                   combine(refresh("busy", p["e_dur"] + 20), anim("skill", p["e_dur"]), sfx("e"), voice("vo_e", p), eq))
 
     # ------------------------------------------------------------------ skill2: Q alone
     thrust = [line("q_line", p["q_speed"] + p["q_line"], p["q_len"], p["q_w"], q_hit),

@@ -43,7 +43,8 @@ E = "<>"
 # banpick_center -8 (2026-10-15, user: 「蚂蚱在BP界面位置偏高」): without it the card stands him on his centre -16 and he
 # hovers (idle feet 8 px under the pivot, others 11-12), so the hood touched the card top; -8 puts his feet on the
 # canvas bottom like the others'
-VIEW = {"face": {"x": 4, "y": -39}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -8}}
+# 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -8 -> -5: the hood's tip was cut 2 px
+VIEW = {"face": {"x": 4, "y": -39}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -5}}
 
 
 def mag(k):

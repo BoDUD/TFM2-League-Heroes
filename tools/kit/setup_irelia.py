@@ -35,7 +35,8 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sprite is in
-VIEW = {"face": {"x": 1, "y": -40}, "center": {"x": 0, "y": -12}}   # her head at hd.rs SIZES 1.05 (PR #246's (1, -38) at 100%)
+# 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> -6: the blades stood ~5 px over the card
+VIEW = {"face": {"x": 1, "y": -40}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -6}}   # her head at hd.rs SIZES 1.05 (PR #246's (1, -38) at 100%)
 
 
 def phy(d, r):
