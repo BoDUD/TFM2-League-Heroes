@@ -36,7 +36,7 @@ G = "<#66bb6aff>"      # healing
 E = "<>"
 # champion_view: the face point between his green eyes (ppu_restyle face_to); banpick_center -12 by the card rule on his
 # head (tools/art/bp_card_audit.py: the tail tip at -35.3 is a prop over it, the hair 8 game px lower: -39 + 27.3)
-VIEW = {"face": {"x": 0, "y": -21}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 3, "y": -27}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
 
 
 def phys(d, r):

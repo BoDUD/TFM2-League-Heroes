@@ -35,8 +35,8 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing, shields
 E = "<>"
-# champion_view: face = ppu_restyle face_to (3, -31); banpick -12 (the -4 rule measures the gun tip, his head is 8 px lower)
-VIEW = {"face": {"x": 3, "y": -31}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
+# champion_view (10-18 slim redo): face (4, -31) under the crown, banpick -8 (bp_card_audit rule, the gun now held lower)
+VIEW = {"face": {"x": 4, "y": -31}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phys(d, r):
