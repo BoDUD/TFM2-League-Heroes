@@ -107,13 +107,14 @@ def put(dst, src, mask, dx, dy, under=False):
     dst[ty, tx] = src[ys, xs]
 
 
-def pose(dx=0, bdx=0, bob=0, rise=0, legs=None, shut=False):
+def pose(dx=0, bdx=0, bob=0, rise=0, legs=None, shut=False, underlay=True):
     """One frame, every part moved whole (the user, 2026-10-17: 「上下摆动模型变形」 - the first rig moved the upper body
     and the cannon apart from the chassis and filled the waist and the ring with their own rows standing, which
     stretched him): the whole figure dx columns on; the body (the chassis, the upper body and the cannon as one piece)
     bdx columns over the legs and bob rows down over them (never up: sinking covers the legs' tops, rising would open a
     gap); legs: [(dx, lift)] for L1..L6 (each leg moved whole, lifted rows); rise: R's column - the upper body and the
-    cannon lifted that many rows on a pillar drawn under them; shut: the eye closed."""
+    cannon lifted that many rows on a pillar drawn under them; shut: the eye closed; underlay: each leg's upper part kept
+    standing under the moved legs (off for the death: the legs fold down into the ground, nothing stays upright)."""
     src = DESIGN
     if shut:
         src = src.copy()
@@ -123,7 +124,7 @@ def pose(dx=0, bdx=0, bob=0, rise=0, legs=None, shut=False):
     legs = [(S(a), S(b)) for a, b in (legs or [(0, 0)] * 6)]
     x0, y0 = OX + dx, OY
     # each leg's upper part as it stands, under the moved legs (no hole opens where a lifted leg was), then the legs
-    for m in LEGS:
+    for m in LEGS if underlay else ():
         put(can, src, m & (R_ < np.nonzero(m.any(1))[0].max() - CLAW), x0, y0)
     for m, (ldx, lift) in zip(LEGS, legs):
         put(can, src, m, x0 + ldx, y0 - lift)
@@ -292,6 +293,10 @@ GROUP_A, GROUP_B = (0, 2, 4), (1, 3, 5)   # two tripods (League's Urgot_RunSlow:
 # per frame: (A's (dx, lift), B's (dx, lift), chassis bob)
 RUN = [((1, 2), (-1, 0), 0), ((2, 3), (-1, 0), 0), ((1, 1), (0, 0), 1), ((0, 0), (1, 0), 1),
        ((-1, 0), (1, 2), 0), ((-1, 0), (2, 3), 0), ((0, 0), (1, 1), 1), ((1, 0), (0, 0), 1)]
+# 2026-10-19 frame audit: his run, attack, Q, E and R moved 5-13 % of his squares a frame against the pack's ~40 % - the
+# moves above are design squares, 0.8 of a game pixel each at FINAL_PPU, so most of them showed as one pixel or none.
+# The run's steps, the body's sway and the casts' leans are now about three times wider (AMP for the run).
+AMP = 2
 
 
 def legs_of(a, b):
@@ -306,28 +311,40 @@ def legs_of(a, b):
 def frames():
     out = {}
     out["idle"] = [(pose(bob=b), IDLE_MS) for b in BREATH]
-    out["run"] = [(pose(bob=bob, legs=legs_of(a, b)), RUN_MS) for a, b, bob in RUN]
+    # (the steps AMP times wider; the lift and the bob as they were - lifted higher or sunk deeper, the legs' tops stuck
+    # out over the chassis)
+    run = lambda a, b, bob: pose(bob=bob, legs=legs_of((a[0] * AMP, a[1]), (b[0] * AMP, b[1])))
+    out["run"] = [(run(a, b, bob), RUN_MS) for a, b, bob in RUN]
     # the shot (League's Urgot_Attack1): he leans in at the target, the whole body kicks back as the cannon fires
-    # (release ~130 ms in), settles
-    out["attack"] = [(pose(bdx=1, bob=1), 130, None),
-                     (pose(bdx=-1), 60, flash_at(blank(), *muzzle(bdx=-1), 1.0)),
-                     (pose(bdx=-1, bob=1), 60, flash_at(blank(), *muzzle(bdx=-1, bob=1), 0.6)),
-                     (pose(bob=1), 90, None), (pose(), 90, None)]
-    # Purge's machine gun: a small kick and flash each shot (10 ticks)
-    out["attack_w"] = [(pose(bdx=-1), 80, flash_at(blank(), *muzzle(bdx=-1), 0.6)), (pose(), 87, None)]
+    # (release ~130 ms in), settles back in two steps
+    out["attack"] = [(pose(bdx=3, bob=1), 130, None),
+                     (pose(bdx=-3), 60, flash_at(blank(), *muzzle(bdx=-3), 1.0)),
+                     (pose(bdx=-3, bob=2), 60, flash_at(blank(), *muzzle(bdx=-3, bob=2), 0.6)),
+                     (pose(bdx=-2, bob=2), 70, None), (pose(bdx=-1, bob=1), 50, None), (pose(), 60, None)]
+    # Purge's machine gun: a kick and flash each shot (10 ticks)
+    out["attack_w"] = [(pose(bdx=-2), 80, flash_at(blank(), *muzzle(bdx=-2), 0.6)), (pose(), 87, None)]
     # Q Corrosive Charge: a crouch, the charge lobbed with a kick (~100 ms), up again
-    out["skill"] = [(pose(bob=2), 100, None), (pose(bdx=-1, bob=1), 80, flash_at(blank(), *muzzle(bdx=-1, bob=1), 1.0)),
-                    (pose(bob=1), 80, None), (pose(), 73, None)]
-    # E Disdain: a crouch, the charge (legs gathered), the catch (the body thrown forward), the fling over him
-    out["skill2"] = [(pose(bob=2), 80, None), (pose(dx=2, bdx=1, legs=legs_of((1, 2), (1, 2))), 100, None),
-                     (pose(dx=3, bdx=1, bob=1), 100, None), (pose(dx=1, bdx=-1), 100, None), (pose(), 53, None)]
-    # R Fear Beyond Death: the upper body rises on its column, the drill fires from the chest (~130 ms), it sinks back
-    out["ult"] = [(pose(rise=4), 70, None), (pose(rise=7), 60, None),
-                  (pose(rise=7), 100, flash_at(blank(), OX + S(46), OY - S(7) + S(24), 1.0)),
-                  (pose(rise=7), 100, None), (pose(rise=4), 90, None), (pose(), 80, None)]
-    # death: the blow, the legs giving (the body sinking over them), down, the eye going out, still
-    out["dead"] = [(pose(bdx=-1), 100, None), (pose(bdx=-1, bob=3), 120, None),
-                   (cut_ground(pose(bdx=-1, bob=7)), 120, None), (cut_ground(pose(bdx=-1, bob=11, shut=True)), 150, None),
+    out["skill"] = [(pose(bob=4), 100, None), (pose(bdx=-3, bob=2), 80, flash_at(blank(), *muzzle(bdx=-3, bob=2), 1.0)),
+                    (pose(bdx=-2, bob=2), 60, None), (pose(bdx=-1, bob=1), 50, None), (pose(), 43, None)]
+    # E Disdain (League's Spell3 -> Spell3_GrabThrow): a crouch, the charge (the front legs reaching out), the catch (the
+    # body thrown forward over the legs), the fling back over him (the body heaved back), settling
+    reach = [(-1, 0), (0, 0), (1, 0), (3, 4), (4, 5), (3, 3)]
+    out["skill2"] = [(pose(bob=4, bdx=-1), 70, None), (pose(dx=4, bdx=3, legs=reach), 80, None),
+                     (pose(dx=6, bdx=4, bob=2), 80, None), (pose(dx=3, bdx=-4, bob=1), 90, None),
+                     (pose(dx=1, bdx=-2), 60, None), (pose(), 53, None)]
+    # R Fear Beyond Death: the upper body rises on its column, the drill fires from the chest (~130 ms) with a kick, it
+    # sinks back
+    out["ult"] = [(pose(rise=6), 70, None), (pose(rise=12), 60, None),
+                  (pose(rise=12, bdx=-2), 100, flash_at(blank(), OX + S(44), OY - S(12) + S(24), 1.0)),
+                  (pose(rise=12, bdx=-1), 100, None), (pose(rise=6), 90, None), (pose(), 80, None)]
+    # death in 8 frames (the pack's deaths have 8; League's Urgot_death sinks the body onto the folding legs): the blow,
+    # the body sinking down over the standing legs in more steps, the eye going out, a last settle, still (the legs
+    # moved out and down stood round him like a fence of claws: they stay as they stand, the body covers their tops)
+    out["dead"] = [(pose(bdx=-3), 100, None), (pose(bdx=-3, bob=3), 110, None),
+                   (cut_ground(pose(bdx=-2, bob=5)), 90, None), (cut_ground(pose(bdx=-2, bob=7)), 90, None),
+                   (cut_ground(pose(bdx=-1, bob=9, shut=True)), 100, None),
+                   (cut_ground(pose(bdx=-1, bob=12, shut=True)), 110, None),
+                   (cut_ground(pose(bdx=-1, bob=13, shut=True)), 120, None),
                    (cut_ground(pose(bdx=-1, bob=13, shut=True)), 400, None)]
     out["hit"] = [(pose(dx=-2), 90), (pose(dx=-1), 120)]
     return out
