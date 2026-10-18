@@ -1,0 +1,18 @@
+[
+  {
+    "File": "outputs/poppy-picture/poppy-A.png",
+    "Width": 1254,
+    "Height": 1254,
+    "TransparentPixels": 916073,
+    "PartialAlphaPixels": 654375,
+    "OpaquePixels": 2068
+  },
+  {
+    "File": "outputs/poppy-picture/poppy-B.png",
+    "Width": 1254,
+    "Height": 1254,
+    "TransparentPixels": 927999,
+    "PartialAlphaPixels": 641667,
+    "OpaquePixels": 2850
+  }
+]
