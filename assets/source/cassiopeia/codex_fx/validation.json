@@ -1,0 +1,175 @@
+{
+  "sheets": 14,
+  "frames": 56,
+  "all_passed": true,
+  "results": [
+    {
+      "name": "a_fang",
+      "frames": 3,
+      "size_1x": [
+        36,
+        8
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "a_hit",
+      "frames": 4,
+      "size_1x": [
+        48,
+        12
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "q_warn",
+      "frames": 4,
+      "size_1x": [
+        184,
+        18
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "q_blast",
+      "frames": 6,
+      "size_1x": [
+        288,
+        40
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "q_hit",
+      "frames": 4,
+      "size_1x": [
+        56,
+        14
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "w_bolt",
+      "frames": 3,
+      "size_1x": [
+        30,
+        8
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "w_land",
+      "frames": 4,
+      "size_1x": [
+        160,
+        16
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "w_field",
+      "frames": 4,
+      "size_1x": [
+        256,
+        28
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "w_slow",
+      "frames": 4,
+      "size_1x": [
+        80,
+        12
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "r_cast",
+      "frames": 4,
+      "size_1x": [
+        112,
+        56
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "r_wave",
+      "frames": 4,
+      "size_1x": [
+        96,
+        40
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "r_hit",
+      "frames": 4,
+      "size_1x": [
+        64,
+        16
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "r_stone",
+      "frames": 4,
+      "size_1x": [
+        96,
+        44
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    },
+    {
+      "name": "r_slow",
+      "frames": 4,
+      "size_1x": [
+        80,
+        12
+      ],
+      "alpha_binary": true,
+      "palette_verified": true,
+      "symmetry_verified": true,
+      "nearest_8x_verified": true
+    }
+  ]
+}
