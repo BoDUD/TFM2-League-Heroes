@@ -1,0 +1,23 @@
+Generation tool: native image_gen.imagegen
+transparent_background: true
+
+A references:
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat/work/maokai_pack0/refs/1_maokai_idle.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat/work/maokai_pack0/refs/3_maokai_face.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat/work/maokai_pack0/refs/5_maokai_side.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat/work/maokai_pack0/refs/8_layout_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat/work/maokai_pack0/style/11_style_tahmkench.png
+
+A prompt:
+Use case: stylized-concept. Create pixel game sprite artwork from these 5 reference images: image 1 idle appearance/pose, image 2 face appearance, image 3 side view branch and lantern construction, image 4 layout/scale only, image 5 PIXEL STYLE ONLY. Match their chunky square pixels, near-black silhouette outline, flat 3-4 tones per material, warm lit edges, sparse clean clusters. Actual transparent background, no fake checkerboard, no background, ground, shadow, text, guides, effects, halos, gradients, blur, dithering or antialiasing. Canvas 1536x1536. Every art pixel should be a uniform 11x11 square on one aligned grid, two-cell near-black external outline. All appendages fully inside canvas. Feet/root bottom y=1390 (146 px above bottom). PICTURE A ONLY: Maokai idle full body, hunched huge living tree in 3/4 front view facing RIGHT as image 1, same framing and scale as image 4. Moss crown top y~598, crown to feet ~792 pixels /72 cells; transparent upper space intentional. Face is carved in middle of trunk, NOT a big separate head or chibi. Forehead spike to moss beard only ~14 cells tall, two equal-size blue eyes at equal height. Big teal green moss hump/crown dominates upper silhouette, dark violet brown bark trunk with warm tan lit edges. Near arm IMAGE LEFT enormous pale brown wood, full length shoulder almost to floor, grinning face with flat bright cyan eyes and mouth carved on fist. Far green wood claw IMAGE RIGHT raised at chest holds tiny sapling. Curved back branch with hanging blue crystal lantern behind body, partly visible naturally; do not move lantern to foreground. Purple waist cloth, short thick root legs with feet on same baseline. Maintain reference proportions, clear separated materials, near left side lighter, far right side darker. ONLY one Maokai holding his sapling, no separate sapling sprite.
+
+C references:
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat/work/maokai_pack0/refs/9_sapling.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat/work/maokai_pack0/refs/10_layout_C.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat/work/maokai_pack0/style/11_style_tahmkench.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat/work/maokai_pack0/style/13_style_urgot.png
+C:/Users/OWNER/.codex/generated_images/01a14d17-9872-7353-9848-6c4f33d02599/exec-1b206baa-d43f-42b4-a076-47c120f8271d.png
+
+C prompt:
+Use case: stylized-concept. Generate ONLY a standalone Maokai sapling pixel sprite. Five reference images: 1 original sapling appearance; 2 exact layout/scale guide; 3 and 4 pixel style references only; 5 generated Maokai sprite for matching palette and pixel style. Do not draw the big Maokai. A tiny upright wooden seedling in 3/4 facing right: pale tan and yellow-green carved wooden body, ONE visible flat bright cyan blue eye, a single young green leaf at the top, two leaves as side arms, pointed roots below. Chunky square pixel art, 3 flat tones per material, thick near-black outer outline, warm wood highlights, no antialiasing, dithering, blur, gradients or glow halo. Transparent PNG canvas exactly 1536x1536. Layout is CRITICAL: sapling total height ONLY 220px (20 cells of 11px), from leaf tip at y1170 to bottom root tip at y1390. Center horizontally x768. Leave vast transparent empty canvas above and around it, exactly as layout reference 2. Do NOT enlarge sprite to fill the canvas. Every pixel-art cell 11x11px aligned on a uniform grid, outline 2 cells thick, hard opaque colors and fully transparent background. Entire leaf, arms and roots inside canvas. No ground, shadow, labels, guides, other sprites, effects or background.
+

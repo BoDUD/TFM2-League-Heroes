@@ -1,0 +1,66 @@
+{
+  "maokai-model-A-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1254739,
+    "opaque_pixels": 1398,
+    "partial_alpha_pixels": 316379,
+    "bbox_alpha128": [
+      323,
+      498,
+      992,
+      1234
+    ]
+  },
+  "maokai-model-A-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1186189,
+    "opaque_pixels": 1642,
+    "partial_alpha_pixels": 384685,
+    "bbox_alpha128": [
+      297,
+      428,
+      1036,
+      1238
+    ]
+  },
+  "maokai-model-C-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1520051,
+    "opaque_pixels": 612,
+    "partial_alpha_pixels": 51853,
+    "bbox_alpha128": [
+      513,
+      833,
+      773,
+      1223
+    ]
+  },
+  "maokai-model-C-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1554151,
+    "opaque_pixels": 174,
+    "partial_alpha_pixels": 18191,
+    "bbox_alpha128": [
+      552,
+      1018,
+      706,
+      1233
+    ]
+  }
+}

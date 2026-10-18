@@ -1,0 +1,708 @@
+[
+  {
+    "file": "maokai_fx_a_hit.png",
+    "size_1x": [
+      48,
+      12
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 16,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 24,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 20,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 6,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_p_hit.png",
+    "size_1x": [
+      80,
+      16
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 10,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 78,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 46,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 8,
+        "symmetric": true
+      },
+      {
+        "frame": 4,
+        "opaque_pixels": 8,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_p_heal.png",
+    "size_1x": [
+      300,
+      48
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 228,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 270,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 286,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 254,
+        "symmetric": true
+      },
+      {
+        "frame": 4,
+        "opaque_pixels": 120,
+        "symmetric": true
+      },
+      {
+        "frame": 5,
+        "opaque_pixels": 2,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_q_cast.png",
+    "size_1x": [
+      360,
+      28
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 286,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 490,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 564,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 372,
+        "symmetric": true
+      },
+      {
+        "frame": 4,
+        "opaque_pixels": 394,
+        "symmetric": true
+      },
+      {
+        "frame": 5,
+        "opaque_pixels": 140,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_q_wave.png",
+    "size_1x": [
+      80,
+      14
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 54,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 96,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 118,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 64,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_q_hit.png",
+    "size_1x": [
+      56,
+      14
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 4,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 44,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 80,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 38,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_q_slow.png",
+    "size_1x": [
+      64,
+      8
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 44,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 46,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 46,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 44,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_w_trail.png",
+    "size_1x": [
+      96,
+      16
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 122,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 138,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 118,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 118,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_w_land.png",
+    "size_1x": [
+      288,
+      30
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 160,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 300,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 706,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 460,
+        "symmetric": true
+      },
+      {
+        "frame": 4,
+        "opaque_pixels": 288,
+        "symmetric": true
+      },
+      {
+        "frame": 5,
+        "opaque_pixels": 168,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_w_hit.png",
+    "size_1x": [
+      56,
+      14
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 8,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 78,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 48,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 4,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_root.png",
+    "size_1x": [
+      88,
+      16
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 72,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 88,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 98,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 88,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_e_lob.png",
+    "size_1x": [
+      48,
+      12
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 30,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 24,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 38,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 28,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_e_land.png",
+    "size_1x": [
+      72,
+      18
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 44,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 98,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 110,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 72,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_e_idle.png",
+    "size_1x": [
+      56,
+      16
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 72,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 78,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 76,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 74,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_e_burst.png",
+    "size_1x": [
+      288,
+      40
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 78,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 210,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 354,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 864,
+        "symmetric": true
+      },
+      {
+        "frame": 4,
+        "opaque_pixels": 178,
+        "symmetric": true
+      },
+      {
+        "frame": 5,
+        "opaque_pixels": 66,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_e_hit.png",
+    "size_1x": [
+      56,
+      14
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 12,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 42,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 38,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 8,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_e_slow.png",
+    "size_1x": [
+      64,
+      8
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 22,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 24,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 32,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 26,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_r_cast.png",
+    "size_1x": [
+      384,
+      30
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 274,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 714,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 848,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 946,
+        "symmetric": true
+      },
+      {
+        "frame": 4,
+        "opaque_pixels": 812,
+        "symmetric": true
+      },
+      {
+        "frame": 5,
+        "opaque_pixels": 522,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_r_wall.png",
+    "size_1x": [
+      72,
+      60
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 486,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 460,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 452,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 446,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_r_hit.png",
+    "size_1x": [
+      64,
+      16
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 30,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 100,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 40,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 8,
+        "symmetric": true
+      }
+    ]
+  },
+  {
+    "file": "maokai_fx_r_haste.png",
+    "size_1x": [
+      160,
+      12
+    ],
+    "binary_alpha": true,
+    "exact_8x": true,
+    "frames": [
+      {
+        "frame": 0,
+        "opaque_pixels": 80,
+        "symmetric": true
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 88,
+        "symmetric": true
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 76,
+        "symmetric": true
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 80,
+        "symmetric": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "effects": 21,
+  "frames": 95,
+  "exact_cell_sizes": true,
+  "binary_alpha": true,
+  "per_frame_symmetry": true,
+  "palette_only": true,
+  "exact_8x": true,
+  "raw_hashes_match": true,
+  "e_land_to_idle_registration": true,
+  "p_heal_body_keepout": true,
+  "game_runtime_tested": false
+}

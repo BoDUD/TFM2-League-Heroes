@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.141.0"
+    }
+  ],
+  "description": "Test build of Maokai as in League (needs League of Legends Heroes): replaces the main pack's Maokai so Sap Magic heals a share of his max health (4.5-12% by level), is also readied when an enemy champion's skill hits him, and saplings standing in brush burst bigger, harder and slow more (the map's brush grid). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-18",
+  "mod_id": "league_maokai",
+  "mod_type": "native",
+  "name": "League Heroes: Maokai's % max-health Sap Magic and brush saplings (test)",
+  "version": "0.1.0"
+}

@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_maokai": {
+    "remapping": "asset/league_maokai/override/league_maokai",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_maokai/text/champion",
+    "type": "merge"
+  }
+}
