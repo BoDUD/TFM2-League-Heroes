@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_cassiopeia": {
+    "remapping": "asset/league_cassiopeia/override/league_cassiopeia",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_cassiopeia/text/champion",
+    "type": "merge"
+  }
+}
