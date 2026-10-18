@@ -111,7 +111,7 @@ def spans(table):
 ARM = spans([((17,), (15, 19)), ((18,), (11, 19)), ((19, 20), (9, 19)), (range(21, 25), (1, 19)),
              (range(25, 29), (1, 18)), ((29, 30), (0, 19)), ((31,), (0, 20)), ((32,), (0, 21)), ((33,), (0, 23)),
              ((34,), (0, 24)), (range(35, 38), (0, 25)), ((38, 39), (0, 26)), (range(40, 45), (0, 29)),
-             ((45, 46), (3, 29)), (range(47, 54), (5, 29)), ((54,), (5, 29)), (range(55, 60), (0, 30))])
+             ((45, 46), (3, 29)), (range(47, 54), (5, 29)), ((54,), (5, 13))])
 ARM_PIVOT = (14.5, 22.5)                        # the near shoulder
 # the far claw with the sapling in it (right of the face)
 FAR = spans([((19, 20), (49, 55)), (range(21, 33), (47, 55)), (range(33, 48), (45, 55))])
@@ -119,9 +119,10 @@ FAR_PIVOT = (46.5, 34.5)                        # the far shoulder
 # the lantern and its cord (hanging from the branch at top left)
 LANTERN = spans([((7, 8), (5, 9)), (range(9, 18), (3, 13))])
 LANTERN_TOP = 7
-# the roots: the near ones (under the arm, the gold knee root) and the far root leg
-NEAR_LEG = spans([((45, 46), (30, 36)), (range(47, 52), (30, 36)), ((52, 53), (30, 36)), ((54,), (30, 36)),
-                  (range(55, 60), (30, 35))])
+# the roots: the near leg (the gold knee root and its big root foot spreading under the fist - the fist rests on it;
+# the first rig gave the foot to the arm and the near leg never stepped: 「左腿完全不动啊？」) and the far root leg
+NEAR_LEG = spans([((45, 46), (30, 36)), (range(47, 52), (30, 36)), ((52, 53), (30, 36)), ((54,), (14, 36)),
+                  (range(55, 60), (0, 35))])
 FAR_LEG = spans([(range(50, 55), (37, 51)), (range(55, 60), (36, 52))])
 
 
@@ -140,7 +141,19 @@ def design():
     D = CutDesign(d, px=31)
     knee = np.zeros((D.H, D.W), bool)
     knee[45:54] = True
-    D.part("near_leg", D.rows(NEAR_LEG) & ~(knee & violet(d)))
+    near = D.rows(NEAR_LEG) & ~(knee & violet(d))
+    # the root clump under the fist (rows 54-59, left of the knee root: not joined to it) is the fist's root fingers -
+    # left on the ground when the arm rose it read as a loose clump - yet at game size it reads as the near foot:
+    # the fingers go with the arm, except in the walk, where they step with the near knee root (pose(fingers="leg"))
+    lbl, n = ndimage.label(near, structure=np.ones((3, 3)))
+    sizes = ndimage.sum(near, lbl, range(1, n + 1))
+    clump = np.zeros_like(near)
+    for k in range(1, n + 1):
+        ys, xs = np.nonzero(lbl == k)
+        if ys.min() >= 54 and xs.min() < 26:
+            clump |= lbl == k
+    D.part("near_leg", near & ~clump)
+    D.part("fingers", clump)
     D.part("far_leg", D.rows(FAR_LEG))
     D.part("far", D.rows(FAR))
     D.part("lantern", D.rows(LANTERN))
@@ -185,7 +198,8 @@ def dipped(layer, row):
     return out
 
 
-DIP_ROWS = {"near_leg": 57, "far_leg": 57}      # plain root rows each leg gives up when the figure above sinks a row
+LEG_GAP = (42, 56, 26, 42)                      # design rows / columns where the trunk behind the legs can show
+SHADOW = (54, 33, 42)                           # the trunk's darkest bark shade (not the outline)
 
 
 class Form:
@@ -194,17 +208,27 @@ class Form:
     def __init__(self, D, rig_pad):
         self.D = D
         self.rig = R.Rig(D, pad=rig_pad)
+        tidy = self.rig.finish
+
+        def finish(can):
+            """ppu_rig's finish, then nothing under the ground line (its outline pass drew under the W cut, the hit's
+            flash and the lying body)."""
+            out = tidy(can)
+            out[self.rig.GY:] = 0
+            return out
+        self.rig.finish = finish
         self.arm = put_layer(D, "arm")
         self.far = put_layer(D, "far")
         self.far_empty = put_layer(D, "far", ~sapling_mask(D))
         self.lantern = put_layer(D, "lantern")
         self.near_leg = put_layer(D, "near_leg")
+        self.fingers = put_layer(D, "fingers")
         self.far_leg = put_layer(D, "far_leg")
         self.body = pad(D.layer("rest"))
         self.ref_holes = None
 
     def pose(self, whole=(0, 0), crouch=0, arm=(0, 0), far=(0, 0), lantern=0, legs=((0, 0), (0, 0)), empty=False,
-             lean=0, fill=True):
+             lean=0, fill=True, fingers="arm"):
         """whole: the whole figure moved (dx, dy); crouch: rows the trunk (with the far claw and the lantern) sinks,
         BEHIND the roots - the roots keep every square (the first rig took plain rows out of them and set the arm over
         the knee root: 「腿部变形了吧 少了像素？」); lean: columns the trunk moves over the roots; arm: the huge arm
@@ -220,9 +244,33 @@ class Form:
                   *([] if lantern is None else [(self.lantern, dict(dx=ux + lantern, dy=uy))]),
                   (self.far_leg, dict(dx=wx + fx, dy=wy + fy)),
                   (self.near_leg, dict(dx=wx + nx, dy=wy + ny)),
+                  (self.fingers, dict(dx=wx + nx, dy=wy + ny) if fingers == "leg" else
+                                 dict(dx=wx + arm[0], dy=wy + arm[1])),
                   (self.arm, dict(dx=wx + arm[0], dy=wy + arm[1]))]
         can = R.compose(self.rig, layers)
+        if fill:
+            can = self.shade_between_legs(can)
         return self.close_holes(can) if fill else can
+
+    def shade_between_legs(self, can):
+        """A stepping near leg uncovers the trunk behind its knee, which the design never drew: an enclosed gap there
+        (between the fist, the trunk and the roots, design rows LEG_GAP[0..1], columns LEG_GAP[2..3]) is the trunk's
+        shadow - its darkest bark shade, not the background (rig_jarvaniv.crotch_cloth's way)."""
+        if self.ref_holes is None:
+            self.close_holes(can)                      # sets ref_holes from the standing pose
+        op = can[..., 3] > 0
+        holes = ndimage.binary_fill_holes(op) & ~op & ~self.ref_holes
+        y0, y1, x0, x1 = LEG_GAP
+        zone = np.zeros_like(holes)
+        zone[self.rig.oy + y0:self.rig.oy + y1 + 1, self.rig.ox + x0:self.rig.ox + x1 + 1] = True
+        lbl, n = ndimage.label(holes)
+        out = can
+        for k in range(1, n + 1):
+            m = lbl == k
+            if (m & zone).sum() * 2 >= m.sum():
+                out = out.copy() if out is can else out
+                out[m] = (*SHADOW, 255)
+        return out
 
     def lantern_on_ground(self, dx):
         """The lantern alone, upright (as it hangs), standing on the ground dx columns right of the standing point."""
@@ -322,21 +370,22 @@ def frames_all(F):
     return out
 
 
-# the walk (League's maokai_run: a heavy lumbering walk). The roots keep every square in every frame: they never
-# overlap (the near knee root stops a column short of the far leg, so the near one is never further forward than the
-# far one) and never pass under the arm (never back of where they stand). So the step is a shuffle within a column:
-# the far leg lifted and set a column forward, then the near one, then both slide back while planted (the tree
-# moving over them); the trunk dips a row behind the roots after each landing; the huge arm lifts a row while the
-# near root swings; the lantern a step behind
-WALK = dict(near=[(0, 0), (0, 0), (0, 0), (1, -1), (1, 0), (0, 0), (0, 0), (0, 0)],
-            far=[(0, 0), (1, -1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 0)],
-            bob=[0, 0, 1, 0, 1, 0, 0, 1],
-            arm=[(0, 0), (0, 0), (0, 0), (0, -1), (0, 0), (0, 0), (0, 0), (0, 0)],
+# the walk (League's maokai_run: a heavy lumbering walk). Each root leg takes a real step (the shuffle within a
+# column before: 「左腿完全不动啊？」): planted four frames sliding back from 4 columns ahead to where it stands, then
+# lifted (2-3 rows) and carried forward four frames; the far leg half a cycle later. The roots never pass back of
+# where they stand (under the arm they would be hidden); when the near leg is ahead of the far one it passes IN FRONT
+# of it (the nearer leg covers the farther, as seen); every square of each root is its own, moved whole. The trunk
+# dips a row behind the roots on each landing; the huge arm lifts a row as the near leg swings; the lantern swings
+# a step behind.
+WALK = dict(near=[(1, 0), (0, 0), (-1, 0), (-3, 0), (-2, -2), (-1, -3), (0, -2), (1, -1)],
+            far=[(-1, -2), (1, -3), (2, -2), (3, -1), (3, 0), (1, 0), (-1, 0), (-2, 0)],
+            bob=[1, 0, 0, 0, 1, 0, 0, 0],
+            arm=[(0, 0), (0, 0), (0, 0), (0, 0), (0, -1), (0, -2), (0, -1), (0, 0)],
             lantern=[0, -1, -1, 0, 0, 1, 1, 0])
 
 
 def walk(F):
-    return [F.pose(crouch=bob, legs=(nl, fl), arm=arm, lantern=lan)
+    return [F.pose(crouch=bob, legs=(nl, fl), arm=arm, lantern=lan, fingers="leg")
             for nl, fl, bob, arm, lan in zip(WALK["near"], WALK["far"], WALK["bob"], WALK["arm"], WALK["lantern"])]
 
 
