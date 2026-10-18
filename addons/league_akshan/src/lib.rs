@@ -45,6 +45,10 @@ pub const STORED: [&str; 5] =
     ["league_akshan_r_s1", "league_akshan_r_s2", "league_akshan_r_s3", "league_akshan_r_s4", "league_akshan_r_s5"];
 pub const MARK: &str = "league_akshan_w_mark";
 pub const W_HASTE: &str = "league_akshan_w_haste";
+// sounds of the main pack (league/sound/sfx) the add-on plays
+const SFX_MARK: &str = "league_akshan_w_mark";
+const SFX_REVIVE: &str = "league_akshan_w_revive";
+const SFX_GOLD: &str = "league_akshan_w_gold";
 
 // ---- 数字（和 build_akshan.P 一致：make_override.py 把 P 写进副本的 passive.params，测试核对）
 pub const P_T: usize = 300;
@@ -512,6 +516,9 @@ impl Rogue {
                     if let Some(e) = sim.get_player(s).and_then(|p| p.champion()).map(|e| e.id()) {
                         sim.entity_remove_buff(e, MARK);
                         sim.add_buff(e, &BuffV1::timed(MARK, MARK_T.saturating_sub(now - k.tick.min(now))));
+                        if recent {
+                            sim.play_sfx(SFX_MARK, me, &InputTargetV1::target(e));
+                        }
                     }
                     wlog(format!("{} MARK player {s} killed ally {victim} (victims {:?})", head(sim, me), m.victims));
                 }
@@ -534,6 +541,7 @@ impl Rogue {
                 }
                 if let Some(m) = self.marks.remove(&victim) {
                     sim.player_add_gold(player, GOLD);
+                    sim.play_sfx(SFX_GOLD, me, &InputTargetV1::target(me));
                     if let Some(e) = sim.get_player(victim).and_then(|p| p.champion()).map(|e| e.id()) {
                         sim.entity_remove_buff(e, MARK);
                     }
@@ -544,10 +552,13 @@ impl Rogue {
                             continue;
                         }
                         match shorten_respawn(sim, v, REVIVE_T) {
-                            Ok((was, now_)) => wlog(format!(
-                                "{} REVIVE player {v}: Scoundrel {victim} down, respawn {was} -> {now_} ticks",
-                                head(sim, me)
-                            )),
+                            Ok((was, now_)) => {
+                                sim.play_sfx(SFX_REVIVE, me, &InputTargetV1::target(me));
+                                wlog(format!(
+                                    "{} REVIVE player {v}: Scoundrel {victim} down, respawn {was} -> {now_} ticks",
+                                    head(sim, me)
+                                ))
+                            }
                             Err(why) => wlog(format!("{} REVIVE player {v} REFUSED: {why}", head(sim, me))),
                         }
                     }
