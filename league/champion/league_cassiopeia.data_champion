@@ -267,10 +267,6 @@
                                         "end_effects": []
                                       },
                                       {
-                                        "type": "Sfx",
-                                        "name": "league_cassiopeia_r_wave"
-                                      },
-                                      {
                                         "type": "RangeEffect",
                                         "shape": {
                                           "DirDot": {
@@ -488,10 +484,6 @@
                                           "applied_target": "EnemyChampion",
                                           "applied_effects": [],
                                           "end_effects": []
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_cassiopeia_r_wave"
                                         },
                                         {
                                           "type": "RangeEffect",
@@ -714,10 +706,6 @@
                                               "applied_target": "EnemyChampion",
                                               "applied_effects": [],
                                               "end_effects": []
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_cassiopeia_r_wave"
                                             },
                                             {
                                               "type": "RangeEffect",

@@ -244,7 +244,7 @@ def build(p):
              "applied_target": "EnemyChampion", "applied_effects": [], "end_effects": []}
     gaze = combine(*rm("r_arm", "r_late"), refresh("r_now", p["r_dur"]), anim("ult", p["r_dur"]), cview("r_cast"),
                    sfx("r"), voice("vo_r", p),
-                   delayed(p["r_rel"] - 1, alive(wave_, sfx("r_wave"),
+                   delayed(p["r_rel"] - 1, alive(wave_,
                                                  cone(p["r_range"], "EnemyChampion", blast, p["r_cos"]), *stone)))
     count = cone(p["r_range"], "EnemyChampion", [sw("n1", flag("n2", 3), flag("n1", 3))], p["r_cos"])
     dive = around(p["r_dive"], "EnemyChampion", [flag("r_dive", 3)])

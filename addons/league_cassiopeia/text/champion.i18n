@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_cassiopeia": {
+        "attack": "【扩展包】<#ff9028ff>双生毒牙<>：甩出毒牙，造成<#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>魔法伤害；目标中毒时多造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>并<#66bb6aff>回复<><i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命。<#ff9028ff>优雅蛇行<>：移速成长更高。",
+        "ult": "【扩展包】朝面前扇形石化凝视，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害：面朝她的敌人<#ef5350ff>石化2秒<>，背对她的<#ef5350ff>减速40%<>。前方有2个以上敌方英雄或被突进时才放。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_cassiopeia": {
+        "attack": "【擴充包】<#ff9028ff>雙生毒牙<>：甩出毒牙，造成<#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>魔法傷害；目標中毒時多造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>並<#66bb6aff>回復<><i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命。<#ff9028ff>致命節奏<>：移速成長更高。",
+        "ult": "【擴充包】朝面前扇形石化凝視，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害：面朝她的敵人<#ef5350ff>石化2秒<>，背對她的<#ef5350ff>緩速40%<>。前方有2個以上敵方英雄或被突進時才放。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_cassiopeia": {
+        "attack": "[Add-on] <#ff9028ff>Twin Fang<>: flings a fang for <#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> <#a974ffff>magic damage<>; on a poisoned target it deals <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> more and <#66bb6aff>heals her<> <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>. <#ff9028ff>Serpentine Grace<>: more move speed per level.",
+        "ult": "[Add-on] Gazes in a cone in front of her: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>; enemies facing her are <#ef5350ff>petrified for 2s<>, those turned away <#ef5350ff>slowed 40%<>. Cast with 2+ enemy champions in front or when dived."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_cassiopeia": {
+        "attack": "[확장] <#ff9028ff>쌍독니<>: 독니를 날려 <#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> 마법 피해; 중독된 대상에게 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 추가, <#66bb6aff>체력 회복<> <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>. <#ff9028ff>독사의 품격<>: 레벨당 이동 속도 증가.",
+        "ult": "[확장] 앞쪽 부채꼴로 응시: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해; 그녀를 바라보는 적은 <#ef5350ff>2초 석화<>, 등을 돌린 적은 <#ef5350ff>40% 둔화<>. 앞에 적 챔피언 2명 이상이거나 돌진당할 때 사용."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_cassiopeia": {
+        "attack": "【拡張】<#ff9028ff>ツインファング<>：毒牙を放ち<#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>の魔法ダメージ；毒状態の対象には<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>追加し<#66bb6aff>体力回復<><i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>。<#ff9028ff>妖艶な蛇行<>：移動速度の成長が高い。",
+        "ult": "【拡張】前方の扇形に魔眼：<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ；こちらを向く敵は<#ef5350ff>2秒石化<>、背を向けた敵は<#ef5350ff>40%スロウ<>。前方に敵2体以上か突進された時に使う。"
+      }
+    }
+  }
+}
