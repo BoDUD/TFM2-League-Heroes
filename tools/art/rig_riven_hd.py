@@ -89,6 +89,11 @@ IDLE_HOLD = 54.0
 FACE = (27.0, 21.0, 5.5)
 HEAD, HEAD_TURN = (24.5, 16.5, 10.0), 30
 GUARD_AT = 4.5                               # squares from the fist to the guard: the blade starts there
+# Her near forearm and open hand, turned about the elbow after League's left elbow-to-hand (losslessly, the nearest of
+# its 8 ways), in front of the body or behind it as League's hand is: the user 「你去玩玩全全参考英雄联盟」 after the
+# E's dash kept the one pose (only the sword and legs moved).
+FOREARM = [(32.0, 33.0), (37.0, 33.0), (37.0, 29.0), (46.0, 29.0), (46.0, 38.5), (32.0, 38.5)]
+ELBOW, NEAR_HAND = (32.5, 35.5), (41.5, 33.5)
 SWORD_HW = 4.5
 
 
@@ -205,7 +210,8 @@ def design():
     # (1.5 squares wider than the blade: its outline along the top edge stayed in her body as a thin line)
     blade = poly_mask(D, [blade_poly(BLADE_ALONG[0], BLADE_ALONG[1] + 2, BLADE_HW + 1.5)]) & steel(D.pic[..., :3])
     sword = (poly_mask(D, [HILT]) | blade) & ~arm
-    D.cut_props({"arm": arm, "sword": sword, **legs}, close=1, bare=set(legs))
+    forearm = poly_mask(D, [FOREARM])
+    D.cut_props({"arm": arm, "sword": sword, "forearm": forearm, **legs}, close=1, bare=set(legs))
     taken = np.zeros((D.H, D.W), bool)
     bare = np.zeros((D.H, D.W), bool)
     for name in list(D.props):
@@ -221,7 +227,9 @@ def design():
     # the picture's blade is only cut away: every frame draws one of Codex's swords where it was (with_sword)
     D.swords = load_swords()
     D.polys["arm"], D.polys["sword"] = ARM, sword_poly(D.swords, "normal")
+    D.polys["forearm"] = FOREARM
     D.AXES = {"arm": (GRIP[0] - SHOULDER[0], GRIP[1] - SHOULDER[1]),
+              "forearm": (NEAR_HAND[0] - ELBOW[0], NEAR_HAND[1] - ELBOW[1]),
               "sword": (np.cos(np.radians(SWORD_REST)), -np.sin(np.radians(SWORD_REST)))}
     D.SHAFTS = {}
     lossless = D.snap
@@ -355,7 +363,7 @@ def check_design(D):
     outside = int(((D.d != D.d0).any(-1) & ~D.taken).sum())
     rig = R.Rig(D)
     z0 = dict(angle=0, about=(0, 0))
-    lay = [("arm", z0)] + \
+    lay = [("arm", z0), ("forearm", dict(angle=0, about=ELBOW))] + \
         [(n, z0) for n in sorted(D.props) if n.endswith(("_thigh", "_shin"))] + [("upper", dict())]
     can = R.compose(rig, lay)
     got = can[rig.oy:rig.oy + D.H, rig.ox:rig.ox + D.W]
@@ -385,6 +393,20 @@ def driver(rig, joints, kind="normal", front=False):
     return drv
 
 
+def with_forearm(drv, j, layers, o=None):
+    """The layers with her near forearm put in: turned as League's near elbow-to-hand turned from its idle, moved with
+    the upper body, behind the body when League's hand went behind its chest (as the Driver decides for the arm)."""
+    o = o or {}
+    sd = drv.side["near"]
+    ui = next(k for k, (n, _) in enumerate(layers) if isinstance(n, str) and n == drv.upper)
+    u = layers[ui][1]
+    ang = 0 if o.get("keep") else drv.rig.D.snap("forearm", round(drv.delta(j, f"{sd}_elbow", f"{sd}_hand") / 2) * 2)
+    d = drv.d
+    back = (j[f"{sd}_hand"][2] - j["chest"][2]) < (d[f"{sd}_hand"][2] - d["chest"][2]) - drv.margin
+    lay = ("forearm", dict(dx=u.get("dx", 0), dy=u.get("dy", 0), angle=ang, about=ELBOW))
+    return layers[:ui] + [lay] + layers[ui:] if back else layers[:ui + 1] + [lay] + layers[ui + 1:]
+
+
 def sword_frame(drv, j, o=None, r_form=False):
     """drv.frame with Codex's sword, and the layers (the "sword" layer as the Driver placed it)."""
     D = drv.rig.D
@@ -394,6 +416,7 @@ def sword_frame(drv, j, o=None, r_form=False):
         _, layers = spied_frame(drv, j, o)
     finally:
         D.polys["sword"] = keep
+    layers = with_forearm(drv, j, layers, o)
     return with_sword(drv.rig, D.swords, layers, drv.kind), layers
 
 
@@ -409,7 +432,7 @@ def leg_piece(D, lg):
 def idle_frame(rig, legs, sink, rest=0.0, front=False):
     lay = [("arm", dict(dy=sink, angle=0, about=SHOULDER))]
     lay += [(legs[lg["name"]], dict()) for lg in (BACK, FRONT)]
-    lay += [("upper", dict(dy=sink))]
+    lay += [("upper", dict(dy=sink)), ("forearm", dict(dy=sink, angle=0, about=ELBOW))]
     sword = ("sword", dict(dy=sink, angle=rest, about=GRIP))
     lay = lay[:-1] + [lay[-1], sword, lay[0]] if front else [sword] + lay
     return with_sword(rig, rig.D.swords, lay, "normal")
@@ -560,7 +583,7 @@ def frames(rig, joints):
             sys.exit(f"{tag}: no League frames")
         rows = R.fit_rows(joints["tags"][clip], len(timing[tag]))
         ms = [m for _, m in timing[tag]]
-        drv = (swings if R_TAGS.get(tag, tag).startswith("attack") else drvs)[tag in R_TAGS or tag in R_FORM]
+        drv = (drvs if tag in ("run", "hit", "dead") else swings)[tag in R_TAGS or tag in R_FORM]
         if tag == "idle":
             fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)], IDLE_HOLD) for i in range(len(ms))]
         elif base in LEG_TAGS:
@@ -575,6 +598,7 @@ def frames(rig, joints):
             # the sword pointing straight down in front of her first: laid a quarter turn it lies along the ground
             # beside her, not up in the air (behind her it vanished under the body)
             _, lay = spied_frame(drv, rows[3]["j"], dict(keep=True, arm=-90, weapon=-90 - SWORD_REST))
+            lay = with_forearm(drv, rows[3]["j"], lay, dict(keep=True))
             sw = next(x for x in lay if isinstance(x[0], str) and x[0] == "sword")
             lay = [x for x in lay if x is not sw] + [sw]
             lie = R.lie(rig, with_sword(rig, D.swords, lay, "normal"), k=1, dx=-2)
