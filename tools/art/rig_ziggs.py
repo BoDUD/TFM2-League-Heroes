@@ -328,17 +328,25 @@ def _steps(stride, lifts):
                 bob=[1, 0, 0, 0, 1, 0, 0, 0])
 
 
-WALK_STEP = _steps(4, (1, 2, 1))
+# The user, 2026-10-18: 「感觉走路时候有点 僵硬」 (stride 4, lifts (1, 2, 1), the dip on the contact frames only: under a
+# game pixel once at PPU 1.2, the hands still). Hands bouncing against the steps were turned down (「手臂有点变形吧」:
+# moved against the body, the sleeve stretched at the shoulder); picked 「用 D 版走路」: a stride of 6, lifts (2, 3, 2),
+# the dip on the contact frames and the whole figure a row up as the legs pass (league_braum's spring) - 2 rows of bob,
+# the hands never moving against the body (work/zg/walk_variants.py showed now / A / D / E).
+WALK_STEP = dict(_steps(6, (2, 3, 2)), rise=[0, 0, 1, 0, 0, 0, 1, 0])
 
 
 def walk(F, steps=None):
     st = steps or WALK_STEP
     out = []
     dip = {"far_leg": dipped(F.far_leg, DIP_ROWS["far_leg"]), "near_leg": dipped(F.near_leg, DIP_ROWS["near_leg"])}
-    for (ndx, nup), (fdx, fup), bob in zip(st["near"], st["far"], st["bob"]):
-        legs = [(dip["far_leg"] if bob else F.far_leg, dict(dx=fdx, dy=-fup)),
-                (dip["near_leg"] if bob else F.near_leg, dict(dx=ndx, dy=-nup))]
-        out.append(F.pose(whole=(0, bob), leg_layers=legs))
+    rise = st.get("rise", [0] * len(st["bob"]))
+    for (ndx, nup), (fdx, fup), bob, up in zip(st["near"], st["far"], st["bob"], rise):
+        # bob: the figure above the shins a row lower (each leg a shin row shorter, the boots where they stand);
+        # rise: the whole figure, legs too, `up` rows higher (the step's spring, league_braum's walk)
+        legs = [(dip["far_leg"] if bob else F.far_leg, dict(dx=fdx, dy=-fup - up)),
+                (dip["near_leg"] if bob else F.near_leg, dict(dx=ndx, dy=-nup - up))]
+        out.append(F.pose(whole=(0, bob - up), leg_layers=legs))
     return out
 
 
