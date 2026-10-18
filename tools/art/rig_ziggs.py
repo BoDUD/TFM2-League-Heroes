@@ -249,7 +249,7 @@ def sheet(cans, path, z=4):
 # frame lengths (ms); League's Ziggs: attack 0.656/s (windup 20%), spells 0.25 s casts, R 0.375 s
 MS = {"idle": [140] * 8, "run": [110] * 8, "attack": [80, 80, 70, 100, 110], "skill": [70, 80, 70, 70, 110, 110],
       "skill2": [70, 80, 70, 110, 110], "skill_w": [70, 70, 90, 90, 80], "ult": [80, 90, 90, 70, 110, 160],
-      "hit": [100, 100], "dead": [100, 100, 120, 150, 200, 500]}
+      "hit": [100, 100], "dead": [100, 100, 120, 60, 100, 60, 140, 500]}
 
 # The idle's breath and the walk's bob (tools/art/idle_breathe.py's recipe, league_jarvaniv's dip): the figure above the
 # shins sinks a row, each leg one plain shin row shorter, the boots where they stand
@@ -308,8 +308,12 @@ def frames_all(F):
     sink = p(crouch=2, whole=(-1, 0), near_reach=(3, 3), far_reach=(-2, 2), **nb)
     sit = p(crouch=4, whole=(-1, 0), near_reach=(6, 6), far_reach=(-4, 5), **nb)
     # lying sunk 4 rows into the ground line (league_tahmkench's way): lower, it reads as fallen
-    lying = R.lie(F.rig, p(crouch=4, near_reach=(9, 4), far_reach=(-7, 1), **nb), k=1, dx=-2, sink=4)
-    out["dead"] = [p(whole=(-1, 0)), over(bombs, sink), over(bombs, sit), over(bombs, lying), over(bombs, lying),
+    body = p(crouch=4, near_reach=(9, 4), far_reach=(-7, 1), **nb)
+    lying = R.lie(F.rig, body, k=1, dx=-2, sink=4)
+    # (8 frames since the 2026-10-19 frame audit: he lands from 2 rows up, lies, bounces a row, lies - the bombs on the
+    # ground stay where they fell)
+    out["dead"] = [p(whole=(-1, 0)), over(bombs, sink), over(bombs, sit), over(bombs, R.lie(F.rig, body, k=1, dx=-2, sink=2)),
+                   over(bombs, lying), over(bombs, R.lie(F.rig, body, k=1, dx=-2, sink=3)), over(bombs, lying),
                    over(bombs, lying)]
     return out
 
