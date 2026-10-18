@@ -109,6 +109,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // grid and cut to 69 rows, the upper body posed after League's own clips by tools/art/rig_camille_hd.py, the legs of
     // her kicks and leaps Codex's drawing along League's guides, PPU 1.5 at her old 46 rows, so no SIZES row
     ("league_camille", 1.5, include_str!("../../../league/champions/league_camille#anim.fanim")),
+    // Fiora (2026-10-18): Codex's design picture (assets/source/fiora/PICTURE_PROMPT_PPU.md) read back on one fitted
+    // grid and cut to 60 rows with her whole head kept, posed after League's own clips by tools/art/rig_fiora_hd.py (the
+    // blade drawn straight, the legs of her steps and lunges drawn on League's bones in the design's colours), PPU 1.5
+    // at her old 40 rows, so no SIZES row
+    ("league_fiora", 1.5, include_str!("../../../league/champions/league_fiora#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
