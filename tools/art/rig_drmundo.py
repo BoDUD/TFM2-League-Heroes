@@ -191,6 +191,40 @@ DEAD_DROP, DEAD_BOUNCE = 5, 2
 DEAD_MS = [100, 100, 60, 90, 60, 110, 150, 400]
 
 
+# R Maximum Dosage (League's drmundo_spell4: he jabs a syringe into himself, then roars): the strips had no syringe. One
+# is drawn in his far fist on the crouching frames, in the design's own colours (the saw's pale glass, the boils'
+# magenta for the dose, dark steel for the needle), from the fist's grip toward the tip: held up ready on ult_1, its
+# needle in his side on ult_4. Nothing of him moves.
+SYRINGE = {0: ((112, 151), (99, 161)), 3: ((116, 146), (113, 130))}     # ult frame -> (grip, needle tip), (row, col)
+GLASS, DOSE, STEEL, PLUNGER = (183, 220, 218), (241, 3, 103), (99, 108, 125), (132, 146, 157)
+
+
+def syringe(a, grip, tip):
+    """The syringe on native frame a: the plunger behind the grip, the barrel (glass round a magenta dose) from the grip
+    to 70 % of the way, the needle on to the tip; outlined."""
+    out = a.copy()
+    (gy, gx), (ty, tx) = grip, tip
+    H, W = a.shape[:2]
+    ys, xs = np.mgrid[0:H, 0:W]
+    vy, vx = ty - gy, tx - gx
+    L = np.hypot(vy, vx)
+    uy, ux = vy / L, vx / L
+    along = (ys + 0.5 - gy) * uy + (xs + 0.5 - gx) * ux
+    across = np.abs((ys + 0.5 - gy) * ux - (xs + 0.5 - gx) * uy)
+    plunger = (along >= -4) & (along < 0) & (across <= 1.6)
+    barrel = (along >= 0) & (along <= 0.7 * L) & (across <= 2.2)
+    dose = barrel & (across <= 1.0) & (along >= 1.5)
+    needle = (along > 0.7 * L) & (along <= L) & (across <= 0.7)
+    body = plunger | barrel | needle
+    ring = ndimage.binary_dilation(body, structure=np.ones((3, 3))) & ~body
+    out[ring] = (*OUTLINE, 255)
+    out[plunger] = (*PLUNGER, 255)
+    out[barrel] = (*GLASS, 255)
+    out[dose] = (*DOSE, 255)
+    out[needle] = (*STEEL, 255)
+    return out
+
+
 def lifted(a, k):
     """a moved k rows up (nothing wraps round)."""
     if k == 0:
@@ -209,6 +243,8 @@ def actions():
                for e in frames]
         if tag == "run":
             src = [(lifted(a, RUN_HOP[i]), ms) for i, (a, ms) in enumerate(src)]
+        if tag == "ult":
+            src = [(syringe(a, *SYRINGE[i]) if i in SYRINGE else a, ms) for i, (a, ms) in enumerate(src)]
         if tag == "dead":
             lie = src[DEAD_LIE][0]
             src = src[:DEAD_LIE] + [(lifted(lie, DEAD_DROP), 0), (lie, 0), (lifted(lie, DEAD_BOUNCE), 0)] + src[DEAD_LIE + 1:]

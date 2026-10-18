@@ -40,9 +40,9 @@ const BUFF_SIZE: usize = 0x28;
 /// 雷克塞在画面实体里的名字。
 pub const NAME: &[u8] = b"league_reksai";
 
-/// 游戏按名字自动播、遁地有自己一套的动作（雷克塞图里的 `b_*`）：待机、走。挨打、普攻、阵亡不换——遁地只在身边没有敌人时，
-/// 一有敌人靠近被动就让她破土，出招和挨打都是地面上的她。
-pub const FORM_TAGS: [&str; 2] = ["idle", "run"];
+/// 游戏按名字自动播、遁地有自己一套的动作（雷克塞图里的 `b_*`）：待机、走、挨打（0.1.2：远处的子弹、防御塔打到地底的她时，原来
+/// 会闪出地面上的她）。普攻、阵亡不换——遁地只在身边没有敌人时，一有敌人靠近被动就让她破土，出招是地面上的她。
+pub const FORM_TAGS: [&str; 3] = ["idle", "run", "hit"];
 const PREFIX: &str = "b_";
 
 /// 正在播的动画名 + 是不是在地底 → 该播的名字（不用换就是 None）。破土后把本包换上去的 `b_idle` 等换回来。
@@ -234,7 +234,8 @@ mod tests {
     fn the_playing_animation_follows_the_form() {
         assert_eq!(anim_for("idle", true).as_deref(), Some("b_idle"));
         assert_eq!(anim_for("run", true).as_deref(), Some("b_run"));
-        assert_eq!(anim_for("hit", true), None); // hit on the surface: the passive unburrows her near enemies
+        assert_eq!(anim_for("hit", true).as_deref(), Some("b_hit")); // 0.1.2: a shot from afar or a tower under the ground
+        assert_eq!(anim_for("b_hit", false).as_deref(), Some("hit"));
         assert_eq!(anim_for("attack", true), None);
         assert_eq!(anim_for("skill2", true), None); // her own dig and burst
         assert_eq!(anim_for("b_idle", false).as_deref(), Some("idle")); // up again

@@ -23,7 +23,7 @@
   `league_yunara_e_toward`（移速 +`e_ms2 - e_ms`%），一直跑就一直刷新，不朝它跑了就摘掉。
 - **定圣诀**：条件满足时本包挂 6 tick 的 `league_yunara_r_ok`（每 3 tick 刷新），副本的大招门槛先看它，再看主包的人数和控制。
 - **整身超凡**（`src/view.rs`）：照雷克塞 / 芮尔 / 杰斯附加包的显示钩子，游戏每帧更新显示时，名字是 `league_yunara`、身上有主包的 `league_yunara_r_on`
-  的实体，正在播的 `idle / run` 换成图里的 `r_idle / r_run`（高清帧由 league.dll 自动换成 `hd_r_*`）。出招、挨打、阵亡照主包。
+  的实体，正在播的 `idle / run / attack / hit` 换成图里的 `r_idle / r_run / r_attack / r_hit`（高清帧由 league.dll 自动换成 `hd_r_*`；普攻、挨打是 0.1.1 加的，原来金边会闪掉）。技能在超凡形态里是主包自己的 `skill_r` / `skill2_r`，阵亡照主包。
 - 状态都在被动自己的实例里，同一局的两份预模拟和画面互不干扰。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yunara.log`：`DASH`（往哪冲、为什么）、`DASH DONE`（实际挪了多远、被拒几步）、`TOWARD`（明踪步加成开关）、
   `RISE`（大招开了，是本包的 r_ok 还是主包的条件）、`FORM`（画面里换形态），都限了条数。

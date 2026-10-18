@@ -429,25 +429,27 @@ def frames_a(F):
     # the staff raised forward, the blade high (both arms a quarter turn forward, the far hand on the shaft by the
     # blade); "back" pulls it back along its own line (League's wind-ups), the strikes push it on along the drawn line
     raised = dict(near=1, far=1, staff="VF")
+    # the staff upright overhead (R's pose: the near arm straight up, the shaft behind the head)
+    up = dict(near=2, near_reach=(-4, 0), staff="UP", staff_shift=(3, -14), behind="head")
     # auto attack (League's nasus_attack1, an overhead chop): raised and drawn back, then down so the blade strikes the
     # ground ahead (frame 3 from tick 8.4, the blow on tick 9), held, and back
     out["attack"] = [p(whole=(-1, 0), **raised), p(whole=(-2, 0), staff_shift=(-4, 1), **raised),
                      p(crouch=1, whole=(1, 0), staff_shift=(4, 0)), p(crouch=1, whole=(1, 0), staff_shift=(4, 0)),
                      p(crouch=1), p()]
-    # Q Siphoning Strike (Nasus_Spell1): raised and drawn far back, over, and slammed down far ahead with the body
-    # thrown forward (frame 4 from tick 9.6, the blow on tick 10)
-    out["skill"] = [p(whole=(-2, 0), staff_shift=(-4, 1), **raised), p(whole=(-3, 0), staff_shift=(-8, 2), **raised),
+    # Q Siphoning Strike (Nasus_Spell1): raised overhead (R's upright pose, drawn back a column), over, and slammed down
+    # far ahead with the body thrown forward (frame 4 from tick 9.6, the blow on tick 10) (2026-10-19 frame audit: the
+    # wind-up only drew the forward-raised staff back along its line - League's goes up over his head)
+    out["skill"] = [p(whole=(-1, 0), **up), p(whole=(-2, 0), **up),
                     p(**raised), p(crouch=2, whole=(2, 0), staff_shift=(7, 0)), p(crouch=2, whole=(2, 0), staff_shift=(7, 0)),
                     p(crouch=1, whole=(1, 0), staff_shift=(3, 0))]
-    # E Spirit Fire (Nasus_Base_Spell3_Full): gathers, raises the staff and thrusts it at the spot (frame 3 on tick 9)
-    out["skill2"] = [p(crouch=1), p(**raised), p(whole=(1, 0), staff_shift=(4, -1), **raised),
-                     p(whole=(1, 0), staff_shift=(4, -1), **raised), p(crouch=1)]
+    # E Spirit Fire (Nasus_Base_Spell3_Full): gathers, raises the staff forward and on up overhead as the fire falls on
+    # the spot (frame 3 on tick 9), held, down (2026-10-19 frame audit: it was only pushed forward - League's goes up)
+    out["skill2"] = [p(crouch=1), p(**raised), p(**up), p(**up), p(crouch=1)]
     # W Wither (Nasus_Base_Spell2_Full): the far hand thrust out at the champion, the staff kept in the near hand
     out["skill_w"] = [p(far=1, far_reach=(-2, 0)), p(far=1, far_reach=(0, -2), whole=(1, 0)),
                       p(far=1, far_reach=(0, -2), whole=(1, 0)), p(far=1, far_reach=(-2, 0))]
     # R Fury of the Sands (Nasus_Base_Spell4_Full): crouch, then up with the staff raised upright beside his head (the
     # big body from frame 4 - the kit's r_on_at; frames 4-6 are B's, set by frames())
-    up = dict(near=2, near_reach=(-4, 0), staff="UP", staff_shift=(3, -14), behind="head")
     out["ult"] = [p(crouch=1), p(crouch=2), p(**up)]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (Nasus_Base_Death): staggers back, sinks, falls on his back, the staff dropped on the ground beside him
@@ -468,18 +470,17 @@ def frames_b(F):
     out = {}
     out["b_idle"] = [p(crouch=b) for b in [0, 0, 1, 1, 1, 1, 0, 0]]
     raised = dict(near=1, far=1, staff="VF")
+    up = dict(near=2, near_reach=(-5, 0), staff="UP", staff_shift=(4, -19), behind="head")
     out["b_attack"] = [p(whole=(-1, 0), **raised), p(whole=(-3, 0), staff_shift=(-5, 1), **raised),
                        p(crouch=1, whole=(1, 0), staff_shift=(5, 0)), p(crouch=1, whole=(1, 0), staff_shift=(5, 0)),
                        p(crouch=1), p()]
-    out["b_skill"] = [p(whole=(-3, 0), staff_shift=(-5, 1), **raised), p(whole=(-4, 0), staff_shift=(-10, 2), **raised),
+    out["b_skill"] = [p(whole=(-1, 0), **up), p(whole=(-3, 0), **up),
                       p(**raised), p(crouch=3, whole=(3, 0), staff_shift=(9, 0)),
                       p(crouch=3, whole=(3, 0), staff_shift=(9, 0)), p(crouch=1, whole=(1, 0), staff_shift=(4, 0))]
-    out["b_skill2"] = [p(crouch=1), p(**raised), p(whole=(1, 0), staff_shift=(5, -1), **raised),
-                       p(whole=(1, 0), staff_shift=(5, -1), **raised), p(crouch=1)]
+    out["b_skill2"] = [p(crouch=1), p(**raised), p(**up), p(**up), p(crouch=1)]
     out["b_skill_w"] = [p(far=1, far_reach=(-3, 0)), p(far=1, far_reach=(0, -3), whole=(1, 0)),
                         p(far=1, far_reach=(0, -3), whole=(1, 0)), p(far=1, far_reach=(-3, 0))]
     out["b_hit"] = [R.flash(p(whole=(-3, 0))), p(whole=(-1, 0))]
-    up = dict(near=2, near_reach=(-5, 0), staff="UP", staff_shift=(4, -19), behind="head")
     out["ult_b"] = [p(**up), p(**up), p(crouch=1, **up)]
     return out
 

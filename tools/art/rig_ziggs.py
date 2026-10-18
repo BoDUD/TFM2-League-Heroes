@@ -97,6 +97,30 @@ FEET_SPLIT = 30                                 # columns <= this: the near leg;
 NEAR_PIVOT = (19.5, 25.5)                       # the near shoulder (the red sleeve's top under the ear)
 FAR_PIVOT = (45.5, 27.5)                        # the far shoulder (the red sleeve's top beside the beard)
 STAND = 31                                      # the column between the boots: the standing point
+# A smaller head (the user, 2026-10-19, in game: 「吉格斯的头太大了在游戏里 缩小一点」): the body's rows down to HEAD_ROWS
+# (the helmet, the goggles, the ears, the teeth) lose the whole rows HEAD_DROP_ROWS and columns HEAD_DROP_COLS - the
+# cheapest by design_rell_cut's cost, the helmet's dome above the far goggle's rim and the near ear / helmet side left of
+# the near lens' rim; the lenses, their rims and the teeth kept square for square - and close up onto the beard
+# (the rows below stay) and towards the face (the columns right of the cuts stay). The beard, the neck and both shoulders
+# below are not touched: cut there, the head pulled off the hands' sleeves and opened see-through slits.
+HEAD_ROWS = 23
+HEAD_DROP_ROWS = (1, 3)
+HEAD_DROP_COLS = (14, 16, 18, 21, 23, 25)   # 「B 更窄」 of a lighter cut (1, 4) / (15, 18, 23) and the face too
+
+
+def shrink_head(layer):
+    """A design-sized body layer with its head shrunk (HEAD_DROP_ROWS / _COLS taken out of rows 0..HEAD_ROWS)."""
+    out = layer.copy()
+    out[:HEAD_ROWS + 1] = 0
+    for y in range(HEAD_ROWS + 1):
+        if y in HEAD_DROP_ROWS:
+            continue
+        ny = y + sum(1 for r in HEAD_DROP_ROWS if r > y)
+        for x in range(layer.shape[1]):
+            if x in HEAD_DROP_COLS or not layer[y, x, 3]:
+                continue
+            out[ny, x + sum(1 for c in HEAD_DROP_COLS if c > x)] = layer[y, x]
+    return out
 
 
 def orange(d):
@@ -144,7 +168,7 @@ class Form:
     def __init__(self, D, rig_pad):
         self.D = D
         self.rig = R.Rig(D, pad=rig_pad)
-        self.body = pad(D.layer("body"))
+        self.body = pad(shrink_head(D.layer("body")))
         self.near_leg = pad(D.layer("near_leg"))
         self.far_leg = pad(D.layer("far_leg"))
         self.hands = {}
@@ -154,6 +178,18 @@ class Form:
             self.hands[(side, False)] = pad(D.layer(f"{side}_hand", m & ~bomb))
         self.bombs = {"near": pad(D.layer("near_hand", D.near_bomb)), "far": pad(D.layer("far_hand", D.far_bomb))}
         self.ref_holes = None
+        tidy = self.rig.finish
+        self.ref_done = None
+
+        def finish(can):
+            """ppu_rig's finish, then the small holes its outline walled in that the finished idle does not have filled
+            (the smaller head: the near arm lowered beside the narrower ear closed a pocket in death frame 2)."""
+            out = tidy(can)
+            if self.ref_done is None:
+                op = tidy(self.pose())[..., 3] > 0
+                self.ref_done = ndimage.binary_dilation(ndimage.binary_fill_holes(op) & ~op, iterations=2)
+            return self.fill_new(out, self.ref_done)
+        self.rig.finish = finish
 
     def pose(self, crouch=0, whole=(0, 0), near=0, far=0, near_reach=(0, 0), far_reach=(0, 0), near_bomb=True,
              far_bomb=True, legs=None, leg_layers=None, far_front=False, near_front=True, fill=True):
@@ -189,8 +225,12 @@ class Form:
             idle = self.pose(fill=False)
             op = idle[..., 3] > 0
             self.ref_holes = ndimage.binary_dilation(ndimage.binary_fill_holes(op) & ~op, iterations=2)
+        return self.fill_new(can, self.ref_holes)
+
+    def fill_new(self, can, ref):
+        """Enclosed holes of at most MOST squares outside `ref` filled from the squares round them."""
         op = can[..., 3] > 0
-        holes = ndimage.binary_fill_holes(op) & ~op & ~self.ref_holes
+        holes = ndimage.binary_fill_holes(op) & ~op & ~ref
         lbl, n = ndimage.label(holes)
         fill = np.zeros_like(holes)
         for k in range(1, n + 1):
@@ -249,7 +289,7 @@ def sheet(cans, path, z=4):
 # frame lengths (ms); League's Ziggs: attack 0.656/s (windup 20%), spells 0.25 s casts, R 0.375 s
 MS = {"idle": [140] * 8, "run": [110] * 8, "attack": [80, 80, 70, 100, 110], "skill": [70, 80, 70, 70, 110, 110],
       "skill2": [70, 80, 70, 110, 110], "skill_w": [70, 70, 90, 90, 80], "ult": [80, 90, 90, 70, 110, 160],
-      "hit": [100, 100], "dead": [100, 100, 120, 150, 200, 500]}
+      "hit": [100, 100], "dead": [100, 100, 120, 60, 100, 60, 140, 500]}
 
 # The idle's breath and the walk's bob (tools/art/idle_breathe.py's recipe, league_jarvaniv's dip): the figure above the
 # shins sinks a row, each leg one plain shin row shorter, the boots where they stand
@@ -308,8 +348,12 @@ def frames_all(F):
     sink = p(crouch=2, whole=(-1, 0), near_reach=(3, 3), far_reach=(-2, 2), **nb)
     sit = p(crouch=4, whole=(-1, 0), near_reach=(6, 6), far_reach=(-4, 5), **nb)
     # lying sunk 4 rows into the ground line (league_tahmkench's way): lower, it reads as fallen
-    lying = R.lie(F.rig, p(crouch=4, near_reach=(9, 4), far_reach=(-7, 1), **nb), k=1, dx=-2, sink=4)
-    out["dead"] = [p(whole=(-1, 0)), over(bombs, sink), over(bombs, sit), over(bombs, lying), over(bombs, lying),
+    body = p(crouch=4, near_reach=(9, 4), far_reach=(-7, 1), **nb)
+    lying = R.lie(F.rig, body, k=1, dx=-2, sink=4)
+    # (8 frames since the 2026-10-19 frame audit: he lands from 2 rows up, lies, bounces a row, lies - the bombs on the
+    # ground stay where they fell)
+    out["dead"] = [p(whole=(-1, 0)), over(bombs, sink), over(bombs, sit), over(bombs, R.lie(F.rig, body, k=1, dx=-2, sink=2)),
+                   over(bombs, lying), over(bombs, R.lie(F.rig, body, k=1, dx=-2, sink=3)), over(bombs, lying),
                    over(bombs, lying)]
     return out
 

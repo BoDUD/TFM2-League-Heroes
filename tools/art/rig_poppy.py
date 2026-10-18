@@ -220,7 +220,7 @@ def up(dy=0):
 # frame 3), Q's slam at 200 ms (q_rel 12), R's swing 133 ms after the charge (r_rel 8), the tap's at 133 (r_tap_rel 8)
 MS = {"idle": [150] * 8, "run": [100] * 8, "attack": [90, 110, 120, 60, 53], "skill": [100, 100, 140, 127],
       "skill2": [90, 90, 87], "ult_charge": [167] * 4, "ult": [70, 63, 120, 114], "ult_tap": [133, 120, 80],
-      "hit": [100, 100], "dead": [100, 110, 120, 150, 200, 500]}
+      "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500]}
 
 
 def frames_all(F):
@@ -242,8 +242,10 @@ def frames_all(F):
     # hammer back, the lunge, landing low
     out["skill2"] = [p(crouch=2, **BACK), p(whole=(3, -1), legs=((1, -1), (1, -1)), **BACK),
                      p(crouch=2, whole=(4, 0), **BACK)]
-    # R Keeper's Verdict: the charge (League's Poppy_Spell4_Windup: low, the hammer drawn back), shaking a row
-    out["ult_charge"] = [p(crouch=c, **BACK) for c in (2, 3, 2, 3)]
+    # R Keeper's Verdict: the charge (League's Poppy_Spell4_Windup: the hammer held up over her head while it gathers),
+    # the raised hammer of the attack / Q, shaking a row and the fist a row (2026-10-19 frame audit: it was drawn back
+    # at the hip, four near-identical frames - League's holds it high)
+    out["ult_charge"] = [p(crouch=c, **up(dy)) for c, dy in ((1, -2), (2, -3), (1, -3), (2, -2))]
     # the release (Poppy_Spell4_Charged: swung over and forward with all her weight): overhead, forward, held, back
     out["ult"] = [p(crouch=1, **up(-2)), p(crouch=2, whole=(3, 0), **fwd()), p(crouch=2, whole=(3, 0), **fwd()),
                   p(crouch=1, whole=(1, 0))]
@@ -270,10 +272,12 @@ def frames_all(F):
     # she drops onto the ground and sits (league_wukong's death: a figure turned to lie read upside down, its legs in
     # the air): the body set down 8 rows over the lower legs, which spread out, everything under the ground clipped
     sit = dropped(ground(p(crouch=8, whole=(-3, 0), legs=((-3, 0), (3, 0)), no_hammer=True)), 25)
+    # (8 frames since the 2026-10-19 frame audit: she lands sitting, the body bounces a row, sits)
+    bounce = dropped(ground(p(crouch=7, whole=(-3, 0), legs=((-3, 0), (3, 0)), no_hammer=True)), 25)
     out["dead"] = [p(whole=(-1, 0), **stand), p(crouch=2, whole=(-2, 0), **BACK),
                    dropped(ground(p(crouch=4, whole=(-3, 0), no_hammer=True)), 25),
                    dropped(ground(p(crouch=6, whole=(-3, 0), legs=((-2, 0), (2, 0)), no_hammer=True)), 25),
-                   sit, sit.copy()]
+                   sit, bounce, sit.copy(), sit.copy()]
     return out
 
 

@@ -321,12 +321,14 @@ RESTYLE = {
     # 那个手啊」, 「PPU 用 1.5」) by tools/art/rig_gangplank.py, Q / R from Codex's gun-hand poses, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
     # 2026-10-18 the user: 「船长猴子阿克尚波比蛇女像素太高需要降低 船长猴子局内太大」 -> PPU 1.2 and Wukong 85%; Gangplank 90% kept at 1.5 (「船长保留1.5 但是要缩小体型」)
-    "gangplank": dict(ppu=1.5, grow=0.9, edge=1, lift_sq=-1, face_to=(2, -29)),
+    # Q's flash, W's orange and R's flare baked into his frames (orig/gangplank_<tag>.over.png) laid on after the outline
+    # (fx; 2026-10-19 frame audit: without it the three never reached the game since #126)
+    "gangplank": dict(ppu=1.5, grow=0.9, edge=1, lift_sq=-1, face_to=(2, -29), fx=True),
     # league_wukong (#127): posed from the design's own squares at the user's 1.5 squares a game pixel (「用 A，游戏里 38
     # 像素高」, then on the step-1 guide 「太模糊了 起码PPU1.5」: Codex's step-1 take A-1 cut to 57 rows hair to soles) by
     # tools/art/rig_wukong.py, so no proportion or density change here; the outer outline grown a square like the others;
     # the face point between his green eyes
-    "wukong": dict(ppu=1.2, edge=1, face_to=(3, -27), shared_palette=True),   # one palette over every frame (「猴子gif图里面怎么一直变色？」)   # 10-18 redo: Codex's new design and actions (rig_frames_1018.py), drawn at 85 % already
+    "wukong": dict(ppu=1.2, edge=1, face_to=(3, -27), shared_palette=True, shared_palette_skip=[("hit", 0)]),   # one palette over every frame (「猴子gif图里面怎么一直变色？」)   # 10-18 redo: Codex's new design and actions (rig_frames_1018.py), drawn at 85 % already
     # league_cassiopeia (#128): posed from the design's own squares at the user's 1.3 squares a game pixel (「44 ppu1.3 A」:
     # Codex's step-1 take A-2 cut to 57 rows crest to ground) by tools/art/rig_cassiopeia.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point between her eyes
@@ -817,9 +819,13 @@ def restyle(hero, spec, write=True, only=None):
     # shared_palette: every frame snaps to the commonest colours of all the hero's frames together, not only its own -
     # league_gragas's idle (the hand-finished design, 2597 colours) had no blue among its own 64 commonest, so his
     # trousers came out grey in the idle and blue in every action (「怎么裤子还变色啊」)
+    # shared_palette_skip: (tag, frame) pairs kept out of it and snapped to their own colours - league_wukong's flashed
+    # hit frame (its pale squares took places in the palette and turned gold squares grey in every other frame)
     shared = None
+    skip = {tuple(k) for k in spec.get("shared_palette_skip", ())}
     if spec.get("shared_palette"):
-        shared = np.unique(np.concatenate([palette_of(a) for fr in frames.values() for a, _ in fr]), axis=0)
+        shared = np.unique(np.concatenate([palette_of(a) for t, fr in frames.items() for i, (a, _) in enumerate(fr)
+                                           if (t, i) not in skip]), axis=0)
     for tag, fr in frames.items():
         if only and tag not in only:
             continue
@@ -838,7 +844,8 @@ def restyle(hero, spec, write=True, only=None):
                 continue
             pivot0 = pivot
             if new_ppu != ppu:
-                content, pivot = pixelate(content, new_ppu / ppu, pivot, outline, pal=shared)
+                content, pivot = pixelate(content, new_ppu / ppu, pivot, outline,
+                                          pal=None if (tag, i) in skip else shared)
             content = grow_edge(content, spec.get("edge", 0), outline)
             if spec.get("fx") and not spec.get("fix"):
                 if i == 0:

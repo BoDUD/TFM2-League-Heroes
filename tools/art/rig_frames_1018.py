@@ -43,7 +43,13 @@ def tabard_x(a):
     return float(np.nonzero(m)[1].mean()) if m.sum() > 5 else a.shape[1] / 2
 
 
-# tag -> [(source frame, ms)]
+# tag -> [(source frame, ms[, op])]; op (2026-10-19 frame audit, every one lossless): rot - quarter turns
+# counter-clockwise of the whole frame, centred on the standing column; up - rows above the ground; dx - columns moved;
+# flash - the pack's hit flash (ppu_rig.flash)
+# the hit: flashed and knocked back two columns, then one (the pack's hit, ppu_rig.flash - the hit had no flash)
+# the death: 8 frames as the pack's - the last fall lands from 3 rows up, lies, bounces a row, lies
+DEAD = [("dead_0", 100), ("dead_1", 110), ("dead_2", 120), ("dead_3", 120), ("dead_4", 60, dict(up=3)),
+        ("dead_4", 100), ("dead_4", 60, dict(up=1)), ("dead_5", 500)]
 AKSHAN = {
     "idle": [(f"idle_{i}", 240) for i in range(5)],
     "run": [(f"run_{i}", 143) for i in range(7)],
@@ -51,12 +57,16 @@ AKSHAN = {
     "skill": [("skill1_0", 60), ("skill1_1", 70), ("skill1_2", 80), ("skill1_3", 80), ("skill1_4", 70)],
     "skill2": [("skill2_0", 70), ("skill2_1", 70)],
     "e_swing": [("skill2_2", 115), ("skill2_3", 115)],
-    "e_roll": [("skill2_4", 80), ("skill2_0", 90)],
+    # the roll off the rope (League's Akshan_Spell3_Roll: a tumble, landing in a crouch; the kit springs him back,
+    # e_back_t + 4 = 14 ticks): the curled swing frame turned a quarter, a half, three quarters counter-clockwise (a
+    # backward roll) on an arc, the crouch, up (it was the crouch and the stand alone)
+    "e_roll": [("skill2_2", 40, dict(rot=1, up=4)), ("skill2_2", 40, dict(rot=2, up=6)), ("skill2_2", 40, dict(rot=3, up=3)),
+               ("skill2_4", 53), ("skill2_0", 60)],
     "ult": [("ult_0", 70), ("ult_1", 70)],
     "ult_ch": [("ult_2", 160), ("ult_1", 160)],
     "ult_shot": [("ult_3", 50), ("ult_2", 50)],
-    "hit": [("hit_0", 100), ("hit_0", 100)],
-    "dead": [(f"dead_{i}", ms) for i, ms in enumerate([100, 110, 120, 150, 200, 500])],
+    "hit": [("hit_0", 100, dict(flash=True, dx=-2)), ("hit_0", 100, dict(dx=-1))],
+    "dead": DEAD,
 }
 WUKONG = {
     "idle": [(f"idle_{i}", 171) for i in range(7)],
@@ -67,8 +77,8 @@ WUKONG = {
     "skill2": [("ult_0", 60), ("ult_2", 70), ("ult_4", 70)],
     "spin": [(f"spin_{i}", 38) for i in range(8)],
     "ult": [("attack_0", 50)],
-    "hit": [("hit_0", 100), ("hit_0", 100)],
-    "dead": [(f"dead_{i}", ms) for i, ms in enumerate([100, 110, 120, 150, 200, 500])],
+    "hit": [("hit_0", 100, dict(flash=True, dx=-2)), ("hit_0", 100, dict(dx=-1))],
+    "dead": DEAD,
 }
 HEROES = {
     "akshan": dict(design="akshan/hd/slim2.png", ppu=1.61, map=AKSHAN, hip=teal_x, outline=(16, 2, 9)),
@@ -97,15 +107,22 @@ def frames(hero):
     out = {}
     for tag, seq in cfg["map"].items():
         fr = []
-        for name, ms in seq:
+        for name, ms, *op in seq:
+            op = op[0] if op else {}
             p = os.path.join(act, name + ".png")
             if not os.path.isfile(lp(p)):
                 raise SystemExit(f"{tag}: {name}.png missing")
             f = np.asarray(Image.open(lp(p)).convert("RGBA"))
             h, w = f.shape[:2]
-            hx = cfg["hip"](f) if tag != "dead" or name.endswith(("_0", "_1")) else w / 2
+            if op.get("rot"):
+                f = np.rot90(f, op["rot"]).copy()
+                h, w = f.shape[:2]
+            hx = (cfg["hip"](f) if (tag != "dead" or name.endswith(("_0", "_1"))) and not op.get("rot") else w / 2) \
+                - op.get("dx", 0)
+            if op.get("flash"):
+                f = R.flash(f)
             x0 = rig.CX - int(round(hx))
-            y0 = rig.GY - h
+            y0 = rig.GY - h - op.get("up", 0)
             can = rig.canvas()
             ys, xs = np.nonzero(f[..., 3] > 0)
             ok = (y0 + ys >= 0) & (x0 + xs >= 0) & (x0 + xs < can.shape[1])

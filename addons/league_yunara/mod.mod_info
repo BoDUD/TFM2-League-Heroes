@@ -11,10 +11,10 @@
       "version": ">=0.131.0"
     }
   ],
-  "description": "Test build of Yunara as in League (needs League of Legends Heroes): replaces the main pack's Yunara so Untouchable Shadow (her E in the Transcendent State) dashes back from a champion closing in or when she is low and forward after a low one slipping away, Kanmei's Steps is faster only while she really runs at an enemy champion, Transcend One's Self also fires by real health (an enemy champion below 40%, or herself below 50% with one in range), and in the Transcendent State she stands and runs in her gold-rimmed haloed body (game 0.6.4). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-17",
+  "description": "Test build of Yunara as in League (needs League of Legends Heroes): replaces the main pack's Yunara so Untouchable Shadow (her E in the Transcendent State) dashes back from a champion closing in or when she is low and forward after a low one slipping away, Kanmei's Steps is faster only while she really runs at an enemy champion, Transcend One's Self also fires by real health (an enemy champion below 40%, or herself below 50% with one in range), and in the Transcendent State she stands, runs, attacks and takes hits in her gold-rimmed haloed body (game 0.6.4). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-19",
   "mod_id": "league_yunara",
   "mod_type": "native",
   "name": "League Heroes: Yunara's dash way, Kanmei's Steps, Transcend by health, Transcendent body (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

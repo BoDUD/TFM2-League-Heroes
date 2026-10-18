@@ -3443,6 +3443,38 @@
       "tag": "e_break",
       "z": 1,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_reksai_t_dig",
+      "anim": "asset/league/champions/league_reksai",
+      "tag": "t_dig",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_reksai_t_dig_l",
+      "anim": "asset/league/champions/league_reksai",
+      "tag": "t_dig_l",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_reksai_t_up",
+      "anim": "asset/league/champions/league_reksai",
+      "tag": "t_up",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_reksai_t_up_l",
+      "anim": "asset/league/champions/league_reksai",
+      "tag": "t_up_l",
+      "z": 1,
+      "is_follow": false
     }
   ],
   "view_buffs": [

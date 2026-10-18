@@ -17,13 +17,14 @@ R 虚空猛冲（只打被她伤过的英雄，目标被控住或有队友一起
 - `mod.override_info` 把主包的雷克塞换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_reksai.py` 的 `native=1` 生成，主包的雷克塞改了就重跑）：
   被动是本包的 `league_reksai:fury`（数字在 `passive.params`）；数据里的守望不再给大招上膛（`league_reksai_r_ok` 只由本包给）；普攻、技能2、大招的说明开头加【附加包】。
 - **整身遁地**（`src/view.rs`）：照芮尔 / 杰斯 / 奈德丽附加包的显示钩子，游戏每帧更新显示时，名字是 `league_reksai`、身上有本包的遁地 buff `league_reksai_burrow` 的实体，
-  正在播的 `idle / run` 换成图里的 `b_idle / b_run`（高清帧由 league.dll 自动换成 `hd_b_*`）。出招、挨打、阵亡照主包（一有敌人靠近她就已经破土了）。
+  正在播的 `idle / run / hit` 换成图里的 `b_idle / b_run / b_hit`（高清帧由 league.dll 自动换成 `hd_b_*`；挨打是 0.1.2 加的：远处的子弹、防御塔打到地底的她）。出招、阵亡照主包（一有敌人靠近她就已经破土了）。
 - **遁地**：被动每 tick 看她身边——34000 内没有任何敌方单位、60000 内看不见敌方英雄、不在 W / R 里、没被硬控——连续赶路 30 tick 就挂上遁地 buff（+20% 移速），
   身上有怒气（主包的 `league_reksai_f1..f4`）就按层数回血（满怒 = W 的 `w_heal + w_heal_r%` 攻击力）并清掉怒气；条件一破就摘掉。
 - **隧道**：主包数据在 W 钻下去时挂 `league_reksai_w_go`、破土时挂 `league_reksai_w_land`；被动记下起点和落点，相隔 15000 以上就算一条隧道。入口每 24 tick 重播一次
   `league_reksai_e_tunnel` 画面；敌方英雄离入口 6000 内连续 90 tick 就整条塌掉（`league_reksai_e_break`）。钻隧道：她离入口 9000 内、不在硬控里时，
   生命低于 35% 而 45000 内有敌方英雄、另一头 50000 内没有 → 撤退；生命 50% 以上、身边 50000 内没有敌方英雄、另一头 35000 内有 → 突袭。钻进去用放逐
-  （`entity_banish`：不可选取、看不见），按每 tick 5000 在地下走完，再把她放到另一头（`entity_set_pos`），两头各播一次钻地 / 破土的画面。
+  （`entity_banish`：不可选取、看不见），按每 tick 5000 在地下走完，再把她放到另一头（`entity_set_pos`），两头各播一次钻地 / 破土的画面；
+  0.1.2 起入口还播她自己钻进地里的帧（`league_reksai_t_dig`，往左走用镜像的 `_t_dig_l`），出口在放逐结束前 20 tick 把她放过去、播破土而出（`_t_up` / `_t_up_l`），播完才现身（放逐总时长不变，最短 30 tick）。
 - **虚空猛冲**：主包数据给她打中的英雄挂 `league_reksai_r_mark`（猎物标记的画面）；被动看到就把它记 300 tick（英雄联盟 5 秒）。大招范围 70000 内、看得见、
   记着的猎物里有一个当前血量 ≤ `r_dmg + r_ratio%` 攻击力 + 它最大生命的 `r_hp%`（按它的护甲减）、或剩 40% 以下（`R_LOW_PCT`）、或被硬控着且剩 70% 以下（`R_CC_PCT`），就给她 3 tick 的 `league_reksai_r_ok`（副本的大招只认这个）。
 - 状态（隧道、猎物记忆）都在被动自己的实例里，同一局的两份预模拟和画面互不干扰。

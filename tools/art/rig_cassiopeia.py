@@ -350,7 +350,7 @@ def tries(F):
 # ms per frame; the kit's ticks (tools/kit/build_cassiopeia.py) come from these
 MS = {"idle": [150] * 8, "run": [90] * 8, "attack": [70, 70, 90, 90, 80], "skill": [70, 70, 90, 90, 80],
       "skill2": [70, 80, 90, 100, 110], "ult": [120, 130, 150, 150], "hit": [100, 100],
-      "dead": [100, 110, 120, 150, 200, 500]}
+      "dead": [100, 110, 120, 150, 60, 100, 60, 500]}
 
 
 def frames_all(F):
@@ -384,8 +384,15 @@ def frames_all(F):
         out_[rig.GY:] = 0
         return out_
     fallen = F.lying()
+
+    # (8 frames since the 2026-10-19 frame audit: the fall lands from 2 rows up, lies, bounces a row, lies)
+    def off(n):
+        f = np.zeros_like(fallen)
+        f[:-n] = fallen[n:]
+        return f
     out["dead"] = [p(bend=-1, whole=(-1, 0), tail=tip(1)), p(lift=-3, bend=1, tail=tip(1)),
-                   ground(p(lift=-6, bend=3)), ground(p(lift=-8, bend=4, far=-1)), fallen, fallen.copy()]
+                   ground(p(lift=-6, bend=3)), ground(p(lift=-8, bend=4, far=-1)), off(2), fallen, off(1),
+                   fallen.copy()]
     return out
 
 

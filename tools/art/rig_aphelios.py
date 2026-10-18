@@ -540,9 +540,10 @@ def attack_frames():
                                               put(can, DESIGN, LAB == FAR_ARM, x0, y0 - a)))
     out["skill2"] = [(pose(bob=1, hide=(RIFLE, FAR_ARM), extra=(lift(4, 2),)), 100),
                      (pose(hide=(RIFLE, FAR_ARM), extra=(lift(2, 1),)), 100), (pose(), 100)]
-    # R: Moonlight Vigil - a low aim, the moonlight on the third frame (~230 ms in) with a big kick
-    out["ult"] = [(cal(dy=-4, bob=2), 120), (cal(dy=-4, bob=2), 110), (cal(dx=-3, dy=-4, bob=2, wdx=-1), 100),
-                  (cal(dx=-1, dy=-4, bob=1), 40), (pose(), 30)]
+    # R: Moonlight Vigil (League's aphelios_spell4 leaps and fires from the air; 2026-10-19: the strip stood on the
+    # ground): a crouch, the leap (the whole figure lifted, nothing moved apart), the apex, the moonlight with a big kick
+    # (still ~230 ms in), the fall, the stance
+    out["ult"] = leap(lambda **k: cal(**k))
     out["dead"] = dead_frames()
     # the add-on's weapon forms of W, R and the death (view.rs plays <w>_skill2 / <w>_ult / <w>_dead while that weapon
     # is in his main hand - they showed Calibrum whatever he held, League's A-E_Spell2 hold each its own)
@@ -554,10 +555,28 @@ def attack_frames():
         out[f"{w}_skill2"] = [(pose(bob=1, hide=(RIFLE,), arm=hold(-2, 4 if low else 2)), 100),
                               (pose(hide=(RIFLE,), arm=hold(-1, 2 if low else 1)), 100), (stance(w), 100)]
         fw = lambda dx=0, dy=0, bob=0, **k: pose(dx=dx, bob=bob, hide=(RIFLE,), arm=arm_fwd(weapon=w, dy=dy, **k))
-        out[f"{w}_ult"] = [(fw(dy=-4, bob=2), 120), (fw(dy=-4, bob=2), 110), (fw(dx=-3, dy=-4, bob=2, wdx=-1), 100),
-                           (fw(dx=-1, dy=-4, bob=1), 40), (stance(w), 30)]
+        out[f"{w}_ult"] = leap(fw, stance(w))
         out[f"{w}_dead"] = dead_frames(w)
     return out
+
+
+def up(can, k):
+    """The whole frame k rows up (a leap: nothing of him moves apart)."""
+    if k <= 0:
+        return can
+    out = blank()
+    out[:-k] = can[k:]
+    return out
+
+
+LEAP = (6, 12, 12, 5)                  # rows off the ground: rising, the apex, firing at the apex, falling
+
+
+def leap(aim, land=None):
+    """R in 6 frames (400 ms, the moonlight 230 ms in): aim(dx, dy, bob, wdx) poses the weapon levelled."""
+    return [(aim(dy=-4, bob=2), 80), (up(aim(dy=-4), LEAP[0]), 70), (up(aim(dy=-4), LEAP[1]), 80),
+            (up(aim(dx=-3, dy=-4, wdx=-1), LEAP[2]), 70), (up(aim(dx=-1, dy=-4), LEAP[3]), 50),
+            (land if land is not None else pose(), 50)]
 
 
 def stance(w):

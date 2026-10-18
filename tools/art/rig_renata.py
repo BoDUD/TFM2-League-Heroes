@@ -625,9 +625,11 @@ def casts():
     frame 3), E's missiles on e_rel, Q's hand on q_rel, R's wave on r_rel."""
     out = {}
     # attack (League's Attack1): the pistol drawn from her hip, fired level from the hip, the recoil, put back
-    out["attack"] = [(pose(dx=-1), 60), (pose(gun=gun_fwd(-1, -1)), 60),
-                     (pose(dx=1, gun=gun_fwd()), 80), (pose(dx=1, gun=gun_fwd(-1, -1)), 90),
-                     (pose(gun=gun_fwd(-1, -1)), 80), (pose(), 130)]
+    # (2026-10-19 frame audit: 11 % of her squares moved a frame against the pack's ~40 % - the draw back and the step
+    # into the shot twice as wide)
+    out["attack"] = [(pose(dx=-2), 60), (pose(dx=-1, gun=gun_fwd(-1, -1)), 60),
+                     (pose(dx=2, gun=gun_fwd()), 80), (pose(dx=2, gun=gun_fwd(-1, -1)), 90),
+                     (pose(dx=1, gun=gun_fwd(-1, -1)), 80), (pose(), 130)]
     # E Loyalty Program (League's Spell3: a crouch, then the arm swept up and thrown forward as the missiles leave)
     out["skill"] = [(pose(bob=2), 70), (pose(bob=1, arm=arm_up()), 80), (pose(dx=1, arm=arm_level(4)), 90),
                     (pose(dx=1, arm=arm_level(5)), 100), (pose(arm=arm_level(2)), 93)]
@@ -642,20 +644,31 @@ def casts():
                            (pose(bob=2, dx=-2, legs=LUNGE, arm=arm_up(-1)), 120),
                            (pose(bob=1, dx=-1, legs=((-1, -2, 0), (1, 3, 0))), 120)]
     # W Bailout (the mechanical arm held out toward the ally)
-    out["skill_w"] = [(pose(arm=arm_level(3)), 90), (pose(dx=1, arm=arm_level(5)), 120), (pose(), 90)]
+    # (5 frames, 3 held 90-120 ms before: the arm going out in two steps, held, coming back)
+    out["skill_w"] = [(pose(arm=arm_level(2)), 60), (pose(dx=1, arm=arm_level(4)), 60), (pose(dx=1, arm=arm_level(5)), 70),
+                      (pose(arm=arm_level(3)), 60), (pose(), 50)]
     # R Hostile Takeover (League's Spell4): the arm raised high, the machine unfolding behind her (core, then the
     # blades), the wave sent (r_rel = the start of frame 4), the machine folding away
     out["ult"] = [(pose(bob=2, arm=arm_level(3)), 100),
                   (pose(arm=arm_up(), behind=[machine(0.6, dy=3)]), 100),
                   (pose(arm=arm_up(), behind=[machine()]), 100),
                   (pose(dx=1, arm=arm_up(), behind=[machine()]), 120),
-                  (pose(dx=1, arm=arm_up(), behind=[machine()]), 120),
+                  (pose(dx=1, bob=1, arm=arm_up(), behind=[machine()]), 120),
                   (pose(arm=arm_level(3), behind=[machine(0.6, dy=3)]), 127)]
     # death (League's Death): the blow, a stagger back, down on her knees (sunk into the ground line), fallen on her
     # back (the head behind her, as League's)
     kneel = cut_ground(pose(lift=-12))
     flat = lying(pose(), cw=False)
-    out["dead"] = [(pose(dx=-2), 100), (pose(dx=-2, bob=4), 120), (kneel, 150), (Frame(flat, OX, OY), 150),
+
+    # 8 frames (2026-10-19 frame audit, the pack's deaths have 8): half way to her knees, the fall landing 4 rows above
+    # the ground, lying, a 1-row bounce, lying (DEAD_LIE: the first frame on the ground - the folded machine lies there
+    # from it on)
+    def off(n):
+        f = blank()
+        f[:-n] = flat[n:]
+        return f
+    out["dead"] = [(pose(dx=-2), 100), (pose(dx=-2, bob=4), 110), (cut_ground(pose(lift=-6)), 80), (kneel, 120),
+                   (Frame(off(4), OX, OY), 60), (Frame(flat, OX, OY), 100), (Frame(off(1), OX, OY), 50),
                    (Frame(flat.copy(), OX, OY), 400)]
     return out
 
@@ -677,6 +690,11 @@ MOTION = 0.8                           # League's moves at the machine's size (t
 # SHOW of itself behind her rises (never above where it would be) until that much of it shows
 SHOW = 0.4
 FOLDED_MASKS = {}                      # tag -> [the machine's squares on each frame or None], for checks()
+DEAD_LIE = 4                           # the death's first frame lying (casts()["dead"])
+# machine_track.json was measured on the strips before the 2026-10-19 frame audit: a strip that has more frames since
+# reads each frame's place from this frame of the track (the death: the half kneel and the kneel both on the kneel's; W:
+# the arm held out on the arm going out)
+TRACK_OF = {"dead": [0, 1, 2, 2], "skill_w": [0, 1, 1, 2, 2]}
 
 
 def add_folded(acts):
@@ -701,13 +719,17 @@ def add_folded(acts):
                 masks[tag].append(None)
                 continue
             under = blank()
-            if tag == "dead" and k >= 3:
-                # lying behind her head on the ground (League's falls over: a quarter turn), half under her
+            if tag == "dead" and k >= DEAD_LIE:
+                # lying behind her head on the ground (League's falls over: a quarter turn), half under her - placed by
+                # where she lies (the last frame: the fall and the bounce are off the ground)
                 pic = np.rot90(img, -1).copy()
-                cols = np.nonzero(f.can[SOLE - 6:SOLE + 1, :, 3].any(0))[0]
+                last = fr[-1][0].can
+                cols = np.nonzero(last[SOLE - 6:SOLE + 1, :, 3].any(0))[0]
                 stamp(under, pic, int(cols.min()) - pic.shape[1] // 2, SOLE + 1 - pic.shape[0])
             else:
-                t = (track.get(tag) or [i0])[min(k, len(track.get(tag) or [i0]) - 1)] if tag != "hit" else i0
+                tr = track.get(tag) or [i0]
+                j = TRACK_OF[tag][k] if tag in TRACK_OF and k < len(TRACK_OF[tag]) else k
+                t = tr[min(j, len(tr) - 1)] if tag != "hit" else i0
                 dx = int(round(MOTION * (t[0] - i0[0])))
                 dy = int(round(MOTION * (t[1] - i0[1])))
                 her = f.can[..., 3] > 0
