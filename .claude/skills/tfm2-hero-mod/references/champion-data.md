@@ -1425,6 +1425,9 @@ league_varus (bottom, --lane 3, 2026-10-05, Chain of Corruption's 2 s root and i
 gunner 0.19 and league_jhin 1.17 in the same batch - no change.
 league_alistar (support, --lane 4, 2026-10-05, Pulverize's and Headbutt -> Pulverize's 1 s knock-ups, Trample's 1 s stun):
 2.23 a game; league_leona 2.19 and the base priest 0.50 in the same batch - no change.
+league_wukong (jungle, --lane 1, 2026-10-18, Cyclone's 0.6 s knock-up on the first spin pulse - two spins, his clone's
+spin too): 1.62 a game; league_leesin 1.60, league_xinzhao 1.02 and the base ninja 0.58 in the same batch (48 games
+each) - no change.
 league_xerath (mid, --lane 2, 2026-10-06, Shocking Orb's 0.75-2 s stun on one unit): 0.94 a game; the base lightning
 mage 3.40 and league_lissandra 2.10 in the same batch - no change.
 league_brand (mid, --lane 2, 2026-10-06, Sear's 0.83 s stun after Conflagration, W's pillar on the stunned champion):
