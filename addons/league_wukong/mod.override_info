@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_wukong": {
+    "remapping": "asset/league_wukong/override/league_wukong",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_wukong/text/champion",
+    "type": "merge"
+  }
+}

@@ -61,6 +61,9 @@ P = {
     "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 8,
     # passive Stone Skin (League: +6-10 armour and +0.35% max hp / 5 s a stack, 5 stacks, 5 s, one a second off)
     "p_def": 4, "p_regen": 2, "p_t": 300, "p_drop": 60,
+    # the add-on (addons/league_wukong) instead of p_regen: (1 + stacks) x p_pct / 100 % of his max health every 5 s
+    # (League's 0.35%), healed every p_every ticks
+    "p_pct": 35, "p_every": 30,
     # Q Crushing Blow (League: +20-120 +50% bonus AD, armour -10-30% 3 s, +135-175 range, cd 8-6 s, -0.5 s a hit)
     "q_t": 240, "q_pre": 60, "q_dmg": 30, "q_ratio": 50, "q_shred": 20, "q_shred_t": 180, "q_range": 12000,
     "q_hit": 8, "q_anim": 26,
@@ -317,7 +320,7 @@ def build(p, native=False):
         "view_projectiles": [], "view_effects": views_e, "view_buffs": views_b,
     }
     if native:
-        kit["passive"] = {"passive_ref": "league_wukong:stone", "params": {}}
+        kit["passive"] = {"passive_ref": "league_wukong:stone", "params": {"pct": int(p["p_pct"]), "every": int(p["p_every"])}}
     return kit
 
 
