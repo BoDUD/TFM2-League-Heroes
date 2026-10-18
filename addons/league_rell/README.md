@@ -17,7 +17,7 @@
 - `mod.override_info` 把主包的芮尔换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_rell.py` 的 `native=1` 生成，主包的芮尔改了就重跑）：
   被动是本包的 `league_rell:iron`（数字在 `passive.params`）；普攻、技能、技能2 的说明开头加【附加包】。
 - **整身换形态**（`src/view.rs`）：照杰斯 / 奈德丽附加包的显示钩子，游戏每帧更新显示时，名字是 `league_rell`、身上有主包的下马 buff `league_rell_foot` 的实体，
-  正在播的 `idle / run / hit / attack / skill / dead` 换成图里的 `f_*`（高清帧由 league.dll 自动换成 `hd_f_*`）。轰落、驾临、极涌的动作照主包。
+  正在播的 `idle / run / hit / attack / skill / dead / ult` 换成图里的 `f_*`（高清帧由 league.dll 自动换成 `hd_f_*`；`ult` 是 0.1.2 加的：原来下马放极涌马会冒出来半秒）。轰落、驾临的动作照主包。
 - **按目标叠层**：数据里每个打中英雄的地方调 `league_rell:mold`，用 `entity_stack_buff` 在目标身上叠 `league_rell_p_shred`（最多 5 层，每次刷新 `p_t`），
   第一层时把目标当时的护甲 / 魔抗写进一个只记数字的 buff 名（`league_rell_p_snap:<护甲>:<魔抗>`）；被动每 tick 数各个敌方英雄身上的层数和快照，汇总成她身上的
   `league_rell_p_steal`（变了才重写）。状态都在 buff 里，同一局的两份预模拟和画面互不干扰。
