@@ -21,7 +21,6 @@ import sys
 
 import numpy as np
 from PIL import Image, ImageDraw
-from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -35,71 +34,7 @@ NEAR_C, FAR_C = (255, 0, 0), (0, 60, 255)
 CANVAS, GRID, CELL_PX = (1536, 1024), (4, 2), 6
 CELL = (CANVAS[0] // GRID[0], CANVAS[1] // GRID[1])
 SOLE_Y = 470                                  # the ground in a cell (px from the cell's top)
-THIGH, BLADE = 8.0, 18.0                      # the design's hip -> knee and knee -> blade tip, squares
-TAGS = ["run", "attack", "attack_q", "attack_q2", "skill", "skill2", "skill2_dash", "ult"]
-
-
-def spied(drv, j):
-    """drv.frame(j) and its layers: (the frame, the frame without the legs, {leg name: (dx, dy)})."""
-    seen = []
-    orig = R.compose
-
-    def spy(rig_, layers):
-        seen.append(layers)
-        return orig(rig_, layers)
-    R.compose = spy
-    try:
-        full = drv.frame(j)
-    finally:
-        R.compose = orig
-    layers = seen[-1]
-    rest = [(n, o) for n, o in layers if not (isinstance(n, str) and n.endswith(("_thigh", "_shin")))]
-    offs = {n: (o.get("dx", 0), o.get("dy", 0)) for n, o in layers if isinstance(n, str) and n.endswith("_thigh")}
-    return full, R.compose(drv.rig, rest), offs
-
-
-def guides(rig, drv, j, offs):
-    """Per leg (near, far): hip, knee, tip in canvas squares - the hip where the rig puts the design's hip, League's
-    thigh and shin directions at the design's lengths."""
-    out = {}
-    for lg in (C.NEAR, C.FAR):
-        sd = drv.side[lg["side"]]
-        dx, dy = offs.get(lg["name"] + "_thigh", (0, 0))
-        hx, hy = rig.ox + lg["hip"][0] + dx, rig.oy + lg["hip"][1] + dy
-        h, k, f = (np.array(j[f"{sd}_{n}"][:2], float) for n in ("hip", "knee", "foot"))
-        t = k - h
-        b = f - k
-        t = t / (np.linalg.norm(t) or 1) * THIGH
-        b = b / (np.linalg.norm(b) or 1) * BLADE
-        knee = (hx + t[0], hy + t[1])
-        out[lg["side"]] = ((hx, hy), knee, (knee[0] + b[0], knee[1] + b[1]))
-    return out
-
-
-def grounded(rig, drv, joints, j, bare, g):
-    """The frame and its guides moved up or down whole so the lower blade tip stands on the ground - lifted as far as
-    League's lower foot is above where it is in the design pose (a leap); crumbs of the body the legs' cut left
-    alone (under 12 squares) go."""
-    op = bare[..., 3] > 0
-    lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
-    if n > 1:
-        sz = ndimage.sum(op, lbl, range(1, n + 1))
-        for k in range(1, n + 1):
-            if sz[k - 1] < 12:
-                bare[lbl == k] = 0
-    d = joints["design"]
-    feet = min(-j["l_foot"][1], -j["r_foot"][1])
-    feet0 = min(-d["l_foot"][1], -d["r_foot"][1])
-    lift = max(0.0, feet - feet0) * drv.s
-    low = max(p[2][1] for p in g.values())
-    dy = int(round(rig.GY - lift - low))
-    bare = np.roll(bare, dy, axis=0)
-    if dy > 0:
-        bare[:dy] = 0
-    elif dy < 0:
-        bare[dy:] = 0
-    g = {k: tuple((x, y + dy) for x, y in pts) for k, pts in g.items()}
-    return bare, g
+TAGS = C.LEG_TAGS
 
 
 def template(rig, frames, path, z=CELL_PX):
@@ -182,8 +117,7 @@ def main():
         rows = R.fit_rows(joints["tags"][tag], len(sheet[tag]))
         fr = []
         for r in rows:
-            full, bare, offs = spied(drv, r["j"])
-            fr.append(grounded(rig, drv, joints, r["j"], bare, guides(rig, drv, r["j"], offs)))
+            fr.append(C.leg_guides(rig, drv, joints, r["j"]))
         layout[tag] = template(rig, fr, os.path.join(tpl, tag + ".png"))
     json.dump(layout, open(os.path.join(a.out, "layout.json"), "w"), indent=1)
     design_png(os.path.join(refs, "design.png"))

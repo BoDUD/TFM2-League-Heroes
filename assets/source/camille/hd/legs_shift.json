@@ -1,0 +1,138 @@
+{
+ "run": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "attack": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "attack_q": [
+  0,
+  0,
+  -6,
+  0,
+  0,
+  0
+ ],
+ "attack_q2": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "skill": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "skill2": [
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "skill2_dash": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "ult": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "whole": {
+  "run": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "attack": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "attack_q": [
+   false,
+   false,
+   true,
+   false,
+   false,
+   false
+  ],
+  "attack_q2": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "skill": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "skill2": [
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "skill2_dash": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "ult": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ]
+ }
+}
