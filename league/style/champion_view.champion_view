@@ -528,8 +528,8 @@
     },
     "league_camille": {
       "face": {
-        "x": 0,
-        "y": -44
+        "x": -2,
+        "y": -46
       },
       "center": {
         "x": 0,
@@ -537,7 +537,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -5
+        "y": -4
       }
     },
     "league_sona": {
@@ -1662,6 +1662,20 @@
       "banpick_center": {
         "x": 0,
         "y": -6
+      }
+    },
+    "league_akshan": {
+      "face": {
+        "x": 3,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
       }
     },
     "league_poppy": {

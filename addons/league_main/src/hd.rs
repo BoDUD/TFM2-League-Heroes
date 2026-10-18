@@ -87,6 +87,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Cassiopeia: posed by tools/art/rig_cassiopeia.py at the user's 1.3 squares a game pixel (44 game rows crest to the
     // ground: 「44 ppu1.3 A」), so no SIZES row
     ("league_cassiopeia", 1.3, include_str!("../../../league/champions/league_cassiopeia#anim.fanim")),
+    // Akshan: posed by tools/art/rig_akshan.py at the user's 1.5 squares a game pixel (38 game rows hair to soles, the
+    // raised gun above; 「用 A，游戏里 38 像素高，PPU 1.5」), the aim arm and the walk from Codex on the same grid, so no SIZES row
+    ("league_akshan", 1.5, include_str!("../../../league/champions/league_akshan#anim.fanim")),
     // Poppy: posed by tools/art/rig_poppy.py at the user's 1.3 squares a game pixel (36 game rows pigtails to soles, the
     // hammer's haft above: 「游戏里 36 像素高，PPU 1.3」), so no SIZES row
     ("league_poppy", 1.3, include_str!("../../../league/champions/league_poppy#anim.fanim")),
@@ -105,6 +108,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // posed after League's own clips by tools/art/rig_kaisa_hd.py (the run's legs Codex's redraw), PPU 1.45 at her old 42
     // rows, so no SIZES row
     ("league_kaisa", 1.45, include_str!("../../../league/champions/league_kaisa#anim.fanim")),
+    // Camille (2026-10-18): Codex's design picture (assets/source/camille/PICTURE_PROMPT_PPU.md) read back on its own
+    // grid and cut to 69 rows, the upper body posed after League's own clips by tools/art/rig_camille_hd.py, the legs of
+    // her kicks and leaps Codex's drawing along League's guides, PPU 1.5 at her old 46 rows, so no SIZES row
+    ("league_camille", 1.5, include_str!("../../../league/champions/league_camille#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),

@@ -1,0 +1,74 @@
+[
+  {
+    "Take": 1,
+    "Width": 1254,
+    "Height": 1254,
+    "TransparentPixels": 1146727,
+    "PartialAlphaPixels": 423477,
+    "OpaquePixels": 2312,
+    "VisibleBoundsAlpha128": [
+      288,
+      152,
+      961,
+      1200
+    ],
+    "MostCommonAlpha": [
+      {
+        "Alpha": 0,
+        "Count": 1146727
+      },
+      {
+        "Alpha": 253,
+        "Count": 334102
+      },
+      {
+        "Alpha": 252,
+        "Count": 33947
+      },
+      {
+        "Alpha": 1,
+        "Count": 9453
+      },
+      {
+        "Alpha": 251,
+        "Count": 7801
+      }
+    ]
+  },
+  {
+    "Take": 2,
+    "Width": 1254,
+    "Height": 1254,
+    "TransparentPixels": 1043169,
+    "PartialAlphaPixels": 525903,
+    "OpaquePixels": 3444,
+    "VisibleBoundsAlpha128": [
+      274,
+      20,
+      1010,
+      1235
+    ],
+    "MostCommonAlpha": [
+      {
+        "Alpha": 0,
+        "Count": 1043169
+      },
+      {
+        "Alpha": 253,
+        "Count": 440025
+      },
+      {
+        "Alpha": 254,
+        "Count": 26126
+      },
+      {
+        "Alpha": 252,
+        "Count": 18110
+      },
+      {
+        "Alpha": 1,
+        "Count": 6231
+      }
+    ]
+  }
+]
