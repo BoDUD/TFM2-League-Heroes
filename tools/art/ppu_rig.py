@@ -1283,7 +1283,9 @@ class Driver:
                 # next angle it can take nearest League's that keeps `face` (x, y, r: design squares, moving with the
                 # upper body) r clear of its line and stays out of the ground; none within `face_turn` degrees - behind
                 fx_, fy_, fr_ = w["face"]
-                blade_ = np.array(w["slide"]["blade"] if w.get("slide") else w["grip"], float)
+                # face_from: where the blade starts (league_riven: her fist comes up under her chin, and a line from
+                # the fist read every swing as across her face)
+                blade_ = np.array(w["slide"]["blade"] if w.get("slide") else w.get("face_from", w["grip"]), float)
                 tip0 = np.array(w["tip"], float)
                 lim_ = (max(lg["sole"][1] for lg in self.legs) + w.get("floor", 99) - (dy + gy)) if self.legs else 1e9
 

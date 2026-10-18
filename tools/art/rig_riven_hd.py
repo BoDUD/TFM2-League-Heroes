@@ -67,6 +67,24 @@ BACK = dict(name="bl", side="far", rigid=True, hip=(21.0, 46.5), knee=(18.0, 52.
                   (12.0, 55.0), (15.0, 50.0)])
 IDLE_SINK = [0, 0, 1, 1, 1, 1, 0, 0]
 R_TAGS = {"attack_r": "attack", "skill_r": "skill", "q2_r": "q2", "q3_r": "q3", "skill2_r": "skill2"}
+R_FORM = {"r_slash"}                         # the wind slash: reforged throughout
+ULT_REFORGED = 2                             # the reforge (ult): reforged from this frame on
+
+# ------------------------------------------------------------------------------------------------- the swords
+# The user on the first rig (the picture's own blade, R-sized, turned 8 ways): 「锐雯的剑有这么大？开大才有这么打吧 还有
+# 打的时候一套姿势吗？…还有武器挥打遮挡脸部？」. The picture's blade is cut away; her sword is one of Codex's angle drawings
+# (tools/art/swords_riven_hd.py: 8 angles of the broken sword, 31 squares, and of the reforged one, 44 - each also
+# mirrored left-right, up-down and both, 32 directions) - the one nearest the way League's weapon points, its grip
+# under her fist. SWORD_REST: the way it points in the idle (League's riven_idle1: over her back, up and right);
+# FACE: her face (x, y, r design squares), never under her fist; HEAD: her head with its hair, never under a sword in
+# front of her (one that would cross it turns at most HEAD_TURN degrees, else goes behind her: on her back as League's).
+SWORD_REST = 22.0
+# the idle alone holds it up by her shoulder: at League's angle the short blade hid wholly behind her head and back
+IDLE_HOLD = 54.0
+FACE = (27.0, 21.0, 5.5)
+HEAD, HEAD_TURN = (24.5, 16.5, 10.0), 30
+GUARD_AT = 4.5                               # squares from the fist to the guard: the blade starts there
+SWORD_HW = 4.5
 
 
 def lp(path):
@@ -195,21 +213,27 @@ def design():
     D.d[bare] = 0
     for k in D.parts:
         D.parts[k] &= D.d[..., 3] > 0
-    # the sword's own picture: the hidden stretch of blade made again under her head (only the sword is drawn from it)
-    # only under her head and body: never over the sword's own squares, never where nothing covers it in the idle
-    sword_sq, _ = XZ.square_mask(D, D.prop_masks["sword"])
-    body = D.d[..., 3] > 0
-    fill = {k: v for k, v in fill_cells(D).items() if body[k[1], k[0]] and not sword_sq[k[1], k[0]]}
-    D.sword_src = D.pic.copy()
-    paint(D.sword_src, D, fill)
-    fill_sq = np.zeros((D.H, D.W), bool)
-    for (x, y) in fill:
-        fill_sq[y, x] = True
-    D.prop_masks["sword"] = D.prop_masks["sword"] | squares_of(D, fill_sq)
-    D.polys["arm"], D.polys["sword"] = ARM, blade_poly(-47.0, BLADE_ALONG[1], BLADE_HW)
+    # the picture's blade is only cut away: every frame draws one of Codex's swords where it was (with_sword)
+    D.swords = load_swords()
+    D.polys["arm"], D.polys["sword"] = ARM, sword_poly(D.swords, "normal")
     D.AXES = {"arm": (GRIP[0] - SHOULDER[0], GRIP[1] - SHOULDER[1]),
-              "sword": (TIP[0] - GRIP[0], TIP[1] - GRIP[1])}
+              "sword": (np.cos(np.radians(SWORD_REST)), -np.sin(np.radians(SWORD_REST)))}
     D.SHAFTS = {}
+    lossless = D.snap
+    arm_ways = sorted({float(e) for e in D.ops("arm").values()})
+
+    def snap(name, angle):
+        if name == "sword":
+            return angle                                     # the drawings take any way
+        if name == "arm":
+            # her far arm turned forward put her fist on her mouth (League's hand in front of its chest): the
+            # way that puts the fist nearest where League's would be and off her face
+            want = R.turn_pt(GRIP, SHOULDER, angle)
+            for e in sorted(arm_ways, key=lambda e_: float(np.hypot(*(R.turn_pt(GRIP, SHOULDER, e_) - want)))):
+                if np.hypot(*(R.turn_pt(GRIP, SHOULDER, e) - FACE[:2])) > FACE[2] + 1:
+                    return e
+        return lossless(name, angle)
+    D.snap = snap
     D.part("upper", D.rest(), take=False)
     D.taken = taken
     return D
@@ -233,6 +257,79 @@ def energy(rig, can, layers):
     return out
 
 
+def load_swords():
+    """{kind: [dict(img, angle, grip)]}: every drawing of swords.json as drawn and mirrored three ways."""
+    sd = os.path.join(R.ROOT, "assets", "source", HERO, "hd", "swords")
+    with open(lp(os.path.join(sd, "swords.json")), encoding="utf-8") as f:
+        info = json.load(f)
+    out = {"normal": [], "reforged": []}
+    for name, i in info.items():
+        img = np.asarray(Image.open(lp(os.path.join(sd, name + ".png"))).convert("RGBA"))
+        h, w = img.shape[:2]
+        gx, gy = i["grip"]
+        a = i["angle"]
+        tx, ty = i["tip"]
+        px_, py_ = i["pommel"]
+        for fx, fy in ((False, False), (True, False), (False, True), (True, True)):
+            im = img[::-1 if fy else 1, ::-1 if fx else 1]
+            ang = (180 - a if fx else a)
+            ang = -ang if fy else ang
+            f = lambda x, y: (w - x if fx else x, h - y if fy else y)   # noqa: E731
+            out[name.split("_")[0]].append(dict(img=np.ascontiguousarray(im), angle=R.wrap(ang), grip=f(gx, gy),
+                                                tip=f(tx, ty), pommel=f(px_, py_), name=name, flip=(fx, fy)))
+    return out
+
+
+def reach(swords, kind):
+    """(behind, ahead): squares from the fist to the pommel's end and to the tip, the longest of the drawings."""
+    back = max(float(np.hypot(*(np.subtract(s["pommel"], s["grip"])))) for s in swords[kind])
+    ahead = max(float(np.hypot(*(np.subtract(s["tip"], s["grip"])))) for s in swords[kind])
+    return back, ahead
+
+
+def sword_poly(swords, kind):
+    back, ahead = reach(swords, kind)
+    u = np.array((np.cos(np.radians(SWORD_REST)), -np.sin(np.radians(SWORD_REST))))
+    n = np.array((-u[1], u[0]))
+    g = np.array(GRIP)
+    return [tuple(g - u * back - n * SWORD_HW), tuple(g + u * ahead - n * SWORD_HW),
+            tuple(g + u * ahead + n * SWORD_HW), tuple(g - u * back + n * SWORD_HW)]
+
+
+def stamp(rig, swords, kind, heading, fist):
+    """A canvas with the drawing of `kind` nearest `heading` (degrees on screen), its grip on `fist` (canvas)."""
+    s = min(swords[kind], key=lambda s_: (abs(R.wrap(s_["angle"] - heading)), s_["flip"]))
+    out = rig.canvas()
+    x0, y0 = int(round(fist[0] - s["grip"][0])), int(round(fist[1] - s["grip"][1]))
+    im = s["img"]
+    h, w = im.shape[:2]
+    ys, xs = np.nonzero(im[..., 3] > 0)
+    Y, X = ys + y0, xs + x0
+    ok = (Y >= 0) & (Y < out.shape[0]) & (X >= 0) & (X < out.shape[1])
+    out[Y[ok], X[ok]] = im[ys[ok], xs[ok]]
+    return out
+
+
+def over(dst, src):
+    m = src[..., 3] > 0
+    dst[m] = src[m]
+    return dst
+
+
+def with_sword(rig, swords, layers, kind):
+    """The frame of these layers with its "sword" layer (the picture's cut-out blade as the Driver turned it) drawn
+    as Codex's sword: heading SWORD_REST + the layer's turn, the grip on the fist the layer was moved to."""
+    i = next(k for k, (n, _) in enumerate(layers) if isinstance(n, str) and n == "sword")
+    o = layers[i][1]
+    heading = SWORD_REST + o.get("angle", 0)
+    fist = (rig.ox + GRIP[0] + o.get("dx", 0), rig.oy + GRIP[1] + o.get("dy", 0))
+    can = R.compose(rig, layers[:i]) if i else rig.canvas()
+    over(can, stamp(rig, swords, kind, heading, fist))
+    if i + 1 < len(layers):
+        over(can, R.compose(rig, layers[i + 1:]))
+    return can
+
+
 def spied_frame(drv, j, o=None):
     """drv.frame(j, o) and the layers it composed."""
     seen = []
@@ -253,7 +350,7 @@ def check_design(D):
     outside = int(((D.d != D.d0).any(-1) & ~D.taken).sum())
     rig = R.Rig(D)
     z0 = dict(angle=0, about=(0, 0))
-    lay = [("sword", dict(angle=0, about=GRIP, src=D.sword_src)), ("arm", z0)] + \
+    lay = [("arm", z0)] + \
         [(n, z0) for n in sorted(D.props) if n.endswith(("_thigh", "_shin"))] + [("upper", dict())]
     can = R.compose(rig, lay)
     got = can[rig.oy:rig.oy + D.H, rig.ox:rig.ox + D.W]
@@ -265,15 +362,32 @@ def make_rig(D):
     return R.Rig(D, pad=(90, 90, 90, 30))          # the long sword turned about her fist reaches far
 
 
-def driver(rig, joints, name="sword"):
+def driver(rig, joints, kind="normal"):
     D = rig.D
-    src = D.sword_src
-    return R.Driver(rig, joints, SPEC_HEIGHT, BODY_ROWS, legs=[FRONT, BACK],
-                    arm=dict(name="arm", shoulder=SHOULDER, hand=GRIP, relative=True, league_hand="r",
-                             with_weapon=True, over_weapon=True),
-                    weapons=[dict(name=name, grip=GRIP, tip=TIP, league=("weapon", "weapon_tip"), relative=True,
-                                  floor=2, rest_back=True, src=src)],
-                    src=D.leg_src, leg_max=0, max_lean=1)
+    ahead = reach(D.swords, kind)[1]
+    tip = (GRIP[0] + ahead * np.cos(np.radians(SWORD_REST)), GRIP[1] - ahead * np.sin(np.radians(SWORD_REST)))
+    drv = R.Driver(rig, joints, SPEC_HEIGHT, BODY_ROWS, legs=[FRONT, BACK],
+                   arm=dict(name="arm", shoulder=SHOULDER, hand=GRIP, relative=True, league_hand="r",
+                            with_weapon=True, over_weapon=True),
+                   weapons=[dict(name="sword", grip=GRIP, tip=tip, league=("weapon", "weapon_tip"), relative=True,
+                                 floor=2, rest_back=True, face=HEAD, face_turn=HEAD_TURN,
+                                 face_from=(GRIP[0] + GUARD_AT * np.cos(np.radians(SWORD_REST)),
+                                            GRIP[1] - GUARD_AT * np.sin(np.radians(SWORD_REST))))],
+                   src=D.leg_src, leg_max=0, max_lean=1)
+    drv.kind = kind
+    return drv
+
+
+def sword_frame(drv, j, o=None, r_form=False):
+    """drv.frame with Codex's sword, and the layers (the "sword" layer as the Driver placed it)."""
+    D = drv.rig.D
+    keep = D.polys["sword"]
+    D.polys["sword"] = sword_poly(D.swords, drv.kind)
+    try:
+        _, layers = spied_frame(drv, j, o)
+    finally:
+        D.polys["sword"] = keep
+    return with_sword(drv.rig, D.swords, layers, drv.kind), layers
 
 
 def leg_piece(D, lg):
@@ -285,13 +399,13 @@ def leg_piece(D, lg):
     return out
 
 
-def idle_frame(rig, legs, sink, name="sword"):
-    D = rig.D
-    src = D.sword_src
-    lay = [(name, dict(dy=sink, angle=0, about=GRIP, src=src)), ("arm", dict(dy=sink, angle=0, about=SHOULDER))]
+def idle_frame(rig, legs, sink, rest=0.0, front=False):
+    lay = [("arm", dict(dy=sink, angle=0, about=SHOULDER))]
     lay += [(legs[lg["name"]], dict()) for lg in (BACK, FRONT)]
     lay += [("upper", dict(dy=sink))]
-    return R.compose(rig, lay)
+    sword = ("sword", dict(dy=sink, angle=rest, about=GRIP))
+    lay = lay[:-1] + [lay[-1], sword, lay[0]] if front else [sword] + lay
+    return with_sword(rig, rig.D.swords, lay, "normal")
 
 
 # ------------------------------------------------------------------------------------------------- the legs
@@ -374,12 +488,10 @@ def drawn_frame(rig, drv, joints, parts, j, r_form=False):
     thigh and shin directions from the hips the rig puts them at, the lower boot on the ground (or as high as League
     leaps); the R form's energy blade on its sword."""
     import math
-    can, layers = spied_frame(drv, j)
+    can, layers = sword_frame(drv, j)
     rest = [(n, o) for n, o in layers if not (isinstance(n, str) and n.endswith(("_thigh", "_shin")))]
     offs = {n: (o.get("dx", 0), o.get("dy", 0)) for n, o in layers if isinstance(n, str) and n.endswith("_thigh")}
-    bare = R.compose(rig, rest)
-    if r_form:
-        bare = energy(rig, bare, rest)
+    bare = with_sword(rig, rig.D.swords, rest, drv.kind)
     geo = {}
     for lg in (FRONT, BACK):
         key = lg["side"]
@@ -415,7 +527,7 @@ def drawn_frame(rig, drv, joints, parts, j, r_form=False):
 
 
 def frames(rig, joints):
-    drv = driver(rig, joints)
+    drvs = {False: driver(rig, joints), True: driver(rig, joints, "reforged")}
     D = rig.D
     legs = {lg["name"]: leg_piece(D, lg) for lg in (FRONT, BACK)}
     parts = leg_parts(D)
@@ -431,20 +543,24 @@ def frames(rig, joints):
             sys.exit(f"{tag}: no League frames")
         rows = R.fit_rows(joints["tags"][base], len(sheet[tag]))
         ms = [m for _, m in sheet[tag]]
+        drv = drvs[tag in R_TAGS or tag in R_FORM]
         if tag == "idle":
-            fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)]) for i in range(len(ms))]
+            fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)], IDLE_HOLD) for i in range(len(ms))]
         elif base in LEG_TAGS:
-            fr = [drawn_frame(rig, drv, joints, parts, r["j"], tag in R_TAGS) for r in rows]
-        elif tag in R_TAGS:
-            fr = [energy(rig, *spied_frame(drv, r["j"])) for r in rows]
+            fr = [drawn_frame(rig, drv, joints, parts, r["j"]) for r in rows]
+        elif tag == "ult":
+            fr = [sword_frame(drvs[i >= ULT_REFORGED], r["j"])[0] for i, r in enumerate(rows)]
         else:
-            fr = [drv.frame(r["j"]) for r in rows]
+            fr = [sword_frame(drv, r["j"])[0] for r in rows]
         if tag == "hit":
             fr[0] = R.flash(fr[0])
         if tag == "dead":
-            # arm and sword turned a quarter back first: laid a quarter turn the sword lies along the ground (27
-            # degrees off it, the nearest a lossless turn gets), not up in the air
-            lie = R.lie(rig, drv.frame(rows[3]["j"], dict(keep=True, arm=-90, weapon=-90)), k=1, dx=-2)
+            # the sword pointing straight down in front of her first: laid a quarter turn it lies along the ground
+            # beside her, not up in the air (behind her it vanished under the body)
+            _, lay = spied_frame(drv, rows[3]["j"], dict(keep=True, arm=-90, weapon=-90 - SWORD_REST))
+            sw = next(x for x in lay if isinstance(x[0], str) and x[0] == "sword")
+            lay = [x for x in lay if x is not sw] + [sw]
+            lie = R.lie(rig, with_sword(rig, D.swords, lay, "normal"), k=1, dx=-2)
             fr = fr[:4] + [lie.copy() for _ in fr[4:]]
         out[tag] = list(zip(fr, ms))
     acts = rig.bake(out)
@@ -473,10 +589,15 @@ def main():
         Image.fromarray(np.repeat(np.repeat(img.astype(np.uint8), 12, 0), 12, 1)).save(
             os.path.join(a.parts, f"{HERO}_parts.png"))
         rig = make_rig(D)
-        lay = [("sword", dict(angle=0, about=GRIP, src=D.sword_src))]
-        can = R.compose(rig, lay)
-        for name, im in (("sword", can), ("sword_r", energy(rig, can, lay))):
-            Image.fromarray(np.repeat(np.repeat(im, 8, 0), 8, 1)).save(os.path.join(a.parts, f"{HERO}_{name}.png"))
+        legs = {lg["name"]: leg_piece(D, lg) for lg in (FRONT, BACK)}
+        import design_fiora_hd as FD
+        cells = []
+        for rest, front in ((0, False), (18, False), (36, False), (54, False), (0, True), (-40, True)):
+            can = rig.finish(idle_frame(rig, legs, 0, rest, front))
+            ys, xs = np.nonzero(can[..., 3] > 0)
+            im = Image.fromarray(can[ys.min() - 2:ys.max() + 3, xs.min() - 2:xs.max() + 3])
+            cells.append((f"{SWORD_REST + rest:g} deg" + (" front" if front else ""), FD.shown(im, 1, 6)))
+        FD.strip(cells).convert("RGB").save(os.path.join(a.parts, f"{HERO}_idle_swords.png"))
         print("pivot column", D.px, "| squares changed outside the parts / rest frame differs in:", check_design(D))
         print([tuple(int(v) for v in p[::-1]) for p in D.diff_at][:40])
         return
