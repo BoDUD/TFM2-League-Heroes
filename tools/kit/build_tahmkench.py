@@ -250,11 +250,14 @@ def build(p):
                                                         on_me(gulp("vo_r", "r_enemy"), refresh("r_full", p["r_t"])),
                                                         *enemy_in)))
     pips = lambda k: [buff(f"t_pip{i}", h) for i in range(1, k + 1)]
-    climb = sw("t3", combine(refresh("t3", h), refresh("t2", h), refresh("t1", h), *pips(3), eat_here),
-               sw("t2", combine(refresh("t3", h), refresh("t2", h), refresh("t1", h), *pips(3), tsfx("p_stack"),
-                                eat_here),
-                  sw("t1", combine(refresh("t2", h), refresh("t1", h), *pips(2)),
-                     combine(refresh("t1", h), *pips(1)))))
+    full = lambda *extra: combine(refresh("t3", h), refresh("t2", h), refresh("t1", h), *pips(3), *extra)
+    low = sw("t1", combine(refresh("t2", h), refresh("t1", h), *pips(2)), combine(refresh("t1", h), *pips(1)))
+    # A hit on three stacks or a climb from two (the stack sound) checks Devour once, after either (skill-tree
+    # slimming, 2026-10-18: the check was written out for each case, and once more in Q's dead t3 branch). Exact
+    # because t3 implies t2 at every tick: only `full` adds t3, in the same run as t2 and with the same hold; `low`
+    # adds t2 only while t3 is off; `eat` takes all three; a refresh takes a flag off and puts it back in one run. So
+    # the same effects run in the same order, and the tree reads the same through any of his buff states.
+    climb = sw("t2", combine(sw("t3", full(), full(tsfx("p_stack"))), eat_here), low)
     if nat:     # the add-on keeps the stacks on each champion
         climb = {"type": "Native", "effect_ref": "league_tahmkench:taste"}
     # every life starts with the stored share of the damage taken off (the add-on stores the real damage instead)
@@ -299,10 +302,12 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Tongue Lash
     stun = combine(eat, {"type": "Stun", "duration": p["q_stun"]}, view("q_stun"), tsfx("q_stun"))
+    # three stacks: the stun unless Devour is armed (then the stacks stay for it); two: the third, as in `climb`
     on_champ = combine(*rm("q_c"), on_me({"type": "Heal", "amount": p["q_heal"], "attack_ratio": 0,
                                           "ap_ratio": p["q_heal_ap"], "heal_type": "Caster"}, cview("q_heal")),
                        sfx("q_heal"), {"type": "Native", "effect_ref": "league_tahmkench:lash"} if nat
-                       else sw("t3", sw("r_armed", eat_here, stun), climb))
+                       else sw("t2", combine(sw("t3", sw("r_armed", NONE, stun), full(tsfx("p_stack"))), eat_here),
+                               low))
     q_hits = [magic(p["q_dmg"], p["q_ap"], p["q_hp"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
               view("q_hit"), tsfx("q_hit"), delayed(1, sw("q_c", on_champ))]
     rng = p["q_range"] + 10000

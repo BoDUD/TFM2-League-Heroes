@@ -112,6 +112,28 @@ empty tooltip). That is why the linter exists - run it after every edit.
   `sound/bgm/` into the OS cache after the title) - build it from that main too, and merge main before a hero
   branch installs its own `league.dll`. Seeding a worktree's audio from the install: copy
   `<install>/sound/bgm/*.mp3` into `league/sound/sfx/`.
+- **Keep `skill` and `skill2` small, and slim only with the same game (league, 2026-10-18; the user: 「这个要写好skill规矩」).**
+  The game deep-copies every data champion's skill and skill2 trees each tick of a match - in game half the main
+  thread's time with a match on screen, and the single-threaded stretch at the end of a day advance (league
+  `docs/perf.md` section 8). So:
+  - New heroes: write repeated logic once (one shared subtree, not a copy in every `SwitchByBuff` branch; one strike
+    after a ladder that only picks the flag), keep `skill`/`skill2` near or under 300 nodes (lint INFO), put work that
+    only the caster's own state drives into the attack or the ult. Install and upload only through
+    `tools/package_mod.py` (and the add-on bundle through `assemble.py`): both run `tools/kit/slim.py`, which drops
+    wrappers that change nothing - do not hand-trim wrappers.
+  - Slimming a shipped hero: change its generator (`tools/kit/build_<hero>.py`, or an idempotent `tools/fix/` script
+    with `--check` and the proof in its docstring), never the JSON by hand; rerun the add-on's `make_override.py`.
+    Exact means: the same effects, order, targets and ticks in every buff state the kit can reach; the same
+    `RandomTarget`s in the same casts; no projectile added or removed; and **the same tree read through the caster's
+    buffs at ANY tick** - the AI and the enemies read skill/skill2 all the time, not only at a cast (a flag a cast
+    sets for itself is taken off in the same run). A fact like "flag X is never on when..." is proven from every add
+    and removal of X in all four slots, the add-on copy and `addons/*/src`. A slot's cooldown is no lower bound:
+    base bard's R halves allies' skill cooldowns every 3 ticks (league_jinx keeps both trap slots for it). Keep the
+    hidden flag operations as they were where you can - one extra unread flag can part a game later.
+  - Prove it, do not argue it: `tools/perf/same_games.py hero <before> <after> --lane <n>` (sim/trace.exe built from
+    `tools/perf/trace.rs`) must show every tick's events equal in all games (`TRACE_HIDE=<flag>,...` for renamed or
+    retimed hidden flags), then show the user the node counts, the games and `tools/perf/tick.rs`'s CPU per tick
+    before the PR. If an exact rewrite saves under ~10%, leave the hero alone.
 - Do not use `Native`, `ShrinkingBarrier`, `AddStatScaledBuff` or `Rush` - base-only effects.
 - Never translate stat-icon ids inside `<i#...:ad_0>` tags.
 - **Both sides: the client never mirrors an effect picture - only the hero's own frames.** A `ViewEffect` or

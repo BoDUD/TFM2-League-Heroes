@@ -753,53 +753,66 @@
           },
           "effect_none": {
             "type": "SwitchByBuff",
-            "buff_name": "league_pantheon_pw",
+            "buff_name": "league_pantheon_m4",
             "effect_buff": {
               "type": "Combine",
-              "effects": []
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pantheon_m4"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_pantheon_pw",
+                    "duration": "Permanent"
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_pantheon_p_ready"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_pantheon_p_ready"
+                }
+              ]
             },
             "effect_none": {
               "type": "SwitchByBuff",
-              "buff_name": "league_pantheon_m4",
+              "buff_name": "league_pantheon_m3",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
                     "type": "RemoveCasterBuff",
-                    "name": "league_pantheon_m4"
+                    "name": "league_pantheon_m3"
                   },
                   {
                     "type": "AddCasterBuff",
                     "buff_state": {
-                      "name": "league_pantheon_pw",
+                      "name": "league_pantheon_m4",
                       "duration": "Permanent"
                     },
                     "only_to_enemy": false
-                  },
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_pantheon_p_ready"
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "league_pantheon_p_ready"
                   }
                 ]
               },
               "effect_none": {
                 "type": "SwitchByBuff",
-                "buff_name": "league_pantheon_m3",
+                "buff_name": "league_pantheon_m2",
                 "effect_buff": {
                   "type": "Combine",
                   "effects": [
                     {
                       "type": "RemoveCasterBuff",
-                      "name": "league_pantheon_m3"
+                      "name": "league_pantheon_m2"
                     },
                     {
                       "type": "AddCasterBuff",
                       "buff_state": {
-                        "name": "league_pantheon_m4",
+                        "name": "league_pantheon_m3",
                         "duration": "Permanent"
                       },
                       "only_to_enemy": false
@@ -808,18 +821,18 @@
                 },
                 "effect_none": {
                   "type": "SwitchByBuff",
-                  "buff_name": "league_pantheon_m2",
+                  "buff_name": "league_pantheon_m1",
                   "effect_buff": {
                     "type": "Combine",
                     "effects": [
                       {
                         "type": "RemoveCasterBuff",
-                        "name": "league_pantheon_m2"
+                        "name": "league_pantheon_m1"
                       },
                       {
                         "type": "AddCasterBuff",
                         "buff_state": {
-                          "name": "league_pantheon_m3",
+                          "name": "league_pantheon_m2",
                           "duration": "Permanent"
                         },
                         "only_to_enemy": false
@@ -827,33 +840,12 @@
                     ]
                   },
                   "effect_none": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_pantheon_m1",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_pantheon_m1"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_pantheon_m2",
-                            "duration": "Permanent"
-                          },
-                          "only_to_enemy": false
-                        }
-                      ]
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_pantheon_m1",
+                      "duration": "Permanent"
                     },
-                    "effect_none": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_pantheon_m1",
-                        "duration": "Permanent"
-                      },
-                      "only_to_enemy": false
-                    }
+                    "only_to_enemy": false
                   }
                 }
               }
@@ -1639,1276 +1631,1311 @@
               "type": "Combine",
               "effects": [
                 {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pantheon_e_near"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 32000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_pantheon_e_near",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "league_pantheon_e_near",
+              "duration": {
+                "Time": {
+                  "tick": 1
+                }
+              }
+            },
+            "only_to_enemy": false
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_pantheon_e_near",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_pantheon_pw",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pantheon_pw"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pantheon_m1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pantheon_m2"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pantheon_m3"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pantheon_m4"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_pantheon_w_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pantheon_e_emp"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_pantheon_e_emp",
+                          "duration": {
+                            "Time": {
+                              "tick": 101
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pantheon_w_tri"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_pantheon_w_tri",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_pantheon_m4",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_pantheon_m4"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_pantheon_pw",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_pantheon_p_ready"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_pantheon_p_ready"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_pantheon_m3",
+                "effect_buff": {
                   "type": "Combine",
                   "effects": [
                     {
                       "type": "RemoveCasterBuff",
-                      "name": "league_pantheon_e_near"
+                      "name": "league_pantheon_m3"
                     },
                     {
-                      "type": "RandomTarget",
-                      "range": 32000,
-                      "casting_target": "EnemyChampion",
-                      "from_projectile": false,
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_pantheon_m4",
+                        "duration": "Permanent"
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_pantheon_m2",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pantheon_m2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_pantheon_m3",
+                          "duration": "Permanent"
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_pantheon_m1",
+                    "effect_buff": {
+                      "type": "Combine",
                       "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pantheon_m1"
+                        },
                         {
                           "type": "AddCasterBuff",
                           "buff_state": {
-                            "name": "league_pantheon_e_near",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
+                            "name": "league_pantheon_m2",
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_pantheon_m1",
+                        "duration": "Permanent"
+                      },
+                      "only_to_enemy": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_pantheon_w_cd",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_pantheon_e_near",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pantheon_e_near"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_pantheon_e_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 1080
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "e_hold",
+                  "tick": 90
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_pantheon_e"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_pantheon_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_pantheon_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_pantheon_vo_e"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_pantheon_e_shield"
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_pantheon_e_hold"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_pantheon_e_hold",
+                        "duration": {
+                          "Time": {
+                            "tick": 90
+                          }
+                        },
+                        "cc_immune": true
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 12,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_pantheon_live",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pantheon_live",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pantheon_live"
                         }
                       ]
                     }
                   ]
                 },
                 {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_pantheon_e_near",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_pantheon_e_near"
-                      },
-                      {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_pantheon_e_cd",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1080
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_pantheon_pw",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_pantheon_pw"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_pantheon_m1"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_pantheon_m2"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_pantheon_m3"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_pantheon_m4"
-                                },
-                                {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_pantheon_e_emp"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_pantheon_e_emp",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 94
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_pantheon_pw",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": []
-                              },
-                              "effect_none": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_pantheon_m4",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_pantheon_m4"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_pantheon_pw",
-                                        "duration": "Permanent"
-                                      },
-                                      "only_to_enemy": false
-                                    },
-                                    {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_pantheon_p_ready"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_pantheon_p_ready"
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_pantheon_m3",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_pantheon_m3"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_pantheon_m4",
-                                          "duration": "Permanent"
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_pantheon_m2",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_pantheon_m2"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_pantheon_m3",
-                                            "duration": "Permanent"
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_pantheon_m1",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_pantheon_m1"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_pantheon_m2",
-                                              "duration": "Permanent"
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_pantheon_m1",
-                                          "duration": "Permanent"
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    }
+                  "type": "Delayed",
+                  "tick": 24,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_pantheon_live",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
                                   }
                                 }
-                              }
+                              },
+                              "only_to_enemy": false
                             }
-                          },
-                          {
-                            "type": "CasterAnimation",
-                            "name": "e_hold",
-                            "tick": 90
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_pantheon_e"
-                          },
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_pantheon_vo_cd",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_pantheon_vo_cd",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 600
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_pantheon_vo_e"
-                                }
-                              ]
-                            }
-                          },
-                          {
-                            "type": "CasterViewEffect",
-                            "name": "league_pantheon_e_shield"
-                          },
-                          {
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pantheon_live",
+                          "effect_buff": {
                             "type": "Combine",
                             "effects": [
                               {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_pantheon_e_hold"
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_pantheon_e_hold",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 90
-                                    }
-                                  },
-                                  "cc_immune": true
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
                                 },
-                                "only_to_enemy": false
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Delayed",
-                            "tick": 12,
-                            "effects": [
-                              {
-                                "type": "Combine",
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
                                 "effects": [
                                   {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_pantheon_live",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
                                   },
                                   {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_pantheon_live",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "RandomTarget",
-                                      "range": 1,
-                                      "casting_target": "AllyOnlySelf",
-                                      "from_projectile": false,
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_pantheon_live"
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
                                   }
                                 ]
                               }
                             ]
                           },
-                          {
-                            "type": "Delayed",
-                            "tick": 24,
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
                             "effects": [
                               {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_pantheon_live",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_pantheon_live",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "RandomTarget",
-                                      "range": 1,
-                                      "casting_target": "AllyOnlySelf",
-                                      "from_projectile": false,
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_pantheon_live"
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
                                   }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Delayed",
-                            "tick": 36,
-                            "effects": [
-                              {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_pantheon_live",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_pantheon_live",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "RandomTarget",
-                                      "range": 1,
-                                      "casting_target": "AllyOnlySelf",
-                                      "from_projectile": false,
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_pantheon_live"
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
                                   }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Delayed",
-                            "tick": 48,
-                            "effects": [
-                              {
-                                "type": "Combine",
+                                },
                                 "effects": [
                                   {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_pantheon_live",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
                                   },
                                   {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_pantheon_live",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "RandomTarget",
-                                      "range": 1,
-                                      "casting_target": "AllyOnlySelf",
-                                      "from_projectile": false,
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_pantheon_live"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Delayed",
-                            "tick": 60,
-                            "effects": [
-                              {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_pantheon_live",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_pantheon_live",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "RandomTarget",
-                                      "range": 1,
-                                      "casting_target": "AllyOnlySelf",
-                                      "from_projectile": false,
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_pantheon_live"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Delayed",
-                            "tick": 72,
-                            "effects": [
-                              {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_pantheon_live",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_pantheon_live",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "RandomTarget",
-                                      "range": 1,
-                                      "casting_target": "AllyOnlySelf",
-                                      "from_projectile": false,
-                                      "effects": [
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "DirDot": {
-                                              "radius": 42000,
-                                              "range": 800
-                                            }
-                                          },
-                                          "target": "EnemyWithoutTower",
-                                          "apply_type": {
-                                            "Forward": {
-                                              "offset": 1000
-                                            }
-                                          },
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 15,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_pantheon_e_stab"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_pantheon_live"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Delayed",
-                            "tick": 90,
-                            "effects": [
-                              {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_pantheon_live",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_pantheon_live",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "CasterAnimation",
-                                          "name": "e_bash",
-                                          "tick": 23
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_pantheon_e_bash"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "RandomTarget",
-                                      "range": 1,
-                                      "casting_target": "AllyOnlySelf",
-                                      "from_projectile": false,
-                                      "effects": [
-                                        {
-                                          "type": "CasterAnimation",
-                                          "name": "e_bash",
-                                          "tick": 23
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_pantheon_e_bash"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_pantheon_live"
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Delayed",
-                                "tick": 7,
-                                "effects": [
-                                  {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RandomTarget",
-                                        "range": 1,
-                                        "casting_target": "AllyOnlySelf",
-                                        "from_projectile": false,
-                                        "effects": [
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_pantheon_live",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 1
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_pantheon_live",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "CasterViewEffect",
-                                              "name": "league_pantheon_e_bash"
-                                            },
-                                            {
-                                              "type": "RangeEffect",
-                                              "shape": {
-                                                "DirDot": {
-                                                  "radius": 42000,
-                                                  "range": 800
-                                                }
-                                              },
-                                              "target": "EnemyWithoutTower",
-                                              "apply_type": {
-                                                "Forward": {
-                                                  "offset": 1000
-                                                }
-                                              },
-                                              "effects": [
-                                                {
-                                                  "type": "Attack",
-                                                  "damage": 110,
-                                                  "attack_ratio": 100,
-                                                  "hp_ratio": 0,
-                                                  "target_hp_ratio": 0,
-                                                  "attack_effect_type": "Target"
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_pantheon_e_hit"
-                                                },
-                                                {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_pantheon_e_hit"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_pantheon_e_emp",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_pantheon_e_emp"
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_pantheon_e_def"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_pantheon_e_def",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 240
-                                                            }
-                                                          },
-                                                          "defence": 20,
-                                                          "magic_resistance": 20
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_pantheon_e_haste"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_pantheon_e_haste",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 90
-                                                            }
-                                                          },
-                                                          "move_speed_mult": 60
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              }
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "RandomTarget",
-                                          "range": 1,
-                                          "casting_target": "AllyOnlySelf",
-                                          "from_projectile": false,
-                                          "effects": [
-                                            {
-                                              "type": "CasterViewEffect",
-                                              "name": "league_pantheon_e_bash"
-                                            },
-                                            {
-                                              "type": "RangeEffect",
-                                              "shape": {
-                                                "DirDot": {
-                                                  "radius": 42000,
-                                                  "range": 800
-                                                }
-                                              },
-                                              "target": "EnemyWithoutTower",
-                                              "apply_type": {
-                                                "Forward": {
-                                                  "offset": 1000
-                                                }
-                                              },
-                                              "effects": [
-                                                {
-                                                  "type": "Attack",
-                                                  "damage": 110,
-                                                  "attack_ratio": 100,
-                                                  "hp_ratio": 0,
-                                                  "target_hp_ratio": 0,
-                                                  "attack_effect_type": "Target"
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_pantheon_e_hit"
-                                                },
-                                                {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_pantheon_e_hit"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_pantheon_e_emp",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_pantheon_e_emp"
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_pantheon_e_def"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_pantheon_e_def",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 240
-                                                            }
-                                                          },
-                                                          "defence": 20,
-                                                          "magic_resistance": 20
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_pantheon_e_haste"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_pantheon_e_haste",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 90
-                                                            }
-                                                          },
-                                                          "move_speed_mult": 60
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_pantheon_live"
-                                      }
-                                    ]
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
                                   }
                                 ]
                               }
                             ]
                           }
-                        ]
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pantheon_live"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 36,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_pantheon_live",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pantheon_live",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pantheon_live"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 48,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_pantheon_live",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pantheon_live",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pantheon_live"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 60,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_pantheon_live",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pantheon_live",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pantheon_live"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 72,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_pantheon_live",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pantheon_live",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 42000,
+                                    "range": 800
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_pantheon_e_stab"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pantheon_live"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 90,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_pantheon_live",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pantheon_live",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "e_bash",
+                                "tick": 23
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_pantheon_e_bash"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "e_bash",
+                                "tick": 23
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_pantheon_e_bash"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pantheon_live"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 7,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RandomTarget",
+                              "range": 1,
+                              "casting_target": "AllyOnlySelf",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_pantheon_live",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_pantheon_live",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_pantheon_e_bash"
+                                  },
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "DirDot": {
+                                        "radius": 42000,
+                                        "range": 800
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": {
+                                      "Forward": {
+                                        "offset": 1000
+                                      }
+                                    },
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 110,
+                                        "attack_ratio": 100,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_pantheon_e_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_pantheon_e_hit"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_pantheon_e_emp",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_pantheon_e_emp"
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_pantheon_e_def"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_pantheon_e_def",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                },
+                                                "defence": 20,
+                                                "magic_resistance": 20
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_pantheon_e_haste"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_pantheon_e_haste",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 90
+                                                  }
+                                                },
+                                                "move_speed_mult": 60
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "RandomTarget",
+                                "range": 1,
+                                "casting_target": "AllyOnlySelf",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_pantheon_e_bash"
+                                  },
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "DirDot": {
+                                        "radius": 42000,
+                                        "range": 800
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": {
+                                      "Forward": {
+                                        "offset": 1000
+                                      }
+                                    },
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 110,
+                                        "attack_ratio": 100,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_pantheon_e_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_pantheon_e_hit"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_pantheon_e_emp",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_pantheon_e_emp"
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_pantheon_e_def"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_pantheon_e_def",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                },
+                                                "defence": 20,
+                                                "magic_resistance": 20
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_pantheon_e_haste"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_pantheon_e_haste",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 90
+                                                  }
+                                                },
+                                                "move_speed_mult": 60
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_pantheon_live"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": []
             }
           },
           "effect_none": {
             "type": "Combine",
             "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_pantheon_e_near"
+              },
               {
                 "type": "AddCasterBuff",
                 "buff_state": {
@@ -2920,202 +2947,6 @@
                   }
                 },
                 "only_to_enemy": false
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_pantheon_pw",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_pantheon_pw"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_pantheon_m1"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_pantheon_m2"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_pantheon_m3"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_pantheon_m4"
-                    },
-                    {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_pantheon_w_emp"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_pantheon_w_emp",
-                            "duration": {
-                              "Time": {
-                                "tick": 3
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "effect_none": {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_pantheon_pw",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_pantheon_m4",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_pantheon_m4"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_pantheon_pw",
-                            "duration": "Permanent"
-                          },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "CasterViewEffect",
-                          "name": "league_pantheon_p_ready"
-                        },
-                        {
-                          "type": "Sfx",
-                          "name": "league_pantheon_p_ready"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_pantheon_m3",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_pantheon_m3"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_pantheon_m4",
-                              "duration": "Permanent"
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_pantheon_m2",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_pantheon_m2"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_pantheon_m3",
-                                "duration": "Permanent"
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_pantheon_m1",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_pantheon_m1"
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_pantheon_m2",
-                                  "duration": "Permanent"
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
-                          },
-                          "effect_none": {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_pantheon_m1",
-                              "duration": "Permanent"
-                            },
-                            "only_to_enemy": false
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_pantheon_w_emp",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_pantheon_w_emp"
-                    },
-                    {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_pantheon_w_tri"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_pantheon_w_tri",
-                            "duration": {
-                              "Time": {
-                                "tick": 240
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
               },
               {
                 "type": "CasterAnimation",

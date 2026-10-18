@@ -36,7 +36,8 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#7dd87dff>"      # heals
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -12}}   # the helmet top under the horns, at hd.rs SIZES 1.00
+# 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> -11: the head reached the card's top edge (Talon's rule: at or above -28)
+VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -11}}   # the helmet top under the horns, at hd.rs SIZES 1.00
 
 
 def mag(k):

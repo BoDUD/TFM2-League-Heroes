@@ -331,9 +331,17 @@ def build(p):
                     around(p["e_near"], "EnemyChampion", [sw("e_n1", flag("e_n2", 1), flag("e_n1", 1))]),
                     pick(p["e_close"], "EnemyChampion", flag("e_n2", 1)))
     # the add-on's copy: E is all the passive's (when to open the door - away when dived, after a hurt champion - and
-    # where), skill2 is the shrine only
+    # where), skill2 is the shrine only.
+    # W written once (skill-tree slimming, 2026-10-18: the game copies skill2 every tick, docs/perf.md section 8). It was
+    # `e_cd ? W : (count; e_n2 ? E : W; e_n1, e_n2 off)`, the shrine twice. e_n1 / e_n2 are 1-tick flags that only
+    # `count` adds (no other slot, neither the add-on's copy nor addons/league_bard/src names them), and the same run
+    # takes them off again right after reading them, with nothing in between that can kill him (flags, pictures, sounds,
+    # hastes and Delayed effects, no damage) - so neither is on when skill2 starts or whenever anyone reads it. With
+    # e_cd on, `e_n2 ? E : W` is therefore W: `(e_cd ? - : count); e_n2 ? E : W; e_n1, e_n2 off` runs the same effects
+    # in the same order, draws count's searches in the same casts, and reads (through his buffs, at any tick) as W in
+    # both states, plus two removals of flags that are not there.
     skill2 = action("skill2", p["w_dur"], p["w_cd"], p["w_st"], p["w_range"], "Targeting", "EnemyChampion", flat(combine(
-        r_check, w if p["native"] else sw("e_cd", w, combine(count, sw("e_n2", e, w), *rm("e_n1", "e_n2"))))))
+        r_check, w if p["native"] else combine(sw("e_cd", NONE, count), sw("e_n2", e, w), *rm("e_n1", "e_n2")))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=1, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
