@@ -903,6 +903,13 @@
         "skill": "朝敌人扔出回旋镖（先瞄准再出手，能躲开），去程和回程各造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害；打中英雄加速20%，持续<#ffb900ff>1秒<>。",
         "skill2": "甩出钩索朝敌方英雄荡过去，<#ffb900ff>1.4秒<>内每<#ffb900ff>0.23秒<>朝最近的敌人开一枪，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害，最后翻滚离开再开一枪。",
         "ult": "锁定受伤的敌方英雄蓄力<#ffb900ff>2.5秒<>，最多存5发子弹，被<#ef5350ff>控制<>会中断；然后连射，每发打中路上第一个敌人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害，前面每打中一发，后面的子弹多30%。"
+      },
+      "league_poppy": {
+        "name": "波比",
+        "attack": "<#ff9028ff>钢铁大使<>：每<#ffb900ff>8秒<>普攻远远扔出圆盾，多造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害；盾落在地上，捡起得<#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<>护盾。<#ff9028ff>坚定风采<>：双抗+16%；敌方英雄靠近时移速+40%，<#ffb900ff>2秒<>内身边敌人<#ef5350ff>不能位移<>。",
+        "skill": "锤击地面，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害（英雄另受6%最大生命），地面<#ef5350ff>减速25%<>，<#ffb900ff>1秒<>后再炸一次。",
+        "skill2": "冲向敌方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并推着他走，结束时<#ef5350ff>眩晕0.75秒<>。",
+        "ult": "身边有2个以上敌方英雄时砸地：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害并<#ef5350ff>击飞1秒<>；否则蓄力抡锤推出冲击波，打中的英雄受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害并<#ef5350ff>被打飞到远处<>。"
       }
     },
     "skill_name": {
@@ -1550,6 +1557,11 @@
         "skill1": "去而复还",
         "skill2": "骄行荡寇",
         "ult": "恩怨相抵"
+      },
+      "league_poppy": {
+        "skill1": "圣锤猛击",
+        "skill2": "英勇冲锋",
+        "ult": "持卫的裁决"
       }
     }
   },
@@ -2457,6 +2469,13 @@
         "skill": "朝敵人扔出迴力鏢（先瞄準再出手，能躲開），去程和回程各造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害；打中英雄加速20%，持續<#ffb900ff>1秒<>。",
         "skill2": "甩出勾索朝敵方英雄盪過去，<#ffb900ff>1.4秒<>內每<#ffb900ff>0.23秒<>朝最近的敵人開一槍，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害，最後翻滾離開再開一槍。",
         "ult": "鎖定受傷的敵方英雄蓄力<#ffb900ff>2.5秒<>，最多存5發子彈，被<#ef5350ff>控制<>會中斷；然後連射，每發打中路上第一個敵人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害，前面每打中一發，後面的子彈多30%。"
+      },
+      "league_poppy": {
+        "name": "波比",
+        "attack": "<#ff9028ff>鋼鐵使者<>：每<#ffb900ff>8秒<>普攻遠遠擲出圓盾，多造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害；盾落在地上，撿起得<#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<>護盾。<#ff9028ff>堅定不移<>：雙抗+16%；敵方英雄靠近時移速+40%，<#ffb900ff>2秒<>內身邊敵人<#ef5350ff>不能位移<>。",
+        "skill": "錘擊地面，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害（英雄另受6%最大生命），地面<#ef5350ff>緩速25%<>，<#ffb900ff>1秒<>後再炸一次。",
+        "skill2": "衝向敵方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並推著他走，結束時<#ef5350ff>暈眩0.75秒<>。",
+        "ult": "身邊有2個以上敵方英雄時砸地：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害並<#ef5350ff>擊飛1秒<>；否則蓄力掄錘推出衝擊波，打中的英雄受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害並<#ef5350ff>被打飛到遠處<>。"
       }
     },
     "skill_name": {
@@ -3104,6 +3123,11 @@
         "skill1": "復仇迴力鏢",
         "skill2": "英勇勾索",
         "ult": "因果蓄能彈"
+      },
+      "league_poppy": {
+        "skill1": "戰槌衝擊",
+        "skill2": "英勇衝鋒",
+        "ult": "守護者裁決"
       }
     }
   },
@@ -4011,6 +4035,13 @@
         "skill": "Throws a boomerang at an enemy (aimed first, so it can be dodged) that deals <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage going out and again coming back; a champion hit gives him 20% move speed for <#ffb900ff>1s<>.",
         "skill2": "Hooks and swings toward an enemy champion: for <#ffb900ff>1.4s<> he shoots the nearest enemy every <#ffb900ff>0.23s<> for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage, then rolls off with a last shot.",
         "ult": "Locks onto a wounded enemy champion and charges for <#ffb900ff>2.5s<>, storing up to 5 bullets (<#ef5350ff>crowd control<> stops it), then fires them: each hits the first enemy in its path for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage, 30% more for every bullet that hit before."
+      },
+      "league_poppy": {
+        "name": "Poppy",
+        "attack": "<#ff9028ff>Iron Ambassador<>: every <#ffb900ff>8s<> her attack throws her buckler from afar for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> more; it lands nearby and picking it up gives a <#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<> <#66bb6aff>shield<>. <#ff9028ff>Steadfast Presence<>: +16% armour and magic resist; with an enemy champion close she gains 40% move speed and for <#ffb900ff>2s<> enemies near her <#ef5350ff>can't dash<>.",
+        "skill": "Slams the ground for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage (+6% max health to champions); the ground <#ef5350ff>slows 25%<> and ruptures again after <#ffb900ff>1s<>.",
+        "skill2": "Charges an enemy champion for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and carries them; at the end they are <#ef5350ff>stunned 0.75s<>.",
+        "ult": "With 2+ enemy champions close she slams the ground: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage and <#ef5350ff>knock-up 1s<>. Otherwise she charges and swings a shockwave: champions hit take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage and are <#ef5350ff>knocked far away<>."
       }
     },
     "skill_name": {
@@ -4658,6 +4689,11 @@
         "skill1": "Avengerang",
         "skill2": "Heroic Swing",
         "ult": "Comeuppance"
+      },
+      "league_poppy": {
+        "skill1": "Hammer Shock",
+        "skill2": "Heroic Charge",
+        "ult": "Keeper's Verdict"
       }
     }
   },
@@ -5565,6 +5601,13 @@
         "skill": "적에게 부메랑을 던짐(조준 후 발사, 피할 수 있음): 갈 때와 돌아올 때 각각 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해, 챔피언 적중 시 <#ffb900ff>1초<>간 이동 속도 +20%.",
         "skill2": "갈고리를 걸고 적 챔피언 쪽으로 날아감: <#ffb900ff>1.4초<> 동안 <#ffb900ff>0.23초<>마다 가장 가까운 적에게 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해, 마지막에 구르며 한 발 더.",
         "ult": "부상당한 적 챔피언을 조준해 <#ffb900ff>2.5초<> 충전, 최대 5발 저장(<#ef5350ff>군중 제어<> 시 중단) 후 발사: 각 탄환은 처음 맞는 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해, 앞서 맞힌 탄환마다 +30%."
+      },
+      "league_poppy": {
+        "name": "뽀삐",
+        "attack": "<#ff9028ff>강철의 외교관<>: <#ffb900ff>8초<>마다 기본 공격이 방패를 멀리 던져 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해 추가; 떨어진 방패를 주우면 <#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<> 보호막. <#ff9028ff>굳건한 태세<>: 방어력·마법 저항력 +16%; 적 챔피언이 가까우면 이동 속도 +40%, <#ffb900ff>2초<> 동안 주변 적 <#ef5350ff>돌진 불가<>.",
+        "skill": "땅을 내리쳐 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해(챔피언은 최대 체력 6% 추가), 땅이 <#ef5350ff>25% 둔화<>, <#ffb900ff>1초<> 뒤 다시 폭발.",
+        "skill2": "적 챔피언에게 돌진해 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해를 주고 밀고 나가며, 끝에 <#ef5350ff>0.75초 기절<>.",
+        "ult": "주변에 적 챔피언 2명 이상이면 땅을 내리쳐 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해와 <#ef5350ff>1초 에어본<>; 아니면 모았다 휘둘러 충격파: 맞은 챔피언은 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해를 입고 <#ef5350ff>멀리 날아감<>."
       }
     },
     "skill_name": {
@@ -6212,6 +6255,11 @@
         "skill1": "복수의 부메랑",
         "skill2": "영웅의 비상",
         "ult": "인과응보"
+      },
+      "league_poppy": {
+        "skill1": "망치 강타",
+        "skill2": "용감한 돌진",
+        "ult": "수호자의 심판"
       }
     }
   },
@@ -7119,6 +7167,13 @@
         "skill": "ブーメランを投げる（狙ってから投げるので避けられる）：行きと帰りに各<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージ、チャンピオン命中で<#ffb900ff>1秒<>移動速度+20%。",
         "skill2": "フックで敵チャンピオンへスイング：<#ffb900ff>1.4秒<>間、<#ffb900ff>0.23秒<>毎に最も近い敵へ<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ、最後に転がってもう1発。",
         "ult": "負傷した敵チャンピオンを狙い<#ffb900ff>2.5秒<>チャージ、最大5発（<#ef5350ff>行動妨害<>で中断）、その後発射：各弾は最初に当たった敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージ、先に当たった弾毎に+30%。"
+      },
+      "league_poppy": {
+        "name": "ポッピー",
+        "attack": "<#ff9028ff>鋼鉄の大使<>：<#ffb900ff>8秒<>ごとに通常攻撃で盾を遠くへ投げ<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ追加；落ちた盾を拾うと<#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>60%<>のシールド。<#ff9028ff>ステッドファスト<>：物防・魔防+16%；敵チャンピオンが近いと移動速度+40%、<#ffb900ff>2秒<>周りの敵は<#ef5350ff>ダッシュ不可<>。",
+        "skill": "地面を叩き<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージ（チャンピオンは最大体力の6%追加）、地面は<#ef5350ff>25%スロウ<>、<#ffb900ff>1秒<>後に再び爆発。",
+        "skill2": "敵チャンピオンへ突進し<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージを与えて押し運び、最後に<#ef5350ff>0.75秒スタン<>。",
+        "ult": "近くに敵チャンピオン2体以上なら地面を叩き<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージと<#ef5350ff>1秒ノックアップ<>；そうでなければ溜めて衝撃波：当たったチャンピオンは<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージで<#ef5350ff>遠くへ吹き飛ぶ<>。"
       }
     },
     "skill_name": {
@@ -7766,6 +7821,11 @@
         "skill1": "報復のブーメラン",
         "skill2": "ヒーロースイング",
         "ult": "当然の報い"
+      },
+      "league_poppy": {
+        "skill1": "ハンマーショック",
+        "skill2": "ヒロイックチャージ",
+        "ult": "守護者の鉄鎚"
       }
     }
   }
