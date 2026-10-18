@@ -220,7 +220,7 @@ def build(p, native=False):
     for k, t in enumerate(range(1, p["r_t"], p["r_every"])):
         hit = [attack(p["r_dmg"], p["r_ratio"]), view("r_hit")]
         if k == 0:
-            hit.append({"type": "Airborne", "duration": p["r_up"]})
+            hit += [{"type": "Airborne", "duration": p["r_up"]}, tsfx("r_up")]
         pulses.append(delayed(t, around(p["r_rad"], "EnemyWithoutTower", hit),
                               around(p["r_rad"], "EnemyChampion", [attack(0, 0, p["r_hp"])] + ([stone] if k % 2 == 0 else [])),
                               sfx("r_whoosh"), rings([anim("spin", p["r_t"] - t)])))
@@ -288,7 +288,7 @@ def build(p, native=False):
 
     # ------------------------------------------------------------------ ult: arm R Cyclone
     ult = action("ult", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(*rm("r_armed", "r_two"), flag("r_armed", p["r_arm"]), sfx("r_arm"),
+                 combine(*rm("r_armed", "r_two"), flag("r_armed", p["r_arm"]),
                          delayed(p["r_arm"] - 1, sw("r_armed", flag("r_refund", 3, ult_cooldown_mult=4900)))))
 
     # ------------------------------------------------------------------ views
