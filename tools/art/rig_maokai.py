@@ -91,6 +91,16 @@ class CutDesign:
         return out
 
 
+def mirror_cols(a, axis):
+    """a mirrored left to right about column axis (x -> axis - x)."""
+    out = np.zeros_like(a)
+    ys, xs = np.nonzero(a[..., 3])
+    nx = axis - xs
+    ok = (nx >= 0) & (nx < a.shape[1])
+    out[ys[ok], nx[ok]] = a[ys[ok], xs[ok]]
+    return out
+
+
 def pad(a):
     """A design-sized layer padded P squares on every side (compose() reads the padding from the size)."""
     out = np.zeros((a.shape[0] + 2 * P, a.shape[1] + 2 * P, 4), np.uint8)
@@ -134,6 +144,13 @@ TASSEL = spans([((45,), (30, 33)), ((46,), (30, 34)), (range(47, 50), (30, 35)),
 FAR_LEG = spans([((44,), (40, 42)), ((45,), (40, 43)), ((46,), (40, 44)), ((47, 48), (39, 46)), (range(49, 52), (39, 47)),
                  ((52,), (36, 47)), ((53,), (36, 48)), ((54,), (35, 49)), ((55,), (34, 49)), ((56,), (33, 50)),
                  ((57, 58), (32, 51))])
+
+
+# The near leg (2026-10-19 frame audit): wholly behind the fist, the design has none - the arm turned up off the
+# ground (attack, Q, R) left him on the far leg alone under an empty belt. It is the far leg's own squares mirrored
+# about column NEAR_AXIS (its hip under the belt's near end, left of the tassel), shown only while the arm is turned
+# (every other frame stays as it was: the fist covers it there)
+NEAR_AXIS = 65
 
 
 # the sapling in the far claw (thrown by E: the claw is empty from the release until the next one grows)
@@ -222,30 +239,37 @@ class Form:
         self.lantern = put_layer(D, "lantern")
         self.tassel = put_layer(D, "tassel")
         self.far_leg = put_layer(D, "far_leg")
+        self.near_leg = mirror_cols(self.far_leg, NEAR_AXIS + 2 * P)   # both sides padded
         self.body = pad(D.layer("rest"))
         self.ref_holes = None
 
     def pose(self, whole=(0, 0), crouch=0, arm=(0, 0), far=(0, 0), lantern=0, leg=(0, 0), tassel=0, empty=False,
-             lean=0, fill=True):
+             lean=0, fill=True, arm_rot=0, far_rot=0):
         """whole: the whole figure moved (dx, dy); crouch: rows the trunk (with the far claw, the tassel and the
         lantern) sinks, over the far leg's top (the leg goes on behind the cloth, never a row taken out of it - the first
         rig did that: 「腿部变形了吧 少了像素？」); lean: columns the trunk moves; arm: the huge arm with its fist and root
         fingers moved (dx, dy) from where it stands - it never follows the crouch or the lean (the fist stays planted
         unless lifted) and dx is never < 0 (backward opens a slit beside the trunk); far: the far claw moved with the
         trunk; lantern / tassel: columns they swing (lantern None: none); leg: the far leg moved whole (dy < 0 lifts:
-        its thigh goes up behind the cloth); empty: the far claw without its sapling (thrown)."""
+        its thigh goes up behind the cloth); empty: the far claw without its sapling (thrown); arm_rot / far_rot:
+        quarter turns of the huge arm about ARM_PIVOT (1 swung forward across him, 2 raised overhead, 3 drawn back) /
+        of the far claw about FAR_PIVOT (1 held out ahead) - exact turns, the parts carried whole (2026-10-19 frame
+        audit: moved by rows alone the swings showed as a pixel or two)."""
         if arm[0] < 0:
             raise ValueError("the arm never moves back off the trunk")
         if lean < 0:
             raise ValueError("the trunk never leans back off the far leg (a slit opens beside the cloth)")
         wx, wy = whole
         ux, uy = wx + lean, wy + crouch
-        layers = [(self.far_empty if empty else self.far, dict(dx=ux + far[0], dy=uy + far[1])),
+        layers = [(self.far_empty if empty else self.far, dict(dx=ux + far[0], dy=uy + far[1],
+                                                                **(dict(rot=far_rot, about=FAR_PIVOT) if far_rot else {}))),
                   (self.swung(leg[0]), dict(dx=wx, dy=wy + leg[1])),
                   (self.body, dict(dx=ux, dy=uy)),
+                  *([(self.near_leg, dict(dx=wx, dy=wy))] if arm_rot else []),
                   (self.tassel, dict(dx=ux + tassel, dy=uy)),
                   *([] if lantern is None else [(self.lantern, dict(dx=ux + lantern, dy=uy))]),
-                  (self.arm, dict(dx=wx + arm[0], dy=wy + arm[1]))]
+                  (self.arm, dict(dx=wx + arm[0], dy=wy + arm[1],
+                                  **(dict(rot=arm_rot, about=ARM_PIVOT) if arm_rot else {})))]
         can = R.compose(self.rig, layers)
         return self.close_holes(can) if fill else can
 
@@ -318,7 +342,7 @@ def form():
 # e_rel frame 3, r_rel frame 4
 MS = {"idle": [150] * 8, "run": [125] * 8, "attack": [80, 90, 110, 120, 100], "skill": [80, 110, 120, 120, 110],
       "skill2": [80, 100, 100, 120], "skill2_land": [70, 80, 90, 100], "skill_e": [80, 80, 110, 110, 100],
-      "ult": [100, 110, 120, 130, 120, 120], "hit": [100, 100], "dead": [100, 110, 120, 140, 160, 500]}
+      "ult": [100, 110, 120, 130, 120, 120], "hit": [100, 100], "dead": [100, 110, 120, 60, 100, 60, 140, 500]}
 
 
 def frames_all(F):
@@ -330,12 +354,16 @@ def frames_all(F):
     # auto attack (League's maokai_attack1: the huge arm swung up and brought down in front): the arm drawn up with
     # the tree a column back (never the trunk alone: a slit opens beside the cloth), the blow (frame 3): the arm down on the ground again, the whole tree a column forward,
     # the trunk low and leaning in; held, back
-    out["attack"] = [p(arm=(0, -2), whole=(-1, 0)), p(arm=(0, -4), whole=(-1, 0), lantern=-1),
-                     p(whole=(1, 0), lean=1, crouch=1, lantern=1), p(whole=(1, 0), lean=1, crouch=1), p()]
-    # Q Bramble Smash (League's Maokai_spell1: the fist raised and slammed into the ground): raised high with the trunk
-    # leaning back, the slam (frame 3): the fist down, the tree two columns forward, the trunk two rows low; held while
-    # the shockwave runs, back
-    out["skill"] = [p(arm=(0, -4), whole=(-1, 0)), p(arm=(0, -6), whole=(-1, 0), lantern=-1),
+    # (2026-10-19 frame audit: the arm only moved up by rows - 10-13 % of him a frame, League's swings are huge - so
+    # it now turns about the shoulder: drawn back, raised overhead, brought down with the fist three columns ahead;
+    # turned forward (arm_rot=1) the arm lay across his chest over the face)
+    out["attack"] = [p(arm_rot=3, whole=(-1, 0)), p(arm_rot=2, whole=(-1, 0), lantern=-1),
+                     p(arm=(3, 0), whole=(1, 0), lean=1, crouch=1, lantern=1),
+                     p(arm=(2, 0), whole=(1, 0), lean=1, crouch=1), p()]
+    # Q Bramble Smash (League's Maokai_spell1: the fist raised and slammed into the ground): raised overhead with the
+    # tree leaning back, higher, the slam (frame 3): the fist down, the tree two columns forward, the trunk two rows low;
+    # held while the shockwave runs, back
+    out["skill"] = [p(arm_rot=2, whole=(-1, 0)), p(arm_rot=2, arm=(0, -3), whole=(-1, 0), lantern=-1),
                     p(whole=(2, 0), lean=1, crouch=2, lantern=1), p(whole=(2, 0), lean=1, crouch=2),
                     p(whole=(1, 0), crouch=1)]
     # W Twisted Advance (League's maokai_spell2_down): crouched into the roots and down under the ground
@@ -344,14 +372,15 @@ def frames_all(F):
     # and out at the target (maokai_spell2_up): bursting up out of the ground, up over it, landing low
     out["skill2_land"] = [F.under_ground(p(whole=(0, 28))), F.under_ground(p(whole=(0, 6))),
                           p(whole=(0, -4)), p(crouch=2)]
-    # E Sapling Toss (League's maokai_spell3): the far claw drawn up (it never moves more than a column off the
-    # trunk: it parts from it), the throw (frame 3: the claw empty from here), held out, back
-    out["skill_e"] = [p(far=(0, -2)), p(far=(0, -4), whole=(-1, 0)), p(far=(1, -2), lean=1, empty=True),
-                      p(far=(1, -1), empty=True), p(far=(0, 0), empty=True)]
-    # R Nature's Grasp (League's maokai_spell4): both arms raised high, held, slammed down (frame 4) with the trunk low,
-    # held while the wall rises, back
-    out["ult"] = [p(arm=(0, -3), far=(0, -2), whole=(-1, 0)), p(arm=(0, -6), far=(0, -3), whole=(-1, 0), lantern=-1),
-                  p(arm=(0, -7), far=(0, -3), whole=(-1, 0)), p(whole=(2, 0), far=(1, 1), lean=1, crouch=2, lantern=1),
+    # E Sapling Toss (League's maokai_spell3): the far claw drawn up, the throw (frame 3): the claw turned out ahead
+    # (empty from here), held out, back
+    out["skill_e"] = [p(far=(0, -2)), p(far=(0, -4), whole=(-1, 0)), p(far_rot=1, lean=1, empty=True),
+                      p(far_rot=1, empty=True), p(far=(0, 0), empty=True)]
+    # R Nature's Grasp (League's maokai_spell4): both arms raised high (the huge arm overhead), held, slammed down
+    # (frame 4) with the trunk low, held while the wall rises, back
+    out["ult"] = [p(arm_rot=3, far=(0, -2), whole=(-1, 0)), p(arm_rot=2, far=(0, -3), whole=(-1, 0), lantern=-1),
+                  p(arm_rot=2, arm=(0, -3), far=(0, -4), whole=(-1, 0)),
+                  p(whole=(2, 0), far=(1, 1), lean=1, crouch=2, lantern=1),
                   p(whole=(2, 0), far=(1, 1), lean=1, crouch=2), p(whole=(1, 0), crouch=1)]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's maokai_death: he sinks forward and falls on his face, to the right): staggers, sinks, low,
@@ -360,8 +389,13 @@ def frames_all(F):
     lying = R.lie(F.rig, p(crouch=2, lantern=None), k=3, dx=6)
     lamp = F.lantern_on_ground(dx=40)
     lying[lamp[..., 3] > 0] = lamp[lamp[..., 3] > 0]
+    # (8 frames since the 2026-10-19 frame audit: the fall lands 4 rows above the ground, lies, bounces a row, lies)
+    def off(n):
+        f = np.zeros_like(lying)
+        f[:-n] = lying[n:]
+        return f
     out["dead"] = [p(whole=(-1, 0), arm=(0, -1)), p(whole=(-2, 0), crouch=1), p(whole=(-2, 0), crouch=3),
-                   lying, lying.copy(), lying.copy()]
+                   off(4), lying, off(1), lying.copy(), lying.copy()]
     return out
 
 
