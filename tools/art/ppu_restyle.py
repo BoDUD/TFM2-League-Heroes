@@ -281,8 +281,9 @@ RESTYLE = {
     "fiora": dict(ppu=1.5, edge=1, face_to=(1, -39), fx=True),
     # Darius (2026-10-18): Codex's design picture read back on its own 17.2 x 16.45-px squares (56 x 61, nothing cut),
     # PPU 1.45 at his old 42 rows (「用 PPU 1.45，和现在一样高」), posed after League's own clips by
-    # tools/art/rig_darius_hd.py - the axe hand and the axe turned losslessly, the legs as drawn, moved whole in the run
-    "darius": dict(ppu=1.45, edge=1, face_to=(0, -34)),
+    # tools/art/rig_darius_hd.py - the axe hand and the axe turned losslessly, the legs as drawn, moved whole in the run;
+    # the face point at the crown of his hair (tfm2_ase.py face), the card -8 (bp_card_audit.py's rule)
+    "darius": dict(ppu=1.45, edge=1, face_to=(-1, -39)),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
