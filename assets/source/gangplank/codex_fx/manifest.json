@@ -521,64 +521,59 @@
       "file": "gangplank_fx_e_throw.png",
       "frames": 3,
       "cell_1x": [
-        12,
-        10
+        16,
+        13
       ],
       "symmetry": "top_bottom",
-      "layout": "horizontal_strip",
-      "scale": 8,
       "loop": true,
+      "frame_durations_ms": null,
       "binding": "view_projectiles `league_gangplank_e_throw`（随飞行方向转动；上下对称；循环）",
       "raw_file": "raw/gangplank_fx_e_throw.png",
-      "raw_grid": [
-        2,
-        2
-      ],
-      "source_rects": [
+      "source_regions": [
         {
-          "slot": [
+          "source_slot": [
             0,
             0,
-            627,
-            627
+            724,
+            724
           ],
-          "crop_in_slot": [
-            85,
-            163,
-            546,
-            520
+          "source_bbox_in_slot": [
+            40,
+            159,
+            640,
+            577
           ]
         },
         {
-          "slot": [
-            627,
+          "source_slot": [
+            724,
             0,
-            1254,
-            627
+            1448,
+            724
           ],
-          "crop_in_slot": [
-            85,
-            163,
-            546,
-            520
+          "source_bbox_in_slot": [
+            52,
+            159,
+            658,
+            577
           ]
         },
         {
-          "slot": [
+          "source_slot": [
+            1448,
             0,
-            627,
-            627,
-            1254
+            2172,
+            724
           ],
-          "crop_in_slot": [
-            85,
-            163,
-            546,
-            520
+          "source_bbox_in_slot": [
+            68,
+            158,
+            681,
+            577
           ]
         }
       ],
-      "raw_sha256": "9f72b35a5002b53bea8428525eb5a7501e637966eb3fb2994359a7119dc3e185",
+      "raw_sha256": "da28550e5e978d5da71608fefce5a4c0c180e76d0bb2bf6e1a48676aa654b43b",
       "palette": [
         "#F2D2A2",
         "#C89058",
@@ -685,50 +680,48 @@
       "file": "gangplank_fx_e_keg.png",
       "frames": 2,
       "cell_1x": [
-        14,
-        16
+        20,
+        22
       ],
       "symmetry": "left_right",
-      "layout": "horizontal_strip",
-      "scale": 8,
       "loop": true,
+      "frame_durations_ms": [
+        83,
+        83
+      ],
       "binding": "view_effects `league_gangplank_e_keg`（不跟随，画在人物上面 z 1；左右对称；每 0.17 秒重贴）",
       "raw_file": "raw/gangplank_fx_e_keg.png",
-      "raw_grid": [
-        2,
-        1
-      ],
-      "source_rects": [
+      "source_regions": [
         {
-          "slot": [
+          "source_slot": [
             0,
             0,
-            830,
-            948
+            848,
+            928
           ],
-          "crop_in_slot": [
-            151,
-            206,
-            710,
-            810
+          "source_bbox_in_slot": [
+            215,
+            134,
+            774,
+            876
           ]
         },
         {
-          "slot": [
-            830,
+          "source_slot": [
+            848,
             0,
-            1659,
-            948
+            1695,
+            928
           ],
-          "crop_in_slot": [
-            151,
-            206,
-            709,
-            810
+          "source_bbox_in_slot": [
+            108,
+            134,
+            667,
+            876
           ]
         }
       ],
-      "raw_sha256": "ea2079cefa3cdae7f1761de335659fc313de817478f621c1f930357849408c64",
+      "raw_sha256": "8b37f5ddd9e33db6ecf19f2bfb803d74753badf6f84e8cc090d0ba2ca4e462f0",
       "palette": [
         "#F2D2A2",
         "#C89058",
@@ -742,10 +735,6 @@
         "#464A52",
         "#2A2C32",
         "#141418"
-      ],
-      "frame_durations_ms": [
-        83,
-        83
       ]
     },
     {
@@ -753,50 +742,48 @@
       "file": "gangplank_fx_e_keg_lit.png",
       "frames": 2,
       "cell_1x": [
-        14,
-        18
+        20,
+        25
       ],
       "symmetry": "left_right",
-      "layout": "horizontal_strip",
-      "scale": 8,
       "loop": true,
+      "frame_durations_ms": [
+        83,
+        83
+      ],
       "binding": "view_effects `league_gangplank_e_keg_lit`（不跟随，画在人物上面 z 1；左右对称）",
       "raw_file": "raw/gangplank_fx_e_keg_lit.png",
-      "raw_grid": [
-        2,
-        1
-      ],
-      "source_rects": [
+      "source_regions": [
         {
-          "slot": [
+          "source_slot": [
             0,
             0,
-            768,
-            1024
+            793,
+            992
           ],
-          "crop_in_slot": [
-            117,
-            147,
-            641,
-            911
+          "source_bbox_in_slot": [
+            211,
+            111,
+            782,
+            972
           ]
         },
         {
-          "slot": [
-            768,
+          "source_slot": [
+            793,
             0,
-            1536,
-            1024
+            1586,
+            992
           ],
-          "crop_in_slot": [
-            117,
-            147,
-            641,
-            911
+          "source_bbox_in_slot": [
+            44,
+            125,
+            616,
+            972
           ]
         }
       ],
-      "raw_sha256": "14bf88436bc3cfeb015258c08e0de409a2c9cf2ee919feeb5e7d1b72c2081e47",
+      "raw_sha256": "7ef23a0e7abb156f7a37834aa845fd83065547da130fdebf4c9f40517aac881b",
       "palette": [
         "#F2D2A2",
         "#C89058",
@@ -816,10 +803,6 @@
         "#FF9A28",
         "#E2541A",
         "#8E2410"
-      ],
-      "frame_durations_ms": [
-        83,
-        83
       ]
     },
     {
@@ -1880,5 +1863,6 @@
     "method": "generated artwork only; nearest allowed palette; per logical cell majority opaque color; visible coverage >= 0.20; source alpha >=224; binary output alpha; exact mirror using brighter member of each source pair; nearest-neighbor 8x",
     "raw_untouched": true,
     "reference_atlas_included": false
-  }
+  },
+  "keg_redo": "e_keg, e_keg_lit, e_throw redrawn bigger on 2026-10-18 (keg_redo/: the redraw's HANDOFF, manifest, QA)"
 }
