@@ -39,13 +39,14 @@ COLOURS = 40
 PPU = 1.2
 BODY = 50   # hat top to soles (42 game rows)
 # file stem -> (square px, (face rows), (face cols)) in the read-back
-TAKES = {"gangplank-model-A-1": (13.4, (11, 18), (31, 41))}
+TAKES = {"gangplank-model-A-1": (13.4, (11, 18), (31, 41)), "gangplank-model2-A-2": (21.0, (8, 14), (21, 31))}
 NEIGHBOURS = ["missfortune", "swain", "nasus", "darius", "olaf", "tahmkench"]
 BG = (196, 200, 190, 255)
 
 
 def read(take, size):
-    a = np.asarray(Image.open(lp(os.path.join(SRC, "codex_model", f"{take}.png"))).convert("RGBA")).copy()
+    folder = "codex_model2" if take.startswith("gangplank-model2") else "codex_model"
+    a = np.asarray(Image.open(lp(os.path.join(SRC, folder, f"{take}.png"))).convert("RGBA")).copy()
     d, _, _ = RG.regrid(a, size)
     op = d[..., 3] >= 128
     d = d[np.ix_(np.any(op, 1), np.any(op, 0))].copy()
@@ -54,6 +55,46 @@ def read(take, size):
     out = np.zeros_like(d)
     out[op, :3] = pal[idx[op]]
     out[op, 3] = 255
+    return out
+
+
+# the props in the read-back (rows, cols inclusive) cut on their own and pasted over the body's cut (league_ziggs's
+# bombs): the hand cannon by even_cut inside its box; the cutlass, a 2-square diagonal, by dropping the SAME steps
+# along it in rows and columns (a row and a column through one point of the blade: the line stays whole)
+CANNON = {"gangplank-model2-A-2": (7, 21, 3, 21)}
+BLADE = {"gangplank-model2-A-2": (41, 58, 40, 56)}
+
+
+def in_box(keep, lo, hi):
+    return [i for i, v in enumerate(keep) if lo <= v <= hi]
+
+
+def box_cut(d, cut, keep_r, keep_c, box):
+    r0, r1, c0, c1 = box
+    sub = d[r0:r1 + 1, c0:c1 + 1]
+    kr, kc = in_box(keep_r, r0, r1), in_box(keep_c, c0, c1)
+    part = RC.even_cut(sub, len(kr), len(kc), ([], []))
+    out = cut.copy()
+    out[kr[0]:kr[0] + len(kr), kc[0]:kc[0] + len(kc)] = part
+    return out
+
+
+def diag_cut(d, cut, keep_r, keep_c, box):
+    r0, r1, c0, c1 = box
+    sub = d[r0:r1 + 1, c0:c1 + 1]
+    kr, kc = in_box(keep_r, r0, r1), in_box(keep_c, c0, c1)
+    h, w = sub.shape[:2]
+    dr_, dc_ = h - len(kr), w - len(kc)
+    # drop rows i and columns i - off together (the blade runs down-right, row - col ~ off inside the box)
+    ys, xs = np.nonzero(sub[..., 3] > 0)
+    off = int(np.median(ys - xs))
+    n = max(dr_, dc_)
+    steps = [int(round(v)) for v in np.linspace(3, min(h, w + off) - 3, n)]
+    rows = [r for r in range(h) if r not in steps[:dr_]]
+    cols = [c for c in range(w) if c + off not in steps[:dc_]]
+    part = sub[np.ix_(rows, cols)]
+    out = cut.copy()
+    out[kr[0]:kr[0] + len(kr), kc[0]:kc[0] + len(kc)] = part   # the box holds only the hilt and the blade
     return out
 
 
@@ -67,10 +108,15 @@ def main():
         d = read(take, size)
         k = BODY / d.shape[0]
         rows, cols = round(d.shape[0] * k), round(d.shape[1] * k)
-        cut = RC.even_cut(d, rows, cols, (list(range(fr[0], fr[1] + 1)), list(range(fc[0], fc[1] + 1))))
+        cut, keep_r, keep_c = RC.even_cut(d, rows, cols, (list(range(fr[0], fr[1] + 1)), list(range(fc[0], fc[1] + 1))),
+                                          index=True)
+        if take in CANNON:
+            cut = box_cut(d, cut, keep_r, keep_c, CANNON[take])
+        if take in BLADE:
+            cut = diag_cut(d, cut, keep_r, keep_c, BLADE[take])
         px, _ = PD.pixelate(d, k, (d.shape[1] / 2, d.shape[0]), PD.edge_colour(d))
         px = OC.crop(px)
-        tag = take.replace("gangplank-model-", "").replace("-", "")
+        tag = take.replace("gangplank-model2-", "2").replace("gangplank-model-", "").replace("-", "")
         for name, im in ((f"model{tag}", d), (f"model{tag}_cut", cut), (f"model{tag}_px", px)):
             Image.fromarray(im).save(lp(os.path.join(SRC, "hd", f"{name}.png")))
         print(take, "read", d.shape[1], "x", d.shape[0], "-> cut", cut.shape[1], "x", cut.shape[0],
