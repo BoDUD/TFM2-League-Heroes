@@ -327,7 +327,14 @@ def build(p):
     # a pounce is cast only on a target in reach: probe first, so the cooldown is not spent on nothing
     probe = combine(*rm("w_in", "w_far"), pick(p["cw_r"], "EnemyWithoutTower", flag("w_in", 1)),
                     pick(p["cw_far"], "EnemyChampion", flag("w_far", 1)))
-    leap = combine(probe, sw("hunt", sw("w_far", w_hunt, sw("w_in", w_near)), sw("w_in", w_near)))
+    # hunting with a champion in the far reach: the long pounce; else the near one with a target in reach. Written once
+    # (it was in both branches of the hunt check; the game copies skill2 every tick: skill-tree slimming, 2026-10-18):
+    # the leap runs only with cw_cd off (cougar_s2) and w_hunt lays cw_cd first, so "cw_cd still off" after the long
+    # pounce's check is "it did not go". Read without a cast (the AI and the enemies read skill2 through her buffs at any
+    # tick), the two forms differ only with hunt, w_far and w_in on and cw_cd off; w_in / w_far live 1 tick, laid only
+    # by this probe, and any cast that leaves w_in on also lays cw_cd (one of the two pounces ran; only R takes cw_cd
+    # off, in an action of its own; the add-on's code touches none of these flags)
+    leap = combine(probe, sw("hunt", sw("w_far", w_hunt)), sw("cw_cd", NONE, sw("w_in", w_near)))
     in_swipe = combine(*rm("e_in"), pick(p["ce_r"], "EnemyWithoutTower", flag("e_in", 1)), sw("e_in", swipe(0)))
     cougar_s2 = sw("cw_cd", sw("ce_cd", NONE, in_swipe), leap)
     skill2 = action("idle", 3, p["s2_cd"], 1, p["s2_range"], "None", "EnemyWithoutTower",

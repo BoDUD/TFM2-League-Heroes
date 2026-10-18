@@ -1510,11 +1510,18 @@ Each link, at the cast point:
 - shows the lying trap and, unless a trap bit someone in the last 90 ticks (`e_lock`, shared, the root's length),
   starts the check: a `RangeProjectile` (`delay` 14, `apply` 1) on `EnemyChampion` whose effects bite every champion
   inside (`Bind` 90, damage, a `ViewEffect`) and `WithSelf {Delayed {tick: 1}}` set `e_lock` and `e_spent<slot>`.
-Casts alternate between two slots (a `Permanent` toggle), so a second trap thrown while the first lies (cooldown
+Casts alternated between two slots (a `Permanent` toggle), so a second trap thrown while the first lies (cooldown
 cuts) has flags of its own; each cast clears its slot's. The first link is not gated by the heartbeat, so the AI,
 which scores the branch the caster's buffs pick, still sees the bite: 176 throws in 12 simulated games (169 before),
 69% bit a champion (63%), no champion bitten twice within 90 ticks, none after her death. The throw lands on the cast
 point itself (`range` 120000), where the links stand.
+The two slots must stay (skill-tree slimming, 2026-10-18, classic simulation): **base bard's R (native: 240 ticks, every
+3 ticks `skill_cooldown_reduce` 50 on the allies in range) brought her E back 261 ticks after the last one**, so two
+traps do lie at once - a single copy of the links on shared flags left the second trap dead whenever the first had
+bitten. They also matter to the AI: **units read a slot's tree through the caster's buffs at any time, not only when
+she casts** (enemies sizing her up while E is on cooldown), and through `e_slot` they read the slot the next cast
+takes - a single copy read through the running trap's heartbeat made enemies move differently in 71 of 72 games. Any
+fact like "the cooldown is longer than X" has to count base champions' native effects too.
 
 **A trap that lasts, with three at once (league_teemo Noxious Trap).** Links nested in each other's
 `end_effects` (league_jinx E until 2026-10-02) cannot run long: that file was 119 levels deep, and serde_json stops at
@@ -4038,6 +4045,18 @@ estimate 2479924 -> 313, the stages at the same levels). The classic SDK has no 
   matches, which build no events, only +8%). Attack and ult size do not matter here. Keep skill/skill2 lean:
   one animation instead of a frame-by-frame `Delayed` + `ViewEffect` chain, shared logic outside copied
   `SwitchByBuff` branches. lint lists skill/skill2 above 300 nodes as INFO.
+  `tools/package_mod.py` (and the add-on bundle's `assemble.py`) drop the wrappers that change nothing on the way into
+  the game (`tools/kit/slim.py`: nested and one-effect `Combine`s, equal `SwitchByBuff` branches, effects both branches
+  start or end with), so write the tree for reading; what it cannot see is your kit's facts. Slimming a shipped kit by
+  hand (docs/perf.md section 8): keep every effect, its order and tick for every buff state the kit can reach, keep
+  every `RandomTarget` in the same casts (it draws a random number), and keep what the tree shows **through the
+  caster's current buffs at any moment** - the AI and the enemies read skill and skill2 that way all the time, not
+  only at a cast (league_jinx E above), so a merge that changes what some reachable buff state shows changes games.
+  A slot's cooldown is no lower bound on the time between two casts (base bard's R halves allies' skill cooldowns
+  every 3 ticks; league_jinx E came back after 261 of its 600 ticks), and a hidden flag added or taken off where the
+  old tree did not can by itself part a game hundreds of ticks later (one unread 1-tick flag per Jinx E: 1 of 72 games),
+  so keep the flag operations as they were where you can.
+  Prove it in the classic simulation: every tick's events equal over many seeds (`tools/perf/trace.rs`).
 - A buff's view can outlive its unit: Garen died mid-spin and the whirl of his 3 s caster buff
   stayed on the body (no view_buffs option covers death). For a purely visual timed effect,
   play `CasterViewEffect` on a timer instead (one per `Delayed` pulse, `is_follow: true` in

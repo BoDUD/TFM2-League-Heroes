@@ -29,6 +29,21 @@ transformation when the fight starts):
           cooldown refunded when it lapses). The transformation: r_t ticks of +r_hp health (and the same healed), every
           r_period an aura of r_dmg + r_hp_dmg% of his max health magic damage round him (r_r), two Fury rungs at once
           and one every r_fury.
+
+Skill-tree slimming (2026-10-18; the game copies skill and skill2 every tick, docs/perf.md), the same game:
+  * skill: the plain Q stands twice in the slot's choice (no f5, and f5 without W's flag e_cd); its "one rung for the
+    rest" check (a tick after the hits: q_any on -> take it off, climb) is written once, after the choice, queued the
+    same way (a Delayed q_hit holding the Delayed 1, so it is queued on the hits' tick right after them). After an
+    empowered Q it finds q_any off: q_any (hidden, 2 ticks) is laid (renewed) only by a plain Q's hits q_hit ticks
+    after that Q's cast (the slot's, or skill2's E -> W -> Q inside its RandomTarget) and else taken off only by
+    this check; every Q
+    passes a q_cd gate and lays q_cd (q_cd ticks, taken off by nothing but its own refresh) in the same run, so no
+    other Q falls within a tick of this one (a cast inside q_cd is a 1-tick nothing; a death clears his flags and a
+    dead entity casts nothing) - the empowered Q's check reads q_any off and does nothing, as before when it had none.
+    q_any is in no add-on source and no other slot. The check holds no damage, heal or shield, so what units read in
+    the tree is unchanged at every tick.
+  * skill2: the plain W's climb sits in the f5-off branch of W's own f5 switch with nothing between that touches f5,
+    so its own f5 rung (refresh f5) never runs and is never read: the climb from f4 down (`below`).
 """
 import argparse
 import json
@@ -211,12 +226,16 @@ def build(p, native=False):
     climb = flag(fs[0], p["f_t"])
     for k in range(len(fs) - 1):
         climb = sw(fs[k], combine(*rm(fs[k]), flag(fs[k + 1], p["f_t"])), climb)
-    climb = sw(fs[-1], refresh(fs[-1], p["f_t"]), climb)
+    below = climb           # the climb where the top rung is known to be off
+    climb = sw(fs[-1], refresh(fs[-1], p["f_t"]), below)
     spend = rm(*fs)
     full = fs[-1]
 
     # ------------------------------------------------------------------ Q Cull the Meek
-    def cull(empowered):
+    # the rung for the rest, a tick after the hits (q_any: a 2-tick flag any plain hit lays)
+    rest = delayed(1, sw("q_any", combine(*rm("q_any"), climb)))
+
+    def cull(empowered, with_rest=True):
         x = p["q_heal_x"] if empowered else 1
         dmg = attack(p["q_dmg_e"], p["q_ratio_e"]) if empowered else attack(p["q_dmg"], p["q_ratio"])
         units = [dmg, heal(p["q_hm"] * x, p["q_hm_r"] * x), view("q_hit"), tsfx("q_hit")]
@@ -227,15 +246,15 @@ def build(p, native=False):
             hit = [around(p["q_r"], "EnemyWithoutTower", units), around(p["q_r"], "EnemyChampion", champs)]
         else:
             out.append(cview("q_spin"))
-            # a rung for each champion and one for the rest (q_any: a 2-tick flag any hit lays)
+            # a rung for each champion and one for the rest
             hit = [around(p["q_r"], "EnemyWithoutTower", units + [refresh("q_any", 2)]),
-                   around(p["q_r"], "EnemyChampion", champs + [climb]),
-                   delayed(1, sw("q_any", combine(*rm("q_any"), climb)))]
+                   around(p["q_r"], "EnemyChampion", champs + [climb])] + ([rest] if with_rest else [])
         out.append(delayed(p["q_hit"], *hit))
         return combine(*out)
 
-    # empowered only while W cools down (the pro rule: the stun gets the Fury); e_cd is W's flag
-    q_cast = sw(full, sw("e_cd", cull(True), cull(False)), cull(False))
+    # empowered only while W cools down (the pro rule: the stun gets the Fury); e_cd is W's flag. The plain Q stands
+    # twice in this choice; its rung for the rest once after it (the docstring: q_any is off there after the empowered Q)
+    q_cast = combine(sw(full, sw("e_cd", cull(True), cull(False, False)), cull(False, False)), delayed(p["q_hit"], rest))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    sw("q_cd", NONE, q_cast))
 
@@ -251,7 +270,7 @@ def build(p, native=False):
                                homing("w_blade", 100000, 0, "EnemyChampion", hit)))
         return out
 
-    w_plain = combine(anim("skill2_w", p["w_dur"]), climb, *strikes(2, p["w_stun"]))
+    w_plain = combine(anim("skill2_w", p["w_dur"]), below, *strikes(2, p["w_stun"]))     # f5 is off here
     w_emp = combine(anim("skill2_w", p["w_dur"] + 2 * p["w_gap"] - 1), *spend, cview("w_glow"), sfx("w_super"), voice("vo_w", p),
                     *strikes(3, p["w_stun_e"]))
     w_strike = sw(full, w_emp, w_plain)

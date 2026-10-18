@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Renekton's Reign of Anger as in League (needs League of Legends Heroes): replaces the main pack's Renekton so that below half health he builds Fury 50% faster (every second Fury gain brings one more), which the data pack cannot do because it cannot read his health. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-07",
+  "last_updated": "2026-10-18",
   "mod_id": "league_renekton",
   "mod_type": "native",
   "name": "League Heroes: Renekton's Fury below half health (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
