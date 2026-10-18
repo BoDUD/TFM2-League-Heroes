@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.146.0"
+    }
+  ],
+  "description": "Test build of Wukong as in League (needs League of Legends Heroes): replaces the main pack's Wukong so Stone Skin regenerates a share of his max health (0.35% every 5 seconds, plus as much again per stack: 2.1% at five stacks) instead of the main pack's flat amount. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-18",
+  "mod_id": "league_wukong",
+  "mod_type": "native",
+  "name": "League Heroes: Wukong's % max-health Stone Skin (test)",
+  "version": "0.1.0"
+}

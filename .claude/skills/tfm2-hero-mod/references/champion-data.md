@@ -436,6 +436,14 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   `period: 1` zone on `AllyChampion`)*. In a `TargetProjectile`'s `applied_effects` it asks "is the caster
   within `range` of the unit it hit" (both bodies add about 18000); in a plain `Delayed` on a unit, with no
   projectile, it finds nobody *(measured for league_morgana R, 2026-09-29)*.
+- A `LinearProjectile` is tested for hits only where it stands at the end of each tick, not along the step: at
+  `speed` above twice its circle's radius it steps over units between two stops (champions add a few thousand of
+  their own). league_twistedfate R's hidden line (120000 a tick, radius 25000) missed everyone 145000-215000 and
+  265000-335000 away, flew its whole 360000 and its `end_effects` `Teleport` put him in the enemy fountain
+  (2026-10-18, 「卡牌和流浪推水晶的时候会往泉水里传送」; classic sim: the landings came at exact multiples of the
+  step). Keep `speed <= 2 x radius`, and when the end matters only on a hit, flag the caster in `applied_effects`
+  (`{"casting_type": "Targeting", "effect": AddCasterBuff}`) and switch the `end_effects` on that flag
+  (`tools/fix/warp_beacon.py`).
 - `end_effects` of a `LinearProjectile` or `ParabolicProjectile` run on a position (the stop or landing
   point), and a `Delayed` among them keeps it, like a `Position` cast: a `ViewEffect` there plays on that
   point, a zone or another projectile starts there, and a `Teleport` puts the caster there *(measured for
@@ -1425,6 +1433,9 @@ league_varus (bottom, --lane 3, 2026-10-05, Chain of Corruption's 2 s root and i
 gunner 0.19 and league_jhin 1.17 in the same batch - no change.
 league_alistar (support, --lane 4, 2026-10-05, Pulverize's and Headbutt -> Pulverize's 1 s knock-ups, Trample's 1 s stun):
 2.23 a game; league_leona 2.19 and the base priest 0.50 in the same batch - no change.
+league_wukong (jungle, --lane 1, 2026-10-18, Cyclone's 0.6 s knock-up on the first spin pulse - two spins, his clone's
+spin too): 1.62 a game; league_leesin 1.60, league_xinzhao 1.02 and the base ninja 0.58 in the same batch (48 games
+each) - no change.
 league_xerath (mid, --lane 2, 2026-10-06, Shocking Orb's 0.75-2 s stun on one unit): 0.94 a game; the base lightning
 mage 3.40 and league_lissandra 2.10 in the same batch - no change.
 league_brand (mid, --lane 2, 2026-10-06, Sear's 0.83 s stun after Conflagration, W's pillar on the stunned champion):
