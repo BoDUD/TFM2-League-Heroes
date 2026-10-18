@@ -14,13 +14,13 @@
   上一 tick 也不在该在的一侧时（冲刺、击退一步跨过墙），沿圆心方向推回墙的内侧 / 外侧。
 - 副本里没有主包那套「探测 + 拉回」和「他走出环就塌」（墙真的挡路，不需要了）。
 
-0.1.1：副本跟着主包 0.139.2 改成 3 级前技能 1 只扔旗、3 级起才接巨龙撞击（原生代码没变）。
+0.1.1：副本跟着主包 0.139.3 改成 3 级前技能 1 只扔旗、3 级起才接巨龙撞击（原生代码没变）。
 
 参数写在英雄数据的 `passive.params`（`{"r_r": 36000, "r_t": 210}`），由 `make_override.py` 从 `tools/kit/build_jarvaniv.py` 的参数表 `P` 写入。
 
 ## 在游戏里测
 
-1. 主包（League of Legends Heroes 0.139.2 以上）要装着并启用。
+1. 主包（League of Legends Heroes 0.139.3 以上）要装着并启用。
 2. 用附加包合集 `league_addons`（里面已经包含本包），或者把整个 `league_jarvaniv` 文件夹放进 `<游戏目录>\mods\`
    （要有 `league_jarvaniv.dll`、`mod.mod_info`、`mod.override_info`、`override\`、`text\`）。
 3. 进游戏，在 MOD 菜单里启用它（含代码的 mod 会弹一次确认），确认排在主包后面，重启游戏。
