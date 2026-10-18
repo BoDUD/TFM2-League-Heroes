@@ -52,7 +52,7 @@ P = {
     "hp": 900, "hp_g": 92, "atk": 100, "atk_g": 20, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     "regen": 0, "regen_g": 0,
     # attack: the double shot (League: second shot 50% AD on champions, 100% on minions)
-    "atk_range": 55000, "atk_dur": 26, "atk_cd": 64, "a_hit1": 5, "a_hit2": 12, "a_speed": 7000, "a_y": -12000,
+    "atk_range": 55000, "atk_dur": 26, "atk_cd": 64, "a_hit1": 5, "a_hit2": 12, "a_speed": 7000, "a_y": -8000,
     "a_ratio": 100, "a2_ratio": 50,
     # passive Dirty Fighting (League: 3 hits in 5 s -> 15-150 +60% AP magic; champion -> shield 40-280 +35% bonus AD
     # 2 s, cd 16-4 s by level)
@@ -321,13 +321,18 @@ def build(p, native=False):
         delayed(p["r_ch"] - 1, sw("r_chan", sw("r_open", NONE, open_))), delayed(total + 3, stop)))
 
     # ------------------------------------------------------------------ views
-    E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
-                                                   "z": z, "is_follow": follow}
+    # pictures (tools/art/pack_akshan_fx.py): one picture serves several names where League shows the same thing - the
+    # attack's two shots and E's shots one bullet, the boomerang going out and coming back one spinning blade, E's hits
+    # the attack's
+    E = lambda name, anim_=FX, z=2, follow=True, tag=None: {"type": "Animation", "name": n(name), "anim": anim_,
+                                                            "tag": tag or name, "z": z, "is_follow": follow}
     LATE = dict(follow=False)
-    Pj = lambda name, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": False, "z": 1}
-    views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("q_catch"), E("e_hit"), E("r_hit"), E("e_hook", BIG, 2, **LATE),
-               E("w_camo", BIG, 2, **LATE), E("r_lock", BIG, 2, **LATE)]
-    views_p = [Pj("a_shot"), Pj("a_shot2"), Pj("q_out"), Pj("q_back"), Pj("e_shot"), Pj("r_bullet")]
+    Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
+                                           "repeat": True, "z": 1}
+    views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("q_catch"), E("e_hit", tag="a_hit"), E("r_hit"),
+               E("e_hook", BIG, 2, **LATE), E("w_camo", BIG, 2, **LATE), E("r_lock", BIG, 2, **LATE)]
+    views_p = [Pj("a_shot"), Pj("a_shot2", "a_shot"), Pj("q_out", "q_rang"), Pj("q_back", "q_rang"),
+               Pj("e_shot", "a_shot"), Pj("r_bullet")]
     views_b = [{"type": "Animated", "name": n("p_sh"), "anim": FX, "tag": "p_sh", "repeat": True, "z": 2},
                {"type": "Animated", "name": n("w_ms"), "anim": FX, "tag": "w_ms", "repeat": True, "z": -1},
                # the add-on's Scoundrel mark over an enemy champion (league_akshan; never laid by the main pack)

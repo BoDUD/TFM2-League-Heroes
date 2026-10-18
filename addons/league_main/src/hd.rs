@@ -87,6 +87,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Cassiopeia: posed by tools/art/rig_cassiopeia.py at the user's 1.3 squares a game pixel (44 game rows crest to the
     // ground: 「44 ppu1.3 A」), so no SIZES row
     ("league_cassiopeia", 1.3, include_str!("../../../league/champions/league_cassiopeia#anim.fanim")),
+    // Akshan: posed by tools/art/rig_akshan.py at the user's 1.5 squares a game pixel (38 game rows hair to soles, the
+    // raised gun above; 「用 A，游戏里 38 像素高，PPU 1.5」), the aim arm and the walk from Codex on the same grid, so no SIZES row
+    ("league_akshan", 1.5, include_str!("../../../league/champions/league_akshan#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

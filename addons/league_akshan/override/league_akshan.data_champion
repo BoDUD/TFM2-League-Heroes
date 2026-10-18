@@ -60,7 +60,7 @@
               "type": "TargetProjectile",
               "name": "league_akshan_a_shot",
               "speed": 7000,
-              "y_offset": -12000,
+              "y_offset": -8000,
               "applied_target": "Enemy",
               "applied_effects": [
                 {
@@ -330,7 +330,7 @@
               "type": "TargetProjectile",
               "name": "league_akshan_a_shot2",
               "speed": 7000,
-              "y_offset": -12000,
+              "y_offset": -8000,
               "applied_target": "Enemy",
               "applied_effects": [
                 {
@@ -2163,7 +2163,7 @@
                               "type": "TargetProjectile",
                               "name": "league_akshan_e_shot",
                               "speed": 9000,
-                              "y_offset": -12000,
+                              "y_offset": -8000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2442,7 +2442,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_akshan_e_shot",
                                 "speed": 9000,
-                                "y_offset": -12000,
+                                "y_offset": -8000,
                                 "applied_target": "EnemyWithoutTower",
                                 "applied_effects": [
                                   {
@@ -2771,7 +2771,7 @@
                       "type": "TargetProjectile",
                       "name": "league_akshan_e_shot",
                       "speed": 9000,
-                      "y_offset": -12000,
+                      "y_offset": -8000,
                       "applied_target": "EnemyWithoutTower",
                       "applied_effects": [
                         {
@@ -3050,7 +3050,7 @@
                         "type": "TargetProjectile",
                         "name": "league_akshan_e_shot",
                         "speed": 9000,
-                        "y_offset": -12000,
+                        "y_offset": -8000,
                         "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
                           {
@@ -4677,39 +4677,39 @@
       "name": "league_akshan_a_shot",
       "anim": "asset/league/effects/league_akshan_fx",
       "tag": "a_shot",
-      "repeat": false,
+      "repeat": true,
       "z": 1
     },
     {
       "type": "Animated",
       "name": "league_akshan_a_shot2",
       "anim": "asset/league/effects/league_akshan_fx",
-      "tag": "a_shot2",
-      "repeat": false,
+      "tag": "a_shot",
+      "repeat": true,
       "z": 1
     },
     {
       "type": "Animated",
       "name": "league_akshan_q_out",
       "anim": "asset/league/effects/league_akshan_fx",
-      "tag": "q_out",
-      "repeat": false,
+      "tag": "q_rang",
+      "repeat": true,
       "z": 1
     },
     {
       "type": "Animated",
       "name": "league_akshan_q_back",
       "anim": "asset/league/effects/league_akshan_fx",
-      "tag": "q_back",
-      "repeat": false,
+      "tag": "q_rang",
+      "repeat": true,
       "z": 1
     },
     {
       "type": "Animated",
       "name": "league_akshan_e_shot",
       "anim": "asset/league/effects/league_akshan_fx",
-      "tag": "e_shot",
-      "repeat": false,
+      "tag": "a_shot",
+      "repeat": true,
       "z": 1
     },
     {
@@ -4717,7 +4717,7 @@
       "name": "league_akshan_r_bullet",
       "anim": "asset/league/effects/league_akshan_fx",
       "tag": "r_bullet",
-      "repeat": false,
+      "repeat": true,
       "z": 1
     }
   ],
@@ -4758,7 +4758,7 @@
       "type": "Animation",
       "name": "league_akshan_e_hit",
       "anim": "asset/league/effects/league_akshan_fx",
-      "tag": "e_hit",
+      "tag": "a_hit",
       "z": 2,
       "is_follow": true
     },
