@@ -78,6 +78,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // user's 「太模糊了 PPU调整一下像素」 raised it from 1.2), brought to the user's 1.3 by ppu_restyle (「太高清了 降低点像素」
     // -> 「1.3吧」), so no SIZES row
     ("league_maokai", 1.3, include_str!("../../../league/champions/league_maokai#anim.fanim")),
+    // Gangplank: posed by tools/art/rig_gangplank.py at the user's 1.5 squares a game pixel (41 game rows hat to soles:
+    // Codex's step-1 take read back uncut - 「PPU 用 1.5」), Q / R from Codex's gun-hand poses, so no SIZES row
+    ("league_gangplank", 1.5, include_str!("../../../league/champions/league_gangplank#anim.fanim")),
     // Wukong: posed by tools/art/rig_wukong.py at the user's 1.5 squares a game pixel (38 game rows hair to soles, the
     // tail and the staff above; 「起码PPU1.5」), so no SIZES row
     ("league_wukong", 1.5, include_str!("../../../league/champions/league_wukong#anim.fanim")),

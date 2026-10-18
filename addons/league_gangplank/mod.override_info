@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_gangplank": {
+    "remapping": "asset/league_gangplank/override/league_gangplank",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_gangplank/text/champion",
+    "type": "merge"
+  }
+}
