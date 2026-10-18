@@ -66,7 +66,12 @@ BACK = dict(name="bl", side="far", rigid=True, hip=(21.0, 46.5), knee=(18.0, 52.
             area=[(13.0, 46.0), (24.5, 46.0), (24.5, 49.0), (21.0, 54.0), (22.5, 57.0), (22.5, 61.0), (12.0, 61.0),
                   (12.0, 55.0), (15.0, 50.0)])
 IDLE_SINK = [0, 0, 1, 1, 1, 1, 0, 0]
-R_TAGS = {"attack_r": "attack", "skill_r": "skill", "q2_r": "q2", "q3_r": "q3", "skill2_r": "skill2"}
+R_TAGS = {"attack_r": "attack", "attack2_r": "attack2", "attack3_r": "attack3", "skill_r": "skill", "q2_r": "q2",
+          "q3_r": "q3", "skill2_r": "skill2"}
+# League's three basic attacks in turn (riven_attack1/2/3; reforged riven_attack1_ult, riven_attack2_ult and
+# riven_attack3 - poses.json): the user, 2026-10-18 「打的时候一套姿势吗？」「锐雯没有放技能时一直一个姿势吧」. The data
+# plays attack2 / attack3 by a counter (league_riven.data_champion); their timing is the first attack's.
+MORE_ATTACKS = {"attack": ["attack2", "attack3"], "attack_r": ["attack2_r", "attack3_r"]}
 R_FORM = {"r_slash"}                         # the wind slash: reforged throughout
 ULT_REFORGED = 2                             # the reforge (ult): reforged from this frame on
 
@@ -362,7 +367,9 @@ def make_rig(D):
     return R.Rig(D, pad=(90, 90, 90, 30))          # the long sword turned about her fist reaches far
 
 
-def driver(rig, joints, kind="normal"):
+def driver(rig, joints, kind="normal", front=False):
+    """front: the sword swings in front of her (her basic attacks: League's blade went behind its chest and the
+    slash of attack2 was hidden) - behind only where it would cross her head."""
     D = rig.D
     ahead = reach(D.swords, kind)[1]
     tip = (GRIP[0] + ahead * np.cos(np.radians(SWORD_REST)), GRIP[1] - ahead * np.sin(np.radians(SWORD_REST)))
@@ -370,7 +377,7 @@ def driver(rig, joints, kind="normal"):
                    arm=dict(name="arm", shoulder=SHOULDER, hand=GRIP, relative=True, league_hand="r",
                             with_weapon=True, over_weapon=True),
                    weapons=[dict(name="sword", grip=GRIP, tip=tip, league=("weapon", "weapon_tip"), relative=True,
-                                 floor=2, rest_back=True, face=HEAD, face_turn=HEAD_TURN,
+                                 floor=2, rest_back=not front, always_front=front, face=HEAD, face_turn=HEAD_TURN,
                                  face_from=(GRIP[0] + GUARD_AT * np.cos(np.radians(SWORD_REST)),
                                             GRIP[1] - GUARD_AT * np.sin(np.radians(SWORD_REST))))],
                    src=D.leg_src, leg_max=0, max_lean=1)
@@ -414,7 +421,7 @@ def idle_frame(rig, legs, sink, rest=0.0, front=False):
 # are drawn on League's bones the way league_fiora's are (rig_fiora_hd): thigh and shin bands of constant width in the
 # design's own colours across the leg (one row of the design's shorts / shin, left to right), the design's boot
 # stamped whole at the ankle - never turned, slid or resized; the thighs go under her shorts (the body drawn over).
-LEG_TAGS = ["run", "attack", "skill", "q2", "q3", "skill2", "r_slash"]
+LEG_TAGS = ["run", "attack", "attack2", "attack3", "skill", "q2", "q3", "skill2", "r_slash"]
 THIGH, SHIN_LEN = 6.0, 5.0
 SHIN_BACK, SHIN_FWD = -70.0, 50.0
 LEGS = {
@@ -528,6 +535,7 @@ def drawn_frame(rig, drv, joints, parts, j, r_form=False):
 
 def frames(rig, joints):
     drvs = {False: driver(rig, joints), True: driver(rig, joints, "reforged")}
+    swings = {False: driver(rig, joints, front=True), True: driver(rig, joints, "reforged", front=True)}
     D = rig.D
     legs = {lg["name"]: leg_piece(D, lg) for lg in (FRONT, BACK)}
     parts = leg_parts(D)
@@ -535,15 +543,24 @@ def frames(rig, joints):
     bake = json.load(open(lp(os.path.join(R.ROOT, "assets", "source", "native", f"{HERO}_bake.json")), encoding="utf-8"))
     baked = {e["into"] for e in bake["items"] if "from" in e}
     out = {}
+    order, timing = [], {}
     for tag in sheet:
+        order.append(tag)
+        timing[tag] = sheet[tag]
+        for more in MORE_ATTACKS.get(tag, []):
+            timing.setdefault(more, sheet[tag])
+            if more not in sheet:
+                order.append(more)
+    for tag in order:
         if tag in baked:
             continue
         base = R_TAGS.get(tag, tag)
-        if base not in joints["tags"]:
+        clip = tag if tag in joints["tags"] else base
+        if clip not in joints["tags"]:
             sys.exit(f"{tag}: no League frames")
-        rows = R.fit_rows(joints["tags"][base], len(sheet[tag]))
-        ms = [m for _, m in sheet[tag]]
-        drv = drvs[tag in R_TAGS or tag in R_FORM]
+        rows = R.fit_rows(joints["tags"][clip], len(timing[tag]))
+        ms = [m for _, m in timing[tag]]
+        drv = (swings if R_TAGS.get(tag, tag).startswith("attack") else drvs)[tag in R_TAGS or tag in R_FORM]
         if tag == "idle":
             fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)], IDLE_HOLD) for i in range(len(ms))]
         elif base in LEG_TAGS:
@@ -564,11 +581,11 @@ def frames(rig, joints):
             fr = fr[:4] + [lie.copy() for _ in fr[4:]]
         out[tag] = list(zip(fr, ms))
     acts = rig.bake(out)
-    for t in sheet:
-        if t not in acts or len(acts[t]) != len(sheet[t]) or \
-                [round(m) for _, m in acts[t]] != [round(m) for _, m in sheet[t]]:
+    for t in order:
+        if t not in acts or len(acts[t]) != len(timing[t]) or \
+                [round(m) for _, m in acts[t]] != [round(m) for _, m in timing[t]]:
             sys.exit(f"{t}: frames or timing differ from the sheet")
-    return {t: acts[t] for t in sheet}
+    return {t: acts[t] for t in order}
 
 
 def main():

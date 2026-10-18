@@ -96,8 +96,13 @@ def showcase(out, z=3, step=40):
             d.holds.append((hit, hit + tick(stun)))
             over.append(OnFoe(frames_of(small, "knockup"), hit, d, z=3))
 
+    swings = ["attack", "attack2", "attack3"]   # tools/fix/riven_attack_chain.py: her attacks take turns
+    swung = []
+
     def attack():
         start = t
+        name = swings[len(swung) % 3]
+        swung.append(name)
         hit = start + tick(11)
         if count(hit) > 0:
             over.append(OnFoe(frames_of(small, "rune_hit"), hit, d, z=3))
@@ -105,7 +110,7 @@ def showcase(out, z=3, step=40):
         else:
             over.append(OnFoe(frames_of(small, "hit"), hit, d, z=3))
         d.flinches.append(hit)
-        a(reforged("attack"), tick(26))
+        a(reforged(name), tick(26))
         a("idle", tick(14), loop=True)
 
     # she runs in (move speed 1050: 63 px a second) and chops without a rune
