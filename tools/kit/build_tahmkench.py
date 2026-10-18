@@ -81,7 +81,7 @@ P = {
     "w_dmg": 160, "w_ap": 70, "w_hp": 2, "w_air": 60, "s2_cd": 60, "w_ally_r": 50000,
     # R Devour (League: enemy 2.5 s, 100-400 + 15% AP + 5-9% target max hp; ally 2.5 s, shield 400-1000 + 100% AP;
     # cd 120-80 s)
-    "r_cd": 3600, "r_range": 50000, "r_arm": 900, "r_anim": 30, "r_reach": 30000, "r_ally_r": 40000, "r_n": 50000,
+    "r_cd": 3600, "r_range": 50000, "r_arm": 900, "r_anim": 30, "r_spit": 20, "r_reach": 30000, "r_ally_r": 40000, "r_n": 50000,
     "r_t": 150, "r_dmg": 220, "r_ap": 50, "r_hp": 3, "r_thp": 6,
     "r_ally_t": 150, "r_sh": 150, "r_sh_ap": 100, "r_sh_t": 180,
     # his spoken lines, at most one every vo_gap ticks
@@ -240,14 +240,17 @@ def build(p):
     # ------------------------------------------------------------------ passive: the stacks (his count) + Thick Skin
     eat = combine(*rm("t1", "t2", "t3"))
 
-    def gulp(voice_name, sound):
-        return combine(anim("ult", p["r_anim"]), cview("r_gulp"), sfx(sound), voice(voice_name, p))
+    def gulp(voice_name, sound, t):
+        """The swallow on him, and t ticks later his spit (League's spit clip: the r_spit tag, 2026-10-19 frame audit)
+        - inside a search that finds no dead caster, so a Tahm killed with the unit inside does not get up to spit."""
+        return combine(anim("ult", p["r_anim"]), cview("r_gulp"), sfx(sound), voice(voice_name, p),
+                       delayed(t, pick(1, "AllyOnlySelf", anim("r_spit", p["r_spit"]))))
 
     enemy_in = [{"type": "Banish", "duration": p["r_t"]}, magic(p["r_dmg"], p["r_ap"], p["r_hp"]), maxhp(p["r_thp"]),
                 buff("r_enemy", p["r_t"]), view("r_in"), delayed(p["r_t"], view("r_spit"), tsfx("r_spit"))]
     # Devour armed when a hit brings the champion to three stacks (or lands on three): that very champion is eaten
     eat_here = sw("r_armed", sw("r_lock", NONE, combine(flag("r_lock", 3), *rm("r_armed"), eat,
-                                                        on_me(gulp("vo_r", "r_enemy"), refresh("r_full", p["r_t"])),
+                                                        on_me(gulp("vo_r", "r_enemy", p["r_t"]), refresh("r_full", p["r_t"])),
                                                         *enemy_in)))
     pips = lambda k: [buff(f"t_pip{i}", h) for i in range(1, k + 1)]
     full = lambda *extra: combine(refresh("t3", h), refresh("t2", h), refresh("t1", h), *pips(3), *extra)
@@ -272,10 +275,10 @@ def build(p):
     # ------------------------------------------------------------------ ult: R Devour (armed, checked from his actions)
     ally_in = [buff("r_ally", p["r_ally_t"]), {"type": "Banish", "duration": p["r_ally_t"]}, view("r_in"),
                delayed(p["r_ally_t"], shield(p["r_sh"], p["r_sh_ap"], p["r_sh_t"]), view("r_spit"), tsfx("r_spit"))]
-    eat_ally = combine(flag("r_lock", 3), *rm("r_armed"), on_me(gulp("vo_r", "r_ally"),
+    eat_ally = combine(flag("r_lock", 3), *rm("r_armed"), on_me(gulp("vo_r", "r_ally", p["r_ally_t"]),
                                                                 refresh("r_full", p["r_ally_t"])),
                        *ally_in)
-    eat_enemy = combine(*rm("r_armed"), eat, gulp("vo_r", "r_enemy"), refresh("r_full", p["r_t"]),
+    eat_enemy = combine(*rm("r_armed"), eat, gulp("vo_r", "r_enemy", p["r_t"]), refresh("r_full", p["r_t"]),
                         pick(p["r_reach"], "EnemyChampionRecentlyAttacked", *enemy_in))
     # 1. an ally (never him: the probe lands on AllyNotSelf only) in crowd control with two enemy champions near him
     ally_probe = pick(p["r_ally_r"], "AllyChampionInCC", homing("r_probe", 100000, "AllyNotSelf", [eat_ally]))
@@ -356,8 +359,8 @@ def build(p):
         # the swallow itself is data (Banish): a probe that lands only on an ally, one only on an enemy champion; the
         # add-on records it (league_tahmkench:devour: the stacks eaten, where he spits the unit out)
         devour = {"type": "Native", "effect_ref": "league_tahmkench:devour"}
-        ally_nat = combine(on_me(gulp("vo_r", "r_ally"), refresh("r_full", p["r_ally_t"])), *ally_in, devour)
-        enemy_nat = combine(on_me(gulp("vo_r", "r_enemy"), refresh("r_full", p["r_t"])), *enemy_in, devour)
+        ally_nat = combine(on_me(gulp("vo_r", "r_ally", p["r_ally_t"]), refresh("r_full", p["r_ally_t"])), *ally_in, devour)
+        enemy_nat = combine(on_me(gulp("vo_r", "r_enemy", p["r_t"]), refresh("r_full", p["r_t"])), *enemy_in, devour)
         ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "BothChampion",
                      combine(life, homing("r_ally_go", 100000, "AllyNotSelf", [ally_nat]),
                              homing("r_enemy_go", 100000, "EnemyChampion", [enemy_nat])), key="ult")

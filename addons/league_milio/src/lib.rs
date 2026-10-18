@@ -959,7 +959,8 @@ mod tests {
 
     #[test]
     fn the_passive_params_match_make_override() {
-        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/make_override.py");
+        // from the add-on's own folder, so the add-on bundle (CARGO_MANIFEST_DIR = addons/league_addons) finds it too
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../league_milio/make_override.py");
         let src = std::fs::read_to_string(path).expect("make_override.py");
         let d = Params::default();
         for (key, v) in [("burn_lo", d.burn_lo), ("burn_hi", d.burn_hi), ("burn_t", d.burn_t), ("burn_p", d.burn_p),

@@ -41,10 +41,10 @@ const BUFF_SIZE: usize = 0x28;
 /// 芮尔在画面实体里的名字。
 pub const NAME: &[u8] = b"league_rell";
 
-/// 游戏按名字自动播、下马有自己一套的动作（芮尔图里的 `f_*`）：待机、走、挨打、普攻（动作名 attack）、裂阵（动作名 skill）、
-/// 阵亡（尸体留下马的样子，复活是骑马）。数据用 `CasterAnimation` 播的 skill2 / skill2_up / ult 不碰：轰落落地本来就是下马的
-/// 她，驾临是上马冲锋，极涌留骑马的。
-pub const FORM_TAGS: [&str; 6] = ["idle", "run", "hit", "attack", "skill", "dead"];
+/// 下马有自己一套的动作（芮尔图里的 `f_*`）：游戏按名字自动播的待机、走、挨打、普攻（动作名 attack）、裂阵（动作名 skill）、
+/// 阵亡（尸体留下马的样子，复活是骑马），和数据用 `CasterAnimation` 播的极涌（ult，0.1.2：原来下马放大招时马会冒出来半秒，
+/// 英雄联盟下马有自己的 Biped_Spell4_Cast）。skill2 / skill2_up 不碰：轰落落地本来就是下马的她，驾临是上马冲锋。
+pub const FORM_TAGS: [&str; 7] = ["idle", "run", "hit", "attack", "skill", "dead", "ult"];
 const PREFIX: &str = "f_";
 
 /// 正在播的动画名 + 是不是下马 → 该播的名字（不用换就是 None）。骑马时把本包换上去的 `f_idle` 等换回来。
@@ -240,9 +240,10 @@ mod tests {
         assert_eq!(anim_for("attack", true).as_deref(), Some("f_attack"));
         assert_eq!(anim_for("skill", true).as_deref(), Some("f_skill")); // Shattering Strike on foot
         assert_eq!(anim_for("dead", true).as_deref(), Some("f_dead"));
+        assert_eq!(anim_for("ult", true).as_deref(), Some("f_ult")); // Magnet Storm on foot
+        assert_eq!(anim_for("f_ult", false).as_deref(), Some("ult"));
         assert_eq!(anim_for("skill2", true), None); // Crash Down lands her on foot by itself
         assert_eq!(anim_for("skill2_up", true), None); // Mount Up
-        assert_eq!(anim_for("ult", true), None);
         assert_eq!(anim_for("f_idle", false).as_deref(), Some("idle")); // mounted again
         assert_eq!(anim_for("f_skill", false).as_deref(), Some("skill"));
         assert_eq!(anim_for("idle", false), None);

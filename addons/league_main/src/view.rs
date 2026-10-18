@@ -577,7 +577,7 @@ mod tests {
         assert_eq!(as_(Some("league_zeri"), Some("league_viego")), Some("league_zeri"));
         assert_eq!(as_(Some("champions/league_yasuo#anim"), Some("league_viego")), Some("league_yasuo"));
         assert_eq!(as_(Some("league_viego"), Some("league_viego")), None); // the possession over
-        assert_eq!(as_(Some("league_darius"), Some("league_viego")), None); // a plain victim
+        assert_eq!(as_(Some("league_lux"), Some("league_viego")), None); // a plain victim (Darius has dense frames since league.dll 0.7.48)
         assert_eq!(as_(None, Some("league_karma")), Some("league_karma")); // no resource name read: the id
         assert_eq!(as_(Some("league_karma"), Some("league_karma")), Some("league_karma"));
     }

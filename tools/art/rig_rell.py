@@ -21,14 +21,16 @@ Death; tools/lol/pose_ref.py with the horse's textures, Armor_* hidden mounted, 
   idle 8      breathing: the horse and her sink 0-2 native rows over the standing legs
   run 8       Run_Slow (League's move at her speed, a 1.0 s trot): the diagonal pairs (near fore + far hind, then the
               other two) swing and lift as League's hooves do (their x from the hoof joints, scaled), the body bobbing
-  attack 5    the lance thrust: drawn back, out (the blow on frame 3), back
+  attack 6    the lance thrust: drawn back, out with the forehand stepping in (the blow on frame 3), back
   skill 5     Shattering Strike: gathering, the forehand up, the lunge with the lance far out (the blow on frame 4)
   skill2 6    Crash Down: crouch, the leap, the horse bursting into armour pieces while she (B, in that armour) rises,
               the apex, the fall, the landing crouch on foot
   skill2_up 4 Mount Up: on foot crouching, rising as the pieces come back, the horse formed in the air, the charge
-  ult 5       Magnet Storm: crouch, the forehand up, the stamp with the lance out, held, back
+  ult 6       Magnet Storm: the stamp, the horse rearing, the second stamp with the lance out, held, back
+  f_ult 6     the same on foot (League's Biped_Spell4_Cast): the stamp, a hop, the second stamp, held, back
   hit 2       moved back with a white flash
-  dead 6      a flinch, the horse kneels, it falls apart, she lies on the ground among the pieces, held
+  dead 8      a flinch, the horse kneels, it comes loose, falls apart, the pieces land and bounce, she lies among
+              them, held
 """
 import argparse
 import json
@@ -52,7 +54,7 @@ ORIG = os.path.join(ROOT, "assets", "source", "ppu", "orig")
 PPU = 1.5
 FEET = 11                         # 1x rows from the pivot down to the ground row
 ORDER = ["idle", "run", "attack", "skill", "skill2", "skill2_up", "ult", "hit", "dead",
-         "f_idle", "f_run", "f_attack", "f_skill", "f_hit", "f_dead"]
+         "f_idle", "f_run", "f_attack", "f_skill", "f_hit", "f_dead", "f_ult"]
 
 
 def lp(path):
@@ -433,10 +435,13 @@ def frames():
     out = {}
     out["idle"] = [(to_ppu(mounted(sink=b)), IDLE_MS) for b in BREATH]
     out["run"] = [(run_frame(i), RUN_MS) for i in range(8)]
-    # the thrust (the kit's blow on tick 14 = 233 ms: frame 3)
-    out["attack"] = [(to_ppu(mounted(dx=-2, ext=-3)), 100), (to_ppu(mounted(dx=0, ext=3)), 100),
-                     (to_ppu(mounted(dx=3, ext=10, sink=1)), 110), (to_ppu(mounted(dx=2, ext=6)), 90),
-                     (to_ppu(mounted()), 67)]
+    # the thrust (the kit's blow on tick 14 = 233 ms: frame 3, 160-260 ms). 2026-10-19 audit: the 5-frame thrust moved
+    # 17 % of her squares a frame against the pack's 40 % - drawn further back, lunging further with the forehand
+    # stepping in, 6 frames
+    step = {"fn": (2, 0), "ff": (2, 0), "hn": (-1, 0), "hf": (-1, 0)}
+    out["attack"] = [(to_ppu(mounted(dx=-3, ext=-5, sink=1)), 90), (to_ppu(mounted(dx=-1, ext=-1)), 70),
+                     (to_ppu(mounted(dx=4, ext=12, sink=1, lg=step)), 100), (to_ppu(mounted(dx=3, ext=9, lg=step)), 80),
+                     (to_ppu(mounted(dx=1, ext=3)), 67), (to_ppu(mounted()), 60)]
     # Shattering Strike (q_at 24 ticks = 400 ms: frame 4)
     fore_up = {"fn": (3, 4), "ff": (3, 4)}
     out["skill"] = [(to_ppu(mounted(dx=-3, sink=2, ext=-3)), 120),
@@ -460,10 +465,14 @@ def frames():
                         (dismounted(to_ppu(pieces(back)), lift=6), 80),
                         (to_ppu(mounted(dx=3, lift=3, ext=4, lg={"fn": (3, 2), "ff": (3, 2)})), 90),
                         (to_ppu(mounted(dx=5, ext=10, lg={"fn": (4, 0), "ff": (4, 0), "hn": (-2, 0), "hf": (-2, 0)})), 93)]
-    # Magnet Storm
-    out["ult"] = [(to_ppu(mounted(sink=2)), 100), (to_ppu(mounted(dx=-1, lg={"fn": (2, 5), "ff": (2, 5)})), 100),
-                  (to_ppu(mounted(dx=1, sink=3, ext=4)), 100), (to_ppu(mounted(dx=1, sink=2, ext=4)), 100),
-                  (to_ppu(mounted(sink=1)), 100)]
+    # Magnet Storm (the kit's first yank on the animation's first tick): the stamp, the horse rearing, the second stamp
+    # with the lance out, held, back. 2026-10-19 audit: the 5 frames were nearly one pose (16 % a frame)
+    # rearing: the body up over the standing hind legs (a negative sink), the forelegs lifted
+    rear = {"fn": (3, 5), "ff": (3, 5), "hn": (-1, 0), "hf": (-1, 0)}
+    out["ult"] = [(to_ppu(mounted(dx=1, sink=3, ext=4)), 80), (to_ppu(mounted(dx=-2, sink=-2, ext=-3, lg=rear)), 90),
+                  (to_ppu(mounted(dx=-1, sink=-2, ext=-4, lg={"fn": (4, 7), "ff": (4, 7), "hn": (-1, 0), "hf": (-1, 0)})), 70),
+                  (to_ppu(mounted(dx=2, sink=3, ext=7)), 90), (to_ppu(mounted(dx=1, sink=2, ext=5)), 90),
+                  (to_ppu(mounted(sink=1, ext=1)), 80)]
     out["hit"] = [(shift(to_ppu(mounted()), -3, 0), 90), (shift(to_ppu(mounted()), -1, 0), 120)]
     # death: the horse kneels, falls apart, she lies among the pieces
     loose = {"tail": (-4, 4), "rear": (-3, 6), "front": (0, 7), "head": (4, 6), "hn": (-3, 0), "hf": (-1, 0),
@@ -472,9 +481,14 @@ def frames():
             "head": on_ground("head", 8), "hn": on_ground("hn", -8), "hf": on_ground("hf", -2),
             "fn": on_ground("fn", 6), "ff": on_ground("ff", 12)}
     lying = pieces(down, rider=(-44, 0, 1), lance=(6, (NG - 1) - (AY0 + 36), 0))
+    # 8 frames (2026-10-19 audit, the pack's deaths have 8): the armour first coming loose, the pieces falling 3 rows
+    # above the ground, a 1-row bounce
+    half = {k: (v[0] // 2, v[1] // 2) for k, v in loose.items()}
+    flat = to_ppu(lying)
     out["dead"] = [(shift(to_ppu(mounted()), -3, 0), 120), (to_ppu(mounted(dx=-2, sink=5)), 120),
-                   (to_ppu(pieces(loose, rider=(-8, 8, 0), lance=(4, 12, 0))), 160),
-                   (to_ppu(lying), 200), (to_ppu(lying), 300), (to_ppu(lying), 400)]
+                   (to_ppu(pieces(half, rider=(-4, 4, 0), lance=(2, 6, 0))), 90),
+                   (to_ppu(pieces(loose, rider=(-8, 8, 0), lance=(4, 12, 0))), 140),
+                   (shift(flat, 0, -3), 80), (flat, 160), (shift(flat, 0, -1), 70), (flat.copy(), 400)]
     # on foot (the add-on's body while she is dismounted): the same beats as League's biped clips
     out["f_idle"] = [(dismounted(sink=b), IDLE_MS) for b in [0, 0, 1, 1, 1, 1, 0, 0]]
     out["f_run"] = [(walk_frame(i), WALK_MS) for i in range(8)]
@@ -484,11 +498,20 @@ def frames():
                       (dismounted(dx=4, sink=1, ff=(2, 0)), 120), (dismounted(dx=5, sink=1, ff=(2, 0)), 100),
                       (dismounted(dx=1), 40)]
     out["f_hit"] = [(dismounted(dx=-3), 90), (dismounted(dx=-1), 120)]
+    # Magnet Storm on foot (League's Biped_Spell4_Cast; the add-on plays f_ult while she is dismounted - the mounted
+    # ult brought the horse back for half a second): the stamp, a hop, the second stamp, held, back
+    out["f_ult"] = [(dismounted(dx=1, sink=2, nf=(-1, 0), ff=(1, 0)), 80), (dismounted(dx=-1, lift=3), 90),
+                    (dismounted(dx=-1, lift=4, nf=(-1, 1), ff=(-1, 1)), 70),
+                    (dismounted(dx=2, sink=3, nf=(-1, 0), ff=(2, 0)), 90), (dismounted(dx=1, sink=2, ff=(1, 0)), 90),
+                    (dismounted(sink=1), 80)]
     # she sinks to her knees in the armour (its skirt to the ground) and slumps forward over her hips
     slump = dismounted(dx=-2, sink=13, nf=(-2, 0), ff=(1, 0), bow=(3, 3))
+    # 8 frames (2026-10-19 audit): a step between the knees giving and the slump, the head dropping a little further
     out["f_dead"] = [(dismounted(dx=-2), 120), (dismounted(dx=-3, sink=4, nf=(-1, 0)), 120),
-                     (dismounted(dx=-3, sink=9, nf=(-2, 0), ff=(1, 0), bow=(1, 1)), 160), (slump, 200),
-                     (slump.copy(), 300), (slump.copy(), 400)]
+                     (dismounted(dx=-3, sink=9, nf=(-2, 0), ff=(1, 0), bow=(1, 1)), 120),
+                     (dismounted(dx=-2, sink=11, nf=(-2, 0), ff=(1, 0), bow=(2, 2)), 100), (slump, 140),
+                     (dismounted(dx=-2, sink=13, nf=(-2, 0), ff=(1, 0), bow=(4, 4)), 120), (slump.copy(), 200),
+                     (slump.copy(), 400)]
     done = {t: [(tidy(a), ms) for a, ms in out[t]] for t in ORDER}
     for t in ("hit", "f_hit"):
         done[t][0] = (flash(done[t][0][0]), done[t][0][1])

@@ -507,9 +507,11 @@ def attack_frames():
     # the game plays `attack` itself on every attack's first tick, before the tree's CasterAnimation: the stance, so no
     # weapon flashes up for a tick
     out["attack"] = [(pose(), 100)]
+    # the last frame is the weapon's own stance (its <w>_idle comes next): Calibrum's stance there showed his main hand
+    # empty for 110 ms after every shot (2026-10-19 audit)
     for w in ("sev", "grav", "inf", "cre"):
         out[f"a_{w}"] = [(fwd(w, dy=-3), 80), (fwd(w, dx=-1, dy=-3, wdx=-1), 60), (fwd(w, dy=-3), 100),
-                         (pose(), 110)]
+                         (stance(w), 110)]
     # the Crescendum's chakram leaves the hand on the shot
     out["a_cre"][1] = (pose(dx=-1, arm=arm_fwd(dy=-3)), 60)
     out["a_cre"][2] = (pose(arm=arm_fwd(dy=-3)), 100)
@@ -530,8 +532,9 @@ def attack_frames():
     out["q_grav"] = [(up("grav", **g), 90), (up("grav", dy=-2, **g), 50), (up("grav", dy=-2, bob=1, **g), 60),
                      (up("grav", **g), 33)]
     out["q_inf"] = [(fwd("inf", dy=-2), 90), (fwd("inf", dx=1, dy=-2, wdx=1), 80), (fwd("inf", dx=-1, dy=-2), 80),
-                    (pose(), 50)]
-    out["q_cre"] = [(fwd("cre", dy=-1), 90), (fwd("cre", dy=-5), 80), (pose(arm=arm_fwd(dy=-5)), 60), (pose(), 37)]
+                    (stance("inf"), 50)]
+    out["q_cre"] = [(fwd("cre", dy=-1), 90), (fwd("cre", dy=-5), 80), (pose(arm=arm_fwd(dy=-5)), 60),
+                    (stance("cre"), 37)]
     # W: the weapons change hands - Calibrum swung over the head and back
     lift = lambda k, a: (lambda can, x0, y0: (put(can, DESIGN, LAB == RIFLE, x0, y0 - k),
                                               put(can, DESIGN, LAB == FAR_ARM, x0, y0 - a)))
@@ -540,13 +543,49 @@ def attack_frames():
     # R: Moonlight Vigil - a low aim, the moonlight on the third frame (~230 ms in) with a big kick
     out["ult"] = [(cal(dy=-4, bob=2), 120), (cal(dy=-4, bob=2), 110), (cal(dx=-3, dy=-4, bob=2, wdx=-1), 100),
                   (cal(dx=-1, dy=-4, bob=1), 40), (pose(), 30)]
-    # death: the blow, a stagger with the knees giving (the body 3 rows down over the legs), falling on his back
-    # (the whole figure a quarter turn, still 3 rows off the ground), lying, still
-    down = lying(pose())
-    falling = blank()
-    falling[:-3] = down[3:]
-    out["dead"] = [(pose(dx=-2), 100), (pose(dx=-3, bob=3), 120), (falling, 90), (down, 150), (down.copy(), 400)]
+    out["dead"] = dead_frames()
+    # the add-on's weapon forms of W, R and the death (view.rs plays <w>_skill2 / <w>_ult / <w>_dead while that weapon
+    # is in his main hand - they showed Calibrum whatever he held, League's A-E_Spell2 hold each its own)
+    for w in FORMS:
+        kw = dict(FORM_HOLD[w])
+        low = kw.pop("low", False)
+        wdy = kw.pop("wdy", 0)
+        hold = lambda dy=0, lift=0: arm_up(w, dy=dy, wdy=wdy - lift, low=low, **kw)
+        out[f"{w}_skill2"] = [(pose(bob=1, hide=(RIFLE,), arm=hold(-2, 4 if low else 2)), 100),
+                              (pose(hide=(RIFLE,), arm=hold(-1, 2 if low else 1)), 100), (stance(w), 100)]
+        fw = lambda dx=0, dy=0, bob=0, **k: pose(dx=dx, bob=bob, hide=(RIFLE,), arm=arm_fwd(weapon=w, dy=dy, **k))
+        out[f"{w}_ult"] = [(fw(dy=-4, bob=2), 120), (fw(dy=-4, bob=2), 110), (fw(dx=-3, dy=-4, bob=2, wdx=-1), 100),
+                           (fw(dx=-1, dy=-4, bob=1), 40), (stance(w), 30)]
+        out[f"{w}_dead"] = dead_frames(w)
     return out
+
+
+def stance(w):
+    """Weapon w's standing frame (its <w>_idle's first): Calibrum off his back, w in the raised hand (Infernum low)."""
+    return pose(hide=(RIFLE,), arm=arm_up(w, **FORM_HOLD[w]))
+
+
+def dead_frames(w=None):
+    """Death in 8 frames: the blow, a stagger with the knees giving (the body 3 rows down over the legs), falling on his
+    back (the whole figure a quarter turn, 7 then 3 rows off the ground), down, a 1-row bounce, down, still. w: a
+    weapon form (its stance), else Calibrum's."""
+    kw = {} if w is None else dict(hide=(RIFLE,), arm=arm_up(w, **FORM_HOLD[w]))
+    if w == "inf":
+        # Infernum, held low and level, would stand on end under him turned with the figure and hold him off the
+        # ground: it falls out of his hand and lies on the ground past his feet, its end behind them
+        down = lying(pose(hide=(RIFLE,), arm=arm_up(None)))
+        img, _ = held(w)
+        right = int(np.nonzero((down[..., 3] > 0).any(0))[0].max())
+        stamp(down, img, right - 10, SOLE + 1 - img.shape[0], under=True)
+    else:
+        down = lying(pose(**kw))
+
+    def off(n):
+        f = blank()
+        f[:-n] = down[n:]
+        return f
+    return [(pose(dx=-2, **kw), 100), (pose(dx=-3, bob=3, **kw), 120), (off(7), 60), (off(3), 70), (down, 90),
+            (off(1), 60), (down.copy(), 140), (down.copy(), 400)]
 
 
 WEAPONS = ["cal", "sev", "grav", "inf", "cre"]
@@ -751,7 +790,8 @@ def review(acts, out_dir, z=4):
 
 # ------------------------------------------------------------------------------------------------- the game's frames
 ORDER = ["idle", "run", "attack", "a_cal", "a_sev", "a_grav", "a_inf", "a_cre", "q_cal", "q_sev", "q_grav", "q_inf", "q_cre",
-         "skill2", "ult", "hit", "dead"] + [f"{w}_{t}" for w in ("sev", "grav", "inf", "cre") for t in ("idle", "run", "hit", "attack")]
+         "skill2", "ult", "hit", "dead"] + [f"{w}_{t}" for w in ("sev", "grav", "inf", "cre") for t in ("idle", "run", "hit", "attack")] \
+    + [f"{w}_{t}" for w in ("sev", "grav", "inf", "cre") for t in ("skill2", "ult", "dead")]
 
 
 def one_of(can, px, py, hw, hh, need=0.5):

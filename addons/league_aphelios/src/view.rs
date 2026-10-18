@@ -1,7 +1,8 @@
 //! 整身换武器：主手是断魄 / 坠明 / 荧焰 / 折镜时厄斐琉斯站着、跑着、挨打、出手的第一刻都画成那把武器在手里（图里的
 //! `<武器>_idle` / `_run` / `_hit` / `_attack`，tools/art/rig_aphelios.py：通碧从背上拿下、那把武器在抬起的手里，荧焰低低地握在
 //! 身侧）；通碧主手时是原来的样子。主包只能用 `CasterAnimation` 换出招的动作，游戏按名字自动播的 idle / run / hit 数据换不了。
-//! 阵亡照原来的倒地。只在游戏 0.6.4（Windows）上生效，别的版本什么都不做。
+//! W（换武器）、R 和阵亡也换成那把武器的一套（`<武器>_skill2` / `_ult` / `_dead`，0.1.2）：原来只画了通碧，拿别的武器放 W / R
+//! 或倒下时会闪回通碧。阵亡时数据 buff 被清掉，所以倒地用倒下前记下的主手武器。只在游戏 0.6.4（Windows）上生效，别的版本什么都不做。
 //!
 //! 照 league_jayce 的 view.rs（杰斯整身变炮，奈德丽 / 凯隐的做法）：游戏的显示世界每帧调用显示处理表里的更新函数（rva
 //! 0x23312a0），函数指针在 .rdata 的槽 rva 0x3c82db8（别的附加包也挂在这里，一个接一个调用）。加载时核对函数开头 24 个字节，把槽
@@ -39,9 +40,9 @@ const BUFF_SIZE: usize = 0x28;
 /// 厄斐琉斯在画面实体里的名字。
 pub const NAME: &[u8] = b"league_aphelios";
 
-/// 游戏按名字自动播、每把武器有自己一套的动作。`dead` 不在里面（倒地照原来的）；数据用 `CasterAnimation` 播的
-/// a_* / q_* / skill2 / ult 不碰。`attack` 只是普攻的第一 tick（数据下一 tick 才播 a_<武器>），换掉免得闪回通碧。
-pub const FORM_TAGS: [&str; 4] = ["idle", "run", "hit", "attack"];
+/// 每把武器有自己一套的动作：游戏按名字自动播的 idle / run / hit / dead，数据用 `CasterAnimation` 播的 W（skill2）和 R（ult）。
+/// a_* / q_* 本来就分武器，不碰。`attack` 只是普攻的第一 tick（数据下一 tick 才播 a_<武器>），换掉免得闪回通碧。
+pub const FORM_TAGS: [&str; 7] = ["idle", "run", "hit", "attack", "skill2", "ult", "dead"];
 /// 有自己一套的武器（通碧是原来的 idle / run …）。
 pub const FORMS: [&str; 4] = ["sev", "grav", "inf", "cre"];
 
@@ -57,6 +58,11 @@ pub fn anim_for(cur: &str, form: Option<&str>) -> Option<String> {
         None => base.to_string(),
     };
     (want != cur).then_some(want)
+}
+
+/// `dead` or a weapon's `<武器>_dead`.
+pub fn is_dead(cur: &str) -> bool {
+    cur == "dead" || FORMS.iter().any(|f| cur.strip_prefix(f).and_then(|r| r.strip_prefix('_')) == Some("dead"))
 }
 
 struct Stats {
@@ -170,6 +176,12 @@ unsafe fn dress(world: usize) {
         }
         let Ok(cur) = std::str::from_utf8(std::slice::from_raw_parts(aptr as *const u8, alen)) else { continue };
         let key = q(elem) as u64;
+        // dead: his data buffs are gone, so the weapon is the one he held when he fell (the last one seen)
+        let main = if main == 0 && is_dead(cur) {
+            st.looks.iter().find(|l| l.0 == world && l.1 == key).map_or(0, |l| l.2)
+        } else {
+            main
+        };
         let look = (world, key, main);
         if !st.looks.contains(&look) {
             st.looks.retain(|l| !(l.0 == world && l.1 == key));
@@ -253,8 +265,11 @@ mod tests {
         assert_eq!(anim_for("idle", None), None);
         assert_eq!(anim_for("a_sev", Some("sev")), None); // the data's own cast
         assert_eq!(anim_for("q_cal", Some("sev")), None);
-        assert_eq!(anim_for("skill2", Some("inf")), None);
-        assert_eq!(anim_for("dead", Some("cre")), None);
+        assert_eq!(anim_for("skill2", Some("inf")).as_deref(), Some("inf_skill2")); // W, R and the death too
+        assert_eq!(anim_for("ult", Some("grav")).as_deref(), Some("grav_ult"));
+        assert_eq!(anim_for("dead", Some("cre")).as_deref(), Some("cre_dead"));
+        assert_eq!(anim_for("sev_ult", None).as_deref(), Some("ult"));
+        assert!(is_dead("dead") && is_dead("inf_dead") && !is_dead("idle") && !is_dead("sev_idle"));
         assert_eq!(anim_for("idle", Some("cal")), None);
     }
 

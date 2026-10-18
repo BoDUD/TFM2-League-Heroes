@@ -403,6 +403,25 @@
                                                   }
                                                 ]
                                               }
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 150,
+                                              "effects": [
+                                                {
+                                                  "type": "RandomTarget",
+                                                  "range": 1,
+                                                  "casting_target": "AllyOnlySelf",
+                                                  "from_projectile": false,
+                                                  "effects": [
+                                                    {
+                                                      "type": "CasterAnimation",
+                                                      "name": "r_spit",
+                                                      "tick": 20
+                                                    }
+                                                  ]
+                                                }
+                                              ]
                                             }
                                           ]
                                         },
@@ -598,6 +617,25 @@
                                               }
                                             ]
                                           }
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 150,
+                                          "effects": [
+                                            {
+                                              "type": "RandomTarget",
+                                              "range": 1,
+                                              "casting_target": "AllyOnlySelf",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "CasterAnimation",
+                                                  "name": "r_spit",
+                                                  "tick": 20
+                                                }
+                                              ]
+                                            }
+                                          ]
                                         }
                                       ]
                                     },
@@ -1065,6 +1103,25 @@
                                               }
                                             ]
                                           }
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 150,
+                                          "effects": [
+                                            {
+                                              "type": "RandomTarget",
+                                              "range": 1,
+                                              "casting_target": "AllyOnlySelf",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "CasterAnimation",
+                                                  "name": "r_spit",
+                                                  "tick": 20
+                                                }
+                                              ]
+                                            }
+                                          ]
                                         }
                                       ]
                                     },
@@ -1633,6 +1690,25 @@
                                                   }
                                                 ]
                                               }
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 150,
+                                              "effects": [
+                                                {
+                                                  "type": "RandomTarget",
+                                                  "range": 1,
+                                                  "casting_target": "AllyOnlySelf",
+                                                  "from_projectile": false,
+                                                  "effects": [
+                                                    {
+                                                      "type": "CasterAnimation",
+                                                      "name": "r_spit",
+                                                      "tick": 20
+                                                    }
+                                                  ]
+                                                }
+                                              ]
                                             }
                                           ]
                                         },
@@ -1828,6 +1904,25 @@
                                               }
                                             ]
                                           }
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 150,
+                                          "effects": [
+                                            {
+                                              "type": "RandomTarget",
+                                              "range": 1,
+                                              "casting_target": "AllyOnlySelf",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "CasterAnimation",
+                                                  "name": "r_spit",
+                                                  "tick": 20
+                                                }
+                                              ]
+                                            }
+                                          ]
                                         }
                                       ]
                                     },
@@ -2338,6 +2433,25 @@
                                                                 }
                                                               ]
                                                             }
+                                                          },
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 150,
+                                                            "effects": [
+                                                              {
+                                                                "type": "RandomTarget",
+                                                                "range": 1,
+                                                                "casting_target": "AllyOnlySelf",
+                                                                "from_projectile": false,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "CasterAnimation",
+                                                                    "name": "r_spit",
+                                                                    "tick": 20
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
                                                           }
                                                         ]
                                                       },
@@ -3497,6 +3611,25 @@
                                                                             }
                                                                           ]
                                                                         }
+                                                                      },
+                                                                      {
+                                                                        "type": "Delayed",
+                                                                        "tick": 150,
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RandomTarget",
+                                                                            "range": 1,
+                                                                            "casting_target": "AllyOnlySelf",
+                                                                            "from_projectile": false,
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "CasterAnimation",
+                                                                                "name": "r_spit",
+                                                                                "tick": 20
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        ]
                                                                       }
                                                                     ]
                                                                   },
@@ -3871,6 +4004,25 @@
                                                                               }
                                                                             ]
                                                                           }
+                                                                        },
+                                                                        {
+                                                                          "type": "Delayed",
+                                                                          "tick": 150,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "RandomTarget",
+                                                                              "range": 1,
+                                                                              "casting_target": "AllyOnlySelf",
+                                                                              "from_projectile": false,
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "CasterAnimation",
+                                                                                  "name": "r_spit",
+                                                                                  "tick": 20
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
                                                                         }
                                                                       ]
                                                                     },
@@ -4066,6 +4218,25 @@
                                                                           }
                                                                         ]
                                                                       }
+                                                                    },
+                                                                    {
+                                                                      "type": "Delayed",
+                                                                      "tick": 150,
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RandomTarget",
+                                                                          "range": 1,
+                                                                          "casting_target": "AllyOnlySelf",
+                                                                          "from_projectile": false,
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "CasterAnimation",
+                                                                              "name": "r_spit",
+                                                                              "tick": 20
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
                                                                     }
                                                                   ]
                                                                 },
@@ -4451,6 +4622,25 @@
                                                   }
                                                 ]
                                               }
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 150,
+                                              "effects": [
+                                                {
+                                                  "type": "RandomTarget",
+                                                  "range": 1,
+                                                  "casting_target": "AllyOnlySelf",
+                                                  "from_projectile": false,
+                                                  "effects": [
+                                                    {
+                                                      "type": "CasterAnimation",
+                                                      "name": "r_spit",
+                                                      "tick": 20
+                                                    }
+                                                  ]
+                                                }
+                                              ]
                                             }
                                           ]
                                         },
@@ -4646,6 +4836,25 @@
                                               }
                                             ]
                                           }
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 150,
+                                          "effects": [
+                                            {
+                                              "type": "RandomTarget",
+                                              "range": 1,
+                                              "casting_target": "AllyOnlySelf",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "CasterAnimation",
+                                                  "name": "r_spit",
+                                                  "tick": 20
+                                                }
+                                              ]
+                                            }
+                                          ]
                                         }
                                       ]
                                     },
