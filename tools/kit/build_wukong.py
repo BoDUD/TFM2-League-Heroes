@@ -33,7 +33,8 @@ Kit (the user's pick, 2026-10-18: layout A with the add-on league_wukong - ã€ŒæŠ
           champion's max health, and moves him at r_speed toward a champion / the units round him / the next group);
           the first pulse knocks up r_up ticks. The first spin opens `r_two` (r_two_t from the cast, after r_gap): the
           next attack with an enemy champion within r_rad spins again (League's second cast within 8 s).
-Timings are placeholders until the strips exist (tools/art/rig_wukong.py).
+Timings from the strips (tools/art/rig_wukong.py MS): the attack's and the crushing blow's hits on their frame 3 (170 ms,
+8 ticks after the 2-tick decision), E 300 ms (4 frames), W 200 ms, the spin a 240 ms loop held r_t.
 """
 import argparse
 import json
@@ -57,15 +58,15 @@ P = {
     "hp": 960, "hp_g": 100, "atk": 88, "atk_g": 18, "def": 36, "def_g": 9, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     "regen": 2, "regen_g": 1,
     # attack
-    "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 11,
+    "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 8,
     # passive Stone Skin (League: +6-10 armour and +0.35% max hp / 5 s a stack, 5 stacks, 5 s, one a second off)
     "p_def": 4, "p_regen": 2, "p_t": 300, "p_drop": 60,
     # Q Crushing Blow (League: +20-120 +50% bonus AD, armour -10-30% 3 s, +135-175 range, cd 8-6 s, -0.5 s a hit)
     "q_t": 240, "q_pre": 60, "q_dmg": 30, "q_ratio": 50, "q_shred": 20, "q_shred_t": 180, "q_range": 12000,
-    "q_hit": 13, "q_anim": 26,
+    "q_hit": 8, "q_anim": 26,
     # skill: E Nimbus Strike (League: 650 range, 80-240 +100% AP to the target and two more within 187.5, +40-60% AS
     # 5 s, cd 10-7 s)
-    "e_cd": 480, "e_range": 50000, "e_dur": 18, "e_anim": 16, "e_speed": 3500, "e_rad": 22000, "e_n": 3,
+    "e_cd": 480, "e_range": 50000, "e_dur": 18, "e_anim": 18, "e_speed": 3500, "e_rad": 22000, "e_n": 3,
     "e_dmg": 40, "e_ratio": 70, "e_as": 40, "e_as_t": 300, "e_in_t": 120,
     # skill2: W Warrior Trickster (League: invisible 1 s, dash 300, clone 4 s at 40-60% damage, range 275, cd 22-18 s)
     "w_cd": 1200, "w_range": 30000, "w_dur": 12, "w_inv": 60, "w_dash": 6000, "w_t": 240, "w_slot": 20,
