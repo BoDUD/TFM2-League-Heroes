@@ -7,9 +7,10 @@
     python tools/art/rig_gangplank.py --audit DIR       # per-frame checks + every tag at 6x
     python tools/art/rig_gangplank.py                   # the frames at PPU -> assets/source/ppu/orig + the 1x sheet
 
-The design (tools/art/design_gangplank_cut.py: Codex's step-1 redo take A-2 - the slimmer belly, 「普朗克不是大肚子」 -
-brought from 57 x 62 to 46 x 50 squares, PPU 1.2, by whole rows / columns dropped, never the face's; the hand cannon cut
-in its own box, the cutlass by paired row / column drops along it): the hat's top row 0, the soles row 49. Every pose is
+The design: Codex's step-1 redo take A-2 (the slimmer belly, 「普朗克不是大肚子」) read back on its own 21 px grid,
+UNCUT - 57 x 62 squares, PPU 1.5 (41 game rows). The 50-row cut for PPU 1.2 (hd/design_cut50.png, design_gangplank_cut.py)
+broke the gun hand into specks in every frame (the user: 「拿枪的那个手啊」). Its boots made boots again by
+tools/art/fix_gangplank_feet.py (「脚这里变形」). The hat's top row 0, the soles row 61. Every pose is
 lossless (memory no-deformation-lossless-poses): parts cut square by square from the design and only moved by whole
 squares or mirrored (league_jarvaniv / league_ziggs); nothing is drawn again.
 Parts: the hand cannon (gold; its bell points BACK over the shoulder, so a shot mirrors it to point forward), the near
@@ -278,13 +279,14 @@ def frames_all(F):
     out["attack"] = [p(sword=1, sword_at=(-1, 6)), p(sword=1, sword_at=(0, 3)),
                      p(crouch=1, whole=(1, 0)), p(crouch=1, whole=(1, 0)), p()]
     # Q Parrrley (League's Gangplank_Spell1: the pistol brought down and held in front of the chest, fired forward):
-    # the red sleeve turned flat about the elbow (a quarter, lossless) and the cannon mirrored to point forward in the
-    # glove at its end, under the beard (higher, it covered the braid and the chin - 「左手攻击时候头部感觉很怪」); the
-    # shot (frame 3, q_rel), the recoil back a square, back on the shoulder. League's kick (the pistol thrown up) is left
-    # out: turned up in front of him the cannon covered the mouth.
-    aim = dict(arm_rot=3, arm=(7, 1), gun_fwd=True, gun=(22, 13))
-    out["skill"] = [p(**aim), p(whole=(1, 0), **aim), p(whole=(1, 0), **aim),
-                    p(arm_rot=3, arm=(6, 1), gun_fwd=True, gun=(21, 13)), p()]
+    # the red sleeve turned flat (a quarter, lossless) and laid from his near shoulder across the chest - it keeps that
+    # side of him whole (moved off the shoulder, the arm left a straight cut down his side: 「攻击时整个半身体感觉被砍掉
+    # 了一样」) - the cannon mirrored to point forward in the glove at its end, under the beard (higher, it covered the
+    # braid and the chin: 「左手攻击时候头部感觉很怪」); the shot (frame 3, q_rel), the recoil back a square, back on the
+    # shoulder. League's kick (the pistol thrown up) is left out: turned up in front of him the cannon covered the mouth.
+    aim = dict(arm_rot=3, arm=(-3, -1), gun_fwd=True, gun=(11, 15))
+    kick = dict(arm_rot=3, arm=(-4, -1), gun_fwd=True, gun=(10, 15))
+    out["skill"] = [p(**aim), p(whole=(1, 0), **aim), p(whole=(1, 0), **aim), p(**kick), p()]
     # E Powder Keg (League's Gangplank_Spell3: a keg set down with a stoop): he bends at the knees as he puts it down (frame 3, e_rel - the keg itself is thrown by the kit at the enemy's feet), up again
     # (the arms go down with the body: a fist moved off its forearm pulled the wrist apart - 「左手...变形」)
     out["skill2"] = [p(crouch=1), p(crouch=2), p(whole=(1, 0), crouch=2), p(crouch=1), p()]
@@ -293,12 +295,14 @@ def frames_all(F):
     # square nearer, the cannon covered the hat's brim and his cheek)
     out["skill_w"] = [p(crouch=1), p(crouch=2), p(crouch=1), p(crouch=2), p()]
     # R Cannon Barrage (League's Gangplank_Spell4: the pistol held straight up as the signal): the cannon turned to
-    # point at the sky (a quarter turn clockwise) and raised high beside his head with the arm, the flare fired (frame
-    # 3, r_rel; the flare is the effect r_cast), down
+    # point at the sky (a quarter turn clockwise) beside his head, the flare fired (frame 3, r_rel; the flare is the
+    # effect r_cast), down
     up = dict(gun_rot=3)
-    # (turned up, the cannon stands 3 squares left of where it rests: its ring kept off his brow and eye)
-    out["ult"] = [p(gun=(-2, -3), arm=(0, -2), **up), p(gun=(-3, -6), arm=(0, -4), **up),
-                  p(whole=(0, -1), gun=(-3, -6), arm=(0, -4), **up), p(gun=(-3, -6), arm=(0, -4), **up), p()]
+    # (turned up in the hand where it rests, 2 squares left: its ring kept 5 squares off his face, still in the glove
+    # on the sleeve - 3 left, it came loose; the sleeve stays put -
+    # raised with the cannon it left his side cut straight below it)
+    out["ult"] = [p(gun=(-2, -1), **up), p(gun=(-2, -3), **up), p(whole=(0, -1), gun=(-2, -3), **up),
+                  p(gun=(-2, -3), **up), p()]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's Gangplank_Death: he staggers and falls back): back, down on his knees, on his back (a quarter
     # turn counter-clockwise, the head to the back), lying sunk into the ground line
@@ -313,7 +317,7 @@ def frames_all(F):
 # ------------------------------------------------------------------------------------------------- the walk
 # The design's own lower legs moved whole (memory codex-legs-deform) under thighs that stay on the body: each cuff and
 # boot steps on its own side, planted and sliding back, then lifted and carried forward, the far one half a cycle later
-# - a stride of 4 (the cuffs never slide more than 2 squares off the thighs) - the body set down a row on each contact
+# - a stride of 2 (the cuffs never slide more than a square off the thighs) - the body set down a row on each contact
 # and the whole figure a row up as the legs pass (league_ziggs's D walk, league_braum's spring); the hands never move
 # against the body (「手臂有点变形吧」).
 def _steps(stride, lifts):
@@ -325,7 +329,9 @@ def _steps(stride, lifts):
                 bob=[1, 0, 0, 0, 1, 0, 0, 0])
 
 
-WALK_STEP = dict(_steps(4, (1, 2, 1)), rise=[0, 0, 1, 0, 0, 0, 1, 0])
+# stride 2: the boots stand 3 squares apart in his stance, and a stride of 4 brought them together on the contact
+# frames - one wide merged boot (「脚这里变形」); now they never touch, the step reads from the lift and the spring
+WALK_STEP = dict(_steps(2, (1, 2, 1)), rise=[0, 0, 1, 0, 0, 0, 1, 0])
 
 
 def walk(F, steps=None):
