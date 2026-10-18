@@ -892,7 +892,7 @@
       },
       "league_cassiopeia": {
         "name": "卡西奥佩娅",
-        "attack": "<#ff9028ff>双生毒牙<>：甩出毒牙，造成<#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>魔法伤害；Q、W毒到敌人后<#ffb900ff>3秒<>内，多造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>并<#66bb6aff>回复<><i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命。<#ff9028ff>优雅蛇行<>：移速成长更高。",
+        "attack": "<#ff9028ff>双生毒牙<>：甩出毒牙，造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>魔法伤害；Q、W毒到敌人后<#ffb900ff>3秒<>内，多造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>并<#66bb6aff>回复<><i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命。<#ff9028ff>优雅蛇行<>：移速成长更高。",
         "skill": "<#ffb900ff>0.4秒<>后在目标处炸开，敌人中毒<#ffb900ff>3秒<>，共受<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害；毒到英雄时她移速+45%，<#ffb900ff>3秒<>内渐退。",
         "skill2": "放出持续<#ffb900ff>5秒<>的毒雾：每秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>魔法伤害，<#ef5350ff>减速50%、禁锢<>（不能用位移技能）。",
         "ult": "朝面前扇形石化凝视，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害：近处交战的敌人<#ef5350ff>石化2秒<>，远处的<#ef5350ff>减速40%<>。前方有2个以上敌方英雄或被突进时才放。"
@@ -2434,7 +2434,7 @@
       },
       "league_cassiopeia": {
         "name": "卡莎碧雅",
-        "attack": "<#ff9028ff>雙生毒牙<>：甩出毒牙，造成<#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>魔法傷害；Q、W毒到敵人後<#ffb900ff>3秒<>內，多造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>並<#66bb6aff>回復<><i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命。<#ff9028ff>致命節奏<>：移速成長更高。",
+        "attack": "<#ff9028ff>雙生毒牙<>：甩出毒牙，造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>魔法傷害；Q、W毒到敵人後<#ffb900ff>3秒<>內，多造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>並<#66bb6aff>回復<><i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命。<#ff9028ff>致命節奏<>：移速成長更高。",
         "skill": "<#ffb900ff>0.4秒<>後在目標處炸開，敵人中毒<#ffb900ff>3秒<>，共受<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害；毒到英雄時她移速+45%，<#ffb900ff>3秒<>內漸退。",
         "skill2": "放出持續<#ffb900ff>5秒<>的毒霧：每秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>魔法傷害，<#ef5350ff>緩速50%、禁錮<>（不能用位移技能）。",
         "ult": "朝面前扇形石化凝視，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害：近處交戰的敵人<#ef5350ff>石化2秒<>，遠處的<#ef5350ff>緩速40%<>。前方有2個以上敵方英雄或被突進時才放。"
@@ -3976,7 +3976,7 @@
       },
       "league_cassiopeia": {
         "name": "Cassiopeia",
-        "attack": "<#ff9028ff>Twin Fang<>: flings a fang for <#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> <#a974ffff>magic damage<>; within <#ffb900ff>3s<> of her Q or W poisoning an enemy it deals <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> more and <#66bb6aff>heals her<> <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>. <#ff9028ff>Serpentine Grace<>: more move speed per level.",
+        "attack": "<#ff9028ff>Twin Fang<>: flings a fang for <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<> <#a974ffff>magic damage<>; within <#ffb900ff>3s<> of her Q or W poisoning an enemy it deals <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> more and <#66bb6aff>heals her<> <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>. <#ff9028ff>Serpentine Grace<>: more move speed per level.",
         "skill": "Blasts the target's spot after <#ffb900ff>0.4s<>, poisoning enemies there for <#ffb900ff>3s<>: <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> in all. Poisoning a champion gives her 45% move speed, fading over <#ffb900ff>3s<>.",
         "skill2": "Releases a poison cloud for <#ffb900ff>5s<>: <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<> a second, <#ef5350ff>50% slow and grounded<> (no dashes) inside.",
         "ult": "Gazes in a cone in front of her: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>; nearby enemies in the fight are <#ef5350ff>petrified for 2s<>, farther ones <#ef5350ff>slowed 40%<>. Cast with 2+ enemy champions in front or when dived."
@@ -5518,7 +5518,7 @@
       },
       "league_cassiopeia": {
         "name": "카시오페아",
-        "attack": "<#ff9028ff>쌍독니<>: 독니를 날려 <#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> 마법 피해; Q·W로 적을 중독시킨 뒤 <#ffb900ff>3초<> 동안 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 추가, <#66bb6aff>체력 회복<> <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>. <#ff9028ff>독사의 품격<>: 레벨당 이동 속도 증가.",
+        "attack": "<#ff9028ff>쌍독니<>: 독니를 날려 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<> 마법 피해; Q·W로 적을 중독시킨 뒤 <#ffb900ff>3초<> 동안 <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> 추가, <#66bb6aff>체력 회복<> <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>. <#ff9028ff>독사의 품격<>: 레벨당 이동 속도 증가.",
         "skill": "<#ffb900ff>0.4초<> 뒤 대상 위치에서 폭발, 적을 <#ffb900ff>3초<> 중독시켜 총 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해; 챔피언 적중 시 이동 속도 +45%, <#ffb900ff>3초<>에 걸쳐 감소.",
         "skill2": "<#ffb900ff>5초<>간 독구름: 매초 <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> 마법 피해, <#ef5350ff>50% 둔화, 이동 불가<>(돌진 불가).",
         "ult": "앞쪽 부채꼴로 응시: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해; 가까이서 싸우는 적은 <#ef5350ff>2초 석화<>, 먼 적은 <#ef5350ff>40% 둔화<>. 앞에 적 챔피언 2명 이상이거나 돌진당할 때 사용."
@@ -7060,7 +7060,7 @@
       },
       "league_cassiopeia": {
         "name": "カシオペア",
-        "attack": "<#ff9028ff>ツインファング<>：毒牙を放ち<#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>の魔法ダメージ；Q・Wで敵を毒にしてから<#ffb900ff>3秒<>は<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>追加し<#66bb6aff>体力回復<><i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>。<#ff9028ff>妖艶な蛇行<>：移動速度の成長が高い。",
+        "attack": "<#ff9028ff>ツインファング<>：毒牙を放ち<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>の魔法ダメージ；Q・Wで敵を毒にしてから<#ffb900ff>3秒<>は<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>追加し<#66bb6aff>体力回復<><i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>。<#ff9028ff>妖艶な蛇行<>：移動速度の成長が高い。",
         "skill": "<#ffb900ff>0.4秒<>後に対象地点で爆発、敵を<#ffb900ff>3秒<>毒状態にし計<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ；チャンピオンに命中で移動速度+45%（<#ffb900ff>3秒<>で減衰）。",
         "skill2": "<#ffb900ff>5秒<>の毒霧：毎秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の魔法ダメージ、<#ef5350ff>50%スロウ・移動阻害<>（突進不可）。",
         "ult": "前方の扇形に魔眼：<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ；近くで戦う敵は<#ef5350ff>2秒石化<>、遠くの敵は<#ef5350ff>40%スロウ<>。前方に敵2体以上か突進された時に使う。"

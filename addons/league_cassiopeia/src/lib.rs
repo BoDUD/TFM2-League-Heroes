@@ -29,8 +29,8 @@ const ID: &str = "league_cassiopeia";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 /// 毒牙打中中毒目标多造成的固定伤害、法强加成 %（e_bonus、e_bratio）。
-pub const E_BONUS: usize = 18;
-pub const E_BRATIO: usize = 30;
+pub const E_BONUS: usize = 14;
+pub const E_BRATIO: usize = 24;
 /// 打中中毒的英雄回复法强的 %（e_heal），打小兵野怪回复法强的 %（e_heal_m）。
 pub const E_HEAL: usize = 10;
 pub const E_HEAL_M: usize = 3;

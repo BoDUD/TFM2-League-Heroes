@@ -45,15 +45,20 @@ FX = "asset/league/effects/league_cassiopeia_fx"
 BIG = "asset/league/effects/league_cassiopeia_big"
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid; Twin Fang's 700 -> 60000 so she kites a little
-# farther); radii count the unit's collision radius (~15000) on top. Release ticks are placeholders until the strips.
+# farther); radii count the unit's collision radius (~15000) on top. Release ticks from the strips (rig_cassiopeia.MS:
+# the fang and Q leave on frame 3 at 140 ms, W at 150, the gaze at 250). Numbers = the 10-min classic-SDK simulations
+# (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both sides, seeds
+# 1-8 and 9-16, 2026-10-18; league_syndra +1.17 / +1.22): the draft (fang 22 + 18%, bonus 18 + 30%, hp 880) +2.45;
+# fang -20% +0.83 / +2.18; -15% +1.86 / +1.23; the stun 90 ticks +1.20 / +1.74; fang -20% and hp 850 +1.03 (16 seeds at
+# once) = P - League's 2 s petrify kept.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's
     # Cassiopeia: 610 +98 hp, 18 armour, 32 mr, 335 move, 550 range, attack speed 0.647
-    "hp": 880, "hp_g": 95, "atk": 60, "atk_g": 4, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 850, "hp_g": 95, "atk": 60, "atk_g": 4, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 16,
     # E Twin Fang (League: 700 range, every 0.75 s, 50-120 +20% AP, +20-120 +45% AP poisoned, heal 10-16% AP)
     "atk_range": 60000, "atk_dur": 24, "atk_cd": 45, "a_rel": 8, "e_speed": 5000,
-    "e_dmg": 22, "e_ratio": 18, "e_bonus": 18, "e_bratio": 30, "e_heal": 10, "e_heal_m": 3, "v_t": 180,
+    "e_dmg": 18, "e_ratio": 14, "e_bonus": 14, "e_bratio": 24, "e_heal": 10, "e_heal_m": 3, "v_t": 180,
     # Q Noxious Blast (League: 850 range, r 200, lands 0.4 s, poison 3 s 65-205 +75% AP, +30-50% ms over 3 s, cd 3.5)
     "q_cd": 240, "q_range": 80000, "q_dur": 24, "q_rel": 8, "q_delay": 24, "q_r": 22000, "q_t": 180, "q_p": 30,
     "q_dmg": 75, "q_ratio": 60, "q_ms": 45,

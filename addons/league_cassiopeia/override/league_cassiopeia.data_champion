@@ -9,8 +9,8 @@
   "passive": {
     "passive_ref": "league_cassiopeia:venom",
     "params": {
-      "e_bonus": 18,
-      "e_bratio": 30,
+      "e_bonus": 14,
+      "e_bratio": 24,
       "e_heal": 10,
       "e_heal_m": 3,
       "r_stun": 120,
@@ -27,7 +27,7 @@
   "stat": {
     "attack": 60,
     "magic_power": 40,
-    "hp": 880,
+    "hp": 850,
     "defence": 18,
     "magic_resistance": 22,
     "move_speed": 900,
@@ -741,8 +741,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 22,
-                          "attack_ratio": 18,
+                          "damage": 18,
+                          "attack_ratio": 14,
                           "hp_ratio": 0,
                           "can_crit": false
                         }
