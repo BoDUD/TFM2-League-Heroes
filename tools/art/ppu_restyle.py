@@ -173,7 +173,8 @@ RESTYLE = {
     # league_jayce (#106): Codex's strips (both forms) on the design's grid brought to the user's 1.5 squares a game pixel
     # by tools/art/rig_jayce.py (38 game rows crown to soles; one head brought down once for every frame), so no
     # proportion or density change here; the outer outline grown a square like the others; the face point at his crown
-    "jayce": dict(ppu=1.5, edge=1, face_to=(0, -38)),
+    # 2026-10-18 face (-1,-40): (0,-38) put his eyes on the 3rd-4th rows and the red scarf and chest below
+    "jayce": dict(ppu=1.5, edge=1, face_to=(-1, -40)),
     # league_elise (#107): Codex's strips warped to the design's proportions and brought to the user's 1.8 squares a game
     # pixel by tools/art/import_elise_strips.py + rig_elise.py (38 game rows crown to toes), so only the outer outline
     # grown a square like the others; the face point at her crown
@@ -181,15 +182,18 @@ RESTYLE = {
     # league_katarina (#108): Codex's strips brought to the user's PPU by tools/art/rig_katarina.py (38 game rows crown
     # to soles; 1.5, then the design's own 1.7895 for the face, then back to 1.5: 「卡特琳娜太高清了 降低点像素」), so no
     # proportion or density change here; the outer outline grown a square like the others; the face point at her crown
-    "katarina": dict(ppu=1.5, edge=1, face_to=(0, -37)),
+    # 2026-10-18 face (1,-36): (0,-37) framed four rows of hair and cut the chin
+    "katarina": dict(ppu=1.5, edge=1, face_to=(1, -36)),
     # league_tahmkench (#110): posed from the approved design's own squares and brought to the user's 1.2 squares a game
     # pixel by tools/art/rig_tahmkench.py (42 game rows hat to soles), so only the outer outline grown a square like the
     # others; the face point on his head's top under the hat
-    "tahmkench": dict(ppu=1.2, edge=1, face_to=(1, -36)),
+    # 2026-10-18 face (-1,-38): (-1,-36) put his eyes on the top two rows
+    "tahmkench": dict(ppu=1.2, edge=1, face_to=(-1, -38)),
     # league_kalista (#109): Codex's strips (heads, sizes, run and death finished by tools/art/import_kalista_strips.py)
     # brought to the user's PPU 1.4 at 85 % by tools/art/rig_kalista.py (「大小 85%，PPU 1.4」), so no proportion or
     # density change here; the outer outline grown a square like the others; the face point at her helm
-    "kalista": dict(ppu=1.4, edge=1, face_to=(0, -39)),
+    # 2026-10-18 face (2,-34): (0,-39) framed only her purple crest; her glowing eye and cyan visor sit lower right
+    "kalista": dict(ppu=1.4, edge=1, face_to=(2, -34)),
     # league_drmundo (#111): Codex's strips (sizes, places, the run and the death finished by
     # tools/art/import_drmundo_strips.py) brought to the user's PPU 1.5 by tools/art/rig_drmundo.py (「选 A，42 行，PPU
     # 1.5」), so no proportion or density change here; the outer outline grown a square like the others; the face point
@@ -273,17 +277,20 @@ RESTYLE = {
     # Camille (2026-10-18): Codex's design picture read back on its own grid and cut to 69 rows (32 x 69), the upper body
     # posed after League's own clips by tools/art/rig_camille_hd.py, the legs of her kicks and leaps Codex's drawing
     # (assets/source/camille/codex_legs); the face point at the crown of her hair (tfm2_ase.py face)
-    "camille": dict(ppu=1.5, edge=1, face_to=(-2, -46)),
+    # 2026-10-18 face (-1,-45): (-2,-46) framed the hair above, the eyes on rows 6-7, the face off to the right
+    "camille": dict(ppu=1.5, edge=1, face_to=(-1, -45)),
     # Fiora (2026-10-18): Codex's design picture read back on one fitted grid and cut to 60 rows with her whole head kept
     # (87 x 60), posed after League's own clips by tools/art/rig_fiora_hd.py - the sword arm and the guard turned
     # losslessly, the blade drawn straight level or upright, the legs of her steps and lunges drawn on League's bones
     # in the design's own colours with its knee guards and boots; the Q dash baked under skill_fx1 (fx)
-    "fiora": dict(ppu=1.5, edge=1, face_to=(1, -39), fx=True),
+    # 2026-10-18 face (2,-38): (1,-39) framed five rows of hair, the eyes on rows 6-7, the mouth on the last row
+    "fiora": dict(ppu=1.5, edge=1, face_to=(2, -38), fx=True),
     # Darius (2026-10-18): Codex's design picture read back on its own 17.2 x 16.45-px squares (56 x 61, nothing cut),
     # PPU 1.45 at his old 42 rows (「用 PPU 1.45，和现在一样高」), posed after League's own clips by
     # tools/art/rig_darius_hd.py - the axe hand and the axe turned losslessly, the legs as drawn, moved whole in the run;
     # the face point at the crown of his hair (tfm2_ase.py face), the card -8 (bp_card_audit.py's rule)
-    "darius": dict(ppu=1.45, edge=1, face_to=(-1, -39)),
+    # 2026-10-18 face (5,-38): the redo's point missed the face
+    "darius": dict(ppu=1.45, edge=1, face_to=(5, -38)),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
