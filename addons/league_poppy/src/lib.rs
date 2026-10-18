@@ -46,8 +46,8 @@ pub const W_UP: usize = 30;
 pub const W_GROUND: usize = 120;
 pub const W_SLOW: usize = 25;
 /// 英勇冲锋：撞墙伤害（固定、攻击力 %）、推的速度和 tick、撞墙眩晕。
-pub const E_DMG: usize = 50;
-pub const E_RATIO: usize = 60;
+pub const E_DMG: usize = 70;
+pub const E_RATIO: usize = 80;
 pub const E_KB_SPEED: usize = 2_500;
 pub const E_KB_T: usize = 12;
 pub const E_STUN: usize = 105;

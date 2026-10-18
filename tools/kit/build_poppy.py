@@ -42,15 +42,18 @@ FX = "asset/league/effects/league_poppy_fx"
 BIG = "asset/league/effects/league_poppy_big"
 
 # League units x 100 = ours for skill ranges (the pack's melee attack is 25000 against League's 125). Release ticks are
-# placeholders until the strips are posed. Numbers: draft from league_alistar (the pack's tank supports: hp 1100 +120,
-# def 38, mr 28, atk 80, interval 80, range 25000).
+# from the strips (rig_poppy.MS). Numbers = the 10-min classic-SDK simulations (support lane 4 against priest, bard,
+# enchanter, monk and taoist, three lineups, both sides, seeds 1-8 and 9-16, 2026-10-18; league_alistar +0.97 / +1.12):
+# the draft (from league_alistar: hp 1080, atk 78, Q 40 +50%, E 50 +60%, buckler 40) -0.79 / -1.60; Q 60 +70%, E 70 +80%,
+# buckler 60 +0.30 / +0.51; + atk 86, hp 1150 +0.48 / +0.57; + E's stun 45 ticks, Q 6% max hp +0.91 / +1.08 = P (+1.00);
+# + W 24% and a 160 shield +1.07 / +0.93 (not taken: League's 16% kept).
 P = {
-    "hp": 1080, "hp_g": 115, "atk": 78, "atk_g": 6, "mp": 20, "mp_g": 10, "def": 38, "def_g": 8, "mr": 28, "mr_g": 4,
+    "hp": 1150, "hp_g": 115, "atk": 86, "atk_g": 6, "mp": 20, "mp_g": 10, "def": 38, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
     "atk_range": 25000, "atk_dur": 26, "atk_cd": 80, "atk_st": 12,
     # passive Iron Ambassador (League: cd 16-6 s, +350 range, 20-199 magic, lands over 1 s, lies 4 s, shield 11-21%
     # max hp for 3 s)
-    "p_cd": 480, "p_brange": 30000, "p_speed": 4000, "p_dmg": 40, "p_ap": 30, "p_far": 26000, "p_fly": 40,
+    "p_cd": 480, "p_brange": 30000, "p_speed": 4000, "p_dmg": 60, "p_ap": 30, "p_far": 26000, "p_fly": 40,
     "p_lie": 240, "p_catch": 16000, "p_sh": 120, "p_sh_ad": 60, "p_sh_t": 180,
     # W Steadfast Presence (League: +16% armour / MR, x2 under 40% hp; +40% ms, aura r 400 for 2 s, dashers knocked
     # up 0.5 s, then grounded + 25% slow 2 s, cd 20-12)
@@ -59,12 +62,12 @@ P = {
     # doubled under 40% health) and its buckler shield (League: 11-21% max health by level)
     "w_dmg": 70, "w_ap": 70, "w_up": 30, "w_ground": 120, "w_slow": 25, "w_low": 40, "p_sh_min": 11, "p_sh_max": 21,
     # Q Hammer Shock (League: 430 range, 30-130 +75% bonus AD +7-9% max hp, slow 20-32% 1 s, then again, cd 8-4)
-    "q_cd": 420, "q_range": 30000, "q_dur": 28, "q_rel": 12, "q_r": 18000, "q_dmg": 40, "q_ratio": 50, "q_hp": 4,
+    "q_cd": 420, "q_range": 30000, "q_dur": 28, "q_rel": 12, "q_r": 18000, "q_dmg": 60, "q_ratio": 70, "q_hp": 6,
     "q_t": 60, "q_slow": 25, "q_p": 10,
     # E Heroic Charge (League: 475 range, 1800 speed, carry 400, 40-120 +60% bonus AD, wall: again + stun 1.6-2 s,
     # cd 14-10)
-    "e_cd": 660, "e_range": 50000, "e_speed": 3500, "e_dmg": 50, "e_ratio": 60, "e_kb_speed": 2500, "e_kb_t": 12,
-    "e_stun_m": 30, "e_stun": 105, "e_anim": 16,
+    "e_cd": 660, "e_range": 50000, "e_speed": 3500, "e_dmg": 70, "e_ratio": 80, "e_kb_speed": 2500, "e_kb_t": 12,
+    "e_stun_m": 45, "e_stun": 105, "e_anim": 16,
     # R Keeper's Verdict (League: tap 100-200 +45% knock-up 1 s r 180; charged 200-400 +90%, 850-1200 range,
     # knock-back up to 3400 toward their fountain; channel up to 4 s, 15% slow; cd 140-100)
     "r_cd": 3600, "r_range": 55000, "r_tap_r": 28000, "r_tap_dmg": 80, "r_tap_ratio": 40, "r_up": 60, "r_tap_t": 20,
