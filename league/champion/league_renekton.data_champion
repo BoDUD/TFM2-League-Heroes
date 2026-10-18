@@ -827,901 +827,304 @@
         "effects": []
       },
       "effect_none": {
-        "type": "SwitchByBuff",
-        "buff_name": "league_renekton_f5",
-        "effect_buff": {
-          "type": "SwitchByBuff",
-          "buff_name": "league_renekton_e_cd",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "CasterAnimation",
-                "name": "skill",
-                "tick": 25
-              },
-              {
-                "type": "Sfx",
-                "name": "league_renekton_q_cast"
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_renekton_vo_cd",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_renekton_vo_cd",
-                        "duration": {
-                          "Time": {
-                            "tick": 600
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_renekton_vo_q"
-                    }
-                  ]
-                }
-              },
-              {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "SwitchByBuff",
+            "buff_name": "league_renekton_f5",
+            "effect_buff": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_renekton_e_cd",
+              "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_renekton_q_cd"
+                    "type": "CasterAnimation",
+                    "name": "skill",
+                    "tick": 25
                   },
                   {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_renekton_q_cd",
-                      "duration": {
-                        "Time": {
-                          "tick": 420
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_renekton_f1"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_renekton_f2"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_renekton_f3"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_renekton_f4"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_renekton_f5"
-              },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_renekton_q_spin_e"
-              },
-              {
-                "type": "Delayed",
-                "tick": 7,
-                "effects": [
+                    "type": "Sfx",
+                    "name": "league_renekton_q_cast"
+                  },
                   {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 32000
-                      }
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_renekton_vo_cd",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
                     },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_renekton_vo_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 600
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_renekton_vo_q"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 100,
-                        "attack_ratio": 140,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_renekton_q_cd"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 6,
-                        "attack_ratio": 3,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_renekton_q_hit"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "league_renekton_q_hit"
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_renekton_q_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 420
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   },
                   {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 32000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 30,
-                        "attack_ratio": 30,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "CasterAnimation",
-                "name": "skill",
-                "tick": 25
-              },
-              {
-                "type": "Sfx",
-                "name": "league_renekton_q_cast"
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_renekton_vo_cd",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_renekton_vo_cd",
-                        "duration": {
-                          "Time": {
-                            "tick": 600
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_renekton_vo_q"
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "Combine",
-                "effects": [
-                  {
                     "type": "RemoveCasterBuff",
-                    "name": "league_renekton_q_cd"
+                    "name": "league_renekton_f1"
                   },
                   {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_renekton_q_cd",
-                      "duration": {
-                        "Time": {
-                          "tick": 420
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_renekton_q_spin"
-              },
-              {
-                "type": "Delayed",
-                "tick": 7,
-                "effects": [
+                    "type": "RemoveCasterBuff",
+                    "name": "league_renekton_f2"
+                  },
                   {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 32000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                    "type": "RemoveCasterBuff",
+                    "name": "league_renekton_f3"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_renekton_f4"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_renekton_f5"
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_renekton_q_spin_e"
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 7,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 45,
-                        "attack_ratio": 80,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "Heal",
-                        "amount": 2,
-                        "attack_ratio": 1,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_renekton_q_hit"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "league_renekton_q_hit"
-                      },
-                      {
-                        "type": "Combine",
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 32000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
                         "effects": [
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_renekton_q_any"
+                            "type": "Attack",
+                            "damage": 100,
+                            "attack_ratio": 140,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
                           },
                           {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_renekton_q_any",
-                              "duration": {
-                                "Time": {
-                                  "tick": 2
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
+                            "type": "Heal",
+                            "amount": 6,
+                            "attack_ratio": 3,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_renekton_q_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_renekton_q_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 32000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 30,
+                            "attack_ratio": 30,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
                           }
                         ]
                       }
                     ]
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 32000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 10,
-                        "attack_ratio": 10,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_renekton_f5",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_renekton_f5"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_renekton_f5",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 480
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_renekton_f4",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_renekton_f4"
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_renekton_f5",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 480
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
-                          },
-                          "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_renekton_f3",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_renekton_f3"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_renekton_f4",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 480
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_renekton_f2",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_renekton_f2"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_renekton_f3",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 480
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_renekton_f1",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_renekton_f1"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_renekton_f2",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 480
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_renekton_f1",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 480
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 1,
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_renekton_q_any",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_renekton_q_any"
-                            },
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_renekton_f5",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_renekton_f5"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_renekton_f5",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 480
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_renekton_f4",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_renekton_f4"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_renekton_f5",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 480
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_renekton_f3",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_renekton_f3"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_renekton_f4",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 480
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_renekton_f2",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_renekton_f2"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_renekton_f3",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 480
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_renekton_f1",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_renekton_f1"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_renekton_f2",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 480
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_renekton_f1",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 480
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
                   }
                 ]
-              }
-            ]
-          }
-        },
-        "effect_none": {
-          "type": "Combine",
-          "effects": [
-            {
-              "type": "CasterAnimation",
-              "name": "skill",
-              "tick": 25
-            },
-            {
-              "type": "Sfx",
-              "name": "league_renekton_q_cast"
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_renekton_vo_cd",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": []
               },
               "effect_none": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_renekton_vo_cd",
-                      "duration": {
-                        "Time": {
-                          "tick": 600
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
+                    "type": "CasterAnimation",
+                    "name": "skill",
+                    "tick": 25
                   },
                   {
                     "type": "Sfx",
-                    "name": "league_renekton_vo_q"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_renekton_q_cd"
-                },
-                {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "league_renekton_q_cd",
-                    "duration": {
-                      "Time": {
-                        "tick": 420
-                      }
-                    }
+                    "name": "league_renekton_q_cast"
                   },
-                  "only_to_enemy": false
-                }
-              ]
-            },
-            {
-              "type": "CasterViewEffect",
-              "name": "league_renekton_q_spin"
-            },
-            {
-              "type": "Delayed",
-              "tick": 7,
-              "effects": [
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 32000
-                    }
-                  },
-                  "target": "EnemyWithoutTower",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "Attack",
-                      "damage": 45,
-                      "attack_ratio": 80,
-                      "hp_ratio": 0,
-                      "target_hp_ratio": 0,
-                      "attack_effect_type": "Target"
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_renekton_vo_cd",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
                     },
-                    {
-                      "type": "Heal",
-                      "amount": 2,
-                      "attack_ratio": 1,
-                      "ap_ratio": 0,
-                      "heal_type": "Caster"
-                    },
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_renekton_q_hit"
-                    },
-                    {
-                      "type": "TargetSfx",
-                      "name": "league_renekton_q_hit"
-                    },
-                    {
+                    "effect_none": {
                       "type": "Combine",
                       "effects": [
                         {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_renekton_q_any"
-                        },
-                        {
                           "type": "AddCasterBuff",
                           "buff_state": {
-                            "name": "league_renekton_q_any",
+                            "name": "league_renekton_vo_cd",
                             "duration": {
                               "Time": {
-                                "tick": 2
+                                "tick": 600
                               }
                             }
                           },
                           "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_renekton_vo_q"
                         }
                       ]
                     }
-                  ]
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 32000
-                    }
                   },
-                  "target": "EnemyChampion",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "Heal",
-                      "amount": 10,
-                      "attack_ratio": 10,
-                      "ap_ratio": 0,
-                      "heal_type": "Caster"
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_renekton_f5",
-                      "effect_buff": {
-                        "type": "Combine",
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_renekton_q_cd"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_renekton_q_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 420
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_renekton_q_spin"
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 7,
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 32000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
                         "effects": [
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_renekton_f5"
+                            "type": "Attack",
+                            "damage": 45,
+                            "attack_ratio": 80,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
                           },
                           {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_renekton_f5",
-                              "duration": {
-                                "Time": {
-                                  "tick": 480
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_renekton_f4",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_renekton_f4"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_renekton_f5",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 480
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_renekton_f3",
-                          "effect_buff": {
+                            "type": "Heal",
+                            "amount": 2,
+                            "attack_ratio": 1,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_renekton_q_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_renekton_q_hit"
+                          },
+                          {
                             "type": "Combine",
                             "effects": [
                               {
                                 "type": "RemoveCasterBuff",
-                                "name": "league_renekton_f3"
+                                "name": "league_renekton_q_any"
                               },
                               {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_renekton_f4",
+                                  "name": "league_renekton_q_any",
                                   "duration": {
                                     "Time": {
-                                      "tick": 480
+                                      "tick": 2
                                     }
                                   }
                                 },
                                 "only_to_enemy": false
                               }
                             ]
-                          },
-                          "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_renekton_f2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_renekton_f2"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_renekton_f3",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 480
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_renekton_f1",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_renekton_f1"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_renekton_f2",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 480
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_renekton_f1",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 480
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              }
-                            }
                           }
-                        }
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "Delayed",
-                  "tick": 1,
-                  "effects": [
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_renekton_q_any",
-                      "effect_buff": {
-                        "type": "Combine",
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 32000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
                         "effects": [
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_renekton_q_any"
+                            "type": "Heal",
+                            "amount": 10,
+                            "attack_ratio": 10,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
                           },
                           {
                             "type": "SwitchByBuff",
@@ -1861,18 +1264,466 @@
                             }
                           }
                         ]
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
                       }
+                    ]
+                  }
+                ]
+              }
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "CasterAnimation",
+                  "name": "skill",
+                  "tick": 25
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_renekton_q_cast"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_renekton_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_renekton_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_renekton_vo_q"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_renekton_q_cd"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_renekton_q_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 420
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_renekton_q_spin"
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 7,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 32000
+                        }
+                      },
+                      "target": "EnemyWithoutTower",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Attack",
+                          "damage": 45,
+                          "attack_ratio": 80,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "Heal",
+                          "amount": 2,
+                          "attack_ratio": 1,
+                          "ap_ratio": 0,
+                          "heal_type": "Caster"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_renekton_q_hit"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_renekton_q_hit"
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_renekton_q_any"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_renekton_q_any",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 2
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 32000
+                        }
+                      },
+                      "target": "EnemyChampion",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 10,
+                          "attack_ratio": 10,
+                          "ap_ratio": 0,
+                          "heal_type": "Caster"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_renekton_f5",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_renekton_f5"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_renekton_f5",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 480
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_renekton_f4",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_renekton_f4"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_renekton_f5",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 480
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_renekton_f3",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_renekton_f3"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_renekton_f4",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 480
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_renekton_f2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_renekton_f2"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_renekton_f3",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 480
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_renekton_f1",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_renekton_f1"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_renekton_f2",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 480
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_renekton_f1",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 480
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
                     }
                   ]
                 }
               ]
             }
-          ]
-        }
+          },
+          {
+            "type": "Delayed",
+            "tick": 7,
+            "effects": [
+              {
+                "type": "Delayed",
+                "tick": 1,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_renekton_q_any",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_renekton_q_any"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_renekton_f5",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_renekton_f5"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_renekton_f5",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 480
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_renekton_f4",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_renekton_f4"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_renekton_f5",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 480
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_renekton_f3",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_renekton_f3"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_renekton_f4",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 480
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_renekton_f2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_renekton_f2"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_renekton_f3",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 480
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_renekton_f1",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_renekton_f1"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_renekton_f2",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 480
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_renekton_f1",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 480
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     }
   },
@@ -2392,13 +2243,13 @@
                   },
                   {
                     "type": "SwitchByBuff",
-                    "buff_name": "league_renekton_f5",
+                    "buff_name": "league_renekton_f4",
                     "effect_buff": {
                       "type": "Combine",
                       "effects": [
                         {
                           "type": "RemoveCasterBuff",
-                          "name": "league_renekton_f5"
+                          "name": "league_renekton_f4"
                         },
                         {
                           "type": "AddCasterBuff",
@@ -2416,18 +2267,18 @@
                     },
                     "effect_none": {
                       "type": "SwitchByBuff",
-                      "buff_name": "league_renekton_f4",
+                      "buff_name": "league_renekton_f3",
                       "effect_buff": {
                         "type": "Combine",
                         "effects": [
                           {
                             "type": "RemoveCasterBuff",
-                            "name": "league_renekton_f4"
+                            "name": "league_renekton_f3"
                           },
                           {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_renekton_f5",
+                              "name": "league_renekton_f4",
                               "duration": {
                                 "Time": {
                                   "tick": 480
@@ -2440,18 +2291,18 @@
                       },
                       "effect_none": {
                         "type": "SwitchByBuff",
-                        "buff_name": "league_renekton_f3",
+                        "buff_name": "league_renekton_f2",
                         "effect_buff": {
                           "type": "Combine",
                           "effects": [
                             {
                               "type": "RemoveCasterBuff",
-                              "name": "league_renekton_f3"
+                              "name": "league_renekton_f2"
                             },
                             {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_renekton_f4",
+                                "name": "league_renekton_f3",
                                 "duration": {
                                   "Time": {
                                     "tick": 480
@@ -2464,18 +2315,18 @@
                         },
                         "effect_none": {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_renekton_f2",
+                          "buff_name": "league_renekton_f1",
                           "effect_buff": {
                             "type": "Combine",
                             "effects": [
                               {
                                 "type": "RemoveCasterBuff",
-                                "name": "league_renekton_f2"
+                                "name": "league_renekton_f1"
                               },
                               {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_renekton_f3",
+                                  "name": "league_renekton_f2",
                                   "duration": {
                                     "Time": {
                                       "tick": 480
@@ -2487,41 +2338,16 @@
                             ]
                           },
                           "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_renekton_f1",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_renekton_f1"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_renekton_f2",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 480
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_renekton_f1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 480
                                 }
-                              ]
+                              }
                             },
-                            "effect_none": {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_renekton_f1",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 480
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
+                            "only_to_enemy": false
                           }
                         }
                       }

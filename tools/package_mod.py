@@ -25,10 +25,15 @@ The game reads every mod file except background music into memory when it starts
   .fanim change.
 - JSON files (.data_champion .fanim .i18n .champion_view .override_info .sound_info) minified: whitespace
   outside strings is dropped, the text of every value stays as it was.
+- Effect trees (.data_champion) also go through tools/kit/slim.py: wrappers that change nothing (a Combine inside an
+  effect list or around one effect, a SwitchByBuff whose branches are equal or share their first / last effects) are
+  dropped. The game copies every hero's skill and skill2 trees each tick of a match, so their node count is CPU
+  (docs/perf.md section 8); the same effects still run in the same order (classic simulation, 2026-10-18: every tick's
+  events of 180 ten-minute games equal with and without it).
 - Everything else is copied as it is.
 
-Every output is checked against its source: JSON equal after parsing, every frame pixel-identical, every
-MP3 decoding to the WAV's length.
+Every output is checked against its source: JSON equal after parsing (a .data_champion: equal to slim.py's
+rewrite of the source), every frame pixel-identical, every MP3 decoding to the WAV's length.
 
     python tools/package_mod.py                                # league/ -> dist/league, every hero
     python tools/package_mod.py --hero fiora --install         # one hero into <game>/mods/league
@@ -64,6 +69,8 @@ import numpy as np
 from PIL import Image
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(REPO, "tools", "kit"))
+import slim  # noqa: E402  the exact effect-tree rewrites
 GAME_DIRS = [
     r"C:\Program Files (x86)\Steam\steamapps\common\Teamfight Manager2",
     r"C:\Program Files\Steam\steamapps\common\Teamfight Manager2",
@@ -406,6 +413,15 @@ def build(src, heroes, everything, workers):
             return [(rel, read(path))], None
         if kind == "json":
             raw = read(path)
+            if rel.endswith(".data_champion"):
+                kit = parse_json(raw, rel)
+                lean = slim.slim_champion(kit)
+                small = dump_min(lean)
+                if parse_json(small, rel) != lean or slim.slim_champion(lean) != lean:
+                    raise ValueError(f"{rel}: the slimmed kit does not read back as itself")
+                copied = ("skill", "skill2")
+                return [(rel, small)], ("nodes", (sum(slim.count(kit.get(s) or {}) for s in copied),
+                                                  sum(slim.count(lean.get(s) or {}) for s in copied)))
             small = minify(raw)
             if parse_json(small, rel) != parse_json(raw, rel):
                 raise ValueError(f"{rel}: minified JSON parses differently")
@@ -433,6 +449,8 @@ def build(src, heroes, everything, workers):
                 count("after", rel, len(data))
             if extra and extra[0] == "audio":
                 report["audio_s"] += extra[1]
+            elif extra and extra[0] == "nodes":
+                report["nodes"] = [a + b for a, b in zip(report.get("nodes", [0, 0]), extra[1])]
             elif extra:
                 report["sheets"].append(extra[1])
     if "mod.override_info" in out:
@@ -488,6 +506,8 @@ def print_report(report, seconds):
               f"({4 * before / 1e6:.0f} -> {4 * after / 1e6:.0f} MB once decoded), {frames} frame rects -> {uniq} unique")
     if report["audio_s"]:
         print(f"audio encoded: {report['audio_s']:.0f} s of WAV -> MP3")
+    if report.get("nodes"):
+        print(f"skill + skill2 effect nodes (copied every tick in game): {report['nodes'][0]} -> {report['nodes'][1]}")
     if report.get("streamed"):
         print(f"clips in {STREAM_DIR}/ (opened when played, not read at start): {report['streamed']}")
     for d in report["dropped"]:

@@ -344,24 +344,16 @@
                       }
                     },
                     "effect_none": {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_alistar_p1",
-                      "effect_buff": {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_alistar_p2",
-                          "duration": {
-                            "Time": {
-                              "tick": 1800
-                            }
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_alistar_p2",
+                        "duration": {
+                          "Time": {
+                            "tick": 1800
                           }
-                        },
-                        "only_to_enemy": false
+                        }
                       },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
-                      }
+                      "only_to_enemy": false
                     }
                   },
                   "effect_none": {
@@ -666,27 +658,9 @@
                                   "only_to_enemy": false
                                 },
                                 {
-                                  "buff_name": "league_alistar_r_armed",
-                                  "type": "SwitchByBuff",
-                                  "effect_buff": {
-                                    "buff_name": "league_alistar_r_go",
-                                    "type": "SwitchByBuff",
-                                    "effect_buff": {
-                                      "type": "CasterAnimation",
-                                      "name": "ult_fx1",
-                                      "tick": 30
-                                    },
-                                    "effect_none": {
-                                      "type": "CasterAnimation",
-                                      "name": "skill_fx1",
-                                      "tick": 28
-                                    }
-                                  },
-                                  "effect_none": {
-                                    "type": "CasterAnimation",
-                                    "name": "skill_fx1",
-                                    "tick": 28
-                                  }
+                                  "type": "CasterAnimation",
+                                  "name": "skill_fx1",
+                                  "tick": 28
                                 },
                                 {
                                   "type": "Sfx",
@@ -695,33 +669,9 @@
                               ]
                             },
                             "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_alistar_e3",
-                              "effect_buff": {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_alistar_e4",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 300
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
-                            }
-                          },
-                          "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_alistar_e2",
-                            "effect_buff": {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_alistar_e3",
+                                "name": "league_alistar_e4",
                                 "duration": {
                                   "Time": {
                                     "tick": 300
@@ -729,20 +679,12 @@
                                 }
                               },
                               "only_to_enemy": false
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
                             }
-                          }
-                        },
-                        "effect_none": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_alistar_e1",
-                          "effect_buff": {
+                          },
+                          "effect_none": {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_alistar_e2",
+                              "name": "league_alistar_e3",
                               "duration": {
                                 "Time": {
                                   "tick": 300
@@ -750,11 +692,19 @@
                               }
                             },
                             "only_to_enemy": false
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": []
                           }
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_alistar_e2",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         }
                       },
                       "effect_none": {
@@ -916,33 +866,9 @@
                                       ]
                                     },
                                     "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_alistar_e3",
-                                      "effect_buff": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_alistar_e4",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 300
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      }
-                                    }
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_alistar_e2",
-                                    "effect_buff": {
                                       "type": "AddCasterBuff",
                                       "buff_state": {
-                                        "name": "league_alistar_e3",
+                                        "name": "league_alistar_e4",
                                         "duration": {
                                           "Time": {
                                             "tick": 300
@@ -950,20 +876,12 @@
                                         }
                                       },
                                       "only_to_enemy": false
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
                                     }
-                                  }
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_alistar_e1",
-                                  "effect_buff": {
+                                  },
+                                  "effect_none": {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_alistar_e2",
+                                      "name": "league_alistar_e3",
                                       "duration": {
                                         "Time": {
                                           "tick": 300
@@ -971,11 +889,19 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
                                   }
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_alistar_e2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 300
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
                                 }
                               },
                               "effect_none": {
@@ -1178,24 +1104,16 @@
                                 }
                               },
                               "effect_none": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_alistar_p1",
-                                "effect_buff": {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_alistar_p2",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 1800
-                                      }
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_alistar_p2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1800
                                     }
-                                  },
-                                  "only_to_enemy": false
+                                  }
                                 },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": []
-                                }
+                                "only_to_enemy": false
                               }
                             },
                             "effect_none": {
@@ -1269,33 +1187,9 @@
                                     ]
                                   },
                                   "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_alistar_e3",
-                                    "effect_buff": {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_alistar_e4",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 300
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
-                                  }
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_alistar_e2",
-                                  "effect_buff": {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_alistar_e3",
+                                      "name": "league_alistar_e4",
                                       "duration": {
                                         "Time": {
                                           "tick": 300
@@ -1303,20 +1197,12 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
                                   }
-                                }
-                              },
-                              "effect_none": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_alistar_e1",
-                                "effect_buff": {
+                                },
+                                "effect_none": {
                                   "type": "AddCasterBuff",
                                   "buff_state": {
-                                    "name": "league_alistar_e2",
+                                    "name": "league_alistar_e3",
                                     "duration": {
                                       "Time": {
                                         "tick": 300
@@ -1324,11 +1210,19 @@
                                     }
                                   },
                                   "only_to_enemy": false
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": []
                                 }
+                              },
+                              "effect_none": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_alistar_e2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 300
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
                               }
                             },
                             "effect_none": {
@@ -1653,33 +1547,9 @@
                               ]
                             },
                             "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_alistar_e3",
-                              "effect_buff": {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_alistar_e4",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 300
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
-                            }
-                          },
-                          "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_alistar_e2",
-                            "effect_buff": {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_alistar_e3",
+                                "name": "league_alistar_e4",
                                 "duration": {
                                   "Time": {
                                     "tick": 300
@@ -1687,20 +1557,12 @@
                                 }
                               },
                               "only_to_enemy": false
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
                             }
-                          }
-                        },
-                        "effect_none": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_alistar_e1",
-                          "effect_buff": {
+                          },
+                          "effect_none": {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_alistar_e2",
+                              "name": "league_alistar_e3",
                               "duration": {
                                 "Time": {
                                   "tick": 300
@@ -1708,11 +1570,19 @@
                               }
                             },
                             "only_to_enemy": false
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": []
                           }
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_alistar_e2",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         }
                       },
                       "effect_none": {
@@ -1874,33 +1744,9 @@
                                       ]
                                     },
                                     "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_alistar_e3",
-                                      "effect_buff": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_alistar_e4",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 300
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      }
-                                    }
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_alistar_e2",
-                                    "effect_buff": {
                                       "type": "AddCasterBuff",
                                       "buff_state": {
-                                        "name": "league_alistar_e3",
+                                        "name": "league_alistar_e4",
                                         "duration": {
                                           "Time": {
                                             "tick": 300
@@ -1908,20 +1754,12 @@
                                         }
                                       },
                                       "only_to_enemy": false
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
                                     }
-                                  }
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_alistar_e1",
-                                  "effect_buff": {
+                                  },
+                                  "effect_none": {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_alistar_e2",
+                                      "name": "league_alistar_e3",
                                       "duration": {
                                         "Time": {
                                           "tick": 300
@@ -1929,11 +1767,19 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
                                   }
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_alistar_e2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 300
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
                                 }
                               },
                               "effect_none": {
@@ -2105,24 +1951,16 @@
                       }
                     },
                     "effect_none": {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_alistar_p1",
-                      "effect_buff": {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_alistar_p2",
-                          "duration": {
-                            "Time": {
-                              "tick": 1800
-                            }
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_alistar_p2",
+                        "duration": {
+                          "Time": {
+                            "tick": 1800
                           }
-                        },
-                        "only_to_enemy": false
+                        }
                       },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
-                      }
+                      "only_to_enemy": false
                     }
                   },
                   "effect_none": {
@@ -2322,24 +2160,16 @@
                                         }
                                       },
                                       "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_alistar_p1",
-                                        "effect_buff": {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_alistar_p2",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 1800
-                                              }
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_alistar_p2",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1800
                                             }
-                                          },
-                                          "only_to_enemy": false
+                                          }
                                         },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
+                                        "only_to_enemy": false
                                       }
                                     },
                                     "effect_none": {
@@ -2413,33 +2243,9 @@
                                             ]
                                           },
                                           "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_alistar_e3",
-                                            "effect_buff": {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_alistar_e4",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 300
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          }
-                                        },
-                                        "effect_none": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_alistar_e2",
-                                          "effect_buff": {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_alistar_e3",
+                                              "name": "league_alistar_e4",
                                               "duration": {
                                                 "Time": {
                                                   "tick": 300
@@ -2447,20 +2253,12 @@
                                               }
                                             },
                                             "only_to_enemy": false
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
                                           }
-                                        }
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_alistar_e1",
-                                        "effect_buff": {
+                                        },
+                                        "effect_none": {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_alistar_e2",
+                                            "name": "league_alistar_e3",
                                             "duration": {
                                               "Time": {
                                                 "tick": 300
@@ -2468,11 +2266,19 @@
                                             }
                                           },
                                           "only_to_enemy": false
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
                                         }
+                                      },
+                                      "effect_none": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_alistar_e2",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 300
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
                                       }
                                     },
                                     "effect_none": {
