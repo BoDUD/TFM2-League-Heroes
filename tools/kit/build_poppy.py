@@ -47,7 +47,9 @@ BIG = "asset/league/effects/league_poppy_big"
 # enchanter, monk and taoist, three lineups, both sides, seeds 1-8 and 9-16, 2026-10-18; league_alistar +0.97 / +1.12):
 # the draft (from league_alistar: hp 1080, atk 78, Q 40 +50%, E 50 +60%, buckler 40) -0.79 / -1.60; Q 60 +70%, E 70 +80%,
 # buckler 60 +0.30 / +0.51; + atk 86, hp 1150 +0.48 / +0.57; + E's stun 45 ticks, Q 6% max hp +0.91 / +1.08 = P (+1.00);
-# + W 24% and a 160 shield +1.07 / +0.93 (not taken: League's 16% kept).
+# + W 24% and a 160 shield +1.07 / +0.93 (not taken: League's 16% kept). Then R as League's (flying 150000 in the air,
+# the user: 「大招能把人弹飞吗」) +0.82 / +0.92; r_dmg 190 +80% +0.58 / +0.68; hp 1155 +1.33 / +1.35, 1160 +1.24 / +1.36,
+# 1165 +1.40 / +1.14, 1175 +1.21 / +1.39 - within the batches' noise (~0.3), about +1.2 pooled: hp kept at 1150.
 P = {
     "hp": 1150, "hp_g": 115, "atk": 86, "atk_g": 6, "mp": 20, "mp_g": 10, "def": 38, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
