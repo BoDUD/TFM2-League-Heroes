@@ -28,11 +28,11 @@ import rig_akshan as A  # noqa: E402
 lp = A.lp
 SRC = os.path.join(ROOT, "assets", "source", "akshan")
 X0, Y0, PX = 90, 165, 15
-RIGHT = 26
+RIGHT = 34
 # (row0, row1, col0, col1) boxes in design squares, inclusive: where the pose may differ from the design - the old gun
 # arm left of the hair (and its hooks over the hair's top-left), the arm across the chest under the beard and the gun
-# held out; never the head (rows 12-32 from column 12 on)
-EDIT = [(0, 11, 0, 18), (12, 32, 0, 11), (33, 47, 0, 45 + RIGHT)]
+# held out (its hooks spread up and down past his right side, rows 18-52); never the head (rows 12-32, columns 12-43)
+EDIT = [(0, 11, 0, 18), (12, 32, 0, 11), (33, 47, 0, 45 + RIGHT), (18, 52, 44, 45 + RIGHT)]
 
 
 def sample(a, H, W, dx=0, dy=0):
@@ -90,6 +90,19 @@ def main():
     outside = diff & ~box
     print(f"take {a_.take}: offset ({dx},{dy}) lower-body error {err:.1f}; edit {int(edit.sum())} squares, "
           f"changes left outside the arm's reach {int(outside.sum())}")
+    # pieces left apart from the figure once the stamp is on (the old gun's outline beside the hair, columns 12-13 rows
+    # 12-20, which Codex copied too): squares of any small 8-connected piece other than the figure are cleared
+    from scipy import ndimage
+    comp = big.copy()
+    comp[edit] = s[edit]
+    op = comp[..., 3] > 0
+    lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
+    sizes = ndimage.sum(op, lbl, range(1, n + 1))
+    main_ = 1 + int(np.argmax(sizes))
+    stray = (lbl > 0) & (lbl != main_) & np.isin(lbl, [k + 1 for k, z in enumerate(sizes) if z <= 10])
+    s[stray] = 0
+    edit |= stray
+    print(f"stray pieces cleared: {int(stray.sum())} squares")
     stamp = s.astype(np.uint8)
     Image.fromarray(stamp).save(lp(os.path.join(SRC, "hd", "pose_aim.png")))
     Image.fromarray((edit * 255).astype(np.uint8)).save(lp(os.path.join(SRC, "hd", "pose_aim_edit.png")))
