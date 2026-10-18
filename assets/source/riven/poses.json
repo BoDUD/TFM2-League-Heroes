@@ -131,6 +131,151 @@
         ]
       ]
     },
+    "attack2": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "riven_idle1@0>riven_attack2@100:0.5",
+          60
+        ],
+        [
+          "riven_attack2@167",
+          60
+        ],
+        [
+          "riven_attack2@300",
+          70
+        ],
+        [
+          "riven_attack2@400",
+          70
+        ],
+        [
+          "riven_attack2@550",
+          80
+        ],
+        [
+          "riven_attack2@800>riven_idle1@0:0.5",
+          90
+        ]
+      ]
+    },
+    "attack3": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "riven_idle1@0>riven_attack3@100:0.5",
+          60
+        ],
+        [
+          "riven_attack3@167",
+          60
+        ],
+        [
+          "riven_attack3@300",
+          70
+        ],
+        [
+          "riven_attack3@400",
+          70
+        ],
+        [
+          "riven_attack3@550",
+          80
+        ],
+        [
+          "riven_attack3@800>riven_idle1@0:0.5",
+          90
+        ]
+      ]
+    },
+    "attack_r": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "riven_idle1@0>riven_attack1_ult@100:0.5",
+          60
+        ],
+        [
+          "riven_attack1_ult@167",
+          60
+        ],
+        [
+          "riven_attack1_ult@300",
+          70
+        ],
+        [
+          "riven_attack1_ult@400",
+          70
+        ],
+        [
+          "riven_attack1_ult@550",
+          80
+        ],
+        [
+          "riven_attack1_ult@800>riven_idle1@0:0.5",
+          90
+        ]
+      ]
+    },
+    "attack2_r": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "riven_idle1@0>riven_attack2_ult@100:0.5",
+          60
+        ],
+        [
+          "riven_attack2_ult@167",
+          60
+        ],
+        [
+          "riven_attack2_ult@300",
+          70
+        ],
+        [
+          "riven_attack2_ult@400",
+          70
+        ],
+        [
+          "riven_attack2_ult@550",
+          80
+        ],
+        [
+          "riven_attack2_ult@800>riven_idle1@0:0.5",
+          90
+        ]
+      ]
+    },
+    "attack3_r": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "riven_idle1@0>riven_attack3@100:0.5",
+          60
+        ],
+        [
+          "riven_attack3@167",
+          60
+        ],
+        [
+          "riven_attack3@300",
+          70
+        ],
+        [
+          "riven_attack3@400",
+          70
+        ],
+        [
+          "riven_attack3@550",
+          80
+        ],
+        [
+          "riven_attack3@800>riven_idle1@0:0.5",
+          90
+        ]
+      ]
+    },
     "skill": {
       "lunge": 0.7,
       "rise": 0.5,
