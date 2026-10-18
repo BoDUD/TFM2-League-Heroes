@@ -50,11 +50,14 @@ BLADE = [(250, 250, 252), (168, 176, 198)]   # Codex's blade: the white top squa
 FACE_ROWS = range(9, 19)
 FACE_COLS = range(33, 42)
 WHITE, IRIS_D, IRIS_L, SKIN, LINE = (250, 249, 249), (4, 120, 169), (17, 197, 249), (252, 228, 205), (3, 3, 2)
+LOCK = (231, 24, 76)
 # read-back squares (x, y) -> rgb: Codex drew the near eye three squares wide (a white and two blues) and the far eye
 # one column of blue against the face's outline; both now 2 x 2 at rows 12-13, white then the iris (near 35-36, far
 # 38-39), the nose's skin square 37 between them, the far eye's lash over it (38, 11) like the near one's; the
-# two black squares Codex left of the near eye (a lash tip, (33-34, 12)) back to skin: 「这里多一块是什么？」
-EYES = {(33, 12): SKIN, (34, 12): SKIN, (34, 13): SKIN, (35, 12): WHITE, (36, 12): IRIS_D, (35, 13): WHITE, (36, 13): IRIS_L,
+# black square Codex left of the near eye (a lash tip, (34, 12)) back to skin: 「这里多一块是什么？」; the black
+# beside it (33, 12) is the crimson lock's square instead, not dropped (「你不要缺失像素啊」「那个黑色像素放在那好奇怪」:
+# the lock meets the cheek without an outline in the rows under it)
+EYES = {(33, 12): LOCK, (34, 12): SKIN, (34, 13): SKIN, (35, 12): WHITE, (36, 12): IRIS_D, (35, 13): WHITE, (36, 13): IRIS_L,
         (38, 12): WHITE, (39, 12): IRIS_D, (38, 13): WHITE, (39, 13): IRIS_L, (38, 11): LINE, (37, 11): SKIN}
 BG = (196, 200, 190, 255)
 PEERS = ["fiora", "kaisa", "camille", "xinzhao"]
