@@ -300,7 +300,9 @@ def build(p, native=False):
     views_e = [E("a_hit"), E("q_hit"), E("e_cloud", BIG), E("e_land", BIG, -1, **LATE), E("e_hit"),
                E("w_poof", BIG, 2, **LATE), E("w_clone", BIG, 1), E("w_clone_atk", BIG, 1), E("w_clone_spin", BIG, 1),
                E("w_hit"), E("r_hit")]
-    views_b = [B_("q_shred", FX, 3), B_("r_on", BIG, -1)]
+    views_b = [B_("q_shred", FX, 3), B_("r_on", BIG, -1),
+               # Stone Skin at five stacks: the stone chips round him (the top stack's buff carries the picture)
+               {"type": "Animated", "name": n("s_5"), "anim": FX, "tag": "p_stone", "repeat": True, "z": 2}]
     kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
