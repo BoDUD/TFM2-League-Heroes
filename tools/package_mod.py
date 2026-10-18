@@ -43,7 +43,8 @@ rewrite of the source), every frame pixel-identical, every MP3 decoding to the W
 --install merges the way the hero sessions' install scripts did: it writes the selected heroes' files,
 removes a clip's older copies (the .wav of an .mp3, and the copy in sound/sfx/ that installs made before
 2026-10-17), refreshes only the selected heroes' keys in
-text/champion.i18n, style/champion_view and mod.override_info, and keeps the higher mod_info version.
+text/champion.i18n, style/champion_view and mod.override_info (keys naming the hero by its whole id: --hero vi
+leaves league_viktor's and league_viego's alone), and keeps the higher mod_info version.
 Every other hero's files stay as they are.
 
 The main pack is a native mod (mod.mod_info contains_code / mod_type native, 2026-10-12: the dense PPU frames,
@@ -61,6 +62,7 @@ import math
 import io
 import json
 import os
+import re
 import shutil
 import sys
 import time
@@ -340,6 +342,15 @@ def belongs(name, hid):
     return name.startswith((hid + "_", hid + ".", hid + "#"))
 
 
+def key_matcher(heroes):
+    """-> match(key): the key names one of `heroes` by its whole id - league_vi followed by "_", "/", ".", "?", the end
+    or anything but a letter or digit. A plain substring test also matched league_viktor's and league_viego's keys
+    for --hero vi (2026-10-18: an install of vi alone pointed Viktor's 20 and Viego's 21 clip entries back at
+    sound/sfx/, and Viktor played no sound)."""
+    pat = re.compile(r"(?<![A-Za-z0-9])(?:" + "|".join(map(re.escape, heroes)) + r")(?![A-Za-z0-9])")
+    return lambda k: pat.search(k) is not None
+
+
 def select_files(src, heroes, everything):
     """Relative paths (forward slashes) to package."""
     files = []
@@ -571,7 +582,7 @@ def install(pkg, heroes, target, dry):
         if not dry:
             write(dst, data)
     print(f"{wrote} files written, {removed} older copies of clips removed" + (" (dry run)" if dry else ""))
-    match = lambda k: any(h in k for h in heroes)
+    match = key_matcher(heroes)
     for rel in SHARED:
         if rel not in pkg:
             continue
