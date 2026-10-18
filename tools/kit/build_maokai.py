@@ -19,7 +19,7 @@ Sapling Toss (E) has no slot - the watch throws it (league_jarvaniv's W the same
   skill2  W Twisted Advance (扭曲突刺), a 3-tick `Targeting` on `EnemyChampion` (w_range): only when an allied champion
           stands within w_ally of him (`ally`, counted by the watch), in a fight (`fight`), or right after his R rooted
           someone (`r_hit`) - else an empty 3-tick cast (the user's rule 「看好时机」). He sinks into roots and dashes
-          (`MoveToTarget` w_speed) hidden (`CasterInvisible`) with damaged_reduce 100 + cc_immune (League: untargetable;
+          (`MoveToTarget` w_speed, the roots w_trail running with him) with damaged_reduce 100 + cc_immune (League: untargetable;
           only Banish is, and it blinds his team - league_masteryi Q's way); on arrival the target is rooted (`Bind`
           w_root) and takes w_dmg + w_ap% AP. Pro combo W -> Q: with Q ready (no `q_cd`) the smash follows on landing.
   E       Sapling Toss (树苗投掷), thrown by the watch: e_cd off, nothing else being cast, an enemy champion within
@@ -53,7 +53,9 @@ ID = "league_maokai"
 FX = "asset/league/effects/league_maokai_fx"
 BIG = "asset/league/effects/league_maokai_big"
 
-# Timings are placeholders until the strips exist (tools/art/rig_maokai.py MS).
+# Timings from the strips (tools/art/rig_maokai.py MS): the attack's blow frame 3 from tick 10.2 (a_hit 11) of 30, Q's slam
+# frame 3 from 11.4 (q_rel 12) of 32, W down 24 and up 20, E's throw frame 3 from 9.6 (e_rel 10) of 29, R's slam frame 4
+# from 19.8 (r_rel 20) of 42.
 P = {
     # stats (support tanks: league_braum 78 +6 attack, 25 +15 AP, 1300 +120 hp, 44 +8 armour); League's Maokai: 665 +109
     # hp, 64 AD, 35 +5.2 armour, 32 +2.05 mr, 335 move, range 125, attack speed 0.8
@@ -63,19 +65,24 @@ P = {
     "atk_range": 26000, "atk_dur": 30, "atk_cd": 75, "a_hit": 11, "f_t": 180,
     # passive Sap Magic (League: heal 4.5-12% max hp + bonus 5-65 + ..., cd 20 s minus 4 s a cast)
     "p_heal": 40, "p_ap": 60, "p_hp": 2, "p_cd": 240, "p_t": 300,
+    # the add-on's Sap Magic: 4.5-12% of max health by level (permille), an enemy skill cast within p_win ticks counts as a
+    # skill hit; a zone of his standing still e_stand ticks is a sapling
+    "p_heal_lo": 45, "p_heal_hi": 120, "p_win": 90, "e_stand": 20,
     # skill: Q Bramble Smash (League: 65-245 + 40% AP + 2-4% max hp, knock-back, slow 99% decaying over 0.5 s, cd 7-5)
-    "q_cd": 360, "q_range": 30000, "q_dur": 30, "q_rel": 12, "q_kb": 16000, "q_kb_s": 2000, "q_kb_t": 12,
+    "q_cd": 360, "q_range": 30000, "q_dur": 32, "q_rel": 12, "q_kb": 16000, "q_kb_s": 2000, "q_kb_t": 12,
     "q_len": 45000, "q_w": 10000, "q_speed": 6000, "q_dmg": 60, "q_ap": 40, "q_thp": 2,
     "q_s1": 50, "q_s1t": 20, "q_s2": 45, "q_s2t": 40,
     # skill2: W Twisted Advance (League: range 525, 70-170 + 40% AP, root 1-1.4 s, untargetable, cd 14-10)
-    "w_cd": 720, "w_range": 45000, "w_ally": 50000, "w_speed": 4000, "w_dash": 24, "w_root": 66,
-    "w_dmg": 60, "w_ap": 40, "w_land": 14,
+    "w_cd": 720, "w_range": 45000, "w_ally": 50000, "w_speed": 2500, "w_dash": 24, "w_root": 66,
+    "w_dmg": 60, "w_ap": 40, "w_land": 20,
     # E Sapling Toss (League: 1100 range, 55-155 + 40% AP + 5% bonus hp, slow 35% 2 s, 30 s life, cd 18-14)
-    "e_cd": 900, "e_range": 60000, "e_dur": 24, "e_rel": 10, "e_travel": 20, "e_arm": 30, "e_life": 720,
+    "e_cd": 900, "e_range": 60000, "e_dur": 29, "e_rel": 10, "e_travel": 20, "e_arm": 30, "e_life": 720,
     "e_trig": 14000, "e_r": 24000, "e_dmg": 60, "e_ap": 50, "e_slow": 35, "e_slow_t": 120, "e_link": 30,
+    # the add-on's sapling in brush (League: a bigger blast, 2x damage over 2 s, a 45% slow)
+    "e_br": 34000, "e_bdmg": 160, "e_bslow": 45, "e_bslow_t": 150,
     # ult: R Nature's Grasp (League: 3000 range, root 0.8-2.6 s by distance, 150-300 + 75% AP, haste 40-80% 2.5 s,
     # cd 130-90)
-    "r_cd": 3600, "r_range": 70000, "r_arm": 600, "r_dur": 36, "r_rel": 20, "r_speed": 1500, "r_len": 200000,
+    "r_cd": 3600, "r_range": 70000, "r_arm": 600, "r_dur": 42, "r_rel": 20, "r_speed": 1500, "r_len": 200000,
     "r_w": 28000, "r_d1": 45, "r_d2": 95, "r_b1": 48, "r_b2": 96, "r_b3": 144, "r_dmg": 120, "r_ap": 75,
     "r_ms": 40, "r_ms_t": 150, "r_cnt": 60000, "r_open": 120,
     # the watch
@@ -260,12 +267,16 @@ def build(p):
                         line("q_twin", p["q_speed"], p["q_len"], p["q_w"], marked, target="EnemyChampion", y=0))))
 
     # ------------------------------------------------------------------ W: Twisted Advance
-    w_land = [bind(p["w_root"]), magic(p["w_dmg"], p["w_ap"]), view("w_hit"), tsfx("w_hit")]
+    w_land = [bind(p["w_root"]), buff("w_bound", p["w_root"]), magic(p["w_dmg"], p["w_ap"]), view("w_hit"), tsfx("w_hit")]
     arrive = [anim("skill2_land", p["w_land"]), sfx("w_land"), cview("w_land"),
               *w_land, *sap, *marked,
               sw("q_cd", NONE, delayed(p["w_land"], alive(smash)))]       # pro combo W -> Q
+    # he sinks into the ground in his own frames (skill2), so no CasterInvisible (it would hide the sinking): while he
+    # travels he takes no damage and no CC, and the mass of roots under the ground (w_trail) runs to the target with him
+    trail = {"type": "TargetProjectile", "name": n("w_trail"), "speed": p["w_speed"], "y_offset": 0,
+             "applied_target": "EnemyChampion", "applied_effects": []}
     dash = combine(refresh("busy", p["w_dash"] + p["w_land"]), anim("skill2", p["w_dash"]), sfx("w"),
-                   voice("vo_w", p), {"type": "CasterInvisible", "tick": p["w_dash"]},
+                   voice("vo_w", p), trail,
                    flag("w_root_on", p["w_dash"], damaged_reduce=100, cc_immune=True),
                    {"type": "MoveToTarget", "speed": p["w_speed"], "range": 400000, "end_effects": arrive})
     # one copy of the dash behind a 1-tick `w_ok` (skill2 is copied every tick: league_maokai keeps it small)
@@ -276,6 +287,8 @@ def build(p):
     # ------------------------------------------------------------------ E: Sapling Toss (thrown by the watch)
     blast = [magic(p["e_dmg"], p["e_ap"]), buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
              view("e_hit"), tsfx("e_hit")]
+    blast_b = [magic(p["e_dmg"] * p["e_bdmg"] // 100, p["e_ap"] * p["e_bdmg"] // 100),
+               buff("e_slow", p["e_bslow_t"], move_speed_mult=-p["e_bslow"]), view("e_hit"), tsfx("e_hit")]
     life = p["e_life"]
     links = [delayed(t, sw("e_on", view("e_idle"))) for t in range(p["e_arm"], life, p["e_link"])]
     planted = [view("e_land"), sfx("e_land"), refresh("e_on", life + p["e_arm"]), *rm("e_boom"), *links,
@@ -286,14 +299,23 @@ def build(p):
                              [sw("e_on", combine(*rm("e_on"), refresh("e_boom", 2), view("e_burst"),
                                                  sfx("e_burst")))], first=0),
                        # blast: checks every 2 ticks, so the 2-tick `e_boom` is seen once - every enemy in e_r hit once
-                       field("e_blast", p["e_r"], life + 2, 2, [sw("e_boom", combine(*blast, *sap))], first=1))]
+                       *([field("e_blast", p["e_r"], life + 2, 2, [sw("e_boom", combine(*blast, *sap))], first=1)]
+                         if not native else
+                         # the add-on's copy: a sapling standing in brush (the add-on marks `e_brush` on him while his
+                         # standing sapling is in a bush) bursts bigger, harder and slows more (League's empowered one)
+                         [field("e_blast", p["e_r"], life + 2, 2,
+                                [sw("e_boom", sw("e_brush", NONE, combine(*blast, *sap)))], first=1),
+                          field("e_blast_b", p["e_br"], life + 2, 2,
+                                [sw("e_boom", sw("e_brush", combine(*blast_b, *sap)))], first=1)]))]
     toss = combine(refresh("e_cd", p["e_cd"]), refresh("busy", p["e_dur"]), anim("skill_e", p["e_dur"]), sfx("e"),
                    voice("vo_e", p),
                    delayed(p["e_rel"] - 1, alive(pick(p["e_range"], "EnemyChampion",
                                                       lob("e_lob", p["e_travel"], planted, target="EnemyChampion")))))
 
     # ------------------------------------------------------------------ R: Nature's Grasp (sent by the watch)
-    roots = sw("r_d1", bind(p["r_b1"]), sw("r_d2", bind(p["r_b2"]), bind(p["r_b3"])))
+    roots = sw("r_d1", combine(bind(p["r_b1"]), buff("r_bound", p["r_b1"])),
+               sw("r_d2", combine(bind(p["r_b2"]), buff("r_bound", p["r_b2"])),
+                  combine(bind(p["r_b3"]), buff("r_bound", p["r_b3"]))))
     haste = [refresh("r_h1", p["r_ms_t"] // 2, move_speed_mult=p["r_ms"] // 2),
              refresh("r_h2", p["r_ms_t"], move_speed_mult=p["r_ms"] - p["r_ms"] // 2)]
     r_hit = [magic(p["r_dmg"], p["r_ap"]), roots, view("r_hit"), tsfx("r_hit")]
@@ -342,19 +364,23 @@ def build(p):
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
                                                    "z": z, "is_follow": follow}
-    B_ = lambda name, anim_=FX, z=3: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
+    B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
+                                                "repeat": True,
                                       "z": z}
     Pj = lambda name, anim_=FX, z=1: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
     # projectile pictures turn with the flight: all three are drawn top-bottom symmetric
-    views_p = [Pj("e_lob"), Pj("q_wave", BIG, -1), Pj("r_wall", BIG, -1)]
-    views_e = [E("a_hit"), E("p_hit"), E("p_heal"), E("q_cast", BIG, -1), E("q_hit"), E("w_land", BIG, -1),
+    views_p = [Pj("e_lob"), Pj("q_wave", BIG, -1), Pj("w_trail", BIG, -1), Pj("r_wall", BIG, -1)]
+    views_e = [E("a_hit"), E("p_hit"), E("p_heal", BIG), E("q_cast", BIG, -1), E("q_hit"), E("w_land", BIG, -1),
                E("w_hit"), E("e_land", FX, 0, False), E("e_idle", FX, 0, False), E("e_burst", BIG, 2, False),
                E("e_hit"), E("r_cast", BIG, -1), E("r_hit")]
-    views_b = [B_("q_s1"), B_("e_slow"), B_("r_h2", FX, -1)]
+    views_b = [B_("q_s1", tag="q_slow"), B_("e_slow"), B_("w_bound", tag="root"), B_("r_bound", tag="root"),
+               B_("r_h2", BIG, -1, tag="r_haste")]
     extra = {}
     if native:
-        extra["passive"] = {"passive_ref": "league_maokai:sap_magic", "params": {"p_cd": p["p_cd"]}}
+        extra["passive"] = {"passive_ref": "league_maokai:sap_magic",
+                            "params": {"heal_lo": p["p_heal_lo"], "heal_hi": p["p_heal_hi"], "p_t": p["p_t"],
+                                       "window": p["p_win"], "stand": p["e_stand"]}}
     return {
         "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Heal"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
