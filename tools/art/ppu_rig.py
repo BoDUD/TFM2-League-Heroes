@@ -1025,7 +1025,8 @@ class Driver:
     shorter than `short` of ours (pointing at or away from the camera) turns only that share of the way; dead: a relative
     turn of at most that many degrees is none; league_hand:
     League's weapon hand when its grip joint misleads; over_weapon: the fist drawn over the hilt.
-    weapons: [dict(name, grip, tip, league=(joint, joint), relative, aim, chest, floor, on_arm, always_front, src)] -
+    weapons: [dict(name, grip, tip, league=(joint, joint), relative, aim, chest, floor, on_arm, always_front, rest_back,
+    src)] -
     turned about the grip (carried by the arm's turn) to League's direction from its first joint to the second (the end
     matching our `tip`), absolute or relative as the arm; aim: aimed instead from our grip at where League's end is
     against its chest (our `chest` point), since a short chibi arm cannot lift the grip as high; floor: never more than
@@ -1198,6 +1199,31 @@ class Driver:
                 want = self.ang(j, a_, b_)
                 ours = heading(np.array(w["tip"], float) - np.array(w.get("ref", w["grip"]), float))
                 wr = round(wrap(want - ours) / 2) * 2 + o.get("weapon", 0)
+
+            def slide_at(a_ang):
+                """(dx, dy) the weapon slides through the hand along its own line at angle a_ang: as League's hand
+                moves along League's weapon (league_xinzhao: League holds the spear by the butt to thrust, the picture
+                near the blade - turned alone, the blade stayed by his fist and the long butt stuck out behind him);
+                still one rigid weapon."""
+                if not w.get("slide") or o.get("keep"):
+                    return 0.0, 0.0
+                sl = w["slide"]
+                unit = self.J.get("unit", 1.0)
+
+                def frac(jj):
+                    a3, b3, h3 = (np.array(jj[k], float) for k in (w["league"][0], w["league"][1], f"{self.hand}_hand"))
+                    for v in (a3, b3, h3):
+                        v[2] *= unit
+                    ab = b3 - a3
+                    return float(np.dot(h3 - a3, ab) / max(1e-9, np.dot(ab, ab)))
+                blade = np.array(sl["blade"], float)
+                tip_ = np.array(w["tip"], float)
+                L = float(np.hypot(*(tip_ - blade)))
+                f0 = float(np.hypot(*(grip - blade))) / L
+                f1 = max(sl.get("lo", 0.1), min(sl.get("hi", 0.9), f0 + frac(j) - frac(d)))
+                u = turn_pt(tip_, grip, a_ang) - turn_pt(blade, grip, a_ang)
+                u /= max(1e-9, float(np.hypot(*u)))
+                return -(f1 - f0) * L * u[0], -(f1 - f0) * L * u[1]
             if w.get("floor") is not None and self.legs and not o.get("keep"):
                 # never more than `floor` squares into the ground: the nearest angle that keeps the weapon's polygon
                 # above that, on the side League's points to (a lamp slammed down to his left lies on the ground to his
@@ -1209,7 +1235,7 @@ class Driver:
                 side = np.sign(np.cos(np.radians(want if want is not None else h0 + wr))) or 1.0
 
                 def low(a):
-                    return max(turn_pt(p, grip, a)[1] for p in pts)
+                    return max(turn_pt(p, grip, a)[1] for p in pts) + slide_at(a)[1]
                 if low(wr) > lim:
                     best = None
                     for k in range(2, 182, 2):
@@ -1222,9 +1248,16 @@ class Driver:
                             best = ok[0]
                     if best is not None:
                         wr = best
+            sx_, sy_ = slide_at(wr)
+            gx, gy = gx + int(round(sx_)), gy + int(round(sy_))
             wz = (j["weapon_a"][2] + j["weapon_b"][2]) / 2
             wz0 = (d["weapon_a"][2] + d["weapon_b"][2]) / 2
-            (back if behind(wz, wz0) and not w.get("always_front") else front).append(
+            in_back = behind(wz, wz0) and not w.get("always_front")
+            if w.get("rest_back"):
+                # a weapon the picture draws behind the body (league_xinzhao's spear across his back): in front only
+                # when League's came forward from its place in the design pose by more than the margin
+                in_back = not ((wz - chest_z) > (wz0 - d["chest"][2]) + self.margin)
+            (back if in_back else front).append(
                 (w["name"], dict(dx=ux + gx, dy=dy + gy, angle=wr, about=tuple(grip), src=w.get("src"))))
         if arm_layer is not None and self.arm.get("over_weapon"):
             arm_layer[0].append(arm_layer[1])          # the fist over the hilt
