@@ -238,6 +238,90 @@ def idle_frame(rig, legs, sink):
     return R.compose(rig, lay)
 
 
+# ------------------------------------------------------------------------------------------------- the legs
+# League's actions step, lunge and crouch on legs the rigid design legs cannot pose losslessly (league_kaisa's walk:
+# every slid, cut or row-swung leg read as 「变形」): Codex draws the legs of these tags along guides
+# (tools/art/pack_fiora_legs.py), tools/art/import_fiora_legs.py reads them back to hd/legs_<tag>.png; the body is
+# this rig's (the frame without its legs, moved whole so the lower sole stands on the ground or as high as League
+# leaps). The Q's two dash frames Codex draws whole (legs_shift.json "whole").
+LEG_TAGS = ["run", "attack", "attack_e", "skill", "skill2"]
+THIGH, SHIN = 8.0, 16.0                       # the design's hip -> knee and knee -> sole, squares
+
+
+def spied(drv, j):
+    """drv.frame(j) and its layers: (the frame, the frame without the legs, {leg name: (dx, dy)})."""
+    seen = []
+    orig = R.compose
+
+    def spy(rig_, layers):
+        seen.append(layers)
+        return orig(rig_, layers)
+    R.compose = spy
+    try:
+        full = drv.frame(j)
+    finally:
+        R.compose = orig
+    layers = seen[-1]
+    rest = [(n, o) for n, o in layers if not (isinstance(n, str) and n.endswith(("_thigh", "_shin")))]
+    offs = {n: (o.get("dx", 0), o.get("dy", 0)) for n, o in layers if isinstance(n, str) and n.endswith("_thigh")}
+    return full, R.compose(drv.rig, rest), offs
+
+
+def guides(rig, drv, j, offs):
+    """Per leg (near = front, far = back): hip, knee, sole in canvas squares - the hip where the rig puts the design's
+    hip, League's thigh and shin directions at the design's lengths."""
+    out = {}
+    for lg in (FRONT, BACK):
+        sd = drv.side[lg["side"]]
+        dx, dy = offs.get(lg["name"] + "_thigh", (0, 0))
+        hx, hy = rig.ox + lg["hip"][0] + dx, rig.oy + lg["hip"][1] + dy
+        h, k, f = (np.array(j[f"{sd}_{n}"][:2], float) for n in ("hip", "knee", "foot"))
+        t = k - h
+        b = f - k
+        t = t / (np.linalg.norm(t) or 1) * THIGH
+        b = b / (np.linalg.norm(b) or 1) * SHIN
+        knee = (hx + t[0], hy + t[1])
+        out[lg["side"]] = ((hx, hy), knee, (knee[0] + b[0], knee[1] + b[1]))
+    return out
+
+
+def grounded(rig, drv, joints, j, bare, g):
+    """The frame and its guides moved up or down whole so the lower sole stands on the ground - lifted as far as
+    League's lower foot is above where it is in the design pose (a leap); crumbs of the body the legs' cut left alone
+    (under 12 squares) go."""
+    op = bare[..., 3] > 0
+    lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
+    if n > 1:
+        sz = ndimage.sum(op, lbl, range(1, n + 1))
+        for k in range(1, n + 1):
+            if sz[k - 1] < 12:
+                bare[lbl == k] = 0
+    d = joints["design"]
+    feet = min(-j["l_foot"][1], -j["r_foot"][1])
+    feet0 = min(-d["l_foot"][1], -d["r_foot"][1])
+    lift = max(0.0, feet - feet0) * drv.s
+    low = max(p[2][1] for p in g.values())
+    dy = int(round(rig.GY - lift - low))
+    bare = np.roll(bare, dy, axis=0)
+    if dy > 0:
+        bare[:dy] = 0
+    elif dy < 0:
+        bare[dy:] = 0
+    g = {k: tuple((x, y + dy) for x, y in pts) for k, pts in g.items()}
+    return bare, g
+
+
+def leg_guides(rig, drv, joints, j):
+    """(the frame without its legs, grounded; {near | far: (hip, knee, sole)} in canvas squares)."""
+    full, bare, offs = spied(drv, j)
+    return grounded(rig, drv, joints, j, bare, guides(rig, drv, j, offs))
+
+
+def codex_legs(tag):
+    """hd/legs_<tag>.png: the tag's leg layers, canvas-sized, side by side."""
+    return np.asarray(Image.open(lp(os.path.join(R.ROOT, "assets", "source", HERO, "hd", f"legs_{tag}.png"))).convert("RGBA"))
+
+
 def frames(rig, joints):
     drv = driver(rig, joints)
     D = rig.D
@@ -253,6 +337,26 @@ def frames(rig, joints):
         rows = R.fit_rows(rows, len(ms))
         if tag == "idle":
             fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)]) for i in range(len(ms))]
+        elif tag in LEG_TAGS and os.path.isfile(lp(os.path.join(R.ROOT, "assets", "source", HERO, "hd", f"legs_{tag}.png"))):
+            strip = codex_legs(tag)
+            cw = strip.shape[1] // len(rows)
+            info = json.load(open(lp(os.path.join(R.ROOT, "assets", "source", HERO, "hd", "legs_shift.json"))))
+            shift, whole = info[tag], info["whole"][tag]
+            fr = []
+            for i, r in enumerate(rows):
+                bare, _ = leg_guides(rig, drv, joints, r["j"])
+                dr = shift[i]
+                if dr:
+                    bare = np.roll(bare, dr, axis=0)
+                    if dr > 0:
+                        bare[:dr] = 0
+                    else:
+                        bare[dr:] = 0
+                can = strip[:, i * cw:(i + 1) * cw].copy()
+                if not whole[i]:                  # a frame Codex drew whole keeps its own body (import_fiora_legs)
+                    m = bare[..., 3] > 0
+                    can[m] = bare[m]
+                fr.append(can)
         else:
             fr = [drv.frame(r["j"]) for r in rows]
         if tag == "hit":
