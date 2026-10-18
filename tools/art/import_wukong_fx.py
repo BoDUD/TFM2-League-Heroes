@@ -104,7 +104,9 @@ def main():
     ap.add_argument("--review", help="write every effect's game-size cells at 6x here")
     a = ap.parse_args()
     man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
-    meta = {os.path.basename(e.get("file", e.get("pixel_1x", "")))[len("wukong_fx_"):-4]: e for e in man["effects"]}
+    # Codex's manifest (2026-10-18): "assets", each with name, file (the 8x sheet's name, the same in pixel_1x/), frames
+    # and cell_1x
+    meta = {e["name"]: dict(e, pixel_1x=os.path.join("pixel_1x", e["file"])) for e in man["assets"]}
     if set(meta) != set(FX):
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
     allc = {n: cells(n, meta[n]) for n in FX}

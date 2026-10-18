@@ -108,17 +108,17 @@ class Clip:
 def showcase(out, z=3):
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_wukong_fx"], fx["league_wukong_big"]
-    W, H = 320, 120
+    W, H = 340, 120
     gy = 86
     x0 = 70
-    fx_ = x0 + 90                                       # Darius within E's reach
+    fx_ = x0 + 110                                      # Darius within E's reach
     d = Foe(load(DARIUS), fx_, gy)
     me = Me(x0, gy)
     c = Clip(load(CHAMP), d, me, small, big)
     c.wait(400)
     # E Nimbus Strike: onto Darius on the cloud (e_speed a tick), the images' strike and the landing's clouds
     start = c.t
-    stop = fx_ - 22
+    stop = fx_ - 34
     arrive = start + tick(1 + (stop - x0) * 1000.0 / P["e_speed"])
     me.moves.append((start + tick(1), arrive, x0, stop))
     c.on_me("e_cloud", start, big)
@@ -143,7 +143,7 @@ def showcase(out, z=3):
     # standing there for w_t ticks: a picture a slot, a tap on Darius every w_period
     start = c.t
     spot = me.pos(start)[0]
-    behind = fx_ + 20
+    behind = fx_ + 40
     c.at_spot("w_poof", start, spot, gy, under=False)
     me.moves.append((start + tick(1), start + tick(1 + (behind - spot) * 1000.0 / P["w_dash"]), spot, behind))
     clone0 = start + tick(1)

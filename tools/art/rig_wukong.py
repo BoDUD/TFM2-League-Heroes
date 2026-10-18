@@ -380,7 +380,7 @@ def flat(dx=HOLD, dy=0, ext=0):
 
 # ms per frame; the kit's ticks (tools/kit/build_wukong.py) come from these
 MS = {"idle": [150] * 8, "run": [100] * 8, "attack": [80, 90, 100, 110, 80], "q_attack": [80, 90, 110, 100, 60],
-      "skill": [60, 80, 80, 80], "skill2": [60, 70, 70], "spin": [70, 70], "ult": [50],
+      "skill": [60, 80, 80, 80], "skill2": [60, 70, 70], "spin": [60, 60, 60, 60], "ult": [50],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 200, 500]}
 
 
@@ -413,10 +413,13 @@ def frames_all(F):
     # W Warrior Trickster (League's monkeyking_spell2: he vanishes with a dash - the poof is the effect w_poof): down,
     # the dash's start low and forward, up
     out["skill2"] = [p(crouch=1), p(crouch=2, whole=(2, 0)), p(crouch=1, whole=(1, 0))]
-    # R Cyclone's spin (League's monkeyking_spell4: the lengthened staff whirled level round him): the front and the
-    # back (the frame mirrored about where he stands) in turn, the staff level and lengthened 20 squares throughout
-    a = p(crouch=1, **flat(dx=0, ext=20))
-    out["spin"] = [a, mirror(rig, a)]
+    # R Cyclone's spin (League's monkeyking_spell4; the user: 「我是要转的啊」 - the body turns like league_garen's E spin):
+    # one turn in four frames - facing right with the lengthened staff level in front, the staff swung upright beside him
+    # as he turns, facing left (the frame mirrored about where he stands) with the staff level, upright again - the
+    # staff the same length (lengthened 20) whenever it is level; the whirl (the effect r_on) round him
+    level = p(crouch=1, **flat(dx=0, ext=20))
+    upright = p(crouch=1, near=(0, -3), staff=(0, -8))
+    out["spin"] = [level, upright, mirror(rig, level), mirror(rig, upright)]
     # the ult's arming (3 ticks): the staff raised
     out["ult"] = [p(**up)]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
