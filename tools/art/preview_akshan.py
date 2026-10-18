@@ -13,6 +13,7 @@
                               heavy rounds and Darius falls; 3x
 """
 import argparse
+import math
 import os
 import sys
 
@@ -38,6 +39,74 @@ FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_akshan_fx", "leagu
 DARIUS = os.path.join(LEAGUE, "champions", "league_darius")
 GUN_Y = -20                                         # the level gun's height over his soles (game px)
 HIT_Y = -14
+
+ROPE_R = 42.0                                       # the add-on's swing (addons/league_akshan: ROPE_R 42000, SWEEP 120 deg)
+SWEEP = 2.0 * math.pi / 3.0
+HOOK_OFF = math.pi / 3.0
+HAND = 20
+
+
+class ArcMe(Me):
+    """Me with arcs: (t0, t1, hook, a0, dir) - round the hook point at ROPE_R (the add-on's swing)."""
+
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.arcs = []
+
+    def pos(self, t):
+        for t0, t1, a, a0, d in self.arcs:
+            if t0 <= t < t1:
+                th = a0 + d * SWEEP * (t - t0) / (t1 - t0)
+                return int(round(a[0] + ROPE_R * math.cos(th))), int(round(a[1] + ROPE_R * math.sin(th)))
+            if t >= t1:
+                th = a0 + d * SWEEP
+                self.x, self.y = a[0] + ROPE_R * math.cos(th), a[1] + ROPE_R * math.sin(th)
+        x, y = self.x, self.y
+        for t0, t1, x0, x1 in self.moves:
+            if t >= t1:
+                x = x1
+            elif t >= t0:
+                x = x0 + (x1 - x0) * (t - t0) / (t1 - t0)
+        return int(round(x)), int(round(y))
+
+
+def swing_plan(me, target, mid=(180.0, 100.0)):
+    dx, dy = target[0] - me[0], target[1] - me[1]
+    base = math.atan2(dy, dx)
+    best = None
+    for side in (1, -1):
+        h = base + side * HOOK_OFF
+        a = (me[0] + ROPE_R * math.cos(h), me[1] + ROPE_R * math.sin(h))
+        a0 = math.atan2(me[1] - a[1], me[0] - a[0])
+        for d in (1, -1):
+            th = a0 + d * SWEEP
+            end = (a[0] + ROPE_R * math.cos(th), a[1] + ROPE_R * math.sin(th))
+            score = math.dist(end, target) + (100.0 if a[1] > me[1] else 0.0) + 0.1 * math.dist(a, mid)
+            if best is None or score < best[0]:
+                best = (score, a, a0, d)
+    return best[1:]
+
+
+class Rope:
+    """The rope drawn each frame from his hand to the hook (the add-on spawns it every tick, turned to the hook)."""
+
+    def __init__(self, pic, t0, t1, me, a):
+        self.pic, self.t0, self.until, self.me, self.a = pic, t0, t1, me, a
+
+    def _ends(self, t):
+        x, y = self.me.pos(t)
+        return (x, y - HAND), (self.a[0], self.a[1] - HAND)
+
+    def frame(self, t):
+        if not (self.t0 <= t < self.until):
+            return None
+        (x, y), (ax, ay) = self._ends(t)
+        ang = math.degrees(math.atan2(-(ay - y), ax - x))
+        return self.pic.rotate(ang, resample=Image.NEAREST, expand=False)
+
+    def pos(self, t):
+        (x, y), (ax, ay) = self._ends(t)
+        return int(round((x + ax) / 2)), int(round((y + ay) / 2))
 
 
 class Clip:
@@ -92,7 +161,7 @@ class Clip:
             for an in self.body:
                 f = an.frame(tt)
                 if f is not None:
-                    units.append((self.me.y + 0.5, f, an.pos(tt)))
+                    units.append((an.pos(tt)[1] + 0.5, f, an.pos(tt)))
                     break
             for _, f, p in sorted(units, key=lambda u: u[0]):
                 if f is not None:
@@ -121,7 +190,7 @@ def showcase(out, z=3):
     x0 = 70
     dx_ = x0 + 60                                       # Darius within his attack range (55000)
     d = Foe(load(DARIUS), dx_, gy)
-    me = Me(x0, gy)
+    me = ArcMe(x0, gy)
     c = Clip(load(CHAMP), d, me, small, big)
     muzzle = lambda: me.pos(c.t)[0] + 28
     c.wait(400)
@@ -150,26 +219,30 @@ def showcase(out, z=3):
     c.on_me("q_catch", back)
     c.a("skill", tick(P["q_dur"]))
     c.wait(back + 200 - c.t)
-    # E Heroic Swing: the hook up, the swing toward Darius shooting every e_every, the roll back off
+    # E Heroic Swing (the add-on's): the hook point beside the line to Darius, the swing round it on an arc with the rope
+    # from his hand to the hook every frame, a shot at Darius every e_every ticks, then the roll back off
     start = c.t
-    spot = me.pos(start)[0]
-    c.at_spot("e_hook", start, spot, gy)
+    here = me.pos(start)
+    a, a0, dirn = swing_plan((float(here[0]), float(here[1])), (float(dx_), float(gy)))
     c.a("skill2", tick(P["e_hook"]))
     swing_t = P["e_n"] * P["e_every"]
-    near = dx_ - 34
-    me.moves.append((c.t, c.t + tick(swing_t), spot, near))
+    t0, t1 = start + tick(2), c.t + tick(swing_t)
+    me.arcs.append((t0, t1, a, a0, dirn))
+    rope_pic = frames_of(small, "e_rope")[0][0]
+    c.over.append(Rope(rope_pic, t0, t1, me, a))
     for k in range(P["e_n"]):
         ts = c.t + tick(k * P["e_every"] + 2)
-        x = spot + (near - spot) * (k * P["e_every"] + 2) / swing_t
-        t1 = c.fly("a_shot", ts, x + 28, dx_, gy + GUN_Y - 6, P["e_shot"])
-        c.on("a_hit", t1)
-        d.flinches.append(t1)
+        x, y = me.pos(ts)
+        t_hit = c.fly("a_shot", ts, x + 28, dx_, y + GUN_Y - 6, P["e_shot"])
+        c.on("a_hit", t_hit)
+        d.flinches.append(t_hit)
     c.a("e_swing", tick(swing_t), loop=True)
+    near = me.pos(c.t)[0]
     back_x = near - P["e_back"] * P["e_back_t"] / 1000.0
     me.moves.append((c.t, c.t + tick(P["e_back_t"]), near, back_x))
-    t1 = c.fly("a_shot", c.t + tick(2), near + 28, dx_, gy + GUN_Y, P["e_shot"])
-    c.on("a_hit", t1)
-    d.flinches.append(t1)
+    t_hit = c.fly("a_shot", c.t + tick(2), near + 28, dx_, me.pos(c.t)[1] + GUN_Y, P["e_shot"])
+    c.on("a_hit", t_hit)
+    d.flinches.append(t_hit)
     c.a("e_roll", tick(P["e_back_t"] + 4))
     c.wait(300)
     # W Going Rogue: the camouflage and the speed streaks as he steps back

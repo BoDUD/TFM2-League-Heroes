@@ -69,6 +69,27 @@ const HASTE: i32 = 25;
 const R_SAFE: u64 = 45_000;
 const R_LOW: usize = 50;
 const ULT_LEVEL: usize = 5;
+// ---- Heroic Swing: the swing round a hook point (build_akshan: e_n x e_every ticks; the rope picture is 42 px)
+pub const SW: &str = "league_akshan_sw";
+pub const ROPE: &str = "league_akshan_e_rope";
+pub const SWING_T: usize = 84;
+pub const ROPE_R: f64 = 42_000.0;
+const SWEEP: f64 = 2.0 * std::f64::consts::PI / 3.0; // 120 degrees round the hook
+const HOOK_OFF: f64 = std::f64::consts::PI / 3.0; // the hook 60 degrees off the line to the target
+const HAND: f64 = 20_000.0; // the rope at his hand's height (raised on the screen)
+const MAP_LO: f64 = 10_000.0;
+const MAP_HI: f64 = 950_000.0;
+const MAP_MID: (f64, f64) = (480_000.0, 480_000.0);
+const HARD: [CcKindV1; 8] = [
+    CcKindV1::Airborne,
+    CcKindV1::Stun,
+    CcKindV1::Bind,
+    CcKindV1::ForceMove,
+    CcKindV1::Taunt,
+    CcKindV1::Fear,
+    CcKindV1::Charm,
+    CcKindV1::BlockMoveSkill,
+];
 
 // ===================== 日志 =====================
 
@@ -458,6 +479,145 @@ impl StableEffectType for BulletFx {
     }
 }
 
+// ===================== 骄行荡寇：绕钩点荡（真正的弧线 + 绳子） =====================
+
+fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// 荡的安排：(钩点, 起始角, 方向 ±1)。钩点在他身边 ROPE_R 处、偏离指向目标的方向 HOOK_OFF（两边各试一次），绕钩点转
+/// SWEEP；钩点在他上方（屏幕上靠上、离镜头远的一侧，绳子从手往上拉，像荡秋千），其中选荡完离目标最近的那种（一样近时选钩点靠地图中间的）。英雄联盟里钩点是墙，TFM2 的地图没有这种墙，就挂在这一点。
+pub fn swing_plan(me: (f64, f64), target: (f64, f64)) -> ((f64, f64), f64, f64) {
+    let (dx, dy) = (target.0 - me.0, target.1 - me.1);
+    let d = (dx * dx + dy * dy).sqrt();
+    let base = if d < 1.0 { 0.0 } else { dy.atan2(dx) };
+    let mut best: Option<(f64, (f64, f64), f64, f64)> = None;
+    for side in [1.0, -1.0] {
+        let h = base + side * HOOK_OFF;
+        let a = (me.0 + ROPE_R * h.cos(), me.1 + ROPE_R * h.sin());
+        let a0 = (me.1 - a.1).atan2(me.0 - a.0);
+        for dir in [1.0, -1.0] {
+            let th = a0 + dir * SWEEP;
+            let end = (a.0 + ROPE_R * th.cos(), a.1 + ROPE_R * th.sin());
+            // the hook above him on the screen (a smaller y: farther from the camera) - the rope rises from his hand like a
+            // swing's; below him it lay along his body down to his feet (「看着这么奇怪」)
+            let below = if a.1 > me.1 { 100_000.0 } else { 0.0 };
+            let score = dist(end, target) + below + 0.1 * dist(a, MAP_MID);
+            if best.is_none_or(|b| score < b.0) {
+                best = Some((score, a, a0, dir));
+            }
+        }
+    }
+    let (_, a, a0, dir) = best.unwrap();
+    (a, a0, dir)
+}
+
+/// 荡了 age tick 时他在哪（夹在地图里）。
+pub fn swing_at(a: (f64, f64), a0: f64, dir: f64, age: usize) -> (f64, f64) {
+    let th = a0 + dir * SWEEP * (age.min(SWING_T) as f64) / SWING_T as f64;
+    ((a.0 + ROPE_R * th.cos()).clamp(MAP_LO, MAP_HI), (a.1 + ROPE_R * th.sin()).clamp(MAP_LO, MAP_HI))
+}
+
+fn sw_name(a: (f64, f64), a0: f64, dir: f64, t0: usize) -> String {
+    format!(
+        "{SW}:{}:{}:{}:{}:{t0}",
+        a.0.round() as i64,
+        a.1.round() as i64,
+        (a0 * 1000.0).round() as i64,
+        if dir > 0.0 { 1 } else { -1 }
+    )
+}
+
+fn parse_sw(name: &str) -> Option<((f64, f64), f64, f64, usize)> {
+    let rest = name.strip_prefix(SW)?.strip_prefix(':')?;
+    let v: Vec<&str> = rest.split(':').collect();
+    if v.len() != 5 {
+        return None;
+    }
+    let ax: f64 = v[0].parse().ok()?;
+    let ay: f64 = v[1].parse().ok()?;
+    let a0: f64 = v[2].parse::<f64>().ok()? / 1000.0;
+    let dir: f64 = v[3].parse().ok()?;
+    let t0: usize = v[4].parse().ok()?;
+    Some(((ax, ay), a0, dir, t0))
+}
+
+/// E 甩钩（数据在 E 起手第 2 tick 调，输入 = E 的目标）：定钩点，在他身上挂
+/// `league_akshan_sw:<钩点x>:<钩点y>:<起始角x1000>:<方向>:<tick>`，之后每 tick 由被动荡他、画绳子。
+fn swing_start(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
+    let Some(e) = sim.get_entity(me) else { return };
+    let here = e.pos();
+    let old: Vec<String> = (0..e.buff_count())
+        .filter_map(|i| e.buff_at(i))
+        .map(|b| b.name().to_string())
+        .filter(|n| n.starts_with(SW))
+        .collect();
+    let target = match InputTargetKindV1::from_code(input.kind) {
+        Some(InputTargetKindV1::Target) => sim.get_entity(input.target_id).map(|t| t.pos()),
+        Some(InputTargetKindV1::Pos) => Some((input.x, input.y)),
+        _ => None,
+    };
+    let Some(t) = target else { return };
+    let (a, a0, dir) = swing_plan((here.0 as f64, here.1 as f64), (t.0 as f64, t.1 as f64));
+    for n in old {
+        sim.entity_remove_buff(me, &n);
+    }
+    let name = sw_name(a, a0, dir, sim.tick());
+    sim.add_buff(me, &BuffV1::timed(&name, SWING_T + 30));
+    if let Some(k) = counted("swing") {
+        wlog(format!(
+            "{} SWING round ({:.0}, {:.0}) from ({}, {}) toward #{} #{k}",
+            head(sim, me),
+            a.0,
+            a.1,
+            here.0,
+            here.1,
+            input.target_id
+        ));
+    }
+}
+
+struct SwingFx;
+impl StableEffectType for SwingFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        swing_start(sim, caster, input);
+    }
+}
+
+struct NoopFx;
+impl StableEffectType for NoopFx {
+    fn apply(&self, _: &mut StableSim<'_>, _: u64, _: usize, _: InputTargetV1) {}
+}
+
+fn hard_cc(sim: &StableSim<'_>, id: usize) -> bool {
+    let Some(e) = sim.get_entity(id) else { return false };
+    (0..e.cc_count()).filter_map(|i| e.cc_at(i)).any(|c| HARD.iter().any(|k| k.code() == c.kind))
+}
+
+/// 一节绳子：在他手的高度、他和钩点的正中，朝钩点（游戏把图转向它飞的方向），1 tick 就到头。
+fn rope(sim: &mut StableSim<'_>, me: usize, at: (f64, f64), a: (f64, f64)) -> bool {
+    let m = ((at.0 + a.0) / 2.0, (at.1 + a.1) / 2.0 - HAND);
+    let (dx, dy) = (a.0 - at.0, a.1 - at.1);
+    let d = (dx * dx + dy * dy).sqrt().max(1.0);
+    let spec = ProjectileSpawnV1 {
+        caster_id: me,
+        team: sim.get_entity(me).map_or(0, |e| e.team()),
+        x: m.0.round().max(0.0) as u64,
+        y: m.1.round().max(0.0) as u64,
+        radius: 1_000,
+        speed: 1_000,
+        move_kind: ProjectileMoveKindV1::Linear.code(),
+        target_id: 0,
+        target_x: (m.0 + dx / d * 1_000.0).round().max(0.0) as u64,
+        target_y: (m.1 + dy / d * 1_000.0).round().max(0.0) as u64,
+        penetrate: true,
+        attack_type: AttackTypeV1::Skill.code(),
+        casting_type: CastingTypeV1::Position.code(),
+        casting_target: CastingTargetV1::None.code(),
+    };
+    sim.spawn_projectile(ROPE, &format!("{ID}:noop"), &spec)
+}
+
 // ===================== 被动：恶徒、复活、E 刷新、R 提前开火 =====================
 
 #[derive(Clone, Debug, Default)]
@@ -627,12 +787,39 @@ impl Rogue {
     }
 }
 
+/// 每 tick：在荡就把他放到弧线上这一刻的位置、画一节绳子；荡完、被硬控就松手。
+fn swing_tick(sim: &mut StableSim<'_>, me: usize) {
+    let Some(e) = sim.get_entity(me) else { return };
+    let mark = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()).find(|n| n.starts_with(SW));
+    let Some(name) = mark else { return };
+    let Some((a, a0, dir, t0)) = parse_sw(&name) else {
+        sim.entity_remove_buff(me, &name);
+        return;
+    };
+    let age = sim.tick().saturating_sub(t0);
+    if age > SWING_T || hard_cc(sim, me) {
+        sim.entity_remove_buff(me, &name);
+        if age <= SWING_T {
+            wlog(format!("{} SWING cut by crowd control at {age}", head(sim, me)));
+        }
+        return;
+    }
+    let p = swing_at(a, a0, dir, age);
+    sim.entity_set_pos(me, p.0.round() as u64, p.1.round() as u64);
+    if !rope(sim, me, p, a) {
+        if let Some(k) = counted("rope_refused") {
+            wlog(format!("{} ROPE refused by spawn_projectile #{k}", head(sim, me)));
+        }
+    }
+}
+
 impl StablePassive for Rogue {
     fn clone_box(&self) -> Box<dyn StablePassive> {
         Box::new(self.clone())
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
+        swing_tick(sim, me);
         self.read_kills(sim, player, me);
         self.haste(sim, me);
         self.release(sim, me);
@@ -775,6 +962,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_effect(format!("{ID}:hit"), HitFx);
     module.add_native_effect(format!("{ID}:bullet"), BulletFx);
+    module.add_native_effect(format!("{ID}:swing"), SwingFx);
+    module.add_native_effect(format!("{ID}:noop"), NoopFx);
     module.add_native_passive(format!("{ID}:rogue"), Rogue::default());
     module.add_player_input_ai(UltAi::default());
     host.log(LogLevel::Info, "league_akshan loaded (Dirty Fighting per target, Comeuppance on missing health, Scoundrels and revives).");
@@ -832,6 +1021,30 @@ mod tests {
     }
 
     #[test]
+    fn the_swing_ends_nearer_the_target_on_the_rope() {
+        let me = (300_000.0, 500_000.0);
+        let t = (360_000.0, 500_000.0);
+        let (a, a0, dir) = swing_plan(me, t);
+        assert!((dist(a, me) - ROPE_R).abs() < 1.0);
+        assert!(a.1 < me.1, "the hook is not above him: {a:?}");
+        let start = swing_at(a, a0, dir, 0);
+        assert!(dist(start, me) < 2.0, "{start:?}");
+        let end = swing_at(a, a0, dir, SWING_T);
+        assert!((dist(end, a) - ROPE_R).abs() < 2.0);
+        assert!(dist(end, t) < dist(me, t), "end {end:?} not nearer {t:?}");
+        let mut prev = start;
+        for k in 1..=SWING_T {
+            let p = swing_at(a, a0, dir, k);
+            assert!(dist(p, prev) < 1_500.0);
+            prev = p;
+        }
+        let name = sw_name(a, a0, dir, 1234);
+        assert!(name.len() <= 64, "{name}");
+        let (pa, pa0, pdir, pt0) = parse_sw(&name).unwrap();
+        assert!(dist(pa, a) < 1.0 && (pa0 - a0).abs() < 0.001 && pdir == dir && pt0 == 1234);
+    }
+
+    #[test]
     fn third_hit_procs() {
         assert_eq!(next_hit(0), (false, 1));
         assert_eq!(next_hit(1), (false, 2));
@@ -858,7 +1071,7 @@ mod tests {
         for (k, v) in [("r_dmg", R_DMG), ("r_ratio", R_RATIO), ("r_max", R_MAX), ("r_full", R_FULL), ("p_t", P_T)] {
             assert!(copy.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in the copy's passive params");
         }
-        for name in ["league_akshan:hit", "league_akshan:bullet", "league_akshan:rogue"] {
+        for name in ["league_akshan:hit", "league_akshan:bullet", "league_akshan:rogue", "league_akshan:swing", ROPE] {
             assert!(copy.contains(name), "the copy never uses {name}");
         }
         for name in [P_GO, R_CHAN, R_OPEN, R_FIRE, STORED[0], STORED[4]] {

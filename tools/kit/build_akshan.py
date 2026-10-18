@@ -19,7 +19,9 @@ Kit (the user's pick, 2026-10-18: layout A with the add-on league_akshan, and W'
           swings toward the target in e_n pulses (each a short slow MoveToTarget, the arc of League's swing as straight
           steps - data moves nothing along a curve), shooting the nearest enemy
           (champions first) every e_every ticks for e_dmg + e_ratio% AD, then rolls off away from the target with a
-          last shot. The add-on also refreshes the cooldown on a champion takedown.
+          last shot. The main pack throws the rope at the target first (League's hook); the add-on swings him round
+          a hook point on a real arc, the rope drawn from his hand to the hook every tick, and refreshes the cooldown
+          on a champion takedown.
   W       Going Rogue (赴险夺人), no slot of its own: every attack counts the enemy champions within w_rad; two or more
           (and no `w_cd`) -> camouflage (`CasterInvisible` w_inv) and w_ms% move speed for w_inv (league_leblanc's
           count). The add-on adds the Scoundrel marks and the revive (addons/league_akshan).
@@ -62,7 +64,7 @@ P = {
     "q_back": 7000, "q_w": 8000, "q_dmg": 45, "q_ratio": 90, "q_ms": 20, "q_ms_t": 60,
     # skill2: E Heroic Swing (League: 800 range, a shot every 0.231 s for 8-40 +25% AD, cd 18-12 s)
     "e_cd": 900, "e_range": 80000, "e_dur": 12, "e_hook": 8, "e_n": 6, "e_every": 14, "e_speed": 1500,
-    "e_step": 40000, "e_seek": 60000, "e_dmg": 25, "e_ratio": 60, "e_back": 3000, "e_back_t": 10, "e_shot": 9000,
+    "e_step": 40000, "e_seek": 60000, "e_throw": 6000, "e_dmg": 25, "e_ratio": 60, "e_back": 3000, "e_back_t": 10, "e_shot": 9000,
     # W Going Rogue (League: camouflage 2 s, +80-120 ms toward Scoundrels, cd 18-2 s)
     "w_rad": 40000, "w_inv": 120, "w_ms": 40, "w_cd": 1080,
     # ult: R Comeuppance (League: 2500 range, 2.5 s channel, 5/6/7 bullets, 25-45 +15% AD to 3x on missing health,
@@ -255,13 +257,18 @@ def build(p, native=False):
     e_fire = nearest(homing("e_shot", p["e_shot"], p["a_y"], "EnemyWithoutTower", e_hit), sfx("e_shot"))
     t_end = p["e_hook"] + p["e_n"] * p["e_every"]
     swing_t = t_end - p["e_hook"]
-    # one copy of the step and the shot, run every e_every ticks by a poll on him (league_jhin R's channel)
+    # one copy of the step and the shot, run every e_every ticks by a poll on him (league_jhin R's channel). The main
+    # pack swings him on in short straight steps; the add-on swings him round a hook point on a real arc with the rope
+    # drawn from his hand to the hook every tick (league_akshan:swing), so its copy takes no step
     step = pick(p["e_step"], "EnemyChampion",
                 {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_step"], "end_effects": []})
     swing = on_me({"type": "AddCasted", "casted_type": "Heal", "duration": swing_t, "period": p["e_every"],
-                   "effects": [step, e_fire]})
+                   "effects": [e_fire] if native else [step, e_fire]})
+    # the hook: the main pack throws the rope picture at the target (League's first cast); the add-on starts the swing
+    throw = line("e_rope", p["e_throw"], p["e_range"], 1000, "EnemyChampion", [], penetrate=True)
+    hook = {"type": "Native", "effect_ref": "league_akshan:swing"} if native else throw
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion", combine(
-        anim("skill2", p["e_hook"]), cview("e_hook"), sfx("e_cast"),
+        anim("skill2", p["e_hook"]), sfx("e_cast"), delayed(2, hook),
         delayed(max(1, p["e_hook"] - p["e_every"]), swing),
         delayed(p["e_hook"], anim("e_swing", swing_t), sfx("e_swing")),
         delayed(t_end, anim("e_roll", p["e_back_t"] + 4), {"type": "MoveBack", "speed": p["e_back"],
@@ -330,9 +337,9 @@ def build(p, native=False):
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 1}
     views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("q_catch"), E("e_hit", tag="a_hit"), E("r_hit"),
-               E("e_hook", BIG, 2, **LATE), E("w_camo", BIG, 2, **LATE), E("r_lock", BIG, 2, **LATE)]
+               E("w_camo", BIG, 2, **LATE), E("r_lock", BIG, 2, **LATE)]
     views_p = [Pj("a_shot"), Pj("a_shot2", "a_shot"), Pj("q_out", "q_rang"), Pj("q_back", "q_rang"),
-               Pj("e_shot", "a_shot"), Pj("r_bullet")]
+               Pj("e_shot", "a_shot"), Pj("r_bullet"), Pj("e_rope")]
     views_b = [{"type": "Animated", "name": n("p_sh"), "anim": FX, "tag": "p_sh", "repeat": True, "z": 2},
                {"type": "Animated", "name": n("w_ms"), "anim": FX, "tag": "w_ms", "repeat": True, "z": -1},
                # the add-on's Scoundrel mark over an enemy champion (league_akshan; never laid by the main pack)

@@ -2093,12 +2093,18 @@
           "tick": 8
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_akshan_e_hook"
-        },
-        {
           "type": "Sfx",
           "name": "league_akshan_e_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 2,
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "league_akshan:swing"
+            }
+          ]
         },
         {
           "type": "Delayed",
@@ -2120,20 +2126,6 @@
                   "duration": 84,
                   "period": 14,
                   "effects": [
-                    {
-                      "type": "RandomTarget",
-                      "range": 40000,
-                      "casting_target": "EnemyChampion",
-                      "from_projectile": false,
-                      "effects": [
-                        {
-                          "type": "MoveToTarget",
-                          "speed": 1500,
-                          "range": 40000,
-                          "end_effects": []
-                        }
-                      ]
-                    },
                     {
                       "type": "Combine",
                       "effects": [
@@ -4719,6 +4711,14 @@
       "tag": "r_bullet",
       "repeat": true,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_akshan_e_rope",
+      "anim": "asset/league/effects/league_akshan_fx",
+      "tag": "e_rope",
+      "repeat": true,
+      "z": 1
     }
   ],
   "view_effects": [
@@ -4769,14 +4769,6 @@
       "tag": "r_hit",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_akshan_e_hook",
-      "anim": "asset/league/effects/league_akshan_big",
-      "tag": "e_hook",
-      "z": 2,
-      "is_follow": false
     },
     {
       "type": "Animation",
