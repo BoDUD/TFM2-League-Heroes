@@ -315,7 +315,7 @@ def build(p):
     hold = [refresh("e_hold", p["e_t"], cc_immune=True)]
     if not nat:   # the add-on blocks the front itself
         hold.append(refresh("e_red", p["e_t"], damaged_reduce=p["e_red"]))
-    e_go = combine(flag("e_cd", p["e_cd"]), cast("e_emp", p["e_t"] + 4), anim("e_hold", p["e_t"]), sfx("e"), voice("vo_e", p), cview("e_shield"), *hold, *stabs, bash)
+    e_go = combine(flag("e_cd", p["e_cd"]), cast("e_emp", p["e_t"] + p["e_bash_at"] + 4), anim("e_hold", p["e_t"]), sfx("e"), voice("vo_e", p), cview("e_shield"), *hold, *stabs, bash)
     near = combine(*rm("e_near"), pick(p["e_trig"], "EnemyChampion", flag("e_near", 1)))
     e_try = sw("e_cd", NONE, combine(near, sw("e_near", combine(*rm("e_near"), e_go))))
     skill2 = action("idle", 3, p["s2_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
