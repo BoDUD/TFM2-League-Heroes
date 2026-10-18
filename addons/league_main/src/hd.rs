@@ -117,6 +117,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // blade drawn straight, the legs of her steps and lunges drawn on League's bones in the design's colours), PPU 1.5
     // at her old 40 rows, so no SIZES row
     ("league_fiora", 1.5, include_str!("../../../league/champions/league_fiora#anim.fanim")),
+    // Darius (2026-10-18): Codex's design picture (assets/source/darius/PICTURE_PROMPT_PPU.md) read back on its own
+    // grid, nothing cut (56 x 61), posed after League's own clips by tools/art/rig_darius_hd.py (the axe hand and the axe
+    // turned losslessly, the run on his own legs moved whole), PPU 1.45 at his old 42 rows, so no SIZES row
+    ("league_darius", 1.45, include_str!("../../../league/champions/league_darius#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),

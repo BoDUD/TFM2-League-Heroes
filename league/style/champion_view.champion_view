@@ -64,8 +64,8 @@
     },
     "league_darius": {
       "face": {
-        "x": 0,
-        "y": -34
+        "x": -1,
+        "y": -39
       },
       "center": {
         "x": 0,
@@ -73,7 +73,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -9
+        "y": -8
       }
     },
     "league_amumu": {
