@@ -71,6 +71,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Jarvan IV: posed by tools/art/rig_jarvaniv.py at the user's 1.5 squares a game pixel (40 game rows helmet to soles,
     // the lance above), so no SIZES row
     ("league_jarvaniv", 1.5, include_str!("../../../league/champions/league_jarvaniv#anim.fanim")),
+    // Maokai: posed by tools/art/rig_maokai.py at 1.5 squares a game pixel (40 game rows crown to the root feet; the
+    // user's 「太模糊了 PPU调整一下像素」 raised it from 1.2), so no SIZES row
+    ("league_maokai", 1.5, include_str!("../../../league/champions/league_maokai#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
