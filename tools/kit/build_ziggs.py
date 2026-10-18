@@ -37,8 +37,9 @@ the watch throws it (league_jarvaniv's W the same way).
           cooldown capped at 60 ticks (`r_retry`).
   watch   A life-long `AddCasted` started by his first attack or R press of each life (`init`), every watch_p ticks:
           throws R when the moment holds, sets off W.
-The add-on copy (--native, addons/league_ziggs): the passive league_ziggs:hexplode reads towers' health - W blows a
-tower below w_ex% of its health (League: 25-35%) and the passive's bomb deals p_tower% to towers.
+The add-on copy (--native, addons/league_ziggs): the passive league_ziggs:hexplode reads towers' health - with W off
+cooldown it blows up an enemy tower within w_hex_r below w_ex% of its health (League: 25-35%) and puts W on cooldown;
+Short Fuse's bomb (the copy raises `p_now` on him as it hits) deals p_tower% to towers.
 """
 import argparse
 import json
@@ -77,7 +78,7 @@ P = {
     "e_p": 30, "e_dmg": 65, "e_ratio": 45, "e_low": 40, "e_slow": 30, "e_slow_t": 90, "e_show": 15,
     # W Satchel Charge (League: 70-210 +50% AP, r 325, knockback 500 / 0.5 s, self 825, cd 20-12)
     "w_cd": 900, "w_trig": 22000, "w_r": 30000, "w_dur": 24, "w_rel": 8, "w_dmg": 80, "w_ratio": 50,
-    "w_kb": 3000, "w_kb_t": 10, "w_hop": 4000, "w_hop_t": 10, "w_ex": 30,
+    "w_kb": 3000, "w_kb_t": 10, "w_hop": 4000, "w_hop_t": 10, "w_ex": 30, "w_hex_r": 60000,
     # R Mega Inferno Bomb (League: 5000 range, r 525 (centre 250), 300-700 +100% AP at the centre, 65% outside,
     # cd 120-70)
     "r_cd": 3600, "r_range": 220000, "r_arm": 600, "r_wait": 300, "r_dur": 36, "r_rel": 16, "r_travel": 70,
@@ -365,7 +366,7 @@ def build(p):
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_ziggs:hexplode", "params": {
-            "w_r": p["w_r"], "w_ex": p["w_ex"], "p_tower": p["p_tower"]}}
+            "w_ex": p["w_ex"], "w_hex_r": p["w_hex_r"], "w_cd": p["w_cd"], "p_tower": p["p_tower"]}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
