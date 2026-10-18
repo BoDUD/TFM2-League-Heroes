@@ -17,7 +17,7 @@ Kit (the user's pick, 2026-10-18: layout A with the add-on league_akshan, and W'
           gives him q_ms% move speed for q_ms_t. League's extra range per hit is left out.
   skill2  E Heroic Swing (骄行荡寇): a `Targeting` cast on `EnemyChampion` (e_range). He throws the hook (e_hook ticks),
           swings toward the target in e_n pulses (each a short slow MoveToTarget, the arc of League's swing as straight
-          steps - data moves nothing along a curve; the add-on swings him on a real arc), shooting the nearest enemy
+          steps - data moves nothing along a curve), shooting the nearest enemy
           (champions first) every e_every ticks for e_dmg + e_ratio% AD, then rolls off away from the target with a
           last shot. The add-on also refreshes the cooldown on a champion takedown.
   W       Going Rogue (赴险夺人), no slot of its own: every attack counts the enemy champions within w_rad; two or more
@@ -43,10 +43,13 @@ ID = "league_akshan"
 FX = "asset/league/effects/league_akshan_fx"
 BIG = "asset/league/effects/league_akshan_big"
 
+# Numbers = the 10-min classic-SDK simulations (bottom against archer, gunner, boomerang_hunter, poison_dart_hunter and
+# bomber, three lineups, both sides, seeds 1-8, 2026-10-18, placeholder timings): the draft (attack 92, Q 70%, E 15 +30%,
+# R 30 +20%) -1.92; attack 100 -0.29; + E 25 +60% +0.30; + R 60 +40% and Q 90% +1.37 (league_lucian +1.58).
 P = {
     # stats (Range base: league_lucian 100 +20 attack, 900 +90 hp, 20 +7 defence, 15 +3 mr, 900 +9 move); League's
     # Akshan: 52 AD +3, 610 +107 hp, 26 +4.7 armour, 33 mr, 330 move, attack speed 0.638 +4%, range 500
-    "hp": 900, "hp_g": 92, "atk": 92, "atk_g": 18, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
+    "hp": 900, "hp_g": 92, "atk": 100, "atk_g": 20, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     "regen": 0, "regen_g": 0,
     # attack: the double shot (League: second shot 50% AD on champions, 100% on minions)
     "atk_range": 55000, "atk_dur": 26, "atk_cd": 64, "a_hit1": 5, "a_hit2": 12, "a_speed": 7000, "a_y": -12000,
@@ -56,16 +59,16 @@ P = {
     "p_t": 300, "p_dmg": 20, "p_ratio": 30, "p_sh": 40, "p_sh_r": 35, "p_sh_t": 120, "p_scd": 600,
     # skill: Q Avengerang (League: 850 range, 45-165 +70% bonus AD each way, cd 9-5 s, 20% ms on a champion hit 1 s)
     "q_cd": 420, "q_cast": 95000, "q_lock": 110000, "q_dur": 24, "q_aim": 8, "q_range": 100000, "q_speed": 6500,
-    "q_back": 7000, "q_w": 8000, "q_dmg": 45, "q_ratio": 70, "q_ms": 20, "q_ms_t": 60,
+    "q_back": 7000, "q_w": 8000, "q_dmg": 45, "q_ratio": 90, "q_ms": 20, "q_ms_t": 60,
     # skill2: E Heroic Swing (League: 800 range, a shot every 0.231 s for 8-40 +25% AD, cd 18-12 s)
     "e_cd": 900, "e_range": 80000, "e_dur": 12, "e_hook": 8, "e_n": 6, "e_every": 14, "e_speed": 1500,
-    "e_step": 40000, "e_seek": 60000, "e_dmg": 15, "e_ratio": 30, "e_back": 3000, "e_back_t": 10, "e_shot": 9000,
+    "e_step": 40000, "e_seek": 60000, "e_dmg": 25, "e_ratio": 60, "e_back": 3000, "e_back_t": 10, "e_shot": 9000,
     # W Going Rogue (League: camouflage 2 s, +80-120 ms toward Scoundrels, cd 18-2 s)
     "w_rad": 40000, "w_inv": 120, "w_ms": 40, "w_cd": 1080,
     # ult: R Comeuppance (League: 2500 range, 2.5 s channel, 5/6/7 bullets, 25-45 +15% AD to 3x on missing health,
     # cd 100-70 s)
     "r_cd": 3000, "r_range": 160000, "r_dur": 6, "r_ch": 150, "r_store": 30, "r_n": 5, "r_gap": 6, "r_aim": 6,
-    "r_speed": 20000, "r_reach": 220000, "r_w": 6000, "r_dmg": 30, "r_ratio": 20, "r_up": 30,
+    "r_speed": 20000, "r_reach": 220000, "r_w": 6000, "r_dmg": 60, "r_ratio": 40, "r_up": 30,
     # the add-on (addons/league_akshan): bullets from min to r_max x min as the target's missing health goes 0 -> r_full%
     "r_max": 3, "r_full": 67,
 }
@@ -297,22 +300,25 @@ def build(p, native=False):
                        anim("ult_shot", p["r_gap"] + 2), sfx("r_shot"))
 
     def store(k):
-        return sw("r_chan", combine(flag(stored[k], p["r_ch"] + 60), sfx("r_store")))
+        return sw("r_chan", sw("r_open", NONE, combine(flag(stored[k], p["r_ch"] + 60), sfx("r_store"))))
 
-    # the release: a poll every r_gap spends the highest stored bullet (one copy of the shot)
+    # one poll on him every r_gap ticks for the whole channel: crowd control ends it (league_jhin R); once the firing is
+    # open (the channel full, or `r_fire` - the add-on's early release) every poll spends the highest stored bullet
     spend = NONE
     for k in range(p["r_n"]):
         spend = sw(stored[k], combine(*rm(stored[k]), flag("r_go", 1)), spend)
-    shots = [on_me({"type": "AddCasted", "casted_type": "Heal", "duration": p["r_n"] * p["r_gap"], "period": p["r_gap"],
-                    "effects": [sw("r_chan", combine(*rm("r_go"), spend, sw("r_go", fire())))]})]
-    stop = combine(*rm("r_chan", *stored, *hits), *unanim("ult", "ult_ch", "ult_shot"))
-    poll = on_me({"type": "AddCasted", "casted_type": "Heal", "duration": p["r_ch"], "period": 6,
-                  "effects": [pick(1, "AllyChampionInCC", stop)]})
+    fire_now = combine(*rm("r_go"), spend, sw("r_go", fire()))
+    total = p["r_ch"] + p["r_n"] * p["r_gap"]
+    open_ = combine(flag("r_open", total), *unanim("ult_ch"))
+    stop = combine(*rm("r_chan", "r_open", "r_fire", *stored, *hits), *unanim("ult", "ult_ch", "ult_shot"))
+    poll = on_me({"type": "AddCasted", "casted_type": "Heal", "duration": total + 2, "period": p["r_gap"],
+                  "effects": [pick(1, "AllyChampionInCC", stop),
+                              sw("r_chan", combine(sw("r_fire", sw("r_open", NONE, open_)), sw("r_open", fire_now)))]})
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked", combine(
-        *rm("r_chan", *stored, *hits), flag("r_chan", p["r_ch"] + p["r_n"] * p["r_gap"] + 4),
+        *rm("r_chan", "r_open", "r_fire", *stored, *hits), flag("r_chan", total + 4),
         anim("ult", 8), delayed(8, sw("r_chan", anim("ult_ch", p["r_ch"] - 8))), sfx("r_cast"), cview("r_lock"),
         poll, *[delayed(p["r_store"] * (k + 1) - 1, store(k)) for k in range(p["r_n"])],
-        delayed(p["r_ch"] - p["r_gap"], *shots), delayed(p["r_ch"] + p["r_n"] * p["r_gap"] + 3, stop)))
+        delayed(p["r_ch"] - 1, sw("r_chan", sw("r_open", NONE, open_))), delayed(total + 3, stop)))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
