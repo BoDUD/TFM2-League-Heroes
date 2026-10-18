@@ -396,18 +396,22 @@ def frames(ps):
         out[t["run"]] = [walk_frame(ps, lay, off, form) for lay, off, _ in RUN]
         # auto attack (League's Swain_Attack1: the demon hand flung forward, the raven bolt leaving it): leaning back,
         # the arm coming out ahead (pulled in), straight out on frame 3 (the release) with a step in, back down
+        # 2026-10-19 frame audit: frame 4 of the attack, Q and E was frame 3 held, and the casts moved 8-10 % of his
+        # squares a frame (the pack's ~40 %) - the hold is a follow-through now (the arm a square back, HALF), the lean
+        # back and the step in twice as wide
         IN = (-3, 0)
+        HALF = (-1, 0)
         out[t["attack"]] = [p(arm=a, reach=r, whole=w) for a, r, w in
-                            [(0, (0, 0), (-1, 0)), (90, IN, (0, 0)), (90, (0, 0), (1, 0)), (90, (0, 0), (1, 0)),
-                             (90, IN, (0, 0)), (0, (0, 0), (0, 0))]]
+                            [(0, (0, 0), (-2, 0)), (90, IN, (0, 0)), (90, (0, 0), (2, 0)), (90, HALF, (2, 0)),
+                             (90, IN, (1, 0)), (0, (0, 0), (0, 0))]]
         # Q Death's Hand (Swain_Spell1: a wide crouch, the claw thrust out ahead): the bolts leave on frame 3
         out[t["skill"]] = [p(arm=a, reach=r, up=(0, c), whole=(w, 0)) for a, r, c, w in
-                           [(0, (0, 0), 1, 0), (90, IN, 2, 0), (90, (0, 0), 2, 1), (90, (0, 0), 2, 1), (90, IN, 1, 0),
+                           [(0, (0, 0), 2, -1), (90, IN, 3, 0), (90, (0, 0), 3, 2), (90, HALF, 3, 2), (90, IN, 1, 1),
                             (0, (0, 0), 0, 0)]]
         # E Nevermove (Swain_Spell3: the arm raised high, then thrown out ahead): the hand leaves on frame 3
         out[t["skill2"]] = [p(arm=a, reach=r, up=(0, c), whole=(w, 0)) for a, r, c, w in
-                            [(180, (0, 0), 0, 0), (180, (0, 0), 0, -1), (90, (0, 0), 1, 1), (90, (0, 0), 1, 1),
-                             (90, IN, 0, 0), (0, (0, 0), 0, 0)]]
+                            [(180, (0, 0), 0, 0), (180, (0, 0), 1, -2), (90, (0, 0), 2, 2), (90, HALF, 2, 2),
+                             (90, IN, 1, 1), (0, (0, 0), 0, 0)]]
         if form == "A":
             # R Demonic Ascension (Swain_DemonWindup -> Swain_DemonLand): crouch, leap - the demon from frame 4 on (the
             # kit starts the wings' aura at that frame: ULT_WINGS_AT) - land
@@ -418,7 +422,7 @@ def frames(ps):
             role["ult"] = "ult"
         else:
             # Demonflare: the claw raised, the nova (the effect), the claw down
-            out[t["flare"]] = [p(arm=90, reach=(-3, 0)), p(arm=180), p(arm=180), p(arm=90, reach=(-3, 0))]
+            out[t["flare"]] = [p(arm=90, reach=(-3, 0)), p(arm=180), p(arm=180, up=(0, 1)), p(arm=90, reach=(-3, 0))]
         out[t["hit"]] = [R.flash(p(arm=rest, whole=(-2, 0))), p(arm=rest, whole=(-1, 0))]
         if form == "B":
             # the wings: R's aura (view_buffs on league_swain_r_on plays this tag of his own sheet - league.dll draws it
@@ -430,9 +434,14 @@ def frames(ps):
         knelt = p(arm=180, up=(0, 7), whole=(-2, 0))
         # he falls back: the kneeling figure with the arm let fall along his side, a quarter turn onto the ground
         lying = R.lie(ps.rig, p(up=(0, 7), whole=(-2, 0)), k=1, dx=-3)
+        # (8 frames, the last four were one picture: the fall lands 4 rows above the ground, lies, bounces a row, lies)
+        def off(n):
+            f = np.zeros_like(lying)
+            f[:-n] = lying[n:]
+            return f
         out[t["dead"]] = [p(whole=(-1, 0)), p(arm=90, reach=(-3, 0), up=(0, 4), whole=(-1, 0)),
                           p(arm=180, up=(0, 7), whole=(-1, 0)),
-                          knelt, lying, lying.copy(), lying.copy(), lying.copy()]
+                          knelt, off(4), lying, off(1), lying.copy()]
     res = {}
     for tag, fr in out.items():
         ms = MS[role[tag]]
