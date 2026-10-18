@@ -42,8 +42,8 @@ NEIGHBOURS = ["lucian", "jhin", "caitlyn", "gangplank", "xinzhao", "wukong"]
 BG = (196, 200, 190, 255)
 
 
-def read(size):
-    a = np.asarray(Image.open(lp(os.path.join(SRC, "codex_model", "akshan-model-A-1.png")))
+def read(size, take="codex_model/akshan-model-A-1.png"):
+    a = np.asarray(Image.open(lp(os.path.join(SRC, *take.split("/"))))
                    .convert("RGBA")).copy()
     d, _, _ = RG.regrid(a, size)
     op = d[..., 3] >= 128
@@ -61,16 +61,19 @@ def main():
     ap.add_argument("--out", default=os.path.join(ROOT, "dist", "akshan_packs"))
     ap.add_argument("--hair", type=int, required=True, help="top row of the hair in the read-back")
     ap.add_argument("--face", type=int, nargs=4, required=True, metavar=("R0", "R1", "C0", "C1"))
+    ap.add_argument("--take", default="codex_model/akshan-model-A-1.png", help="under assets/source/akshan")
+    ap.add_argument("--size", type=float, default=SIZE, help="Codex's square size in px")
+    ap.add_argument("--name", default="modelA1", help="hd/<name>.png and hd/<name>_cut.png")
     a = ap.parse_args()
-    d = read(SIZE)
+    d = read(a.size, a.take)
     os.makedirs(lp(os.path.join(SRC, "hd")), exist_ok=True)
-    Image.fromarray(d).save(lp(os.path.join(SRC, "hd", "modelA1.png")))
+    Image.fromarray(d).save(lp(os.path.join(SRC, "hd", a.name + ".png")))
     body = d.shape[0] - a.hair
     k = BODY / body
     rows, cols = round(d.shape[0] * k), round(d.shape[1] * k)
     r0, r1, c0, c1 = a.face
     cut = RC.even_cut(d, rows, cols, (list(range(r0, r1 + 1)), list(range(c0, c1 + 1))))
-    Image.fromarray(cut).save(lp(os.path.join(SRC, "hd", "modelA1_cut.png")))
+    Image.fromarray(cut).save(lp(os.path.join(SRC, "hd", a.name + "_cut.png")))
     own = body / 38
     print("read", d.shape[1], "x", d.shape[0], f"(hair-soles {body}, own PPU {own:.2f}) -> cut", cut.shape[1], "x",
           cut.shape[0])

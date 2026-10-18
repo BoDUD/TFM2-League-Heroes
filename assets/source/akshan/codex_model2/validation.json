@@ -1,0 +1,78 @@
+[
+  {
+    "file": "akshan-model2-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128_exclusive_right_bottom": [
+      391,
+      489,
+      858,
+      1200
+    ],
+    "transparent_pixels": 1357924,
+    "opaque_pixels": 1296,
+    "partial_alpha_pixels": 213296,
+    "most_common_alpha": [
+      [
+        0,
+        1357924
+      ],
+      [
+        253,
+        153375
+      ],
+      [
+        252,
+        19792
+      ],
+      [
+        251,
+        6334
+      ],
+      [
+        1,
+        5030
+      ]
+    ]
+  },
+  {
+    "file": "akshan-model2-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128_exclusive_right_bottom": [
+      389,
+      491,
+      866,
+      1203
+    ],
+    "transparent_pixels": 1352464,
+    "opaque_pixels": 725,
+    "partial_alpha_pixels": 219327,
+    "most_common_alpha": [
+      [
+        0,
+        1352464
+      ],
+      [
+        253,
+        147920
+      ],
+      [
+        252,
+        26126
+      ],
+      [
+        1,
+        7182
+      ],
+      [
+        251,
+        7033
+      ]
+    ]
+  }
+]
