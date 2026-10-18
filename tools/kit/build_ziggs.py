@@ -291,7 +291,7 @@ def build(p):
             zone("r_blast", p["r_r"], [ap(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit")]),
             zone("r_core", p["r_cr"], [ap(p["r_cdmg"], p["r_cratio"])])]
     throw = combine(*rm("r_arm", "r_late"), refresh("r_fired", 4), refresh("busy", p["r_dur"]), anim("ult", p["r_dur"]),
-                    sfx("r"), voice("vo_r", p), cut,
+                    cview("r_cast"), sfx("r"), voice("vo_r", p), cut,
                     delayed(p["r_rel"] - 1, alive(lob("r_bomb", p["r_travel"], boom, target="EnemyChampion",
                                                       seen="r_warn"))))
 
@@ -359,8 +359,8 @@ def build(p):
     views_e = ([E("a_hit"), E("p_hit"), E("q_hit"), E("q_bounce", FX, 1, False), E("q_blast", BIG, 2, False)]
                + [E(f"q_air{h}", FX, 3, False) for h in heights]
                + [E("e_land", BIG, -1, False), E("e_field", BIG, -1, False), E("e_hit"),
-                  E("w_blast", BIG, 2), E("w_hit"), E("r_warn", BIG, -2, False), E("r_boom", BIG, 2, False),
-                  E("r_hit")])
+                  E("w_blast", BIG, 2, False), E("w_hit"), E("r_cast", BIG, 3), E("r_warn", BIG, -2, False),
+                  E("r_boom", BIG, 2, False), E("r_hit")])
     views_b = [B_("e_slow", FX, 3)]
     extra = {}
     if native:
