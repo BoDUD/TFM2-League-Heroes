@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.140.0"
+    }
+  ],
+  "description": "Test build of Ziggs as in League (needs League of Legends Heroes): replaces the main pack's Ziggs so Satchel Charge blows up an enemy tower below 30% health in his reach (it uses W's cooldown) and Short Fuse's bomb deals x1.75 to towers - the main pack's data cannot read a tower's health. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-18",
+  "mod_id": "league_ziggs",
+  "mod_type": "native",
+  "name": "League Heroes: Ziggs's tower hexplode (test)",
+  "version": "0.1.0"
+}

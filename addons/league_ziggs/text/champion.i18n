@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_ziggs_addon": {
+        "attack": "【附加包】扔小炸弹。<#ff9028ff>一触即发<>：每<#ffb900ff>12秒<>下次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>（打塔×1.75），放技能冷却-<#ffb900ff>4秒<>。<#ff9028ff>定点爆破<>：3级起贴身时脚下引爆<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>并<#ef5350ff>击退<>；敌方塔血量低于30%时直接炸掉。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_ziggs_addon": {
+        "attack": "【附加包】扔小炸彈。<#ff9028ff>即刻爆發<>：每<#ffb900ff>12秒<>下次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>（打塔×1.75），施放技能冷卻-<#ffb900ff>4秒<>。<#ff9028ff>技術性引爆<>：3級起貼身時腳下引爆<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>並<#ef5350ff>擊退<>；敵方塔血量低於30%時直接炸掉。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_ziggs_addon": {
+        "attack": "[Add-on] Tosses a small bomb. <#ff9028ff>Short Fuse<>: every <#ffb900ff>12s<> his next attack deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> more (x1.75 on towers); each spell takes <#ffb900ff>4s<> off. <#ff9028ff>Satchel Charge<>: from level 3 it blows up at his feet when a champion closes in (<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>, <#ef5350ff>knock-back<>) and blows up an enemy tower below 30% health."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_ziggs_addon": {
+        "attack": "[애드온] 작은 폭탄. <#ff9028ff>짧은 도화선<>: <#ffb900ff>12초<>마다 다음 공격이 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<> 추가(포탑 x1.75), 스킬 사용 시 <#ffb900ff>4초<> 감소. <#ff9028ff>휴대용 폭약<>: 3레벨부터 근접 시 발밑 폭발(<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>, <#ef5350ff>밀쳐내기<>), 체력 30% 이하 적 포탑 즉시 파괴."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_ziggs_addon": {
+        "attack": "【アドオン】小型爆弾。<#ff9028ff>ショートヒューズ<>：<#ffb900ff>12秒<>毎に次の攻撃が<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>追加（タワーx1.75）、スキルで<#ffb900ff>4秒<>短縮。<#ff9028ff>エンジニアボム<>：Lv3から接近時に足元で爆発<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>、<#ef5350ff>ノックバック<>。体力30%以下の敵タワーを即破壊。"
+      }
+    }
+  }
+}

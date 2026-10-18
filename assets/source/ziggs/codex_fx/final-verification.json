@@ -1,0 +1,16 @@
+{
+  "effects": 20,
+  "frames": 85,
+  "all_frames_nonempty": true,
+  "all_dimensions_match": true,
+  "all_alpha_binary": true,
+  "all_symmetry_exact": true,
+  "all_8x_previews_exact_nearest_neighbor": true,
+  "all_raw_hashes_match": true,
+  "e_field_metallic_shell_counts": [
+    10,
+    10,
+    10
+  ],
+  "game_integration_tested": false
+}
