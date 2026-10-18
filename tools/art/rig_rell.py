@@ -303,12 +303,26 @@ def bleg(dst, name, ox, oy, fdx=0, lift=0):
 B_WAIST = 30                                          # the upper body (a slump bows it over the hips) above this row
 
 
-def dismounted(dst=None, dx=0, sink=0, lift=0, nf=(0, 0), ff=(0, 0), bow=(0, 0)):
+def dismounted(dst=None, dx=0, sink=0, lift=0, nf=(0, 0), ff=(0, 0), bow=(0, 0), lance_up=False):
     """B on the PPU canvas: the body dx forward, `sink` rows down over the legs, all `lift` rows up; the near / far
-    boot moved fdx with its lift: nf / ff = (fdx, lift); bow: the upper body moved (dx, dy) over the hips."""
+    boot moved fdx with its lift: nf / ff = (fdx, lift); bow: the upper body moved (dx, dy) over the hips; lance_up:
+    the lance turned a quarter counter-clockwise about its grip (raised up and forward over her head)."""
     dst = blank() if dst is None else dst
     bleg(dst, "f", BX0 + dx, BY0 - lift, ff[0], ff[1])
     bleg(dst, "n", BX0 + dx, BY0 - lift, nf[0], nf[1])
+    if lance_up:
+        # the whole lance: everything of B from row 27 down and column 25 on but her boots, with B_LANCE (its warm
+        # squares alone left the shaft's dark shading behind as a loose stick and turned a dotted line)
+        lm = B_LANCE_WHOLE
+        put(dst, B0, B_BODY & ~lm, BX0 + dx, BY0 + sink - lift)
+        ys, xs = np.nonzero(lm)
+        sub = np.zeros((ys.max() - ys.min() + 1, xs.max() - xs.min() + 1, 4), np.uint8)
+        sub[ys - ys.min(), xs - xs.min()] = B0[ys, xs]
+        t = np.rot90(sub, 1).copy()                     # the grip (the box's top-left) to the bottom-left
+        gx, gy = BX0 + dx + xs.min(), BY0 + sink - lift + ys.min()
+        put(dst, t, t[..., 3] > 0, gx, gy - t.shape[0] + 1)
+        dst[GY:] = 0
+        return dst
     if bow == (0, 0):
         put(dst, B0, B_BODY, BX0 + dx, BY0 + sink - lift)
     else:
@@ -388,6 +402,10 @@ def b_lance():
 
 
 B_LANCE = b_lance()
+_rr, _cc = np.mgrid[0:BH, 0:BW]
+# f_ult's raised lance: the band along the lance's slant (it runs from her grip at row 28, column 22 down to the right,
+# ~0.8 columns a row) - the narrow upright strip down the skirt's edge stays with her (turned, it stuck out sideways)
+B_LANCE_WHOLE = B_OP & (_rr >= 27) & (_cc >= 25) & (_cc - 22 >= (_rr - 28) * 0.45) & ~B_FOOT_N & ~B_FOOT_F
 
 
 def lie(piece, chin):
@@ -500,8 +518,10 @@ def frames():
     out["f_hit"] = [(dismounted(dx=-3), 90), (dismounted(dx=-1), 120)]
     # Magnet Storm on foot (League's Biped_Spell4_Cast; the add-on plays f_ult while she is dismounted - the mounted
     # ult brought the horse back for half a second): the stamp, a hop, the second stamp, held, back
-    out["f_ult"] = [(dismounted(dx=1, sink=2, nf=(-1, 0), ff=(1, 0)), 80), (dismounted(dx=-1, lift=3), 90),
-                    (dismounted(dx=-1, lift=4, nf=(-1, 1), ff=(-1, 1)), 70),
+    # (2026-10-19, after League's Biped_Spell4_Cast: the lance raised over her head on the hop - turned a quarter about
+    # her grip - and driven down on the second stamp)
+    out["f_ult"] = [(dismounted(dx=1, sink=2, nf=(-1, 0), ff=(1, 0)), 80), (dismounted(dx=-1, lift=3, lance_up=True), 90),
+                    (dismounted(dx=-1, lift=4, nf=(-1, 1), ff=(-1, 1), lance_up=True), 70),
                     (dismounted(dx=2, sink=3, nf=(-1, 0), ff=(2, 0)), 90), (dismounted(dx=1, sink=2, ff=(1, 0)), 90),
                     (dismounted(sink=1), 80)]
     # she sinks to her knees in the armour (its skirt to the ground) and slumps forward over her hips
