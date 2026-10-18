@@ -52,31 +52,36 @@ FX = "asset/league/effects/league_ziggs_fx"
 BIG = "asset/league/effects/league_ziggs_big"
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
-# (~15000) on top. Timings are placeholders until the strips (release frames).
+# (~15000) on top. Timings from the strips (tools/art/rig_ziggs.py MS): the attack's throw frame 3 from tick 9.6 (a_rel 10),
+# Q's frame 4 from 13.2 (q_rel 13), E's frame 3 from 9 (e_rel 9), W's blast frame 3 from 8.4 (w_rel 8), R's heave frame 4
+# from 15.6 (r_rel 16). Numbers = the 10-min classic-SDK simulations (mid lane 2 against pyromancer, ice_mage,
+# lightning_mage, wind_mage and white_mage, three lineups, both sides, 8 seeds, 2026-10-18; league_syndra +1.17): the
+# draft (Q 75 + 60% every 5 s, E 45 + 30%, W 60 + 40%, R 190 + 65% / centre 100 + 35%, P 30 + 50%, hp 880) +0.01
+# (deal 8772); +25% +0.14; +40% with Q every 4.5 s and hp 900 +1.06 (deal 10739) = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Ziggs:
     # 606 +106 hp, 21 armour, 30 mr, 325 move, 550 range, attack speed 0.656
-    "hp": 880, "hp_g": 95, "atk": 76, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 900, "hp_g": 95, "atk": 76, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 28, "atk_cd": 88, "a_rel": 10, "a_speed": 4000, "f_t": 180,
+    "atk_range": 55000, "atk_dur": 27, "atk_cd": 88, "a_rel": 10, "a_speed": 4000, "f_t": 180,
     # passive Short Fuse (League: 20-184 +50% AP, every 12 s, -4/5/6 s a cast, x1.75 on structures)
-    "p_t": 720, "p_dmg": 30, "p_ratio": 50, "p_tower": 175,
+    "p_t": 720, "p_dmg": 40, "p_ratio": 60, "p_tower": 175,
     # Q Bouncing Bomb (League: 850 range (1400 with the bounces), 80-280 +60-80% AP, r 240, bounces 0.495 s each,
     # cd 6-4)
-    "q_cd": 300, "q_range": 80000, "q_dur": 24, "q_rel": 9, "q_l1": 40000, "q_l2": 62000, "q_l3": 84000,
-    "q_t1": 26, "q_t2": 30, "q_t3": 30, "q_r": 20000, "q_dmg": 75, "q_ratio": 60, "q_h1": 18, "q_h2": 10, "q_h3": 6,
+    "q_cd": 270, "q_range": 80000, "q_dur": 31, "q_rel": 13, "q_l1": 40000, "q_l2": 62000, "q_l3": 84000,
+    "q_t1": 26, "q_t2": 30, "q_t3": 30, "q_r": 20000, "q_dmg": 105, "q_ratio": 85, "q_h1": 18, "q_h2": 10, "q_h3": 6,
     "q_step": 3,
     # E Hexplosive Minefield (League: 900 range, 11 mines r 335 for 10 s, armed 0.5 s, 30-190 +25-45% AP, later
     # mines 40%, slow 10-50% 1.5 s, cd 16)
-    "e_cd": 720, "e_range": 75000, "e_dur": 24, "e_rel": 9, "e_travel": 20, "e_r": 30000, "e_t": 300, "e_arm": 30,
-    "e_p": 30, "e_dmg": 45, "e_ratio": 30, "e_low": 40, "e_slow": 30, "e_slow_t": 90, "e_show": 15,
+    "e_cd": 720, "e_range": 75000, "e_dur": 27, "e_rel": 9, "e_travel": 20, "e_r": 30000, "e_t": 300, "e_arm": 30,
+    "e_p": 30, "e_dmg": 65, "e_ratio": 45, "e_low": 40, "e_slow": 30, "e_slow_t": 90, "e_show": 15,
     # W Satchel Charge (League: 70-210 +50% AP, r 325, knockback 500 / 0.5 s, self 825, cd 20-12)
-    "w_cd": 900, "w_trig": 22000, "w_r": 30000, "w_dur": 24, "w_rel": 8, "w_dmg": 60, "w_ratio": 40,
+    "w_cd": 900, "w_trig": 22000, "w_r": 30000, "w_dur": 24, "w_rel": 8, "w_dmg": 80, "w_ratio": 50,
     "w_kb": 3000, "w_kb_t": 10, "w_hop": 4000, "w_hop_t": 10, "w_ex": 30,
     # R Mega Inferno Bomb (League: 5000 range, r 525 (centre 250), 300-700 +100% AP at the centre, 65% outside,
     # cd 120-70)
-    "r_cd": 3600, "r_range": 220000, "r_arm": 600, "r_wait": 300, "r_dur": 30, "r_rel": 14, "r_travel": 70,
-    "r_r": 40000, "r_cr": 18000, "r_dmg": 190, "r_ratio": 65, "r_cdmg": 100, "r_cratio": 35,
+    "r_cd": 3600, "r_range": 220000, "r_arm": 600, "r_wait": 300, "r_dur": 36, "r_rel": 16, "r_travel": 70,
+    "r_r": 40000, "r_cr": 18000, "r_dmg": 250, "r_ratio": 85, "r_cdmg": 135, "r_cratio": 45,
     "watch_p": 12,
     "vo_gap": 600,
     "native": 0,
