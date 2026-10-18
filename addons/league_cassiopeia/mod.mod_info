@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.148.0"
+    }
+  ],
+  "description": "Test build of Cassiopeia as in League (needs League of Legends Heroes): replaces the main pack's Cassiopeia so Twin Fang's bonus damage and heal go off on a target that is itself poisoned (the main pack: within 3 seconds of her Q or W poisoning anyone), and Petrifying Gaze petrifies the enemies facing her and slows those turned away (the main pack: the near ones petrified, the far ones slowed). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-18",
+  "mod_id": "league_cassiopeia",
+  "mod_type": "native",
+  "name": "League Heroes: Cassiopeia's poisoned-target Twin Fang and facing gaze (test)",
+  "version": "0.1.0"
+}
