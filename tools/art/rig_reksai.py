@@ -171,14 +171,17 @@ HEAP_UNDER = 3                                        # sunk this deep (or deepe
 DEEP = 20                                             # this deep, what sticks out beside the heap (the tail) is under too
 
 
-def pose_a(dx=0, sink=0, lift=0, mouth=0, legs=None, under=0):
+def pose_a(dx=0, sink=0, lift=0, mouth=0, legs=None, under=0, hide=()):
     """A on the canvas: the body (with the head) dx forward, `sink` rows down over the legs, everything `lift` rows up;
     legs: {leg: (top dx, foot dx, lift)} (missing: (dx, 0, 0) - the top follows the body, the claws stay); `under`
-    rows of A sunk into the ground (the whole figure moved down and cut at the ground line)."""
+    rows of A sunk into the ground (the whole figure moved down and cut at the ground line); hide: legs left out (the
+    attack draws the far front claw on an arm of its own - swipe())."""
     can = blank()
     legs = legs or {}
     y_legs = AY0 + under - lift
     for name in LEG_ORDER:
+        if name in hide:
+            continue
         tdx, fdx, ll = legs.get(name, (dx, 0, 0))
         leg(can, name, tdx, fdx, ll, y_legs)
     src = open_mouth(np.where(BODY[..., None], A0, 0).astype(np.uint8), mouth)
@@ -244,6 +247,71 @@ def flash(a, k=0.55):
     return out
 
 
+# ------------------------------------------------------------------------------------------------- the claw swipe
+# League's RekSai_attack1 / attack2: she rears and brings a front claw down on the target - her design's front "hands"
+# are only claws under the head, so the far front claw (LEGS["ff"], carried whole: mirrored or turned a quarter) is set
+# on an arm drawn from her own limb colours (league_caitlyn's / league_aphelios's thin-limb way) from the shoulder
+ARM_COLS = ((30, 10, 30), (67, 32, 55), (105, 51, 79))   # design_A's dark limb under the head: shade, mid, light
+SHOULDER = (34, 47)                                      # design square (row, column) where the far front limb starts
+
+
+def limb(can, p0, p1, width, behind):
+    """An arm from canvas square p0 to p1 ((x, y)): ARM_COLS lit on its upper side, outlined; behind: only where the
+    canvas is empty (behind the body)."""
+    (x0, y0), (x1, y1) = p0, p1
+    ys, xs = np.mgrid[0:CH, 0:CW]
+    dx, dy = x1 - x0, y1 - y0
+    L2 = max(1e-6, dx * dx + dy * dy)
+    t = np.clip(((xs + 0.5 - x0) * dx + (ys + 0.5 - y0) * dy) / L2, 0, 1)
+    px, py = x0 + t * dx, y0 + t * dy
+    d = np.hypot(xs + 0.5 - px, ys + 0.5 - py)
+    side = (xs + 0.5 - x0) * dy - (ys + 0.5 - y0) * dx          # > 0: below / behind the bone
+    inside = d <= width / 2.0
+    ring = ndimage.binary_dilation(inside, structure=np.ones((3, 3))) & ~inside
+    out = can.copy()
+    free = can[..., 3] == 0 if behind else np.ones((CH, CW), bool)
+    for m, c in ((inside & (side > 0) & (d > width * 0.2), ARM_COLS[0]), (inside & (np.abs(side) <= 0) | (inside & (d <= width * 0.2)), ARM_COLS[1]),
+                 (inside & (side < 0) & (d > width * 0.2), ARM_COLS[2])):
+        m = m & free
+        out[m] = (*c, 255)
+    m = ring & free & (out[..., 3] == 0)
+    out[m] = (*OUTLINE, 255)
+    return out
+
+
+def claw_piece(how):
+    """LEGS["ff"]'s squares cut to their box: "up" mirrored top to bottom (the claws up), "fwd" a quarter turn
+    counter-clockwise (the root left, the claws forward), "down" as drawn."""
+    ys, xs = np.nonzero(LEGS["ff"])
+    sub = np.zeros((ys.max() - ys.min() + 1, xs.max() - xs.min() + 1, 4), np.uint8)
+    sub[ys - ys.min(), xs - xs.min()] = A0[ys, xs]
+    return {"up": sub[::-1], "fwd": np.rot90(sub, 1), "down": sub}[how].copy()
+
+
+def swipe(dx, sink, hand, how, behind, mouth=0, width=4):
+    """A frame of the swipe: the body (dx, sink) without the far front claw, the arm from SHOULDER to `hand` (design
+    square (row, column) of the posed body) and the claw there (its root on the hand), behind the body or in front."""
+    can = pose_a(dx=dx, sink=sink, mouth=mouth, hide=("ff",))
+    bx, by = AX0 + dx, AY0 + sink
+    s = (bx + SHOULDER[1] + 0.5, by + SHOULDER[0] + 0.5)
+    h = (bx + hand[1] + 0.5, by + hand[0] + 0.5)
+    can = limb(can, s, h, width, behind)
+    pc = claw_piece(how)
+    ph, pw = pc.shape[:2]
+    hx, hy = int(round(h[0])), int(round(h[1]))
+    x0, y0 = {"up": (hx - pw // 2, hy - ph + 1), "fwd": (hx, hy - ph // 2), "down": (hx - pw // 2, hy)}[how]
+    m = pc[..., 3] > 0
+    if behind:
+        sub = np.zeros_like(can)
+        put(sub, pc, m, x0, y0)
+        m2 = (sub[..., 3] > 0) & (can[..., 3] == 0)
+        can[m2] = sub[m2]
+    else:
+        put(can, pc, m, x0, y0)
+    can[GY:] = 0
+    return can
+
+
 # ------------------------------------------------------------------------------------------------- the run
 RUN_MS = 90
 RUN_SWING = 4                                         # squares each way (6 tried in the 2026-10-19 frame audit: the
@@ -276,10 +344,12 @@ def frames():
     out["idle"] = [(pose_a(sink=b, mouth=1 if b == 2 else 0), IDLE_MS) for b in breath]
     out["run"] = [(run_frame(i), RUN_MS) for i in range(8)]
     # the bite-swipe: the kit's hit on tick 11 = 183 ms -> frame 3 (from 180 ms)
-    # (2026-10-19 frame audit: the drawing back and the lunge half as wide again, a recovery frame more: 6 frames)
-    out["attack"] = [(pose_a(dx=-3, sink=1), 90), (pose_a(dx=3, mouth=2, legs={"ff": (3, 3, 1)}), 80),
-                     (pose_a(dx=6, sink=1, legs={"ff": (6, 4, 0)}), 100), (pose_a(dx=4, legs={"ff": (4, 2, 0)}), 70),
-                     (pose_a(dx=2, legs={"ff": (2, 1, 0)}), 50), (pose_a(), 43)]
+    # the claw swipe (League's RekSai_attack1 / attack2; the user, 2026-10-19: 「雷克塞普攻是不是用手的？」 - the strip
+    # was a lunge with the jaw open, E's bite): the far front claw raised over her head behind the crest, higher, brought
+    # down in front of her face onto the target (frame 3, the hit), planted, back
+    out["attack"] = [(swipe(-2, 1, (16, 60), "up", True, width=6), 90), (swipe(-3, 0, (8, 58), "up", True, width=6), 80),
+                     (swipe(4, 1, (44, 77), "down", True, mouth=1, width=6), 100),
+                     (swipe(4, 2, (47, 75), "down", True, width=6), 70), (pose_a(dx=2), 50), (pose_a(), 43)]
     # Queen's Wrath (League's spell1 leaps; a hop here, nothing pitched): crouch, the hop with the mouth open and the front
     # claws reaching, the slam forward (q_hit tick 10 = 167 ms -> frame 3), back
     out["skill"] = [(pose_a(dx=-1, sink=2), 100),
