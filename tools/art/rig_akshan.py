@@ -133,7 +133,7 @@ def form():
 AIM = dict(gun_rot=3)                           # the first draft's level forearm (only for the pack's rejected posings)
 
 # ms per frame; the kit's ticks (tools/kit/build_akshan.py) come from these
-MS = {"idle": [150] * 8, "run": [100] * 8, "attack": [70, 60, 70, 60, 80, 90], "skill": [70, 80, 90, 120],
+MS = {"idle": [150] * 8, "run": [125] * 8, "attack": [70, 60, 70, 60, 80, 90], "skill": [70, 80, 90, 120],
       "skill2": [70, 70], "e_swing": [115, 115], "e_roll": [80, 90], "ult": [70, 70], "ult_ch": [160, 160],
       "ult_shot": [50, 50], "hit": [100, 100], "dead": [100, 110, 120, 150, 200, 500]}
 AIMED = ("attack", "skill", "e_swing", "ult", "ult_ch", "ult_shot")
@@ -172,19 +172,32 @@ def frames_all(F):
 
 
 # ------------------------------------------------------------------------------------------------- the walk
-# The design's own lower legs moved whole under the cape (memory codex-legs-deform): each boot steps on its own side,
-# planted and sliding back, then lifted and carried forward, the far one half a cycle later; the body set down a row on
-# each contact (rig_wukong's walk, stride 2: the boots never meet).
-WALK_STEP = dict(W._steps(2, (1, 2, 1)), rise=[0, 0, 1, 0, 0, 0, 1, 0])
+# Codex's skin swap over oppi's Swain run (the user, 2026-10-18: 「走路没交叉步啊 你做不了就让codex做」 - my first walk only
+# stepped the boots under the cape: the design's legs stand 16 squares apart and cannot cross from its own squares):
+# assets/source/akshan/hd/run_<k>.png (tools/art/design_akshan_run.py), 8 frames read back on the design's grid. Each is
+# set with its soles on the design's ground row and its teal front cloth's middle on the design's (the hips over the
+# standing point, so the body does not slide from frame to frame).
+RUN_FRAMES = 8
 
 
-def walk(F, steps=None):
-    st = steps or WALK_STEP
+def teal_x(a):
+    m = (a[..., 3] > 0) & (a[..., 2].astype(int) > a[..., 0].astype(int) + 60)         & (a[..., 1].astype(int) > a[..., 0].astype(int) + 60)
+    return float(np.nonzero(m)[1].mean())
+
+
+def walk(F):
+    rig, D = F.rig, F.D
+    cx = teal_x(D.d)
     out = []
-    L = F.L
-    for (ndx, nup), (fdx, fup), bob, up in zip(st["near"], st["far"], st["bob"], st["rise"]):
-        legs = [(L["far_leg"], dict(dx=fdx, dy=-fup - up)), (L["near_leg"], dict(dx=ndx, dy=-nup - up))]
-        out.append(F.pose(whole=(0, bob - up), leg_layers=legs))
+    for k in range(RUN_FRAMES):
+        f = load(f"run_{k}.png")
+        h, w = f.shape[:2]
+        x0 = rig.ox + int(round(cx - teal_x(f)))
+        y0 = rig.oy + D.ground - h
+        can = rig.canvas()
+        m = f[..., 3] > 0
+        can[y0:y0 + h, x0:x0 + w][m] = f[m]
+        out.append(can)
     return out
 
 
