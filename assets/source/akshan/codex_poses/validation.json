@@ -1,0 +1,126 @@
+[
+  {
+    "file": "akshan-pose-aim-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128_exclusive_right_bottom": [
+      109,
+      331,
+      1238,
+      1192
+    ],
+    "transparent_pixels": 1109764,
+    "opaque_pixels": 3178,
+    "partial_alpha_pixels": 459574,
+    "most_common_alpha": [
+      [
+        0,
+        1109764
+      ],
+      [
+        253,
+        338226
+      ],
+      [
+        254,
+        66933
+      ],
+      [
+        252,
+        16066
+      ],
+      [
+        1,
+        6106
+      ]
+    ],
+    "unchanged_region_checks": {
+      "head": {
+        "box": [
+          285,
+          330,
+          720,
+          675
+        ],
+        "foreground_union_pixels": 117717,
+        "exact_rgb_and_binary_visibility_matches": 426,
+        "match_fraction": 0.0036188485945105636
+      },
+      "lower_body": {
+        "box": [
+          90,
+          930,
+          800,
+          1201
+        ],
+        "foreground_union_pixels": 133624,
+        "exact_rgb_and_binary_visibility_matches": 1116,
+        "match_fraction": 0.008351793091061486
+      }
+    }
+  },
+  {
+    "file": "akshan-pose-aim-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128_exclusive_right_bottom": [
+      110,
+      330,
+      1235,
+      1186
+    ],
+    "transparent_pixels": 1115291,
+    "opaque_pixels": 2115,
+    "partial_alpha_pixels": 455110,
+    "most_common_alpha": [
+      [
+        0,
+        1115291
+      ],
+      [
+        253,
+        342940
+      ],
+      [
+        254,
+        59100
+      ],
+      [
+        252,
+        16120
+      ],
+      [
+        1,
+        5598
+      ]
+    ],
+    "unchanged_region_checks": {
+      "head": {
+        "box": [
+          285,
+          330,
+          720,
+          675
+        ],
+        "foreground_union_pixels": 118921,
+        "exact_rgb_and_binary_visibility_matches": 495,
+        "match_fraction": 0.004162427157524743
+      },
+      "lower_body": {
+        "box": [
+          90,
+          930,
+          800,
+          1201
+        ],
+        "foreground_union_pixels": 134307,
+        "exact_rgb_and_binary_visibility_matches": 853,
+        "match_fraction": 0.0063511209393404666
+      }
+    }
+  }
+]

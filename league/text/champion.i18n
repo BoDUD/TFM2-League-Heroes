@@ -896,6 +896,13 @@
         "skill": "<#ffb900ff>0.4秒<>后在目标处炸开，敌人中毒<#ffb900ff>3秒<>，共受<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害；毒到英雄时她移速+45%，<#ffb900ff>3秒<>内渐退。",
         "skill2": "放出持续<#ffb900ff>5秒<>的毒雾：每秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>魔法伤害，<#ef5350ff>减速50%、禁锢<>（不能用位移技能）。",
         "ult": "朝面前扇形石化凝视，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害：近处交战的敌人<#ef5350ff>石化2秒<>，远处的<#ef5350ff>减速40%<>。前方有2个以上敌方英雄或被突进时才放。"
+      },
+      "league_akshan": {
+        "name": "阿克尚",
+        "attack": "每次普攻开两枪，第二枪对英雄只有50%伤害。<#ff9028ff>无所不用<>：普攻和技能每打中3下，多造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理伤害，打中英雄还获得<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<>护盾<#ffb900ff>2秒<>。<#ff9028ff>赴险夺人<>：被2个以上敌方英雄围住时伪装<#ffb900ff>2秒<>并加速40%。",
+        "skill": "朝敌人扔出回旋镖（先瞄准再出手，能躲开），去程和回程各造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害；打中英雄加速20%，持续<#ffb900ff>1秒<>。",
+        "skill2": "甩出钩索朝敌方英雄荡过去，<#ffb900ff>1.4秒<>内每<#ffb900ff>0.23秒<>朝最近的敌人开一枪，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害，最后翻滚离开再开一枪。",
+        "ult": "锁定受伤的敌方英雄蓄力<#ffb900ff>2.5秒<>，最多存5发子弹，被<#ef5350ff>控制<>会中断；然后连射，每发打中路上第一个敌人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害，前面每打中一发，后面的子弹多30%。"
       }
     },
     "skill_name": {
@@ -1538,6 +1545,11 @@
         "skill1": "瘟毒爆炸",
         "skill2": "剧毒迷雾",
         "ult": "石化凝视"
+      },
+      "league_akshan": {
+        "skill1": "去而复还",
+        "skill2": "骄行荡寇",
+        "ult": "恩怨相抵"
       }
     }
   },
@@ -2438,6 +2450,13 @@
         "skill": "<#ffb900ff>0.4秒<>後在目標處炸開，敵人中毒<#ffb900ff>3秒<>，共受<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害；毒到英雄時她移速+45%，<#ffb900ff>3秒<>內漸退。",
         "skill2": "放出持續<#ffb900ff>5秒<>的毒霧：每秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>魔法傷害，<#ef5350ff>緩速50%、禁錮<>（不能用位移技能）。",
         "ult": "朝面前扇形石化凝視，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害：近處交戰的敵人<#ef5350ff>石化2秒<>，遠處的<#ef5350ff>緩速40%<>。前方有2個以上敵方英雄或被突進時才放。"
+      },
+      "league_akshan": {
+        "name": "埃可尚",
+        "attack": "每次普攻開兩槍，第二槍對英雄只有50%傷害。<#ff9028ff>無賴之道<>：普攻和技能每打中3下，多造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理傷害，打中英雄還獲得<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<>護盾<#ffb900ff>2秒<>。<#ff9028ff>離經叛道<>：被2個以上敵方英雄圍住時偽裝<#ffb900ff>2秒<>並加速40%。",
+        "skill": "朝敵人扔出迴力鏢（先瞄準再出手，能躲開），去程和回程各造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害；打中英雄加速20%，持續<#ffb900ff>1秒<>。",
+        "skill2": "甩出勾索朝敵方英雄盪過去，<#ffb900ff>1.4秒<>內每<#ffb900ff>0.23秒<>朝最近的敵人開一槍，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害，最後翻滾離開再開一槍。",
+        "ult": "鎖定受傷的敵方英雄蓄力<#ffb900ff>2.5秒<>，最多存5發子彈，被<#ef5350ff>控制<>會中斷；然後連射，每發打中路上第一個敵人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害，前面每打中一發，後面的子彈多30%。"
       }
     },
     "skill_name": {
@@ -3080,6 +3099,11 @@
         "skill1": "毒霧爆擊",
         "skill2": "劇毒瘴氣",
         "ult": "石化凝視"
+      },
+      "league_akshan": {
+        "skill1": "復仇迴力鏢",
+        "skill2": "英勇勾索",
+        "ult": "因果蓄能彈"
       }
     }
   },
@@ -3980,6 +4004,13 @@
         "skill": "Blasts the target's spot after <#ffb900ff>0.4s<>, poisoning enemies there for <#ffb900ff>3s<>: <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> in all. Poisoning a champion gives her 45% move speed, fading over <#ffb900ff>3s<>.",
         "skill2": "Releases a poison cloud for <#ffb900ff>5s<>: <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<> a second, <#ef5350ff>50% slow and grounded<> (no dashes) inside.",
         "ult": "Gazes in a cone in front of her: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>; nearby enemies in the fight are <#ef5350ff>petrified for 2s<>, farther ones <#ef5350ff>slowed 40%<>. Cast with 2+ enemy champions in front or when dived."
+      },
+      "league_akshan": {
+        "name": "Akshan",
+        "attack": "Every attack fires two shots, the second dealing 50% to champions. <#ff9028ff>Dirty Fighting<>: every third hit of his attacks and abilities deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> physical damage more and, on a champion, gives him a <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<> shield for <#ffb900ff>2s<>. <#ff9028ff>Going Rogue<>: with 2+ enemy champions near he camouflages for <#ffb900ff>2s<> and gains 40% move speed.",
+        "skill": "Throws a boomerang at an enemy (aimed first, so it can be dodged) that deals <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage going out and again coming back; a champion hit gives him 20% move speed for <#ffb900ff>1s<>.",
+        "skill2": "Hooks and swings toward an enemy champion: for <#ffb900ff>1.4s<> he shoots the nearest enemy every <#ffb900ff>0.23s<> for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage, then rolls off with a last shot.",
+        "ult": "Locks onto a wounded enemy champion and charges for <#ffb900ff>2.5s<>, storing up to 5 bullets (<#ef5350ff>crowd control<> stops it), then fires them: each hits the first enemy in its path for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage, 30% more for every bullet that hit before."
       }
     },
     "skill_name": {
@@ -4622,6 +4653,11 @@
         "skill1": "Noxious Blast",
         "skill2": "Miasma",
         "ult": "Petrifying Gaze"
+      },
+      "league_akshan": {
+        "skill1": "Avengerang",
+        "skill2": "Heroic Swing",
+        "ult": "Comeuppance"
       }
     }
   },
@@ -5522,6 +5558,13 @@
         "skill": "<#ffb900ff>0.4초<> 뒤 대상 위치에서 폭발, 적을 <#ffb900ff>3초<> 중독시켜 총 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해; 챔피언 적중 시 이동 속도 +45%, <#ffb900ff>3초<>에 걸쳐 감소.",
         "skill2": "<#ffb900ff>5초<>간 독구름: 매초 <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> 마법 피해, <#ef5350ff>50% 둔화, 이동 불가<>(돌진 불가).",
         "ult": "앞쪽 부채꼴로 응시: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해; 가까이서 싸우는 적은 <#ef5350ff>2초 석화<>, 먼 적은 <#ef5350ff>40% 둔화<>. 앞에 적 챔피언 2명 이상이거나 돌진당할 때 사용."
+      },
+      "league_akshan": {
+        "name": "아크샨",
+        "attack": "공격마다 두 발 발사, 두 번째는 챔피언에게 50% 피해. <#ff9028ff>비열한 싸움<>: 공격과 스킬 3회 적중마다 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 물리 피해 추가, 챔피언이면 <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<> 보호막 <#ffb900ff>2초<>. <#ff9028ff>악당 처단<>: 적 챔피언 2명 이상이 가까우면 <#ffb900ff>2초<> 위장, 이동 속도 +40%.",
+        "skill": "적에게 부메랑을 던짐(조준 후 발사, 피할 수 있음): 갈 때와 돌아올 때 각각 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해, 챔피언 적중 시 <#ffb900ff>1초<>간 이동 속도 +20%.",
+        "skill2": "갈고리를 걸고 적 챔피언 쪽으로 날아감: <#ffb900ff>1.4초<> 동안 <#ffb900ff>0.23초<>마다 가장 가까운 적에게 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해, 마지막에 구르며 한 발 더.",
+        "ult": "부상당한 적 챔피언을 조준해 <#ffb900ff>2.5초<> 충전, 최대 5발 저장(<#ef5350ff>군중 제어<> 시 중단) 후 발사: 각 탄환은 처음 맞는 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해, 앞서 맞힌 탄환마다 +30%."
       }
     },
     "skill_name": {
@@ -6164,6 +6207,11 @@
         "skill1": "맹독 폭발",
         "skill2": "독기의 늪",
         "ult": "석화의 응시"
+      },
+      "league_akshan": {
+        "skill1": "복수의 부메랑",
+        "skill2": "영웅의 비상",
+        "ult": "인과응보"
       }
     }
   },
@@ -7064,6 +7112,13 @@
         "skill": "<#ffb900ff>0.4秒<>後に対象地点で爆発、敵を<#ffb900ff>3秒<>毒状態にし計<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ；チャンピオンに命中で移動速度+45%（<#ffb900ff>3秒<>で減衰）。",
         "skill2": "<#ffb900ff>5秒<>の毒霧：毎秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の魔法ダメージ、<#ef5350ff>50%スロウ・移動阻害<>（突進不可）。",
         "ult": "前方の扇形に魔眼：<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ；近くで戦う敵は<#ef5350ff>2秒石化<>、遠くの敵は<#ef5350ff>40%スロウ<>。前方に敵2体以上か突進された時に使う。"
+      },
+      "league_akshan": {
+        "name": "アクシャン",
+        "attack": "通常攻撃は2発、2発目はチャンピオンに50%。<#ff9028ff>ダーティーファイト<>：攻撃とスキルの3回目の命中で<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の物理ダメージを追加、チャンピオンなら<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<>のシールド（<#ffb900ff>2秒<>）。<#ff9028ff>義賊の流儀<>：敵2体以上に囲まれると<#ffb900ff>2秒<>迷彩、移動速度+40%。",
+        "skill": "ブーメランを投げる（狙ってから投げるので避けられる）：行きと帰りに各<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージ、チャンピオン命中で<#ffb900ff>1秒<>移動速度+20%。",
+        "skill2": "フックで敵チャンピオンへスイング：<#ffb900ff>1.4秒<>間、<#ffb900ff>0.23秒<>毎に最も近い敵へ<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ、最後に転がってもう1発。",
+        "ult": "負傷した敵チャンピオンを狙い<#ffb900ff>2.5秒<>チャージ、最大5発（<#ef5350ff>行動妨害<>で中断）、その後発射：各弾は最初に当たった敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージ、先に当たった弾毎に+30%。"
       }
     },
     "skill_name": {
@@ -7706,6 +7761,11 @@
         "skill1": "ノクサスブラスト",
         "skill2": "ミアズマ",
         "ult": "石化の魔眼"
+      },
+      "league_akshan": {
+        "skill1": "報復のブーメラン",
+        "skill2": "ヒーロースイング",
+        "ult": "当然の報い"
       }
     }
   }
