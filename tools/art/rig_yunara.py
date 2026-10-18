@@ -575,8 +575,9 @@ def attack_frames():
     out["attack"] = [(pose(dx=-1, beads=lerp_spots(idle0, arc_spots(-2), 0.5)), 67),
                      (pose(dx=-1, beads=arc_spots(-2, 1)), 66),
                      (pose(dx=1, fore=fore_fwd(1), beads=arc_spots(2, 2), **hand), 100),
-                     (pose(dx=1, fore=fore_fwd(1), beads=arc_spots(3, 3), **hand), 84),
-                     (pose(beads=lerp_spots(arc_spots(1, 4), idle0, 0.5)), 83)]
+                     (pose(dx=1, fore=fore_fwd(1), beads=arc_spots(3, 3), **hand), 70),
+                     (pose(beads=lerp_spots(arc_spots(2, 4), idle0, 0.3)), 50),
+                     (pose(beads=lerp_spots(arc_spots(1, 4), idle0, 0.5)), 47)]
     # W: crouch with the beads whirling, a hop, the wide stance and the palm thrust (the bead leaves at 250 ms)
     def orb(a, **k):
         sp, fr = orbit(a, **k)
@@ -600,9 +601,12 @@ def attack_frames():
                       (pose(bob=3, dx=1, legs=STANCE, fore=fore_fwd(2), beads=arc_spots(3, 1), **hand), 100),
                       (pose(bob=3, dx=1, legs=STANCE, fore=fore_fwd(2), beads=arc_spots(4, 2), **hand), 100),
                       (pose(bob=1, legs=((-1, -3, 0), (1, 3, 0)), beads=lerp_spots(arc_spots(2, 3), idle0, 0.5)), 67)]
-    # E: a quick stride forward, the beads streaming behind
-    out["skill2"] = [(pose(dx=2, legs=((-2, -5, 2), (2, 5, 0)), beads=trail_spots(0)), 100),
-                     (pose(dx=3, legs=((2, 4, 0), (-2, -5, 2)), beads=trail_spots(4)), 100)]
+    # E: a quick stride forward, the beads streaming behind (2026-10-19 frame audit: 2 frames held 100 ms each -> 4,
+    # the legs passing between the strides)
+    out["skill2"] = [(pose(dx=1, legs=((-1, -2, 1), (1, 2, 0)), beads=trail_spots(0)), 50),
+                     (pose(dx=2, legs=((-2, -5, 2), (2, 5, 0)), beads=trail_spots(2)), 50),
+                     (pose(dx=3, legs=((0, 0, 1), (0, 0, 1)), beads=trail_spots(3)), 50),
+                     (pose(dx=3, legs=((2, 4, 0), (-2, -5, 2)), beads=trail_spots(4)), 50)]
     # R's E: a back flip (whole quarter turns: exact), the beads streaming where she was
     crouch = pose(bob=2, beads=[])
     # (in place: the game moves her - MoveBack - so a sprite that also travelled would cover the distance twice)
@@ -615,8 +619,9 @@ def attack_frames():
     out["ult"] = [(pose(fore=fore_fwd(1), beads=lerp_spots(idle0, orbit(0.0, cy=30, rx=20)[0], 0.5), **hand), 100),
                   (pose(fore=fore_up(), **orb(0.5, cy=26, rx=22, ry=8)), 100),
                   (pose(lift=1, fore=fore_up(), **orb(1.0, cy=20, rx=24, ry=9)), 100),
-                  (pose(lift=1, fore=fore_up(), **orb(1.5, cy=14, rx=25, ry=9)), 100),
-                  (pose(**orb(2.0, cy=24, rx=24, ry=9)), 100)]
+                  (pose(lift=1, fore=fore_up(), **orb(1.5, cy=14, rx=25, ry=9)), 80),
+                  (pose(lift=1, **orb(1.75, cy=19, rx=25, ry=9)), 60),
+                  (pose(**orb(2.0, cy=24, rx=24, ry=9)), 60)]
     # death: the blow, a stagger, down on her knees (sunk into the ground line), falling forward on her front, still
 
     def drop(k):
@@ -626,8 +631,17 @@ def attack_frames():
     stamp(kneel.can, dimg, PIV_X + 16, SOLE + 1 - dimg.shape[0], under=True)
     flat = lying(pose(beads=[], hide=(DRAGON,)))
     stamp(flat, dimg, PIV_X + 22, SOLE + 1 - dimg.shape[0], under=True)
-    out["dead"] = [(pose(dx=-2, beads=drop(1)), 100), (pose(dx=-2, bob=4, beads=drop(4)), 120), (kneel, 150),
-                   (Frame(flat, ground_spots(), OX, OY), 150), (Frame(flat.copy(), ground_spots(), OX, OY), 400)]
+    # 8 frames (2026-10-19 frame audit, the pack's deaths have 8): half way down to her knees, the fall landing 4 rows
+    # above the ground before it lies, a 1-row bounce
+    half = cut_ground(pose(lift=-6, beads=drop(6)))
+
+    def off(n):
+        f = blank()
+        f[:-n] = flat[n:]
+        return f
+    out["dead"] = [(pose(dx=-2, beads=drop(1)), 100), (pose(dx=-2, bob=4, beads=drop(4)), 110), (half, 80),
+                   (kneel, 120), (Frame(off(4), ground_spots(), OX, OY), 60), (Frame(flat, ground_spots(), OX, OY), 100),
+                   (Frame(off(1), ground_spots(), OX, OY), 50), (Frame(flat.copy(), ground_spots(), OX, OY), 400)]
     return out
 
 
@@ -666,10 +680,18 @@ def actions():
     acts.update(attack_frames())
     origin = {t: [(f.x0, f.y0) for f, _ in fr] for t, fr in acts.items()}
     acts = {t: [(f.done(base), ms) for f, ms in fr] for t, fr in acts.items()}
-    # the add-on's R form (addons/league_yunara view.rs: idle / run -> r_idle / r_run while the R buff lasts)
-    for t in ("idle", "run"):
+    # the add-on's R form (addons/league_yunara view.rs: idle / run / attack / hit -> r_* while the R buff lasts; the
+    # attack and the hit since 2026-10-19 - they showed her without the glow for their length every time in the form),
+    # and the casts only the form plays (R's laser skill_r, R's flip skill2_r) in the form's glow too
+    for t in ("idle", "run", "attack", "hit"):
         acts["r_" + t] = [(r_form(can, *origin[t][j]), ms) for j, (can, ms) in enumerate(acts[t])]
-    acts["hit"][0] = (flash(acts["hit"][0][0]), acts["hit"][0][1])
+    for t in ("skill_r", "skill2_r"):
+        acts[t] = [(r_form(can, *origin[t][j]), ms) for j, (can, ms) in enumerate(acts[t])]
+    # the flip's turned frames: the rim only (the halo follows the standing head's place and floated off her there)
+    acts["skill2_r"][1:4] = [(r_form(can), ms) for can, ms in
+                             [(f.done(base), ms) for f, ms in attack_frames()["skill2_r"][1:4]]]
+    for t in ("hit", "r_hit"):
+        acts[t][0] = (flash(acts[t][0][0]), acts[t][0][1])
     return acts, base
 
 
@@ -745,7 +767,8 @@ def review(acts, out_dir, z=4):
 
 
 # ------------------------------------------------------------------------------------------------- the game's frames
-ORDER = ["idle", "run", "attack", "skill", "skill_r", "skill2", "skill2_r", "ult", "hit", "dead", "r_idle", "r_run"]
+ORDER = ["idle", "run", "attack", "skill", "skill_r", "skill2", "skill2_r", "ult", "hit", "dead", "r_idle", "r_run", "r_attack",
+         "r_hit"]
 
 
 def one_of(can, px, py, hw, hh, need=0.5):
