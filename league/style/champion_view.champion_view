@@ -1625,7 +1625,7 @@
     "league_gangplank": {
       "face": {
         "x": 2,
-        "y": -34
+        "y": -29
       },
       "center": {
         "x": 0,
@@ -1633,13 +1633,13 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -12
       }
     },
     "league_wukong": {
       "face": {
         "x": 0,
-        "y": -27
+        "y": -21
       },
       "center": {
         "x": 0,
