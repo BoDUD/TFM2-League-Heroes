@@ -1,0 +1,33 @@
+Tool: built-in image_gen; transparent_background=true
+
+A reference files:
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat-8/work/akshan/refs/1_akshan_idle.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat-8/work/akshan/refs/3_akshan_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat-8/work/akshan/refs/4_akshan_back.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat-8/work/akshan/style/11_style_gangplank.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat-8/work/akshan/style/13_style_swain.png
+
+PROMPT A:
+Use case: stylized-concept. Create ONE complete pixel-art game sprite of Akshan, transparent PNG, square 1536x1536.
+The first three attached images show Akshan's idle appearance, face and back. Last two images (Gangplank and Swain) are PIXEL ART STYLE ONLY. Match their coarse, clean, limited-palette square pixels and chunky silhouettes. No 3D rendering.
+Brown skin, long dark brown wavy hair with a small readable topknot, short brown beard lighter than hair, thick eyebrows, confident half smile. BOTH eyes visible, same size and height with white and dark pupils. Chibi head INCLUDING hair about ONE THIRD of total body height, short body and legs, large hands and gun.
+Bare muscular chest, pale blue-white scarf/cowl, grey shoulder armor edged gold, diagonal orange-red broad sash with a broad gold band, long dark crimson cape with orange/gold reverse and pale blue edge, teal belt with gold ring and long teal front cloth, dark grey-black trousers and tall black boots, gold bracers and pale blue fingerless gloves. Material colors clearly separated, dark clothes have bright edge planes.
+Large dark crimson/bronze relic pistol, the muzzle made of TWO sweeping curved boomerang-like hooks; pale teal-white grip. Slightly larger than his head, clear whole silhouette.
+Three quarter front view facing right, near arm on image left brighter, far arm image right darker. Character hair to soles about 770px or 70 chunky pixel cells, soles share a baseline at y=1390. Head about 23 cells tall. Center the whole silhouette including weapon, ample transparent margin. Uniform aligned square pixel grid, ideally 11px square cells; two-cell thick near-black outer contour, each material 3-4 flat shade steps, no second black inner ring. Strict crisp square stair-step contours, no antialiasing, gradients, dithering, blur, tiny noise pixels, glow, shadow, ground, background objects, writing, labels or frame. Genuine transparent alpha background, never painted checkerboard.
+POSE A ONLY: standing upright feet apart. Near hand on image LEFT raises the gun beside his head pointing vertically UP, the hooked muzzle above his head; FAR hand on image RIGHT rests on hip. Cape hangs behind. Whole gun, hands and cape inside canvas.
+
+B reference files:
+C:/Users/OWNER/.codex/generated_images/01a14e4f-dbab-7db2-907f-d77281162ec1/exec-1a15e170-b258-4022-8db5-994f547380d9.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat-8/work/akshan/refs/1_akshan_idle.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat-8/work/akshan/refs/6_akshan_attack.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat-8/work/akshan/style/11_style_gangplank.png
+C:/Users/OWNER/Documents/Codex/2026-10-18/new-chat-8/work/akshan/style/13_style_swain.png
+
+PROMPT B:
+Use case: stylized-concept. Create ONE complete pixel-art game sprite of Akshan, transparent PNG, square 1536x1536.
+Image 1 is the generated POSE A character: preserve his exact identity, costume, palette, pixel style and weapon design while changing the pose. Image 2 shows original idle appearance, image 3 original attack showing horizontal gun (use bent elbow instead); last two images are pixel style only. Match image 1 closely, including head size and body proportions. Match their coarse, clean, limited-palette square pixels and chunky silhouettes. No 3D rendering.
+Brown skin, long dark brown wavy hair with a small readable topknot, short brown beard lighter than hair, thick eyebrows, confident half smile. BOTH eyes visible, same size and height with white and dark pupils. Chibi head INCLUDING hair about ONE THIRD of total body height, short body and legs, large hands and gun.
+Bare muscular chest, pale blue-white scarf/cowl, grey shoulder armor edged gold, diagonal orange-red broad sash with a broad gold band, long dark crimson cape with orange/gold reverse and pale blue edge, teal belt with gold ring and long teal front cloth, dark grey-black trousers and tall black boots, gold bracers and pale blue fingerless gloves. Material colors clearly separated, dark clothes have bright edge planes.
+Large dark crimson/bronze relic pistol, the muzzle made of TWO sweeping curved boomerang-like hooks; pale teal-white grip. Slightly larger than his head, clear whole silhouette.
+Three quarter front view facing right, near arm on image left brighter, far arm image right darker. Character hair to soles about 770px or 70 chunky pixel cells, soles share a baseline at y=1390. Head about 23 cells tall. Center the whole silhouette including weapon, ample transparent margin. Uniform aligned square pixel grid, ideally 11px square cells; two-cell thick near-black outer contour, each material 3-4 flat shade steps, no second black inner ring. Strict crisp square stair-step contours, no antialiasing, gradients, dithering, blur, tiny noise pixels, glow, shadow, ground, background objects, writing, labels or frame. Genuine transparent alpha background, never painted checkerboard.
+POSE B ONLY: ready stance feet apart knees slightly bent. Near hand on image LEFT holds the SAME gun across his chest aimed horizontally RIGHT, elbow bent and arm close to body. Far hand on image RIGHT rests on hip. Nothing rises far above head. Cape hangs behind. Whole gun, hands and cape inside canvas.
