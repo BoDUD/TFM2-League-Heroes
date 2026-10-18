@@ -34,7 +34,9 @@ def lp(p):
 
 
 SRC = os.path.join(ROOT, "assets", "source", "gangplank")
-SHEET = os.path.join(SRC, "codex_run", "gangplank-run-generated.png")
+SHEET = os.path.join(SRC, "codex_run", "gangplank-run2-generated.png")   # run 2 over oppi's Lucian run (7 frames); run 1
+# (gangplank-run-generated.png, over oppi's Swain run) never swapped the legs: 「没有明显换腿的感觉？」
+FRAMES = 7
 SIZE = 6.15
 DESIGN_ROWS = 62
 HEAD_ROWS = 24          # the design's hat, face, beard top and the hand cannon on the shoulder: stamped as drawn on every
@@ -75,8 +77,8 @@ def figures(a):
         ys, xs = np.nonzero(lbl == k)
         boxes.append((ys.min(), ys.max(), xs.min(), xs.max()))
     boxes.sort(key=lambda b: (b[0] // 300, b[2]))
-    if len(boxes) != 8:
-        sys.exit(f"{len(boxes)} figures found, not 8")
+    if len(boxes) != FRAMES:
+        sys.exit(f"{len(boxes)} figures found, not {FRAMES}")
     return [np.dstack([a[y0:y1 + 1, x0:x1 + 1], np.where(op[y0:y1 + 1, x0:x1 + 1], 255, 0)]).astype(np.uint8)
             for y0, y1, x0, x1 in boxes]
 
