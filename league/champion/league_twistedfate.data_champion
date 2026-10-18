@@ -3726,6 +3726,10 @@
                                                   "name": "league_twistedfate_r_ok"
                                                 },
                                                 {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_r_hit"
+                                                },
+                                                {
                                                   "type": "RangeEffect",
                                                   "shape": {
                                                     "Circle": {
@@ -3992,113 +3996,156 @@
                                                   "name": "league_twistedfate_r_beacon",
                                                   "penetrate": false,
                                                   "applied_target": "EnemyChampion",
-                                                  "applied_effects": [],
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_twistedfate_r_hit",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 122
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    }
+                                                  ],
                                                   "end_effects": [
                                                     {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_twistedfate_r_dest"
-                                                    },
-                                                    {
-                                                      "type": "Sfx",
-                                                      "name": "league_twistedfate_r_dest"
-                                                    },
-                                                    {
                                                       "type": "Delayed",
-                                                      "tick": 117,
+                                                      "tick": 1,
                                                       "effects": [
                                                         {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_twistedfate_r_cut",
+                                                          "buff_name": "league_twistedfate_r_hit",
                                                           "effect_buff": {
-                                                            "type": "Combine",
-                                                            "effects": []
-                                                          },
-                                                          "effect_none": {
                                                             "type": "Combine",
                                                             "effects": [
                                                               {
-                                                                "type": "CasterViewEffect",
-                                                                "name": "league_twistedfate_r_out"
-                                                              },
-                                                              {
-                                                                "type": "Teleport"
-                                                              },
-                                                              {
-                                                                "type": "CasterAnimation",
-                                                                "name": "ult_land",
-                                                                "tick": 20
-                                                              },
-                                                              {
-                                                                "type": "CasterViewEffect",
-                                                                "name": "league_twistedfate_r_in"
+                                                                "type": "ViewEffect",
+                                                                "name": "league_twistedfate_r_dest"
                                                               },
                                                               {
                                                                 "type": "Sfx",
-                                                                "name": "league_twistedfate_r_in"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_shuffle"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_cur_blue"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_cur_red"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_cur_gold"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_show_blue"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_show_red"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_show_gold"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_blue"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_red"
-                                                              },
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_twistedfate_w_gold"
-                                                              },
-                                                              {
-                                                                "type": "AddCasterBuff",
-                                                                "buff_state": {
-                                                                  "name": "league_twistedfate_w_gold",
-                                                                  "duration": {
-                                                                    "Time": {
-                                                                      "tick": 360
-                                                                    }
-                                                                  }
-                                                                },
-                                                                "only_to_enemy": false
-                                                              },
-                                                              {
-                                                                "type": "Sfx",
-                                                                "name": "league_twistedfate_w_lock_gold"
+                                                                "name": "league_twistedfate_r_dest"
                                                               }
                                                             ]
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "Combine",
+                                                            "effects": []
+                                                          }
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "Delayed",
+                                                      "tick": 112,
+                                                      "effects": [
+                                                        {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_twistedfate_r_hit",
+                                                          "effect_buff": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_twistedfate_r_cut",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "CasterViewEffect",
+                                                                  "name": "league_twistedfate_r_out"
+                                                                },
+                                                                {
+                                                                  "type": "Teleport"
+                                                                },
+                                                                {
+                                                                  "type": "CasterAnimation",
+                                                                  "name": "ult_land",
+                                                                  "tick": 20
+                                                                },
+                                                                {
+                                                                  "type": "CasterViewEffect",
+                                                                  "name": "league_twistedfate_r_in"
+                                                                },
+                                                                {
+                                                                  "type": "Sfx",
+                                                                  "name": "league_twistedfate_r_in"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_shuffle"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_cur_blue"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_cur_red"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_cur_gold"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_show_blue"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_show_red"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_show_gold"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_blue"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_red"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_twistedfate_w_gold"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_twistedfate_w_gold",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 360
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                },
+                                                                {
+                                                                  "type": "Sfx",
+                                                                  "name": "league_twistedfate_w_lock_gold"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "Combine",
+                                                            "effects": []
                                                           }
                                                         }
                                                       ]
                                                     }
                                                   ],
-                                                  "speed": 120000,
+                                                  "speed": 50000,
                                                   "range": 360000,
                                                   "shape": {
                                                     "Circle": {

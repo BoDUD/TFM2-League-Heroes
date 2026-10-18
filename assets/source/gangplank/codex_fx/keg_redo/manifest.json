@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "name": "gangplank_fx_e_throw",
+      "file": "gangplank_fx_e_throw.png",
+      "frames": 3,
+      "cell_1x": [
+        16,
+        13
+      ],
+      "symmetry": "top_bottom",
+      "loop": true,
+      "frame_durations_ms": null,
+      "binding": "view_projectiles `league_gangplank_e_throw`（随飞行方向转动；上下对称；循环）",
+      "raw_file": "raw/gangplank_fx_e_throw.png",
+      "source_regions": [
+        {
+          "source_slot": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "source_bbox_in_slot": [
+            40,
+            159,
+            640,
+            577
+          ]
+        },
+        {
+          "source_slot": [
+            724,
+            0,
+            1448,
+            724
+          ],
+          "source_bbox_in_slot": [
+            52,
+            159,
+            658,
+            577
+          ]
+        },
+        {
+          "source_slot": [
+            1448,
+            0,
+            2172,
+            724
+          ],
+          "source_bbox_in_slot": [
+            68,
+            158,
+            681,
+            577
+          ]
+        }
+      ],
+      "raw_sha256": "da28550e5e978d5da71608fefce5a4c0c180e76d0bb2bf6e1a48676aa654b43b",
+      "palette": [
+        "#F2D2A2",
+        "#C89058",
+        "#94602E",
+        "#64401E",
+        "#3E2612",
+        "#1E120A",
+        "#E8E8EC",
+        "#A8AAB2",
+        "#6E727C",
+        "#464A52",
+        "#2A2C32",
+        "#141418"
+      ]
+    },
+    {
+      "name": "gangplank_fx_e_keg",
+      "file": "gangplank_fx_e_keg.png",
+      "frames": 2,
+      "cell_1x": [
+        20,
+        22
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "frame_durations_ms": [
+        83,
+        83
+      ],
+      "binding": "view_effects `league_gangplank_e_keg`（不跟随，画在人物上面 z 1；左右对称；每 0.17 秒重贴）",
+      "raw_file": "raw/gangplank_fx_e_keg.png",
+      "source_regions": [
+        {
+          "source_slot": [
+            0,
+            0,
+            848,
+            928
+          ],
+          "source_bbox_in_slot": [
+            215,
+            134,
+            774,
+            876
+          ]
+        },
+        {
+          "source_slot": [
+            848,
+            0,
+            1695,
+            928
+          ],
+          "source_bbox_in_slot": [
+            108,
+            134,
+            667,
+            876
+          ]
+        }
+      ],
+      "raw_sha256": "8b37f5ddd9e33db6ecf19f2bfb803d74753badf6f84e8cc090d0ba2ca4e462f0",
+      "palette": [
+        "#F2D2A2",
+        "#C89058",
+        "#94602E",
+        "#64401E",
+        "#3E2612",
+        "#1E120A",
+        "#E8E8EC",
+        "#A8AAB2",
+        "#6E727C",
+        "#464A52",
+        "#2A2C32",
+        "#141418"
+      ]
+    },
+    {
+      "name": "gangplank_fx_e_keg_lit",
+      "file": "gangplank_fx_e_keg_lit.png",
+      "frames": 2,
+      "cell_1x": [
+        20,
+        25
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "frame_durations_ms": [
+        83,
+        83
+      ],
+      "binding": "view_effects `league_gangplank_e_keg_lit`（不跟随，画在人物上面 z 1；左右对称）",
+      "raw_file": "raw/gangplank_fx_e_keg_lit.png",
+      "source_regions": [
+        {
+          "source_slot": [
+            0,
+            0,
+            793,
+            992
+          ],
+          "source_bbox_in_slot": [
+            211,
+            111,
+            782,
+            972
+          ]
+        },
+        {
+          "source_slot": [
+            793,
+            0,
+            1586,
+            992
+          ],
+          "source_bbox_in_slot": [
+            44,
+            125,
+            616,
+            972
+          ]
+        }
+      ],
+      "raw_sha256": "7ef23a0e7abb156f7a37834aa845fd83065547da130fdebf4c9f40517aac881b",
+      "palette": [
+        "#F2D2A2",
+        "#C89058",
+        "#94602E",
+        "#64401E",
+        "#3E2612",
+        "#1E120A",
+        "#E8E8EC",
+        "#A8AAB2",
+        "#6E727C",
+        "#464A52",
+        "#2A2C32",
+        "#141418",
+        "#FFFFFF",
+        "#FFF6C0",
+        "#FFD25A",
+        "#FF9A28",
+        "#E2541A",
+        "#8E2410"
+      ]
+    }
+  ],
+  "postprocess": "25% visible coverage; majority opaque allowed-palette color per logical cell; alpha>=224 source cleanup; exact mirror choosing existing brighter source color; separate source-region sampling of skull; lit body reused exactly from generated unlit body, source-derived flame and base glint only; faint base-glint coverage threshold 4 percent",
+  "raw_untouched": true
+}

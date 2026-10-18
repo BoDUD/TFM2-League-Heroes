@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_wukong": {
+        "attack": "【扩展包】金箍棒横扫。<#ff9028ff>金刚不坏<>：打中英雄叠1层（最多5层），每层护甲+4；每5秒<#66bb6aff>回复0.35%最大生命<>，每层再多0.35%（叠满2.1%）。<#ff9028ff>粉碎打击<>：每<#ffb900ff>4秒<>下一次普攻伸长棒子，多造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害，目标<#ef5350ff>护甲-20%<>，持续<#ffb900ff>3秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_wukong": {
+        "attack": "【擴充包】金箍棒橫掃。<#ff9028ff>仙山石猴<>：打中英雄疊1層（最多5層），每層護甲+4；每5秒<#66bb6aff>回復0.35%最大生命<>，每層再多0.35%（疊滿2.1%）。<#ff9028ff>定海神兵<>：每<#ffb900ff>4秒<>下一次普攻伸長棒子，多造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害，目標<#ef5350ff>護甲-20%<>，持續<#ffb900ff>3秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_wukong": {
+        "attack": "[Add-on] Staff strikes. <#ff9028ff>Stone Skin<>: each hit on a champion adds a stack (5 at most), +4 armour each; every 5s he <#66bb6aff>regenerates 0.35% of his max health<>, 0.35% more a stack (2.1% at five). <#ff9028ff>Crushing Blow<>: every <#ffb900ff>4s<> his next attack reaches farther and deals <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage more, <#ef5350ff>-20% armour<> on the target for <#ffb900ff>3s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_wukong": {
+        "attack": "[확장] 여의봉 공격. <#ff9028ff>바위 피부<>: 챔피언 적중 시 중첩(최대 5), 중첩당 방어력 +4; 5초마다 <#66bb6aff>최대 체력의 0.35% 회복<>, 중첩당 0.35% 추가(5중첩 2.1%). <#ff9028ff>파쇄격<>: <#ffb900ff>4초<>마다 다음 공격의 사거리가 늘고 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해 추가, 대상 <#ef5350ff>방어력 -20%<> <#ffb900ff>3초<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_wukong": {
+        "attack": "【拡張】如意棒で攻撃。<#ff9028ff>岩の皮膚<>：チャンピオン命中でスタック（最大5）、毎スタック物理防御+4；5秒毎に<#66bb6aff>最大体力の0.35%回復<>、スタック毎に0.35%追加。<#ff9028ff>強棒打<>：<#ffb900ff>4秒<>毎に次の通常攻撃が伸び<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージを追加、対象の<#ef5350ff>物理防御-20%<>（<#ffb900ff>3秒<>）。"
+      }
+    }
+  }
+}

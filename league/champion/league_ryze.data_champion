@@ -2134,6 +2134,10 @@
                                           "name": "league_ryze_r_go"
                                         },
                                         {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_ryze_r_hit"
+                                        },
+                                        {
                                           "type": "CasterAnimation",
                                           "name": "ult",
                                           "tick": 60
@@ -4547,6 +4551,10 @@
                                               "name": "league_ryze_r_go"
                                             },
                                             {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_ryze_r_hit"
+                                            },
+                                            {
                                               "type": "CasterAnimation",
                                               "name": "ult",
                                               "tick": 60
@@ -4695,7 +4703,7 @@
                                             {
                                               "type": "LinearProjectile",
                                               "name": "league_ryze_r_beacon",
-                                              "speed": 120000,
+                                              "speed": 100000,
                                               "range": 360000,
                                               "shape": {
                                                 "Circle": {
@@ -4705,430 +4713,468 @@
                                               "penetrate": false,
                                               "y_offset": 5000,
                                               "applied_target": "EnemyChampion",
-                                              "applied_effects": [],
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_ryze_r_hit",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 62
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                }
+                                              ],
                                               "end_effects": [
                                                 {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_ryze_r_dest"
-                                                },
-                                                {
                                                   "type": "Delayed",
-                                                  "tick": 57,
+                                                  "tick": 1,
                                                   "effects": [
                                                     {
                                                       "type": "SwitchByBuff",
-                                                      "buff_name": "league_ryze_r_cut",
+                                                      "buff_name": "league_ryze_r_hit",
                                                       "effect_buff": {
-                                                        "type": "Combine",
-                                                        "effects": []
+                                                        "type": "ViewEffect",
+                                                        "name": "league_ryze_r_dest"
                                                       },
                                                       "effect_none": {
                                                         "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_ryze_r_go",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 8
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          },
-                                                          {
-                                                            "type": "SwitchByBuff",
-                                                            "buff_name": "league_ryze_r_pass",
-                                                            "effect_buff": {
-                                                              "type": "Combine",
-                                                              "effects": []
-                                                            },
-                                                            "effect_none": {
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Delayed",
+                                                  "tick": 56,
+                                                  "effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_ryze_r_hit",
+                                                      "effect_buff": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_ryze_r_cut",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
                                                               "type": "AddCasterBuff",
                                                               "buff_state": {
-                                                                "name": "league_ryze_r_pass",
-                                                                "duration": "Permanent"
+                                                                "name": "league_ryze_r_go",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 8
+                                                                  }
+                                                                }
                                                               },
                                                               "only_to_enemy": false
-                                                            }
-                                                          },
-                                                          {
-                                                            "type": "CasterViewEffect",
-                                                            "name": "league_ryze_r_out"
-                                                          },
-                                                          {
-                                                            "type": "Sfx",
-                                                            "name": "league_ryze_r_warp"
-                                                          },
-                                                          {
-                                                            "type": "Teleport"
-                                                          },
-                                                          {
-                                                            "type": "CasterAnimation",
-                                                            "name": "ult_land",
-                                                            "tick": 16
-                                                          },
-                                                          {
-                                                            "type": "CasterViewEffect",
-                                                            "name": "league_ryze_r_in"
-                                                          },
-                                                          {
-                                                            "type": "Delayed",
-                                                            "tick": 3,
-                                                            "effects": [
-                                                              {
-                                                                "type": "RandomTarget",
-                                                                "range": 70000,
-                                                                "casting_target": "EnemyChampion",
-                                                                "from_projectile": false,
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "Sfx",
-                                                                    "name": "league_ryze_e_cast"
-                                                                  },
-                                                                  {
-                                                                    "type": "TargetProjectile",
-                                                                    "name": "league_ryze_e_orb",
-                                                                    "speed": 4500,
-                                                                    "y_offset": 1500,
-                                                                    "applied_target": "EnemyWithoutTower",
-                                                                    "applied_effects": [
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "ApAttack",
-                                                                          "damage": 45,
-                                                                          "attack_ratio": 45,
-                                                                          "hp_ratio": 2,
-                                                                          "attack_effect_type": "Target"
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "ViewEffect",
-                                                                          "name": "league_ryze_e_hit"
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "TargetSfx",
-                                                                          "name": "league_ryze_e_hit"
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "RangeEffect",
-                                                                          "shape": {
-                                                                            "Circle": {
-                                                                              "radius": 1000
-                                                                            }
-                                                                          },
-                                                                          "target": "AllyOnlySelf",
-                                                                          "apply_type": "AroundCaster",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "SwitchByBuff",
-                                                                              "buff_name": "league_ryze_fx_any",
-                                                                              "effect_buff": {
-                                                                                "type": "AddCasterBuff",
-                                                                                "buff_state": {
-                                                                                  "name": "league_ryze_e_wide",
-                                                                                  "duration": {
-                                                                                    "Time": {
-                                                                                      "tick": 4
-                                                                                    }
-                                                                                  }
-                                                                                },
-                                                                                "only_to_enemy": false
-                                                                              },
-                                                                              "effect_none": {
-                                                                                "type": "Combine",
-                                                                                "effects": []
+                                                            },
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_ryze_r_pass",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_ryze_r_pass",
+                                                                  "duration": "Permanent"
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            },
+                                                            {
+                                                              "type": "CasterViewEffect",
+                                                              "name": "league_ryze_r_out"
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_ryze_r_warp"
+                                                            },
+                                                            {
+                                                              "type": "Teleport"
+                                                            },
+                                                            {
+                                                              "type": "CasterAnimation",
+                                                              "name": "ult_land",
+                                                              "tick": 16
+                                                            },
+                                                            {
+                                                              "type": "CasterViewEffect",
+                                                              "name": "league_ryze_r_in"
+                                                            },
+                                                            {
+                                                              "type": "Delayed",
+                                                              "tick": 3,
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RandomTarget",
+                                                                  "range": 70000,
+                                                                  "casting_target": "EnemyChampion",
+                                                                  "from_projectile": false,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Sfx",
+                                                                      "name": "league_ryze_e_cast"
+                                                                    },
+                                                                    {
+                                                                      "type": "TargetProjectile",
+                                                                      "name": "league_ryze_e_orb",
+                                                                      "speed": 4500,
+                                                                      "y_offset": 1500,
+                                                                      "applied_target": "EnemyWithoutTower",
+                                                                      "applied_effects": [
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "ApAttack",
+                                                                            "damage": 45,
+                                                                            "attack_ratio": 45,
+                                                                            "hp_ratio": 2,
+                                                                            "attack_effect_type": "Target"
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_ryze_e_hit"
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "TargetSfx",
+                                                                            "name": "league_ryze_e_hit"
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "RangeEffect",
+                                                                            "shape": {
+                                                                              "Circle": {
+                                                                                "radius": 1000
                                                                               }
                                                                             },
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_ryze_fx_c"
-                                                                            },
-                                                                            {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_ryze_fx_d"
-                                                                            },
-                                                                            {
-                                                                              "type": "Combine",
-                                                                              "effects": [
-                                                                                {
-                                                                                  "type": "RemoveCasterBuff",
-                                                                                  "name": "league_ryze_fx_r"
-                                                                                },
-                                                                                {
+                                                                            "target": "AllyOnlySelf",
+                                                                            "apply_type": "AroundCaster",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "SwitchByBuff",
+                                                                                "buff_name": "league_ryze_fx_any",
+                                                                                "effect_buff": {
                                                                                   "type": "AddCasterBuff",
                                                                                   "buff_state": {
-                                                                                    "name": "league_ryze_fx_r",
+                                                                                    "name": "league_ryze_e_wide",
                                                                                     "duration": {
                                                                                       "Time": {
-                                                                                        "tick": 240
+                                                                                        "tick": 4
                                                                                       }
                                                                                     }
                                                                                   },
                                                                                   "only_to_enemy": false
-                                                                                }
-                                                                              ]
-                                                                            },
-                                                                            {
-                                                                              "type": "Combine",
-                                                                              "effects": [
-                                                                                {
-                                                                                  "type": "RemoveCasterBuff",
-                                                                                  "name": "league_ryze_fx_any"
                                                                                 },
-                                                                                {
-                                                                                  "type": "AddCasterBuff",
-                                                                                  "buff_state": {
-                                                                                    "name": "league_ryze_fx_any",
-                                                                                    "duration": {
-                                                                                      "Time": {
-                                                                                        "tick": 240
-                                                                                      }
-                                                                                    }
-                                                                                  },
-                                                                                  "only_to_enemy": false
-                                                                                }
-                                                                              ]
-                                                                            }
-                                                                          ]
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "casting_type": "Targeting",
-                                                                        "effect": {
-                                                                          "type": "Delayed",
-                                                                          "tick": 1,
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "ParabolicProjectile",
-                                                                              "name": "league_ryze_e_lob",
-                                                                              "travel_time": 1,
-                                                                              "range": 200000,
-                                                                              "shape": {
-                                                                                "Circle": {
-                                                                                  "radius": 1000
+                                                                                "effect_none": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": []
                                                                                 }
                                                                               },
-                                                                              "range_effect_name": "",
-                                                                              "applied_target": "EnemyWithoutTower",
-                                                                              "applied_effects": [],
-                                                                              "end_effects": [
-                                                                                {
-                                                                                  "type": "SwitchByBuff",
-                                                                                  "buff_name": "league_ryze_e_wide",
-                                                                                  "effect_buff": {
-                                                                                    "type": "RangeProjectile",
-                                                                                    "name": "league_ryze_e_zone_r",
-                                                                                    "shape": {
-                                                                                      "Circle": {
-                                                                                        "radius": 38000
-                                                                                      }
-                                                                                    },
-                                                                                    "delay": 2,
-                                                                                    "apply": 1,
-                                                                                    "applied_target": "EnemyWithoutTower",
-                                                                                    "applied_effects": [
-                                                                                      {
-                                                                                        "casting_type": "Targeting",
-                                                                                        "effect": {
-                                                                                          "type": "AddCasted",
-                                                                                          "casted_type": "Bleed",
-                                                                                          "duration": 240,
-                                                                                          "period": 12,
-                                                                                          "effects": [
-                                                                                            {
-                                                                                              "type": "SwitchByBuff",
-                                                                                              "buff_name": "league_ryze_fx_r",
-                                                                                              "effect_buff": {
-                                                                                                "type": "ViewEffect",
-                                                                                                "name": "league_ryze_flux"
-                                                                                              },
-                                                                                              "effect_none": {
-                                                                                                "type": "Combine",
-                                                                                                "effects": []
-                                                                                              }
-                                                                                            }
-                                                                                          ]
-                                                                                        }
-                                                                                      },
-                                                                                      {
-                                                                                        "casting_type": "Targeting",
-                                                                                        "effect": {
-                                                                                          "type": "AddCasted",
-                                                                                          "casted_type": "Bleed",
-                                                                                          "duration": 240,
-                                                                                          "period": 2,
-                                                                                          "effects": [
-                                                                                            {
-                                                                                              "type": "SwitchByBuff",
-                                                                                              "buff_name": "league_ryze_fx_r",
-                                                                                              "effect_buff": {
-                                                                                                "type": "SwitchByBuff",
-                                                                                                "buff_name": "league_ryze_q_pop",
-                                                                                                "effect_buff": {
-                                                                                                  "type": "Combine",
-                                                                                                  "effects": [
-                                                                                                    {
-                                                                                                      "type": "SwitchByBuff",
-                                                                                                      "buff_name": "league_ryze_r_pass",
-                                                                                                      "effect_buff": {
-                                                                                                        "type": "ApAttack",
-                                                                                                        "damage": 50,
-                                                                                                        "attack_ratio": 55,
-                                                                                                        "hp_ratio": 2,
-                                                                                                        "attack_effect_type": "Target"
-                                                                                                      },
-                                                                                                      "effect_none": {
-                                                                                                        "type": "ApAttack",
-                                                                                                        "damage": 35,
-                                                                                                        "attack_ratio": 35,
-                                                                                                        "hp_ratio": 2,
-                                                                                                        "attack_effect_type": "Target"
-                                                                                                      }
-                                                                                                    },
-                                                                                                    {
-                                                                                                      "type": "ViewEffect",
-                                                                                                      "name": "league_ryze_q_pop"
-                                                                                                    },
-                                                                                                    {
-                                                                                                      "type": "TargetSfx",
-                                                                                                      "name": "league_ryze_q_pop"
-                                                                                                    }
-                                                                                                  ]
-                                                                                                },
-                                                                                                "effect_none": {
-                                                                                                  "type": "Combine",
-                                                                                                  "effects": []
-                                                                                                }
-                                                                                              },
-                                                                                              "effect_none": {
-                                                                                                "type": "Combine",
-                                                                                                "effects": []
-                                                                                              }
-                                                                                            }
-                                                                                          ]
-                                                                                        }
-                                                                                      }
-                                                                                    ]
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_ryze_fx_c"
+                                                                              },
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_ryze_fx_d"
+                                                                              },
+                                                                              {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "RemoveCasterBuff",
+                                                                                    "name": "league_ryze_fx_r"
                                                                                   },
-                                                                                  "effect_none": {
-                                                                                    "type": "RangeProjectile",
-                                                                                    "name": "league_ryze_e_zone_r",
-                                                                                    "shape": {
-                                                                                      "Circle": {
-                                                                                        "radius": 25000
+                                                                                  {
+                                                                                    "type": "AddCasterBuff",
+                                                                                    "buff_state": {
+                                                                                      "name": "league_ryze_fx_r",
+                                                                                      "duration": {
+                                                                                        "Time": {
+                                                                                          "tick": 240
+                                                                                        }
                                                                                       }
                                                                                     },
-                                                                                    "delay": 2,
-                                                                                    "apply": 1,
-                                                                                    "applied_target": "EnemyWithoutTower",
-                                                                                    "applied_effects": [
-                                                                                      {
-                                                                                        "casting_type": "Targeting",
-                                                                                        "effect": {
-                                                                                          "type": "AddCasted",
-                                                                                          "casted_type": "Bleed",
-                                                                                          "duration": 240,
-                                                                                          "period": 12,
-                                                                                          "effects": [
-                                                                                            {
-                                                                                              "type": "SwitchByBuff",
-                                                                                              "buff_name": "league_ryze_fx_r",
-                                                                                              "effect_buff": {
-                                                                                                "type": "ViewEffect",
-                                                                                                "name": "league_ryze_flux"
-                                                                                              },
-                                                                                              "effect_none": {
-                                                                                                "type": "Combine",
-                                                                                                "effects": []
-                                                                                              }
-                                                                                            }
-                                                                                          ]
+                                                                                    "only_to_enemy": false
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "RemoveCasterBuff",
+                                                                                    "name": "league_ryze_fx_any"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "AddCasterBuff",
+                                                                                    "buff_state": {
+                                                                                      "name": "league_ryze_fx_any",
+                                                                                      "duration": {
+                                                                                        "Time": {
+                                                                                          "tick": 240
+                                                                                        }
+                                                                                      }
+                                                                                    },
+                                                                                    "only_to_enemy": false
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "Delayed",
+                                                                            "tick": 1,
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "ParabolicProjectile",
+                                                                                "name": "league_ryze_e_lob",
+                                                                                "travel_time": 1,
+                                                                                "range": 200000,
+                                                                                "shape": {
+                                                                                  "Circle": {
+                                                                                    "radius": 1000
+                                                                                  }
+                                                                                },
+                                                                                "range_effect_name": "",
+                                                                                "applied_target": "EnemyWithoutTower",
+                                                                                "applied_effects": [],
+                                                                                "end_effects": [
+                                                                                  {
+                                                                                    "type": "SwitchByBuff",
+                                                                                    "buff_name": "league_ryze_e_wide",
+                                                                                    "effect_buff": {
+                                                                                      "type": "RangeProjectile",
+                                                                                      "name": "league_ryze_e_zone_r",
+                                                                                      "shape": {
+                                                                                        "Circle": {
+                                                                                          "radius": 38000
                                                                                         }
                                                                                       },
-                                                                                      {
-                                                                                        "casting_type": "Targeting",
-                                                                                        "effect": {
-                                                                                          "type": "AddCasted",
-                                                                                          "casted_type": "Bleed",
-                                                                                          "duration": 240,
-                                                                                          "period": 2,
-                                                                                          "effects": [
-                                                                                            {
-                                                                                              "type": "SwitchByBuff",
-                                                                                              "buff_name": "league_ryze_fx_r",
-                                                                                              "effect_buff": {
+                                                                                      "delay": 2,
+                                                                                      "apply": 1,
+                                                                                      "applied_target": "EnemyWithoutTower",
+                                                                                      "applied_effects": [
+                                                                                        {
+                                                                                          "casting_type": "Targeting",
+                                                                                          "effect": {
+                                                                                            "type": "AddCasted",
+                                                                                            "casted_type": "Bleed",
+                                                                                            "duration": 240,
+                                                                                            "period": 12,
+                                                                                            "effects": [
+                                                                                              {
                                                                                                 "type": "SwitchByBuff",
-                                                                                                "buff_name": "league_ryze_q_pop",
+                                                                                                "buff_name": "league_ryze_fx_r",
                                                                                                 "effect_buff": {
-                                                                                                  "type": "Combine",
-                                                                                                  "effects": [
-                                                                                                    {
-                                                                                                      "type": "SwitchByBuff",
-                                                                                                      "buff_name": "league_ryze_r_pass",
-                                                                                                      "effect_buff": {
-                                                                                                        "type": "ApAttack",
-                                                                                                        "damage": 50,
-                                                                                                        "attack_ratio": 55,
-                                                                                                        "hp_ratio": 2,
-                                                                                                        "attack_effect_type": "Target"
-                                                                                                      },
-                                                                                                      "effect_none": {
-                                                                                                        "type": "ApAttack",
-                                                                                                        "damage": 35,
-                                                                                                        "attack_ratio": 35,
-                                                                                                        "hp_ratio": 2,
-                                                                                                        "attack_effect_type": "Target"
-                                                                                                      }
-                                                                                                    },
-                                                                                                    {
-                                                                                                      "type": "ViewEffect",
-                                                                                                      "name": "league_ryze_q_pop"
-                                                                                                    },
-                                                                                                    {
-                                                                                                      "type": "TargetSfx",
-                                                                                                      "name": "league_ryze_q_pop"
-                                                                                                    }
-                                                                                                  ]
+                                                                                                  "type": "ViewEffect",
+                                                                                                  "name": "league_ryze_flux"
                                                                                                 },
                                                                                                 "effect_none": {
                                                                                                   "type": "Combine",
                                                                                                   "effects": []
                                                                                                 }
-                                                                                              },
-                                                                                              "effect_none": {
-                                                                                                "type": "Combine",
-                                                                                                "effects": []
                                                                                               }
-                                                                                            }
-                                                                                          ]
+                                                                                            ]
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "casting_type": "Targeting",
+                                                                                          "effect": {
+                                                                                            "type": "AddCasted",
+                                                                                            "casted_type": "Bleed",
+                                                                                            "duration": 240,
+                                                                                            "period": 2,
+                                                                                            "effects": [
+                                                                                              {
+                                                                                                "type": "SwitchByBuff",
+                                                                                                "buff_name": "league_ryze_fx_r",
+                                                                                                "effect_buff": {
+                                                                                                  "type": "SwitchByBuff",
+                                                                                                  "buff_name": "league_ryze_q_pop",
+                                                                                                  "effect_buff": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": [
+                                                                                                      {
+                                                                                                        "type": "SwitchByBuff",
+                                                                                                        "buff_name": "league_ryze_r_pass",
+                                                                                                        "effect_buff": {
+                                                                                                          "type": "ApAttack",
+                                                                                                          "damage": 50,
+                                                                                                          "attack_ratio": 55,
+                                                                                                          "hp_ratio": 2,
+                                                                                                          "attack_effect_type": "Target"
+                                                                                                        },
+                                                                                                        "effect_none": {
+                                                                                                          "type": "ApAttack",
+                                                                                                          "damage": 35,
+                                                                                                          "attack_ratio": 35,
+                                                                                                          "hp_ratio": 2,
+                                                                                                          "attack_effect_type": "Target"
+                                                                                                        }
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "ViewEffect",
+                                                                                                        "name": "league_ryze_q_pop"
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "TargetSfx",
+                                                                                                        "name": "league_ryze_q_pop"
+                                                                                                      }
+                                                                                                    ]
+                                                                                                  },
+                                                                                                  "effect_none": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": []
+                                                                                                  }
+                                                                                                },
+                                                                                                "effect_none": {
+                                                                                                  "type": "Combine",
+                                                                                                  "effects": []
+                                                                                                }
+                                                                                              }
+                                                                                            ]
+                                                                                          }
                                                                                         }
-                                                                                      }
-                                                                                    ]
+                                                                                      ]
+                                                                                    },
+                                                                                    "effect_none": {
+                                                                                      "type": "RangeProjectile",
+                                                                                      "name": "league_ryze_e_zone_r",
+                                                                                      "shape": {
+                                                                                        "Circle": {
+                                                                                          "radius": 25000
+                                                                                        }
+                                                                                      },
+                                                                                      "delay": 2,
+                                                                                      "apply": 1,
+                                                                                      "applied_target": "EnemyWithoutTower",
+                                                                                      "applied_effects": [
+                                                                                        {
+                                                                                          "casting_type": "Targeting",
+                                                                                          "effect": {
+                                                                                            "type": "AddCasted",
+                                                                                            "casted_type": "Bleed",
+                                                                                            "duration": 240,
+                                                                                            "period": 12,
+                                                                                            "effects": [
+                                                                                              {
+                                                                                                "type": "SwitchByBuff",
+                                                                                                "buff_name": "league_ryze_fx_r",
+                                                                                                "effect_buff": {
+                                                                                                  "type": "ViewEffect",
+                                                                                                  "name": "league_ryze_flux"
+                                                                                                },
+                                                                                                "effect_none": {
+                                                                                                  "type": "Combine",
+                                                                                                  "effects": []
+                                                                                                }
+                                                                                              }
+                                                                                            ]
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "casting_type": "Targeting",
+                                                                                          "effect": {
+                                                                                            "type": "AddCasted",
+                                                                                            "casted_type": "Bleed",
+                                                                                            "duration": 240,
+                                                                                            "period": 2,
+                                                                                            "effects": [
+                                                                                              {
+                                                                                                "type": "SwitchByBuff",
+                                                                                                "buff_name": "league_ryze_fx_r",
+                                                                                                "effect_buff": {
+                                                                                                  "type": "SwitchByBuff",
+                                                                                                  "buff_name": "league_ryze_q_pop",
+                                                                                                  "effect_buff": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": [
+                                                                                                      {
+                                                                                                        "type": "SwitchByBuff",
+                                                                                                        "buff_name": "league_ryze_r_pass",
+                                                                                                        "effect_buff": {
+                                                                                                          "type": "ApAttack",
+                                                                                                          "damage": 50,
+                                                                                                          "attack_ratio": 55,
+                                                                                                          "hp_ratio": 2,
+                                                                                                          "attack_effect_type": "Target"
+                                                                                                        },
+                                                                                                        "effect_none": {
+                                                                                                          "type": "ApAttack",
+                                                                                                          "damage": 35,
+                                                                                                          "attack_ratio": 35,
+                                                                                                          "hp_ratio": 2,
+                                                                                                          "attack_effect_type": "Target"
+                                                                                                        }
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "ViewEffect",
+                                                                                                        "name": "league_ryze_q_pop"
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "TargetSfx",
+                                                                                                        "name": "league_ryze_q_pop"
+                                                                                                      }
+                                                                                                    ]
+                                                                                                  },
+                                                                                                  "effect_none": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": []
+                                                                                                  }
+                                                                                                },
+                                                                                                "effect_none": {
+                                                                                                  "type": "Combine",
+                                                                                                  "effects": []
+                                                                                                }
+                                                                                              }
+                                                                                            ]
+                                                                                          }
+                                                                                        }
+                                                                                      ]
+                                                                                    }
                                                                                   }
-                                                                                }
-                                                                              ]
-                                                                            }
-                                                                          ]
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          }
                                                                         }
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
                                                       }
                                                     }
                                                   ]

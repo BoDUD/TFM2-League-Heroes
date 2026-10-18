@@ -90,7 +90,7 @@ P = {
     # 50000 +2.65 / +2.31; at 50000 with a 70 s cooldown (r_cd 4200, was 50 s) +2.26 / +2.01, 5.6 warps a game (1.5).
     "r_cd": 4200, "r_range": 360000, "r_arm": 600, "r_poll": 10, "r_ch": 60,
     "r_esc": 30000, "r_alone": 1, "r_esc1": 15000, "r_mates": 50000, "r_back": 60000, "r_back_t": 4,
-    "r_reach": 45000, "r_seen": 90, "r_chase": 360000, "r_chase_mate": 0, "r_move": 360000, "r_stop": 50000,
+    "r_reach": 45000, "r_seen": 90, "r_chase": 360000, "r_chase_mate": 0, "r_move": 360000, "r_stop": 50000, "r_step": 100000,
     "r_crowd": 3, "r_chase_mates": 25000, "r_crowd_r": 100000, "r_need_seen": 0,
     "r_far": 360000, "r_far_min": 60000, "r_far_safe": 30000, "r_far_try": 3,
     "r_portal": 25000, "r_grab": 15000, "r_carry": 30000, "r_land": 16, "r_e_range": 70000,
@@ -334,7 +334,7 @@ def build(p):
 
     def start():
         """The channel: his portal, the cast animation, the crowd-control checks (queued on him)."""
-        return [*rm("r_armed", "r_cut", "r_go"), anim("ult", ch), sfx("r_cast"), sfx("vo_r"), cview("r_portal"),
+        return [*rm("r_armed", "r_cut", "r_go", "r_hit"), anim("ult", ch), sfx("r_cast"), sfx("vo_r"), cview("r_portal"),
                 self_only(*[delayed(t, cc_check) for t in range(15, ch, 15)])]
 
     def arrive(go_t):
@@ -344,11 +344,18 @@ def build(p):
         return [anim("ult_land", p["r_land"]), cview("r_in"), delayed(3, land_e)]
 
     # the chase (on the champion picked): a hidden line toward it that stops r_stop short of the first enemy champion
-    # (or after r_move) plays the far portal where it stops, and at the end of the channel puts him there
-    beacon = {"type": "LinearProjectile", "name": n("r_beacon"), "speed": max(1, p["r_move"] // 3), "range": p["r_move"],
+    # plays the far portal where it stops, and at the end of the channel puts him there. 2026-10-18, the user:
+    # 「卡牌和流浪推水晶的时候会往泉水里传送」 - a line is only tested where it stands each tick, so at r_move // 3 a tick
+    # it stepped over champions between its stops and, hitting none, flew the whole r_move (into the fountain behind
+    # their nexus, clamped at the map's edge). Now a step is at most the circle's width (r_step, no gaps) and only a
+    # line that touched an enemy champion (r_hit) shows the far portal and takes him there; a miss warps nowhere.
+    step = min(p["r_step"], 2 * p["r_stop"])
+    fly = -(-p["r_move"] // step)
+    beacon = {"type": "LinearProjectile", "name": n("r_beacon"), "speed": step, "range": p["r_move"],
               "shape": circle(p["r_stop"]), "penetrate": False, "y_offset": 5000, "applied_target": "EnemyChampion",
-              "applied_effects": [], "end_effects": [view("r_dest"), delayed(ch - 3, sw("r_cut", NONE, combine(
-                  *arrive(8), {"type": "Teleport"}, *land())))]}
+              "applied_effects": [T(flag("r_hit", ch + 2))], "end_effects": [
+                  delayed(1, sw("r_hit", view("r_dest"))), delayed(ch - fly, sw("r_hit", sw("r_cut", NONE, combine(
+                      *arrive(8), {"type": "Teleport"}, *land()))))]}
     chase = combine(*start(), beacon, anchor(ch + 1))
     # the escape (on the champion right on him): at the end of the channel a jump straight away from it
     bt = p["r_back_t"]
