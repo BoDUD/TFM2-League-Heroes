@@ -52,15 +52,98 @@
       "effects": [
         {
           "type": "SwitchByBuff",
-          "buff_name": "league_riven_r",
+          "buff_name": "league_riven_aa3",
           "effect_buff": {
-            "type": "CasterAnimation",
-            "name": "attack_r",
-            "tick": 26
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_riven_aa3"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_riven_r",
+                "effect_buff": {
+                  "type": "CasterAnimation",
+                  "name": "attack3_r",
+                  "tick": 26
+                },
+                "effect_none": {
+                  "type": "CasterAnimation",
+                  "name": "attack3",
+                  "tick": 26
+                }
+              }
+            ]
           },
           "effect_none": {
-            "type": "Combine",
-            "effects": []
+            "type": "SwitchByBuff",
+            "buff_name": "league_riven_aa2",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_riven_aa2"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_riven_aa3",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_riven_r",
+                  "effect_buff": {
+                    "type": "CasterAnimation",
+                    "name": "attack2_r",
+                    "tick": 26
+                  },
+                  "effect_none": {
+                    "type": "CasterAnimation",
+                    "name": "attack2",
+                    "tick": 26
+                  }
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_riven_aa2",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_riven_r",
+                  "effect_buff": {
+                    "type": "CasterAnimation",
+                    "name": "attack_r",
+                    "tick": 26
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            }
           }
         },
         {
