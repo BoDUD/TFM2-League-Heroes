@@ -111,7 +111,7 @@ def spans(table):
 ARM = spans([((17,), (15, 19)), ((18,), (11, 19)), ((19, 20), (9, 19)), (range(21, 25), (1, 19)),
              (range(25, 29), (1, 18)), ((29, 30), (0, 19)), ((31,), (0, 20)), ((32,), (0, 21)), ((33,), (0, 23)),
              ((34,), (0, 24)), (range(35, 38), (0, 25)), ((38, 39), (0, 26)), (range(40, 45), (0, 29)),
-             ((45, 46), (3, 29)), (range(47, 54), (5, 29)), ((54,), (5, 29)), (range(55, 60), (0, 29))])
+             ((45, 46), (3, 29)), (range(47, 54), (5, 29)), ((54,), (5, 29)), (range(55, 60), (0, 30))])
 ARM_PIVOT = (14.5, 22.5)                        # the near shoulder
 # the far claw with the sapling in it (right of the face)
 FAR = spans([((19, 20), (49, 55)), (range(21, 33), (47, 55)), (range(33, 48), (45, 55))])
@@ -205,22 +205,22 @@ class Form:
 
     def pose(self, whole=(0, 0), crouch=0, arm=(0, 0), far=(0, 0), lantern=0, legs=((0, 0), (0, 0)), empty=False,
              lean=0, fill=True):
-        """whole: the whole figure moved (dx, dy); crouch: rows everything over the roots sinks (each root gives up
-        plain rows, nothing covered); lean: columns the figure over the roots moves; arm / far: the huge arm / the far
-        claw moved (dx, dy) with the trunk; lantern: columns the lantern swings; legs ((near dx, dy), (far dx, dy)): the
-        roots moved (dy < 0 lifts); empty: the far claw without its sapling (thrown)."""
+        """whole: the whole figure moved (dx, dy); crouch: rows the trunk (with the far claw and the lantern) sinks,
+        BEHIND the roots - the roots keep every square (the first rig took plain rows out of them and set the arm over
+        the knee root: 「腿部变形了吧 少了像素？」); lean: columns the trunk moves over the roots; arm: the huge arm
+        moved (dx, dy) from where it stands - it never follows the crouch or the lean, its fist stays planted unless
+        raised, and dx stays 0 (any dx over the knee root hides it, back opens a slit); far: the far claw moved with
+        the trunk; lantern: columns the lantern swings (None: no lantern); legs ((near dx, dy), (far dx, dy)): the roots
+        moved (dy < 0 lifts); empty: the far claw without its sapling (thrown)."""
         wx, wy = whole
         ux, uy = wx + lean, wy + crouch
         (nx, ny), (fx, fy) = legs
-        near_l, far_l = self.near_leg, self.far_leg
-        for _ in range(crouch):
-            near_l, far_l = dipped(near_l, DIP_ROWS["near_leg"]), dipped(far_l, DIP_ROWS["far_leg"])
         layers = [(self.far_empty if empty else self.far, dict(dx=ux + far[0], dy=uy + far[1])),
-                  (far_l, dict(dx=wx + fx, dy=wy + fy)),
-                  (near_l, dict(dx=wx + nx, dy=wy + ny)),
                   (self.body, dict(dx=ux, dy=uy)),
                   *([] if lantern is None else [(self.lantern, dict(dx=ux + lantern, dy=uy))]),
-                  (self.arm, dict(dx=ux + arm[0], dy=uy + arm[1]))]
+                  (self.far_leg, dict(dx=wx + fx, dy=wy + fy)),
+                  (self.near_leg, dict(dx=wx + nx, dy=wy + ny)),
+                  (self.arm, dict(dx=wx + arm[0], dy=wy + arm[1]))]
         can = R.compose(self.rig, layers)
         return self.close_holes(can) if fill else can
 
@@ -281,19 +281,20 @@ MS = {"idle": [150] * 8, "run": [125] * 8, "attack": [80, 90, 110, 120, 100], "s
 def frames_all(F):
     p = F.pose
     out = {}
-    # idle: the figure over the roots sinks a row and rises (the roots give up a plain row: nothing covered), the
-    # lantern swings a column after it
+    # idle: the trunk sinks a row behind the roots and rises (the roots and the planted arm stand), the lantern swings
+    # a column after it
     out["idle"] = [p(crouch=c, lantern=l) for c, l in zip([0, 0, 1, 1, 1, 1, 0, 0], [0, 1, 1, 0, 0, -1, -1, 0])]
-    # auto attack (League's maokai_attack1: the huge arm swung up and brought down in front): the arm drawn up and
-    # back with the trunk leaning back, the blow forward and down (frame 3), held, back
-    # (the arm never moves back off the trunk - a slit opens between them: the trunk leans back instead)
+    # auto attack (League's maokai_attack1: the huge arm swung up and brought down in front): the arm drawn up with
+    # the trunk leaning back, the blow (frame 3): the arm down on the ground again, the whole tree a column forward,
+    # the trunk low and leaning in; held, back
     out["attack"] = [p(arm=(0, -2), lean=-1), p(arm=(0, -4), lean=-2, lantern=-1),
-                     p(arm=(4, 1), lean=1, crouch=1, lantern=1), p(arm=(4, 1), lean=1, crouch=1), p(arm=(1, 0))]
-    # Q Bramble Smash (League's Maokai_spell1: the fist raised and slammed into the ground): up with the trunk leaning
-    # back, the slam far forward with the trunk low (frame 3), held while the shockwave runs, back
+                     p(whole=(1, 0), lean=1, crouch=1, lantern=1), p(whole=(1, 0), lean=1, crouch=1), p()]
+    # Q Bramble Smash (League's Maokai_spell1: the fist raised and slammed into the ground): raised high with the trunk
+    # leaning back, the slam (frame 3): the fist down, the tree two columns forward, the trunk two rows low; held while
+    # the shockwave runs, back
     out["skill"] = [p(arm=(0, -4), lean=-1), p(arm=(0, -6), lean=-2, lantern=-1),
-                    p(arm=(6, 2), lean=2, crouch=2, lantern=1), p(arm=(6, 2), lean=2, crouch=2),
-                    p(arm=(2, 1), crouch=1)]
+                    p(whole=(2, 0), lean=1, crouch=2, lantern=1), p(whole=(2, 0), lean=1, crouch=2),
+                    p(whole=(1, 0), crouch=1)]
     # W Twisted Advance (League's maokai_spell2_down): crouched into the roots and down under the ground
     out["skill2"] = [p(crouch=2), F.under_ground(p(whole=(0, 14))), F.under_ground(p(whole=(0, 34))),
                      F.under_ground(p(whole=(0, 56)))]
@@ -307,8 +308,8 @@ def frames_all(F):
     # R Nature's Grasp (League's maokai_spell4): both arms raised high, held, slammed down (frame 4) with the trunk low,
     # held while the wall rises, back
     out["ult"] = [p(arm=(0, -3), far=(0, -2), lean=-1), p(arm=(0, -6), far=(0, -3), lean=-2, lantern=-1),
-                  p(arm=(0, -7), far=(0, -3), lean=-2), p(arm=(5, 2), far=(1, 1), lean=2, crouch=2, lantern=1),
-                  p(arm=(5, 2), far=(1, 1), lean=2, crouch=2), p(arm=(1, 0), crouch=1)]
+                  p(arm=(0, -7), far=(0, -3), lean=-2), p(whole=(2, 0), far=(1, 1), lean=1, crouch=2, lantern=1),
+                  p(whole=(2, 0), far=(1, 1), lean=1, crouch=2), p(whole=(1, 0), crouch=1)]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's maokai_death: he sinks forward and falls on his face, to the right): staggers, sinks, low,
     # then lying forward; the lantern falls off the branch and stands on the ground before him (turned with him it
@@ -316,18 +317,21 @@ def frames_all(F):
     lying = R.lie(F.rig, p(crouch=2, lantern=None), k=3, dx=6)
     lamp = F.lantern_on_ground(dx=40)
     lying[lamp[..., 3] > 0] = lamp[lamp[..., 3] > 0]
-    out["dead"] = [p(whole=(-1, 0), arm=(0, -1)), p(whole=(-2, 0), crouch=1), p(whole=(-2, 0), crouch=3, arm=(1, 1)),
+    out["dead"] = [p(whole=(-1, 0), arm=(0, -1)), p(whole=(-2, 0), crouch=1), p(whole=(-2, 0), crouch=3),
                    lying, lying.copy(), lying.copy()]
     return out
 
 
-# the walk (League's maokai_run: a heavy lumbering walk): the roots trade the lead within 2 columns, the swinging one
-# lifted a row; the figure over them dips after each landing (each root giving up a plain row); the huge arm swings
-# against the near root, the lantern a step behind
-WALK = dict(near=[(1, 0), (0, 0), (-1, 0), (-1, 0), (-1, -1), (0, -1), (1, -1), (1, 0)],
-            far=[(-1, -1), (0, -1), (1, -1), (1, 0), (1, 0), (0, 0), (-1, 0), (-1, 0)],
-            bob=[1, 0, 0, 0, 1, 0, 0, 0],
-            arm=[(0, 0), (1, 0), (2, 0), (2, -1), (2, 0), (1, 0), (0, 0), (0, -1)],
+# the walk (League's maokai_run: a heavy lumbering walk). The roots keep every square in every frame: they never
+# overlap (the near knee root stops a column short of the far leg, so the near one is never further forward than the
+# far one) and never pass under the arm (never back of where they stand). So the step is a shuffle within a column:
+# the far leg lifted and set a column forward, then the near one, then both slide back while planted (the tree
+# moving over them); the trunk dips a row behind the roots after each landing; the huge arm lifts a row while the
+# near root swings; the lantern a step behind
+WALK = dict(near=[(0, 0), (0, 0), (0, 0), (1, -1), (1, 0), (0, 0), (0, 0), (0, 0)],
+            far=[(0, 0), (1, -1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 0)],
+            bob=[0, 0, 1, 0, 1, 0, 0, 1],
+            arm=[(0, 0), (0, 0), (0, 0), (0, -1), (0, 0), (0, 0), (0, 0), (0, 0)],
             lantern=[0, -1, -1, 0, 0, 1, 1, 0])
 
 
