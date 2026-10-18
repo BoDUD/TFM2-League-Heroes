@@ -4,7 +4,7 @@ load).
 
     python tools/art/preview_darius.py [--out docs/preview]
 
-  league_darius_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_darius_frames.png    every animation's dense frames (hd_, PPU 1.45, as league.dll shows them)
   league_darius_effects.png   every effect animation, 3x
   league_darius_showcase.gif  a scripted fight against Garen, timed like the kit: Darius runs in, E
                               Apprehend hooks Garen in (Crippling Strike ready at his feet), the
@@ -21,6 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_leesin import Foe  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -42,7 +43,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, x0=None, x1=None):
         nonlocal t
-        an = Anim(frames_of(dar, tag), t, sx if x0 is None else x0, gy, loop=loop,
+        an = Anim(dense(dar, tag, "darius", z), t, sx if x0 is None else x0, gy, loop=loop,
                   until=(t + dur) if dur else None, x1=x1)
         body.append(an)
         t = an.until
@@ -104,11 +105,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:                              # ground effects and the aura behind the units
             f = an.frame(tt)
             if f is not None:
@@ -123,7 +124,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -141,7 +142,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_darius_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_darius_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)
