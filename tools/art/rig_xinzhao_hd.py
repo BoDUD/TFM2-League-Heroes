@@ -28,9 +28,9 @@ pelvis and leans with its chest, never turned.
 The run (the user: 「跑步腿不对吧？这样跑步的？」「你参考原版赵兴怎么跑步的？」 - the first run moved the wide stance's legs a
 column or two) is League's Runbase frame for frame, the way his approved 1x run was made (rig_xinzhao.run): the hips
 together under the middle of the waist, the front flap cut short (FLAP_END), the body as drawn leaning RUN_LEAN columns
-forward and bobbing a row; each leg's thigh drawn on League's thigh angle in the design's own trouser shades (the near
-leg lit, the far leg shaded), its shin - the design's own gold knee guard, steel greave and boot - on League's shin angle
-by a lossless orientation and, when upright, whole rows slid at most RUN_SLIDE a row; the near leg over the flap.
+forward and bobbing a row; each leg drawn on League's thigh and shin angles in the design's own trouser shades (the near
+leg lit, the far leg shaded) and greave steels, a knee cap in its knee-guard golds, and at the ankle the design's own
+boot stamped whole (never turned or slid: 「脚严重变形啊」); the near leg over the flap.
 The idle: the upper body, the arm and the spear sinking whole rows over the standing legs (breathing, the sheet's 8
 frames). skill2 and ult end with the W slash and the R tell drawn into the frames as before
 (assets/source/native/xinzhao_bake.json, Rig.bake). The death ends lying: the figure without the spear a quarter turn,
@@ -312,97 +312,92 @@ def driver(rig, joints):
                     src=rig.D.leg_src, leg_max=0)                 # the legs as drawn: never turned
 
 
-# the run (see the module's doc): hips HIP_DX either side of the pivot on the waist's row, thighs RUN_THIGH long and
-# RUN_HW half wide, the shins' rows slid at most RUN_SLIDE a row, a thigh swinging forward never folds its shin flatter
-# than RUN_TRAIL degrees back
+# the run (see the module's doc): hips RUN_HIP_DX either side of the pivot on the waist's row, thighs RUN_THIGH long
+# and RUN_HW half wide, a thigh swinging forward never folds its shin flatter than RUN_TRAIL degrees back
 RUN_LEAN = 3
 RUN_HIP_DX = 3.5
 RUN_HIP_ROW = 47.5
 RUN_THIGH = 10.5
 RUN_HW = 2.8
-RUN_SLIDE = 0.55
 RUN_TRAIL = -50.0
 FLAP_END = 53                                  # design row: the front flap cut here in the run (it hangs to 59)
 TROUSER = ((208, 151, 247), (169, 111, 208))    # the design's trouser shades: lit, shade
-# each shin: the design's knee guard, greave and boot (design squares of the leg's parts) and its two joints
-RUN_SHIN = {"near": dict(rows=54, guard=(50, 46, "le"), knee=(44.0, 53.0), sole=(39.0, 62.5)),
-            "far": dict(rows=54, guard=(51, 73, "ge"), knee=(76.0, 53.0), sole=(81.0, 62.5))}
-FACE = (66.0, 25.0)                            # between the eyes (square edges): the spear in front keeps 7 clear
+# the shins drawn on League's shin angle in the design's greave steels (RUN_SHIN long, RUN_SHW half wide), never
+# flatter than RUN_KICK back nor more than RUN_REACH forward; at the knee a small cap in the design's knee-guard golds;
+# at the ankle the design's own boot (its cuff, sole and the outline under it: the leg's rows from BOOT_ROW down) stamped
+# whole - never turned, mirrored or slid (the user: 「脚严重变形啊」 - the second run turned and slid the whole shin and
+# boot); the near boot mirrored once so its toe points forward as the far one's does (the stance turned it out)
+RUN_SHIN = 6.0
+RUN_SHW = 2.0
+RUN_KICK = -70.0
+RUN_REACH = 35.0
+GREAVE = ((252, 252, 252), (212, 217, 231), (137, 139, 164), (73, 74, 95))   # the design's greave: white, light, steel, shade
+KNEE_CAP = ((253, 209, 9), (246, 159, 1), (134, 61, 3))           # the design's knee guard: light, gold, shade
+BOOT_ROW = 60
+BOOTS = {"near": dict(leg="nl", ankle=(39.5, 60.0), mirror=True), "far": dict(leg="fl", ankle=(79.0, 60.0), mirror=False)}
 SLIDE_HI = 0.6                                 # the fist at most this share of the spear back from the blade
+FACE = (66.0, 25.0)                            # between the eyes (square edges): the spear in front keeps 7 clear
 ARM_DEAD = 30                                  # League's arm turned less than this from its idle: the arm as drawn
 
 
-def run_shins(D):
-    """{"near" | "far": (offsets from the knee joint (n, 2), colours (n, 4))}: the leg's squares from its shin rows down
-    and, over them, its knee guard (the guard's corner rows / columns)."""
-    yy, xx = np.mgrid[0:D.H, 0:D.W]
+def run_boots(D):
+    """{"near" | "far": (offsets from the ankle (n, 2), colours (n, 4))}: the leg's squares from BOOT_ROW down, the
+    near one mirrored about its ankle."""
+    yy = np.arange(D.H)[:, None] * np.ones((1, D.W), int)
     out = {}
-    for key, lg in (("near", NEAR), ("far", FAR)):
+    for key, bt in BOOTS.items():
         leg = np.zeros((D.H, D.W), bool)
         for part in ("_thigh", "_shin"):
-            leg |= square_mask(D, D.prop_masks[lg["name"] + part])[0]
-        sp = RUN_SHIN[key]
-        r0, c0, side = sp["guard"]
-        guard = (yy >= r0) & ((xx <= c0) if side == "le" else (xx >= c0))
-        m = leg & ((yy >= sp["rows"]) | guard)
-        ys, xs = np.nonzero(m)
-        k = sp["knee"]
-        out[key] = (np.stack([xs + 0.5 - k[0], ys + 0.5 - k[1]], 1), D.d0[ys, xs])
+            leg |= square_mask(D, D.prop_masks[bt["leg"] + part])[0]
+        ys, xs = np.nonzero(leg & (yy >= BOOT_ROW))
+        off = np.stack([xs + 0.5 - bt["ankle"][0], ys + 0.5 - bt["ankle"][1]], 1)
+        if bt["mirror"]:
+            off[:, 0] = -off[:, 0]
+        out[key] = (off, D.d0[ys, xs])
     return out
 
 
-def shin_pose(offs, axis, want):
-    """The shin's lossless orientation nearest League's angle (degrees from straight down, + forward); an upright one
-    then slides its rows (at most RUN_SLIDE a row) to finish the angle, a turned one never (its boot stays whole).
-    -> (offsets, the knee -> sole vector)."""
+def band(cells, A, B, hw, colour_of):
+    """Squares within hw of the segment A -> B into `cells` ({(x, y): rgba}), coloured by colour_of(side)."""
     import math
-    best = None
-    t = math.radians(want)
-    for flip in (False, True):
-        for rot in (0, 1, 3):
-            v = lossless(np.array([axis], float), flip, rot)[0]
-            k = 0.0
-            if rot % 2 == 0 and abs(v[1]) > 1e-6 and (v[1] > 0) == (math.cos(t) > 0) and abs(math.cos(t)) > 1e-6:
-                k = max(-RUN_SLIDE, min(RUN_SLIDE, math.tan(t) - v[0] / v[1]))
-            got = math.degrees(math.atan2(v[0] + k * v[1], v[1]))
-            d = abs((got - want + 180) % 360 - 180)
-            if best is None or d < best[0] - 1e-6:
-                best = (d, flip, rot, v, k)
-    _, flip, rot, v, k = best
-    o = lossless(offs, flip, rot)
-    o[:, 0] = o[:, 0] + np.round(k * o[:, 1])
-    return o, np.array([v[0] + round(k * v[1]), v[1]])
-
-
-def thigh_cells(H, K, far):
-    """{(x, y): rgba} the thigh from hip H to knee K (canvas): squares within RUN_HW of the bone in the trouser shades
-    (the near one lit with its back edge shaded, the far one shaded with its front edge lit), one outline ring."""
-    import math
-    lit, shade = (np.array((*c, 255), np.uint8) for c in TROUSER)
-    vx, vy = K[0] - H[0], K[1] - H[1]
+    vx, vy = B[0] - A[0], B[1] - A[1]
     n = math.hypot(vx, vy) or 1e-9
-    cells = {}
-    for y in range(int(min(H[1], K[1])) - 4, int(max(H[1], K[1])) + 4):
-        for x in range(int(min(H[0], K[0])) - 5, int(max(H[0], K[0])) + 6):
+    for y in range(int(min(A[1], B[1])) - 4, int(max(A[1], B[1])) + 4):
+        for x in range(int(min(A[0], B[0])) - 4, int(max(A[0], B[0])) + 5):
             px, py = x + 0.5, y + 0.5
-            t = max(0.0, min(n, ((px - H[0]) * vx + (py - H[1]) * vy) / n))
-            qx, qy = H[0] + vx / n * t, H[1] + vy / n * t
-            if math.hypot(px - qx, py - qy) > RUN_HW:
-                continue
-            side = (px - qx) * (vy / n) - (py - qy) * (vx / n)
-            cells[(x, y)] = (lit if side > 1.6 else shade) if far else (shade if side < -0.8 else lit)
-    ring = {}
+            t = max(0.0, min(n, ((px - A[0]) * vx + (py - A[1]) * vy) / n))
+            qx, qy = A[0] + vx / n * t, A[1] + vy / n * t
+            if math.hypot(px - qx, py - qy) <= hw:
+                cells[(x, y)] = colour_of((px - qx) * (vy / n) - (py - qy) * (vx / n))
+
+
+def leg_cells(H, K, A, far):
+    """{(x, y): rgba} the leg drawn on its bones - the thigh hip H -> knee K in the trouser shades (the near one lit with
+    its back edge shaded, the far one shaded with its front edge lit), the shin K -> ankle A in the greave steels, the
+    knee cap - and its outline ring (a list of squares)."""
+    lit, shade = (np.array((*c, 255), np.uint8) for c in TROUSER)
+    g_white, g_light, g_steel, g_dark = (np.array((*c, 255), np.uint8) for c in GREAVE)
+    cap = [np.array((*c, 255), np.uint8) for c in KNEE_CAP]
+    cells = {}
+    band(cells, H, K, RUN_HW, (lambda sd: lit if sd > 1.6 else shade) if far else (lambda sd: shade if sd < -0.8 else lit))
+    band(cells, K, A, RUN_SHW, (lambda sd: g_light if sd > 0.9 else g_steel if sd > -0.3 else g_dark) if far else
+         (lambda sd: g_white if sd > 0.9 else g_light if sd > -0.3 else g_steel))
+    # the knee guard: a gold band across the knee, 4 wide and 2 tall, lit on top
+    kx, ky = int(np.floor(K[0])) - 2, int(np.floor(K[1])) - 1
+    for dx_ in range(4):
+        cells[(kx + dx_, ky)] = cap[0] if dx_ < 3 else cap[1]
+        cells[(kx + dx_, ky + 1)] = cap[1] if dx_ < 3 else cap[2]
+    ring = []
     for (x, y) in cells:
         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             if (x + dx, y + dy) not in cells:
-                ring[(x + dx, y + dy)] = None
-    return cells, list(ring)
+                ring.append((x + dx, y + dy))
+    return cells, ring
 
 
-def run_frame(rig, j, shins):
-    """One run frame after League's joints j."""
+def run_frame(rig, j):
+    """{"near" | "far": (hip, knee, ankle)} on the canvas after League's joints j (the figure not yet set down)."""
     import math
-    D = rig.D
     side = {"near": "r", "far": "l"}
     legs = {}
     for key in ("far", "near"):
@@ -411,17 +406,15 @@ def run_frame(rig, j, shins):
         s_ang = math.degrees(math.atan2(j[f"{sd}_foot"][0] - j[f"{sd}_knee"][0], j[f"{sd}_foot"][1] - j[f"{sd}_knee"][1]))
         if t_ang > 5 and s_ang < RUN_TRAIL:
             s_ang = RUN_TRAIL
+        s_ang = max(RUN_KICK, min(RUN_REACH, s_ang))
         H = np.array([rig.CX + (-RUN_HIP_DX if key == "near" else RUN_HIP_DX), rig.oy + RUN_HIP_ROW])
-        K = H + RUN_THIGH * np.array([math.sin(math.radians(t_ang)), math.cos(math.radians(t_ang))])
-        K = np.round(K * 2) / 2
-        sp = RUN_SHIN[key]
-        offs, cols = shins[key]
-        so, send = shin_pose(offs, np.array(sp["sole"]) - np.array(sp["knee"]), s_ang)
-        legs[key] = (H, K, so, cols, K + send)
+        K = np.round((H + RUN_THIGH * np.array([math.sin(math.radians(t_ang)), math.cos(math.radians(t_ang))])) * 2) / 2
+        A = np.round((K + RUN_SHIN * np.array([math.sin(math.radians(s_ang)), math.cos(math.radians(s_ang))])) * 2) / 2
+        legs[key] = (H, K, A)
     return legs
 
 
-def run_compose(rig, legs, dy, upright):
+def run_compose(rig, legs, boots, dy):
     """The run's frame: the spear behind, the far leg, the body (its flap cut), the near leg over the flap."""
     D = rig.D
     spear = R.compose(rig, [("spear", dict(angle=0, about=GRIP, dx=RUN_LEAN, dy=dy))])
@@ -433,18 +426,18 @@ def run_compose(rig, legs, dy, upright):
     out[m] = spear[m]
     outline = np.array((*D.outline, 255), np.uint8)
     for key in ("far", "near"):
-        H, K, so, cols, _ = legs[key]
-        H, K = H + (0, dy), K + (0, dy)
+        H, K, A = (np.asarray(v) + (0, dy) for v in legs[key])
         leg = rig.canvas()
-        cells, ring = thigh_cells(H, K, far=(key == "far"))
+        cells, ring = leg_cells(H, K, A, far=(key == "far"))
         for (x, y) in ring:
             if 0 <= y < leg.shape[0] and 0 <= x < leg.shape[1]:
                 leg[y, x] = outline
         for (x, y), c in cells.items():
             if 0 <= y < leg.shape[0] and 0 <= x < leg.shape[1]:
                 leg[y, x] = c
-        tx = np.floor(K[0] + so[:, 0]).astype(int)
-        ty = np.floor(K[1] + so[:, 1]).astype(int)
+        off, cols = boots[key]
+        tx = np.floor(A[0] + off[:, 0]).astype(int)
+        ty = np.floor(A[1] + off[:, 1]).astype(int)
         ok = (tx >= 0) & (tx < leg.shape[1]) & (ty >= 0) & (ty < leg.shape[0])
         leg[ty[ok], tx[ok]] = cols[ok]
         if key == "near":
@@ -462,20 +455,21 @@ def run_compose(rig, legs, dy, upright):
 
 
 def run_frames(rig, rows):
-    """The run's frames: League's Runbase on the design (run_frame), the lowest sole on the ground, both feet off it in
-    League's flight frames a row higher, the body bobbing a row with League's pelvis."""
-    shins = run_shins(rig.D)
+    """The run's frames: League's Runbase on the design (run_frame), the lowest boot's sole on the ground, both feet off
+    it in League's flight frames a row higher, the body bobbing a row with League's pelvis."""
+    boots = run_boots(rig.D)
+    drop = {k: float(v[0][:, 1].max()) + 0.5 for k, v in boots.items()}     # ankle -> the boot's lowest row's bottom
     pel = sorted(r["j"]["pelvis"][1] for r in rows)
     mid = pel[len(pel) // 2]
     out = []
     for r in rows:
         j = r["j"]
-        legs = run_frame(rig, j, shins)
-        low = max(L[4][1] for L in legs.values())
-        air = all(-j[f"{s}_foot"][1] * PPU > 14 for s in "rl")
+        legs = run_frame(rig, j)
+        low = max(legs[k][2][1] + drop[k] for k in legs)
+        air = all(-j[f"{s_}_foot"][1] * PPU > 14 for s_ in "rl")
         bob = int(round(max(-1, min(1, (mid - j["pelvis"][1]) * PPU * 0.15))))
         dy = int(round(rig.GY - low)) - (1 if air else 0) - bob
-        out.append(run_compose(rig, legs, dy, True))
+        out.append(run_compose(rig, legs, boots, dy))
     return out
 
 
