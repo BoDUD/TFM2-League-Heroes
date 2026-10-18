@@ -29,7 +29,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
 import pixel_down as PD  # noqa: E402
-from rig_wukong import CutDesign as _Cut, P, pad, sheet  # noqa: E402
+from rig_wukong import CutDesign as _Cut, Form as _Form, P, pad, sheet  # noqa: E402
 
 HERO = "poppy"
 PPU = 1.3
@@ -154,7 +154,7 @@ class Form:
         return self._ham[key]
 
     def pose(self, crouch=0, whole=(0, 0), fist=(0, 0), arm=(0, 0), rot=0, grip=GRIP[1], ham=None, legs=None,
-             leg_layers=None, no_hammer=False, hammer_over=False):
+             leg_layers=None, no_hammer=False, hammer_over=False, fill=True):
         """crouch: rows the body (with the arm and fist) sets down onto the lower legs; whole: the whole figure; fist /
         arm: the near fist and forearm moved (the fist carries the hammer); rot / grip: the hammer turned about the
         fist / slid in it; ham: the hammer moved apart from the fist (it stands on the ground while she crouches);
@@ -172,7 +172,12 @@ class Form:
         layers = [*([] if hammer_over else ham_l), *legs_l, (L["body"], dict(dx=ux, dy=uy)),
                   (L["forearm"], dict(dx=ux + arm[0], dy=uy + arm[1])), *(ham_l if hammer_over else []),
                   (L["fist"], dict(dx=ux + fist[0], dy=uy + fist[1]))]
-        return R.compose(self.rig, layers)
+        can = R.compose(self.rig, layers)
+        return self.close_holes(can) if fill else can
+
+    ref_holes = None
+    close_holes = _Form.close_holes                   # small enclosed holes the idle lacks, filled (league_wukong)
+    MOST = _Form.MOST
 
 
 def form():
