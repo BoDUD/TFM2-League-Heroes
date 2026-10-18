@@ -37,7 +37,8 @@ E = "<>"
 # the face at his hair's crown (tfm2_ase.py face: 43 px over the feet at the tuft, the head centre x -3.3) x 0.9 (he is
 # drawn 90 %: hd.rs SIZES, the cards too); the idle's head tops 32 x 0.9 = 29 px over the pivot (Calibrum's tip 35: a
 # thin prop, not measured) -> banpick_center y = -39 - (-29)
-VIEW = {"face": {"x": -2, "y": -38}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -10}}
+# 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -10 -> -8: Calibrum's top was cut
+VIEW = {"face": {"x": -2, "y": -38}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phy(d, r):

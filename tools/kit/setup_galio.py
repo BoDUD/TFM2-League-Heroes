@@ -40,7 +40,8 @@ E = "<>"
 # 2026-10-13, at 100 % (rig_galio.py): the face on his head's crown (the eyes on row -21, the crown -27)
 # 2026-10-18, the user: 「加里奥头像位置裁剪的也不对」: -42 sat 5 px over his crest, between the wing tips (the portrait
 # showed wings and air); now on the crest's first full row over the feet line (the 1x idle, rows counted from its soles)
-VIEW = {"face": {"x": 1, "y": -37}, "center": {"x": 0, "y": -12}}
+# 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> 0: his wings stood ~19 px over the card (the rule's +8 is positive; 0 cuts the wing tips)
+VIEW = {"face": {"x": 1, "y": -37}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": 0}}
 
 
 def mag(k, ap="ap"):

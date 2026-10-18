@@ -858,9 +858,16 @@
       "league_jarvaniv": {
         "name": "嘉文四世",
         "attack": "骑枪刺击，攻速+20%。<#ff9028ff>战争律动<>：对每名英雄每<#ffb900ff>3秒<>的第一下额外造成其<#ff9028ff>8%最大生命<>伤害。<#ff9028ff>黄金圣盾<>：交战时自动获得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>护盾<#ffb900ff>4秒<>（身边每名敌方英雄+25），身边敌人<#ef5350ff>减速25%<>。",
-        "skill": "掷出军旗：造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>，军旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。随后冲向军旗：沿途和落点的敌人<#ef5350ff>击飞0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理伤害<>，护甲-20%。",
+        "skill": "掷出军旗：造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>，军旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。3级起随后冲向军旗：沿途和落点的敌人<#ef5350ff>击飞0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理伤害<>，护甲-20%。",
         "skill2": "骑枪向前刺出：直线上的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理伤害<>，护甲<#ef5350ff>-20%<>，持续<#ffb900ff>3秒<>。",
         "ult": "跃向敌方英雄砸下：周围敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，升起岩墙环将敌方英雄<#ef5350ff>困住3.5秒<>，想跑出去会被拉回。有被击飞的敌人或2名敌方英雄在身边时才放。"
+      },
+      "league_ziggs": {
+        "name": "吉格斯",
+        "attack": "扔小炸弹。<#ff9028ff>一触即发<>：每<#ffb900ff>12秒<>下次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>，每放一个技能冷却-<#ffb900ff>4秒<>。<#ff9028ff>定点爆破<>：3级起，敌方英雄贴身时在脚下引爆，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并<#ef5350ff>击退<>，自己也被炸开。",
+        "skill": "扔出炸弹沿直线弹跳，最多落地<#ffb900ff>3次<>，落地时附近有敌人就爆炸：周围敌人受到<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法伤害<>。",
+        "skill2": "撒下雷区<#ffb900ff>5秒<>：敌人第一次踩雷受到<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>，之后每<#ffb900ff>0.5秒<>受到其40%；每次踩雷<#ef5350ff>减速30%<>。",
+        "ult": "把超大炸弹扔向远处的敌方英雄，落点先出现预警：范围内敌人受到<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法伤害<>，中心共受到<#a974ffff>385<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<>。优先扔向被控制的敌方英雄。"
       }
     },
     "skill_name": {
@@ -1478,6 +1485,11 @@
         "skill1": "德邦军旗",
         "skill2": "巨龙撞击",
         "ult": "天崩地裂"
+      },
+      "league_ziggs": {
+        "skill1": "弹跳炸弹",
+        "skill2": "海克斯爆破雷区",
+        "ult": "科学的地狱火炮"
       }
     }
   },
@@ -2340,9 +2352,16 @@
       "league_jarvaniv": {
         "name": "嘉文四世",
         "attack": "騎槍刺擊，攻速+20%。<#ff9028ff>戰爭律動<>：對每名英雄每<#ffb900ff>3秒<>的第一下額外造成其<#ff9028ff>8%最大生命<>傷害。<#ff9028ff>光盾庇護<>：交戰時自動獲得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>護盾<#ffb900ff>4秒<>（身邊每名敵方英雄+25），身邊敵人<#ef5350ff>緩速25%<>。",
-        "skill": "擲出軍旗：造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>，軍旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。隨後衝向軍旗：沿途和落點的敵人<#ef5350ff>擊飛0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理傷害<>，護甲-20%。",
+        "skill": "擲出軍旗：造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>，軍旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。3級起隨後衝向軍旗：沿途和落點的敵人<#ef5350ff>擊飛0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理傷害<>，護甲-20%。",
         "skill2": "騎槍向前刺出：直線上的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理傷害<>，護甲<#ef5350ff>-20%<>，持續<#ffb900ff>3秒<>。",
         "ult": "躍向敵方英雄砸下：周圍敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，升起岩牆環將敵方英雄<#ef5350ff>困住3.5秒<>，想跑出去會被拉回。有被擊飛的敵人或2名敵方英雄在身邊時才施放。"
+      },
+      "league_ziggs": {
+        "name": "希格斯",
+        "attack": "扔小炸彈。<#ff9028ff>即刻爆發<>：每<#ffb900ff>12秒<>下次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>，每施放一個技能冷卻-<#ffb900ff>4秒<>。<#ff9028ff>技術性引爆<>：3級起，敵方英雄貼身時在腳下引爆，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊退<>，自己也被炸開。",
+        "skill": "扔出炸彈沿直線彈跳，最多落地<#ffb900ff>3次<>，落地時附近有敵人就爆炸：周圍敵人受到<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法傷害<>。",
+        "skill2": "撒下雷區<#ffb900ff>5秒<>：敵人第一次踩雷受到<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>，之後每<#ffb900ff>0.5秒<>受到其40%；每次踩雷<#ef5350ff>緩速30%<>。",
+        "ult": "把超大炸彈扔向遠處的敵方英雄，落點先出現預警：範圍內敵人受到<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法傷害<>，中心共受到<#a974ffff>385<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<>。優先扔向被控制的敵方英雄。"
       }
     },
     "skill_name": {
@@ -2960,6 +2979,11 @@
         "skill1": "帝國戰旗",
         "skill2": "滅龍一擊",
         "ult": "浩劫降臨"
+      },
+      "league_ziggs": {
+        "skill1": "彈跳炸彈",
+        "skill2": "海克斯詭雷",
+        "ult": "煉獄炸彈"
       }
     }
   },
@@ -3822,9 +3846,16 @@
       "league_jarvaniv": {
         "name": "Jarvan IV",
         "attack": "A lance thrust, +20% attack speed. <#ff9028ff>Martial Cadence<>: his first hit on a champion every <#ffb900ff>3s<> deals <#ff9028ff>8% of its max health<> more. <#ff9028ff>Golden Aegis<>: in fights, a shield of <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> (+25 per enemy champion near) for <#ffb900ff>4s<> and a <#ef5350ff>25% slow<> to enemies near him.",
-        "skill": "Throws his standard for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>; it stands <#ffb900ff>8s<> giving allied champions near it +20% attack speed. Then he charges to it: enemies on the way and where he lands are <#ef5350ff>knocked up 0.75s<>, take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> <#ff9028ff>physical damage<> and lose 20% armour.",
+        "skill": "Throws his standard for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>; it stands <#ffb900ff>8s<> giving allied champions near it +20% attack speed. From level 3 he then charges to it: enemies on the way and where he lands are <#ef5350ff>knocked up 0.75s<>, take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> <#ff9028ff>physical damage<> and lose 20% armour.",
         "skill2": "A lance thrust down a line: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> <#ff9028ff>physical damage<> and <#ef5350ff>-20% armour<> for <#ffb900ff>3s<>.",
         "ult": "Leaps onto an enemy champion: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> around him, and a ring of rock <#ef5350ff>traps enemy champions 3.5s<> - those leaving are pulled back. Cast on a knocked-up enemy or with 2 enemy champions near him."
+      },
+      "league_ziggs": {
+        "name": "Ziggs",
+        "attack": "Tosses a small bomb. <#ff9028ff>Short Fuse<>: every <#ffb900ff>12s<> his next attack deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> more; each spell he casts takes <#ffb900ff>4s<> off. <#ff9028ff>Satchel Charge<>: from level 3, when an enemy champion closes in, it blows up at his feet for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>, <#ef5350ff>knocking enemies back<> and blasting him away.",
+        "skill": "A bomb that bounces along a line, landing up to <#ffb900ff>3 times<>; it blows up on landing next to an enemy: <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> <#a974ffff>magic damage<> around it.",
+        "skill2": "Scatters mines for <#ffb900ff>5s<>: an enemy's first mine deals <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<>, then 40% of it every <#ffb900ff>0.5s<> it stays; each mine <#ef5350ff>slows 30%<>.",
+        "ult": "Hurls a huge bomb at a far enemy champion, its landing spot marked first: <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> <#a974ffff>magic damage<> in the blast, <#a974ffff>385<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<> at its centre. Thrown first at champions held by crowd control."
       }
     },
     "skill_name": {
@@ -4442,6 +4473,11 @@
         "skill1": "Demacian Standard",
         "skill2": "Dragon Strike",
         "ult": "Cataclysm"
+      },
+      "league_ziggs": {
+        "skill1": "Bouncing Bomb",
+        "skill2": "Hexplosive Minefield",
+        "ult": "Mega Inferno Bomb"
       }
     }
   },
@@ -5304,9 +5340,16 @@
       "league_jarvaniv": {
         "name": "자르반 4세",
         "attack": "창 찌르기, 공격 속도 +20%. <#ff9028ff>전장의 군가<>: 챔피언마다 <#ffb900ff>3초<>에 한 번 첫 공격이 <#ff9028ff>최대 체력의 8%<> 추가 피해. <#ff9028ff>황금빛 방패<>: 교전 중 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 보호막(주변 적 챔피언당 +25) <#ffb900ff>4초<>, 주변 적 <#ef5350ff>25% 둔화<>.",
-        "skill": "깃발을 던져 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 깃발은 <#ffb900ff>8초<>간 서서 주변 아군 챔피언 공격 속도 +20%. 이어 깃발로 돌진: 경로와 착지 지점의 적은 <#ef5350ff>0.75초 띄워지고<> <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 <#ff9028ff>물리 피해<>, 방어력 -20%.",
+        "skill": "깃발을 던져 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 깃발은 <#ffb900ff>8초<>간 서서 주변 아군 챔피언 공격 속도 +20%. 3레벨부터 이어 깃발로 돌진: 경로와 착지 지점의 적은 <#ef5350ff>0.75초 띄워지고<> <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 <#ff9028ff>물리 피해<>, 방어력 -20%.",
         "skill2": "직선으로 창을 찔러 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 <#ff9028ff>물리 피해<>와 <#ffb900ff>3초<>간 <#ef5350ff>방어력 -20%<>.",
         "ult": "적 챔피언에게 뛰어올라 주변에 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>, 바위 고리가 적 챔피언을 <#ef5350ff>3.5초<> 가두고 빠져나가면 끌어당김. 띄워진 적이나 적 챔피언 2명이 가까울 때 사용."
+      },
+      "league_ziggs": {
+        "name": "직스",
+        "attack": "작은 폭탄을 던진다. <#ff9028ff>짧은 도화선<>: <#ffb900ff>12초<>마다 다음 공격이 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<> 추가, 스킬 사용 시 <#ffb900ff>4초<> 감소. <#ff9028ff>휴대용 폭약<>: 3레벨부터 적 챔피언이 붙으면 발밑에서 터져 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>밀쳐내기<>, 자신도 튕겨 나감.",
+        "skill": "직선으로 튀는 폭탄, 최대 <#ffb900ff>3번<> 착지하며 근처에 적이 있으면 폭발해 주변에 <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>의 <#a974ffff>마법 피해<>.",
+        "skill2": "<#ffb900ff>5초<>간 지뢰를 뿌린다: 적이 처음 밟으면 <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>, 이후 <#ffb900ff>0.5초<>마다 40%, 밟을 때마다 <#ef5350ff>30% 둔화<>.",
+        "ult": "먼 적 챔피언에게 거대한 폭탄을 던지고 낙하 지점을 먼저 표시: 범위에 <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>의 <#a974ffff>마법 피해<>, 중심은 <#a974ffff>385<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<>. 군중 제어에 걸린 적 챔피언을 우선."
       }
     },
     "skill_name": {
@@ -5924,6 +5967,11 @@
         "skill1": "데마시아의 깃발",
         "skill2": "용의 일격",
         "ult": "대격변"
+      },
+      "league_ziggs": {
+        "skill1": "반동 폭탄",
+        "skill2": "마법공학 지뢰밭",
+        "ult": "지옥 화염 폭탄"
       }
     }
   },
@@ -6786,9 +6834,16 @@
       "league_jarvaniv": {
         "name": "ジャーヴァンⅣ",
         "attack": "槍の突き、攻撃速度+20%。<#ff9028ff>武魂の律動<>：チャンピオンごとに<#ffb900ff>3秒<>に1度、最初の攻撃が<#ff9028ff>最大体力の8%<>のダメージを追加。<#ff9028ff>ゴールデンイージス<>：交戦中<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>のシールド<#ffb900ff>4秒<>（周囲の敵チャンピオン毎+25）、周囲の敵に<#ef5350ff>スロウ25%<>。",
-        "skill": "旗を投げ<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>、旗は<#ffb900ff>8秒<>立ち周囲の味方の攻撃速度+20%。続けて旗へ突進：経路と着地点の敵を<#ef5350ff>0.75秒打ち上げ<>、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>の<#ff9028ff>物理ダメージ<>と物理防御-20%。",
+        "skill": "旗を投げ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>、旗は<#ffb900ff>8秒<>立ち周囲の味方の攻撃速度+20%。レベル3から続けて旗へ突進：経路と着地点の敵を<#ef5350ff>0.75秒打ち上げ<>、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>の<#ff9028ff>物理ダメージ<>と物理防御-20%。",
         "skill2": "直線に槍を突き出し<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>3秒<><#ef5350ff>物理防御-20%<>。",
         "ult": "敵チャンピオンへ跳びかかり周囲に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、岩の輪が敵チャンピオンを<#ef5350ff>3.5秒閉じ込め<>、出ようとすると引き戻す。打ち上げた敵か敵2体が近い時に使う。"
+      },
+      "league_ziggs": {
+        "name": "ジグス",
+        "attack": "小さな爆弾を投げる。<#ff9028ff>ショートヒューズ<>：<#ffb900ff>12秒<>毎に次の通常攻撃が<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>を追加、スキル使用で<#ffb900ff>4秒<>短縮。<#ff9028ff>エンジニアボム<>：Lv3から敵チャンピオンが迫ると足元で爆発、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>ノックバック<>、自分も吹き飛ぶ。",
+        "skill": "直線に跳ねる爆弾、最大<#ffb900ff>3回<>着地し近くに敵がいれば爆発、周囲に<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill2": "<#ffb900ff>5秒<>地雷を撒く：最初に踏んだ敵に<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>、以後<#ffb900ff>0.5秒<>毎に40%、踏む度に<#ef5350ff>スロウ30%<>。",
+        "ult": "遠くの敵チャンピオンへ巨大爆弾を投げ、着弾点を予告：範囲に<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の<#a974ffff>魔法ダメージ<>、中心は<#a974ffff>385<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>130%<>。行動妨害中の敵を優先。"
       }
     },
     "skill_name": {
@@ -7406,6 +7461,11 @@
         "skill1": "デマーシアの旗印",
         "skill2": "ドラゴンストライク",
         "ult": "決戦場"
+      },
+      "league_ziggs": {
+        "skill1": "バウンドボム",
+        "skill2": "ヘクステックマイン",
+        "ult": "メガインフェルノボム"
       }
     }
   }

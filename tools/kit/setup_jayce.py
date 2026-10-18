@@ -43,7 +43,8 @@ R = "<#ffdd8eff>"      # armour / magic resistance
 T = "<#f5f5f5ff>"      # true damage
 E = "<>"
 # champion_view: the face as ppu_restyle.py sets it (RESTYLE face_to), the centre from the idle
-VIEW = {"face": {"x": 0, "y": -38}, "center": {"x": 0, "y": -12}}
+# 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> -1: the hammer stood ~10 px over the card
+VIEW = {"face": {"x": 0, "y": -38}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -1}}
 
 
 def phys(k):

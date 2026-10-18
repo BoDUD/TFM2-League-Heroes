@@ -396,10 +396,16 @@ def build(p):
     # ------------------------------------------------------------------ skill2: W Phase
     main_cd = by_main(dict(p, lock=0), {w: sw(f"qcd_{w}", flag("m_cd", 1)) for w in WEAPONS})
     off_cd = by_off({w: sw(f"qcd_{w}", flag("o_cd", 1)) for w in WEAPONS})
-    tmp = [combine(sw(f"mw_{w}", flag(f"t_o_{w}", 1)), sw(f"ow_{w}", flag(f"t_m_{w}", 1))) for w in WEAPONS]
-    back = [combine(sw(f"t_m_{w}", combine(*rm(f"t_m_{w}"), flag(f"mw_{w}", None, **main_fields[w]), sfx(f"swap_{w}"))),
-                    sw(f"t_o_{w}", combine(*rm(f"t_o_{w}"), flag(f"ow_{w}", None)))) for w in WEAPONS]
-    swap = combine(*tmp, *rm(*[f"mw_{w}" for w in WEAPONS], *[f"ow_{w}" for w in WEAPONS]), *back,
+    # the swap, weapon by weapon in the cycle's order: the main hand's goes to the off hand, the off hand's to the main
+    # hand. Exactly one mw_ and one ow_ flag are on here, never of the same weapon (init sets Calibrum / Severum, the
+    # magazine's rotate takes a weapon not in the off hand, this swap exchanges them, the add-on's queue and low swap
+    # replace one flag of a hand by another weapon's), so each step touches only its own weapon's flags and the flags
+    # come back in the same order as with the temp flags t_m_ / t_o_ the swap used to lay, clear and read (58 nodes
+    # instead of 113; the game copies skill2 every tick: skill-tree slimming, 2026-10-18)
+    swap = combine(*[sw(f"mw_{w}", combine(*rm(f"mw_{w}"), flag(f"ow_{w}", None)),
+                        sw(f"ow_{w}", combine(*rm(f"ow_{w}"), flag(f"mw_{w}", None, **main_fields[w]),
+                                              sfx(f"swap_{w}"))))
+                     for w in WEAPONS],
                    anim("skill2", p["w_anim"]), cview("swap"), voice("vo_w", p))
     phase = combine(*rm("m_cd", "o_cd"), main_cd, off_cd, sw("m_cd", sw("o_cd", NONE, swap)), *rm("m_cd", "o_cd"))
     skill2 = action("idle", 3, p["s2_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",

@@ -667,226 +667,6 @@
                   },
                   {
                     "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s1",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s2",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s3",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s4",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s5",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s6",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s7",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s8",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s9",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s10",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s11",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
                     "buff_name": "league_rakan_p_s12",
                     "effect_buff": {
                       "type": "AddCasterBuff",
@@ -901,8 +681,184 @@
                       "only_to_enemy": false
                     },
                     "effect_none": {
-                      "type": "Combine",
-                      "effects": []
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_p_s11",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_rakan_p_busy",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_rakan_p_s10",
+                        "effect_buff": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_p_busy",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_rakan_p_s9",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rakan_p_busy",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_p_s8",
+                            "effect_buff": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_rakan_p_busy",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_p_s7",
+                              "effect_buff": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_p_busy",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_rakan_p_s6",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_rakan_p_busy",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_rakan_p_s5",
+                                  "effect_buff": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_rakan_p_busy",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_p_s4",
+                                    "effect_buff": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_rakan_p_busy",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_p_s3",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_rakan_p_busy",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_rakan_p_s2",
+                                        "effect_buff": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_rakan_p_busy",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_rakan_p_s1",
+                                          "effect_buff": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_rakan_p_busy",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 1
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   },
                   {
@@ -1422,226 +1378,6 @@
                   },
                   {
                     "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s1",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s2",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s3",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s4",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s5",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s6",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s7",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s8",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s9",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s10",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s11",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
                     "buff_name": "league_rakan_p_s12",
                     "effect_buff": {
                       "type": "AddCasterBuff",
@@ -1656,8 +1392,184 @@
                       "only_to_enemy": false
                     },
                     "effect_none": {
-                      "type": "Combine",
-                      "effects": []
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_p_s11",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_rakan_p_busy",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_rakan_p_s10",
+                        "effect_buff": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_p_busy",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_rakan_p_s9",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rakan_p_busy",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_p_s8",
+                            "effect_buff": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_rakan_p_busy",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_p_s7",
+                              "effect_buff": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_p_busy",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_rakan_p_s6",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_rakan_p_busy",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_rakan_p_s5",
+                                  "effect_buff": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_rakan_p_busy",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_p_s4",
+                                    "effect_buff": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_rakan_p_busy",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_p_s3",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_rakan_p_busy",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_rakan_p_s2",
+                                        "effect_buff": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_rakan_p_busy",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_rakan_p_s1",
+                                          "effect_buff": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_rakan_p_busy",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 1
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   },
                   {
@@ -2238,226 +2150,6 @@
                   },
                   {
                     "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s1",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s2",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s3",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s4",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s5",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s6",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s7",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s8",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s9",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s10",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s11",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
                     "buff_name": "league_rakan_p_s12",
                     "effect_buff": {
                       "type": "AddCasterBuff",
@@ -2472,8 +2164,184 @@
                       "only_to_enemy": false
                     },
                     "effect_none": {
-                      "type": "Combine",
-                      "effects": []
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_p_s11",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_rakan_p_busy",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_rakan_p_s10",
+                        "effect_buff": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_p_busy",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_rakan_p_s9",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rakan_p_busy",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_p_s8",
+                            "effect_buff": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_rakan_p_busy",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_p_s7",
+                              "effect_buff": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_p_busy",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_rakan_p_s6",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_rakan_p_busy",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_rakan_p_s5",
+                                  "effect_buff": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_rakan_p_busy",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_p_s4",
+                                    "effect_buff": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_rakan_p_busy",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_p_s3",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_rakan_p_busy",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_rakan_p_s2",
+                                        "effect_buff": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_rakan_p_busy",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_rakan_p_s1",
+                                          "effect_buff": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_rakan_p_busy",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 1
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   },
                   {
@@ -4060,226 +3928,6 @@
                   },
                   {
                     "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s1",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s2",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s3",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s4",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s5",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s6",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s7",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s8",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s9",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s10",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_rakan_p_s11",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_p_busy",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
                     "buff_name": "league_rakan_p_s12",
                     "effect_buff": {
                       "type": "AddCasterBuff",
@@ -4294,8 +3942,184 @@
                       "only_to_enemy": false
                     },
                     "effect_none": {
-                      "type": "Combine",
-                      "effects": []
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_p_s11",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_rakan_p_busy",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_rakan_p_s10",
+                        "effect_buff": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_p_busy",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_rakan_p_s9",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rakan_p_busy",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_p_s8",
+                            "effect_buff": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_rakan_p_busy",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_p_s7",
+                              "effect_buff": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_p_busy",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_rakan_p_s6",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_rakan_p_busy",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_rakan_p_s5",
+                                  "effect_buff": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_rakan_p_busy",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_p_s4",
+                                    "effect_buff": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_rakan_p_busy",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_p_s3",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_rakan_p_busy",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_rakan_p_s2",
+                                        "effect_buff": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_rakan_p_busy",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_rakan_p_s1",
+                                          "effect_buff": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_rakan_p_busy",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 1
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   },
                   {

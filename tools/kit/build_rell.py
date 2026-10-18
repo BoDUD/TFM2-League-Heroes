@@ -219,11 +219,29 @@ def voice(name, p):
     return sw("vo_cd", NONE, combine(flag("vo_cd", p["vo_gap"]), sfx(name)))
 
 
+def read_only(x):
+    """The search's copy in `lives` with every guard nested in it reduced to the branch it is read through.
+
+    That copy (the `effect_none` of `live`) is never run: it is reached only when the search before it found nobody,
+    and its own search, in the same tick with nothing in between, finds nobody too. It is only read - by the AI and the
+    enemies, through her buffs at that moment - and only with `live` off (with `live` on, frozen on a dead Rell
+    included, the switch reads the real effects instead). So a `SwitchByBuff live` inside it always takes its
+    `effect_none` there; Crash Down's leap (a guard in a guard) kept a third copy of the MoveToTarget that nothing
+    could reach (skill-tree slimming, 2026-10-18: the game copies skill2 every tick, docs/perf.md section 8)."""
+    if isinstance(x, list):
+        return [read_only(v) for v in x]
+    if not isinstance(x, dict):
+        return x
+    if x.get("type") == "SwitchByBuff" and x.get("buff_name") == n("live"):
+        return read_only(x["effect_none"])
+    return {k: read_only(v) for k, v in x.items()}
+
+
 def lives(*effects):
     """A `Delayed` chain's effects only while she lives (a dead caster's Delayed effects run in the game): a 1-tick
     flag from a search that finds no dead caster; the copy in the search is what the AI reads (champion-data 5)."""
     return combine(pick(1, "AllyOnlySelf", flag("live", 1)),
-                   sw("live", combine(*effects), pick(1, "AllyOnlySelf", *effects)), *rm("live"))
+                   sw("live", combine(*effects), pick(1, "AllyOnlySelf", *read_only(list(effects)))), *rm("live"))
 
 
 def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel=False, key=None):

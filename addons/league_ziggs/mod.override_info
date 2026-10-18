@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_ziggs": {
+    "remapping": "asset/league_ziggs/override/league_ziggs",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_ziggs/text/champion",
+    "type": "merge"
+  }
+}

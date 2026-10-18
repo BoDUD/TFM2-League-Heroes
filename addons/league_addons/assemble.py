@@ -5,7 +5,8 @@
                                             [--dll addons/target/release/league_addons.dll] [--version 0.1.0]
 
 For each add-on folder in --src (default: every addons/league_* but this one; --only picks some, e.g. the heroes
-already released): its override/ and effects/ files are copied, every `asset/<add-on>/` path inside them and in its
+already released): its override/ and effects/ files are copied (a champion copy's effect trees through
+tools/kit/slim.py, the same exact rewrites tools/package_mod.py makes), every `asset/<add-on>/` path inside them and in its
 mod.override_info becomes `asset/league_addons/`, the champion remaps are merged into one mod.override_info and the
 text files into one text/champion.i18n (their keys are the add-ons' own ids - `description.league_leesin_hop` - so
 none collide; a clash stops the script). mod.mod_info: mod_id league_addons, native code, and the highest `league`
@@ -19,6 +20,8 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ADDONS = os.path.dirname(HERE)
+sys.path.insert(0, os.path.join(os.path.dirname(ADDONS), "tools", "kit"))
+import slim  # noqa: E402  the exact effect-tree rewrites (fewer nodes for the trees the game copies every tick)
 ID = "league_addons"
 TEXT = "asset/base/text/champion"
 
@@ -73,9 +76,11 @@ def main():
                     shutil.copyfile(os.path.join(d, fn), dst)
                 else:
                     with open(os.path.join(d, fn), encoding="utf-8-sig") as f:
-                        s = f.read()
+                        s = f.read().replace(old, new)
+                    if fn.endswith(".data_champion"):        # the exact effect-tree rewrites, as tools/package_mod.py
+                        s = json.dumps(slim.slim_champion(json.loads(s)), ensure_ascii=False, indent=2) + "\n"
                     with open(dst, "w", encoding="utf-8", newline="\n") as f:
-                        f.write(s.replace(old, new))
+                        f.write(s)
         for k, v in load(os.path.join(src, "mod.override_info")).items():
             if k == TEXT:
                 continue

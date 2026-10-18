@@ -35,7 +35,8 @@ W_ = "<#ffffffff>"     # true damage
 E = "<>"
 # champion_view: the face at the idle head's crown (tfm2_ase.py face: 39 px over the feet); the idle's crest tops 30 rows
 # over the pivot, above -28 -> banpick_center y = -39 - (-30) (the card rule)
-VIEW = {"face": {"x": 0, "y": -39}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -9}}
+# 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -9 -> -8: 1 px of the top cut
+VIEW = {"face": {"x": 0, "y": -39}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phy(d, r):

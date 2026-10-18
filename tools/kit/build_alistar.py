@@ -187,8 +187,8 @@ def build(p):
         names = [f"p{i}" for i in range(1, p["p_need"])]
         eff = sw("p_cd", NONE, combine(*rm(*names), roar))          # all steps there: roar
         for i in range(len(names), 0, -1):                         # p_i there -> go on; missing -> add it
-            eff = sw(names[i - 1], eff, flag(names[i - 1], hold)) if i == 1 else \
-                sw(names[i - 1], eff, sw(names[i - 2], flag(names[i - 1], hold), NONE))
+            # (the rung sits in the branch of p_(i-1)'s own test: no second test of it - tools/fix/alistar_ladders.py)
+            eff = sw(names[i - 1], eff, flag(names[i - 1], hold))
         return eff
 
     # ------------------------------------------------------------------ E: Trample
@@ -201,7 +201,8 @@ def build(p):
         for i in range(len(e_names), 0, -1):
             add = {"type": "AddCasterBuff", "buff_state": {"name": n(e_names[i - 1]), "duration": e_hold},
                    "only_to_enemy": False}
-            eff = sw(e_names[i - 1], eff, add) if i == 1 else sw(e_names[i - 1], eff, sw(e_names[i - 2], add, NONE))
+            # (the rung sits in the branch of e_(i-1)'s own test: no second test of it - tools/fix/alistar_ladders.py)
+            eff = sw(e_names[i - 1], eff, add)
         return eff
 
     stomp = combine(cview("e_stomp"), sfx("e_step"), *rm("e_champ"),

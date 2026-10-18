@@ -242,14 +242,16 @@ def build(p):
     init = sw("init", NONE, combine(flag("init", None), refresh("pw", None),
                                     refresh("r_pen", None, defence_penetration=p["r_pen"])))
     ms = ["m1", "m2", "m3", "m4"]
-    climb = sw("pw", NONE, sw("m4", combine(*rm("m4"), flag("pw", None), cview("p_ready"), sfx("p_ready")),
-                              sw("m3", combine(*rm("m3"), flag("m4", None)),
-                                 sw("m2", combine(*rm("m2"), flag("m3", None)),
-                                    sw("m1", combine(*rm("m1"), flag("m2", None)), flag("m1", None))))))
+    ladder = sw("m4", combine(*rm("m4"), flag("pw", None), cview("p_ready"), sfx("p_ready")),
+                sw("m3", combine(*rm("m3"), flag("m4", None)),
+                   sw("m2", combine(*rm("m2"), flag("m3", None)),
+                      sw("m1", combine(*rm("m1"), flag("m2", None)), flag("m1", None)))))
+    climb = sw("pw", NONE, ladder)
 
-    def cast(emp_flag, t):
-        """A basic ability's cast: with pw it is empowered (emp_flag for t ticks) and takes the stacks, else a stack."""
-        return sw("pw", combine(*rm("pw", *ms), refresh(emp_flag, t)), climb)
+    def cast(emp):
+        """A basic ability's cast: with pw it is empowered (`emp`: its flag, or what it gives) and takes the stacks,
+        else a stack (the ladder alone: pw is off there)."""
+        return sw("pw", combine(*rm("pw", *ms), emp), ladder)
 
     # ------------------------------------------------------------------ attack (+ empowered W's three thrusts)
     stab = combine(attack(0, 100), view("a_hit"), tsfx("a_hit"))
@@ -287,17 +289,16 @@ def build(p):
     probe = homing("q_probe", 1000000, "EnemyWithoutTower",
                    [pick(p["q_near"], "AllyOnlySelf", refresh("q_close", 3), fp=True)])
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(init, *rm("q_close"), cast("q_emp", p["q_hold"] + flight + 4), voice("vo_q", p), probe,
+                   combine(init, *rm("q_close"), cast(refresh("q_emp", p["q_hold"] + flight + 4)), voice("vo_q", p),
+                           probe,
                            delayed(2, lives(sw("q_close", combine(*rm("q_close"), delayed(p["q_t_at"] - 3, thrust)),
                                                throw)))))
 
     # ------------------------------------------------------------------ skill2: W Shield Vault / E Aegis Assault
     w_land = [attack(p["w_dmg"], 0, p["w_hp"]), {"type": "Stun", "duration": p["w_stun"]}, view("w_hit"),
               tsfx("w_hit")]
-    w_go = combine(flag("w_cd", p["w_cd"]), cast("w_emp", 3), sw("w_emp", combine(*rm("w_emp"),
-                                                                                  refresh("w_tri", p["w_tri_t"]))),
-                   anim("skill2", p["w_dur"]), sfx("w"), voice("vo_w", p),
-                   {"type": "MoveToTarget", "speed": p["w_speed"], "range": p["w_range"], "end_effects": w_land})
+    w_post = [anim("skill2", p["w_dur"]), sfx("w"), voice("vo_w", p),
+              {"type": "MoveToTarget", "speed": p["w_speed"], "range": p["w_range"], "end_effects": w_land}]
 
     cone = {"DirDot": {"radius": p["e_r"], "range": p["e_cone"]}}
     gap = p["e_t"] // (p["e_n"] + 1)
@@ -315,11 +316,20 @@ def build(p):
     hold = [refresh("e_hold", p["e_t"], cc_immune=True)]
     if not nat:   # the add-on blocks the front itself
         hold.append(refresh("e_red", p["e_t"], damaged_reduce=p["e_red"]))
-    e_go = combine(flag("e_cd", p["e_cd"]), cast("e_emp", p["e_t"] + 4), anim("e_hold", p["e_t"]), sfx("e"), voice("vo_e", p), cview("e_shield"), *hold, *stabs, bash)
+    e_post = [anim("e_hold", p["e_t"]), sfx("e"), voice("vo_e", p), cview("e_shield"), *hold, *stabs, bash]
     near = combine(*rm("e_near"), pick(p["e_trig"], "EnemyChampion", flag("e_near", 1)))
-    e_try = sw("e_cd", NONE, combine(near, sw("e_near", combine(*rm("e_near"), e_go))))
+    # W with w_cd off; else E with e_cd off and an enemy champion within e_trig (e_near, its 1-tick find); else nothing.
+    # Mortal Will's cast is written once for both (skill-tree slimming, 2026-10-18): W raises e_near too, and both take
+    # it off at the end of the run, so it is never on between ticks - every reading of the slot (the AI's, at any tick)
+    # still sees W's leap under w_cd off and nothing under w_cd on. The hidden flags w_cd, e_cd and e_near go on after
+    # the cast instead of before it; W's empowered thrusts (w_tri) come from the cast itself (its flag w_emp was added
+    # and taken back in the same run). w_cd, e_cd, e_near, w_emp and e_emp are added, read and taken off only here (the
+    # attack, Q, R and addons/league_pantheon/src never name them), so nothing else sees the difference.
+    go = cast(sw("w_cd", refresh("e_emp", p["e_t"] + p["e_bash_at"] + 4), refresh("w_tri", p["w_tri_t"])))
     skill2 = action("idle", 3, p["s2_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
-                    combine(init, sw("w_cd", e_try, w_go)), key="skill2")
+                    combine(init, sw("w_cd", sw("e_cd", NONE, near), flag("e_near", 1)), sw("e_near", go),
+                            sw("w_cd", sw("e_near", combine(*rm("e_near"), flag("e_cd", p["e_cd"]), *e_post)),
+                               combine(*rm("e_near"), flag("w_cd", p["w_cd"]), *w_post))), key="skill2")
 
     # ------------------------------------------------------------------ ult: R Grand Starfall
     spear_down = [zone("r_spear", p["r_r"], "EnemyWithoutTower",

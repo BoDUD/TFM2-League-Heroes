@@ -20,7 +20,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_jarvaniv";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 /// 单位半径读不到时用的值。
 pub const BODY: u64 = 6000;

@@ -113,8 +113,9 @@ def main():
     hooks = []
 
     def hook(o):
+        # the ladder starts with r_v1 since tools/fix/fiora_vital_ladder.py (one strike for every rung), r_v4 before
         if (o.get("type") == "SwitchByBuff" and o.get("buff_name") == N + "r_on"
-                and o.get("effect_buff", {}).get("buff_name") == N + "r_v4"):
+                and o.get("effect_buff", {}).get("buff_name") in (N + "r_v4", N + "r_v1")):
             hooks.append(o)
 
     for slot in ("attack", "skill", "skill2"):
