@@ -131,14 +131,14 @@ FX = [
      row(4, 14, 14) + CENTER),
     # ---- E Powder Keg
     ("e_throw", "E 火药桶（飞行中），3 帧循环", "view_projectiles `league_gangplank_e_throw`（随飞行方向转动；上下对称；循环）",
-     "12 × 10",
-     "扔到敌人脚下的火药桶：一个小木桶横躺着顺着飞行方向（约 8 格长、6 格高，两道深色铁箍竖着），**上下对称**，所以桶上不画图案；"
+     "16 × 13",
+     "扔到敌人脚下的火药桶：一个木桶横躺着顺着飞行方向（约 12 格长、9 格高，两道深色铁箍竖着），**上下对称**，所以桶上不画图案；"
      "三帧里木纹高光轮换，像在翻滚。木桶是实心的，可以有一圈深色边。",
      f"{WO} and {IR}",
-     f"a POWDER KEG in flight, 3 frames, a seamless loop, {TB}: a small wooden barrel lying along the flight, 8 squares "
-     "long and 6 tall, two dark iron hoops across it, bulging in the middle; the stave highlights shift each frame as "
+     f"a POWDER KEG in flight, 3 frames, a seamless loop, {TB}: a wooden barrel lying along the flight, 12 squares "
+     "long and 9 tall, two dark iron hoops across it, bulging in the middle; the stave highlights shift each frame as "
      "if it tumbles. Solid: a 1-square dark outline round the barrel is allowed.",
-     row(3, 12, 10) + FLY),
+     row(3, 16, 13) + FLY),
     ("e_land", "E 火药桶落地（地上，不跟随），4 帧", "view_effects `league_gangplank_e_land`（不跟随，画在人物下面 z -1；左右对称）",
      "26 × 10",
      "桶落地：地上往两边溅起一圈灰尘（参考 E_barrel_smoke、E_ground_shadow）。**左右对称**，中间空着（桶本身在 e_keg 里画）。",
@@ -148,25 +148,25 @@ FX = [
      "thinner; 4 faint dust.",
      row(4, 26, 10) + "; centered across, the dust's base on the cell's bottom row."),
     ("e_keg", "E 地上的火药桶（还不能引爆），2 帧循环",
-     "view_effects `league_gangplank_e_keg`（不跟随，画在人物上面 z 1；左右对称；每 0.17 秒重贴）", "14 × 16",
-     "放在地上的火药桶（刚落地，还没到能引爆的时候）：一个**正立的木桶**（约 10 格宽、12 格高），三道深色铁箍，桶身正面一个白色的**骷髅交叉骨**"
+     "view_effects `league_gangplank_e_keg`（不跟随，画在人物上面 z 1；左右对称；每 0.17 秒重贴）", "20 × 22",
+     "放在地上的火药桶（刚落地，还没到能引爆的时候）：一个**正立的木桶**（约 15 格宽、18 格高），三道深色铁箍，桶身正面一个白色的**骷髅交叉骨**（约 5 格宽）"
      "标记，顶上一截短短的麻绳引线（**没点着**）。两帧只是木头上的高光微微闪一下（参考 E_barrel_image）。**左右对称**。"
      "木桶是实心的，可以有一圈深色边。",
      f"{WO} and {IR}",
-     f"A POWDER KEG standing on the ground, 2 frames, a seamless loop, {LR}: an upright wooden barrel 10 squares wide and "
-     "12 tall, bulging in the middle, three dark iron hoops, a small white skull-and-crossbones mark on its front, a short "
+     f"A POWDER KEG standing on the ground, 2 frames, a seamless loop, {LR}: an upright wooden barrel 15 squares wide and "
+     "18 tall, bulging in the middle, three dark iron hoops, a white skull-and-crossbones mark 5 squares wide on its front, a short "
      "unlit rope fuse on top; the frames differ only in a faint shimmer on the staves. Solid: a 1-square dark outline "
      "round the barrel is allowed.",
-     row(2, 14, 16) + "; centered across, the barrel's lowest square on the cell's bottom row."),
+     row(2, 20, 22) + "; centered across, the barrel's lowest square on the cell's bottom row."),
     ("e_keg_lit", "E 能引爆的火药桶（引线点着），2 帧循环",
-     "view_effects `league_gangplank_e_keg_lit`（不跟随，画在人物上面 z 1；左右对称）", "14 × 18",
+     "view_effects `league_gangplank_e_keg_lit`（不跟随，画在人物上面 z 1；左右对称）", "20 × 25",
      "同一个火药桶（和 e_keg 一模一样，逐格相同），但引线**已经点着**：顶上一团闪动的黄橙色火星，桶底周围一圈淡淡的橙光，表示现在一枪就能引爆"
      "（参考 e_fuze_glow、Gangplank_base_e_fuze_center_glow）。**左右对称**。",
      f"{WO} and {IR} and {FI}",
      f"THE SAME POWDER KEG, ripe, 2 frames, a seamless loop, {LR}: the barrel of e_keg square for square (the same "
-     "place in the cell), its rope fuse LIT: a bright yellow-orange spark 3 squares on top flickering between the frames, "
+     "place in the cell), its rope fuse LIT: a bright yellow-orange spark 4 squares on top flickering between the frames, "
      "a faint orange glow 1 square round the barrel's base.",
-     row(2, 14, 18) + "; centered across, the barrel's lowest square on the cell's bottom row."),
+     row(2, 20, 25) + "; centered across, the barrel's lowest square on the cell's bottom row."),
     ("e_boom", "E 火药桶爆炸（地上，不跟随），7 帧",
      "view_effects `league_gangplank_e_boom`（不跟随，画在人物上面 z 2；左右对称；大图表）", "64 × 48",
      "火药桶炸开（半径约 30 格）：白光一闪，一团橙黄色的火球从地上冒起，木桶碎片和铁箍往四周飞，地上一圈火往外推，接着变成翻滚的黑灰色火药烟，"
@@ -263,7 +263,13 @@ FX = [
 ]
 BIG_FX = ["e_boom", "r_warn", "r_wave"]
 OWN_FX = {"q_flash": ("skill", [3]), "w_cast": ("skill_w", [2, 3]), "r_cast": ("ult", [3, 4])}
-REDO = {}
+REDO = {
+    # the user, 2026-10-18, after the showcase: 「桶最大点吧 也太小了」
+    "e_throw": "第一版 12×10 格（桶约 8×6）太小，用户：「桶最大点吧 也太小了」。样子照第一版，画大到 16×13 格（桶约 12×9）",
+    "e_keg": "第一版 14×16 格（桶约 10×12）太小，用户：「桶最大点吧 也太小了」。样子照第一版（骷髅交叉骨、三道铁箍、麻绳引线），画大到 "
+             "20×22 格（桶约 15×18，骷髅约 5 格宽，要清楚）",
+    "e_keg_lit": "和 e_keg 一起画大到 20×25 格：桶身和新的 e_keg 逐格相同，引线上的火星约 4 格",
+}
 GROUPS = [
     ("a_hit p_hit p_ms", ["Gangplank_Base_BA_sword_trail", "Gangplank_Base_P_sword_blade", "Gangplank_Base_P_sword_flames",
                           "Gangplank_Base_taunt_flames", "Gangplank_Base_P_speedstreaks", "Gangplank_Base_hit_sparks"]),
@@ -424,7 +430,7 @@ def document(shape):
         a(">")
     a("> - 每张生成后按格子取回（每格取多数颜色），交付 8 倍的 `gangplank_fx_<名字>.png` 和原尺寸的 `pixel_1x/`（严格按格子取色、"
       "透明度只有 0 和 255、该对称的逐格对称——Claude 直接用这一份切格导入），附 `HANDOFF.md`、`manifest.json`（每张的名字 `name`、帧数、"
-      "每格大小 `cell_1x`、对称方式）和生图原稿 `raw/`，都放在 `outputs/gangplank_fx/` 里，**最后**写 `HANDOFF.md`，再打包成 "
+      f"每格大小 `cell_1x`、对称方式）和生图原稿 `raw/`，都放在 `outputs/{NAME.replace('_pack', '')}/` 里，**最后**写 `HANDOFF.md`，再打包成 "
       f"`outputs/{NAME}_done.zip`。**请用生图画，不要用代码拼方块**。中间不要停，全部画完再交。\n")
     a("## 技能方案（每张图用在哪里）\n")
     a("| 技能位 | 内容 | 用到的图 |")
