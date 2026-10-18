@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "effects": 14,
+  "frames": 57,
+  "checks": [
+    {
+      "name": "a_shot",
+      "frames": 3,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "q_rang",
+      "frames": 4,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "r_bullet",
+      "frames": 3,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "a_hit",
+      "frames": 4,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "p_hit",
+      "frames": 5,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "q_hit",
+      "frames": 4,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "r_hit",
+      "frames": 4,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "q_catch",
+      "frames": 3,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "e_hook",
+      "frames": 5,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "w_camo",
+      "frames": 5,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "r_lock",
+      "frames": 5,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "p_sh",
+      "frames": 4,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "w_ms",
+      "frames": 4,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    },
+    {
+      "name": "w_mark",
+      "frames": 4,
+      "grid": true,
+      "binary_alpha": true,
+      "allowed_palette": true,
+      "symmetric_when_required": true,
+      "no_empty_frames": true,
+      "nearest_8x": true
+    }
+  ],
+  "game_integration_tested": false,
+  "preview_frame_duration_ms": 120
+}

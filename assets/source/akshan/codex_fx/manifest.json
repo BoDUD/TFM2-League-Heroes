@@ -1,0 +1,1271 @@
+{
+  "character": "Akshan",
+  "effects": [
+    {
+      "name": "a_shot",
+      "file": "akshan_fx_a_shot.png",
+      "pixel_1x": "pixel_1x/akshan_fx_a_shot.png",
+      "raw": "raw/akshan_fx_a_shot.png",
+      "frames": 3,
+      "layout": [
+        3,
+        1
+      ],
+      "cell_1x": [
+        10,
+        4
+      ],
+      "cell_8x": [
+        80,
+        32
+      ],
+      "sheet_1x": [
+        30,
+        4
+      ],
+      "sheet_8x": [
+        240,
+        32
+      ],
+      "symmetry": "none",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 10,
+          "bbox": [
+            3,
+            1,
+            9,
+            3
+          ],
+          "horizontal_symmetric": false
+        },
+        {
+          "opaque_pixels": 13,
+          "bbox": [
+            2,
+            1,
+            9,
+            3
+          ],
+          "horizontal_symmetric": false
+        },
+        {
+          "opaque_pixels": 14,
+          "bbox": [
+            2,
+            1,
+            9,
+            3
+          ],
+          "horizontal_symmetric": false
+        }
+      ],
+      "binding_reference": "view_projectiles `league_akshan_a_shot`、`a_shot2`、`e_shot`",
+      "placement_reference": {
+        "placement": "centered; projectiles point right"
+      },
+      "loop_reference": true
+    },
+    {
+      "name": "q_rang",
+      "file": "akshan_fx_q_rang.png",
+      "pixel_1x": "pixel_1x/akshan_fx_q_rang.png",
+      "raw": "raw/akshan_fx_q_rang.png",
+      "frames": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cell_8x": [
+        96,
+        96
+      ],
+      "sheet_1x": [
+        48,
+        12
+      ],
+      "sheet_8x": [
+        384,
+        96
+      ],
+      "symmetry": "none",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFF6E0",
+        "#F2C77A",
+        "#C98A3A",
+        "#8E5524",
+        "#5A3216",
+        "#2E180C",
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B",
+        "#E2681A",
+        "#9C3A12"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 40,
+          "bbox": [
+            3,
+            1,
+            10,
+            11
+          ],
+          "horizontal_symmetric": false
+        },
+        {
+          "opaque_pixels": 36,
+          "bbox": [
+            1,
+            2,
+            11,
+            10
+          ],
+          "horizontal_symmetric": false
+        },
+        {
+          "opaque_pixels": 38,
+          "bbox": [
+            2,
+            1,
+            9,
+            11
+          ],
+          "horizontal_symmetric": false
+        },
+        {
+          "opaque_pixels": 42,
+          "bbox": [
+            0,
+            2,
+            12,
+            9
+          ],
+          "horizontal_symmetric": false
+        }
+      ],
+      "binding_reference": "view_projectiles `league_akshan_q_out`、`q_back`（去和回同一张）",
+      "placement_reference": {
+        "placement": "centered; projectiles point right"
+      },
+      "loop_reference": true
+    },
+    {
+      "name": "r_bullet",
+      "file": "akshan_fx_r_bullet.png",
+      "pixel_1x": "pixel_1x/akshan_fx_r_bullet.png",
+      "raw": "raw/akshan_fx_r_bullet.png",
+      "frames": 3,
+      "layout": [
+        3,
+        1
+      ],
+      "cell_1x": [
+        16,
+        6
+      ],
+      "cell_8x": [
+        128,
+        48
+      ],
+      "sheet_1x": [
+        48,
+        6
+      ],
+      "sheet_8x": [
+        384,
+        48
+      ],
+      "symmetry": "none",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B",
+        "#FFD0C0",
+        "#FF7A5A",
+        "#E8341C"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 31,
+          "bbox": [
+            3,
+            1,
+            15,
+            5
+          ],
+          "horizontal_symmetric": false
+        },
+        {
+          "opaque_pixels": 32,
+          "bbox": [
+            3,
+            1,
+            15,
+            5
+          ],
+          "horizontal_symmetric": false
+        },
+        {
+          "opaque_pixels": 35,
+          "bbox": [
+            3,
+            1,
+            15,
+            5
+          ],
+          "horizontal_symmetric": false
+        }
+      ],
+      "binding_reference": "view_projectiles `league_akshan_r_bullet`",
+      "placement_reference": {
+        "placement": "centered; projectiles point right"
+      },
+      "loop_reference": true
+    },
+    {
+      "name": "a_hit",
+      "file": "akshan_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/akshan_fx_a_hit.png",
+      "raw": "raw/akshan_fx_a_hit.png",
+      "frames": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_1x": [
+        10,
+        10
+      ],
+      "cell_8x": [
+        80,
+        80
+      ],
+      "sheet_1x": [
+        40,
+        10
+      ],
+      "sheet_8x": [
+        320,
+        80
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B"
+      ],
+      "raw_size": [
+        1983,
+        793
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 4,
+          "bbox": [
+            4,
+            4,
+            6,
+            6
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 22,
+          "bbox": [
+            1,
+            2,
+            9,
+            8
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 14,
+          "bbox": [
+            2,
+            2,
+            8,
+            8
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 12,
+          "bbox": [
+            2,
+            2,
+            8,
+            8
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_effects `league_akshan_a_hit`、`e_hit`（跟随，画在人物上面；左右对称）",
+      "placement_reference": {
+        "placement": "centered; projectiles point right"
+      },
+      "loop_reference": false
+    },
+    {
+      "name": "p_hit",
+      "file": "akshan_fx_p_hit.png",
+      "pixel_1x": "pixel_1x/akshan_fx_p_hit.png",
+      "raw": "raw/akshan_fx_p_hit.png",
+      "frames": 5,
+      "layout": [
+        5,
+        1
+      ],
+      "cell_1x": [
+        18,
+        18
+      ],
+      "cell_8x": [
+        144,
+        144
+      ],
+      "sheet_1x": [
+        90,
+        18
+      ],
+      "sheet_8x": [
+        720,
+        144
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#B8ECF4",
+        "#7FD3E2",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 84,
+          "bbox": [
+            2,
+            2,
+            16,
+            16
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 120,
+          "bbox": [
+            1,
+            1,
+            17,
+            17
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 108,
+          "bbox": [
+            0,
+            1,
+            18,
+            17
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 118,
+          "bbox": [
+            1,
+            0,
+            17,
+            18
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 38,
+          "bbox": [
+            2,
+            0,
+            16,
+            18
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_effects `league_akshan_p_hit`（跟随，画在人物上面；左右对称）",
+      "placement_reference": {
+        "placement": "centered; projectiles point right"
+      },
+      "loop_reference": false
+    },
+    {
+      "name": "q_hit",
+      "file": "akshan_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/akshan_fx_q_hit.png",
+      "raw": "raw/akshan_fx_q_hit.png",
+      "frames": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_1x": [
+        14,
+        14
+      ],
+      "cell_8x": [
+        112,
+        112
+      ],
+      "sheet_1x": [
+        56,
+        14
+      ],
+      "sheet_8x": [
+        448,
+        112
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B",
+        "#FFF6E0",
+        "#F2C77A",
+        "#C98A3A"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 44,
+          "bbox": [
+            2,
+            2,
+            12,
+            12
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 80,
+          "bbox": [
+            0,
+            1,
+            14,
+            14
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 46,
+          "bbox": [
+            1,
+            2,
+            13,
+            12
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 24,
+          "bbox": [
+            1,
+            2,
+            13,
+            11
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_effects `league_akshan_q_hit`（跟随，画在人物上面；左右对称）",
+      "placement_reference": {
+        "placement": "centered; projectiles point right"
+      },
+      "loop_reference": false
+    },
+    {
+      "name": "r_hit",
+      "file": "akshan_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/akshan_fx_r_hit.png",
+      "raw": "raw/akshan_fx_r_hit.png",
+      "frames": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_1x": [
+        18,
+        18
+      ],
+      "cell_8x": [
+        144,
+        144
+      ],
+      "sheet_1x": [
+        72,
+        18
+      ],
+      "sheet_8x": [
+        576,
+        144
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B",
+        "#FFD0C0",
+        "#FF7A5A",
+        "#E8341C"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 30,
+          "bbox": [
+            6,
+            6,
+            12,
+            12
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 124,
+          "bbox": [
+            1,
+            2,
+            17,
+            16
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 92,
+          "bbox": [
+            1,
+            1,
+            17,
+            17
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 38,
+          "bbox": [
+            1,
+            2,
+            17,
+            16
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_effects `league_akshan_r_hit`（跟随，画在人物上面；左右对称）",
+      "placement_reference": {
+        "placement": "centered; projectiles point right"
+      },
+      "loop_reference": false
+    },
+    {
+      "name": "q_catch",
+      "file": "akshan_fx_q_catch.png",
+      "pixel_1x": "pixel_1x/akshan_fx_q_catch.png",
+      "raw": "raw/akshan_fx_q_catch.png",
+      "frames": 3,
+      "layout": [
+        3,
+        1
+      ],
+      "cell_1x": [
+        12,
+        30
+      ],
+      "cell_8x": [
+        96,
+        240
+      ],
+      "sheet_1x": [
+        36,
+        30
+      ],
+      "sheet_8x": [
+        288,
+        240
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 12,
+          "bbox": [
+            4,
+            4,
+            8,
+            8
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 36,
+          "bbox": [
+            1,
+            1,
+            11,
+            11
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 8,
+          "bbox": [
+            2,
+            2,
+            10,
+            10
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_effects `league_akshan_q_catch`（跟随，画在人物上面；左右对称）",
+      "placement_reference": {
+        "center_above_bottom": 24
+      },
+      "loop_reference": false
+    },
+    {
+      "name": "e_hook",
+      "file": "akshan_fx_e_hook.png",
+      "pixel_1x": "pixel_1x/akshan_fx_e_hook.png",
+      "raw": "raw/akshan_fx_e_hook.png",
+      "frames": 5,
+      "layout": [
+        5,
+        1
+      ],
+      "cell_1x": [
+        24,
+        70
+      ],
+      "cell_8x": [
+        192,
+        560
+      ],
+      "sheet_1x": [
+        120,
+        70
+      ],
+      "sheet_8x": [
+        960,
+        560
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFF6E0",
+        "#F2C77A",
+        "#C98A3A",
+        "#8E5524",
+        "#5A3216",
+        "#2E180C",
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B",
+        "#E2681A",
+        "#9C3A12"
+      ],
+      "raw_size": [
+        1642,
+        958
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 78,
+          "bbox": [
+            5,
+            16,
+            19,
+            26
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 98,
+          "bbox": [
+            6,
+            3,
+            18,
+            24
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 140,
+          "bbox": [
+            3,
+            2,
+            21,
+            24
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 102,
+          "bbox": [
+            6,
+            3,
+            18,
+            24
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 152,
+          "bbox": [
+            5,
+            3,
+            19,
+            24
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_effects `league_akshan_e_hook`（不跟随，画在人物上面 z 2；左右对称；大图表）",
+      "placement_reference": {
+        "rope_lower_limit_above_bottom": 42
+      },
+      "loop_reference": false
+    },
+    {
+      "name": "w_camo",
+      "file": "akshan_fx_w_camo.png",
+      "pixel_1x": "pixel_1x/akshan_fx_w_camo.png",
+      "raw": "raw/akshan_fx_w_camo.png",
+      "frames": 5,
+      "layout": [
+        5,
+        1
+      ],
+      "cell_1x": [
+        40,
+        48
+      ],
+      "cell_8x": [
+        320,
+        384
+      ],
+      "sheet_1x": [
+        200,
+        48
+      ],
+      "sheet_8x": [
+        1600,
+        384
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#B8ECF4",
+        "#7FD3E2"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 138,
+          "bbox": [
+            5,
+            1,
+            35,
+            47
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 234,
+          "bbox": [
+            1,
+            9,
+            39,
+            41
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 248,
+          "bbox": [
+            2,
+            1,
+            38,
+            47
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 66,
+          "bbox": [
+            5,
+            5,
+            35,
+            41
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 26,
+          "bbox": [
+            6,
+            11,
+            34,
+            35
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_effects `league_akshan_w_camo`（不跟随，画在人物上面 z 2；左右对称；大图表）",
+      "placement_reference": {
+        "figure_feet_above_bottom": 4
+      },
+      "loop_reference": false
+    },
+    {
+      "name": "r_lock",
+      "file": "akshan_fx_r_lock.png",
+      "pixel_1x": "pixel_1x/akshan_fx_r_lock.png",
+      "raw": "raw/akshan_fx_r_lock.png",
+      "frames": 5,
+      "layout": [
+        5,
+        1
+      ],
+      "cell_1x": [
+        44,
+        44
+      ],
+      "cell_8x": [
+        352,
+        352
+      ],
+      "sheet_1x": [
+        220,
+        44
+      ],
+      "sheet_8x": [
+        1760,
+        352
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B",
+        "#FFD0C0",
+        "#FF7A5A",
+        "#E8341C"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 16,
+          "bbox": [
+            12,
+            10,
+            32,
+            30
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 238,
+          "bbox": [
+            7,
+            5,
+            37,
+            35
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 630,
+          "bbox": [
+            2,
+            0,
+            42,
+            40
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 612,
+          "bbox": [
+            2,
+            0,
+            42,
+            40
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 454,
+          "bbox": [
+            2,
+            0,
+            42,
+            40
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_effects `league_akshan_r_lock`（不跟随，画在人物上面 z 2；左右对称；大图表）",
+      "placement_reference": {
+        "center_above_bottom": 24,
+        "empty_center_size": [
+          16,
+          16
+        ]
+      },
+      "loop_reference": false
+    },
+    {
+      "name": "p_sh",
+      "file": "akshan_fx_p_sh.png",
+      "pixel_1x": "pixel_1x/akshan_fx_p_sh.png",
+      "raw": "raw/akshan_fx_p_sh.png",
+      "frames": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_1x": [
+        40,
+        46
+      ],
+      "cell_8x": [
+        320,
+        368
+      ],
+      "sheet_1x": [
+        160,
+        46
+      ],
+      "sheet_8x": [
+        1280,
+        368
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#B8ECF4",
+        "#7FD3E2"
+      ],
+      "raw_size": [
+        1983,
+        793
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 138,
+          "bbox": [
+            3,
+            2,
+            37,
+            44
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 166,
+          "bbox": [
+            3,
+            2,
+            37,
+            44
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 192,
+          "bbox": [
+            3,
+            2,
+            37,
+            44
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 162,
+          "bbox": [
+            3,
+            2,
+            37,
+            44
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_buffs `league_akshan_p_sh`（跟随，画在人物上面；左右对称；循环）",
+      "placement_reference": {
+        "figure_feet_above_bottom": 2
+      },
+      "loop_reference": true
+    },
+    {
+      "name": "w_ms",
+      "file": "akshan_fx_w_ms.png",
+      "pixel_1x": "pixel_1x/akshan_fx_w_ms.png",
+      "raw": "raw/akshan_fx_w_ms.png",
+      "frames": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_1x": [
+        36,
+        10
+      ],
+      "cell_8x": [
+        288,
+        80
+      ],
+      "sheet_1x": [
+        144,
+        10
+      ],
+      "sheet_8x": [
+        1152,
+        80
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#B8ECF4",
+        "#7FD3E2"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 70,
+          "bbox": [
+            1,
+            2,
+            35,
+            8
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 86,
+          "bbox": [
+            1,
+            1,
+            35,
+            9
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 90,
+          "bbox": [
+            1,
+            1,
+            35,
+            9
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 66,
+          "bbox": [
+            2,
+            2,
+            34,
+            8
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_buffs `league_akshan_w_ms`（跟随，画在人物下面 z -1；左右对称；循环）",
+      "placement_reference": {
+        "ellipse_center_above_bottom": 3
+      },
+      "loop_reference": true
+    },
+    {
+      "name": "w_mark",
+      "file": "akshan_fx_w_mark.png",
+      "pixel_1x": "pixel_1x/akshan_fx_w_mark.png",
+      "raw": "raw/akshan_fx_w_mark.png",
+      "frames": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_1x": [
+        14,
+        48
+      ],
+      "cell_8x": [
+        112,
+        384
+      ],
+      "sheet_1x": [
+        56,
+        48
+      ],
+      "sheet_8x": [
+        448,
+        384
+      ],
+      "symmetry": "horizontal_per_frame",
+      "alpha": "binary_0_255",
+      "palette": [
+        "#FFFFFF",
+        "#FFD0C0",
+        "#FF7A5A",
+        "#E8341C",
+        "#A8160E",
+        "#600A08",
+        "#FFF4C8",
+        "#FFD36A",
+        "#FFA62B",
+        "#E2681A",
+        "#9C3A12"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_checks": [
+        {
+          "opaque_pixels": 84,
+          "bbox": [
+            0,
+            0,
+            14,
+            10
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 84,
+          "bbox": [
+            0,
+            0,
+            14,
+            10
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 84,
+          "bbox": [
+            0,
+            0,
+            14,
+            10
+          ],
+          "horizontal_symmetric": true
+        },
+        {
+          "opaque_pixels": 84,
+          "bbox": [
+            0,
+            0,
+            14,
+            10
+          ],
+          "horizontal_symmetric": true
+        }
+      ],
+      "binding_reference": "view_buffs `league_akshan_w_mark`（跟随，画在人物上面；左右对称；循环；扩展包加在恶徒身上）",
+      "placement_reference": {
+        "mark_bottom_above_bottom": 38
+      },
+      "loop_reference": true
+    }
+  ],
+  "expected_effects": 14,
+  "total_frames": 57,
+  "processing": "image_gen art; equal-cell source partition; palette quantization; per-cell majority of visible quantized pixels with minimum 25 percent foreground coverage; preserve source bright colors when at least 20 percent of foreground votes; active-area registration for catch, hook, mark, lock and shield; per-frame left/right brighter occupied-side consensus for required symmetry; protected interior clearing; nearest-neighbor 8x",
+  "timing": "Not supplied; playback durations require game-side configuration.",
+  "source_reference_images_included": false,
+  "design_adjustments": [
+    "r_lock first-stage outline uses 20 rather than 14 pixels to surround the required 16-pixel empty center.",
+    "w_mark registered into 14x10 active area within original 14x48 cell to retain skull readability.",
+    "Sampling uses visible-pixel palette majority with 25 percent occupancy threshold and bright-core preservation; not strict whole-cell transparent-inclusive plurality."
+  ]
+}
