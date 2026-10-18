@@ -37,7 +37,8 @@ G = "<#7dd87dff>"      # heals, shields
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -8 -> -6: the hat was cut
-VIEW = {"face": {"x": 4, "y": -30}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -6}}
+# 2026-10-18: face (-1,-38) - (-1,-36) put his eyes on the top two rows; kept equal to champion_view and ppu_restyle.py
+VIEW = {"face": {"x": -1, "y": -38}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -6}}
 
 
 def mag(k):

@@ -41,7 +41,8 @@ T = "<#f5f5f5ff>"      # true damage
 E = "<>"
 # champion_view: a placeholder face until the sprite (tfm2_ase.py face), the centre from the idle
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> -11: the head reached the card's top edge (Talon's rule: at or above -28)
-VIEW = {"face": {"x": 0, "y": -37}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -11}}
+# 2026-10-18: face (1,-36) - (0,-37) framed four rows of hair and cut the chin; kept equal to champion_view and ppu_restyle.py
+VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -11}}
 
 
 def phys(k):
