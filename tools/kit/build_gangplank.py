@@ -2,7 +2,7 @@
 
     python tools/kit/build_gangplank.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
-Kit (the user's picks, 2026-10-18: top, layout A with the add-on league_gangplank, PPU 1.2 - 「技能方案按 A 做」). TFM2
+Kit (the user's picks, 2026-10-18: top, layout A with the add-on league_gangplank - 「技能方案按 A 做」; PPU 1.5). TFM2
 has three active slots: Parrrley is `skill`, Powder Keg `skill2`, Cannon Barrage the `ult`; Remove Scurvy (W) has no
 slot - the watch eats the orange (league_jarvaniv's / league_ziggs's W the same way).
   passive Trial by Fire (烈火审讯): with `p_cd` off his next attack or Parrrley sets the unit hit on fire - p_dmg +
@@ -55,7 +55,7 @@ FX = "asset/league/effects/league_gangplank_fx"
 BIG = "asset/league/effects/league_gangplank_big"
 
 # League units x 100 = ours (Q range 625 -> 62500); radii count the unit's collision radius (~15000) on top. Timings
-# are the draft's until the strips exist (rig_gangplank.py MS).
+# match the strips (tools/art/rig_gangplank.py MS: attack 433 ms = 26 ticks, Q 24, E 22, W 20, R 24).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Gangplank:
     # 64 AD +4.2, 630 +114 hp, 31 armour, 345 move, 125 range, attack speed 0.658 +3.2%
@@ -188,6 +188,14 @@ def alive(*effects):
     return combine(pick(1, "AllyOnlySelf", flag("lives", 1)), sw("lives", combine(*effects)), *rm("lives"))
 
 
+def decoy(dmg, ratio):
+    """The damage the game's AI reads for this action: its estimate follows a SwitchByBuff by the flags he has while
+    it reads, so a hit under alive() reads as nothing - and its battle plan divides an enemy's health by his attack's
+    estimate (sim 10-18: "attempt to divide by zero", battle.rs:1938 / utils.rs:1539, games hung). A flag he never
+    has while it reads; on the cast the flag is up and the hit is skipped (the ult's `scored` the same way)."""
+    return combine(flag("x", 1), sw("x", combine(*rm("x")), attack(dmg, ratio)), *rm("x"))
+
+
 def casted(duration, period, *effects, kind="Heal"):
     return {"type": "AddCasted", "casted_type": kind, "duration": duration, "period": period, "effects": list(effects)}
 
@@ -311,7 +319,8 @@ def build(p):
                    sw("p_cd", NONE, combine(lit, homing("a_burn", "EnemyWithoutTower", fire_on))),
                    homing("a_twin", "EnemyChampion", plain_c))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(life, delayed(p["a_hit"] - 1, alive(blow))), atype="BaseAttack", cancel=True)
+                      combine(life, decoy(0, 100), delayed(p["a_hit"] - 1, alive(blow))), atype="BaseAttack",
+                      cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Parrrley
     shot = [attack(p["q_dmg"], p["q_ratio"]), refresh("q_fire", p["e_arm"]), view("q_hit"), tsfx("q_hit")]
@@ -320,7 +329,8 @@ def build(p):
                       combine(lit, homing("q_bullet_p", "EnemyWithoutTower", shot + fire_on, p["q_speed"]))),
                    homing("q_twin", "EnemyChampion", marked, p["q_speed"]))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(refresh("busy", p["q_dur"]), voice("vo_q", p), delayed(p["q_rel"] - 1, alive(bang))),
+                   combine(refresh("busy", p["q_dur"]), decoy(p["q_dmg"], p["q_ratio"]), voice("vo_q", p),
+                           delayed(p["q_rel"] - 1, alive(bang))),
                    atype="BaseAttack")
 
     # ------------------------------------------------------------------ skill2: E Powder Keg (the cast)
