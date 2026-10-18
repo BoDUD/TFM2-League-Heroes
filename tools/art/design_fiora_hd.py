@@ -7,8 +7,8 @@ Asked (assets/source/fiora/PICTURE_PROMPT_PPU.md) for 60 squares of 11 px from t
 image_gen drew two pictures on a BLACK ground with a soft glow round the figure and a halo round the blade
 (assets/source/fiora/hd/raw/, its HANDOFF.md); it exported generation-02 sampled at square centres (hd/codex.png, the
 face broken), so generation-02 is read here. cutout() takes the figure off the ground and the glow, the blade left
-out; regrid.py reads it one square a design square (~9.5 px, 79 rows), the colours cut to COLOURS by k-means in Lab
-(design_varus.kmeans), the rim's glow-tinted squares cleaned (rim()) -> hd/readback.png. The eyes are set square by square there (EYES). Never sampled at fewer rows
+out; it is read one square a design square on one fitted pitch and phase (fit(): 10.7 x 10.31 px, 71 x 75), the colours cut to COLOURS by k-means in Lab
+(design_varus.kmeans), the rim's glow-tinted squares cleaned (rim()) -> hd/readback.png. Codex's eyes and mouth stay as drawn. Never sampled at fewer rows
 than drawn (memory sprite-pipeline): whole rows and columns are deleted to ROWS (her 40 game rows x 1.5) by
 design_rell_cut.even_cut (the face's rows and columns, the hair's top row, the soles' row and the blade's kept). The blade is drawn
 last on the cut design, as Codex drew it but straight and clean: BLADE_W squares thick (white over blue-grey), no
@@ -40,24 +40,19 @@ CHAMPS = os.path.join(ROOT, "league", "champions")
 BRIGHT, OUTLINE, DARK = 70, 18, 14   # raw: colour above BRIGHT, outline below DARK within OUTLINE px of colour
 CLOSE, HAIR_Y, GUARD_X = 2, 360, 905  # raw px: outline gap closing, the chin's row, the guard's tip
 COLOURS = 40
+PITCH, MID = (9.6, 11.4), 0.25
 GLOW = (50, 130)
 PPU = 1.5
 GAME_ROWS = 40                    # her 1x idle, hair to soles
 ROWS = round(GAME_ROWS * PPU)     # 60
 BLADE_W, BLADE_LEN = 2, 31
 BLADE = [(250, 250, 252), (168, 176, 198)]   # Codex's blade: the white top square, the blue-grey under it
-# read-back squares kept whole: the brows to the chin, the near cheek to the face's far outline
-FACE_ROWS = range(9, 19)
-FACE_COLS = range(33, 42)
-WHITE, IRIS_D, IRIS_L, SKIN, LINE = (250, 249, 249), (4, 120, 169), (17, 197, 249), (252, 228, 205), (3, 3, 2)
-# read-back squares (x, y) -> rgb: Codex drew the near eye three squares wide (a white and two blues) and the far eye
-# one column of blue against the face's outline; both now 2 x 2 at rows 12-13, white then the iris (near 35-36, far
-# 38-39), the nose's skin square 37 between them, the far eye's lash over it (38, 11) like the near one's
-EYES = {(34, 13): SKIN, (35, 12): WHITE, (36, 12): IRIS_D, (35, 13): WHITE, (36, 13): IRIS_L,
-        (38, 12): WHITE, (39, 12): IRIS_D, (38, 13): WHITE, (39, 13): IRIS_L, (38, 11): LINE, (37, 11): SKIN}
-# beside the mouth: the jaw's outline ran into the lips' corner (39, 16) and a grey square sat under the lips (38, 17);
-# both skin, so a skin square parts the lips from the outline (「嘴巴旁边莫名其妙的黑色素 看着不奇怪吗」)
-MOUTH = {(39, 16): SKIN, (38, 17): SKIN}
+# read-back squares kept whole: the whole head, the hair's crown to the chin and the hair's back to the crimson lock
+# (「这种做不了？」: the user wants Codex's head as drawn), the cuts all taken from the body, the cape and the arm
+FACE_ROWS = range(0, 20)
+FACE_COLS = range(18, 44)
+EYES = {}   # Codex's eyes as drawn
+MOUTH = {}
 BG = (196, 200, 190, 255)
 PEERS = ["fiora", "kaisa", "camille", "xinzhao"]
 
@@ -112,9 +107,42 @@ def rim(d):
     return d
 
 
+def fit(a, op, axis):
+    """Codex's squares here are one pitch with a phase (autocorrelation of the colour edges: 10.3-10.7 px everywhere),
+    but regrid.py's peak picking jittered them 7-14 px and broke the face. The pitch and phase whose lines sit on
+    the most colour changes (+-1 px half weight), PITCH range, quarter-px phases."""
+    e = RG.profile(a, op, axis)
+    n = len(e)
+    best = None
+    for p in np.arange(*PITCH, 0.01):
+        for ph in np.arange(0, p, 0.25):
+            pos = np.round(np.arange(ph, n, p)).astype(int)
+            pos = pos[pos < n]
+            s = e[pos].sum() + 0.5 * (e[np.clip(pos - 1, 0, n - 1)].sum() + e[np.clip(pos + 1, 0, n - 1)].sum())
+            if best is None or s / len(pos) > best[0]:
+                best = (s / len(pos), p, ph)
+    return best[1], best[2]
+
+
+def grid(a):
+    """One square a design square on the fitted grid: the median of its middle half (MID)."""
+    op = a[..., 3] >= 128
+    (px, phx), (py, phy) = fit(a, op, 1), fit(a, op, 0)
+    xs, ys = np.arange(phx, a.shape[1], px), np.arange(phy, a.shape[0], py)
+    out = np.zeros((len(ys) - 1, len(xs) - 1, 4), np.uint8)
+    for j in range(len(ys) - 1):
+        y0, y1 = ys[j] + (ys[j + 1] - ys[j]) * MID, ys[j + 1] - (ys[j + 1] - ys[j]) * MID
+        for i in range(len(xs) - 1):
+            x0, x1 = xs[i] + (xs[i + 1] - xs[i]) * MID, xs[i + 1] - (xs[i + 1] - xs[i]) * MID
+            win = a[int(round(y0)):int(round(y1)), int(round(x0)):int(round(x1))].reshape(-1, 4)
+            if (win[:, 3] >= 128).sum() * 2 > len(win):
+                out[j, i, :3] = np.median(win[win[:, 3] >= 128][:, :3], axis=0)
+                out[j, i, 3] = 255
+    return crop(out), (px, py)
+
+
 def read():
-    d, size, _ = RG.regrid(cutout())
-    d = crop(d)
+    d, size = grid(cutout())
     op = d[..., 3] > 0
     idx, pal = V.kmeans(d, COLOURS)
     out = np.zeros_like(d)
