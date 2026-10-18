@@ -140,13 +140,19 @@ class Clip:
         an = Anim(frames_of(sheet or self.big, tag), when, int(x), int(y), loop=until is not None, until=until)
         (self.under if under else self.over).append(an)
 
-    def fly(self, tag, t0, x0, x1, y, speed):
-        """A projectile from x0 to x1 at `speed` units a tick (1000 a game px); returns its arrival time."""
-        t1 = t0 + tick(abs(x1 - x0) * 1000.0 / speed)
+    def fly(self, tag, t0, x0, x1, y, speed, y1=None):
+        """A projectile from (x0, y) to (x1, y1) at `speed` units a tick (1000 a game px), its picture turned along the
+        flight like the game does; returns its arrival time."""
+        y1 = y if y1 is None else y1
+        t1 = t0 + tick(math.hypot(x1 - x0, y1 - y) * 1000.0 / speed)
         fr = frames_of(self.small, tag)
-        if x1 < x0:
+        ang = math.degrees(math.atan2(-(y1 - y), x1 - x0))
+        if abs(ang) > 90:
             fr = mirrored(fr)
-        self.over.append(Anim(fr, t0, int(x0), int(y), loop=True, until=t1, x1=int(x1), y1=int(y)))
+            ang = ang - 180 if ang > 0 else ang + 180
+        if abs(ang) >= 1:
+            fr = [(f.rotate(ang, resample=Image.NEAREST, expand=True), ms) for f, ms in fr]
+        self.over.append(Anim(fr, t0, int(x0), int(y), loop=True, until=t1, x1=int(x1), y1=int(y1)))
         return t1
 
     def render(self, out, W, H, end, z=3, step=40):
@@ -197,7 +203,7 @@ def showcase(out, z=3):
     # the double shot: two bullets, a_hit1 and a_hit2 ticks in
     start = c.t
     for k in (P["a_hit1"], P["a_hit2"]):
-        t1 = c.fly("a_shot", start + tick(1 + k), muzzle(), dx_, gy + GUN_Y, P["a_speed"])
+        t1 = c.fly("a_shot", start + tick(1 + k), muzzle(), dx_, me.pos(c.t)[1] + GUN_Y, P["a_speed"], gy + GUN_Y)
         c.on("a_hit", t1)
         d.flinches.append(t1)
     c.a("attack", tick(P["atk_dur"]))
@@ -207,8 +213,8 @@ def showcase(out, z=3):
     start = c.t + tick(3)
     sx = me.pos(c.t)[0] + 20
     far = sx + P["q_range"] / 1000.0
-    turn = c.fly("q_rang", start, sx, far, gy + GUN_Y, P["q_speed"])
-    back = c.fly("q_rang", turn, far, sx, gy + GUN_Y, P["q_back"])
+    turn = c.fly("q_rang", start, sx, far, me.pos(c.t)[1] + GUN_Y, P["q_speed"])
+    back = c.fly("q_rang", turn, far, sx, me.pos(c.t)[1] + GUN_Y, P["q_back"])
     out_hit = start + tick((dx_ - sx) * 1000.0 / P["q_speed"])
     back_hit = turn + tick((far - dx_) * 1000.0 / P["q_back"])
     for t_ in (out_hit, back_hit):
@@ -233,21 +239,21 @@ def showcase(out, z=3):
     for k in range(P["e_n"]):
         ts = c.t + tick(k * P["e_every"] + 2)
         x, y = me.pos(ts)
-        t_hit = c.fly("a_shot", ts, x + 28, dx_, y + GUN_Y - 6, P["e_shot"])
+        t_hit = c.fly("a_shot", ts, x + 28, dx_, y + GUN_Y - 6, P["e_shot"], gy + GUN_Y)
         c.on("a_hit", t_hit)
         d.flinches.append(t_hit)
     c.a("e_swing", tick(swing_t), loop=True)
     near = me.pos(c.t)[0]
     back_x = near - P["e_back"] * P["e_back_t"] / 1000.0
     me.moves.append((c.t, c.t + tick(P["e_back_t"]), near, back_x))
-    t_hit = c.fly("a_shot", c.t + tick(2), near + 28, dx_, me.pos(c.t)[1] + GUN_Y, P["e_shot"])
+    t_hit = c.fly("a_shot", c.t + tick(2), near + 28, dx_, me.pos(c.t)[1] + GUN_Y, P["e_shot"], gy + GUN_Y)
     c.on("a_hit", t_hit)
     d.flinches.append(t_hit)
     c.a("e_roll", tick(P["e_back_t"] + 4))
     c.wait(300)
     # W Going Rogue: the camouflage and the speed streaks as he steps back
     start = c.t
-    c.at_spot("w_camo", start, me.pos(start)[0], gy)
+    c.at_spot("w_camo", start, *me.pos(start))
     c.on_me("w_ms", start, until=start + tick(P["w_inv"]), under=True)
     x = me.pos(start)[0]
     me.moves.append((start, start + 700, x, x - 30))
@@ -255,12 +261,12 @@ def showcase(out, z=3):
     c.wait(300)
     # R Comeuppance: the lock sigil, the channel, five heavy rounds, Darius falls
     start = c.t
-    c.at_spot("r_lock", start, me.pos(start)[0], gy)
+    c.at_spot("r_lock", start, *me.pos(start))
     c.a("ult", tick(8))
     c.a("ult_ch", tick(P["r_ch"] - 8), loop=True)
     for k in range(P["r_n"]):
         ts = c.t + tick(k * P["r_gap"])
-        t1 = c.fly("r_bullet", ts, me.pos(ts)[0] + 28, dx_, gy + GUN_Y + 2, P["r_speed"])
+        t1 = c.fly("r_bullet", ts, me.pos(ts)[0] + 28, dx_, me.pos(ts)[1] + GUN_Y + 2, P["r_speed"], gy + GUN_Y + 2)
         c.on("r_hit", t1)
         d.flinches.append(t1)
         if k == P["r_n"] - 1:
