@@ -326,7 +326,7 @@ RESTYLE = {
     # 像素高」, then on the step-1 guide 「太模糊了 起码PPU1.5」: Codex's step-1 take A-1 cut to 57 rows hair to soles) by
     # tools/art/rig_wukong.py, so no proportion or density change here; the outer outline grown a square like the others;
     # the face point between his green eyes
-    "wukong": dict(ppu=1.2, edge=1, face_to=(3, -27)),   # 10-18 redo: Codex's new design and actions (rig_frames_1018.py), drawn at 85 % already
+    "wukong": dict(ppu=1.2, edge=1, face_to=(3, -27), shared_palette=True),   # one palette over every frame (「猴子gif图里面怎么一直变色？」)   # 10-18 redo: Codex's new design and actions (rig_frames_1018.py), drawn at 85 % already
     # league_cassiopeia (#128): posed from the design's own squares at the user's 1.3 squares a game pixel (「44 ppu1.3 A」:
     # Codex's step-1 take A-2 cut to 57 rows crest to ground) by tools/art/rig_cassiopeia.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point between her eyes
