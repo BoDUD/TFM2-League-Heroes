@@ -164,7 +164,7 @@ RESTYLE = {
     # picked from a sheet = PPU 1.38 at his 115 %), so no proportion or density change here; the outer outline grown a
     # square like the others; drawn 115 % by league.dll (hd.rs SIZES) round the frame's centre, so every frame lifted
     # 11.5 x 1.38 x (1 - 1 / 1.15) = 2.1 -> 2 rows (the ground row stays on the ground)
-    "malzahar": dict(ppu=1.38, edge=1, lift=2, face_to=(4, -39)),
+    "malzahar": dict(ppu=1.38, edge=1, lift=2, face_to=(4, -41)),   # (4,-41) since #347 (2026-10-18): the eyes were on the top row
     # league_milio (#105): Codex's drafts read on their own grid and brought to the user's 2.2 squares a game pixel by
     # tools/art/rig_milio.py (the boy 32 game rows from his hair top to his soles; one head brought down once for every
     # frame), so no proportion or density change here; the outer outline grown a square like the others; the face
@@ -260,13 +260,16 @@ RESTYLE = {
     # tools/art/rig_xinzhao_hd.py (his run League's Runbase on drawn legs, the design's boots); the W slash and the R tell
     # baked into his frames (orig/xinzhao_<tag>.over.png) laid on after the outline (fx); the face point at the top of his
     # hair, under the topknot (tfm2_ase.py face: the head 3.9 px ahead of the pivot)
-    "xinzhao": dict(ppu=1.5, edge=1, face_to=(5, -36), fx=True),
+    # face moved to (4,-34) on 2026-10-18 (#351): (5,-36) framed mostly hair, the eyes on the portrait's bottom rows
+    "xinzhao": dict(ppu=1.5, edge=1, face_to=(4, -34), fx=True),
     # Kai'Sa (2026-10-18): Codex's chibi picture read back on its own grid (42 x 61), posed after League's own clips by
     # tools/art/rig_kaisa_hd.py (the run's legs Codex's redraw, assets/source/kaisa/codex_walk); her shot, Q, W and R
     # effects baked into her frames (orig/kaisa_<tag>.over.png / .under.png) laid on after the outline (fx); the face
     # point at the top of her hair, between the pods (design row 8, 36.6 px over the soles; tfm2_ase.py face takes the
     # pods' tips for the crown)
-    "kaisa": dict(ppu=1.45, edge=1, face_to=(1, -36), fx=True),
+    # face moved to (1,-34) on 2026-10-18: (1,-36) framed two thirds hair in the hd_idle, the eyes on rows 6-7 and the
+    # chin cut; (1,-34) puts the eyes on the box's middle row
+    "kaisa": dict(ppu=1.45, edge=1, face_to=(1, -34), fx=True),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
