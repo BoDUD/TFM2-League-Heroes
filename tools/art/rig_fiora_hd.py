@@ -12,10 +12,12 @@ clip frame by frame the way league_camille was (tools/art/rig_camille_hd.py; its
 Parts (design squares, 60 rows hair to soles): her sword arm (the gold bracer and the glove, out from the shoulder plate
 to the hilt) turned about its shoulder after League's right shoulder-to-hand, and the rapier (the gold guard with its gem
 and the 31-square blade) turned about her glove after League's weapon, both only losslessly (as drawn, mirrored or
-quarter-turned: the one of the 8 nearest League's turn); both legs (thigh, gold knee, shin and boot) as drawn; the upper
+quarter-turned: the one of the 8 nearest League's turn); both legs (thigh, gold knee, shin and boot) as drawn in the
+idle, hit, ult and death, drawn on League's bones in the steps and lunges (LEG_TAGS: see the legs' section); the upper
 body (head, shoulder plates, the white top, the hip armour, the cape and the hand on it) moved with League's pelvis, at
 most a column off the hips (Driver max_lean). skill_fx1 is skill with the Q dash under it (assets/source/native/
-fiora_bake.json, Rig.bake). The death ends lying: the figure a quarter turn.
+fiora_bake.json, Rig.bake); its two dash frames are the figure a quarter turn (DASH). The death ends lying: the
+figure a quarter turn.
 """
 import argparse
 import json
@@ -60,8 +62,7 @@ IDLE_SINK = [0, 0, 1, 1, 1, 1, 0, 0]
 # the blade: from the guard's mouth (EXIT, square edges, on the line between its two rows) BLADE_LEN squares on
 BLADE_X0, EXIT, BLADE_LEN = 56, (56.0, 23.0), 31
 ARM_FLAT = 60
-GUARD45 = os.path.join(R.ROOT, "assets", "source", HERO, "hd", "guard45.png")
-SWORD_STEP = 45 if os.path.isfile(R.lp(GUARD45)) else 90
+SWORD_STEP = 90                              # level or upright (Codex's 45-degree guard lost the gem and the cup: not used)
 BLADE_HI, BLADE_LO = (250, 250, 252), (168, 176, 198)     # design_fiora_hd.BLADE: the white edge, the blue-grey face
 
 
@@ -71,7 +72,7 @@ class Design(XZ.Design):
     (design_fiora_hd draws it so) - drawn again square by square along it, two squares across, the white edge up (left
     when it stands upright). The user, 2026-10-18: 「剑别歪啊 歪的地方全部修复」 - at League's own angle the blade came out
     in uneven steps and bent off a guard that can only take quarter turns; so guard and blade always point the same way,
-    level, upright or (once Codex's 45-degree guard is in, GUARD45) on the diagonal."""
+    level or upright."""
 
     def snap(self, name, angle):
         if name == "rapier":
@@ -240,16 +241,103 @@ def idle_frame(rig, legs, sink):
 
 # ------------------------------------------------------------------------------------------------- the legs
 # League's actions step, lunge and crouch on legs the rigid design legs cannot pose losslessly (league_kaisa's walk:
-# every slid, cut or row-swung leg read as 「变形」): Codex draws the legs of these tags along guides
-# (tools/art/pack_fiora_legs.py), tools/art/import_fiora_legs.py reads them back to hd/legs_<tag>.png; the body is
-# this rig's (the frame without its legs, moved whole so the lower sole stands on the ground or as high as League
-# leaps). The Q's two dash frames Codex draws whole (legs_shift.json "whole").
+# every slid, cut or row-swung leg read as 「变形」), and Codex's drawn legs changed width frame to frame (the user:
+# 「腿部变形了吧？」, memory codex-legs-deform). So the legs are drawn on League's bones the way league_xinzhao's
+# approved run is (rig_xinzhao_hd.leg_cells): each thigh and shin a band of constant width whose squares take the
+# design's own colours across the leg (one row of the design's thigh / shin, left to right), the design's gold knee
+# guard stamped whole at the knee and the design's own boot stamped whole at the ankle - never turned, slid or
+# resized. Thigh THIGH, shin SHIN_LEN squares (the design's), the shin never further than SHIN_BACK / SHIN_FWD degrees
+# from upright (flatter put the upright boot beside the leg).
 LEG_TAGS = ["run", "attack", "attack_e", "skill", "skill2"]
-THIGH, SHIN = 8.0, 16.0                       # the design's hip -> knee and knee -> sole, squares
+THIGH = 8.0
+SHIN_LEN = 11.0
+SHIN_BACK, SHIN_FWD = -70.0, 50.0
+# per leg: the band's top on the hip row (its axis), the design's knee and ankle points, the profile rows (row, first
+# column, end column), the knee guard's box (its gold squares stamped) and the boot's first row (the leg's squares
+# from it down are the boot)
+LEGS = {
+    "near": dict(leg="fl", hip=(31.5, 36.0), knee=(32.5, 44.0), ankle=(30.5, 55.0), thigh_row=(38, 28, 35),
+                 shin_row=(48, 28, 33), knee_box=(29, 41, 35, 46), boot_row=55),
+    "far": dict(leg="bl", hip=(22.0, 36.0), knee=(20.5, 44.0), ankle=(15.0, 54.0), thigh_row=(38, 19, 25),
+                shin_row=(48, 15, 20), knee_box=(16, 41, 23, 46), boot_row=54),
+}
+# Q's dash (League flies low, the body almost flat): the design a quarter turn clockwise, sword arm and rapier raised
+# first so they point ahead (lossless, the way league_kaisa's R flight was accepted), DASH_LIFT rows off the ground
+DASH = {"skill": [1, 2]}
+DASH_LIFT, DASH_DX = 4, 4
+
+
+def leg_parts(D):
+    """{"near" | "far": dict(thigh profile, shin profile, knee (offsets, colours), boot (offsets, colours), drop)} from
+    the design's own squares (drop: the ankle to the boot's sole)."""
+    out = {}
+    d = D.d0
+    yy = np.arange(D.H)[:, None] * np.ones((1, D.W), int)
+    for key, L in LEGS.items():
+        leg = np.zeros((D.H, D.W), bool)
+        for part in ("_thigh", "_shin"):
+            leg |= XZ.square_mask(D, D.prop_masks[L["leg"] + part])[0]
+        y, a, b = L["thigh_row"]
+        thigh = d[y, a:b].copy()
+        y, a, b = L["shin_row"]
+        shin = d[y, a:b].copy()
+        x0, y0, x1, y1 = L["knee_box"]
+        box = d[y0:y1, x0:x1]
+        gold = (box[..., 3] > 0) & (box[..., 0].astype(int) > 120) & (box[..., 2].astype(int) < 140)
+        ys, xs = np.nonzero(gold)
+        knee = (np.stack([xs + x0 + 0.5 - L["knee"][0], ys + y0 + 0.5 - L["knee"][1]], 1), box[ys, xs])
+        ys, xs = np.nonzero(leg & (yy >= L["boot_row"]))
+        boot = (np.stack([xs + 0.5 - L["ankle"][0], ys + 0.5 - L["ankle"][1]], 1), d[ys, xs])
+        out[key] = dict(thigh=thigh, shin=shin, knee=knee, boot=boot, drop=float(boot[0][:, 1].max()) + 0.5)
+    return out
+
+
+def band(cells, A, B, profile):
+    """The squares within half the profile's width of the segment A -> B into `cells` ({(x, y): rgba}), each the
+    profile's colour at its place across the band (left to right looking down the leg)."""
+    import math
+    n_ = len(profile)
+    hw = n_ / 2.0 - 0.01
+    vx, vy = B[0] - A[0], B[1] - A[1]
+    n = math.hypot(vx, vy) or 1e-9
+    for y in range(int(min(A[1], B[1])) - n_, int(max(A[1], B[1])) + n_):
+        for x in range(int(min(A[0], B[0])) - n_, int(max(A[0], B[0])) + n_ + 1):
+            px, py = x + 0.5, y + 0.5
+            t = ((px - A[0]) * vx + (py - A[1]) * vy) / n
+            if t < -0.5 or t > n + 0.5:
+                continue
+            sd = (px - A[0]) * (vy / n) - (py - A[1]) * (vx / n)
+            if abs(sd) <= hw:
+                i = int(np.floor(sd + n_ / 2.0))
+                cells[(x, y)] = profile[max(0, min(n_ - 1, i))]
+
+
+def leg_layer(rig, part, H, K, A):
+    """One leg on the canvas: thigh H -> K and shin K -> A as bands, the knee guard and the boot stamped, an outline
+    ring round it."""
+    cells = {}
+    band(cells, H, K, part["thigh"])
+    band(cells, K, A, part["shin"])
+    for (off, cols), at in ((part["knee"], K), (part["boot"], A)):
+        tx = np.floor(at[0] + off[:, 0]).astype(int)
+        ty = np.floor(at[1] + off[:, 1]).astype(int)
+        for x, y, c in zip(tx, ty, cols):
+            cells[(int(x), int(y))] = c
+    out = rig.canvas()
+    line = np.array((*rig.D.outline, 255), np.uint8)
+    for (x, y) in list(cells):
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            q = (x + dx, y + dy)
+            if q not in cells and 0 <= q[1] < out.shape[0] and 0 <= q[0] < out.shape[1]:
+                out[q[1], q[0]] = line
+    for (x, y), c in cells.items():
+        if 0 <= y < out.shape[0] and 0 <= x < out.shape[1]:
+            out[y, x] = c
+    return out
 
 
 def spied(drv, j):
-    """drv.frame(j) and its layers: (the frame, the frame without the legs, {leg name: (dx, dy)})."""
+    """drv.frame(j)'s layers: (the frame without the legs, {leg name: (dx, dy)})."""
     seen = []
     orig = R.compose
 
@@ -258,74 +346,69 @@ def spied(drv, j):
         return orig(rig_, layers)
     R.compose = spy
     try:
-        full = drv.frame(j)
+        drv.frame(j)
     finally:
         R.compose = orig
     layers = seen[-1]
     rest = [(n, o) for n, o in layers if not (isinstance(n, str) and n.endswith(("_thigh", "_shin")))]
     offs = {n: (o.get("dx", 0), o.get("dy", 0)) for n, o in layers if isinstance(n, str) and n.endswith("_thigh")}
-    return full, R.compose(drv.rig, rest), offs
+    return R.compose(drv.rig, rest), offs
 
 
-def guides(rig, drv, j, offs):
-    """Per leg (near = front, far = back): hip, knee, sole in canvas squares - the hip where the rig puts the design's
-    hip, League's thigh and shin directions at the design's lengths."""
-    out = {}
+def drawn_frame(rig, drv, joints, parts, j):
+    """The frame on drawn legs: the rig's body without its legs, the legs on League's thigh and shin directions from
+    the hips the rig puts them at, the figure set so the lower boot stands on the ground (lifted as far as League's
+    lower foot is above its design pose's: a leap)."""
+    import math
+    bare, offs = spied(drv, j)
+    geo = {}
     for lg in (FRONT, BACK):
-        sd = drv.side[lg["side"]]
+        key = lg["side"]
+        L = LEGS[key]
+        sd = drv.side[key]
         dx, dy = offs.get(lg["name"] + "_thigh", (0, 0))
-        hx, hy = rig.ox + lg["hip"][0] + dx, rig.oy + lg["hip"][1] + dy
+        H = np.array((rig.ox + L["hip"][0] + dx, rig.oy + L["hip"][1] + dy))
         h, k, f = (np.array(j[f"{sd}_{n}"][:2], float) for n in ("hip", "knee", "foot"))
-        t = k - h
-        b = f - k
-        t = t / (np.linalg.norm(t) or 1) * THIGH
-        b = b / (np.linalg.norm(b) or 1) * SHIN
-        knee = (hx + t[0], hy + t[1])
-        out[lg["side"]] = ((hx, hy), knee, (knee[0] + b[0], knee[1] + b[1]))
-    return out
-
-
-def grounded(rig, drv, joints, j, bare, g):
-    """The frame and its guides moved up or down whole so the lower sole stands on the ground - lifted as far as
-    League's lower foot is above where it is in the design pose (a leap); crumbs of the body the legs' cut left alone
-    (under 12 squares) go."""
-    op = bare[..., 3] > 0
-    lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
-    if n > 1:
-        sz = ndimage.sum(op, lbl, range(1, n + 1))
-        for k in range(1, n + 1):
-            if sz[k - 1] < 12:
-                bare[lbl == k] = 0
+        t = (k - h) / (np.linalg.norm(k - h) or 1)
+        s_ang = math.degrees(math.atan2(f[0] - k[0], f[1] - k[1]))       # from straight down, + forward
+        s_ang = max(SHIN_BACK, min(SHIN_FWD, s_ang))
+        K = H + t * THIGH
+        A = K + SHIN_LEN * np.array((math.sin(math.radians(s_ang)), math.cos(math.radians(s_ang))))
+        geo[key] = (H, K, A)
     d = joints["design"]
     feet = min(-j["l_foot"][1], -j["r_foot"][1])
     feet0 = min(-d["l_foot"][1], -d["r_foot"][1])
     lift = max(0.0, feet - feet0) * drv.s
-    low = max(p[2][1] for p in g.values())
+    low = max(geo[k][2][1] + parts[k]["drop"] for k in geo)
     dy = int(round(rig.GY - lift - low))
-    bare = np.roll(bare, dy, axis=0)
+    out = rig.canvas()
+    for key in ("far", "near"):
+        H, K, A = (v + (0, dy) for v in geo[key])
+        lay = leg_layer(rig, parts[key], H, K, A)
+        m = lay[..., 3] > 0
+        out[m] = lay[m]
+    body = np.roll(bare, dy, axis=0)
     if dy > 0:
-        bare[:dy] = 0
+        body[:dy] = 0
     elif dy < 0:
-        bare[dy:] = 0
-    g = {k: tuple((x, y + dy) for x, y in pts) for k, pts in g.items()}
-    return bare, g
+        body[dy:] = 0
+    m = body[..., 3] > 0
+    out[m] = body[m]
+    out[rig.GY:] = 0
+    return out
 
 
-def leg_guides(rig, drv, joints, j):
-    """(the frame without its legs, grounded; {near | far: (hip, knee, sole)} in canvas squares)."""
-    full, bare, offs = spied(drv, j)
-    return grounded(rig, drv, joints, j, bare, guides(rig, drv, j, offs))
-
-
-def codex_legs(tag):
-    """hd/legs_<tag>.png: the tag's leg layers, canvas-sized, side by side."""
-    return np.asarray(Image.open(lp(os.path.join(R.ROOT, "assets", "source", HERO, "hd", f"legs_{tag}.png"))).convert("RGBA"))
+def dash_frame(rig, drv, j):
+    """Q's dash: the figure, sword arm and rapier raised, a quarter turn clockwise (head ahead), off the ground."""
+    up = drv.frame(j, dict(keep=True, arm=90, weapon=90))
+    return R.lie(rig, up, k=-1, dx=DASH_DX, sink=-DASH_LIFT)
 
 
 def frames(rig, joints):
     drv = driver(rig, joints)
     D = rig.D
     legs = {lg["name"]: leg_piece(D, lg) for lg in (FRONT, BACK)}
+    parts = leg_parts(D)
     sheet = R.sheet_of(HERO)
     bake = json.load(open(lp(os.path.join(R.ROOT, "assets", "source", "native", f"{HERO}_bake.json")), encoding="utf-8"))
     baked = {e["into"] for e in bake["items"] if "from" in e}
@@ -337,26 +420,9 @@ def frames(rig, joints):
         rows = R.fit_rows(rows, len(ms))
         if tag == "idle":
             fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)]) for i in range(len(ms))]
-        elif tag in LEG_TAGS and os.path.isfile(lp(os.path.join(R.ROOT, "assets", "source", HERO, "hd", f"legs_{tag}.png"))):
-            strip = codex_legs(tag)
-            cw = strip.shape[1] // len(rows)
-            info = json.load(open(lp(os.path.join(R.ROOT, "assets", "source", HERO, "hd", "legs_shift.json"))))
-            shift, whole = info[tag], info["whole"][tag]
-            fr = []
-            for i, r in enumerate(rows):
-                bare, _ = leg_guides(rig, drv, joints, r["j"])
-                dr = shift[i]
-                if dr:
-                    bare = np.roll(bare, dr, axis=0)
-                    if dr > 0:
-                        bare[:dr] = 0
-                    else:
-                        bare[dr:] = 0
-                can = strip[:, i * cw:(i + 1) * cw].copy()
-                if not whole[i]:                  # a frame Codex drew whole keeps its own body (import_fiora_legs)
-                    m = bare[..., 3] > 0
-                    can[m] = bare[m]
-                fr.append(can)
+        elif tag in LEG_TAGS:
+            fr = [dash_frame(rig, drv, r["j"]) if i in DASH.get(tag, ()) else drawn_frame(rig, drv, joints, parts, r["j"])
+                  for i, r in enumerate(rows)]
         else:
             fr = [drv.frame(r["j"]) for r in rows]
         if tag == "hit":
