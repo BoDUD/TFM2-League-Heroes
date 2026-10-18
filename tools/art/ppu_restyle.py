@@ -265,10 +265,11 @@ RESTYLE = {
     # Codex's step-1 take A-2 cut to 60 rows) by tools/art/rig_jarvaniv.py, so no proportion or density change here;
     # the outer outline grown a square like the others; the face point between his eyes under the helmet's brim
     "jarvaniv": dict(ppu=1.5, edge=1, face_to=(1, -32)),
-    # league_ziggs (#124): posed from the design's own squares at the user's 1.5 squares a game pixel (「游戏里 32 像素高」,
-    # Codex's step-1 take A-1 cut to 48 rows) by tools/art/rig_ziggs.py, so no proportion or density change here; the
+    # league_ziggs (#124): posed from the design's own squares at 1.5 squares a game pixel (「游戏里 32 像素高」, Codex's
+    # step-1 take A-1 cut to 48 rows) by tools/art/rig_ziggs.py, then brought to 1.2 here (the user, 2026-10-18, on the
+    # game: 「太高清了 降低点像素」 - shown 1.5 / 1.3 / 1.2 / 1.0 by tools/art/review_ziggs_ppu.py: 「降到 PPU 1.2」); the
     # outer outline grown a square like the others; the face point between his goggles
-    "ziggs": dict(ppu=1.5, edge=1, face_to=(2, -26)),
+    "ziggs": dict(ppu=1.2, edge=1, face_to=(2, -26)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
