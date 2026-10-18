@@ -60,7 +60,7 @@ ORIG = os.path.join(ROOT, "assets", "source", "ppu", "orig")
 GAME_ROWS = 36                    # the user's pick: crest top to claw tips
 FEET = 11                         # 1x rows from the pivot down to the ground row
 ORDER = ["idle", "run", "attack", "skill", "skill_q2", "bite", "skill2", "skill2_up", "ult", "ult_hit", "hit", "dead",
-         "b_idle", "b_run"]
+         "b_idle", "b_run", "b_hit"]
 
 
 def load(path):
@@ -246,7 +246,8 @@ def flash(a, k=0.55):
 
 # ------------------------------------------------------------------------------------------------- the run
 RUN_MS = 90
-RUN_SWING = 4                                         # squares each way
+RUN_SWING = 4                                         # squares each way (6 tried in the 2026-10-19 frame audit: the
+                                                      # front leg slanted into a thin line - a sheared leg)
 RUN_LIFT = 2
 
 
@@ -275,9 +276,10 @@ def frames():
     out["idle"] = [(pose_a(sink=b, mouth=1 if b == 2 else 0), IDLE_MS) for b in breath]
     out["run"] = [(run_frame(i), RUN_MS) for i in range(8)]
     # the bite-swipe: the kit's hit on tick 11 = 183 ms -> frame 3 (from 180 ms)
-    out["attack"] = [(pose_a(dx=-2, sink=1), 100), (pose_a(dx=2, mouth=2, legs={"ff": (2, 2, 1)}), 80),
-                     (pose_a(dx=4, sink=1, legs={"ff": (4, 3, 0)}), 100), (pose_a(dx=2, legs={"ff": (2, 1, 0)}), 90),
-                     (pose_a(), 63)]
+    # (2026-10-19 frame audit: the drawing back and the lunge half as wide again, a recovery frame more: 6 frames)
+    out["attack"] = [(pose_a(dx=-3, sink=1), 90), (pose_a(dx=3, mouth=2, legs={"ff": (3, 3, 1)}), 80),
+                     (pose_a(dx=6, sink=1, legs={"ff": (6, 4, 0)}), 100), (pose_a(dx=4, legs={"ff": (4, 2, 0)}), 70),
+                     (pose_a(dx=2, legs={"ff": (2, 1, 0)}), 50), (pose_a(), 43)]
     # Queen's Wrath (League's spell1 leaps; a hop here, nothing pitched): crouch, the hop with the mouth open and the front
     # claws reaching, the slam forward (q_hit tick 10 = 167 ms -> frame 3), back
     out["skill"] = [(pose_a(dx=-1, sink=2), 100),
@@ -307,13 +309,18 @@ def frames():
     out["hit"] = [(shift(pose_a(), -2, 0), 90), (shift(pose_a(), -1, 0), 120)]
     # death: League's RekSai_death digs her into the ground - a flinch, a crouch, down head first, the heap left
     heap = pose_heap()
-    out["dead"] = [(shift(pose_a(), -2, 0), 120), (pose_a(dx=-1, sink=2, mouth=1), 120), (pose_a(under=14), 120),
-                   (pose_a(under=30), 120), (heap, 300), (heap.copy(), 400)]
+    # (8 frames since the 2026-10-19 frame audit: two more steps of the dig)
+    out["dead"] = [(shift(pose_a(), -2, 0), 120), (pose_a(dx=-1, sink=2, mouth=1), 110), (pose_a(under=7), 80),
+                   (pose_a(under=14), 90), (pose_a(under=22), 80), (pose_a(under=30), 100), (heap, 300),
+                   (heap.copy(), 400)]
     out["b_idle"] = [(pose_b(sink=s), IDLE_MS) for s in breath]
     out["b_run"] = [(pose_b(sink=s, lean=ln), RUN_MS) for s, ln in
                     zip([0, 1, 2, 1, 0, 1, 2, 1], [0, 1, 1, 0, 0, 1, 1, 0])]
+    # hit while burrowed (the add-on plays it for `hit` under the ground: the hit showed her out of it)
+    out["b_hit"] = [(shift(pose_b(), -2, 0), 90), (shift(pose_b(), -1, 0), 120)]
     done = {t: [(tidy(a), ms) for a, ms in out[t]] for t in ORDER}
-    done["hit"][0] = (flash(done["hit"][0][0]), done["hit"][0][1])
+    for t in ("hit", "b_hit"):
+        done[t][0] = (flash(done[t][0][0]), done[t][0][1])
     return done
 
 

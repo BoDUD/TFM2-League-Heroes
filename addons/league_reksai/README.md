@@ -17,7 +17,7 @@ R 虚空猛冲（只打被她伤过的英雄，目标被控住或有队友一起
 - `mod.override_info` 把主包的雷克塞换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_reksai.py` 的 `native=1` 生成，主包的雷克塞改了就重跑）：
   被动是本包的 `league_reksai:fury`（数字在 `passive.params`）；数据里的守望不再给大招上膛（`league_reksai_r_ok` 只由本包给）；普攻、技能2、大招的说明开头加【附加包】。
 - **整身遁地**（`src/view.rs`）：照芮尔 / 杰斯 / 奈德丽附加包的显示钩子，游戏每帧更新显示时，名字是 `league_reksai`、身上有本包的遁地 buff `league_reksai_burrow` 的实体，
-  正在播的 `idle / run` 换成图里的 `b_idle / b_run`（高清帧由 league.dll 自动换成 `hd_b_*`）。出招、挨打、阵亡照主包（一有敌人靠近她就已经破土了）。
+  正在播的 `idle / run / hit` 换成图里的 `b_idle / b_run / b_hit`（高清帧由 league.dll 自动换成 `hd_b_*`；挨打是 0.1.2 加的：远处的子弹、防御塔打到地底的她）。出招、阵亡照主包（一有敌人靠近她就已经破土了）。
 - **遁地**：被动每 tick 看她身边——34000 内没有任何敌方单位、60000 内看不见敌方英雄、不在 W / R 里、没被硬控——连续赶路 30 tick 就挂上遁地 buff（+20% 移速），
   身上有怒气（主包的 `league_reksai_f1..f4`）就按层数回血（满怒 = W 的 `w_heal + w_heal_r%` 攻击力）并清掉怒气；条件一破就摘掉。
 - **隧道**：主包数据在 W 钻下去时挂 `league_reksai_w_go`、破土时挂 `league_reksai_w_land`；被动记下起点和落点，相隔 15000 以上就算一条隧道。入口每 24 tick 重播一次
