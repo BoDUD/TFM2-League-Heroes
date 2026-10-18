@@ -4811,6 +4811,14 @@
       "tag": "w_ms",
       "repeat": true,
       "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_akshan_w_mark",
+      "anim": "asset/league/effects/league_akshan_fx",
+      "tag": "w_mark",
+      "repeat": true,
+      "z": 3
     }
   ],
   "passive": {

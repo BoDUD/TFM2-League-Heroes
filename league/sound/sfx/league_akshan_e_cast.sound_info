@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_akshan_sfx_e",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_akshan_sfx_vo_e",
+      "volume": 0.85
+    }
+  ]
+}

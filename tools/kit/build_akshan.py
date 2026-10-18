@@ -329,7 +329,9 @@ def build(p, native=False):
                E("w_camo", BIG, 2, **LATE), E("r_lock", BIG, 2, **LATE)]
     views_p = [Pj("a_shot"), Pj("a_shot2"), Pj("q_out"), Pj("q_back"), Pj("e_shot"), Pj("r_bullet")]
     views_b = [{"type": "Animated", "name": n("p_sh"), "anim": FX, "tag": "p_sh", "repeat": True, "z": 2},
-               {"type": "Animated", "name": n("w_ms"), "anim": FX, "tag": "w_ms", "repeat": True, "z": -1}]
+               {"type": "Animated", "name": n("w_ms"), "anim": FX, "tag": "w_ms", "repeat": True, "z": -1},
+               # the add-on's Scoundrel mark over an enemy champion (league_akshan; never laid by the main pack)
+               {"type": "Animated", "name": n("w_mark"), "anim": FX, "tag": "w_mark", "repeat": True, "z": 3}]
     kit = {
         "id": ID, "category": "Range", "tags": ["AD", "Range"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
