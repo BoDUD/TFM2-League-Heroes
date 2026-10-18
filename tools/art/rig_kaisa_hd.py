@@ -14,9 +14,8 @@ clawed hand with its magenta palm) and her far arm, each turned about its should
 or quarter-turned: the one of the 8 nearest League's shoulder-to-hand turn - rig_xinzhao_hd.Design.snap; the near one
 as ppu_rig.Driver's arm, the far one as an `attach`); both legs as drawn, never turned in the actions; the upper body
 (head, hair, the Icathian Rain pods, the suit) moved with League's pelvis and leaning with its chest, never turned.
-The run is League's kaisa_run (poses_hd.json, yaw 45 like the 3/4 design) on the design's own two legs swung about the
-hips by whole rows (the boots moved whole; every row as drawn: 「腿部别变形」), the feet passing each other front to back
-twice a cycle (「交叉步」): the near foot lands ahead with the legs crossed and the far heel kicked up behind it. The idle: the upper body and the
+The run's legs are Codex's redraw (hd/walk_legs.png, tools/art/import_kaisa_walk.py: crossing steps with bent knees in
+the design's leg colours, 「让codex帮忙把」) under the design's own upper body and arms. The idle: the upper body and the
 arms sinking whole rows over the standing legs (breathing, the sheet's 8 frames). The shot, Q cast, W charge / muzzle
 and R trail stay drawn into the frames as before (assets/source/native/kaisa_bake.json, Rig.bake); R keeps the old
 split: ult = League's first three R frames, ult_dash = the fourth; she crouches (the upper body sunk over the legs),
@@ -63,24 +62,15 @@ FAR = dict(name="fl", side="far", rigid=True, hip=E((30.0, 46.0)), knee=E((32.0,
                                 (26.6, 60.5), (28.5, 54.5), (26.6, 50.5)]])
 IDLE_SINK = [0, 0, 1, 1, 2, 2, 1, 1]         # rows the upper body and arms sink over the legs, the sheet's 8 idle frames
 
-# the run (the user: 「走路好好做 腿部别变形」; 「走路腿变形啊 看不出吗」 at legs lifted by losing their top rows in view;
-# 「没有明显换腿啊」「看起来像平移」 at whole legs only slid; 「没有前后换腿交叉步的感觉」 at feet that never passed each other):
-# each leg swings about its hip by whole design rows - the thigh and knee rows (LEG_TOP..LEG_BOOT-1) each moved on a
-# straight line from the hip's columns to the foot's, the boot rows moved whole (never slid row by row:
-# league_xinzhao's 「脚严重变形啊」) - every row as drawn. Her boots stand 14.5 columns apart, so the near foot crosses in
-# front of the far one only with the hips brought in as far as her bare hip plates cover (near -1..+3, far -3..+1)
-# and the legs slanted up to 7 columns: after League's kaisa_run (poses_hd.json, yaw 45) the near foot passes the far
-# one in frames 1-3 (landing ahead in frame 2) and falls behind it in 5-7, so the order of the feet changes twice a
-# cycle. The far leg, then behind the near one, kicks its heel up (lifted whole, its top rows up under its plate and
-# hidden by the near thigh); a leg in view is never lifted (it would show shorter). League's two flights a cycle: the
-# whole figure off the ground in frames 0-1 and 4-5; the arms swing in a column while the near leg is back (out opens
-# a slit at the shoulder).
-# Per frame: near (hip columns, foot columns, rows lifted), far (...), rows the figure rises, near arm, far arm
-LEG_TOP, LEG_BOOT = 46, 55
-RUN = [((1, 3, 0), (-1, -3, 0), 1, 0, 0), ((3, 8, 0), (-3, -8, 2), 2, 0, 0),
-       ((3, 10, 0), (-3, -10, 4), 0, 0, 0), ((3, 8, 0), (-3, -8, 3), 0, 0, 0),
-       ((1, 3, 0), (-1, -3, 0), 1, 1, -1), ((-1, -2, 0), (1, 2, 0), 2, 1, -1),
-       ((-1, -4, 0), (1, 4, 0), 0, 1, -1), ((-1, -2, 0), (1, 2, 0), 0, 1, -1)]
+# the run: every row-moved or slid version of the design's rigid legs was rejected (「走路腿变形啊」 lifted by cut rows,
+# 「看起来像平移」 slid whole, 「没有前后换腿交叉步的感觉」 never crossing, 「有点变形啊」 swung by whole rows - her short legs
+# reach a crossing only stretched), so the user had Codex redraw the legs: 「让codex帮忙把」. Codex drew the 8 legs of
+# tools/art/pack_kaisa_walk.py's template (League's kaisa_run rhythm, the near foot crossing ahead in frame 3, knees
+# bent, heels kicked up) in the design's leg colours; tools/art/import_kaisa_walk.py read them back to hd/walk_legs.png.
+# Here only the legs are Codex's: the upper body and both arms are the design's own squares, risen as in the template
+# (League's two flights a cycle) and the arms swinging a column while the near leg is back.
+# Per frame: (rows the body rises, near arm columns, far arm columns)
+RUN = [(1, 0, 0), (2, 0, 0), (0, 0, 0), (0, 0, 0), (1, 1, -1), (2, 1, -1), (0, 1, -1), (0, 1, -1)]
 
 # R (League's kaisa_spell4_in / spell4 / spell4_out): she crouches, flies at her mark head first and lands crouched.
 # A crouch: League's frame (its arms) with the upper body and the arms sunk whole rows over the standing legs; the
@@ -204,33 +194,30 @@ def idle_frame(rig, legs, sink):
 
 
 # ------------------------------------------------------------------------------------------------- the run
-def swung(a, hip, foot, lift=0):
-    """A leg (leg_piece) swung by whole rows: its thigh and knee rows moved from `hip` to `foot` columns along a
-    straight line, its boot rows moved `foot` columns as one piece; lifted `lift` rows whole (its top rows up under the
-    hip plate)."""
-    top = np.nonzero(a[..., 3].any(1))[0].min()
-    boot = top + LEG_BOOT - LEG_TOP
-    out = np.zeros_like(a)
-    for r in range(top, boot):
-        out[r] = np.roll(a[r], hip + int(round((foot - hip) * (r - top) / (boot - top))), axis=0)
-    out[boot:] = np.roll(a[boot:], foot, axis=1)
-    if lift:
-        out = np.roll(out, -lift, axis=0)
-        out[:top] = 0
-    return out
+def walk_legs(D):
+    """hd/walk_legs.png (tools/art/import_kaisa_walk.py): 8 design-sized leg layers with spare columns either side."""
+    a = np.asarray(Image.open(lp(os.path.join(R.ROOT, "assets", "source", HERO, "hd", "walk_legs.png")))
+                   .convert("RGBA"))
+    fw = a.shape[1] // 8
+    return [a[:, i * fw:(i + 1) * fw] for i in range(8)], (fw - D.W) // 2
 
 
 def run_frames(rig, rows):
     D = rig.D
-    legs = {"near": leg_piece(D, NEAR), "far": leg_piece(D, FAR)}
+    legs, spare = walk_legs(D)
     out = []
     for i in range(len(rows)):
-        near, far, rise, na, fa = RUN[i % len(RUN)]
-        out.append(R.compose(rig, [("farm", dict(angle=0, about=SHOULDER_F, dx=fa, dy=-rise)),
-                                   (swung(legs["far"], *far), dict(dy=-rise)),
-                                   (swung(legs["near"], *near), dict(dy=-rise)),
-                                   ("upper", dict(dy=-rise)),
-                                   ("narm", dict(angle=0, about=SHOULDER_N, dx=na, dy=-rise))]))
+        rise, na, fa = RUN[i % len(RUN)]
+        can = R.compose(rig, [("farm", dict(angle=0, about=SHOULDER_F, dx=fa, dy=-rise))])
+        lg = legs[i % len(legs)]
+        x0 = rig.ox - spare
+        view = can[rig.oy:rig.oy + lg.shape[0], x0:x0 + lg.shape[1]]
+        m = lg[..., 3] > 0
+        view[m] = lg[m]
+        top = R.compose(rig, [("upper", dict(dy=-rise)), ("narm", dict(angle=0, about=SHOULDER_N, dx=na, dy=-rise))])
+        m = top[..., 3] > 0
+        can[m] = top[m]
+        out.append(can)
     return out
 
 
