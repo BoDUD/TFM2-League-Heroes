@@ -3,7 +3,7 @@
 
     python tools/art/preview_camille.py [--out docs/preview]
 
-  league_camille_frames.png     every animation, frame by frame, 3x on the arena colour
+  league_camille_frames.png     every animation's dense frames (hd_, PPU 1.5, as league.dll shows them)
   league_camille_effects.png    every effect animation, 3x
   league_camille_showcase.gif   a scripted fight against Garen and Darius, timed like the kit: she runs in and kicks
                                 Garen - Adaptive Defenses wraps her in its hex shield; Precision Protocol's first kick
@@ -30,6 +30,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_jinx import Follow  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -139,7 +140,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, at=None, to=None):
         nonlocal t
-        an = Anim(frames_of(cam, tag), t, at if at is not None else spot["x"], spot["y"], loop=loop,
+        an = Anim(dense(cam, tag, "camille", z), t, at if at is not None else spot["x"], spot["y"], loop=loop,
                   until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
@@ -262,14 +263,14 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, px, py, z)
 
     gaps = [tt for tt in range(0, int(end), step) if not any(an.frame(tt) is not None for an in body)]
     assert not gaps, f"Camille missing at {gaps[:10]} ms"
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -282,7 +283,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                               # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -300,8 +301,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                            os.path.join(args.out, "league_camille_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_camille_frames.png"), z=1))
     sp, bp = load(FX), load(BIG)
     print("effects", contact([(sp, t["name"], t["name"]) for t in sp.tags] +
                              [(bp, "e_land", "e_land"), (FieldView(bp), "r_field", "r_field (14 of 38)")],

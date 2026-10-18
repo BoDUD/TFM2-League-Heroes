@@ -102,6 +102,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // posed after League's own clips by tools/art/rig_kaisa_hd.py (the run's legs Codex's redraw), PPU 1.45 at her old 42
     // rows, so no SIZES row
     ("league_kaisa", 1.45, include_str!("../../../league/champions/league_kaisa#anim.fanim")),
+    // Camille (2026-10-18): Codex's design picture (assets/source/camille/PICTURE_PROMPT_PPU.md) read back on its own
+    // grid and cut to 69 rows, the upper body posed after League's own clips by tools/art/rig_camille_hd.py, the legs of
+    // her kicks and leaps Codex's drawing along League's guides, PPU 1.5 at her old 46 rows, so no SIZES row
+    ("league_camille", 1.5, include_str!("../../../league/champions/league_camille#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
