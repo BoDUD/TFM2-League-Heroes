@@ -33,7 +33,7 @@ import ppu_rig as R  # noqa: E402
 import pixel_down as PD  # noqa: E402
 
 HERO = "gangplank"
-PPU = 1.2
+PPU = 1.5
 SRC = os.path.join(R.ROOT, "assets", "source", "gangplank", "hd")
 P = 60                                          # padding round a design-sized layer
 
@@ -95,13 +95,14 @@ def pad(a):
 
 
 # ------------------------------------------------------------------------------------------------- the design's parts
-LEG_TOP = 42                                    # the lower legs from here down: the cuffs' top outline and the boots
+LEG_TOP = 52                                    # the lower legs from here down: the cuffs' top outline and the boots
                                                 # (the thighs stay on the body: moved, they slid under the sash -
                                                 # 「移动时腿部还是有点变形」)
-STAND = 21                                      # the column between the boots: the standing point
-GUN_PIVOT = (9.5, 10.5)                         # the cannon's middle (its mirror axis for a shot)
-ELBOW = (11.5, 23.5)                            # the near forearm's lower end: it turns about it
-SHOULDER = (28.5, 19.5)                         # the far shoulder: the sword arm turns about it
+STAND = 24                                      # the column between the boots: the standing point
+GUN_PIVOT = (11.5, 13.5)                        # the cannon's middle (its quarter turns)
+GUN_MIRROR = 12                                 # the column the cannon is mirrored about to point forward
+ELBOW = (12.5, 29.5)                            # the near forearm's lower end: it turns about it
+SHOULDER = (35.5, 22.5)                         # the far shoulder: the sword arm turns about it
 
 
 def cls_purple(d):
@@ -111,22 +112,21 @@ def cls_purple(d):
 
 def design():
     d = load("design.png")
-    # Codex's far boot lost its sole's outline row in the cut (row 48 is leather): close it on row 49
-    d[49, 23:31] = np.where(d[48, 23:31, 3:4] > 0, np.array([*PD.edge_colour(d), 255], np.uint8), d[49, 23:31])
     D = CutDesign(d, px=STAND)
     coat = cls_purple(d)
-    # the hand cannon with the glove on it (the hat's brim, rows 3-8 from column 11, stays with the head)
-    D.part("gun", D.box(9, 15, 2, 15) | D.box(6, 8, 2, 10))
-    # the near arm: the red wrap and the gold bracer under the cannon, out from the near shoulder
-    D.part("near_arm", D.box(15, 24, 5, 13))
+    # the hand cannon with the glove and the fingers on it (the hat's brim from column 15 on rows 7-11 and the hair from
+    # column 21 stay with the head)
+    D.part("gun", D.box(8, 18, 3, 16) | D.box(12, 18, 17, 20))
+    # the near forearm: the red wrap and the gold bracer under the cannon, down to the elbow
+    D.part("near_arm", D.box(19, 30, 7, 18))
     # the far arm: the upper arm down the torso's side and the red-wrapped forearm (turned about the far shoulder with
     # the fist and the cutlass for a swing); the fist and the hilt; the cutlass on its own
-    D.part("far_upper", D.box(19, 30, 28, 33))
-    D.part("far_hand", D.box(30, 35, 30, 36))
-    D.part("blade", D.box(35, 45, 34, 45) | D.box(36, 37, 33, 33))
+    D.part("far_upper", D.box(21, 37, 34, 41))
+    D.part("far_hand", D.box(37, 44, 37, 44))
+    D.part("blade", D.box(44, 56, 42, 56) | D.box(45, 47, 41, 41))
     # the lower legs: the gold cuff and the boot of each, the coat's purple left with the body
-    D.part("near_leg", D.box(LEG_TOP, 49, 9, 21) & ~coat)
-    D.part("far_leg", D.box(LEG_TOP, 49, 22, 30) & ~coat)
+    D.part("near_leg", D.box(LEG_TOP, D.H - 1, 12, 25) & ~coat)
+    D.part("far_leg", D.box(LEG_TOP, D.H - 1, 26, 38) & ~coat)
     D.part("body", D.rest())
     return D
 
@@ -161,8 +161,8 @@ class Form:
         self.rig = R.Rig(D, pad=rig_pad)
         L = {k: pad(D.layer(k)) for k in D.order}
         self.L = L
-        self.gun_fwd = hflip(L["gun"], 9)
-        self.blade_up = vflip(L["blade"], 35)
+        self.gun_fwd = hflip(L["gun"], GUN_MIRROR)
+        self.blade_up = vflip(L["blade"], 44)
         self.ref_holes = None
 
     def pose(self, crouch=0, whole=(0, 0), gun=(0, 0), gun_fwd=False, gun_rot=0, arm=None, hand=(0, 0), blade=None,
@@ -275,26 +275,30 @@ def frames_all(F):
     # reaches forward with the blade up (the user: the blade mirrored up from a fist at the hip read 「很奇怪 变形」),
     # moved down 4-7 rows so it leaves the shoulder line UNDER the beard (turned about the shoulder point alone its top
     # edge ran along the beard: 「左手攻击时候头部感觉很怪」), the head still; the chop down to its hanging place (frame 3, the hit on a_hit), stepping in; back
-    out["attack"] = [p(sword=1, sword_at=(-1, 7)), p(sword=1, sword_at=(0, 4)),
+    out["attack"] = [p(sword=1, sword_at=(-1, 6)), p(sword=1, sword_at=(0, 3)),
                      p(crouch=1, whole=(1, 0)), p(crouch=1, whole=(1, 0)), p()]
-    # Q Parrrley (League's Gangplank_Spell1: the arm straight out, the pistol fired forward, the kick throws it up): the
-    # near forearm turned flat (a quarter about its lower end) and held out across the chest, the cannon mirrored to
-    # point forward in its hand at shoulder height; the shot (frame 3, q_rel), the kick (the cannon turned up), back
-    aim = dict(arm_rot=3, arm=(3, -3), gun_fwd=True, gun=(22, 10))
-    kick = dict(arm_rot=3, arm=(3, -3), gun_fwd=True, gun_rot=1, gun=(19, 7))
-    out["skill"] = [p(**aim), p(whole=(1, 0), **aim), p(whole=(1, 0), **aim), p(**kick), p()]
+    # Q Parrrley (League's Gangplank_Spell1: the pistol brought down and held in front of the chest, fired forward):
+    # the red sleeve turned flat about the elbow (a quarter, lossless) and the cannon mirrored to point forward in the
+    # glove at its end, under the beard (higher, it covered the braid and the chin - 「左手攻击时候头部感觉很怪」); the
+    # shot (frame 3, q_rel), the recoil back a square, back on the shoulder. League's kick (the pistol thrown up) is left
+    # out: turned up in front of him the cannon covered the mouth.
+    aim = dict(arm_rot=3, arm=(7, 1), gun_fwd=True, gun=(22, 13))
+    out["skill"] = [p(**aim), p(whole=(1, 0), **aim), p(whole=(1, 0), **aim),
+                    p(arm_rot=3, arm=(6, 1), gun_fwd=True, gun=(21, 13)), p()]
     # E Powder Keg (League's Gangplank_Spell3: a keg set down with a stoop): he bends at the knees as he puts it down (frame 3, e_rel - the keg itself is thrown by the kit at the enemy's feet), up again
     # (the arms go down with the body: a fist moved off its forearm pulled the wrist apart - 「左手...变形」)
     out["skill2"] = [p(crouch=1), p(crouch=2), p(whole=(1, 0), crouch=2), p(crouch=1), p()]
-    # W Remove Scurvy (League's Gangplank_Spell2: a bite of citrus): the near hand a square nearer the mouth (never over
-    # the face), a bite (frame 2-3, w_rel; the fruit is the effect w_cast), chewing, back
-    out["skill_w"] = [p(crouch=1, gun=(1, 0)), p(crouch=2, gun=(1, 0)), p(gun=(1, 0)), p(crouch=1), p()]
+    # W Remove Scurvy (League's Gangplank_Spell2: a bite of citrus): his near hand is at his mouth already - he bows into
+    # the bite and chews (frames 2-3, w_rel; the fruit is the effect w_cast); the hand never moves toward the face (a
+    # square nearer, the cannon covered the hat's brim and his cheek)
+    out["skill_w"] = [p(crouch=1), p(crouch=2), p(crouch=1), p(crouch=2), p()]
     # R Cannon Barrage (League's Gangplank_Spell4: the pistol held straight up as the signal): the cannon turned to
     # point at the sky (a quarter turn clockwise) and raised high beside his head with the arm, the flare fired (frame
     # 3, r_rel; the flare is the effect r_cast), down
     up = dict(gun_rot=3)
-    out["ult"] = [p(gun=(0, -2), arm=(0, -1), **up), p(gun=(0, -6), arm=(0, -4), **up),
-                  p(whole=(0, -1), gun=(0, -6), arm=(0, -4), **up), p(gun=(0, -6), arm=(0, -4), **up), p()]
+    # (turned up, the cannon stands 3 squares left of where it rests: its ring kept off his brow and eye)
+    out["ult"] = [p(gun=(-2, -3), arm=(0, -2), **up), p(gun=(-3, -6), arm=(0, -4), **up),
+                  p(whole=(0, -1), gun=(-3, -6), arm=(0, -4), **up), p(gun=(-3, -6), arm=(0, -4), **up), p()]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's Gangplank_Death: he staggers and falls back): back, down on his knees, on his back (a quarter
     # turn counter-clockwise, the head to the back), lying sunk into the ground line
