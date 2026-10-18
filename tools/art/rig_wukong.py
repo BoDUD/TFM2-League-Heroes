@@ -118,7 +118,16 @@ NEAR_SHOULDER = (27.5, 33.5)
 FAR_SHOULDER = (55.5, 27.5)
 STAND = 44                                            # the column between the shoes: the standing point
 STEEL = [(189, 201, 216), (135, 144, 164), (90, 98, 120), (54, 54, 70)]
+ROBE = [(69, 10, 42), (106, 22, 64), (36, 6, 15)]
+RED = [(244, 31, 15), (108, 3, 10), (187, 8, 13), (137, 7, 10)]
 TAIL_HINGE = 16                                       # the tail swings above this row (its root stays behind him)
+# The staff's steel middle (rows STEEL_ROWS) as the cut left it was 3-5 squares wide row to row and hidden under the hand
+# (rows 39-45): turned level and slid out of the hand it showed a broken, ragged shaft (the user: 「武器有点变形吧」).
+# It is laid again from the cut's own cleanest steel row (row 37: outline, dark, mid, light, dark, outline) along the
+# shaft's line - its left outline from column 6 at row 31 to column 3 at row 50 - the gold-banded ends kept as drawn.
+STEEL_ROWS = (31, 50)
+STEEL_X = (6, 3)                                      # left outline column at the first / last steel row
+STEEL_PAT = [None, (90, 98, 120), (135, 144, 164), (189, 201, 216), (90, 98, 120), None]   # None = the outline
 
 
 def classes(d, cols):
@@ -152,8 +161,17 @@ def design():
     D.part("staff", staff_mask(D))
     D.part("near_arm", D.box(29, 49, 0, 27) & ~D.parts["staff"])
     D.part("far_arm", D.box(21, 40, 54, 76) | D.box(41, 49, 60, 76))
-    D.part("near_leg", D.rows(spans([(range(55, 59), (19, 26)), (range(59, 69), (12, 29))])))
-    D.part("far_leg", D.rows(spans([(range(46, 52), (55, 62)), (range(52, 59), (54, 65)), (range(59, 69), (55, 76))])))
+    # the lower legs from a material map of rows 44-68 (2026-10-18; the first cut left the near knee guard on the body,
+    # so the shin moved away from its own knee: 「腿部也有变形的」): near - the fur above the knee, the steel knee guard
+    # with its gold rim (rows 52-60, columns 26-33), the shin going down-left and the purple shoe; far - the knee guard
+    # (rows 46-51), the fur under it, the shin going down-right and the shoe. The robe's purple and red stay on the body
+    near = D.rows(spans([((52,), (26, 32)), ((53, 54), (26, 33)), ((55,), (22, 33)), ((56, 57), (20, 33)),
+                         ((58,), (16, 33)), ((59, 60), (15, 32)), (range(61, 69), (12, 27))]))
+    robe = classes(d, ROBE + RED) & D.box(52, 55, 0, D.W - 1)
+    D.part("near_leg", near & ~robe)
+    D.part("far_leg", D.rows(spans([((46,), (55, 59)), ((47,), (55, 60)), (range(48, 52), (54, 61)), ((52,), (55, 61)),
+                                    ((53, 54), (54, 61)), ((55,), (55, 61)), ((56,), (57, 62)), ((57,), (58, 64)),
+                                    ((58, 59), (59, 65)), ((60,), (58, 65)), (range(61, 69), (57, 76))])))
     D.part("body", D.rest())
     return D
 
@@ -225,33 +243,38 @@ class Form:
         staff_l = self.staff(staff_rot, ext)
         layers = [(self.tail(sway), dict(dx=ux + tail[0], dy=uy + tail[1])),
                   (L["far_arm"], dict(dx=ux + far[0], dy=uy + far[1], rot=far_rot, about=FAR_SHOULDER)),
-                  *legs_l[:1], (L["body"], dict(dx=ux, dy=uy)), *legs_l[1:],
+                  *legs_l, (L["body"], dict(dx=ux, dy=uy)),
                   *([] if no_staff else [(staff_l, dict(dx=ux + staff[0], dy=uy + staff[1]))]),
                   (L["near_arm"], dict(dx=ux + near[0], dy=uy + near[1], rot=near_rot, about=NEAR_SHOULDER))]
         can = R.compose(self.rig, layers)
         return self.close_holes(can) if fill else can
 
     def staff(self, rot, ext=0):
-        """The staff layer turned rot quarter turns counter-clockwise about GRIP (lossless), then, flat (rot 1 / 3),
-        lengthened by ext copies of a steel column just past the hand on its front side (League's extending staff:
-        the same shaft, longer)."""
+        """The staff layer (its drawn ends and the steel middle laid square by square, STEEL_*), ext steel rows longer
+        above the hand (the top end moved out along the shaft's line: League's extending staff), then turned rot
+        quarter turns counter-clockwise about GRIP (lossless; 3: the top points forward)."""
         key = (rot % 4, ext)
         if key in self._staff:
             return self._staff[key]
-        lay = np.zeros_like(self.L["staff"])
-        R.put(lay, self.L["staff"], rot=rot, about=(GRIP[0] + P, GRIP[1] + P))
-        if ext:
-            if rot % 4 not in (1, 3):
-                raise ValueError("only a flat staff lengthens")
-            gx = int(GRIP[0]) + P
-            steel = classes(lay, STEEL)
-            cols = [x for x in range(lay.shape[1]) if steel[:, x].any()]
-            if rot % 4 == 3:        # the top points forward: a steel column right of the hand's fur (GRIP + 6)
-                c = min(x for x in cols if x >= gx + 6)
-                lay = np.concatenate([lay[:, :c + 1], np.repeat(lay[:, c:c + 1], ext, 1), lay[:, c + 1:-ext]], 1)
-            else:                   # the foot points forward
-                c = min(x for x in cols if x >= gx + 6)
-                lay = np.concatenate([lay[:, :c + 1], np.repeat(lay[:, c:c + 1], ext, 1), lay[:, c + 1:-ext]], 1)
+        D = self.D
+        (r0, r1), (x0, x1) = STEEL_ROWS, STEEL_X
+        xl = lambda y: int(round(x0 + (x1 - x0) * (y - r0) / (r1 - r0)))
+        src = np.zeros_like(self.L["staff"])
+        keep = D.parts["staff"].copy()
+        keep[r0:r1 + 1] = False
+        top, bot = keep.copy(), keep.copy()
+        top[r0:] = False
+        bot[:r1 + 1] = False
+        dx_top = xl(r0 - ext) - xl(r0)
+        for m, dy, dx in ((top, -ext, dx_top), (bot, 0, 0)):
+            ys, xs = np.nonzero(m)
+            src[ys + P + dy, xs + P + dx] = D.d[ys, xs]
+        outline = (*D.outline, 255)
+        for y in range(r0 - ext, r1 + 1):
+            for i, c in enumerate(STEEL_PAT):
+                src[y + P, xl(y) + i + P] = outline if c is None else (*c, 255)
+        lay = np.zeros_like(src)
+        R.put(lay, src, rot=rot, about=(GRIP[0] + P, GRIP[1] + P))
         self._staff[key] = lay
         return lay
 
@@ -371,7 +394,7 @@ def frames_all(F):
     out["skill2"] = [p(crouch=1), p(crouch=2, whole=(2, 0)), p(crouch=1, whole=(1, 0))]
     # R Cyclone's spin (League's monkeyking_spell4: the lengthened staff whirled level round him): the front and the
     # back (the frame mirrored about where he stands), the staff long, then short (end on to the eye), in turn
-    a = p(crouch=1, **flat(dx=8, ext=16))
+    a = p(crouch=1, **flat(dx=6, ext=30))
     b = p(crouch=1, **flat(dx=14))
     out["spin"] = [a, b, mirror(rig, a), mirror(rig, b)]
     # the ult's arming (3 ticks): the staff raised
@@ -405,7 +428,9 @@ def _steps(stride, lifts):
                 bob=[1, 0, 0, 0, 1, 0, 0, 0])
 
 
-WALK_STEP = dict(_steps(4, (1, 2, 1)), rise=[0, 0, 1, 0, 0, 0, 1, 0], sway=[1, 1, 0, -1, -1, -1, 0, 1])
+# stride 2 (the shins never more than a column off where they stand): a knee guard slid 2 columns opened a see-through
+# slit between the robe's flap and the tabard
+WALK_STEP = dict(_steps(2, (1, 2, 1)), rise=[0, 0, 1, 0, 0, 0, 1, 0], sway=[1, 1, 0, -1, -1, -1, 0, 1])
 
 
 def walk(F, steps=None):
