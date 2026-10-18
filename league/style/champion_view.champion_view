@@ -1298,8 +1298,8 @@
     },
     "league_sion": {
       "face": {
-        "x": 4,
-        "y": -37
+        "x": 1,
+        "y": -39
       },
       "center": {
         "x": 0,
@@ -1323,7 +1323,7 @@
     "league_malzahar": {
       "face": {
         "x": 4,
-        "y": -39
+        "y": -41
       },
       "center": {
         "x": 0,
@@ -1606,6 +1606,20 @@
       "center": {
         "x": 0,
         "y": -12
+      }
+    },
+    "league_maokai": {
+      "face": {
+        "x": 8,
+        "y": -23
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     }
   }

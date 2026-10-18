@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_maokai": {
+        "attack": "【扩展包】巨臂砸击。<#ff9028ff>吸元秘术<>：技能命中或被敌方技能打中后，下一次普攻额外造成<#a974ffff>2%最大生命<>魔法伤害，<#7dd87dff>回复4.5%~12%最大生命<>（随等级）。<#ff9028ff>树苗投掷<>：每<#ffb900ff>10秒<>扔一棵，敌人靠近就爆炸：<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害，<#ef5350ff>减速35%<>；在草丛里更强。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_maokai": {
+        "attack": "【擴充包】巨臂砸擊。<#ff9028ff>魔法樹液<>：技能命中或被敵方技能打中後，下一次普攻額外造成<#a974ffff>2%最大生命<>魔法傷害，<#7dd87dff>回復4.5%~12%最大生命<>（隨等級）。<#ff9028ff>扭曲樹精<>：每<#ffb900ff>10秒<>扔一棵，敵人靠近就爆炸：<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害，<#ef5350ff>緩速35%<>；在草叢裡更強。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_maokai": {
+        "attack": "[Add-on] Arm blow. <#ff9028ff>Sap Magic<>: after his skills hit or an enemy skill hits him, his next attack deals <#a974ffff>2% of his max health<> more as magic damage and <#7dd87dff>heals 4.5-12% of his max health<> (by level). <#ff9028ff>Sapling Toss<>: every <#ffb900ff>10s<> a sapling that bursts when an enemy comes near for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and a <#ef5350ff>35% slow<>; stronger in brush."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_maokai": {
+        "attack": "[확장] 거대한 팔로 내리치기. <#ff9028ff>마법 흡수<>: 스킬 적중 또는 적 스킬에 맞은 뒤 다음 공격이 <#a974ffff>최대 체력의 2%<> 마법 피해를 더하고 <#7dd87dff>최대 체력의 4.5~12% 회복<>(레벨 비례). <#ff9028ff>묘목 던지기<>: <#ffb900ff>10초<>마다 묘목, 적이 다가오면 폭발해 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>35% 둔화<>, 수풀에서 더 강함."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_maokai": {
+        "attack": "【拡張】巨腕の一撃。<#ff9028ff>魔樹液<>：スキル命中か敵スキルを受けた後の次の攻撃が<#a974ffff>最大体力の2%<>の魔法ダメージを追加し<#7dd87dff>最大体力の4.5~12%回復<>（レベル比例）。<#ff9028ff>苗木投げ<>：<#ffb900ff>10秒<>ごとに苗木、敵が近づくと爆発：<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>スロウ35%<>、茂みでより強力。"
+      }
+    }
+  }
+}

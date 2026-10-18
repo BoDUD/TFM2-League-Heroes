@@ -41,7 +41,9 @@ E = "<>"
 # champion_view: tfm2_ase.py face on the sheet (2026-10-14: crown 41 px above the feet, head centre +2.8), shown at 90 %
 # (hd.rs SIZES, the soles kept on the ground: 41 x 0.9, 4 x 0.9; the centre 14 x 0.9)
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> -4: the banner stood ~6 px over the card
-VIEW = {"face": {"x": 4, "y": -37}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -4}}
+# 2026-10-18: Sion is drawn at 100 % now (no hd.rs SIZES row), so the 90 % point (4,-37) sat on his right pauldron with
+# one eye at the portrait's top edge; (1,-39) holds the helmet, both red eyes and the jaw (1x idle and the reel strip)
+VIEW = {"face": {"x": 1, "y": -39}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -4}}
 
 
 def phy(d, r):

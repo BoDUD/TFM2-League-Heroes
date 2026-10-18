@@ -1,0 +1,1455 @@
+{
+  "version": 1,
+  "effects": [
+    {
+      "file": "maokai_fx_a_hit.png",
+      "binding": "view_effects `league_maokai_a_hit`（跟随，画在人物上面；左右对称）",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6FFE0",
+        "#9CF5A8",
+        "#3FD98A",
+        "#1F9E6E",
+        "#0E5A48",
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_a_hit.png",
+      "raw": "raw/maokai_fx_a_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          76.0,
+          543.0,
+          652.0
+        ],
+        [
+          543.0,
+          76.0,
+          1086.0,
+          652.0
+        ],
+        [
+          1086.0,
+          76.0,
+          1629.0,
+          652.0
+        ],
+        [
+          1629.0,
+          76.0,
+          2172.0,
+          652.0
+        ]
+      ],
+      "sha256_raw": "3af51398d2ca96c0cc0bbe08e7c9ccb405f2e05ae31f3dcb214f06b2e6e94a88",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_p_hit.png",
+      "binding": "view_effects `league_maokai_p_hit`（跟随，画在人物上面；左右对称）",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6FFE0",
+        "#9CF5A8",
+        "#3FD98A",
+        "#1F9E6E",
+        "#0E5A48"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_p_hit.png",
+      "raw": "raw/maokai_fx_p_hit.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          177.14285714285714,
+          396.6,
+          606.8571428571429
+        ],
+        [
+          396.6,
+          177.14285714285714,
+          793.2,
+          606.8571428571429
+        ],
+        [
+          793.2,
+          177.14285714285714,
+          1189.8000000000002,
+          606.8571428571429
+        ],
+        [
+          1189.8000000000002,
+          177.14285714285714,
+          1586.4,
+          606.8571428571429
+        ],
+        [
+          1586.4,
+          177.14285714285714,
+          1983.0,
+          606.8571428571429
+        ]
+      ],
+      "sha256_raw": "dcb88af2e498d9e0fe496e20a34abd875d1fcfcd3bd9f755fd8cef59722b2b43",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_p_heal.png",
+      "binding": "view_effects `league_maokai_p_heal`（跟随，画在他上面 z 2；左右对称；大图表）",
+      "frames": 6,
+      "cell_1x": [
+        50,
+        48
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#E6FFE0",
+        "#9CF5A8",
+        "#3FD98A",
+        "#1F9E6E",
+        "#0E5A48"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_p_heal.png",
+      "raw": "raw/maokai_fx_p_heal.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          139.06521739130437,
+          362.0,
+          663.9347826086956
+        ],
+        [
+          362.0,
+          139.06521739130437,
+          724.0,
+          663.9347826086956
+        ],
+        [
+          724.0,
+          139.06521739130437,
+          1086.0,
+          663.9347826086956
+        ],
+        [
+          1086.0,
+          139.06521739130437,
+          1448.0,
+          663.9347826086956
+        ],
+        [
+          1448.0,
+          139.06521739130437,
+          1810.0,
+          663.9347826086956
+        ],
+        [
+          1810.0,
+          139.06521739130437,
+          2172.0,
+          663.9347826086956
+        ]
+      ],
+      "sha256_raw": "945e28600f0a66eee35cbea30e5638fd50301ba7671f7ee7d0a6ef39fc5af4d5",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview",
+      "registration_note": "Side wisps sampled into outer 6 columns; central 38x36 body area left transparent."
+    },
+    {
+      "file": "maokai_fx_q_cast.png",
+      "binding": "view_effects `league_maokai_q_cast`（跟随，画在人物下面 z -1；左右对称；大图表）",
+      "frames": 6,
+      "cell_1x": [
+        60,
+        28
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#F4ECD8",
+        "#D8C69C",
+        "#B09A6A",
+        "#857048",
+        "#5A4A30",
+        "#352C1E",
+        "#FFFFFF",
+        "#E6FFE0",
+        "#9CF5A8",
+        "#3FD98A",
+        "#1F9E6E",
+        "#0E5A48"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_q_cast.png",
+      "raw": "raw/maokai_fx_q_cast.png",
+      "raw_size": [
+        2170,
+        725
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          236.42307692307693,
+          361.6666666666667,
+          560.5769230769231
+        ],
+        [
+          361.6666666666667,
+          236.42307692307693,
+          723.3333333333334,
+          560.5769230769231
+        ],
+        [
+          723.3333333333334,
+          236.42307692307693,
+          1085.0,
+          560.5769230769231
+        ],
+        [
+          1085.0,
+          236.42307692307693,
+          1446.6666666666667,
+          560.5769230769231
+        ],
+        [
+          1446.6666666666667,
+          236.42307692307693,
+          1808.3333333333335,
+          560.5769230769231
+        ],
+        [
+          1808.3333333333335,
+          236.42307692307693,
+          2170.0,
+          560.5769230769231
+        ]
+      ],
+      "sha256_raw": "a219419bf32460c45b795986704dff053e5121bbed2e4490f4a16fda4aa2f228",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_q_wave.png",
+      "binding": "view_projectiles `league_maokai_q_wave`（画在人物下面 z -1；**朝右画、上下对称**：图跟着飞行方向转；大图表）",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        14
+      ],
+      "symmetry": "top_bottom",
+      "loop": true,
+      "palette": [
+        "#F4ECD8",
+        "#D8C69C",
+        "#B09A6A",
+        "#857048",
+        "#5A4A30",
+        "#352C1E",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_q_wave.png",
+      "raw": "raw/maokai_fx_q_wave.png",
+      "raw_size": [
+        2120,
+        742
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          84.83333333333331,
+          530.0,
+          647.1666666666667
+        ],
+        [
+          530.0,
+          84.83333333333331,
+          1060.0,
+          647.1666666666667
+        ],
+        [
+          1060.0,
+          84.83333333333331,
+          1590.0,
+          647.1666666666667
+        ],
+        [
+          1590.0,
+          84.83333333333331,
+          2120.0,
+          647.1666666666667
+        ]
+      ],
+      "sha256_raw": "27186eedcaa9c875cdd2a09f564b9dce02d2c7c109ee233f832a6f40ceda8231",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_q_hit.png",
+      "binding": "view_effects `league_maokai_q_hit`（跟随，画在人物上面；左右对称）",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#F4ECD8",
+        "#D8C69C",
+        "#B09A6A",
+        "#857048",
+        "#5A4A30",
+        "#352C1E",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_q_hit.png",
+      "raw": "raw/maokai_fx_q_hit.png",
+      "raw_size": [
+        2032,
+        774
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          117.33333333333331,
+          508.0,
+          644.6666666666667
+        ],
+        [
+          508.0,
+          117.33333333333331,
+          1016.0,
+          644.6666666666667
+        ],
+        [
+          1016.0,
+          117.33333333333331,
+          1524.0,
+          644.6666666666667
+        ],
+        [
+          1524.0,
+          117.33333333333331,
+          2032.0,
+          644.6666666666667
+        ]
+      ],
+      "sha256_raw": "9308ef9d3e0c7679534886318067f509d13615fdaea39e562e3a7c15ac71bf2b",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_q_slow.png",
+      "binding": "view_buffs `league_maokai_q_s1`（跟随，画在人物下面；左右对称；循环）",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        8
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "palette": [
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E",
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_q_slow.png",
+      "raw": "raw/maokai_fx_q_slow.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          243.0,
+          543.0,
+          523.0
+        ],
+        [
+          543.0,
+          243.0,
+          1086.0,
+          523.0
+        ],
+        [
+          1086.0,
+          243.0,
+          1629.0,
+          523.0
+        ],
+        [
+          1629.0,
+          243.0,
+          2172.0,
+          523.0
+        ]
+      ],
+      "sha256_raw": "51854cb613a2832404714982976a84212aab2bc97f962793d6247add7096a414",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_w_trail.png",
+      "binding": "view_projectiles `league_maokai_w_trail`（画在人物下面 z -1；**朝右画、上下对称**；大图表）",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        16
+      ],
+      "symmetry": "top_bottom",
+      "loop": true,
+      "palette": [
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C",
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58",
+        "#F4ECD8",
+        "#D8C69C",
+        "#B09A6A",
+        "#857048",
+        "#5A4A30",
+        "#352C1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_w_trail.png",
+      "raw": "raw/maokai_fx_w_trail.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          162.14285714285714,
+          543.0,
+          559.8571428571429
+        ],
+        [
+          543.0,
+          162.14285714285714,
+          1086.0,
+          559.8571428571429
+        ],
+        [
+          1086.0,
+          162.14285714285714,
+          1629.0,
+          559.8571428571429
+        ],
+        [
+          1629.0,
+          162.14285714285714,
+          2172.0,
+          559.8571428571429
+        ]
+      ],
+      "sha256_raw": "f4bb7cadb66a506faff58831c01f7cfb7335c1c3ca71a25d45b361b1c38645d4",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_w_land.png",
+      "binding": "view_effects `league_maokai_w_land`（跟随，画在人物下面 z -1；左右对称；大图表）",
+      "frames": 6,
+      "cell_1x": [
+        48,
+        30
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C",
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58",
+        "#F4ECD8",
+        "#D8C69C",
+        "#B09A6A",
+        "#857048",
+        "#5A4A30",
+        "#352C1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_w_land.png",
+      "raw": "raw/maokai_fx_w_land.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          177.35714285714286,
+          362.0,
+          556.6428571428571
+        ],
+        [
+          362.0,
+          177.35714285714286,
+          724.0,
+          556.6428571428571
+        ],
+        [
+          724.0,
+          177.35714285714286,
+          1086.0,
+          556.6428571428571
+        ],
+        [
+          1086.0,
+          177.35714285714286,
+          1448.0,
+          556.6428571428571
+        ],
+        [
+          1448.0,
+          177.35714285714286,
+          1810.0,
+          556.6428571428571
+        ],
+        [
+          1810.0,
+          177.35714285714286,
+          2172.0,
+          556.6428571428571
+        ]
+      ],
+      "sha256_raw": "dab269f04d85edbf218ea6bcb818bbfe22a837d17619dbe2f329106f24b41f3f",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_w_hit.png",
+      "binding": "view_effects `league_maokai_w_hit`（跟随，画在人物上面；左右对称）",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C",
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_w_hit.png",
+      "raw": "raw/maokai_fx_w_hit.png",
+      "raw_size": [
+        2127,
+        739
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          121.83333333333331,
+          531.75,
+          656.1666666666667
+        ],
+        [
+          531.75,
+          121.83333333333331,
+          1063.5,
+          656.1666666666667
+        ],
+        [
+          1063.5,
+          121.83333333333331,
+          1595.25,
+          656.1666666666667
+        ],
+        [
+          1595.25,
+          121.83333333333331,
+          2127.0,
+          656.1666666666667
+        ]
+      ],
+      "sha256_raw": "3c3f1906b5adb2f165f4105d91a3126f4332d81572da36b57b71b8c25dd24d86",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_root.png",
+      "binding": "view_buffs `league_maokai_w_bound` 和 `league_maokai_r_bound`（同一张图，跟随，画在人物上面；左右对称；循环）",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        16
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "palette": [
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C",
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_root.png",
+      "raw": "raw/maokai_fx_root.png",
+      "raw_size": [
+        2079,
+        756
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          118.35714285714283,
+          519.75,
+          688.6428571428571
+        ],
+        [
+          519.75,
+          118.35714285714283,
+          1039.5,
+          688.6428571428571
+        ],
+        [
+          1039.5,
+          118.35714285714283,
+          1559.25,
+          688.6428571428571
+        ],
+        [
+          1559.25,
+          118.35714285714283,
+          2079.0,
+          688.6428571428571
+        ]
+      ],
+      "sha256_raw": "dbb04aba05bcbe46f10d59b2f5833066a914182ce49714167a8ee5fd1ad9a8cf",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_e_lob.png",
+      "binding": "view_projectiles `league_maokai_e_lob`（画在人物上面；**朝右画、上下对称**：图跟着飞行方向转）",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": "top_bottom",
+      "loop": true,
+      "palette": [
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E",
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_e_lob.png",
+      "raw": "raw/maokai_fx_e_lob.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          86.5,
+          543.0,
+          629.5
+        ],
+        [
+          543.0,
+          86.5,
+          1086.0,
+          629.5
+        ],
+        [
+          1086.0,
+          86.5,
+          1629.0,
+          629.5
+        ],
+        [
+          1629.0,
+          86.5,
+          2172.0,
+          629.5
+        ]
+      ],
+      "sha256_raw": "38eabf41f3c610ee419301f7c922ac02f43b0a216e9390fb70e9244c220b389a",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview",
+      "registration_note": "White/cyan light shades consolidated to #7CF2E4 before majority sampling to retain the small glint."
+    },
+    {
+      "file": "maokai_fx_e_land.png",
+      "binding": "view_effects `league_maokai_e_land`（不跟随，画在人物下面 z 0；左右对称）",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E",
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58",
+        "#F4ECD8",
+        "#D8C69C",
+        "#B09A6A",
+        "#857048",
+        "#5A4A30",
+        "#352C1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_e_land.png",
+      "raw": "raw/maokai_fx_e_land.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          115.5,
+          543.0,
+          658.5
+        ],
+        [
+          567.0,
+          115.5,
+          1110.0,
+          658.5
+        ],
+        [
+          1110.0,
+          115.5,
+          1653.0,
+          658.5
+        ],
+        [
+          1653.0,
+          115.5,
+          2196.0,
+          658.5
+        ]
+      ],
+      "sha256_raw": "9c3d9d4b7615e1cded54bf52844728747da49853837d60afa915e79edc406ec1",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview",
+      "glint_note": "White/cyan source shades consolidated to #7CF2E4 before majority sampling.",
+      "registration_note": "Final frame is exactly e_idle frame 0 padded 2px left/right/top to preserve root baseline."
+    },
+    {
+      "file": "maokai_fx_e_idle.png",
+      "binding": "view_effects `league_maokai_e_idle`（不跟随，画在人物下面 z 0；左右对称；每 0.5 秒重放一次，所以 4 帧要能首尾相接）",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        16
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "palette": [
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E",
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_e_idle.png",
+      "raw": "raw/maokai_fx_e_idle.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          29.0,
+          38.571428571428555,
+          572.0,
+          685.4285714285714
+        ],
+        [
+          572.0,
+          38.571428571428555,
+          1115.0,
+          685.4285714285714
+        ],
+        [
+          1115.0,
+          38.571428571428555,
+          1658.0,
+          685.4285714285714
+        ],
+        [
+          1658.0,
+          38.571428571428555,
+          2201.0,
+          685.4285714285714
+        ]
+      ],
+      "sha256_raw": "6ca78dfb8dd3064fa2b96003d64e1eee5232ccfcdeb4a3d212ff33c75cb51389",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview",
+      "registration_note": "Eye-centered horizontal source registration before left/right reflection.",
+      "glint_note": "White/cyan source shades consolidated to #7CF2E4 before majority sampling."
+    },
+    {
+      "file": "maokai_fx_e_burst.png",
+      "binding": "view_effects `league_maokai_e_burst`（不跟随，画在人物上面 z 2；左右对称；大图表）",
+      "frames": 6,
+      "cell_1x": [
+        48,
+        40
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58",
+        "#E6FFE0",
+        "#9CF5A8",
+        "#3FD98A",
+        "#1F9E6E",
+        "#0E5A48",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E",
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_e_burst.png",
+      "raw": "raw/maokai_fx_e_burst.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          -149.0,
+          59.21052631578948,
+          427.0,
+          690.7894736842105
+        ],
+        [
+          131.5,
+          59.21052631578948,
+          707.5,
+          690.7894736842105
+        ],
+        [
+          480.5,
+          59.21052631578948,
+          1056.5,
+          690.7894736842105
+        ],
+        [
+          975.0,
+          59.21052631578948,
+          1551.0,
+          690.7894736842105
+        ],
+        [
+          1432.0,
+          59.21052631578948,
+          2008.0,
+          690.7894736842105
+        ],
+        [
+          1743.0,
+          59.21052631578948,
+          2319.0,
+          690.7894736842105
+        ]
+      ],
+      "sha256_raw": "a33f548ed7c75ec2f3455f041e248b865cc3d7405fdcf0305143548e27e6fa41",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview",
+      "source_frame_domains": [
+        [
+          0,
+          0,
+          278,
+          724
+        ],
+        [
+          278,
+          0,
+          561,
+          724
+        ],
+        [
+          561,
+          0,
+          976,
+          724
+        ],
+        [
+          976,
+          0,
+          1550,
+          724
+        ],
+        [
+          1550,
+          0,
+          1890,
+          724
+        ],
+        [
+          1890,
+          0,
+          2172,
+          724
+        ]
+      ]
+    },
+    {
+      "file": "maokai_fx_e_hit.png",
+      "binding": "view_effects `league_maokai_e_hit`（跟随，画在人物上面；左右对称）",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_e_hit.png",
+      "raw": "raw/maokai_fx_e_hit.png",
+      "raw_size": [
+        2126,
+        740
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          89.75,
+          531.5,
+          621.25
+        ],
+        [
+          531.5,
+          89.75,
+          1063.0,
+          621.25
+        ],
+        [
+          1063.0,
+          89.75,
+          1594.5,
+          621.25
+        ],
+        [
+          1594.5,
+          89.75,
+          2126.0,
+          621.25
+        ]
+      ],
+      "sha256_raw": "a7dd54c14264514ee3a7b6d5f8093c8eaf777809420d7ca01f1dfc44d92dc122",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_e_slow.png",
+      "binding": "view_buffs `league_maokai_e_slow`（跟随，画在人物下面；左右对称；循环）",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        8
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_e_slow.png",
+      "raw": "raw/maokai_fx_e_slow.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          181.83333333333334,
+          543.0,
+          543.1666666666666
+        ],
+        [
+          543.0,
+          181.83333333333334,
+          1086.0,
+          543.1666666666666
+        ],
+        [
+          1086.0,
+          181.83333333333334,
+          1629.0,
+          543.1666666666666
+        ],
+        [
+          1629.0,
+          181.83333333333334,
+          2172.0,
+          543.1666666666666
+        ]
+      ],
+      "sha256_raw": "6e903f76d5320d58cb2c88da7dcc07618046e53bf71e4aac611667f7d855f61f",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_r_cast.png",
+      "binding": "view_effects `league_maokai_r_cast`（跟随，画在人物下面 z -1；左右对称；大图表）",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        30
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58",
+        "#F4ECD8",
+        "#D8C69C",
+        "#B09A6A",
+        "#857048",
+        "#5A4A30",
+        "#352C1E",
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_r_cast.png",
+      "raw": "raw/maokai_fx_r_cast.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          229.35714285714286,
+          362.0,
+          518.6428571428571
+        ],
+        [
+          362.0,
+          229.35714285714286,
+          724.0,
+          518.6428571428571
+        ],
+        [
+          724.0,
+          229.35714285714286,
+          1086.0,
+          518.6428571428571
+        ],
+        [
+          1086.0,
+          229.35714285714286,
+          1448.0,
+          518.6428571428571
+        ],
+        [
+          1448.0,
+          229.35714285714286,
+          1810.0,
+          518.6428571428571
+        ],
+        [
+          1810.0,
+          229.35714285714286,
+          2172.0,
+          518.6428571428571
+        ]
+      ],
+      "sha256_raw": "71021876c9702bcd2419b135af7b1d7921c675e38dfdfe5994f84e8685e0f1ff",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_r_wall.png",
+      "binding": "view_projectiles `league_maokai_r_wall`（画在人物下面 z -1；**朝右画、上下对称**：图跟着飞行方向转，斜着放就是斜的墙；大图表）",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        60
+      ],
+      "symmetry": "top_bottom",
+      "loop": true,
+      "palette": [
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E",
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58",
+        "#F4ECD8",
+        "#D8C69C",
+        "#B09A6A",
+        "#857048",
+        "#5A4A30",
+        "#352C1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_r_wall.png",
+      "raw": "raw/maokai_fx_r_wall.png",
+      "raw_size": [
+        1374,
+        1145
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          7.5,
+          343.5,
+          1152.5
+        ],
+        [
+          343.5,
+          7.5,
+          687.0,
+          1152.5
+        ],
+        [
+          687.0,
+          7.5,
+          1030.5,
+          1152.5
+        ],
+        [
+          1030.5,
+          7.5,
+          1374.0,
+          1152.5
+        ]
+      ],
+      "sha256_raw": "9225f3b03bf81f56454702517f4ae3bb9918b5531b72c6e67f031241aa824fc4",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_r_hit.png",
+      "binding": "view_effects `league_maokai_r_hit`（跟随，画在人物上面；左右对称）",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "palette": [
+        "#FFFFFF",
+        "#D8FFF8",
+        "#7CF2E4",
+        "#22C9C0",
+        "#138A92",
+        "#0A4A58",
+        "#E8B888",
+        "#C08458",
+        "#8E5A3C",
+        "#643C2C",
+        "#42282A",
+        "#24161C",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_r_hit.png",
+      "raw": "raw/maokai_fx_r_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          93.5,
+          543.0,
+          636.5
+        ],
+        [
+          543.0,
+          93.5,
+          1086.0,
+          636.5
+        ],
+        [
+          1086.0,
+          93.5,
+          1629.0,
+          636.5
+        ],
+        [
+          1629.0,
+          93.5,
+          2172.0,
+          636.5
+        ]
+      ],
+      "sha256_raw": "55988c4cb8ad0fab71a59220ec7533af9520ba900755f27b7bb7492ec880d6d6",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    },
+    {
+      "file": "maokai_fx_r_haste.png",
+      "binding": "view_buffs `league_maokai_r_h2`（跟随，画在人物下面 z -1；左右对称；循环）",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        12
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "palette": [
+        "#FFFFFF",
+        "#E6FFE0",
+        "#9CF5A8",
+        "#3FD98A",
+        "#1F9E6E",
+        "#0E5A48",
+        "#F2FFB0",
+        "#C8EA5A",
+        "#8CC23C",
+        "#5A9030",
+        "#36602A",
+        "#1E3A1E"
+      ],
+      "layout": "horizontal",
+      "scale_preview": 8,
+      "pixel_1x": "pixel_1x/maokai_fx_r_haste.png",
+      "raw": "raw/maokai_fx_r_haste.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "source_frame_boxes": [
+        [
+          0.0,
+          270.4,
+          495.75,
+          529.5999999999999
+        ],
+        [
+          495.75,
+          270.4,
+          991.5,
+          529.5999999999999
+        ],
+        [
+          991.5,
+          270.4,
+          1487.25,
+          529.5999999999999
+        ],
+        [
+          1487.25,
+          270.4,
+          1983.0,
+          529.5999999999999
+        ]
+      ],
+      "sha256_raw": "0fc6294fa0f1e78416ab6c31a807d3b95d9a7250c63159290956bc98b304ba7c",
+      "processing": "palette nearest-color classification, per-cell majority including transparency, one-half reflection, nearest-neighbor 8x preview"
+    }
+  ]
+}
