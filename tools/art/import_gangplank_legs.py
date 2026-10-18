@@ -30,6 +30,7 @@ def main():
     g = json.load(open(lp(os.path.join(SRC, "hd", "legs_guides.json")), encoding="utf-8"))
     Z, CW, CH = g["Z"], g["CW"], g["CH"]
     a = np.asarray(Image.open(lp(os.path.join(SRC, "codex_run", "gangplank-legs.png"))).convert("RGB")).astype(int)
+    offsets = []
     for i in range(8):
         cx, cy = (i % 4) * CW * Z, (i // 4) * CH * Z
         c = a[cy + Z // 2:cy + CH * Z:Z, cx + Z // 2:cx + CW * Z:Z]
@@ -43,6 +44,7 @@ def main():
         rgba[fig, 3] = 255
         ys, xs = np.nonzero(fig)
         f = rgba[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+        offsets.append((int(xs.min()), int(ys.min())))           # the trim, for stamp_gangplank_boots.py
         Image.fromarray(f).save(lp(os.path.join(SRC, "hd", f"run_{i}.png")))
         h = f.shape[0]
         fi = f.astype(int)
@@ -56,6 +58,8 @@ def main():
         feet = sorted((round(float(np.nonzero(bl == j)[1].mean() - hx)), int(h - 1 - np.nonzero(bl == j)[0].max()))
                       for j in range(1, bk + 1) if (bl == j).sum() >= 8)
         print(f"frame {i}: {f.shape[1]} x {h}, boots (x from hips, lift): {feet}")
+    with open(lp(os.path.join(SRC, "hd", "run_offsets.json")), "w", encoding="utf-8") as fh:
+        json.dump(offsets, fh)
 
 
 if __name__ == "__main__":

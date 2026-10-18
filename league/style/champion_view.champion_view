@@ -1638,8 +1638,8 @@
     },
     "league_wukong": {
       "face": {
-        "x": 0,
-        "y": -21
+        "x": 3,
+        "y": -27
       },
       "center": {
         "x": 0,
@@ -1666,7 +1666,7 @@
     },
     "league_akshan": {
       "face": {
-        "x": 3,
+        "x": 4,
         "y": -31
       },
       "center": {
@@ -1675,7 +1675,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -8
       }
     },
     "league_poppy": {

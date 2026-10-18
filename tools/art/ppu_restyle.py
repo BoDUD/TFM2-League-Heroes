@@ -56,7 +56,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
-            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.5, "cassiopeia": 1.3, "akshan": 1.5, "poppy": 1.3,
+            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3,
             **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
@@ -321,7 +321,7 @@ RESTYLE = {
     # 像素高」, then on the step-1 guide 「太模糊了 起码PPU1.5」: Codex's step-1 take A-1 cut to 57 rows hair to soles) by
     # tools/art/rig_wukong.py, so no proportion or density change here; the outer outline grown a square like the others;
     # the face point between his green eyes
-    "wukong": dict(ppu=1.2, grow=0.85, edge=1, face_to=(0, -21)),
+    "wukong": dict(ppu=1.2, edge=1, face_to=(3, -27)),   # 10-18 redo: Codex's new design and actions (rig_frames_1018.py), drawn at 85 % already
     # league_cassiopeia (#128): posed from the design's own squares at the user's 1.3 squares a game pixel (「44 ppu1.3 A」:
     # Codex's step-1 take A-2 cut to 57 rows crest to ground) by tools/art/rig_cassiopeia.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point between her eyes
@@ -330,7 +330,7 @@ RESTYLE = {
     # 像素高，PPU 1.5」: Codex's step-1 round-2 take A-1 cut to 57 rows hair to soles) by tools/art/rig_akshan.py, the
     # forward gun arm from Codex's pose and the walk from Codex's skin swap read on the same grid, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "akshan": dict(ppu=1.2, edge=1, face_to=(3, -31)),
+    "akshan": dict(ppu=1.2, edge=1, face_to=(4, -31)),   # 10-18 redo: the slim design and Codex's actions (rig_frames_1018.py)
     # league_poppy (#130): posed from the design's own squares at the user's 1.3 squares a game pixel (「用 B（锤子竖着），
     # 游戏里 36 像素高，PPU 1.3」: Codex's step-1 take B-2 cut to 47 rows pigtails to soles) by tools/art/rig_poppy.py, so no
     # proportion or density change here; the outer outline grown a square like the others; the face point between her eyes

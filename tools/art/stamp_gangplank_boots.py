@@ -118,46 +118,72 @@ def bridge(big, ox, w, oy, sp, reach=8):
 
 
 def main():
+    """Each foot where Codex drew it (so it stays on its trouser leg), matched to the guide's near / far leg by its
+    column; the swinging foot's lower leg (shin and boot, the column band from KNEE rows over the bottom) lifted whole by
+    the guide's lift (Codex kept it down - 「船长走路还有点怪 脚部」); then the design's boots stamped (far first, near over
+    it, so the passing frames show two boots, never one block)."""
+    import json
     d = np.asarray(Image.open(lp(os.path.join(HD, "design.png"))).convert("RGBA")).copy()
-    sprites = boot_sprites(d)
-    if len(sprites) != 2:
-        raise SystemExit(f"{len(sprites)} boots in the design")
+    rear, front = boot_sprites(d)
+    g = json.load(open(lp(os.path.join(HD, "legs_guides.json")), encoding="utf-8"))
+    offs = json.load(open(lp(os.path.join(HD, "run_offsets.json")), encoding="utf-8"))
+    KNEE = 13
     for k in range(8):
         path = os.path.join(HD, f"run_{k}.png")
         f = np.asarray(Image.open(lp(path)).convert("RGBA")).copy()
-        g = greenish(f)
-        f[g] = 0
-        ft = feet(f)
-        if len(ft) == 1:                      # the feet touch: split the piece in two
+        f[greenish(f)] = 0
+        pad = 8
+        big = np.zeros((f.shape[0] + 2 * pad, f.shape[1] + 2 * pad, 4), np.uint8)
+        big[pad:pad + f.shape[0], pad:pad + f.shape[1]] = f
+        H = f.shape[0] + pad                                       # the row under the soles
+        ft = feet(big[:H])
+        if len(ft) == 1:
             x0, x1, yb = ft[0]
             m = (x0 + x1) // 2
             ft = [(x0, m, yb), (m + 1, x1, yb)]
         ft = sorted(ft)[:1] + sorted(ft)[-1:]
-        pad = 6
-        big = np.zeros((f.shape[0] + pad, f.shape[1] + 2 * pad, 4), np.uint8)
-        big[:f.shape[0], pad:pad + f.shape[1]] = f
-        for (x0, x1, yb), (sp, sx, sy) in zip(ft, sprites):
-            # clear Codex's boot only where the design's boot goes (its rows and columns), trousers kept; then the
-            # design's boot on top - nothing above the boot's own top row is cleared, so the shin meets the cuff
-            cx = (x0 + x1) / 2 + pad
+        gx = {side: g["guides"][k][side][2][0] - offs[k][0] + pad for side in ("near", "far")}
+        lift = {"near": g["guides"][k]["near"][2], "far": g["guides"][k]["far"][2]}
+        lifts = {s_: round(g["SOLE"] - 2.5 - lift[s_][1]) for s_ in lift}          # squares
+        # which detected foot is which leg: the pairing with the smaller column error
+        a_, b_ = ft
+        c1 = abs((a_[0] + a_[1]) / 2 - gx["far"]) + abs((b_[0] + b_[1]) / 2 - gx["near"])
+        c2 = abs((a_[0] + a_[1]) / 2 - gx["near"]) + abs((b_[0] + b_[1]) / 2 - gx["far"])
+        legs = {"far": a_, "near": b_} if c1 <= c2 else {"far": b_, "near": a_}
+        for side in ("far", "near"):
+            x0, x1, yb = legs[side]
+            up = lifts[side]
+            if up <= 0:
+                continue
+            band = big[H - KNEE:H, max(0, x0 - 2):x1 + 3].copy()
+            keep = band[..., 3] > 0
+            big[H - KNEE:H, max(0, x0 - 2):x1 + 3][keep] = 0
+            dst = big[H - KNEE - up:H - up, max(0, x0 - 2):x1 + 3]
+            dst[keep] = band[keep]
+            legs[side] = (x0, x1, yb - up)
+        low = big[H - KNEE - 4:]
+        low[(low[..., 3] > 0) & brown(low)] = 0                    # Codex's boot brown (cuffs follow the stamp)
+        for side, (sp, sx, sy) in (("far", rear), ("near", front)):
+            x0, x1, yb = legs[side]
             h, w = sp.shape[:2]
-            ox, oy = int(round(cx - sx)), yb - sy
-            reg = big[oy:oy + h, ox:ox + w]
-            reg[~trouser(reg)] = 0
+            px, py = int(round((x0 + x1) / 2 - sx)), yb - sy
+            reg = big[py:py + h, px:px + w]
             m = sp[..., 3] > 0
             reg[m] = sp[m]
-            bridge(big, ox, w, oy, sp)
-        # leftover Codex boot squares beside the stamps and specks of air between shin and cuff
+            bridge(big, px, w, py, sp)
         op = big[..., 3] > 0
         holes = ndimage.binary_fill_holes(op) & ~op
         hl, hn = ndimage.label(holes)
         for j in range(1, hn + 1):
             if (hl == j).sum() <= 4:
                 big[hl == j] = (*OUTLINE, 255)
+        lbl, n = ndimage.label(big[..., 3] > 0, structure=np.ones((3, 3)))
+        if n > 1:
+            sizes = ndimage.sum(big[..., 3] > 0, lbl, range(1, n + 1))
+            big[lbl != (np.argmax(sizes) + 1)] = 0
         ys, xs = np.nonzero(big[..., 3])
-        f = big[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
-        Image.fromarray(f).save(lp(path))
-        print(f"run_{k}: green specks {int(g.sum())}, feet {[(int(a), int(b), int(c)) for a, b, c in ft]}")
+        Image.fromarray(big[ys.min():ys.max() + 1, xs.min():xs.max() + 1]).save(lp(path))
+        print(f"run_{k}: near lift {lifts['near']} far lift {lifts['far']} feet {legs}")
 
 
 if __name__ == "__main__":
