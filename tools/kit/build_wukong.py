@@ -47,29 +47,33 @@ ID = "league_wukong"
 FX = "asset/league/effects/league_wukong_fx"
 BIG = "asset/league/effects/league_wukong_big"
 
+# Numbers = the 10-min classic-SDK simulations (jungle against demon, circus_blade, hunter, inquisitor and ninja, three
+# lineups, both sides, 8 seeds a batch, 2026-10-18, placeholder timings): the draft (attack 84, Q 40%, E 60%, R 1% max
+# health a pulse) +0.07; R 2% alone -0.16, attack 90 / Q 60% / E 80% alone +0.45, both +1.94 / +1.92; attack 88, Q 50%,
+# E 70%, R 2% +1.12 / +1.15 (league_xinzhao +1.10 / +1.29, league_kayn +1.12 / +1.72).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Wukong:
     # 66 AD +3.5, 610 +99 hp, 31 +4.7 armour (+6-10 innate from Stone Skin), 28 mr, 340 move, attack speed 0.69 +3%
-    "hp": 960, "hp_g": 100, "atk": 84, "atk_g": 18, "def": 36, "def_g": 9, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
+    "hp": 960, "hp_g": 100, "atk": 88, "atk_g": 18, "def": 36, "def_g": 9, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     "regen": 2, "regen_g": 1,
     # attack
     "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 11,
     # passive Stone Skin (League: +6-10 armour and +0.35% max hp / 5 s a stack, 5 stacks, 5 s, one a second off)
     "p_def": 4, "p_regen": 2, "p_t": 300, "p_drop": 60,
     # Q Crushing Blow (League: +20-120 +50% bonus AD, armour -10-30% 3 s, +135-175 range, cd 8-6 s, -0.5 s a hit)
-    "q_t": 240, "q_pre": 60, "q_dmg": 30, "q_ratio": 40, "q_shred": 20, "q_shred_t": 180, "q_range": 12000,
+    "q_t": 240, "q_pre": 60, "q_dmg": 30, "q_ratio": 50, "q_shred": 20, "q_shred_t": 180, "q_range": 12000,
     "q_hit": 13, "q_anim": 26,
     # skill: E Nimbus Strike (League: 650 range, 80-240 +100% AP to the target and two more within 187.5, +40-60% AS
     # 5 s, cd 10-7 s)
     "e_cd": 480, "e_range": 50000, "e_dur": 18, "e_anim": 16, "e_speed": 3500, "e_rad": 22000, "e_n": 3,
-    "e_dmg": 40, "e_ratio": 60, "e_as": 40, "e_as_t": 300, "e_in_t": 120,
+    "e_dmg": 40, "e_ratio": 70, "e_as": 40, "e_as_t": 300, "e_in_t": 120,
     # skill2: W Warrior Trickster (League: invisible 1 s, dash 300, clone 4 s at 40-60% damage, range 275, cd 22-18 s)
     "w_cd": 1200, "w_range": 30000, "w_dur": 12, "w_inv": 60, "w_dash": 6000, "w_t": 240, "w_slot": 20,
     "w_rad": 30000, "w_period": 60, "w_ratio": 50, "w_spin": 50,
     # ult: R Cyclone (League: r 315, 2 s, +20% ms, 8-16% max hp +275% AD a cast (ticks every 0.25 s), knock-up 0.6 s
     # once, second cast within 8 s after 1 s, cd 130-90 s)
     "r_cd": 3600, "r_range": 60000, "r_arm": 900, "r_rad": 28000, "r_t": 120, "r_every": 15, "r_speed": 1200,
-    "r_dmg": 10, "r_ratio": 35, "r_hp": 1, "r_up": 36, "r_gap": 180, "r_two_t": 480,
+    "r_dmg": 10, "r_ratio": 35, "r_hp": 2, "r_up": 36, "r_gap": 180, "r_two_t": 480,
 }
 
 
