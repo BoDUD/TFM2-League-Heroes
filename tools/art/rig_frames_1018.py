@@ -1,0 +1,131 @@
+#!/usr/bin/env python3
+"""Akshan's and Wukong's actions from Codex's skin-swap frames (assets/source/<hero>/hd/act/<tag>_<i>.png,
+tools/art/import_swap_1018.py; the user approved them 2026-10-18: 「三套都可以，接进游戏」) exported like a rig: each frame on
+the hero's canvas with its soles on the ground row and its hips over the design's standing column, then ppu_rig's export
+(orig strips at the design's own density + the 1x sheet with each tag's timing). ppu_restyle (RESTYLE ppu 1.2) and ppu_hd
+take it from there.
+
+    python tools/art/rig_frames_1018.py akshan|wukong [--review DIR]
+
+The tags and their timing are the kit's (tools/kit/build_<hero>.py reads the tag names; the totals stay what the old rig
+had, so the kit's hit ticks still fall inside the swing / shot frames).
+"""
+import argparse
+import os
+import sys
+
+import numpy as np
+from PIL import Image
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+sys.path.insert(0, HERE)
+import ppu_rig as R  # noqa: E402
+
+SRC = os.path.join(ROOT, "assets", "source")
+
+
+def lp(p):
+    return R.lp(p)
+
+
+def teal_x(a):
+    a = a.astype(int)
+    m = (a[..., 3] > 0) & (a[..., 2] > a[..., 0] + 40) & (a[..., 1] > a[..., 0] + 40)
+    return float(np.nonzero(m)[1].mean()) if m.sum() > 4 else a.shape[1] / 2
+
+
+def tabard_x(a):
+    a = a.astype(int)
+    h = a.shape[0]
+    m = (a[..., 3] > 0) & (a[..., 0] > 200) & (a[..., 1] > 140) & (a[..., 2] < 90)
+    m[:h // 2] = False
+    return float(np.nonzero(m)[1].mean()) if m.sum() > 5 else a.shape[1] / 2
+
+
+# tag -> [(source frame, ms)]
+AKSHAN = {
+    "idle": [(f"idle_{i}", 240) for i in range(5)],
+    "run": [(f"run_{i}", 143) for i in range(7)],
+    "attack": [("attack_0", 80), ("attack_1", 80), ("attack_2", 90), ("attack_3", 90), ("attack_4", 93)],
+    "skill": [("skill1_0", 60), ("skill1_1", 70), ("skill1_2", 80), ("skill1_3", 80), ("skill1_4", 70)],
+    "skill2": [("skill2_0", 70), ("skill2_1", 70)],
+    "e_swing": [("skill2_2", 115), ("skill2_3", 115)],
+    "e_roll": [("skill2_4", 80), ("skill2_0", 90)],
+    "ult": [("ult_0", 70), ("ult_1", 70)],
+    "ult_ch": [("ult_2", 160), ("ult_1", 160)],
+    "ult_shot": [("ult_3", 50), ("ult_2", 50)],
+    "hit": [("hit_0", 100), ("hit_0", 100)],
+    "dead": [(f"dead_{i}", ms) for i, ms in enumerate([100, 110, 120, 150, 200, 500])],
+}
+WUKONG = {
+    "idle": [(f"idle_{i}", 171) for i in range(7)],
+    "run": [(f"run_{i}", 89) for i in range(9)],
+    "attack": [(f"attack_{i}", ms) for i, ms in enumerate([70, 70, 80, 80, 80, 80])],
+    "q_attack": [(f"skill_{i}", ms) for i, ms in enumerate([60, 70, 80, 80, 80, 70])],
+    "skill": [("skill2_3", 60), ("skill2_4", 80), ("skill2_6", 80), ("skill2_7", 80)],
+    "skill2": [("ult_0", 60), ("ult_2", 70), ("ult_4", 70)],
+    "spin": [(f"spin_{i}", 38) for i in range(8)],
+    "ult": [("attack_0", 50)],
+    "hit": [("hit_0", 100), ("hit_0", 100)],
+    "dead": [(f"dead_{i}", ms) for i, ms in enumerate([100, 110, 120, 150, 200, 500])],
+}
+HEROES = {
+    "akshan": dict(design="akshan/hd/slim2.png", ppu=1.61, map=AKSHAN, hip=teal_x, outline=(16, 2, 9)),
+    "wukong": dict(design="wukong/hd/redo2.png", ppu=1.53, map=WUKONG, hip=tabard_x, outline=(10, 1, 6)),
+}
+
+
+class FrameDesign:
+    """What ppu_rig.Rig needs: the squares, the standing column and ground row, the outline colour."""
+
+    def __init__(self, hero, cfg):
+        d = np.asarray(Image.open(lp(os.path.join(SRC, cfg["design"]))).convert("RGBA")).copy()
+        self.hero, self.ppu, self.d = hero, cfg["ppu"], d
+        self.H, self.W = d.shape[:2]
+        ys, xs = np.nonzero(d[..., 3])
+        self.ground = ys.max() + 1
+        self.px = int(round(cfg["hip"](d)))
+        self.outline = cfg["outline"]
+
+
+def frames(hero):
+    cfg = HEROES[hero]
+    D = FrameDesign(hero, cfg)
+    rig = R.Rig(D, pad=(70, 70, 60, 30))
+    act = os.path.join(SRC, hero, "hd", "act")
+    out = {}
+    for tag, seq in cfg["map"].items():
+        fr = []
+        for name, ms in seq:
+            p = os.path.join(act, name + ".png")
+            if not os.path.isfile(lp(p)):
+                raise SystemExit(f"{tag}: {name}.png missing")
+            f = np.asarray(Image.open(lp(p)).convert("RGBA"))
+            h, w = f.shape[:2]
+            hx = cfg["hip"](f) if tag != "dead" or name.endswith(("_0", "_1")) else w / 2
+            x0 = rig.CX - int(round(hx))
+            y0 = rig.GY - h
+            can = rig.canvas()
+            ys, xs = np.nonzero(f[..., 3] > 0)
+            ok = (y0 + ys >= 0) & (x0 + xs >= 0) & (x0 + xs < can.shape[1])
+            can[y0 + ys[ok], x0 + xs[ok]] = f[ys[ok], xs[ok]]
+            fr.append((can, ms))
+        out[tag] = fr
+    return rig, out
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("hero", choices=list(HEROES))
+    ap.add_argument("--review")
+    a = ap.parse_args()
+    rig, acts = frames(a.hero)
+    if a.review:
+        rig.review(acts, a.review)
+        return
+    rig.export(acts, hero=a.hero)
+
+
+if __name__ == "__main__":
+    main()
