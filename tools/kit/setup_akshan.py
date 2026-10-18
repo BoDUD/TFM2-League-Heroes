@@ -27,7 +27,7 @@ from build_akshan import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_akshan"
-VERSION = "0.149.0"
+VERSION = "0.151.0"
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names, physical damage
@@ -35,8 +35,8 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing, shields
 E = "<>"
-# champion_view: placeholder until the strips exist (ppu_restyle face_to, bp_card_audit)
-VIEW = {"face": {"x": 0, "y": -27}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
+# champion_view: face = ppu_restyle face_to (3, -31); banpick -12 (the -4 rule measures the gun tip, his head is 8 px lower)
+VIEW = {"face": {"x": 3, "y": -31}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
 
 
 def phys(d, r):
