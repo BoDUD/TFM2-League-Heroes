@@ -104,6 +104,7 @@ GUN_PIVOT = (11.5, 13.5)                        # the cannon's middle (its quart
 GUN_MIRROR = 12                                 # the column the cannon is mirrored about to point forward
 ELBOW = (12.5, 29.5)                            # the near forearm's lower end: it turns about it
 SHOULDER = (35.5, 22.5)                         # the far shoulder: the sword arm turns about it
+PT, PL = 12, 8                                  # the pose stamps' rows above and columns left of the design
 
 
 def cls_purple(d):
@@ -165,9 +166,17 @@ class Form:
         self.gun_fwd = hflip(L["gun"], GUN_MIRROR)
         self.blade_up = vflip(L["blade"], 44)
         self.ref_holes = None
+        # Codex's gun-hand poses (tools/art/design_gangplank_poses.py): the stamp and its edit mask on the design's grid
+        # with PT rows above and PL columns left of it
+        self.stamps = {}
+        for k in ("Q", "R"):
+            st = np.asarray(Image.open(lp(os.path.join(SRC, f"pose_{k}.png"))).convert("RGBA")).copy()
+            ed = np.asarray(Image.open(lp(os.path.join(SRC, f"pose_{k}_edit.png")))) > 0
+            self.stamps[k] = (st, ed)
 
     def pose(self, crouch=0, whole=(0, 0), gun=(0, 0), gun_fwd=False, gun_rot=0, arm=None, hand=(0, 0), blade=None,
-             blade_up=False, legs=None, leg_layers=None, fill=True, no_blade=False, sword=0, sword_at=(0, 0), arm_rot=0):
+             blade_up=False, legs=None, leg_layers=None, fill=True, no_blade=False, sword=0, sword_at=(0, 0), arm_rot=0,
+             stamp=None):
         """crouch: rows the body (with hands and props) sets down onto the legs; whole: the whole figure; gun: the
         cannon and the near arm moved together (arm: the arm's own move, default = gun's); gun_fwd: the cannon mirrored
         to point forward; gun_rot: quarter turns of the cannon counter-clockwise about GUN_PIVOT; hand: the far fist with the cutlass (blade: the blade's own move, default = hand's);
@@ -183,10 +192,11 @@ class Form:
         legs_l = leg_layers if leg_layers is not None else [(L["far_leg"], dict(dx=wx + flx, dy=wy + fly)),
                                                              (L["near_leg"], dict(dx=wx + nlx, dy=wy + nly))]
         # the lower legs over the body: a cuff lifted or the body sunk hides the thigh's lowest rows (the knee bends)
-        layers = [(L["body"], dict(dx=U[0], dy=U[1])), *legs_l,
-                  (L["near_arm"], dict(dx=U[0] + arm[0], dy=U[1] + arm[1], rot=arm_rot, about=ELBOW)),
-                  (self.gun_fwd if gun_fwd else L["gun"], dict(dx=U[0] + gun[0], dy=U[1] + gun[1], rot=gun_rot,
-                                                                about=GUN_PIVOT))]
+        layers = [(L["body"], dict(dx=U[0], dy=U[1])), *legs_l]
+        if stamp is None:
+            layers += [(L["near_arm"], dict(dx=U[0] + arm[0], dy=U[1] + arm[1], rot=arm_rot, about=ELBOW)),
+                       (self.gun_fwd if gun_fwd else L["gun"], dict(dx=U[0] + gun[0], dy=U[1] + gun[1], rot=gun_rot,
+                                                                     about=GUN_PIVOT))]
         if sword:
             # the whole sword arm (upper arm, forearm, fist, cutlass) turned `sword` quarter turns counter-clockwise
             # about the far shoulder, then moved sword_at
@@ -198,6 +208,13 @@ class Form:
                 layers.append((self.blade_up if blade_up else L["blade"], dict(dx=U[0] + blade[0], dy=U[1] + blade[1])))
             layers.append((L["far_hand"], dict(dx=U[0] + hand[0], dy=U[1] + hand[1])))
         can = R.compose(self.rig, layers)
+        if stamp is not None:
+            # Codex's arm, cannon and near shoulder put on with the upper body, clear squares too (the old arm's place)
+            st, ed = self.stamps[stamp]
+            ys, xs = np.nonzero(ed)
+            cy = ys - PT + self.rig.oy + U[1]
+            cx = xs - PL + self.rig.ox + U[0]
+            can[cy, cx] = st[ys, xs]
         return self.close_holes(can) if fill else can
 
     MOST = 10
@@ -278,15 +295,11 @@ def frames_all(F):
     # edge ran along the beard: 「左手攻击时候头部感觉很怪」), the head still; the chop down to its hanging place (frame 3, the hit on a_hit), stepping in; back
     out["attack"] = [p(sword=1, sword_at=(-1, 6)), p(sword=1, sword_at=(0, 3)),
                      p(crouch=1, whole=(1, 0)), p(crouch=1, whole=(1, 0)), p()]
-    # Q Parrrley (League's Gangplank_Spell1: the pistol brought down and held in front of the chest, fired forward):
-    # the red sleeve turned flat (a quarter, lossless) and laid from his near shoulder across the chest - it keeps that
-    # side of him whole (moved off the shoulder, the arm left a straight cut down his side: 「攻击时整个半身体感觉被砍掉
-    # 了一样」) - the cannon mirrored to point forward in the glove at its end, under the beard (higher, it covered the
-    # braid and the chin: 「左手攻击时候头部感觉很怪」); the shot (frame 3, q_rel), the recoil back a square, back on the
-    # shoulder. League's kick (the pistol thrown up) is left out: turned up in front of him the cannon covered the mouth.
-    aim = dict(arm_rot=3, arm=(-3, -1), gun_fwd=True, gun=(11, 15))
-    kick = dict(arm_rot=3, arm=(-4, -1), gun_fwd=True, gun=(10, 15))
-    out["skill"] = [p(**aim), p(whole=(1, 0), **aim), p(whole=(1, 0), **aim), p(**kick), p()]
+    # Q Parrrley (League's Gangplank_Spell1: the arm held straight out, the pistol aimed forward at the chest): Codex's
+    # pose Q (tools/art/design_gangplank_poses.py) - the near arm out from the shoulder, the cannon aimed past the beard,
+    # the near shoulder and the coat's side drawn whole - on the design's own body (the arm posed from the design's
+    # squares read 「左手攻击导致身体看起来非常非常奇怪」); stepping in, the shot (frame 3, q_rel), the recoil back, back
+    out["skill"] = [p(stamp="Q"), p(whole=(1, 0), stamp="Q"), p(whole=(1, 0), stamp="Q"), p(stamp="Q"), p()]
     # E Powder Keg (League's Gangplank_Spell3: a keg set down with a stoop): he bends at the knees as he puts it down (frame 3, e_rel - the keg itself is thrown by the kit at the enemy's feet), up again
     # (the arms go down with the body: a fist moved off its forearm pulled the wrist apart - 「左手...变形」)
     out["skill2"] = [p(crouch=1), p(crouch=2), p(whole=(1, 0), crouch=2), p(crouch=1), p()]
@@ -294,15 +307,10 @@ def frames_all(F):
     # the bite and chews (frames 2-3, w_rel; the fruit is the effect w_cast); the hand never moves toward the face (a
     # square nearer, the cannon covered the hat's brim and his cheek)
     out["skill_w"] = [p(crouch=1), p(crouch=2), p(crouch=1), p(crouch=2), p()]
-    # R Cannon Barrage (League's Gangplank_Spell4: the pistol held straight up as the signal): the cannon turned to
-    # point at the sky (a quarter turn clockwise) beside his head, the flare fired (frame 3, r_rel; the flare is the
-    # effect r_cast), down
-    up = dict(gun_rot=3)
-    # (turned up in the hand where it rests, 2 squares left: its ring kept 5 squares off his face, still in the glove
-    # on the sleeve - 3 left, it came loose; the sleeve stays put -
-    # raised with the cannon it left his side cut straight below it)
-    out["ult"] = [p(gun=(-2, -1), **up), p(gun=(-2, -3), **up), p(whole=(0, -1), gun=(-2, -3), **up),
-                  p(gun=(-2, -3), **up), p()]
+    # R Cannon Barrage (League's Gangplank_Spell4: the pistol held straight up as the signal): Codex's pose R - the near
+    # arm raised straight up beside the hat, the cannon to the sky - on the design's own body; up on his toes as the
+    # flare is fired (frame 3, r_rel; the flare is the effect r_cast), down
+    out["ult"] = [p(stamp="R"), p(stamp="R"), p(whole=(0, -1), stamp="R"), p(stamp="R"), p()]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # the death (League's Gangplank_Death: he staggers and falls back): back, down on his knees, on his back (a quarter
     # turn counter-clockwise, the head to the back), lying sunk into the ground line
