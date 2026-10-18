@@ -25,7 +25,7 @@ from build_jarvaniv import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_jarvaniv"
-VERSION = "0.139.0"
+VERSION = "0.139.2"
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names, physical damage
@@ -47,7 +47,7 @@ TEXT = {
         "attack": "骑枪刺击，攻速+{e_as}%。" + O + "战争律动" + E + "：对每名英雄每" + A + "{p_rest}秒" + E + "的第一下额外造成其" + O + "{p_pct}%最大生命" +
                   E + "伤害。" + O + "黄金圣盾" + E + "：交战时自动获得" + phy("w_sh", "w_ratio") + "护盾" + A + "{w_t}秒" + E + "（身边每名敌方英雄+{w_per}），" +
                   "身边敌人" + R + "减速{w_slow}%" + E + "。",
-        "skill": "掷出军旗：造成" + phy("e_dmg", "e_ratio") + O + "物理伤害" + E + "，军旗立" + A + "{fl_t}秒" + E + "，附近友方英雄攻速+{f_as}%。随后冲向军旗：" +
+        "skill": "掷出军旗：造成" + phy("e_dmg", "e_ratio") + O + "物理伤害" + E + "，军旗立" + A + "{fl_t}秒" + E + "，附近友方英雄攻速+{f_as}%。3级起随后冲向军旗：" +
                  "沿途和落点的敌人" + R + "击飞{q_up}秒" + E + "，受到" + phy("q_dmg", "q_ratio") + O + "物理伤害" + E + "，护甲-{q_shred}%。",
         "skill2": "骑枪向前刺出：直线上的敌人受到" + phy("q_dmg", "q_ratio") + O + "物理伤害" + E + "，护甲" + R + "-{q_shred}%" + E + "，持续" + A +
                   "{q_shred_t}秒" + E + "。",
@@ -60,7 +60,7 @@ TEXT = {
         "attack": "騎槍刺擊，攻速+{e_as}%。" + O + "戰爭律動" + E + "：對每名英雄每" + A + "{p_rest}秒" + E + "的第一下額外造成其" + O + "{p_pct}%最大生命" +
                   E + "傷害。" + O + "光盾庇護" + E + "：交戰時自動獲得" + phy("w_sh", "w_ratio") + "護盾" + A + "{w_t}秒" + E + "（身邊每名敵方英雄+{w_per}），" +
                   "身邊敵人" + R + "緩速{w_slow}%" + E + "。",
-        "skill": "擲出軍旗：造成" + phy("e_dmg", "e_ratio") + O + "物理傷害" + E + "，軍旗立" + A + "{fl_t}秒" + E + "，附近友方英雄攻速+{f_as}%。隨後衝向軍旗：" +
+        "skill": "擲出軍旗：造成" + phy("e_dmg", "e_ratio") + O + "物理傷害" + E + "，軍旗立" + A + "{fl_t}秒" + E + "，附近友方英雄攻速+{f_as}%。3級起隨後衝向軍旗：" +
                  "沿途和落點的敵人" + R + "擊飛{q_up}秒" + E + "，受到" + phy("q_dmg", "q_ratio") + O + "物理傷害" + E + "，護甲-{q_shred}%。",
         "skill2": "騎槍向前刺出：直線上的敵人受到" + phy("q_dmg", "q_ratio") + O + "物理傷害" + E + "，護甲" + R + "-{q_shred}%" + E + "，持續" + A +
                   "{q_shred_t}秒" + E + "。",
@@ -75,7 +75,7 @@ TEXT = {
                   phy("w_sh", "w_ratio") + " (+{w_per} per enemy champion near) for " + A + "{w_t}s" + E + " and a " + R + "{w_slow}% slow" + E +
                   " to enemies near him.",
         "skill": "Throws his standard for " + phy("e_dmg", "e_ratio") + " " + O + "physical damage" + E + "; it stands " + A + "{fl_t}s" + E +
-                 " giving allied champions near it +{f_as}% attack speed. Then he charges to it: enemies on the way and where he lands are " + R +
+                 " giving allied champions near it +{f_as}% attack speed. From level 3 he then charges to it: enemies on the way and where he lands are " + R +
                  "knocked up {q_up}s" + E + ", take " + phy("q_dmg", "q_ratio") + " " + O + "physical damage" + E + " and lose {q_shred}% armour.",
         "skill2": "A lance thrust down a line: " + phy("q_dmg", "q_ratio") + " " + O + "physical damage" + E + " and " + R + "-{q_shred}% armour" + E +
                   " for " + A + "{q_shred_t}s" + E + ".",
@@ -89,7 +89,7 @@ TEXT = {
                   "최대 체력의 {p_pct}%" + E + " 추가 피해. " + O + "황금빛 방패" + E + ": 교전 중 " + phy("w_sh", "w_ratio") + " 보호막(주변 적 챔피언당 +{w_per}) " +
                   A + "{w_t}초" + E + ", 주변 적 " + R + "{w_slow}% 둔화" + E + ".",
         "skill": "깃발을 던져 " + phy("e_dmg", "e_ratio") + "의 " + O + "물리 피해" + E + ", 깃발은 " + A + "{fl_t}초" + E + "간 서서 주변 아군 챔피언 공격 속도 +{f_as}%. " +
-                 "이어 깃발로 돌진: 경로와 착지 지점의 적은 " + R + "{q_up}초 띄워지고" + E + " " + phy("q_dmg", "q_ratio") + "의 " + O + "물리 피해" + E + ", 방어력 -{q_shred}%.",
+                 "3레벨부터 이어 깃발로 돌진: 경로와 착지 지점의 적은 " + R + "{q_up}초 띄워지고" + E + " " + phy("q_dmg", "q_ratio") + "의 " + O + "물리 피해" + E + ", 방어력 -{q_shred}%.",
         "skill2": "직선으로 창을 찔러 " + phy("q_dmg", "q_ratio") + "의 " + O + "물리 피해" + E + "와 " + A + "{q_shred_t}초" + E + "간 " + R + "방어력 -{q_shred}%" + E + ".",
         "ult": "적 챔피언에게 뛰어올라 주변에 " + phy("r_dmg", "r_ratio") + "의 " + O + "물리 피해" + E + ", 바위 고리가 적 챔피언을 " + R + "{r_t}초" + E +
                " 가두고 빠져나가면 끌어당김. 띄워진 적이나 적 챔피언 2명이 가까울 때 사용.",
@@ -101,7 +101,7 @@ TEXT = {
                   "最大体力の{p_pct}%" + E + "のダメージを追加。" + O + "ゴールデンイージス" + E + "：交戦中" + phy("w_sh", "w_ratio") + "のシールド" + A + "{w_t}秒" + E +
                   "（周囲の敵チャンピオン毎+{w_per}）、周囲の敵に" + R + "スロウ{w_slow}%" + E + "。",
         "skill": "旗を投げ" + phy("e_dmg", "e_ratio") + "の" + O + "物理ダメージ" + E + "、旗は" + A + "{fl_t}秒" + E + "立ち周囲の味方の攻撃速度+{f_as}%。" +
-                 "続けて旗へ突進：経路と着地点の敵を" + R + "{q_up}秒打ち上げ" + E + "、" + phy("q_dmg", "q_ratio") + "の" + O + "物理ダメージ" + E + "と物理防御-{q_shred}%。",
+                 "レベル3から続けて旗へ突進：経路と着地点の敵を" + R + "{q_up}秒打ち上げ" + E + "、" + phy("q_dmg", "q_ratio") + "の" + O + "物理ダメージ" + E + "と物理防御-{q_shred}%。",
         "skill2": "直線に槍を突き出し" + phy("q_dmg", "q_ratio") + "の" + O + "物理ダメージ" + E + "、" + A + "{q_shred_t}秒" + E + R + "物理防御-{q_shred}%" + E + "。",
         "ult": "敵チャンピオンへ跳びかかり周囲に" + phy("r_dmg", "r_ratio") + "の" + O + "物理ダメージ" + E + "、岩の輪が敵チャンピオンを" + R + "{r_t}秒閉じ込め" + E +
                "、出ようとすると引き戻す。打ち上げた敵か敵2体が近い時に使う。",

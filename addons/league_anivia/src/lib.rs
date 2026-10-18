@@ -32,7 +32,7 @@ pub const FORM: &str = "league_anivia_egg_on";
 
 const ID: &str = "league_anivia";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.3";
 
 /// 「不死」挂多久、多久续一次。
 pub const GUARD_T: usize = 30;
@@ -44,6 +44,8 @@ pub const BODY: u64 = 6000;
 /// 立墙那一 tick 她脚下这么近的新投射物不算墙（普攻、E 从她身上出发）。0.1.0 是 25000：被晕的近战英雄贴着她时，
 /// 墙也被当成她脚下的东西丢掉。
 pub const NEAR_ME: u64 = 3000;
+/// `w_cd` 出现后最多再找这么多 tick 的墙心。
+pub const WALL_LOOK: usize = 3;
 
 fn sn(x: &str) -> String {
     format!("league_anivia_{x}")
@@ -186,20 +188,23 @@ pub fn hold(walls: &[Wall], p: &Params, last: Option<(u64, u64)>, now: (u64, u64
 /// 立墙那一 tick 的墙心：她的投射物按位置（200 以内算一处）数个数，比上一 tick 多出来的那些位置里（离她 `NEAR_ME`
 /// 以外），多出来最多的；一样多取离她远的。0.1.0 只认「上一 tick 那里一个都没有」的位置，可墙立在 Q 的炸点上，
 /// 炸点上一 tick 就有 Q 挂的延时（2 tick 后立墙的那个），墙的两个区域就被当成旧的：游戏日志里六成的墙没立起来
-/// （`WALL?` 约 950 次，`WALL` 约 550 次）。
+/// （`WALL?` 约 950 次，`WALL` 约 550 次）。0.1.3：`prev` 是 `w_cd` 出现前一 tick 的，`now` 可以是之后 `WALL_LOOK` tick 里的
+/// 任何一 tick（0.1.2 只在 `w_cd` 出现那一 tick 找，还有约三分之一没找到：区域可能晚一 tick 才列出来）；多出来的位置里
+/// 只认至少两个叠在一处的（墙的 `w_out` 和 `w_mark` 一起出现；普攻、冰锥只有一个，墙还没列出来时不会被当成墙），
+/// 先取那里投射物最多的，再取多出来最多的，再取离她远的。
 pub fn wall_centre(prev: &[(u64, u64)], now: &[(u64, u64)], me: (u64, u64)) -> Option<(u64, u64)> {
     let near = |a: (u64, u64), b: (u64, u64)| a.0.abs_diff(b.0) < 200 && a.1.abs_diff(b.1) < 200;
     let from_me = |q: (u64, u64)| q.0.abs_diff(me.0).max(q.1.abs_diff(me.1));
-    let mut best: Option<((u64, u64), usize)> = None;
+    let mut best: Option<((u64, u64), (usize, usize, u64))> = None;
     for &q in now.iter().filter(|&&q| from_me(q) > NEAR_ME) {
         let more = now.iter().filter(|&&o| near(o, q)).count();
         let before = prev.iter().filter(|&&o| near(o, q)).count();
-        if more <= before {
+        if more <= before || more < 2 {
             continue;
         }
-        let n = more - before;
-        if best.is_none_or(|(b, bn)| n > bn || (n == bn && from_me(q) > from_me(b))) {
-            best = Some((q, n));
+        let key = (more, more - before, from_me(q));
+        if best.is_none_or(|(_, b)| key > b) {
+            best = Some((q, key));
         }
     }
     best.map(|(q, _)| q)
@@ -238,6 +243,8 @@ struct Rebirth {
     /// 上一 tick 她身上有没有 `w_cd`、她的投射物在哪。
     had_w_cd: bool,
     prev_proj: Vec<(u64, u64)>,
+    /// `w_cd` 刚出现、墙心还没找到：出现的 tick 和那之前一 tick 她的投射物。
+    rising: Option<(usize, Vec<(u64, u64)>)>,
     walls: Vec<Wall>,
     /// 墙立着时每个单位上一 tick 的位置。
     last_pos: HashMap<usize, (u64, u64)>,
@@ -288,19 +295,24 @@ impl Rebirth {
             .collect();
         let w_cd = has(sim, me, &sn("w_cd"));
         if w_cd && !self.had_w_cd {
+            self.rising = Some((now, self.prev_proj.clone()));
+        }
+        if let Some((from, base)) = self.rising.take() {
             let me_pos = sim.get_entity(me).map_or((0, 0), |e| e.pos());
-            match wall_centre(&self.prev_proj, &mine, me_pos) {
+            match wall_centre(&base, &mine, me_pos) {
                 Some((x, y)) => {
-                    self.walls.push(Wall { x, y, from: now, left: me_pos.0 < x });
+                    self.walls.push(Wall { x, y, from, left: me_pos.0 < x });
                     if let Some(k) = counted("wall") {
-                        wlog(format!("{} WALL #{k}: at ({x}, {y}), {} ticks", head(sim, me), self.p.w_t));
+                        wlog(format!("{} WALL #{k}: at ({x}, {y}), {} ticks (found {} tick(s) after w_cd)",
+                                     head(sim, me), self.p.w_t, now - from));
                     }
                 }
-                None => {
+                None if now >= from + WALL_LOOK => {
                     if let Some(k) = counted("wall_lost") {
-                        wlog(format!("{} WALL? #{k}: w_cd rose but no new zone of hers was found", head(sim, me)));
+                        wlog(format!("{} WALL? #{k}: w_cd rose at t={from} but no new zone of hers in {WALL_LOOK} ticks                                       ({} of her projectiles before, {} now)", head(sim, me), base.len(), mine.len()));
                     }
                 }
+                None => self.rising = Some((from, base)),
             }
         }
         self.had_w_cd = w_cd;
@@ -366,6 +378,7 @@ impl StablePassive for Rebirth {
         self.alive_seen = false;
         self.had_w_cd = false;
         self.prev_proj.clear();
+        self.rising = None;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Anivia (player {player}, team {team}), {:?}, egg ready at t={}",
@@ -518,6 +531,17 @@ mod tests {
         assert_eq!(wall_centre(&prev, &now, me), Some((315000, 400000)));
         // nothing new: no wall
         assert_eq!(wall_centre(&prev, &[(315000, 400000)], me), None);
+    }
+
+    #[test]
+    fn a_tick_later_the_wall_beats_a_new_bolt() {
+        // the snapshot before w_cd rose; a tick later the wall's two zones and a bolt already flying away from her
+        let me = (300000, 400000);
+        let prev = [(420000, 395000)];
+        let now = [(470000, 400000), (420000, 395000), (420000, 395000)];
+        assert_eq!(wall_centre(&prev, &now, me), Some((420000, 395000)));
+        // the zones not listed yet, only the bolt new: no wall yet (look again next tick)
+        assert_eq!(wall_centre(&prev, &[(470000, 400000)], me), None);
     }
 
     #[test]
