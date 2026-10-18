@@ -1715,7 +1715,7 @@
                           "name": "league_pantheon_e_emp",
                           "duration": {
                             "Time": {
-                              "tick": 94
+                              "tick": 101
                             }
                           }
                         },

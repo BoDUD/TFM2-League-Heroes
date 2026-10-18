@@ -325,7 +325,7 @@ def build(p):
     # the cast instead of before it; W's empowered thrusts (w_tri) come from the cast itself (its flag w_emp was added
     # and taken back in the same run). w_cd, e_cd, e_near, w_emp and e_emp are added, read and taken off only here (the
     # attack, Q, R and addons/league_pantheon/src never name them), so nothing else sees the difference.
-    go = cast(sw("w_cd", refresh("e_emp", p["e_t"] + 4), refresh("w_tri", p["w_tri_t"])))
+    go = cast(sw("w_cd", refresh("e_emp", p["e_t"] + p["e_bash_at"] + 4), refresh("w_tri", p["w_tri_t"])))
     skill2 = action("idle", 3, p["s2_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
                     combine(init, sw("w_cd", sw("e_cd", NONE, near), flag("e_near", 1)), sw("e_near", go),
                             sw("w_cd", sw("e_near", combine(*rm("e_near"), flag("e_cd", p["e_cd"]), *e_post)),

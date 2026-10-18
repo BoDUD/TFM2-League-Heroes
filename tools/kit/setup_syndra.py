@@ -36,7 +36,8 @@ R = "<#ef5350ff>"      # crowd control
 Wh = "<#ffffffff>"     # true damage
 E = "<>"
 # champion_view: tfm2_ase.py face (crown 39 px over the feet, head centre x -2.3); the idle's top is 30 over the pivot (above -28): the ban/pick card's point -39 + 30
-VIEW = {"face": {"x": -1, "y": -39}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -9}}
+# 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -9 -> -6: the headdress was cut
+VIEW = {"face": {"x": -1, "y": -39}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -6}}
 
 
 def mag(d, r):
