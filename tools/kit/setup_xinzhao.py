@@ -33,7 +33,9 @@ R = "<#ef5350ff>"      # crowd control, debuffs
 G = "<#66bb6aff>"      # healing
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 0, "y": -36}, "center": {"x": 0, "y": -12}}
+# 2026-10-18, PPU 1.5 redo (#349): banpick_center -8 (bp_card_audit.py); face (5,-36) framed mostly hair with the eyes on
+# the portrait's bottom rows and the chin cut, (4,-34) puts eyes, nose and mouth in the middle (1x idle and hd_idle)
+VIEW = {"face": {"x": 4, "y": -34}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phy(d, r):
