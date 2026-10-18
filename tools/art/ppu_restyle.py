@@ -315,25 +315,26 @@ RESTYLE = {
     # step-1 redo take A-2 read back uncut, 62 rows = 41 game rows: the 50-row cut for 1.2 broke the gun hand - 「拿枪的
     # 那个手啊」, 「PPU 用 1.5」) by tools/art/rig_gangplank.py, Q / R from Codex's gun-hand poses, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "gangplank": dict(ppu=1.5, edge=1, face_to=(2, -34)),
+    # 2026-10-18 the user: 「船长猴子阿克尚波比蛇女像素太高需要降低 船长猴子局内太大」 -> all five PPU 1.2, Gangplank 90%, Wukong 85%
+    "gangplank": dict(ppu=1.2, grow=0.9, edge=1, face_to=(2, -29)),
     # league_wukong (#127): posed from the design's own squares at the user's 1.5 squares a game pixel (「用 A，游戏里 38
     # 像素高」, then on the step-1 guide 「太模糊了 起码PPU1.5」: Codex's step-1 take A-1 cut to 57 rows hair to soles) by
     # tools/art/rig_wukong.py, so no proportion or density change here; the outer outline grown a square like the others;
     # the face point between his green eyes
-    "wukong": dict(ppu=1.5, edge=1, face_to=(0, -27)),
+    "wukong": dict(ppu=1.2, grow=0.85, edge=1, face_to=(0, -21)),
     # league_cassiopeia (#128): posed from the design's own squares at the user's 1.3 squares a game pixel (「44 ppu1.3 A」:
     # Codex's step-1 take A-2 cut to 57 rows crest to ground) by tools/art/rig_cassiopeia.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point between her eyes
-    "cassiopeia": dict(ppu=1.3, edge=1, face_to=(2, -29)),
+    "cassiopeia": dict(ppu=1.2, edge=1, face_to=(2, -29)),
     # league_akshan (#129): posed from the design's own squares at the user's 1.5 squares a game pixel (「用 A，游戏里 38
     # 像素高，PPU 1.5」: Codex's step-1 round-2 take A-1 cut to 57 rows hair to soles) by tools/art/rig_akshan.py, the
     # forward gun arm from Codex's pose and the walk from Codex's skin swap read on the same grid, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "akshan": dict(ppu=1.5, edge=1, face_to=(3, -31)),
+    "akshan": dict(ppu=1.2, edge=1, face_to=(3, -31)),
     # league_poppy (#130): posed from the design's own squares at the user's 1.3 squares a game pixel (「用 B（锤子竖着），
     # 游戏里 36 像素高，PPU 1.3」: Codex's step-1 take B-2 cut to 47 rows pigtails to soles) by tools/art/rig_poppy.py, so no
     # proportion or density change here; the outer outline grown a square like the others; the face point between her eyes
-    "poppy": dict(ppu=1.3, edge=1, face_to=(5, -22)),
+    "poppy": dict(ppu=1.2, edge=1, face_to=(5, -22)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
