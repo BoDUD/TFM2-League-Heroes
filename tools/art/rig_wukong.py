@@ -121,13 +121,43 @@ STEEL = [(189, 201, 216), (135, 144, 164), (90, 98, 120), (54, 54, 70)]
 ROBE = [(69, 10, 42), (106, 22, 64), (36, 6, 15)]
 RED = [(244, 31, 15), (108, 3, 10), (187, 8, 13), (137, 7, 10)]
 TAIL_HINGE = 16                                       # the tail swings above this row (its root stays behind him)
-# The staff's steel middle (rows STEEL_ROWS) as the cut left it was 3-5 squares wide row to row and hidden under the hand
-# (rows 39-45): turned level and slid out of the hand it showed a broken, ragged shaft (the user: 「武器有点变形吧」).
-# It is laid again from the cut's own cleanest steel row (row 37: outline, dark, mid, light, dark, outline) along the
-# shaft's line - its left outline from column 6 at row 31 to column 3 at row 50 - the gold-banded ends kept as drawn.
-STEEL_ROWS = (31, 50)
-STEEL_X = (6, 3)                                      # left outline column at the first / last steel row
-STEEL_PAT = [None, (90, 98, 120), (135, 144, 164), (189, 201, 216), (90, 98, 120), None]   # None = the outline
+# The staff: Codex's drawing holds it slanted (1:5) and the cut left it ragged; turned level that slant became a
+# staircase and the user saw a crooked weapon (「武器做的也是歪的 不是直的」). So the staff is laid once, straight, from
+# the design's own colours and its run of parts top to bottom (the same 52 rows): a red cap, a gold clasp, the red
+# shaft, a gold band, the grey steel middle (the hand holds it at row GRIP_ROW), a white collar and a gold band, the red
+# shaft, a gold clasp and the red cap - the shaft 3 squares across (dark, mid, light), the clasps and bands 5 - and only
+# turned by quarter turns: upright in the hand standing, level when he swings, thrusts or spins.
+RED3 = [(137, 7, 10), (187, 8, 13), (244, 31, 15)]
+STEEL3 = [(90, 98, 120), (135, 144, 164), (189, 201, 216)]
+CAP3 = [(187, 8, 13), (244, 31, 15), (251, 110, 6)]
+WHITE3 = [(210, 190, 160), (242, 249, 225), (250, 249, 249)]
+GOLD5 = [(129, 57, 8), (209, 128, 18), (235, 157, 22), (249, 188, 26), (252, 232, 50)]
+GROOVE5 = [(129, 57, 8), (150, 99, 14), (129, 57, 8), (190, 108, 15), (235, 157, 22)]
+STAFF_RUN = [("cap", 3, CAP3), ("clasp", 4, None), ("red", 6, RED3), ("band", 2, GOLD5), ("steel", 20, STEEL3),
+             ("white", 2, WHITE3), ("band", 1, GOLD5), ("red", 4, RED3), ("clasp", 5, None), ("cap", 3, CAP3)]
+GRIP_ROW = 28                                         # the sprite row the hand holds (design row 44, 28 under the top)
+
+
+def straight_staff(outline, ext=0):
+    """The straight staff upright, 7 columns wide, its top outline row 0; ext more steel rows (above the hand)."""
+    rows = []
+    for name, n, cols in STAFF_RUN:
+        n += ext if name == "steel" else 0
+        for i in range(n):
+            if name == "clasp":
+                rows.append((5, GROOVE5 if i % 2 else GOLD5))
+            else:
+                rows.append((5 if len(cols) == 5 else 3, cols))
+    h = len(rows) + 2
+    spr = np.zeros((h, 7, 4), np.uint8)
+    for k, (w, cols) in enumerate(rows):
+        x0 = 1 if w == 5 else 2
+        for i, c in enumerate(cols):
+            spr[k + 1, x0 + i] = (*c, 255)
+    inner = spr[..., 3] > 0
+    ring = ndimage.binary_dilation(inner, structure=R.CROSS) & ~inner
+    spr[ring] = (*outline, 255)
+    return spr
 
 
 def classes(d, cols):
@@ -160,6 +190,8 @@ def design():
     D.part("tail", D.box(0, 16, 17, 29) | D.box(17, 28, 17, 26))
     D.part("staff", staff_mask(D))
     D.part("near_arm", D.box(29, 49, 0, 27) & ~D.parts["staff"])
+    # the near fist (its fur and outline, rows 39-49): drawn over the staff, which passes through it
+    D.part("hand", D.box(39, 49, 1, 12) & (classes(d, FUR) | classes(d, [tuple(D.outline)])) & ~D.parts["staff"])
     D.part("far_arm", D.box(21, 40, 54, 76) | D.box(41, 49, 60, 76))
     # the lower legs from a material map of rows 44-68 (2026-10-18; the first cut left the near knee guard on the body,
     # so the shin moved away from its own knee: 「腿部也有变形的」): near - the fur above the knee, the steel knee guard
@@ -244,35 +276,23 @@ class Form:
         layers = [(self.tail(sway), dict(dx=ux + tail[0], dy=uy + tail[1])),
                   (L["far_arm"], dict(dx=ux + far[0], dy=uy + far[1], rot=far_rot, about=FAR_SHOULDER)),
                   *legs_l, (L["body"], dict(dx=ux, dy=uy)),
+                  (L["near_arm"], dict(dx=ux + near[0], dy=uy + near[1], rot=near_rot, about=NEAR_SHOULDER)),
                   *([] if no_staff else [(staff_l, dict(dx=ux + staff[0], dy=uy + staff[1]))]),
-                  (L["near_arm"], dict(dx=ux + near[0], dy=uy + near[1], rot=near_rot, about=NEAR_SHOULDER))]
+                  (L["hand"], dict(dx=ux + near[0], dy=uy + near[1], rot=near_rot, about=NEAR_SHOULDER))]
         can = R.compose(self.rig, layers)
         return self.close_holes(can) if fill else can
 
     def staff(self, rot, ext=0):
-        """The staff layer (its drawn ends and the steel middle laid square by square, STEEL_*), ext steel rows longer
-        above the hand (the top end moved out along the shaft's line: League's extending staff), then turned rot
-        quarter turns counter-clockwise about GRIP (lossless; 3: the top points forward)."""
+        """The straight staff (straight_staff) put in a padded layer with its GRIP_ROW on the hand's middle (GRIP),
+        turned rot quarter turns counter-clockwise about GRIP (3: the top points forward, level through the fist)."""
         key = (rot % 4, ext)
         if key in self._staff:
             return self._staff[key]
-        D = self.D
-        (r0, r1), (x0, x1) = STEEL_ROWS, STEEL_X
-        xl = lambda y: int(round(x0 + (x1 - x0) * (y - r0) / (r1 - r0)))
+        spr = straight_staff(self.D.outline, ext)
         src = np.zeros_like(self.L["staff"])
-        keep = D.parts["staff"].copy()
-        keep[r0:r1 + 1] = False
-        top, bot = keep.copy(), keep.copy()
-        top[r0:] = False
-        bot[:r1 + 1] = False
-        dx_top = xl(r0 - ext) - xl(r0)
-        for m, dy, dx in ((top, -ext, dx_top), (bot, 0, 0)):
-            ys, xs = np.nonzero(m)
-            src[ys + P + dy, xs + P + dx] = D.d[ys, xs]
-        outline = (*D.outline, 255)
-        for y in range(r0 - ext, r1 + 1):
-            for i, c in enumerate(STEEL_PAT):
-                src[y + P, xl(y) + i + P] = outline if c is None else (*c, 255)
+        top = int(GRIP[1]) - (GRIP_ROW + ext) + P
+        left = int(GRIP[0]) - 3 + P
+        src[top:top + spr.shape[0], left:left + 7] = spr
         lay = np.zeros_like(src)
         R.put(lay, src, rot=rot, about=(GRIP[0] + P, GRIP[1] + P))
         self._staff[key] = lay
@@ -344,23 +364,23 @@ def sheet(cans, path, z=4):
 
 def tries(F):
     p = F.pose
-    return [p(), p(**flat()), p(**flat(ext=12)), p(staff_rot=1), p(staff_rot=2),
-            p(near=(0, -4)), p(sway=2), mirror(F.rig, p(**flat(ext=8)))]
+    return [p(), p(**flat()), p(**flat(ext=20)), p(near=(0, -4), staff=(0, -10)),
+            p(near=(3, 0), **flat(dx=HOLD + 3)), p(sway=2), mirror(F.rig, p(**flat(dx=0, ext=20))), p(crouch=2)]
 
 
 # ------------------------------------------------------------------------------------------------- the actions
-# A flat staff (staff_rot 3: its top points forward) slid along itself so the hand holds its foot end and it reaches
-# out in front of him (turned about the hand alone, its longer half went into the body and its foot out behind him)
-FWD = 20
+# A level staff (staff_rot 3: its top points forward) runs through the middle of the fist; slid along itself by dx
+# (unslid it reaches from 16 columns behind the fist to column 35)
+HOLD = 14                                             # the fist near the foot end: the foot cap just out behind it
 
 
-def flat(dx=FWD, dy=0, ext=0):
+def flat(dx=HOLD, dy=0, ext=0):
     return dict(staff_rot=3, staff=(dx, dy), ext=ext)
 
 
 # ms per frame; the kit's ticks (tools/kit/build_wukong.py) come from these
 MS = {"idle": [150] * 8, "run": [100] * 8, "attack": [80, 90, 100, 110, 80], "q_attack": [80, 90, 110, 100, 60],
-      "skill": [60, 80, 80, 80], "skill2": [60, 70, 70], "spin": [60, 60, 60, 60], "ult": [50],
+      "skill": [60, 80, 80, 80], "skill2": [60, 70, 70], "spin": [70, 70], "ult": [50],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 200, 500]}
 
 
@@ -371,32 +391,32 @@ def frames_all(F):
     # idle: the body sets down a row onto the lower legs and rises, the tail's tip swinging a column after it
     out["idle"] = [p(crouch=c, sway=k) for c, k in zip([0, 0, 1, 1, 1, 1, 0, 0], [0, 1, 1, 1, 0, -1, -1, -1])]
     # auto attack (League's MonkeyKing_attack1: the staff raised high, then swung down to lie level in front of him):
-    # the near arm raised 4 rows with the staff slid up in the hand; the swing - the staff level across his front (frame
-    # 3, the hit), stepping in a column and low; held; back
+    # the near arm raised 4 rows with the staff slid up in the fist; the swing - level at the shoulder; the blow (frame
+    # 3) level at the hip, the fist 3 columns forward and the whole figure 2 in; held; back. The staff keeps its length
+    # all through (the first version lengthened and shortened it frame to frame: 「金箍棒还能缩没的」)
     up = dict(near=(0, -4), staff=(0, -10))
-    out["attack"] = [p(whole=(-1, 0), **up), p(near=(0, -3), **flat(dy=-3, ext=14)),
-                     p(crouch=1, whole=(2, 0), near=(0, -1), **flat(dy=-1, ext=22)),
-                     p(crouch=1, whole=(2, 0), near=(0, -1), **flat(dy=-1, ext=18)), p()]
-    # Q Crushing Blow (League's monkeyking_spell1: the staff thrust straight out at chest height, longer): drawn back
-    # level at the chest (the near arm up 5 rows), the thrust (frame 3) - the whole figure three columns in, the staff
-    # lengthened 30 squares; held; back
+    out["attack"] = [p(whole=(-1, 0), **up), p(near=(1, -4), **flat(dy=-4)),
+                     p(crouch=1, whole=(2, 0), near=(3, 0), **flat(dx=HOLD + 3)),
+                     p(crouch=1, whole=(2, 0), near=(3, 0), **flat(dx=HOLD + 3)), p()]
+    # Q Crushing Blow (League's monkeyking_spell1: the staff shot out level at chest height, longer - Crushing Blow's
+    # reach): drawn back level at the chest, the thrust (frame 2 on) - lengthened 28 squares at once and held so, the
+    # whole figure three columns in; back to standing
     chest = dict(near=(0, -5))
-    out["q_attack"] = [p(crouch=1, **chest, **flat(dx=8, dy=-5)),
-                       p(crouch=1, whole=(1, 0), **chest, **flat(dy=-5, ext=10)),
-                       p(crouch=1, whole=(3, 0), **chest, **flat(dy=-5, ext=30)),
-                       p(crouch=1, whole=(3, 0), **chest, **flat(dy=-5, ext=26)), p()]
+    out["q_attack"] = [p(crouch=1, **chest, **flat(dx=4, dy=-5)),
+                       p(crouch=1, whole=(1, 0), near=(2, -5), **flat(dx=HOLD + 2, dy=-5, ext=28)),
+                       p(crouch=1, whole=(3, 0), near=(2, -5), **flat(dx=HOLD + 2, dy=-5, ext=28)),
+                       p(crouch=1, whole=(3, 0), near=(2, -5), **flat(dx=HOLD + 2, dy=-5, ext=28)), p()]
     # E Nimbus Strike (League's monkeyking_spell3: a leap at the target): crouched, up and forward with the staff
     # level in front (the cloud is the effect e_cloud), on, landing low
-    out["skill"] = [p(crouch=2), p(whole=(2, -6), legs=((1, -2), (1, -2)), **flat(ext=6)),
-                    p(whole=(4, -3), legs=((1, -1), (1, -1)), **flat(ext=6)), p(crouch=2, whole=(1, 0))]
+    out["skill"] = [p(crouch=2), p(whole=(2, -6), legs=((1, -2), (1, -2)), **flat()),
+                    p(whole=(4, -3), legs=((1, -1), (1, -1)), **flat()), p(crouch=2, whole=(1, 0))]
     # W Warrior Trickster (League's monkeyking_spell2: he vanishes with a dash - the poof is the effect w_poof): down,
     # the dash's start low and forward, up
     out["skill2"] = [p(crouch=1), p(crouch=2, whole=(2, 0)), p(crouch=1, whole=(1, 0))]
     # R Cyclone's spin (League's monkeyking_spell4: the lengthened staff whirled level round him): the front and the
-    # back (the frame mirrored about where he stands), the staff long, then short (end on to the eye), in turn
-    a = p(crouch=1, **flat(dx=6, ext=30))
-    b = p(crouch=1, **flat(dx=14))
-    out["spin"] = [a, b, mirror(rig, a), mirror(rig, b)]
+    # back (the frame mirrored about where he stands) in turn, the staff level and lengthened 20 squares throughout
+    a = p(crouch=1, **flat(dx=0, ext=20))
+    out["spin"] = [a, mirror(rig, a)]
     # the ult's arming (3 ticks): the staff raised
     out["ult"] = [p(**up)]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
