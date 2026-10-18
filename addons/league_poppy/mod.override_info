@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_poppy": {
+    "remapping": "asset/league_poppy/override/league_poppy",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_poppy/text/champion",
+    "type": "merge"
+  }
+}

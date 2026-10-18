@@ -1,0 +1,2797 @@
+{
+  "schema_version": 1,
+  "generated_date": "2026-10-18",
+  "generator": "built-in image_gen",
+  "effect_count": 19,
+  "total_frames": 78,
+  "scale": 8,
+  "alpha_values": [
+    0,
+    255
+  ],
+  "extraction": "Raw RGBA alpha>=128; nearest specified palette per source pixel; majority opacity per target cell followed by modal foreground color. Mirror left half, or upper half for projectiles, for exact symmetry; no RGB averaging. Small effects recentered before extraction; others use one-cell-equivalent transparent sampling padding. Raw art unchanged.",
+  "assets": [
+    {
+      "name": "p_buckler",
+      "file": "poppy_fx_p_buckler.png",
+      "pixel_1x": "pixel_1x/poppy_fx_p_buckler.png",
+      "raw": "raw/poppy_fx_p_buckler.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        6.0,
+        6.0
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cell_8x": [
+        96,
+        96
+      ],
+      "sheet_1x": [
+        48,
+        12
+      ],
+      "sheet_8x": [
+        384,
+        96
+      ],
+      "layout": "horizontal",
+      "symmetry": "top_bottom",
+      "raw_size": [
+        1265,
+        1243
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          632,
+          622
+        ],
+        [
+          632,
+          0,
+          1265,
+          622
+        ],
+        [
+          0,
+          622,
+          632,
+          1243
+        ],
+        [
+          632,
+          622,
+          1265,
+          1243
+        ]
+      ],
+      "raw_sha256": "e1b7986a9d33dafb0d02099e194f1171b86c094e3303d19eddaf4b0e89fee485",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#C77A1E",
+        "#7A4614",
+        "#E4E6EA",
+        "#B8BCC6",
+        "#8A8F9C",
+        "#5E6270",
+        "#383B46"
+      ],
+      "binding_reference": "view_projectiles `league_poppy_p_buckler`（随飞行方向转；画成**朝右**、**上下对称**）",
+      "loop_requested": true,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 52,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            11,
+            10
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 52,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            11,
+            10
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 52,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            11,
+            10
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 52,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            11,
+            10
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "0fcf4a15cdef8ec6734e814af6b03f7e866f893c26840542221e5058eee5534d",
+        "daa6db19abb3335f72608341d246c9e53de123d8eee46db745f3c690f1d91e29",
+        "e23e5523b0e2eb98d45c34678065a19250cad01893018750a0f42475744d5da3",
+        "3a59711acb9a28c512975f153d7565ddd6d7dd050ce01275850eb6d5340276b6"
+      ]
+    },
+    {
+      "name": "p_lie",
+      "file": "poppy_fx_p_lie.png",
+      "pixel_1x": "pixel_1x/poppy_fx_p_lie.png",
+      "raw": "raw/poppy_fx_p_lie.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        7.0,
+        5
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 2,
+      "cell_1x": [
+        14,
+        8
+      ],
+      "cell_8x": [
+        112,
+        64
+      ],
+      "sheet_1x": [
+        28,
+        8
+      ],
+      "sheet_8x": [
+        224,
+        64
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "raw_grid": [
+        2,
+        1
+      ],
+      "raw_regions": [
+        [
+          0,
+          200,
+          830,
+          840
+        ],
+        [
+          830,
+          200,
+          1659,
+          840
+        ]
+      ],
+      "raw_sha256": "5a12b090570242af1e927dc7765fcdad125fa2338ad9bbc6a861b9dea6ec43ad",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#C77A1E",
+        "#7A4614",
+        "#E4E6EA",
+        "#B8BCC6",
+        "#8A8F9C",
+        "#5E6270",
+        "#383B46"
+      ],
+      "binding_reference": "view_effects `league_poppy_p_lie`（不跟随，画在人物下面 z -1；左右对称；落地后 4 秒内每 15 tick 再放一次：2 帧连起来要能接上）",
+      "loop_requested": true,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 36,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            12,
+            6
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 36,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            12,
+            6
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "deb6cb618ffaf00fb37795e91e47343d58656063fe3198ec5b2585ac80882b5e",
+        "ee9fbd917f128a1d25d5b7d6ede4826fc95345f9972e09acb5568c7c3966342d"
+      ]
+    },
+    {
+      "name": "p_pick",
+      "file": "poppy_fx_p_pick.png",
+      "pixel_1x": "pixel_1x/poppy_fx_p_pick.png",
+      "raw": "raw/poppy_fx_p_pick.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        14.0,
+        38
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        28,
+        40
+      ],
+      "cell_8x": [
+        224,
+        320
+      ],
+      "sheet_1x": [
+        112,
+        40
+      ],
+      "sheet_8x": [
+        896,
+        320
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1049,
+        1499
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          524,
+          750
+        ],
+        [
+          524,
+          0,
+          1049,
+          750
+        ],
+        [
+          0,
+          750,
+          524,
+          1499
+        ],
+        [
+          524,
+          750,
+          1049,
+          1499
+        ]
+      ],
+      "raw_sha256": "789d584f2dda2cb27ffcdafb393c5106290c33ad05829a7611d5249d1a78b1e3",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34"
+      ],
+      "binding_reference": "view_effects `league_poppy_p_pick`（跟随，画在人物上面 z 2；左右对称）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 60,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            29,
+            23,
+            38
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 144,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            18,
+            24,
+            38
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 140,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            7,
+            23,
+            36
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 44,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            4,
+            23,
+            35
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "5de8b94767b1a13480f5371dd922098540b83250ebb37138cfcac944020ee6bb",
+        "83e5ced061fcd3ee32cd59c14feea99f97fbd42b7a8c51982b82324e397b207c",
+        "6659786406439b2cc424f110cb1c8c8f8c5fe7a22a2295af5f0e8bce9a3173c4",
+        "a1a0f0528cf3d42f2124e4f8d49939622ae2947e75e3e451f4c2ea6f211bd7ff"
+      ]
+    },
+    {
+      "name": "p_shown",
+      "file": "poppy_fx_p_shown.png",
+      "pixel_1x": "pixel_1x/poppy_fx_p_shown.png",
+      "raw": "raw/poppy_fx_p_shown.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        15.0,
+        38
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        40
+      ],
+      "cell_8x": [
+        240,
+        320
+      ],
+      "sheet_1x": [
+        120,
+        40
+      ],
+      "sheet_8x": [
+        960,
+        320
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1086,
+        1448
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          543,
+          724
+        ],
+        [
+          543,
+          0,
+          1086,
+          724
+        ],
+        [
+          0,
+          724,
+          543,
+          1448
+        ],
+        [
+          543,
+          724,
+          1086,
+          1448
+        ]
+      ],
+      "raw_sha256": "1eef01325762b954b58a3868f9903643f9f21e2f8cf2d1786baec095059a546d",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34"
+      ],
+      "binding_reference": "view_buffs `league_poppy_p_shown`（跟随，画在人物下面 z -1；左右对称；循环，护盾 3 秒内一直在）",
+      "loop_requested": true,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 194,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            4,
+            27,
+            36
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 188,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            4,
+            27,
+            36
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 198,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            4,
+            27,
+            36
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 196,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            4,
+            27,
+            36
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "4676e14acab0492b1952c3d806799cb5f908d5e9fe3f176cc1fac3037c8d41d8",
+        "e4d153212f056df8182bb736c255965c57e926f5499f35d5c43216fbab00b4da",
+        "3b2cbf02b934f6f578b508f6ac293e01ef90a1735f3fa7b82f3dc50b57f27ac3",
+        "2c5ddacda5c3b5e9f24d86840b6e19d14b1eba53f51eb8eb33d79ae4b031405f"
+      ]
+    },
+    {
+      "name": "a_hit",
+      "file": "poppy_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/poppy_fx_a_hit.png",
+      "raw": "raw/poppy_fx_a_hit.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        7.0,
+        7.0
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "cell_8x": [
+        112,
+        112
+      ],
+      "sheet_1x": [
+        56,
+        14
+      ],
+      "sheet_8x": [
+        448,
+        112
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1274,
+        1235
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          637,
+          618
+        ],
+        [
+          637,
+          0,
+          1274,
+          618
+        ],
+        [
+          0,
+          618,
+          637,
+          1235
+        ],
+        [
+          637,
+          618,
+          1274,
+          1235
+        ]
+      ],
+      "raw_sha256": "03942379116a4b93056010ea33af5d18c9dea0d8cd0f0a3fe99c615ab2a21f64",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18"
+      ],
+      "binding_reference": "view_effects `league_poppy_a_hit`（跟随，画在人物上面；左右对称）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 12,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            5,
+            9,
+            9
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 44,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            12,
+            12
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 40,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            12,
+            12
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 8,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            2,
+            11,
+            12
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "5e0727ceef16270090ba5fbc1c3b3594f12b7593740329ba181c61e71502552a",
+        "9d8784dd6479f8d427c3580a1c7ef7855b45d7666c495863b26013803cb37767",
+        "a2eb7a3a8f0c05b52203a8a9687f739c6fe4beb554905133d64d65dbb53ddb39",
+        "000643856444db635ae5222cd352d19ddfdbae9b136d64f7312c4aa26e00234f"
+      ]
+    },
+    {
+      "name": "q_slam",
+      "file": "poppy_fx_q_slam.png",
+      "pixel_1x": "pixel_1x/poppy_fx_q_slam.png",
+      "raw": "raw/poppy_fx_q_slam.png",
+      "atlas_group": "league_poppy_big",
+      "nominal_anchor_1x": [
+        22.0,
+        24
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 5,
+      "cell_1x": [
+        44,
+        30
+      ],
+      "cell_8x": [
+        352,
+        240
+      ],
+      "sheet_1x": [
+        220,
+        30
+      ],
+      "sheet_8x": [
+        1760,
+        240
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1517,
+        1037
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          450,
+          519
+        ],
+        [
+          450,
+          0,
+          920,
+          519
+        ],
+        [
+          920,
+          0,
+          1517,
+          519
+        ],
+        [
+          0,
+          519,
+          520,
+          1037
+        ],
+        [
+          520,
+          519,
+          1010,
+          1037
+        ]
+      ],
+      "raw_sha256": "e2ac7a8e7466ac4722e967d97f0720e3089ade72a2b440ee0f27aaf15700edcf",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18"
+      ],
+      "binding_reference": "view_effects `league_poppy_q_slam`（不跟随，画在人物上面 z -1；左右对称；大图表）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 24,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            18,
+            16,
+            26,
+            23
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 208,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            9,
+            11,
+            35,
+            25
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 366,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            7,
+            42,
+            28
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 242,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            6,
+            39,
+            24
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 5,
+          "nonempty": true,
+          "opaque_pixels": 128,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            6,
+            15,
+            38,
+            24
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "5eb27ca77ed9d2ac989d8a88f5c9ab835fca844ccd9d8bfe1a41f0c61d5ad767",
+        "545894e04f23c33a9165f60e5a19a9816e7e5e01ac28df6ac3b3a880f9d0a72d",
+        "4cacff89ee28854fb178396125b69bbf75a45452fcda4b72a223ff9ba2edbedd",
+        "2691656aa8ad91680499d72b0c3f679140daaa59530ff0031427d683197b668c",
+        "e33dfe01044016c7dedeb17fbc98b0d4eb6b6f154a13e3f1dc767eb9fb969a41"
+      ]
+    },
+    {
+      "name": "q_crack",
+      "file": "poppy_fx_q_crack.png",
+      "pixel_1x": "pixel_1x/poppy_fx_q_crack.png",
+      "raw": "raw/poppy_fx_q_crack.png",
+      "atlas_group": "league_poppy_big",
+      "nominal_anchor_1x": [
+        20.0,
+        9
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        16
+      ],
+      "cell_8x": [
+        320,
+        128
+      ],
+      "sheet_1x": [
+        160,
+        16
+      ],
+      "sheet_8x": [
+        1280,
+        128
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          992,
+          396
+        ],
+        [
+          992,
+          0,
+          1983,
+          396
+        ],
+        [
+          0,
+          396,
+          992,
+          793
+        ],
+        [
+          992,
+          396,
+          1983,
+          793
+        ]
+      ],
+      "raw_sha256": "bdba6dbf273be8797db8a01470edf071d3a384018d878911d773c6f43c95b2b7",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18"
+      ],
+      "binding_reference": "view_effects `league_poppy_q_crack`（不跟随，画在人物下面 z -2；左右对称；1 秒内每 15 tick 再放一次：4 帧连起来要能无缝接上；大图表）",
+      "loop_requested": true,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 212,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            5,
+            36,
+            14
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 228,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            5,
+            37,
+            14
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 224,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            3,
+            37,
+            13
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 224,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            3,
+            37,
+            13
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "f25e79cad7880b5936b2a013fca05322e7de988bbf1ddf30b7b9dbef326e77dc",
+        "a8a3046d5a582741b17a5448d5cad7fdf59b50250b92ae9e7565c8537bc3bfd4",
+        "c9774bcd96832032b487f085460bba892f97747374e515de1a6c348333e7ca3a",
+        "c3b2bc238b79639d7b8d1e21d05620cc0db47b346d33e26920a631884655147e"
+      ]
+    },
+    {
+      "name": "q_burst",
+      "file": "poppy_fx_q_burst.png",
+      "pixel_1x": "pixel_1x/poppy_fx_q_burst.png",
+      "raw": "raw/poppy_fx_q_burst.png",
+      "atlas_group": "league_poppy_big",
+      "nominal_anchor_1x": [
+        22.0,
+        28
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 5,
+      "cell_1x": [
+        44,
+        34
+      ],
+      "cell_8x": [
+        352,
+        272
+      ],
+      "sheet_1x": [
+        220,
+        34
+      ],
+      "sheet_8x": [
+        1760,
+        272
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1427,
+        1102
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          476,
+          551
+        ],
+        [
+          476,
+          0,
+          951,
+          551
+        ],
+        [
+          951,
+          0,
+          1427,
+          551
+        ],
+        [
+          0,
+          551,
+          476,
+          1102
+        ],
+        [
+          476,
+          551,
+          951,
+          1102
+        ]
+      ],
+      "raw_sha256": "03486dd892a5bc41dbea78842bbfc880be5ecd3e5716284cc345a7b11df4ffb2",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18"
+      ],
+      "binding_reference": "view_effects `league_poppy_q_burst`（不跟随，画在人物上面 z -1；左右对称；大图表）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 122,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            20,
+            39,
+            29
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 348,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            8,
+            41,
+            30
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 468,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            7,
+            41,
+            31
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 380,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            7,
+            41,
+            27
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 5,
+          "nonempty": true,
+          "opaque_pixels": 284,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            12,
+            42,
+            27
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "fbbd94a092de238bcbb2223bbdcbaf727a85ea6876b75bb9b9e6cc3c5f662f78",
+        "4fc5d9f253c986d343e92c01208881c8487cdb989f36d1bdefd930b85058da1b",
+        "7548f9eab573f5bdc2c63a9bff81ca1e26eeeaf0b04d29abb5caac26c564e72e",
+        "04f1a813dd6a0fd49f2934b8c5aab916443aa8dc78a2c4c47197fa8db5655053",
+        "a9985b22fe3a0210e50a9ef011d4c63a90df78b120bed2317fa62b2e1ebe55b9"
+      ]
+    },
+    {
+      "name": "q_hit",
+      "file": "poppy_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/poppy_fx_q_hit.png",
+      "raw": "raw/poppy_fx_q_hit.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        8.0,
+        8.0
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "cell_8x": [
+        128,
+        128
+      ],
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "sheet_8x": [
+        512,
+        128
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1402,
+        1122
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          701,
+          561
+        ],
+        [
+          701,
+          0,
+          1402,
+          561
+        ],
+        [
+          0,
+          561,
+          701,
+          1122
+        ],
+        [
+          701,
+          561,
+          1402,
+          1122
+        ]
+      ],
+      "raw_sha256": "0d0753d25c23304b777d7ef5a73c21292cbaf4f4e1642c73cdc28014de523f18",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18"
+      ],
+      "binding_reference": "view_effects `league_poppy_q_hit`（跟随，画在人物上面；左右对称）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 32,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 82,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 62,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 48,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            1,
+            8,
+            15,
+            15
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "3d74f57fada30b3e6678b3cd663ce0f0aa8ca9cc4f63ddb6676d8a62830ab6bd",
+        "363046334ed5f19b12556161f63e485b9d62b4e16377a7cdefd82344dc91b4f4",
+        "8e976f04744996dabd08d1a2d005cc6e7e4c6390bfc1df27980ea0528f85cdf0",
+        "8103252680fb2ea54a8a119b1a8394a94f4672745521c6c57fbd9297b153f097"
+      ]
+    },
+    {
+      "name": "w_cast",
+      "file": "poppy_fx_w_cast.png",
+      "pixel_1x": "pixel_1x/poppy_fx_w_cast.png",
+      "raw": "raw/poppy_fx_w_cast.png",
+      "atlas_group": "league_poppy_big",
+      "nominal_anchor_1x": [
+        22.0,
+        41
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        44,
+        44
+      ],
+      "cell_8x": [
+        352,
+        352
+      ],
+      "sheet_1x": [
+        176,
+        44
+      ],
+      "sheet_8x": [
+        1408,
+        352
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1284,
+        1225
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          642,
+          612
+        ],
+        [
+          642,
+          0,
+          1284,
+          612
+        ],
+        [
+          0,
+          612,
+          642,
+          1225
+        ],
+        [
+          642,
+          612,
+          1284,
+          1225
+        ]
+      ],
+      "raw_sha256": "5db8b64788e32b86a9f4c5475bb5d649d3f0a76de370e24b2069fbe227d097ed",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34"
+      ],
+      "binding_reference": "view_effects `league_poppy_w_cast`（跟随，画在人物下面 z -1；左右对称；大图表）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 160,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            29,
+            40,
+            41
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 402,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            6,
+            41,
+            41
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 392,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            4,
+            41,
+            40
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 190,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            6,
+            41,
+            40
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "79186ccff36410c014a8fcfaa842195337ca61372052c4f552233aa3dabb846a",
+        "dec8591ccc626169447ecdb93bfa3d3656f9f610d575c714aae4c9fc54dffbb4",
+        "a0282b7224764a0fdc19ea573898eafff08dc1f69db123ee74102ea0c1cd82b4",
+        "7ea007af415000c5e01a3b52ffcd4fbbd54270b90f45166fa61767299877ebc0"
+      ]
+    },
+    {
+      "name": "w_on",
+      "file": "poppy_fx_w_on.png",
+      "pixel_1x": "pixel_1x/poppy_fx_w_on.png",
+      "raw": "raw/poppy_fx_w_on.png",
+      "atlas_group": "league_poppy_big",
+      "nominal_anchor_1x": [
+        36.0,
+        14
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        72,
+        26
+      ],
+      "cell_8x": [
+        576,
+        208
+      ],
+      "sheet_1x": [
+        288,
+        26
+      ],
+      "sheet_8x": [
+        2304,
+        208
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        2084,
+        754
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          1042,
+          377
+        ],
+        [
+          1042,
+          0,
+          2084,
+          377
+        ],
+        [
+          0,
+          377,
+          1042,
+          754
+        ],
+        [
+          1042,
+          377,
+          2084,
+          754
+        ]
+      ],
+      "raw_sha256": "4fc2188f422ffbbad6f039b7d2b7bc773c7311155c6b6d672b195a3184ac733f",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34"
+      ],
+      "binding_reference": "view_buffs `league_poppy_w_on`（跟随，画在人物下面 z -1；左右对称；循环，2 秒内一直在；大图表）",
+      "loop_requested": true,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 310,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            6,
+            68,
+            22
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 302,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            4,
+            68,
+            22
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 304,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            2,
+            68,
+            22
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 332,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            2,
+            68,
+            22
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "3fe600e8d9972bcbc7017ce064a3ed2f3f059b2f0660fb80d3c79a4e2696aeff",
+        "99beacac7ca2b6391350a028ba000d5a294e0450a4222f2b1c5cbc2824cc68fd",
+        "f971ca5f857ce8de0b9b09acac66dd6d4911b234d6262e8feae3d31eaac3c5bf",
+        "c94cd1daec81c6a32294c901b070b20234e11e968a910981af1ea4a29b7b5c1c"
+      ]
+    },
+    {
+      "name": "w_block",
+      "file": "poppy_fx_w_block.png",
+      "pixel_1x": "pixel_1x/poppy_fx_w_block.png",
+      "raw": "raw/poppy_fx_w_block.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        12.0,
+        26
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        28
+      ],
+      "cell_8x": [
+        192,
+        224
+      ],
+      "sheet_1x": [
+        96,
+        28
+      ],
+      "sheet_8x": [
+        768,
+        224
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1298,
+        1212
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          649,
+          606
+        ],
+        [
+          649,
+          0,
+          1298,
+          606
+        ],
+        [
+          0,
+          606,
+          649,
+          1212
+        ],
+        [
+          649,
+          606,
+          1298,
+          1212
+        ]
+      ],
+      "raw_sha256": "4736306e302a916a04b8a2db364ecfc5b8663c2a5652f3af60a75d1e91ce1f06",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34"
+      ],
+      "binding_reference": "view_effects `league_poppy_w_block`（跟随，画在人物上面 z 2；左右对称）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 54,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            9,
+            19,
+            18
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 146,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            4,
+            21,
+            24
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 82,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            3,
+            21,
+            24
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 14,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            6,
+            7,
+            18,
+            20
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "a5b7944d9cdd47f4bbd53b7aee13ec11dd081834fec978c33a9475cfa4d57a6c",
+        "b6a98192442e0c1c64a754fce889e1325cdf26dde5735694c52b377d1d7be3e8",
+        "90b40f5b18e12bc5ec1f7289f9bd28e171c7c620221ad0df1be21fd4449cde7c",
+        "bcecc8431270b4eaa03d5f5b5fbe3f169dea18c92d7142e432e7e4b56255548d"
+      ]
+    },
+    {
+      "name": "e_hit",
+      "file": "poppy_fx_e_hit.png",
+      "pixel_1x": "pixel_1x/poppy_fx_e_hit.png",
+      "raw": "raw/poppy_fx_e_hit.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        9.0,
+        9.0
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "cell_8x": [
+        144,
+        144
+      ],
+      "sheet_1x": [
+        72,
+        18
+      ],
+      "sheet_8x": [
+        576,
+        144
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1274,
+        1235
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          637,
+          618
+        ],
+        [
+          637,
+          0,
+          1274,
+          618
+        ],
+        [
+          0,
+          618,
+          637,
+          1235
+        ],
+        [
+          637,
+          618,
+          1274,
+          1235
+        ]
+      ],
+      "raw_sha256": "a64c84801c965b1e974fa3e62b6fff07b359a405bc90fe4ef90774ff6c810e6b",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18"
+      ],
+      "binding_reference": "view_effects `league_poppy_e_hit`（跟随，画在人物上面；左右对称）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 20,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            6,
+            6,
+            12,
+            12
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 76,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            3,
+            16,
+            15
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 102,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            1,
+            3,
+            17,
+            15
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 34,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            5,
+            15,
+            12
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "2065f67834feeaf7d306bfd5e1b746dc78a72a6f69d18f0efaba5b2924fe5b90",
+        "5a9573dc8d28389540ba7665e698c064e39cf00dde0adaa2f4e42480054ff181",
+        "1b22ed5d137718f0c2ddc9b8fd6a139777093bb184ee12daa8e419b184f04dd0",
+        "bc363a9d939638035f5b2c16d1d1e69aa2eca63b662a15670cd468cbfbfa25fc"
+      ]
+    },
+    {
+      "name": "e_wall",
+      "file": "poppy_fx_e_wall.png",
+      "pixel_1x": "pixel_1x/poppy_fx_e_wall.png",
+      "raw": "raw/poppy_fx_e_wall.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        13.0,
+        28
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 5,
+      "cell_1x": [
+        26,
+        30
+      ],
+      "cell_8x": [
+        208,
+        240
+      ],
+      "sheet_1x": [
+        130,
+        30
+      ],
+      "sheet_8x": [
+        1040,
+        240
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1430,
+        1100
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          477,
+          550
+        ],
+        [
+          477,
+          0,
+          953,
+          550
+        ],
+        [
+          953,
+          0,
+          1430,
+          550
+        ],
+        [
+          0,
+          550,
+          477,
+          1100
+        ],
+        [
+          477,
+          550,
+          953,
+          1100
+        ]
+      ],
+      "raw_sha256": "055207e1a3d9340d451d6bf230ac3ede519e82a059ea1b91e5eeeae940989592",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18",
+        "#F2D8FF",
+        "#C890FF",
+        "#9A5AE6"
+      ],
+      "binding_reference": "view_effects `league_poppy_e_wall`（跟随，画在人物上面 z 2；左右对称）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 20,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            9,
+            15,
+            17,
+            19
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 134,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            9,
+            23,
+            25
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 310,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            1,
+            5,
+            25,
+            27
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 174,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            6,
+            23,
+            24
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 5,
+          "nonempty": true,
+          "opaque_pixels": 36,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            5,
+            22,
+            25
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "6f0da3dd3bb33b2e01493a0993bbb9e87cf69cc09f3155da8383536d3c4dec4d",
+        "6937ca6f8ebf814559517c10610f6abeceef9b4de031d61720c561ea3f6dd01c",
+        "6d50a36f742024a03b97cb454dd58b525d05ad92a0c3d3c9fa37b8e4249808f4",
+        "2ac04601e51032d2d2d862f5e9ec3c35251e1fda11718c8b0a77f87223f4a1b9",
+        "ff425fa0a47a5702c7ba8dc5f4cdbb0362e98bd0c28578f97d92b64ba6aa12cc"
+      ]
+    },
+    {
+      "name": "e_stun",
+      "file": "poppy_fx_e_stun.png",
+      "pixel_1x": "pixel_1x/poppy_fx_e_stun.png",
+      "raw": "raw/poppy_fx_e_stun.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        8.0,
+        5.0
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        10
+      ],
+      "cell_8x": [
+        128,
+        80
+      ],
+      "sheet_1x": [
+        64,
+        10
+      ],
+      "sheet_8x": [
+        512,
+        80
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1586,
+        992
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          793,
+          496
+        ],
+        [
+          793,
+          0,
+          1586,
+          496
+        ],
+        [
+          0,
+          496,
+          793,
+          992
+        ],
+        [
+          793,
+          496,
+          1586,
+          992
+        ]
+      ],
+      "raw_sha256": "647f8f4821b85bff7f80fac25fbbdc0c9b26c9040b06f5ab03044484384b5e17",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F2D8FF",
+        "#C890FF",
+        "#9A5AE6"
+      ],
+      "binding_reference": "view_buffs `league_poppy_e_stun`（跟随，画在人物上面 z 3；左右对称；循环）",
+      "loop_requested": true,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 18,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            14,
+            8
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 18,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            14,
+            8
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 18,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            14,
+            8
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 18,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            2,
+            14,
+            8
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "334c212a895e1b8e5b845763edf55c18f28720f678f2e7edfea32f278099a195",
+        "215ee1f69088bf4a1cc22ea91da14ac1c46aaf9d23f6da91b87d4bca65807f7f",
+        "c0e61b77dda931ae8adae902a74f2d85a6618f67486c68787ae3ed3d28460ac6",
+        "15275efb7983c2273d595aec769dc3544def813c751492c14d2311999e12f6b6"
+      ]
+    },
+    {
+      "name": "r_charge",
+      "file": "poppy_fx_r_charge.png",
+      "pixel_1x": "pixel_1x/poppy_fx_r_charge.png",
+      "raw": "raw/poppy_fx_r_charge.png",
+      "atlas_group": "league_poppy_big",
+      "nominal_anchor_1x": [
+        20.0,
+        41
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        44
+      ],
+      "cell_8x": [
+        320,
+        352
+      ],
+      "sheet_1x": [
+        160,
+        44
+      ],
+      "sheet_8x": [
+        1280,
+        352
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1322,
+        1190
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          661,
+          595
+        ],
+        [
+          661,
+          0,
+          1322,
+          595
+        ],
+        [
+          0,
+          595,
+          661,
+          1190
+        ],
+        [
+          661,
+          595,
+          1322,
+          1190
+        ]
+      ],
+      "raw_sha256": "b28c68bcd64cea9490c50752026b087e2c3095f0c08ff611b2c6e269cd0834e5",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34"
+      ],
+      "binding_reference": "view_effects `league_poppy_r_charge`（跟随，画在人物上面 z 3；左右对称；蓄力 40 tick 里一直在放；大图表）",
+      "loop_requested": true,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 236,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            6,
+            35,
+            42
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 354,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            5,
+            36,
+            43
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 358,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            6,
+            5,
+            34,
+            41
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 460,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            4,
+            35,
+            41
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "042cf78052f0687b6304d248e632ff947bb15db78e628c7a76234c6a6e29008a",
+        "c9d0388933fad3db9012b1a8c655ffa01e66e76ebf4da026d2392d12bd8b91af",
+        "e5ad88cf638c47577c359f98a04f8ff6a36184cf810bfe2a6140476e8713a595",
+        "7e3faa8cba57992aee842e6d3fa0049125a8fe0d1e1339ad3434744c1aab856a"
+      ]
+    },
+    {
+      "name": "r_wave",
+      "file": "poppy_fx_r_wave.png",
+      "pixel_1x": "pixel_1x/poppy_fx_r_wave.png",
+      "raw": "raw/poppy_fx_r_wave.png",
+      "atlas_group": "league_poppy_big",
+      "nominal_anchor_1x": [
+        13.0,
+        11.0
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        26,
+        22
+      ],
+      "cell_8x": [
+        208,
+        176
+      ],
+      "sheet_1x": [
+        104,
+        22
+      ],
+      "sheet_8x": [
+        832,
+        176
+      ],
+      "layout": "horizontal",
+      "symmetry": "top_bottom",
+      "raw_size": [
+        1364,
+        1153
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          682,
+          576
+        ],
+        [
+          682,
+          0,
+          1364,
+          576
+        ],
+        [
+          0,
+          576,
+          682,
+          1153
+        ],
+        [
+          682,
+          576,
+          1364,
+          1153
+        ]
+      ],
+      "raw_sha256": "aece5e86bafb701681ed0fb219eb7c1e239023a187157ae44761b97b5ace6391",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18"
+      ],
+      "binding_reference": "view_projectiles `league_poppy_r_wave`（随飞行方向转；画成**朝右**、**上下对称**；大图表）",
+      "loop_requested": true,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 136,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            4,
+            24,
+            18
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 146,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            4,
+            23,
+            18
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 212,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            2,
+            24,
+            20
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 202,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            2,
+            23,
+            20
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "cb72d78720d1743d14f04c3fe43d0519fb01a02590cb4040649e61d4bbed7ec5",
+        "3f6e358c1fc946780758e3d967e53da0249a68d4cc7b42d5de63fa448aba5432",
+        "4dea84019e933d9a2539cef066399d54b61adc578e9306f421ea2540b5d4d4b6",
+        "7919c1fe84ff5262ab45c1de6b33ec36556ed1f0096bbff1bdb2301fb7e1a788"
+      ]
+    },
+    {
+      "name": "r_tap",
+      "file": "poppy_fx_r_tap.png",
+      "pixel_1x": "pixel_1x/poppy_fx_r_tap.png",
+      "raw": "raw/poppy_fx_r_tap.png",
+      "atlas_group": "league_poppy_big",
+      "nominal_anchor_1x": [
+        30.0,
+        24
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 5,
+      "cell_1x": [
+        60,
+        32
+      ],
+      "cell_8x": [
+        480,
+        256
+      ],
+      "sheet_1x": [
+        300,
+        32
+      ],
+      "sheet_8x": [
+        2400,
+        256
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1717,
+        916
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          572,
+          458
+        ],
+        [
+          572,
+          0,
+          1145,
+          458
+        ],
+        [
+          1145,
+          0,
+          1717,
+          458
+        ],
+        [
+          0,
+          458,
+          572,
+          916
+        ],
+        [
+          572,
+          458,
+          1145,
+          916
+        ]
+      ],
+      "raw_sha256": "4c00b8519bbd2fcf8ac83690e4da64a1a35f4f003a459f6f68b02dee6439805f",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18"
+      ],
+      "binding_reference": "view_effects `league_poppy_r_tap`（不跟随，画在人物上面 z -1；左右对称；大图表）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 74,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            20,
+            23,
+            40,
+            31
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 346,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            17,
+            56,
+            31
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 662,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            1,
+            7,
+            59,
+            31
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 356,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            4,
+            11,
+            56,
+            27
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 5,
+          "nonempty": true,
+          "opaque_pixels": 192,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            1,
+            55,
+            27
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "00b6de8feb4f38e74fc5b86510b20c2a276b3305f7ad849fdcbee29e127afcef",
+        "1acefc1c24478cf6b32ba997dc623aaefa681cf847912f9ecdadfeb1a23aa032",
+        "120d577fed044ebce4cff2c1b4258ddaa6952debe55af29e6d57a5f4b1d0a6ff",
+        "55b83c3ddf288d669005fb7c04af4513ce2b8d8142187d5169bd5998e3f58d5a",
+        "896f7f06289b83b41713c8a1785a611b2c31854d3ce7edd024b6061d8c0139b1"
+      ]
+    },
+    {
+      "name": "r_hit",
+      "file": "poppy_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/poppy_fx_r_hit.png",
+      "raw": "raw/poppy_fx_r_hit.png",
+      "atlas_group": "league_poppy_fx",
+      "nominal_anchor_1x": [
+        10.0,
+        10.0
+      ],
+      "anchor_note": "Requested logical anchor; verify placement against in-game character. Pixel coordinates use top-left origin.",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "cell_8x": [
+        160,
+        160
+      ],
+      "sheet_1x": [
+        80,
+        20
+      ],
+      "sheet_8x": [
+        640,
+        160
+      ],
+      "layout": "horizontal",
+      "symmetry": "left_right",
+      "raw_size": [
+        1266,
+        1243
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_regions": [
+        [
+          0,
+          0,
+          633,
+          622
+        ],
+        [
+          633,
+          0,
+          1266,
+          622
+        ],
+        [
+          0,
+          622,
+          633,
+          1243
+        ],
+        [
+          633,
+          622,
+          1266,
+          1243
+        ]
+      ],
+      "raw_sha256": "e08537a9236f76585340588c13eb87e38a4d606157820d8257201c68a74a0601",
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFDA6A",
+        "#F2AE34",
+        "#F4E6C8",
+        "#D8BC8C",
+        "#B08E5E",
+        "#866640",
+        "#5C4428",
+        "#3A2A18"
+      ],
+      "binding_reference": "view_effects `league_poppy_r_hit`（跟随，画在人物上面；左右对称）",
+      "loop_requested": false,
+      "preview_frame_duration_ms": 120,
+      "preview_timing_only": true,
+      "checks": [
+        {
+          "frame": 1,
+          "nonempty": true,
+          "opaque_pixels": 26,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            7,
+            7,
+            13,
+            14
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 2,
+          "nonempty": true,
+          "opaque_pixels": 90,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            3,
+            3,
+            17,
+            17
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 3,
+          "nonempty": true,
+          "opaque_pixels": 106,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            2,
+            3,
+            18,
+            17
+          ],
+          "edge_pixels": 0
+        },
+        {
+          "frame": 4,
+          "nonempty": true,
+          "opaque_pixels": 20,
+          "symmetry_pass": true,
+          "alpha_binary": true,
+          "bbox": [
+            5,
+            5,
+            15,
+            16
+          ],
+          "edge_pixels": 0
+        }
+      ],
+      "frames_sha256": [
+        "ef33e7d5ca7260fb461937c81909e1a60baea7163f7c1d90887f5e7045e21c58",
+        "73f080f6a0b964e1d1194beb5f3ece3dcf0cb9cfd9ba737db1fc35771ec9b399",
+        "ea9f2de9deab65def68113bb1b09a0d91960d116ea0739b6f831d82fe4fc9ed7",
+        "599a87ba8816162edb1dd0af8fc49203d663d73824c0155cb61362cdee24fe7d"
+      ]
+    }
+  ]
+}
