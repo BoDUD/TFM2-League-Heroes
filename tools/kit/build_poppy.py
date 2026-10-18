@@ -244,7 +244,7 @@ def build(p):
                   end=lands)
     ready = combine(flag("p_rdy", None, range=p["p_brange"]))
     throw = combine(*rm("p_rdy", "p_got"), flag("p_cd", p["p_cd"]), on_me(delayed(p["p_cd"], ready)), sfx("p_throw"),
-                    homing("p_buckler", "Enemy", [attack(0, 100), ap(p["p_dmg"], p["p_ap"]), view("p_hit"),
+                    homing("p_buckler", "Enemy", [attack(0, 100), ap(p["p_dmg"], p["p_ap"]), view("a_hit"),
                                                   tsfx("p_hit"), delayed(1, bounce)], p["p_speed"]))
     # after a death (a new entity: no flags) the buckler is back at once
     rearm = sw("p_cd", NONE, sw("p_rdy", NONE, ready))
@@ -275,8 +275,7 @@ def build(p):
     charge = {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 40000,
               "end_effects": [*contact, delayed(2, follow)]}
     skill2 = action("skill2", p["e_anim"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
-                    combine(w_check, sfx("e"), voice("vo_e", p), anim("skill2", p["e_anim"]), cview("e_dash"),
-                            charge))
+                    combine(w_check, sfx("e"), voice("vo_e", p), anim("skill2", p["e_anim"]), charge))
 
     # ------------------------------------------------------------------ ult: R Keeper's Verdict
     if nat:
@@ -288,11 +287,11 @@ def build(p):
     full = combine(anim("ult_charge", p["r_ch"]), refresh("r_slow", p["r_ch"], move_speed_mult=-15),
                    cview("r_charge"), sfx("r_charge"), voice("vo_r", p),
                    delayed(p["r_ch"], anim("ult", p["r_rel"] + p["r_rec"]), sfx("r_swing")),
-                   delayed(p["r_ch"] + p["r_rel"] - 1, alive(cview("r_swing"), wave)))
+                   delayed(p["r_ch"] + p["r_rel"] - 1, alive(wave)))
     tap = combine(anim("ult_tap", p["r_tap_t"]), sfx("r_tap"), voice("vo_r", p),
                   delayed(p["r_tap_rel"] - 1, alive(cview("r_tap"), around(p["r_tap_r"], "EnemyWithoutTower", [
                       attack(p["r_tap_dmg"], p["r_tap_ratio"]), {"type": "Airborne", "duration": p["r_up"]},
-                      view("r_up"), tsfx("r_hit")]))))
+                      view("r_hit"), tsfx("r_hit")]))))
     count = around(p["r_tap_r"], "EnemyChampion", [sw("t1", flag("t2", 3), flag("t1", 3))])
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Direction", "EnemyChampion",
                  combine(*rm("t1", "t2"), count, delayed(1, sw("t2", tap, full))), key="ult")
@@ -305,11 +304,11 @@ def build(p):
     Pj = lambda name, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                  "z": 2}
     views_p = [Pj("p_buckler"), Pj("r_wave", BIG)]
-    views_e = [E("a_hit"), E("p_hit"), E("p_lie", FX, -1, False), E("p_pick"), E("w_cast", BIG, -1),
+    # (the pack's 19 pictures, tools/art/pack_poppy_fx.py; w_block / e_wall are the add-on's interrupt and wall slam)
+    views_e = [E("a_hit"), E("p_lie", FX, -1, False), E("p_pick"), E("w_cast", BIG, -1), E("w_block"),
                E("q_slam", BIG, -1, False), E("q_burst", BIG, -1, False), E("q_crack", BIG, -2, False), E("q_hit"),
-               E("e_dash", FX, 2), E("e_hit"), E("r_charge", BIG, 3), E("r_swing", BIG, 3, False),
-               E("r_tap", BIG, -1, False), E("r_hit"), E("r_up")]
-    views_b = [B_("p_shown", FX, -1), B_("w_on", BIG, -1), B_("q_slow"), B_("e_stun")]
+               E("e_hit"), E("e_wall"), E("r_charge", BIG, 3), E("r_tap", BIG, -1, False), E("r_hit")]
+    views_b = [B_("p_shown", FX, -1), B_("w_on", BIG, -1), B_("e_stun")]
     extra = {}
     if nat:
         extra["passive"] = {"passive_ref": f"{ID}:steadfast", "params": {

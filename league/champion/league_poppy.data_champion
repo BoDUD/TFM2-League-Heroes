@@ -375,7 +375,7 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ViewEffect",
-                      "name": "league_poppy_p_hit"
+                      "name": "league_poppy_a_hit"
                     }
                   },
                   {
@@ -1571,10 +1571,6 @@
           "tick": 16
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_poppy_e_dash"
-        },
-        {
           "type": "MoveToTarget",
           "speed": 3500,
           "range": 90000,
@@ -1809,7 +1805,7 @@
                                     },
                                     {
                                       "type": "ViewEffect",
-                                      "name": "league_poppy_r_up"
+                                      "name": "league_poppy_r_hit"
                                     },
                                     {
                                       "type": "TargetSfx",
@@ -1950,10 +1946,6 @@
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_poppy_r_swing"
-                                },
-                                {
                                   "type": "LinearProjectile",
                                   "name": "league_poppy_r_wave",
                                   "penetrate": true,
@@ -2055,14 +2047,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_poppy_p_hit",
-      "anim": "asset/league/effects/league_poppy_fx",
-      "tag": "p_hit",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_poppy_p_lie",
       "anim": "asset/league/effects/league_poppy_fx",
       "tag": "p_lie",
@@ -2083,6 +2067,14 @@
       "anim": "asset/league/effects/league_poppy_big",
       "tag": "w_cast",
       "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_poppy_w_block",
+      "anim": "asset/league/effects/league_poppy_fx",
+      "tag": "w_block",
+      "z": 2,
       "is_follow": true
     },
     {
@@ -2119,17 +2111,17 @@
     },
     {
       "type": "Animation",
-      "name": "league_poppy_e_dash",
+      "name": "league_poppy_e_hit",
       "anim": "asset/league/effects/league_poppy_fx",
-      "tag": "e_dash",
+      "tag": "e_hit",
       "z": 2,
       "is_follow": true
     },
     {
       "type": "Animation",
-      "name": "league_poppy_e_hit",
+      "name": "league_poppy_e_wall",
       "anim": "asset/league/effects/league_poppy_fx",
-      "tag": "e_hit",
+      "tag": "e_wall",
       "z": 2,
       "is_follow": true
     },
@@ -2140,14 +2132,6 @@
       "tag": "r_charge",
       "z": 3,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_poppy_r_swing",
-      "anim": "asset/league/effects/league_poppy_big",
-      "tag": "r_swing",
-      "z": 3,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -2162,14 +2146,6 @@
       "name": "league_poppy_r_hit",
       "anim": "asset/league/effects/league_poppy_fx",
       "tag": "r_hit",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_poppy_r_up",
-      "anim": "asset/league/effects/league_poppy_fx",
-      "tag": "r_up",
       "z": 2,
       "is_follow": true
     }
@@ -2190,14 +2166,6 @@
       "tag": "w_on",
       "repeat": true,
       "z": -1
-    },
-    {
-      "type": "Animated",
-      "name": "league_poppy_q_slow",
-      "anim": "asset/league/effects/league_poppy_fx",
-      "tag": "q_slow",
-      "repeat": true,
-      "z": 3
     },
     {
       "type": "Animated",
