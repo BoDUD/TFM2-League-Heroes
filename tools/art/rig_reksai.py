@@ -60,7 +60,7 @@ ORIG = os.path.join(ROOT, "assets", "source", "ppu", "orig")
 GAME_ROWS = 36                    # the user's pick: crest top to claw tips
 FEET = 11                         # 1x rows from the pivot down to the ground row
 ORDER = ["idle", "run", "attack", "skill", "skill_q2", "bite", "skill2", "skill2_up", "ult", "ult_hit", "hit", "dead",
-         "b_idle", "b_run", "b_hit"]
+         "b_idle", "b_run", "b_hit", "t_dig", "t_dig_l", "t_up", "t_up_l"]
 
 
 def load(path):
@@ -388,10 +388,28 @@ def frames():
                     zip([0, 1, 2, 1, 0, 1, 2, 1], [0, 1, 1, 0, 0, 1, 1, 0])]
     # hit while burrowed (the add-on plays it for `hit` under the ground: the hit showed her out of it)
     out["b_hit"] = [(shift(pose_b(), -2, 0), 90), (shift(pose_b(), -1, 0), 120)]
-    done = {t: [(tidy(a), ms) for a, ms in out[t]] for t in ORDER}
+    # the add-on's tunnels (addons/league_reksai plays these as one-off pictures where she goes in and comes out, while
+    # it keeps her banished - her own frames, drawn dense by league.dll like her; League's Spell3_burrowed): into the
+    # ground (Burrow's first three frames), out of it (Unburrow), each also mirrored about the pivot for a tunnel run
+    # leftward (the client never mirrors a picture)
+    out["t_dig"] = out["skill2"][:3]
+    out["t_up"] = list(out["skill2_up"])
+    done = {t: [(tidy(a), ms) for a, ms in out[t]] for t in ORDER if t in out}
+    for t in ("t_dig", "t_up"):
+        done[t + "_l"] = [(mirrored(a), ms) for a, ms in done[t]]
     for t in ("hit", "b_hit"):
         done[t][0] = (flash(done[t][0][0]), done[t][0][1])
-    return done
+    return {t: done[t] for t in ORDER}
+
+
+def mirrored(a):
+    """The frame turned left to right about the pivot column (its squares carried whole)."""
+    out = np.zeros_like(a)
+    xs = np.arange(CW)
+    src = 2 * PX - xs
+    ok = (src >= 0) & (src < CW)
+    out[:, xs[ok]] = a[:, src[ok]]
+    return out
 
 
 # ------------------------------------------------------------------------------------------------- finishing

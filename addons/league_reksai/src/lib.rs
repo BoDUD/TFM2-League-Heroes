@@ -8,7 +8,9 @@
 //! - **挖掘隧道**：她每次 W 钻地，起点和破土的落点连成一条隧道（最多 `MAX_TUNNELS` 条，即 8 个入口，最旧的先塌），入口一直在地上
 //!   （画面 `league_reksai_e_tunnel`）。敌方英雄站在入口上 `BREAK_T` tick 就把整条踩塌（`league_reksai_e_break`）。她走到入口旁时：
 //!   残血被追就钻进去从另一头出来；不在战斗中、另一头附近有敌方英雄就钻过去突袭（每条隧道 `TUNNEL_CD` tick 才能再用）。钻的时候
-//!   她被放逐（不可选取、看不见），按 `TRAVEL_SPEED` 在地下走完才从另一头冒出来。
+//!   她被放逐（不可选取、看不见），按 `TRAVEL_SPEED` 在地下走完才从另一头冒出来。0.1.2：入口播她钻进地里的画面
+//!   （`league_reksai_t_dig`，她自己图里的帧，往左走用镜像的 `_t_dig_l`），出口在放逐结束前 `UP_T` tick 把她放过去、播破土而出
+//!   （`_t_up` / `_t_up_l`），播完才现身——放逐的总时长不变（原来钻地道时她直接消失、在另一头凭空出现）。
 //! - **虚空猛冲按真实血量**：数据只知道「被我方打过的英雄」，副本的大招只等本包的 `league_reksai_r_ok`：被她标记为猎物（主包数据
 //!   打中英雄时挂的 `league_reksai_r_mark`，本包记 `prey_t` tick）的敌方英雄里，有一个在大招范围内、看得见，而且 R 打得死它（按它的
 //!   最大生命和护甲算伤害）、或它剩 `R_LOW_PCT`% 以下、或它被硬控着且剩 `R_CC_PCT`% 以下，才上膛（打得死的先、再残血、再被控）。
@@ -51,6 +53,24 @@ pub const ENTER_R: f64 = 9_000.0;
 pub const STEP_R: f64 = 6_000.0;
 pub const BREAK_T: usize = 90;
 pub const TRAVEL_SPEED: f64 = 5_000.0;
+/// 出口破土画面的长度（图里 `t_up` 333 ms）：她在放逐结束前这么多 tick 被放到出口、画面播完才现身。
+pub const UP_T: usize = 20;
+
+/// 隧道里走多久（放逐总 tick）和几 tick 后到出口（之后播破土画面）。
+pub fn tunnel_times(dist: f64) -> (usize, usize) {
+    let total = ((dist / TRAVEL_SPEED).ceil() as usize).max(UP_T + 10);
+    (total, total - UP_T)
+}
+
+/// 钻入 / 破土画面的名字：往左走用镜像的（客户端不镜像画面）。
+pub fn tunnel_view(up: bool, left: bool) -> &'static str {
+    match (up, left) {
+        (false, false) => "t_dig",
+        (false, true) => "t_dig_l",
+        (true, false) => "t_up",
+        (true, true) => "t_up_l",
+    }
+}
 pub const TUNNEL_CD: usize = 360;
 pub const SHOW_EVERY: usize = 24;
 /// 钻隧道的时机：残血线；被追 = 这么近有敌方英雄；另一头要多空；突袭 = 另一头这么近有敌方英雄、自己身边这么远内没有。
@@ -319,8 +339,8 @@ struct Fury {
     w_go: bool,
     w_land: bool,
     tunnels: Vec<Tunnel>,
-    /// 正在隧道里：出口和到达的 tick。
-    travel: Option<(Pt, usize)>,
+    /// 正在隧道里：出口、到出口的 tick、放逐结束的 tick、是不是往左走。
+    travel: Option<(Pt, usize, usize, bool)>,
     /// 猎物：敌方英雄号 -> 标记记到哪个 tick。
     prey: HashMap<usize, usize>,
     r_armed_for: Option<usize>,
@@ -446,11 +466,15 @@ impl Fury {
             }
         }
         // under way: out at the far end
-        if let Some((exit, at)) = self.travel {
+        if let Some((exit, at, until, left)) = self.travel {
             if now >= at {
                 sim.entity_set_pos(me, exit.0.round() as u64, exit.1.round() as u64);
                 sim.play_view_effect(&rk("q2_cast"), me, &pos_input(exit), 0, 0, 0);
+                sim.play_view_effect(&rk(tunnel_view(true, left)), me, &pos_input(exit), 0, 0, 0);
                 sim.play_sfx(&rk("w_up"), me, &pos_input(exit));
+                self.travel = Some((exit, usize::MAX, until, left));    // out once
+            }
+            if now >= until {
                 self.travel = None;
             }
             return;
@@ -469,12 +493,14 @@ impl Fury {
                 }
                 let far = t.ends[1 - e];
                 let Some(why) = should_travel(s.me, s.hp_pct, far, &foes) else { continue };
-                let ticks = ((dist(s.me, far) / TRAVEL_SPEED).ceil() as usize).max(10);
+                let (ticks, out_at) = tunnel_times(dist(s.me, far));
+                let left = far.0 < s.me.0;
                 sim.play_view_effect(&rk("w_dig"), me, &pos_input(s.me), 0, 0, 0);
+                sim.play_view_effect(&rk(tunnel_view(false, left)), me, &pos_input(s.me), 0, 0, 0);
                 sim.play_sfx(&rk("w"), me, &pos_input(s.me));
                 sim.entity_banish(me, me, ticks, "", "");
                 t.ready_at = now + TUNNEL_CD;
-                self.travel = Some((far, now + ticks));
+                self.travel = Some((far, now + out_at, now + ticks, left));
                 if let Some(n) = counted("travel") {
                     wlog(format!("{} TUNNEL travel ({why}): {:.0} under the ground in {ticks} ticks, hp {}% #{n}", head(sim, me),
                         dist(s.me, far), s.hp_pct));
@@ -686,6 +712,28 @@ mod tests {
         let mut l = vec![Tunnel { ends: [(0.0, 0.0), (100_000.0, 0.0)], stood: [0, 0], ready_at: 0, born: 0 }];
         for _ in 0..BREAK_T * 2 {
             assert_eq!(trample(&mut l, &[(20_000.0, 0.0)]), None); // not on it
+        }
+    }
+
+    #[test]
+    fn the_tunnel_run_keeps_its_length_and_leaves_room_to_come_out() {
+        let (total, out) = tunnel_times(50_000.0);
+        assert_eq!((total, out), (30, 10));                 // 10 ticks of travel would be 10: UP_T + 10 at least
+        let (total, out) = tunnel_times(200_000.0);
+        assert_eq!((total, out), (40, 40 - UP_T));          // as long as before, out UP_T ticks before the end
+        assert_eq!(tunnel_view(false, false), "t_dig");
+        assert_eq!(tunnel_view(true, true), "t_up_l");
+    }
+
+    #[test]
+    fn every_tunnel_picture_is_in_her_sheet_and_data() {
+        let fanim = include_str!("../../../league/champions/league_reksai#anim.fanim");
+        let data = include_str!("../../../league/champion/league_reksai.data_champion");
+        for t in ["t_dig", "t_dig_l", "t_up", "t_up_l"] {
+            for name in [t.to_string(), format!("hd_{t}")] {
+                assert!(fanim.contains(&format!("\"{name}\"")), "{name} is not in league_reksai#anim.fanim");
+            }
+            assert!(data.contains(&format!("\"league_reksai_{t}\"")), "league_reksai_{t} has no view in the data");
         }
     }
 

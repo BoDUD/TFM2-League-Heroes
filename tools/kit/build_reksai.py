@@ -334,7 +334,10 @@ def build(p):
                E("w_dig", BIG, -1, False), E("w_burst", BIG, -1, False), E("w_up"), E("w_heal", FX, 3),
                E("r_dive", BIG, -1, False), E("r_burst", BIG, 2, False), E("r_hit", BIG),
                # the add-on's tunnels (addons/league_reksai plays them at the entrances; nothing in the data does)
-               E("e_tunnel", FX, -1, False), E("e_break", FX, 1, False)]
+               E("e_tunnel", FX, -1, False), E("e_break", FX, 1, False),
+               # ... and her going in and coming out (tags of her own sheet, tools/art/rig_reksai.py, drawn dense by
+               # league.dll like her; _l mirrored for a tunnel run leftward) while the add-on keeps her banished
+               *[E(t, f"asset/league/champions/{ID}", 1, False) for t in ("t_dig", "t_dig_l", "t_up", "t_up_l")]]
     views_b = [B_("f4", "p_full", FX, 4), B_("q_as", "q_buff", FX, -1), B_("r_mark", "r_mark", FX, 4)]
     extra = {}
     if p["native"]:
