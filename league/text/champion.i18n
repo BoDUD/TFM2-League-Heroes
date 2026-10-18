@@ -858,7 +858,7 @@
       "league_jarvaniv": {
         "name": "嘉文四世",
         "attack": "骑枪刺击，攻速+20%。<#ff9028ff>战争律动<>：对每名英雄每<#ffb900ff>3秒<>的第一下额外造成其<#ff9028ff>8%最大生命<>伤害。<#ff9028ff>黄金圣盾<>：交战时自动获得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>护盾<#ffb900ff>4秒<>（身边每名敌方英雄+25），身边敌人<#ef5350ff>减速25%<>。",
-        "skill": "掷出军旗：造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>，军旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。3级起随后冲向军旗：沿途和落点的敌人<#ef5350ff>击飞0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理伤害<>，护甲-20%。",
+        "skill": "掷出军旗：造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>，军旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。3级起随后冲向军旗：沿途和落点的敌人<#ef5350ff>击飞0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理伤害<>，护甲-20%。",
         "skill2": "骑枪向前刺出：直线上的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理伤害<>，护甲<#ef5350ff>-20%<>，持续<#ffb900ff>3秒<>。",
         "ult": "跃向敌方英雄砸下：周围敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，升起岩墙环将敌方英雄<#ef5350ff>困住3.5秒<>，想跑出去会被拉回。有被击飞的敌人或2名敌方英雄在身边时才放。"
       }
@@ -2340,7 +2340,7 @@
       "league_jarvaniv": {
         "name": "嘉文四世",
         "attack": "騎槍刺擊，攻速+20%。<#ff9028ff>戰爭律動<>：對每名英雄每<#ffb900ff>3秒<>的第一下額外造成其<#ff9028ff>8%最大生命<>傷害。<#ff9028ff>光盾庇護<>：交戰時自動獲得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>護盾<#ffb900ff>4秒<>（身邊每名敵方英雄+25），身邊敵人<#ef5350ff>緩速25%<>。",
-        "skill": "擲出軍旗：造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>，軍旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。3級起隨後衝向軍旗：沿途和落點的敵人<#ef5350ff>擊飛0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理傷害<>，護甲-20%。",
+        "skill": "擲出軍旗：造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>，軍旗立<#ffb900ff>8秒<>，附近友方英雄攻速+20%。3級起隨後衝向軍旗：沿途和落點的敵人<#ef5350ff>擊飛0.75秒<>，受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理傷害<>，護甲-20%。",
         "skill2": "騎槍向前刺出：直線上的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<><#ff9028ff>物理傷害<>，護甲<#ef5350ff>-20%<>，持續<#ffb900ff>3秒<>。",
         "ult": "躍向敵方英雄砸下：周圍敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，升起岩牆環將敵方英雄<#ef5350ff>困住3.5秒<>，想跑出去會被拉回。有被擊飛的敵人或2名敵方英雄在身邊時才施放。"
       }
@@ -3822,7 +3822,7 @@
       "league_jarvaniv": {
         "name": "Jarvan IV",
         "attack": "A lance thrust, +20% attack speed. <#ff9028ff>Martial Cadence<>: his first hit on a champion every <#ffb900ff>3s<> deals <#ff9028ff>8% of its max health<> more. <#ff9028ff>Golden Aegis<>: in fights, a shield of <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> (+25 per enemy champion near) for <#ffb900ff>4s<> and a <#ef5350ff>25% slow<> to enemies near him.",
-        "skill": "Throws his standard for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>; it stands <#ffb900ff>8s<> giving allied champions near it +20% attack speed. From level 3 he then charges to it: enemies on the way and where he lands are <#ef5350ff>knocked up 0.75s<>, take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> <#ff9028ff>physical damage<> and lose 20% armour.",
+        "skill": "Throws his standard for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>; it stands <#ffb900ff>8s<> giving allied champions near it +20% attack speed. From level 3 he then charges to it: enemies on the way and where he lands are <#ef5350ff>knocked up 0.75s<>, take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> <#ff9028ff>physical damage<> and lose 20% armour.",
         "skill2": "A lance thrust down a line: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> <#ff9028ff>physical damage<> and <#ef5350ff>-20% armour<> for <#ffb900ff>3s<>.",
         "ult": "Leaps onto an enemy champion: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> around him, and a ring of rock <#ef5350ff>traps enemy champions 3.5s<> - those leaving are pulled back. Cast on a knocked-up enemy or with 2 enemy champions near him."
       }
@@ -5304,7 +5304,7 @@
       "league_jarvaniv": {
         "name": "자르반 4세",
         "attack": "창 찌르기, 공격 속도 +20%. <#ff9028ff>전장의 군가<>: 챔피언마다 <#ffb900ff>3초<>에 한 번 첫 공격이 <#ff9028ff>최대 체력의 8%<> 추가 피해. <#ff9028ff>황금빛 방패<>: 교전 중 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 보호막(주변 적 챔피언당 +25) <#ffb900ff>4초<>, 주변 적 <#ef5350ff>25% 둔화<>.",
-        "skill": "깃발을 던져 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 깃발은 <#ffb900ff>8초<>간 서서 주변 아군 챔피언 공격 속도 +20%. 3레벨부터 이어 깃발로 돌진: 경로와 착지 지점의 적은 <#ef5350ff>0.75초 띄워지고<> <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 <#ff9028ff>물리 피해<>, 방어력 -20%.",
+        "skill": "깃발을 던져 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 깃발은 <#ffb900ff>8초<>간 서서 주변 아군 챔피언 공격 속도 +20%. 3레벨부터 이어 깃발로 돌진: 경로와 착지 지점의 적은 <#ef5350ff>0.75초 띄워지고<> <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 <#ff9028ff>물리 피해<>, 방어력 -20%.",
         "skill2": "직선으로 창을 찔러 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 <#ff9028ff>물리 피해<>와 <#ffb900ff>3초<>간 <#ef5350ff>방어력 -20%<>.",
         "ult": "적 챔피언에게 뛰어올라 주변에 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>, 바위 고리가 적 챔피언을 <#ef5350ff>3.5초<> 가두고 빠져나가면 끌어당김. 띄워진 적이나 적 챔피언 2명이 가까울 때 사용."
       }
@@ -6786,7 +6786,7 @@
       "league_jarvaniv": {
         "name": "ジャーヴァンⅣ",
         "attack": "槍の突き、攻撃速度+20%。<#ff9028ff>武魂の律動<>：チャンピオンごとに<#ffb900ff>3秒<>に1度、最初の攻撃が<#ff9028ff>最大体力の8%<>のダメージを追加。<#ff9028ff>ゴールデンイージス<>：交戦中<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>のシールド<#ffb900ff>4秒<>（周囲の敵チャンピオン毎+25）、周囲の敵に<#ef5350ff>スロウ25%<>。",
-        "skill": "旗を投げ<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>、旗は<#ffb900ff>8秒<>立ち周囲の味方の攻撃速度+20%。レベル3から続けて旗へ突進：経路と着地点の敵を<#ef5350ff>0.75秒打ち上げ<>、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>の<#ff9028ff>物理ダメージ<>と物理防御-20%。",
+        "skill": "旗を投げ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>、旗は<#ffb900ff>8秒<>立ち周囲の味方の攻撃速度+20%。レベル3から続けて旗へ突進：経路と着地点の敵を<#ef5350ff>0.75秒打ち上げ<>、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>の<#ff9028ff>物理ダメージ<>と物理防御-20%。",
         "skill2": "直線に槍を突き出し<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>3秒<><#ef5350ff>物理防御-20%<>。",
         "ult": "敵チャンピオンへ跳びかかり周囲に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、岩の輪が敵チャンピオンを<#ef5350ff>3.5秒閉じ込め<>、出ようとすると引き戻す。打ち上げた敵か敵2体が近い時に使う。"
       }

@@ -1327,7 +1327,7 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "Attack",
-                          "damage": 50,
+                          "damage": 60,
                           "attack_ratio": 40,
                           "hp_ratio": 0,
                           "target_hp_ratio": 0,
@@ -1427,7 +1427,7 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "Attack",
-                          "damage": 50,
+                          "damage": 60,
                           "attack_ratio": 40,
                           "hp_ratio": 0,
                           "target_hp_ratio": 0,

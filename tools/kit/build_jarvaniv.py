@@ -65,7 +65,7 @@ P = {
     "e_as": 20,
     # skill: E -> Q (League: E 860 range, 80-240 + 80% AP, flag 8 s, aura +20-30% attack speed, cd 12-10;
     # Q 770 range, 90-250 + 145% bonus AD, armour -10-26% 3 s, knock-up 0.75 s, cd 10-6)
-    "e_cd": 660, "e_range": 55000, "e_dur": 34, "e_rel": 8, "e_travel": 8, "e_r": 16000, "e_dmg": 50, "e_ratio": 40,
+    "e_cd": 660, "e_range": 55000, "e_dur": 34, "e_rel": 8, "e_travel": 8, "e_r": 16000, "e_dmg": 60, "e_ratio": 40,
     "fl_t": 480, "f_r": 40000, "f_as": 20, "f_p": 30,
     # 1 = the standard alone below level 3, E -> Q from 3 (the user: 「皇子为什么1级就可以EQ二连」); 0 = E -> Q from level 1
     "eq_lv3": 1,
