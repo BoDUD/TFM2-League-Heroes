@@ -59,7 +59,7 @@ BIG = "asset/league/effects/league_maokai_big"
 P = {
     # stats (support tanks: league_braum 78 +6 attack, 25 +15 AP, 1300 +120 hp, 44 +8 armour); League's Maokai: 665 +109
     # hp, 64 AD, 35 +5.2 armour, 32 +2.05 mr, 335 move, range 125, attack speed 0.8
-    "hp": 1250, "hp_g": 120, "atk": 72, "atk_g": 6, "ap": 25, "ap_g": 15, "def": 42, "def_g": 8, "mr": 30, "mr_g": 4,
+    "hp": 1420, "hp_g": 135, "atk": 72, "atk_g": 6, "ap": 25, "ap_g": 15, "def": 50, "def_g": 9, "mr": 36, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
     # attack: the arm's sweep lands on a_hit
     "atk_range": 26000, "atk_dur": 30, "atk_cd": 75, "a_hit": 11, "f_t": 180,
@@ -70,20 +70,20 @@ P = {
     "p_heal_lo": 45, "p_heal_hi": 120, "p_win": 90, "e_stand": 20,
     # skill: Q Bramble Smash (League: 65-245 + 40% AP + 2-4% max hp, knock-back, slow 99% decaying over 0.5 s, cd 7-5)
     "q_cd": 360, "q_range": 30000, "q_dur": 32, "q_rel": 12, "q_kb": 16000, "q_kb_s": 2000, "q_kb_t": 12,
-    "q_len": 45000, "q_w": 10000, "q_speed": 6000, "q_dmg": 60, "q_ap": 40, "q_thp": 2,
+    "q_len": 45000, "q_w": 10000, "q_speed": 6000, "q_dmg": 100, "q_ap": 40, "q_thp": 2,
     "q_s1": 50, "q_s1t": 20, "q_s2": 45, "q_s2t": 40,
     # skill2: W Twisted Advance (League: range 525, 70-170 + 40% AP, root 1-1.4 s, untargetable, cd 14-10)
-    "w_cd": 720, "w_range": 45000, "w_ally": 50000, "w_speed": 2500, "w_dash": 24, "w_root": 66,
-    "w_dmg": 60, "w_ap": 40, "w_land": 20,
+    "w_cd": 600, "w_range": 45000, "w_ally": 70000, "w_speed": 2500, "w_dash": 24, "w_root": 78,
+    "w_dmg": 100, "w_ap": 40, "w_land": 20,
     # E Sapling Toss (League: 1100 range, 55-155 + 40% AP + 5% bonus hp, slow 35% 2 s, 30 s life, cd 18-14)
-    "e_cd": 900, "e_range": 60000, "e_dur": 29, "e_rel": 10, "e_travel": 20, "e_arm": 30, "e_life": 720,
-    "e_trig": 14000, "e_r": 24000, "e_dmg": 60, "e_ap": 50, "e_slow": 35, "e_slow_t": 120, "e_link": 30,
+    "e_cd": 600, "e_range": 60000, "e_dur": 29, "e_rel": 10, "e_travel": 20, "e_arm": 30, "e_life": 720,
+    "e_trig": 14000, "e_r": 24000, "e_dmg": 100, "e_ap": 50, "e_slow": 35, "e_slow_t": 120, "e_link": 30,
     # the add-on's sapling in brush (League: a bigger blast, 2x damage over 2 s, a 45% slow)
     "e_br": 34000, "e_bdmg": 160, "e_bslow": 45, "e_bslow_t": 150,
     # ult: R Nature's Grasp (League: 3000 range, root 0.8-2.6 s by distance, 150-300 + 75% AP, haste 40-80% 2.5 s,
     # cd 130-90)
     "r_cd": 3600, "r_range": 70000, "r_arm": 600, "r_dur": 42, "r_rel": 20, "r_speed": 1500, "r_len": 200000,
-    "r_w": 28000, "r_d1": 45, "r_d2": 95, "r_b1": 48, "r_b2": 96, "r_b3": 144, "r_dmg": 120, "r_ap": 75,
+    "r_w": 28000, "r_d1": 45, "r_d2": 95, "r_b1": 48, "r_b2": 96, "r_b3": 144, "r_dmg": 180, "r_ap": 75,
     "r_ms": 40, "r_ms_t": 150, "r_cnt": 60000, "r_open": 120,
     # the watch
     "watch_p": 12,

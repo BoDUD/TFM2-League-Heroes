@@ -29,9 +29,9 @@
   "stat": {
     "attack": 72,
     "magic_power": 25,
-    "hp": 1250,
-    "defence": 42,
-    "magic_resistance": 30,
+    "hp": 1420,
+    "defence": 50,
+    "magic_resistance": 36,
     "move_speed": 1000,
     "hp_regen": 0,
     "stack": 0,
@@ -40,8 +40,8 @@
   "growth": {
     "attack": 6,
     "magic_power": 15,
-    "hp": 120,
-    "defence": 8,
+    "hp": 135,
+    "defence": 9,
     "magic_resistance": 4,
     "move_speed": 10,
     "hp_regen": 0,
@@ -151,7 +151,7 @@
                             "type": "RangeEffect",
                             "shape": {
                               "Circle": {
-                                "radius": 50000
+                                "radius": 70000
                               }
                             },
                             "target": "AllyNotSelf",
@@ -422,7 +422,7 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "ApAttack",
-                                                                      "damage": 120,
+                                                                      "damage": 180,
                                                                       "attack_ratio": 75,
                                                                       "hp_ratio": 0
                                                                     }
@@ -724,7 +724,7 @@
                                               "name": "league_maokai_e_cd",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 900
+                                                  "tick": 600
                                                 }
                                               }
                                             },
@@ -1390,7 +1390,7 @@
                                                                             "effects": [
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 60,
+                                                                                "damage": 100,
                                                                                 "attack_ratio": 50,
                                                                                 "hp_ratio": 0
                                                                               },
@@ -1473,7 +1473,7 @@
                                                                             "effects": [
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 96,
+                                                                                "damage": 160,
                                                                                 "attack_ratio": 80,
                                                                                 "hp_ratio": 0
                                                                               },
@@ -1946,7 +1946,7 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "ApAttack",
-                                  "damage": 60,
+                                  "damage": 100,
                                   "attack_ratio": 40,
                                   "hp_ratio": 0
                                 }
@@ -2098,7 +2098,7 @@
     "action_name": "idle",
     "description": "#asset/base/text/champion?description.league_maokai.skill2",
     "duration": 3,
-    "cooltime": 720,
+    "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
     "range": 45000,
@@ -2285,7 +2285,7 @@
                         },
                         {
                           "type": "Bind",
-                          "duration": 66
+                          "duration": 78
                         },
                         {
                           "type": "AddBuff",
@@ -2293,14 +2293,14 @@
                             "name": "league_maokai_w_bound",
                             "duration": {
                               "Time": {
-                                "tick": 66
+                                "tick": 78
                               }
                             }
                           }
                         },
                         {
                           "type": "ApAttack",
-                          "damage": 60,
+                          "damage": 100,
                           "attack_ratio": 40,
                           "hp_ratio": 0
                         },
@@ -2553,7 +2553,7 @@
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
                                                                   "type": "ApAttack",
-                                                                  "damage": 60,
+                                                                  "damage": 100,
                                                                   "attack_ratio": 40,
                                                                   "hp_ratio": 0
                                                                 }
@@ -2832,7 +2832,7 @@
                             "type": "RangeEffect",
                             "shape": {
                               "Circle": {
-                                "radius": 50000
+                                "radius": 70000
                               }
                             },
                             "target": "AllyNotSelf",
@@ -3103,7 +3103,7 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "ApAttack",
-                                                                      "damage": 120,
+                                                                      "damage": 180,
                                                                       "attack_ratio": 75,
                                                                       "hp_ratio": 0
                                                                     }
@@ -3405,7 +3405,7 @@
                                               "name": "league_maokai_e_cd",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 900
+                                                  "tick": 600
                                                 }
                                               }
                                             },
@@ -4071,7 +4071,7 @@
                                                                             "effects": [
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 60,
+                                                                                "damage": 100,
                                                                                 "attack_ratio": 50,
                                                                                 "hp_ratio": 0
                                                                               },
@@ -4154,7 +4154,7 @@
                                                                             "effects": [
                                                                               {
                                                                                 "type": "ApAttack",
-                                                                                "damage": 96,
+                                                                                "damage": 160,
                                                                                 "attack_ratio": 80,
                                                                                 "hp_ratio": 0
                                                                               },
