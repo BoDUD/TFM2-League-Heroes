@@ -1,0 +1,21 @@
+Use case: identity-preserve / pixel-art sprite sheet reskin.
+Image 1 is the EXACT 7-frame walking skeleton and sheet layout to reproduce. Image 2 is the EXACT Gangplank character design to apply to that skeleton. Redraw image1 replacing Lucian with Gangplank. The previous attempt failed because both feet stayed on the same sides for all frames. FIX THAT: faithfully trace the pose of EACH LEG in image1, preserving the locations of both shoes relative to hips for each frame, including crossed passing positions and opposite forward/back legs.
+
+Canvas 1400 x 780 pixels, exactly 4 columns and 2 rows, cell 350 x 390 pixels. SEVEN sprites ONLY, frames1-4 in top row, frames5-7 in bottom row, bottom-right eighth cell completely empty pure green. Each cell sole baseline y=360 within cell. All sprites face right in three-quarter view as references. Crisp pixel art on consistent 5px square grid; 1-2 logical pixel dark outline, no antialias, blur or gradients. Pure flat #00FF00 green backdrop, NO lines, labels, text, shadows.
+
+Leg animation is highest priority. Copy the actual pants/leg silhouettes and exact foot positions of image1, replacing costume only:
+Frame1 wide stride, left-screen foot back at x~75, right-screen foot forward at x~225.
+Frame2 back foot at x~95, front foot at x~210, narrowing.
+Frame3 crossed passing legs, one boot planted near x~140, other bent up behind, clear knee bend.
+Frame4 opposite leg now coming out forward, boots near x~122 and x~215.
+Frame5 opposite full stride, the leg previously behind must now be in front, the leg previously in front now behind; near leg and far leg swap.
+Frame6 opposite recovery/passing, bent knee and raised heel.
+Frame7 recovery toward frame1.
+Do NOT merely move boots below an unchanging body. Animate hip, knee, ankle, both complete legs; coat opens enough to expose both upper legs. Different boot orientation and knee bend follow skeleton image1. Keep pants matching on both legs, far leg darker only, no mismatched stockings or bare legs. Retain image1 foot baseline, per-frame hip position and head bob.
+
+Identity from image2, not image1: same short stocky Gangplank proportions and approximately62 logical pixel character height, black crescent pirate hat, stern frown and moustache, grey-brown long beard tied with red fabric, exposed tattooed belly, teal lapels and crossed leather straps, red wraps on forearms, red waist sash and gold buckle, long dark purple coat split into gold-trimmed torn tails streaming to left, dark grey-green pants, brown cuffed boots. The head/hat/chest may bob naturally but keep design consistent, do not stretch or slim character.
+Near hand carries EXACT image2 GOLD HAND CANNON on shoulder, same size color and silhouette in all7 frames; far hand carries EXACT image2 straight dark serrated cutlass diagonally forward-down, hot red-orange blade tip, constant length and shape. No Lucian small pistols, white coat, scarf, modern guns. No extra items. All7 frames must have swapped forward/back leg phases, not repeated standing poses. Match the strict pixel-art rendering of image2.
+
+Export: source 1680x936 -> 1400x780 using nearest neighbor, without smoothing.
+Normalize green pixels where G>150 and G>2R and G>2B to RGB(0,255,0).
+Ensure cell8 (x1050..1399,y390..779) is solid RGB(0,255,0).

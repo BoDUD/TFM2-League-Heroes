@@ -36,7 +36,7 @@ T = "<#f5f5f5ff>"      # true damage
 G = "<#7dd87dff>"      # heals
 E = "<>"
 # champion_view: the face point between his eyes (ppu_restyle face_to); banpick_center from tools/art/bp_card_audit.py
-VIEW = {"face": {"x": 2, "y": -34}, "center": {"x": 0, "y": -14}}
+VIEW = {"face": {"x": 2, "y": -29}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}  # 10-18 PPU 1.2 at 90%
 
 
 def phy(d, r):

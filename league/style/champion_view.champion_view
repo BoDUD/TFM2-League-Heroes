@@ -64,8 +64,8 @@
     },
     "league_darius": {
       "face": {
-        "x": -1,
-        "y": -39
+        "x": 5,
+        "y": -38
       },
       "center": {
         "x": 0,
@@ -448,8 +448,8 @@
     },
     "league_fiora": {
       "face": {
-        "x": 1,
-        "y": -39
+        "x": 2,
+        "y": -38
       },
       "center": {
         "x": 0,
@@ -528,8 +528,8 @@
     },
     "league_camille": {
       "face": {
-        "x": -2,
-        "y": -46
+        "x": -1,
+        "y": -45
       },
       "center": {
         "x": 0,
@@ -1356,8 +1356,8 @@
     },
     "league_jayce": {
       "face": {
-        "x": 0,
-        "y": -38
+        "x": -1,
+        "y": -40
       },
       "center": {
         "x": 0,
@@ -1370,8 +1370,8 @@
     },
     "league_katarina": {
       "face": {
-        "x": 0,
-        "y": -37
+        "x": 1,
+        "y": -36
       },
       "center": {
         "x": 0,
@@ -1399,7 +1399,7 @@
     "league_tahmkench": {
       "face": {
         "x": -1,
-        "y": -36
+        "y": -38
       },
       "center": {
         "x": 0,
@@ -1412,8 +1412,8 @@
     },
     "league_kalista": {
       "face": {
-        "x": 0,
-        "y": -39
+        "x": 2,
+        "y": -34
       },
       "center": {
         "x": 0,
@@ -1625,7 +1625,7 @@
     "league_gangplank": {
       "face": {
         "x": 2,
-        "y": -34
+        "y": -29
       },
       "center": {
         "x": 0,
@@ -1633,12 +1633,12 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -12
       }
     },
     "league_wukong": {
       "face": {
-        "x": 0,
+        "x": 3,
         "y": -27
       },
       "center": {
@@ -1666,7 +1666,7 @@
     },
     "league_akshan": {
       "face": {
-        "x": 3,
+        "x": 4,
         "y": -31
       },
       "center": {
@@ -1675,7 +1675,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -8
       }
     },
     "league_poppy": {

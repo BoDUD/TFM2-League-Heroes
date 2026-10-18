@@ -353,10 +353,41 @@ def walk(F, steps=None):
     return out
 
 
+# The walk since 2026-10-18 (the user: 「船长走路也有点僵硬的」): Codex's skin swap over oppi's Swain run (Akshan's accepted
+# way), assets/source/gangplank/hd/run_<k>.png read back by tools/art/design_gangplank_run.py with the design's head, hat
+# and hand cannon stamped on. Each frame stands with its soles on the design's ground row and the middle of its red sash
+# (the hips) over the design's, so the body does not slide from frame to frame. walk() above stays for reference.
+RUN_FRAMES = 8
+
+
+def sash_x(a):
+    """The middle column of the red sash (bright red under the belly) in the lower half of a frame."""
+    h = a.shape[0]
+    low = a[h // 2:h - 8].astype(int)
+    m = (low[..., 3] > 0) & (low[..., 0] > 170) & (low[..., 1] < 90) & (low[..., 2] < 90)
+    return float(np.nonzero(m)[1].mean())
+
+
+def codex_walk(F):
+    rig, D = F.rig, F.D
+    cx = sash_x(D.d)
+    out = []
+    for k in range(RUN_FRAMES):
+        f = load(f"run_{k}.png")
+        h, w = f.shape[:2]
+        x0 = rig.ox + int(round(cx - sash_x(f)))
+        y0 = rig.oy + D.ground - h
+        can = rig.canvas()
+        m = f[..., 3] > 0
+        can[y0:y0 + h, x0:x0 + w][m] = f[m]
+        out.append(can)
+    return out
+
+
 def frames(F):
     """{tag: [(canvas, ms)]} in the sheet's order."""
     a = frames_all(F)
-    a = {"idle": a["idle"], "run": walk(F), **{k: v for k, v in a.items() if k != "idle"}}
+    a = {"idle": a["idle"], "run": codex_walk(F), **{k: v for k, v in a.items() if k != "idle"}}
     out = {}
     for tag, cans in a.items():
         ms = MS[tag]

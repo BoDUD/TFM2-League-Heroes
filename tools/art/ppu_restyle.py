@@ -56,7 +56,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
-            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.5, "cassiopeia": 1.3, "akshan": 1.5, "poppy": 1.3,
+            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3,
             **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "riven": 1.5}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
@@ -173,7 +173,8 @@ RESTYLE = {
     # league_jayce (#106): Codex's strips (both forms) on the design's grid brought to the user's 1.5 squares a game pixel
     # by tools/art/rig_jayce.py (38 game rows crown to soles; one head brought down once for every frame), so no
     # proportion or density change here; the outer outline grown a square like the others; the face point at his crown
-    "jayce": dict(ppu=1.5, edge=1, face_to=(0, -38)),
+    # 2026-10-18 face (-1,-40): (0,-38) put his eyes on the 3rd-4th rows and the red scarf and chest below
+    "jayce": dict(ppu=1.5, edge=1, face_to=(-1, -40)),
     # league_elise (#107): Codex's strips warped to the design's proportions and brought to the user's 1.8 squares a game
     # pixel by tools/art/import_elise_strips.py + rig_elise.py (38 game rows crown to toes), so only the outer outline
     # grown a square like the others; the face point at her crown
@@ -181,15 +182,18 @@ RESTYLE = {
     # league_katarina (#108): Codex's strips brought to the user's PPU by tools/art/rig_katarina.py (38 game rows crown
     # to soles; 1.5, then the design's own 1.7895 for the face, then back to 1.5: 「卡特琳娜太高清了 降低点像素」), so no
     # proportion or density change here; the outer outline grown a square like the others; the face point at her crown
-    "katarina": dict(ppu=1.5, edge=1, face_to=(0, -37)),
+    # 2026-10-18 face (1,-36): (0,-37) framed four rows of hair and cut the chin
+    "katarina": dict(ppu=1.5, edge=1, face_to=(1, -36)),
     # league_tahmkench (#110): posed from the approved design's own squares and brought to the user's 1.2 squares a game
     # pixel by tools/art/rig_tahmkench.py (42 game rows hat to soles), so only the outer outline grown a square like the
     # others; the face point on his head's top under the hat
-    "tahmkench": dict(ppu=1.2, edge=1, face_to=(1, -36)),
+    # 2026-10-18 face (-1,-38): (-1,-36) put his eyes on the top two rows
+    "tahmkench": dict(ppu=1.2, edge=1, face_to=(-1, -38)),
     # league_kalista (#109): Codex's strips (heads, sizes, run and death finished by tools/art/import_kalista_strips.py)
     # brought to the user's PPU 1.4 at 85 % by tools/art/rig_kalista.py (「大小 85%，PPU 1.4」), so no proportion or
     # density change here; the outer outline grown a square like the others; the face point at her helm
-    "kalista": dict(ppu=1.4, edge=1, face_to=(0, -39)),
+    # 2026-10-18 face (2,-34): (0,-39) framed only her purple crest; her glowing eye and cyan visor sit lower right
+    "kalista": dict(ppu=1.4, edge=1, face_to=(2, -34)),
     # league_drmundo (#111): Codex's strips (sizes, places, the run and the death finished by
     # tools/art/import_drmundo_strips.py) brought to the user's PPU 1.5 by tools/art/rig_drmundo.py (「选 A，42 行，PPU
     # 1.5」), so no proportion or density change here; the outer outline grown a square like the others; the face point
@@ -273,21 +277,24 @@ RESTYLE = {
     # Camille (2026-10-18): Codex's design picture read back on its own grid and cut to 69 rows (32 x 69), the upper body
     # posed after League's own clips by tools/art/rig_camille_hd.py, the legs of her kicks and leaps Codex's drawing
     # (assets/source/camille/codex_legs); the face point at the crown of her hair (tfm2_ase.py face)
-    "camille": dict(ppu=1.5, edge=1, face_to=(-2, -46)),
+    # 2026-10-18 face (-1,-45): (-2,-46) framed the hair above, the eyes on rows 6-7, the face off to the right
+    "camille": dict(ppu=1.5, edge=1, face_to=(-1, -45)),
     # Fiora (2026-10-18): Codex's design picture read back on one fitted grid and cut to 60 rows with her whole head kept
     # (87 x 60), posed after League's own clips by tools/art/rig_fiora_hd.py - the sword arm and the guard turned
     # losslessly, the blade drawn straight level or upright, the legs of her steps and lunges drawn on League's bones
     # in the design's own colours with its knee guards and boots; the Q dash baked under skill_fx1 (fx)
-    "fiora": dict(ppu=1.5, edge=1, face_to=(1, -39), fx=True),
+    # 2026-10-18 face (2,-38): (1,-39) framed five rows of hair, the eyes on rows 6-7, the mouth on the last row
+    "fiora": dict(ppu=1.5, edge=1, face_to=(2, -38), fx=True),
     # Darius (2026-10-18): Codex's design picture read back on its own 17.2 x 16.45-px squares (56 x 61, nothing cut),
     # PPU 1.45 at his old 42 rows (「用 PPU 1.45，和现在一样高」), posed after League's own clips by
     # tools/art/rig_darius_hd.py - the axe hand and the axe turned losslessly, the legs as drawn, moved whole in the run;
     # the face point at the crown of his hair (tfm2_ase.py face), the card -8 (bp_card_audit.py's rule)
-    "darius": dict(ppu=1.45, edge=1, face_to=(-1, -39)),
-    # Riven (2026-10-18): Codex's design picture read back on its own 15.57 x 17.48-px squares (68 x 61, nothing cut),
-    # posed after League's own clips by tools/art/rig_riven_hd.py - the sword hand and the broken sword turned
-    # losslessly (the stretch hidden behind her head made again from the blade's cross-section), the R form's energy
-    # blade drawn out of the break, the legs of her steps and dashes drawn on League's bones; effects baked (fx)
+    # 2026-10-18 face (5,-38): the redo's point missed the face
+    "darius": dict(ppu=1.45, edge=1, face_to=(5, -38)),
+    # Riven (2026-10-18): Codex's design picture read back on its own 15.57 x 17.48-px squares (68 x 61), her sword one of
+    # Codex's angle drawings (swords_riven_hd.py) in her fist; idle, run, ult, wind slash, hit and death posed after
+    # League's clips by tools/art/rig_riven_hd.py, her three attacks, Broken Wings and Valor Codex's whole-frame
+    # redraws (actions_riven_hd.py); effects baked (fx)
     "riven": dict(ppu=1.5, edge=1, face_to=(0, -37), fx=True),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
@@ -313,25 +320,26 @@ RESTYLE = {
     # step-1 redo take A-2 read back uncut, 62 rows = 41 game rows: the 50-row cut for 1.2 broke the gun hand - 「拿枪的
     # 那个手啊」, 「PPU 用 1.5」) by tools/art/rig_gangplank.py, Q / R from Codex's gun-hand poses, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "gangplank": dict(ppu=1.5, edge=1, face_to=(2, -34)),
+    # 2026-10-18 the user: 「船长猴子阿克尚波比蛇女像素太高需要降低 船长猴子局内太大」 -> PPU 1.2 and Wukong 85%; Gangplank 90% kept at 1.5 (「船长保留1.5 但是要缩小体型」)
+    "gangplank": dict(ppu=1.5, grow=0.9, edge=1, lift_sq=-1, face_to=(2, -29)),
     # league_wukong (#127): posed from the design's own squares at the user's 1.5 squares a game pixel (「用 A，游戏里 38
     # 像素高」, then on the step-1 guide 「太模糊了 起码PPU1.5」: Codex's step-1 take A-1 cut to 57 rows hair to soles) by
     # tools/art/rig_wukong.py, so no proportion or density change here; the outer outline grown a square like the others;
     # the face point between his green eyes
-    "wukong": dict(ppu=1.5, edge=1, face_to=(0, -27)),
+    "wukong": dict(ppu=1.2, edge=1, face_to=(3, -27)),   # 10-18 redo: Codex's new design and actions (rig_frames_1018.py), drawn at 85 % already
     # league_cassiopeia (#128): posed from the design's own squares at the user's 1.3 squares a game pixel (「44 ppu1.3 A」:
     # Codex's step-1 take A-2 cut to 57 rows crest to ground) by tools/art/rig_cassiopeia.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point between her eyes
-    "cassiopeia": dict(ppu=1.3, edge=1, face_to=(2, -29)),
+    "cassiopeia": dict(ppu=1.2, edge=1, face_to=(2, -29)),
     # league_akshan (#129): posed from the design's own squares at the user's 1.5 squares a game pixel (「用 A，游戏里 38
     # 像素高，PPU 1.5」: Codex's step-1 round-2 take A-1 cut to 57 rows hair to soles) by tools/art/rig_akshan.py, the
     # forward gun arm from Codex's pose and the walk from Codex's skin swap read on the same grid, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "akshan": dict(ppu=1.5, edge=1, face_to=(3, -31)),
+    "akshan": dict(ppu=1.2, edge=1, face_to=(4, -31)),   # 10-18 redo: the slim design and Codex's actions (rig_frames_1018.py)
     # league_poppy (#130): posed from the design's own squares at the user's 1.3 squares a game pixel (「用 B（锤子竖着），
     # 游戏里 36 像素高，PPU 1.3」: Codex's step-1 take B-2 cut to 47 rows pigtails to soles) by tools/art/rig_poppy.py, so no
     # proportion or density change here; the outer outline grown a square like the others; the face point between her eyes
-    "poppy": dict(ppu=1.3, edge=1, face_to=(5, -22)),
+    "poppy": dict(ppu=1.2, edge=1, face_to=(5, -22)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
@@ -847,10 +855,10 @@ def restyle(hero, spec, write=True, only=None):
     if spec.get("grow", 1) != 1 and new_ppu == ppu and "idle" in out and not spec.get("lift"):
         # the even-grid growth rounds: put the soles back exactly where the idle's first frame had them
         a0 = frames["idle"][0][0]
-        was = np.nonzero(a0[..., 3].any(1))[0].max() + 1 - a0.shape[0] / 2
+        sole0 = np.nonzero(a0[..., 3].any(1))[0].max() + 1 - a0.shape[0] / 2
         c0, pv0, _ = out["idle"][0]
         now = np.nonzero(c0[..., 3].any(1))[0].max() + 1 - pv0[1]
-        d = round(now - was)
+        d = round(now + spec.get("lift_sq", 0) - sole0)   # a lift_sq asked for stays (league_gangplank's 90 %)
         if d:
             out = {t: [(c, (pv[0], pv[1] + d), m) for c, pv, m in r] for t, r in out.items()}
             notes.append(f"soles moved {-d} rows back onto the ground")
