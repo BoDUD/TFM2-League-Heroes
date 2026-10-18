@@ -295,7 +295,7 @@ RESTYLE = {
     # Codex's angle drawings (swords_riven_hd.py) in her fist; idle, run, ult, wind slash, hit and death posed after
     # League's clips by tools/art/rig_riven_hd.py, her three attacks, Broken Wings and Valor Codex's whole-frame
     # redraws (actions_riven_hd.py); effects baked (fx)
-    "riven": dict(ppu=1.5, edge=1, face_to=(0, -37), fx=True),
+    "riven": dict(ppu=1.5, edge=1, face_to=(0, -34), fx=True),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
