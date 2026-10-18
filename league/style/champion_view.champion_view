@@ -570,7 +570,7 @@
     },
     "league_kaisa": {
       "face": {
-        "x": -1,
+        "x": 1,
         "y": -36
       },
       "center": {
@@ -579,7 +579,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -9
+        "y": -8
       }
     },
     "league_ryze": {
