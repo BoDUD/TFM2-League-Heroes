@@ -315,8 +315,8 @@ RESTYLE = {
     # step-1 redo take A-2 read back uncut, 62 rows = 41 game rows: the 50-row cut for 1.2 broke the gun hand - 「拿枪的
     # 那个手啊」, 「PPU 用 1.5」) by tools/art/rig_gangplank.py, Q / R from Codex's gun-hand poses, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
-    # 2026-10-18 the user: 「船长猴子阿克尚波比蛇女像素太高需要降低 船长猴子局内太大」 -> all five PPU 1.2, Gangplank 90%, Wukong 85%
-    "gangplank": dict(ppu=1.2, grow=0.9, edge=1, face_to=(2, -29)),
+    # 2026-10-18 the user: 「船长猴子阿克尚波比蛇女像素太高需要降低 船长猴子局内太大」 -> PPU 1.2 and Wukong 85%; Gangplank 90% kept at 1.5 (「船长保留1.5 但是要缩小体型」)
+    "gangplank": dict(ppu=1.5, grow=0.9, edge=1, lift_sq=-1, face_to=(2, -29)),
     # league_wukong (#127): posed from the design's own squares at the user's 1.5 squares a game pixel (「用 A，游戏里 38
     # 像素高」, then on the step-1 guide 「太模糊了 起码PPU1.5」: Codex's step-1 take A-1 cut to 57 rows hair to soles) by
     # tools/art/rig_wukong.py, so no proportion or density change here; the outer outline grown a square like the others;
@@ -850,10 +850,10 @@ def restyle(hero, spec, write=True, only=None):
     if spec.get("grow", 1) != 1 and new_ppu == ppu and "idle" in out and not spec.get("lift"):
         # the even-grid growth rounds: put the soles back exactly where the idle's first frame had them
         a0 = frames["idle"][0][0]
-        was = np.nonzero(a0[..., 3].any(1))[0].max() + 1 - a0.shape[0] / 2
+        sole0 = np.nonzero(a0[..., 3].any(1))[0].max() + 1 - a0.shape[0] / 2
         c0, pv0, _ = out["idle"][0]
         now = np.nonzero(c0[..., 3].any(1))[0].max() + 1 - pv0[1]
-        d = round(now - was)
+        d = round(now + spec.get("lift_sq", 0) - sole0)   # a lift_sq asked for stays (league_gangplank's 90 %)
         if d:
             out = {t: [(c, (pv[0], pv[1] + d), m) for c, pv, m in r] for t, r in out.items()}
             notes.append(f"soles moved {-d} rows back onto the ground")
