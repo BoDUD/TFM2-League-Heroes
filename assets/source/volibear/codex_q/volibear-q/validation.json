@@ -1,0 +1,68 @@
+[
+  {
+    "file": "volibear-q-charge.png",
+    "size": [
+      2098,
+      749
+    ],
+    "expected_size": [
+      2016,
+      720
+    ],
+    "most_common_rgb": [
+      [
+        3,
+        250,
+        3
+      ],
+      155528
+    ],
+    "exact_green_pixels": 21,
+    "alpha_full": 1571402,
+    "alpha_other": 0
+  },
+  {
+    "file": "volibear-q-pounce-1.png",
+    "size": [
+      1967,
+      799
+    ],
+    "expected_size": [
+      2520,
+      360
+    ],
+    "most_common_rgb": [
+      [
+        2,
+        250,
+        3
+      ],
+      167081
+    ],
+    "exact_green_pixels": 24,
+    "alpha_full": 1571633,
+    "alpha_other": 0
+  },
+  {
+    "file": "volibear-q-pounce-2.png",
+    "size": [
+      1967,
+      799
+    ],
+    "expected_size": [
+      2520,
+      360
+    ],
+    "most_common_rgb": [
+      [
+        2,
+        249,
+        3
+      ],
+      145285
+    ],
+    "exact_green_pixels": 30,
+    "alpha_full": 1571633,
+    "alpha_other": 0
+  }
+]

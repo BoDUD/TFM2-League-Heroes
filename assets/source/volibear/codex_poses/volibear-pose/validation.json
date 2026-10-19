@@ -1,0 +1,201 @@
+[
+  {
+    "file": "volibear-pose-maul-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_zero": 1161819,
+    "alpha_full": 1808,
+    "alpha_partial": 408889,
+    "non_arm_region_checks": {
+      "head": {
+        "changed_pixels": 57419,
+        "total_pixels": 64800,
+        "identical": false
+      },
+      "lower_legs": {
+        "changed_pixels": 37326,
+        "total_pixels": 53025,
+        "identical": false
+      }
+    }
+  },
+  {
+    "file": "volibear-pose-maul-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_zero": 1164422,
+    "alpha_full": 1264,
+    "alpha_partial": 406830,
+    "non_arm_region_checks": {
+      "head": {
+        "changed_pixels": 57500,
+        "total_pixels": 64800,
+        "identical": false
+      },
+      "lower_legs": {
+        "changed_pixels": 33390,
+        "total_pixels": 53025,
+        "identical": false
+      }
+    }
+  },
+  {
+    "file": "volibear-pose-rake-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_zero": 1227429,
+    "alpha_full": 1603,
+    "alpha_partial": 343484,
+    "non_arm_region_checks": {
+      "head": {
+        "changed_pixels": 56839,
+        "total_pixels": 64800,
+        "identical": false
+      },
+      "lower_legs": {
+        "changed_pixels": 33144,
+        "total_pixels": 53025,
+        "identical": false
+      }
+    }
+  },
+  {
+    "file": "volibear-pose-rake-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_zero": 1225735,
+    "alpha_full": 1153,
+    "alpha_partial": 345628,
+    "non_arm_region_checks": {
+      "head": {
+        "changed_pixels": 56844,
+        "total_pixels": 64800,
+        "identical": false
+      },
+      "lower_legs": {
+        "changed_pixels": 32374,
+        "total_pixels": 53025,
+        "identical": false
+      }
+    }
+  },
+  {
+    "file": "volibear-pose-up1-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_zero": 1172441,
+    "alpha_full": 2181,
+    "alpha_partial": 397894,
+    "non_arm_region_checks": {
+      "head": {
+        "changed_pixels": 56992,
+        "total_pixels": 64800,
+        "identical": false
+      },
+      "lower_legs": {
+        "changed_pixels": 32650,
+        "total_pixels": 53025,
+        "identical": false
+      }
+    }
+  },
+  {
+    "file": "volibear-pose-up1-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_zero": 1161894,
+    "alpha_full": 2537,
+    "alpha_partial": 408085,
+    "non_arm_region_checks": {
+      "head": {
+        "changed_pixels": 56678,
+        "total_pixels": 64800,
+        "identical": false
+      },
+      "lower_legs": {
+        "changed_pixels": 34030,
+        "total_pixels": 53025,
+        "identical": false
+      }
+    }
+  },
+  {
+    "file": "volibear-pose-up2-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_zero": 1140973,
+    "alpha_full": 1942,
+    "alpha_partial": 429601,
+    "non_arm_region_checks": {
+      "head": {
+        "changed_pixels": 58038,
+        "total_pixels": 64800,
+        "identical": false
+      },
+      "lower_legs": {
+        "changed_pixels": 35253,
+        "total_pixels": 53025,
+        "identical": false
+      }
+    }
+  },
+  {
+    "file": "volibear-pose-up2-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_zero": 1167319,
+    "alpha_full": 2249,
+    "alpha_partial": 402948,
+    "non_arm_region_checks": {
+      "head": {
+        "changed_pixels": 57956,
+        "total_pixels": 64800,
+        "identical": false
+      },
+      "lower_legs": {
+        "changed_pixels": 36590,
+        "total_pixels": 53025,
+        "identical": false
+      }
+    }
+  },
+  {
+    "file": "volibear-run.png",
+    "size": [
+      2172,
+      724
+    ],
+    "alpha_zero": 0,
+    "alpha_full": 1572528,
+    "alpha_partial": 0,
+    "most_common_rgb": [
+      [
+        2,
+        250,
+        2
+      ],
+      229755
+    ],
+    "exact_green_pixels": 48,
+    "reference_sheet_size": [
+      2880,
+      888
+    ]
+  }
+]
