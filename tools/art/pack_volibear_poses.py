@@ -181,6 +181,9 @@ def part_b(out, lol):
            "--out", out]
     subprocess.run(cmd, check=True, capture_output=True)
     os.replace(os.path.join(out, "volibear_run.png"), os.path.join(out, "3_英雄联盟沃利贝尔跑步.png"))
+    for n in os.listdir(out):                         # (--anim is a substring: the other Run clips came along)
+        if n.lower().startswith("volibear_run"):
+            os.remove(os.path.join(out, n))
     print("B: oppi scale", round(k, 3), "frames", n_, "sheet", sheet.shape[:2])
 
 
