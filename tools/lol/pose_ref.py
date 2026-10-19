@@ -571,6 +571,8 @@ def main():
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol", help="League install folder")
     ap.add_argument("--champ", default="Garen")
     ap.add_argument("--wad", help="champion WAD holding --champ, for a summon (default: --champ)")
+    ap.add_argument("--wad-file", help="a WAD file anywhere under Game/DATA/FINAL, relative to it or absolute: Teamfight "
+                         "Tactics units live in their set's WAD (--champ TFT13_Blue --wad-file TFTSet13.wad.client = Powder)")
     ap.add_argument("--anim", action="append", default=[], help="substring of the .anm file name (repeatable)")
     ap.add_argument("--frames", type=int, default=6)
     ap.add_argument("--t0", type=float, default=0.0, help="start of the sampled window, seconds")
@@ -635,6 +637,8 @@ def main():
         ap.error("--frame needs --name")
     champ = args.champ
     wad_path = os.path.join(args.lol, "Game", "DATA", "FINAL", "Champions", f"{args.wad or champ}.wad.client")
+    if args.wad_file:
+        wad_path = os.path.join(args.lol, "Game", "DATA", "FINAL", args.wad_file)
     w = Wad(wad_path)
     skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
     refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
