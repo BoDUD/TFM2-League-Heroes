@@ -556,8 +556,8 @@
     },
     "league_leblanc": {
       "face": {
-        "x": -1,
-        "y": -37
+        "x": 0,
+        "y": -31
       },
       "center": {
         "x": 0,
@@ -1236,8 +1236,8 @@
     },
     "league_mordekaiser": {
       "face": {
-        "x": 1,
-        "y": -30
+        "x": -1,
+        "y": -42
       },
       "center": {
         "x": 0,

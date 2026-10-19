@@ -67,8 +67,8 @@ static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLoc
 static FAKES: LazyLock<Mutex<HashMap<usize, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// texture data -> (its width entry, its height entry, the hero's shown divisor, whether the UI draws its lo_ frames)
 static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, Option<f32>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// the UI's copies of anim tables: table -> (its ctrl when copied, the copy)
-static UI: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// the UI's copies of anim tables: (table, sized) -> (its ctrl when copied, the copy)
+static UI: LazyLock<Mutex<HashMap<(usize, bool), (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// changed table -> (its ctrl, its battlefield copy)
 static BATTLE: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// anim tables already changed: (table, ctrl)
@@ -342,7 +342,7 @@ unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
     } else if build().battle_size_ret.contains(&rva) {
         real
     } else if let (Some(ui), true) = (lo, build().ui_size_ret.contains(&rva)) {
-        real / ui
+        real / if build().ui_sized_size_ret.contains(&rva) { ui } else { hd::UI_PPU }
     } else {
         real / ppu
     };
@@ -390,18 +390,21 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
         return battle_table(got, hero).unwrap_or(got);
     }
     if hero.lo && build().ui_anim_ret.contains(&rva) {
-        return ui_table(got, hero).unwrap_or(got);
+        return ui_table(got, hero, build().ui_sized_anim_ret.contains(&rva)).unwrap_or(got);
     }
     got
 }
 
 /// For the UI (the BP grid, the encyclopedia and face icons, the pick slot, the pick moment): a copy of the table whose
 /// every tag holds its lo_ frames with x, y, w, h divided by [`hd::UI_PPU`] - the hero drawn at 1.5 squares a game pixel
-/// there, as large as now (those callers' size asks get the texture's size / UI_PPU, [`size_of`]). Kept, never freed.
-unsafe fn ui_table(t: usize, hero: &Hero) -> Option<usize> {
+/// there, as large as now (those callers' size asks get the texture's size / UI_PPU, [`size_of`]). `sized` (the pick
+/// slot, the BP grid, the pick moment) divides by the hero's UI_SIZES size as well ([`Hero::ui_for`]); the face crops
+/// get their own copy at the plain size. Kept, never freed.
+unsafe fn ui_table(t: usize, hero: &Hero, sized: bool) -> Option<usize> {
     let ctrl = q(t);
+    let div = hero.ui_for(sized);
     if let Ok(s) = UI.lock() {
-        if let Some(&(c, sh)) = s.get(&t) {
+        if let Some(&(c, sh)) = s.get(&(t, sized)) {
             if c == ctrl {
                 return Some(sh);
             }
@@ -443,7 +446,7 @@ unsafe fn ui_table(t: usize, hero: &Hero) -> Option<usize> {
         for f in 0..fl {
             for k in 0..4 {
                 let at = frames.as_mut_ptr().add(f * FRAME + 4 * k) as *mut f32;
-                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hero.ui);
+                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / div);
             }
         }
         plan.push((b, frames));
@@ -466,13 +469,13 @@ unsafe fn ui_table(t: usize, hero: &Hero) -> Option<usize> {
     head[0] = base + buckets * BUCKET;
     let sh = head.as_ptr() as usize;
     if let Ok(mut s) = UI.lock() {
-        s.insert(t, (ctrl, sh));
+        s.insert((t, sized), (ctrl, sh));
     }
     let check = match game_find(sh, b"idle") {
         Some(b) => format!("idle: {}", rect_of(b)),
         None => "idle NOT found".into(),
     };
-    wlog(format!("{}: UI table {sh:#x} for {t:#x} (lo_ frames / {}); {check}", hero.id, hero.ui));
+    wlog(format!("{}: UI table {sh:#x} for {t:#x} (lo_ frames / {div}{}); {check}", hero.id, if sized { ", whole-body" } else { "" }));
     Some(sh)
 }
 

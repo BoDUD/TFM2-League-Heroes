@@ -35,6 +35,11 @@ pub struct Build {
     /// the encyclopedia / face icons, the pick slot, the BP grid, the pick moment, the scoreboard portraits
     pub ui_anim_ret: &'static [usize],
     pub ui_size_ret: &'static [usize],
+    /// the ones of those that show the whole body - the pick slot, the BP grid, the pick moment: only they draw a hero at
+    /// its [`crate::hd::UI_SIZES`] size; the encyclopedia / face icons and the scoreboard portraits crop around the
+    /// face point and keep the plain UI size, so the face points stay on the faces
+    pub ui_sized_anim_ret: &'static [usize],
+    pub ui_sized_size_ret: &'static [usize],
     /// the battlefield body draw (rcx = the command Vec it fills, rdx = the display entity value; src/view.rs)
     pub body_draw: usize,
     /// RawVec<draw command>::grow_one (0xd0-byte commands)
@@ -56,6 +61,9 @@ pub static BUILDS: &[Build] = &[Build {
     ui_size_ret: &[0x24bf7d2, 0x24bf829, 0x24bf83f, 0x24bf854, 0x24bbc82, 0x24bbc98, 0x24bbca9, 0x24bbcbb,
                    0x2a92fd2, 0x2a92fe6, 0x2a92ff5, 0x2a93006, 0x20e35d8, 0x20e35e6, 0x20e35f0, 0x20e35fb,
                    0x2ac35de, 0x2ac35fd, 0x2ac3617, 0x2ac362c],
+    ui_sized_anim_ret: &[0x24bba3a, 0x2a92c99, 0x20e323d],
+    ui_sized_size_ret: &[0x24bbc82, 0x24bbc98, 0x24bbca9, 0x24bbcbb, 0x2a92fd2, 0x2a92fe6, 0x2a92ff5, 0x2a93006,
+                         0x20e35d8, 0x20e35e6, 0x20e35f0, 0x20e35fb],
     body_draw: 0x2aaf630,
     cmd_grow: 0x38db8d0,
     sigs: &[
@@ -143,6 +151,26 @@ pub fn detect(read: impl Fn(usize, usize) -> Option<Vec<u8>>) -> Result<&'static
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn only_the_whole_body_drawers_take_the_ui_sizes() {
+        for b in BUILDS {
+            // the pick slot, the BP grid, the pick moment: among the UI callers, each with its four size asks
+            assert_eq!(b.ui_sized_anim_ret.len(), 3, "{}", b.name);
+            assert_eq!(b.ui_sized_size_ret.len(), 4 * b.ui_sized_anim_ret.len(), "{}", b.name);
+            assert!(b.ui_sized_anim_ret.iter().all(|r| b.ui_anim_ret.contains(r)));
+            assert!(b.ui_sized_size_ret.iter().all(|r| b.ui_size_ret.contains(r)));
+            // the face crops - the encyclopedia / face icons (first) and the scoreboard portraits (last) - are not
+            let (first, last) = (b.ui_anim_ret[0], b.ui_anim_ret[b.ui_anim_ret.len() - 1]);
+            assert!(!b.ui_sized_anim_ret.contains(&first) && !b.ui_sized_anim_ret.contains(&last));
+            assert!(b.ui_size_ret[..4].iter().chain(&b.ui_size_ret[b.ui_size_ret.len() - 4..])
+                .all(|r| !b.ui_sized_size_ret.contains(r)));
+            // each sized drawer's size asks follow its lookup (the spacing build.rs matched them by)
+            for (k, a) in b.ui_sized_anim_ret.iter().enumerate() {
+                assert!(b.ui_sized_size_ret[4 * k..4 * k + 4].iter().all(|r| *r > *a && *r - *a < 0x1000), "{a:#x}");
+            }
+        }
+    }
 
     #[test]
     fn a_build_is_known_only_by_all_its_bytes() {
