@@ -42,28 +42,33 @@ FX = "asset/league/effects/league_zoe_fx"
 BIG = "asset/league/effects/league_zoe_big"
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
-# (~15000) on top. Timings are placeholders until the strips (tools/art/rig_zoe.py).
+# (~15000) on top. Timings are placeholders until the strips (tools/art/rig_zoe.py). Numbers = the 10-min classic-SDK
+# simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both
+# sides, 8 seeds, 2026-10-19): the draft (hp 880, Q 70 + 50% x1 / 1.6 / 2.2, P 30 + 40%, R 170 + 80% every 40 s landing
+# 40000 short, W 35, sleep 1.5 s) -1.37 (league_ziggs +1.70 the same batch); Q 90 + 60%, R 50000 short, sleep 1.75 s
+# +0.67; + hp 920, R every 30 s, W 45 +0.36; + Q x1.7 / 2.5, P 40 + 50% +1.07 / +1.18 (seeds 9-16); Q 105 +1.41 / +1.47
+# = P (sleep 2 s with hp 960 the same, +1.48 / +1.44).
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Zoe:
     # 630 +106 hp, 21 armour, 30 mr, 340 move, 550 range, attack speed 0.658
-    "hp": 880, "hp_g": 95, "atk": 76, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 920, "hp_g": 95, "atk": 76, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 920, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 88, "a_rel": 10, "a_speed": 4500,
     # passive More Sparkles! (League: 16-130 +20% AP on the next attack after a spell)
-    "p_t": 300, "p_dmg": 30, "p_ratio": 40,
+    "p_t": 300, "p_dmg": 40, "p_ratio": 50,
     # Q Paddle Star (League: 50-250 +60% AP, up to +150% by the distance flown, cd 8.5-6, missile 1200 -> 2500)
     "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 12, "q_speed": 4000, "q_len": 95000, "q_w": 6000,
-    "q_d1": 30000, "q_d2": 60000, "q_dmg": 70, "q_ratio": 50, "q_mid": 160, "q_far": 220,
+    "q_d1": 30000, "q_d2": 60000, "q_dmg": 105, "q_ratio": 60, "q_mid": 170, "q_far": 250,
     # E Sleepy Trouble Bubble (League: 800 range, 70-270 +45% AP, drowsy 1.4 s (slow 10-35%), sleep 2.25 s, trap
     # 5 s, cd 18-14)
     "e_cd": 900, "e_range": 75000, "e_dur": 27, "e_rel": 10, "e_speed": 3500, "e_len": 85000, "e_w": 7000,
-    "e_dmg": 60, "e_ratio": 40, "e_slow": 30, "e_drowsy": 84, "e_sleep": 90, "e_trap": 300, "e_trap_r": 12000,
+    "e_dmg": 60, "e_ratio": 40, "e_slow": 30, "e_drowsy": 84, "e_sleep": 105, "e_trap": 300, "e_trap_r": 12000,
     "e_show": 15,
     # R Portal Jump (League: blink 575 for 1 s, cd 11-5) + the portal's Paddle Star (far share) + W Spell Thief's
     # missiles (League: 3 x 25-95 +33% AP, move speed 30-80% for 2-3.25 s)
-    "r_cd": 2400, "r_range": 110000, "r_dur": 36, "r_rel": 8, "r_jump": 57500, "r_jspeed": 6000, "r_stop": 40000,
+    "r_cd": 1800, "r_range": 110000, "r_dur": 36, "r_rel": 8, "r_jump": 57500, "r_jspeed": 6000, "r_stop": 50000,
     "r_throw": 14, "r_speed": 5000, "r_len": 110000, "r_dmg": 170, "r_ratio": 80, "r_back": 70, "r_back_dur": 18,
-    "w_n": 3, "w_gap": 5, "w_dmg": 35, "w_ratio": 15, "w_speed": 4000, "w_ms": 40, "w_ms_t": 150,
+    "w_n": 3, "w_gap": 5, "w_dmg": 45, "w_ratio": 15, "w_speed": 4000, "w_ms": 40, "w_ms_t": 150,
     "vo_gap": 600,
     "native": 0,
 }

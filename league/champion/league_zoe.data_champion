@@ -17,7 +17,7 @@
   "stat": {
     "attack": 76,
     "magic_power": 40,
-    "hp": 880,
+    "hp": 920,
     "defence": 18,
     "magic_resistance": 22,
     "move_speed": 920,
@@ -166,8 +166,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "ApAttack",
-                                    "damage": 30,
-                                    "attack_ratio": 40,
+                                    "damage": 40,
+                                    "attack_ratio": 50,
                                     "hp_ratio": 0,
                                     "can_crit": false
                                   }
@@ -295,8 +295,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 70,
-                "attack_ratio": 50,
+                "damage": 105,
+                "attack_ratio": 60,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -453,8 +453,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 70,
-                                        "attack_ratio": 50,
+                                        "damage": 105,
+                                        "attack_ratio": 60,
                                         "hp_ratio": 0,
                                         "can_crit": false
                                       },
@@ -476,8 +476,8 @@
                                       "effects": [
                                         {
                                           "type": "ApAttack",
-                                          "damage": 112,
-                                          "attack_ratio": 80,
+                                          "damage": 178,
+                                          "attack_ratio": 102,
                                           "hp_ratio": 0,
                                           "can_crit": false
                                         },
@@ -496,8 +496,8 @@
                                       "effects": [
                                         {
                                           "type": "ApAttack",
-                                          "damage": 154,
-                                          "attack_ratio": 110,
+                                          "damage": 262,
+                                          "attack_ratio": 150,
                                           "hp_ratio": 0,
                                           "can_crit": false
                                         },
@@ -558,8 +558,8 @@
                                             },
                                             {
                                               "type": "ApAttack",
-                                              "damage": 70,
-                                              "attack_ratio": 50,
+                                              "damage": 105,
+                                              "attack_ratio": 60,
                                               "hp_ratio": 0,
                                               "can_crit": false
                                             },
@@ -601,8 +601,8 @@
                                               },
                                               {
                                                 "type": "ApAttack",
-                                                "damage": 112,
-                                                "attack_ratio": 80,
+                                                "damage": 178,
+                                                "attack_ratio": 102,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
                                               },
@@ -641,8 +641,8 @@
                                               },
                                               {
                                                 "type": "ApAttack",
-                                                "damage": 154,
-                                                "attack_ratio": 110,
+                                                "damage": 262,
+                                                "attack_ratio": 150,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
                                               },
@@ -924,7 +924,7 @@
                                     "name": "league_zoe_e_win",
                                     "duration": {
                                       "Time": {
-                                        "tick": 174
+                                        "tick": 189
                                       }
                                     }
                                   },
@@ -966,7 +966,7 @@
                               "effects": [
                                 {
                                   "type": "Stun",
-                                  "duration": 90
+                                  "duration": 105
                                 },
                                 {
                                   "type": "AddBuff",
@@ -974,7 +974,7 @@
                                     "name": "league_zoe_e_zz",
                                     "duration": {
                                       "Time": {
-                                        "tick": 90
+                                        "tick": 105
                                       }
                                     }
                                   }
@@ -1109,7 +1109,7 @@
                                                     "name": "league_zoe_e_win",
                                                     "duration": {
                                                       "Time": {
-                                                        "tick": 174
+                                                        "tick": 189
                                                       }
                                                     }
                                                   },
@@ -1142,7 +1142,7 @@
                                               "effects": [
                                                 {
                                                   "type": "Stun",
-                                                  "duration": 90
+                                                  "duration": 105
                                                 },
                                                 {
                                                   "type": "AddBuff",
@@ -1150,7 +1150,7 @@
                                                     "name": "league_zoe_e_zz",
                                                     "duration": {
                                                       "Time": {
-                                                        "tick": 90
+                                                        "tick": 105
                                                       }
                                                     }
                                                   }
@@ -1571,7 +1571,7 @@
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_zoe.ult",
     "duration": 36,
-    "cooltime": 2400,
+    "cooltime": 1800,
     "start_timing": 1,
     "cancelable": false,
     "range": 110000,
@@ -1841,7 +1841,7 @@
                         "penetrate": false,
                         "shape": {
                           "Circle": {
-                            "radius": 40000
+                            "radius": 50000
                           }
                         },
                         "applied_target": "EnemyChampion",
@@ -2052,7 +2052,7 @@
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ApAttack",
-                                                "damage": 35,
+                                                "damage": 45,
                                                 "attack_ratio": 15,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
@@ -2137,7 +2137,7 @@
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ApAttack",
-                                                "damage": 35,
+                                                "damage": 45,
                                                 "attack_ratio": 15,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
@@ -2222,7 +2222,7 @@
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ApAttack",
-                                                "damage": 35,
+                                                "damage": 45,
                                                 "attack_ratio": 15,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
