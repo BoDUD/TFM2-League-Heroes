@@ -35,9 +35,9 @@ A = "<#ffb900ff>"      # durations, counts
 T = "<#ffffffff>"      # true damage
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: the face at his bald crown (ppu_restyle face_to (3, -24)); the idle tops 32 px over the pivot (lo_idle
-# -48 / 1.5), above -28 -> banpick_center y = -39 - (-32) (the card rule)
-VIEW = {"face": {"x": 3, "y": -24}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -7}}
+# champion_view: the face on his face, not his belly plate (ppu_restyle face_to (1, -38)); the idle tops 32 px over
+# the pivot (lo_idle -48 / 1.5), above -28 -> banpick_center y = -39 - (-32) (the card rule)
+VIEW = {"face": {"x": 1, "y": -38}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -7}}
 
 
 def phy(d, r):

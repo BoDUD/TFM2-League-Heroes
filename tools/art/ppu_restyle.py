@@ -224,8 +224,9 @@ RESTYLE = {
     # rig_urgot.py and every frame posed on that grid (the user, 2026-10-17, in game: 「现在像素太高 要降低点」, then 「1.2」
     # from a sheet of 1.5 / 1.3 / 1.2 / 1.0; each frame pixelated here on its own sampled the moved parts differently), so
     # no density change here; the outer outline grown a square like the others; the muzzle flashes drawn into his shot
-    # frames (orig/urgot_<tag>.over.png) laid on after the outline (fx); the face point at his bald crown
-    "urgot": dict(ppu=1.2, edge=1, face_to=(3, -24), fx=True),
+    # frames (orig/urgot_<tag>.over.png) laid on after the outline (fx); the face point on his face (was (3, -24), which
+    # cropped the face icons to his belly plate)
+    "urgot": dict(ppu=1.2, edge=1, face_to=(1, -38), fx=True),
     # league_reksai (#117): posed by tools/art/rig_reksai.py from Codex's step-1 takes read back square for square (A 57
     # rows = the user's 36 game px: posed at 57 / 36 = 1.58), then pixelated to 1.2 (the user, 2026-10-17: 「雷克赛像素太高
     # 需要降低」, picked 1.2 from 1.58 / 1.4 / 1.3 / 1.2 / 1.0 - tools/art/review_reksai_ppu.py); no proportion change; the
@@ -234,8 +235,8 @@ RESTYLE = {
     "reksai": dict(ppu=1.2, edge=1, face_to=(15, -20)),
     # league_swain (#118): posed by tools/art/rig_swain.py from Codex's step-1 take A-1 cut to 60 rows (the user's 40 game
     # rows at 1.5), the demon form on the same body; no proportion or density change here; the outer outline grown a
-    # square like the others; the face point at his crown (tfm2_ase.py face: 39 px over the soles)
-    "swain": dict(ppu=1.5, edge=1, face_to=(-1, -39)),
+    # square like the others; the face point 42 px over the soles (39 cut off his hair and showed his collar)
+    "swain": dict(ppu=1.5, edge=1, face_to=(-1, -42)),
     # league_renata (#120): posed by tools/art/rig_renata.py from Codex's step-1 take 1 cut to 60 rows, then to 54 (36 game
     # rows at 1.5, the user's 「模型太大」; the R machine in her own ult frames); no proportion or density change here; the
     # outer outline grown a square like the others; the pistol's muzzle flash (Codex's a_flash, rig_renata.py,
