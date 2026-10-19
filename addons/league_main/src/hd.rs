@@ -94,6 +94,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // hammer's haft above: 「游戏里 36 像素高，PPU 1.3」); 85 % (SIZES, the user: 「波比在游戏里体型也太大 需要缩小」 - 44 px
     // with the standing hammer against the yordles' 32-40), her frames lowered 2 squares by the restyle (RESTYLE poppy lift_sq)
     ("league_poppy", 1.2, include_str!("../../../league/champions/league_poppy#anim.fanim")),
+    // Rammus: posed by tools/art/rig_rammus.py from Codex's step-1 takes at the user's 1.2 squares a game pixel (36 game rows
+    // spike tips to soles: 「36 像素」「PPU 1.2」; the ball b_* and curl c_* tags the add-on swaps in), so no SIZES row
+    ("league_rammus", 1.2, include_str!("../../../league/champions/league_rammus#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

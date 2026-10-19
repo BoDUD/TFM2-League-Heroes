@@ -1,0 +1,158 @@
+{
+  "rammus-model-A-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "opaque_bbox_threshold_128": [
+      104,
+      79,
+      1174,
+      1196
+    ],
+    "opaque_height": 1117,
+    "target": {
+      "cell": 26,
+      "height_cells": 43,
+      "top": 78,
+      "bottom_exclusive": 1196
+    },
+    "note": "Bounds use alpha>=128 to ignore faint transparent fringes. Grid size is a generation target, not a certified measurement."
+  },
+  "rammus-model-A-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "opaque_bbox_threshold_128": [
+      101,
+      78,
+      1171,
+      1198
+    ],
+    "opaque_height": 1120,
+    "target": {
+      "cell": 26,
+      "height_cells": 43,
+      "top": 78,
+      "bottom_exclusive": 1196
+    },
+    "note": "Bounds use alpha>=128 to ignore faint transparent fringes. Grid size is a generation target, not a certified measurement."
+  },
+  "rammus-model-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "opaque_bbox_threshold_128": [
+      70,
+      60,
+      1188,
+      1211
+    ],
+    "opaque_height": 1151,
+    "target": {
+      "cell": 26,
+      "height_cells": 43,
+      "top": 78,
+      "bottom_exclusive": 1196
+    },
+    "note": "Bounds use alpha>=128 to ignore faint transparent fringes. Grid size is a generation target, not a certified measurement."
+  },
+  "rammus-model-S-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "opaque_bbox_threshold_128": [
+      85,
+      48,
+      1194,
+      1230
+    ],
+    "opaque_height": 1182,
+    "target": {
+      "cell": 26,
+      "height_cells": 43,
+      "top": 78,
+      "bottom_exclusive": 1196
+    },
+    "note": "Bounds use alpha>=128 to ignore faint transparent fringes. Grid size is a generation target, not a certified measurement."
+  },
+  "rammus-model-S-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "opaque_bbox_threshold_128": [
+      68,
+      93,
+      1214,
+      1217
+    ],
+    "opaque_height": 1124,
+    "target": {
+      "cell": 26,
+      "height_cells": 43,
+      "top": 78,
+      "bottom_exclusive": 1196
+    },
+    "note": "Bounds use alpha>=128 to ignore faint transparent fringes. Grid size is a generation target, not a certified measurement."
+  },
+  "rammus-model-W.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "opaque_bbox_threshold_128": [
+      102,
+      129,
+      1203,
+      1188
+    ],
+    "opaque_height": 1059,
+    "target": {
+      "cell": 26,
+      "height_cells": 43,
+      "top": 78,
+      "bottom_exclusive": 1196
+    },
+    "note": "Bounds use alpha>=128 to ignore faint transparent fringes. Grid size is a generation target, not a certified measurement."
+  }
+}

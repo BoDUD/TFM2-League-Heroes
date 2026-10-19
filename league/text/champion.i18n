@@ -910,6 +910,13 @@
         "skill": "锤击地面，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害（英雄另受6%最大生命），地面<#ef5350ff>减速25%<>，<#ffb900ff>1秒<>后再炸一次。",
         "skill2": "冲向敌方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并推着他走，结束时<#ef5350ff>眩晕0.75秒<>。",
         "ult": "身边有2个以上敌方英雄时砸地：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害并<#ef5350ff>击飞1秒<>；否则蓄力抡锤推出冲击波，打中的英雄受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害并<#ef5350ff>被打飞到远处<>。"
+      },
+      "league_rammus": {
+        "name": "拉莫斯",
+        "attack": "翻身撞击。<#ff9028ff>锥刺甲壳<>：普攻多造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>魔法伤害。<#ff9028ff>尖刺防御<>：敌方英雄靠近时蜷起来，<#ffb900ff>7秒<>内双抗+60%，反弹25%受到的伤害。",
+        "skill": "缩成球滚向目标，撞上时对周围造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>魔法伤害，<#ef5350ff>击退<>并<#ef5350ff>减速40%<><#ffb900ff>1秒<>。",
+        "skill2": "<#ef5350ff>嘲讽<>一名敌方英雄<#ffb900ff>1.5秒<>。",
+        "ult": "跳起砸向敌方英雄，对区域造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害并<#ef5350ff>减速40%<>，之后余震3次；刚滚完动力冲刺时，中心的敌人再受一次冲刺伤害并<#ef5350ff>击飞0.75秒<>。"
       }
     },
     "skill_name": {
@@ -1562,6 +1569,11 @@
         "skill1": "圣锤猛击",
         "skill2": "英勇冲锋",
         "ult": "持卫的裁决"
+      },
+      "league_rammus": {
+        "skill1": "动力冲刺",
+        "skill2": "狂乱嘲讽",
+        "ult": "冲天猛撞"
       }
     }
   },
@@ -2476,6 +2488,13 @@
         "skill": "錘擊地面，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害（英雄另受6%最大生命），地面<#ef5350ff>緩速25%<>，<#ffb900ff>1秒<>後再炸一次。",
         "skill2": "衝向敵方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並推著他走，結束時<#ef5350ff>暈眩0.75秒<>。",
         "ult": "身邊有2個以上敵方英雄時砸地：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害並<#ef5350ff>擊飛1秒<>；否則蓄力掄錘推出衝擊波，打中的英雄受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害並<#ef5350ff>被打飛到遠處<>。"
+      },
+      "league_rammus": {
+        "name": "拉姆斯",
+        "attack": "翻身撞擊。<#ff9028ff>錐刺甲殼<>：普攻多造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>魔法傷害。<#ff9028ff>尖刺防禦<>：敵方英雄靠近時蜷起來，<#ffb900ff>7秒<>內雙抗+60%，反彈25%受到的傷害。",
+        "skill": "縮成球滾向目標，撞上時對周圍造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>魔法傷害，<#ef5350ff>擊退<>並<#ef5350ff>緩速40%<><#ffb900ff>1秒<>。",
+        "skill2": "<#ef5350ff>嘲諷<>一名敵方英雄<#ffb900ff>1.5秒<>。",
+        "ult": "跳起砸向敵方英雄，對區域造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害並<#ef5350ff>緩速40%<>，之後餘震3次；剛滾完動力衝刺時，中心的敵人再受一次衝刺傷害並<#ef5350ff>擊飛0.75秒<>。"
       }
     },
     "skill_name": {
@@ -3128,6 +3147,11 @@
         "skill1": "戰槌衝擊",
         "skill2": "英勇衝鋒",
         "ult": "守護者裁決"
+      },
+      "league_rammus": {
+        "skill1": "動力衝刺",
+        "skill2": "披甲怒嘲",
+        "ult": "飛天動地"
       }
     }
   },
@@ -4042,6 +4066,13 @@
         "skill": "Slams the ground for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage (+6% max health to champions); the ground <#ef5350ff>slows 25%<> and ruptures again after <#ffb900ff>1s<>.",
         "skill2": "Charges an enemy champion for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and carries them; at the end they are <#ef5350ff>stunned 0.75s<>.",
         "ult": "With 2+ enemy champions close she slams the ground: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage and <#ef5350ff>knock-up 1s<>. Otherwise she charges and swings a shockwave: champions hit take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage and are <#ef5350ff>knocked far away<>."
+      },
+      "league_rammus": {
+        "name": "Rammus",
+        "attack": "A tumbling slam. <#ff9028ff>Spiked Shell<>: attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<> <#a974ffff>magic damage<> more. <#ff9028ff>Defensive Ball Curl<>: with an enemy champion close he curls up: for <#ffb900ff>7s<> +60% armour and magic resist, and 25% of the damage he takes is returned.",
+        "skill": "Curls into a ball and rolls at the target; on impact nearby enemies take <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<> <#a974ffff>magic damage<>, are <#ef5350ff>knocked back<> and <#ef5350ff>slowed 40%<> for <#ffb900ff>1s<>.",
+        "skill2": "<#ef5350ff>Taunts<> an enemy champion for <#ffb900ff>1.5s<>.",
+        "ult": "Leaps onto an enemy champion: the area takes <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<> and is <#ef5350ff>slowed 40%<>, then 3 aftershocks. Right after a Powerball the centre also takes Powerball's damage and is <#ef5350ff>knocked up 0.75s<>."
       }
     },
     "skill_name": {
@@ -4694,6 +4725,11 @@
         "skill1": "Hammer Shock",
         "skill2": "Heroic Charge",
         "ult": "Keeper's Verdict"
+      },
+      "league_rammus": {
+        "skill1": "Powerball",
+        "skill2": "Frenzying Taunt",
+        "ult": "Soaring Slam"
       }
     }
   },
@@ -5608,6 +5644,13 @@
         "skill": "땅을 내리쳐 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해(챔피언은 최대 체력 6% 추가), 땅이 <#ef5350ff>25% 둔화<>, <#ffb900ff>1초<> 뒤 다시 폭발.",
         "skill2": "적 챔피언에게 돌진해 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해를 주고 밀고 나가며, 끝에 <#ef5350ff>0.75초 기절<>.",
         "ult": "주변에 적 챔피언 2명 이상이면 땅을 내리쳐 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해와 <#ef5350ff>1초 에어본<>; 아니면 모았다 휘둘러 충격파: 맞은 챔피언은 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해를 입고 <#ef5350ff>멀리 날아감<>."
+      },
+      "league_rammus": {
+        "name": "람머스",
+        "attack": "몸통 박치기. <#ff9028ff>가시박힌 껍질<>: 기본 공격이 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<> 마법 피해 추가. <#ff9028ff>몸 말아 웅크리기<>: 적 챔피언이 가까우면 웅크려 <#ffb900ff>7초<> 동안 방어력·마법 저항력 +60%, 받은 피해의 25% 반사.",
+        "skill": "몸을 말아 대상에게 굴러가 부딪히면 주변 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<> 마법 피해, <#ef5350ff>밀쳐내기<>, <#ffb900ff>1초<> <#ef5350ff>40% 둔화<>.",
+        "skill2": "적 챔피언 하나를 <#ffb900ff>1.5초<> <#ef5350ff>도발<>.",
+        "ult": "적 챔피언에게 뛰어올라 내려찍어 범위에 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해와 <#ef5350ff>40% 둔화<>, 이어서 여진 3회. 대회전 직후라면 중심의 적은 대회전 피해를 한 번 더 받고 <#ef5350ff>0.75초 에어본<>."
       }
     },
     "skill_name": {
@@ -6260,6 +6303,11 @@
         "skill1": "망치 강타",
         "skill2": "용감한 돌진",
         "ult": "수호자의 심판"
+      },
+      "league_rammus": {
+        "skill1": "대회전",
+        "skill2": "광란의 도발",
+        "ult": "지진 폭격"
       }
     }
   },
@@ -7174,6 +7222,13 @@
         "skill": "地面を叩き<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージ（チャンピオンは最大体力の6%追加）、地面は<#ef5350ff>25%スロウ<>、<#ffb900ff>1秒<>後に再び爆発。",
         "skill2": "敵チャンピオンへ突進し<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージを与えて押し運び、最後に<#ef5350ff>0.75秒スタン<>。",
         "ult": "近くに敵チャンピオン2体以上なら地面を叩き<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージと<#ef5350ff>1秒ノックアップ<>；そうでなければ溜めて衝撃波：当たったチャンピオンは<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージで<#ef5350ff>遠くへ吹き飛ぶ<>。"
+      },
+      "league_rammus": {
+        "name": "ラムス",
+        "attack": "体当たり。<#ff9028ff>トゲトゲ<>：通常攻撃に<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2%<>の魔法ダメージ追加。<#ff9028ff>かたくなる<>：敵チャンピオンが近いと丸まり、<#ffb900ff>7秒<>物防・魔防+60%、受けたダメージの25%を反射。",
+        "skill": "丸まって対象へ転がり、ぶつかると周りの敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>の魔法ダメージ、<#ef5350ff>ノックバック<>と<#ffb900ff>1秒<>の<#ef5350ff>40%スロウ<>。",
+        "skill2": "敵チャンピオン1体を<#ffb900ff>1.5秒<><#ef5350ff>挑発<>。",
+        "ult": "敵チャンピオンへ跳び上がって叩きつけ、範囲に<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージと<#ef5350ff>40%スロウ<>、続けて余震3回。ころころの直後なら中心の敵はころころのダメージをもう一度受け<#ef5350ff>0.75秒ノックアップ<>。"
       }
     },
     "skill_name": {
@@ -7826,6 +7881,11 @@
         "skill1": "ハンマーショック",
         "skill2": "ヒロイックチャージ",
         "ult": "守護者の鉄鎚"
+      },
+      "league_rammus": {
+        "skill1": "ころころ",
+        "skill2": "ぴりぴり",
+        "ult": "どーんどーん"
       }
     }
   }

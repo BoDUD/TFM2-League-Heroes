@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.163.0"
+    }
+  ],
+  "description": "Test build of Rammus as in League (needs League of Legends Heroes): replaces the main pack's Rammus so Powerball rolls like League's (he curls into the ball, speeds up and rolls into the first enemy he meets; the main pack: one dash at the target), Spiked Shell deals damage from his real armour (the main pack: from his max health), and on screen he is the rolling ball while Powerball lasts and curled up while Defensive Ball Curl lasts. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-19",
+  "mod_id": "league_rammus",
+  "mod_type": "native",
+  "name": "League Heroes: Rammus's rolling Powerball and spiked shell (test)",
+  "version": "0.1.0"
+}
