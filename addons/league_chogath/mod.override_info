@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_chogath": {
+    "remapping": "asset/league_chogath/override/league_chogath",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_chogath/text/champion",
+    "type": "merge"
+  }
+}

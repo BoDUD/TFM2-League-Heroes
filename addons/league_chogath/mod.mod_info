@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.173.0"
+    }
+  ],
+  "description": "Test build of Cho'Gath as in League (needs League of Legends Heroes): replaces the main pack's Cho'Gath so Feast's stacks (max health and a bigger body) are kept through death (the main pack: lost on death) and Feast is cast only when one bite kills, reading real health and shields (the main pack: on any champion his team has just hit). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-19",
+  "mod_id": "league_chogath",
+  "mod_type": "native",
+  "name": "League Heroes: Cho'Gath's Feast stacks kept and Feast only for a kill (test)",
+  "version": "0.1.0"
+}

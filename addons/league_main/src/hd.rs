@@ -111,6 +111,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows crest to soles: 「38 像素」, then 「像素有点太低了 太多模糊的了 调一下PPU」; her legs drawn on League's bones; the
     // ride r_* tags the add-on swaps in), so no SIZES row
     ("league_quinn", 2.0, include_str!("../../../league/champions/league_quinn#anim.fanim")),
+    // Cho'Gath: posed by tools/art/rig_chogath.py at the user's 1.2 squares a game pixel (「38 像素」「PPU 1.2」: Codex's step-1
+    // take A-1 cut to 46 rows, the side view redrawn on the grid, Codex's action poses read back at its scale with the
+    // idle's head), so no SIZES row; Feast's stacks draw his body bigger (GROWTH)
+    ("league_chogath", 1.2, include_str!("../../../league/champions/league_chogath#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
@@ -201,6 +205,21 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75),
                                     ("tft_powder", 0.90)];
+
+/// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
+/// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
+/// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, no cap, about
+/// his soles (src/view.rs: only the body's own commands, so his shadow and rings stay). The main pack loses the stacks
+/// at his death (Permanent buffs end with it); the add-on league_chogath puts them back.
+pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.05)];
+
+/// Game pixels from a frame's centre (the unit's position) down to its soles (tools/art/ppu_rig.py FEET).
+pub const FEET: f32 = 11.5;
+
+/// The body's growth for `stacks` stacks of a GROWTH row (1.0 for none).
+pub fn grown(per: f32, stacks: usize) -> f32 {
+    1.0 + per * stacks as f32
+}
 
 /// Effect sheets drawn dense like a hero's sheet (tags `idle` / `hd_idle` only, PPU squares a game pixel, hd_idle PPU times
 /// as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」

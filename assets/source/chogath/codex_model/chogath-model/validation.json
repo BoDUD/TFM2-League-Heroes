@@ -1,0 +1,78 @@
+{
+  "chogath-model-A-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      10,
+      411,
+      1249,
+      1242
+    ],
+    "partial_alpha_pixels": 547882,
+    "unique_opaque_RGB": 68494,
+    "occupied_cells_on_16px_origin_grid": 2681,
+    "exactly_uniform_occupied_16px_cells": 0,
+    "strict_16px_grid_pass": false,
+    "canvas1254_pass": true,
+    "hard_alpha_pass": false
+  },
+  "chogath-model-A-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      14,
+      366,
+      1244,
+      1211
+    ],
+    "partial_alpha_pixels": 562204,
+    "unique_opaque_RGB": 52575,
+    "occupied_cells_on_16px_origin_grid": 2574,
+    "exactly_uniform_occupied_16px_cells": 0,
+    "strict_16px_grid_pass": false,
+    "canvas1254_pass": true,
+    "hard_alpha_pass": false
+  },
+  "chogath-model-side-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      13,
+      322,
+      1244,
+      1105
+    ],
+    "partial_alpha_pixels": 470649,
+    "unique_opaque_RGB": 78136,
+    "occupied_cells_on_16px_origin_grid": 2459,
+    "exactly_uniform_occupied_16px_cells": 0,
+    "strict_16px_grid_pass": false,
+    "canvas1254_pass": true,
+    "hard_alpha_pass": false
+  },
+  "chogath-model-side-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      10,
+      402,
+      1235,
+      1098
+    ],
+    "partial_alpha_pixels": 408850,
+    "unique_opaque_RGB": 68895,
+    "occupied_cells_on_16px_origin_grid": 2000,
+    "exactly_uniform_occupied_16px_cells": 0,
+    "strict_16px_grid_pass": false,
+    "canvas1254_pass": true,
+    "hard_alpha_pass": false
+  }
+}

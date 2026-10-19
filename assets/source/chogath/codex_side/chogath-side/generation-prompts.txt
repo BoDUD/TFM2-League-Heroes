@@ -1,0 +1,15 @@
+Tool: image_gen.imagegen (built-in)
+transparent_background=true for each call
+No scripted pixel drawing or resampling. All delivered PNGs are copies of native generation results.
+
+First draft1:
+编辑第1张图片，重画糊掉的像素细节，但严格保留它的粗像素尺度、轮廓、人物位置和侧面姿势。第2张是指定头部，逐个大方格照画；第3张是待机图，只参考颜色和方格大小；第4张是像素风格；第5张是位置网格示意，不画网格线。输出一张1254×1254真正透明PNG。第1张人物只有72格宽、46格高，每格16×16像素，禁止任何小于16像素的细节。镰刀尖在y384，脚底y1120，眼睛约y800。保持这么粗，不要变成精细插画。头24×21格，照第2张的酒红头冠、青色双眼、白牙、紫舌头和红獠牙，不能放大头。身子侧面朝右，四肢着地、前后腿错开，远侧肢体大部分被挡住且稍暗。两条2格粗的深紫镰刀臂高举，末端红色弯刃。背上紫骨刺2–3格，分节尾巴向左伸并悬在后膝高度。深紫甲壳3档、酒红甲片3档平涂，1格近黑描边，暗色腿尾有亮边。每个色块都是16像素整数格，按左上角原点对齐。无渐变、无发光晕、无碎点、无抗锯齿；alpha只能0或255。没有背景、文字、地面、影子和特效。只画一张侧面稿1。优先保持第1张的大方块而不是添加细节。
+
+First draft2:
+重画第1张粗像素游戏角色的细节，不改变像素大小和位置。这是科加斯侧面朝右：低伏的深紫甲壳巨兽，四只脚撑地，两条细镰刀臂高举在背上、红色长弯刃，背有紫骨刺，长分节尾巴伸向左并离地。远侧腿和镰刀被近侧遮挡、稍暗。每格16×16px，整只角色仅72格宽46格高，画布1254×1254透明，最高点y384、脚底y1120、眼睛y800左右。第2张头部必须照它24×21格逐格复制，双青眼、红头冠、上下白牙、紫舌和浅青舌尖、两边红獠牙，脸朝右前方，不能更大。第3张是选定的待机：格子和配色和它完全一致。第4张是同游戏粗像素风格。第5张只看位置，画完不能有网格线。本张是第二稿：身体甲片画成较完整的大片，近侧的前爪、后腿轮廓更分明，四脚脚底齐平、钩爪朝右；保持与目标相同的总体轮廓、两只高举的镰刀臂和细长悬空尾。严格用大方格：描边1格黑，紫甲3档、酒红3档、白牙和青眼用平色，绝不增添更小的像素，不要渐变、细纹、柔光、半透明、抖动。PNG真透明alpha0/255，无背景无地面无影子无文字。只画一个完整角色，四周有留边，一张图片。
+
+Revision1:
+Edit ONLY image1. It is a 46-pixel-tall,72-pixel-wide low resolution sprite enlarged16x. KEEP THE EXISTING BIG SQUARE GRID EXACTLY. Do not add any smaller squares or detailed texture. Only repair its muddy face and shape clusters while preserving all the other pixelated blocks and overall side view silhouette. Use image2 as the face reference: copy the24x21pixel face with cyan eyes, red forehead, white teeth, purple tongue, ivory-tipped red tusks. The face uses the same16px squares as the body. Image3 is the correct low resolution flat-color rendering style. This is an authentic VERY CHUNKY retro game sprite, not a detailed pixel illustration. Only3purple and3red shades. Four legs planted, both scythe arms raised, tail lifted extending left. Output one SQUARE1254x1254 PNG, real transparent background. Character top384,bottom1120, eye row800. No antialiasing, no gradients, no texture, no text, no effects. Maintain the enormously chunky grid of image1, redraw details WITHIN existing cells. Draft1. Only one character.
+
+Revision2:
+第1张是需要直接修复的游戏像素图，禁止重新画成高清插画。每一个现有的大方块就是一个像素，请保留它们，块的大小不变！整个人物从尖顶到脚仅46个像素台阶，横向72像素。只在现有方格里面修脸、四条腿、甲片和镰刀，使形状更清楚。第2张的头是24x21像素，逐格照搬到第1张头部位置：红头冠、两只青眼、上下白牙、紫舌头、两边红獠牙。第3张待机图是同一只角色，参照其色块、大小和粗糙密度。要很粗、很粗、很粗的像素，像直接放大16倍的小精灵，绝不能细腻！不用小格、细纹或插画阴影。身体侧面朝右、尾巴向左悬空，四脚着地、近侧腿亮远侧腿暗，两条细长镰刀臂在背上高举。紫色甲壳和酒红边各3档，一格黑描边。图二稿可以稍加强近侧腿轮廓。画布正方形1254x1254，透明背景，人物顶y384到底y1120，眼约y800，网格16px从左上角开始对齐。人物不要超出画布，不画背景影子网格文字。只返回一个角色一张图。
