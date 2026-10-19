@@ -206,6 +206,54 @@
                                 "only_to_enemy": false
                               }
                             ]
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_renata_c_r1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_renata_c_r2"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 100000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_renata_c_r1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_renata_c_r2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_renata_c_r1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
                           }
                         ]
                       },
@@ -520,7 +568,7 @@
                           },
                           {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_renata_c_e2",
+                            "buff_name": "league_renata_c_r2",
                             "effect_buff": {
                               "type": "SwitchByBuff",
                               "buff_name": "league_renata_r_arm",
@@ -2805,6 +2853,54 @@
                                 "only_to_enemy": false
                               }
                             ]
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_renata_c_r1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_renata_c_r2"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 100000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_renata_c_r1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_renata_c_r2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_renata_c_r1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
                           }
                         ]
                       },
@@ -3119,7 +3215,7 @@
                           },
                           {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_renata_c_e2",
+                            "buff_name": "league_renata_c_r2",
                             "effect_buff": {
                               "type": "SwitchByBuff",
                               "buff_name": "league_renata_r_arm",
