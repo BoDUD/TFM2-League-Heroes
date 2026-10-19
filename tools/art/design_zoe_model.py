@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Zoe's step-1 designs (assets/source/zoe/codex_model, 2026-10-19, Codex new-chat-3) read back on their own grids and
-brought to the game's count: 53 rows crown to soles (35 game px at PPU 1.5).
+brought to the game's count: 53 rows crown to soles (35 game px at PPU 1.5). The user's picks (2026-10-19): idle A-1, side S-1.
 
     python tools/art/design_zoe_model.py --options DIR     # the candidates side by side (the user's pick)
     python tools/art/design_zoe_model.py                   # writes assets/source/zoe/hd/{idle,side}.png
@@ -31,7 +31,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "zoe", "codex_model", "zoe-model")
 OUT = os.path.join(ROOT, "assets", "source", "zoe", "hd")
 ROWS, K = 53, 24
-PICKS = {"idle": "A-1", "side": "S-2"}
+PICKS = {"idle": "A-1", "side": "S-1"}
 # name -> (Codex's square px, rows wanted, face rows, face columns) on its own read-back
 DRAFTS = {
     "A-1": (17.5, ROWS, range(12, 28), range(38, 58)),
