@@ -636,10 +636,6 @@
                         "tick": 120
                       },
                       {
-                        "type": "Sfx",
-                        "name": "league_rammus_q_roll"
-                      },
-                      {
                         "type": "CasterViewEffect",
                         "name": "league_rammus_q_dust"
                       },

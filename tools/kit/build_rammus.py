@@ -253,7 +253,7 @@ def build(p):
         # the add-on rolls him (the ball while he walks) and runs q_hit itself through a 1-tick `q_go` flag it lays
         roll = [refresh("q_ball", p["q_roll"] * 3)]
     else:
-        roll = [refresh("q_ball", p["q_roll"]), anim("skill_roll", p["q_roll"]), sfx("q_roll"), cview("q_dust"),
+        roll = [refresh("q_ball", p["q_roll"]), anim("skill_roll", p["q_roll"]), cview("q_dust"),
                 {"type": "MoveToTarget", "speed": p["q_speed"], "range": p["q_range"] + 60000, "end_effects": q_hit}]
     skill = action("skill", p["q_curl"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(life, refresh("busy", p["q_curl"] + 10), sfx("q"), voice("vo_q", p),
