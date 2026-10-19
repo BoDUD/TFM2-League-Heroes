@@ -249,9 +249,59 @@ pub fn heroes() -> Vec<Hero> {
         .collect()
 }
 
+/// The registered heroes, found by id with one hash lookup. The hooks ask for every resource the game looks up by name
+/// and every entity on the battlefield each frame; a walk down the list compared up to 55 names, twice for each lookup
+/// (2026-10-19 profile: league.dll's own time on the render thread was mostly that walk).
+pub struct Heroes {
+    pub list: Vec<Hero>,
+    by_id: std::collections::HashMap<&'static str, usize>,
+}
+
+impl Heroes {
+    pub fn new() -> Self {
+        let list = heroes();
+        let by_id = list.iter().enumerate().map(|(k, h)| (h.id, k)).collect();
+        Heroes { list, by_id }
+    }
+
+    pub fn get(&self, id: &str) -> Option<&Hero> {
+        // every registered id starts with league_: the base heroes, effects and UI names go without hashing
+        if !id.starts_with("league_") {
+            return None;
+        }
+        self.by_id.get(id).map(|&k| &self.list[k])
+    }
+
+    /// The hero a resource name is of: `.../league_yasuo#anim` (or the bare id) -> league_yasuo.
+    pub fn of_name(&self, name: &str) -> Option<&Hero> {
+        self.get(name.rsplit('/').next()?.split('#').next()?)
+    }
+}
+
+impl Default for Heroes {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn heroes_are_found_by_id_and_resource_name() {
+        let h = Heroes::new();
+        assert_eq!(h.list.len(), HEROES.len());
+        for &(id, ..) in HEROES {
+            assert_eq!(h.get(id).map(|x| x.id), Some(id));
+            assert_eq!(h.of_name(&format!("asset/league/champions/{id}#anim")).map(|x| x.id), Some(id));
+            assert_eq!(h.of_name(&format!("asset/base/aseprite_resources/champions/{id}#sheet")).map(|x| x.id), Some(id));
+        }
+        assert!(h.get("league_lux").is_none());
+        assert!(h.of_name("asset/base/aseprite_resources/champions/alchemist#anim").is_none());
+        assert!(h.of_name("asset/league/champions/league_ashe_fx#sheet").is_none());
+        assert!(h.of_name("").is_none());
+    }
 
     #[test]
     fn every_registered_sheet_has_hd_tags_for_all_its_tags() {

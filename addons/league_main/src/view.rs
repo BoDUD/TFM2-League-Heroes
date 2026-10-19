@@ -75,10 +75,8 @@ pub fn update_prev(own: Option<Scale>, drawn: Option<Scale>) -> Option<Scale> {
 
 /// The registered hero an entity is drawn as: by its body's resource name (`.../league_zeri#anim` or the bare id) when
 /// that is readable, else by its id.
-pub fn drawn_as<'a>(heroes: &'a [Hero], res: Option<&str>, id: Option<&str>) -> Option<&'a Hero> {
-    let name = res.or(id)?;
-    let last = name.rsplit('/').next()?.split('#').next()?;
-    heroes.iter().find(|h| h.id == last)
+pub fn drawn_as<'a>(heroes: &'a hd::Heroes, res: Option<&str>, id: Option<&str>) -> Option<&'a Hero> {
+    heroes.of_name(res.or(id)?)
 }
 
 /// What the body draw does with an entity's scale, `cur` being what +0x1b4 holds as it starts.
@@ -117,7 +115,7 @@ pub fn at_draw(shrunk: Option<Scale>, drawn: Option<Scale>, cur: f32, shown: Opt
     }
 }
 
-static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
+static HEROES: LazyLock<hd::Heroes> = LazyLock::new(hd::Heroes::new);
 
 struct State {
     scales: Vec<(usize, u64, Scale)>,
@@ -320,8 +318,9 @@ unsafe fn scale_at_draw(ent: usize) -> Option<(Scale, &'static Hero)> {
                 }
             }
             let updated = shrunk.is_some_and(|p| (cur - p.wrote).abs() <= 1e-6);
-            let pair = format!("{} > {}", id.unwrap_or("?"), hero.id);
-            if !updated && !st.noted.contains(&pair) && st.lines < 200 {
+            // the pair's String only for a body the update did not shrink (not every dense body every frame)
+            let pair = if updated || st.lines >= 200 { None } else { Some(format!("{} > {}", id.unwrap_or("?"), hero.id)) };
+            if let Some(pair) = pair.filter(|p| !st.noted.contains(p)) {
                 st.lines += 1;
                 wlog(format!("{}: drawn as {} at the body draw (the display update saw {}) - draw scale {cur:.3} -> {:.3}",
                     id.unwrap_or("?"), hero.id, res.unwrap_or("?"), s.wrote));
@@ -572,7 +571,7 @@ mod tests {
 
     #[test]
     fn a_possessing_viego_is_shrunk_as_his_victim() {
-        let h = hd::heroes();
+        let h = hd::Heroes::new();
         let as_ = |res, id| drawn_as(&h, res, id).map(|h| h.id);
         assert_eq!(as_(Some("league_zeri"), Some("league_viego")), Some("league_zeri"));
         assert_eq!(as_(Some("champions/league_yasuo#anim"), Some("league_viego")), Some("league_yasuo"));
