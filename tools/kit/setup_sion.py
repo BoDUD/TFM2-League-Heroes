@@ -43,7 +43,7 @@ E = "<>"
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> -4: the banner stood ~6 px over the card
 # 2026-10-18: Sion is drawn at 100 % now (no hd.rs SIZES row), so the 90 % point (4,-37) sat on his right pauldron with
 # one eye at the portrait's top edge; (1,-39) holds the helmet, both red eyes and the jaw (1x idle and the reel strip)
-VIEW = {"face": {"x": 1, "y": -39}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -4}}
+VIEW = {"face": {"x": 1, "y": -39}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phy(d, r):

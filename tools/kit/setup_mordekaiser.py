@@ -39,7 +39,7 @@ G_ = "<#7ee87eff>"     # heals, shields
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face)
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> 0: the helmet's spikes stood ~13 px over the card (the rule's +2 is positive)
-VIEW = {"face": {"x": 1, "y": -30}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": 0}}   # at hd.rs SIZES 1.10 (tools/art/ppu_restyle.py RESTYLE mordekaiser face_to)
+VIEW = {"face": {"x": 1, "y": -30}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -8}}   # at hd.rs SIZES 1.10 (tools/art/ppu_restyle.py RESTYLE mordekaiser face_to)
 
 
 def mag(k):

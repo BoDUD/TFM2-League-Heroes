@@ -37,7 +37,7 @@ S = "<#9fd8ffff>"      # shields
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -5 -> -2: the anchor was cut (the helmet fitted)
-VIEW = {"face": {"x": 2, "y": -18}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -2}}
+VIEW = {"face": {"x": 2, "y": -18}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -7}}
 
 
 def mag(k):

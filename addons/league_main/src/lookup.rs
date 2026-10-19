@@ -66,7 +66,7 @@ static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLoc
 /// our vtable copies -> the texture data they were made for
 static FAKES: LazyLock<Mutex<HashMap<usize, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// texture data -> (its width entry, its height entry, the hero's shown divisor, whether the UI draws its lo_ frames)
-static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, bool)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, Option<f32>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// the UI's copies of anim tables: table -> (its ctrl when copied, the copy)
 static UI: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// changed table -> (its ctrl, its battlefield copy)
@@ -310,7 +310,7 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
         *e = read(vt + 8 * k, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).unwrap_or(0);
     }
     if let Ok(mut s) = SIZES.lock() {
-        s.insert(data, (table[5], table[6], hero.shown(), hero.lo));
+        s.insert(data, (table[5], table[6], hero.shown(), hero.lo.then_some(hero.ui)));
     }
     let (sw, sh) = size_stubs()?;
     table[5] = sw;
@@ -333,7 +333,7 @@ unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
     let e = SIZES.lock().ok().and_then(|s| s.get(&data).copied());
     let (f, ppu, lo) = match e {
         Some((w, h, ppu, lo)) => (if which == 0 { w } else { h }, ppu, lo),
-        None => (0, 1.0, false),
+        None => (0, 1.0, None),
     };
     let real = if f != 0 { std::mem::transmute::<usize, Size>(f)(data) } else { f32::NAN };
     let rva = ret.wrapping_sub(MODULE.load(Ordering::Relaxed));
@@ -341,8 +341,8 @@ unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
         1.0
     } else if build().battle_size_ret.contains(&rva) {
         real
-    } else if lo && build().ui_size_ret.contains(&rva) {
-        real / hd::UI_PPU
+    } else if let (Some(ui), true) = (lo, build().ui_size_ret.contains(&rva)) {
+        real / ui
     } else {
         real / ppu
     };
@@ -443,7 +443,7 @@ unsafe fn ui_table(t: usize, hero: &Hero) -> Option<usize> {
         for f in 0..fl {
             for k in 0..4 {
                 let at = frames.as_mut_ptr().add(f * FRAME + 4 * k) as *mut f32;
-                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hd::UI_PPU);
+                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hero.ui);
             }
         }
         plan.push((b, frames));
@@ -472,7 +472,7 @@ unsafe fn ui_table(t: usize, hero: &Hero) -> Option<usize> {
         Some(b) => format!("idle: {}", rect_of(b)),
         None => "idle NOT found".into(),
     };
-    wlog(format!("{}: UI table {sh:#x} for {t:#x} (lo_ frames / {}); {check}", hero.id, hd::UI_PPU));
+    wlog(format!("{}: UI table {sh:#x} for {t:#x} (lo_ frames / {}); {check}", hero.id, hero.ui));
     Some(sh)
 }
 
@@ -680,7 +680,7 @@ mod tests {
         let k3 = b"hd_idle".to_vec();
         let f1 = frames(&[[0.0, 0.0, 10.0, 20.0, 0.1]]);
         let f3 = frames(&[[30.0, 60.0, 30.0, 60.0, 0.1]]);
-        let hero = super::Hero { id: "league_test", ppu: 3.0, size: 1.0, tags: vec!["idle".into()], lo: false };
+        let hero = super::Hero { id: "league_test", ppu: 3.0, size: 1.0, tags: vec!["idle".into()], lo: false, ui: 1.5 };
         unsafe {
             let put = |b: usize, key: &Vec<u8>, fr: &Vec<u8>| {
                 let w = |o: usize, v: usize| std::ptr::write_unaligned((b + o) as *mut usize, v);
