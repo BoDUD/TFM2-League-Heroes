@@ -38,7 +38,7 @@ E = "<>"
 # champion_view: the face at her crown (tfm2_ase.py face: 43 px over the hooves, x -2); the mounted idle tops 33 px over the
 # pivot, at or above -28 -> banpick_center y = -39 - (-33) (the card rule)
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -6 -> -5: the top row cut
-VIEW = {"face": {"x": -2, "y": -43}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -5}}
+VIEW = {"face": {"x": -2, "y": -43}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(k, ap="ap"):
