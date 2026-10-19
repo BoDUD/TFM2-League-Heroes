@@ -109,6 +109,15 @@ ACTIONS = {
         "hit": "taking a hit, recoiling",
         "dead": "dying: falling to his knees and collapsing to the ground",
     },
+    "ahri": {
+        "run": "running to the right, the nine tails swaying behind her (8-frame loop)",
+        "attack": "basic attack: a flick of the hand flinging a small spirit orb to the right",
+        "skill": "Q Orb of Deception: winding up and throwing her orb straight out to the right with an outstretched arm",
+        "skill2": "E Charm: blowing a kiss to the right from her hand",
+        "ult": "R Spirit Rush: a swift dash to the right, the tails streaming behind her",
+        "hit": "taking a hit, recoiling",
+        "dead": "dying: collapsing to the ground",
+    },
     "ashe": {
         "run": "running to the right with the bow (8-frame loop)",
         "attack": "basic attack: drawing the bow and shooting an arrow to the right",
@@ -145,6 +154,10 @@ LOOKS = {
               "a brown belt with a round orange gem and a long orange-red cloth hanging in front, pale wraps on her "
               "lower legs, dark goat hooves, and a long golden staff with a big crescent moon on top and an orange orb "
               "at the bottom",
+    "ahri": "a chibi nine-tailed fox girl: long very dark navy-black hair with blue strands and a braid, black fox ears "
+            "pink inside, golden eyes, red whisker marks on the cheeks, an off-shoulder red top with a white collar trim, a "
+            "purple sash with gold ornaments and a purple tassel, a short white-and-gold skirt, long red sleeves with white "
+            "cuffs, red knee boots with white tops, and nine lavender-white fox tails in one bunch behind her",
     "ashe": "a chibi frost archer: a black hood with a gold crest, long silver-white hair, big blue eyes, black-and-gold "
             "armour, a dark blue cape, a quiver of ice-blue arrows on the back, and a big ice-crystal bow with gold "
             "fittings in her near hand",
@@ -399,6 +412,24 @@ MODEL_STEP = {
                    "the gold trim, the gems, the scarf's and the cape's folds and the sword's edge highlight finer, a "
                    "clear 3/4 face (brows, eyes, nose, mouth) and strands in the hair. Do not change the design, add "
                    "anything, or make him wider or slimmer.",
+    },
+    "ahri": {
+        "asked": "「接下来重做阿狸吧」；选了 Codex 的 A 正式稿（「A 正式稿原样」），游戏里画成 85%（「太大了 得缩小一点」「85%」），"
+                 "但那样每个游戏像素有 2 格，比其他英雄细（「我们的阿狸像素高了」「像素太细」）",
+        "ref_note": "你 10 月 20 日画的 A 正式稿按格读回的样子（每格放大 8 倍），**长相、比例、站姿、配色、尾巴都已经定了**，只是格子太细",
+        "top": "狐耳尖", "bottom": "鞋底", "top_en": "the tips of the fox ears", "bottom_en": "the soles of the boots",
+        "feet_en": "the boot soles",
+        "outline": ("2 格", "2-square"),
+        "pose": "**照参考图原样重画，只是格子更粗**：同一个人、同一个站姿（四分之三侧身朝右）、同样的颜色和比例、九条尾巴同样收成身后左上方的一束，"
+                "整个人按新的格子数重新画，不是把参考图缩小：每条尾巴都要有完整的描边和亮面，脸（两只金色眼睛一样大、一样高，狐须纹）、"
+                "狐耳、紫腰封和金扣、白裙子、红袖套、红靴都要清楚，不要糊成杂色格。不改设计、不加东西。",
+        "pose_en": "Redraw the reference exactly as it is - the same character, the same 3/4 pose facing right, the same "
+                   "colours and proportions, the nine tails in the same bunch behind her to the upper left - only on a "
+                   "COARSER grid: draw the whole figure again for the new square count, do not shrink the reference: "
+                   "every tail with its own full outline and light side; the face (two golden eyes of the same size at "
+                   "the same height, the whisker marks), the fox ears, the purple sash with its gold clasp, the white "
+                   "skirt, the red sleeves and the red boots clear and readable, never noisy odd squares. Do not "
+                   "change the design or add anything.",
     },
     "soraka": {
         "asked": "「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」",
