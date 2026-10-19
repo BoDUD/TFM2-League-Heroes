@@ -26,7 +26,8 @@ import rig_zoe as Z  # noqa: E402
 # tag -> (League's clip, from s, to s) - the part of the clip the tag shows
 CLIPS = {"idle": ("Zoe_Idle1", 0, 2.0), "run": ("Zoe_Run1", 0, 1.33), "attack": ("Zoe_attack1", 0, 0.8),
          "attack_p": ("Zoe_Empowered_Attack", 0, 0.9), "skill": ("Spell1_base", 0, 0.76),
-         "skill2": ("Zoe_Spell3", 0, 0.7), "ult": ("Zoe_Spell2", 0, 0.73), "ult_back": ("Zoe_Spell2", 0.4, 0.73),
+         "skill2": ("Zoe_Spell3", 0, 0.7), "ult": ("Zoe_spell4_enter", 0, 0.83), "skill_w": ("Zoe_spell2_missile", 0, 0.5),
+         "ult_exit": ("Zoe_Spell4_Exit", 0, 0.2), "ult_back": ("Zoe_Spell4_B", 0, 0.8),
          "hit": ("Zoe_Idle1", 0, 0.1), "dead": ("Zoe_Death", 0, 2.4)}
 YAW = {"idle": -25}
 PROPS = ["Zoe_Base_Jumprope_Mat", "Zoe_Base_TennisRac_Mat", "Zoe_Base_Yoyo_Mat", "Zoe_Base_IceCream_Mat"]

@@ -201,7 +201,8 @@ def tries(F):
 MS = {"idle": [150] * 8, "run": [100] * 8,
       "attack": [80, 70, 70, 70, 80, 90], "attack_p": [80, 80, 90, 90, 110],
       "skill": [70, 70, 70, 90, 70, 70, 60], "skill2": [70, 70, 80, 100, 70, 60],
-      "ult": [80, 60, 80, 80, 70, 70], "ult_back": [80, 80, 140],
+      "ult": [80, 60, 80, 80, 70, 70], "skill_w": [60, 60, 60, 60, 80], "ult_exit": [60, 70, 70],
+      "ult_back": [80, 80, 140],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500]}
 
 
@@ -242,7 +243,15 @@ def frames_all(F):
     # with its arms out)
     out["ult"] = [p(crouch=2), p(whole=(1, -8), arm_rot=3), p(whole=(2, -16), arm_rot=3), p(whole=(0, -12)),
                   p(crouch=2), F.front()]
-    # back through the portal: falling in from above, landing, standing
+    # W Spell Thief's missiles, thrown after the portal's star (League's Zoe_spell2_missile: a little hop, a toss of the
+    # hand, landing with the arms out): crouched with the arm back, up with the toss (the arm forward, frame 2: the
+    # missiles leave), higher, coming down, standing wide (the 3/4 idle)
+    out["skill_w"] = [p(crouch=2, arm_rot=3), p(whole=(1, -4), arm_rot=1), p(whole=(1, -5), arm_rot=1),
+                      p(whole=(1, -2)), F.front()]
+    # leaving the far end to go back (League's Zoe_Spell4_Exit: she springs straight up out of sight): crouched, up,
+    # high up
+    out["ult_exit"] = [p(crouch=2), p(whole=(0, -8), arm_rot=3), p(whole=(0, -16), arm_rot=3)]
+    # back through the portal (League's Zoe_Spell4_B: dropping in from above): falling in, landing, standing
     out["ult_back"] = [p(whole=(0, -10)), p(crouch=2), F.front()]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
 

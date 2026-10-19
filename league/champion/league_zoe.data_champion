@@ -363,7 +363,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 12,
           "effects": [
             {
               "type": "Combine",
@@ -808,7 +808,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 9,
+          "tick": 12,
           "effects": [
             {
               "type": "Combine",
@@ -1570,7 +1570,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_zoe.ult",
-    "duration": 36,
+    "duration": 27,
     "cooltime": 1800,
     "start_timing": 1,
     "cancelable": false,
@@ -1689,7 +1689,7 @@
                 "name": "league_zoe_r_on",
                 "duration": {
                   "Time": {
-                    "tick": 80
+                    "tick": 90
                   }
                 }
               },
@@ -1751,7 +1751,68 @@
                         "end_effects": [
                           {
                             "type": "Delayed",
-                            "tick": 69,
+                            "tick": 59,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_zoe_lives",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_zoe_lives",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_zoe_r_on",
+                                          "effect_buff": {
+                                            "type": "CasterAnimation",
+                                            "name": "ult_exit",
+                                            "tick": 12
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_zoe_lives"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 71,
                             "effects": [
                               {
                                 "type": "Combine",
@@ -1873,7 +1934,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 21,
+          "tick": 26,
           "effects": [
             {
               "type": "Combine",
@@ -1917,96 +1978,8 @@
                             "name": "league_zoe_q"
                           },
                           {
-                            "type": "LinearProjectile",
-                            "name": "league_zoe_r_star",
-                            "speed": 5000,
-                            "range": 110000,
-                            "y_offset": 0,
-                            "penetrate": false,
-                            "shape": {
-                              "Circle": {
-                                "radius": 6000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 170,
-                                  "attack_ratio": 80,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ViewEffect",
-                                  "name": "league_zoe_q_hit"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "TargetSfx",
-                                  "name": "league_zoe_q_hit"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_zoe_e_wait",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_zoe_e_win",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_zoe_e_win"
-                                        },
-                                        {
-                                          "type": "ApAttack",
-                                          "damage": 170,
-                                          "attack_ratio": 80,
-                                          "hp_ratio": 0,
-                                          "can_crit": false
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_zoe_e_wake"
-                                        },
-                                        {
-                                          "type": "TargetSfx",
-                                          "name": "league_zoe_e_wake"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
-                                  }
-                                }
-                              }
-                            ],
-                            "end_effects": []
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_zoe_q_fly"
-                          },
-                          {
                             "type": "Delayed",
-                            "tick": 5,
+                            "tick": 12,
                             "effects": [
                               {
                                 "type": "Combine",
@@ -2038,22 +2011,25 @@
                                       "type": "Combine",
                                       "effects": [
                                         {
-                                          "type": "Sfx",
-                                          "name": "league_zoe_w_shot"
-                                        },
-                                        {
-                                          "type": "TargetProjectile",
-                                          "name": "league_zoe_w_missile",
-                                          "speed": 4000,
+                                          "type": "LinearProjectile",
+                                          "name": "league_zoe_r_star",
+                                          "speed": 5000,
+                                          "range": 110000,
                                           "y_offset": 0,
-                                          "applied_target": "EnemyWithoutTower",
+                                          "penetrate": false,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 6000
+                                            }
+                                          },
+                                          "applied_target": "EnemyChampion",
                                           "applied_effects": [
                                             {
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ApAttack",
-                                                "damage": 45,
-                                                "attack_ratio": 15,
+                                                "damage": 170,
+                                                "attack_ratio": 80,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
                                               }
@@ -2062,17 +2038,65 @@
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ViewEffect",
-                                                "name": "league_zoe_w_hit"
+                                                "name": "league_zoe_q_hit"
                                               }
                                             },
                                             {
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "TargetSfx",
-                                                "name": "league_zoe_w_hit"
+                                                "name": "league_zoe_q_hit"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_zoe_e_wait",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_zoe_e_win",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_zoe_e_win"
+                                                      },
+                                                      {
+                                                        "type": "ApAttack",
+                                                        "damage": 170,
+                                                        "attack_ratio": 80,
+                                                        "hp_ratio": 0,
+                                                        "can_crit": false
+                                                      },
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_zoe_e_wake"
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_zoe_e_wake"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  }
+                                                }
                                               }
                                             }
-                                          ]
+                                          ],
+                                          "end_effects": []
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zoe_q_fly"
                                         }
                                       ]
                                     },
@@ -2091,7 +2115,7 @@
                           },
                           {
                             "type": "Delayed",
-                            "tick": 10,
+                            "tick": 22,
                             "effects": [
                               {
                                 "type": "Combine",
@@ -2123,39 +2147,284 @@
                                       "type": "Combine",
                                       "effects": [
                                         {
-                                          "type": "Sfx",
-                                          "name": "league_zoe_w_shot"
+                                          "type": "CasterAnimation",
+                                          "name": "skill_w",
+                                          "tick": 19
                                         },
                                         {
-                                          "type": "TargetProjectile",
-                                          "name": "league_zoe_w_missile",
-                                          "speed": 4000,
-                                          "y_offset": 0,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
+                                          "type": "Delayed",
+                                          "tick": 3,
+                                          "effects": [
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ApAttack",
-                                                "damage": 45,
-                                                "attack_ratio": 15,
-                                                "hp_ratio": 0,
-                                                "can_crit": false
-                                              }
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RandomTarget",
+                                                  "range": 1,
+                                                  "casting_target": "AllyOnlySelf",
+                                                  "from_projectile": false,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_zoe_lives",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_zoe_lives",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_zoe_w_shot"
+                                                      },
+                                                      {
+                                                        "type": "TargetProjectile",
+                                                        "name": "league_zoe_w_missile",
+                                                        "speed": 4000,
+                                                        "y_offset": 0,
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ApAttack",
+                                                              "damage": 45,
+                                                              "attack_ratio": 15,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_zoe_w_hit"
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_zoe_w_hit"
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  }
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_zoe_lives"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 8,
+                                          "effects": [
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RandomTarget",
+                                                  "range": 1,
+                                                  "casting_target": "AllyOnlySelf",
+                                                  "from_projectile": false,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_zoe_lives",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_zoe_lives",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_zoe_w_shot"
+                                                      },
+                                                      {
+                                                        "type": "TargetProjectile",
+                                                        "name": "league_zoe_w_missile",
+                                                        "speed": 4000,
+                                                        "y_offset": 0,
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ApAttack",
+                                                              "damage": 45,
+                                                              "attack_ratio": 15,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_zoe_w_hit"
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_zoe_w_hit"
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  }
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_zoe_lives"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 13,
+                                          "effects": [
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RandomTarget",
+                                                  "range": 1,
+                                                  "casting_target": "AllyOnlySelf",
+                                                  "from_projectile": false,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_zoe_lives",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_zoe_lives",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_zoe_w_shot"
+                                                      },
+                                                      {
+                                                        "type": "TargetProjectile",
+                                                        "name": "league_zoe_w_missile",
+                                                        "speed": 4000,
+                                                        "y_offset": 0,
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ApAttack",
+                                                              "damage": 45,
+                                                              "attack_ratio": 15,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_zoe_w_hit"
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_zoe_w_hit"
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  }
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_zoe_lives"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_zoe_w_haste"
                                             },
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_zoe_w_hit"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_zoe_w_hit"
-                                              }
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_zoe_w_haste",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 150
+                                                  }
+                                                },
+                                                "move_speed_mult": 40
+                                              },
+                                              "only_to_enemy": false
                                             }
                                           ]
                                         }
@@ -2171,113 +2440,6 @@
                                     "name": "league_zoe_lives"
                                   }
                                 ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Delayed",
-                            "tick": 15,
-                            "effects": [
-                              {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RandomTarget",
-                                    "range": 1,
-                                    "casting_target": "AllyOnlySelf",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_zoe_lives",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 1
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_zoe_lives",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_zoe_w_shot"
-                                        },
-                                        {
-                                          "type": "TargetProjectile",
-                                          "name": "league_zoe_w_missile",
-                                          "speed": 4000,
-                                          "y_offset": 0,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ApAttack",
-                                                "damage": 45,
-                                                "attack_ratio": 15,
-                                                "hp_ratio": 0,
-                                                "can_crit": false
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_zoe_w_hit"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_zoe_w_hit"
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_zoe_lives"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_zoe_w_haste"
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_zoe_w_haste",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 150
-                                    }
-                                  },
-                                  "move_speed_mult": 40
-                                },
-                                "only_to_enemy": false
                               }
                             ]
                           }

@@ -24,8 +24,9 @@ Spell Thief (W) has no slot - its missiles fly with every R (her "summoner spell
           (league_ekko R's anchor), she jumps through a portal up to r_jump toward the target (a hidden line that stops
           about r_stop short of the first champion, `end_effects: [Teleport]`, league_ezreal E's blink), throws a
           Paddle Star from there at the far share's damage (r_dmg + r_ratio% AP, champions only), Spell Thief's three
-          missiles follow at the same target (w_dmg + w_ratio% AP each) and she gets w_ms% move speed for w_ms_t; r_back
-          ticks after the cast the anchor pulls her back (death cancels it).
+          missiles follow (her toss `skill_w`, w_dmg + w_ratio% AP each, at the nearest enemies) and she gets w_ms% move
+          speed for w_ms_t; r_back ticks after the jump she springs up out of the far end (`ult_exit`, r_exit ticks)
+          and the anchor pulls her back (`ult_back`; death cancels it).
 The add-on copy (--native, addons/league_zoe): the passive league_zoe:sparkles reads the hits - any damage wakes the
 sleeper and its first hit is doubled (capped), Paddle Star scales with the real distance flown, and Spell Thief's
 shards: an enemy champion's ult drops one where he stood; when she walks over it she fires the three missiles.
@@ -42,7 +43,10 @@ FX = "asset/league/effects/league_zoe_fx"
 BIG = "asset/league/effects/league_zoe_big"
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
-# (~15000) on top. Timings are placeholders until the strips (tools/art/rig_zoe.py). Numbers = the 10-min classic-SDK
+# (~15000) on top. Timings from the strips (tools/art/rig_zoe.py MS): the attack's flick frame 3 from tick 9 (a_rel 10),
+# Q's throw frame 4 from 12.6 (q_rel 13), E's kick frame 4 from 13.2 (e_rel 13), R's leap frame 2 from 4.8 (r_rel 8),
+# the landing at 26 (r_throw 19 after the jump), W's toss frame 2 from 3.6 (w_rel 4) 22 ticks into the throw (after
+# Q's held-low frame), the exit leap 200 ms (r_exit 12); r_back = r_throw + r_w + w_dur + r_exit. Numbers = the 10-min classic-SDK
 # simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both
 # sides, 8 seeds, 2026-10-19): the draft (hp 880, Q 70 + 50% x1 / 1.6 / 2.2, P 30 + 40%, R 170 + 80% every 40 s landing
 # 40000 short, W 35, sleep 1.5 s) -1.37 (league_ziggs +1.70 the same batch); Q 90 + 60%, R 50000 short, sleep 1.75 s
@@ -57,18 +61,20 @@ P = {
     # passive More Sparkles! (League: 16-130 +20% AP on the next attack after a spell)
     "p_t": 300, "p_dmg": 40, "p_ratio": 50,
     # Q Paddle Star (League: 50-250 +60% AP, up to +150% by the distance flown, cd 8.5-6, missile 1200 -> 2500)
-    "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 12, "q_speed": 4000, "q_len": 95000, "q_w": 6000,
+    "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 13, "q_speed": 4000, "q_len": 95000, "q_w": 6000,
     "q_d1": 30000, "q_d2": 60000, "q_dmg": 105, "q_ratio": 60, "q_mid": 170, "q_far": 250,
     # E Sleepy Trouble Bubble (League: 800 range, 70-270 +45% AP, drowsy 1.4 s (slow 10-35%), sleep 2.25 s, trap
     # 5 s, cd 18-14)
-    "e_cd": 900, "e_range": 75000, "e_dur": 27, "e_rel": 10, "e_speed": 3500, "e_len": 85000, "e_w": 7000,
+    "e_cd": 900, "e_range": 75000, "e_dur": 27, "e_rel": 13, "e_speed": 3500, "e_len": 85000, "e_w": 7000,
     "e_dmg": 60, "e_ratio": 40, "e_slow": 30, "e_drowsy": 84, "e_sleep": 105, "e_trap": 300, "e_trap_r": 12000,
     "e_show": 15,
     # R Portal Jump (League: blink 575 for 1 s, cd 11-5) + the portal's Paddle Star (far share) + W Spell Thief's
     # missiles (League: 3 x 25-95 +33% AP, move speed 30-80% for 2-3.25 s)
-    "r_cd": 1800, "r_range": 110000, "r_dur": 36, "r_rel": 8, "r_jump": 57500, "r_jspeed": 6000, "r_stop": 50000,
-    "r_throw": 14, "r_speed": 5000, "r_len": 110000, "r_dmg": 170, "r_ratio": 80, "r_back": 70, "r_back_dur": 18,
-    "w_n": 3, "w_gap": 5, "w_dmg": 45, "w_ratio": 15, "w_speed": 4000, "w_ms": 40, "w_ms_t": 150,
+    "r_cd": 1800, "r_range": 110000, "r_dur": 27, "r_rel": 8, "r_jump": 57500, "r_jspeed": 6000, "r_stop": 50000,
+    "r_throw": 19, "r_speed": 5000, "r_len": 110000, "r_dmg": 170, "r_ratio": 80, "r_back": 72, "r_back_dur": 18,
+    "r_exit": 12, "r_w": 22,
+    "w_n": 3, "w_dur": 19, "w_rel": 4, "w_gap": 5, "w_dmg": 45, "w_ratio": 15, "w_speed": 4000, "w_ms": 40,
+    "w_ms_t": 150,
     "vo_gap": 600,
     "native": 0,
 }
@@ -251,18 +257,24 @@ def build(p):
     # ------------------------------------------------------------------ ult: R Portal Jump + the portal's star + W
     star_r = line("r_star", p["r_speed"], p["r_len"], p["q_w"], "EnemyChampion",
                   [ap(p["r_dmg"], p["r_ratio"]), view("q_hit"), tsfx("q_hit"), wake(p["r_dmg"], p["r_ratio"])])
-    missiles = [delayed(p["w_gap"] * (k + 1), alive(sfx("w_shot"), homing(
+    if p["r_throw"] + p["r_w"] + p["w_dur"] > p["r_back"] - p["r_exit"]:
+        raise SystemExit("the W toss must end before the exit leap")
+    missiles = [delayed(p["w_rel"] - 1 + p["w_gap"] * k, alive(sfx("w_shot"), homing(
         "w_missile", "EnemyWithoutTower", [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")], p["w_speed"])))
         for k in range(p["w_n"])]
-    throw_r = combine(anim("skill", p["q_dur"]), sfx("q"), star_r, sfx("q_fly"), *missiles,
-                      refresh("w_haste", p["w_ms_t"], move_speed_mult=p["w_ms"]))
+    # the portal's star leaves on Paddle Star's throw frame; Spell Thief's toss (`skill_w`) follows the throw
+    throw_r = combine(anim("skill", p["q_dur"]), sfx("q"), delayed(p["q_rel"] - 1, alive(star_r, sfx("q_fly"))),
+                      delayed(p["r_w"], alive(anim("skill_w", p["w_dur"]), *missiles,
+                                              refresh("w_haste", p["w_ms_t"], move_speed_mult=p["w_ms"]))))
     jump = line("r_jump", p["r_jspeed"], p["r_jump"], p["r_stop"], "EnemyChampion", [],
                 end=[{"type": "Teleport"}, cview("r_portal_out")], y=5000)
     back = sw("r_on", combine(*rm("r_on"), cview("r_portal_back"), {"type": "Teleport"},
                               anim("ult_back", p["r_back_dur"]), sfx("r_back")))
-    anchor = line("r_anchor", 1, 1, 1000, "EnemyChampion", [], end=[delayed(p["r_back"] - 1, alive(back))], y=5000)
+    leave = sw("r_on", anim("ult_exit", p["r_exit"]))      # she springs up out of the far end first
+    anchor = line("r_anchor", 1, 1, 1000, "EnemyChampion", [], end=[delayed(p["r_back"] - 1 - p["r_exit"], alive(leave)),
+                                                                     delayed(p["r_back"] - 1, alive(back))], y=5000)
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(decoy(p["r_dmg"], p["r_ratio"], ap), spark, sfx("r"), voice("vo_r", p), refresh("r_on", p["r_back"] + 10),
+                 combine(decoy(p["r_dmg"], p["r_ratio"], ap), spark, sfx("r"), voice("vo_r", p), refresh("r_on", p["r_rel"] + p["r_back"] + 10),
                          delayed(p["r_rel"] - 1, alive(cview("r_portal_in"), anchor, jump)),
                          delayed(p["r_rel"] - 1 + p["r_throw"], alive(throw_r))))
 
