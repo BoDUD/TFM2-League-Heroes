@@ -49,21 +49,25 @@ BIG = "asset/league/effects/league_quinn_big"
 # +15-93% attack speed (by level), +15-45% ms for 2 s; E 600 range, 40-140 + 20% bonus AD, slow 50% decaying over
 # 1.5 s, cd 13-8; R channel 2 s, then +40-220% ms ride, Skystrike r 700, 30-210 + 35-100% AD, cd 3 s.
 # League's Quinn: 565 +107 hp, 59 +2.4 AD, 28 +4.4 armour, 30 +1.3 MR, 330 move, attack speed 0.668 +3.1%.
+# Numbers = the 10-min classic-SDK simulations (top lane 0 against fighter, executioner, lancer, pole_warrior, knight and
+# berserker, three lineups, both sides, seeds 1-8, 2026-10-19, placeholder timings): the draft (hp 950, atk 98, Q 50 +90%,
+# Harrier 25 +40%, R from 140000) -4.49 (league_volibear +1.31, league_teemo +1.05 in the same batch); R from 60000 -2.58;
+# + hp 1000, atk 106, Q 80 +110%, Harrier 40 +60% = P: +2.14 (without R +1.38, without E -0.19).
 P = {
     # stats (Range base: 100 +20 attack, 900 +90 hp, 20 +7 defence, 15 +3 mr, 900 +9 move; a ranged top laner gets a
     # little more health and armour against the fighters there)
-    "hp": 950, "hp_g": 95, "atk": 98, "atk_g": 19, "def": 24, "def_g": 8, "mr": 18, "mr_g": 3, "ms": 950, "ms_g": 10,
+    "hp": 1000, "hp_g": 95, "atk": 106, "atk_g": 19, "def": 24, "def_g": 8, "mr": 18, "mr_g": 3, "ms": 950, "ms_g": 10,
     "atk_range": 52500, "atk_dur": 26, "atk_cd": 62, "a_hit": 10, "a_speed": 7000, "a_y": -9000,
     # passive Harrier + W Heightened Senses
-    "p_cd": 480, "p_dmg": 25, "p_ratio": 40, "w_as": 35, "w_ms": 25, "w_t": 120, "dive_t": 30,
+    "p_cd": 480, "p_dmg": 40, "p_ratio": 60, "w_as": 35, "w_ms": 25, "w_t": 120, "dive_t": 30,
     # Q Blinding Assault
     "q_cd": 600, "q_cast": 95000, "q_dur": 24, "q_rel": 9, "q_range": 100000, "q_speed": 6000, "q_w": 6000,
-    "q_r": 21000, "q_dmg": 50, "q_ratio": 90, "q_blind": 45, "q_back": 7000,
+    "q_r": 21000, "q_dmg": 80, "q_ratio": 110, "q_blind": 45, "q_back": 7000,
     # E Vault
     "e_cd": 660, "e_range": 60000, "e_dur": 8, "e_speed": 4000, "e_dmg": 50, "e_ratio": 60, "e_stun": 6,
     "e_slow": 50, "e_slow_t": 90, "e_back": 4000, "e_back_t": 12, "e_flip": 18,
     # R Behind Enemy Lines + Skystrike
-    "r_cd": 2400, "r_range": 140000, "r_mount": 30, "r_speed": 3200, "r_ms": 0, "r_r": 30000, "r_dmg": 150,
+    "r_cd": 2400, "r_range": 60000, "r_mount": 30, "r_speed": 3200, "r_ms": 0, "r_r": 30000, "r_dmg": 150,
     "r_ratio": 100, "r_land": 24,
     # the add-on's ride (League: +40-220% ms, rides until she attacks or casts)
     "r_ride_t": 360, "r_ride_ms": 80,
@@ -208,6 +212,8 @@ def build(p):
     valor_on = refresh("valor", None)
     valor_off = combine(*rm("valor"))
     mark = refresh("p_ready", None)
+    # Valor back over her head - in the add-on's copy not while she rides him
+    back = sw("r_ride", NONE, valor_on) if nat else valor_on
     # Harrier's watch: every p_cd ticks Valor marks again (a flag on her: nothing reads a buff on the target)
     harrier = on_me({"type": "AddCasted", "casted_type": "Heal", "duration": 1000000, "period": p["p_cd"],
                      "effects": [sw("p_ready", NONE, mark)]})
@@ -227,7 +233,7 @@ def build(p):
     bolt_h = homing("a_bolt", p["a_speed"], p["a_y"], "Enemy", plain + harrier_hit)
     # the dive: Valor leaves her head, swoops on the target, and is back over her dive_t ticks later
     dive = combine(*rm("p_ready"), valor_off, view("p_dive"), sfx("p_dive"),
-                   delayed(p["dive_t"], alive(sw("r_ride", NONE, valor_on))))
+                   delayed(p["dive_t"], alive(back)))
     shot = combine(sfx("a_shot"), sw("p_ready", combine(dive, delayed(p["a_hit"] - 1, bolt_h)),
                                      delayed(p["a_hit"] - 1, bolt)))
     if nat:
@@ -237,14 +243,14 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Blinding Assault
     home = line("q_home", p["q_back"], 400000, 1000, "EnemyChampion", [],
-                end=[alive(sw("r_ride", NONE, valor_on))], back=True)
+                end=[alive(back)], back=True)
     first = [mark, is_champ({"type": "BlockAttack", "tick": p["q_blind"]}, buff("q_blind", p["q_blind"]))]
     boom = burst("q_burst", p["q_r"], [attack(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")])
     out = line("q_bird", p["q_speed"], p["q_range"], p["q_w"], "EnemyWithoutTower", first,
                end=[boom, view("q_burst"), sfx("q_burst"), home], penetrate=False)
     q_cast = combine(valor_off, sfx("q"), voice("vo_q", p), delayed(p["q_rel"] - 1, out),
                      # Valor back on her head if he never returned (she walked out of reach, a long flight)
-                     delayed(240, alive(sw("valor", NONE, sw("r_ride", NONE, valor_on)))))
+                     delayed(240, alive(sw("valor", NONE, back))))
     if nat:
         q_cast = combine(sw("r_ride", skystrike()), q_cast)
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_cast"], "Direction", "EnemyWithoutTower",
