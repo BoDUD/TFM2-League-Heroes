@@ -29,7 +29,7 @@ mod view;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.7.70";
+const VERSION: &str = "0.7.71";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
@@ -83,9 +83,35 @@ fn init(host: &StableHost) -> StableMod {
     wlog(format!("=== {ID}.dll {VERSION} (dense frames) loaded: game {}.{}.{} abi {} log={} ===",
         v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
     #[cfg(windows)]
-    match build::detect(view::read_rva) {
+    match build::detect(view::read_rva).or_else(|why| {
+        // not a listed build: look for the same places by their patterns (game_places, made from the listed build)
+        let t0 = std::time::Instant::now();
+        let module = view::module_base();
+        // the display pair through game_places::display (shared with the add-ons, read before anyone swaps the slot)
+        let found = game_places::display().and_then(|(f, slot)| {
+            let img = unsafe { game_places::Image::from_module(module) }?;
+            game_places::resolve_with(&img, Some((f - module, slot - module)))
+        });
+        match found {
+            Ok(p) => {
+                for n in &p.notes {
+                    wlog(n);
+                }
+                let name = format!("found at run time in {:.0} ms ({why}; patterns from {})",
+                                   t0.elapsed().as_secs_f64() * 1000.0, game_places::sigs::FROM);
+                Ok(build::from_places(p, name))
+            }
+            Err(e) => Err(format!("{why}; the run-time search: {e}")),
+        }
+    }) {
         Ok(b) => {
             wlog(format!("game build: {}", b.name));
+            // publish the display pair for the add-ons' hooks before this DLL swaps the slot (game_places::ENV)
+            match game_places::display() {
+                Ok((f, slot)) => wlog(format!("display handler {f:#x}, slot {slot:#x} ({}={:?})", game_places::ENV,
+                                              std::env::var(game_places::ENV).unwrap_or_default())),
+                Err(e) => wlog(format!("display handler not found by game_places ({e})")),
+            }
             lookup::install_once(b);
             view::install_once(b);
             host.log(LogLevel::Info, "League Heroes: dense (PPU) frames for the heroes that have them.");

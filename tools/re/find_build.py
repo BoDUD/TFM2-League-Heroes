@@ -28,6 +28,8 @@ Then a match in game confirms it: league.log `game build: <name>`, the "lookup a
 asked from rva" lines of every screen. The structures (display world table, entity value fields, draw command
 layout) are NOT re-derived here: check them as build.rs's header describes when the code around them changes.
 
+Since 2026-10-20 league.dll and the add-ons first try the same steps at run time (addons/game_places, patterns from
+tools/re/make_sigs.py); this tool is for when they fail - after updating build.rs, run make_sigs.py again.
 Needs `pip install capstone pefile`. Reads the EXE only; writes nothing unless --out.
 """
 import argparse

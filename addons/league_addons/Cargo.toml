@@ -9,3 +9,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 mod-api-stable = { path = "../vendor/mod-api-stable" }
+game_places = { path = "../game_places" }
