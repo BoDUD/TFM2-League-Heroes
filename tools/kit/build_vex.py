@@ -43,28 +43,35 @@ FX = "asset/league/effects/league_vex_fx"
 BIG = "asset/league/effects/league_vex_big"
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
-# (~15000) on top. Timings are provisional until the strips (rig_vex.py).
+# (~15000) on top. Timings are provisional until the strips (rig_vex.py). Numbers = the 10-min classic-SDK simulations
+# (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both sides,
+# 2026-10-20): the draft (hp 900, Q 70 + 60%, E 60 + 50% every 12 s, R 80 + 20% then a surge onto him 160 + 60% every
+# 40 s) -4.69 (league_zoe +1.17 the same batch): the surge put her in the middle of the enemies (3.7 deaths a game; no
+# surge -1.56, R only on champions hit lately -4.01). R landing with Personal Space and Q 95 + 70%, E 80 + 60%, the
+# surge 200 + 70%, hp 960 -1.47 (no surge +0.48); the surge stopping r_stop short of the champion (league_zoe R's
+# jump) 40000 +0.36, 48000 +0.77; + Gloom 60 + 30%, E every 10 s +0.65 / -0.02 (seeds 1-8 / 9-16); + R every 35 s
+# +1.44 / +0.97 (about +1.2, league_zoe +1.17, league_volibear +1.39) = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Vex:
     # 590 +104 hp, 23 armour, 28 mr, 335 move, 550 range, attack speed 0.669
-    "hp": 900, "hp_g": 95, "atk": 72, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 960, "hp_g": 95, "atk": 72, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 910, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 86, "a_rel": 10, "a_speed": 4500,
     # passive Doom 'n Gloom (League: Doom every 25-18 s, fear 0.75 s; Gloom 6 s, 30-140 +20% AP, Doom -25%)
-    "p_cd": 900, "p_fear": 45, "g_t": 360, "g_dmg": 40, "g_ratio": 20,
+    "p_cd": 900, "p_fear": 45, "g_t": 360, "g_dmg": 60, "g_ratio": 30,
     # W Personal Space (League: 475 radius, 80-200 +30% AP, shield 50-130 +75% AP for 2.5 s, cd 16-12)
     "w_r": 40000, "w_cd": 720, "w_dur": 27, "w_rel": 9, "w_dmg": 70, "w_ratio": 40, "w_sh": 60, "w_sh_ratio": 60,
     "w_sh_t": 150,
     # Q Mistral Bolt (League: 1200 range, 60-240 +60% AP, cd 8-4)
     "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 12, "q_speed": 4000, "q_len": 95000, "q_w": 8000,
-    "q_dmg": 70, "q_ratio": 60,
+    "q_dmg": 95, "q_ratio": 70,
     # E Looming Darkness (League: 800 range, 50-170 +40-60% AP, slow 30-50% for 2 s, cd 13)
-    "e_cd": 720, "e_range": 70000, "e_dur": 30, "e_rel": 12, "e_fly": 18, "e_r": 22000, "e_dmg": 60, "e_ratio": 50,
+    "e_cd": 600, "e_range": 70000, "e_dur": 30, "e_rel": 12, "e_fly": 18, "e_r": 22000, "e_dmg": 80, "e_ratio": 60,
     "e_slow": 35, "e_slow_t": 120,
     # R Shadow Surge (League: 2000-3000 range, 75-175 +20% AP mark, 150-350 +50% AP surge, cd 140-100)
-    "r_cd": 2400, "r_range": 110000, "r_dur": 27, "r_rel": 10, "r_speed": 5000, "r_dmg": 80, "r_ratio": 20,
-    "r_wait": 8, "r_dash": 4500, "r_dash_anim": 24, "r2_dmg": 160, "r2_ratio": 60, "r_hit_dur": 24,
-    "r_surge": 1, "r_recent": 0,
+    "r_cd": 2100, "r_range": 110000, "r_dur": 27, "r_rel": 10, "r_speed": 5000, "r_dmg": 80, "r_ratio": 20,
+    "r_wait": 8, "r_dash": 4500, "r_dash_anim": 24, "r2_dmg": 200, "r2_ratio": 70, "r_hit_dur": 24,
+    "r_surge": 1, "r_recent": 0, "r_w": 1, "r_stop": 48000, "r_jspeed": 6000,
     "vo_gap": 600,
     # the add-on (addons/league_vex): Gloom on enemies who dash within p_dash_r, Doom's wait cut by g_cut% per Gloom
     # consumed, R back when its mark dies within r_reset ticks
@@ -215,6 +222,11 @@ def build(p):
     native = bool(p["native"])
     # Doom: spent by the cast that finds `p_wait` off; the Shadow's eyes flash on her when it is back
     spend = combine(sfx("p_fear"), flag("p_wait", p["p_cd"]), delayed(p["p_cd"], cview("p_ready"), sfx("p_ready")))
+    # the add-on's copy: her hits (but E's) mark what they strike (`v_hit`, 2 ticks) for the add-on's Gloom, and the
+    # add-on shows Doom coming back (it shortens the wait)
+    vh = [buff("v_hit", 2)] if native else []
+    if native:
+        spend = combine(sfx("p_fear"), flag("p_wait", p["p_cd"]))
 
     def doomed(plain, feared):
         """`plain` normally; with Doom ready `feared` (the same cast with a fear) and Doom spent."""
@@ -225,16 +237,21 @@ def build(p):
                                                   tsfx("g_pop")))
 
     # ------------------------------------------------------------------ attack: the dark bolt / W Personal Space
-    plain = combine(sfx("a"), homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], p["a_speed"]))
+    plain = combine(sfx("a"), homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")] + vh, p["a_speed"]))
 
     def wave(scared):
-        hit = [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")] + ([fear(p["p_fear"])] if scared else [])
+        hit = [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")] + vh + ([fear(p["p_fear"])] if scared else [])
         return combine(around(p["w_r"], "EnemyWithoutTower", hit), around(p["w_r"], "EnemyChampion", [pop]))
 
-    personal = combine(anim("skill_w", p["w_dur"]), flag("w_cd", p["w_cd"]), sfx("w"), voice("vo_w", p),
-                       {"type": "Shield", "amount": p["w_sh"], "attack_ratio": 0, "ap_ratio": p["w_sh_ratio"],
-                        "tick": p["w_sh_t"]}, cview("w_shield"), cview("w_ring"),
+    def space(*pose):
+        return combine(*pose, flag("w_cd", p["w_cd"]), sfx("w"), voice("vo_w", p),
+                       # on her: a Shield goes to the action's target (an enemy here, league_annie W's lesson)
+                       pick(1, "AllyOnlySelf", {"type": "Shield", "amount": p["w_sh"], "attack_ratio": 0,
+                                                "ap_ratio": p["w_sh_ratio"], "tick": p["w_sh_t"]}),
+                       cview("w_shield"), cview("w_ring"),
                        doomed(wave(False), wave(True)))
+
+    personal = space(anim("skill_w", p["w_dur"]))
     near = combine(pick(p["w_r"], "EnemyChampion", flag("w_near", 1)),
                    sw("w_near", combine(*rm("w_near"), sw("w_cd", plain, personal)), plain))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
@@ -242,7 +259,7 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Mistral Bolt
     def bolt(scared):
-        hit = [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")] + ([fear(p["p_fear"])] if scared else [])
+        hit = [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")] + vh + ([fear(p["p_fear"])] if scared else [])
         out = [line("q_bolt", p["q_speed"], p["q_len"], p["q_w"], "EnemyWithoutTower", hit, penetrate=True)]
         if not native:      # the Gloom on a champion rides a hidden champion-only twin
             out.append(sw("g_win", line("q_twin", p["q_speed"], p["q_len"], p["q_w"], "EnemyChampion", [pop],
@@ -267,10 +284,17 @@ def build(p):
                             delayed(p["e_rel"] - 1, alive(doomed(darkness(False), darkness(True))))))
 
     # ------------------------------------------------------------------ ult: R Shadow Surge
-    strike = [ap(p["r2_dmg"], p["r2_ratio"]), view("r_hit"), tsfx("r_hit"), pop]
+    # she lands with Personal Space when it is ready (League's R -> W)
+    strike = [ap(p["r2_dmg"], p["r2_ratio"]), view("r_hit"), tsfx("r_hit"), pop] + vh + (
+        [sw("w_cd", NONE, space())] if p["r_w"] else [])
     surge = {"type": "MoveToTarget", "speed": p["r_dash"], "range": p["r_range"] + 30000,
              "end_effects": [anim("ult_hit", p["r_hit_dur"])]}
-    marked = [ap(p["r_dmg"], p["r_ratio"]), buff("r_mark", p["r_wait"] + 30), view("r_mark"), tsfx("r_mark"),
+    if p["r_stop"]:
+        # she surges only to r_stop short of the first champion on the way (league_zoe R's jump: a hidden line whose
+        # end teleports her) and strikes from there
+        surge = line("r_surge", p["r_jspeed"], p["r_range"] + 30000, p["r_stop"], "EnemyChampion", [],
+                     end=[{"type": "Teleport"}, anim("ult_hit", p["r_hit_dur"])], y=5000)
+    marked = [ap(p["r_dmg"], p["r_ratio"]), buff("r_mark", p["r_wait"] + 30), view("r_mark"), tsfx("r_mark"), *vh,
               delayed(p["r_wait"], anim("ult_dash", p["r_dash_anim"]), sfx("r_dash"), surge,
                       delayed(p["r_dash_anim"] // 2, *strike)) if p["r_surge"] else delayed(p["r_wait"], *strike)]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting",

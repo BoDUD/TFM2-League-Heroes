@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.174.0"
+    }
+  ],
+  "description": "Test build of Vex as in League (needs League of Legends Heroes): replaces the main pack's Vex so Gloom sits on each enemy (Looming Darkness and any enemy champion dashing near her), pops on her next hit on that enemy and shortens Doom's wait (the main pack: her next spell hit on any champion after Looming Darkness hit one), and Shadow Surge comes back when its marked champion dies within 6 s. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-20",
+  "mod_id": "league_vex",
+  "mod_type": "native",
+  "name": "League Heroes: Vex's Gloom and Shadow Surge reset (test)",
+  "version": "0.1.0"
+}
