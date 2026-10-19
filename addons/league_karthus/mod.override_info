@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_karthus": {
+    "remapping": "asset/league_karthus/override/league_karthus",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_karthus/text/champion",
+    "type": "merge"
+  }
+}

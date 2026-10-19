@@ -11,8 +11,8 @@ Kit (the user's picks, 2026-10-20: mid, layout A, Death Defied in the add-on). T
           screen (`Rect`, w_hw across x w_hh up and down: the map's axes, a zone's shape is never turned) for w_t
           ticks; every enemy in it is slowed w_slow% (w_slow_t ticks after he leaves it) and loses w_mr% magic
           resistance for w_mr_t (League: 40-60% slow decaying over 5 s, 15% magic resistance, the wall 5 s, cd 15 s).
-  skill   Q Lay Waste (荒芜), `Targeting` on `EnemyWithoutTower` (q_range, waves and camps too): a mark on the ground
-          where the target stands, q_delay ticks later the blast (radius q_r): q_dmg + q_ratio% AP, and the same again
+  skill   Q Lay Waste (荒芜), `Targeting` on `EnemyWithoutTower` (q_range, waves and camps too): a hidden lob to where
+          the target stands (its mark on the ground the whole flight), q_delay ticks later the blast (radius q_r): q_dmg + q_ratio% AP, and the same again
           when it hit only one enemy (League: isolated targets take double). The count: every unit hit adds the caster
           flag q_c1, or q_c2 when q_c1 is already on; a tick later the hit unit takes the bonus if q_c2 is off.
   skill2  E Defile (亵渎), `Targeting` on `EnemyWithoutTower` (e_cast): for e_t ticks souls whirl round him and every
@@ -174,6 +174,15 @@ def blast(name, radius, delay, target, effects):
             "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
+def lob(name, travel, end, seen=""):
+    """A hidden lob: it lands where its target stood when it left, `travel` ticks later; `end` runs on that point (a
+    zone started straight from the action lands nowhere: league_brand's / league_cassiopeia's way); `seen` = a picture
+    played on the landing point the whole flight."""
+    return {"type": "ParabolicProjectile", "name": n(name), "travel_time": travel, "range": 400000,
+            "range_effect_name": n(seen) if seen else "", "shape": circle(1), "applied_target": "EnemyWithoutTower",
+            "applied_effects": [], "end_effects": list(end)}
+
+
 def zone(name, shape, tick, effects, target="EnemyWithoutTower"):
     return {"type": "RangePeriodProjectile", "name": n(name), "shape": shape, "tick": tick, "period": 3,
             "first_delay": 1, "applied_target": target, "applied_effects": [T(e) for e in effects], "end_effects": []}
@@ -198,8 +207,8 @@ def build(p):
     plain = delayed(p["a_rel"] - 1, alive(bolt))
     pain = [buff("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow"]),
             buff("w_shred", p["w_mr_t"], magic_resistance_mult=-p["w_mr"])]
-    wall = combine(view("w_wall"), tsfx("w"),
-                   zone("w_wall", {"Rect": {"width": p["w_hw"], "height": p["w_hh"]}}, p["w_t"], pain))
+    wall = lob("w_lob", 1, [view("w_wall"), sfx("w"),
+                            zone("w_wall", {"Rect": {"width": p["w_hw"], "height": p["w_hh"]}}, p["w_t"], pain)])
     # the wall goes up on an enemy champion near him; none near, the attack stays plain and W stays ready
     lay = combine(pick(p["w_r"], "EnemyChampion", flag("w_go", 1)),
                   sw("w_go", combine(*rm("w_go"), flag("w_cd", p["w_cd"]), anim("attack_w", p["w_dur"]),
@@ -212,12 +221,12 @@ def build(p):
     # ------------------------------------------------------------------ skill: Q Lay Waste
     count = sw("q_c1", flag("q_c2", 3), flag("q_c1", 3))
     lone = delayed(1, sw("q_c2", NONE, combine(ap(p["q_dmg"], p["q_ratio"]), view("q_lone"), tsfx("q_lone"))))
-    burst = blast("q_blast", p["q_r"], p["q_delay"], "EnemyWithoutTower",
-                  [count, ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit"), lone])
+    burst = lob("q_lob", p["q_delay"], [view("q_boom"), sfx("q_boom"), blast(
+        "q_blast", p["q_r"], 1, "EnemyWithoutTower", [count, ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit"),
+                                                     lone])], seen="q_mark")
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(decoy(p["q_dmg"], p["q_ratio"], ap), sfx("q"), voice("vo_q", p),
-                           delayed(p["q_rel"] - 1, alive(*rm("q_c1", "q_c2"), view("q_mark"), sfx("q_mark"), burst),
-                                   delayed(p["q_delay"] - 1, alive(sfx("q_boom"))))))
+                           delayed(p["q_rel"] - 1, alive(*rm("q_c1", "q_c2"), sfx("q_mark"), burst))))
 
     # ------------------------------------------------------------------ skill2: E Defile
     pulses = [delayed(p["e_rel"] - 1 + k, alive(around(p["e_r"], "EnemyWithoutTower", ap(p["e_dmg"], p["e_ratio"]),
@@ -244,11 +253,12 @@ def build(p):
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 2}
     views_p = [Pj("a_bolt")]       # round; the zones carry no picture (an upright one would turn with the cast)
-    views_e = [E("a_hit"), E("q_mark", BIG, -1, False), E("q_hit", BIG, 2, False), E("q_lone"), E("e_hit"),
+    views_e = [E("a_hit"), E("q_mark", BIG, -1, False), E("q_boom", BIG, 2, False), E("q_hit"), E("q_lone"), E("e_hit"),
                E("w_wall", BIG, -1, False), E("r_cast", BIG, 3, True), E("r_hit")]
     views_b = [B_("e_on", BIG, -1), B_("w_slow", FX, 3), B_("w_shred", FX, 3)]
     extra = {}
-    if native:
+    if native:          # the add-on's spirit
+        views_b.append(B_("p_spirit", BIG, 3))
         extra["passive"] = {"passive_ref": "league_karthus:death_defied", "params": {"p_t": p["p_t"]}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range"], **extra,
