@@ -829,7 +829,7 @@
                 },
                 {
                   "type": "BlockSkill",
-                  "tick": 110
+                  "tick": 108
                 },
                 {
                   "type": "AddBuff",
@@ -837,7 +837,7 @@
                     "name": "league_chogath_w_sil",
                     "duration": {
                       "Time": {
-                        "tick": 110
+                        "tick": 108
                       }
                     }
                   }

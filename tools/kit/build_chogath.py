@@ -66,7 +66,7 @@ P = {
     "q_up": 45, "q_slow": 60, "q_slow_t": 90,
     # W Feral Scream
     "w_cd": 660, "w_range": 45000, "w_dur": 30, "w_rel": 12, "w_cone": 55000, "w_cos": 866, "w_dmg": 60, "w_ap": 50,
-    "w_sil": 110,
+    "w_sil": 108,
     # R Feast
     "r_cd": 3600, "r_range": 30000, "r_dur": 36, "r_rel": 16, "r_dmg": 300, "r_hp": 5, "r_ap": 50,
     "r_stack_hp": 70, "r_grow": 5,

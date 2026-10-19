@@ -945,6 +945,13 @@
         "skill": "发射飞弹，打中第一个敌人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并减速20%；飞了<#ffb900ff>0.33秒<>以上改为<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>，减速50%。",
         "skill2": "<#ff9028ff>悠米出动！<>：附身在交战中的队友身上<#ffb900ff>4秒<>（不可选取、跟着他走，照样能放摸鱼飞弹和魔典终章），他每秒回复<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>旺盛精力<>：给他<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾，攻速+20%、移速+10%。",
         "ult": "翻开魔典连发5道波纹，每道造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害并减速，沿途友军回复<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命；第3道<#ef5350ff>定身<><#ffb900ff>1.25秒<>。"
+      },
+      "league_chogath": {
+        "name": "科加斯",
+        "attack": "<#ff9028ff>肉食者<>：攻击击杀单位时回复<#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>恐惧之刺<>：每<#ffb900ff>6秒<>接下来3次攻击射出一排尖刺，直线上的敌人受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害并<#ef5350ff>减速35%<>，英雄另受2%最大生命真实伤害。",
+        "skill": "地面破裂，<#ffb900ff>0.6秒<>后尖刺冲出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害，<#ef5350ff>击飞0.75秒<>并<#ef5350ff>减速60%<>。",
+        "skill2": "向前方锥形区域尖叫，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并<#ef5350ff>沉默1.8秒<>。",
+        "ult": "吞噬受伤的敌方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真实伤害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>无视魔抗的魔法伤害；吃掉则叠一层：最大生命+70、体型变大（不封顶，死亡清空）。"
       }
     },
     "skill_name": {
@@ -1622,6 +1629,11 @@
         "skill1": "摸鱼飞弹",
         "skill2": "悠米出动！",
         "ult": "魔典终章"
+      },
+      "league_chogath": {
+        "skill1": "破裂",
+        "skill2": "野性尖叫",
+        "ult": "盛宴"
       }
     }
   },
@@ -2571,6 +2583,13 @@
         "skill": "發射飛彈，打中第一個敵人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並緩速20%；飛了<#ffb900ff>0.33秒<>以上改為<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>，緩速50%。",
         "skill2": "<#ff9028ff>飛撲抱抱！<>：附身在交戰中的隊友身上<#ffb900ff>4秒<>（無法被選取、跟著他走，照樣能放奇幻圖騰和最終篇章），他每秒回復<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>蹦蹦衝刺<>：給他<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾，攻速+20%、移速+10%。",
         "ult": "翻開魔典連發5道波紋，每道造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害並緩速，沿途友軍回復<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命；第3道<#ef5350ff>定身<><#ffb900ff>1.25秒<>。"
+      },
+      "league_chogath": {
+        "name": "科加斯",
+        "attack": "<#ff9028ff>肉食者<>：攻擊擊殺單位時回復<#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>恐懼尖刺<>：每<#ffb900ff>6秒<>接下來3次攻擊射出一排尖刺，直線上的敵人受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害並<#ef5350ff>緩速35%<>，英雄另受2%最大生命真實傷害。",
+        "skill": "地面破裂，<#ffb900ff>0.6秒<>後尖刺衝出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害，<#ef5350ff>擊飛0.75秒<>並<#ef5350ff>緩速60%<>。",
+        "skill2": "向前方錐形區域尖嘯，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並<#ef5350ff>沉默1.8秒<>。",
+        "ult": "吞噬受傷的敵方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真實傷害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>無視魔抗的魔法傷害；吃掉則疊一層：最大生命+70、體型變大（不封頂，死亡清空）。"
       }
     },
     "skill_name": {
@@ -3248,6 +3267,11 @@
         "skill1": "奇幻圖騰",
         "skill2": "飛撲抱抱！",
         "ult": "最終篇章"
+      },
+      "league_chogath": {
+        "skill1": "破裂",
+        "skill2": "野性尖嘯",
+        "ult": "饗宴"
       }
     }
   },
@@ -4197,6 +4221,13 @@
         "skill": "Fires a missile at the first enemy hit: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and 20% slow; after <#ffb900ff>0.33s<> of flight <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> and 50% slow instead.",
         "skill2": "<#ff9028ff>You and Me!<>: attaches to an ally in the fight for <#ffb900ff>4s<> (untargetable, moving with him, still casting Prowling Projectile and Final Chapter); he heals <#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> a second. <#ff9028ff>Zoomies<>: he gets a <#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> shield, +20% attack speed and +10% move speed.",
         "ult": "Opens the book and sends 5 waves: each deals <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and slows, and heals allies on its way <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>; wave 3 <#ef5350ff>roots<> for <#ffb900ff>1.25s<>."
+      },
+      "league_chogath": {
+        "name": "Cho'Gath",
+        "attack": "<#ff9028ff>Carnivore<>: a unit his attack kills heals him <#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>. <#ff9028ff>Vorpal Spikes<>: every <#ffb900ff>6s<> his next 3 attacks fire a line of spikes: <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<> and a <#ef5350ff>35% slow<> to enemies in it, champions also taking 2% max health true damage.",
+        "skill": "Ruptures the ground: after <#ffb900ff>0.6s<> spikes burst out for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage, <#ef5350ff>knocking up 0.75s<> and <#ef5350ff>slowing 60%<>.",
+        "skill2": "Screams in a cone ahead: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and <#ef5350ff>silence 1.8s<>.",
+        "ult": "Devours a wounded enemy champion: <#ff9028ff>300<> + 5% of his max health as true damage and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage through all magic resist. A kill is a stack: +70 max health and a bigger body (no cap; lost on death)."
       }
     },
     "skill_name": {
@@ -4874,6 +4905,11 @@
         "skill1": "Prowling Projectile",
         "skill2": "You and Me!",
         "ult": "Final Chapter"
+      },
+      "league_chogath": {
+        "skill1": "Rupture",
+        "skill2": "Feral Scream",
+        "ult": "Feast"
       }
     }
   },
@@ -5823,6 +5859,13 @@
         "skill": "미사일을 쏴 처음 맞힌 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해, 20% 둔화. <#ffb900ff>0.33초<> 넘게 날면 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>, 50% 둔화.",
         "skill2": "<#ff9028ff>너랑 유미랑!<>: 싸우는 아군에게 <#ffb900ff>4초<> 붙는다(대상 지정 불가, 함께 이동, 사르르탄과 대단원 사용 가능). 아군은 초당 <#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> 회복. <#ff9028ff>슈우우웅<>: 보호막 <#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>, 공격 속도 +20%, 이동 속도 +10%.",
         "ult": "책을 펼쳐 파동 5개를 보낸다. 파동마다 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해와 둔화, 닿은 아군 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<> 회복. 3번째 파동은 <#ffb900ff>1.25초<> <#ef5350ff>속박<>."
+      },
+      "league_chogath": {
+        "name": "초가스",
+        "attack": "<#ff9028ff>육식<>: 기본 공격으로 처치하면 <#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> 회복. <#ff9028ff>날카로운 가시<>: <#ffb900ff>6초<>마다 다음 3회 공격이 가시를 일직선으로 쏘아 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해와 <#ef5350ff>35% 둔화<>, 챔피언은 최대 체력 2% 고정 피해 추가.",
+        "skill": "땅을 갈라 <#ffb900ff>0.6초<> 뒤 가시가 솟아 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해, <#ef5350ff>0.75초 에어본<>, <#ef5350ff>60% 둔화<>.",
+        "skill2": "전방 원뿔에 울부짖어 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해와 <#ef5350ff>1.8초 침묵<>.",
+        "ult": "부상당한 적 챔피언을 삼켜 <#ff9028ff>300<> + 5% (자신의 최대 체력) 고정 피해와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +70, 몸집 증가(제한 없음, 사망 시 초기화)."
       }
     },
     "skill_name": {
@@ -6500,6 +6543,11 @@
         "skill1": "사르르탄",
         "skill2": "너랑 유미랑!",
         "ult": "대단원"
+      },
+      "league_chogath": {
+        "skill1": "파열",
+        "skill2": "흉포한 울부짖음",
+        "ult": "포식"
       }
     }
   },
@@ -7449,6 +7497,13 @@
         "skill": "ミサイルを撃ち、最初に当たった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと20%スロウ。<#ffb900ff>0.33秒<>以上飛ぶと<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>、50%スロウ。",
         "skill2": "<#ff9028ff>ユー＆ミー！<>：戦闘中の味方に<#ffb900ff>4秒<>くっつく（対象指定不可、一緒に移動、きまぐれミサイルとファイナルチャプターは使える）。味方は毎秒<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>回復。<#ff9028ff>バビューン！<>：シールド<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>、攻撃速度+20%、移動速度+10%。",
         "ult": "本を開き波を5つ放つ。1つごとに<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージとスロウ、通った味方を<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>回復。3つ目は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>。"
+      },
+      "league_chogath": {
+        "name": "チョ＝ガス",
+        "attack": "<#ff9028ff>暴食<>：通常攻撃でユニットを倒すと<#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>回復。<#ff9028ff>ヴォーパルスパイク<>：<#ffb900ff>6秒<>ごとに次の3回の攻撃が棘を直線に放ち<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージと<#ef5350ff>35%スロウ<>、チャンピオンは最大体力の2%確定ダメージ追加。",
+        "skill": "地面を割り<#ffb900ff>0.6秒<>後に棘が突き出て<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ、<#ef5350ff>0.75秒打ち上げ<>と<#ef5350ff>60%スロウ<>。",
+        "skill2": "前方の扇状範囲に叫び<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ef5350ff>1.8秒サイレンス<>。",
+        "ult": "傷ついた敵チャンピオンを捕食し<#ff9028ff>300<> + 5%（自身の最大体力）の確定ダメージと<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+70、体が大きくなる（上限なし、死亡で消える）。"
       }
     },
     "skill_name": {
@@ -8126,6 +8181,11 @@
         "skill1": "きまぐれミサイル",
         "skill2": "ユー＆ミー！",
         "ult": "ファイナルチャプター"
+      },
+      "league_chogath": {
+        "skill1": "ラプチャー",
+        "skill2": "スクリーム",
+        "ult": "捕食"
       }
     }
   }
