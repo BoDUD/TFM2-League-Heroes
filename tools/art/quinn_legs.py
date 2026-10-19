@@ -28,15 +28,22 @@ CUT_ROW = 35                        # the idle's rows from here down (right of C
 CAPE_X = 7
 INK = (0x09, 0x00, 0x13)
 PPU = 1.3
-# each leg measured on hd/idle.png (square edges): the hip under the skirt, the knee, the ankle; its thigh and shin rows
+# each leg measured on hd/idle.png (square edges): the hip under the skirt (row 30.5, hidden), the knee, the ankle; its thigh and shin rows
 # (inner colours, left to right), the knee plate squares on its front, its boot (rows / cols, the outline included)
 LEGS = {
-    "near": dict(hip=(11.5, 34.5), knee=(10.5, 39.0), ankle=(10.0, 43.5), thigh_row=(37, 10, 12), shin_row=(41, 9, 10),
+    "near": dict(hip=(11.5, 30.5), knee=(10.5, 39.0), ankle=(10.0, 43.5), thigh_row=(37, 10, 12), shin_row=(41, 9, 10),
                  plate=[0xfacc4d, 0xf5b52e], boot=((44, 48), (8, 13)), side="r"),
-    "far": dict(hip=(19.5, 35.0), knee=(19.5, 41.0), ankle=(21.0, 44.0), thigh_row=(38, 18, 20), shin_row=(42, 20, 21),
+    "far": dict(hip=(19.5, 31.0), knee=(19.5, 41.0), ankle=(21.0, 44.0), thigh_row=(38, 18, 20), shin_row=(42, 20, 21),
                 plate=[0xfcdf68, 0xf5b52e], boot=((44, 48), (19, 26)), side="l"),
 }
-SHIN_BACK, SHIN_FWD = -75.0, 60.0   # degrees from straight down the shin may point (rig_riven_hd: -70 / 50)
+# both legs the same length (the idle's two measured 4.6 / 4.5 and 6.0 / 3.4 - its far knee sits low in the 3/4 view;
+# drawn at those lengths one leg was always longer than the other). The hips sit under the skirt (rows 26-34 cover
+# them; the body is drawn over the thighs' tops): standing straight the ankles land where the idle's are, and a leg
+# swung forward or back shows the thigh the skirt hid - her stride opens as League's (whose legs are twice hers seen
+# from the skirt's hem) instead of shuffling under her
+THIGH_LEN, SHIN_LEN = 7.0, 6.5
+SHIN_BACK, SHIN_FWD = -130.0, 60.0  # degrees from straight down the shin may point: back far enough for the run's
+# heel kicked up behind (League's run reaches -110 to -135; at -75 the kick was cut off and the run shuffled)
 GROUND = 49                         # the idle's soles' bottom edge
 
 
@@ -63,8 +70,7 @@ def parts(idle):
         ax, ay = L["ankle"]
         boot = (np.stack([xs + 0.5 - ax, ys + 0.5 - ay], 1), idle[ys, xs])
         out[key] = dict(thigh=thigh, shin=shin, boot=boot, drop=float(ys.max() + 1 - ay),
-                        thigh_len=math.dist(L["hip"], L["knee"]), shin_len=math.dist(L["knee"], L["ankle"]),
-                        plate=[rgb(h) for h in L["plate"]])
+                        thigh_len=THIGH_LEN, shin_len=SHIN_LEN, plate=[rgb(h) for h in L["plate"]])
     return out
 
 
@@ -86,9 +92,19 @@ def band(cells, A, B, profile):
                 cells[(x, y)] = profile[max(0, min(n_ - 1, int(math.floor(-sd + n_ / 2.0))))]
 
 
-def leg_cells(part, H, K, A):
-    """{(x, y): colour} of one leg - thigh H->K, shin K->A, the knee plate on the knee's front, the boot at A - and the
-    bands' own squares (their outline ring)."""
+def boot_offsets(part, rot=0):
+    """The boot's square offsets from the ankle, turned rot quarter turns clockwise on screen (1: the toe pointing down,
+    the sole to the back - a kneeling leg's foot on its toes)."""
+    off, cols = part["boot"]
+    off = off.copy()
+    for _ in range(rot % 4):                       # clockwise on screen (y down): (x, y) -> (-y, x)
+        off = np.stack([-off[:, 1], off[:, 0]], 1)
+    return off, cols
+
+
+def leg_cells(part, H, K, A, boot_rot=0):
+    """{(x, y): colour} of one leg - thigh H->K, shin K->A, the knee plate on the knee's front, the boot at A (turned
+    boot_rot quarter turns clockwise) - and the bands' own squares (their outline ring)."""
     cells = {}
     band(cells, H, K, part["thigh"])
     band(cells, K, A, part["shin"])
@@ -103,17 +119,18 @@ def leg_cells(part, H, K, A):
         y = int(math.floor(K[1] + fy * 0.8 + uy * (k - 0.3)))
         cells[(x, y)] = c
     banded = set(cells)
-    off, cols = part["boot"]
+    off, cols = boot_offsets(part, boot_rot)
     for x, y, c in zip(np.floor(A[0] + off[:, 0]).astype(int), np.floor(A[1] + off[:, 1]).astype(int), cols):
         cells[(int(x), int(y))] = c
     return cells, banded
 
 
 def draw_legs(can, geo, P):
-    """Both legs on can: the far one first, the near one and its ring over it."""
+    """Both legs on can: the far one first, the near one and its ring over it. geo values: (hip, knee, ankle[, boot
+    quarter turns clockwise])."""
     for key in ("far", "near"):
-        H, K, A = geo[key]
-        cells, banded = leg_cells(P[key], H, K, A)
+        H, K, A = geo[key][:3]
+        cells, banded = leg_cells(P[key], H, K, A, geo[key][3] if len(geo[key]) > 3 else 0)
         ring = set()
         for (x, y) in banded:
             for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
@@ -128,16 +145,156 @@ def draw_legs(can, geo, P):
                 can[y, x] = c
 
 
-def geometry(j, P):
+def reach(hip, foot_dir, frac, L1, L2):
+    """Two-bone IK: the ankle frac x (L1 + L2) from hip along foot_dir (degrees from straight down, + forward), the
+    knee on the forward side of the hip-ankle line (a leg bends back at the knee). -> (knee, ankle)."""
+    d = max(abs(L1 - L2) + 0.01, min(L1 + L2 - 0.01, frac * (L1 + L2)))
+    a = math.radians(foot_dir)
+    u = np.array((math.sin(a), math.cos(a)))
+    ankle = hip + u * d
+    c = (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)
+    t = math.acos(max(-1.0, min(1.0, c)))
+    side = np.array((u[1], -u[0]))                  # u turned a quarter counter-clockwise on screen: forward for a leg
+    if side[0] < 0:                                  # pointing down (the knee goes the way she faces)
+        side = -side
+    knee = hip + u * (L1 * math.cos(t)) + side * (L1 * math.sin(t))
+    return knee, ankle
+
+
+def flat(j, pitch, unit):
+    """League's joints seen without the camera's pitch: y the true height (down, game px, one zero for every frame of
+    the camera), x as seen. Through the spec's pitch a foot further from the camera showed higher than it stood - a
+    kneeling leg's knee on the floor looked lifted and its toes in the air."""
+    cp, sp = math.cos(math.radians(pitch)), math.sin(math.radians(pitch))
+    return {k: [v[0], cp * v[1] - sp * v[2] * unit, v[2]] for k, v in j.items()}
+
+
+def leg_sides(j, roles):
+    """Which of League's legs ("l" / "r") each of hers draws: by name, or (roles) League's front foot on her image-right
+    leg and its back foot on her image-left one."""
+    if not roles:
+        return {key: L["side"] for key, L in LEGS.items()}
+    front = "r" if j["r_foot"][0] >= j["l_foot"][0] else "l"
+    return {"far": front, "near": "l" if front == "r" else "r"}
+
+
+def reach_to(hip, ankle, L1, L2):
+    """Two-bone IK to a given ankle (pulled in along the line when out of reach), the knee forward. -> (knee, ankle)."""
+    v = np.asarray(ankle, float) - hip
+    d = min(float(np.hypot(*v)), L1 + L2 - 0.01)
+    return reach(hip, math.degrees(math.atan2(v[0], v[1])), d / (L1 + L2), L1, L2)
+
+
+PLANT_TOL = 1.5     # League's ankle within this (game px) of its standing ankle's height: the foot is on the floor
+KNEE_LOW = 2.0      # a knee's band and outline reach this far under the knee joint (squares)
+
+
+def lowest_row(part, H, K, A, rot=0):
+    """The lowest square row a leg drawn so covers, its outline ring included."""
+    cells, banded = leg_cells(part, H, K, A, rot)
+    return max([y for _, y in cells] + [y + 1 for x, y in banded if (x, y + 1) not in cells])
+
+
+def geometry_ground(j, jd, P, spread=1.0, hips=None, roles=False):
+    """Her legs where League's stand on the floor. j, jd: League's joints of the frame and of the design pose, both
+    flat(). The legs as geometry_ik places them, then: a leg whose knee is down at League's standing ankle height or
+    lower, and under its own ankle, kneels - the thigh the way League's points, the knee on the floor, the shin back to
+    the ankle, the boot turned toe down onto the floor - and sets the floor; every other foot League has on the floor
+    (within PLANT_TOL px of its standing ankle) is solved down onto that floor, or onto the lowest planted boot's (the
+    ankle kept where geometry_ik put it across, the knee forward; all of them on one floor, as low as each can reach);
+    a lifted foot that would reach under the floor is lifted a row over it.
+    -> ({"near" | "far": (hip, knee, ankle, boot quarter turns clockwise)}, the floor's row - the boots' bottom edge -
+    in the idle's squares; None when no foot is down: the figure then stands on its lowest boot or League's lift)."""
+    geo = {k: (*v, 0) for k, v in geometry_ik(j, P, spread=spread, hips=hips, roles=roles).items()}
+    sides = leg_sides(j, roles)
+    stand = max(jd["l_foot"][1], jd["r_foot"][1])
+    kneel, planted, lifted = [], [], []
+    for key, s in sides.items():
+        knee_y, foot_y = j[f"{s}_knee"][1], j[f"{s}_foot"][1]
+        if knee_y >= stand - PLANT_TOL and knee_y > foot_y:
+            kneel.append(key)
+        elif foot_y >= stand - PLANT_TOL:
+            planted.append(key)
+        else:
+            lifted.append(key)
+    floor = None
+    for key in kneel:
+        s = sides[key]
+        part = P[key]
+        H = geo[key][0]
+        h, k, f = (np.array(j[f"{s}_{n}"][:2], float) for n in ("hip", "knee", "foot"))
+        u = (k - h) / (np.linalg.norm(k - h) or 1.0)
+        K = H + u * part["thigh_len"]
+        off, _ = boot_offsets(part, 1)
+        rise = KNEE_LOW - (off[:, 1].max() + 0.5)          # the ankle this far under the knee (negative: over it)
+        rise = max(-part["shin_len"] + 0.5, min(part["shin_len"] - 0.5, rise))
+        back = -1.0 if f[0] <= k[0] else 1.0
+        A = K + np.array((back * math.sqrt(part["shin_len"] ** 2 - rise ** 2), rise))
+        geo[key] = (H, K, A, 1)
+        low = lowest_row(part, H, K, A, 1) + 1
+        floor = low if floor is None else max(floor, low)
+    if planted:
+        if floor is None:
+            floor = max(geo[k][2][1] + P[k]["drop"] for k in planted)
+        for key in planted:                                 # as low as every planted leg reaches
+            H, A = geo[key][0], geo[key][2]
+            dmax = P[key]["thigh_len"] + P[key]["shin_len"] - 0.05
+            dx = A[0] - H[0]
+            if abs(dx) < dmax:
+                floor = min(floor, H[1] + math.sqrt(dmax ** 2 - dx ** 2) + P[key]["drop"])
+        floor = math.floor(floor)                           # a square edge: every planted boot ends on one row
+        for key in planted:
+            H, A = geo[key][0], geo[key][2]
+            K, A2 = reach_to(H, (A[0], floor - P[key]["drop"]), P[key]["thigh_len"], P[key]["shin_len"])
+            geo[key] = (H, K, A2, 0)
+    if floor is not None:
+        for key in lifted:
+            H, K, A, _ = geo[key]
+            if A[1] + P[key]["drop"] > floor - 1:
+                K, A = reach_to(H, (A[0], floor - 1 - P[key]["drop"]), P[key]["thigh_len"], P[key]["shin_len"])
+                geo[key] = (H, K, A, 0)
+    return geo, floor
+
+
+def geometry_ik(j, P, spread=1.0, hips=None, roles=False):
+    """{"near" | "far": (hip, knee, ankle)}: each ankle where League's foot is seen from its hip - the direction times
+    `spread`, at the share of the leg's full length League's hip-to-foot is (how bent it is) - and the knee solved at the
+    idle's lengths. League's chibi legs at her height are twice hers (hip to foot about 20 squares against 9): its
+    feet from the hips lie only -40..+17 degrees off straight down and its stride is wide by length alone; hers widens
+    by the direction (spread). roles: League's front foot (the one further forward) drawn on her image-right leg and its
+    back foot on her image-left one, as her idle stands (League steps forward with its near leg: by name the near leg
+    went forward across the far one and the two crossed into one)."""
+    geo = {}
+    sides = leg_sides(j, roles)
+    for key, L in LEGS.items():
+        s = sides[key]
+        h, k, f = (np.array(j[f"{s}_{n}"][:2], float) for n in ("hip", "knee", "foot"))
+        full = np.linalg.norm(k - h) + np.linalg.norm(f - k)
+        frac = np.linalg.norm(f - h) / (full or 1)
+        fdir = math.degrees(math.atan2(f[0] - h[0], f[1] - h[1])) * spread
+        H = np.array((hips or {}).get(key, L["hip"]), float)
+        K, A = reach(H, fdir, frac, P[key]["thigh_len"], P[key]["shin_len"])
+        geo[key] = (H, K, A)
+    return geo
+
+
+def geometry(j, P, swing=1.0, hips=None):
     """{"near" | "far": (hip, knee, ankle)} in idle squares from League's joints j: each thigh along League's
-    hip -> knee, each shin along League's knee -> foot, clamped to SHIN_BACK..SHIN_FWD from straight down."""
+    hip -> knee, each shin along League's knee -> foot, clamped to SHIN_BACK..SHIN_FWD from straight down. swing: the
+    thigh's angle from straight down times this, the shin keeping its bend at the knee x swing too (her legs are a
+    chibi's, under a third of her height against League's half: at League's angles her stride shows half as wide).
+    hips: {"near" | "far": (x, y)} instead of the idle's."""
     geo = {}
     for key, L in LEGS.items():
         s = L["side"]
         h, k, f = (np.array(j[f"{s}_{n}"][:2], float) for n in ("hip", "knee", "foot"))
-        t = (k - h) / (np.linalg.norm(k - h) or 1)
-        ang = max(SHIN_BACK, min(SHIN_FWD, math.degrees(math.atan2(f[0] - k[0], f[1] - k[1]))))
-        H = np.array(L["hip"], float)
+        a_t = math.degrees(math.atan2(k[0] - h[0], k[1] - h[1]))
+        a_s = math.degrees(math.atan2(f[0] - k[0], f[1] - k[1]))
+        a_t2 = a_t * swing
+        a_s2 = a_t2 + (a_s - a_t) * swing
+        t = np.array((math.sin(math.radians(a_t2)), math.cos(math.radians(a_t2))))
+        ang = max(SHIN_BACK, min(SHIN_FWD, a_s2))
+        H = np.array((hips or {}).get(key, L["hip"]), float)
         K = H + t * P[key]["thigh_len"]
         A = K + P[key]["shin_len"] * np.array((math.sin(math.radians(ang)), math.cos(math.radians(ang))))
         geo[key] = (H, K, A)

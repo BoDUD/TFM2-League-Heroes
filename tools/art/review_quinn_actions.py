@@ -9,6 +9,7 @@ square, both at the tag's own frame times. Writes <out>/quinn_<tag>_vs_lol.gif a
 and <out>/quinn_all_vs_lol.gif: every tag in turn (each played twice), one picture to review.
 """
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -33,17 +34,29 @@ CLIPS = {"idle": ("Quinn", "Quinn_idle1", 0, 2.4), "run": ("Quinn", "Quinn_run",
 BG = (96, 112, 96)
 
 
+SPEC = os.path.join(R.ROOT, "assets", "source", "quinn", "poses_side.json")
+
+
 def lol_frames(lol, tag, n, out):
+    """League's frames for a tag: the very frames the rig poses after (assets/source/quinn/poses_side.json, blends
+    included) when the tag has as many, else the clip's part in CLIPS sampled evenly (the ride's Valor clips)."""
     champ, clip, t0, t1 = CLIPS[tag]
     name = f"lol_{tag}"
+    with open(SPEC, encoding="utf-8") as f:
+        spec = json.load(f)["tags"]
+    exact = champ != VALOR and tag in spec and len(spec[tag]["frames"]) == n
     cmd = [sys.executable, os.path.join(R.ROOT, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", champ,
-           "--wad", "Quinn", "--anim", clip, "--frames", str(n), "--t0", str(t0), "--t1", str(t1), "--mirror",
-           "--yaw", "60", "--size", "300", "--no-labels", "--out", out]
+           "--wad", "Quinn", "--mirror", "--yaw", "60", "--size", "300", "--no-labels", "--out", out]
+    if exact:
+        cmd += ["--name", name] + sum((["--frame", fr[0]] for fr in spec[tag]["frames"]), [])
+    else:
+        cmd += ["--anim", clip, "--frames", str(n), "--t0", str(t0), "--t1", str(t1)]
     if champ == VALOR:
         cmd += ["--fit", "0.28", "--ground", "1.45", "--width", "1.8"]
     subprocess.run(cmd, check=True, capture_output=True)
-    strip = Image.open(os.path.join(out, clip + ".png")).convert("RGB")
-    os.replace(os.path.join(out, clip + ".png"), os.path.join(out, name + ".png"))
+    if not exact:
+        os.replace(os.path.join(out, clip + ".png"), os.path.join(out, name + ".png"))
+    strip = Image.open(os.path.join(out, name + ".png")).convert("RGB")
     w = strip.width // n
     return [strip.crop((i * w, 0, (i + 1) * w, strip.height)) for i in range(n)]
 

@@ -27,6 +27,42 @@
  ],
  "design": "Quinn_idle1@0",
  "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Quinn_idle1@0",
+     150
+    ],
+    [
+     "Quinn_idle1@300",
+     150
+    ],
+    [
+     "Quinn_idle1@600",
+     150
+    ],
+    [
+     "Quinn_idle1@900",
+     150
+    ],
+    [
+     "Quinn_idle1@1200",
+     150
+    ],
+    [
+     "Quinn_idle1@1500",
+     150
+    ],
+    [
+     "Quinn_idle1@1800",
+     150
+    ],
+    [
+     "Quinn_idle1@2100",
+     150
+    ]
+   ]
+  },
   "run": {
    "flat": true,
    "head_like": "Quinn_idle1@0",
@@ -62,6 +98,170 @@
     [
      "Quinn_run@816",
      117
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.7,
+   "frames": [
+    [
+     "Quinn_idle1@0>Quinn_attack1@60:0.5",
+     80
+    ],
+    [
+     "Quinn_attack1@120",
+     70
+    ],
+    [
+     "Quinn_attack1@200",
+     90
+    ],
+    [
+     "Quinn_attack1@330",
+     110
+    ],
+    [
+     "Quinn_attack1@550>Quinn_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.7,
+   "frames": [
+    [
+     "quinn_spell1@0",
+     90
+    ],
+    [
+     "quinn_spell1@175",
+     90
+    ],
+    [
+     "quinn_spell1@350",
+     90
+    ],
+    [
+     "quinn_spell1@525",
+     90
+    ],
+    [
+     "quinn_spell1@700",
+     90
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.7,
+   "rise": 0.5,
+   "frames": [
+    [
+     "Quinn_spell3_dash@100",
+     60
+    ],
+    [
+     "Quinn_spell3_dash@300",
+     60
+    ]
+   ]
+  },
+  "e_flip": {
+   "lunge": 0.7,
+   "rise": 0.5,
+   "frames": [
+    [
+     "Quinn_spell3_flip@0",
+     60
+    ],
+    [
+     "Quinn_spell3_flip@140",
+     60
+    ],
+    [
+     "Quinn_spell3_flip@280",
+     60
+    ],
+    [
+     "Quinn_spell3_flip@420",
+     60
+    ],
+    [
+     "Quinn_spell3_flip@560",
+     60
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.7,
+   "frames": [
+    [
+     "Quinn_idle1@0>Quinn_Spell4_Channel@200:0.5",
+     80
+    ],
+    [
+     "Quinn_Spell4_Channel@500",
+     100
+    ],
+    [
+     "Quinn_Spell4_Channel@800",
+     120
+    ],
+    [
+     "Quinn_Spell4_Channel@1250",
+     200
+    ]
+   ]
+  },
+  "hit": {
+   "flat": true,
+   "frames": [
+    [
+     "Quinn_idle1@0>quinn_death@400:0.35",
+     100
+    ],
+    [
+     "Quinn_idle1@0>quinn_death@400:0.15",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.5,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "quinn_death@0",
+     100
+    ],
+    [
+     "quinn_death@400",
+     110
+    ],
+    [
+     "quinn_death@800",
+     120
+    ],
+    [
+     "quinn_death@1200",
+     150
+    ],
+    [
+     "quinn_death@2300",
+     130
+    ],
+    [
+     "quinn_death@2600",
+     70
+    ],
+    [
+     "quinn_death@2800",
+     80
+    ],
+    [
+     "quinn_death@3150",
+     500
     ]
    ]
   }

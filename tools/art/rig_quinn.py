@@ -34,6 +34,8 @@ from rig_wukong import CutDesign as _Cut, Form as _Form, P, pad, sheet  # noqa: 
 HERO = "quinn"
 PPU = 1.3
 SRC = os.path.join(R.ROOT, "assets", "source", "quinn", "hd")
+with open(os.path.join(R.ROOT, "assets", "source", "quinn", "poses_side.json"), encoding="utf-8") as _f:
+    F_PITCH = json.load(_f)["camera"]["pitch"]           # the side camera's pitch (hd/side/quinn_joints.json)
 
 
 def lp(path):
@@ -64,8 +66,22 @@ def dark(d):
 
 # ------------------------------------------------------------------------------------------------- the idle's parts
 SHOULDER = (20.5, 17.5)       # (x, y) the crossbow arm turns about
+SHOULDER_ROW = 17             # the crossbow arm's root row (it moves with the lean's shift there)
+HEAD_LOW = 16                 # the head's lowest row (the chin): the head leans as one block
+CAPE_ROW, CAPE_COL = 31, 6    # the cape's hem: rows from CAPE_ROW down, columns to CAPE_COL (under the near hand)
 LEG_TOP = 33                  # the legs: rows LEG_TOP to the soles, split at LEG_X
 LEG_X = 16
+# The crossbow arm is her far arm, reaching out from behind her chest: its fist (the cuff, the glove and the crossbow,
+# the arm's squares from FIST_X on) hangs at WRIST, the cuff's left edge on the sleeve's middle row. Held anywhere but out
+# at the shoulder, the arm is drawn again from the shoulder - an upper arm and a forearm, bands across the sleeve's own
+# squares (SLEEVE, light top to dark bottom: the idle's column 21-22, rows 16-18), behind the body as a far arm is - and
+# the fist put on at its end (the user, 2026-10-19, on the run's crossbow moved whole down to her hip, the hand with no
+# arm to the shoulder: 「手拿武器有点奇怪」). In a dying fall the crossbow (BOW_X on: the glove and the bow) drops as
+# League's does.
+FIST_X, BOW_X = 23, 25
+WRIST = (23.0, 17.5)
+SLEEVE = (0x1c50e4, 0x0527b5, 0x333350)
+CRACK, CRACK_W = 16, 1.5      # an enclosed gap at most this many squares and this far from its edge is a crack
 
 
 def design():
@@ -152,7 +168,23 @@ class Form:
         self.P = QL.parts(D.d)
         b = QL.body(D.d)
         b[D.parts["arm"]] = 0
+        # the cape's hem (her back, behind the legs: drawn first, the legs over it - at the idle's own layering it hid
+        # every heel kicked up behind) and the rest of the body (the skirt over the thighs' tops)
+        yy, xx = np.mgrid[0:D.H, 0:D.W]
+        hem = (yy >= CAPE_ROW) & (xx <= CAPE_COL) & (b[..., 3] > 0)
+        cape = np.zeros_like(b)
+        cape[hem] = b[hem]
+        b[hem] = 0
         self.BODY = pad(b)
+        self.CAPE = pad(cape)
+        self.CAPE_LOW = int(np.nonzero((cape[..., 3] > 0).any(1))[0].max())
+        arm = D.layer("arm")
+        self.FIST, self.BOW = (pad(np.where((xx >= x0)[..., None], arm, 0).astype(np.uint8)) for x0 in (FIST_X, BOW_X))
+        bys = np.nonzero((self.BOW[..., 3] > 0).any(1))[0]
+        self.BOW_LOW = int(bys.max()) - P            # the crossbow's lowest row (design rows)
+        self.SLEEVE = [QL.rgb(c) for c in SLEEVE]
+        self.PITCH = F_PITCH
+        self._cache = {}
         # Codex's leg poses (tools/art/design_quinn_legs.py): the legs of each, on the idle's grid, and how far the
         # upper body goes down onto them
         with open(lp(os.path.join(SRC, "legs.json")), encoding="utf-8") as f:
@@ -178,7 +210,7 @@ class Form:
         lay[y0:y0 + sub.shape[0], x0:x0 + sub.shape[1]] = sub
         return lay
 
-    def pose(self, crouch=0, whole=(0, 0), arm=(0, 0), arm_rot=0, legs=None, leg=None, fill=True):
+    def pose(self, crouch=0, whole=(0, 0), arm=(0, 0), arm_rot=0, legs=None, leg=None, fill=True, no_arm=False):
         """crouch: rows the body (with the arm) sets down onto the legs; whole: the whole figure; arm: the crossbow arm
         moved, arm_rot quarter turns counter-clockwise about SHOULDER (1: pointing up); legs: ((near dx, dy),
         (far dx, dy)) for the idle's own legs; leg: one of Codex's leg poses instead (kneel, lunge, wide, back, tuck,
@@ -194,34 +226,126 @@ class Form:
             ux, uy = wx, wy + crouch
             (nx, ny), (fx, fy) = legs or ((0, 0), (0, 0))
             leg_layers = [(L["far_leg"], dict(dx=wx + fx, dy=wy + fy)), (L["near_leg"], dict(dx=wx + nx, dy=wy + ny))]
-        layers = [*leg_layers,
-                  (L["body"], dict(dx=ux, dy=uy)),
-                  (L["arm"], dict(dx=ux + arm[0], dy=uy + arm[1], rot=arm_rot, about=SHOULDER))]
+        layers = [*leg_layers, (L["body"], dict(dx=ux, dy=uy))]
+        if not no_arm:
+            layers.append((L["arm"], dict(dx=ux + arm[0], dy=uy + arm[1], rot=arm_rot, about=SHOULDER)))
         can = R.compose(self.rig, layers)
         return self.close_holes(can) if fill else can
 
-    def drawn(self, j, ref=None, arm=(0, 0), arm_rot=0, air=False, lunge=0.5, shift=(0, 0)):
-        """A frame on legs drawn on League's joints j (quinn_legs): the body moved forward / back lunge x League's
-        pelvis travel from ref's (default the design pose), set on the ground by its lowest boot, or lifted as far as
-        League's lower foot leaves the floor (air); the crossbow arm moved / turned losslessly; shift: the whole frame."""
-        geo = QL.geometry(j, self.P)
-        low = max(geo[k][2][1] + self.P[k]["drop"] for k in geo)
-        d = self.J["design"]
+    def leant(self, per):
+        """The body (without legs and crossbow arm) leant forward on an even line, no square resampled (league_zeri's
+        run): every row above the hips one square further right every `per` rows, the head (rows to HEAD_LOW) one block
+        by its lowest row's amount. -> (padded layer, the shift at the shoulder - the arm moves by it)."""
+        key = ("lean", per)
+        if key not in self._cache:
+            src = self.BODY
+            out = np.zeros_like(src)
+            for y in range(src.shape[0]):
+                dy = y - P
+                ref = max(dy, HEAD_LOW)
+                sh = (QL.CUT_ROW - ref) // per if ref < QL.CUT_ROW else 0
+                if sh:
+                    out[y, sh:] = src[y, :-sh]
+                else:
+                    out[y] = src[y]
+            self._cache[key] = (out, (QL.CUT_ROW - SHOULDER_ROW) // per)
+        return self._cache[key]
+
+    def drawn(self, j, ref=None, arm=(0, 0), arm_rot=0, air=False, lunge=0.5, shift=(0, 0), swing=1.0, lean=0,
+              hips=None, flight=None, cape=(0, 0), spread=None, roles=False, ground=False, hold=None, drop=False):
+        """A frame on legs drawn on League's joints j (quinn_legs, the side camera's): the body moved forward / back
+        lunge x League's pelvis travel from ref's (default the design pose), set on the ground by its lowest boot, or
+        lifted as far as League's lower foot leaves the floor (air); the crossbow arm moved / turned losslessly; shift:
+        the whole frame; swing: League's leg angles widened (quinn_legs.geometry); lean: the body leant forward one
+        square every `lean` rows (0: upright); hips: the hips' places instead of the idle's (quinn_legs.geometry);
+        flight: (the tag's lowest foot height in game px, share kept) - lifted as League's lower foot is above its
+        lowest in the tag (a run's both-feet-off-the-ground frames); cape: the cape's hem moved whole (flying back as
+        she runs); spread: the legs placed by League's feet seen from the hips, the direction widened
+        (quinn_legs.geometry_ik) instead of by League's thigh and shin angles; ground: League's joints without the
+        camera's pitch, her feet put on the floor where League's are and a knee League has down kneeling
+        (quinn_legs.geometry_ground); hold: dict(elbow, wrist[, rot]) - the arm drawn from the shoulder to the elbow
+        and the wrist (squares from the shoulder), the fist on it turned rot quarter turns counter-clockwise; drop: no
+        crossbow arm (the bow fell; her far arm hangs behind her)."""
+        d = self.JS["design"]
+        floor = None
+        if ground:
+            j, d = (QL.flat(x, self.PITCH, self.JS["unit"]) for x in (j, d))
+            ref = ref and QL.flat(ref, self.PITCH, self.JS["unit"])
+            geo, floor = QL.geometry_ground(j, d, self.P, spread=spread or 1.0, hips=hips, roles=roles)
+        else:
+            geo = (QL.geometry_ik(j, self.P, spread=spread, hips=hips, roles=roles) if spread else
+                   QL.geometry(j, self.P, swing=swing, hips=hips))
+        low = floor if floor is not None else max(geo[k][2][1] + self.P[k]["drop"] for k in geo)
         r = ref or d
         lift = 0.0
         if air:
             lift = max(0.0, min(-j["l_foot"][1], -j["r_foot"][1]) - min(-d["l_foot"][1], -d["r_foot"][1])) * QL.PPU
+        if flight:
+            low_tag, keep = flight
+            lift = max(0.0, self.toe_height(j) - low_tag) * QL.PPU * keep
         dx = int(round((j["pelvis"][0] - r["pelvis"][0]) * QL.PPU * lunge)) + shift[0]
         dy = int(round(QL.GROUND - lift - low)) + shift[1]
         rig = self.rig
-        can = rig.canvas()
-        QL.draw_legs(can, {k: tuple(v + np.array((rig.ox + dx, rig.oy + dy)) for v in g) for k, g in geo.items()},
-                     self.P)
-        up = R.compose(rig, [(self.BODY, dict(dx=dx, dy=dy)),
-                             (self.L["arm"], dict(dx=dx + arm[0], dy=dy + arm[1], rot=arm_rot, about=SHOULDER))])
+        # the hem rests on the floor when she goes down on her knees (set down whole it hung through the floor)
+        can = R.compose(rig, [(self.CAPE, dict(dx=dx + cape[0], dy=min(dy + cape[1], QL.GROUND - 1 - self.CAPE_LOW)))])
+        QL.draw_legs(can, {k: (*(v + np.array((rig.ox + dx, rig.oy + dy)) for v in g[:3]), *g[3:])
+                           for k, g in geo.items()}, self.P)
+        body, ash = self.leant(lean) if lean else (self.BODY, 0)
+        layers = [(body, dict(dx=dx, dy=dy))]
+        if hold:
+            S = np.array(SHOULDER) + (rig.ox + dx + ash, rig.oy + dy)
+            W = S + hold["wrist"]
+            self.draw_arm(can, S, S + hold["elbow"], W)
+            layers.append((self.FIST, dict(dx=int(round(W[0] - rig.ox - WRIST[0])),
+                                           dy=int(round(W[1] - rig.oy - WRIST[1])), rot=hold.get("rot", 0),
+                                           about=WRIST)))
+        elif not drop:
+            layers.append((self.L["arm"], dict(dx=dx + ash + arm[0], dy=dy + arm[1], rot=arm_rot, about=SHOULDER)))
+        up = R.compose(rig, layers)
         m = up[..., 3] > 0
         can[m] = up[m]
-        return can
+        return self.close_cracks(can)
+
+    def close_cracks(self, can):
+        """The ground seen through a thin crack the drawn legs leave against the cape, the skirt or each other (a slit
+        between two boots that touch, a pocket under the hip) closed with the outline's dark - the idle has no enclosed
+        gap at all (gap-check); a wider room between the limbs stays open."""
+        op = can[..., 3] > 0
+        lbl, n = ndimage.label(ndimage.binary_fill_holes(op) & ~op)
+        out = can.copy()
+        for k in range(1, n + 1):
+            h = lbl == k
+            if h.sum() <= CRACK and ndimage.distance_transform_edt(h).max() <= CRACK_W:
+                out[h] = (*QL.INK, 255)
+        return out
+
+    def toe_height(self, j):
+        """League's lower toe over its floor (game px, without the camera's pitch): a foot is down while its toe is,
+        whatever its ankle does as it rolls from heel to toe (by the ankles seen through the pitch, six of the run's
+        eight frames left the floor; League's has both feet up in two)."""
+        f = QL.flat(j, self.PITCH, self.JS["unit"])
+        return -max(f["l_toe"][1], f["r_toe"][1])
+
+    def draw_arm(self, can, S, E, W):
+        """Her far arm from the shoulder S to the elbow E and the wrist W (canvas squares): bands across the sleeve's
+        squares in an outline ring (quinn_legs.band), drawn into can before the body - the body covers it."""
+        cells = {}
+        QL.band(cells, S, E, self.SLEEVE)
+        QL.band(cells, E, W, self.SLEEVE)
+        ring = {(x + ex, y + ey) for x, y in cells for ex, ey in ((1, 0), (-1, 0), (0, 1), (0, -1))} - set(cells)
+        for x, y in ring:
+            can[y, x] = (*QL.INK, 255)
+        for (x, y), c in cells.items():
+            can[y, x] = c
+
+    def bow(self, can, dx, dy, rot=0, about=(34.0, 16.0)):
+        """The dropped crossbow (no hand) added behind the figure on can: moved (dx, dy) from where her hand held it,
+        turned rot quarter turns counter-clockwise about `about` (design squares)."""
+        b = R.compose(self.rig, [(self.BOW, dict(dx=dx, dy=dy, rot=rot, about=about))])
+        m = (b[..., 3] > 0) & (can[..., 3] == 0)
+        out = can.copy()
+        out[m] = b[m]
+        return out
 
     def whole(self, name, dx=0, dy=0, flash=False):
         can = R.compose(self.rig, [(self.other[name], dict(dx=dx, dy=dy))])
@@ -253,6 +377,26 @@ def tries(F):
 
 # ------------------------------------------------------------------------------------------------- the actions
 UP = dict(arm_rot=1, arm=(3, -2))     # the crossbow arm turned up to the sky, beside the head (never over the face)
+# the run as League's (the user, 2026-10-19, beside League's frames: 「明显动作不一样吧 你起码做到一样啊」 - League strides
+# wide, leans forward): League's leg angles x RUN_SWING (her chibi legs are under a third of her height), the body leant
+# one square every RUN_LEAN rows (the head about six squares ahead of the hips, league_zeri's approved run), the whole
+# frame RUN_DX back so the hips stay over the standing point
+RUN_SWING, RUN_LEAN, RUN_DX = 1.6, 3, -2
+ACT_SPREAD = 1.2              # the standing moves' feet seen from the hips, widened a little (her legs are half League's)
+RUN_SPREAD = 1.3              # League's feet seen from the hips, the direction widened (her legs are half League's)
+# the crossbow arm bent as League's runs with it: the elbow down at her side behind her, the forearm forward at her
+# stomach, the bow held out before her (squares from the shoulder; Form.drawn hold)
+RUN_HOLD = dict(elbow=(-1.0, 4.5), wrist=(2.5, 4.0))
+LOW_HOLD = dict(elbow=(-1.0, 5.0), wrist=(2.5, 9.0))    # let down to her hip (R's channel, League's 0.5 s)
+# the death's crossbow: flung up behind her (moved, then a quarter turn up), then lying on the floor behind her
+BOW_FLUNG = (-40, 8)
+BOW_DX = -42
+RUN_FLIGHT = 0.6              # share of League's lift kept in the run's both-feet-off-the-ground frames
+RUN_CAPE = [(-2, -2), (-2, -3), (-3, -3), (-2, -3), (-2, -2), (-2, -3), (-3, -3), (-2, -3)]   # the hem flying back
+# the hips close together as League's side-on run has them (league_zeri: the far hip 2 squares right of the near): at
+# the idle's 3/4 places, 8 squares apart, the near leg swinging forward crossed the far one swinging back and the
+# stride closed up instead of opening
+RUN_HIPS = {"near": (14.0, 30.5), "far": (16.5, 31.0)}
 
 # ms per frame; the kit's ticks (tools/kit/build_quinn.py) come from these
 MS = {"idle": [150] * 8, "run": [117] * 8, "attack": [80, 70, 90, 110, 90],
@@ -265,32 +409,40 @@ MS = {"idle": [150] * 8, "run": [117] * 8, "attack": [80, 70, 90, 110, 90],
 def frames_all(F):
     p = F.pose
     rig = F.rig
-    T = {t: [r["j"] for r in rows] for t, rows in F.J["tags"].items()}
-    dr = F.drawn
+    # every tag's legs from the side-on camera (assets/source/quinn/poses_side.json): the 3/4 camera foreshortened
+    # League's steps forward and back, and her legs stand side by side in the drawing; standing moves map League's front
+    # and back feet onto her image-right and image-left legs (roles), her own stance
+    T = {t: [r["j"] for r in rows] for t, rows in F.JS["tags"].items()}
+    dr = lambda j, **o: F.drawn(j, **{"spread": ACT_SPREAD, "roles": True, "ground": True, **o})
     out = {}
     # idle (League's Quinn_idle1: the crossbow held out, she breathes): the approved design, the body set down a row
     out["idle"] = [p(), p(), p(), p(crouch=1), p(crouch=1), p(crouch=1), p(crouch=1), p()]
-    # run (Quinn_run, 8 frames of its 0.93 s stride, seen nearly side-on): the legs drawn on League's legs, the body
-    # bobbing with them
+    # run (Quinn_run, 8 frames of its 0.93 s stride, seen nearly side-on): the legs on League's legs (widened for her
+    # chibi legs), the body leant forward, the crossbow down at her hip, both feet off the ground where League's are,
+    # the cape's hem flying back behind the legs
     S = [r["j"] for r in F.JS["tags"]["run"]]
-    out["run"] = [dr(j, ref=S[0]) for j in S]
-    # auto attack (Quinn_attack1: her stance from League's frames, the shot kicking the crossbow up)
-    # (the first and last frames are League's blends from and into its idle, whose back foot is lifted - our idle's own
-    # legs stand there, so the attack starts and ends on the idle)
-    kick = [(0, 0), (0, -2), (0, -1)]
-    out["attack"] = [p()] + [dr(j, arm=k, lunge=0.7) for j, k in zip(T["attack"][1:4], kick)] + [p()]
-    # Q Blinding Assault (quinn_spell1: the crossbow raised to the sky as Valor leaves, then the lunge after him)
-    out["skill"] = [dr(T["skill"][0], lunge=0.7, **UP)] + [dr(j, lunge=0.7) for j in T["skill"][1:]]
-    # E Vault (Quinn_spell3_dash: off the ground at the target, the legs trailing)
-    out["skill2"] = [dr(j, air=True, lunge=0.5) for j in T["skill2"]]
+    low = min(F.toe_height(j) for j in S)
+    out["run"] = [F.drawn(j, ref=S[0], spread=RUN_SPREAD, lean=RUN_LEAN, shift=(RUN_DX, 0), hips=RUN_HIPS,
+                          hold=RUN_HOLD, flight=(low, RUN_FLIGHT), cape=c) for j, c in zip(S, RUN_CAPE)]
+    # auto attack (Quinn_attack1: into League's wide crouched stance, the shot kicking the crossbow up, settling)
+    kick = [(0, 0), (0, 0), (0, -2), (0, -1), (0, 0)]
+    out["attack"] = [dr(j, arm=k, lunge=0.7) for j, k in zip(T["attack"], kick)]
+    # Q Blinding Assault (quinn_spell1: up on her toes with the crossbow raised to the sky as Valor leaves, then the
+    # lunge after him, leant forward)
+    out["skill"] = [dr(T["skill"][0], lunge=0.7, air=True, **UP)] + [dr(j, lunge=0.7, lean=k) for j, k in
+                                                         zip(T["skill"][1:], (4, 3, 3, 4))]
+    # E Vault (Quinn_spell3_dash: flying at the target leant far forward, the legs trailing, the cape flying back)
+    out["skill2"] = [dr(j, air=True, lunge=0.5, lean=2, cape=(-3, -3)) for j in T["skill2"]]
     # Quinn_spell3_flip: she kicks off and somersaults back (the kick-off frame turned whole a quarter at a time,
-    # counter-clockwise), lands (League's landing frame)
+    # counter-clockwise), lands (League's landing frame), stands
     kick_off = dr(T["e_flip"][0])
     tumble = lambda k, dx, up: shift(R.lie(rig, kick_off, k, dx=dx, sink=0), 0, -up)
     out["e_flip"] = [tumble(1, 0, 6), tumble(2, -1, 10), tumble(3, -2, 7), dr(T["e_flip"][4], shift=(-2, 0)), p()]
     # R Behind Enemy Lines (Quinn_Spell4_Channel: she sinks, springs up with the crossbow raised to call Valor down,
     # mounts him)
-    out["ult"] = [dr(T["ult"][0]), dr(T["ult"][1]), dr(T["ult"][2], air=True, **UP), F.whole("ride", dy=-4)]
+    # (League: aimed, the crossbow let down to her hip, standing tall aiming again, down on one knee with the crossbow
+    # raised as Valor comes down; she is on his back from ult_ride on)
+    out["ult"] = [dr(T["ult"][0]), dr(T["ult"][1], hold=LOW_HOLD), dr(T["ult"][2], air=True), dr(T["ult"][3], **UP)]
     # the ride (quinnvalor_run_glide): gliding, the whole group rising and falling
     out["ult_ride"] = [F.whole("ride", dy=-d) for d in (4, 5, 6, 5)]
     # Skystrike (QuinnRFinale: the two loop up through the air and she drops onto them): the group whole quarter turns
@@ -300,15 +452,18 @@ def frames_all(F):
     # hit (League's idle leaning toward its death): flashed, knocked back
     out["hit"] = [R.flash(dr(T["hit"][0], shift=(-2, 0))), dr(T["hit"][1], shift=(-1, 0))]
 
-    # the death (quinn_death: she staggers back, her knees give and she pitches forward onto her face): League's first
-    # three frames on drawn legs, then lying face down, head forward (the frame a quarter turn clockwise, her own
-    # straight legs, the crossbow arm let down first so it lies along her), a bounce, lying
-    DOWN = dict(arm_rot=3, arm=(-1, 2))
+    # the death (quinn_death, League's 0 / 0.4 / 0.8 / 1.2 / 2.3 / 2.6 / 2.8 / 3.15 s): hit as she aims, she doubles
+    # over as the crossbow flies from her hand behind her, her knees give, she drops onto one knee, slumps, falls face
+    # down, head forward (a standing frame without the bow a quarter turn clockwise), bounces once, lies; the crossbow
+    # lies on the floor behind her from the third frame on
+    D = T["dead"]
+    on_floor = lambda can: F.bow(can, BOW_DX, (QL.GROUND - 1) - F.BOW_LOW)
 
-    def lying(sink, dx):
-        return R.lie(rig, p(crouch=3, **DOWN), 3, dx=dx, sink=sink)
-    out["dead"] = [dr(T["dead"][0]), dr(T["dead"][1], lunge=0.5), dr(T["dead"][2], lunge=0.5, arm=(0, 2)),
-                   lying(0, 6), lying(2, 8), lying(0, 8), lying(2, 8), lying(2, 8)]
+    def lying(sink):                     # her own straight legs side by side (drawn apart they lay one up, one down)
+        return R.lie(rig, p(crouch=3, no_arm=True), 3, dx=8, sink=sink)
+    out["dead"] = [dr(D[0]), F.bow(dr(D[1], drop=True, lean=2), *BOW_FLUNG, rot=1),
+                   on_floor(dr(D[2], drop=True, lean=2)), on_floor(dr(D[3], drop=True, lean=2)),
+                   on_floor(dr(D[4], drop=True, lean=2)), on_floor(lying(0)), on_floor(lying(-2)), on_floor(lying(0))]
     # the add-on's ride form (addons/league_quinn): standing / moving / hit as the group gliding
     out["r_idle"] = [F.whole("ride", dy=-d) for d in (4, 5, 5, 4)]
     out["r_run"] = [F.whole("ride", dy=-d, dx=x) for d, x in ((4, 0), (6, 1), (5, 0), (3, -1))]
