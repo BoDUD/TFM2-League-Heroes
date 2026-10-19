@@ -345,7 +345,7 @@ RESTYLE = {
     # centre (44 game px with the standing hammer against the yordles' 32-40), so every frame lowered
     # 11.5 x 1.2 x (1 / 0.85 - 1) = 2.4 -> 2 squares (league_aphelios's way); the face point (5, -22) taken with it
     "poppy": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(4, -17)),
-    # league_rammus (#131): posed from the designs' own squares at the user's 1.2 squares a game pixel (「36 像素」「PPU 1.2」:
+    # league_rammus (#132): posed from the designs' own squares at the user's 1.2 squares a game pixel (「36 像素」「PPU 1.2」:
     # Codex's step-1 takes A-2 / S-1 / B / W read back on their own grids and cut to 43 rows spike tips to soles) by
     # tools/art/rig_rammus.py, so no proportion or density change here; the outer outline grown a square like the others;
     # the face point on the hood's lip over his eyes (lint_mod's 10 px under the crown)

@@ -6,7 +6,7 @@ style pictures.
 Writes <out>/PICTURE_PROMPT.md, <out>/refs/1..8 (League renders, the loading-screen art and the layout guides: Riot's,
 kept local, never committed) and <out>/style/11..13 (this pack's Rek'Sai, Tahm Kench and Poppy, 8x, cut from their
 sheets), then <out>.zip. Render into a short folder (%TEMP%).
-Rammus (#131, 2026-10-19) is the Armordillo: a squat armadillo-turtle under a huge domed shell of orange-gold scale
+Rammus (#132, 2026-10-19) is the Armordillo: a squat armadillo-turtle under a huge domed shell of orange-gold scale
 plates bound by dark-brown leather straps, with tall pale-yellow cone spikes along its crest and smaller ones round its
 rim; a small green turtle head with glowing red-orange eyes peeking out under the shell's front lip; teal-green scaly
 arms and legs with dark-green spots, cream claws; a yellow-tan belly crossed by a dark-red studded harness with grey
