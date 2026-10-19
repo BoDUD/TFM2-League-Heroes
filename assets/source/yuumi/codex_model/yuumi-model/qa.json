@@ -1,0 +1,178 @@
+[
+  {
+    "file": "yuumi-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 796516,
+    "visible_bbox_alpha128": [
+      94,
+      87,
+      1176,
+      1240
+    ]
+  },
+  {
+    "file": "yuumi-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 806892,
+    "visible_bbox_alpha128": [
+      73,
+      73,
+      1197,
+      1238
+    ]
+  },
+  {
+    "file": "yuumi-model-S-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 723289,
+    "visible_bbox_alpha128": [
+      71,
+      78,
+      1185,
+      1219
+    ]
+  },
+  {
+    "file": "yuumi-model-S-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 705894,
+    "visible_bbox_alpha128": [
+      114,
+      104,
+      1166,
+      1231
+    ]
+  },
+  {
+    "file": "yuumi-model-L-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 708856,
+    "visible_bbox_alpha128": [
+      68,
+      145,
+      1218,
+      1163
+    ]
+  },
+  {
+    "file": "yuumi-model-L-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 669088,
+    "visible_bbox_alpha128": [
+      43,
+      174,
+      1227,
+      1124
+    ]
+  },
+  {
+    "file": "yuumi-model-B-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 743026,
+    "visible_bbox_alpha128": [
+      26,
+      143,
+      1238,
+      1233
+    ]
+  },
+  {
+    "file": "yuumi-model-B-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 730081,
+    "visible_bbox_alpha128": [
+      39,
+      157,
+      1237,
+      1219
+    ]
+  },
+  {
+    "file": "yuumi-model-R-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 561447,
+    "visible_bbox_alpha128": [
+      273,
+      48,
+      1010,
+      1214
+    ]
+  },
+  {
+    "file": "yuumi-model-R-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 624516,
+    "visible_bbox_alpha128": [
+      294,
+      54,
+      1084,
+      1216
+    ]
+  },
+  {
+    "file": "yuumi-model-C-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 585064,
+    "visible_bbox_alpha128": [
+      84,
+      478,
+      1203,
+      1245
+    ]
+  }
+]

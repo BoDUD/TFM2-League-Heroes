@@ -1,0 +1,2088 @@
+[
+  {
+    "name": "a_bolt",
+    "file": "yuumi_fx_a_bolt.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_a_bolt.png",
+    "raw": "raw/a_bolt-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      10,
+      8
+    ],
+    "cell_8x": [
+      80,
+      64
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "top-bottom",
+    "binding": "view_projectiles `league_yuumi_a_bolt`（跟着弹道转向；上下对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      52,
+      160,
+      1382,
+      994
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 34,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          0,
+          10,
+          8
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 38,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          0,
+          10,
+          8
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 36,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          0,
+          10,
+          8
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 38,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          2,
+          0,
+          10,
+          8
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "a_hit",
+    "file": "yuumi_fx_a_hit.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_a_hit.png",
+    "raw": "raw/a_hit-generated.png",
+    "frames": 3,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "cell_8x": [
+      96,
+      96
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_a_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "source_layout": [
+      3,
+      1
+    ],
+    "source_crop": [
+      0,
+      0,
+      2172,
+      724
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 20,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          3,
+          3,
+          9,
+          9
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 54,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          11,
+          10
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 18,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": {
+          "source": [
+            245,
+            179,
+            58
+          ],
+          "target": [
+            255,
+            244,
+            200
+          ]
+        },
+        "bbox": [
+          2,
+          2,
+          10,
+          10
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "p_hit",
+    "file": "yuumi_fx_p_hit.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_p_hit.png",
+    "raw": "raw/p_hit-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "cell_8x": [
+      128,
+      128
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_p_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      365,
+      14,
+      1447,
+      871
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C",
+      "#FFE4EE",
+      "#FF9EC4",
+      "#F0628E",
+      "#C03A6A",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 60,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          2,
+          3,
+          14,
+          14
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 88,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          2,
+          16,
+          15
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 120,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          0,
+          16,
+          15
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 60,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          0,
+          15,
+          15
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "p_heal",
+    "file": "yuumi_fx_p_heal.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_p_heal.png",
+    "raw": "raw/p_heal-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      20
+    ],
+    "cell_8x": [
+      144,
+      160
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_p_heal`（跟随，画在人物上面 z 2；左右对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      167,
+      141,
+      1538,
+      824
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE4EE",
+      "#FF9EC4",
+      "#F0628E",
+      "#C03A6A",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 48,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          10,
+          17,
+          19
+        ],
+        "reserved_body_region": [
+          6,
+          3,
+          12,
+          18
+        ]
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 90,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          18,
+          17
+        ],
+        "reserved_body_region": [
+          6,
+          3,
+          12,
+          18
+        ]
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 78,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          18,
+          18
+        ],
+        "reserved_body_region": [
+          6,
+          3,
+          12,
+          18
+        ]
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 84,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          0,
+          18,
+          17
+        ],
+        "reserved_body_region": [
+          6,
+          3,
+          12,
+          18
+        ]
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "q_missile",
+    "file": "yuumi_fx_q_missile.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_q_missile.png",
+    "raw": "raw/q_missile-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      10
+    ],
+    "cell_8x": [
+      128,
+      80
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "top-bottom",
+    "binding": "view_projectiles `league_yuumi_q_missile`（跟着弹道转向；上下对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      62,
+      147,
+      1540,
+      870
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 68,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          0,
+          15,
+          10
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 72,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          2,
+          0,
+          16,
+          10
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 66,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          2,
+          0,
+          15,
+          10
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 68,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          3,
+          1,
+          16,
+          9
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "q_hit",
+    "file": "yuumi_fx_q_hit.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_q_hit.png",
+    "raw": "raw/q_hit-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      18
+    ],
+    "cell_8x": [
+      144,
+      144
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_q_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      33,
+      62,
+      1209,
+      1188
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 54,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          4,
+          3,
+          14,
+          14
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 140,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          18,
+          16
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 164,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          18,
+          18
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 44,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          17,
+          17
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "q_ehit",
+    "file": "yuumi_fx_q_ehit.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_q_ehit.png",
+    "raw": "raw/q_ehit-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      24,
+      24
+    ],
+    "cell_8x": [
+      192,
+      192
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_q_ehit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      31,
+      40,
+      1231,
+      1189
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 116,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          2,
+          0,
+          22,
+          22
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 232,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          0,
+          23,
+          22
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 246,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          0,
+          24,
+          23
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 160,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          0,
+          24,
+          23
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "q_slow",
+    "file": "yuumi_fx_q_slow.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_q_slow.png",
+    "raw": "raw/q_slow-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      6
+    ],
+    "cell_8x": [
+      128,
+      48
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_buffs `league_yuumi_q_slow`（跟随，画在人物下面 z 1；左右对称；循环）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      69,
+      103,
+      1977,
+      685
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 20,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          15,
+          5
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 16,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          15,
+          5
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 20,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          16,
+          6
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 18,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          15,
+          5
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "q_eslow",
+    "file": "yuumi_fx_q_eslow.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_q_eslow.png",
+    "raw": "raw/q_eslow-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      20,
+      8
+    ],
+    "cell_8x": [
+      160,
+      64
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_buffs `league_yuumi_q_eslow`（跟随，画在人物下面 z 1；左右对称；循环）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      71,
+      97,
+      1917,
+      730
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 44,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          0,
+          19,
+          7
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 50,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          20,
+          7
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 52,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          20,
+          7
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 46,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          19,
+          7
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "e_hit",
+    "file": "yuumi_fx_e_hit.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_e_hit.png",
+    "raw": "raw/e_hit-generated.png",
+    "frames": 5,
+    "cell_1x": [
+      28,
+      36
+    ],
+    "cell_8x": [
+      224,
+      288
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_e_hit`（跟随，画在人物上面 z 2；左右对称）",
+    "source_layout": [
+      3,
+      2
+    ],
+    "source_crop": [
+      35,
+      18,
+      1319,
+      1076
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 164,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          3,
+          2,
+          25,
+          31
+        ],
+        "reserved_body_region": [
+          9,
+          3,
+          19,
+          33
+        ]
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 252,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          2,
+          27,
+          29
+        ],
+        "reserved_body_region": [
+          9,
+          3,
+          19,
+          33
+        ]
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 322,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          0,
+          28,
+          30
+        ],
+        "reserved_body_region": [
+          9,
+          3,
+          19,
+          33
+        ]
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 314,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          2,
+          28,
+          36
+        ],
+        "reserved_body_region": [
+          9,
+          3,
+          19,
+          33
+        ]
+      },
+      {
+        "frame": 4,
+        "opaque_pixels": 170,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          2,
+          4,
+          26,
+          35
+        ],
+        "reserved_body_region": [
+          9,
+          3,
+          19,
+          33
+        ]
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "e_haste",
+    "file": "yuumi_fx_e_haste.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_e_haste.png",
+    "raw": "raw/e_haste-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      26,
+      8
+    ],
+    "cell_8x": [
+      208,
+      64
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_buffs `league_yuumi_e_haste`（跟随，画在人物下面 z -1；左右对称；循环）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      35,
+      311,
+      1411,
+      1026
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 44,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          25,
+          5
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 50,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          25,
+          5
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 42,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          3,
+          25,
+          8
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 44,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          3,
+          25,
+          8
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "w_heal",
+    "file": "yuumi_fx_w_heal.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_w_heal.png",
+    "raw": "raw/w_heal-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      18
+    ],
+    "cell_8x": [
+      128,
+      144
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_w_heal`（跟随，画在人物上面 z 2；左右对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      69,
+      220,
+      1120,
+      1170
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE4EE",
+      "#FF9EC4",
+      "#F0628E",
+      "#C03A6A",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 46,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          2,
+          6,
+          14,
+          16
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 56,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          2,
+          15,
+          13
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 78,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          4,
+          15,
+          16
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 28,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          2,
+          2,
+          14,
+          13
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "w_jump",
+    "file": "yuumi_fx_w_jump.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_w_jump.png",
+    "raw": "raw/w_jump-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      14
+    ],
+    "cell_8x": [
+      144,
+      112
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_w_jump`（不跟随，画在人物下面 z 2；左右对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      85,
+      157,
+      1353,
+      995
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 50,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          6,
+          17,
+          12
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 122,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          17,
+          12
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 92,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          18,
+          14
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 16,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          3,
+          2,
+          15,
+          8
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "w_land",
+    "file": "yuumi_fx_w_land.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_w_land.png",
+    "raw": "raw/w_land-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      20,
+      12
+    ],
+    "cell_8x": [
+      160,
+      96
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_w_land`（不跟随，画在人物下面 z 2；左右对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      25,
+      127,
+      1584,
+      853
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 24,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          5,
+          4,
+          15,
+          8
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 80,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          20,
+          9
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 84,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          3,
+          20,
+          12
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 16,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": {
+          "source": [
+            245,
+            179,
+            58
+          ],
+          "target": [
+            255,
+            244,
+            200
+          ]
+        },
+        "bbox": [
+          2,
+          4,
+          18,
+          10
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "r_cast",
+    "file": "yuumi_fx_r_cast.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_r_cast.png",
+    "raw": "raw/r_cast-generated.png",
+    "frames": 6,
+    "cell_1x": [
+      40,
+      20
+    ],
+    "cell_8x": [
+      320,
+      160
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_r_cast`（跟随，画在人物下面 z -1；左右对称；大图表）",
+    "source_layout": [
+      3,
+      2
+    ],
+    "source_crop": [
+      27,
+      72,
+      1766,
+      834
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C",
+      "#FFE4EE",
+      "#FF9EC4",
+      "#F0628E",
+      "#C03A6A"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 56,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          11,
+          7,
+          29,
+          13
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 174,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          3,
+          3,
+          37,
+          15
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 206,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          40,
+          17
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 364,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          0,
+          39,
+          19
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 4,
+        "opaque_pixels": 182,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          4,
+          2,
+          36,
+          18
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 5,
+        "opaque_pixels": 26,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          9,
+          7,
+          31,
+          19
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "r_wave",
+    "file": "yuumi_fx_r_wave.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_r_wave.png",
+    "raw": "raw/r_wave-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      30
+    ],
+    "cell_8x": [
+      144,
+      240
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "top-bottom",
+    "binding": "view_projectiles `league_yuumi_r_wave`（跟着弹道转向；上下对称；大图表）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      174,
+      67,
+      1082,
+      1232
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 210,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          0,
+          15,
+          30
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 196,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          3,
+          0,
+          18,
+          30
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 208,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          0,
+          15,
+          30
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 204,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          4,
+          0,
+          18,
+          30
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "r_hit",
+    "file": "yuumi_fx_r_hit.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_r_hit.png",
+    "raw": "raw/r_hit-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "cell_8x": [
+      128,
+      128
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_r_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      107,
+      65,
+      1624,
+      800
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 22,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          5,
+          4,
+          11,
+          11
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 106,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          15,
+          15
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 62,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          3,
+          16,
+          15
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 28,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": {
+          "source": [
+            255,
+            220,
+            110
+          ],
+          "target": [
+            255,
+            244,
+            200
+          ]
+        },
+        "bbox": [
+          0,
+          4,
+          16,
+          15
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "r_heal",
+    "file": "yuumi_fx_r_heal.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_r_heal.png",
+    "raw": "raw/r_heal-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      16
+    ],
+    "cell_8x": [
+      112,
+      128
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_effects `league_yuumi_r_heal`（跟随目标，画在人物上面 z 2；左右对称）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      327,
+      78,
+      1315,
+      855
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE4EE",
+      "#FF9EC4",
+      "#F0628E",
+      "#C03A6A",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 40,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          3,
+          2,
+          11,
+          12
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 88,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          13,
+          12
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 84,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          13,
+          14
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 58,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          1,
+          14,
+          15
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  },
+  {
+    "name": "r_root",
+    "file": "yuumi_fx_r_root.png",
+    "pixel_1x": "pixel_1x/yuumi_fx_r_root.png",
+    "raw": "raw/r_root-generated.png",
+    "frames": 4,
+    "cell_1x": [
+      22,
+      14
+    ],
+    "cell_8x": [
+      176,
+      112
+    ],
+    "layout": "horizontal-row",
+    "symmetry": "left-right",
+    "binding": "view_buffs `league_yuumi_r_root`（跟随，画在人物上面 z 1；左右对称；循环）",
+    "source_layout": [
+      2,
+      2
+    ],
+    "source_crop": [
+      93,
+      147,
+      1489,
+      871
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFE0F6",
+      "#FFA3DE",
+      "#E070D8",
+      "#A848C8",
+      "#FFF4C8",
+      "#FFDC6E",
+      "#F5B33A",
+      "#C97A1C"
+    ],
+    "frame_checks": [
+      {
+        "frame": 0,
+        "opaque_pixels": 130,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          21,
+          11
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 1,
+        "opaque_pixels": 124,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          1,
+          21,
+          11
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 2,
+        "opaque_pixels": 136,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          0,
+          3,
+          22,
+          14
+        ],
+        "reserved_body_region": null
+      },
+      {
+        "frame": 3,
+        "opaque_pixels": 124,
+        "nonempty": true,
+        "has_bright_core": true,
+        "palette_lift": null,
+        "bbox": [
+          1,
+          3,
+          21,
+          13
+        ],
+        "reserved_body_region": null
+      }
+    ],
+    "checks": {
+      "binary_alpha": true,
+      "symmetry": true,
+      "nearest_8x_match": true,
+      "all_frames_nonempty": true,
+      "all_frames_bright": true
+    }
+  }
+]

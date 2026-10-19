@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "powder": 1.75}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -359,6 +359,13 @@ RESTYLE = {
     # so no proportion or density change here; the outer outline grown a square like the others; the face point between
     # her eyes
     "zoe": dict(ppu=1.5, edge=1, face_to=(1, -24)),
+    # league_yuumi (#135): posed from the designs' own squares at the user's 1.5 squares a game pixel (「32 像素」「PPU 1.5」:
+    # Codex's step-1 takes A-2 / S-1 / L-2 / R-2 / C-1 read back on their own grids and cut to 48 rows orb top to the
+    # book's bottom) by tools/art/rig_yuumi.py, so no proportion or density change here; the outer outline grown a square
+    # like the others. The user then: 「还有模型太大」 -> 「75%（24 像素）」: drawn 75 % by league.dll (hd.rs SIZES) round the
+    # frame's centre, so every frame lowered 11.5 x 1.5 x (1 / 0.75 - 1) = 5.75 -> 6 squares (league_poppy's way); the
+    # face point between her eyes, (7.5, -19) at full size, taken with it: 0.75 x (7.5, -19 + 11.5 + 4) - (0, 11.5)
+    "yuumi": dict(ppu=1.5, edge=1, lift_sq=-6, face_to=(6, -14)),
     # league_quinn (#134): posed by tools/art/rig_quinn.py at 2.0 squares a game pixel (38 game px crest to soles: the
     # user's 1.3 picks redrawn by Codex on the finer grid, 「像素有点太低了 太多模糊的了 调一下PPU」, A-1 cut to 75 rows,
     # tools/art/design_quinn_grid.py), her legs drawn on League's bones in her own leg squares (tools/art/quinn_legs.py),

@@ -1,0 +1,197 @@
+{
+  "effects": 19,
+  "total_frames": 78,
+  "passed": true,
+  "checks": [
+    {
+      "name": "a_bolt",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "a_hit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "p_hit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "p_heal",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "q_missile",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "q_hit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "q_ehit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "q_slow",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "q_eslow",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "e_hit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "e_haste",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "w_heal",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "w_jump",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "w_land",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "r_cast",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "r_wave",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "r_hit",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "r_heal",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    },
+    {
+      "name": "r_root",
+      "dimensions": true,
+      "binary_alpha": true,
+      "frame_symmetry": true,
+      "frames_nonempty": true,
+      "palette": true,
+      "reserved_body_clear": true,
+      "match_8x": true
+    }
+  ]
+}
