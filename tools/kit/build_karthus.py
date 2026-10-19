@@ -38,7 +38,9 @@ BIG = "asset/league/effects/league_karthus_big"
 # League units x 100 = ours (attack range 450 -> 45000; mids sit at 55000, his bolt reaches 50000); radii count the
 # unit's collision radius (~15000) on top. Timings: drafts until the strips set them (tools/art/rig_karthus.py).
 # Numbers = the 10-min classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and
-# white_mage, three lineups, both sides, 8 seeds).
+# white_mage, three lineups, both sides, 8 seeds, 2026-10-20): the draft with Q and W as zones started straight from the
+# action (they hit nothing) -4.72; on hidden lobs (Q 55 + 35%, R 250 + 75% every 60 s) +2.89 (league_zoe +1.30 the
+# same day); Q 45 + 30% +2.22; R 200 every 70 s +2.23; both +1.46 = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Karthus:
     # 620 +110 hp, 21 armour, 30 mr, 335 move, 450 range, attack speed 0.625
@@ -49,12 +51,12 @@ P = {
     "w_cd": 720, "w_r": 60000, "w_dur": 27, "w_rel": 10, "w_t": 300, "w_hw": 3000, "w_hh": 30000, "w_slow": 40,
     "w_slow_t": 45, "w_mr": 20, "w_mr_t": 240,
     # Q Lay Waste (League: 45-205 + 35% AP, x2 on one target, 0.53 s delay, radius 160 (+ 0.2 s cast), cd 1 s)
-    "q_cd": 150, "q_range": 80000, "q_dur": 24, "q_rel": 8, "q_delay": 32, "q_r": 15000, "q_dmg": 55, "q_ratio": 35,
+    "q_cd": 150, "q_range": 80000, "q_dur": 24, "q_rel": 8, "q_delay": 32, "q_r": 15000, "q_dmg": 45, "q_ratio": 30,
     # E Defile (League: radius 550, 30-110 + 20% AP a second)
     "e_cd": 600, "e_cast": 40000, "e_dur": 24, "e_rel": 8, "e_t": 300, "e_per": 15, "e_r": 30000, "e_dmg": 10,
     "e_ratio": 5,
     # R Requiem (League: 3 s channel, 200-500 + 75% AP to every enemy champion, cd 200-160 s)
-    "r_cd": 3600, "r_range": 960000, "r_rel": 2, "r_ch": 180, "r_brk": 15, "r_dmg": 250, "r_ratio": 75,
+    "r_cd": 4200, "r_range": 960000, "r_rel": 2, "r_ch": 180, "r_brk": 15, "r_dmg": 200, "r_ratio": 75,
     "vo_gap": 600,
     # the add-on (addons/league_karthus): the spirit lasts p_t ticks
     "p_t": 420,

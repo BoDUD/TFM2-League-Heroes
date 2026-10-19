@@ -32,7 +32,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "karthus", "codex_model", "karthus-model")
 OUT = os.path.join(ROOT, "assets", "source", "karthus", "hd")
 BODY, K = 60, 32            # crown tip to soles; colours
-PICKS = {"idle": "A-1", "side": "side-1"}   # provisional until the user picks
+PICKS = {"idle": "A-1", "side": "side-1"}   # the user, 2026-10-20
 # name -> (Codex's square px, face rows, face columns) on its own read-back
 DRAFTS = {
     "A-1": (14.0, range(17, 32), range(14, 27)),
@@ -40,6 +40,57 @@ DRAFTS = {
     "side-1": (14.0, range(29, 43), range(26, 40)),
     "side-2": (15.0, range(26, 41), range(25, 38)),
 }
+
+
+# the faces redrawn on the grid (memory codex-face-half-squares: the cut read back a muddy skull, dark teal eyes):
+# K outline, A / B / C / D the skin's four greens light to dark, E the eyes' cyan, F their pale centre, W the teeth,
+# "." left as cut. (first row, first column, rows) in the written design's squares.
+INK = {"K": (6, 1, 10), "A": (218, 218, 184), "B": (167, 166, 127), "C": (134, 134, 106), "D": (66, 68, 57),
+       "E": (7, 234, 247), "F": (180, 250, 252), "W": (245, 251, 252)}
+FACES = {
+    # 3/4: both eyes two squares at one height (near 16-17, far 19-20), the open jaw: teeth, mouth, teeth
+    "idle": (19, 15, ["BAAABK",
+                      "CEFDFE",
+                      "CDBDBK",
+                      "BKWKWK",
+                      "BKKKKK",
+                      "BKWKWK",
+                      "CBAABK",
+                      "KCBCK."]),
+    # side: the same face (its head stays the 3/4 one), a square wider
+    "side": (28, 24, ["CEFDFEK",
+                      "CABDBAK",
+                      "BAABAAK",
+                      "BKWKWWK",
+                      "BKKKKKK",
+                      "BKWKWK.",
+                      "CBAABK.",
+                      "KCBBK.."]),
+}
+# the side's staff as long as the idle's: its head (rows 0..STAFF_HEAD of the columns from STAFF_COL) set STAFF_DOWN
+# rows lower over the shaft, the empty rows over it dropped (Codex drew it 13 rows over the crown, the idle 6)
+STAFF_COL, STAFF_HEAD, STAFF_DOWN = 33, 11, 7
+
+
+def redraw_face(fig, part):
+    y0, x0, rows = FACES[part]
+    out = fig.copy()
+    for j, row in enumerate(rows):
+        for i, ch in enumerate(row):
+            if ch != ".":
+                out[y0 + j, x0 + i, :3] = INK[ch]
+                out[y0 + j, x0 + i, 3] = 255
+    return out
+
+
+def shorter_staff(fig):
+    out = fig.copy()
+    head = fig[:STAFF_HEAD + 1, STAFF_COL:].copy()
+    out[:STAFF_HEAD + 1 + STAFF_DOWN, STAFF_COL:] = 0
+    m = head[..., 3] > 0
+    out[STAFF_DOWN:STAFF_DOWN + STAFF_HEAD + 1, STAFF_COL:][m] = head[m]
+    ys = np.nonzero((out[..., 3] > 0).any(1))[0]
+    return out[ys.min():]
 
 
 def lp(path):
@@ -181,6 +232,9 @@ def main():
     col = joint(list(PICKS.values()))
     for part, name in PICKS.items():
         fig, rows, cols = cut(name, col[name])
+        fig = redraw_face(fig, part)                  # FACES are in the cut's squares, before the staff moves
+        if part == "side":
+            fig = shorter_staff(fig)
         Image.fromarray(fig).save(lp(os.path.join(OUT, f"{part}.png")))
         Image.fromarray(np.repeat(np.repeat(fig, 4, 0), 4, 1)).save(lp(os.path.join(OUT, f"{part}_4x.png")))
         print(part, name, fig.shape[1], "x", fig.shape[0], "rows kept", len(rows), "of", max(rows) + 1)
