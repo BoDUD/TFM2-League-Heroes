@@ -78,6 +78,12 @@ P = {
     "w_n": 3, "w_dur": 19, "w_rel": 4, "w_gap": 5, "w_dmg": 45, "w_ratio": 15, "w_speed": 4000, "w_ms": 40,
     "w_ms_t": 150,
     "vo_gap": 600,
+    # the add-on (addons/league_zoe): Paddle Star from x1 at q_n0 to q_far% at q_n1d flown (League: up to +150% from
+    # about 1.5 s of flight); the sleep (League 2.25 s) broken by any damage, which is dealt again as true damage up to
+    # e_cap + e_cap_ratio% AP; Spell Thief's shards: an enemy champion's ult drops one where he stands for s_t ticks,
+    # she picks it up within s_r and throws w_n missiles at the nearest enemy champion within w_r
+    "q_n0": 20000, "q_n1d": 85000, "e_sleep_n": 135, "e_cap": 100, "e_cap_ratio": 60, "w_r": 70000, "s_t": 1200,
+    "s_r": 18000,
     "native": 0,
 }
 
@@ -222,6 +228,8 @@ def build(p):
 
     # waking: her first Q / R star on a champion while the target sleeps deals the hit again
     def wake(dmg, ratio):
+        if native:          # the add-on wakes the sleeper on any damage and doubles that hit
+            return NONE
         return sw("e_wait", NONE, sw("e_win", combine(*rm("e_win"), ap(dmg, ratio), view("e_wake"), tsfx("e_wake"))))
 
     # ------------------------------------------------------------------ skill: Q Paddle Star
@@ -233,11 +241,15 @@ def build(p):
         return sw("q_n1", on_hit(*share(100)), sw("q_n2", on_hit(*share(p["q_mid"])), on_hit(*share(p["q_far"]))))
 
     hit_q = by_distance(lambda d, r: combine(ap(d, r), view("q_hit"), tsfx("q_hit")))
+    if native:          # the near share; the add-on adds the rest by the distance from her throw (q_go) to the hit (q_hit)
+        hit_q = combine(ap(*share(100)), buff("q_hit", 2), view("q_hit"), tsfx("q_hit"))
     star = line("q_star", p["q_speed"], p["q_len"], p["q_w"], "EnemyWithoutTower", [hit_q])
     # the wake on a champion rides a hidden twin (a minion taking the star does not wake anyone)
     twin = line("q_twin", p["q_speed"], p["q_len"], p["q_w"], "EnemyChampion", [by_distance(wake)], y=5000)
     throw_q = combine(flag("q_n1", max(1, p["q_d1"] // p["q_speed"])), flag("q_n2", max(1, p["q_d2"] // p["q_speed"])),
                       star, sw("e_win", twin))
+    if native:
+        throw_q = combine(refresh("q_go", 2), star)
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(decoy(p["q_dmg"], p["q_ratio"], ap), spark, sfx("q"), voice("vo_q", p), delayed(p["q_rel"] - 1, alive(*rm("q_n1", "q_n2"),
                                                                                             throw_q, sfx("q_fly")))))
@@ -248,6 +260,9 @@ def build(p):
                      tsfx("e_sleep"))
     bubble_hit = [refresh("e_got", 2), refresh("e_wait", p["e_drowsy"]), refresh("e_win", p["e_drowsy"] + p["e_sleep"]),
                   ap(p["e_dmg"], p["e_ratio"]), slow, asleep, view("e_hit"), tsfx("e_hit")]
+    if native:          # the add-on sees the mark, puts them to sleep at its end and wakes them on any damage
+        bubble_hit = [refresh("e_got", 2), ap(p["e_dmg"], p["e_ratio"]), slow, buff("e_mark", p["e_drowsy"]),
+                      view("e_hit"), tsfx("e_hit")]
     caught = [sw("e_tdone", NONE, combine(flag("e_tdone", p["e_trap"]), *bubble_hit, sfx("e_pop")))]
     lying = [delayed(k, sw("e_tdone", NONE, view("e_trap"))) for k in range(0, p["e_trap"], p["e_show"])]
     left = sw("e_got", combine(*rm("e_got")), combine(trap("e_field", p["e_trap_r"], p["e_trap"], caught), *lying))
@@ -294,12 +309,14 @@ def build(p):
     portal_back = dict(E("r_portal_back", BIG, -1, False), tag="r_portal_in")
     views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("e_hit"), E("e_wake"), E("e_trap", FX, -1, False),
                E("w_hit"), E("r_portal_in", BIG, -1, False), E("r_portal_out", BIG, -1, False), portal_back]
+    if native:          # the add-on's spell shards on the ground
+        views_e.append(E("w_shard", FX, -1, False))
     views_b = [B_("e_drowsy", FX, 3), B_("e_zz", FX, 3), B_("w_haste", FX, -1)]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_zoe:sparkles", "params": {
-            "q_d1": p["q_d1"], "q_d2": p["q_d2"], "q_far": p["q_far"], "e_sleep": p["e_sleep"],
-            "w_dmg": p["w_dmg"], "w_ratio": p["w_ratio"]}}
+            k: p[k] for k in ("q_dmg", "q_ratio", "q_far", "q_n0", "q_n1d", "e_drowsy", "e_sleep_n", "e_cap", "e_cap_ratio",
+                              "w_dmg", "w_ratio", "w_ms", "w_ms_t", "w_n", "w_gap", "w_r", "s_t", "s_r")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
