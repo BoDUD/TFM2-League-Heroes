@@ -353,7 +353,8 @@
                                                             }
                                                           },
                                                           "attack_mult": 25,
-                                                          "skill_cooldown_mult": 100
+                                                          "skill_cooldown_mult": 100,
+                                                          "ult_cooldown_mult": -100
                                                         },
                                                         "only_to_enemy": false
                                                       },
@@ -654,7 +655,8 @@
                                                         }
                                                       },
                                                       "attack_mult": 25,
-                                                      "skill_cooldown_mult": 100
+                                                      "skill_cooldown_mult": 100,
+                                                      "ult_cooldown_mult": -100
                                                     },
                                                     "only_to_enemy": false
                                                   },
@@ -1154,7 +1156,8 @@
                                               }
                                             },
                                             "attack_mult": 25,
-                                            "skill_cooldown_mult": 100
+                                            "skill_cooldown_mult": 100,
+                                            "ult_cooldown_mult": -100
                                           },
                                           "only_to_enemy": false
                                         },
@@ -1289,7 +1292,8 @@
                                                   }
                                                 },
                                                 "attack_mult": 25,
-                                                "skill_cooldown_mult": 100
+                                                "skill_cooldown_mult": 100,
+                                                "ult_cooldown_mult": -100
                                               },
                                               "only_to_enemy": false
                                             },
@@ -1370,7 +1374,8 @@
               }
             },
             "attack_mult": 25,
-            "skill_cooldown_mult": 100
+            "skill_cooldown_mult": 100,
+            "ult_cooldown_mult": -100
           },
           "only_to_enemy": false
         },

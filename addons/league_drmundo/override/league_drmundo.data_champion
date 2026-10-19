@@ -3621,8 +3621,8 @@
       "hp": 1350,
       "hp_g": 125,
       "w_store": 75,
-      "r_low": 40,
-      "r_burst": 25,
+      "r_low": 60,
+      "r_burst": 15,
       "r_miss": 25
     }
   }

@@ -824,7 +824,8 @@
             },
             "attack_speed_mult": 45,
             "move_speed_mult": 45,
-            "skill_cooldown_mult": 40
+            "skill_cooldown_mult": 40,
+            "ult_cooldown_mult": -40
           },
           "only_to_enemy": false
         },

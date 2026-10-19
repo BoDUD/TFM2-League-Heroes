@@ -662,7 +662,8 @@
                               "tick": 2
                             }
                           },
-                          "skill_cooldown_mult": 66
+                          "skill_cooldown_mult": 66,
+                          "ult_cooldown_mult": -66
                         },
                         "only_to_enemy": false
                       }

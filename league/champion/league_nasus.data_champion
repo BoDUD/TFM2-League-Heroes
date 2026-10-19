@@ -348,7 +348,8 @@
                                                 "defence": 40,
                                                 "magic_resistance": 40,
                                                 "range": 4000,
-                                                "skill_cooldown_mult": 100
+                                                "skill_cooldown_mult": 100,
+                                                "ult_cooldown_mult": -100
                                               },
                                               "only_to_enemy": false
                                             }
@@ -1616,7 +1617,8 @@
                                                 "defence": 40,
                                                 "magic_resistance": 40,
                                                 "range": 4000,
-                                                "skill_cooldown_mult": 100
+                                                "skill_cooldown_mult": 100,
+                                                "ult_cooldown_mult": -100
                                               },
                                               "only_to_enemy": false
                                             }

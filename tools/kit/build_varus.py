@@ -9,7 +9,7 @@ Kit (the user's picks, 2026-10-05: all the recommended options):
           stack pips on the target. A champion-only twin of the arrow (same speed and height) carries the ladder.
   detonation  Q, E and R hits on a champion set the stacks off: d_hp% of the target's maximum health per stack as true
           damage (League's 2.5-5.5% magic: nothing magic reads max health) and, for Q and E, the basic cooldowns capped
-          at (100 - 13 x stacks)% (a 2-tick skill_cooldown_mult: League's 13% refund per stack); then the count clears.
+          at (100 - 13 x stacks)% (a 2-tick skill_cooldown_mult: League's 13% refund per stack, basic abilities only - the same flag's ult_cooldown_mult offsets R's, 2026-10-19); then the count clears.
   passive Living Vengeance: his kill of an enemy champion (league_jinx's kill check on the arrow's, Q's, E's and R's
           champion twins) gives p_as_c% attack speed for p_t ticks; a minion or monster his arrow kills gives p_as_m%.
   skill   Q Piercing Arrow, smart charge: a `Direction` cast on `EnemyWithoutTower`. An enemy champion within q_aim_f at
@@ -220,7 +220,7 @@ def build(p):
         def burst(k):
             out = [true_hp(p["d_hp"] * k), view(f"b_pop{k}"), tsfx("b_pop")]
             if refund:
-                out.append(flag("refund", 2, skill_cooldown_mult=p[f"ref{k}"]))
+                out.append(flag("refund", 2, skill_cooldown_mult=p[f"ref{k}"], ult_cooldown_mult=-p[f"ref{k}"]))
             return combine(*out)
         return combine(sw("b_3", burst(3), sw("b_2", burst(2), sw("b_1", burst(1)))), *(extra or []),
                        *rm("b_1", "b_2", "b_3"))

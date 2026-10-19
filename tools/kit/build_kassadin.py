@@ -20,7 +20,7 @@ native add-on addons/league_kassadin for the passive's exact 10%, Force Pulse's 
   skill2  E Force Pulse (能量脉冲): a `Targeting` cast on `EnemyWithoutTower` (e_range): a cone toward the target (e_r long,
           acos(e_cos/1000) to each side) deals e_dmg + e_ratio% AP and slows e_slow% for e_slow_t; a champion hit opens
           e_combo. League charges it with every spell cast near him; the data reads no one else's casts, so his own Q
-          and R casts each take a e_cut refund (`skill_cooldown_mult`, which caps Q's remaining cooldown as well). With
+          and R casts each take a e_cut refund (`skill_cooldown_mult`, which caps Q's remaining cooldown as well; R's not, the same flag's ult_cooldown_mult offsets it, 2026-10-19). With
           native=1 the add-on's passive counts every cast within its reach (cooldowns that jump) and cuts E for each.
   ult     R Riftwalk (虚空行走): a `Targeting` cast on `EnemyChampion` (r_range): at r_at he vanishes and appears on a
           random enemy champion within r_reach (the back line about as often as the front; with native=1
@@ -198,7 +198,7 @@ def build(p):
     stone = None if native else sw("p_on", NONE, flag("p_on", None, magic_resistance=p["p_mr"],
                                                        magic_resistance_mult=p["p_mrm"]))
     # his own casts charge Force Pulse (the add-on counts everyone's instead)
-    charge = None if native else on_me(flag("e_charge", 2, skill_cooldown_mult=p["e_cut"]))
+    charge = None if native else on_me(flag("e_charge", 2, skill_cooldown_mult=p["e_cut"], ult_cooldown_mult=-p["e_cut"]))
 
     # ------------------------------------------------------------------ attack (+ Nether Blade)
     def hit(empowered):
