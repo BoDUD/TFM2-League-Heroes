@@ -12,7 +12,7 @@
 //! - **能量脉冲充能**：每 tick 读所有英雄的冷却（`cooldowns()`），Q / E / R 的剩余冷却比上一 tick 跳高了 = 放了技能；
 //!   放技能的英雄（敌我都算，也算他自己的 Q 和 R，不算他自己的 E）在他 `reach` 以内，E 的剩余冷却少 `cut` tick。
 //!   减冷却靠 2 tick 的 `skill_cooldown_mult`（引擎每 tick 把剩余冷却压到 冷却 x 100 / (100 + mult)），mult 取不会顺带
-//!   压低 Q 的最大值（Q 剩余冷却已经更短时才压满）。
+//!   压低 Q 的最大值（Q 剩余冷却已经更短时才压满）；同一个 buff 的 `ult_cooldown_mult` = -mult，大招冷却不跟着缩（0.1.1）。
 //! - **虚空行走落点**：射程（`R_REACH`）里每个敌方英雄都试一遍：这一下（算上叠层和他的魔抗）能打死的优先，其次炸得到的
 //!   英雄多、离他远（后排）的；敌方塔 `TOWER_REACH` 以内的不去。落在目标身前 `LAND_SHORT`（从卡萨丁看过去）。没有合适的
 //!   就落在大招目标身上（和主包一样）。之后数据里的爆炸照常（一 tick 后，以他的新位置为中心）。
@@ -372,6 +372,7 @@ impl VoidStone {
         sim.entity_remove_buff(me, CHARGE);
         let mut b = BuffV1::timed(CHARGE, 2);
         b.skill_cooldown_mult = mult;
+        b.ult_cooldown_mult = -mult;   // the engine caps R with skill + ult: the charge is E's alone
         sim.add_buff(me, &b);
         self.charges += casts.len();
         if self.charges <= 40 || self.charges % 25 == 0 {
