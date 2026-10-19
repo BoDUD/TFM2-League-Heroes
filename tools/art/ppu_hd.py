@@ -499,7 +499,9 @@ def check(hero, sheet):
         else:
             for i, ((a, _), (c, _)) in enumerate(zip(frames, lo)):
                 W, H = lo_size(a.shape[1], a.shape[0])
-                if c.shape[1] < W or c.shape[0] < H or (c.shape[1] - W) % 2 or (c.shape[0] - H) % 2:
+                # (a margin may be odd: a 1x frame made from its hd_ frame by tools/art/ppu_one.py grows by whole 1x
+                # pixels at both ends to hold the drawing, and every frame is drawn about its own centre)
+                if c.shape[1] < W or c.shape[0] < H:
                     bad.append(f"{LO}{tag}[{i}]: {c.shape[1]}x{c.shape[0]}, want {W}x{H} or grown alike at both ends")
         hd = sheet.get(PREFIX + tag)
         if hd is None:
@@ -510,8 +512,10 @@ def check(hero, sheet):
             continue
         for i, ((a, ms), (b, ms2)) in enumerate(zip(frames, hd)):
             W, H = hd_size(a.shape[1], a.shape[0], k)
-            # a drawn frame may be grown alike at both ends (the centre, the pivot, kept)
-            grown = is_drawn(hero, tag) and b.shape[1] >= W and b.shape[0] >= H and                 (b.shape[1] - W) % 2 == 0 and (b.shape[0] - H) % 2 == 0
+            # a drawn frame may be grown alike at both ends (the centre, the pivot, kept); the margin may be odd where
+            # tools/art/ppu_one.py grew the 1x frame for the drawing brought down from it (each frame is drawn about
+            # its own centre: the pivot is from the frame's size)
+            grown = is_drawn(hero, tag) and b.shape[1] >= W and b.shape[0] >= H
             if ((b.shape[1], b.shape[0]) != (W, H) and not grown) or abs(ms - ms2) > 1e-6:
                 bad.append(f"{PREFIX}{tag}[{i}]: {b.shape[1]}x{b.shape[0]} {ms2} ms, want {W}x{H} {ms} ms")
             elif tag == "idle" and b.shape[1] != W:
