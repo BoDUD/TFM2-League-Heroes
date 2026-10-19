@@ -22,7 +22,13 @@
       "p_win": 180,
       "soul_r": 35000,
       "soul_t": 480,
-      "s_range": 25000
+      "s_range": 25000,
+      "e_t": 300,
+      "e_ms": 30,
+      "e_as": 40,
+      "e_cd": 600,
+      "e_trig": 90000,
+      "e_hide": 120
     }
   },
   "sprite": "asset/league/champions/league_viego",
@@ -1236,7 +1242,7 @@
   },
   "skill2": {
     "action_name": "skill2",
-    "description": "#asset/base/text/champion?description.league_viego.skill2",
+    "description": "#asset/base/text/champion?description.league_viego_soul.skill2",
     "duration": 46,
     "cooltime": 600,
     "start_timing": 1,
@@ -1850,124 +1856,7 @@
                       },
                       {
                         "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_viego_e_on"
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_viego_e_on",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 300
-                                    }
-                                  },
-                                  "move_speed_mult": 30,
-                                  "attack_speed_mult": 40
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
-                          },
-                          {
-                            "type": "CasterInvisible",
-                            "tick": 45
-                          },
-                          {
-                            "type": "CasterViewEffect",
-                            "name": "league_viego_e_zone"
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_viego_e_anchor",
-                            "speed": 1,
-                            "range": 1,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "RangePeriodProjectile",
-                                "name": "league_viego_e_zone",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 30000
-                                  }
-                                },
-                                "tick": 150,
-                                "period": 6,
-                                "first_delay": 0,
-                                "applied_target": "AllyChampion",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "RandomTarget",
-                                      "range": 30000,
-                                      "casting_target": "AllyOnlySelf",
-                                      "from_projectile": true,
-                                      "effects": [
-                                        {
-                                          "type": "CasterInvisible",
-                                          "tick": 8
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ],
-                                "end_effects": []
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_viego_e"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_viego_e_mist"
-                          },
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_viego_vo_cd",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_viego_vo_cd",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 600
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_viego_vo_e"
-                                }
-                              ]
-                            }
-                          }
-                        ]
+                        "effects": []
                       },
                       {
                         "type": "Sfx",
