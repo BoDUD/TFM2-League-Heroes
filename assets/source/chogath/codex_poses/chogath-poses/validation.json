@@ -1,0 +1,114 @@
+{
+  "chogath-pose-crouch.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      22,
+      326,
+      1230,
+      1120
+    ],
+    "partial_alpha_count": 501729,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  },
+  "chogath-pose-fall.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      32,
+      566,
+      1222,
+      1068
+    ],
+    "partial_alpha_count": 371745,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  },
+  "chogath-pose-lie.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      16,
+      611,
+      1247,
+      1114
+    ],
+    "partial_alpha_count": 356799,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  },
+  "chogath-pose-lunge.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      20,
+      317,
+      1226,
+      1029
+    ],
+    "partial_alpha_count": 401496,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  },
+  "chogath-pose-rear.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      36,
+      25,
+      1225,
+      1226
+    ],
+    "partial_alpha_count": 501100,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  },
+  "chogath-pose-rise.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      31,
+      98,
+      1226,
+      1176
+    ],
+    "partial_alpha_count": 470433,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  },
+  "chogath-pose-slam.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      40,
+      197,
+      1235,
+      1137
+    ],
+    "partial_alpha_count": 420992,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  }
+}

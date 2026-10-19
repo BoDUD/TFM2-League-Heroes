@@ -4,6 +4,7 @@ design cannot give by whole-square moves - League rears him up on his hind legs 
 spikes, Q, W and R, and lays him on his side in the death.
 
     python tools/art/pack_chogath_poses.py [--out %TEMP%/cg_work/chogath_pose_pack] [--lol D:/WeGameApps/lol]
+    python tools/art/pack_chogath_poses.py --redo     # round 2: rise, rear, slam thicker (%TEMP%/cg_work/chogath_pose_pack2)
 
 Every pose is ONE 1254 picture at 16 px a square, soles on y 1120 - the grid of the step-1 redraws, which came back on
 the count (side redraw 2026-10-19). Writes <out>/ (and <out>.zip): POSE_PROMPTS.md; 0_design_skeleton.png (the
@@ -207,5 +208,48 @@ def main():
     print(zp)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and "--redo" not in sys.argv:
     main()
+
+
+# ------------------------------------------------------------------------------------------------- round 2
+REDO = ["rise", "rear", "slam"]
+
+
+def redo(out):
+    """Round 2 (assets/source/chogath/POSE_PROMPTS_2.md): rise, rear and slam came back with the hind legs thin and
+    long and the upright torso slim next to the side design (read back at the side design's scale, 8x). Writes <out>/
+    (and <out>.zip): POSE_PROMPTS_2.md, A_side_design_8x.png (the side design, 8x), B_idle_head.png, and per pose
+    <name>_round1.png (Codex's round-1 picture: the pose to keep) and <name>_readback_8x.png (round 1 read back at
+    the game's scale beside the side design, the same 8x: too thin)."""
+    import design_chogath_poses as DP
+    if os.path.isdir(out):
+        shutil.rmtree(out)
+    os.makedirs(out)
+    side = np.asarray(Image.open(lp(os.path.join(SRC, "hd", "side.png"))).convert("RGBA"))
+    idle = np.asarray(Image.open(lp(os.path.join(SRC, "hd", "idle.png"))).convert("RGBA"))
+
+    def big(a, z=8):
+        im = Image.fromarray(up(a, z))
+        bg = Image.new("RGBA", im.size, GREY + (255,))
+        bg.alpha_composite(im)
+        return bg.convert("RGB")
+    big(side).save(os.path.join(out, "A_side_design_8x.png"))
+    r0, r1, c0, c1 = HEAD
+    big(idle[r0:r1, c0:c1]).save(os.path.join(out, "B_idle_head.png"))
+    for n in REDO:
+        shutil.copyfile(lp(os.path.join(DP.SRC, f"chogath-pose-{n}.png")), os.path.join(out, f"{n}_round1.png"))
+        fig = np.asarray(Image.open(lp(os.path.join(SRC, "hd", f"pose_{n}.png"))).convert("RGBA"))
+        a, b = big(side), big(fig)
+        can = Image.new("RGB", (a.width + b.width + 40, max(a.height, b.height) + 40), (255, 255, 255))
+        can.paste(a, (0, can.height - a.height))
+        can.paste(b, (a.width + 40, can.height - b.height))
+        ImageDraw.Draw(can).text((8, 8), f"left: the approved side design   right: round-1 {n} at the same scale "
+                                          "(hind legs too thin and long, body too slim)", fill=(30, 30, 30))
+        can.save(os.path.join(out, f"{n}_readback_8x.png"))
+    shutil.copyfile(lp(os.path.join(SRC, "POSE_PROMPTS_2.md")), os.path.join(out, "POSE_PROMPTS_2.md"))
+    print(shutil.make_archive(out, "zip", out))
+
+
+if __name__ == "__main__" and "--redo" in sys.argv:
+    redo(os.path.join(TMP, "chogath_pose_pack2"))
