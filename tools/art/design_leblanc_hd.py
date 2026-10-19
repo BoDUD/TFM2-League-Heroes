@@ -131,6 +131,7 @@ def fill_legs(out):
 def design():
     d = take()
     out, fill = fill_legs(straight_staff(d))
+    out[out[..., 3] == 0] = 0                   # Codex left colours under its clear squares
     return d, out, fill
 
 
