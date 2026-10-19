@@ -55,6 +55,7 @@ ARM = [(30.0, 46.0), (34.0, 43.0), (37.0, 42.0), (43.0, 42.0), (43.0, 50.0), (39
 STAFF = [(30.0, 0.0), (51.0, 0.0), (51.0, 30.0), (43.0, 30.0), (43.0, 87.0), (39.0, 87.0), (39.0, 30.0), (36.0, 30.0),
          (36.0, 27.0), (30.0, 27.0)]
 IDLE_SINK = [0, 0, 1, 1, 1, 1, 0, 0]
+CAPE_X_RUN = 9                               # tools/art/pack_leblanc_legs.CAPE_X: the cape at her back stays
 STAFF_STEP = 90                              # upright or level, never at a slant
 
 
@@ -184,6 +185,53 @@ def pose(rig, joints, j, staff_free=True, arm_free=True):
     return can
 
 
+# The run on Codex's legs (tools/art/import_leblanc_legs.py: hd/run_lower_<k>.png, the legs and the gown below the belt
+# drawn along skeletons of her own leg lengths; the user: 「走路腿部不动的？」): the design's upper body and staff arm, the
+# lower half of frame k, the staff to League's run (level, behind her); each frame set a row lower at most, so its
+# lowest sole meets the ground (the soles came back on rows 82-85: one frame floats a game pixel - a flight step)
+def run_lowers():
+    hd = os.path.join(R.ROOT, "assets", "source", HERO, "hd")
+    with open(lp(os.path.join(hd, "run_lower.json")), encoding="utf-8") as f:
+        meta = json.load(f)
+    out = []
+    for k in range(len(meta["frames"])):
+        low = np.asarray(Image.open(lp(os.path.join(hd, f"run_lower_{k}.png"))).convert("RGBA"))
+        sole = meta["hip_row"] + 1 + int(np.nonzero(low[..., 3].any(1))[0].max())
+        out.append((low, meta["hip_row"], meta["pad"], int(min(1, max(0, ROWS * 2 - 1 - sole)))))
+    return out
+
+
+def over(base, top):
+    m = top[..., 3] > 0
+    base[m] = top[m]
+    return base
+
+
+def run_frame(rig, joints, j, lower):
+    D = rig.D
+    low, hip, pad, dy = lower
+    d = joints["design"]
+    want = R.heading(np.subtract(j["weapon_b"][:2], j["weapon_a"][:2]))
+    staff = D.snap("staff", R.wrap(want - R.heading(np.subtract(TIP, GRIP))))
+    if abs(staff) > 135:
+        staff = 0.0
+    st = R.compose(rig, [("staff", dict(dy=dy, angle=staff, about=GRIP, src=D.staff_src))])
+    body = R.compose(rig, [("upper", dict(dy=dy))])
+    y0 = rig.oy + hip + 1 + dy
+    yy, xx = np.mgrid[0:body.shape[0], 0:body.shape[1]]
+    body[(yy >= y0) & (xx >= rig.ox + CAPE_X_RUN)] = 0          # the design's gown and legs: Codex's instead
+    lowc = rig.canvas()
+    x0 = rig.ox - pad
+    h = min(low.shape[0], lowc.shape[0] - y0)
+    lowc[y0:y0 + h, x0:x0 + low.shape[1]] = low[:h]
+    arm = R.compose(rig, [("arm", dict(dy=dy, angle=0, about=SHOULDER))])
+    can = rig.canvas()
+    for lay in ([st, body, lowc, arm] if staff else [body, lowc, st, arm]):
+        over(can, lay)
+    can[rig.GY:] = 0
+    return can
+
+
 def idle_frame(rig, sink):
     return R.compose(rig, [("upper", dict(dy=sink)), ("staff", dict(dy=sink, angle=0, about=GRIP, src=rig.D.staff_src)),
                            ("arm", dict(dy=sink, angle=0, about=SHOULDER))])
@@ -203,6 +251,9 @@ def frames(rig, joints):
         rows = R.fit_rows(rows, len(ms))
         if tag == "idle":
             fr = [idle_frame(rig, IDLE_SINK[i % len(IDLE_SINK)]) for i in range(len(ms))]
+        elif tag == "run":
+            lows = run_lowers()
+            fr = [run_frame(rig, joints, r["j"], lows[i % len(lows)]) for i, r in enumerate(rows)]
         else:
             fr = [pose(rig, joints, r["j"], staff_free=tag not in KEEP and tag != "dead",
                        arm_free=tag not in KEEP) for r in rows]
