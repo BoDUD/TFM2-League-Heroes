@@ -50,6 +50,10 @@ BIG = "asset/league/effects/league_yunara_big"
 # on seeds 13-24 (+1.61 over 24); y4 Q 35% + W 60 +1.43 / +0.80. Timed to the strips (W's bead from a guarded Delayed,
 # R a 3-tick gate) y3 fell to +1.32 / +1.32 (t1); atk 103 +1.49 / +0.93, Q 45% AS +1.57 / +1.05, W 85 + laser 180
 # +0.99 / +2.55 (noise); hp 1000 + atk 103 +1.52 / +1.35 (t4, +1.44 over 24 seeds, here: Aphelios +1.45).
+# 2026-10-19, R's cooldown fixed (the transcendence's W / E cap no longer caps R itself: ult_cooldown_mult -400): seeds
+# 1-12 +1.52 -> +1.44 (noise, the classic AI seldom pressed R again within 14 s); traced 24 games each: R fires 2.67 ->
+# 1.92 a game, gaps between fires under 4200 ticks 25 (min 889) -> 1 (2811, an item's haste), W back early after a
+# fire 37 of 52 -> 22 of 34 (the cap on W / E kept). Numbers unchanged.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Yunara: 575 range,
     # 55 AD, 590 +110 hp, 25 armour, 325 move, attack speed 0.65
