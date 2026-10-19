@@ -111,8 +111,9 @@ def main():
     a = ap.parse_args()
     man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
     meta = {}
-    for e in man.get("effects") or man["entries"]:
-        name = (e.get("name") or e["id"]).removeprefix("quinn_fx_").removesuffix(".png")
+    # Codex's manifest (2026-10-19): a list, each entry with key / file, frames and cell_1x
+    for e in (man if isinstance(man, list) else man.get("effects") or man["entries"]):
+        name = (e.get("key") or e.get("name") or e["file"]).removeprefix("quinn_fx_").removesuffix(".png")
         meta[name] = dict(e, pixel_1x=os.path.join(SRC, "pixel_1x", e.get("file") or f"quinn_fx_{name}.png"))
     if set(meta) != set(FX):
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
