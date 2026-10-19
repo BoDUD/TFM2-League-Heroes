@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Cho'Gath's step-1 designs (assets/source/chogath/codex_model, 2026-10-19, Codex new-chat-7) read back on their own
-grids and brought to the game's count: 46 rows scythe top to soles (38 game px at PPU 1.2).
+grids and brought to the game's count: 46 rows scythe top to soles (38 game px at PPU 1.2). The user's pick:
+idle A-1; both side takes were drawn off the grid (cut to 46 rows: a huge head on a crushed body; voted: muddy), so the
+side view is redrawn by Codex on the grid (pack_chogath_side.py).
 
     python tools/art/design_chogath_model.py --options DIR     # the candidates side by side (the user's pick)
-    python tools/art/design_chogath_model.py                   # writes assets/source/chogath/hd/{idle,side}.png
+    python tools/art/design_chogath_model.py                   # writes assets/source/chogath/hd/idle.png
 
 Codex's squares (the spread of colour inside the squares levels off; asked 16 px): A-1 ~16 px (53 rows), A-2 ~18 px
 (48), side-1 ~7.5 px (115: drawn far too fine), side-2 ~11 px (71). Each read back with regrid at its own size (alpha
@@ -31,7 +33,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "chogath", "codex_model", "chogath-model")
 OUT = os.path.join(ROOT, "assets", "source", "chogath", "hd")
 ROWS, K = 46, 28
-PICKS = {"idle": "A-1", "side": "side-2"}
+PICKS = {"idle": "A-1"}   # the user, 2026-10-19: idle A-1; the side goes back to Codex for an on-grid redraw
 # name -> (Codex's square px, rows wanted, face rows, face columns) on its own read-back
 DRAFTS = {
     "A-1": (16.0, ROWS, range(26, 45), range(52, 77)),
