@@ -111,6 +111,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows crest to soles: 「38 像素」, then 「像素有点太低了 太多模糊的了 调一下PPU」; her legs drawn on League's bones; the
     // ride r_* tags the add-on swaps in), so no SIZES row
     ("league_quinn", 2.0, include_str!("../../../league/champions/league_quinn#anim.fanim")),
+    // Cho'Gath: posed by tools/art/rig_chogath.py at the user's 1.2 squares a game pixel (「38 像素」「PPU 1.2」: Codex's step-1
+    // take A-1 cut to 46 rows, the side view redrawn on the grid, Codex's action poses read back at its scale with the
+    // idle's head), so no SIZES row; Feast's stacks draw his body bigger (GROWTH)
+    ("league_chogath", 1.2, include_str!("../../../league/champions/league_chogath#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

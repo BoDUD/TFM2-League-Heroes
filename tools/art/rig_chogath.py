@@ -157,7 +157,7 @@ def eye_point(d):
 # rearing, slamming and biting he pivots on his planted hind legs): each pose's near hind foot column (the middle of its
 # talons on the ground; slam's hind legs kick back in the air - its hips' column less the side design's hip-to-foot 3)
 SIDE_FOOT = 24
-POSES = {"crouch": 26, "rise": 36, "rear": 35, "slam": 17, "lunge": 19, "fall": 31, "lie": 37}
+POSES = {"crouch": 26, "rise": 22, "rear": 24, "slam": 17, "lunge": 19, "fall": 31, "lie": 37}
 
 
 def shift(can, dx, dy):
@@ -174,13 +174,15 @@ def form():
 
 
 # ------------------------------------------------------------------------------------------------- the walk
-# League's chogath_run: a heavy gallop on all fours, the diagonal pairs stepping together. The design's own legs step
-# whole (league_braum / league_nautilus heavy walks): a planted leg slides back under the body that stays, a lifted
-# one is carried forward a row or two off the ground; the near hind leg with the far front leg, the far hind leg with
-# the near front leg half a cycle later; the body sets down a row as each pair lands.
-STRIDE = [1, 0, -1, -2, -1, 0, 1, 2]          # a leg's column offset round the cycle (planted 0-3, swinging 4-7)
-LIFT = [0, 0, 0, 0, 1, 2, 2, 1]
-BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+# League's chogath_run: a heavy bounding gallop, the body rocking down and up once a stride and surging forward as
+# it pushes off. The design's own legs step whole (league_braum / league_nautilus heavy walks): a planted leg slides
+# back under the body, a lifted one is carried forward off the ground; the near hind leg with the far front leg, the
+# far hind leg with the near front leg half a cycle later. The body sets down onto the legs as a pair lands (BOB) and
+# the whole figure surges a column forward on the push (SURGE).
+STRIDE = [2, 1, -1, -3, -2, 0, 2, 3]          # a leg's column offset round the cycle (planted 0-3, swinging 4-7)
+LIFT = [0, 0, 0, 0, 2, 3, 2, 1]
+BOB = [2, 1, 0, 0, 2, 1, 0, 0]
+SURGE = [0, 0, 1, 1, 0, 0, 1, 1]
 
 
 def walk(F):
@@ -189,7 +191,8 @@ def walk(F):
         j = (i + 4) % 8
         a = (STRIDE[i], -LIFT[i])
         b = (STRIDE[j], -LIFT[j])
-        out.append(F.pose(body=(0, BOB[i]), legs={"near_hind": a, "far_front": a, "far_hind": b, "near_front": b}))
+        out.append(F.pose(whole=(SURGE[i], 0), body=(0, BOB[i]),
+                          legs={"near_hind": a, "far_front": a, "far_hind": b, "near_front": b}))
     return out
 
 
@@ -197,7 +200,7 @@ def walk(F):
 # ms per frame; the kit's ticks (tools/kit/build_chogath.py) come from these
 MS = {"idle": [150] * 8, "run": [90] * 8,
       "attack": [70, 70, 90, 90, 80, 100], "attack_e": [70, 80, 90, 90, 80, 90],
-      "skill": [80, 80, 100, 120, 100, 100], "skill2": [80, 80, 120, 200, 200, 120, 100],
+      "skill": [70, 100, 100, 100, 120, 100], "skill2": [60, 60, 90, 140, 140, 90, 70],
       "ult": [80, 100, 100, 150, 150, 100],
       "hit": [100, 100], "dead": [120, 100, 120, 100, 150, 60, 100, 500]}
 IDLE_LEG_ROW = 38                     # the idle design's legs: rows from here down stay while the body breathes
@@ -226,9 +229,10 @@ def frames_all(F):
     # E's spiked attack (League's chogath_crit: the same rear and slam, deeper - the spikes leave on frame 4)
     out["attack_e"] = [w("crouch", dx=-1), w("rise", dx=-1), w("rear", dx=-1), w("slam", dx=1), w("slam", dx=2),
                        w("crouch")]
-    # Q Rupture (League's chogath_spell4: he rises, twists up and stamps down - the ground cracks on frame 4)
-    out["skill"] = [w("crouch"), w("rise"), w("rear"), w("slam"), w("slam"), w("crouch")]
-    # W Feral Scream (League's chogath_spell1: he rears up, the head thrown back, and screams - frames 3-5 the scream)
+    # Q Rupture (League's chogath_spell4: he ducks low and stamps, head down - the ground cracks on frame 2 - then arches
+    # up and settles)
+    out["skill"] = [w("crouch"), w("slam"), w("slam"), w("rise"), w("rear"), w("crouch")]
+    # W Feral Scream (League's chogath_spell1: he rears up, the head thrown back, and screams - the scream from frame 3)
     out["skill2"] = [w("crouch"), w("rise"), w("rear"), w("rear", dy=-1), w("rear"), w("rise"), w("crouch")]
     # R Feast (League's chogath_spell2: he lunges and bites, rears up swallowing it whole, comes down - the bite frame 2)
     out["ult"] = [w("crouch"), w("lunge"), w("lunge", dx=1), w("rear"), w("rear", dy=-1), w("crouch")]

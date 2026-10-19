@@ -201,7 +201,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 11,
+                "tick": 13,
                 "effects": [
                   {
                     "type": "Sfx",
@@ -449,7 +449,7 @@
           },
           "effect_none": {
             "type": "Delayed",
-            "tick": 11,
+            "tick": 13,
             "effects": [
               {
                 "type": "Sfx",
@@ -609,7 +609,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_chogath.skill",
-    "duration": 30,
+    "duration": 36,
     "cooltime": 540,
     "start_timing": 1,
     "cancelable": false,
@@ -655,7 +655,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 4,
           "effects": [
             {
               "type": "ViewEffect",
@@ -669,7 +669,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 47,
+          "tick": 40,
           "effects": [
             {
               "type": "ViewEffect",
@@ -747,7 +747,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_chogath.skill2",
-    "duration": 30,
+    "duration": 39,
     "cooltime": 660,
     "start_timing": 1,
     "cancelable": false,
@@ -789,7 +789,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 7,
           "effects": [
             {
               "type": "Sfx",
@@ -860,7 +860,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_chogath.ult",
-    "duration": 36,
+    "duration": 41,
     "cooltime": 3600,
     "start_timing": 1,
     "cancelable": false,
@@ -906,7 +906,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 15,
+          "tick": 5,
           "effects": [
             {
               "type": "Sfx",

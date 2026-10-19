@@ -33,6 +33,16 @@ from pack_chogath_side import HEAD  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "chogath", "codex_poses", "chogath-poses")
 OUT = os.path.join(ROOT, "assets", "source", "chogath", "hd")
 POSES = ["crouch", "rise", "rear", "slam", "lunge", "fall", "lie"]
+# Round 2 (POSE_PROMPTS_2.md: rise, rear and slam redrawn with the side design's thick body and short legs). The user,
+# 2026-10-19: round 2 「这大虫子怎么这么胖啊」, round 1 too thin next to oppi's Cho'Gath (its trunk as wide as the head, a
+# stalk under it) -> 「身材照着他的修一下就行了 看起来不是太胖也不是太瘦」: round 2's bodies at crouch's scale (17 px a
+# square: by area they would come out smaller), then whole columns (and for slam rows) dropped by least loss
+# (design_chogath_model.keep_axis). With the head's columns kept the trunk under it stays a head wide and more (1.5 heads:
+# 「这有点胖吧」 for the rear), so rise and rear are slimmed whole - Codex's own smaller head too - before the idle's head
+# goes on (WHOLE): their trunks 1.25-1.3 heads wide, round 1's 1.0, the fill of the box 0.46-0.49 (oppi 0.45-0.57).
+SRC2 = os.path.join(ROOT, "assets", "source", "chogath", "codex_poses2", "chogath-poses2")
+ROUND2 = {"rise": (17.0, 0.66, 1.0), "rear": (17.0, 0.66, 1.0), "slam": (17.0, 0.92, 0.92)}
+WHOLE = {"rise", "rear"}
 
 
 def area_scale(a, side):
@@ -87,93 +97,44 @@ def finish(fig):
     return pad[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
-# ------------------------------------------------------------------------------------------------- the hind legs
-# Codex drew the hind legs of rise, rear and slam thin and long (3-4 squares thick, 14-17 rows; the side design's are
-# 5-6 thick and 9-12 rows) - the user, 2026-10-19, picked round 1's slim bodies with the legs mended here: its legs are
-# cut away and the side design's own hind legs (lossless pieces, below) put on, the near one in front of the body and the
-# far one behind it, a step to the right and two rows higher as on the side design (its far foot is lifted).
-# The side design's hind legs (hd/side.png rows, columns): the near leg with its hip plate and its big talon foot, the far
-# leg with its own talons.
-NEAR_LEG = (33, 44, 16, 30)
-FAR_LEG = (34, 42, 31, 41)
-# per pose: cut = boxes (rows r0-r1, columns c0-c1, inclusive) whose squares are Codex's legs; keep = boxes of squares
-# that stay where they are (rear's tail lying on the ground); drop = rows the rest of the body comes down onto the new
-# legs; near = the near leg piece's left column on the pose (its feet on the ground row, the far piece placed from it as
-# on the side design). Slam keeps Codex's legs: they kick back in the air 5-7 squares thick and 12-15 long, about the
-# side design's own (the side design's legs turned a quarter there read as two lumps).
-LEGFIX = {
-    "rise": dict(cut=[(54, 64, 23, 63), (53, 56, 60, 70)], keep=[], drop=0, near=28),
-    # the tail lies on the ground from the left leg's root: its root (rows 57-63) and the rest of it stay where they
-    # are, the leg's shaft right of them and both feet go; the new near leg covers the shaft's last columns
-    "rear": dict(cut=[(54, 69, 35, 42), (64, 69, 29, 34), (57, 69, 43, 62)], keep=[(57, 63, 0, 34), (64, 69, 0, 28)],
-                 drop=3, near=27),
-}
-
-
-def leg_piece(side, box):
-    r0, r1, c0, c1 = box
-    return side[r0:r1 + 1, c0:c1 + 1].copy()
-
-
-def put(can, piece, y, x, under=False):
-    """piece's opaque squares onto can at (y, x) (clipped); under: only where can is clear."""
-    h, w = piece.shape[:2]
-    y0, x0 = max(0, y), max(0, x)
-    y1, x1 = min(can.shape[0], y + h), min(can.shape[1], x + w)
-    if y1 <= y0 or x1 <= x0:
-        return
-    sub = piece[y0 - y:y1 - y, x0 - x:x1 - x]
-    m = sub[..., 3] > 0
-    if under:
-        m &= can[y0:y1, x0:x1, 3] == 0
-    can[y0:y1, x0:x1][m] = sub[m]
-
-
-def fix_legs(name, fig, side):
-    """The pose with Codex's hind legs replaced by the side design's (LEGFIX)."""
-    fx = LEGFIX[name]
+def slim(fig, idle, cols_k, rows_k):
+    """Whole columns / rows dropped by least loss (design_chogath_model.keep_axis), the pasted head's kept."""
+    import design_chogath_model as M
+    r0, r1, c0, c1 = HEAD
+    head = idle[r0:r1, c0:c1]
+    hy, hx = eye_point(head)
+    ey, ex = eye_point(fig)
     H, W = fig.shape[:2]
-    cut = np.zeros((H, W), bool)
-    for r0, r1, c0, c1 in fx["cut"]:
-        cut[r0:r1 + 1, c0:c1 + 1] = True
-    keep = np.zeros((H, W), bool)
-    for r0, r1, c0, c1 in fx["keep"]:
-        keep[r0:r1 + 1, c0:c1 + 1] = True
-    op = fig[..., 3] > 0
-    fixed = op & keep & ~cut
-    body = op & ~cut & ~keep
-    pad = 16
-    can = np.zeros((H + 2 * pad, W + 2 * pad, 4), np.uint8)
-    near, far = leg_piece(side, NEAR_LEG), leg_piece(side, FAR_LEG)
-    ground = pad + H - 1                                         # the pose's ground row on the canvas
-    nx = pad + fx["near"]
-    ny = ground - near.shape[0] + 1
-    fxx = nx + (FAR_LEG[2] - NEAR_LEG[2])
-    fy = ny + (FAR_LEG[0] - NEAR_LEG[0])
-    put(can, far, fy, fxx)
-    # the fixed part (on the ground), then the body brought down onto the legs
-    lay = np.zeros_like(can)
-    lay[pad:pad + H, pad:pad + W][fixed] = fig[fixed]
-    m = lay[..., 3] > 0
-    can[m] = lay[m]
-    lay = np.zeros_like(can)
-    d = fx["drop"]
-    lay[pad + d:pad + d + H, pad:pad + W][body] = fig[body]
-    m = lay[..., 3] > 0
-    can[m] = lay[m]
-    put(can, near, ny, nx)
-    ys, xs = np.nonzero(can[..., 3] > 0)
-    return can[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    hr, hc = int(round(ey - hy)), int(round(ex - hx))
+    keep_c = range(max(0, hc), min(W, hc + head.shape[1]))
+    keep_r = range(max(0, hr), min(H, hr + head.shape[0]))
+    key = np.where(fig[..., 3] > 0, fig[..., 0].astype(int) * 65536 + fig[..., 1].astype(int) * 256 + fig[..., 2], -1)
+    cols = M.keep_axis([key[:, x] for x in range(W)], round(W * cols_k), keep_c) if cols_k < 1 else list(range(W))
+    sub = key[:, cols]
+    rows = M.keep_axis([sub[y] for y in range(H)], round(H * rows_k), keep_r) if rows_k < 1 else list(range(H))
+    return fig[np.ix_(rows, cols)]
+
+
+def slim_whole(fig, cols_k):
+    """Whole columns dropped by least loss over the whole figure (no head kept: the idle's head goes on after)."""
+    import design_chogath_model as M
+    W = fig.shape[1]
+    key = np.where(fig[..., 3] > 0, fig[..., 0].astype(int) * 65536 + fig[..., 1].astype(int) * 256 + fig[..., 2], -1)
+    cols = M.keep_axis([key[:, x] for x in range(W)], round(W * cols_k), range(W // 2, W // 2 + 1))
+    return fig[:, cols]
 
 
 def build(name, side, idle):
+    if name in ROUND2:
+        s, ck, rk = ROUND2[name]
+        a = np.asarray(Image.open(lp(os.path.join(SRC2, f"chogath-pose-{name}.png"))).convert("RGBA"))
+        raw = snap(sample(a, s), side)
+        if name in WHOLE:
+            return finish(with_head(slim_whole(raw, ck), idle)), s
+        return finish(slim(with_head(raw, idle), idle, ck, rk)), s
     a = np.asarray(Image.open(lp(os.path.join(SRC, f"chogath-pose-{name}.png"))).convert("RGBA"))
     s = area_scale(a, side)
-    fig = snap(sample(a, s), side)
-    fig = with_head(fig, idle)
-    if name in LEGFIX:
-        fig = fix_legs(name, finish(fig), side)
-    fig = finish(fig)
+    fig = finish(with_head(snap(sample(a, s), side), idle))
     return fig, s
 
 

@@ -1753,15 +1753,11 @@
     "league_chogath": {
       "face": {
         "x": 8,
-        "y": -17
+        "y": -5
       },
       "center": {
         "x": 0,
         "y": -10
-      },
-      "banpick_center": {
-        "x": 0,
-        "y": -7
       }
     }
   }

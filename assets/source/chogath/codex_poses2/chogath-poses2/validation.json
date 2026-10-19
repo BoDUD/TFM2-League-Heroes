@@ -1,0 +1,50 @@
+{
+  "chogath-pose-rear.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      16,
+      34,
+      1250,
+      1223
+    ],
+    "partial_alpha_count": 767374,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  },
+  "chogath-pose-rise.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      16,
+      87,
+      1254,
+      1224
+    ],
+    "partial_alpha_count": 696394,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  },
+  "chogath-pose-slam.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      32,
+      115,
+      1241,
+      1191
+    ],
+    "partial_alpha_count": 549107,
+    "hard_alpha_pass": false,
+    "exact_16px_origin_grid_pass": false,
+    "size_pass": true
+  }
+}

@@ -37,8 +37,10 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing
 E = "<>"
-# champion_view: provisional until the sheet exists (tfm2_ase.py face; banpick_center by the card rule -39 - top)
-VIEW = {"face": {"x": 8, "y": -17}, "center": {"x": 0, "y": -10}, "banpick_center": {"x": 0, "y": -7}}
+# champion_view: the face point between his eyes (his head hangs low, 16 game px over his soles; tfm2_ase.py face puts
+# the crown at the scythe tips, 34 px up, where a portrait would show no head); no banpick_center - the idle's top is
+# 27.3 px over the frame centre, under the card rule's 28 (tools/art/bp_card_audit.py)
+VIEW = {"face": {"x": 8, "y": -5}, "center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

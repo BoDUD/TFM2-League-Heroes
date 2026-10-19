@@ -51,25 +51,28 @@ BIG = "asset/league/effects/league_chogath_big"
 # berserker, three lineups, both sides, 2026-10-19): the draft (Q 90 +100% cd 7 s up 1 s, E 30 +30% +3%, W 80 +70%)
 # +5.20 (base knight +0.39 in the same batch); Q 50 +60% cd 9 s up 0.75 s, E 20 +20% +2%, W 60 +50% = P: +1.72 / +1.83
 # (seeds 1-8 / 9-16; league_volibear +1.39, league_gangplank +1.67). Ticks are a draft until the strips exist
-# (rig_chogath.MS).
+# (rig_chogath.MS). Retimed to the strips (rig_chogath.MS, 2026-10-19): the attack's slam lands on tick 14 (frame 4,
+# 230 ms), the spiked attack's too; Q ducks and stamps on tick 5 (frame 2 at 70 ms; 590 ms in all); W screams from the
+# rear on tick 8 (frame 3; 650 ms); R bites on tick 6 (the lunge, frame 2 at 80 ms; 680 ms).
+# Retimed: +1.81 / +2.02 (seeds 1-8 / 9-16), the numbers kept.
 P = {
     # stats (base tanks: attack 80 +6, hp 1100 +120, defence 40 +10, mr 30 +5)
     "hp": 1150, "hp_g": 115, "atk": 80, "atk_g": 6, "mp": 30, "mp_g": 15, "def": 38, "def_g": 9, "mr": 30, "mr_g": 4,
     "ms": 980, "ms_g": 10,
-    "atk_range": 26000, "atk_dur": 30, "atk_cd": 76, "a_hit": 12,
+    "atk_range": 26000, "atk_dur": 30, "atk_cd": 76, "a_hit": 14,
     # passive Carnivore
     "p_heal": 35, "p_ap": 15,
     # E Vorpal Spikes (in the attack)
-    "e_cd": 360, "e_n": 3, "e_t": 360, "e_dur": 30, "e_hit": 12, "e_len": 50000, "e_w": 17000, "e_dmg": 20, "e_ap": 20,
+    "e_cd": 360, "e_n": 3, "e_t": 360, "e_dur": 30, "e_hit": 14, "e_len": 50000, "e_w": 17000, "e_dmg": 20, "e_ap": 20,
     "e_hp": 2, "e_slow": 35, "e_slow_t": 90,
     # Q Rupture
-    "q_cd": 540, "q_range": 90000, "q_dur": 30, "q_rel": 12, "q_delay": 36, "q_r": 25000, "q_dmg": 50, "q_ap": 60,
+    "q_cd": 540, "q_range": 90000, "q_dur": 36, "q_rel": 5, "q_delay": 36, "q_r": 25000, "q_dmg": 50, "q_ap": 60,
     "q_up": 45, "q_slow": 60, "q_slow_t": 90,
     # W Feral Scream
-    "w_cd": 660, "w_range": 45000, "w_dur": 30, "w_rel": 12, "w_cone": 55000, "w_cos": 866, "w_dmg": 60, "w_ap": 50,
+    "w_cd": 660, "w_range": 45000, "w_dur": 39, "w_rel": 8, "w_cone": 55000, "w_cos": 866, "w_dmg": 60, "w_ap": 50,
     "w_sil": 108,
     # R Feast
-    "r_cd": 3600, "r_range": 30000, "r_dur": 36, "r_rel": 16, "r_dmg": 300, "r_hp": 5, "r_ap": 50,
+    "r_cd": 3600, "r_range": 30000, "r_dur": 41, "r_rel": 6, "r_dmg": 300, "r_hp": 5, "r_ap": 50,
     "r_stack_hp": 70, "r_grow": 5,
     # his sounds, at most one every vo_gap ticks
     "vo_gap": 600,
