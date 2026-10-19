@@ -18,6 +18,9 @@
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。不用全局的对局状态，服务端预模拟和你看的
 //! 那场各算各的（激光效果只读参数）。
+//! 0.1.1（2026-10-19，用户：「泽丽突然没伤害」）：每 30 秒（对局时间）一行 `DMG 30s`：这 30 秒她打出的伤害（`on_attack`，
+//! 普攻和技能都算）按她当时身上开着什么分（E 的穿透弹 `e_on`、R 的超限 `r_on`、都没有），其中打英雄的多少、命中次数、
+//! 开始的普攻次数（其中充能弹几次）、死着的 tick 数——看伤害是哪一段、哪种状态下掉没的。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zeri.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
 use std::fs::OpenOptions;
@@ -331,6 +334,32 @@ struct Diag {
     open: Option<(&'static str, usize, usize)>,
 }
 
+/// 每 30 秒的伤害统计（0.1.1）：E 开着 / R 开着 / 都没有 三份（伤害, 打英雄的伤害, 命中）。
+#[derive(Clone, Default)]
+struct Tally {
+    dmg: [(usize, usize, usize); 3],
+    attacks: usize,
+    charged: usize,
+    /// ticks she was dead or not updated (the host may skip a dead champion's passive)
+    dead: usize,
+    /// the last tick seen and the next line's tick (kept across lines)
+    last: usize,
+    next: usize,
+}
+
+/// 30 s of match time between the `DMG 30s` lines.
+const TALLY_TICKS: usize = 1800;
+
+impl Tally {
+    fn line(&self) -> String {
+        let part = |n: &str, (d, c, h): (usize, usize, usize)| format!("{n} {d} ({c} on champions, {h} hits)");
+        let total: usize = self.dmg.iter().map(|x| x.0).sum();
+        format!("DMG 30s: {total} dealt - {}, {}, {}; attacks started {} ({} charged); dead {} ticks",
+                part("E on", self.dmg[0]), part("R on", self.dmg[1]), part("plain", self.dmg[2]), self.attacks,
+                self.charged, self.dead)
+    }
+}
+
 const DIAG_ATTACKS: usize = 16;
 const DIAG_PULSES: usize = 8;
 const DIAG_TICKS: usize = 18;
@@ -399,6 +428,7 @@ struct Battery {
     pulses: usize,
     steals: usize,
     diag: Diag,
+    tally: Tally,
 }
 
 impl Battery {
@@ -511,7 +541,19 @@ impl StablePassive for Battery {
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         self.diag.tick(sim, me);
+        let t = sim.tick();
+        if self.tally.last > 0 && t > self.tally.last + 1 {
+            self.tally.dead += t - self.tally.last - 1;
+        }
+        self.tally.last = t;
+        if self.tally.next == 0 {
+            self.tally.next = (t / TALLY_TICKS + 1) * TALLY_TICKS;
+        } else if t >= self.tally.next {
+            wlog(format!("{} {}", head(sim, me), self.tally.line()));
+            self.tally = Tally { last: t, next: (t / TALLY_TICKS + 1) * TALLY_TICKS, ..Tally::default() };
+        }
         if !alive(sim, me) {
+            self.tally.dead += 1;
             self.pulse = None;
             return;
         }
@@ -535,11 +577,21 @@ impl StablePassive for Battery {
     }
 
     fn on_base_attack(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        self.tally.attacks += 1;
+        if has_buff(sim, me, &zr("p_full")) {
+            self.tally.charged += 1;
+        }
         self.diag.begin(sim, me, "attack");
     }
 
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, damage: &mut usize) {
         self.diag.hit(sim, me, target, *damage);
+        let slot = if has_buff(sim, me, &zr("e_on")) { 0 } else if has_buff(sim, me, &zr("r_on")) { 1 } else { 2 };
+        let champ = sim.get_entity(target).is_some_and(|t| t.is_champion());
+        let d = &mut self.tally.dmg[slot];
+        d.0 += *damage;
+        d.1 += if champ { *damage } else { 0 };
+        d.2 += 1;
         let Some(t) = sim.get_entity(target) else { return };
         let shield = t.shield();
         let team = sim.get_entity(me).map_or(usize::MAX, |e| e.team());
@@ -637,6 +689,14 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_30_s_line_splits_the_damage_by_her_state() {
+        let t = Tally { dmg: [(70, 70, 1), (0, 0, 0), (200, 90, 3)], attacks: 4, charged: 1, dead: 0, last: 0, next: 0 };
+        let want = ["DMG 30s: 270 dealt - E on 70 (70 on champions, 1 hits), R on 0 (0 on champions, 0 hits),",
+                    " plain 200 (90 on champions, 3 hits); attacks started 4 (1 charged); dead 0 ticks"];
+        assert_eq!(t.line(), want.concat());
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {

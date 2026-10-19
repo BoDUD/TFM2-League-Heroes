@@ -20,7 +20,9 @@ W 的说明写上偷盾和撞墙），被动 `league_zeri:battery` 每 tick 看�
 
 数字从英雄数据的 `passive.params` 来。只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zeri.log`（`map:` 认出的地图；`W #n: pulse fired` 每次 W；
-`the pulse met a wall at ... - laser to ...` 撞墙出激光；`STEAL #n` 偷了谁的护盾、多少）。
+`the pulse met a wall at ... - laser to ...` 撞墙出激光；`STEAL #n` 偷了谁的护盾、多少；0.1.1 起每 30 秒一行
+`DMG 30s: … dealt - E on … , R on … , plain …; attacks started … (… charged); dead … ticks`：这 30 秒打出的伤害按她开着
+E / R / 都没开分，其中打英雄的、命中次数、开始的普攻次数和死着的 tick——用户说「泽丽突然没伤害」时看是哪一段掉的）。
 
 ## 在游戏里测
 

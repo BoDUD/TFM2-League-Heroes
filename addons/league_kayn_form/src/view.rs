@@ -17,6 +17,9 @@
 //! 开发过程：0.6.2 侦察 mod v1–v8（2026-10-06）；0.6.3 探针 v9–v11 + 静态分析（2026-10-08，C:/tfm2/scratch/view_probe*）。
 //! 0.6.4（2026-10-14）：同一个函数（开头 48 字节和 0.6.3 一样）搬到 0x23312a0，槽在 0x3c82db8，实体表和值的字段没变
 //! （league_main/src/build.rs 的说明）；0.6.3 的地址（0x2808e30 / 0x3c31358）不再认。
+//! 0.3.2（2026-10-19，用户：「凯隐变身的时候中途有一段突然变回去」，那一局的日志里形态一直在）：有形态时正在播的动画名
+//! 不在 `FORM_TAGS` 里（游戏播了一个形态没有自己一套的动作，身体就画成原样），每个凯隐每个名字记一行
+//! `... plays "<name>" with no form frames`。
 
 use std::ffi::c_void;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -76,6 +79,12 @@ pub fn anim_for(cur: &str, darkin: bool, shadow: bool, in_wall: bool) -> Option<
     (want != cur).then_some(want)
 }
 
+/// 有形态却换不了的动画名（形态没有自己一套，画面会画原样）：`r_hidden`（R 里藏起来，什么都不画）不算。
+pub fn undressed(cur: &str, darkin: bool, shadow: bool) -> bool {
+    let base = PREFIXES.iter().find_map(|p| cur.strip_prefix(p)).unwrap_or(cur);
+    (darkin || shadow) && !FORM_TAGS.contains(&base) && cur != "r_hidden"
+}
+
 /// 一个画面实体身上的 buff 名 → (暗裔, 影流, 在墙里)。
 pub fn read_buffs<'a>(names: impl Iterator<Item = &'a [u8]>) -> (bool, bool, bool) {
     let (mut d, mut s, mut w) = (false, false, false);
@@ -124,10 +133,11 @@ struct Stats {
     writes: u64,
     last: Option<std::time::Instant>,
     looks: Vec<(usize, u64, bool, bool, bool)>, // (world, entity, darkin, shadow, in wall) last logged
+    bare: Vec<(u64, String)>,                   // (entity, animation) logged as having no form frames
 }
 
 static STATS: Mutex<Stats> =
-    Mutex::new(Stats { calls: 0, worlds: Vec::new(), kayns: 0, writes: 0, last: None, looks: Vec::new() });
+    Mutex::new(Stats { calls: 0, worlds: Vec::new(), kayns: 0, writes: 0, last: None, looks: Vec::new(), bare: Vec::new() });
 static FORMS: Mutex<Forms> = Mutex::new(Forms { seen: Vec::new() });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
@@ -254,6 +264,14 @@ unsafe fn dress_kayn(world: usize) {
                 if d { "Darkin" } else if s { "Shadow Assassin" } else { "Kayn" }, if w { ", in the wall" } else { "" },
                 if (d, s) != (bd, bs) { "form remembered, " } else { "" }));
         }
+        if undressed(cur, d, s) && !st.bare.iter().any(|b| b.0 == key && b.1 == cur) {
+            st.bare.push((key, cur.to_string()));
+            if st.bare.len() > 64 {
+                st.bare.remove(0);
+            }
+            wlog(format!("world {world:#x} Kayn #{key}: {} plays \"{cur}\" with no form frames (drawn as plain Kayn)",
+                if d { "Darkin" } else { "Shadow Assassin" }));
+        }
         let Some(want) = anim_for(cur, d, s, w) else { continue };
         let heap = GetProcessHeap();
         let fresh = HeapAlloc(heap, 0, want.len());
@@ -313,6 +331,16 @@ pub fn install_once() {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_formed_kayn_without_form_frames_is_noted() {
+        assert!(undressed("stun", true, false));
+        assert!(undressed("rh_stun", true, false));
+        assert!(!undressed("idle", true, false)); // swapped to rh_idle
+        assert!(!undressed("rh_attack", true, false));
+        assert!(!undressed("r_hidden", false, true)); // inside his target in R: nothing drawn
+        assert!(!undressed("stun", false, false)); // no form: the base body is right
+    }
 
     #[test]
     fn the_playing_animation_follows_the_look() {
