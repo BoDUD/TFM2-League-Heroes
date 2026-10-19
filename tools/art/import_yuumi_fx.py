@@ -150,7 +150,8 @@ def main():
     meta = {}
     if os.path.isfile(lp(os.path.join(SRC, "manifest.json"))):
         man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
-        for e in man.get("effects") or man.get("entries") or []:
+        # Codex's manifest (2026-10-19): a list of entries with name, file, pixel_1x, frames and cell_1x
+        for e in man if isinstance(man, list) else (man.get("effects") or man.get("entries") or []):
             meta[e.get("name") or e["id"]] = dict(e, pixel_1x=os.path.join(SRC, "pixel_1x", e["file"]))
     if set(meta) != set(FX):
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
