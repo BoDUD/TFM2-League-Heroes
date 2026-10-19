@@ -377,7 +377,7 @@ RESTYLE = {
     # Codex's step-1 take A-1 cut to 46 rows, the side view redrawn on the grid, Codex's poses read back at its scale),
     # so no proportion or density change here; the outer outline grown a square like the others; the face point between
     # his eyes (his head hangs low: 16 game px over his soles)
-    "chogath": dict(ppu=1.2, edge=1, face_to=(8, -5)),
+    "chogath": dict(ppu=1.2, edge=1, face_to=(11, -5)),
     # tft_powder (the tft pack): the idle design (A-2) and Codex's skeleton poses with the one clean head, posed by
     # tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊」 -> 1.75); shown at 90 % (the user:
     # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the

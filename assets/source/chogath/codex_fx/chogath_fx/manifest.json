@@ -1,0 +1,170 @@
+{
+ "effects": [
+  {
+   "name": "a_hit",
+   "file": "chogath_fx_a_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 00.jpg"
+  },
+  {
+   "name": "p_heal",
+   "file": "chogath_fx_p_heal.png",
+   "frames": 4,
+   "cell_1x": [
+    40,
+    30
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 01.jpg"
+  },
+  {
+   "name": "e_arm",
+   "file": "chogath_fx_e_arm.png",
+   "frames": 4,
+   "cell_1x": [
+    48,
+    19
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 02.jpg"
+  },
+  {
+   "name": "e_pic",
+   "file": "chogath_fx_e_pic.png",
+   "frames": 4,
+   "cell_1x": [
+    52,
+    18
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini 03.jpg"
+  },
+  {
+   "name": "e_hit",
+   "file": "chogath_fx_e_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 04.jpg"
+  },
+  {
+   "name": "e_slow",
+   "file": "chogath_fx_e_slow.png",
+   "frames": 2,
+   "cell_1x": [
+    16,
+    8
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 05.jpg"
+  },
+  {
+   "name": "q_crack",
+   "file": "chogath_fx_q_crack.png",
+   "frames": 6,
+   "cell_1x": [
+    54,
+    20
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 06.jpg"
+  },
+  {
+   "name": "q_spikes",
+   "file": "chogath_fx_q_spikes.png",
+   "frames": 6,
+   "cell_1x": [
+    55,
+    46
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 07.jpg"
+  },
+  {
+   "name": "q_hit",
+   "file": "chogath_fx_q_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    16,
+    15
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 08.jpg"
+  },
+  {
+   "name": "q_slow",
+   "file": "chogath_fx_q_slow.png",
+   "frames": 2,
+   "cell_1x": [
+    24,
+    6
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 09.jpg"
+  },
+  {
+   "name": "w_wave",
+   "file": "chogath_fx_w_wave.png",
+   "frames": 5,
+   "cell_1x": [
+    56,
+    32
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini 10.jpg"
+  },
+  {
+   "name": "w_hit",
+   "file": "chogath_fx_w_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 11.jpg"
+  },
+  {
+   "name": "w_sil",
+   "file": "chogath_fx_w_sil.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 12.jpg"
+  },
+  {
+   "name": "r_hit",
+   "file": "chogath_fx_r_hit.png",
+   "frames": 5,
+   "cell_1x": [
+    32,
+    34
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 13.jpg"
+  },
+  {
+   "name": "r_grow",
+   "file": "chogath_fx_r_grow.png",
+   "frames": 5,
+   "cell_1x": [
+    62,
+    48
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 14.jpg"
+  }
+ ],
+ "made_by": "Gemini (the user's images), processed by tools/art/process_chogath_fx.py"
+}

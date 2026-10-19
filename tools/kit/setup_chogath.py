@@ -40,7 +40,7 @@ E = "<>"
 # champion_view: the face point between his eyes (his head hangs low, 16 game px over his soles; tfm2_ase.py face puts
 # the crown at the scythe tips, 34 px up, where a portrait would show no head); no banpick_center - the idle's top is
 # 27.3 px over the frame centre, under the card rule's 28 (tools/art/bp_card_audit.py)
-VIEW = {"face": {"x": 8, "y": -5}, "center": {"x": 0, "y": -10}}
+VIEW = {"face": {"x": 11, "y": -5}, "center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

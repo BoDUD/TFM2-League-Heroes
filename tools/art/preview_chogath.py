@@ -156,16 +156,17 @@ def showcase(out, z=3):
     d.flinches.append(scream)
     c.a("skill2", tick(P["w_dur"]))
     c.wait(300)
-    # Vorpal Spikes: armed as the first attack starts (the spikes on his back light up), two spiked attacks
-    c.on_me("e_arm", c.t)
+    # Vorpal Spikes: armed as the first attack starts, the spikes on his back lit as he crouches after the volley
+    c.on_me("e_arm", c.t + tick(P["e_arm_at"]))
     for _ in range(2):
         c.blow(spiked=True)
-    # Feast: the bite flies at Darius (r_rel), eats him, the void surge round him a tick later
+    # Feast: the bite flies at Darius (r_rel), eats him (the kill check reads him 4 ticks on), the void surge round his
+    # feet once he is down from the rear-up (under him)
     bite = c.t + tick(P["r_rel"] - 1) + tick(c.flight())
     c.on("r_hit", bite, big)
     d.flinches.append(bite)
     d.death = bite + 120
-    c.on_me("r_grow", bite + tick(1), big)
+    c.on_me("r_grow", bite + tick(4 + P["r_grow_at"]), big, under=True)
     c.a("ult", tick(P["r_dur"]))
     end = c.t + 1200
     c.wait(end - c.t)

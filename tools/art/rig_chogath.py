@@ -85,9 +85,17 @@ def head_mask(d):
     return m
 
 
+# The pivot (the frame's centre: where the game stands him, draws his health bar and centres every effect on him) sits
+# PIVOT_BACK squares behind the middle of his feet: on that middle his body sat 3 game px behind the pivot (his long
+# tail), and the pictures on him - Feast's ring, the passive's heal, Vorpal Spikes' arc - came out 3 px ahead of him
+# (the user, 2026-10-19: 「特效对对齐啊」). 4 squares (3.3 game px) put the idle's middle on the pivot.
+PIVOT_BACK = 4
+
+
 def design():
     d = load("side.png")
-    D = CutDesign(d, px=stand_col(d))
+    D = CutDesign(d, px=stand_col(d) - PIVOT_BACK)
+    D.stand = stand_col(d)
     head = head_mask(d)
     for name, (y0, x0, x1) in LEGS.items():
         D.part(name, D.box(y0, D.H - 1, x0, x1) & ~head)
@@ -125,7 +133,7 @@ class Form:
         lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
         ys = np.nonzero((d[..., 3] > 0).any(1))[0]
         top = P + self.D.ground - (ys.max() + 1)
-        left = P + self.D.px - stand_col(d)
+        left = P + self.D.stand - stand_col(d)
         lay[top:top + d.shape[0], left:left + d.shape[1]] = d
         return lay
 

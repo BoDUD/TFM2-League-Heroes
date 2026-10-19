@@ -110,8 +110,14 @@
                 "only_to_enemy": false
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_chogath_e_arm"
+                "type": "Delayed",
+                "tick": 25,
+                "effects": [
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_chogath_e_arm"
+                  }
+                ]
               }
             ]
           }
@@ -1077,14 +1083,26 @@
                                               "heal_type": "Caster"
                                             },
                                             {
-                                              "type": "CasterViewEffect",
-                                              "name": "league_chogath_r_grow"
+                                              "type": "Delayed",
+                                              "tick": 25,
+                                              "effects": [
+                                                {
+                                                  "type": "CasterViewEffect",
+                                                  "name": "league_chogath_r_grow"
+                                                }
+                                              ]
                                             }
                                           ]
                                         },
                                         {
-                                          "type": "Sfx",
-                                          "name": "league_chogath_r_grow"
+                                          "type": "Delayed",
+                                          "tick": 25,
+                                          "effects": [
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_chogath_r_grow"
+                                            }
+                                          ]
                                         }
                                       ]
                                     }
@@ -1205,7 +1223,7 @@
       "name": "league_chogath_r_grow",
       "anim": "asset/league/effects/league_chogath_big",
       "tag": "r_grow",
-      "z": 2,
+      "z": -1,
       "is_follow": true
     }
   ],

@@ -68,6 +68,11 @@ P = {
     # the picture-only lines (Vorpal Spikes' volley, Feral Scream's cone) last as long as their pictures play
     # (tools/art/import_chogath_fx.py: e_pic 4 frames, 250 ms; w_wave 5 frames, 400 ms)
     "e_pic_t": 15, "w_pic_t": 24,
+    # the pictures on him play while his body is down on all fours, the middle of it on his pivot (the user: 「特效对对
+    # 齐啊」 - Vorpal Spikes' arc over his back came as he reared up, Feast's ring round his feet as he stood swallowing):
+    # the arc on the spiked attack's last crouch (attack_e frame 6 from 410 ms), the ring once Feast's rear-up is over
+    # (its crouch from 580 ms: the eat comes 10-13 ticks into the cast, the bite's flight and the kill check's 4)
+    "e_arm_at": 25, "r_grow_at": 25,
     # Q Rupture
     "q_cd": 540, "q_range": 90000, "q_dur": 36, "q_rel": 5, "q_delay": 36, "q_r": 25000, "q_dmg": 50, "q_ap": 60,
     "q_up": 45, "q_slow": 60, "q_slow_t": 90,
@@ -246,7 +251,8 @@ def build(p):
     e_attack = combine(spend, anim("attack_e", p["e_dur"]), voice("vo_e", p),
                        delayed(p["e_hit"] - 1, sfx("a_swing"), blow, spikes))
     plain = delayed(p["a_hit"] - 1, sfx("a_swing"), blow)
-    arm = sw("e_cd", NONE, combine(flag("e_cd", p["e_cd"]), *[flag(c, p["e_t"]) for c in charges], cview("e_arm")))
+    arm = sw("e_cd", NONE, combine(flag("e_cd", p["e_cd"]), *[flag(c, p["e_t"]) for c in charges],
+                                   delayed(p["e_arm_at"], cview("e_arm"))))
     pick_attack = sw(charges[0], e_attack, plain)
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(arm, pick_attack), atype="BaseAttack", cancel=True)
@@ -269,8 +275,9 @@ def build(p):
                                     cone(p["w_cone"], p["w_cos"], "EnemyWithoutTower", scream))))
 
     # ------------------------------------------------------------------ ult: R Feast
-    grow = combine(flag("r_stack", None, hp=p["r_stack_hp"]), on_me(heal(p["r_stack_hp"]), cview("r_grow")),
-                   sfx("r_grow"))
+    grow = combine(flag("r_stack", None, hp=p["r_stack_hp"]),
+                   on_me(heal(p["r_stack_hp"]), delayed(p["r_grow_at"], cview("r_grow"))),
+                   delayed(p["r_grow_at"], sfx("r_grow")))
     r_set, r_read = kill_check("r", grow)
     bite = homing("r_bite", "EnemyChampion",
                   [r_set, on_me(flag("r_pen", 1, magic_resistance_penetration=100)), true(p["r_dmg"], mine=p["r_hp"]),
@@ -287,7 +294,8 @@ def build(p):
                                       "z": z}
     views_p = [Pj("e_pic"), Pj("w_wave", BIG)]
     views_e = [E("a_hit"), E("p_heal"), E("e_arm"), E("e_hit"), E("q_crack", BIG, -1, False),
-               E("q_spikes", BIG, 3, False), E("q_hit"), E("w_hit"), E("r_hit", BIG), E("r_grow", BIG)]
+               E("q_spikes", BIG, 3, False), E("q_hit"), E("w_hit"), E("r_hit", BIG),
+               E("r_grow", BIG, -1)]            # the ring round his feet under him: his body hides its far side
     views_b = [B_("e_slow"), B_("q_slow"), B_("w_sil")]
     return {
         "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"],

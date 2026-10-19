@@ -4,10 +4,11 @@ league_chogath_big.
 
     python tools/art/import_chogath_fx.py [--src DIR] [--review out.png]
 
-The source is Codex's step-3 delivery (assets/source/chogath/codex_fx: pixel_1x/chogath_fx_<name>.png, one row of equal
-frames each at game size, frame sizes in manifest.json (cell_1x); alpha 0 / 255; the two pictures on picture-only lines
-(e_pic, w_wave) drawn pointing right and symmetric top to bottom, every other one symmetric left to right - checked
-again here). Each frame is cut by the manifest's frame size and placed as the kit plays it (import_volibear_fx.py's
+The source is the step-3 delivery (assets/source/chogath/codex_fx/chogath_fx: pixel_1x/chogath_fx_<name>.png, one row
+of equal frames each at game size, frame sizes in manifest.json (cell_1x); alpha 0 / 255; the two pictures on
+picture-only lines (e_pic, w_wave) drawn pointing right and symmetric top to bottom, every other one symmetric left to
+right - checked again here). The user had Gemini draw them (15 JPGs, 2026-10-19), brought to that delivery by
+tools/art/process_chogath_fx.py. Each frame is cut by the manifest's frame size and placed as the kit plays it (import_volibear_fx.py's
 way): spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it (his 11.5), a point's ground
 too. A line's picture is drawn on the line's middle at pivot height. Times follow tools/kit/build_chogath.py: the
 volley and the scream last as long as their lines (e_pic_t, w_pic_t), the cracks until the spikes burst (q_delay);
@@ -30,7 +31,7 @@ import strips as G  # noqa: E402
 import import_jhin as J  # noqa: E402
 from build_chogath import P  # noqa: E402
 
-SRC = os.path.join(ROOT, "assets", "source", "chogath", "codex_fx")
+SRC = os.path.join(ROOT, "assets", "source", "chogath", "codex_fx", "chogath_fx")
 MOD = os.path.join(ROOT, "league")
 PRE = chr(92) * 2 + "?" + chr(92)
 
@@ -46,6 +47,9 @@ HIT = (0, -14)                  # a hit on the upper body of a 34-46 px unit
 SOLES = (0, 11)                 # on the ground under a unit or a point
 OVERHEAD = (0, -29)             # over a 36-px unit's head (the mark 36-44 px over its soles)
 LINE = (0, 0)                   # a line's middle, at pivot height
+BODY = (0, -2)                  # his body's middle (a low mass 24 px tall on soles 11.5 under the pivot)
+BACK = (0, -12)                 # the arc of spikes on his back (its light 21-25 px over his soles)
+BITE = (0, -12)                 # the jaws round a 36-px unit's body
 seq = J.seq
 
 
@@ -61,24 +65,24 @@ def ticks_ms(t):
 FX = {
     # the attack's slam on the target; Carnivore's heal on him when the attack kills
     "a_hit": ("core", seq(range(3), [50, 60, 70]), [HIT]),
-    "p_heal": (("feet", 0), seq(range(4), [80, 90, 100, 110]), [SOLES]),
+    "p_heal": ("core", seq(range(4), [80, 90, 100, 110]), [BODY]),
     # Vorpal Spikes: armed (on him), the volley (its line's e_pic_t), the hit, the slow (a buff)
-    "e_arm": (("feet", 0), seq(range(4), [60, 70, 80, 90]), [SOLES]),
+    "e_arm": ("core", seq(range(4), [60, 70, 80, 90]), [BACK]),
     "e_pic": ("core", seq(range(4), [60, 60, 60, 70]), [LINE]),
     "e_hit": ("core", seq(range(3), [50, 60, 70]), [HIT]),
-    "e_slow": (("feet", 0), loop(2, 150), [SOLES]),
+    "e_slow": (("feet", 1), loop(2, 150), [SOLES]),
     # Rupture: the cracks on the point until the spikes burst (q_delay), the spikes, the hit, the slow (a buff)
-    "q_crack": (("feet", 9), seq(range(6), [100] * 6), [SOLES]),
-    "q_spikes": (("feet", 8), seq(range(6), [50, 60, 80, 90, 90, 100]), [SOLES]),
+    "q_crack": ("core", seq(range(6), [100] * 6), [SOLES]),
+    "q_spikes": (("feet", 7), seq(range(6), [50, 60, 80, 90, 90, 100]), [SOLES]),
     "q_hit": ("core", seq(range(3), [50, 60, 70]), [HIT]),
-    "q_slow": (("feet", 0), loop(2, 150), [SOLES]),
+    "q_slow": ("core", loop(2, 150), [SOLES]),
     # Feral Scream: the cone (its line's w_pic_t), the hit, the silence (a buff)
     "w_wave": ("core", seq(range(5), [60, 70, 80, 90, 100]), [LINE]),
     "w_hit": ("core", seq(range(3), [50, 60, 70]), [HIT]),
     "w_sil": ("core", loop(4, 120), [OVERHEAD]),
     # Feast: the bite on the target, the surge round him when it eats
-    "r_hit": (("feet", 0), seq(range(5), [60, 60, 70, 80, 90]), [SOLES]),
-    "r_grow": (("feet", 0), seq(range(5), [70, 80, 90, 100, 110]), [SOLES]),
+    "r_hit": ("core", seq(range(5), [60, 60, 70, 80, 90]), [BITE]),
+    "r_grow": (("feet", 9), seq(range(5), [70, 80, 90, 100, 110]), [SOLES]),
 }
 # the pictures that must last as long as something in the kit: tag -> ticks
 LASTS = {"e_pic": P["e_pic_t"], "w_wave": P["w_pic_t"], "q_crack": P["q_delay"]}
