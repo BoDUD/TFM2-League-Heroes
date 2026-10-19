@@ -14,10 +14,13 @@ it, 31 x 45) and book.png (C-1, the closed book, 39 x 27). League's Yuumi has no
 (Run01), leaps out of it to strike (Attack01, Spell1 / Spell3_detached), stands it up for Final Chapter (Spell4_in)
 and dives into it as it shuts and drops (Death01) - so every pose here is a whole design moved by whole squares, a
 quarter turn or a mirror.
-One face in every frame (the user's rule): the side, the leap and the ult carry the idle's 3/4 head - their own heads
-cleared (HEADS) and the idle's head (rows 0..IDLE_HEAD_ROW, from IDLE_HEAD_X right) laid on, its eyes on theirs (the
-ult's chin on its paws). The side design is the rig's own (its standing point: the middle of the book's bottom); the
-others stand on the same point and ground.
+One face in every frame (the user's rule): the side, the leap and the ult carry the idle's 3/4 head - the idle's head
+(rows 0..its chin, from IDLE_HEAD_X right) laid with its chin and face middle on theirs (HEADS), their own head cleared
+above their chin only (their neck, collar, ruff and paws below it stay), then every square the paste left open between
+the new head and the body (a hole, or a dent the design did not have) given back its own square, again until none is
+left (the first try cleared to below the chin and left a clear row under the leap's head: 「头和身体分离了？」). The side
+design is the rig's own (its standing point: the middle of the book's bottom); the others stand on the same point and
+ground.
 """
 import argparse
 import os
@@ -35,12 +38,12 @@ HERO = "yuumi"
 PPU = 1.5
 SRC = os.path.join(R.ROOT, "assets", "source", "yuumi", "hd")
 
-# the idle's head: rows 0..IDLE_HEAD_ROW from column IDLE_HEAD_X (the tail's tuft lies left of it), its eyes' middle
-IDLE_HEAD_ROW, IDLE_HEAD_X, IDLE_EYES = 25, 16, (33, 19)
-# each design's own head cleared: (last row, first column) and where the idle's eyes' middle goes (x, y)
-HEADS = {"side": ((25, 17), (36, 20)), "leap": ((27, 23), (40, 19)), "ult": ((18, 7), None)}
-ULT_CHIN = (18, 19)                     # the ult's head: the idle head's chin middle (x, y) onto its paws
-IDLE_CHIN = (30, 24)
+# the idle's head: rows 0..its chin (IDLE_CHIN y: the white muzzle's lowest row) from column IDLE_HEAD_X (the tail's
+# tuft lies left of it); IDLE_CHIN x is the face's middle
+IDLE_HEAD_X, IDLE_CHIN = 16, (32, 24)
+# each design's own chin (x: the face's middle, y: the white muzzle's lowest row) and the first column of its head
+HEADS = {"side": ((35, 24), 16), "leap": ((40, 25), 19), "ult": ((18, 19), 6)}
+NECK = 6                                # rows above / below a design's chin where the paste's openings are closed
 
 
 def lp(path):
@@ -68,28 +71,47 @@ def stand_col(d, rows=3):
 def idle_head():
     d = load("idle.png")
     h = np.zeros_like(d)
-    h[:IDLE_HEAD_ROW + 1, IDLE_HEAD_X:] = d[:IDLE_HEAD_ROW + 1, IDLE_HEAD_X:]
+    h[:IDLE_CHIN[1] + 1, IDLE_HEAD_X:] = d[:IDLE_CHIN[1] + 1, IDLE_HEAD_X:]
     return h
 
 
+def openings(a):
+    """Clear squares closed in by the figure: holes, and dents (three or four of the four neighbours opaque)."""
+    from scipy import ndimage
+    op = a[..., 3] > 0
+    p = np.pad(op, 1)
+    n = p[:-2, 1:-1].astype(int) + p[2:, 1:-1] + p[1:-1, :-2] + p[1:-1, 2:]
+    return (ndimage.binary_fill_holes(op) & ~op) | (~op & (n >= 3))
+
+
 def with_head(name):
-    """A design with its own head cleared and the idle's laid on (grown on the left / top when the head sticks out)."""
+    """A design with the idle's head laid on at its chin (grown on the left / top when the head sticks out)."""
     d = load(f"{name}.png")
-    (row, col), eyes = HEADS[name]
-    d[:row + 1, col:] = 0
+    (cx, cy), col = HEADS[name]
+    dx, dy = cx - IDLE_CHIN[0], cy - IDLE_CHIN[1]
     h = idle_head()
-    if eyes is not None:
-        dx, dy = eyes[0] - IDLE_EYES[0], eyes[1] - IDLE_EYES[1]
-    else:
-        dx, dy = ULT_CHIN[0] - IDLE_CHIN[0], ULT_CHIN[1] - IDLE_CHIN[1]
     top, left = max(0, -dy), max(0, -dx)
     H = max(d.shape[0] + top, h.shape[0] + dy + top)
     W = max(d.shape[1] + left, h.shape[1] + dx + left)
-    out = np.zeros((H, W, 4), np.uint8)
-    out[top:top + d.shape[0], left:left + d.shape[1]] = d
-    m = h[..., 3] > 0
-    ys, xs = np.nonzero(m)
+    own = np.zeros((H, W, 4), np.uint8)
+    own[top:top + d.shape[0], left:left + d.shape[1]] = d
+    out = own.copy()
+    out[:top + cy + 1, left + col:] = 0                  # its own head, down to its chin
+    ys, xs = np.nonzero(h[..., 3] > 0)
     out[ys + dy + top, xs + dx + left] = h[ys, xs]
+    # where the paste left the figure open between the new head and the body, the design's own squares come back:
+    # only round the chin (NECK rows above it to NECK below) and never inside the idle head's own openings (the
+    # antenna's loop: filling it closed the loop with the old head's squares)
+    head = np.zeros_like(out)
+    head[ys + dy + top, xs + dx + left] = h[ys, xs]
+    keep_open = openings(own) | openings(head)
+    band = np.zeros(out.shape[:2], bool)
+    band[max(0, top + cy - NECK):top + cy + NECK + 1] = True
+    for _ in range(8):
+        back = openings(out) & ~keep_open & band & (own[..., 3] > 0) & (out[..., 3] == 0)
+        if not back.any():
+            break
+        out[back] = own[back]
     out = drop_islands(orphan_outline(out))
     ys, xs = np.nonzero(out[..., 3] > 0)
     return out[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
