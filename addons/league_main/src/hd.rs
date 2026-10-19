@@ -199,6 +199,21 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75),
                                     ("tft_powder", 0.90)];
 
+/// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
+/// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
+/// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, no cap, about
+/// his soles (src/view.rs: only the body's own commands, so his shadow and rings stay). The main pack loses the stacks
+/// at his death (Permanent buffs end with it); the add-on league_chogath puts them back.
+pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.05)];
+
+/// Game pixels from a frame's centre (the unit's position) down to its soles (tools/art/ppu_rig.py FEET).
+pub const FEET: f32 = 11.5;
+
+/// The body's growth for `stacks` stacks of a GROWTH row (1.0 for none).
+pub fn grown(per: f32, stacks: usize) -> f32 {
+    1.0 + per * stacks as f32
+}
+
 /// Effect sheets drawn dense like a hero's sheet (tags `idle` / `hd_idle` only, PPU squares a game pixel, hd_idle PPU times
 /// as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
 /// for the 14-px picture; tools/art/import_yuumi_fx.py). Looked up like the heroes (src/lookup.rs); the battlefield's

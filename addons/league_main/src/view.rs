@@ -47,6 +47,10 @@ const NAME_LEN_AT: usize = 0x48;
 const RES_PTR: usize = 0x58;
 const RES_LEN_AT: usize = 0x60;
 const SCALE: usize = 0x1b4;
+/// The entity's buffs: {ptr, len} (0x28 bytes an entry, the name's String {cap, ptr, len} at +0).
+const BUFFS_PTR: usize = 0xb8;
+const BUFFS_LEN: usize = 0xc0;
+const BUFF_SIZE: usize = 0x28;
 
 /// One entity's draw scale: the game's own value (base) and what the hook last wrote over it.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -128,10 +132,12 @@ struct State {
     seen: Vec<&'static str>,
     /// "id > hero" pairs whose first body-draw scale was logged
     noted: Vec<String>,
+    /// (entity value, stacks) of the growing heroes, the last logged
+    grows: Vec<(usize, usize)>,
 }
 
 static STATE: Mutex<State> = Mutex::new(State { scales: Vec::new(), by_value: Vec::new(), drawn: Vec::new(), lines: 0,
-                                                seen: Vec::new(), noted: Vec::new() });
+                                                seen: Vec::new(), noted: Vec::new(), grows: Vec::new() });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
@@ -447,6 +453,65 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
         insert(out, b + 1, &back);
         insert(out, a, &grow);
     }
+    // a hero that grows with a stack (hd::GROWTH, Cho'Gath's Feast): his body's own commands once more, about his soles
+    let Some(&(_, buff, per)) = hd::GROWTH.iter().find(|g| g.0 == hero.id) else { return };
+    let n = stacks(ent, buff);
+    let g = hd::grown(per, n);
+    if !st.grows.iter().any(|e| e.0 == ent && e.1 == n) && st.lines < 200 {
+        st.grows.retain(|e| e.0 != ent);
+        st.grows.push((ent, n));
+        if st.grows.len() > 64 {
+            st.grows.remove(0);
+        }
+        st.lines += 1;
+        wlog(format!("{}: {n} x {buff} - body drawn x{g:.2} about the soles", hero.id));
+    }
+    if n == 0 {
+        return;
+    }
+    let (sx, sy) = soles(px, py, hero.ppu);
+    let mut up = [0u8; CMD];
+    up[..8].copy_from_slice(&CMD_SCALE.to_le_bytes());
+    up[8..12].copy_from_slice(&((1.0 - g) * sx).to_le_bytes());
+    up[12..16].copy_from_slice(&((1.0 - g) * sy).to_le_bytes());
+    up[0x24..0x28].copy_from_slice(&g.to_le_bytes());
+    up[0x28..0x2c].copy_from_slice(&g.to_le_bytes());
+    let (ptr, len) = (q(out + 8), q(out + 0x10));
+    let body: Vec<u8> = (0..len)
+        .map(|i| u8::from(sprite_name(ptr + i * CMD).is_some_and(|nm| is_body(nm, hero.id))))
+        .collect();
+    for (a, b) in body_runs(&body).into_iter().rev() {
+        insert(out, b + 1, &back);
+        insert(out, a, &up);
+    }
+}
+
+/// The instances of the buff `name` on the entity value `ent` (its buff list: {ptr, len} at +0xb8, 0x28 bytes an entry,
+/// the name's String at +8; league_nasus reads its form the same way).
+unsafe fn stacks(ent: usize, name: &str) -> usize {
+    let (bp, bn) = (q(ent + BUFFS_PTR), q(ent + BUFFS_LEN));
+    if !plausible(bp) || bn > 4096 {
+        return 0;
+    }
+    (0..bn)
+        .filter(|k| {
+            let b = bp + k * BUFF_SIZE;
+            let (p, n) = (q(b + 8), q(b + 0x10));
+            plausible(p) && n == name.len() && std::slice::from_raw_parts(p as *const u8, n) == name.as_bytes()
+        })
+        .count()
+}
+
+/// The point a growing body is scaled about: its soles, hd::FEET game pixels under the unit's position - in the body
+/// draw's own coordinates, where the dense frame is still PPU times its shown size.
+pub fn soles(px: f32, py: f32, ppu: f32) -> (f32, f32) {
+    (px, py + hd::FEET * ppu)
+}
+
+/// [first, last] runs of the body's own commands (1).
+pub fn body_runs(kinds: &[u8]) -> Vec<(usize, usize)> {
+    let flipped: Vec<u8> = kinds.iter().map(|&k| u8::from(k != 1)).collect();
+    extra_runs(&flipped)
 }
 
 fn install(b: &Build) -> Result<(usize, usize), String> {
@@ -514,6 +579,16 @@ mod tests {
         assert!(!is_body("asset/base/sprite/circle", "league_ashe"));
         assert!(!is_body("asset/base/aseprite_resources/skill_effect/stun_effect#sheet", "league_ashe"));
         assert!(!is_body("asset/league/champions/league_ashe_fx#sheet", "league_ashe"));
+    }
+
+    #[test]
+    fn a_growing_body_is_scaled_about_its_soles() {
+        assert_eq!(body_runs(&[0, 1, 1, 0, 2, 1]), vec![(1, 2), (5, 5)]);
+        assert_eq!(body_runs(&[0, 2, 0]), vec![]);
+        assert_eq!(soles(100.0, 50.0, 1.2), (100.0, 50.0 + 11.5 * 1.2));
+        assert_eq!(hd::grown(0.05, 0), 1.0);
+        assert!((hd::grown(0.05, 6) - 1.3).abs() < 1e-6);
+        assert!(hd::GROWTH.iter().any(|g| g.0 == "league_chogath" && g.1 == "league_chogath_r_stack"));
     }
 
     #[test]
