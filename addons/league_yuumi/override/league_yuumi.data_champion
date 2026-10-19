@@ -1830,8 +1830,8 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride",
-      "anim": "asset/league/effects/league_yuumi_big",
-      "tag": "w_ride",
+      "anim": "asset/league/effects/league_yuumi_ride",
+      "tag": "idle",
       "repeat": true,
       "z": 4
     },

@@ -43,6 +43,9 @@ OUT = os.path.join(REPO, "league", "champion", "league_yuumi.data_champion")
 ID = "league_yuumi"
 FX = "asset/league/effects/league_yuumi_fx"
 BIG = "asset/league/effects/league_yuumi_big"
+# the ride picture's own sheet: tags idle (14 game px) and hd_idle (the same at 1.5 squares a game px), registered in
+# league.dll's hd.rs like a hero's so the battlefield draws the dense frame (the user's 「1.5 倍（21 格）」)
+RIDE = "asset/league/effects/league_yuumi_ride"
 
 # League units x 100 = ours (attack range 425 -> 50000, a step under the pack's 53000-60000 supports); radii count
 # the unit's collision radius (~15000) on top. Timings from the strips (tools/art/rig_yuumi.py MS): the attack's reach
@@ -330,7 +333,7 @@ def build(p):
     views_e = [E("a_hit"), E("p_hit"), E("p_heal"), E("q_hit"), E("q_ehit"), E("e_hit"), E("w_heal"),
                E("w_jump", FX, 2, False), E("w_land", FX, 2, False), E("r_cast", BIG, -1), E("r_hit"), E("r_heal")]
     # w_ride: the cat lying on her open book, drawn over the host's head (a buff picture is never mirrored)
-    views_b = [B_("w_ride", BIG, 4), B_("e_haste", FX, -1), B_("q_slow", FX, 1), B_("q_eslow", FX, 1),
+    views_b = [dict(B_("w_ride", RIDE, 4), tag="idle"), B_("e_haste", FX, -1), B_("q_slow", FX, 1), B_("q_eslow", FX, 1),
                B_("r_root", FX, 1)]
     extra = {}
     if native:
