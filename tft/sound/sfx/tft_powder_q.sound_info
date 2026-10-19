@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "clown_skill_resource",
+      "volume": 0.4
+    },
+    {
+      "delay": 0.05,
+      "clip": "alchemist_skill_cast_resource",
+      "volume": 0.35
+    }
+  ]
+}

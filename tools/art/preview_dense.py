@@ -26,7 +26,7 @@ def _sizes():
     with open(os.path.join(ROOT, "addons", "league_main", "src", "hd.rs"), encoding="utf-8") as f:
         src = f.read()
     m = re.search(r"pub const SIZES[^=]*=\s*&\[(.*?)\];", src, re.S)
-    return {h: float(v) for h, v in re.findall(r'\("league_(\w+)",\s*([0-9.]+)\)', m.group(1))} if m else {}
+    return {h: float(v) for h, v in re.findall(r'\("(?:league|tft)_(\w+)",\s*([0-9.]+)\)', m.group(1))} if m else {}
 
 
 SIZES = _sizes()

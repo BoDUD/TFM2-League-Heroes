@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "bomber_attack_hit_resource",
+      "volume": 0.35
+    }
+  ]
+}

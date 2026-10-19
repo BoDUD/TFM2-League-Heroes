@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "ninja_skill2_resource2",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.0,
+      "clip": "bomber_skill2_resource",
+      "volume": 0.35
+    }
+  ]
+}

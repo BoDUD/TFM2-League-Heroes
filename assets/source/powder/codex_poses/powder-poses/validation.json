@@ -1,0 +1,54 @@
+{
+  "powder-head.png": {
+    "size": [
+      1387,
+      1134
+    ],
+    "expected_size": [
+      726,
+      594
+    ],
+    "size_pass": false,
+    "alpha_levels": 256,
+    "soft_alpha_pixels": 951823,
+    "sha256": "cbf32693eb3edbeb60ecb46b564c06566ebb45cdaedc56a607dd2416bb3276b3",
+    "unchanged_outside_magenta_pass": null,
+    "remaining_exact_magenta_pixels": 0
+  },
+  "powder-poses.png": {
+    "size": [
+      1509,
+      1042
+    ],
+    "expected_size": [
+      1358,
+      938
+    ],
+    "size_pass": false,
+    "alpha_levels": 1,
+    "soft_alpha_pixels": 0,
+    "sha256": "bdde490a0a9db17aff48e0d3e69519ada4fa78a83f6a3813662b193d08f12814",
+    "green_background_pixels": 1109968,
+    "exact_00ff00_pixels": 73,
+    "green_background_color_count": 9375,
+    "green_background_is_uniform_00ff00": false
+  },
+  "powder-run.png": {
+    "size": [
+      1509,
+      1042
+    ],
+    "expected_size": [
+      1358,
+      938
+    ],
+    "size_pass": false,
+    "alpha_levels": 1,
+    "soft_alpha_pixels": 0,
+    "sha256": "bee56cc80e393d7529c7b004a3bb2d57f00303eea4074e927483b648e673481e",
+    "green_background_pixels": 1141221,
+    "exact_00ff00_pixels": 79,
+    "green_background_color_count": 9819,
+    "green_background_is_uniform_00ff00": false
+  }
+}
