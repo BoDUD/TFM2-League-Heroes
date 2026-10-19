@@ -11,7 +11,7 @@ design/zoe_shots.png (the finished action frames the pictures start from, 4x) an
 particle textures for Zoe grouped by the effect they inform).
 The effects are the views the kit binds (tools/kit/build_zoe.py): view_projectiles a_star, p_star, q_star (the portal's
 star too), e_bubble, w_missile; view_effects a_hit, p_hit, q_hit, e_hit, e_wake, e_trap, w_hit, r_portal_in (the cast
-and the far end on the way back), r_portal_out (the far end and home); view_buffs e_drowsy, e_zz, w_haste. League's
+and the far end on the way back), r_portal_out (the far end and home); view_buffs e_drowsy, e_zz, w_haste; and the add-on's w_shard (a spell shard on the ground). League's
 colours: her stars are gold-white starlight with pink-violet sparkles and blue stardust, the bubble an iridescent soap
 bubble (blue, violet, pink), the portal a ring of white light round a deep-purple night sky full of stars, Spell Thief's
 missiles sky blue. Red side: the client never mirrors an effect picture, so every hit, buff and ground picture is
@@ -180,6 +180,16 @@ FX = [
      "A SMALL SKY-BLUE HIT, 3 frames, " + LR + ": 1 a white-blue flash 6 squares across; 2 a sky-blue ring 9 across with 6 "
      "sparks; 3 only the sparks further out, fading.",
      row(3, 12, 12) + CENTER),
+    ("w_shard", "W：法术碎片（附加包：地上，循环），4 帧",
+     "view_effects `league_zoe_w_shard`（附加包放在地上的点，不跟随，画在人物下面 z -1；左右对称；每 15 tick 重放）", "10 × 14",
+     "附加包：敌方英雄放大招时原地掉下的法术碎片，等她走过去捡：一块悬在地面上一点点的天蓝色小水晶（菱形），一闪一闪，下面一小片天蓝色的光"
+     "（参考 w_ss_flash、targonlines、r_buff_body_glow）。**左右对称**，4 帧循环。",
+     f"{SK} and {ST}",
+     "A FLOATING SPELL SHARD on the ground, 4 frames, a seamless loop, " + LR + ": a small sky-blue crystal (an upright "
+     "diamond 5 squares wide and 8 tall, a white highlight column in its middle) floating just above the ground (its "
+     "bottom 3, 4, 4, 3 squares up), a flat sky-blue glow ellipse 8 wide and 2 tall under it; on frame 3 a tiny gold "
+     "four-pointed glint at its top.",
+     row(4, 10, 14) + "; centered across, the glow's bottom on the cell's bottom row."),
     ("w_haste", "W：加速（她脚下，循环），4 帧", "view_buffs `league_zoe_w_haste`（跟随，画在人物下面 z -1；左右对称；循环）", "26 × 8",
      "窃法巧手的加速：她脚下贴着地面转的一圈粉紫、天蓝色的星光条纹（参考 zoe_temp_r_bard_base_p_speed_swirl_mult、stardust）。"
      "**只画在脚下的地面上**，**左右对称**，4 帧循环。",
@@ -221,8 +231,8 @@ GROUPS = [
                       "zoe_base_z_flash_01", "zoe_base_r_beam_stars", "zoe_base_stardust"]),
     ("e_bubble e_hit e_drowsy e_zz e_wake e_trap", ["zoe_base_glow_distort", "zoe_base_w_balloon_glow",
                                                      "zoe_base_e_blendglow", "zoe_base_emote_skippingrope_star"]),
-    ("w_missile w_hit w_haste", ["zoe_base_r_buff_body_glow", "zoe_base_z_spark",
-                                 "zoe_temp_r_bard_base_p_speed_swirl_mult", "zoe_base_targonlines"]),
+    ("w_missile w_hit w_shard w_haste", ["zoe_base_r_buff_body_glow", "zoe_base_z_spark",
+                                 "zoe_temp_r_bard_base_p_speed_swirl_mult", "zoe_base_targonlines", "zoe_base_w_ss_flash"]),
     ("r_portal_in r_portal_out", ["zoe_base_r_portal_ring_colors", "zoe_base_r_portal_tex", "zoe_hair_nightsky",
                                   "zoe_base_r_beam_stars", "zoe_base_r_beam_01", "zoe_base_z_meshwaves"]),
 ]
@@ -279,7 +289,8 @@ def document(shape):
     a("| 技能 2 = E「催眠气泡」 | 气泡打中英雄：困倦减速，然后昏睡；没打中就留在地上；昏睡中被飞星打中伤害加倍 | `e_bubble` · `e_hit` · "
       "`e_drowsy` · `e_zz` · `e_wake` · `e_trap` |")
     a("| 大招「折返跃迁」+ W「窃法巧手」 | 跳进传送门闪向敌人，从门口扔一颗飞星，再射 3 颗飞弹并加速，之后跳回原地 | `r_portal_in` · "
-      "`r_portal_out` · `q_star` · `q_hit` · `w_missile` · `w_hit` · `w_haste` |\n")
+      "`r_portal_out` · `q_star` · `q_hit` · `w_missile` · `w_hit` · `w_haste` |")
+    a("| 附加包：窃法巧手的碎片 | 敌方英雄放大招时原地掉下一块法术碎片，她走过去捡起来就射 3 颗飞弹 | `w_shard` · `w_hit` |\n")
     a("## 所有特效图的规则\n")
     a("- 像素画：方块清楚、硬边、没有抗锯齿、没有模糊和柔光。**光、星点、梦雾、泡泡、光环、传送门都没有黑描边，也不要用最深的颜色给形状描一圈边**。")
     a("- **要亮**：每个光的形状都有白色或最亮一档的芯。")

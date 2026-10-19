@@ -1,6 +1,6 @@
 # 暮光星灵 佐伊：给 Codex 的特效提示词（第 3 步）
 
-> **这一份是 17 张特效图。** 造型和动作已定（`design/zoe_idle.png`：3/4 正面朝右的 Q 版小女孩，深藏青色的长发夹着青绿、金黄、珊瑚橙、粉红的星光彩带向身后飘，一紫一蓝的大眼睛，青绿围巾、深蓝短上衣、蓝色裹裙、金手镯）。她在游戏里是**高清**的（每个游戏格子里 1.5×1.5 个细像素），36 格高、40 格宽（连头发）；**特效照常按游戏格子画**（1 格 = 1 个游戏像素），不用画成高清。
+> **这一份是 18 张特效图。** 造型和动作已定（`design/zoe_idle.png`：3/4 正面朝右的 Q 版小女孩，深藏青色的长发夹着青绿、金黄、珊瑚橙、粉红的星光彩带向身后飘，一紫一蓝的大眼睛，青绿围巾、深蓝短上衣、蓝色裹裙、金手镯）。她在游戏里是**高清**的（每个游戏格子里 1.5×1.5 个细像素），36 格高、40 格宽（连头发）；**特效照常按游戏格子画**（1 格 = 1 个游戏像素），不用画成高清。
 > - 大小对照 `design/zoe_size.png`：她的待机放大 4 倍，地面在红线上，上面是 10 格一段的刻度，右边是原版斗士。每条写的大小都是游戏像素（格）。
 > - `design/zoe_shots.png`：定稿动作（4 倍），青色十字是她的站位点；每张写了特效出现在哪里。
 > - 参考图 `refs/lol_fx_ref.png` 是英雄联盟里佐伊自己的特效贴图（不少是灰度形状，游戏里再上色），按用在我们哪张特效分好了行，只在本地用，不要提交。颜色照英雄联盟原版：**她的星星是金白色的星光，带粉紫色的星点和蓝色的星尘**，**催眠气泡是蓝、紫、粉的彩虹肥皂泡**，**传送门是一圈白色的光环围着深紫色的星空**，**窃法巧手的飞弹是天蓝色**。
@@ -17,6 +17,7 @@
 | 技能 1 = Q「飞星乱入！」 | 飞星直线飞向敌人，飞得越远伤害越高 | `q_star` · `q_hit` |
 | 技能 2 = E「催眠气泡」 | 气泡打中英雄：困倦减速，然后昏睡；没打中就留在地上；昏睡中被飞星打中伤害加倍 | `e_bubble` · `e_hit` · `e_drowsy` · `e_zz` · `e_wake` · `e_trap` |
 | 大招「折返跃迁」+ W「窃法巧手」 | 跳进传送门闪向敌人，从门口扔一颗飞星，再射 3 颗飞弹并加速，之后跳回原地 | `r_portal_in` · `r_portal_out` · `q_star` · `q_hit` · `w_missile` · `w_hit` · `w_haste` |
+| 附加包：窃法巧手的碎片 | 敌方英雄放大招时原地掉下一块法术碎片，她走过去捡起来就射 3 颗飞弹 | `w_shard` · `w_hit` |
 
 ## 所有特效图的规则
 
@@ -34,9 +35,9 @@
 
 ---
 
-## 特效（17 张）
+## 特效（18 张）
 
-17 张的提示词都以同一段画风开头。大小写在每条里（1 个游戏像素约等于 1000 距离单位：她的普攻射程 55000，飞星最远飞 95000）。
+18 张的提示词都以同一段画风开头。大小写在每条里（1 个游戏像素约等于 1000 距离单位：她的普攻射程 55000，飞星最远飞 95000）。
 
 ### 1. `zoe_fx_a_star.png`：普攻：飞出去的小星星（弹道，循环），4 帧
 
@@ -178,7 +179,17 @@ Effect: A SMALL SKY-BLUE HIT, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, 
 Layout: one horizontal row of 3 equal square cells, image size 576x192 (each cell 192x192, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
 ```
 
-### 15. `zoe_fx_w_haste.png`：W：加速（她脚下，循环），4 帧
+### 15. `zoe_fx_w_shard.png`：W：法术碎片（附加包：地上，循环），4 帧
+
+附加包：敌方英雄放大招时原地掉下的法术碎片，等她走过去捡：一块悬在地面上一点点的天蓝色小水晶（菱形），一闪一闪，下面一小片天蓝色的光（参考 w_ss_flash、targonlines、r_buff_body_glow）。**左右对称**，4 帧循环。
+
+```text
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, mist, bubbles, rings or portals, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sky-blue ramp (#FFFFFF, #D8F6FF, #8EE2FF, #3EB4F0, #1E70C0, #123C78) and a gold-white starlight ramp (#FFFFFF, #FFF6C8, #FFE07A, #F7B23C, #C8761E, #7A4214).
+Effect: A FLOATING SPELL SHARD on the ground, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a small sky-blue crystal (an upright diamond 5 squares wide and 8 tall, a white highlight column in its middle) floating just above the ground (its bottom 3, 4, 4, 3 squares up), a flat sky-blue glow ellipse 8 wide and 2 tall under it; on frame 3 a tiny gold four-pointed glint at its top.
+Layout: one horizontal row of 4 equal 10:14 cells, image size 640x224 (each cell 160x224, 16 px a square); centered across, the glow's bottom on the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+```
+
+### 16. `zoe_fx_w_haste.png`：W：加速（她脚下，循环），4 帧
 
 窃法巧手的加速：她脚下贴着地面转的一圈粉紫、天蓝色的星光条纹（参考 zoe_temp_r_bard_base_p_speed_swirl_mult、stardust）。**只画在脚下的地面上**，**左右对称**，4 帧循环。
 
@@ -188,7 +199,7 @@ Effect: A SPEED SWIRL on the ground at a unit's feet, 4 frames, a seamless loop,
 Layout: one horizontal row of 4 equal 26:8 cells, image size 1664x128 (each cell 416x128, 16 px a square); centered across, the ellipse's bottom on the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
 ```
 
-### 16. `zoe_fx_r_portal_in.png`：R 折返跃迁：她跳进去的传送门（地上，不跟随），6 帧
+### 17. `zoe_fx_r_portal_in.png`：R 折返跃迁：她跳进去的传送门（地上，不跟随），6 帧
 
 她起跳钻进传送门：脚下的地面上打开一个椭圆的传送门——外圈一道白色、粉色、天蓝色的光环，里面是深紫色的夜空，满是小星星；门开大、星光往上冒，然后门收拢消失（参考 r_portal_ring_colors、r_portal_tex、zoe_hair_nightsky、r_beam_stars、z_portal_cover_black）。**只画在地面上（她站在中间，不画人）**，**左右对称**，6 帧。
 
@@ -198,7 +209,7 @@ Effect: A PORTAL OPENING AND CLOSING on the ground, 6 frames, SYMMETRIC LEFT TO 
 Layout: one horizontal row of 6 equal 40:24 cells, image size 3840x384 (each cell 640x384, 16 px a square); centered across, the ellipse's middle 7 squares above the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
 ```
 
-### 17. `zoe_fx_r_portal_out.png`：R：她钻出来的传送门（地上，不跟随），6 帧
+### 18. `zoe_fx_r_portal_out.png`：R：她钻出来的传送门（地上，不跟随），6 帧
 
 她从传送门钻出来落地：同样的夜空传送门在落点打开，一圈星光往外炸开，然后收拢（参考 r_portal_ring_colors、r_beam_01、stardust）。**只画在地面上（她落在中间，不画人）**，**左右对称**，6 帧。
 
@@ -228,6 +239,7 @@ Layout: one horizontal row of 6 equal 40:24 cells, image size 3840x384 (each cel
 | `zoe_fx_e_trap` | view_effects `league_zoe_e_trap`（不跟随，画在人物下面 z -1；左右对称；每 15 tick 重放） | 16 × 14 |
 | `zoe_fx_w_missile` | view_projectiles `league_zoe_w_missile`（跟着弹道转向；上下对称） | 10 × 8 |
 | `zoe_fx_w_hit` | view_effects `league_zoe_w_hit`（跟随目标，画在人物上面 z 2；左右对称） | 12 × 12 |
+| `zoe_fx_w_shard` | view_effects `league_zoe_w_shard`（附加包放在地上的点，不跟随，画在人物下面 z -1；左右对称；每 15 tick 重放） | 10 × 14 |
 | `zoe_fx_w_haste` | view_buffs `league_zoe_w_haste`（跟随，画在人物下面 z -1；左右对称；循环） | 26 × 8 |
 | `zoe_fx_r_portal_in` | view_effects `league_zoe_r_portal_in`、`league_zoe_r_portal_back`（不跟随，画在人物下面 z -1；左右对称；大图表） | 40 × 24 |
 | `zoe_fx_r_portal_out` | view_effects `league_zoe_r_portal_out`（不跟随，画在人物下面 z -1；左右对称；大图表） | 40 × 24 |
