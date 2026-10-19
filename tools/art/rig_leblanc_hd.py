@@ -50,7 +50,10 @@ SHOULDER, GRIP = E((31.0, 49.5)), E((40.5, 46.0))
 TIP = E((41.0, 0.0))                         # the crystal's point: the staff stands straight up in the picture
 ARM = [(30.0, 46.0), (34.0, 43.0), (37.0, 42.0), (43.0, 42.0), (43.0, 50.0), (39.0, 50.0), (37.0, 52.0), (34.0, 54.0),
        (30.0, 54.0)]
-STAFF = [(30.0, 0.0), (51.0, 0.0), (51.0, 27.0), (43.0, 27.0), (43.0, 87.0), (39.0, 87.0), (39.0, 27.0), (30.0, 27.0)]
+# (the wings' lowest tips and the neck's foot on rows 27-28 are the staff's too: left on the body they floated by her
+# head when the staff turned)
+STAFF = [(30.0, 0.0), (51.0, 0.0), (51.0, 30.0), (43.0, 30.0), (43.0, 87.0), (39.0, 87.0), (39.0, 30.0), (36.0, 30.0),
+         (36.0, 27.0), (30.0, 27.0)]
 IDLE_SINK = [0, 0, 1, 1, 1, 1, 0, 0]
 STAFF_STEP = 90                              # upright or level, never at a slant
 
