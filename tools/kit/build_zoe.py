@@ -50,12 +50,14 @@ BIG = "asset/league/effects/league_zoe_big"
 # simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both
 # sides, 8 seeds, 2026-10-19): the draft (hp 880, Q 70 + 50% x1 / 1.6 / 2.2, P 30 + 40%, R 170 + 80% every 40 s landing
 # 40000 short, W 35, sleep 1.5 s) -1.37 (league_ziggs +1.70 the same batch); Q 90 + 60%, R 50000 short, sleep 1.75 s
-# +0.67; + hp 920, R every 30 s, W 45 +0.36; + Q x1.7 / 2.5, P 40 + 50% +1.07 / +1.18 (seeds 9-16); Q 105 +1.41 / +1.47
-# = P (sleep 2 s with hp 960 the same, +1.48 / +1.44).
+# +0.67; + hp 920, R every 30 s, W 45 +0.36; + Q x1.7 / 2.5, P 40 + 50% +1.07 / +1.18 (seeds 9-16); Q 105 +1.41 /
+# +1.47 (sleep 2 s with hp 960 the same, +1.48 / +1.44). Timed to the strips (the portal's star on Q's throw frame,
+# W's toss after it, the exit leap: she is away 1.2 s) +1.30 / +0.16; sleep 2 s + hp 960 +0.99 / +0.88, + Q 115
+# +0.66 / +1.71, + the portal's star 200 + 90% +1.17 / +1.47 (about +1.3, league_volibear +1.39) = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Zoe:
     # 630 +106 hp, 21 armour, 30 mr, 340 move, 550 range, attack speed 0.658
-    "hp": 920, "hp_g": 95, "atk": 76, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 960, "hp_g": 95, "atk": 76, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 920, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 88, "a_rel": 10, "a_speed": 4500,
     # passive More Sparkles! (League: 16-130 +20% AP on the next attack after a spell)
@@ -66,12 +68,12 @@ P = {
     # E Sleepy Trouble Bubble (League: 800 range, 70-270 +45% AP, drowsy 1.4 s (slow 10-35%), sleep 2.25 s, trap
     # 5 s, cd 18-14)
     "e_cd": 900, "e_range": 75000, "e_dur": 27, "e_rel": 13, "e_speed": 3500, "e_len": 85000, "e_w": 7000,
-    "e_dmg": 60, "e_ratio": 40, "e_slow": 30, "e_drowsy": 84, "e_sleep": 105, "e_trap": 300, "e_trap_r": 12000,
+    "e_dmg": 60, "e_ratio": 40, "e_slow": 30, "e_drowsy": 84, "e_sleep": 120, "e_trap": 300, "e_trap_r": 12000,
     "e_show": 15,
     # R Portal Jump (League: blink 575 for 1 s, cd 11-5) + the portal's Paddle Star (far share) + W Spell Thief's
     # missiles (League: 3 x 25-95 +33% AP, move speed 30-80% for 2-3.25 s)
     "r_cd": 1800, "r_range": 110000, "r_dur": 27, "r_rel": 8, "r_jump": 57500, "r_jspeed": 6000, "r_stop": 50000,
-    "r_throw": 19, "r_speed": 5000, "r_len": 110000, "r_dmg": 170, "r_ratio": 80, "r_back": 72, "r_back_dur": 18,
+    "r_throw": 19, "r_speed": 5000, "r_len": 110000, "r_dmg": 200, "r_ratio": 90, "r_back": 72, "r_back_dur": 18,
     "r_exit": 12, "r_w": 22,
     "w_n": 3, "w_dur": 19, "w_rel": 4, "w_gap": 5, "w_dmg": 45, "w_ratio": 15, "w_speed": 4000, "w_ms": 40,
     "w_ms_t": 150,

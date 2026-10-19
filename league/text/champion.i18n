@@ -929,8 +929,8 @@
         "name": "佐伊",
         "attack": "射出一颗小星星。<#ff9028ff>烟火四射！<>：每放一个技能，下一次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害。",
         "skill": "掷出一颗飞星，打中第一个敌人造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害；飞得越远伤害越高，最远<#ffb900ff>250%<>。",
-        "skill2": "踢出气泡，打中敌方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害，<#ef5350ff>困倦<>（减速30%）<#ffb900ff>1.4秒<>后<#ef5350ff>昏睡<><#ffb900ff>1.75秒<>；没打中就留在原地。昏睡中第一次被飞星打中伤害翻倍。",
-        "ult": "跳进传送门闪向敌方英雄，掷出飞星造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害；<#ff9028ff>窃法巧手<>：再射3颗飞弹，每颗<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%。<#ffb900ff>1.2秒<>后跳回原地。"
+        "skill2": "踢出气泡，打中敌方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害，<#ef5350ff>困倦<>（减速30%）<#ffb900ff>1.4秒<>后<#ef5350ff>昏睡<><#ffb900ff>2秒<>；没打中就留在原地。昏睡中第一次被飞星打中伤害翻倍。",
+        "ult": "跳进传送门闪向敌方英雄，掷出飞星造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害；<#ff9028ff>窃法巧手<>：再射3颗飞弹，每颗<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%。<#ffb900ff>1.2秒<>后跳回原地。"
       }
     },
     "skill_name": {
@@ -2531,8 +2531,8 @@
         "name": "柔依",
         "attack": "射出一顆小星星。<#ff9028ff>閃耀星火<>：每放一個技能，下一次普攻多造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害。",
         "skill": "擲出一顆飛星，打中第一個敵人造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害；飛得越遠傷害越高，最遠<#ffb900ff>250%<>。",
-        "skill2": "踢出泡泡，打中敵方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害，<#ef5350ff>睏倦<>（緩速30%）<#ffb900ff>1.4秒<>後<#ef5350ff>沉睡<><#ffb900ff>1.75秒<>；沒打中就留在原地。沉睡中第一次被飛星打中傷害加倍。",
-        "ult": "跳進傳送門閃向敵方英雄，擲出飛星造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害；<#ff9028ff>法術竊盜<>：再射3顆飛彈，每顆<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%。<#ffb900ff>1.2秒<>後跳回原地。"
+        "skill2": "踢出泡泡，打中敵方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害，<#ef5350ff>睏倦<>（緩速30%）<#ffb900ff>1.4秒<>後<#ef5350ff>沉睡<><#ffb900ff>2秒<>；沒打中就留在原地。沉睡中第一次被飛星打中傷害加倍。",
+        "ult": "跳進傳送門閃向敵方英雄，擲出飛星造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害；<#ff9028ff>法術竊盜<>：再射3顆飛彈，每顆<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%。<#ffb900ff>1.2秒<>後跳回原地。"
       }
     },
     "skill_name": {
@@ -4133,8 +4133,8 @@
         "name": "Zoe",
         "attack": "Throws a little star. <#ff9028ff>More Sparkles!<>: after each spell her next attack deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> more.",
         "skill": "Throws a star at the first enemy hit for <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>; the farther it flies the harder it hits, up to <#ffb900ff>250%<>.",
-        "skill2": "Kicks a bubble: the enemy champion hit takes <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, turns <#ef5350ff>drowsy<> (slowed 30%) for <#ffb900ff>1.4s<>, then falls <#ef5350ff>asleep<> for <#ffb900ff>1.75s<>. A miss leaves it lying as a trap. A sleeper's first star hit deals double.",
-        "ult": "Jumps through a portal toward an enemy champion and throws a star for <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>. <#ff9028ff>Spell Thief<>: 3 missiles follow, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> each, and she gains 40% move speed. After <#ffb900ff>1.2s<> she pops back."
+        "skill2": "Kicks a bubble: the enemy champion hit takes <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, turns <#ef5350ff>drowsy<> (slowed 30%) for <#ffb900ff>1.4s<>, then falls <#ef5350ff>asleep<> for <#ffb900ff>2s<>. A miss leaves it lying as a trap. A sleeper's first star hit deals double.",
+        "ult": "Jumps through a portal toward an enemy champion and throws a star for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>. <#ff9028ff>Spell Thief<>: 3 missiles follow, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> each, and she gains 40% move speed. After <#ffb900ff>1.2s<> she pops back."
       }
     },
     "skill_name": {
@@ -5735,8 +5735,8 @@
         "name": "조이",
         "attack": "작은 별을 던진다. <#ff9028ff>반짝반짝!<>: 스킬을 쓸 때마다 다음 기본 공격이 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해 추가.",
         "skill": "별을 던져 처음 맞힌 적에게 <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해. 멀리 날아갈수록 피해가 커져 최대 <#ffb900ff>250%<>.",
-        "skill2": "방울을 차서 맞힌 적 챔피언에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해, <#ffb900ff>1.4초<> <#ef5350ff>졸음<>(30% 둔화) 뒤 <#ffb900ff>1.75초<> <#ef5350ff>수면<>. 빗나가면 그 자리에 남는다. 잠든 적이 처음 맞는 별은 피해 2배.",
-        "ult": "차원문을 넘어 적 챔피언 쪽으로 이동해 별을 던져 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해. <#ff9028ff>주문도둑<>: 투사체 3개, 개당 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>, 이동 속도 +40%. <#ffb900ff>1.2초<> 뒤 제자리로."
+        "skill2": "방울을 차서 맞힌 적 챔피언에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해, <#ffb900ff>1.4초<> <#ef5350ff>졸음<>(30% 둔화) 뒤 <#ffb900ff>2초<> <#ef5350ff>수면<>. 빗나가면 그 자리에 남는다. 잠든 적이 처음 맞는 별은 피해 2배.",
+        "ult": "차원문을 넘어 적 챔피언 쪽으로 이동해 별을 던져 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해. <#ff9028ff>주문도둑<>: 투사체 3개, 개당 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>, 이동 속도 +40%. <#ffb900ff>1.2초<> 뒤 제자리로."
       }
     },
     "skill_name": {
@@ -7337,8 +7337,8 @@
         "name": "ゾーイ",
         "attack": "小さな星を投げる。<#ff9028ff>スパークル！<>：スキルを使うたび次の通常攻撃に<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ追加。",
         "skill": "星を投げ、最初に当たった敵に<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ。遠くまで飛ぶほど強く、最大<#ffb900ff>250%<>。",
-        "skill2": "泡を蹴り、当たった敵チャンピオンに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ、<#ffb900ff>1.4秒<><#ef5350ff>まどろみ<>（30%スロウ）の後<#ffb900ff>1.75秒<><#ef5350ff>睡眠<>。外れるとその場に残る。眠った敵に最初に当たる星は2倍。",
-        "ult": "ポータルを抜けて敵チャンピオンの方へ跳び、星を投げて<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージ。<#ff9028ff>スペルシーフ<>：弾3発、1発<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>、移動速度+40%。<#ffb900ff>1.2秒<>後に元の場所へ戻る。"
+        "skill2": "泡を蹴り、当たった敵チャンピオンに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ、<#ffb900ff>1.4秒<><#ef5350ff>まどろみ<>（30%スロウ）の後<#ffb900ff>2秒<><#ef5350ff>睡眠<>。外れるとその場に残る。眠った敵に最初に当たる星は2倍。",
+        "ult": "ポータルを抜けて敵チャンピオンの方へ跳び、星を投げて<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージ。<#ff9028ff>スペルシーフ<>：弾3発、1発<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>、移動速度+40%。<#ffb900ff>1.2秒<>後に元の場所へ戻る。"
       }
     },
     "skill_name": {
