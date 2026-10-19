@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Quinn's actions (tools/art/rig_quinn.py) beside League's own clips, one GIF per tag for the user's review.
 
-    python tools/art/review_quinn_actions.py --out DIR [--lol D:/WeGameApps/lol] [--z 4] [--tags attack,skill]
+    python tools/art/review_quinn_actions.py --out DIR [--lol D:/WeGameApps/lol] [--z 4] [--tags attack,skill] [--sheet]
 
 For each tag: League's clip (pose_ref.py, Riot's model - the renders stay in DIR, never committed) sampled at as many
 frames as the tag has, spread over the clip's part named in CLIPS, next to the rig's frame at z screen px a design
 square, both at the tag's own frame times. Writes <out>/quinn_<tag>_vs_lol.gif and <out>/quinn_<tag>_vs_lol.png,
-and <out>/quinn_all_vs_lol.gif: every tag in turn (each played twice), one picture to review.
+and <out>/quinn_all_vs_lol.gif: every tag in turn (each played twice), one picture to review. --sheet: ours from the
+game sheet's hd_ frames (league/champions/league_quinn, after ppu_restyle / ppu_hd: what league.dll draws) instead of
+the rig's canvases.
 """
 import argparse
 import json
@@ -61,19 +63,51 @@ def lol_frames(lol, tag, n, out):
     return [strip.crop((i * w, 0, (i + 1) * w, strip.height)) for i in range(n)]
 
 
+def game_frames():
+    """{tag: [(canvas, ms)]}: the sheet's hd_ frames, each centred (its centre is the pivot) on one canvas size."""
+    stem = os.path.join(R.ROOT, "league", "champions", "league_quinn")
+    with open(R.lp(stem + "#anim.fanim"), encoding="utf-8-sig") as f:
+        anims = json.load(f)["anims"]
+    px = np.asarray(Image.open(R.lp(stem + "#sheet.png")).convert("RGBA"))
+    raw = {}
+    for tag, an in anims.items():
+        if not tag.startswith("hd_"):
+            continue
+        raw[tag[3:]] = [(px[int(d["y"]):int(d["y"] + d["h"]), int(d["x"]):int(d["x"] + d["w"])],
+                         round(f_["duration"] * 1000)) for f_, d in ((f_, f_["data"]) for f_ in an["frames"])]
+    W = max(c.shape[1] for fr in raw.values() for c, _ in fr) + 8          # room for main's 2-square margin
+    H = max(c.shape[0] for fr in raw.values() for c, _ in fr) + 8
+    W, H = W + W % 2, H + H % 2
+    out = {}
+    for tag, fr in raw.items():
+        out[tag] = []
+        for c, ms in fr:
+            can = np.zeros((H, W, 4), np.uint8)
+            y0, x0 = (H - c.shape[0]) // 2, (W - c.shape[1]) // 2
+            can[y0:y0 + c.shape[0], x0:x0 + c.shape[1]] = c
+            out[tag].append((can, ms))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol")
     ap.add_argument("--z", type=int, default=4)
     ap.add_argument("--tags")
+    ap.add_argument("--sheet", action="store_true")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
-    F = V.form()
-    acts = V.frames(F)
+    if a.sheet:
+        acts = game_frames()
+        finish = lambda c: c
+    else:
+        F = V.form()
+        acts = V.frames(F)
+        finish = F.rig.finish
     tags = a.tags.split(",") if a.tags else list(acts)
     every = []
-    allc = np.concatenate([np.stack([F.rig.finish(c) for c, _ in fr]) for fr in acts.values()])
+    allc = np.concatenate([np.stack([finish(c) for c, _ in fr]) for fr in acts.values()])
     ys, xs = np.nonzero(allc[..., 3].max(0) > 0)
     y0, y1, x0, x1 = ys.min() - 2, ys.max() + 3, xs.min() - 2, xs.max() + 3
     for tag in tags:
@@ -81,7 +115,7 @@ def main():
         lol = lol_frames(a.lol, tag, len(fr), a.out)
         cells = []
         for (can, ms), ref in zip(fr, lol):
-            f = F.rig.finish(can)[y0:y1, x0:x1]
+            f = finish(can)[y0:y1, x0:x1]
             bg = Image.new("RGBA", (f.shape[1], f.shape[0]), BG + (255,))
             bg.alpha_composite(Image.fromarray(f))
             ours = bg.convert("RGB").resize((f.shape[1] * a.z, f.shape[0] * a.z), Image.NEAREST)

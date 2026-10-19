@@ -24,31 +24,32 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 SRC = os.path.join(ROOT, "assets", "source", "quinn", "hd")
-CUT_ROW = 35                        # the idle's rows from here down (right of CAPE_X) are her legs; above: the body
-CAPE_X = 7
+CUT_ROW = 46                        # the idle's rows from here down (right of CAPE_X) are her legs; above: the body
+CAPE_X = 10
 INK = (0x09, 0x00, 0x13)
-PPU = 1.3
-# each leg measured on hd/idle.png (square edges): the hip under the skirt (row 30.5, hidden), the knee, the ankle; its thigh and shin rows
-# (inner colours, left to right), the knee plate squares on its front, its boot (rows / cols, the outline included)
+PPU = 2.0                           # the PPU 2.0 redraw (assets/source/quinn/hd2, tools/art/design_quinn_grid.py)
+# each leg measured on hd/idle.png (square edges): the hip under the skirt (row 43, hidden), the knee, the ankle; its thigh and shin rows
+# (inner colours, left to right: the near thigh's gold trim and the shins' gold stripe in front), the knee plate squares
+# on its front, its boot (rows / cols, the outline included)
 LEGS = {
-    "near": dict(hip=(11.5, 30.5), knee=(10.5, 39.0), ankle=(10.0, 43.5), thigh_row=(37, 10, 12), shin_row=(41, 9, 10),
-                 plate=[0xfacc4d, 0xf5b52e], boot=((44, 48), (8, 13)), side="r"),
-    "far": dict(hip=(19.5, 31.0), knee=(19.5, 41.0), ankle=(21.0, 44.0), thigh_row=(38, 18, 20), shin_row=(41, 20, 21),
-                plate=[0xfcdf68, 0xf5b52e], boot=((44, 48), (19, 26)), side="l"),
+    "near": dict(hip=(15.5, 43.0), knee=(14.5, 56.5), ankle=(13.5, 66.0), thigh_row=(46, 13, 19), shin_row=(60, 13, 15),
+                 plate=[0xfde46c, 0xfac747], boot=((66, 73), (10, 19)), side="r"),
+    "far": dict(hip=(27.5, 43.5), knee=(29.5, 56.5), ankle=(32.0, 66.0), thigh_row=(55, 27, 31), shin_row=(60, 30, 32),
+                plate=[0xfded8b, 0xf4ac28], boot=((65, 74), (30, 41)), side="l"),
 }
-# both legs the same length, the idle's own split of it: from the hip under the skirt (rows 26-34 cover it; the body
-# is drawn over the thighs' tops) to the knee at row 39-40 and a short shin to the ankle at 44, the brown boot shaft
-# with its gold stripe in front (the far shin's row 41: brown, gold). Standing straight the ankles land where the
-# idle's are; a leg swung forward or back shows the thigh the skirt hid - her stride opens as League's (whose legs
-# are twice hers seen from the skirt's hem) instead of shuffling under her. (At thigh 7 / shin 6.5 the knees rode 2-3
-# rows above the idle's and the shins ran long: the user, 2026-10-19, 「奎因腿部还是有轻微的变形」.)
-THIGH_LEN, SHIN_LEN = 8.0, 5.5
-KNEE_R = 1.2                        # the knee rounded: squares this close to the knee joint take the thigh's middle colour
+# both legs the same length, the idle's own split of it: from the hip under the skirt (rows 30-45 cover it; the body
+# is drawn over the thighs' tops) to the knee plate at row 56-58 and a shorter shin to the ankle at 66, the brown boot
+# shaft with its gold stripe in front (row 60). Standing straight the ankles land where the idle's are; a leg swung
+# forward or back shows the thigh the skirt hid - her stride opens as League's instead of shuffling under her. (On the
+# PPU 1.3 design at thigh 7 / shin 6.5 the knees rode 2-3 rows above the idle's and the shins ran long: the user,
+# 2026-10-19, 「奎因腿部还是有轻微的变形」; this split keeps the design's own.)
+THIGH_LEN, SHIN_LEN = 13.5, 9.0
+KNEE_R = 1.8                        # the knee rounded: squares this close to the knee joint take the thigh's middle colour
 BOOT_TURN = 55.0                    # a shin pointing further than this back / forward from straight down carries its boot a
                                     # quarter turn round (toe down / up), the boot's shaft along the shin
 SHIN_BACK, SHIN_FWD = -130.0, 60.0  # degrees from straight down the shin may point: back far enough for the run's
 # heel kicked up behind (League's run reaches -110 to -135; at -75 the kick was cut off and the run shuffled)
-GROUND = 49                         # the idle's soles' bottom edge
+GROUND = 75                         # the idle's soles' bottom edge
 
 
 def load(name):
@@ -205,8 +206,8 @@ def reach_to(hip, ankle, L1, L2):
 
 
 PLANT_TOL = 1.5     # League's ankle within this (game px) of its standing ankle's height: the foot is on the floor
-KNEE_LOW = 2.0      # a knee's band and outline reach this far under the knee joint (squares)
-BACK_FOOT = 2.0     # a planted foot this far behind its hip is the back foot (it may rise on its toes)
+KNEE_LOW = 3.0      # a knee's band and outline reach this far under the knee joint (squares)
+BACK_FOOT = 3.0     # a planted foot this far behind its hip is the back foot (it may rise on its toes)
 KNEEL_TOL = 1.0     # a knee down at its ankle's height or within this (game px) over it kneels (League's R channel:
                     # knee 4.9, ankle 4.8 - solved as a planted leg its knee went through the floor)
 

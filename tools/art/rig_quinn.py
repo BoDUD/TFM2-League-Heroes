@@ -7,10 +7,10 @@ Codex strips, lossless poses compared with League's clips - tools/lol/anim_graph
     python tools/art/rig_quinn.py --audit DIR       # per-frame checks + every tag at 6x
     python tools/art/rig_quinn.py                   # the frames at PPU -> assets/source/ppu/orig + the 1x sheet
 
-The designs (tools/art/design_quinn_model.py, the user's picks 2026-10-19; 38 game px at PPU 1.3, one palette):
-idle.png (Q-1, 3/4 front, the crossbow arm held out to the right, 45 x 49: every standing action's base and the one face
-of every frame), side.png (S-2, side-on, 47 x 49), valor.png (Valor gliding, 34 x 27: the circling buff picture, not a
-frame) and ride.png (her riding Valor, 67 x 46: R's ride). Every pose is lossless: parts cut square by square from a
+The designs (tools/art/design_quinn_grid.py: the PPU 1.3 picks redrawn by Codex at PPU 2.0 - 「像素有点太低了 太多模糊
+的了 调一下PPU」, the user's pick A-1, 2026-10-19 - with the face redrawn on the grid; 38 game px, one palette): idle.png
+(3/4 front, the crossbow arm held out to the right, 65 x 75: every standing action's base and the one face of every
+frame) and ride.png (her riding Valor, 100 x 72: R's ride). Every pose is lossless: parts cut square by square from a
 design and only moved by whole squares, quarter turns about half-integer pivots and mirrors.
 Parts of the idle design: the crossbow arm (the sleeve from the shoulder and the crossbow; it turns about SHOULDER),
 the near leg (image left) and the far leg (image right) from LEG_TOP down; the rest is the body (the head, the hood,
@@ -32,7 +32,7 @@ import quinn_legs as QL  # noqa: E402
 from rig_wukong import CutDesign as _Cut, Form as _Form, P, pad, sheet  # noqa: E402
 
 HERO = "quinn"
-PPU = 1.3
+PPU = 2.0
 SRC = os.path.join(R.ROOT, "assets", "source", "quinn", "hd")
 with open(os.path.join(R.ROOT, "assets", "source", "quinn", "poses_side.json"), encoding="utf-8") as _f:
     F_PITCH = json.load(_f)["camera"]["pitch"]           # the side camera's pitch (hd/side/quinn_joints.json)
@@ -65,23 +65,23 @@ def dark(d):
 
 
 # ------------------------------------------------------------------------------------------------- the idle's parts
-SHOULDER = (20.5, 17.5)       # (x, y) the crossbow arm turns about
-SHOULDER_ROW = 17             # the crossbow arm's root row (it moves with the lean's shift there)
-HEAD_LOW = 16                 # the head's lowest row (the chin): the head leans as one block
-CAPE_ROW, CAPE_COL = 31, 6    # the cape's hem: rows from CAPE_ROW down, columns to CAPE_COL (under the near hand)
-LEG_TOP = 33                  # the legs: rows LEG_TOP to the soles, split at LEG_X
-LEG_X = 16
+SHOULDER = (32.5, 25.5)       # (x, y) the crossbow arm turns about
+SHOULDER_ROW = 25             # the crossbow arm's root row (it moves with the lean's shift there)
+HEAD_LOW = 22                 # the head's lowest row (the chin): the head leans as one block
+CAPE_ROW, CAPE_COL = 46, 9    # the cape's hem: rows from CAPE_ROW down, columns to CAPE_COL (under the near hand)
+LEG_TOP = 46                  # the legs: rows LEG_TOP to the soles, split at LEG_X
+LEG_X = 22
 # The crossbow arm is her far arm, reaching out from behind her chest: its fist (the cuff, the glove and the crossbow,
 # the arm's squares from FIST_X on) hangs at WRIST, the cuff's left edge on the sleeve's middle row. Held anywhere but out
 # at the shoulder, the arm is drawn again from the shoulder - an upper arm and a forearm, bands across the sleeve's own
-# squares (SLEEVE, light top to dark bottom: the idle's column 21-22, rows 16-18), behind the body as a far arm is - and
+# squares (SLEEVE, light top to dark bottom: the idle's column 35, rows 24-27), behind the body as a far arm is - and
 # the fist put on at its end (the user, 2026-10-19, on the run's crossbow moved whole down to her hip, the hand with no
 # arm to the shoulder: 「手拿武器有点奇怪」). In a dying fall the crossbow (BOW_X on: the glove and the bow) drops as
 # League's does.
-FIST_X, BOW_X = 23, 25
-WRIST = (23.0, 17.5)
-SLEEVE = (0x1c50e4, 0x0527b5, 0x333350)
-CRACK, CRACK_W = 16, 1.5      # an enclosed gap at most this many squares and this far from its edge is a crack (a wider
+FIST_X, BOW_X = 39, 44
+WRIST = (39.0, 25.5)
+SLEEVE = (0x53099A, 0x22205F, 0x1C133D, 0x1C133D)
+CRACK, CRACK_W = 36, 2.3      # an enclosed gap at most this many squares and this far from its edge is a crack (a wider
                               # one - between the cape's hem and a back leg - stays open, as the idle's gap there; filled
                               # with the cape's shade it read as the cape grown a hand longer)
 
@@ -91,9 +91,9 @@ def design():
     D = CutDesign(d, px=stand_col(d))
     yy, xx = np.mgrid[0:D.H, 0:D.W]
     op = d[..., 3] > 0
-    arm = op & (((yy >= 10) & (yy <= 21) & (xx >= 22)) | ((yy >= 15) & (yy <= 20) & (xx >= 20)))
+    arm = op & (yy >= 14) & (yy <= 31) & (xx >= 33)
     D.part("arm", arm)
-    legs = op & (yy >= LEG_TOP) & (xx >= 7)
+    legs = op & (yy >= LEG_TOP) & (xx >= 10)
     D.part("near_leg", legs & (xx < LEG_X))
     D.part("far_leg", legs & (xx >= LEG_X))
     D.part("body", D.rest())
@@ -115,14 +115,16 @@ def tinted(D, z=12):
 
 
 # the ride's own head (rows 0..RIDE_CHIN, cols RIDE_HEAD_X) gives way to the idle's (one face in every frame)
-IDLE_HEAD = (0, 15, 8, 21)     # rows / cols of the idle's head: the visor crest to the chin, the hood
-RIDE_HEAD = (0, 14, 33, 45)
-RIDE_CLEAR = 12                # the ride head's rows cleared (below them its chin and collar meet the arm)
+IDLE_HEAD = (0, 22, 13, 34)    # rows / cols of the idle's head: the visor crest to the chin, the hood
+RIDE_HEAD = (0, 19, 46, 67)
+RIDE_CLEAR = 18                # the ride head's rows cleared (below them its chin and collar meet the arm)
 
 
 def skin(d):
+    """Her skin (design_quinn_grid.face's test: the visor's pale golds are far greener than blue)."""
     c = d[..., :3].astype(int)
-    return (d[..., 3] > 0) & (c[..., 0] > 200) & (c[..., 1] > 160) & (c[..., 2] > 130) & (c[..., 0] - c[..., 2] > 25)
+    return ((d[..., 3] > 0) & (c[..., 0] > 200) & (c[..., 2] > 90) & (c[..., 1] - c[..., 2] < 60)
+            & (c[..., 0] - c[..., 2] > 40))
 
 
 def ride_design(D):
@@ -157,7 +159,7 @@ class Form:
         self.D = D
         self.rig = R.Rig(D, pad=rig_pad)
         self.L = {k: pad(D.layer(k)) for k in D.order}
-        self.other = {n: self.placed(d) for n, d in (("side", load("side.png")), ("ride", ride_design(D)))}
+        self.other = {"ride": self.placed(ride_design(D))}
         # League's skeleton frame by frame (tools/lol/league_joints.py assets/source/quinn/poses.json -> hd/
         # quinn_joints.json) and the legs drawn on it (tools/art/quinn_legs.py, league_riven's way): the body without its
         # legs and without the crossbow arm (a layer of its own, turned losslessly)
@@ -187,18 +189,6 @@ class Form:
         self.SLEEVE = [QL.rgb(c) for c in SLEEVE]
         self.PITCH = F_PITCH
         self._cache = {}
-        # Codex's leg poses (tools/art/design_quinn_legs.py): the legs of each, on the idle's grid, and how far the
-        # upper body goes down onto them
-        with open(lp(os.path.join(SRC, "legs.json")), encoding="utf-8") as f:
-            self.LEG_META = json.load(f)
-        self.LEGS = {}
-        for k, m in self.LEG_META.items():
-            img = load(f"legs_{k}_only.png")
-            lay = np.zeros((D.H + 2 * P, D.W + 2 * P, 4), np.uint8)
-            x0 = P - m["padx"]
-            sub = img[:lay.shape[0] - P, max(0, -x0):]
-            lay[P:P + sub.shape[0], max(0, x0):max(0, x0) + sub.shape[1]] = sub[:, :lay.shape[1] - max(0, x0)]
-            self.LEGS[k] = lay
 
     def placed(self, d):
         """Another design in a padded layer of the idle design's size, standing on the same point and ground."""
@@ -212,22 +202,17 @@ class Form:
         lay[y0:y0 + sub.shape[0], x0:x0 + sub.shape[1]] = sub
         return lay
 
-    def pose(self, crouch=0, whole=(0, 0), arm=(0, 0), arm_rot=0, legs=None, leg=None, fill=True, no_arm=False):
+    def pose(self, crouch=0, whole=(0, 0), arm=(0, 0), arm_rot=0, legs=None, fill=True, no_arm=False):
         """crouch: rows the body (with the arm) sets down onto the legs; whole: the whole figure; arm: the crossbow arm
         moved, arm_rot quarter turns counter-clockwise about SHOULDER (1: pointing up); legs: ((near dx, dy),
-        (far dx, dy)) for the idle's own legs; leg: one of Codex's leg poses instead (kneel, lunge, wide, back, tuck,
-        step) - the body then goes down that pose's drop, plus crouch."""
+        (far dx, dy)) for the idle's own legs."""
         if crouch < 0:
             raise ValueError("the body never lifts off the legs")
         wx, wy = whole
         L = self.L
-        if leg:
-            ux, uy = wx, wy + crouch + self.LEG_META[leg]["drop"]
-            leg_layers = [(self.LEGS[leg], dict(dx=wx, dy=wy))]
-        else:
-            ux, uy = wx, wy + crouch
-            (nx, ny), (fx, fy) = legs or ((0, 0), (0, 0))
-            leg_layers = [(L["far_leg"], dict(dx=wx + fx, dy=wy + fy)), (L["near_leg"], dict(dx=wx + nx, dy=wy + ny))]
+        ux, uy = wx, wy + crouch
+        (nx, ny), (fx, fy) = legs or ((0, 0), (0, 0))
+        leg_layers = [(L["far_leg"], dict(dx=wx + fx, dy=wy + fy)), (L["near_leg"], dict(dx=wx + nx, dy=wy + ny))]
         layers = [*leg_layers, (L["body"], dict(dx=ux, dy=uy))]
         if not no_arm:
             layers.append((L["arm"], dict(dx=ux + arm[0], dy=uy + arm[1], rot=arm_rot, about=SHOULDER)))
@@ -340,7 +325,7 @@ class Form:
         for (x, y), c in cells.items():
             can[y, x] = c
 
-    def bow(self, can, dx, dy, rot=0, about=(34.0, 16.0)):
+    def bow(self, can, dx, dy, rot=0, about=(53.0, 23.0)):
         """The dropped crossbow (no hand) added behind the figure on can: moved (dx, dy) from where her hand held it,
         turned rot quarter turns counter-clockwise about `about` (design squares)."""
         b = R.compose(self.rig, [(self.BOW, dict(dx=dx, dy=dy, rot=rot, about=about))])
@@ -368,39 +353,42 @@ def shift(can, dx, dy):
 
 
 def form():
-    return Form(design(), rig_pad=(40, 50, 50, 20))
+    return Form(design(), rig_pad=(60, 80, 80, 30))
 
 
 def tries(F):
     p = F.pose
-    return [p(), p(arm_rot=1, arm=(1, -2)), p(crouch=2), p(whole=(-2, 0), arm=(0, -1)), F.whole("side"),
-            F.whole("ride"), R.lie(F.rig, p(), 3, dx=2, sink=0), R.lie(F.rig, p(), 1, dx=-2, sink=0)]
+    return [p(), p(arm_rot=1, arm=(5, -3)), p(crouch=2), p(whole=(-3, 0), arm=(0, -2)), F.whole("ride"),
+            R.lie(F.rig, p(), 3, dx=3, sink=0), R.lie(F.rig, p(), 1, dx=-3, sink=0)]
 
 
 # ------------------------------------------------------------------------------------------------- the actions
-UP = dict(arm_rot=1, arm=(3, -2))     # the crossbow arm turned up to the sky, beside the head (never over the face)
+# the crossbow raised to the sky beside the head, never over the face: the arm drawn from the shoulder out to the elbow
+# and up, the fist turned a quarter up at the wrist (the whole arm turned about the shoulder laid the bow's near prong
+# across her eyes at PPU 2.0, and left a slit of ground between the sleeve and the cheek)
+UP = dict(hold=dict(elbow=(5, -2), wrist=(11, -8), rot=1))
 # the run as League's (the user, 2026-10-19, beside League's frames: 「明显动作不一样吧 你起码做到一样啊」 - League strides
 # wide, leans forward): League's leg angles x RUN_SWING (her chibi legs are under a third of her height), the body leant
 # one square every RUN_LEAN rows (the head about six squares ahead of the hips, league_zeri's approved run), the whole
 # frame RUN_DX back so the hips stay over the standing point
-RUN_SWING, RUN_LEAN, RUN_DX = 1.6, 3, -2
+RUN_SWING, RUN_LEAN, RUN_DX = 1.6, 3, -3
 ACT_SPREAD = 1.2              # the standing moves' feet seen from the hips, widened a little (her legs are half League's)
 RUN_SPREAD = 1.3              # League's feet seen from the hips, the direction widened (her legs are half League's)
 # the crossbow arm bent as League's runs with it: the elbow down at her side behind her, the forearm forward at her
 # stomach, the bow held out before her (squares from the shoulder; Form.drawn hold)
-RUN_HOLD = dict(elbow=(-1.0, 4.5), wrist=(2.5, 4.0))
-LOW_HOLD = dict(elbow=(-1.0, 5.0), wrist=(2.5, 9.0))    # let down to her hip (R's channel, League's 0.5 s)
+RUN_HOLD = dict(elbow=(-1.5, 7.0), wrist=(4.0, 6.0))
+LOW_HOLD = dict(elbow=(-1.5, 7.5), wrist=(4.0, 14.0))   # let down to her hip (R's channel, League's 0.5 s)
 # the death's crossbow: flung up behind her (moved, then a quarter turn up), then lying on the floor behind her
-BOW_FLUNG = (-40, 8)
-BOW_DX = -42
-STAND_CAPE = (0, -2)          # the cape's hem in the standing moves (Form.drawn cape)
+BOW_FLUNG = (-61, 12)
+BOW_DX = -64
+STAND_CAPE = (0, -3)          # the cape's hem in the standing moves (Form.drawn cape)
 RUN_FLIGHT = 0.6              # share of League's lift kept in the run's both-feet-off-the-ground frames
-RUN_CAPE = [(-2, -2), (-3, -5), (-4, -4), (-2, -3), (-2, -2), (-3, -5), (-4, -4), (-2, -3)]   # the hem flying back,
+RUN_CAPE = [(-3, -3), (-5, -8), (-8, -8), (-3, -5), (-3, -3), (-5, -8), (-8, -8), (-3, -5)]   # the hem flying back,
 # up clear of the heel kicked up behind (lower, the two closed a pocket of ground between them)
 # the hips close together as League's side-on run has them (league_zeri: the far hip 2 squares right of the near): at
-# the idle's 3/4 places, 8 squares apart, the near leg swinging forward crossed the far one swinging back and the
+# the idle's 3/4 places, 12 squares apart, the near leg swinging forward crossed the far one swinging back and the
 # stride closed up instead of opening
-RUN_HIPS = {"near": (14.0, 30.5), "far": (16.5, 31.0)}
+RUN_HIPS = {"near": (19.5, 43.0), "far": (23.0, 43.5)}
 
 # ms per frame; the kit's ticks (tools/kit/build_quinn.py) come from these
 MS = {"idle": [150] * 8, "run": [117] * 8, "attack": [80, 70, 90, 110, 90],
@@ -417,12 +405,13 @@ def frames_all(F):
     # League's steps forward and back, and her legs stand side by side in the drawing; standing moves map League's front
     # and back feet onto her image-right and image-left legs (roles), her own stance
     T = {t: [r["j"] for r in rows] for t, rows in F.JS["tags"].items()}
-    # (the cape's hem held 2 rows up through the standing moves: down at the idle's row a back foot up on its toes
+    # (the cape's hem held 3 rows up through the standing moves: down at the idle's row a back foot up on its toes
     # touched its tip and closed a pocket of ground between them)
     dr = lambda j, **o: F.drawn(j, **{"spread": ACT_SPREAD, "roles": True, "ground": True, "cape": STAND_CAPE, **o})
     out = {}
-    # idle (League's Quinn_idle1: the crossbow held out, she breathes): the approved design, the body set down a row
-    out["idle"] = [p(), p(), p(), p(crouch=1), p(crouch=1), p(crouch=1), p(crouch=1), p()]
+    # idle (League's Quinn_idle1: the crossbow held out, she breathes): the approved design, the body set down a game
+    # pixel (two rows)
+    out["idle"] = [p(), p(), p(), p(crouch=2), p(crouch=2), p(crouch=2), p(crouch=2), p()]
     # run (Quinn_run, 8 frames of its 0.93 s stride, seen nearly side-on): the legs on League's legs (widened for her
     # chibi legs), the body leant forward, the crossbow down at her hip, both feet off the ground where League's are,
     # the cape's hem flying back behind the legs
@@ -431,7 +420,7 @@ def frames_all(F):
     out["run"] = [F.drawn(j, ref=S[0], spread=RUN_SPREAD, lean=RUN_LEAN, shift=(RUN_DX, 0), hips=RUN_HIPS,
                           hold=RUN_HOLD, flight=(low, RUN_FLIGHT), cape=c) for j, c in zip(S, RUN_CAPE)]
     # auto attack (Quinn_attack1: into League's wide crouched stance, the shot kicking the crossbow up, settling)
-    kick = [(0, 0), (0, 0), (0, -2), (0, -1), (0, 0)]
+    kick = [(0, 0), (0, 0), (0, -3), (0, -2), (0, 0)]
     out["attack"] = [dr(j, arm=k, lunge=0.7) for j, k in zip(T["attack"], kick)]
     # Q Blinding Assault (quinn_spell1: up on her toes with the crossbow raised to the sky as Valor leaves, then the
     # lunge after him, leant forward)
@@ -443,18 +432,18 @@ def frames_all(F):
     # counter-clockwise), lands (League's landing frame), stands
     kick_off = dr(T["e_flip"][0])
     tumble = lambda k, dx, up: shift(R.lie(rig, kick_off, k, dx=dx, sink=0), 0, -up)
-    out["e_flip"] = [tumble(1, 0, 8), tumble(2, -1, 14), tumble(3, -2, 9), dr(T["e_flip"][4], shift=(-2, 0)), p()]
+    out["e_flip"] = [tumble(1, 0, 12), tumble(2, -2, 21), tumble(3, -3, 14), dr(T["e_flip"][4], shift=(-3, 0)), p()]
     # R Behind Enemy Lines (Quinn_Spell4_Channel: aimed, the crossbow let down to her hip, standing tall aiming again,
     # down on one knee with the crossbow raised as Valor comes down; she is on his back from ult_ride on)
     out["ult"] = [dr(T["ult"][0]), dr(T["ult"][1], hold=LOW_HOLD), dr(T["ult"][2], air=True), dr(T["ult"][3], **UP)]
     # the ride (quinnvalor_run_glide): gliding, the whole group rising and falling
-    out["ult_ride"] = [F.whole("ride", dy=-d) for d in (4, 5, 6, 5)]
+    out["ult_ride"] = [F.whole("ride", dy=-d) for d in (6, 8, 9, 8)]
     # Skystrike (QuinnRFinale: the two loop up through the air and she drops onto them): the group whole quarter turns
     # counter-clockwise (nose up, over, down), she lands (the somersault's landing, the channel's crouch), stands
     loop = lambda k, dx, up: shift(R.lie(rig, F.whole("ride"), k, dx=dx, sink=0), 0, -up)
-    out["ult_land"] = [loop(1, 1, 6), loop(2, 0, 12), loop(3, -1, 6), dr(T["e_flip"][4]), dr(T["ult"][1]), p()]
+    out["ult_land"] = [loop(1, 2, 9), loop(2, 0, 18), loop(3, -2, 9), dr(T["e_flip"][4]), dr(T["ult"][1]), p()]
     # hit (League's idle leaning toward its death): flashed, knocked back
-    out["hit"] = [R.flash(dr(T["hit"][0], shift=(-2, 0))), dr(T["hit"][1], shift=(-1, 0))]
+    out["hit"] = [R.flash(dr(T["hit"][0], shift=(-3, 0))), dr(T["hit"][1], shift=(-2, 0))]
 
     # the death (quinn_death, League's 0 / 0.4 / 0.8 / 1.2 / 2.3 / 2.6 / 2.8 / 3.15 s): hit as she aims, she doubles
     # over as the crossbow flies from her hand behind her, her knees give, she drops onto one knee, slumps, falls face
@@ -464,14 +453,14 @@ def frames_all(F):
     on_floor = lambda can: F.bow(can, BOW_DX, (QL.GROUND - 1) - F.BOW_LOW)
 
     def lying(sink):                     # her own straight legs side by side (drawn apart they lay one up, one down)
-        return R.lie(rig, p(crouch=3, no_arm=True), 3, dx=8, sink=sink)
+        return R.lie(rig, p(crouch=5, no_arm=True), 3, dx=12, sink=sink)
     out["dead"] = [dr(D[0]), F.bow(dr(D[1], drop=True, lean=2), *BOW_FLUNG, rot=1),
                    on_floor(dr(D[2], drop=True, lean=2)), on_floor(dr(D[3], drop=True, lean=2)),
-                   on_floor(dr(D[4], drop=True, lean=2)), on_floor(lying(0)), on_floor(lying(-2)), on_floor(lying(0))]
+                   on_floor(dr(D[4], drop=True, lean=2)), on_floor(lying(0)), on_floor(lying(-3)), on_floor(lying(0))]
     # the add-on's ride form (addons/league_quinn): standing / moving / hit as the group gliding
-    out["r_idle"] = [F.whole("ride", dy=-d) for d in (4, 5, 5, 4)]
-    out["r_run"] = [F.whole("ride", dy=-d, dx=x) for d, x in ((4, 0), (6, 1), (5, 0), (3, -1))]
-    out["r_hit"] = [F.whole("ride", dx=-2, dy=-4, flash=True), F.whole("ride", dx=-1, dy=-4)]
+    out["r_idle"] = [F.whole("ride", dy=-d) for d in (6, 8, 8, 6)]
+    out["r_run"] = [F.whole("ride", dy=-d, dx=x) for d, x in ((6, 0), (9, 2), (8, 0), (5, -2))]
+    out["r_hit"] = [F.whole("ride", dx=-3, dy=-6, flash=True), F.whole("ride", dx=-2, dy=-6)]
     return out
 
 
