@@ -1,0 +1,186 @@
+[
+  {
+    "file": "quinn-model-Q-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha_has_transparent_and_opaque": true,
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 400661,
+    "hard_alpha_only_0_255": false,
+    "requested_grid_px": 22,
+    "occupied_grid_cells": 1102,
+    "nonuniform_occupied_cells": 1102,
+    "exact_uniform_grid_from_canvas_origin": false,
+    "opaque_silhouette_bbox_alpha_gt_127": [
+      166,
+      137,
+      1143,
+      1192
+    ],
+    "strict_technical_pass": false
+  },
+  {
+    "file": "quinn-model-Q-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha_has_transparent_and_opaque": true,
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 508863,
+    "hard_alpha_only_0_255": false,
+    "requested_grid_px": 22,
+    "occupied_grid_cells": 1677,
+    "nonuniform_occupied_cells": 1677,
+    "exact_uniform_grid_from_canvas_origin": false,
+    "opaque_silhouette_bbox_alpha_gt_127": [
+      176,
+      78,
+      1213,
+      1186
+    ],
+    "strict_technical_pass": false
+  },
+  {
+    "file": "quinn-model-R-1.png",
+    "size": [
+      1433,
+      1098
+    ],
+    "matches_1254_square": false,
+    "real_alpha_has_transparent_and_opaque": true,
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 725211,
+    "hard_alpha_only_0_255": false,
+    "requested_grid_px": 18,
+    "occupied_grid_cells": 2826,
+    "nonuniform_occupied_cells": 2826,
+    "exact_uniform_grid_from_canvas_origin": false,
+    "opaque_silhouette_bbox_alpha_gt_127": [
+      55,
+      97,
+      1398,
+      1038
+    ],
+    "strict_technical_pass": false
+  },
+  {
+    "file": "quinn-model-R-2.png",
+    "size": [
+      1432,
+      1098
+    ],
+    "matches_1254_square": false,
+    "real_alpha_has_transparent_and_opaque": true,
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 735346,
+    "hard_alpha_only_0_255": false,
+    "requested_grid_px": 18,
+    "occupied_grid_cells": 2908,
+    "nonuniform_occupied_cells": 2908,
+    "exact_uniform_grid_from_canvas_origin": false,
+    "opaque_silhouette_bbox_alpha_gt_127": [
+      88,
+      114,
+      1380,
+      1047
+    ],
+    "strict_technical_pass": false
+  },
+  {
+    "file": "quinn-model-S-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha_has_transparent_and_opaque": true,
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 456604,
+    "hard_alpha_only_0_255": false,
+    "requested_grid_px": 22,
+    "occupied_grid_cells": 1404,
+    "nonuniform_occupied_cells": 1404,
+    "exact_uniform_grid_from_canvas_origin": false,
+    "opaque_silhouette_bbox_alpha_gt_127": [
+      148,
+      101,
+      1223,
+      1172
+    ],
+    "strict_technical_pass": false
+  },
+  {
+    "file": "quinn-model-S-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha_has_transparent_and_opaque": true,
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 490040,
+    "hard_alpha_only_0_255": false,
+    "requested_grid_px": 22,
+    "occupied_grid_cells": 1481,
+    "nonuniform_occupied_cells": 1481,
+    "exact_uniform_grid_from_canvas_origin": false,
+    "opaque_silhouette_bbox_alpha_gt_127": [
+      92,
+      35,
+      1224,
+      1219
+    ],
+    "strict_technical_pass": false
+  },
+  {
+    "file": "valor-model-V-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha_has_transparent_and_opaque": true,
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 505162,
+    "hard_alpha_only_0_255": false,
+    "requested_grid_px": 30,
+    "occupied_grid_cells": 968,
+    "nonuniform_occupied_cells": 968,
+    "exact_uniform_grid_from_canvas_origin": false,
+    "opaque_silhouette_bbox_alpha_gt_127": [
+      52,
+      159,
+      1234,
+      1110
+    ],
+    "strict_technical_pass": false
+  },
+  {
+    "file": "valor-model-V-2.png",
+    "size": [
+      1362,
+      1155
+    ],
+    "matches_1254_square": false,
+    "real_alpha_has_transparent_and_opaque": true,
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 646332,
+    "hard_alpha_only_0_255": false,
+    "requested_grid_px": 30,
+    "occupied_grid_cells": 1038,
+    "nonuniform_occupied_cells": 1038,
+    "exact_uniform_grid_from_canvas_origin": false,
+    "opaque_silhouette_bbox_alpha_gt_127": [
+      19,
+      46,
+      1351,
+      1125
+    ],
+    "strict_technical_pass": false
+  }
+]
