@@ -1339,6 +1339,44 @@
           }
         },
         {
+          "type": "SwitchByBuff",
+          "buff_name": "league_rammus_q_ball",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_rammus_q_ball"
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_rammus_q_on"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rammus_q_on",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
           "type": "Combine",
           "effects": [
             {

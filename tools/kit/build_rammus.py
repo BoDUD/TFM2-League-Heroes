@@ -28,9 +28,13 @@ slot - the watch curls him up in fights (league_jarvaniv's Golden Aegis the same
           r_pulses aftershocks on the landing spot every r_pp ticks repeat the slow. Within r_link ticks of a Powerball
           hit (League: cast during Powerball) the centre (r_c) also takes Q's damage again and is knocked up r_up ticks.
   watch   A life-long `AddCasted` started by his first attack or cast of each life (`init`), every watch_p ticks: casts W.
-The add-on copy (--native, addons/league_rammus): the passive league_rammus:shell pays Spiked Shell and W's return from
-his armour and makes Powerball League's rolling ball (skill only curls him up and sets `q_ball`; the add-on shows the
-ball and rolls him into the first enemy, then calls the impact `q_hit` itself).
+The add-on copy (--native, addons/league_rammus): the attack's Spiked Shell is league_rammus:spikes (p_dmg + p_ap% AP +
+p_arm% of his real armour); skill only curls him up and sets `q_ball` for q_ball_t ticks - the passive
+league_rammus:shell speeds him up (q_ms0% -> q_ms1% over q_ramp ticks) and, the moment an enemy is within q_touch, lays
+the 1-tick `q_go` that a 1-tick watch of the cast turns into the impact (q_hit); his attack while rolling is the impact
+too; the add-on's display hook draws him as the ball (b_*) while `q_ball` is on and curled (c_*) while `w_on` is.
+In both packs R cast while rolling (`q_ball`) ends the ball and counts as right after an impact (League: R during
+Powerball).
 """
 import argparse
 import json
@@ -60,6 +64,9 @@ P = {
     "atk_range": 25000, "atk_dur": 28, "atk_cd": 70, "a_hit": 11, "f_t": 180,
     # passive Spiked Shell (League: 10 + 15% armour magic on every attack)
     "p_dmg": 15, "p_ap": 30, "p_hp": 2,
+    # the add-on's Spiked Shell from his armour (League: 15%) and League's rolling Powerball (League: rolls up to 6 s,
+    # speeding up; we roll up to 4 s, +30% -> +100% move speed over 2 s, touching within an attack's reach)
+    "p_arm": 15, "q_ball_t": 240, "q_touch": 26000, "q_ms0": 30, "q_ms1": 100, "q_ramp": 120,
     # W Defensive Ball Curl (League: +22-52 armour +22.5-67.5% bonus armour, the same in MR, 7 s, returns 15 + 10% armour
     # + 10% MR magic to attackers, cd 7 s after it ends)
     "w_cd": 840, "w_go": 30000, "w_dur": 16, "w_t": 420, "w_def": 60, "w_ref": 25,
@@ -229,15 +236,18 @@ def build(p):
     curl = combine(flag("w_cd", p["w_cd"]), refresh("busy", p["w_dur"]), anim("skill_w", p["w_dur"]), sfx("w"),
                    voice("vo_w", p), cview("w_cast"),
                    refresh("w_on", p["w_t"], defence_mult=p["w_def"], magic_resistance_mult=p["w_def"],
-                           **({} if nat else {"damage_reflect": p["w_ref"]})))
+                           damage_reflect=p["w_ref"]))
     watch = on_me(casted(1000000, p["watch_p"],
                          sw("w_cd", NONE, sw("busy", NONE, pick(p["w_go"], "EnemyChampion", on_me(curl))))))
     life = sw("init", NONE, combine(flag("init", None), watch))
 
     # ------------------------------------------------------------------ attack: the claw swipe + Spiked Shell
-    shell = native("shell") if nat else ap(p["p_dmg"], p["p_ap"], p["p_hp"])
+    shell = native("spikes") if nat else ap(p["p_dmg"], p["p_ap"], p["p_hp"])
     blow = combine(sfx("a_swing"), homing("a_blow", "Enemy", [attack(0, 100), shell, view("a_hit"), tsfx("a_hit")]),
                    homing("a_twin", "EnemyChampion", marked))
+    if nat:
+        # rolling, his attack is the ball's impact (League: Powerball stops on the first enemy it meets)
+        blow = sw("q_ball", refresh("q_go", 2), blow)
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(life, delayed(p["a_hit"] - 1, blow)), atype="BaseAttack", cancel=True)
 
@@ -250,8 +260,10 @@ def build(p):
                                                      slow("q_slow", p["q_slow"], p["q_slow_t"]), view("q_hit")]),
              around(p["q_r"], "EnemyChampion", marked)]
     if nat:
-        # the add-on rolls him (the ball while he walks) and runs q_hit itself through a 1-tick `q_go` flag it lays
-        roll = [refresh("q_ball", p["q_roll"] * 3)]
+        # the add-on rolls him (the ball while he walks) and lays a 1-tick `q_go` when he touches an enemy: a 1-tick
+        # watch of this cast turns it into the impact
+        roll = [refresh("q_ball", p["q_ball_t"]), cview("q_dust"),
+                on_me(casted(p["q_ball_t"] + 2, 1, sw("q_go", combine(*rm("q_go"), *q_hit))))]
     else:
         roll = [refresh("q_ball", p["q_roll"]), anim("skill_roll", p["q_roll"]), cview("q_dust"),
                 {"type": "MoveToTarget", "speed": p["q_speed"], "range": p["q_range"] + 60000, "end_effects": q_hit}]
@@ -276,7 +288,8 @@ def build(p):
             around(p["r_r"], "EnemyWithoutTower", [ap(p["r_dmg"], p["r_ap"]), *shock, tsfx("r_hit")]),
             around(p["r_r"], "EnemyChampion", marked), centre, *rm("q_on"), after]
     ult = action("ult", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(life, refresh("busy", p["r_dur"] + p["r_end"]), anim("ult", p["r_dur"]), sfx("r"),
+                 combine(life, sw("q_ball", combine(*rm("q_ball"), refresh("q_on", p["r_link"]))),
+                         refresh("busy", p["r_dur"] + p["r_end"]), anim("ult", p["r_dur"]), sfx("r"),
                          voice("vo_r", p), flag("r_air", p["r_dur"], cc_immune=True),
                          {"type": "MoveToTarget", "speed": p["r_speed"], "range": 400000, "end_effects": land}))
 
@@ -291,8 +304,7 @@ def build(p):
     extra = {}
     if nat:
         extra["passive"] = {"passive_ref": f"{ID}:shell", "params": {
-            k: p[k] for k in ("p_dmg", "w_ref", "q_speed", "q_roll", "q_r")}}
-        skill["effect"]["effects"].append(sw("q_go", combine(*rm("q_go"), *q_hit)))
+            k: p[k] for k in ("p_dmg", "p_ap", "p_arm", "q_ball_t", "q_touch", "q_ms0", "q_ms1", "q_ramp")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
