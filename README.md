@@ -241,6 +241,7 @@
 ![阿克尚演示：对德莱厄斯：普攻连开两枪；Q 去而复还：红色回旋镖飞过德莱厄斯、到头折回来，去回各打一次，第 3 下打中英雄时他身上一圈护盾；E 骄行荡寇：钩索甩到他头上方，绳子连着他的手、绕着钩点荡过去，一路朝德莱厄斯开枪，最后翻滚离开再开一枪；W 赴险夺人：脚下的伪装光、加速的风痕；R 恩怨相抵：身上亮起红色锁定标记，蓄力后五发子弹连射，德莱厄斯倒下](docs/preview/league_akshan_showcase.gif?v=1018dg)
 
 ![波比演示：对德莱厄斯：坚定风采在她脚下升起金色光罩、留下一圈光环；钢铁大使：圆盾飞过去打中他，弹回来躺在地上，她捡起来身上一圈金光护盾；英勇冲锋撞上去，他头上冒出晕星；圣锤猛击砸在他脚下，地面裂开发光，1 秒后再炸一次；两下锤击；持卫的裁决：她压低身子蓄力，抡锤推出金色冲击波打中他，德莱厄斯倒下](docs/preview/league_poppy_showcase.gif?v=1018dg)
+![沃利贝尔演示：对德莱厄斯：擂首一击：他四脚着地、身上缠着电光冲过去，直立跳起扑砸，德莱厄斯头上一圈眩晕电环；暴怒撕咬：一口咬下，德莱厄斯身上炸开冰蓝的咬痕，头上留下标记；霹天雳地：德莱厄斯脚下先出现深蓝雷云，一道大雷劈下；几下抓击；天声震落：他跳起来砸在德莱厄斯身上，落地炸开一圈电环，之后身上一圈风暴，德莱厄斯倒下](docs/preview/league_volibear_showcase.gif?v=1019a)
 ![拉莫斯演示：对德莱厄斯：动力冲刺：他缩成刺球，一路扬起沙尘滚过去撞上德莱厄斯，脚下炸开一圈沙环，德莱厄斯被撞退、脚下卷着沙；尖刺防御：他蜷起来，身上一圈金色尖刺护盾；狂乱嘲讽：德莱厄斯身上冒起红橙色火光，头上一个怒气标记；两下翻身撞击；冲天猛撞：他缩成球跳起来砸在德莱厄斯身上，地上砸出一个透着熔岩光的坑，余震三次，德莱厄斯倒下](docs/preview/league_rammus_showcase.gif?v=1019a)
 
 ## 英雄：盖伦
@@ -5650,7 +5651,7 @@ python addons/league_poppy/make_override.py         # 附加包的副本（主�
 | 数值 | 攻击 88（+14）、法强 20（+8）、生命 1100（+105）、护甲 32（+7）、魔抗 26（+4）、移速 1020（+10）、射程 25000，攻击间隔 72 tick |
 | 平衡 | 10 分钟经典引擎模拟，上单位对原版六个上单（斗士、处刑人、枪骑兵、长柄战士、骑士、狂战士），三套阵容两边各打，两批种子（1–8、9–16）：草稿 +1.79 / +2.16；动作帧定下时间点后 **+1.31 / +1.47**（平均 +1.39；同期普朗克 +1.67、内瑟斯 +1.55、德莱厄斯 +1.99），不再调 |
 | 精灵图（高清帧 PPU 1.2） | Codex 第 0 步画了英雄联盟的待机（A：两臂张开）和双臂下垂（B）两张原画，另有 A 的初稿（[`tools/art/pack_volibear_picture.py`](tools/art/pack_volibear_picture.py)，读回 [`design_volibear_hd.py`](tools/art/design_volibear_hd.py)，大小对比 [`review_volibear_size.py`](tools/art/review_volibear_size.py)），用户：「B，游戏里 44 像素高，PPU 1.2」。第 1 步 Codex 在游戏格子上画 3/4 正面和侧面（[`pack_volibear_model.py`](tools/art/pack_volibear_model.py)），用户选正面 B-2（51 × 54）和侧面 side-2（[`design_volibear_model.py`](tools/art/design_volibear_model.py)）。动作帧 [`rig_volibear.py`](tools/art/rig_volibear.py)：待机、挨打、死亡用造型自己的格子整块摆；手臂整块转动、平移、镜像都被用户否掉（「左手严重变形」「看了还是奇怪 你改不好就让codex帮忙」），改由 Codex 在造型的同一网格上**只重画手臂**的四个姿势（双手高举、单手高举、往前下抓、双爪前扑，[`pack_volibear_poses.py`](tools/art/pack_volibear_poses.py) / [`design_volibear_poses.py`](tools/art/design_volibear_poses.py)：头和腿换回造型自己的格子）；走路是 Codex 照 oppi 的牛头走路换皮的交叉步（「走路也没交叉换步」，[`design_volibear_run.py`](tools/art/design_volibear_run.py)，每帧换上造型的头）；Q 照英雄联盟四脚着地冲锋、直立跳起扑砸（「Q技能的释放技能姿势和英雄联盟不一样？」，[`pack_volibear_q.py`](tools/art/pack_volibear_q.py) / [`design_volibear_q.py`](tools/art/design_volibear_q.py)：冲锋拿奈德丽豹形态的跑步当骨架换皮，低头的几帧保留 Codex 自己画的头）。每个动作都对照英雄联盟的动画（[`review_volibear_actions.py`](tools/art/review_volibear_actions.py) 一张 GIF 左右对比），死亡 8 帧带落地回弹，挨打第 1 帧白闪后退 |
-| 特效 | 第 3 步 18 张特效（[`tools/art/pack_volibear_fx.py`](tools/art/pack_volibear_fx.py)，颜色照英雄联盟：雷电是白芯青蓝的电光，雷云深蓝，护盾和爪子冰蓝）。弹道（满层闪电）画成朝右、上下对称，跟着飞行方向转；其余全部左右对称（游戏不镜像特效图）。FX_IMPORT_TODO |
+| 特效 | 第 3 步 18 张特效（[`tools/art/pack_volibear_fx.py`](tools/art/pack_volibear_fx.py)，颜色照英雄联盟：雷电是白芯青蓝的电光，雷云深蓝，护盾和爪子冰蓝）。弹道（满层闪电）画成朝右、上下对称，跟着飞行方向转；其余全部左右对称（游戏不镜像特效图）。Codex 的交付在 `codex_fx/`，[`import_volibear_fx.py`](tools/art/import_volibear_fx.py) 按清单的帧大小切开、照技能播放的位置摆好（再查一遍对称），得到 `league_volibear_fx`（小特效）和 `league_volibear_big`（治疗光柱、Q 移速电光、E 雷云 / 落雷 / 护盾、R 落地 / 风暴形态 / 塔失效）两张图 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_volibear.py`](tools/lol/extract_volibear.py)，23 段）：抓击、满层闪电、撕咬 / 第二口、Q 冲锋 / 扑砸、E 召雷 / 落雷 / 护盾、R 起跳 / 落地 / 命中 / 塔失效，配音是他的 Q / W / E / R 台词（中文） |
 | 图标 | 官方技能图标（擂首一击、霹天雳地、天声震落，另有暴怒撕咬和狂雷渐起），从本地客户端取 |
 
