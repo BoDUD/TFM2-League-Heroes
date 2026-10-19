@@ -5,6 +5,9 @@ moved by whole squares, quarter turns or a white flash, nothing redrawn.
 
     python tools/art/rig_powder.py --review DIR [--lol D:/WeGameApps/lol]   # one GIF: every tag, TFT's clip left
     python tools/art/rig_powder.py --frames DIR                            # every tag's frames at 8x (self-review)
+    python tools/art/rig_powder.py                                         # the frames at PPU -> assets/source/ppu/orig
+                                                                           # + tft/champions/tft_powder (1x), then
+                                                                           # ppu_restyle.py / ppu_hd.py --hero powder
 
 Tags (the kit's actions, tools/kit/build_powder.py): idle (the idle design breathing a row), run (the 8 run frames, the
 head held on one column), attack (the firecracker: wind, throw), skill (Monkey Bomb: crouch, the underhand toss), skill2
@@ -202,6 +205,16 @@ def dump(acts, out, z=8):
         sheet.convert("RGB").save(os.path.join(out, f"powder_{tag}_8x.png"))
 
 
+def export(acts):
+    """ppu_rig.Rig.export: the dense strips (assets/source/ppu/orig/powder_<tag>.png) and the 1x sheet, the pivot on
+    STAND, FEET game px over the soles."""
+    sys.path.insert(0, HERE)
+    import ppu_rig as R
+    D = type("Design", (), {})()
+    D.W, D.H, D.px, D.ground, D.hero, D.ppu, D.outline = W, H, STAND, GROUND, "powder", 1.5, (8, 1, 16)
+    R.Rig(D, pad=(0, 0, 0, 0)).export(acts)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review")
@@ -209,6 +222,9 @@ def main():
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol")
     a = ap.parse_args()
     acts = frames()
+    if not (a.frames or a.review):
+        export(acts)
+        return
     if a.frames:
         dump(acts, a.frames)
     if a.review:
