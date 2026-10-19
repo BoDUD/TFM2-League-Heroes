@@ -24,7 +24,7 @@ import rig_volibear as V  # noqa: E402
 # tag -> (League's clip, from s, to s) - the part of the clip the tag shows
 CLIPS = {"idle": ("Volibear_Idle", 0, 2.9), "run": ("volibear_run", 0, 1.0), "skill_run": ("Volibear_spell1_run", 0, 0.6),
          "attack": ("Volibear_Attack_1", 0, 0.6), "attack_w": ("Volibear_Spell2_Slash", 0, 1.0),
-         "skill": ("volibear_spell1_attack", 0, 0.45), "skill2": ("volibear_spell3", 0, 2.5),
+         "skill": ("Volibear_spell1_attack_stationary", 0, 0.5), "skill2": ("volibear_spell3", 0, 2.5),
          "ult": ("Volibear_Spell4_Ground_Pound", 0, 0.5), "ult_land": ("Volibear_Spell4_Ground_Pound", 0.6, 0.95),
          "hit": ("Volibear_Idle", 0, 0.1), "dead": ("volibear_death", 0, 2.0)}
 BG = (96, 112, 96)

@@ -149,6 +149,17 @@ class Form:
             img = load(f"run_{n}.png")
             oy = img.shape[0] - D.ground                     # the soles on the design's ground row
             self.RUN.append(placed(img, (m["origin"][0], oy), D.H, D.W))
+        # Q (design_volibear_q.py): the charge on all fours and the pounce, placed by the head, soles on the ground
+        # (the pounce's leap frames lifted as Codex drew them)
+        with open(lp(os.path.join(SRC, "q.json")), encoding="utf-8") as f:
+            q = json.load(f)
+        self.Q = {}
+        for key, metas in q.items():
+            self.Q[key] = []
+            for n, m in enumerate(metas):
+                img = load(f"q_{key}_{n}.png")
+                oy = img.shape[0] - D.ground + m["lift"]
+                self.Q[key].append(placed(img, (m["origin"][0], oy), D.H, D.W))
         self.ref_holes = None
 
     def pose(self, crouch=0, whole=(0, 0), near=(0, 0), near_rot=0, far=(0, 0), far_rot=0, legs=None,
@@ -186,6 +197,9 @@ class Form:
         can = R.compose(self.rig, layers)
         return self.dark_slits(self.close_holes(can)) if fill else can
 
+    def q(self, key, n, dx=0):
+        return self.dark_slits(R.compose(self.rig, [(self.Q[key][n], dict(dx=dx))]))
+
     def run(self, n, dy=0):
         """A walk frame; the slits Codex left between a thigh and an arm or the crossing legs (enclosed, not in the
         idle) closed with the outline's dark (memory gap-check)."""
@@ -211,8 +225,9 @@ def tries(F):
 
 
 # ------------------------------------------------------------------------------------------------- the actions
-MS = {"idle": [150] * 8, "run": [110] * 9, "skill_run": [70] * 9, "attack": [90, 110, 100, 120, 80],
-      "attack_w": [80, 90, 100, 120, 80], "skill": [80, 70, 120, 140], "skill2": [100, 120, 167, 120],
+# (skill: the slam lands on frame 4, 280 ms in - the kit's q_rel 17)
+MS = {"idle": [150] * 8, "run": [110] * 9, "skill_run": [80] * 8, "attack": [90, 110, 100, 120, 80],
+      "attack_w": [80, 90, 100, 120, 80], "skill": [80, 90, 110, 100, 170], "skill2": [100, 120, 167, 120],
       "ult": [100, 150, 200, 550], "ult_land": [70, 130, 200], "hit": [100, 100],
       "dead": [100, 110, 120, 150, 60, 60, 100, 500]}
 ORDER = ["idle", "run", "skill_run", "attack", "attack_w", "skill", "skill2", "ult", "ult_land", "hit", "dead"]
@@ -224,8 +239,8 @@ def frames_all(F):
     out = {}
     out["idle"] = [p(crouch=k) for k in (0, 0, 0, 1, 1, 1, 1, 0)]
     out["run"] = [F.run(n) for n in range(RUN_N)]
-    # Q's charge (League's Volibear_spell1_run runs on all fours - the design stands on two legs): the walk, faster
-    out["skill_run"] = [F.run(n) for n in range(RUN_N)]
+    # Q's charge (League's Volibear_spell1_run): Codex's run on all fours (the user: 「Q技能的释放技能姿势和英雄联盟不一样？」)
+    out["skill_run"] = [F.q("charge", n) for n in range(len(F.Q["charge"]))]
     # auto attack (League's Volibear_Attack_1: one arm raised high, then raked down forward, the body thrown after it):
     # raised, raised with the body drawn back, the rake (frame 3), followed through, standing
     out["attack"] = [c("up1", crouch=1), c("up1", whole=(-1, 0)), c("rake", crouch=1, whole=(2, 0)),
@@ -233,9 +248,9 @@ def frames_all(F):
     # W Frenzied Maul (Volibear_Spell2_Slash: a lunge with both claws forward and the bite)
     out["attack_w"] = [p(crouch=1, whole=(-1, 0)), c("maul", crouch=2, whole=(2, 0)), c("maul", crouch=2, whole=(4, 0)),
                        c("rake", crouch=1, whole=(3, 0)), p()]
-    # Q Thundering Smash (volibear_spell1_attack: he rears up with both arms high and slams down on the target)
-    out["skill"] = [c("up2", whole=(0, -3), legs=((0, -1), (0, -1))), c("up2", whole=(1, -5), legs=((0, -2), (0, -2))),
-                    c("maul", crouch=2, whole=(3, 0)), c("rake", crouch=1, whole=(2, 0))]
+    # Q Thundering Smash (Volibear_spell1_attack_stationary): Codex's pounce - low on all fours, rearing up, the claws
+    # high over his head, the dive forward slamming the claws down (frame 4), landed low on all fours
+    out["skill"] = [F.q("pounce", n) for n in range(len(F.Q["pounce"]))]
     # E Sky Splitter (volibear_spell3: one arm raised to the sky, held, down)
     out["skill2"] = [p(crouch=1), c("up1"), c("up1", crouch=1), p(crouch=1)]
     # R Stormbringer (Volibear_Spell4_Ground_Pound): crouched, the spring, in the air with both arms up (held while he
