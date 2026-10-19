@@ -66,6 +66,14 @@ LEG_TOP = 43                          # the lower legs: rows LEG_TOP to the sole
 LEG_COLS = (31, 47)                   # reach row 43 further left), near columns <= LEG_X, far > LEG_X
 LEG_X = 39
 HIP = (37.5, 43.5)                    # the near leg turns about it (the kick)
+HEAD_LOW = 26                         # the head's lowest row (the scarf under the chin): a lean moves it as one block
+# E's flying kick (the user, 2026-10-19: 「感觉少了扑出去的动作」 - League kicks one leg straight out forward): her near
+# lower leg turned whole at the hip stayed under the skirt as a thick block, so the kicking leg is drawn again - a band
+# across her near shin's own squares (KICK_SHIN, row 45, edge to edge) from under the skirt's hem straight out forward,
+# in an outline ring, her own sandal (rows SANDAL of the near leg) turned a quarter on at its end, the sole forward
+KICK_SHIN = (45, 33, 37)
+SANDAL = (47, 52, 31, 38)             # rows / columns of the near sandal (the toes and the sole's outline included)
+SANDAL_TOP = (35.0, 47.0)             # where the sandal hangs from the shin
 ISLAND = 12                           # loose pieces up to this many squares are dropped (drop_islands)
 
 
@@ -114,10 +122,44 @@ class Form:
         lay[top:top + d.shape[0], x0:x1] = d[:, x0 - left:x1 - left]
         return lay
 
-    def pose(self, crouch=0, whole=(0, 0), arm=(0, 0), arm_rot=0, legs=None, kick=0, fill=True):
+    def kicking(self, crouch=0, whole=(0, 0), arm_rot=0, lean=0, far=(0, 0), hip=(37.0, 43.0), reach=10.0):
+        """The flying kick: her near leg drawn straight out forward from hip (design squares, under the skirt's hem)
+        `reach` squares to the ankle, behind the body (the skirt covers its root), her sandal turned a quarter
+        counter-clockwise at its end (the sole to the target); the far leg moved `far`; the body leant as pose()'s."""
+        import quinn_legs as QL
+        rig = self.rig
+        can = self.pose(crouch=crouch, whole=whole, arm_rot=arm_rot, lean=lean, legs=((0, 0), far), no_near=True)
+        wx, wy = whole
+        H = np.array(hip, float) + (rig.ox + wx, rig.oy + wy)
+        A = H + (reach, 0.0)
+        y, a, b = KICK_SHIN
+        prof = [c for c in self.D.d[y, a:b + 1]]
+        cells = {}
+        QL.band(cells, H, A, prof)
+        banded = set(cells)                       # the ring goes round the band only: the sandal has its own outline
+        r0, r1, c0, c1 = SANDAL
+        sd = self.D.d[r0:r1 + 1, c0:c1 + 1]
+        ys, xs = np.nonzero(sd[..., 3] > 0)
+        for yy, xx in zip(ys, xs):                # quarter turn counter-clockwise about the sandal's top: sole forward
+            dx, dy = xx + c0 + 0.5 - SANDAL_TOP[0], yy + r0 + 0.5 - SANDAL_TOP[1]
+            cells[(int(np.floor(A[0] + dy)), int(np.floor(A[1] - dx)))] = sd[yy, xx]
+        ring = {(x + ex, y_ + ey) for x, y_ in banded for ex, ey in ((1, 0), (-1, 0), (0, 1), (0, -1))} - set(cells)
+        leg = np.zeros_like(can)
+        for x, y_ in ring:
+            leg[y_, x] = (*self.D.outline, 255)
+        for (x, y_), c in cells.items():
+            leg[y_, x] = c
+        m = (leg[..., 3] > 0) & (can[..., 3] == 0)
+        out = can.copy()
+        out[m] = leg[m]
+        return out
+
+    def pose(self, crouch=0, whole=(0, 0), arm=(0, 0), arm_rot=0, legs=None, kick=0, fill=True, lean=0,
+             no_near=False):
         """crouch: rows the body (with the arm) sets down onto the lower legs; whole: the whole figure; arm: the near
         arm moved, arm_rot quarter turns counter-clockwise about SHOULDER (1: pointing forward, 2: up, 3: back); legs:
-        ((near dx, dy), (far dx, dy)); kick: the near leg's quarter turns counter-clockwise about HIP (1: forward)."""
+        ((near dx, dy), (far dx, dy)); kick: the near leg's quarter turns counter-clockwise about HIP (1: forward);
+        lean: the body and arm bent forward over the legs one square every `lean` rows (negative: back) - leant()."""
         if crouch < 0:
             raise ValueError("the body never lifts off the legs")
         wx, wy = whole
@@ -127,13 +169,26 @@ class Form:
         near = dict(dx=wx + nx, dy=wy + ny)
         if kick % 4:
             near.update(rot=kick, about=HIP, dy=uy + ny)
-        layers = [(L["far_leg"], dict(dx=wx + fx, dy=wy + fy)), (L["near_leg"], near),
-                  (L["body"], dict(dx=ux, dy=uy)),
-                  (L["arm"], dict(dx=ux + arm[0], dy=uy + arm[1], rot=arm_rot, about=SHOULDER))]
-        if kick % 4:          # the leg kicked forward is drawn over the skirt
-            layers = layers[:1] + layers[2:] + layers[1:2]
+        legs_l = [(L["far_leg"], dict(dx=wx + fx, dy=wy + fy))] + ([] if no_near else [(L["near_leg"], near)])
+        upper = [(L["body"], dict(dx=ux, dy=uy)),
+                 (L["arm"], dict(dx=ux + arm[0], dy=uy + arm[1], rot=arm_rot, about=SHOULDER))]
         moved = arm != (0, 0) or arm_rot % 4
-        can = R.compose(self.rig, layers, fill=[("arm", (ux, uy))] if moved and fill else ())
+        if lean:
+            up = leant(R.compose(self.rig, upper, fill=[("arm", (ux, uy))] if moved and fill else ()),
+                       self.rig.oy + uy, lean)
+            back = R.compose(self.rig, legs_l[:1] if kick % 4 else legs_l)
+            m = up[..., 3] > 0
+            back[m] = up[m]
+            if kick % 4:
+                k = R.compose(self.rig, legs_l[1:])
+                mk = k[..., 3] > 0
+                back[mk] = k[mk]
+            can = back
+        else:
+            layers = legs_l + upper
+            if kick % 4:          # the leg kicked forward is drawn over the skirt
+                layers = layers[:1] + layers[2:] + layers[1:2]
+            can = R.compose(self.rig, layers, fill=[("arm", (ux, uy))] if moved and fill else ())
         if moved:
             can = drop_islands(can)
         return self.close_holes(can) if fill else can
@@ -151,6 +206,25 @@ class Form:
     ref_holes = None
     close_holes = _Form.close_holes                   # small enclosed holes the side lacks, filled (league_wukong)
     MOST = _Form.MOST
+
+
+def leant(can, oy, per):
+    """The body (a canvas of her body and arm, the design's top at canvas row oy) bent over her legs on an even line,
+    no square resampled (league_zeri's run, league_quinn's lean): every row above the skirt's hem (LEG_TOP) one square
+    further forward every `per` rows (negative: back), the head - the hair's crown to the scarf, rows to HEAD_LOW - one
+    block by its lowest row's amount, so the face is never sheared."""
+    out = np.zeros_like(can)
+    sgn, per = (1 if per > 0 else -1), abs(per)
+    for y in range(can.shape[0]):
+        ref = max(y - oy, HEAD_LOW)
+        sh = sgn * ((LEG_TOP - ref) // per) if ref < LEG_TOP else 0
+        if sh > 0:
+            out[y, sh:] = can[y, :-sh]
+        elif sh < 0:
+            out[y, :sh] = can[y, -sh:]
+        else:
+            out[y] = can[y]
+    return out
 
 
 def drop_islands(can, most=ISLAND):
@@ -217,31 +291,38 @@ def frames_all(F):
     # idle (League's Zoe_Idle1: she bobs on the spot): the 3/4 design's body sets down a row onto its legs
     out["idle"] = [F.front(crouch=c) for c in (0, 0, 0, 1, 1, 1, 1, 0)]
     # auto attack (League's Zoe_attack1: she crouches, springs up with the arm flung back and flicks the star off at
-    # the top, then comes down bent forward and lands): crouched, up with the arm back, the flick (the arm forward,
-    # frame 3: the star leaves), coming down, landing low, standing
-    out["attack"] = [p(crouch=2), p(whole=(0, -5), arm_rot=3), p(whole=(1, -6), arm_rot=1), p(whole=(2, -3), arm_rot=1),
-                     p(crouch=2, whole=(2, 0), arm_rot=1), p(whole=(1, 0))]
+    # the top, then throws herself forward after it - folded over, head down - and lands bent forward with her arms
+    # out): crouched, up with the arm back, the flick (the arm forward, frame 3: the star leaves), the pounce (the whole
+    # figure tipped forward a quarter turn, head first, the arm reaching down - the user, 2026-10-19: 「感觉少了扑出去的
+    # 动作」; upright she only hopped on the spot), landing bent forward, straightening
+    out["attack"] = [p(crouch=2), p(whole=(0, -5), arm_rot=3), p(whole=(1, -6), arm_rot=1),
+                     tumble(3, 6, 9, arm_rot=1), p(crouch=2, whole=(4, 0), arm_rot=1, lean=3), p(whole=(2, 0), lean=6)]
     # More Sparkles! (League's Zoe_Empowered_Attack: a big jump with the arms flung out, the star thrown down from the
     # top): crouched, up high with the arm drawn back, the throw (the arm forward at shoulder height - turned up it
     # covered her face), coming down, landing
     out["attack_p"] = [p(crouch=2), p(whole=(0, -9), arm_rot=3), p(whole=(1, -8), arm_rot=1, arm=(0, -2)),
                        p(whole=(1, -4), arm_rot=1), p(crouch=2, whole=(1, 0))]
-    # Q Paddle Star (League's Spell1: a hop and a twirl in the air with the arm drawn back, a low landing as the star is
-    # flung forward, then she straightens up): crouched with the arm back, up, higher, the throw landing low (the arm
-    # forward, frame 4), held low, rising, standing
-    out["skill"] = [p(crouch=2, arm_rot=3), p(whole=(0, -5), arm_rot=3), p(whole=(-1, -7), arm_rot=3),
-                    p(crouch=2, whole=(1, 0), arm_rot=1), p(crouch=2, whole=(1, 0), arm_rot=1), p(crouch=1, whole=(1, 0)),
-                    p(whole=(0, 0))]
-    # E Sleepy Trouble Bubble (League's Zoe_Spell3: she springs up, turns upside down in the air and flies feet first at
-    # the bubble, kicking it off): crouched, up, upside down (half a turn), the flying kick (the whole figure tipped
-    # back a quarter turn, the legs forward, frame 4 - her shin alone turned at the knee did not read as a kick),
-    # landing, standing
-    out["skill2"] = [p(crouch=2), p(whole=(1, -6)), tumble(2, 3, 9), tumble(1, 5, 7, arm_rot=3),
-                     p(crouch=2, whole=(3, 0)), p(whole=(1, 0))]
-    # R Portal Jump (League's Zoe_Spell2: a leap into the portal, out at the far end, landing wide): crouched, up, high
-    # (the jump, on frame 3 she is through), falling in from above at the far end, landing, standing wide (the 3/4 idle
-    # with its arms out)
-    out["ult"] = [p(crouch=2), p(whole=(1, -8), arm_rot=3), p(whole=(2, -16), arm_rot=3), p(whole=(0, -12)),
+    # Q Paddle Star (League's Spell1: she springs up and turns a tucked forward somersault, the star flung out at its
+    # top, and floats down leaning back - upright, with only the arm swinging, the user found the throw missing:
+    # 「感觉少了扑出去的动作」, 2026-10-19): crouched with the arm back, up, the somersault forward a quarter turn at a time
+    # (frame 4 upside down at the top, the arm - drawn back in her own frame - pointing at the target: the throw),
+    # coming round, landing leaning back, standing
+    out["skill"] = [p(crouch=2, arm_rot=3), p(whole=(0, -6), arm_rot=3), tumble(3, 2, 9, arm_rot=3),
+                    tumble(2, 3, 10, arm_rot=3), tumble(1, 3, 6, arm_rot=3),
+                    p(crouch=2, whole=(2, 0), arm_rot=1, lean=-5), p(whole=(1, 0))]
+    # E Sleepy Trouble Bubble (League's Zoe_Spell3: she springs up, turns upside down in the air and flies at the bubble
+    # upright, leant back, one leg shot straight out forward - tipped back a quarter turn she lay in the air rather
+    # than flew at it: 「感觉少了扑出去的动作」, 2026-10-19): crouched, up, upside down (half a turn), the flying kick
+    # (frame 4: leant back, the near leg drawn straight out forward from under the skirt - Form.kicking -, the arm flung back, far forward and up
+    # in the air), landing leant back, standing
+    out["skill2"] = [p(crouch=2), p(whole=(1, -6)), tumble(2, 3, 9),
+                     F.kicking(whole=(7, -8), arm_rot=3, lean=-3, far=(-3, -1), hip=(37.0, 42.5), reach=11.0),
+                     p(crouch=2, whole=(5, 0), lean=-6), p(whole=(2, 0))]
+    # R Portal Jump (League's Zoe_spell4_enter: she shoots up and dives head first into the portal - upright she only
+    # went up and down: 「感觉少了扑出去的动作」, 2026-10-19): crouched, up (the jump), over the top head first into the
+    # portal (a quarter turn forward), diving head first out of it at the far end (upside down), landing, standing wide
+    # (the 3/4 idle with its arms out)
+    out["ult"] = [p(crouch=2), p(whole=(1, -9), arm_rot=3), tumble(3, 4, 16, arm_rot=1), tumble(2, 0, 10),
                   p(crouch=2), F.front()]
     # W Spell Thief's missiles, thrown after the portal's star (League's Zoe_spell2_missile: a little hop, a toss of the
     # hand, landing with the arms out): crouched with the arm back, up with the toss (the arm forward, frame 2: the

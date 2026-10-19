@@ -1,0 +1,1902 @@
+[
+  {
+    "file": "quinn_fx_a_bolt.png",
+    "pixel_1x": "pixel_1x/quinn_fx_a_bolt.png",
+    "raw": "raw/quinn_fx_a_bolt.png",
+    "key": "a_bolt",
+    "frames": 2,
+    "cell_1x": [
+      12,
+      5
+    ],
+    "sheet_1x": [
+      24,
+      5
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      192,
+      40
+    ],
+    "symmetry": "top-bottom",
+    "loop": true,
+    "binding": "view_projectiles `league_quinn_a_bolt`（跟着弹道转向；上下对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#090013",
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410",
+      "#F2F6FA",
+      "#C0CAD8",
+      "#8A96AA",
+      "#5A6478",
+      "#343A4A",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        1130,
+        2172
+      ],
+      "source_global_y_bounds": [
+        176,
+        546
+      ],
+      "shared_scale": 0.012917115177610334,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          0,
+          0,
+          12,
+          5
+        ],
+        "nontransparent_pixels": 44,
+        "bright_core_pixels": 5
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          0,
+          0,
+          12,
+          5
+        ],
+        "nontransparent_pixels": 42,
+        "bright_core_pixels": 6
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_a_hit.png",
+    "pixel_1x": "pixel_1x/quinn_fx_a_hit.png",
+    "raw": "raw/quinn_fx_a_hit.png",
+    "key": "a_hit",
+    "frames": 3,
+    "cell_1x": [
+      10,
+      10
+    ],
+    "sheet_1x": [
+      30,
+      10
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      240,
+      80
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_a_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        680,
+        1480,
+        2172
+      ],
+      "source_global_y_bounds": [
+        106,
+        617
+      ],
+      "shared_scale": 0.015625,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          2,
+          2,
+          8,
+          8
+        ],
+        "nontransparent_pixels": 20,
+        "bright_core_pixels": 4
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          1,
+          9,
+          9
+        ],
+        "nontransparent_pixels": 36,
+        "bright_core_pixels": 4
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          1,
+          9,
+          8
+        ],
+        "nontransparent_pixels": 22,
+        "bright_core_pixels": 4
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_p_dive.png",
+    "pixel_1x": "pixel_1x/quinn_fx_p_dive.png",
+    "raw": "raw/quinn_fx_p_dive.png",
+    "key": "p_dive",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      34
+    ],
+    "sheet_1x": [
+      144,
+      34
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      1152,
+      272
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_p_dive`（大表，在目标身上 z 3；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#090013",
+      "#FFFFFF",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A",
+      "#E2D4FF",
+      "#A98CF0",
+      "#7A4FD8",
+      "#530B97",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        270,
+        575,
+        975,
+        1500,
+        1880,
+        2172
+      ],
+      "source_global_y_bounds": [
+        121,
+        635
+      ],
+      "shared_scale": 0.04536082474226804,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          8,
+          5,
+          16,
+          17
+        ],
+        "nontransparent_pixels": 70,
+        "bright_core_pixels": 4
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          7,
+          7,
+          17,
+          24
+        ],
+        "nontransparent_pixels": 110,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          4,
+          9,
+          20,
+          26
+        ],
+        "nontransparent_pixels": 176,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          10,
+          23,
+          27
+        ],
+        "nontransparent_pixels": 250,
+        "bright_core_pixels": 2
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          4,
+          5,
+          20,
+          26
+        ],
+        "nontransparent_pixels": 176,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          6,
+          10,
+          18,
+          28
+        ],
+        "nontransparent_pixels": 98,
+        "bright_core_pixels": 0
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_p_hit.png",
+    "pixel_1x": "pixel_1x/quinn_fx_p_hit.png",
+    "raw": "raw/quinn_fx_p_hit.png",
+    "key": "p_hit",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "sheet_1x": [
+      64,
+      16
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      512,
+      128
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_p_hit`（跟随目标 z 2；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#090013",
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A",
+      "#E2D4FF",
+      "#A98CF0",
+      "#7A4FD8",
+      "#530B97"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        520,
+        1090,
+        1640,
+        2172
+      ],
+      "source_global_y_bounds": [
+        147,
+        571
+      ],
+      "shared_scale": 0.029288702928870293,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          2,
+          3,
+          14,
+          14
+        ],
+        "nontransparent_pixels": 66,
+        "bright_core_pixels": 16
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          2,
+          15,
+          14
+        ],
+        "nontransparent_pixels": 126,
+        "bright_core_pixels": 2
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          2,
+          15,
+          14
+        ],
+        "nontransparent_pixels": 126,
+        "bright_core_pixels": 4
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          2,
+          15,
+          14
+        ],
+        "nontransparent_pixels": 84,
+        "bright_core_pixels": 8
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_w_haste.png",
+    "pixel_1x": "pixel_1x/quinn_fx_w_haste.png",
+    "raw": "raw/quinn_fx_w_haste.png",
+    "key": "w_haste",
+    "frames": 4,
+    "cell_1x": [
+      22,
+      7
+    ],
+    "sheet_1x": [
+      88,
+      7
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      704,
+      56
+    ],
+    "symmetry": "left-right",
+    "loop": true,
+    "binding": "view_buffs `league_quinn_w_haste`（画在人物下面 z -1；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        520,
+        1040,
+        1560,
+        2079
+      ],
+      "source_global_y_bounds": [
+        292,
+        545
+      ],
+      "shared_scale": 0.02766798418972332,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          5,
+          3,
+          17,
+          7
+        ],
+        "nontransparent_pixels": 34,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          5,
+          2,
+          17,
+          7
+        ],
+        "nontransparent_pixels": 40,
+        "bright_core_pixels": 6
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          5,
+          2,
+          17,
+          7
+        ],
+        "nontransparent_pixels": 40,
+        "bright_core_pixels": 18
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          5,
+          1,
+          17,
+          7
+        ],
+        "nontransparent_pixels": 44,
+        "bright_core_pixels": 26
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_q_bird.png",
+    "pixel_1x": "pixel_1x/quinn_fx_q_bird.png",
+    "raw": "raw/quinn_fx_q_bird.png",
+    "key": "q_bird",
+    "frames": 4,
+    "cell_1x": [
+      22,
+      18
+    ],
+    "sheet_1x": [
+      88,
+      18
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      704,
+      144
+    ],
+    "symmetry": "top-bottom",
+    "loop": true,
+    "binding": "view_projectiles `league_quinn_q_bird`（飞回来的 q_home 也用它；跟着弹道转向；上下对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#090013",
+      "#FFFFFF",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A",
+      "#E2D4FF",
+      "#A98CF0",
+      "#7A4FD8",
+      "#530B97",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        600,
+        1120,
+        1590,
+        2079
+      ],
+      "source_global_y_bounds": [
+        92,
+        682
+      ],
+      "shared_scale": 0.02711864406779661,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          5,
+          1,
+          17,
+          17
+        ],
+        "nontransparent_pixels": 102,
+        "bright_core_pixels": 8
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          5,
+          2,
+          17,
+          16
+        ],
+        "nontransparent_pixels": 90,
+        "bright_core_pixels": 6
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          6,
+          2,
+          16,
+          16
+        ],
+        "nontransparent_pixels": 68,
+        "bright_core_pixels": 8
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          5,
+          3,
+          16,
+          15
+        ],
+        "nontransparent_pixels": 80,
+        "bright_core_pixels": 10
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_q_burst.png",
+    "pixel_1x": "pixel_1x/quinn_fx_q_burst.png",
+    "raw": "raw/quinn_fx_q_burst.png",
+    "key": "q_burst",
+    "frames": 6,
+    "cell_1x": [
+      40,
+      28
+    ],
+    "sheet_1x": [
+      240,
+      28
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      1920,
+      224
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_q_burst`（大表，打中的地点，不跟随 z 2；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A",
+      "#E2D4FF",
+      "#A98CF0",
+      "#7A4FD8",
+      "#530B97",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        240,
+        556,
+        990,
+        1437,
+        1860,
+        2172
+      ],
+      "source_global_y_bounds": [
+        237,
+        724
+      ],
+      "shared_scale": 0.053388090349075976,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          16,
+          10,
+          24,
+          16
+        ],
+        "nontransparent_pixels": 26,
+        "bright_core_pixels": 8
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          12,
+          6,
+          28,
+          17
+        ],
+        "nontransparent_pixels": 134,
+        "bright_core_pixels": 38
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          9,
+          1,
+          31,
+          17
+        ],
+        "nontransparent_pixels": 226,
+        "bright_core_pixels": 36
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          9,
+          3,
+          31,
+          17
+        ],
+        "nontransparent_pixels": 156,
+        "bright_core_pixels": 18
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          9,
+          4,
+          31,
+          17
+        ],
+        "nontransparent_pixels": 134,
+        "bright_core_pixels": 20
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          12,
+          7,
+          28,
+          17
+        ],
+        "nontransparent_pixels": 58,
+        "bright_core_pixels": 4
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_q_hit.png",
+    "pixel_1x": "pixel_1x/quinn_fx_q_hit.png",
+    "raw": "raw/quinn_fx_q_hit.png",
+    "key": "q_hit",
+    "frames": 3,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "sheet_1x": [
+      42,
+      14
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      336,
+      112
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_q_hit`（跟随目标 z 2；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A",
+      "#E2D4FF",
+      "#A98CF0",
+      "#7A4FD8",
+      "#530B97",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        670,
+        1460,
+        2172
+      ],
+      "source_global_y_bounds": [
+        125,
+        612
+      ],
+      "shared_scale": 0.01809954751131222,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          3,
+          3,
+          11,
+          10
+        ],
+        "nontransparent_pixels": 30,
+        "bright_core_pixels": 6
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          2,
+          13,
+          11
+        ],
+        "nontransparent_pixels": 66,
+        "bright_core_pixels": 8
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          2,
+          13,
+          11
+        ],
+        "nontransparent_pixels": 50,
+        "bright_core_pixels": 8
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_q_blind.png",
+    "pixel_1x": "pixel_1x/quinn_fx_q_blind.png",
+    "raw": "raw/quinn_fx_q_blind.png",
+    "key": "q_blind",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      9
+    ],
+    "sheet_1x": [
+      48,
+      9
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      384,
+      72
+    ],
+    "symmetry": "left-right",
+    "loop": true,
+    "binding": "view_buffs `league_quinn_q_blind`（头上 z 3；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#090013",
+      "#FFFFFF",
+      "#FFC0B4",
+      "#FF6A55",
+      "#D0302A",
+      "#7A1414",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        540,
+        1080,
+        1630,
+        2172
+      ],
+      "source_global_y_bounds": [
+        160,
+        527
+      ],
+      "shared_scale": 0.02452316076294278,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          1,
+          0,
+          11,
+          9
+        ],
+        "nontransparent_pixels": 56,
+        "bright_core_pixels": 16
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          0,
+          11,
+          9
+        ],
+        "nontransparent_pixels": 56,
+        "bright_core_pixels": 28
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          0,
+          11,
+          9
+        ],
+        "nontransparent_pixels": 56,
+        "bright_core_pixels": 30
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          1,
+          0,
+          11,
+          9
+        ],
+        "nontransparent_pixels": 56,
+        "bright_core_pixels": 14
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_e_hit.png",
+    "pixel_1x": "pixel_1x/quinn_fx_e_hit.png",
+    "raw": "raw/quinn_fx_e_hit.png",
+    "key": "e_hit",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      18
+    ],
+    "sheet_1x": [
+      72,
+      18
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      576,
+      144
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_e_hit`（跟随目标 z 2；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        520,
+        1060,
+        1670,
+        2172
+      ],
+      "source_global_y_bounds": [
+        106,
+        616
+      ],
+      "shared_scale": 0.030947775628626693,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          5,
+          5,
+          13,
+          13
+        ],
+        "nontransparent_pixels": 48,
+        "bright_core_pixels": 24
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          2,
+          2,
+          16,
+          16
+        ],
+        "nontransparent_pixels": 156,
+        "bright_core_pixels": 92
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          1,
+          17,
+          17
+        ],
+        "nontransparent_pixels": 76,
+        "bright_core_pixels": 68
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          3,
+          2,
+          15,
+          16
+        ],
+        "nontransparent_pixels": 48,
+        "bright_core_pixels": 38
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_e_slow.png",
+    "pixel_1x": "pixel_1x/quinn_fx_e_slow.png",
+    "raw": "raw/quinn_fx_e_slow.png",
+    "key": "e_slow",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      7
+    ],
+    "sheet_1x": [
+      64,
+      7
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      512,
+      56
+    ],
+    "symmetry": "left-right",
+    "loop": true,
+    "binding": "view_buffs `league_quinn_e_slow`（画在人物下面 z -1；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        530,
+        1060,
+        1590,
+        2115
+      ],
+      "source_global_y_bounds": [
+        284,
+        492
+      ],
+      "shared_scale": 0.03333333333333333,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          0,
+          0,
+          16,
+          7
+        ],
+        "nontransparent_pixels": 56,
+        "bright_core_pixels": 28
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          0,
+          1,
+          16,
+          7
+        ],
+        "nontransparent_pixels": 52,
+        "bright_core_pixels": 32
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          0,
+          1,
+          16,
+          7
+        ],
+        "nontransparent_pixels": 56,
+        "bright_core_pixels": 28
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          0,
+          0,
+          16,
+          7
+        ],
+        "nontransparent_pixels": 62,
+        "bright_core_pixels": 46
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_r_call.png",
+    "pixel_1x": "pixel_1x/quinn_fx_r_call.png",
+    "raw": "raw/quinn_fx_r_call.png",
+    "key": "r_call",
+    "frames": 6,
+    "cell_1x": [
+      34,
+      46
+    ],
+    "sheet_1x": [
+      204,
+      46
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      1632,
+      368
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_r_call`（大表，跟随她 z 2；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        250,
+        630,
+        1000,
+        1475,
+        1880,
+        2206
+      ],
+      "source_global_y_bounds": [
+        0,
+        702
+      ],
+      "shared_scale": 0.06267806267806268,
+      "body_cutout": true,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": 0.03,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          15,
+          1,
+          19,
+          10
+        ],
+        "nontransparent_pixels": 20,
+        "bright_core_pixels": 10
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          8,
+          1,
+          26,
+          38
+        ],
+        "nontransparent_pixels": 82,
+        "bright_core_pixels": 26
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          7,
+          1,
+          27,
+          40
+        ],
+        "nontransparent_pixels": 136,
+        "bright_core_pixels": 38
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          3,
+          1,
+          31,
+          44
+        ],
+        "nontransparent_pixels": 190,
+        "bright_core_pixels": 38
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          5,
+          1,
+          29,
+          44
+        ],
+        "nontransparent_pixels": 168,
+        "bright_core_pixels": 36
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          15,
+          1,
+          19,
+          10
+        ],
+        "nontransparent_pixels": 16,
+        "bright_core_pixels": 0
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_r_land.png",
+    "pixel_1x": "pixel_1x/quinn_fx_r_land.png",
+    "raw": "raw/quinn_fx_r_land.png",
+    "key": "r_land",
+    "frames": 6,
+    "cell_1x": [
+      64,
+      26
+    ],
+    "sheet_1x": [
+      384,
+      26
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      3072,
+      208
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_r_land`（大表，她脚下 z -1；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        280,
+        640,
+        1050,
+        1455,
+        1840,
+        2172
+      ],
+      "source_global_y_bounds": [
+        237,
+        494
+      ],
+      "shared_scale": 0.0933852140077821,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          22,
+          17,
+          42,
+          23
+        ],
+        "nontransparent_pixels": 56,
+        "bright_core_pixels": 12
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          16,
+          13,
+          48,
+          23
+        ],
+        "nontransparent_pixels": 194,
+        "bright_core_pixels": 34
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          13,
+          3,
+          51,
+          25
+        ],
+        "nontransparent_pixels": 386,
+        "bright_core_pixels": 54
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          14,
+          1,
+          50,
+          25
+        ],
+        "nontransparent_pixels": 412,
+        "bright_core_pixels": 50
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          15,
+          3,
+          49,
+          24
+        ],
+        "nontransparent_pixels": 228,
+        "bright_core_pixels": 38
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          19,
+          8,
+          45,
+          24
+        ],
+        "nontransparent_pixels": 130,
+        "bright_core_pixels": 22
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_r_hit.png",
+    "pixel_1x": "pixel_1x/quinn_fx_r_hit.png",
+    "raw": "raw/quinn_fx_r_hit.png",
+    "key": "r_hit",
+    "frames": 3,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "sheet_1x": [
+      48,
+      16
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      384,
+      128
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_r_hit`（跟随目标 z 2；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        660,
+        1430,
+        2172
+      ],
+      "source_global_y_bounds": [
+        109,
+        693
+      ],
+      "shared_scale": 0.02023121387283237,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          4,
+          3,
+          12,
+          14
+        ],
+        "nontransparent_pixels": 42,
+        "bright_core_pixels": 8
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          1,
+          3,
+          15,
+          13
+        ],
+        "nontransparent_pixels": 88,
+        "bright_core_pixels": 10
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          2,
+          15,
+          12
+        ],
+        "nontransparent_pixels": 44,
+        "bright_core_pixels": 4
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_valor.png",
+    "pixel_1x": "pixel_1x/quinn_fx_valor.png",
+    "raw": "raw/quinn_fx_valor.png",
+    "key": "valor",
+    "frames": 8,
+    "cell_1x": [
+      40,
+      18
+    ],
+    "sheet_1x": [
+      320,
+      18
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      2560,
+      144
+    ],
+    "symmetry": "loop",
+    "loop": true,
+    "binding": "view_buffs `league_quinn_valor`（大表，跟随她、画在上面 z 3；整圈循环，单帧不用对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": false,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#090013",
+      "#FFFFFF",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A",
+      "#E2D4FF",
+      "#A98CF0",
+      "#7A4FD8",
+      "#530B97",
+      "#FFF4C8",
+      "#FFD870",
+      "#F2B030",
+      "#DC9440",
+      "#BF781E",
+      "#7A4410"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        210,
+        450,
+        715,
+        940,
+        1160,
+        1425,
+        1765,
+        2048
+      ],
+      "source_global_y_bounds": [
+        302,
+        509
+      ],
+      "shared_scale": 0.03987730061349693,
+      "body_cutout": false,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": [
+        [
+          34,
+          8
+        ],
+        [
+          29,
+          4
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          11,
+          4
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          20,
+          13
+        ],
+        [
+          29,
+          12
+        ]
+      ]
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          31,
+          4,
+          38,
+          12
+        ],
+        "nontransparent_pixels": 29,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          25,
+          2,
+          34,
+          7
+        ],
+        "nontransparent_pixels": 23,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          15,
+          3,
+          25,
+          7
+        ],
+        "nontransparent_pixels": 22,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          8,
+          2,
+          15,
+          7
+        ],
+        "nontransparent_pixels": 20,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          3,
+          4,
+          9,
+          12
+        ],
+        "nontransparent_pixels": 26,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 5,
+        "bbox": [
+          7,
+          9,
+          15,
+          16
+        ],
+        "nontransparent_pixels": 34,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          14,
+          10,
+          27,
+          17
+        ],
+        "nontransparent_pixels": 45,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 7,
+        "bbox": [
+          24,
+          8,
+          34,
+          16
+        ],
+        "nontransparent_pixels": 37,
+        "bright_core_pixels": 0
+      }
+    ]
+  },
+  {
+    "file": "quinn_fx_r_mount_fx.png",
+    "pixel_1x": "pixel_1x/quinn_fx_r_mount_fx.png",
+    "raw": "raw/quinn_fx_r_mount_fx.png",
+    "key": "r_mount_fx",
+    "frames": 5,
+    "cell_1x": [
+      40,
+      40
+    ],
+    "sheet_1x": [
+      200,
+      40
+    ],
+    "display_scale": 8,
+    "size_8x": [
+      1600,
+      320
+    ],
+    "symmetry": "left-right",
+    "loop": false,
+    "binding": "view_effects `league_quinn_r_mount_fx`（附加包，大表，跟随她 z 2；左右对称）",
+    "alpha_only_0_255": true,
+    "symmetry_enforced": true,
+    "all_frames_nonempty": true,
+    "palette": [
+      "#FFFFFF",
+      "#8EC8FF",
+      "#0DA3FD",
+      "#0A6EFC",
+      "#0151FB",
+      "#0527B5",
+      "#2D0D72",
+      "#1C0D3A",
+      "#E2D4FF",
+      "#A98CF0",
+      "#7A4FD8",
+      "#530B97",
+      "#EEF6FF",
+      "#C8E2FF",
+      "#8FC0F5",
+      "#5A8FD8"
+    ],
+    "readback": {
+      "alpha_threshold": 170,
+      "minimum_visible_coverage": 0.18,
+      "method": "material palette nearest color; majority visible color per cell with coverage threshold; common scale per animation except mounting first ring enlarged to clear body cutout; manually reviewed frame bounds; mirror left/top half when required",
+      "source_frame_x_bounds": [
+        0,
+        330,
+        745,
+        1237,
+        1620,
+        1983
+      ],
+      "source_global_y_bounds": [
+        177,
+        612
+      ],
+      "shared_scale": 0.08085106382978724,
+      "body_cutout": true,
+      "symmetry_method": "pairwise keep visible/brighter color and mirror",
+      "last_frame_coverage_override": null,
+      "orbit_positions_1x": null
+    },
+    "frame_checks": [
+      {
+        "frame": 0,
+        "bbox": [
+          6,
+          19,
+          34,
+          24
+        ],
+        "nontransparent_pixels": 18,
+        "bright_core_pixels": 0
+      },
+      {
+        "frame": 1,
+        "bbox": [
+          5,
+          5,
+          35,
+          36
+        ],
+        "nontransparent_pixels": 190,
+        "bright_core_pixels": 14
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          1,
+          2,
+          39,
+          37
+        ],
+        "nontransparent_pixels": 380,
+        "bright_core_pixels": 50
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          6,
+          3,
+          34,
+          36
+        ],
+        "nontransparent_pixels": 168,
+        "bright_core_pixels": 28
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          7,
+          7,
+          33,
+          33
+        ],
+        "nontransparent_pixels": 94,
+        "bright_core_pixels": 0
+      }
+    ]
+  }
+]

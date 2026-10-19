@@ -1726,6 +1726,20 @@
         "y": -12
       }
     },
+    "league_quinn": {
+      "face": {
+        "x": 3,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
     "league_yuumi": {
       "face": {
         "x": 6,

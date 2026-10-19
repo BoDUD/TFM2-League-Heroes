@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_quinn": {
+    "remapping": "asset/league_quinn/override/league_quinn",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_quinn/text/champion",
+    "type": "merge"
+  }
+}

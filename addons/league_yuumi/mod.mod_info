@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.167.0"
+      "version": ">=0.168.0"
     }
   ],
   "description": "Test build of Yuumi as in League (needs League of Legends Heroes): replaces the main pack's Yuumi so You and Me! attaches her to the ally with no time limit - untargetable (banished) and riding on his head, healing him, showing only for the moment she casts Prowling Projectile, Zoomies or Final Chapter from there, jumping off when he dies (the main pack: a timed attach during which she cannot cast). Prowling Projectile also carries Feline Friendship. Other champions are untouched. Writes a log for testing.",
