@@ -21,7 +21,7 @@
 
 use std::collections::HashMap;
 use std::ffi::c_void;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex, Once, OnceLock};
 
 use super::build::Build;
@@ -43,7 +43,7 @@ const FRAME: usize = 20;
 /// vtable entries copied for a texture proxy (drop, size, align and the methods).
 const VTABLE: usize = 48;
 
-static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
+static HEROES: LazyLock<hd::Heroes> = LazyLock::new(hd::Heroes::new);
 static MODULE: AtomicUsize = AtomicUsize::new(0);
 /// The game build found by src/build.rs (set before any hook goes in).
 static BUILD: OnceLock<&'static Build> = OnceLock::new();
@@ -63,6 +63,8 @@ struct Probe {
 static PROBE: Mutex<Probe> = Mutex::new(Probe { rvas: Vec::new(), dense: Vec::new(), lines: 0 });
 /// texture entry -> (its data, its own vtable, our vtable); texture data -> (width fn, height fn, PPU)
 static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// our vtable copies -> the texture data they were made for
+static FAKES: LazyLock<Mutex<HashMap<usize, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// texture data -> (its width entry, its height entry, the hero's shown divisor, whether the UI draws its lo_ frames)
 static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, bool)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// the UI's copies of anim tables: table -> (its ctrl when copied, the copy)
@@ -104,17 +106,19 @@ unsafe fn q(addr: usize) -> usize {
 
 /// The registered hero a resource name is of: `.../league_yasuo#anim` -> league_yasuo.
 pub fn hero_of_name(name: &str) -> Option<&'static Hero> {
-    let last = name.rsplit('/').next()?.split('#').next()?;
-    HEROES.iter().find(|h| h.id == last)
+    HEROES.of_name(name)
 }
 
-fn note(kind: usize, rva: usize, name: &str, got: usize) {
-    let dense = hero_of_name(name).is_some();
-    if !dense && !name.contains("champions") {
+/// The probe's lines are all written (MAX_LINES): from then on a lookup does not take its lock.
+static PROBE_FULL: AtomicBool = AtomicBool::new(false);
+
+fn note(kind: usize, rva: usize, name: &str, got: usize, dense: bool) {
+    if PROBE_FULL.load(Ordering::Relaxed) || (!dense && !name.contains("champions")) {
         return;
     }
     let Ok(mut p) = PROBE.try_lock() else { return };
     if p.lines >= MAX_LINES {
+        PROBE_FULL.store(true, Ordering::Relaxed);
         return;
     }
     let new_rva = !p.rvas.contains(&(kind, rva));
@@ -298,10 +302,8 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
     if !plausible(data) || !plausible(vt) {
         return None;
     }
-    if let Ok(p) = PROXIES.lock() {
-        if p.values().any(|&(d, _, fake)| d == data && fake == vt) {
-            return Some(got);
-        }
+    if FAKES.lock().is_ok_and(|f| f.get(&vt) == Some(&data)) {
+        return Some(got); // already ours (asked for every sheet lookup of the hero: one hash lookup, no walk)
     }
     let table: &'static mut [usize; VTABLE] = Box::leak(Box::new([0usize; VTABLE]));
     for (k, e) in table.iter_mut().enumerate() {
@@ -316,6 +318,9 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
     let fake = table.as_ptr() as usize;
     if let Ok(mut p) = PROXIES.lock() {
         p.insert(got, (data, vt, fake));
+    }
+    if let Ok(mut f) = FAKES.lock() {
+        f.insert(fake, data);
     }
     std::ptr::write_volatile((got + 8) as *mut usize, fake);
     wlog(format!("{}: texture {got:#x} reports its size / {} (vtable {vt:#x} -> {fake:#x})", hero.id, hero.ppu));
@@ -371,11 +376,12 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
         return got;
     }
     let Ok(name) = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)) else { return got };
-    note(0, q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed)), name, got);
+    let hero = hero_of_name(name);
+    note(0, q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed)), name, got, hero.is_some());
     if !name.ends_with("#anim") || !plausible(got) {
         return got;
     }
-    let Some(hero) = hero_of_name(name) else { return got };
+    let Some(hero) = hero else { return got };
     if !densify_table(got, hero) {
         return got;
     }
@@ -540,11 +546,12 @@ unsafe extern "system" fn sheet_detour(ctx: usize, ptr: usize, len: usize, sp: u
             return got;
         }
         let Ok(name) = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)) else { return got };
-        note(1, q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed)), name, got);
+        let hero = hero_of_name(name);
+        note(1, q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed)), name, got, hero.is_some());
         if !name.ends_with("#sheet") || !plausible(got) {
             return got;
         }
-        match hero_of_name(name) {
+        match hero {
             Some(hero) => proxy_of(got, hero).unwrap_or(got),
             None => got,
         }
@@ -642,7 +649,7 @@ pub fn install_once(b: &'static Build) {
             hook(module + b.sheet,
                  sheet_detour as unsafe extern "system" fn(usize, usize, usize, usize) -> usize as usize, &ORIG_SHEET)
         };
-        let list: Vec<String> = HEROES.iter().map(|h| format!("{} x{}", h.id, h.ppu)).collect();
+        let list: Vec<String> = HEROES.list.iter().map(|h| format!("{} x{}", h.id, h.ppu)).collect();
         wlog(format!("resource lookups hooked: anim {a:?}, sheet {s:?}: dense frames everywhere for {}", list.join(", ")));
     });
 }

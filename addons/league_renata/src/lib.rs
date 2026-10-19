@@ -36,7 +36,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_renata";
 /// Written out (in the bundle `env!("CARGO_PKG_VERSION")` would be league_addons').
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 /// 物尽其用的印记（主包数据：她打中敌方英雄时挂上）。
 pub const MARK: &str = "league_renata_p_mark";
 /// 及时救难（主包数据的 buff 名：画面绑在它上面）。
@@ -271,17 +271,20 @@ pub fn swung(was: (usize, usize, usize, usize), now: (usize, usize, usize, usize
     }
 }
 
-fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
-    sim.get_entity(id).map_or_else(Vec::new, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect())
+/// Whether any buff on `id` passes `f`, read one at a time and stopping at the first: no Vec. Frenzy asks this for
+/// every player every tick of every simulation; collecting the buffs into a Vec first was about half of all the time
+/// league_addons took in the game's background simulations (2026-10-19 profile, 「游戏卡顿的原因是什么」).
+fn any_buff(sim: &StableSim<'_>, id: usize, f: impl Fn(&BuffV1) -> bool) -> bool {
+    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| f(&b)))
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    buffs(sim, id).iter().any(|b| b.name() == name)
+    any_buff(sim, id, |b| b.name() == name)
 }
 
 /// 身上有不是及时救难给的「不死」吗（基兰的符文、凯尔的大招等：让它们自己管）。
 fn other_undying(sim: &StableSim<'_>, id: usize) -> bool {
-    buffs(sim, id).iter().any(|b| b.undying && b.name() != W_BUFF)
+    any_buff(sim, id, |b| b.undying && b.name() != W_BUFF)
 }
 
 fn cc_left(e: &StableEntity<'_, '_>, kinds: &[CcKindV1]) -> usize {
