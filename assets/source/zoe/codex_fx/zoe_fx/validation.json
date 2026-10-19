@@ -1,0 +1,594 @@
+[
+  {
+    "name": "a_star",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "a_hit",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "p_star",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "p_hit",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "q_star",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "q_hit",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "e_bubble",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "e_hit",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "e_drowsy",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "e_zz",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "e_wake",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "e_trap",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "w_missile",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "w_hit",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "w_haste",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "r_portal_in",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 4,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 5,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  },
+  {
+    "name": "r_portal_out",
+    "frames": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 4,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      },
+      {
+        "frame": 5,
+        "nonempty": true,
+        "hard_alpha": true,
+        "symmetric": true,
+        "bright_core": true
+      }
+    ],
+    "dimensions_pass": true
+  }
+]

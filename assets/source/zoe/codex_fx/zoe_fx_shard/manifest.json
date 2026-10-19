@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "generator": "built-in image_gen.imagegen",
+  "source_layout_note": "Four horizontal frames in the raw and final sheet.",
+  "readback": {
+    "method": "shared content crop preserving source aspect ratio, palette quantization then majority foreground-color votes over equal logical cells pooled across symmetry pairs; >=20% coverage preserves tiny sparks; source pale highlights retained when >=15% of foreground votes",
+    "alpha_threshold": 192,
+    "foreground_coverage_threshold": 0.1,
+    "source_highlight_vote_threshold": 0.15,
+    "alpha_output": [
+      0,
+      255
+    ],
+    "preview_scale": 8,
+    "dark_exterior_cleanup": "one pass, max RGB < 128"
+  },
+  "import_note": "Use pixel_1x sheets; no gutters. Read frames left to right using cell_1x. Preview timing is not gameplay timing.",
+  "package_scope": "supplement_w_shard_only",
+  "effect_count": 1,
+  "frame_count": 4,
+  "effects": [
+    {
+      "name": "w_shard",
+      "file": "zoe_fx_w_shard.png",
+      "pixel_1x": "pixel_1x/zoe_fx_w_shard.png",
+      "raw": "raw/zoe_fx_w_shard.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        14
+      ],
+      "cell_8x": [
+        80,
+        112
+      ],
+      "sheet_1x": [
+        40,
+        14
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_effects league_zoe_w_shard",
+      "follow_target": false,
+      "z": -1,
+      "replay_ticks": 15,
+      "anchor_1x": [
+        5,
+        14
+      ],
+      "source_grid": [
+        4,
+        1
+      ],
+      "source_size": [
+        2120,
+        742
+      ],
+      "source_content_crop_per_panel": [
+        49,
+        77,
+        480,
+        681
+      ],
+      "normalization_translation_y": 0,
+      "readback_foreground_coverage_threshold": 0.1,
+      "sha256_1x": "d8d41961b8dc11dc63830a387319a279a40de0a869c49c3bd868a25a95da3577"
+    }
+  ],
+  "verification": {
+    "effects": 1,
+    "frames": 4,
+    "frame_checks": [
+      {
+        "frame": 0,
+        "nonempty": true,
+        "alpha_0_255": true,
+        "left_right_symmetry": true,
+        "bright_core": true,
+        "gold_glint_present": false
+      },
+      {
+        "frame": 1,
+        "nonempty": true,
+        "alpha_0_255": true,
+        "left_right_symmetry": true,
+        "bright_core": true,
+        "gold_glint_present": false
+      },
+      {
+        "frame": 2,
+        "nonempty": true,
+        "alpha_0_255": true,
+        "left_right_symmetry": true,
+        "bright_core": true,
+        "gold_glint_present": true
+      },
+      {
+        "frame": 3,
+        "nonempty": true,
+        "alpha_0_255": true,
+        "left_right_symmetry": true,
+        "bright_core": true,
+        "gold_glint_present": false
+      }
+    ],
+    "game_runtime_tested": false
+  }
+}

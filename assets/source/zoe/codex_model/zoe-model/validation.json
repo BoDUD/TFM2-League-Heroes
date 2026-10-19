@@ -1,0 +1,86 @@
+[
+  {
+    "file": "zoe-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent_pixels": 940374,
+    "partial_alpha_pixels": 629021,
+    "opaque_pixels": 3121,
+    "visible_bbox_alpha_ge_128": [
+      37,
+      195,
+      1232,
+      1245
+    ],
+    "visible_height": 1050,
+    "occupied_19px_cells": 1843,
+    "perfectly_uniform_19px_cells": 0,
+    "exact_19px_grid_pass": false,
+    "requested_crown_190_soles_1197_pass": false
+  },
+  {
+    "file": "zoe-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent_pixels": 904555,
+    "partial_alpha_pixels": 664405,
+    "opaque_pixels": 3556,
+    "visible_bbox_alpha_ge_128": [
+      35,
+      173,
+      1231,
+      1252
+    ],
+    "visible_height": 1079,
+    "occupied_19px_cells": 1919,
+    "perfectly_uniform_19px_cells": 0,
+    "exact_19px_grid_pass": false,
+    "requested_crown_190_soles_1197_pass": false
+  },
+  {
+    "file": "zoe-model-S-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent_pixels": 872375,
+    "partial_alpha_pixels": 698191,
+    "opaque_pixels": 1950,
+    "visible_bbox_alpha_ge_128": [
+      45,
+      60,
+      1102,
+      1226
+    ],
+    "visible_height": 1166,
+    "occupied_19px_cells": 1956,
+    "perfectly_uniform_19px_cells": 0,
+    "exact_19px_grid_pass": false,
+    "requested_crown_190_soles_1197_pass": false
+  },
+  {
+    "file": "zoe-model-S-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent_pixels": 1031906,
+    "partial_alpha_pixels": 538759,
+    "opaque_pixels": 1851,
+    "visible_bbox_alpha_ge_128": [
+      89,
+      136,
+      1072,
+      1231
+    ],
+    "visible_height": 1095,
+    "occupied_19px_cells": 1550,
+    "perfectly_uniform_19px_cells": 0,
+    "exact_19px_grid_pass": false,
+    "requested_crown_190_soles_1197_pass": false
+  }
+]
