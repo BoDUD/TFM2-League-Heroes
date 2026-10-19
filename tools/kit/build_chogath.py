@@ -1,6 +1,6 @@
 """Build league_chogath.data_champion (top, Melee tank-mage, AP) from the parameters P.
 
-    python tools/kit/build_chogath.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
+    python tools/kit/build_chogath.py [--set key=value ...] [--out file] [--params json] [--nodes]
 
 Kit (the user's picks, 2026-10-19: top, layout A, the add-on league_chogath, Feast stacks 「变大可以无限 加生命」). TFM2
 has three active slots for League's four buttons: Rupture is `skill`, Feral Scream `skill2`, Feast the `ult`; Vorpal
@@ -24,9 +24,10 @@ Spikes (League: three empowered attacks on a 8-4 s cooldown) and the passive rid
           stack (a Permanent caster buff `r_stack` with r_stack_hp health, healed at once; no cap, the user's pick),
           and league.dll draws his body r_grow% bigger per stack (src/view.rs, the display counts `r_stack` on him).
           Permanent buffs end with his death (section 5), so the main pack loses the stacks when he dies.
-The add-on copy (--native, addons/league_chogath): the spikes' champion hit is league_chogath:spikes (e_hp% of the
-real max health as magic); the bite is league_chogath:feast (the stacks counted on him and given back after every
-death, League's way); its AI hook presses R only when the bite kills (real health).
+The add-on copy (addons/league_chogath/make_override.py): this same kit with the add-on's passive league_chogath:keep
+(every Feast stack given back after his death, League's way); its AI hook league_chogath:feast presses R only when the
+bite kills (real health and shields). The data needs no native effect: target_hp_ratio already reads the real maximum
+health and the kill check finds the eaten.
 """
 import argparse
 import json
@@ -72,8 +73,6 @@ P = {
     "r_stack_hp": 70, "r_grow": 5,
     # his sounds, at most one every vo_gap ticks
     "vo_gap": 600,
-    # 1 = the copy for addons/league_chogath
-    "native": 0,
 }
 
 
@@ -213,10 +212,6 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def native(name):
-    return {"type": "Native", "effect_ref": f"{ID}:{name}"}
-
-
 def kill_check(src, reward):
     """On a hit unit, around its damage: the flag before, the living target's clear after, the read on him later
     (league_jinx Get Excited!; a dead target's `Delayed` adds nothing, so the flag stays)."""
@@ -226,8 +221,6 @@ def kill_check(src, reward):
 
 
 def build(p):
-    nat = bool(p["native"])
-
     # ------------------------------------------------------------------ passive Carnivore + attack
     p_set, p_read = kill_check("a", combine(on_me(heal(p["p_heal"], p["p_ap"]), cview("p_heal")), sfx("p_heal")))
     blow = homing("a_blow", "Enemy", [p_set, attack(0, 100), view("a_hit"), tsfx("a_hit"), p_read], 8000)
@@ -236,7 +229,7 @@ def build(p):
     charges = [f"e{k}" for k in range(1, p["e_n"] + 1)]
     spiked = [magic(p["e_dmg"], p["e_ap"]), buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
               view("e_hit"), tsfx("e_hit")]
-    champ = [native("spikes")] if nat else [true(0, hp=p["e_hp"])]
+    champ = [true(0, hp=p["e_hp"])]
     spikes = combine(sfx("e_spikes"), line("e_line", p["e_len"], p["e_w"], "EnemyWithoutTower", spiked),
                      line("e_champ", p["e_len"], p["e_w"], "EnemyChampion", champ),
                      line("e_pic", p["e_len"], p["e_w"], "Ally", []))
@@ -273,10 +266,9 @@ def build(p):
     grow = combine(flag("r_stack", None, hp=p["r_stack_hp"]), on_me(heal(p["r_stack_hp"]), cview("r_grow")),
                    sfx("r_grow"))
     r_set, r_read = kill_check("r", grow)
-    eat = [native("feast")] if nat else [r_set]
     bite = homing("r_bite", "EnemyChampion",
-                  [*eat, on_me(flag("r_pen", 1, magic_resistance_penetration=100)), true(p["r_dmg"], mine=p["r_hp"]),
-                   magic(0, p["r_ap"]), view("r_hit"), tsfx("r_hit"), *([] if nat else [r_read])], 8000)
+                  [r_set, on_me(flag("r_pen", 1, magic_resistance_penetration=100)), true(p["r_dmg"], mine=p["r_hp"]),
+                   magic(0, p["r_ap"]), view("r_hit"), tsfx("r_hit"), r_read], 8000)
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
                  combine(sfx("r"), voice("vo_r", p), delayed(p["r_rel"] - 1, sfx("r_bite"), bite)))
 
@@ -319,7 +311,6 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
-    ap_.add_argument("--native", action="store_true", help="the add-on's copy")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -329,8 +320,6 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
-    if a.native:
-        p["native"] = 1
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
