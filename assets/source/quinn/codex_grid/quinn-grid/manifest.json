@@ -1,0 +1,128 @@
+[
+  {
+    "file": "quinn-grid-A-1.png",
+    "pixel_1x": "quinn-grid-A-1_1x.png",
+    "raw": "raw/A1.png",
+    "raw_size": [
+      1024,
+      1536
+    ],
+    "size": [
+      1024,
+      1536
+    ],
+    "grid_px": 13,
+    "logical_size": [
+      78,
+      118
+    ],
+    "source_opaque_bbox": [
+      46,
+      267,
+      997,
+      1344
+    ],
+    "normalized_target_bbox": [
+      4,
+      21,
+      73,
+      96
+    ],
+    "actual_1x_bbox": [
+      4,
+      21,
+      73,
+      96
+    ],
+    "palette_colors": 28,
+    "alpha_only_0_255": true,
+    "uniform_13px_cells": true,
+    "readback": "alpha>=200; shared palette32; crop source opaque bbox; majority color in every normalized source cell; nearest-neighbor13x; transparent canvas remainder",
+    "outline_width_2cells_verified": false,
+    "eye_3x3_and_exact_rider_head_match_verified": false
+  },
+  {
+    "file": "quinn-grid-A-2.png",
+    "pixel_1x": "quinn-grid-A-2_1x.png",
+    "raw": "raw/A2.png",
+    "raw_size": [
+      1024,
+      1536
+    ],
+    "size": [
+      1024,
+      1536
+    ],
+    "grid_px": 13,
+    "logical_size": [
+      78,
+      118
+    ],
+    "source_opaque_bbox": [
+      22,
+      204,
+      1007,
+      1318
+    ],
+    "normalized_target_bbox": [
+      4,
+      21,
+      73,
+      96
+    ],
+    "actual_1x_bbox": [
+      4,
+      21,
+      73,
+      96
+    ],
+    "palette_colors": 31,
+    "alpha_only_0_255": true,
+    "uniform_13px_cells": true,
+    "readback": "alpha>=200; shared palette32; crop source opaque bbox; majority color in every normalized source cell; nearest-neighbor13x; transparent canvas remainder",
+    "outline_width_2cells_verified": false,
+    "eye_3x3_and_exact_rider_head_match_verified": false
+  },
+  {
+    "file": "quinn-grid-B.png",
+    "pixel_1x": "quinn-grid-B_1x.png",
+    "raw": "raw/Bfix.png",
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "grid_px": 13,
+    "logical_size": [
+      118,
+      78
+    ],
+    "source_opaque_bbox": [
+      78,
+      36,
+      1483,
+      995
+    ],
+    "normalized_target_bbox": [
+      7,
+      3,
+      110,
+      74
+    ],
+    "actual_1x_bbox": [
+      7,
+      3,
+      110,
+      74
+    ],
+    "palette_colors": 31,
+    "alpha_only_0_255": true,
+    "uniform_13px_cells": true,
+    "readback": "alpha>=200; shared palette32; crop source opaque bbox; majority color in every normalized source cell; nearest-neighbor13x; transparent canvas remainder",
+    "outline_width_2cells_verified": false,
+    "eye_3x3_and_exact_rider_head_match_verified": false
+  }
+]
