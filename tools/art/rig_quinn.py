@@ -17,6 +17,7 @@ the near leg (image left) and the far leg (image right) from LEG_TOP down; the r
 the pauldron, the cape, the torso).
 """
 import argparse
+import json
 import os
 import sys
 
@@ -138,6 +139,18 @@ class Form:
         self.rig = R.Rig(D, pad=rig_pad)
         self.L = {k: pad(D.layer(k)) for k in D.order}
         self.other = {n: self.placed(d) for n, d in (("side", load("side.png")), ("ride", ride_design(D)))}
+        # Codex's leg poses (tools/art/design_quinn_legs.py): the legs of each, on the idle's grid, and how far the
+        # upper body goes down onto them
+        with open(lp(os.path.join(SRC, "legs.json")), encoding="utf-8") as f:
+            self.LEG_META = json.load(f)
+        self.LEGS = {}
+        for k, m in self.LEG_META.items():
+            img = load(f"legs_{k}_only.png")
+            lay = np.zeros((D.H + 2 * P, D.W + 2 * P, 4), np.uint8)
+            x0 = P - m["padx"]
+            sub = img[:lay.shape[0] - P, max(0, -x0):]
+            lay[P:P + sub.shape[0], max(0, x0):max(0, x0) + sub.shape[1]] = sub[:, :lay.shape[1] - max(0, x0)]
+            self.LEGS[k] = lay
 
     def placed(self, d):
         """Another design in a padded layer of the idle design's size, standing on the same point and ground."""
@@ -151,17 +164,23 @@ class Form:
         lay[y0:y0 + sub.shape[0], x0:x0 + sub.shape[1]] = sub
         return lay
 
-    def pose(self, crouch=0, whole=(0, 0), arm=(0, 0), arm_rot=0, legs=None, fill=True):
+    def pose(self, crouch=0, whole=(0, 0), arm=(0, 0), arm_rot=0, legs=None, leg=None, fill=True):
         """crouch: rows the body (with the arm) sets down onto the legs; whole: the whole figure; arm: the crossbow arm
         moved, arm_rot quarter turns counter-clockwise about SHOULDER (1: pointing up); legs: ((near dx, dy),
-        (far dx, dy))."""
+        (far dx, dy)) for the idle's own legs; leg: one of Codex's leg poses instead (kneel, lunge, wide, back, tuck,
+        step) - the body then goes down that pose's drop, plus crouch."""
         if crouch < 0:
             raise ValueError("the body never lifts off the legs")
         wx, wy = whole
-        ux, uy = wx, wy + crouch
-        (nx, ny), (fx, fy) = legs or ((0, 0), (0, 0))
         L = self.L
-        layers = [(L["far_leg"], dict(dx=wx + fx, dy=wy + fy)), (L["near_leg"], dict(dx=wx + nx, dy=wy + ny)),
+        if leg:
+            ux, uy = wx, wy + crouch + self.LEG_META[leg]["drop"]
+            leg_layers = [(self.LEGS[leg], dict(dx=wx, dy=wy))]
+        else:
+            ux, uy = wx, wy + crouch
+            (nx, ny), (fx, fy) = legs or ((0, 0), (0, 0))
+            leg_layers = [(L["far_leg"], dict(dx=wx + fx, dy=wy + fy)), (L["near_leg"], dict(dx=wx + nx, dy=wy + ny))]
+        layers = [*leg_layers,
                   (L["body"], dict(dx=ux, dy=uy)),
                   (L["arm"], dict(dx=ux + arm[0], dy=uy + arm[1], rot=arm_rot, about=SHOULDER))]
         can = R.compose(self.rig, layers)
@@ -210,41 +229,44 @@ def frames_all(F):
     p = F.pose
     rig = F.rig
     out = {}
-    # idle (League's Quinn_idle1: the crossbow held out, she breathes): the body and the arm set down a row
-    out["idle"] = [p(crouch=c) for c in (0, 0, 0, 1, 1, 1, 1, 0)]
-    # auto attack (Quinn_attack1: aimed, the shot kicks the crossbow up and her back a step, she settles)
-    out["attack"] = [p(crouch=1), p(crouch=1, whole=(1, 0)), p(whole=(-2, 0), arm=(0, -2)),
-                     p(crouch=1, whole=(-1, 0), arm=(0, -1)), p()]
-    # Q Blinding Assault (quinn_spell1: the crossbow raised to the sky - Valor leaves - then a lunge forward aiming where
-    # he flies): crouched, the arm up, up and stretched, the lunge, standing
-    out["skill"] = [p(crouch=2), p(crouch=1, **UP), p(whole=(0, -1), **UP), p(crouch=2, whole=(3, 0)), p(whole=(1, 0))]
-    # E Vault (Quinn_spell3_dash: flying at the target flat out, the crossbow first): the whole figure a quarter turn
-    # clockwise in the air
-    dive = lambda up: shift(R.lie(rig, p(), 3, dx=2, sink=0), 0, -up)
-    out["skill2"] = [dive(8), dive(9)]
-    # Quinn_spell3_flip: she kicks off the target and somersaults back (whole quarter turns counter-clockwise), lands
-    tumble = lambda k, dx, up: shift(R.lie(rig, p(crouch=2), k, dx=dx, sink=0), 0, -up)
-    out["e_flip"] = [tumble(1, 0, 6), tumble(2, -1, 10), tumble(3, -2, 7), p(crouch=3, whole=(-2, 0)), p(crouch=1)]
-    # R Behind Enemy Lines (Quinn_Spell4_Channel: she crouches, raises the crossbow to call Valor down, mounts him)
-    out["ult"] = [p(crouch=2), p(crouch=1, **UP), p(crouch=2, **UP), F.whole("ride", dy=-4)]
+    # idle (League's Quinn_idle1: the crossbow held out, she breathes and shifts her feet): the body set down a row,
+    # the feet drawn together a moment
+    out["idle"] = [p(), p(), p(crouch=1), p(leg="step"), p(leg="step"), p(crouch=1), p(), p()]
+    # auto attack (Quinn_attack1: a wide stance aimed, the shot kicks the crossbow up and her weight back, she settles)
+    out["attack"] = [p(leg="wide"), p(leg="wide", whole=(1, 0)), p(leg="back", whole=(-2, 0), arm=(0, -2)),
+                     p(leg="back", whole=(-1, 0), arm=(0, -1)), p()]
+    # Q Blinding Assault (quinn_spell1: she draws up with the crossbow raised to the sky - Valor leaves - then lunges
+    # forward aiming where he flies): crouched, the feet together and the arm up, stretched up, the lunge, settling
+    out["skill"] = [p(crouch=2), p(leg="step", **UP), p(leg="step", whole=(0, -1), **UP), p(leg="lunge", whole=(3, 0)),
+                    p(leg="wide", whole=(1, 0))]
+    # E Vault (Quinn_spell3_dash: flying at the target, the crossbow first, the back leg trailing): the lunge leaping
+    # off the ground (a whole quarter turn put her face and the crossbow to the ground)
+    out["skill2"] = [p(leg="lunge", whole=(2, -5)), p(leg="lunge", whole=(3, -6))]
+    # Quinn_spell3_flip: she kicks off the target and somersaults back with her legs tucked (whole quarter turns
+    # counter-clockwise), lands wide, stands
+    tumble = lambda k, dx, up: shift(R.lie(rig, p(leg="tuck"), k, dx=dx, sink=0), 0, -up)
+    out["e_flip"] = [tumble(1, 0, 6), tumble(2, -1, 10), tumble(3, -2, 7), p(leg="wide", whole=(-2, 0)), p(crouch=1)]
+    # R Behind Enemy Lines (Quinn_Spell4_Channel: she drops to one knee and raises the crossbow to call Valor down,
+    # mounts him)
+    out["ult"] = [p(crouch=2), p(leg="kneel", **UP), p(leg="kneel", crouch=1, **UP), F.whole("ride", dy=-4)]
     # the ride (quinnvalor_run_glide): gliding, the whole group rising and falling
     out["ult_ride"] = [F.whole("ride", dy=-d) for d in (4, 5, 6, 5)]
     # Skystrike (QuinnRFinale: the two loop up through the air and she drops onto them): the group whole quarter turns
-    # counter-clockwise (nose up, over, down), she lands crouched, stands
+    # counter-clockwise (nose up, over, down), she drops with her legs tucked, lands on one knee, rises wide
     loop = lambda k, dx, up: shift(R.lie(rig, F.whole("ride"), k, dx=dx, sink=0), 0, -up)
-    out["ult_land"] = [loop(1, 1, 6), loop(2, 0, 12), loop(3, -1, 6), p(crouch=3, whole=(0, 0)), p(crouch=1),
-                       p()]
-    out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
+    out["ult_land"] = [loop(1, 1, 6), loop(2, 0, 12), loop(3, -1, 6), p(leg="tuck", whole=(0, -5)), p(leg="kneel"),
+                       p(leg="wide")]
+    out["hit"] = [R.flash(p(leg="back", whole=(-2, 0))), p(leg="back", whole=(-1, 0))]
 
-    # the death (quinn_death: she staggers, drops to her knees and falls back): staggering, crouched, kneeling, falling
-    # back (a quarter turn), lying, a bounce, lying; the crossbow arm let down first, so lying it lies along her (an arm
-    # held out would point at the sky)
+    # the death (quinn_death: she staggers back, her legs give, she drops to her knees and falls back): the weight
+    # back, wide and sinking, on one knee (the crossbow let down), falling back (a quarter turn), lying, a bounce, lying;
+    # the crossbow arm let down first, so lying it lies along her (an arm held out would point at the sky)
     DOWN = dict(arm_rot=3, arm=(-1, 2))
 
     def lying(k, sink, dx):
-        return R.lie(rig, p(crouch=3, **DOWN), k, dx=dx, sink=sink)
-    out["dead"] = [p(whole=(-1, 0), arm=(0, 1)), p(crouch=2, whole=(-2, 0), arm=(0, 2)),
-                   p(crouch=4, whole=(-2, 0), arm=(0, 3)), lying(1, 0, -4), lying(1, 2, -6), lying(1, 0, -6),
+        return R.lie(rig, p(crouch=3, **DOWN), k, dx=dx, sink=sink)    # her own straight legs (the knelt ones stood up)
+    out["dead"] = [p(leg="back", whole=(-1, 0), arm=(0, 1)), p(leg="wide", crouch=1, whole=(-2, 0), arm=(0, 2)),
+                   p(leg="kneel", whole=(-2, 0), **DOWN), lying(1, 0, -4), lying(1, 2, -6), lying(1, 0, -6),
                    lying(1, 2, -6), lying(1, 2, -6)]
     # the add-on's ride form (addons/league_quinn): standing / moving / hit as the group gliding
     out["r_idle"] = [F.whole("ride", dy=-d) for d in (4, 5, 5, 4)]
