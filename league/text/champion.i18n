@@ -931,6 +931,13 @@
         "skill": "掷出一颗飞星，打中第一个敌人造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害；飞得越远伤害越高，最远<#ffb900ff>250%<>。",
         "skill2": "踢出气泡，打中敌方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害，<#ef5350ff>困倦<>（减速30%）<#ffb900ff>1.4秒<>后<#ef5350ff>昏睡<><#ffb900ff>2秒<>；没打中就留在原地。昏睡中第一次被飞星打中伤害翻倍。",
         "ult": "跳进传送门闪向敌方英雄，掷出飞星造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害；<#ff9028ff>窃法巧手<>：再射3颗飞弹，每颗<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%。<#ffb900ff>1.2秒<>后跳回原地。"
+      },
+      "league_yuumi": {
+        "name": "悠米",
+        "attack": "射出书页光弹。<#ff9028ff>猫的博爱<>：每<#ffb900ff>6秒<>普攻命中英雄时多造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法伤害，回复自己<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>生命，下次附身时队友也回复同样多。",
+        "skill": "发射飞弹，打中第一个敌人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并减速20%；飞了<#ffb900ff>0.33秒<>以上改为<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>，减速50%。",
+        "skill2": "<#ff9028ff>悠米出动！<>：附身在交战中的队友身上<#ffb900ff>4秒<>（不可选取、跟着他走），他每秒回复<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>旺盛精力<>：给他<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾，攻速+35%、移速+20%。",
+        "ult": "翻开魔典连发5道波纹，每道造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害并减速，沿途友军回复<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命；第3道<#ef5350ff>定身<><#ffb900ff>1.25秒<>。"
       }
     },
     "skill_name": {
@@ -1598,6 +1605,11 @@
         "skill1": "飞星乱入！",
         "skill2": "催眠气泡",
         "ult": "折返跃迁"
+      },
+      "league_yuumi": {
+        "skill1": "摸鱼飞弹",
+        "skill2": "悠米出动！",
+        "ult": "魔典终章"
       }
     }
   },
@@ -2533,6 +2545,13 @@
         "skill": "擲出一顆飛星，打中第一個敵人造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害；飛得越遠傷害越高，最遠<#ffb900ff>250%<>。",
         "skill2": "踢出泡泡，打中敵方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害，<#ef5350ff>睏倦<>（緩速30%）<#ffb900ff>1.4秒<>後<#ef5350ff>沉睡<><#ffb900ff>2秒<>；沒打中就留在原地。沉睡中第一次被飛星打中傷害加倍。",
         "ult": "跳進傳送門閃向敵方英雄，擲出飛星造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害；<#ff9028ff>法術竊盜<>：再射3顆飛彈，每顆<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%。<#ffb900ff>1.2秒<>後跳回原地。"
+      },
+      "league_yuumi": {
+        "name": "悠咪",
+        "attack": "射出書頁光彈。<#ff9028ff>貓貓摯友<>：每<#ffb900ff>6秒<>普攻命中英雄時多造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法傷害，回復自己<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>生命，下次附身時隊友也回復同樣多。",
+        "skill": "發射飛彈，打中第一個敵人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並緩速20%；飛了<#ffb900ff>0.33秒<>以上改為<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>，緩速50%。",
+        "skill2": "<#ff9028ff>飛撲抱抱！<>：附身在交戰中的隊友身上<#ffb900ff>4秒<>（無法被選取、跟著他走），他每秒回復<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>蹦蹦衝刺<>：給他<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾，攻速+35%、移速+20%。",
+        "ult": "翻開魔典連發5道波紋，每道造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害並緩速，沿途友軍回復<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命；第3道<#ef5350ff>定身<><#ffb900ff>1.25秒<>。"
       }
     },
     "skill_name": {
@@ -3200,6 +3219,11 @@
         "skill1": "星迴百轉",
         "skill2": "沉睡夢域",
         "ult": "星界躍動"
+      },
+      "league_yuumi": {
+        "skill1": "奇幻圖騰",
+        "skill2": "飛撲抱抱！",
+        "ult": "最終篇章"
       }
     }
   },
@@ -4135,6 +4159,13 @@
         "skill": "Throws a star at the first enemy hit for <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>; the farther it flies the harder it hits, up to <#ffb900ff>250%<>.",
         "skill2": "Kicks a bubble: the enemy champion hit takes <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, turns <#ef5350ff>drowsy<> (slowed 30%) for <#ffb900ff>1.4s<>, then falls <#ef5350ff>asleep<> for <#ffb900ff>2s<>. A miss leaves it lying as a trap. A sleeper's first star hit deals double.",
         "ult": "Jumps through a portal toward an enemy champion and throws a star for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>. <#ff9028ff>Spell Thief<>: 3 missiles follow, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> each, and she gains 40% move speed. After <#ffb900ff>1.2s<> she pops back."
+      },
+      "league_yuumi": {
+        "name": "Yuumi",
+        "attack": "Fires a page bolt. <#ff9028ff>Feline Friendship<>: every <#ffb900ff>6s<> an attack on a champion deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<> more and heals her <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>; the ally she attaches to next is healed as much.",
+        "skill": "Fires a missile at the first enemy hit: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and 20% slow; after <#ffb900ff>0.33s<> of flight <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> and 50% slow instead.",
+        "skill2": "<#ff9028ff>You and Me!<>: attaches to an ally in the fight for <#ffb900ff>4s<> (untargetable, moving with him); he heals <#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> a second. <#ff9028ff>Zoomies<>: he gets a <#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> shield, +35% attack speed and +20% move speed.",
+        "ult": "Opens the book and sends 5 waves: each deals <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and slows, and heals allies on its way <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>; wave 3 <#ef5350ff>roots<> for <#ffb900ff>1.25s<>."
       }
     },
     "skill_name": {
@@ -4802,6 +4833,11 @@
         "skill1": "Paddle Star!",
         "skill2": "Sleepy Trouble Bubble",
         "ult": "Portal Jump"
+      },
+      "league_yuumi": {
+        "skill1": "Prowling Projectile",
+        "skill2": "You and Me!",
+        "ult": "Final Chapter"
       }
     }
   },
@@ -5737,6 +5773,13 @@
         "skill": "별을 던져 처음 맞힌 적에게 <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해. 멀리 날아갈수록 피해가 커져 최대 <#ffb900ff>250%<>.",
         "skill2": "방울을 차서 맞힌 적 챔피언에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해, <#ffb900ff>1.4초<> <#ef5350ff>졸음<>(30% 둔화) 뒤 <#ffb900ff>2초<> <#ef5350ff>수면<>. 빗나가면 그 자리에 남는다. 잠든 적이 처음 맞는 별은 피해 2배.",
         "ult": "차원문을 넘어 적 챔피언 쪽으로 이동해 별을 던져 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해. <#ff9028ff>주문도둑<>: 투사체 3개, 개당 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>, 이동 속도 +40%. <#ffb900ff>1.2초<> 뒤 제자리로."
+      },
+      "league_yuumi": {
+        "name": "유미",
+        "attack": "책장 탄을 쏜다. <#ff9028ff>야옹이 친구<>: <#ffb900ff>6초<>마다 챔피언을 기본 공격하면 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> 마법 피해 추가, 자신 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<> 회복, 다음에 붙는 아군도 같은 만큼 회복.",
+        "skill": "미사일을 쏴 처음 맞힌 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해, 20% 둔화. <#ffb900ff>0.33초<> 넘게 날면 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>, 50% 둔화.",
+        "skill2": "<#ff9028ff>너랑 유미랑!<>: 싸우는 아군에게 <#ffb900ff>4초<> 붙는다(대상 지정 불가, 함께 이동). 아군은 초당 <#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> 회복. <#ff9028ff>슈우우웅<>: 보호막 <#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>, 공격 속도 +35%, 이동 속도 +20%.",
+        "ult": "책을 펼쳐 파동 5개를 보낸다. 파동마다 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해와 둔화, 닿은 아군 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<> 회복. 3번째 파동은 <#ffb900ff>1.25초<> <#ef5350ff>속박<>."
       }
     },
     "skill_name": {
@@ -6404,6 +6447,11 @@
         "skill1": "통통별",
         "skill2": "헤롱헤롱쿨쿨방울",
         "ult": "차원 넘기"
+      },
+      "league_yuumi": {
+        "skill1": "사르르탄",
+        "skill2": "너랑 유미랑!",
+        "ult": "대단원"
       }
     }
   },
@@ -7339,6 +7387,13 @@
         "skill": "星を投げ、最初に当たった敵に<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ。遠くまで飛ぶほど強く、最大<#ffb900ff>250%<>。",
         "skill2": "泡を蹴り、当たった敵チャンピオンに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ、<#ffb900ff>1.4秒<><#ef5350ff>まどろみ<>（30%スロウ）の後<#ffb900ff>2秒<><#ef5350ff>睡眠<>。外れるとその場に残る。眠った敵に最初に当たる星は2倍。",
         "ult": "ポータルを抜けて敵チャンピオンの方へ跳び、星を投げて<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージ。<#ff9028ff>スペルシーフ<>：弾3発、1発<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>、移動速度+40%。<#ffb900ff>1.2秒<>後に元の場所へ戻る。"
+      },
+      "league_yuumi": {
+        "name": "ユーミ",
+        "attack": "ページ弾を撃つ。<#ff9028ff>ネコはトモダチ<>：<#ffb900ff>6秒<>ごとにチャンピオンへの通常攻撃が<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の魔法ダメージ追加、自身を<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>回復、次にくっつく味方も同じだけ回復。",
+        "skill": "ミサイルを撃ち、最初に当たった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと20%スロウ。<#ffb900ff>0.33秒<>以上飛ぶと<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>、50%スロウ。",
+        "skill2": "<#ff9028ff>ユー＆ミー！<>：戦闘中の味方に<#ffb900ff>4秒<>くっつく（対象指定不可、一緒に移動）。味方は毎秒<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>回復。<#ff9028ff>バビューン！<>：シールド<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>、攻撃速度+35%、移動速度+20%。",
+        "ult": "本を開き波を5つ放つ。1つごとに<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージとスロウ、通った味方を<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>回復。3つ目は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>。"
       }
     },
     "skill_name": {
@@ -8006,6 +8061,11 @@
         "skill1": "パドルスター",
         "skill2": "スリープバブル",
         "ult": "ポータルジャンプ"
+      },
+      "league_yuumi": {
+        "skill1": "きまぐれミサイル",
+        "skill2": "ユー＆ミー！",
+        "ult": "ファイナルチャプター"
       }
     }
   }

@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_yuumi": {
+        "attack": "【扩展包】射出书页光弹。<#ff9028ff>猫的博爱<>：每<#ffb900ff>6秒<>普攻或摸鱼飞弹命中英雄时多造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法伤害，回复自己<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>生命，下次附身时队友也回复同样多。",
+        "skill2": "【扩展包】<#ff9028ff>悠米出动！<>：附身在交战中的队友身上，<#ffb900ff>不限时<>（谁都选不中，出招时才现身），他每秒回复<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命，他死了才跳下来。<#ff9028ff>旺盛精力<>：给他<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾，攻速+35%、移速+20%；附身时再放只给他旺盛精力。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_yuumi": {
+        "attack": "【擴充包】射出書頁光彈。<#ff9028ff>貓貓摯友<>：每<#ffb900ff>6秒<>普攻或奇幻圖騰命中英雄時多造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法傷害，回復自己<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>生命，下次附身時隊友也回復同樣多。",
+        "skill2": "【擴充包】<#ff9028ff>飛撲抱抱！<>：附身在交戰中的隊友身上，<#ffb900ff>不限時<>（誰都選不中，出招時才現身），他每秒回復<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命，他死了才跳下來。<#ff9028ff>蹦蹦衝刺<>：給他<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾，攻速+35%、移速+20%；附身時再放只給他蹦蹦衝刺。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_yuumi": {
+        "attack": "[Add-on] Fires a page bolt. <#ff9028ff>Feline Friendship<>: every <#ffb900ff>6s<> an attack or a Prowling Projectile on a champion deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<> more and heals her <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>; the ally she attaches to next is healed as much.",
+        "skill2": "[Add-on] <#ff9028ff>You and Me!<>: attaches to an ally in the fight with <#ffb900ff>no time limit<> (untargetable, showing only to cast); he heals <#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> a second; she jumps off when he dies. <#ff9028ff>Zoomies<>: he gets a <#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> shield, +35% attack speed and +20% move speed; recast while attached for Zoomies alone."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_yuumi": {
+        "attack": "[확장] 책장 탄을 쏜다. <#ff9028ff>야옹이 친구<>: <#ffb900ff>6초<>마다 기본 공격이나 사르르탄이 챔피언에게 맞으면 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> 마법 피해 추가, 자신 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<> 회복, 다음에 붙는 아군도 같은 만큼 회복.",
+        "skill2": "[확장] <#ff9028ff>너랑 유미랑!<>: 싸우는 아군에게 <#ffb900ff>시간 제한 없이<> 붙는다(대상 지정 불가, 스킬을 쓸 때만 보임). 아군은 초당 <#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> 회복, 아군이 죽으면 내려온다. <#ff9028ff>슈우우웅<>: 보호막 <#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>, 공격 속도 +35%, 이동 속도 +20%. 붙은 채로 다시 쓰면 슈우우웅만."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_yuumi": {
+        "attack": "【拡張】ページ弾を撃つ。<#ff9028ff>ネコはトモダチ<>：<#ffb900ff>6秒<>ごとに通常攻撃かきまぐれミサイルがチャンピオンに当たると<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の魔法ダメージ追加、自身を<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>回復、次にくっつく味方も同じだけ回復。",
+        "skill2": "【拡張】<#ff9028ff>ユー＆ミー！<>：戦闘中の味方に<#ffb900ff>時間制限なし<>でくっつく（対象指定不可、スキルを使う時だけ姿を見せる）。味方は毎秒<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>回復、味方が倒れたら降りる。<#ff9028ff>バビューン！<>：シールド<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>、攻撃速度+35%、移動速度+20%。くっついたまま使うとバビューン！だけ。"
+      }
+    }
+  }
+}

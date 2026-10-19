@@ -6,6 +6,11 @@ Codex strips, lossless poses compared with League's clips).
     python tools/art/rig_yuumi.py --review DIR      # every tag at 3x + a GIF per tag (nothing written to the repo)
     python tools/art/rig_yuumi.py --audit DIR       # per-frame checks + every tag at 6x
     python tools/art/rig_yuumi.py                   # the frames at PPU -> assets/source/ppu/orig + the 1x sheet
+    python tools/art/rig_yuumi.py --ride-tags       # after ppu_restyle / ppu_hd: the add-on's blank a_* tags
+
+The pipeline: this (no flags) -> ppu_restyle.py --hero yuumi -> ppu_hd.py --hero yuumi -> this --ride-tags (the rig's
+export writes the sheet without them, so the restyle never sees a blank frame; ppu_hd rebuilds their hd_ / lo_ copies
+blank if it runs again).
 
 The designs (tools/art/design_yuumi_model.py, the user's picks 2026-10-19; 32 game px at PPU 1.5, one palette):
 idle.png (A-2, 3/4 front in the open book, 45 x 48), side.png (S-1, side-on in the book, 46 x 48: the run's base),
@@ -248,12 +253,39 @@ def frames(F):
     return out
 
 
+# the add-on's riding body (addons/league_yuumi/src/view.rs FORM_TAGS): while she rides an ally every action of hers is
+# drawn from a_<tag> - blank: the cat on his head is the buff picture league_yuumi_w_ride on him
+RIDE_TAGS = ["idle", "run", "hit", "attack", "skill", "skill2", "w_off", "ult", "dead"]
+
+
+def ride_tags():
+    """a_<tag>, hd_a_<tag>, lo_a_<tag> for every RIDE_TAGS tag: one clear frame the size of the tag's first frame, as long
+    as the whole tag, written into the finished sheet."""
+    import ppu_hd as PH
+    import strips as G
+    stem = os.path.join(R.ROOT, "league", "champions", f"league_{HERO}")
+    sheet = PH.read_sheet(stem)
+    ride = {pre + "a_" + t for t in RIDE_TAGS for pre in ("", PH.PREFIX, PH.LO)}
+    for t in [t for t in sheet if t in ride]:
+        del sheet[t]
+    for t in RIDE_TAGS:
+        for pre in ("", PH.PREFIX, PH.LO):
+            src = sheet[pre + t]
+            sheet[pre + "a_" + t] = [(np.zeros_like(src[0][0]), sum(ms for _, ms in src))]
+    w, h = G.write_sheet(stem, sheet)
+    print(f"league/champions/league_{HERO}#sheet.png {w}x{h}: + blank a_* / hd_a_* / lo_a_* for {', '.join(RIDE_TAGS)}")
+
+
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--ride-tags", action="store_true")
     ap.add_argument("--parts")
     ap.add_argument("--review")
     ap.add_argument("--audit")
     a = ap.parse_args()
+    if a.ride_tags:
+        ride_tags()
+        return
     if not (a.audit or a.review or a.parts):
         F = form()
         F.rig.export(frames(F))

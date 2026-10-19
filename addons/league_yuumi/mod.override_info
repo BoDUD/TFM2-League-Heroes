@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_yuumi": {
+    "remapping": "asset/league_yuumi/override/league_yuumi",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_yuumi/text/champion",
+    "type": "merge"
+  }
+}

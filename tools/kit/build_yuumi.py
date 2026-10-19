@@ -28,8 +28,10 @@ Final Chapter (R) the `ult`.
           takes r_dmg + r_ap% AP and r_slow% for r_slow_t, each ally on the line heals r_heal + r_hap% AP (a hidden
           twin). League roots on the third wave that hits the same enemy; data counts no hits per enemy, so the
           third wave roots (r_root ticks) whatever it hits. She may walk while the waves go on (League's channel).
-The add-on copy (--native, addons/league_yuumi): the attach has no end - the add-on keeps her banished and on the
-host, lifts the banish while she casts from his head (a_* frames) and drops her off when he dies or goes home.
+The add-on copy (--native, addons/league_yuumi): the attach has no end - the jump marks the host (`w_host`) instead of the
+data's timed banish, the add-on keeps her banished and on the host, lifts the banish while she casts (her frames drawn
+blank: the cat stays on his head), heals him every w_p ticks and drops her off when he dies; riding, skill2 gives the
+host Zoomies again; a champion-only twin of Q carries Feline Friendship; passive league_yuumi:bond.
 """
 import argparse
 import json
@@ -77,6 +79,10 @@ P = {
     "r_w": 12000, "r_y": -3000, "r_dmg": 110, "r_ap": 35, "r_slow": 20, "r_slow_t": 45, "r_root_k": 3, "r_root": 75,
     "r_heal": 60, "r_hap": 10,
     "vo_gap": 600,
+    # the add-on (addons/league_yuumi): riding with no end - banished w_chunk ticks at a time, a cast window opened when a
+    # spell is ready and an enemy champion in its range (at most w_wait ticks for her to cast in it); Zoomies recast on
+    # the ally within w_on_r of her
+    "w_chunk": 20, "w_wait": 24, "w_on_r": 8000,
     "native": 0,
 }
 
@@ -267,8 +273,11 @@ def build(p):
            view("q_ehit"), tsfx("q_ehit")]
     missile = line("q_missile", p["q_speed"], p["q_len"], p["q_w"], p["q_y"], "EnemyWithoutTower", False,
                    [sw("q_near", combine(*near), combine(*far))])
+    # the add-on's copy: a champion-only twin carries Feline Friendship (League: an attack OR an ability on a champion;
+    # riding an ally she never attacks)
+    q_twin = line("q_twin", p["q_speed"], p["q_len"], p["q_w"], p["q_y"] + 5000, "EnemyChampion", False, [friend])
     skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Targeting", "EnemyWithoutTower", flat(combine(
-        refresh("q_near", p["q_t1"]), sfx("q"), voice("vo_q", p), missile)))
+        refresh("q_near", p["q_t1"]), sfx("q"), voice("vo_q", p), missile, *([q_twin] if native else []))))
 
     # ------------------------------------------------------------------ skill2: W You and Me! + E Zoomies
     zoomies = [shield(p["e_sh"], p["e_ap"], p["e_t"]), buff("e_on", "WithShield"),
@@ -290,10 +299,12 @@ def build(p):
         return combine(flag("w_lock", 3), cview("w_jump"), homing("w_dash", 100000, -3000, "AllyNotSelf", attach))
     # first the ally beside the enemy champion (the one being hit), then one near her, else Zoomies on herself
     beside = lob("w_look", 1, "EnemyChampion", pick(p["w_near"], "AllyNotSelf", sw("w_lock", NONE, jump()), fp=True))
-    skill2 = action("skill2", p["w_dur"], p["w_cd"], p["w_st"] - 2, p["e_range"], "Targeting", "EnemyChampion", flat(combine(
-        *rm("w_lock"), sfx("w"), voice("vo_w", p), beside,
-        delayed(2, sw("w_lock", NONE, pick(p["w_ally_r"], "AllyNotSelf", jump())),
-                sw("w_lock", NONE, on_me(*zoomies, delayed(p["e_t"], *rm("e_on"))))))))
+    go = combine(*rm("w_lock"), sfx("w"), voice("vo_w", p), beside,
+                 delayed(2, sw("w_lock", NONE, pick(p["w_ally_r"], "AllyNotSelf", jump())),
+                         sw("w_lock", NONE, on_me(*zoomies, delayed(p["e_t"], *rm("e_on"))))))
+    if native:          # riding (the add-on keeps league_yuumi_w_on on her): Zoomies again, on the ally under her
+        go = sw("w_on", combine(sfx("w"), pick(p["w_on_r"], "AllyNotSelf", *zoomies)), go)
+    skill2 = action("skill2", p["w_dur"], p["w_cd"], p["w_st"] - 2, p["e_range"], "Targeting", "EnemyChampion", flat(go))
 
     # ------------------------------------------------------------------ ult: R Final Chapter
     def wave(k):
@@ -321,8 +332,13 @@ def build(p):
     # w_ride: the cat lying on her open book, drawn over the host's head (a buff picture is never mirrored)
     views_b = [B_("w_ride", BIG, 4), B_("e_haste", FX, -1), B_("q_slow", FX, 1), B_("q_eslow", FX, 1),
                B_("r_root", FX, 1)]
+    extra = {}
+    if native:
+        extra["passive"] = {"passive_ref": "league_yuumi:bond", "params": {
+            k: p[k] for k in ("w_heal", "w_hap", "w_p", "q_range", "e_range", "r_range", "q_dur", "w_dur", "r_dur",
+                              "w_chunk", "w_wait")}}
     return {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "Heal", "Shield"],
+        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "Heal", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["ap"], "hp": p["hp"], "defence": p["def"],
