@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "powder": 1.5}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "powder": 1.75}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -360,10 +360,10 @@ RESTYLE = {
     # her eyes
     "zoe": dict(ppu=1.5, edge=1, face_to=(1, -24)),
     # tft_powder (the tft pack): the idle design (A-2) and Codex's skeleton poses with the one clean head, posed by
-    # tools/art/rig_powder.py at 1.5 squares a game pixel (53 rows, 「35」「PPU 1.5」); shown at 90 % (the user:
+    # tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊」 -> 1.75); shown at 90 % (the user:
     # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the
     # soles on the ground; the face point between her eyes
-    "powder": dict(ppu=1.5, edge=1, lift_sq=-2, face_to=(0, -25)),
+    "powder": dict(ppu=1.75, edge=1, lift_sq=-2, face_to=(0, -25)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

@@ -187,9 +187,9 @@ def scale_of(d):
     return BODY_ROWS / max(1, sole - chin)
 
 
-def drop_head(d, chin):
-    """Codex's own head taken off: the blue hair, the face, the gold clips and braid ties touching them, and the outline
-    round them - above the chin only (the neck, the arms and the collar touch the face but stay)."""
+def head_mask(d, chin):
+    """Codex's own head in a figure: the blue hair, the face, the gold clips and braid ties touching them, and the
+    outline round them - above the chin only (the neck, the arms and the collar touch the face but stay)."""
     rgb = d[..., :3].astype(int)
     op = d[..., 3] > 0
     hair = op & (rgb[..., 2] > 150) & (rgb[..., 0] < 90)
@@ -207,19 +207,27 @@ def drop_head(d, chin):
     dark = op & (rgb.sum(-1) < 90)
     head |= ndimage.binary_dilation(head, np.ones((3, 3), bool)) & dark
     head[chin + 1:] = False
+    # the eyes, brows, mouth and cheeks are none of those colours: everything the head encloses is the head too
+    closed = ndimage.binary_fill_holes(head | (ndimage.binary_closing(head, np.ones((3, 3), bool), iterations=2) & op))
+    closed[chin + 1:] = False
+    return closed & op
+
+
+def drop_head(d, chin):
     out = d.copy()
-    out[head] = 0
+    out[head_mask(d, chin)] = 0
     return out
 
 
-def read(d, k, hd):
-    """A figure (read on Codex's grid) brought down by k, its own head swapped for the clean head on its chin."""
+def read(d, k, hd, head_chin=HEAD_CHIN):
+    """A figure (read on Codex's grid) brought down by k, its own head swapped for the clean head on its chin
+    (hd: the head picture, its chin's point head_chin)."""
     chin, mid = face(d)
     d = drop_head(d, chin)
     d, (px, py) = mode_down(d, k, (mid, chin))
-    core = hd[:CHIN_ROW + 1].copy()
+    core = hd[:int(head_chin[1]) + 1].copy()
     core[:, :, 3] = np.where(core[..., 3] > 0, 255, 0)
-    dx, dy = int(round(px - HEAD_CHIN[0])), int(round(py - HEAD_CHIN[1]))
+    dx, dy = int(round(px - head_chin[0])), int(round(py - head_chin[1]))
     pad = 30
     can = np.zeros((d.shape[0] + 2 * pad, d.shape[1] + 2 * pad, 4), np.uint8)
     can[pad:pad + d.shape[0], pad:pad + d.shape[1]] = d
@@ -229,16 +237,78 @@ def read(d, k, hd):
     if n > 1:                                               # crumbs the head swap left floating (Codex's braid bits)
         sizes = ndimage.sum(can[..., 3] > 0, lbl, range(1, n + 1))
         for i, sz in enumerate(sizes, 1):
-            if sz <= 14:
+            if sz <= 24:
                 can[lbl == i] = 0
     ys, xs = np.nonzero(can[..., 3])
     return can[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
+# PPU 1.75 (the user, 2026-10-19: 「PPU像素好低啊 能调一下吗」, picked 1.75 with no redraw): the same pieces at Codex's own
+# finer grids - 61 rows standing (35 game px). The idle is step 0's picture A (hd/A.png, 84 rows on its 10-px grid)
+# brought down to 61 rows; the poses and the run keep Codex's own drawing (poses 7 px a square, the run 6), each sheet
+# brought down until its standing figures' chin-to-sole is 37 rows (the idle's 61 - its head's 24); every action's
+# head is the one Codex drew on the throw (upright, 3/4 front-right, both eyes, no hand: the 53-row clean head is too
+# coarse for 61 rows) at the poses' scale. -> hd/ppu175/{idle,head}.png, hd/ppu175/poses/*.png
+OUT175 = os.path.join(HD, "ppu175")
+ROWS175, BODY175 = 61, 37
+HEAD_FROM = "throw"
+
+
+def ppu175(pal, review=None):
+    os.makedirs(lp(os.path.join(OUT175, "poses")), exist_ok=True)
+    A = load(os.path.join(HD, "A.png"))
+    idle, _ = mode_down(A, ROWS175 / A.shape[0], (A.shape[1] / 2, A.shape[0]))
+    ys, xs = np.nonzero(idle[..., 3])
+    idle = idle[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    Image.fromarray(idle).save(lp(os.path.join(OUT175, "idle.png")))
+    poses = {POSES[c]: native(f, pal, NATIVE["powder-poses.png"]) for c, f in figures("powder-poses.png")}
+    runs = {f"run{c + 1}": native(f, pal, NATIVE["powder-run.png"]) for c, f in figures("powder-run.png")}
+    body = lambda d: np.nonzero((d[..., 3] > 0).any(1))[0][-1] + 1 - face(d)[0]
+    kp = BODY175 / float(np.mean([body(poses[n]) for n in STANDING]))
+    kr = BODY175 / float(np.mean([body(d) for d in runs.values()]))
+    print(f"PPU 1.75 scale: poses {kp:.3f}, run {kr:.3f}")
+    src = poses[HEAD_FROM]
+    chin, mid = face(src)
+    m = head_mask(src, chin)
+    only = np.where(m[..., None], src, 0).astype(np.uint8)
+    hd, (hx, hy) = mode_down(only, kp, (mid, chin))
+    ys, xs = np.nonzero(hd[..., 3])
+    y0, x0 = ys.min(), xs.min()
+    hd = hd[y0:ys.max() + 1, x0:xs.max() + 1]
+    head_chin = (hx - x0, hy - y0)
+    Image.fromarray(hd).save(lp(os.path.join(OUT175, "head.png")))
+    print(f"head {hd.shape[1]} x {hd.shape[0]}, chin at {head_chin}")
+    got = {}
+    for n, d in poses.items():
+        got[n] = read(d, kp, hd, head_chin)
+    for n, d in runs.items():
+        got[n] = read(d, kr, hd, head_chin)
+    for name, d in got.items():
+        Image.fromarray(d).save(lp(os.path.join(OUT175, "poses", f"{name}.png")))
+        print(name, d.shape[1], "x", d.shape[0])
+    if review:
+        os.makedirs(review, exist_ok=True)
+        z = 7
+        for row, names in enumerate((["idle"] + POSES, [f"run{k}" for k in range(1, 9)])):
+            cells = [idle if n == "idle" else got[n] for n in names]
+            H = max(c.shape[0] for c in cells) * z
+            W = sum(c.shape[1] * z + 16 for c in cells)
+            sh = Image.new("RGBA", (W, H), (200, 205, 195, 255))
+            x = 0
+            for c in cells:
+                sh.alpha_composite(Image.fromarray(np.repeat(np.repeat(c, z, 0), z, 1)), (x, H - c.shape[0] * z))
+                x += c.shape[1] * z + 16
+            sh.convert("RGB").save(os.path.join(review, f"readback175_{row}.png"))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review")
+    ap.add_argument("--ppu15", action="store_true", help="the first 53-row (PPU 1.5) set into hd/head.png, hd/poses")
     a = ap.parse_args()
+    if not a.ppu15:
+        ppu175(palette(), a.review)
+        return
     os.makedirs(lp(OUT), exist_ok=True)
     pal = palette()
     hd = head()

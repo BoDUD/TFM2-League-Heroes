@@ -105,8 +105,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_zoe", 1.5, include_str!("../../../league/champions/league_zoe#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
-    // tools/art/rig_powder.py at the user's 1.5 squares a game pixel (53 rows: 「35」「PPU 1.5」), shown at 90 % (SIZES)
-    ("tft_powder", 1.5, include_str!("../../../tft/champions/tft_powder#anim.fanim")),
+    // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
+    ("tft_powder", 1.75, include_str!("../../../tft/champions/tft_powder#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

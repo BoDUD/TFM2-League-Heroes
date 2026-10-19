@@ -25,9 +25,10 @@ from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
-HD = os.path.join(ROOT, "assets", "source", "powder", "hd")
-W, H, GROUND, STAND = 72, 72, 66, 36     # the canvas, the soles' row + 1, the standing column
-IDLE_LEG_ROW = 40                        # the idle design's legs: rows from here down stay while the body breathes
+HD = os.path.join(ROOT, "assets", "source", "powder", "hd", "ppu175")   # PPU 1.75 (design_powder_poses.ppu175)
+W, H, GROUND, STAND = 84, 84, 77, 42     # the canvas, the soles' row + 1, the standing column
+PPU = 1.75                               # the user, 2026-10-19: 「PPU像素好低啊 能调一下吗」 -> 1.75 (61 rows)
+IDLE_LEG_ROW = 46                        # the idle design's legs: rows from here down stay while the body breathes
 
 
 def lp(path):
@@ -211,7 +212,7 @@ def export(acts):
     sys.path.insert(0, HERE)
     import ppu_rig as R
     D = type("Design", (), {})()
-    D.W, D.H, D.px, D.ground, D.hero, D.ppu, D.outline = W, H, STAND, GROUND, "powder", 1.5, (8, 1, 16)
+    D.W, D.H, D.px, D.ground, D.hero, D.ppu, D.outline = W, H, STAND, GROUND, "powder", PPU, (8, 1, 16)
     R.Rig(D, pad=(0, 0, 0, 0)).export(acts)
 
 

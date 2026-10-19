@@ -43,7 +43,8 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three
 # lineups, both sides, 8 seeds, 2026-10-19; league_ziggs +1.70 on seeds 1-8): the draft (Q 55 + 45%, E 60 + 40%,
 # R 230 + 90%, burn 6 + 6%) +5.31 (deal 20514; without the crit +1.71 - a 25% crit is +25% of her damage);
-# Q 38 + 30%, E 45 + 30%, R 170 + 65%, burn 5 + 5% +1.34 / +1.38 (seeds 9-16; deal 15036) = P.
+# Q 38 + 30%, E 45 + 30%, R 170 + 65%, burn 5 + 5% +1.34 / +1.38 (seeds 9-16; deal 15036); on the strips' timings
+# +1.77 / +2.29; Q 35 + 27% +0.65 / +0.57, with R 160 + 60% +0.79 / +1.23; Q 36 + 28% +1.55 / +0.72 (about +1.1) = P.
 P = {
     # stats (Magician base: attack 80 +6, ap 40 +20, hp 900 +100, def 20 +7, mr 20 +4, move 900 +9); she is a child:
     # a little less health, a little quicker
@@ -54,7 +55,7 @@ P = {
     "p_crit": 25,
     # Monkey Bomb
     "q_cd": 330, "q_range": 70000, "q_dur": 29, "q_rel": 12, "q_travel": 30, "q_r": 32000, "q_cr": 16000,
-    "q_dmg": 38, "q_ratio": 30, "q_burn": 5, "q_burn_r": 5, "q_burn_p": 30, "q_burn_t": 180,
+    "q_dmg": 36, "q_ratio": 28, "q_burn": 5, "q_burn_r": 5, "q_burn_p": 30, "q_burn_t": 180,
     "q_wound": 40, "q_wound_t": 240,
     # Run, Powder!
     "e_cd": 600, "e_range": 24000, "e_dur": 24, "e_rel": 5, "e_r": 28000, "e_dmg": 45, "e_ratio": 30,
