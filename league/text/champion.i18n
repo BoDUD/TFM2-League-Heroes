@@ -952,6 +952,13 @@
         "skill": "地面破裂，<#ffb900ff>0.6秒<>后尖刺冲出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害，<#ef5350ff>击飞0.75秒<>并<#ef5350ff>减速60%<>。",
         "skill2": "向前方锥形区域尖叫，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并<#ef5350ff>沉默1.8秒<>。",
         "ult": "吞噬受伤的敌方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真实伤害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>无视魔抗的魔法伤害；吃掉则叠一层：最大生命+70、体型变大（不封顶，死亡清空）。"
+      },
+      "league_vex": {
+        "name": "薇古丝",
+        "attack": "射出暗影弹。<#ff9028ff>终焉暮气<>：每<#ffb900ff>15秒<>下一个技能<#ef5350ff>恐惧<>命中的敌人<#ffb900ff>0.75秒<>。<#ff9028ff>生人勿近<>：敌方英雄靠近时改为获得<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾并震伤周围<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>（每<#ffb900ff>12秒<>）。",
+        "skill": "射出一道暗风，穿过路径上的所有敌人，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害。",
+        "skill2": "影子飞到目标处扩散，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害、减速35%<#ffb900ff>2秒<>，并施加<#ff9028ff>暮气<>：她下一次技能打中带暮气的英雄额外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害。",
+        "ult": "射出飞弹标记一名敌方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害，随后冲到他身边再造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害。"
       }
     },
     "skill_name": {
@@ -1634,6 +1641,11 @@
         "skill1": "破裂",
         "skill2": "野性尖叫",
         "ult": "盛宴"
+      },
+      "league_vex": {
+        "skill1": "寒心波云",
+        "skill2": "溟濛渐染",
+        "ult": "愁煞"
       }
     }
   },
@@ -2590,6 +2602,13 @@
         "skill": "地面破裂，<#ffb900ff>0.6秒<>後尖刺衝出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害，<#ef5350ff>擊飛0.75秒<>並<#ef5350ff>緩速60%<>。",
         "skill2": "向前方錐形區域尖嘯，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並<#ef5350ff>沉默1.8秒<>。",
         "ult": "吞噬受傷的敵方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真實傷害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>無視魔抗的魔法傷害；吃掉則疊一層：最大生命+70、體型變大（不封頂，死亡清空）。"
+      },
+      "league_vex": {
+        "name": "薇可絲",
+        "attack": "射出暗影彈。<#ff9028ff>無望厄障<>：每<#ffb900ff>15秒<>下一個技能<#ef5350ff>恐懼<>命中的敵人<#ffb900ff>0.75秒<>。<#ff9028ff>個人舒適圈<>：敵方英雄靠近時改為獲得<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾並震傷周圍<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>（每<#ffb900ff>12秒<>）。",
+        "skill": "射出一道暗風，穿過路徑上的所有敵人，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害。",
+        "skill2": "影子飛到目標處擴散，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害、緩速35%<#ffb900ff>2秒<>，並施加<#ff9028ff>陰霾<>：她下一次技能打中帶陰霾的英雄額外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害。",
+        "ult": "射出飛彈標記一名敵方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害，隨後衝到他身邊再造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害。"
       }
     },
     "skill_name": {
@@ -3272,6 +3291,11 @@
         "skill1": "破裂",
         "skill2": "野性尖嘯",
         "ult": "饗宴"
+      },
+      "league_vex": {
+        "skill1": "冷酷暗箭",
+        "skill2": "闇黑迫近",
+        "ult": "飛影急襲"
       }
     }
   },
@@ -4228,6 +4252,13 @@
         "skill": "Ruptures the ground: after <#ffb900ff>0.6s<> spikes burst out for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage, <#ef5350ff>knocking up 0.75s<> and <#ef5350ff>slowing 60%<>.",
         "skill2": "Screams in a cone ahead: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and <#ef5350ff>silence 1.8s<>.",
         "ult": "Devours a wounded enemy champion: <#ff9028ff>300<> + 5% of his max health as true damage and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage through all magic resist. A kill is a stack: +70 max health and a bigger body (no cap; lost on death)."
+      },
+      "league_vex": {
+        "name": "Vex",
+        "attack": "Fires a shadow bolt. <#ff9028ff>Doom<>: every <#ffb900ff>15s<> her next spell <#ef5350ff>fears<> the enemies hit for <#ffb900ff>0.75s<>. <#ff9028ff>Personal Space<>: with an enemy champion close, she instead gains a <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> shield and blasts the enemies around her for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<> (every <#ffb900ff>12s<>).",
+        "skill": "Sends a gust of shadow through every enemy in a line for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>.",
+        "skill2": "Her Shadow flies to the target and spreads: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>, slowed 35% for <#ffb900ff>2s<>, and <#ff9028ff>Gloom<>: her next spell hit on a Gloomed champion deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> more.",
+        "ult": "Fires a missile that marks an enemy champion for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>, then surges to it for <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> more."
       }
     },
     "skill_name": {
@@ -4910,6 +4941,11 @@
         "skill1": "Rupture",
         "skill2": "Feral Scream",
         "ult": "Feast"
+      },
+      "league_vex": {
+        "skill1": "Mistral Bolt",
+        "skill2": "Looming Darkness",
+        "ult": "Shadow Surge"
       }
     }
   },
@@ -5866,6 +5902,13 @@
         "skill": "땅을 갈라 <#ffb900ff>0.6초<> 뒤 가시가 솟아 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해, <#ef5350ff>0.75초 에어본<>, <#ef5350ff>60% 둔화<>.",
         "skill2": "전방 원뿔에 울부짖어 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해와 <#ef5350ff>1.8초 침묵<>.",
         "ult": "부상당한 적 챔피언을 삼켜 <#ff9028ff>300<> + 5% (자신의 최대 체력) 고정 피해와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +70, 몸집 증가(제한 없음, 사망 시 초기화)."
+      },
+      "league_vex": {
+        "name": "벡스",
+        "attack": "그림자 탄을 쏜다. <#ff9028ff>파멸<>: <#ffb900ff>15초<>마다 다음 스킬이 맞힌 적을 <#ffb900ff>0.75초<> <#ef5350ff>공포<>. <#ff9028ff>거리 두기<>: 적 챔피언이 가까우면 대신 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> 보호막을 얻고 주변에 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해(<#ffb900ff>12초<>마다).",
+        "skill": "직선상의 모든 적을 꿰뚫는 그림자 바람으로 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해.",
+        "skill2": "그림자가 대상 위치로 날아가 퍼지며 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해, <#ffb900ff>2초<> 35% 둔화, <#ff9028ff>우울<> 부여: 우울한 챔피언에게 다음 스킬이 적중하면 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 추가 피해.",
+        "ult": "투사체로 적 챔피언을 표식해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해, 이어서 돌진해 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해."
       }
     },
     "skill_name": {
@@ -6548,6 +6591,11 @@
         "skill1": "파열",
         "skill2": "흉포한 울부짖음",
         "ult": "포식"
+      },
+      "league_vex": {
+        "skill1": "안개 화살",
+        "skill2": "커지는 어둠",
+        "ult": "그림자 파동"
       }
     }
   },
@@ -7504,6 +7552,13 @@
         "skill": "地面を割り<#ffb900ff>0.6秒<>後に棘が突き出て<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ、<#ef5350ff>0.75秒打ち上げ<>と<#ef5350ff>60%スロウ<>。",
         "skill2": "前方の扇状範囲に叫び<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ef5350ff>1.8秒サイレンス<>。",
         "ult": "傷ついた敵チャンピオンを捕食し<#ff9028ff>300<> + 5%（自身の最大体力）の確定ダメージと<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+70、体が大きくなる（上限なし、死亡で消える）。"
+      },
+      "league_vex": {
+        "name": "ヴェックス",
+        "attack": "影の弾を撃つ。<#ff9028ff>フコウ<>：<#ffb900ff>15秒<>ごとに次のスキルが当たった敵を<#ffb900ff>0.75秒<><#ef5350ff>恐怖<>。<#ff9028ff>パーソナルスペース<>：敵チャンピオンが近いと代わりに<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>のシールドを得て周囲に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ（<#ffb900ff>12秒<>ごと）。",
+        "skill": "直線上の全ての敵を貫く影の風で<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ。",
+        "skill2": "影が目標地点へ飛んで広がり、<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ、<#ffb900ff>2秒<>35%スロウ、<#ff9028ff>ユーウツ<>付与：ユーウツのチャンピオンに次のスキルが当たると<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>追加。",
+        "ult": "弾で敵チャンピオンにマークをつけ<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ、続いて突進して<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ。"
       }
     },
     "skill_name": {
@@ -8186,6 +8241,11 @@
         "skill1": "ラプチャー",
         "skill2": "スクリーム",
         "ult": "捕食"
+      },
+      "league_vex": {
+        "skill1": "無気力ショット",
+        "skill2": "ヤミとばし",
+        "ult": "影法師"
       }
     }
   }
