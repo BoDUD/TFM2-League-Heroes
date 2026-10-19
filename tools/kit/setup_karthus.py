@@ -33,8 +33,10 @@ O = "<#ff9028ff>"      # names
 A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: provisional until the sprite is in (tfm2_ase.py face)
-VIEW = {"face": {"x": 2, "y": -30}, "center": {"x": 0, "y": -14}}
+# champion_view: the face point on his skull (the 9x9 face crop shows the eyes, the teeth and the crown's gem; the
+# crown tip 40 px over his soles, the staff's crystal 44); banpick_center by base's rule on the crown (-39 + 28.5), the
+# staff's thin tip clipped (tools/art/bp_card_audit.py)
+VIEW = {"face": {"x": 1, "y": -30}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

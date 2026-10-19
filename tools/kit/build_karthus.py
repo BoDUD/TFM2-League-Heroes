@@ -43,7 +43,8 @@ BIG = "asset/league/effects/league_karthus_big"
 # Numbers = the 10-min classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and
 # white_mage, three lineups, both sides, 8 seeds, 2026-10-20): the draft with Q and W as zones started straight from the
 # action (they hit nothing) -4.72; on hidden lobs (Q 55 + 35%, R 250 + 75% every 60 s) +2.89 (league_zoe +1.30 the
-# same day); Q 45 + 30% +2.22; R 200 every 70 s +2.23; both +1.46 = P.
+# same day); Q 45 + 30% +2.22; R 200 every 70 s +2.23; both +1.46 = P; timed to the strips (above) +1.27 / +2.05 (seeds
+# 1-8 / 9-16, about +1.66; league_chogath +1.92, league_volibear +1.39), not tuned further.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Karthus:
     # 620 +110 hp, 21 armour, 30 mr, 335 move, 450 range, attack speed 0.625

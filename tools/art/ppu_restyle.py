@@ -387,8 +387,9 @@ RESTYLE = {
     "chogath": dict(ppu=1.2, edge=1, face_to=(11, -5)),
     # league_karthus (#137): posed by tools/art/rig_karthus.py from Codex's step-1 takes at the user's 1.5 squares a game
     # pixel (「40 像素，PPU 1.5」: A-1 / side-1 cut to 60 rows crown to soles, one head, one staff), so no proportion or
-    # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "karthus": dict(ppu=1.5, edge=1, face_to=(0, -27)),
+    # density change here; the outer outline grown a square like the others; the face point on his skull (the 9x9 face
+    # crop: the eyes, the teeth and the crown's gem)
+    "karthus": dict(ppu=1.5, edge=1, face_to=(1, -30)),
     # tft_powder (the tft pack): the idle design (A-2) and Codex's skeleton poses with the one clean head, posed by
     # tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊」 -> 1.75); shown at 90 % (the user:
     # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the
