@@ -406,7 +406,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_quinn.skill",
-    "duration": 24,
+    "duration": 28,
     "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
@@ -1276,7 +1276,7 @@
                           {
                             "type": "CasterAnimation",
                             "name": "ult_land",
-                            "tick": 24
+                            "tick": 29
                           },
                           {
                             "type": "Combine",

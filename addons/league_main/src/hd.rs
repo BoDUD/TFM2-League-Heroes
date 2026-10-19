@@ -103,6 +103,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Zoe: posed by tools/art/rig_zoe.py from Codex's step-1 takes at the user's 1.5 squares a game pixel (35 game rows
     // crown to soles: 「35 像素」「PPU 1.5」; skill_w / ult_exit / ult_back the kit's CasterAnimations), so no SIZES row
     ("league_zoe", 1.5, include_str!("../../../league/champions/league_zoe#anim.fanim")),
+    // Quinn: posed by tools/art/rig_quinn.py from Codex's step-1 takes at the user's 1.3 squares a game pixel (38 game rows
+    // crest to soles: 「38 像素、PPU 1.3」; her legs drawn on League's bones; the ride r_* tags the add-on swaps in), so no
+    // SIZES row
+    ("league_quinn", 1.3, include_str!("../../../league/champions/league_quinn#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

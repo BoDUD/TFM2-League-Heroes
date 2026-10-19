@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_quinn": {
+        "ult": "【扩展包】召来华洛骑上，<#ffb900ff>6秒<>内移速+80%；骑着时下一次普攻或技能、或骑行结束时施放<#ff9028ff>鹰翼天翔<>：周围敌人受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害并被标记。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_quinn": {
+        "ult": "【擴充包】召來威洛騎上，<#ffb900ff>6秒<>內移速+80%；騎著時下一次普攻或技能、或騎行結束時施放<#ff9028ff>天空強襲<>：周圍敵人受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害並被標記。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_quinn": {
+        "ult": "[Add-on] Calls Valor down and rides him for <#ffb900ff>6s<> at +80% move speed; her next attack or spell while riding, or the ride's end, lands with <#ff9028ff>Skystrike<>: enemies around take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage and are marked."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_quinn": {
+        "ult": "[확장] 발러를 불러 타고 <#ffb900ff>6초<> 동안 이동 속도 +80%; 타는 동안 다음 공격이나 스킬, 또는 비행이 끝날 때 <#ff9028ff>공중 강습<>: 주변 적에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해와 표식."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_quinn": {
+        "ult": "【拡張】ヴァロールに乗り<#ffb900ff>6秒<>移動速度+80%；乗っている間の次の攻撃かスキル、または飛行の終わりに<#ff9028ff>空中強襲<>：周りの敵に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージとマーク。"
+      }
+    }
+  }
+}

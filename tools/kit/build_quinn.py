@@ -43,8 +43,10 @@ ID = "league_quinn"
 FX = "asset/league/effects/league_quinn_fx"
 BIG = "asset/league/effects/league_quinn_big"
 
-# League units x 100 = ours for skill ranges (League's 525 attack range -> 52500). Timings are placeholders until the
-# strips exist. League 16.20 (Quinn.bin): passive Harrier every 8 s, mark 4 s, ADRatio 0.4 (+ level part); Q 1025
+# League units x 100 = ours for skill ranges (League's 525 attack range -> 52500). Timings from the strips
+# (tools/art/rig_quinn.py MS, 60 ticks a second): the attack 440 ms (atk_dur 26), the bolt off the crossbow's kick on
+# frame 3 at 150 ms (a_hit 10); Q 470 ms (q_dur 28), Valor out on frame 2 (q_rel 9); E's dash 120 ms (e_dur 8), the
+# flip 300 ms (e_flip 18); R's call 500 ms (r_mount 30), Skystrike's landing 480 ms (r_land 29). League 16.20 (Quinn.bin): passive Harrier every 8 s, mark 4 s, ADRatio 0.4 (+ level part); Q 1025
 # range, missile 1550, burst r 210, 20-100 + 80-140% AD + 50% AP, nearsight 1.75 s, cd 11.5-9; W after a Harrier hit
 # +15-93% attack speed (by level), +15-45% ms for 2 s; E 600 range, 40-140 + 20% bonus AD, slow 50% decaying over
 # 1.5 s, cd 13-8; R channel 2 s, then +40-220% ms ride, Skystrike r 700, 30-210 + 35-100% AD, cd 3 s.
@@ -61,14 +63,14 @@ P = {
     # passive Harrier + W Heightened Senses
     "p_cd": 480, "p_dmg": 40, "p_ratio": 60, "w_as": 35, "w_ms": 25, "w_t": 120, "dive_t": 30,
     # Q Blinding Assault
-    "q_cd": 600, "q_cast": 95000, "q_dur": 24, "q_rel": 9, "q_range": 100000, "q_speed": 6000, "q_w": 6000,
+    "q_cd": 600, "q_cast": 95000, "q_dur": 28, "q_rel": 9, "q_range": 100000, "q_speed": 6000, "q_w": 6000,
     "q_r": 21000, "q_dmg": 80, "q_ratio": 110, "q_blind": 45, "q_back": 7000,
     # E Vault
     "e_cd": 660, "e_range": 60000, "e_dur": 8, "e_speed": 4000, "e_dmg": 50, "e_ratio": 60, "e_stun": 6,
     "e_slow": 50, "e_slow_t": 90, "e_back": 4000, "e_back_t": 12, "e_flip": 18,
     # R Behind Enemy Lines + Skystrike
     "r_cd": 2400, "r_range": 60000, "r_mount": 30, "r_speed": 3200, "r_ms": 0, "r_r": 30000, "r_dmg": 150,
-    "r_ratio": 100, "r_land": 24,
+    "r_ratio": 100, "r_land": 29,
     # the add-on's ride (League: +40-220% ms, rides until she attacks or casts)
     "r_ride_t": 360, "r_ride_ms": 80,
     "vo_gap": 600,
@@ -221,9 +223,12 @@ def build(p):
 
     # ------------------------------------------------------------------ Skystrike (the end of R)
     def skystrike():
-        return combine(sfx("r_land"), cview("r_land"),
+        # in the add-on's copy she jumps off Valor here (an attack, Q or E while riding, or the ride's end); the main
+        # pack's ride lands with its own CasterAnimation
+        land = [anim("ult_land", p["r_land"])] if nat else []
+        return combine(*land, sfx("r_land"), cview("r_land"),
                        around(p["r_r"], "EnemyWithoutTower", [attack(p["r_dmg"], p["r_ratio"]), view("r_hit")]),
-                       mark, valor_on, *rm("r_ride"))
+                       mark, valor_on, *rm("r_ride"), *(rm("r_end") if nat else ()))
 
     # ------------------------------------------------------------------ attack: the bolt + Harrier + W
     senses = on_me(refresh("w_haste", p["w_t"], attack_speed_mult=p["w_as"], move_speed_mult=p["w_ms"]))
@@ -273,7 +278,11 @@ def build(p):
     if nat:
         # the add-on's ride: she stays mounted for r_ride_t (drawn r_* by its display hook); her next action or the
         # ride's end (the add-on's watch casts it) is Skystrike
-        ride = [refresh("r_ride", p["r_ride_t"], move_speed_mult=p["r_ride_ms"]), cview("r_mount_fx"), sfx("r_ride")]
+        ride = [refresh("r_ride", p["r_ride_t"], move_speed_mult=p["r_ride_ms"]), cview("r_mount_fx"), sfx("r_ride"),
+                # the ride's end: the add-on lays `r_end` on her a tick before `r_ride` runs out; this watch turns it
+                # into Skystrike (data cannot act when a buff expires)
+                on_me({"type": "AddCasted", "casted_type": "Heal", "duration": p["r_ride_t"] + 10, "period": 1,
+                       "effects": [sw("r_end", skystrike())]})]
     else:
         land = [anim("ult_land", p["r_land"]), skystrike()]
         ride = [anim("ult_ride", 240), sfx("r_ride"),
