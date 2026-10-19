@@ -1,0 +1,69 @@
+{
+ "hero": "quinn",
+ "champ": "Quinn",
+ "camera": {
+  "yaw": 75,
+  "pitch": 25,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.6,
+  "legs": 0.8,
+  "hair": 0.5,
+  "scale": {
+   "spine": 1.15,
+   "L_Hip": 1.3,
+   "R_Hip": 1.3,
+   "L_Shoulder": 1.25,
+   "R_Shoulder": 1.25
+  }
+ },
+ "weapon": "^Weapon$",
+ "height": 38,
+ "cell": [
+  96,
+  96,
+  14
+ ],
+ "design": "Quinn_idle1@0",
+ "tags": {
+  "run": {
+   "flat": true,
+   "head_like": "Quinn_idle1@0",
+   "frames": [
+    [
+     "Quinn_run@0",
+     117
+    ],
+    [
+     "Quinn_run@117",
+     117
+    ],
+    [
+     "Quinn_run@233",
+     117
+    ],
+    [
+     "Quinn_run@350",
+     117
+    ],
+    [
+     "Quinn_run@466",
+     117
+    ],
+    [
+     "Quinn_run@583",
+     117
+    ],
+    [
+     "Quinn_run@700",
+     117
+    ],
+    [
+     "Quinn_run@816",
+     117
+    ]
+   ]
+  }
+ }
+}

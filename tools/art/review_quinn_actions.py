@@ -23,12 +23,12 @@ import rig_quinn as V  # noqa: E402
 
 # tag -> (League's character, clip, from s, to s) - the part of the clip the tag shows
 VALOR = "QuinnValor"
-CLIPS = {"idle": ("Quinn", "Quinn_idle1", 0, 2.4), "run": ("Quinn", "Quinn_run", 0, 0.9),
+CLIPS = {"idle": ("Quinn", "Quinn_idle1", 0, 2.4), "run": ("Quinn", "Quinn_run", 0, 0.816),
          "attack": ("Quinn", "Quinn_attack1", 0, 0.5), "skill": ("Quinn", "quinn_spell1", 0, 0.7),
-         "skill2": ("Quinn", "Quinn_spell3_dash", 0, 0.3), "e_flip": ("Quinn", "Quinn_spell3_flip", 0, 0.55),
-         "ult": ("Quinn", "Quinn_Spell4_Channel", 0, 1.9), "ult_ride": (VALOR, "quinnvalor_run_glide", 0, 1.2),
+         "skill2": ("Quinn", "Quinn_spell3_dash", 0.1, 0.3), "e_flip": ("Quinn", "Quinn_spell3_flip", 0, 0.55),
+         "ult": ("Quinn", "Quinn_Spell4_Channel", 0.2, 0.8), "ult_ride": (VALOR, "quinnvalor_run_glide", 0, 1.2),
          "ult_land": (VALOR, "quinnvalor_attack1", 0, 0.8), "hit": ("Quinn", "Quinn_idle1", 0, 0.1),
-         "dead": ("Quinn", "quinn_death", 0, 3.0), "r_idle": (VALOR, "quinnvalor_idle1", 0, 2.8),
+         "dead": ("Quinn", "quinn_death", 0, 3.15), "r_idle": (VALOR, "quinnvalor_idle1", 0, 2.8),
          "r_run": (VALOR, "quinnvalor_run_flap", 0, 1.5), "r_hit": (VALOR, "quinnvalor_idle1", 0, 0.1)}
 BG = (96, 112, 96)
 
