@@ -33,7 +33,7 @@ fn gr(x: &str) -> String {
 /// 大招射程（r_range）、爆炸半径（r_r）、伤害（r_dmg + r_ratio% 法强）、飞行 tick（r_fly）、拽的速度和时长（r_grab、r_grab_t）。
 pub const R_RANGE: f64 = 70_000.0;
 pub const R_R: f64 = 26_000.0;
-pub const R_DMG: usize = 200;
+pub const R_DMG: usize = 240;
 pub const R_RATIO: usize = 80;
 pub const R_FLY: usize = 16;
 pub const R_GRAB: usize = 3_000;
