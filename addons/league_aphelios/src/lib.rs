@@ -12,9 +12,21 @@
 //! - **残血换断魄**：生命低于 `low_hp`% 、副手是断魄、`near` 内有看得见的敌方英雄时，直接把断魄换到主手（吸血），每
 //!   `low_cd` tick 最多一次（主包的 W 只在主手技能冷却、副手技能好了时才换）。
 //!
+//! - **高手的用法**（0.2.0，用户：「厄斐琉斯能做的像英雄联盟里面高手一样的逻辑吗」，「按 1-4 全做」；判断在 `brain.rs`）：
+//!   1. Q 看武器和局面放：AI 钩子 `league_aphelios:hands`（优先级 `HANDS_PRIORITY`，排在 league_ult_press 之后，拿到它
+//!      的决定再改）在 Q 好了、局面合适时替 AI 按 Q（给对的目标），AI 自己按的 Q 不合适就改成普攻（通碧不打兵、坠明等
+//!      有标记的英雄、荧焰等扇形里两个英雄……）；
+//!   2. W 换到合适的武器：被动直接换手（主副手互换，同数据的 W，每 `SWAP_CD` tick 最多一次）——主手 Q 在冷却、副手的 Q
+//!      正合适时换手接 Q；被英雄贴脸时换上折镜 / 坠明；数据自己的 W（只看 Q 冷却）在副手的 Q 不合适时改成普攻；
+//!   3. 开大前先换好主手：大招准备好（`r_arm`）、身边有敌方英雄时，副手的礼物更好（荧焰 > 坠明 > 断魄 > 通碧 > 折镜，
+//!      残血时断魄最好）就先换上；
+//!   4. 通碧标记换手引爆：通碧的 Q 一射出去就换上副手——副本里标记被引爆时带主手的命中效果（build_aphelios native），
+//!      副手是坠明就打上标记，接着坠明 Q 定身；是荧焰、折镜就接它们的 Q。
+//!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aphelios.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `QUEUE`（数据换枪，和队列一致 / 改成队列那把）、`LOW`（残血换断魄）、`FORM`（显示里的武器形态），都限了条数。
+//! `QUEUE`（数据换枪，和队列一致 / 改成队列那把）、`LOW`（残血换断魄）、`FORM`（显示里的武器形态）、`SWAP`（被动换手和
+//! 原因）、`Q PRESS` / `Q VETO` / `W VETO`（AI 钩子），都限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -24,6 +36,7 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod brain;
 pub mod view;
 
 const ID: &str = "league_aphelios";
@@ -31,8 +44,10 @@ const HERO: &str = "league_aphelios";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 /// 五把武器，按主包数据的循环顺序（build_aphelios.WEAPONS）。
 pub const WEAPONS: [&str; 5] = ["cal", "sev", "grav", "inf", "cre"];
-pub const CAL: usize = 0;
-pub const SEV: usize = 1;
+pub const CAL: usize = brain::CAL;
+pub const SEV: usize = brain::SEV;
+/// AI 钩子排在 league_ult_press（100）之后：引擎按优先级从小到大跑钩子，每个拿到前一个的决定。
+pub const HANDS_PRIORITY: i32 = 110;
 
 pub fn main_buff(w: usize) -> String {
     format!("{HERO}_mw_{}", WEAPONS[w])
@@ -215,6 +230,40 @@ fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
 
+fn buffs_have(e: &StableEntity<'_, '_>, name: &str) -> bool {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
+}
+
+fn hp_share(e: &StableEntity<'_, '_>) -> f64 {
+    let (hp, max) = e.hp();
+    if max == 0 { 0.0 } else { hp as f64 / max as f64 }
+}
+
+fn at_of(e: &StableEntity<'_, '_>) -> (f64, f64) {
+    (e.pos().0 as f64, e.pos().1 as f64)
+}
+
+/// `team` 看得见、能选中的敌方单位（防御塔不算），带坠明标记的英雄记下。
+pub(crate) fn foes_of(sim: &StableSim<'_>, team: usize) -> Vec<brain::Foe> {
+    let (g, r) = (format!("{HERO}_g_slow"), format!("{HERO}_r_slow"));
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && !u.is_tower() && sim.is_visible(team, u.id()))
+        .map(|u| brain::Foe {
+            id: u.id(),
+            at: at_of(&u),
+            champion: u.is_champion(),
+            hp: hp_share(&u),
+            marked: u.is_champion() && (buffs_have(&u, &g) || buffs_have(&u, &r)),
+        })
+        .collect()
+}
+
+/// 这把武器的 Q 在冷却（数据的 `qcd_<武器>`）。
+fn q_cooling(e: &StableEntity<'_, '_>, w: usize) -> bool {
+    buffs_have(e, &format!("{HERO}_qcd_{}", WEAPONS[w]))
+}
+
 /// 身上的主手 / 副手武器（主包数据第一次普攻才加；之前没有）。
 fn weapons_of(sim: &StableSim<'_>, id: usize) -> Option<(usize, usize)> {
     let main = (0..5).find(|w| has_buff(sim, id, &main_buff(*w)))?;
@@ -234,12 +283,58 @@ struct Moon {
     queue: Option<Queue>,
     /// 上次残血换断魄的 tick。
     low_at: Option<u64>,
+    /// 上次被动换手的 tick、上一 tick 通碧的 Q 在不在冷却（刚射出去 = 这一 tick 开始冷却）。
+    swap_at: Option<usize>,
+    cal_cd: bool,
 }
 
 impl Moon {
     fn set_main(sim: &mut StableSim<'_>, me: usize, from: usize, to: usize, p: &Params) {
         sim.entity_remove_buff(me, &main_buff(from));
         sim.add_buff(me, &weapon_buff(to, p));
+    }
+
+    /// 主手和副手互换（数据的 W 做的事：主手 buff 带那把的属性），换枪的声音和画面。
+    fn swap_hands(sim: &mut StableSim<'_>, me: usize, main: usize, off: usize, p: &Params) {
+        Moon::set_main(sim, me, main, off, p);
+        sim.entity_remove_buff(me, &off_buff(off));
+        sim.add_buff(me, &BuffV1::named(&off_buff(main)));
+        let on = InputTargetV1::target(me);
+        sim.play_sfx(&format!("{HERO}_swap_{}", WEAPONS[off]), me, &on);
+        sim.play_view_effect(&format!("{HERO}_swap"), me, &on, 0, 0, 0);
+    }
+
+    /// 高手的换手（brain::swap_plan）：大招前换礼物、通碧 Q 后换手引爆、换手接 Q、被贴脸换近身武器。
+    fn smart_swap(&mut self, sim: &mut StableSim<'_>, me: usize, p: &Params) {
+        let Some(q) = self.queue.clone() else { return };
+        let Some(e) = sim.get_entity(me) else { return };
+        let tick = sim.tick();
+        let cal_cd = q_cooling(&e, CAL);
+        let cal_cast = cal_cd && !self.cal_cd;
+        self.cal_cd = cal_cd;
+        let firing = buffs_have(&e, &format!("{HERO}_r_go"));
+        let s = brain::Swap {
+            main: q.main,
+            off: q.off,
+            main_q: !q_cooling(&e, q.main),
+            off_q: !q_cooling(&e, q.off),
+            r_armed: buffs_have(&e, &format!("{HERO}_r_arm")) && !firing,
+            cal_cast,
+        };
+        // Moonshot's swap is timed (before the mark is shot off); the others wait for the swap's pause
+        if firing || (!cal_cast && self.swap_at.is_some_and(|t| tick < t + brain::SWAP_CD)) {
+            return;
+        }
+        let (team, at, hp) = (e.team(), at_of(&e), hp_share(&e));
+        let foes = foes_of(sim, team);
+        let Some(why) = brain::swap_plan(&s, at, hp, &foes) else { return };
+        Moon::swap_hands(sim, me, q.main, q.off, p);
+        self.swap_at = Some(tick);
+        if let Some(k) = counted("swap") {
+            wlog(format!("{} SWAP {} -> {} ({why}; {:.0}% hp, {} enemy champions within {:.0}) #{k}", head(sim, me),
+                WEAPONS[q.main], WEAPONS[q.off], hp * 100.0,
+                foes.iter().filter(|f| f.champion && brain::dist(at, f.at) <= brain::R_LOOK).count(), brain::R_LOOK));
+        }
     }
 
     fn low_swap(&mut self, sim: &mut StableSim<'_>, me: usize, p: &Params) {
@@ -267,10 +362,9 @@ impl Moon {
             return;
         }
         // the swap the data's W does: Severum to the main hand, the main weapon to the off hand
-        Moon::set_main(sim, me, q.main, SEV, p);
-        sim.entity_remove_buff(me, &off_buff(SEV));
-        sim.add_buff(me, &BuffV1::named(&off_buff(q.main)));
+        Moon::swap_hands(sim, me, q.main, SEV, p);
         self.low_at = Some(tick);
+        self.swap_at = Some(tick as usize);
         if let Some(k) = counted("low") {
             wlog(format!("{} LOW {}% hp, an enemy champion within {}: Severum to the main hand, {} to the off hand #{k}",
                 head(sim, me), hp * 100 / max, p.near, WEAPONS[q.main]));
@@ -295,6 +389,8 @@ impl StablePassive for Moon {
     fn on_spawn(&mut self, _sim: &mut StableSim<'_>, _player: usize, _entity: usize) {
         self.queue = None;
         self.low_at = None;
+        self.swap_at = None;
+        self.cal_cd = false;
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
@@ -328,8 +424,129 @@ impl StablePassive for Moon {
                 }
             },
         }
+        let before = self.swap_at;
         self.low_swap(sim, me, &p);
-        // the low swap changed the buffs: let the queue see it as a swap next tick (main and off exchanged)
+        if self.swap_at == before {
+            self.smart_swap(sim, me, &p);
+        }
+        // a swap changed the buffs: the queue sees it as a swap next tick (main and off exchanged)
+    }
+}
+
+// ===================== AI 钩子：Q 看武器和局面，W 只在副手的 Q 合适时 =====================
+
+/// 被控（不能放技能）、正在出手或被强制位移：不替 AI 按（同 league_ult_press 的 controlled / busy）。
+const NO_ACT: [CcKindV1; 9] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
+    CcKindV1::Charm, CcKindV1::BlockSkill, CcKindV1::Animation, CcKindV1::ForceMove];
+
+/// 普攻够得着的距离（普攻 55000 + 通碧 10000，中心距离再宽一点）：否决 Q / W 时改打的目标要在这以内。
+const ATTACK_REACH: f64 = 70_000.0;
+/// 生命低于这一比例、AI 在走（多半在跑）：只替它按断魄的 Q。
+const LOW_RUN: f64 = 0.3;
+
+#[derive(Clone, Default)]
+struct Hands;
+
+enum Call {
+    /// 替 AI 按 Q：目标、武器、为什么。
+    Press(usize, usize, &'static str),
+    /// AI 按的 Q / W 不合适：改成这个输入（普攻或站住），记哪一类、为什么。
+    Veto(InputV1, &'static str, String),
+}
+
+impl Hands {
+    fn call(sim: &StableSim<'_>, me: usize, base: Option<InputV1>) -> Option<Call> {
+        let e = sim.get_entity(me)?;
+        if !e.is_alive() || (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| NO_ACT.iter().any(|k| k.code() == c.kind))) {
+            return None;
+        }
+        let (main, off) = weapons_of(sim, me)?;
+        let (team, at, hp) = (e.team(), at_of(&e), hp_share(&e));
+        let foes = foes_of(sim, team);
+        let kind = base.and_then(|b| InputKindV1::from_code(b.kind));
+        let target = base.filter(|b| InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target))
+            .map(|b| b.target.target_id);
+        // the attack a vetoed Q / W turns into: its own target if an enemy, else the nearest enemy in reach, else stand
+        let instead = || {
+            let t = target.filter(|t| foes.iter().any(|f| f.id == *t)).or_else(|| {
+                foes.iter().filter(|f| brain::dist(at, f.at) <= ATTACK_REACH)
+                    .min_by(|a, b| brain::dist(at, a.at).total_cmp(&brain::dist(at, b.at))).map(|f| f.id)
+            });
+            match t {
+                Some(t) => InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)),
+                None => InputV1::move_to(at.0.max(0.0) as u64, at.1.max(0.0) as u64),
+            }
+        };
+        let plan = brain::q_plan(main, off, at, hp, &foes);
+        match kind {
+            Some(InputKindV1::Skill) => match plan {
+                Some((t, why)) if Some(t) != target => Some(Call::Press(t, main, why)),
+                Some(_) => None,
+                None => Some(Call::Veto(instead(), "veto q", format!("Q VETO {}: not the moment for its Q", WEAPONS[main]))),
+            },
+            Some(InputKindV1::Skill2) => {
+                let fits = brain::q_plan(off, main, at, hp, &foes).is_some() && !q_cooling(&e, off);
+                (!fits).then(|| Call::Veto(instead(), "veto w",
+                    format!("W VETO {} -> {}: the off hand's Q does not fit now", WEAPONS[main], WEAPONS[off])))
+            }
+            // the ult (league_ult_press's arm press) and a recall stay as they are
+            Some(InputKindV1::Ult) | Some(InputKindV1::Return) => None,
+            // running away low: only Severum's Q (its heal and speed) is worth stopping for
+            Some(InputKindV1::Move) if hp < LOW_RUN && main != SEV => None,
+            _ => {
+                let ready = e.cooldown(SkillSlotV1::Skill).is_some_and(|c| c.unlocked && c.remaining == 0);
+                let (t, why) = plan.filter(|_| ready && !q_cooling(&e, main))?;
+                Some(Call::Press(t, main, why))
+            }
+        }
+    }
+}
+
+impl StablePlayerAi for Hands {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{ID}:hands")
+    }
+
+    fn priority(&self) -> i32 {
+        HANDS_PRIORITY
+    }
+
+    fn matches(&self, init: &StableAiInit) -> bool {
+        init.champion_name == HERO
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        let player = ctx.player_id();
+        let (call, line) = {
+            let sim = ctx.sim()?;
+            let me = sim.get_player(player)?.champion()?.id();
+            (Hands::call(&sim, me, base)?, head(&sim, me))
+        };
+        match call {
+            Call::Press(t, w, why) => {
+                let input = InputV1::action(InputKindV1::Skill, InputTargetV1::target(t));
+                if !ctx.is_valid_input(&input) {
+                    return None;
+                }
+                if let Some(k) = counted("press") {
+                    wlog(format!("{line} Q PRESS {} on #{t}: {why} #{k}", WEAPONS[w]));
+                }
+                Some(input)
+            }
+            Call::Veto(input, kind, why) => {
+                if input.kind == InputKindV1::Attack.code() && !ctx.is_valid_input(&input) {
+                    return None;
+                }
+                if let Some(k) = counted(kind) {
+                    wlog(format!("{line} {why} #{k}"));
+                }
+                Some(input)
+            }
+        }
     }
 }
 
@@ -340,11 +557,12 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Aphelios: the whole-body weapon forms, the real weapon queue, Severum when low) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Aphelios: the whole-body weapon forms, the real weapon queue, Severum when low, Q / W / R by the situation like a good player) loaded: game {}.{}.{} abi {} log={} ===",
         v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()
     ));
     view::install_once();
     module.add_native_passive(format!("{ID}:queue"), Moon::default());
+    module.add_player_input_ai(Hands);
     host.log(LogLevel::Info, "league_aphelios loaded (weapon forms, the weapon queue, Severum when low).");
 }
 

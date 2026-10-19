@@ -354,8 +354,13 @@ def build(p):
         return combine(flag(f"qcd_{w}", p[f"qcd_{w}"]), flag("q_spent", None), anim(f"q_{w}", tick), sfx(f"q_{w}"),
                        voice(f"vo_q_{w}", p))
 
+    # the add-on's copy (native): the mark is shot off with the main weapon's on-hit at that moment - the add-on swaps
+    # the off hand in as Moonshot leaves (League's Calibrum Q -> W: the mark popped by the other gun, Gravitum's slow and
+    # mark ready for Binding Eclipse); Calibrum itself adds nothing (the main pack's pop unchanged)
+    pop_gift = [by_main(p, dict(off_hit, cal=NONE))] if p["native"] else []
     pop = delayed(p["q_c_pop"], lives(homing("q_c_pop", 20000, p["a_y"], "Enemy",
-                                             [attack(p["q_p_dmg"], p["q_p_ad"]), view("q_c_pop"), tsfx("q_c_pop")])))
+                                             [attack(p["q_p_dmg"], p["q_p_ad"]), view("q_c_pop"), tsfx("q_c_pop")]
+                                             + pop_gift)))
     moonshot = line("q_c_shot", p["q_c_speed"], p["q_c_len"], p["q_c_w"], p["q_c_y"], "EnemyWithoutTower", False,
                     [attack(p["q_c_dmg"], p["q_c_ad"]), view("q_c_hit"), tsfx("q_c_hit"), pop])
     q_cal = combine(q_start("cal", p["q_c_anim"]), lob("q_c_lock", p["q_c_lock"], "Enemy", [lives(moonshot)]))
