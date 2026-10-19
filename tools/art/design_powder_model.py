@@ -32,14 +32,14 @@ SRC = os.path.join(ROOT, "assets", "source", "powder", "codex_model", "powder-mo
 OUT = os.path.join(ROOT, "assets", "source", "powder", "hd")
 ROWS, K = 53, 24
 PICKS = {"idle": "A-2", "side": "S-2"}   # the user's picks, 2026-10-19
-SCALED = {"S-2"}    # brought to the count whole (PD.pixelate votes), then snapped to the pair's palette: a face-kept row
-                    # cut squashed the side drafts' bodies, and every side frame carries the idle's head anyway
+SCALED = set()      # (voted whole scaling broke the side's lines; whole rows/columns cut with no face kept - a face-kept
+                    # cut squashed the body - keep them crisp: every side frame carries the idle's head anyway)
 # name -> (Codex's square px, rows wanted, face rows, face columns) on its own read-back
 DRAFTS = {
     "A-1": (22.0, ROWS, None, None),
     "A-2": (22.0, ROWS, None, None),
-    "S-1": (15.0, ROWS, range(11, 28), range(12, 27)),
-    "S-2": (17.0, ROWS, range(11, 28), range(12, 29)),
+    "S-1": (15.0, ROWS, None, None),
+    "S-2": (17.0, ROWS, None, None),
 }
 
 
