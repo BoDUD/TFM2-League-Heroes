@@ -139,6 +139,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // blade drawn straight, the legs of her steps and lunges drawn on League's bones in the design's colours), PPU 1.5
     // at her old 40 rows, so no SIZES row
     ("league_fiora", 1.5, include_str!("../../../league/champions/league_fiora#anim.fanim")),
+    // LeBlanc: PPU 2.0 (「PPU 2.0 原样」) - Codex's take A of 2026-10-02 as drawn (51 x 86 squares, the staff straightened),
+    // posed after League's clips by tools/art/rig_leblanc_hd.py, the run on Codex's legs
+    ("league_leblanc", 2.0, include_str!("../../../league/champions/league_leblanc#anim.fanim")),
     // Darius (2026-10-18): Codex's design picture (assets/source/darius/PICTURE_PROMPT_PPU.md) read back on its own
     // grid, nothing cut (56 x 61), posed after League's own clips by tools/art/rig_darius_hd.py (the axe hand and the axe
     // turned losslessly, the run on his own legs moved whole), PPU 1.45 at his old 42 rows, so no SIZES row

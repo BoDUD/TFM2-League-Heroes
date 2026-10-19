@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -286,6 +286,13 @@ RESTYLE = {
     # in the design's own colours with its knee guards and boots; the Q dash baked under skill_fx1 (fx)
     # 2026-10-18 face (2,-38): (1,-39) framed five rows of hair, the eyes on rows 6-7, the mouth on the last row
     "fiora": dict(ppu=1.5, edge=1, face_to=(2, -38), fx=True),
+    # league_leblanc (2026-10-19, PPU redo): Codex's take A of 2026-10-02 as drawn, its staff straightened and the leg gaps
+    # filled (tools/art/design_leblanc_hd.py; the user: 「其实这个就挺好的 你只要把法杖做好 利用PPU就行了」, 「PPU 2.0 原样」),
+    # posed after League's clips by tools/art/rig_leblanc_hd.py (the run on Codex's legs, import_leblanc_legs.py), so no
+    # proportion or density change here; the outer outline grown a square like the others; Q's flash, the W trails and
+    # the cast flashes baked into her frames (orig/leblanc_<tag>.over/.under.png) laid on after the outline (fx); the face
+    # point at her crown's tip as before
+    "leblanc": dict(ppu=2.0, edge=1, face_to=(-1, -37), fx=True),
     # Darius (2026-10-18): Codex's design picture read back on its own 17.2 x 16.45-px squares (56 x 61, nothing cut),
     # PPU 1.45 at his old 42 rows (「用 PPU 1.45，和现在一样高」), posed after League's own clips by
     # tools/art/rig_darius_hd.py - the axe hand and the axe turned losslessly, the legs as drawn, moved whole in the run;
