@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "dokkaebi_ult_explode_resource",
+      "volume": 0.55
+    },
+    {
+      "delay": 0.0,
+      "clip": "exorcist_ult_explode_resource",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.05,
+      "clip": "spirit_caller_ult_resource_explode",
+      "volume": 0.45
+    }
+  ]
+}

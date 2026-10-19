@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "gambler_skill2_boom_resource",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.02,
+      "clip": "bomber_skill_hit_resource",
+      "volume": 0.45
+    }
+  ]
+}

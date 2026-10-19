@@ -618,6 +618,11 @@ def main(argv=None):
             # a packed league build keeps its clips in sound/bgm/ (streamed when played), found through the entry
             entry = mod.override.get(f"asset/base/sound/sfx/{clip}")
             target = entry.get("remapping") if isinstance(entry, dict) else None
+            # a base game clip played by name (asset/base/sound/sfx/<clip>, the way base events play theirs: the tft
+            # pack mixes its sounds from base clips and ships no audio) needs no file or entry of the mod's
+            if not entry and bundle is not None and any(bundle.has(f"asset/base/sound/sfx/{clip}", t)
+                                                        for t in ("mp3", "wav")):
+                continue
             if not any(os.path.isfile(os.path.join(sfx_dir, clip + e)) for e in AUDIO_EXT) and \
                     not (target and mod.find_file(target, AUDIO_EXT)):
                 rep.error(mod.rel(p), f"clip '{clip}' has no audio file ({'/'.join(AUDIO_EXT)}) next to it "
