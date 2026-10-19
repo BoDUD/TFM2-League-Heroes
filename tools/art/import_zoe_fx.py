@@ -29,6 +29,8 @@ import import_jhin as J  # noqa: E402
 from build_zoe import P  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "zoe", "codex_fx", "zoe_fx")
+# w_shard came in a pack of its own (the first delivery was drawn from the 17-picture pack)
+SRC_SHARD = os.path.join(ROOT, "assets", "source", "zoe", "codex_fx", "zoe_fx_shard")
 MOD = os.path.join(ROOT, "league")
 PRE = chr(92) * 2 + "?" + chr(92)
 
@@ -81,7 +83,7 @@ FX = {
 
 
 def cells(name, meta):
-    a = np.asarray(Image.open(lp(os.path.join(SRC, meta["pixel_1x"]))).convert("RGBA")).copy()
+    a = np.asarray(Image.open(lp(meta["pixel_1x"])).convert("RGBA")).copy()
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
     a[a[..., 3] == 0] = 0
     w, h = meta["cell_1x"]
@@ -108,13 +110,24 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review", help="write every effect's game-size cells at 6x here")
     a = ap.parse_args()
-    man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
-    meta = {e["id"]: dict(e, pixel_1x=os.path.join("pixel_1x", e["file"])) for e in man["entries"]}
-    if set(meta) != set(FX):
+    meta = {}
+    for src in (SRC, SRC_SHARD):
+        if not os.path.isfile(lp(os.path.join(src, "manifest.json"))):
+            continue
+        man = json.load(open(lp(os.path.join(src, "manifest.json")), encoding="utf-8-sig"))
+        # Codex's manifest (2026-10-19): "effects", each with name, file, pixel_1x, frames and cell_1x
+        for e in man.get("effects") or man["entries"]:
+            meta[e.get("name") or e["id"]] = dict(e, pixel_1x=os.path.join(src, "pixel_1x", e["file"]))
+    missing = set(FX) - set(meta)
+    if set(meta) - set(FX) or missing - {"w_shard"}:
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
-    allc = {n: cells(n, meta[n]) for n in FX}
+    if missing:
+        print("w_shard not delivered yet: the add-on's shard has no picture")
+    allc = {n: cells(n, meta[n]) for n in FX if n in meta}
     tables = {"league_zoe_fx": {}, "league_zoe_big": {}}
     for name, (kind, frames, spots) in FX.items():
+        if name not in allc:
+            continue
         cs = allc[name]
         anc = anchor(cs[0], kind)
         out = [(np.zeros((3, 3, 4), np.uint8) if k == J.EMPTY else J.place(cs[k], anc, spots), ms) for k, ms in frames]
