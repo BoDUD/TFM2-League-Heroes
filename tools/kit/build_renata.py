@@ -26,7 +26,7 @@ so W is fired by the passive controller (league_swain's W, league_zilean's armed
           units toward and past her (into her team), and where it lands every enemy within q_land_r takes q2_dmg +
           q2_ap% AP and, when the thrown one is a champion, a q_stun stun.
   ult     R Hostile Takeover (恶意收购): a 3-tick gate (league_yunara's) on `EnemyChampion` (r_range): two or more enemy
-          champions within r_count, or an enemy champion in CC within r_range, fires it (else the cooldown comes back).
+          champions within r_near, or an enemy champion in CC within r_range, fires it (else the cooldown comes back).
           A wide slow wave (penetrating, r_len) sends every enemy champion it crosses berserk for r_t ticks: it cannot
           attack her team or cast (disarm + silence), and every r_per ticks it lashes out at its own side - r_hit +
           r_hit_ap% AP magic on every enemy of hers within r_lash_r of it, itself guarded by a 4-tick 100% damage
@@ -80,7 +80,9 @@ P = {
     # skill2_fling, 400 ms)
     "q_fling_anim": 24,
     # ult: R (League: 2000 range, berserk 1.25 / 1.75 / 2.25 s, cd 150-110 s)
-    "r_cd": 4800, "r_range": 75000, "r_arm": 360, "r_ally": 45000, "fight_r": 70000, "watch_p": 15, "r_anim": 40, "r_rel": 18, "r_speed": 2000, "r_len": 100000,
+    # r_near: two enemy champions this close arm R (fight_r 70000 until 2026-10-19: 2 R a 10-min sim game even pressed
+    # every time; the user: 「感觉是不放大招啊 烈娜塔」, one enemy 「没啥意义吧」 -> 「用 100000」: 4 a game, kd +1.07)
+    "r_cd": 4800, "r_near": 100000, "r_range": 75000, "r_arm": 360, "r_ally": 45000, "fight_r": 70000, "watch_p": 15, "r_anim": 40, "r_rel": 18, "r_speed": 2000, "r_len": 100000,
     "r_w": 14000, "r_t": 105, "r_per": 30, "r_lash_r": 25000, "r_hit": 70, "r_hit_ap": 40,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -266,7 +268,9 @@ def build(p):
     count = combine(*rm("c_e1", "c_e2", "c_a1", "c_a2", "c_cc"),
                     around(p["fight_r"], "EnemyChampion", [sw("c_e1", flag("c_e2", 3), flag("c_e1", 3))]),
                     around(p["r_ally"], "AllyChampion", [sw("c_a1", flag("c_a2", 3), flag("c_a1", 3))]),
-                    pick(p["r_range"], "EnemyChampionInCC", flag("c_cc", 3)))
+                    pick(p["r_range"], "EnemyChampionInCC", flag("c_cc", 3)),
+                    *([] if p["r_near"] == p["fight_r"] else
+                      [*rm("c_r1", "c_r2"), around(p["r_near"], "EnemyChampion", [sw("c_r1", flag("c_r2", 3), flag("c_r1", 3))])]))
     # W: an allied champion in CC within w_range first, else in a fight (two enemy champions close) one near her
     danger = combine(*rm("w_cc"), pick(p["w_range"], "AllyChampionInCC", flag("w_cc", 1)),
                      sw("w_cc", bail_on(p["w_range"], "AllyChampionInCC"),
@@ -329,7 +333,7 @@ def build(p):
                               cview("r_cast"), delayed(p["r_rel"] - 1, lives(release))))
     # r_ok: two enemy champions close, or an enemy champion in CC with an ally of hers near; with the window open, R
     ok = sw("r_arm", flag("r_go", 1))
-    arm = sw("c_e2", ok, sw("c_cc", sw("c_a2", ok)))
+    arm = sw("c_r2" if p["r_near"] != p["fight_r"] else "c_e2", ok, sw("c_cc", sw("c_a2", ok)))
     watch = on_me(casted(1000000, tick, count, delayed(1, cast_w, arm, fire)))
     life = sw("init", NONE, combine(flag("init", None), watch))
     attack_a["effect"]["effects"].insert(0, life)
