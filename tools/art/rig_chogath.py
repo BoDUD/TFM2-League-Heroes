@@ -61,11 +61,36 @@ LEGS = {"near_hind": (36, 15, 30), "far_hind": (36, 31, 40), "far_front": (37, 4
 FAR = ("far_hind", "far_front")
 
 
+def head_mask(d):
+    """The squares of the idle's head pasted on the side design (design_chogath_side: found back by an exact match of
+    the head's squares) - they stay on the body, never in a leg (the jaw went with the near front leg: 「走路头和脚会
+    重叠在一起」)."""
+    from pack_chogath_side import HEAD
+    idle = load("idle.png")
+    r0, r1, c0, c1 = HEAD
+    head = idle[r0:r1, c0:c1]
+    hm = head[..., 3] > 0
+    best = (-1, 0, 0)
+    for y in range(d.shape[0] - head.shape[0] + 1):
+        for x in range(d.shape[1] - head.shape[1] + 1):
+            win = d[y:y + head.shape[0], x:x + head.shape[1]]
+            n = int(np.all(win[hm] == head[hm], axis=1).sum())
+            if n > best[0]:
+                best = (n, y, x)
+    n, y, x = best
+    if n < 0.95 * hm.sum():
+        sys.exit(f"the idle's head is not on the side design ({n} of {int(hm.sum())} squares)")
+    m = np.zeros(d.shape[:2], bool)
+    m[y:y + head.shape[0], x:x + head.shape[1]] = hm
+    return m
+
+
 def design():
     d = load("side.png")
     D = CutDesign(d, px=stand_col(d))
+    head = head_mask(d)
     for name, (y0, x0, x1) in LEGS.items():
-        D.part(name, D.box(y0, D.H - 1, x0, x1))
+        D.part(name, D.box(y0, D.H - 1, x0, x1) & ~head)
     D.part("body", D.rest())
     return D
 
@@ -125,11 +150,12 @@ class Form:
         legs = legs or {}
         L = self.L
         lay = []
-        for name in ("far_hind", "far_front"):
+        # the front legs go behind the body: lifted, they pass behind the head (in front they covered the jaw)
+        for name in ("far_hind", "far_front", "near_front"):
             dx, dy = legs.get(name, (0, 0))
             lay.append((L[name], dict(dx=wx + dx, dy=wy + dy)))
         lay.append((L["body"], dict(dx=wx + bx, dy=wy + by)))
-        for name in ("near_hind", "near_front"):
+        for name in ("near_hind",):
             dx, dy = legs.get(name, (0, 0))
             lay.append((L[name], dict(dx=wx + dx, dy=wy + dy)))
         can = R.compose(self.rig, lay)
