@@ -16,9 +16,9 @@
     "asset/league/icons/league_rammus_ult"
   ],
   "stat": {
-    "attack": 72,
+    "attack": 84,
     "magic_power": 30,
-    "hp": 1100,
+    "hp": 1250,
     "defence": 44,
     "magic_resistance": 30,
     "move_speed": 1000,
@@ -209,9 +209,9 @@
                                                   "tick": 420
                                                 }
                                               },
-                                              "defence_mult": 40,
-                                              "magic_resistance_mult": 40,
-                                              "damage_reflect": 15
+                                              "defence_mult": 60,
+                                              "magic_resistance_mult": 60,
+                                              "damage_reflect": 25
                                             },
                                             "only_to_enemy": false
                                           }
@@ -265,9 +265,9 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 10,
-                        "attack_ratio": 20,
-                        "hp_ratio": 1,
+                        "damage": 15,
+                        "attack_ratio": 30,
+                        "hp_ratio": 2,
                         "can_crit": false
                       }
                     },
@@ -331,7 +331,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_rammus.skill",
     "duration": 12,
-    "cooltime": 480,
+    "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
     "range": 45000,
@@ -499,9 +499,9 @@
                                                   "tick": 420
                                                 }
                                               },
-                                              "defence_mult": 40,
-                                              "magic_resistance_mult": 40,
-                                              "damage_reflect": 15
+                                              "defence_mult": 60,
+                                              "magic_resistance_mult": 60,
+                                              "damage_reflect": 25
                                             },
                                             "only_to_enemy": false
                                           }
@@ -694,8 +694,8 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 70,
-                                "attack_ratio": 100,
+                                "damage": 110,
+                                "attack_ratio": 110,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               },
@@ -947,9 +947,9 @@
                                                   "tick": 420
                                                 }
                                               },
-                                              "defence_mult": 40,
-                                              "magic_resistance_mult": 40,
-                                              "damage_reflect": 15
+                                              "defence_mult": 60,
+                                              "magic_resistance_mult": 60,
+                                              "damage_reflect": 25
                                             },
                                             "only_to_enemy": false
                                           }
@@ -1068,7 +1068,7 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Taunt",
-                              "duration": 75
+                              "duration": 90
                             }
                           },
                           {
@@ -1079,7 +1079,7 @@
                                 "name": "league_rammus_e_taunt",
                                 "duration": {
                                   "Time": {
-                                    "tick": 75
+                                    "tick": 90
                                   }
                                 }
                               }
@@ -1315,9 +1315,9 @@
                                                   "tick": 420
                                                 }
                                               },
-                                              "defence_mult": 40,
-                                              "magic_resistance_mult": 40,
-                                              "damage_reflect": 15
+                                              "defence_mult": 60,
+                                              "magic_resistance_mult": 60,
+                                              "damage_reflect": 25
                                             },
                                             "only_to_enemy": false
                                           }
@@ -1440,8 +1440,8 @@
               "effects": [
                 {
                   "type": "ApAttack",
-                  "damage": 100,
-                  "attack_ratio": 60,
+                  "damage": 200,
+                  "attack_ratio": 90,
                   "hp_ratio": 0,
                   "can_crit": false
                 },
@@ -1515,8 +1515,8 @@
                 "effects": [
                   {
                     "type": "ApAttack",
-                    "damage": 70,
-                    "attack_ratio": 100,
+                    "damage": 110,
+                    "attack_ratio": 110,
                     "hp_ratio": 0,
                     "can_crit": false
                   },

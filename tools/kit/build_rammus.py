@@ -46,26 +46,31 @@ BIG = "asset/league/effects/league_rammus_big"
 # League units x 100 = ours for skill ranges (the pack's melee attack is 25000 against League's 125). Release ticks will
 # come from the strips (tools/art/rig_rammus.py MS). League's Rammus (V25): 675 +105 hp, 55 +3.5 AD, 35 +4.3 armour,
 # 32 +2.05 MR, 335 move, attack speed 0.656.
+# Numbers = the 10-min classic-SDK simulations (jungle lane 1 against demon, circus_blade, hunter, inquisitor and ninja,
+# three lineups, both sides, seeds 1-8 and 9-16, 2026-10-19; league_jarvaniv +2.57 on seeds 1-8): the draft (hp 1100,
+# atk 72, Q 70 +100%, R 100 +60%, shell 10 +20% +1% hp, W 40% / 15%) -0.82; Q 90 +110%, R 150 +80%, shell 15 +30% +2%,
+# atk 78 +0.00; + hp 1200, W return 25%, Q cd 7 s +0.33; + Q 110, atk 84, hp 1250, taunt 1.5 s +1.30 / +1.82;
+# + R 200 +90%, W 60% = P: +1.67 / +2.77 (about +2.2, Rek'Sai's +2.17).
 P = {
     # stats (base tanks: attack 80 +6, hp 1100 +120, defence 40 +10, mr 30 +5; his armour is his trademark)
-    "hp": 1100, "hp_g": 120, "atk": 72, "atk_g": 6, "mp": 30, "mp_g": 15, "def": 44, "def_g": 11, "mr": 30, "mr_g": 5,
+    "hp": 1250, "hp_g": 120, "atk": 84, "atk_g": 6, "mp": 30, "mp_g": 15, "def": 44, "def_g": 11, "mr": 30, "mr_g": 5,
     "ms": 1000, "ms_g": 11,
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 70, "a_hit": 9, "f_t": 180,
     # passive Spiked Shell (League: 10 + 15% armour magic on every attack)
-    "p_dmg": 10, "p_ap": 20, "p_hp": 1,
+    "p_dmg": 15, "p_ap": 30, "p_hp": 2,
     # W Defensive Ball Curl (League: +22-52 armour +22.5-67.5% bonus armour, the same in MR, 7 s, returns 15 + 10% armour
     # + 10% MR magic to attackers, cd 7 s after it ends)
-    "w_cd": 840, "w_go": 30000, "w_dur": 16, "w_t": 420, "w_def": 40, "w_ref": 15,
+    "w_cd": 840, "w_go": 30000, "w_dur": 16, "w_t": 420, "w_def": 60, "w_ref": 25,
     # Q Powerball (League: rolls up to 6 s, 155-? move speed accelerating, 80-240 + 100% AP r 250 on impact, knock-back
     # 125, slow 40-80% 1 s, cd 12-6)
-    "q_cd": 480, "q_range": 45000, "q_curl": 12, "q_speed": 4000, "q_roll": 120, "q_end": 14, "q_r": 18000,
-    "q_dmg": 70, "q_ap": 100, "q_slow": 40, "q_slow_t": 60, "q_kb_speed": 2500, "q_kb_t": 5,
+    "q_cd": 420, "q_range": 45000, "q_curl": 12, "q_speed": 4000, "q_roll": 120, "q_end": 14, "q_r": 18000,
+    "q_dmg": 110, "q_ap": 110, "q_slow": 40, "q_slow_t": 60, "q_kb_speed": 2500, "q_kb_t": 5,
     # E Frenzying Taunt (League: 325 range, taunt 1.2-2.0 s, cast 0.25 s, cd 12)
-    "e_cd": 720, "e_range": 32500, "e_dur": 20, "e_rel": 8, "e_taunt": 75,
+    "e_cd": 720, "e_range": 32500, "e_dur": 20, "e_rel": 8, "e_taunt": 90,
     # R Soaring Slam (League: 800 range (+ move speed), 100-300 + 60% AP r 400, slow 40-80% 1.5 s, 3 aftershocks over
     # 3.5 s; during Powerball the centre r 200 takes Q's damage and is knocked up 0.75 s; cd 120-90)
     "r_cd": 3600, "r_range": 60000, "r_dur": 36, "r_speed": 4000, "r_end": 14, "r_r": 36000, "r_c": 18000,
-    "r_dmg": 100, "r_ap": 60, "r_slow": 40, "r_slow_t": 90, "r_up": 45, "r_pulses": 3, "r_pp": 70, "r_link": 90,
+    "r_dmg": 200, "r_ap": 90, "r_slow": 40, "r_slow_t": 90, "r_up": 45, "r_pulses": 3, "r_pp": 70, "r_link": 90,
     # the watch
     "watch_p": 12,
     # his sounds, at most one every vo_gap ticks

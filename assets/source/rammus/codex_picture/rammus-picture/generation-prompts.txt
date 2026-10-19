@@ -1,0 +1,12 @@
+Generation tool: built-in image_gen, transparent_background=true.
+The prompts below request target sizes/grid. These are generation requests, not measurements of the delivered files. See HANDOFF.md for measured results.
+
+=== A ===
+Use case: stylized-concept. Create a faithful Rammus pixel-art game character asset using the five supplied reference images. Images 1-3 establish anatomy/colors, images 4-5 establish coarse pixel-art style ONLY. 1536x1536 PNG, genuine transparent alpha, no background, checkerboard, floor, shadow, words, frame, effects or extra subjects. Match the STYLE references closely: coarse uniform 11-pixel square cells on one aligned grid, near-black outer outline TWO cells wide, 3-4 flat shades per material, hard square edges, no gradients, no antialiasing, no dithering or tiny noisy details. Squat armadillo turtle monster, huge orange-gold domed shell with distinct gold-rimmed scale plates and dark brown leather straps; tall cream-yellow cone spikes along its crest, largest middle-back, smaller spikes around the rim. Teal-green skin with dark green spots, cream claws, yellow-tan belly, burgundy leather harness with gray steel studs and a downward large steel spike. Small green turtle head emerges under the shell's hood, two equally sized red-orange eyes at same height, each at least 2 cells with bright highlight. Huge shell/spikes accounts for about 2/3 standing height; short legs, long heavy arms. POSE A ONLY: entire standing idle character in three-quarter front view facing RIGHT, head peeking forward-right, both eyes visible; long arms hanging at sides almost to ground, two short legs planted apart. Near arm/leg image left, far arm/leg image right darker. Match first reference pose : figure about 660px /60 cells tall from highest spike to soles, soles at y=1390 on 1536 canvas, centered horizontally, ample empty transparent space above. Entire spikes/claws inside. Only ONE standing character.
+
+References A: refs/1_rammus_idle.png; refs/2_rammus_frontal.png; refs/5_rammus_splash.png; style/11_style_reksai.png; style/13_style_poppy.png from supplied zip.
+
+=== B ===
+undefined
+
+References B: generated A; refs/6_rammus_ball.png; style/11_style_reksai.png; style/13_style_poppy.png.
