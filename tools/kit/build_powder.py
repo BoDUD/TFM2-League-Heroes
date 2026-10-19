@@ -38,7 +38,8 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 
 # Units: attack range 55000 like every mid; radii count the unit's collision radius (~15000) on top. Timings are
-# placeholders until the strips set them (a_rel / q_rel / e_rel / r_rel = the throw frame). Numbers = the 10-min
+# the strips' (tools/art/rig_powder.py MS): the attack's throw frame 3 from 180 ms (a_rel 11, 380 ms), Q's toss frame 3
+# from 200 ms (q_rel 12), E's slam frame 2 from 70 ms (e_rel 5), R's throw frame 4 from 300 ms (r_rel 18, 620 ms). Numbers = the 10-min
 # classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three
 # lineups, both sides, 8 seeds, 2026-10-19; league_ziggs +1.70 on seeds 1-8): the draft (Q 55 + 45%, E 60 + 40%,
 # R 230 + 90%, burn 6 + 6%) +5.31 (deal 20514; without the crit +1.71 - a 25% crit is +25% of her damage);
@@ -48,18 +49,18 @@ P = {
     # a little less health, a little quicker
     "hp": 860, "hp_g": 95, "atk": 76, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
     "ms": 930, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 27, "atk_cd": 90, "a_rel": 10, "a_speed": 4000,
+    "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 11, "a_speed": 4000,
     # passive Ambusher (TFT 2-5 Ambushers: 20-55% crit chance)
     "p_crit": 25,
     # Monkey Bomb
-    "q_cd": 330, "q_range": 70000, "q_dur": 30, "q_rel": 13, "q_travel": 30, "q_r": 32000, "q_cr": 16000,
+    "q_cd": 330, "q_range": 70000, "q_dur": 29, "q_rel": 12, "q_travel": 30, "q_r": 32000, "q_cr": 16000,
     "q_dmg": 38, "q_ratio": 30, "q_burn": 5, "q_burn_r": 5, "q_burn_p": 30, "q_burn_t": 180,
     "q_wound": 40, "q_wound_t": 240,
     # Run, Powder!
-    "e_cd": 600, "e_range": 24000, "e_dur": 24, "e_rel": 8, "e_r": 28000, "e_dmg": 45, "e_ratio": 30,
+    "e_cd": 600, "e_range": 24000, "e_dur": 24, "e_rel": 5, "e_r": 28000, "e_dmg": 45, "e_ratio": 30,
     "e_blind": 60, "e_hop": 4000, "e_hop_t": 10,
     # The Hex Crystal Bomb
-    "r_cd": 3000, "r_range": 75000, "r_dur": 36, "r_rel": 16, "r_travel": 36, "r_fuse": 54, "r_show": 9,
+    "r_cd": 3000, "r_range": 75000, "r_dur": 37, "r_rel": 18, "r_travel": 36, "r_fuse": 54, "r_show": 9,
     "r_r": 42000, "r_dmg": 170, "r_ratio": 65, "r_up": 45,
 }
 

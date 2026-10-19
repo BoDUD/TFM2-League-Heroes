@@ -38,7 +38,7 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.tft_powder.attack",
-    "duration": 27,
+    "duration": 24,
     "cooltime": 90,
     "start_timing": 1,
     "cancelable": true,
@@ -48,7 +48,7 @@
     "attack_type": "BaseAttack",
     "effect": {
       "type": "Delayed",
-      "tick": 9,
+      "tick": 10,
       "effects": [
         {
           "type": "Sfx",
@@ -94,7 +94,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.tft_powder.skill",
-    "duration": 30,
+    "duration": 29,
     "cooltime": 330,
     "start_timing": 1,
     "cancelable": false,
@@ -111,7 +111,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 12,
+          "tick": 11,
           "effects": [
             {
               "type": "ParabolicProjectile",
@@ -307,7 +307,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 7,
+          "tick": 4,
           "effects": [
             {
               "type": "CasterViewEffect",
@@ -383,7 +383,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.tft_powder.ult",
-    "duration": 36,
+    "duration": 37,
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
@@ -404,7 +404,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 15,
+          "tick": 17,
           "effects": [
             {
               "type": "ParabolicProjectile",

@@ -39,6 +39,7 @@ rewrite of the source), every frame pixel-identical, every MP3 decoding to the W
     python tools/package_mod.py --hero fiora --install         # one hero into <game>/mods/league
     python tools/package_mod.py --install                      # every hero (nobody else testing a hero)
     python tools/package_mod.py --out <folder>                 # e.g. the Workshop upload folder
+    python tools/package_mod.py --src tft --hero powder --install   # another pack in this repo (tft/: mods/tft)
 
 --install merges the way the hero sessions' install scripts did: it writes the selected heroes' files,
 removes a clip's older copies (the .wav of an .mp3, and the copy in sound/sfx/ that installs made before
@@ -582,7 +583,7 @@ def version(v):
     return tuple(int(x) for x in v.split("."))
 
 
-def install(pkg, heroes, target, dry):
+def install(pkg, heroes, target, dry, mod_id="league"):
     wrote = removed = 0
     if DLL in pkg and os.path.isfile(lp(os.path.join(target, DLL))) and read(os.path.join(target, DLL)) != pkg[DLL]:
         print(f"{DLL}: replaced (the game must be closed: a loaded DLL cannot be overwritten)")
@@ -615,7 +616,7 @@ def install(pkg, heroes, target, dry):
         inst = parse_json(read(dst), rel) if os.path.isfile(lp(dst)) else {}
         n = merge_keys(inst, parse_json(pkg[rel], rel), match)
         if rel == "mod.override_info":
-            n += keep_streamed(inst, target)
+            n += keep_streamed(inst, target, mod_id)
         print(f"{rel}: {n} keys refreshed")
         if not dry and (n or not os.path.isfile(lp(dst))):
             write(dst, dump_min(inst))
@@ -643,20 +644,22 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--src", default=os.path.join(REPO, "league"), help="the mod folder to pack (default: league/)")
     ap.add_argument("--out", help="write the whole package here (default: dist/league when not installing)")
-    ap.add_argument("--hero", action="append", help="only this hero (league_<id> or <id>); repeatable")
-    ap.add_argument("--install", action="store_true", help="merge the package into <game>/mods/league")
+    ap.add_argument("--hero", action="append", help="only this hero (<mod_id>_<id> or <id>); repeatable")
+    ap.add_argument("--install", action="store_true", help="merge the package into <game>/mods/<mod_id>")
     ap.add_argument("--game", help="Teamfight Manager2 folder (default: TFM2_GAME_DIR or the usual Steam paths)")
-    ap.add_argument("--target", help="install into this mod folder instead of <game>/mods/league")
+    ap.add_argument("--target", help="install into this mod folder instead of <game>/mods/<mod_id>")
     ap.add_argument("--dry", action="store_true", help="with --install: report, write nothing")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--dll", help=f"ship this {DLL} instead of building addons/league_main")
     a = ap.parse_args()
     t0 = time.time()
+    # the pack's own id: league/ (league_<hero>) or another pack in this repo, tft/ (tft_<hero>: --src tft)
+    mod_id = parse_json(read(os.path.join(a.src, "mod.mod_info")), "mod.mod_info")["mod_id"]
     all_heroes = hero_ids(a.src)
     if a.hero:
         heroes = []
         for h in a.hero:
-            h = h if h.startswith("league_") else "league_" + h
+            h = h if h.startswith(mod_id + "_") else mod_id + "_" + h
             if h not in all_heroes:
                 sys.exit(f"{h}: no champion/{h}.data_champion in {a.src}")
             heroes.append(h)
@@ -668,7 +671,7 @@ def main():
         pkg[DLL] = build_dll(a.dll)
         print(f"{DLL}: {len(pkg[DLL]) / 1e3:.0f} kB")
     print_report(report, time.time() - t0)
-    out = a.out or (None if a.install else os.path.join(REPO, "dist", "league"))
+    out = a.out or (None if a.install else os.path.join(REPO, "dist", mod_id))
     if out:
         if a.hero:
             sys.exit("--out writes a whole package; leave out --hero")
@@ -680,9 +683,9 @@ def main():
             write(os.path.join(out, rel), data)
         print("package:", out)
     if a.install:
-        target = a.target or os.path.join(find_game(a.game), "mods", "league")
+        target = a.target or os.path.join(find_game(a.game), "mods", mod_id)
         print("install:", target, "-", "every hero" if not a.hero else ", ".join(heroes))
-        install(pkg, heroes, target, a.dry)
+        install(pkg, heroes, target, a.dry, mod_id)
 
 
 if __name__ == "__main__":
