@@ -145,7 +145,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -4
+        "y": -8
       }
     },
     "league_annie": {
@@ -179,7 +179,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -3
+        "y": -10
       }
     },
     "league_malphite": {
@@ -193,7 +193,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -4
+        "y": -8
       }
     },
     "league_ekko": {
@@ -255,7 +255,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -4
+        "y": -7
       }
     },
     "league_kayle": {
@@ -269,7 +269,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": 0
+        "y": -5
       }
     },
     "league_ahri": {
@@ -297,7 +297,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -4
+        "y": -10
       }
     },
     "league_lucian": {
@@ -311,7 +311,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -5
+        "y": -8
       }
     },
     "league_briar": {
@@ -325,7 +325,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -5
+        "y": -8
       }
     },
     "league_riven": {
@@ -381,7 +381,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": 0
+        "y": -9
       }
     },
     "league_veigar": {
@@ -537,7 +537,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -4
+        "y": -10
       }
     },
     "league_sona": {
@@ -857,7 +857,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -4
+        "y": -8
       }
     },
     "league_khazix": {
@@ -919,7 +919,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -5
+        "y": -8
       }
     },
     "league_lillia": {
@@ -933,7 +933,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": 0
+        "y": -6
       }
     },
     "league_viktor": {
@@ -1161,7 +1161,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -2
+        "y": -7
       }
     },
     "league_gragas": {
@@ -1245,7 +1245,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": 0
+        "y": -8
       }
     },
     "league_nidalee": {
@@ -1259,7 +1259,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -6
+        "y": -10
       }
     },
     "league_galio": {
@@ -1273,7 +1273,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": 0
+        "y": -7
       }
     },
     "league_nilah": {
@@ -1307,7 +1307,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -4
+        "y": -8
       }
     },
     "league_kindred": {
@@ -1365,7 +1365,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -1
+        "y": -9
       }
     },
     "league_katarina": {
@@ -1393,7 +1393,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -2
+        "y": -9
       }
     },
     "league_tahmkench": {
@@ -1407,7 +1407,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -6
+        "y": -10
       }
     },
     "league_kalista": {
@@ -1435,7 +1435,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -6
+        "y": -10
       }
     },
     "league_pantheon": {
@@ -1487,7 +1487,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -5
+        "y": -10
       }
     },
     "league_reksai": {
@@ -1553,7 +1553,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -1
+        "y": -9
       }
     },
     "league_nasus": {
@@ -1567,7 +1567,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -6
+        "y": -11
       }
     },
     "league_anivia": {
@@ -1661,7 +1661,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -6
+        "y": -11
       }
     },
     "league_akshan": {

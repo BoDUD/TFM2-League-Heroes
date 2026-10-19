@@ -38,7 +38,7 @@ E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28) - the round
 # crown of design_gwen's step 16 (2026-10-09) tops the idle at -29: face -39, the card -39 - (-29) = -10
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -9 -> -4: the blade over her shoulder was cut ~7 px (the rule's 0 sat her low)
-VIEW = {"face": {"x": 2, "y": -38}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -4}}   # 10-09 design 2: the hair's crown 38 over the feet; the idle top -38 (the blade over her shoulder) -> the card clipped with the cowlick (-30) 1 px under its top
+VIEW = {"face": {"x": 2, "y": -38}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -8}}   # 10-09 design 2: the hair's crown 38 over the feet; the idle top -38 (the blade over her shoulder) -> the card clipped with the cowlick (-30) 1 px under its top
 
 
 def mag(d, r):
