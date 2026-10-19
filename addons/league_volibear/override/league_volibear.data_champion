@@ -1,0 +1,2619 @@
+{
+  "id": "league_volibear",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_volibear",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_volibear_skill",
+    "asset/league/icons/league_volibear_skill2",
+    "asset/league/icons/league_volibear_ult"
+  ],
+  "stat": {
+    "attack": 88,
+    "magic_power": 20,
+    "hp": 1100,
+    "defence": 32,
+    "magic_resistance": 26,
+    "move_speed": 1020,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 14,
+    "magic_power": 8,
+    "hp": 105,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_volibear.attack",
+    "duration": 30,
+    "cooltime": 72,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_volibear_w_cd",
+      "effect_buff": {
+        "type": "Delayed",
+        "tick": 11,
+        "effects": [
+          {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_volibear_a_swing"
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "league_volibear_a_blow",
+                "speed": 8000,
+                "y_offset": 0,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_volibear_a_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_volibear_a_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_volibear_p4",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p4"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p5"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p3",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p4",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p5",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_volibear_p3",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p1"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p2"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p4"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p5"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p4",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_volibear_p2",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p1"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p2"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p3"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p4"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p5"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_volibear_p1",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 360
+                                    }
+                                  },
+                                  "attack_speed_mult": 6
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_volibear_p2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 360
+                                    }
+                                  },
+                                  "attack_speed_mult": 6
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_volibear_p3",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 360
+                                    }
+                                  },
+                                  "attack_speed_mult": 6
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_volibear_p1",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p3"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p4"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p5"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_volibear_p1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "attack_speed_mult": 6
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_volibear_p2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "attack_speed_mult": 6
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p3"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p4"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p5"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_volibear_p1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "attack_speed_mult": 6
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "SwitchByBuff",
+            "buff_name": "league_volibear_p5",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_volibear_p_bolt"
+                },
+                {
+                  "type": "Native",
+                  "effect_ref": "league_volibear:storm"
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": []
+            }
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "league_volibear_w_cd",
+              "duration": {
+                "Time": {
+                  "tick": 300
+                }
+              }
+            },
+            "only_to_enemy": false
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "attack_w",
+            "tick": 28
+          },
+          {
+            "type": "Sfx",
+            "name": "league_volibear_w"
+          },
+          {
+            "type": "SwitchByBuff",
+            "buff_name": "league_volibear_vo_cd",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_volibear_vo_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 600
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_volibear_vo_w"
+                }
+              ]
+            }
+          },
+          {
+            "type": "Delayed",
+            "tick": 9,
+            "effects": [
+              {
+                "type": "TargetProjectile",
+                "name": "league_volibear_w_bite",
+                "speed": 8000,
+                "y_offset": 0,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 30,
+                      "attack_ratio": 140,
+                      "hp_ratio": 2,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_volibear_w_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_volibear_w_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_volibear_p4",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p4"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p5"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p3",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p4",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p5",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_volibear_p3",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p1"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p2"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p4"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p5"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p4",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_volibear_p2",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p1"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p2"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p3"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p4"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_volibear_p5"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_volibear_p1",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 360
+                                    }
+                                  },
+                                  "attack_speed_mult": 6
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_volibear_p2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 360
+                                    }
+                                  },
+                                  "attack_speed_mult": 6
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_volibear_p3",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 360
+                                    }
+                                  },
+                                  "attack_speed_mult": 6
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_volibear_p1",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p3"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p4"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p5"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_volibear_p1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "attack_speed_mult": 6
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_volibear_p2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "attack_speed_mult": 6
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p3"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p4"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_volibear_p5"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_volibear_p1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "attack_speed_mult": 6
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "league_volibear_w_twin",
+                "speed": 8000,
+                "y_offset": 0,
+                "applied_target": "EnemyChampion",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Native",
+                      "effect_ref": "league_volibear:maul"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_volibear_p5",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "Sfx",
+                      "name": "league_volibear_p_bolt"
+                    },
+                    {
+                      "type": "Native",
+                      "effect_ref": "league_volibear:storm"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill_run",
+    "description": "#asset/base/text/champion?description.league_volibear.skill_run",
+    "duration": 3,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_volibear_q_ms"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_volibear_q_ms",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                },
+                "move_speed_mult": 40
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "skill_run",
+          "tick": 64
+        },
+        {
+          "type": "Sfx",
+          "name": "league_volibear_q"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_volibear_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_volibear_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_volibear_vo_q"
+              }
+            ]
+          }
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 1600,
+          "range": 100000,
+          "end_effects": [
+            {
+              "type": "CasterAnimation",
+              "name": "skill",
+              "tick": 33
+            },
+            {
+              "type": "Sfx",
+              "name": "league_volibear_q_smash"
+            },
+            {
+              "type": "Delayed",
+              "tick": 17,
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 40,
+                  "attack_ratio": 160,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "Stun",
+                  "duration": 60
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_volibear_q_stun",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_volibear_q_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_volibear_q_hit"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_volibear_p4",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p4"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p5"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p1",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p2",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p3",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p4",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p5",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_volibear_p3",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p4"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p5"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p1",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p2",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p3",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p4",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_volibear_p2",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p4"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p5"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p3",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_volibear_p1",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p1"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p2"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p4"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p5"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p1"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p2"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p4"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p5"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_volibear.skill2",
+    "duration": 30,
+    "cooltime": 900,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 100000,
+    "casting_type": "Position",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_volibear_e"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_volibear_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_volibear_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_volibear_vo_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_volibear_p4",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_volibear_p1"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_volibear_p2"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_volibear_p3"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_volibear_p4"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_volibear_p5"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_volibear_p1",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      },
+                      "attack_speed_mult": 6
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_volibear_p2",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      },
+                      "attack_speed_mult": 6
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_volibear_p3",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      },
+                      "attack_speed_mult": 6
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_volibear_p4",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      },
+                      "attack_speed_mult": 6
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_volibear_p5",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      },
+                      "attack_speed_mult": 6
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_volibear_p3",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_volibear_p1"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_volibear_p2"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_volibear_p3"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_volibear_p4"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_volibear_p5"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_volibear_p1",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        },
+                        "attack_speed_mult": 6
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_volibear_p2",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        },
+                        "attack_speed_mult": 6
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_volibear_p3",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        },
+                        "attack_speed_mult": 6
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_volibear_p4",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        },
+                        "attack_speed_mult": 6
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_volibear_p2",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p4"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p5"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p1",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p2",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p3",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_volibear_p1",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p4"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p5"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p1",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p2",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p4"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p5"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p1",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "ViewEffect",
+              "name": "league_volibear_e_cloud"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_volibear_e_cloud"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 102,
+          "effects": [
+            {
+              "type": "ViewEffect",
+              "name": "league_volibear_e_bolt"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_volibear_e_bolt"
+            },
+            {
+              "type": "RangeProjectile",
+              "name": "league_volibear_e_z",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "delay": 1,
+              "apply": 1,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 80,
+                    "attack_ratio": 70,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_volibear_e_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 120
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_volibear_e_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_volibear_e_hit"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "RangeProjectile",
+              "name": "league_volibear_e_c",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "delay": 1,
+              "apply": 1,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 6,
+                    "attack_effect_type": "Target"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "RangeProjectile",
+              "name": "league_volibear_e_me",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "delay": 1,
+              "apply": 1,
+              "applied_target": "AllyOnlySelf",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Shield",
+                    "amount": 120,
+                    "attack_ratio": 0,
+                    "ap_ratio": 75,
+                    "tick": 180
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_volibear_e_sh",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_volibear.ult",
+    "duration": 3,
+    "cooltime": 3600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 60
+        },
+        {
+          "type": "Sfx",
+          "name": "league_volibear_r"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_volibear_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_volibear_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_volibear_vo_r"
+              }
+            ]
+          }
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_volibear_r_air",
+            "duration": {
+              "Time": {
+                "tick": 60
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 2200,
+          "range": 400000,
+          "end_effects": [
+            {
+              "type": "CasterAnimation",
+              "name": "ult_land",
+              "tick": 24
+            },
+            {
+              "type": "Sfx",
+              "name": "league_volibear_r_land"
+            },
+            {
+              "type": "Delayed",
+              "tick": 4,
+              "effects": [
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_volibear_r_land"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 32000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 200,
+                      "attack_ratio": 120,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_volibear_r_slow",
+                        "duration": {
+                          "Time": {
+                            "tick": 60
+                          }
+                        },
+                        "move_speed_mult": -50
+                      }
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_volibear_r_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_volibear_r_hit"
+                    }
+                  ]
+                },
+                {
+                  "type": "Native",
+                  "effect_ref": "league_volibear:stormbringer"
+                }
+              ]
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_volibear_r_form"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_volibear_r_form",
+                    "duration": {
+                      "Time": {
+                        "tick": 720
+                      }
+                    },
+                    "hp": 350,
+                    "range": 5000
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_volibear_p4",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p4"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_volibear_p5"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p1",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p2",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p3",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p4",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_volibear_p5",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 6
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_volibear_p3",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p4"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_volibear_p5"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p1",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p2",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p3",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_volibear_p4",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 6
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_volibear_p2",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p4"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_volibear_p5"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_volibear_p3",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
+                                }
+                              },
+                              "attack_speed_mult": 6
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_volibear_p1",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p1"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p2"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p4"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p5"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p1"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p2"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p4"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_volibear_p5"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_volibear_p1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 6
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_volibear_p_bolt",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "p_bolt",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_volibear_a_hit",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_volibear_p_hit",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "p_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_volibear_w_hit",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "w_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_volibear_w_heal",
+      "anim": "asset/league/effects/league_volibear_big",
+      "tag": "w_heal",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_volibear_q_hit",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_volibear_e_cloud",
+      "anim": "asset/league/effects/league_volibear_big",
+      "tag": "e_cloud",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_volibear_e_bolt",
+      "anim": "asset/league/effects/league_volibear_big",
+      "tag": "e_bolt",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_volibear_e_hit",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_volibear_r_land",
+      "anim": "asset/league/effects/league_volibear_big",
+      "tag": "r_land",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_volibear_r_hit",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_volibear_w_mark",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "w_mark",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_volibear_q_ms",
+      "anim": "asset/league/effects/league_volibear_big",
+      "tag": "q_ms",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_volibear_q_stun",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "q_stun",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_volibear_e_slow",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_volibear_e_sh",
+      "anim": "asset/league/effects/league_volibear_big",
+      "tag": "e_sh",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_volibear_r_form",
+      "anim": "asset/league/effects/league_volibear_big",
+      "tag": "r_form",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_volibear_p_zap",
+      "anim": "asset/league/effects/league_volibear_fx",
+      "tag": "p_hit",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_volibear_w_healed",
+      "anim": "asset/league/effects/league_volibear_big",
+      "tag": "w_heal",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_volibear_r_tower",
+      "anim": "asset/league/effects/league_volibear_big",
+      "tag": "r_tower",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

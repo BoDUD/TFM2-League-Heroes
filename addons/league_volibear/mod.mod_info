@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.164.0"
+    }
+  ],
+  "description": "Test build of Volibear as in League (needs League of Legends Heroes): replaces the main pack's Volibear so The Relentless Storm's five-stack lightning strikes the target and the 4 nearest enemies (the main pack: a bolt that splashes round the target), Frenzied Maul keeps its mark on the champion bitten and the second bite heals by his missing health (the main pack: any second maul, a flat heal), and Stormbringer's landing disables nearby enemy towers. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-19",
+  "mod_id": "league_volibear",
+  "mod_type": "native",
+  "name": "League Heroes: Volibear's chain lightning, marked maul and tower silence (test)",
+  "version": "0.1.0"
+}

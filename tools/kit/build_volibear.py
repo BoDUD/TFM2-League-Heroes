@@ -25,9 +25,9 @@ League's four buttons: Thundering Smash is `skill`, Sky Splitter `skill2`, Storm
           and lands on him: r_dmg + r_ratio% AD to every enemy within r_r, r_slow% slow for r_slow_t; for r_form ticks
           he keeps r_hp more health and r_range_add more attack range (League's transformation). League also disables
           the towers near the landing: the add-on's.
-The add-on copy (--native, addons/league_volibear): the passive league_volibear:storm chains the five-stack lightning
-to the 4 nearest enemies and heals the second maul by missing health; R's landing league_volibear:stormbringer
-silences nearby enemy towers.
+The add-on copy (--native, addons/league_volibear): the five-stack lightning is league_volibear:storm (the target and
+the 4 nearest enemies), the maul's champion hit league_volibear:maul (the mark kept on the champion bitten, the second
+bite healing by missing health), R's landing league_volibear:stormbringer (nearby enemy towers silenced).
 """
 import argparse
 import json
@@ -41,7 +41,9 @@ FX = "asset/league/effects/league_volibear_fx"
 BIG = "asset/league/effects/league_volibear_big"
 
 # League units x 100 = ours for skill ranges (the pack's melee attack is 25000 against League's 150). Release ticks
-# are placeholders until the strips set them (rig_volibear.MS). League 16.20 (Volibear.bin): Q 10-60 +... bonus AD,
+# from the strips (rig_volibear.MS): the attack's rake on tick 12 (frame 3), the maul's bite on tick 10 (attack_w frame 3),
+# Q's slam 17 ticks into the pounce (frame 4), E's warning when the claw is up (13, skill2 frame 3), R in the air for
+# the ult tag's 60 ticks and its landing slam 4 ticks into ult_land. League 16.20 (Volibear.bin): Q 10-60 +... bonus AD,
 # +8.5-59% ms toward champions for 4 s, stun 1 s, cd 14-10; W 5-130 +100% bonus AD +6% bonus hp, mark 8 s, the
 # second x1.5 and heals 20-95 + 8-23% missing hp, cd 5; E 50-230 +70% AP +10-16% max hp magic, r 325, slow 40% 2 s,
 # shield 14% max hp + 75% AP 3 s, cd 16, range 1200; R leap 700, 300-1300 +250% bonus AD +125% AP, r 550 (radius
@@ -50,18 +52,18 @@ BIG = "asset/league/effects/league_volibear_big"
 P = {
     "hp": 1100, "hp_g": 105, "atk": 88, "atk_g": 14, "mp": 20, "mp_g": 8, "def": 32, "def_g": 7, "mr": 26, "mr_g": 4,
     "ms": 1020, "ms_g": 10,
-    "atk_range": 25000, "atk_dur": 26, "atk_cd": 72, "atk_st": 12,
+    "atk_range": 25000, "atk_dur": 30, "atk_cd": 72, "atk_st": 12,
     # passive The Relentless Storm
     "p_t": 360, "p_as": 6, "p_dmg": 30, "p_ap": 40, "p_r": 22000, "p_speed": 9000,
     # W Frenzied Maul (in the attack)
-    "w_cd": 300, "w_dmg": 30, "w_ratio": 40, "w_hp": 2, "w_mark_t": 480, "w2": 50, "w_heal": 40, "w_heal_ad": 50,
+    "w_cd": 300, "w_dur": 28, "w_st": 10, "w_dmg": 30, "w_ratio": 40, "w_hp": 2, "w_mark_t": 480, "w2": 50, "w_heal": 40, "w_heal_ad": 50,
     # the add-on's heal (League: 8-23% of his missing health by rank)
     "w_heal_miss": 12,
     # Q Thundering Smash
-    "q_cd": 720, "q_range": 60000, "q_ms": 40, "q_t": 240, "q_speed": 1600, "q_dur": 22, "q_rel": 8, "q_dmg": 40,
-    "q_ratio": 60, "q_stun": 60, "q_run": 60,
+    "q_cd": 720, "q_range": 60000, "q_ms": 40, "q_t": 240, "q_speed": 1600, "q_dur": 33, "q_rel": 17, "q_dmg": 40,
+    "q_ratio": 60, "q_stun": 60, "q_run": 64,
     # E Sky Splitter
-    "e_cd": 900, "e_range": 100000, "e_dur": 24, "e_rel": 10, "e_delay": 90, "e_r": 30000, "e_dmg": 80, "e_ap": 70,
+    "e_cd": 900, "e_range": 100000, "e_dur": 30, "e_rel": 13, "e_delay": 90, "e_r": 30000, "e_dmg": 80, "e_ap": 70,
     "e_hp": 6, "e_slow": 40, "e_slow_t": 120, "e_sh": 120, "e_sh_ap": 75, "e_sh_t": 180,
     # R Stormbringer
     "r_cd": 3600, "r_range": 70000, "r_speed": 2200, "r_up": 60, "r_land_t": 24, "r_rel": 4, "r_r": 32000,
@@ -227,24 +229,25 @@ def build(p):
 
     # ------------------------------------------------------------------ passive: the five-stack lightning
     bolt = [ap(p["p_dmg"], p["p_ap"]), view("p_hit"), tsfx("p_hit")]
-    storm = sw("p5", native("storm") if nat else combine(sfx("p_bolt"), splash("p_bolt", p["p_speed"], p["p_r"], bolt)))
+    storm = sw("p5", combine(sfx("p_bolt"), native("storm") if nat else splash("p_bolt", p["p_speed"], p["p_r"], bolt)))
 
     # ------------------------------------------------------------------ attack + W Frenzied Maul
     blow = combine(sfx("a_swing"), homing("a_blow", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit"), stack],
                                           8000))
-    heal = native("maul") if nat else {"type": "Heal", "amount": p["w_heal"], "attack_ratio": p["w_heal_ad"],
-                                       "ap_ratio": 0, "heal_type": "Caster"}
+    heal = {"type": "Heal", "amount": p["w_heal"], "attack_ratio": p["w_heal_ad"], "ap_ratio": 0, "heal_type": "Caster"}
     second = combine(*rm("w_mark"), attack(p["w_dmg"] * p["w2"] // 100, p["w_ratio"] * p["w2"] // 100,
                                            mine=p["w_hp"] * p["w2"] // 100),
                      on_me(heal, cview("w_heal")), tsfx("w_heal"))
     first = combine(refresh("w_mark", p["w_mark_t"]), buff("w_mark", p["w_mark_t"]))
-    maul = combine(flag("w_cd", p["w_cd"]), anim("attack_w", p["atk_dur"]), sfx("w"), voice("vo_w", p),
-                   homing("w_bite", "Enemy", [attack(p["w_dmg"], 100 + p["w_ratio"], mine=p["w_hp"]), view("w_hit"),
-                                              tsfx("w_hit"), stack], 8000),
-                   homing("w_twin", "EnemyChampion", [sw("w_mark", second, first)], 8000))
-    swing = combine(sw("w_cd", blow, maul), storm)
+    maul = combine(flag("w_cd", p["w_cd"]), anim("attack_w", p["w_dur"]), sfx("w"), voice("vo_w", p),
+                   delayed(p["w_st"] - 1,
+                           homing("w_bite", "Enemy", [attack(p["w_dmg"], 100 + p["w_ratio"], mine=p["w_hp"]),
+                                                      view("w_hit"), tsfx("w_hit"), stack], 8000),
+                           homing("w_twin", "EnemyChampion", [native("maul") if nat else sw("w_mark", second, first)],
+                                  8000), storm))
+    # the maul is chosen as the attack starts, so its own strip (attack_w) plays from the first tick
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      delayed(p["atk_st"] - 1, swing), atype="BaseAttack", cancel=True)
+                      sw("w_cd", delayed(p["atk_st"] - 1, blow, storm), maul), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Thundering Smash
     smash = [attack(p["q_dmg"], 100 + p["q_ratio"]), {"type": "Stun", "duration": p["q_stun"]},
@@ -287,13 +290,14 @@ def build(p):
     Pj = lambda name, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                  "z": 2}
     views_p = [Pj("p_bolt")]
-    views_e = [E("a_hit"), E("p_hit"), E("w_hit"), E("w_heal"), E("q_hit"), E("e_cloud", BIG, -1, False),
+    views_e = [E("a_hit"), E("p_hit"), E("w_hit"), E("w_heal", BIG), E("q_hit"), E("e_cloud", BIG, -1, False),
                E("e_bolt", BIG, 3, False), E("e_hit"), E("r_land", BIG, -1), E("r_hit")]
-    views_b = [B_("w_mark"), B_("q_ms", FX, -1), B_("q_stun"), B_("e_slow"), B_("e_sh", FX, 3), B_("r_form", BIG, -1)]
-    extra = {}
+    views_b = [B_("w_mark"), B_("q_ms", BIG, -1), B_("q_stun"), B_("e_slow"), B_("e_sh", BIG, 3), B_("r_form", BIG, -1)]
     if nat:
-        extra["passive"] = {"passive_ref": f"{ID}:storm", "params": {
-            k: p[k] for k in ("p_dmg", "p_ap", "p_r", "w_heal", "w_heal_ad", "w_heal_miss", "r_tower_r", "r_tower_t")}}
+        # the add-on's buffs, shown by name: the chain lightning on each unit it strikes (p_hit's picture), the second
+        # bite's heal on him (w_heal's), the silenced tower
+        views_b += [dict(B_("p_zap"), tag="p_hit"), dict(B_("w_healed", BIG, 2), tag="w_heal"), B_("r_tower", BIG, 3)]
+    extra = {}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
