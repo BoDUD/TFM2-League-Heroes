@@ -6,12 +6,15 @@ included), then only the squares below the gold belt - the legs and the gown - t
 snapped to the design's palette; the upper body, the staff arm and the cape at her back stay the design's own
 (Codex redrew them, 「上半身和披风经过模型重绘」 in its HANDOFF).
 
-    python tools/art/import_leblanc_legs.py --sheet <leblanc-legs-run.png> [--review DIR]
+    python tools/art/import_leblanc_legs.py --sheet <leblanc-legs2-run.png> [--new-shades N]
+
+Round 1 (sheer brown stockings, --new-shades 3: the colours the design had none of cut to three shades and added)
+was turned down (「腿有点变形啊 待机的腿和走路的腿不一样？」); round 2 (LEG_PROMPTS_2.md: the legs as the idle's, bare
+pale thighs and navy gold-trimmed knee boots) is snapped to the design's own palette alone (the default).
 
 -> assets/source/leblanc/hd/run_lower_<k>.png (k 0-7): the design-sized lower layer of run frame k on a canvas
 LOW_PAD squares wider each side (a stride reaches past the design's columns), rows from HIP_ROW + 1 down, and
-hd/run_lower.json (each frame's bob in rows). With --review: the eight frames (our upper body over the read-back
-lower half) beside Codex's cells at 6x.
+hd/run_lower.json (each frame's bob in rows).
 """
 import argparse
 import json
@@ -30,7 +33,8 @@ import ppu_rig as R  # noqa: E402
 HD = os.path.join(R.ROOT, "assets", "source", "leblanc", "hd")
 LOW_PAD = 12                      # squares either side of the design's columns the lower layer may reach
 SEARCH = 14                       # px searched round the expected place of each cell's upper body
-NEW_DIST, NEW_SHADES = 40, 3      # a colour this far from every design colour is new; the new ones cut to this many
+NEW_DIST = 40                     # a colour this far from every design colour is new (--new-shades cuts those to N)
+SKIN = (253, 218, 202)            # the design's skin
 
 
 def is_key(p):
@@ -42,7 +46,7 @@ def palette():
     return np.unique(d[d[..., 3] > 0][:, :3], axis=0).astype(int)
 
 
-def read(sheet_path):
+def read(sheet_path, new_shades=0):
     src = np.asarray(Image.open(sheet_path).convert("RGB")).astype(int)
     H, W = src.shape[:2]
     cw, ch = W / 4, H / 2
@@ -90,15 +94,22 @@ def read(sheet_path):
     # NEW_SHADES by k-means and added to the palette; every square then snapped to the nearest
     allpx = np.concatenate([f[0][f[0][..., 3] > 0][:, :3].astype(int) for f in frames])
     far = allpx[np.min(((allpx[:, None, :] - pal[None]) ** 2).sum(-1), 1) > NEW_DIST ** 2]
-    if len(far) >= NEW_SHADES:
-        cents = kmeans(far, NEW_SHADES)
+    print("squares far from every design colour:", len(far), "of", len(allpx))
+    if new_shades and len(far) >= new_shades:
+        cents = kmeans(far, new_shades)
         pal = np.concatenate([pal, cents])
     print("palette", len(pal), "added", len(pal) - len(palette()))
     for f in frames:
         low = f[0]
         m = low[..., 3] > 0
         px = low[m][:, :3].astype(int)
-        low[m, :3] = pal[np.argmin(((px[:, None, :] - pal[None]) ** 2).sum(-1), 1)]
+        snapped = pal[np.argmin(((px[:, None, :] - pal[None]) ** 2).sum(-1), 1)]
+        # the thighs' shading: the design draws skin in one colour (SKIN); Codex's pinker and paler skin squares went to
+        # the gold nearest them - skin-like squares take SKIN
+        r_, g_, b_ = px[:, 0], px[:, 1], px[:, 2]
+        skin = (r_ > 190) & (g_ > 120) & (b_ > 100) & (r_ - b_ < 130) & (g_ - b_ < 70)
+        snapped[skin] = SKIN
+        low[m, :3] = snapped
         # one-square dark hairs (clear on both sides: Codex's own cape edge hanging beside the design's cape) go
         for _ in range(4):
             op = low[..., 3] > 0
@@ -134,9 +145,9 @@ def kmeans(px, k, iters=30):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sheet", required=True)
-    ap.add_argument("--review")
+    ap.add_argument("--new-shades", type=int, default=0)
     a = ap.parse_args()
-    frames = read(a.sheet)
+    frames = read(a.sheet, a.new_shades)
     meta = []
     for k, (low, bob, score, dx, dy) in enumerate(frames):
         Image.fromarray(low).save(R.lp(os.path.join(HD, f"run_lower_{k}.png")))
