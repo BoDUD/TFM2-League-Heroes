@@ -95,7 +95,7 @@ pub const SOULS: &[(&str, &str, &[&str])] = &[
     ("league_khazix", "assassin", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_kindred", "range", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_ult", "hd_w_cast", "hit", "idle", "lo_attack", "lo_dead", "lo_hit", "lo_idle", "lo_run", "lo_skill", "lo_skill2", "lo_ult", "lo_w_cast", "run", "skill", "skill2", "ult", "w_cast"]),
     ("league_kogmaw", "range", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
-    ("league_leblanc", "mage", &["attack", "attack_fx1", "dead", "e", "e_fx1", "e_fx2", "hit", "idle", "run", "skill", "skill2", "skill2_back", "skill2_fx1", "skill2_fx2", "ult", "ult_fx1"]),
+    ("league_leblanc", "mage", &["attack", "attack_fx1", "dead", "e", "e_fx1", "e_fx2", "hd_attack", "hd_attack_fx1", "hd_dead", "hd_e", "hd_e_fx1", "hd_e_fx2", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_skill2_back", "hd_skill2_fx1", "hd_skill2_fx2", "hd_ult", "hd_ult_fx1", "hit", "idle", "lo_attack", "lo_attack_fx1", "lo_dead", "lo_e", "lo_e_fx1", "lo_e_fx2", "lo_hit", "lo_idle", "lo_run", "lo_skill", "lo_skill2", "lo_skill2_back", "lo_skill2_fx1", "lo_skill2_fx2", "lo_ult", "lo_ult_fx1", "run", "skill", "skill2", "skill2_back", "skill2_fx1", "skill2_fx2", "ult", "ult_fx1"]),
     ("league_leesin", "assassin", &["attack", "dead", "hit", "idle", "q2", "q_throw", "run", "skill", "skill2", "ult"]),
     ("league_leona", "util", &["attack", "dead", "e_dash", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_lillia", "melee", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "skill2_w", "ult"]),
