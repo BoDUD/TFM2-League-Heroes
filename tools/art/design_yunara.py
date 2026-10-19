@@ -17,6 +17,12 @@ design_yunara_cut.py cuts) ran through the beads at different places and squashe
         the brown on its lower left, three studs; her beads are this one bead turned by quarter turns (exact) so they
         do not look stamped and seem to spin as they turn;
   where the beads float: their centres in model2 carried through the body's kept rows and columns.
+  eyes  redrawn on the cut grid (EYES): Codex drew the closed eye as a slanted line, and the cut kept two of its squares
+        on a diagonal - one black dot with a tail (the user, 2026-10-19: 「芸安娜的眼睛有点怪 美化一下帮我」); now the
+        picture's own idea (PICTURE_PROMPT.md: half-closed calm eyes, dark drooping lashes, pale violet-blue only in
+        the eyes): the upper lid dark, the outer lash drooping, the iris under it pale to deeper violet-blue, the far
+        eye the same at the cheek's edge; the brown brows under the bangs taken off (pressed on the lids they read as
+        a frown) and the lips pale pink.
 The violet dragon-head bead hangs from her far hand by its streamers: it stays with the body (it moves with that hand).
 Writes assets/source/yunara/hd/design.png (the body), design_keep.json (model2's kept rows / columns), bead.png and
 beads.json (the six beads' centres on the design's grid and their quarter turns), and with --review an 8x sheet of
@@ -48,6 +54,15 @@ TOUCHING = [
     (29.0, 14.5, 7.0, lambda R, C: C <= 19),                               # by the ornaments' tassel (column 20)
     (75.5, 51.0, 6.8, lambda R, C: (C >= 45) & ~((R >= 79) & (C == 45))),  # by the trousers' outline (column 44)
 ]
+# her eyes on the cut design, columns 12-17 from row 12 down ('=' keeps the cut's square): K the outline's dark (lids,
+# lashes), d skin, P / Q the iris (pale / deeper violet-blue), v the lips' pale pink
+EYES_AT = (12, 12)
+EYES = ["= d d = = =",
+        "= K K = K =",
+        "K P Q = Q =",
+        "= = = = = =",
+        "= = = v = ="]
+EYE_COLOURS = dict(K=(8, 2, 14), d=(0xfb, 0xbe, 0xa3), P=(0x9a, 0xa6, 0xf5), Q=(0x62, 0x66, 0xd6), v=(0xe3, 0x7e, 0x9c))
 BEAD = 7                          # the bead's rows and columns on the design
 OUTLINE = (8, 2, 14)              # the design's own outline colour
 BEAD_COLOURS = {"O": OUTLINE, "B": (164, 81, 50), "K": (91, 51, 53), "G": (223, 155, 48), "L": (248, 194, 68),
@@ -147,6 +162,11 @@ def main():
     body = body[y0:ys.max() + 1, x0:xs.max() + 1]
     body = G.complete_outline(body, color=OUTLINE)[0]       # the tassel's and trousers' edges where a bead touched
     design, rows, cols = cut_body(body)
+    x0e, y0e = EYES_AT
+    for j, row in enumerate(EYES):
+        for i, ch in enumerate(row.split()):
+            if ch != "=":
+                design[y0e + j, x0e + i] = (*EYE_COLOURS[ch], 255)
     keep = {"rows": [int(r) + y0 for r in rows], "cols": [int(c) + x0 for c in cols]}
     bead = bead_sprite()
     beads = []
