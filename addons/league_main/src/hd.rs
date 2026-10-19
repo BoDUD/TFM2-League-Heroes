@@ -115,6 +115,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // take A-1 cut to 46 rows, the side view redrawn on the grid, Codex's action poses read back at its scale with the
     // idle's head), so no SIZES row; Feast's stacks draw his body bigger (GROWTH)
     ("league_chogath", 1.2, include_str!("../../../league/champions/league_chogath#anim.fanim")),
+    // Karthus: posed by tools/art/rig_karthus.py from Codex's step-1 takes at the user's 1.5 squares a game pixel (40 game
+    // rows crown to soles: 「40 像素，PPU 1.5」; attack_w is Wall of Pain's cast in the attack, ult the 3 s Requiem), so no
+    // SIZES row
+    ("league_karthus", 1.5, include_str!("../../../league/champions/league_karthus#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
