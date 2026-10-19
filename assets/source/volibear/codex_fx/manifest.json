@@ -1,0 +1,1551 @@
+{
+  "status": "processed_all_18",
+  "requested_effects": 18,
+  "generated_effects": 18,
+  "missing": [],
+  "mode": "image_gen original art; majority grid extraction, palette quantization, hard alpha and half reflection explicitly requested by pack",
+  "layout": "one horizontal row per effect",
+  "preview_scale": 8,
+  "effects": [
+    {
+      "name": "p_bolt",
+      "file": "volibear_fx_p_bolt.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        10
+      ],
+      "symmetry": "top_bottom",
+      "loop": true,
+      "status": "processed",
+      "raw": "raw/volibear_fx_p_bolt.png",
+      "pixel_1x": "pixel_1x/volibear_fx_p_bolt.png",
+      "preview_8x": "volibear_fx_p_bolt.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "sheet_1x": [
+        80,
+        10
+      ],
+      "sheet_8x": [
+        640,
+        80
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 56,
+          "symmetric": true,
+          "white_pixels": 12
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 64,
+          "symmetric": true,
+          "white_pixels": 10
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 68,
+          "symmetric": true,
+          "white_pixels": 12
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 56,
+          "symmetric": true,
+          "white_pixels": 12
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          33,
+          312,
+          481,
+          470
+        ],
+        "source_step_px": 24.88888888888889,
+        "source_grid_origin": [
+          8.111111111111114,
+          266.55555555555554
+        ]
+      },
+      "sha256_1x": "18fcc2e8d7ab54ccc56ff00d8ee9ab04117849d2ab7d153c5a09a3b7094d3321"
+    },
+    {
+      "name": "p_hit",
+      "file": "volibear_fx_p_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        20
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_p_hit.png",
+      "pixel_1x": "pixel_1x/volibear_fx_p_hit.png",
+      "preview_8x": "volibear_fx_p_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "sheet_1x": [
+        64,
+        20
+      ],
+      "sheet_8x": [
+        512,
+        160
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 18,
+          "symmetric": true,
+          "white_pixels": 6
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 92,
+          "symmetric": true,
+          "white_pixels": 20
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 56,
+          "symmetric": true,
+          "white_pixels": 4
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 12,
+          "symmetric": true,
+          "white_pixels": 0
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          36,
+          19,
+          507,
+          704
+        ],
+        "source_step_px": 38.05555555555556,
+        "source_grid_origin": [
+          -32.94444444444446,
+          -19.055555555555543
+        ]
+      },
+      "sha256_1x": "38b5f29d00fadfde55b5e392ab754de381fff26022f1010e2b2f86351011e6ac"
+    },
+    {
+      "name": "a_hit",
+      "file": "volibear_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/volibear_fx_a_hit.png",
+      "preview_8x": "volibear_fx_a_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "sheet_8x": [
+        512,
+        128
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4F6FF",
+        "#B4E0FF",
+        "#7CC0F4",
+        "#4888D4",
+        "#2A549C",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 78,
+          "symmetric": true,
+          "white_pixels": 24
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 102,
+          "symmetric": true,
+          "white_pixels": 34
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 72,
+          "symmetric": true,
+          "white_pixels": 14
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 18,
+          "symmetric": true,
+          "white_pixels": 2
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          22,
+          116,
+          517,
+          612
+        ],
+        "source_step_px": 35.42857142857143,
+        "source_grid_origin": [
+          -13.928571428571445,
+          80.57142857142856
+        ]
+      },
+      "sha256_1x": "51df539651122a5c3eddde7693f70ee1b17209232757fd3b94488450b30cb44f"
+    },
+    {
+      "name": "w_hit",
+      "file": "volibear_fx_w_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        22
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_w_hit.png",
+      "pixel_1x": "pixel_1x/volibear_fx_w_hit.png",
+      "preview_8x": "volibear_fx_w_hit.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "sheet_1x": [
+        110,
+        22
+      ],
+      "sheet_8x": [
+        880,
+        176
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4F6FF",
+        "#B4E0FF",
+        "#7CC0F4",
+        "#4888D4",
+        "#2A549C",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 220,
+          "symmetric": true,
+          "white_pixels": 48
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 170,
+          "symmetric": true,
+          "white_pixels": 46
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 188,
+          "symmetric": true,
+          "white_pixels": 58
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 194,
+          "symmetric": true,
+          "white_pixels": 34
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 74,
+          "symmetric": true,
+          "white_pixels": 4
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          19,
+          208,
+          387,
+          598
+        ],
+        "source_step_px": 19.5,
+        "source_grid_origin": [
+          -11.5,
+          188.5
+        ]
+      },
+      "sha256_1x": "9bebb222ad016e7cf32b74ac5b76b62e39f13a62999d51a4aee91130831dd8e1"
+    },
+    {
+      "name": "w_mark",
+      "file": "volibear_fx_w_mark.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        12
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "status": "processed",
+      "raw": "raw/volibear_fx_w_mark.png",
+      "pixel_1x": "pixel_1x/volibear_fx_w_mark.png",
+      "preview_8x": "volibear_fx_w_mark.png",
+      "raw_size": [
+        1916,
+        821
+      ],
+      "sheet_1x": [
+        56,
+        12
+      ],
+      "sheet_8x": [
+        448,
+        96
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4F6FF",
+        "#B4E0FF",
+        "#7CC0F4",
+        "#4888D4",
+        "#2A549C",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 28,
+          "symmetric": true,
+          "white_pixels": 6
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 42,
+          "symmetric": true,
+          "white_pixels": 12
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 54,
+          "symmetric": true,
+          "white_pixels": 20
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 40,
+          "symmetric": true,
+          "white_pixels": 14
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          45,
+          173,
+          441,
+          619
+        ],
+        "source_step_px": 44.6,
+        "source_grid_origin": [
+          -69.19999999999999,
+          128.39999999999998
+        ]
+      },
+      "sha256_1x": "3f64c8dc2441ab858f28af2ffdd14b22f9b0f704dc4c672f4279611d9c386f0e"
+    },
+    {
+      "name": "w_heal",
+      "file": "volibear_fx_w_heal.png",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        48
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_w_heal.png",
+      "pixel_1x": "pixel_1x/volibear_fx_w_heal.png",
+      "preview_8x": "volibear_fx_w_heal.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "sheet_1x": [
+        160,
+        48
+      ],
+      "sheet_8x": [
+        1280,
+        384
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4F6FF",
+        "#B4E0FF",
+        "#7CC0F4",
+        "#4888D4",
+        "#2A549C",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 168,
+          "symmetric": true,
+          "white_pixels": 24
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 328,
+          "symmetric": true,
+          "white_pixels": 42
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 270,
+          "symmetric": true,
+          "white_pixels": 14
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 70,
+          "symmetric": true,
+          "white_pixels": 4
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          8,
+          36,
+          488,
+          772
+        ],
+        "source_step_px": 16.0,
+        "source_grid_origin": [
+          -72.0,
+          20.0
+        ]
+      },
+      "sha256_1x": "f5b8170f00d37121442f5f33141e413c0f604aba3eedc6e7b0dd0612ed97d8c0"
+    },
+    {
+      "name": "q_ms",
+      "file": "volibear_fx_q_ms.png",
+      "frames": 4,
+      "cell_1x": [
+        56,
+        40
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "status": "processed",
+      "raw": "raw/volibear_fx_q_ms.png",
+      "pixel_1x": "pixel_1x/volibear_fx_q_ms.png",
+      "preview_8x": "volibear_fx_q_ms.png",
+      "raw_size": [
+        2098,
+        749
+      ],
+      "sheet_1x": [
+        224,
+        40
+      ],
+      "sheet_8x": [
+        1792,
+        320
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 508,
+          "symmetric": true,
+          "white_pixels": 66
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 504,
+          "symmetric": true,
+          "white_pixels": 64
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 516,
+          "symmetric": true,
+          "white_pixels": 86
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 510,
+          "symmetric": true,
+          "white_pixels": 72
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          25,
+          162,
+          521,
+          594
+        ],
+        "source_step_px": 11.368421052631579,
+        "source_grid_origin": [
+          -45.31578947368422,
+          150.63157894736844
+        ]
+      },
+      "sha256_1x": "d2812203dc08271ce637c21cf94d711c88cb413c44c1828cfa9f53ace4b1457f"
+    },
+    {
+      "name": "q_hit",
+      "file": "volibear_fx_q_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        26,
+        30
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/volibear_fx_q_hit.png",
+      "preview_8x": "volibear_fx_q_hit.png",
+      "raw_size": [
+        1787,
+        880
+      ],
+      "sheet_1x": [
+        130,
+        30
+      ],
+      "sheet_8x": [
+        1040,
+        240
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4",
+        "#E4F6FF",
+        "#B4E0FF",
+        "#7CC0F4",
+        "#4888D4",
+        "#2A549C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 134,
+          "symmetric": true,
+          "white_pixels": 40
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 116,
+          "symmetric": true,
+          "white_pixels": 48
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 100,
+          "symmetric": true,
+          "white_pixels": 14
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 44,
+          "symmetric": true,
+          "white_pixels": 0
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 16,
+          "symmetric": true,
+          "white_pixels": 2
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          0,
+          92,
+          357,
+          810
+        ],
+        "source_step_px": 25.642857142857142,
+        "source_grid_origin": [
+          -154.85714285714283,
+          66.35714285714289
+        ]
+      },
+      "sha256_1x": "0d4cc2da4ebfb3f59bb1a5a4ceacfc95755ba85f2df7f202722f635500c1839c"
+    },
+    {
+      "name": "q_stun",
+      "file": "volibear_fx_q_stun.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        10
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "status": "processed",
+      "raw": "raw/volibear_fx_q_stun.png",
+      "pixel_1x": "pixel_1x/volibear_fx_q_stun.png",
+      "preview_8x": "volibear_fx_q_stun.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "sheet_1x": [
+        64,
+        10
+      ],
+      "sheet_8x": [
+        512,
+        80
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 28,
+          "symmetric": true,
+          "white_pixels": 4
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 28,
+          "symmetric": true,
+          "white_pixels": 6
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 30,
+          "symmetric": true,
+          "white_pixels": 6
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 30,
+          "symmetric": true,
+          "white_pixels": 6
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          44,
+          280,
+          448,
+          513
+        ],
+        "source_step_px": 29.125,
+        "source_grid_origin": [
+          13.0,
+          250.875
+        ]
+      },
+      "sha256_1x": "0814eda5ee5f4a1a3bbaaaf9ce99b99f835ec49818c94e4350846028689d7e1b"
+    },
+    {
+      "name": "e_cloud",
+      "file": "volibear_fx_e_cloud.png",
+      "frames": 4,
+      "cell_1x": [
+        64,
+        24
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_e_cloud.png",
+      "pixel_1x": "pixel_1x/volibear_fx_e_cloud.png",
+      "preview_8x": "volibear_fx_e_cloud.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "sheet_1x": [
+        256,
+        24
+      ],
+      "sheet_8x": [
+        2048,
+        192
+      ],
+      "palette": [
+        "#C6D0E8",
+        "#8A98C2",
+        "#5C6898",
+        "#3C4472",
+        "#262B50",
+        "#151832",
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 712,
+          "symmetric": true,
+          "white_pixels": 0
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 792,
+          "symmetric": true,
+          "white_pixels": 22
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 932,
+          "symmetric": true,
+          "white_pixels": 50
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 970,
+          "symmetric": true,
+          "white_pixels": 106
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          12,
+          266,
+          530,
+          470
+        ],
+        "source_step_px": 9.272727272727273,
+        "source_grid_origin": [
+          -25.727272727272748,
+          256.72727272727275
+        ]
+      },
+      "sha256_1x": "2d9d88ca51c57c8a0e6488ee6c9b9e5a0c2bb502d5248f94fecb3654178f6bcf"
+    },
+    {
+      "name": "e_bolt",
+      "file": "volibear_fx_e_bolt.png",
+      "frames": 5,
+      "cell_1x": [
+        40,
+        96
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_e_bolt.png",
+      "pixel_1x": "pixel_1x/volibear_fx_e_bolt.png",
+      "preview_8x": "volibear_fx_e_bolt.png",
+      "raw_size": [
+        1808,
+        870
+      ],
+      "sheet_1x": [
+        200,
+        96
+      ],
+      "sheet_8x": [
+        1600,
+        768
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4",
+        "#C6D0E8",
+        "#8A98C2",
+        "#5C6898",
+        "#3C4472",
+        "#262B50",
+        "#151832"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 802,
+          "symmetric": true,
+          "white_pixels": 88
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 1580,
+          "symmetric": true,
+          "white_pixels": 406
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 1610,
+          "symmetric": true,
+          "white_pixels": 286
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 1072,
+          "symmetric": true,
+          "white_pixels": 148
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 578,
+          "symmetric": true,
+          "white_pixels": 34
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          0,
+          49,
+          362,
+          831
+        ],
+        "source_step_px": 9.526315789473685,
+        "source_grid_origin": [
+          -9.5263157894737,
+          -17.263157894736878
+        ]
+      },
+      "sha256_1x": "a7f366696f18a716068be562ce838404c2b9ef8e5f6953d82888c0bb7f4f97bd"
+    },
+    {
+      "name": "e_hit",
+      "file": "volibear_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_e_hit.png",
+      "pixel_1x": "pixel_1x/volibear_fx_e_hit.png",
+      "preview_8x": "volibear_fx_e_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "sheet_1x": [
+        72,
+        18
+      ],
+      "sheet_8x": [
+        576,
+        144
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 58,
+          "symmetric": true,
+          "white_pixels": 38
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 162,
+          "symmetric": true,
+          "white_pixels": 34
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 68,
+          "symmetric": true,
+          "white_pixels": 16
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 12,
+          "symmetric": true,
+          "white_pixels": 6
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          32,
+          117,
+          514,
+          606
+        ],
+        "source_step_px": 30.5625,
+        "source_grid_origin": [
+          -2.0625,
+          86.4375
+        ]
+      },
+      "sha256_1x": "bc3692073914427f113e1052391d57c8c2329c2cb2c7264026d4c1bb81f13104"
+    },
+    {
+      "name": "e_slow",
+      "file": "volibear_fx_e_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        8
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "status": "processed",
+      "raw": "raw/volibear_fx_e_slow.png",
+      "pixel_1x": "pixel_1x/volibear_fx_e_slow.png",
+      "preview_8x": "volibear_fx_e_slow.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "sheet_1x": [
+        96,
+        8
+      ],
+      "sheet_8x": [
+        768,
+        64
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 38,
+          "symmetric": true,
+          "white_pixels": 0
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 38,
+          "symmetric": true,
+          "white_pixels": 0
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 38,
+          "symmetric": true,
+          "white_pixels": 0
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 38,
+          "symmetric": true,
+          "white_pixels": 0
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          34,
+          307,
+          509,
+          479
+        ],
+        "source_step_px": 28.666666666666668,
+        "source_grid_origin": [
+          -72.5,
+          278.3333333333333
+        ]
+      },
+      "sha256_1x": "5e5af3005fe1bb1ebecb91d46dcd70288f00090a11874c259241a6f2f7d434d9"
+    },
+    {
+      "name": "e_sh",
+      "file": "volibear_fx_e_sh.png",
+      "frames": 4,
+      "cell_1x": [
+        50,
+        52
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "status": "processed",
+      "raw": "raw/volibear_fx_e_sh.png",
+      "pixel_1x": "pixel_1x/volibear_fx_e_sh.png",
+      "preview_8x": "volibear_fx_e_sh.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "sheet_1x": [
+        200,
+        52
+      ],
+      "sheet_8x": [
+        1600,
+        416
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4F6FF",
+        "#B4E0FF",
+        "#7CC0F4",
+        "#4888D4",
+        "#2A549C",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 462,
+          "symmetric": true,
+          "white_pixels": 48
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 432,
+          "symmetric": true,
+          "white_pixels": 38
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 450,
+          "symmetric": true,
+          "white_pixels": 50
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 442,
+          "symmetric": true,
+          "white_pixels": 42
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          11,
+          32,
+          531,
+          667
+        ],
+        "source_step_px": 12.7,
+        "source_grid_origin": [
+          -46.5,
+          19.30000000000001
+        ]
+      },
+      "sha256_1x": "122a51dd27cf8546ac45a7ab6eda090b801487ad8da3d384a6977510837b49b1"
+    },
+    {
+      "name": "r_land",
+      "file": "volibear_fx_r_land.png",
+      "frames": 6,
+      "cell_1x": [
+        80,
+        40
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_r_land.png",
+      "pixel_1x": "pixel_1x/volibear_fx_r_land.png",
+      "preview_8x": "volibear_fx_r_land.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "sheet_1x": [
+        480,
+        40
+      ],
+      "sheet_8x": [
+        3840,
+        320
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4",
+        "#C6D0E8",
+        "#8A98C2",
+        "#5C6898",
+        "#3C4472",
+        "#262B50",
+        "#151832",
+        "#E4F6FF",
+        "#B4E0FF",
+        "#7CC0F4",
+        "#4888D4",
+        "#2A549C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 212,
+          "symmetric": true,
+          "white_pixels": 66
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 296,
+          "symmetric": true,
+          "white_pixels": 52
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 376,
+          "symmetric": true,
+          "white_pixels": 84
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 566,
+          "symmetric": true,
+          "white_pixels": 82
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 360,
+          "symmetric": true,
+          "white_pixels": 14
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 184,
+          "symmetric": true,
+          "white_pixels": 0
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          0,
+          154,
+          362,
+          590
+        ],
+        "source_step_px": 11.473684210526315,
+        "source_grid_origin": [
+          -277.9473684210526,
+          142.5263157894737
+        ]
+      },
+      "sha256_1x": "d50bd2cbda764ee10b9b6590eca6ccd6bb5ab78fe488d8468916b38e52bfb8d8"
+    },
+    {
+      "name": "r_hit",
+      "file": "volibear_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "symmetry": "left_right",
+      "loop": false,
+      "status": "processed",
+      "raw": "raw/volibear_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/volibear_fx_r_hit.png",
+      "preview_8x": "volibear_fx_r_hit.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "sheet_1x": [
+        80,
+        20
+      ],
+      "sheet_8x": [
+        640,
+        160
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 48,
+          "symmetric": true,
+          "white_pixels": 16
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 130,
+          "symmetric": true,
+          "white_pixels": 28
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 142,
+          "symmetric": true,
+          "white_pixels": 30
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 66,
+          "symmetric": true,
+          "white_pixels": 2
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          0,
+          145,
+          496,
+          654
+        ],
+        "source_step_px": 28.27777777777778,
+        "source_grid_origin": [
+          -34.77777777777777,
+          116.72222222222223
+        ]
+      },
+      "sha256_1x": "844eb7b43a1b2f7226890dcde5734b21eaab56276d77eb6f3445345e907d7c01"
+    },
+    {
+      "name": "r_form",
+      "file": "volibear_fx_r_form.png",
+      "frames": 4,
+      "cell_1x": [
+        60,
+        60
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "status": "processed",
+      "raw": "raw/volibear_fx_r_form.png",
+      "pixel_1x": "pixel_1x/volibear_fx_r_form.png",
+      "preview_8x": "volibear_fx_r_form.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "sheet_1x": [
+        240,
+        60
+      ],
+      "sheet_8x": [
+        1920,
+        480
+      ],
+      "palette": [
+        "#C6D0E8",
+        "#8A98C2",
+        "#5C6898",
+        "#3C4472",
+        "#262B50",
+        "#151832",
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4",
+        "#E4F6FF",
+        "#B4E0FF",
+        "#7CC0F4",
+        "#4888D4",
+        "#2A549C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 1154,
+          "symmetric": true,
+          "white_pixels": 66
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 1206,
+          "symmetric": true,
+          "white_pixels": 64
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 1162,
+          "symmetric": true,
+          "white_pixels": 46
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 1178,
+          "symmetric": true,
+          "white_pixels": 64
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          16,
+          86,
+          527,
+          629
+        ],
+        "source_step_px": 9.362068965517242,
+        "source_grid_origin": [
+          -9.362068965517267,
+          76.63793103448273
+        ]
+      },
+      "sha256_1x": "8d26a86905e102acd5416443dfd9b0a5c305449b1220bf45fd0a6fefe1776b39"
+    },
+    {
+      "name": "r_tower",
+      "file": "volibear_fx_r_tower.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        50
+      ],
+      "symmetry": "left_right",
+      "loop": true,
+      "status": "processed",
+      "raw": "raw/volibear_fx_r_tower.png",
+      "pixel_1x": "pixel_1x/volibear_fx_r_tower.png",
+      "preview_8x": "volibear_fx_r_tower.png",
+      "raw_size": [
+        1942,
+        809
+      ],
+      "sheet_1x": [
+        120,
+        50
+      ],
+      "sheet_8x": [
+        960,
+        400
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E8FBFF",
+        "#A8F0FF",
+        "#52D2FF",
+        "#2290F0",
+        "#1D48B4",
+        "#C6D0E8",
+        "#8A98C2",
+        "#5C6898",
+        "#3C4472",
+        "#262B50",
+        "#151832"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 474,
+          "symmetric": true,
+          "white_pixels": 48
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 438,
+          "symmetric": true,
+          "white_pixels": 42
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 430,
+          "symmetric": true,
+          "white_pixels": 48
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 464,
+          "symmetric": true,
+          "white_pixels": 48
+        }
+      ],
+      "source_grid": {
+        "kind": "normalized_majority_grid",
+        "source_cell_bbox_union": [
+          28,
+          46,
+          449,
+          774
+        ],
+        "source_step_px": 15.166666666666666,
+        "source_grid_origin": [
+          11.0,
+          30.83333333333337
+        ]
+      },
+      "sha256_1x": "ac289aa873f7427da4242be8884f2b29a2dc96d712955674c95a60494e10a9c5"
+    }
+  ]
+}

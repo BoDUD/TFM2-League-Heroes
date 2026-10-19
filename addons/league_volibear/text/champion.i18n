@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_volibear": {
+        "attack": "【扩展包】<#ff9028ff>狂雷渐起<>：命中叠攻速，5层后攻击放闪电，目标和最近4个敌人受<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害。<#ff9028ff>暴怒撕咬<>：每<#ffb900ff>5秒<>攻击变撕咬，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理伤害并标记；再咬同一人+50%，回复<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>+<#66bb6aff>12%已损生命<>。",
+        "ult": "【扩展包】跃向敌方英雄砸地，周围敌人受<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理伤害并<#ef5350ff>减速50%<>，附近敌方防御塔<#ef5350ff>失效4秒<>；之后<#ffb900ff>12秒<>内生命+350、攻击距离增加。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_volibear": {
+        "attack": "【擴充包】<#ff9028ff>無情風暴<>：命中疊攻速，5層後攻擊放閃電，目標和最近4個敵人受<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害。<#ff9028ff>狂熊撕咬<>：每<#ffb900ff>5秒<>攻擊變撕咬，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理傷害並標記；再咬同一人+50%，回復<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>+<#66bb6aff>12%已損生命<>。",
+        "ult": "【擴充包】躍向敵方英雄砸地，周圍敵人受<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理傷害並<#ef5350ff>緩速50%<>，附近敵方防禦塔<#ef5350ff>失效4秒<>；之後<#ffb900ff>12秒<>內生命+350、攻擊距離增加。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_volibear": {
+        "attack": "[Add-on] <#ff9028ff>The Relentless Storm<>: hits stack attack speed; at 5 his attacks strike the target and the 4 nearest enemies for <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>. <#ff9028ff>Frenzied Maul<>: every <#ffb900ff>5s<> an attack is a maul for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> physical damage, marking; a second on him deals 50% more, heals <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<> + <#66bb6aff>12% missing health<>.",
+        "ult": "[Add-on] Leaps onto an enemy champion: enemies around take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> physical damage and are <#ef5350ff>slowed 50%<>, nearby enemy towers are <#ef5350ff>disabled 4s<>; for <#ffb900ff>12s<> he has +350 health and more attack range."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_volibear": {
+        "attack": "[확장] <#ff9028ff>무자비한 폭풍<>: 공격과 스킬이 공격 속도 중첩(중첩당 6%, 5회); 5회면 번개가 대상과 가장 가까운 적 4명에게 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해. <#ff9028ff>광란의 상처<>: <#ffb900ff>5초<>마다 할퀴기 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해와 표식; 같은 대상 재공격 시 피해 50% 증가, <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>+<#66bb6aff>잃은 체력 12%<> 회복.",
+        "ult": "[확장] 적 챔피언에게 도약해 주변 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> 물리 피해와 <#ef5350ff>50% 둔화<>, 근처 적 포탑 <#ef5350ff>4초 무력화<>; <#ffb900ff>12초<> 동안 체력 +350, 사거리 증가."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_volibear": {
+        "attack": "【拡張】<#ff9028ff>無慈悲の嵐<>：攻撃・スキルで攻速+6%（5つまで）；5つで稲妻が対象と最寄りの敵4体に<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ。<#ff9028ff>激昂の斬撃<>：<#ffb900ff>5秒<>毎に噛みつき<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージとマーク；同じ相手は50%増し、<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>+<#66bb6aff>失った体力の12%<>回復。",
+        "ult": "【拡張】敵チャンピオンへ跳びかかり周りの敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の物理ダメージと<#ef5350ff>50%スロウ<>、近くの敵タワーは<#ef5350ff>4秒無力化<>；<#ffb900ff>12秒<>体力+350、射程増加。"
+      }
+    }
+  }
+}
