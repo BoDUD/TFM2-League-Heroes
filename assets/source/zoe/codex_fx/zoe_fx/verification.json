@@ -1,0 +1,155 @@
+[
+  {
+    "effect": "a_star",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "a_hit",
+    "frames": 3,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "p_star",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "p_hit",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "q_star",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "q_hit",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "e_bubble",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "e_hit",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "e_drowsy",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "e_zz",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "e_wake",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "e_trap",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "w_missile",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "w_hit",
+    "frames": 3,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "w_haste",
+    "frames": 4,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "r_portal_in",
+    "frames": 6,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  },
+  {
+    "effect": "r_portal_out",
+    "frames": 6,
+    "sizes": true,
+    "alpha_0_255": true,
+    "symmetry": true,
+    "8x_exact_nearest": true,
+    "animation_has_distinct_frames": true
+  }
+]

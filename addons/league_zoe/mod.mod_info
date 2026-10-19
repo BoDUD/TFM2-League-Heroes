@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.165.0"
+    }
+  ],
+  "description": "Test build of Zoe as in League (needs League of Legends Heroes): replaces the main pack's Zoe so Sleepy Trouble Bubble's sleep breaks on any damage and that hit lands again as true damage (capped; the main pack: a fixed stun whose first Paddle Star is doubled), Paddle Star grows with the real distance it flew (the main pack: three steps by flight time), and Spell Thief picks up spell shards that enemy champions drop when they cast their ult (three missiles and a burst of speed). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-19",
+  "mod_id": "league_zoe",
+  "mod_type": "native",
+  "name": "League Heroes: Zoe's sleep, Paddle Star and Spell Thief shards (test)",
+  "version": "0.1.0"
+}

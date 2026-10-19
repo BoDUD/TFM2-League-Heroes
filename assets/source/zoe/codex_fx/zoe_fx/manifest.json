@@ -1,0 +1,720 @@
+{
+  "version": 1,
+  "generator": "built-in image_gen.imagegen",
+  "source_layout_note": "Raw sources use 2x2 panels (4 frames), 3x1 (3 frames), or 3x2 (6 frames). Final sheets are single horizontal rows.",
+  "readback": {
+    "method": "shared content crop preserving source aspect ratio, palette quantization then majority foreground-color votes over equal logical cells pooled across symmetry pairs; >=20% coverage preserves tiny sparks; source pale highlights retained when >=15% of foreground votes",
+    "alpha_threshold": 192,
+    "foreground_coverage_threshold": 0.2,
+    "source_highlight_vote_threshold": 0.15,
+    "alpha_output": [
+      0,
+      255
+    ],
+    "preview_scale": 8,
+    "dark_exterior_cleanup": "one pass, max RGB < 128"
+  },
+  "effects": [
+    {
+      "name": "a_star",
+      "file": "zoe_fx_a_star.png",
+      "pixel_1x": "pixel_1x/zoe_fx_a_star.png",
+      "raw": "raw/zoe_fx_a_star.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "cell_8x": [
+        96,
+        64
+      ],
+      "sheet_1x": [
+        48,
+        8
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `league_zoe_a_star`（跟着弹道转向；上下对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_content_crop_per_panel": [
+        -2,
+        12,
+        744,
+        509
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "6a627a7ff19f23fa897029c3e8a2f9aa57190f4f1c644865e4ecd2b1592171c4"
+    },
+    {
+      "name": "a_hit",
+      "file": "zoe_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/zoe_fx_a_hit.png",
+      "raw": "raw/zoe_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cell_8x": [
+        96,
+        96
+      ],
+      "sheet_1x": [
+        36,
+        12
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_zoe_a_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+      "source_grid": [
+        3,
+        1
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_content_crop_per_panel": [
+        31,
+        30,
+        694,
+        694
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "588231b33c29c495e18475d81ab4dacfc7e2eb3ecbc178bdefd68794e1be63b3"
+    },
+    {
+      "name": "p_star",
+      "file": "zoe_fx_p_star.png",
+      "pixel_1x": "pixel_1x/zoe_fx_p_star.png",
+      "raw": "raw/zoe_fx_p_star.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        10
+      ],
+      "cell_8x": [
+        128,
+        80
+      ],
+      "sheet_1x": [
+        64,
+        10
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `league_zoe_p_star`（跟着弹道转向；上下对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1586,
+        992
+      ],
+      "source_content_crop_per_panel": [
+        6,
+        -9,
+        832,
+        508
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "6f8042b7ab5b20b837645519e7e7e5c9ea4ed5136d9b6ddb30aead3e266251d2"
+    },
+    {
+      "name": "p_hit",
+      "file": "zoe_fx_p_hit.png",
+      "pixel_1x": "pixel_1x/zoe_fx_p_hit.png",
+      "raw": "raw/zoe_fx_p_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "cell_8x": [
+        144,
+        144
+      ],
+      "sheet_1x": [
+        72,
+        18
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_zoe_p_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_content_crop_per_panel": [
+        12,
+        -4,
+        620,
+        604
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "5dfe81330ca75df973fc3b6c1a6bb68845f82b82c5a4cf076282ebb7180b1aeb"
+    },
+    {
+      "name": "q_star",
+      "file": "zoe_fx_q_star.png",
+      "pixel_1x": "pixel_1x/zoe_fx_q_star.png",
+      "raw": "raw/zoe_fx_q_star.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        14
+      ],
+      "cell_8x": [
+        192,
+        112
+      ],
+      "sheet_1x": [
+        96,
+        14
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `league_zoe_q_star`、`league_zoe_r_star`（跟着弹道转向；上下对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1643,
+        957
+      ],
+      "source_content_crop_per_panel": [
+        -8,
+        -10,
+        858,
+        495
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "b0bea7e5a2fcbfae01d5fb44250e01513d70b047b29978af9eb371ee6535d688"
+    },
+    {
+      "name": "q_hit",
+      "file": "zoe_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/zoe_fx_q_hit.png",
+      "raw": "raw/zoe_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "cell_8x": [
+        160,
+        160
+      ],
+      "sheet_1x": [
+        80,
+        20
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_zoe_q_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_content_crop_per_panel": [
+        73,
+        -141,
+        817,
+        603
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "7e6a0e0251ee71fb7fbfeb08149608cc57b567071641cf4b009a17236819943c"
+    },
+    {
+      "name": "e_bubble",
+      "file": "zoe_fx_e_bubble.png",
+      "pixel_1x": "pixel_1x/zoe_fx_e_bubble.png",
+      "raw": "raw/zoe_fx_e_bubble.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "cell_8x": [
+        112,
+        112
+      ],
+      "sheet_1x": [
+        56,
+        14
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `league_zoe_e_bubble`（跟着弹道转向；上下对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_content_crop_per_panel": [
+        130,
+        -86,
+        747,
+        531
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "d444f86c233819f2d0449f013da84e7ab030fc95f2c77ee619c129ca39888a72"
+    },
+    {
+      "name": "e_hit",
+      "file": "zoe_fx_e_hit.png",
+      "pixel_1x": "pixel_1x/zoe_fx_e_hit.png",
+      "raw": "raw/zoe_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "cell_8x": [
+        160,
+        160
+      ],
+      "sheet_1x": [
+        80,
+        20
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_zoe_e_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_content_crop_per_panel": [
+        33,
+        -197,
+        871,
+        641
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "4ea57cf0e557b2529e9009ad9b633d6c4de484e27b1c036d590bb0963b9975dd"
+    },
+    {
+      "name": "e_drowsy",
+      "file": "zoe_fx_e_drowsy.png",
+      "pixel_1x": "pixel_1x/zoe_fx_e_drowsy.png",
+      "raw": "raw/zoe_fx_e_drowsy.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        10
+      ],
+      "cell_8x": [
+        112,
+        80
+      ],
+      "sheet_1x": [
+        56,
+        10
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `league_zoe_e_drowsy`（跟随，画在人物上面 z 3；左右对称；循环）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1484,
+        1060
+      ],
+      "source_content_crop_per_panel": [
+        -31,
+        -9,
+        782,
+        572
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "fe1b3c3883cd33827d2cf25554d9b426fd7cdf6612b2c053efe8dcbb1ed0a847"
+    },
+    {
+      "name": "e_zz",
+      "file": "zoe_fx_e_zz.png",
+      "pixel_1x": "pixel_1x/zoe_fx_e_zz.png",
+      "raw": "raw/zoe_fx_e_zz.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        12
+      ],
+      "cell_8x": [
+        128,
+        96
+      ],
+      "sheet_1x": [
+        64,
+        12
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `league_zoe_e_zz`（跟随，画在人物上面 z 3；左右对称；循环）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_content_crop_per_panel": [
+        67,
+        46,
+        681,
+        508
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "8859f6a3bcf4ef06f60961312fae48626057a8b144e5f3597ad3fcf021c255fd"
+    },
+    {
+      "name": "e_wake",
+      "file": "zoe_fx_e_wake.png",
+      "pixel_1x": "pixel_1x/zoe_fx_e_wake.png",
+      "raw": "raw/zoe_fx_e_wake.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "cell_8x": [
+        192,
+        192
+      ],
+      "sheet_1x": [
+        96,
+        24
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_zoe_e_wake`（跟随目标，画在人物上面 z 2；左右对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1261,
+        1247
+      ],
+      "source_content_crop_per_panel": [
+        -18,
+        -28,
+        662,
+        652
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "af729f4238cd62cea0367cb5e80139f13d7256fcc2334093ce67a91c44fcb8d4"
+    },
+    {
+      "name": "e_trap",
+      "file": "zoe_fx_e_trap.png",
+      "pixel_1x": "pixel_1x/zoe_fx_e_trap.png",
+      "raw": "raw/zoe_fx_e_trap.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        14
+      ],
+      "cell_8x": [
+        128,
+        112
+      ],
+      "sheet_1x": [
+        64,
+        14
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_effects `league_zoe_e_trap`（不跟随，画在人物下面 z -1；左右对称；每 15 tick 重放）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1341,
+        1173
+      ],
+      "source_content_crop_per_panel": [
+        9,
+        51,
+        663,
+        624
+      ],
+      "normalization_translation_y": 1,
+      "sha256_1x": "4fbd31e15dc89275c42c8c2db38a15e71b870e20807ab38cd776c9ceae4f8a70"
+    },
+    {
+      "name": "w_missile",
+      "file": "zoe_fx_w_missile.png",
+      "pixel_1x": "pixel_1x/zoe_fx_w_missile.png",
+      "raw": "raw/zoe_fx_w_missile.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        8
+      ],
+      "cell_8x": [
+        80,
+        64
+      ],
+      "sheet_1x": [
+        40,
+        8
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `league_zoe_w_missile`（跟着弹道转向；上下对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1402,
+        1122
+      ],
+      "source_content_crop_per_panel": [
+        2,
+        1,
+        701,
+        560
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "1281a4048b3fbd7380d06cb969336b9723d4e66e86af006f570b81b1adaff087"
+    },
+    {
+      "name": "w_hit",
+      "file": "zoe_fx_w_hit.png",
+      "pixel_1x": "pixel_1x/zoe_fx_w_hit.png",
+      "raw": "raw/zoe_fx_w_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cell_8x": [
+        96,
+        96
+      ],
+      "sheet_1x": [
+        36,
+        12
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_zoe_w_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+      "source_grid": [
+        3,
+        1
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_content_crop_per_panel": [
+        18,
+        8,
+        722,
+        711
+      ],
+      "normalization_translation_y": 0,
+      "sha256_1x": "05a716cb608b5f8e1425a5219627525945d4e4b9f6f6ad89e78baa192ac1f308"
+    },
+    {
+      "name": "w_haste",
+      "file": "zoe_fx_w_haste.png",
+      "pixel_1x": "pixel_1x/zoe_fx_w_haste.png",
+      "raw": "raw/zoe_fx_w_haste.png",
+      "frames": 4,
+      "cell_1x": [
+        26,
+        8
+      ],
+      "cell_8x": [
+        208,
+        64
+      ],
+      "sheet_1x": [
+        104,
+        8
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `league_zoe_w_haste`（跟随，画在人物下面 z -1；左右对称；循环）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        2008,
+        783
+      ],
+      "source_content_crop_per_panel": [
+        -97,
+        48,
+        1086,
+        412
+      ],
+      "normalization_translation_y": 1,
+      "sha256_1x": "4f930ec810e8e7964b40a6c8156ca03b1c6ebb172cfb12cda7bdab27bbf8f03c"
+    },
+    {
+      "name": "r_portal_in",
+      "file": "zoe_fx_r_portal_in.png",
+      "pixel_1x": "pixel_1x/zoe_fx_r_portal_in.png",
+      "raw": "raw/zoe_fx_r_portal_in.png",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        24
+      ],
+      "cell_8x": [
+        320,
+        192
+      ],
+      "sheet_1x": [
+        240,
+        24
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_zoe_r_portal_in`、`league_zoe_r_portal_back`（不跟随，画在人物下面 z -1；左右对称；大图表）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1619,
+        971
+      ],
+      "source_content_crop_per_panel": [
+        -133,
+        -2,
+        672,
+        481
+      ],
+      "normalization_translation_y": -1,
+      "sha256_1x": "7f5579e5a744bd875284efaf051e6f95dc827698368b811214cdd567b61a6260"
+    },
+    {
+      "name": "r_portal_out",
+      "file": "zoe_fx_r_portal_out.png",
+      "pixel_1x": "pixel_1x/zoe_fx_r_portal_out.png",
+      "raw": "raw/zoe_fx_r_portal_out.png",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        24
+      ],
+      "cell_8x": [
+        320,
+        192
+      ],
+      "sheet_1x": [
+        240,
+        24
+      ],
+      "layout": "horizontal",
+      "frame_order": "left-to-right",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_zoe_r_portal_out`（不跟随，画在人物下面 z -1；左右对称；大图表）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1619,
+        971
+      ],
+      "source_content_crop_per_panel": [
+        -77,
+        70,
+        616,
+        485
+      ],
+      "normalization_translation_y": 1,
+      "sha256_1x": "4751769fbeec94389ce715bb0528bdb579c8a00399295fee9ae49b16fb9e10f2"
+    }
+  ],
+  "effect_count": 17,
+  "frame_count": 70,
+  "aliases": {
+    "league_zoe_r_star": "q_star",
+    "league_zoe_r_portal_back": "r_portal_in"
+  },
+  "import_note": "Use pixel_1x sheets; no gutters. Read frames left to right using cell_1x. Preview timing is not gameplay timing.",
+  "verification": {
+    "effects": 17,
+    "frames": 70,
+    "passed": [
+      "dimensions",
+      "alpha_0_255",
+      "per_frame_symmetry",
+      "exact_8x_replication",
+      "nonempty_frames",
+      "distinct_animation_frames",
+      "bright_cores"
+    ],
+    "game_runtime_tested": false
+  }
+}

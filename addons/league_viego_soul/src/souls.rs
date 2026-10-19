@@ -172,6 +172,7 @@ pub const SOULS: &[(&str, &str, &[&str])] = &[
     ("league_zeri", "range", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_skill2_back", "hd_ult", "hit", "idle", "lo_attack", "lo_dead", "lo_hit", "lo_idle", "lo_run", "lo_skill", "lo_skill2", "lo_skill2_back", "lo_ult", "run", "skill", "skill2", "skill2_back", "ult"]),
     ("league_ziggs", "mage", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_skill_w", "hd_ult", "hit", "idle", "lo_attack", "lo_dead", "lo_hit", "lo_idle", "lo_run", "lo_skill", "lo_skill2", "lo_skill_w", "lo_ult", "run", "skill", "skill2", "skill_w", "ult"]),
     ("league_zilean", "util", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "skill_fx1", "w"]),
+    ("league_zoe", "mage", &["attack", "attack_p", "dead", "hd_attack", "hd_attack_p", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_skill_w", "hd_ult", "hd_ult_back", "hd_ult_exit", "hit", "idle", "lo_attack", "lo_attack_p", "lo_dead", "lo_hit", "lo_idle", "lo_run", "lo_skill", "lo_skill2", "lo_skill_w", "lo_ult", "lo_ult_back", "lo_ult_exit", "run", "skill", "skill2", "skill_w", "ult", "ult_back", "ult_exit"]),
     ("lightning_mage", "mage", &["attack", "dead", "hit", "idle", "run", "skill1", "skill2", "ult", "ult_loop"]),
     ("magic_knight", "melee", &["attack", "dead", "hit", "idle", "run", "skill1", "skill2", "ult", "ult_effect_loop"]),
     ("monk", "util", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),

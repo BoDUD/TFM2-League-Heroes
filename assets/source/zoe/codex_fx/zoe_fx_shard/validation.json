@@ -1,0 +1,34 @@
+[
+  {
+    "frame": 0,
+    "nonempty": true,
+    "alpha_0_255": true,
+    "left_right_symmetry": true,
+    "bright_core": true,
+    "gold_glint_present": false
+  },
+  {
+    "frame": 1,
+    "nonempty": true,
+    "alpha_0_255": true,
+    "left_right_symmetry": true,
+    "bright_core": true,
+    "gold_glint_present": false
+  },
+  {
+    "frame": 2,
+    "nonempty": true,
+    "alpha_0_255": true,
+    "left_right_symmetry": true,
+    "bright_core": true,
+    "gold_glint_present": true
+  },
+  {
+    "frame": 3,
+    "nonempty": true,
+    "alpha_0_255": true,
+    "left_right_symmetry": true,
+    "bright_core": true,
+    "gold_glint_present": false
+  }
+]
