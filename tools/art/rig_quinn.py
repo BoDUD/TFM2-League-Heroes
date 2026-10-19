@@ -81,7 +81,9 @@ LEG_X = 16
 FIST_X, BOW_X = 23, 25
 WRIST = (23.0, 17.5)
 SLEEVE = (0x1c50e4, 0x0527b5, 0x333350)
-CRACK, CRACK_W = 16, 1.5      # an enclosed gap at most this many squares and this far from its edge is a crack
+CRACK, CRACK_W = 16, 1.5      # an enclosed gap at most this many squares and this far from its edge is a crack (a wider
+                              # one - between the cape's hem and a back leg - stays open, as the idle's gap there; filled
+                              # with the cape's shade it read as the cape grown a hand longer)
 
 
 def design():
@@ -309,7 +311,7 @@ class Form:
     def close_cracks(self, can):
         """The ground seen through a thin crack the drawn legs leave against the cape, the skirt or each other (a slit
         between two boots that touch, a pocket under the hip) closed with the outline's dark - the idle has no enclosed
-        gap at all (gap-check); a wider room between the limbs stays open."""
+        gap at all (gap-check); a wider room between the limbs or the cape stays open."""
         op = can[..., 3] > 0
         lbl, n = ndimage.label(ndimage.binary_fill_holes(op) & ~op)
         out = can.copy()
@@ -391,8 +393,10 @@ LOW_HOLD = dict(elbow=(-1.0, 5.0), wrist=(2.5, 9.0))    # let down to her hip (R
 # the death's crossbow: flung up behind her (moved, then a quarter turn up), then lying on the floor behind her
 BOW_FLUNG = (-40, 8)
 BOW_DX = -42
+STAND_CAPE = (0, -2)          # the cape's hem in the standing moves (Form.drawn cape)
 RUN_FLIGHT = 0.6              # share of League's lift kept in the run's both-feet-off-the-ground frames
-RUN_CAPE = [(-2, -2), (-2, -3), (-3, -3), (-2, -3), (-2, -2), (-2, -3), (-3, -3), (-2, -3)]   # the hem flying back
+RUN_CAPE = [(-2, -2), (-3, -5), (-4, -4), (-2, -3), (-2, -2), (-3, -5), (-4, -4), (-2, -3)]   # the hem flying back,
+# up clear of the heel kicked up behind (lower, the two closed a pocket of ground between them)
 # the hips close together as League's side-on run has them (league_zeri: the far hip 2 squares right of the near): at
 # the idle's 3/4 places, 8 squares apart, the near leg swinging forward crossed the far one swinging back and the
 # stride closed up instead of opening
@@ -413,7 +417,9 @@ def frames_all(F):
     # League's steps forward and back, and her legs stand side by side in the drawing; standing moves map League's front
     # and back feet onto her image-right and image-left legs (roles), her own stance
     T = {t: [r["j"] for r in rows] for t, rows in F.JS["tags"].items()}
-    dr = lambda j, **o: F.drawn(j, **{"spread": ACT_SPREAD, "roles": True, "ground": True, **o})
+    # (the cape's hem held 2 rows up through the standing moves: down at the idle's row a back foot up on its toes
+    # touched its tip and closed a pocket of ground between them)
+    dr = lambda j, **o: F.drawn(j, **{"spread": ACT_SPREAD, "roles": True, "ground": True, "cape": STAND_CAPE, **o})
     out = {}
     # idle (League's Quinn_idle1: the crossbow held out, she breathes): the approved design, the body set down a row
     out["idle"] = [p(), p(), p(), p(crouch=1), p(crouch=1), p(crouch=1), p(crouch=1), p()]
