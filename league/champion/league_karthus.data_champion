@@ -2982,13 +2982,13 @@
       "name": "league_karthus_r_cast",
       "anim": "asset/league/effects/league_karthus_big",
       "tag": "r_cast",
-      "z": 3,
+      "z": -1,
       "is_follow": true
     },
     {
       "type": "Animation",
       "name": "league_karthus_r_hit",
-      "anim": "asset/league/effects/league_karthus_fx",
+      "anim": "asset/league/effects/league_karthus_big",
       "tag": "r_hit",
       "z": 2,
       "is_follow": true

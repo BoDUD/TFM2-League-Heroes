@@ -260,7 +260,7 @@ def build(p):
                                            "repeat": True, "z": 2}
     views_p = [Pj("a_bolt")]       # round; the zones carry no picture (an upright one would turn with the cast)
     views_e = [E("a_hit"), E("q_mark", BIG, -1, False), E("q_boom", BIG, 2, False), E("q_hit"), E("q_lone"), E("e_hit"),
-               E("w_wall", BIG, -1, False), E("r_cast", BIG, 3, True), E("r_hit")]
+               E("w_wall", BIG, -1, False), E("r_cast", BIG, -1, True), E("r_hit", BIG)]
     views_b = [B_("e_on", BIG, -1), B_("w_slow", FX, 3), B_("w_shred", FX, 3)]
     extra = {}
     if native:          # the add-on's spirit
