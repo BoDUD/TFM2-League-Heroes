@@ -5,7 +5,8 @@
 
 For each tag: League's clip (pose_ref.py, Riot's model - the renders stay in DIR, never committed) sampled at as many
 frames as the tag has, spread over the clip's part named in CLIPS, next to the rig's frame at z screen px a design
-square, both at the tag's own frame times. Writes <out>/volibear_<tag>_vs_lol.gif and <out>/volibear_<tag>_vs_lol.png.
+square, both at the tag's own frame times. Writes <out>/volibear_<tag>_vs_lol.gif and <out>/volibear_<tag>_vs_lol.png,
+and <out>/volibear_all_vs_lol.gif: every tag in turn (each played twice), one picture to review.
 """
 import argparse
 import os
@@ -53,6 +54,7 @@ def main():
     F = V.Form()
     acts = V.frames(F)
     tags = a.tags.split(",") if a.tags else list(acts)
+    every = []
     allc = np.concatenate([np.stack([F.rig.finish(c) for c, _ in fr]) for fr in acts.values()])
     ys, xs = np.nonzero(allc[..., 3].max(0) > 0)
     y0, y1, x0, x1 = ys.min() - 2, ys.max() + 3, xs.min() - 2, xs.max() + 3
@@ -82,7 +84,23 @@ def main():
         for i, (c, _) in enumerate(cells):
             sheet.paste(c, (0, i * h))
         sheet.save(os.path.join(a.out, f"volibear_{tag}_vs_lol.png"))
+        every += cells * 2
         print(gif)
+    W = max(c.width for c, _ in every)
+    H = max(c.height for c, _ in every)
+    frames = []
+    for c, ms in every:
+        full = Image.new("RGB", (W, H), (40, 40, 40))
+        full.paste(c, (0, 0))
+        frames.append((full, ms))
+    pal = Image.new("RGB", (W, H * 4))
+    for i, (c, _) in enumerate(frames[::max(1, len(frames) // 4)][:4]):
+        pal.paste(c, (0, i * H))
+    pal = pal.quantize(255, dither=Image.Dither.NONE)
+    q = [c.quantize(palette=pal, dither=Image.Dither.NONE) for c, _ in frames]
+    path = os.path.join(a.out, "volibear_all_vs_lol.gif")
+    q[0].save(path, save_all=True, append_images=q[1:], duration=[int(ms) for _, ms in frames], loop=0)
+    print(path)
 
 
 if __name__ == "__main__":
