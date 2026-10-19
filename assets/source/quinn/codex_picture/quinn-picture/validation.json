@@ -1,0 +1,78 @@
+[
+  {
+    "file": "quinn-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "alpha_bbox": [
+      0,
+      9,
+      1232,
+      1254
+    ]
+  },
+  {
+    "file": "quinn-B.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "alpha_bbox": [
+      0,
+      47,
+      1230,
+      1250
+    ]
+  },
+  {
+    "file": "quinn-R.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "alpha_bbox": [
+      0,
+      9,
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "valor-V.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "alpha_bbox": [
+      0,
+      15,
+      1238,
+      1254
+    ]
+  }
+]
