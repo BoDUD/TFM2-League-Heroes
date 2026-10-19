@@ -59,7 +59,7 @@ TEXT = {
                   "；被禁锢的英雄随后被拉近，留下一片魂屑。",
         "ult": "化身恶魔，吸取周围敌人的生命：每" + A + "{r_pulse}秒" + E + "造成" + mag("r_dmg", "r_ap") + M + "魔法伤害" + E + "，每名英雄回复" +
                G + "{r_heal}" + E + " + " + APi + G + "{r_heal_ap}%" + E + "；吸到英雄时形态延续。" + A + "{r_flare_at}秒" + E + "后放出" + O + "恶魔耀光" +
-               E + "：" + mag("r_fl", "r_fl_ap") + M + "魔法伤害" + E + "并" + R + "减速" + E + "。2名敌方英雄在身边或有队友围攻被控者时才放。",
+               E + "：" + mag("r_fl", "r_fl_ap") + M + "魔法伤害" + E + "并" + R + "减速" + E + "。2名敌方英雄在身边，或有敌方英雄且队友在旁时才放。",
         "names": ("解脱之触", "永不复行", "恶魔升华"),
     },
     "zh-hant": {
@@ -73,7 +73,7 @@ TEXT = {
                   "；被定身的英雄隨後被拉近，留下一片靈魂碎片。",
         "ult": "化身惡魔，汲取周圍敵人的生命：每" + A + "{r_pulse}秒" + E + "造成" + mag("r_dmg", "r_ap") + M + "魔法傷害" + E + "，每名英雄回復" +
                G + "{r_heal}" + E + " + " + APi + G + "{r_heal_ap}%" + E + "；汲取到英雄時型態延續。" + A + "{r_flare_at}秒" + E + "後放出" + O + "魔燄" +
-               E + "：" + mag("r_fl", "r_fl_ap") + M + "魔法傷害" + E + "並" + R + "緩速" + E + "。2名敵方英雄在身邊或有隊友圍攻被控者時才施放。",
+               E + "：" + mag("r_fl", "r_fl_ap") + M + "魔法傷害" + E + "並" + R + "緩速" + E + "。2名敵方英雄在身邊，或有敵方英雄且隊友在旁時才施放。",
         "names": ("靈魂拷問", "影之爪", "魔君降生"),
     },
     "en": {
@@ -89,7 +89,7 @@ TEXT = {
         "ult": "He becomes the demon and drains nearby enemies: every " + A + "{r_pulse}s" + E + " " + mag("r_dmg", "r_ap") + " " + M +
                "magic damage" + E + ", healing " + G + "{r_heal}" + E + " + " + APi + G + "{r_heal_ap}%" + E + " per champion; draining "
                "champions keeps the form going. After " + A + "{r_flare_at}s" + E + ", " + O + "Demonflare" + E + ": " + mag("r_fl", "r_fl_ap") +
-               " " + M + "magic damage" + E + " and a " + R + "slow" + E + ". Cast with 2 enemy champions close, or an ally on a controlled one.",
+               " " + M + "magic damage" + E + " and a " + R + "slow" + E + ". Cast with 2 enemy champions close, or one with an ally beside him.",
         "names": ("Death's Hand", "Nevermove", "Demonic Ascension"),
     },
     "ko": {
@@ -105,7 +105,7 @@ TEXT = {
         "ult": "악마로 변신해 주변 적의 생명력을 흡수: " + A + "{r_pulse}초" + E + "마다 " + mag("r_dmg", "r_ap") + "의 " + M + "마법 피해" + E +
                ", 챔피언마다 " + G + "{r_heal}" + E + " + " + APi + G + "{r_heal_ap}%" + E + " 회복; 챔피언을 흡수하면 형태 유지. " + A +
                "{r_flare_at}초" + E + " 후 " + O + "악의 불길" + E + ": " + mag("r_fl", "r_fl_ap") + "의 " + M + "마법 피해" + E + "와 " + R +
-               "둔화" + E + ". 적 챔피언 2명이 가까이 있거나 아군이 군중 제어된 적을 칠 때 사용.",
+               "둔화" + E + ". 적 챔피언 2명이 가까이 있거나, 적과 아군이 곁에 있을 때 사용.",
         "names": ("죽음의 손길", "속박명령", "악의 승천"),
     },
     "ja": {
@@ -121,7 +121,7 @@ TEXT = {
         "ult": "悪魔に変身し周囲の敵から吸収：" + A + "{r_pulse}秒" + E + "毎に" + mag("r_dmg", "r_ap") + "の" + M + "魔法ダメージ" + E +
                "、チャンピオン毎に" + G + "{r_heal}" + E + " + " + APi + G + "{r_heal_ap}%" + E + "回復。チャンピオンを吸収する間は持続。" + A +
                "{r_flare_at}秒" + E + "後「" + O + "悪魔の紅炎" + E + "」：" + mag("r_fl", "r_fl_ap") + "の" + M + "魔法ダメージ" + E + "と" + R +
-               "スロウ" + E + "。敵2体が近いか、味方がCC中の敵を攻撃中に使う。",
+               "スロウ" + E + "。敵2体が近いか、敵が近く味方がそばにいる時に使う。",
         "names": ("死の手", "束縛の爪", "魔帝戴冠"),
     },
 }
