@@ -3,7 +3,8 @@
     "description": {
       "league_aphelios_queue": {
         "attack": "【附加包】用主手武器开火，每把<#ffb900ff>20发<>，打空换队列最前的那把：<#ff9028ff>通碧<>射程更远，<#ff9028ff>断魄<>吸血10%、攻速+20%，<#ff9028ff>坠明<>减速25%，<#ff9028ff>荧焰<>溅射，<#ff9028ff>折镜<>每次命中攻击+5%（4秒，可叠加）。<#ff9028ff>传知者与真知者<>：随等级额外成长。",
-        "skill2": "【附加包】交换主手和副手武器：主手技能在冷却、副手技能已就绪且附近有敌方英雄时才交换；残血时换上断魄。"
+        "skill": "【附加包】主手武器的技能，看局面放，各自冷却：通碧狙击造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并追射；断魄加速连射回血；坠明<#ef5350ff>定身<>被它减速的敌人1秒；荧焰扇形波后副手追击；折镜放下哨塔5秒。",
+        "skill2": "【附加包】交换主手和副手武器：看局面换上合适的武器：换手接技能、开大前换好、通碧射出后换手引爆、被贴脸换近身武器、残血换断魄。"
       }
     }
   },
@@ -11,7 +12,8 @@
     "description": {
       "league_aphelios_queue": {
         "attack": "【附加包】用主武器開火，每把<#ffb900ff>20發<>，打空換佇列最前的那把：<#ff9028ff>月影步槍<>射程更遠，<#ff9028ff>月鐮槍刃<>吸血10%、攻速+20%，<#ff9028ff>月殞重砲<>緩速25%，<#ff9028ff>熾夜月燄<>濺射，<#ff9028ff>月曲終章<>每次命中攻擊+5%（4秒，可疊加）。<#ff9028ff>殺手與先知<>：隨等級額外成長。",
-        "skill2": "【附加包】交換主武器和副武器：主武器技能冷卻中、副武器技能已就緒且附近有敵方英雄時才交換；殘血時換上月鐮槍刃。"
+        "skill": "【附加包】主武器的技能，看局面施放，各自冷卻：步槍狙擊造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並追射；槍刃加速連射回血；重砲<#ef5350ff>定身<>被它緩速的敵人1秒；月燄扇形波後副武器追擊；飛刃放下哨兵5秒。",
+        "skill2": "【附加包】交換主武器和副武器：看局面換上合適的武器：換手接技能、開大前換好、步槍射出後換手引爆、被貼身換近身武器、殘血換月鐮槍刃。"
       }
     }
   },
@@ -19,7 +21,8 @@
     "description": {
       "league_aphelios_queue": {
         "attack": "[Add-on] Fires his main weapon, <#ffb900ff>20 shots<> each, then the next of the queue (first in, first out): <#ff9028ff>Calibrum<> longer range, <#ff9028ff>Severum<> 10% lifesteal and +20% attack speed, <#ff9028ff>Gravitum<> 25% slow, <#ff9028ff>Infernum<> splash, <#ff9028ff>Crescendum<> +5% attack per hit (4s, stacking). <#ff9028ff>The Hitman and the Seer<>: extra growth.",
-        "skill2": "[Add-on] Swaps the main and off-hand weapons, only when the main hand's ability is cooling down, the off hand's is ready and an enemy champion is near; when low, Severum at once."
+        "skill": "[Add-on] The main weapon's ability, used when the moment fits, each on its own cooldown: Calibrum snipes for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and follows up; Severum runs and fires, healing; Gravitum <#ef5350ff>roots<> every enemy it slowed for 1s; Infernum's wave, then off-hand shots; Crescendum a sentry for 5s.",
+        "skill2": "[Add-on] Swaps the main and off-hand weapons, by the situation: to chain abilities, the best gift before the ult, the off hand to pop Calibrum's mark, a close weapon when dived, Severum when low."
       }
     }
   },
@@ -27,7 +30,8 @@
     "description": {
       "league_aphelios_queue": {
         "attack": "[애드온] 주 무기로 공격, 무기마다 <#ffb900ff>20발<>, 다 쓰면 대기열의 다음 무기: <#ff9028ff>만월총<> 사거리 증가, <#ff9028ff>절단검<> 생명력 흡수 10%·공격 속도 +20%, <#ff9028ff>중력포<> 25% 둔화, <#ff9028ff>화염포<> 범위 피해, <#ff9028ff>반월검<> 적중마다 공격력 +5%(4초, 중첩). <#ff9028ff>암살자와 예언자<>: 추가 성장.",
-        "skill2": "[애드온] 주 무기와 보조 무기를 교체합니다. 주 무기 스킬이 재사용 대기 중이고 보조 무기 스킬이 준비되었으며 근처에 적 챔피언이 있을 때만. 체력이 낮으면 절단검으로."
+        "skill": "[애드온] 주 무기의 스킬(상황에 맞게 사용, 각자 재사용 대기시간): 만월총 저격 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<> 후 추가 사격; 절단검 이동하며 연사·회복; 중력포 둔화된 적 <#ef5350ff>1초 속박<>; 화염포 원뿔 공격 후 보조 무기 추격; 반월검 파수탑 5초.",
+        "skill2": "[애드온] 주 무기와 보조 무기를 교체합니다. 상황에 맞게: 스킬 연계, 궁극기 전 무기 선택, 만월총 표식 폭발, 근접 시 근접 무기, 체력이 낮으면 절단검."
       }
     }
   },
@@ -35,7 +39,8 @@
     "description": {
       "league_aphelios_queue": {
         "attack": "【アドオン】メイン武器で攻撃、各<#ffb900ff>20発<>、撃ち尽くすとキューの次の武器に：<#ff9028ff>キャリブラム<>射程増加、<#ff9028ff>セヴェラム<>ライフスティール10%・攻撃速度+20%、<#ff9028ff>グラヴィタム<>25%スロウ、<#ff9028ff>インファーナム<>範囲攻撃、<#ff9028ff>クレッシェンダム<>命中ごとに攻撃力+5%（4秒、累積）。<#ff9028ff>殺す者と導く者<>：追加成長。",
-        "skill2": "【アドオン】メインとオフハンドの武器を入れ替える。メインのスキルがCD中、オフハンドのスキルが使用可能で、近くに敵チャンピオンがいる時のみ。体力が低いとセヴェラムに。"
+        "skill": "【アドオン】メイン武器のスキル（状況を見て使用、個別CD）：キャリブラム狙撃<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と追撃；セヴェラム走りながら連射・回復；グラヴィタム スロウ中の敵を<#ef5350ff>1秒スネア<>；インファーナム扇状攻撃後オフハンド追撃；クレッシェンダム セントリー5秒。",
+        "skill2": "【アドオン】メインとオフハンドの武器を入れ替える。状況を見て：スキル連携、ウルト前の武器選び、キャリブラムの印を別の武器で起爆、接近されたら近接武器、体力が低いとセヴェラム。"
       }
     }
   }
