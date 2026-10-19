@@ -28,7 +28,10 @@ TFM2 has three slots, so Q is folded into the attack:
   ult     R Transcend One's Self (定圣诀): a `Targeting` cast on `EnemyChampion` (r_range), only in a fight: two or more
           enemy champions within r_count, or an enemy champion in CC within r_range (else the cooldown comes back:
           ult_cooldown_mult 4900). r_t ticks: Q on for the whole time (no Unleash needed), W the laser, E the dash, and a
-          3-tick skill_cooldown_mult 400 brings W and E to at most 20% of their cooldown (League's 80% on W).
+          3-tick skill_cooldown_mult 400 brings W and E to at most 20% of their cooldown (League's 80% on W); the same
+          buff carries ult_cooldown_mult -400, since the ult's cap adds both fields: without it R's own fresh cooldown
+          was capped at 4200 x 100 / 500 = 840 ticks and she transcended again as soon as the form ran out (the user's
+          match log, 2026-10-19: three transcendences in 46 s).
 """
 import argparse
 import json
@@ -305,7 +308,7 @@ def build(p):
     count = around(p["r_count"], "EnemyChampion", [sw("r_n1", flag("r_n2", 1), flag("r_n1", 1))])
     in_cc = pick(p["r_range"], "EnemyChampionInCC", flag("r_cc", 1))
     fire = combine(refresh("r_on", p["r_t"]), q_start(p["r_t"]), *rm(*us, "u_half"),
-                   flag("r_cdr", 3, skill_cooldown_mult=400), anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
+                   flag("r_cdr", 3, skill_cooldown_mult=400, ult_cooldown_mult=-400), anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
                    cview("r_burst"))
     refund = flag("r_refund", 3, ult_cooldown_mult=4900)
     # a 3-tick action (an empty try costs 3 ticks of the idle, league_kalista's gate); the fire plays the ult strip
