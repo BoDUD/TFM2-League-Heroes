@@ -1,0 +1,62 @@
+{
+ "kneel": {
+  "drop": 8,
+  "padx": 12,
+  "hip": 41,
+  "rows": 49,
+  "offset": [
+   -8,
+   5
+  ]
+ },
+ "lunge": {
+  "drop": 3,
+  "padx": 12,
+  "hip": 36,
+  "rows": 50,
+  "offset": [
+   -3,
+   6
+  ]
+ },
+ "wide": {
+  "drop": 2,
+  "padx": 12,
+  "hip": 35,
+  "rows": 49,
+  "offset": [
+   -2,
+   1
+  ]
+ },
+ "back": {
+  "drop": 1,
+  "padx": 12,
+  "hip": 34,
+  "rows": 49,
+  "offset": [
+   -1,
+   4
+  ]
+ },
+ "tuck": {
+  "drop": 0,
+  "padx": 12,
+  "hip": 33,
+  "rows": 45,
+  "offset": [
+   0,
+   0
+  ]
+ },
+ "step": {
+  "drop": 0,
+  "padx": 12,
+  "hip": 33,
+  "rows": 50,
+  "offset": [
+   0,
+   1
+  ]
+ }
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "pose": "kneel",
+    "file": "quinn-legs-kneel.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha": true,
+    "semi_transparent_pixels": 465187,
+    "alpha_levels": 256,
+    "hard_alpha_only_0_255": false,
+    "requested_hip_y": 1034,
+    "protected_upperbody_cell_centres_tested": 660,
+    "protected_upperbody_cell_centres_changed_rgba": 660,
+    "unchanged_upperbody_verified": false,
+    "nonuniform_occupied_22px_cells": 1383,
+    "exact_22px_grid": false,
+    "strict_technical_pass": false
+  },
+  {
+    "pose": "lunge",
+    "file": "quinn-legs-lunge.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha": true,
+    "semi_transparent_pixels": 509360,
+    "alpha_levels": 256,
+    "hard_alpha_only_0_255": false,
+    "requested_hip_y": 924,
+    "protected_upperbody_cell_centres_tested": 658,
+    "protected_upperbody_cell_centres_changed_rgba": 658,
+    "unchanged_upperbody_verified": false,
+    "nonuniform_occupied_22px_cells": 1594,
+    "exact_22px_grid": false,
+    "strict_technical_pass": false
+  },
+  {
+    "pose": "wide",
+    "file": "quinn-legs-wide.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha": true,
+    "semi_transparent_pixels": 441484,
+    "alpha_levels": 256,
+    "hard_alpha_only_0_255": false,
+    "requested_hip_y": 902,
+    "protected_upperbody_cell_centres_tested": 658,
+    "protected_upperbody_cell_centres_changed_rgba": 658,
+    "unchanged_upperbody_verified": false,
+    "nonuniform_occupied_22px_cells": 1369,
+    "exact_22px_grid": false,
+    "strict_technical_pass": false
+  },
+  {
+    "pose": "back",
+    "file": "quinn-legs-back.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha": true,
+    "semi_transparent_pixels": 535452,
+    "alpha_levels": 256,
+    "hard_alpha_only_0_255": false,
+    "requested_hip_y": 880,
+    "protected_upperbody_cell_centres_tested": 658,
+    "protected_upperbody_cell_centres_changed_rgba": 658,
+    "unchanged_upperbody_verified": false,
+    "nonuniform_occupied_22px_cells": 1699,
+    "exact_22px_grid": false,
+    "strict_technical_pass": false
+  },
+  {
+    "pose": "tuck",
+    "file": "quinn-legs-tuck.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha": true,
+    "semi_transparent_pixels": 425258,
+    "alpha_levels": 256,
+    "hard_alpha_only_0_255": false,
+    "requested_hip_y": 858,
+    "protected_upperbody_cell_centres_tested": 658,
+    "protected_upperbody_cell_centres_changed_rgba": 658,
+    "unchanged_upperbody_verified": false,
+    "nonuniform_occupied_22px_cells": 1379,
+    "exact_22px_grid": false,
+    "strict_technical_pass": false
+  },
+  {
+    "pose": "step",
+    "file": "quinn-legs-step.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "matches_1254_square": true,
+    "real_alpha": true,
+    "semi_transparent_pixels": 438369,
+    "alpha_levels": 256,
+    "hard_alpha_only_0_255": false,
+    "requested_hip_y": 858,
+    "protected_upperbody_cell_centres_tested": 658,
+    "protected_upperbody_cell_centres_changed_rgba": 658,
+    "unchanged_upperbody_verified": false,
+    "nonuniform_occupied_22px_cells": 1310,
+    "exact_22px_grid": false,
+    "strict_technical_pass": false
+  }
+]

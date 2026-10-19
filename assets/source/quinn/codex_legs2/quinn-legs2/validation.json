@@ -1,0 +1,50 @@
+[
+  {
+    "sheet": "poses",
+    "size": [
+      1638,
+      960
+    ],
+    "requested_size": [
+      1386,
+      812
+    ],
+    "matches_requested_size": false,
+    "mode": "RGB",
+    "exact_green_pixels": 11,
+    "corner_pixels_tested": 1600,
+    "corner_exact_green_pixels": 0,
+    "corner_rgb_color_count": 111,
+    "pure_green_corner_check": false,
+    "source_red_guide_color_pixels": 0,
+    "source_blue_guide_color_pixels": 0,
+    "body_and_cape_pixel_identity_verified": false,
+    "exact_7px_grid_verified": false,
+    "strict_technical_pass": false,
+    "note": "Read-only inspection. Output canvas dimensions and green RGB values differ from source. Bodies, cape and skeleton geometry require further exact verification; no raster corrections performed."
+  },
+  {
+    "sheet": "run",
+    "size": [
+      1891,
+      831
+    ],
+    "requested_size": [
+      1848,
+      812
+    ],
+    "matches_requested_size": false,
+    "mode": "RGB",
+    "exact_green_pixels": 85,
+    "corner_pixels_tested": 1600,
+    "corner_exact_green_pixels": 0,
+    "corner_rgb_color_count": 110,
+    "pure_green_corner_check": false,
+    "source_red_guide_color_pixels": 0,
+    "source_blue_guide_color_pixels": 0,
+    "body_and_cape_pixel_identity_verified": false,
+    "exact_7px_grid_verified": false,
+    "strict_technical_pass": false,
+    "note": "Read-only inspection. Output canvas dimensions and green RGB values differ from source. Bodies, cape and skeleton geometry require further exact verification; no raster corrections performed."
+  }
+]

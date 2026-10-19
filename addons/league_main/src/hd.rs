@@ -103,6 +103,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Zoe: posed by tools/art/rig_zoe.py from Codex's step-1 takes at the user's 1.5 squares a game pixel (35 game rows
     // crown to soles: 「35 像素」「PPU 1.5」; skill_w / ult_exit / ult_back the kit's CasterAnimations), so no SIZES row
     ("league_zoe", 1.5, include_str!("../../../league/champions/league_zoe#anim.fanim")),
+    // Quinn: posed by tools/art/rig_quinn.py from Codex's redraw of the user's picks at 2.0 squares a game pixel (38 game
+    // rows crest to soles: 「38 像素」, then 「像素有点太低了 太多模糊的了 调一下PPU」; her legs drawn on League's bones; the
+    // ride r_* tags the add-on swaps in), so no SIZES row
+    ("league_quinn", 2.0, include_str!("../../../league/champions/league_quinn#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

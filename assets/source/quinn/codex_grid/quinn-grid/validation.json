@@ -1,0 +1,71 @@
+[
+  {
+    "file": "quinn-grid-A-1.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "logical_size": [
+      78,
+      118
+    ],
+    "correct_size": true,
+    "exact_13px_grid": true,
+    "hard_alpha": true,
+    "visible_colors": 28,
+    "visible_bbox_1x": [
+      4,
+      21,
+      73,
+      96
+    ],
+    "technical_grid_pass": true,
+    "artistic_eye_size_outline_and_head_identity_pass": false
+  },
+  {
+    "file": "quinn-grid-A-2.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "logical_size": [
+      78,
+      118
+    ],
+    "correct_size": true,
+    "exact_13px_grid": true,
+    "hard_alpha": true,
+    "visible_colors": 31,
+    "visible_bbox_1x": [
+      4,
+      21,
+      73,
+      96
+    ],
+    "technical_grid_pass": true,
+    "artistic_eye_size_outline_and_head_identity_pass": false
+  },
+  {
+    "file": "quinn-grid-B.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "logical_size": [
+      118,
+      78
+    ],
+    "correct_size": true,
+    "exact_13px_grid": true,
+    "hard_alpha": true,
+    "visible_colors": 31,
+    "visible_bbox_1x": [
+      7,
+      3,
+      110,
+      74
+    ],
+    "technical_grid_pass": true,
+    "artistic_eye_size_outline_and_head_identity_pass": false
+  }
+]
