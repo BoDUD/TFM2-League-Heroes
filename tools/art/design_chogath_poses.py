@@ -43,6 +43,17 @@ POSES = ["crouch", "rise", "rear", "slam", "lunge", "fall", "lie"]
 SRC2 = os.path.join(ROOT, "assets", "source", "chogath", "codex_poses2", "chogath-poses2")
 ROUND2 = {"rise": (17.0, 0.66, 1.0), "rear": (17.0, 0.66, 1.0), "slam": (17.0, 0.92, 0.92)}
 WHOLE = {"rise", "rear"}
+# 「腿看起来有点短啊」: round 2's legs are the stumps the round-2 prompt asked for (11 rows under rear's 70, 8 under rise's
+# 66; League's upright Cho'Gath stands on legs about 0.4 of his height). Round 1 drew the same poses with long legs, so
+# its legs are put under round 2's bodies (lossless pieces, Codex's own drawing): round 2's legs (cut: rows, columns)
+# go, round 1's (legs: its boxes and the column shift onto the old legs' places; the boxes keep out its tail) are laid
+# behind, and the body with its tail comes up `lift` rows onto them (the tail off the ground, as tails should be).
+GRAFT = {
+    "rear": dict(cut=[(59, 69, 19, 48)], legs=[([(50, 63, 33, 42), (64, 69, 29, 42)], -11), ([(50, 69, 43, 62)], -9)],
+                 lift=5),
+    "rise": dict(cut=[(58, 65, 15, 46)], legs=[([(52, 54, 31, 41), (55, 64, 23, 41)], -10), ([(50, 64, 42, 62)], -10)],
+                 lift=4),
+}
 
 
 def area_scale(a, side):
@@ -124,7 +135,41 @@ def slim_whole(fig, cols_k):
     return fig[:, cols]
 
 
+def boxes(shape, bx):
+    m = np.zeros(shape, bool)
+    for r0, r1, c0, c1 in bx:
+        m[r0:r1 + 1, c0:c1 + 1] = True
+    return m
+
+
+def graft(fig, r1, spec):
+    """fig with its legs (spec["cut"]) replaced by round 1's (r1, spec["legs"]) and the rest lifted spec["lift"] rows."""
+    pad = 20
+    H, W = max(fig.shape[0], r1.shape[0]), max(fig.shape[1], r1.shape[1])
+    can = np.zeros((H + 2 * pad, W + 2 * pad + 40, 4), np.uint8)
+    g_fig, g_r1 = fig.shape[0] - 1, r1.shape[0] - 1             # both stand on their lowest row
+    for bx, dx in spec["legs"]:
+        ys, xs = np.nonzero(boxes(r1.shape[:2], bx) & (r1[..., 3] > 0))
+        can[ys - g_r1 + g_fig + pad, xs + dx + pad] = r1[ys, xs]
+    ys, xs = np.nonzero((fig[..., 3] > 0) & ~boxes(fig.shape[:2], spec["cut"]))
+    can[ys - spec["lift"] + pad, xs + pad] = fig[ys, xs]
+    ys, xs = np.nonzero(can[..., 3] > 0)
+    return can[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
+
+def round1(name, side, idle):
+    a = np.asarray(Image.open(lp(os.path.join(SRC, f"chogath-pose-{name}.png"))).convert("RGBA"))
+    return finish(with_head(snap(sample(a, area_scale(a, side)), side), idle))
+
+
 def build(name, side, idle):
+    if name in GRAFT:
+        fig, s = build_round2(name, side, idle)
+        return finish(graft(fig, round1(name, side, idle), GRAFT[name])), s
+    return build_round2(name, side, idle) if name in ROUND2 else build_round1(name, side, idle)
+
+
+def build_round2(name, side, idle):
     if name in ROUND2:
         s, ck, rk = ROUND2[name]
         a = np.asarray(Image.open(lp(os.path.join(SRC2, f"chogath-pose-{name}.png"))).convert("RGBA"))
@@ -132,10 +177,12 @@ def build(name, side, idle):
         if name in WHOLE:
             return finish(with_head(slim_whole(raw, ck), idle)), s
         return finish(slim(with_head(raw, idle), idle, ck, rk)), s
+
+
+def build_round1(name, side, idle):
     a = np.asarray(Image.open(lp(os.path.join(SRC, f"chogath-pose-{name}.png"))).convert("RGBA"))
     s = area_scale(a, side)
-    fig = finish(with_head(snap(sample(a, s), side), idle))
-    return fig, s
+    return finish(with_head(snap(sample(a, s), side), idle)), s
 
 
 def main():

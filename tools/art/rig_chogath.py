@@ -157,7 +157,7 @@ def eye_point(d):
 # rearing, slamming and biting he pivots on his planted hind legs): each pose's near hind foot column (the middle of its
 # talons on the ground; slam's hind legs kick back in the air - its hips' column less the side design's hip-to-foot 3)
 SIDE_FOOT = 24
-POSES = {"crouch": 26, "rise": 22, "rear": 24, "slam": 17, "lunge": 19, "fall": 31, "lie": 37}
+POSES = {"crouch": 26, "rise": 23, "rear": 23, "slam": 17, "lunge": 19, "fall": 31, "lie": 37}
 
 
 def shift(can, dx, dy):
