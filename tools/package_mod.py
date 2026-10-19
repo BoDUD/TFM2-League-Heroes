@@ -553,6 +553,31 @@ def merge_keys(inst, pkg, match):
     return changed
 
 
+def keep_streamed(ov, target, mod_id="league"):
+    """Clip entries (asset/base/sound/sfx/<clip>) left pointing at sound/sfx/ although the installed clip is in
+    sound/bgm/ -> pointed at it again; -> how many. The clips are not committed (.gitignore): an install of a hero
+    from a checkout without its clips packs none, stream_overrides leaves the source's sound/sfx/ entries, and
+    merge_keys wrote them over the installed sound/bgm/ ones - every clip of the hero not found (2026-10-19: Poppy,
+    Wukong and Xin Zhao, 58 clips: `sound not found: asset/base/sound/sfx/league_poppy_sfx_q`)."""
+    def has(d, clip):
+        return any(os.path.isfile(lp(os.path.join(target, d, clip + e))) for e in AUDIO_EXT)
+    n = 0
+    for key, entry in ov.items():
+        if not key.startswith("asset/base/sound/sfx/") or not isinstance(entry, dict):
+            continue
+        clip = key.rsplit("/", 1)[1]
+        if entry.get("remapping") != f"asset/{mod_id}/{SFX_DIR}/{clip}" or entry.get("type") != "override":
+            continue
+        if os.path.isfile(lp(os.path.join(target, SFX_DIR, clip + ".sound_info"))):
+            continue  # a sound event (its .sound_info stays in sound/sfx/), not a clip
+        if has(STREAM_DIR, clip) and not has(SFX_DIR, clip):
+            entry["remapping"] = f"asset/{mod_id}/{STREAM_DIR}/{clip}"
+            n += 1
+        elif not has(SFX_DIR, clip):
+            print(f"warning: {key}: no clip {clip} installed in {SFX_DIR}/ or {STREAM_DIR}/ - it will not play")
+    return n
+
+
 def version(v):
     return tuple(int(x) for x in v.split("."))
 
@@ -589,6 +614,8 @@ def install(pkg, heroes, target, dry):
         dst = os.path.join(target, rel)
         inst = parse_json(read(dst), rel) if os.path.isfile(lp(dst)) else {}
         n = merge_keys(inst, parse_json(pkg[rel], rel), match)
+        if rel == "mod.override_info":
+            n += keep_streamed(inst, target)
         print(f"{rel}: {n} keys refreshed")
         if not dry and (n or not os.path.isfile(lp(dst))):
             write(dst, dump_min(inst))
