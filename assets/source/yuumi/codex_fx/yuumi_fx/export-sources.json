@@ -1,0 +1,116 @@
+[
+  {
+    "key": "a_bolt",
+    "path": "raw/a_bolt-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "a_hit",
+    "path": "raw/a_hit-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "p_hit",
+    "path": "raw/p_hit-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "p_heal",
+    "path": "raw/p_heal-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "q_missile",
+    "path": "raw/q_missile-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "q_hit",
+    "path": "raw/q_hit-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "q_ehit",
+    "path": "raw/q_ehit-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "q_slow",
+    "path": "raw/q_slow-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "q_eslow",
+    "path": "raw/q_eslow-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "e_hit",
+    "path": "raw/e_hit-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "e_haste",
+    "path": "raw/e_haste-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "w_heal",
+    "path": "raw/w_heal-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "w_jump",
+    "path": "raw/w_jump-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "w_land",
+    "path": "raw/w_land-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "r_cast",
+    "path": "raw/r_cast-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "r_wave",
+    "path": "raw/r_wave-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "r_hit",
+    "path": "raw/r_hit-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "r_heal",
+    "path": "raw/r_heal-generated.png",
+    "prompt": "",
+    "refs": []
+  },
+  {
+    "key": "r_root",
+    "path": "raw/r_root-generated.png",
+    "prompt": "",
+    "refs": []
+  }
+]

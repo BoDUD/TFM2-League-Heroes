@@ -1,0 +1,287 @@
+[
+  {
+    "file": "yuumi_fx_a_bolt.png",
+    "binding": "view_projectiles `league_yuumi_a_bolt`（跟着弹道转向；上下对称）",
+    "size": "10 × 8",
+    "symmetry": "top-bottom",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A LITTLE MAGIC BOLT, 4 frames, a seamless loop, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): a round pink-violet orb 4 squares across with a white core at the right, a short trail of 3-4 gold sparkle squares behind it to the left; each frame the core flickers and the sparkles shift.\nLayout: one horizontal row of 4 equal 10:8 cells, image size 640x128 (each cell 160x128, 16 px a square); the orb's middle on the cell's middle row, 3 squares from its right edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      10,
+      8
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "a_bolt"
+  },
+  {
+    "file": "yuumi_fx_a_hit.png",
+    "binding": "view_effects `league_yuumi_a_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "size": "12 × 12",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A SMALL MAGIC HIT, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-pink four-pointed flash 6 squares across; 2 the flash 9 across with 6 gold sparkle squares flying out; 3 only the sparkles further out, fading.\nLayout: one horizontal row of 3 equal square cells, image size 576x192 (each cell 192x192, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 3,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "cols": 3,
+    "rows": 1,
+    "key": "a_hit"
+  },
+  {
+    "file": "yuumi_fx_p_hit.png",
+    "binding": "view_effects `league_yuumi_p_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "size": "16 × 16",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210), a pink heart ramp (#FFFFFF, #FFE4EE, #FF9EC4, #F0628E, #C03A6A, #6E1E3E) and a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488).\nEffect: A STAR-AND-HEART BURST, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold star flash 8 squares across; 2 the flash 12 across with a small pink heart (5 squares wide) in its middle; 3 a ring of 8 gold and pink-violet sparkles 15 across, the heart rising a square; 4 only twinkling sparkles at the edge.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "p_hit"
+  },
+  {
+    "file": "yuumi_fx_p_heal.png",
+    "binding": "view_effects `league_yuumi_p_heal`（跟随，画在人物上面 z 2；左右对称）",
+    "size": "18 × 20",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink heart ramp (#FFFFFF, #FFE4EE, #FF9EC4, #F0628E, #C03A6A, #6E1E3E) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: HEALING HEARTS round a small unit, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side) (the small cat in her book stands in the middle, not drawn: 24 squares from the top of her antenna to the ground, about 22 squares wide): 1 two small pink hearts (3 squares wide) low at her left and right; 2 the hearts 4 squares higher, two gold sparkles above them; 3 the hearts higher still and a third heart at the top middle, more sparkles; 4 the hearts near the top, fading, the sparkles twinkling out.\nLayout: one horizontal row of 4 equal 18:20 cells, image size 1152x320 (each cell 288x320, 16 px a square); centered across, the middle of the cell on her middle. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      20
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "p_heal"
+  },
+  {
+    "file": "yuumi_fx_q_missile.png",
+    "binding": "view_projectiles `league_yuumi_q_missile`（跟着弹道转向；上下对称）",
+    "size": "16 × 10",
+    "symmetry": "top-bottom",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A PROWLING MAGIC MISSILE, 4 frames, a seamless loop, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): a round pink-violet orb 6 squares across with a white core inside a soft pink glow ring at the right, a tapering trail of gold starlight squares 9 squares long behind it to the left, widest next to the orb; each frame the core pulses and the trail's sparkles drift.\nLayout: one horizontal row of 4 equal 16:10 cells, image size 1024x160 (each cell 256x160, 16 px a square); the orb's middle on the cell's middle row, 4 squares from its right edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      10
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "q_missile"
+  },
+  {
+    "file": "yuumi_fx_q_hit.png",
+    "binding": "view_effects `league_yuumi_q_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "size": "18 × 18",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A MAGIC IMPACT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-pink flash 8 squares across; 2 the flash 12 across and a thin pink-violet ring 14 across; 3 the ring 18 across, 6 gold sparkles flying out; 4 only fading sparkles and a faint ring.\nLayout: one horizontal row of 4 equal square cells, image size 1152x288 (each cell 288x288, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      18
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "q_hit"
+  },
+  {
+    "file": "yuumi_fx_q_ehit.png",
+    "binding": "view_effects `league_yuumi_q_ehit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "size": "24 × 24",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210) and a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488).\nEffect: A BIG EMPOWERED IMPACT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold star flash 10 squares across with 4 long rays; 2 the flash 16 across inside a pink-violet ring 18 across; 3 the ring 22 across and a ring of 8 gold sparkles outside it; 4 only twinkling sparkles and a faint ring.\nLayout: one horizontal row of 4 equal square cells, image size 1536x384 (each cell 384x384, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      24,
+      24
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "q_ehit"
+  },
+  {
+    "file": "yuumi_fx_q_slow.png",
+    "binding": "view_buffs `league_yuumi_q_slow`（跟随，画在人物下面 z 1；左右对称；循环）",
+    "size": "16 × 6",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488).\nEffect: A SLOWING RING on the ground at a unit's feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a flat ellipse 14 squares wide and 4 tall drawn only as short pink-violet light streaks (1-3 squares) and a few white sparkle squares, mirrored; each frame the streaks move round the ellipse.\nLayout: one horizontal row of 4 equal 16:6 cells, image size 1024x96 (each cell 256x96, 16 px a square); centered across, the ellipse's bottom on the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      6
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "q_slow"
+  },
+  {
+    "file": "yuumi_fx_q_eslow.png",
+    "binding": "view_buffs `league_yuumi_q_eslow`（跟随，画在人物下面 z 1；左右对称；循环）",
+    "size": "20 × 8",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A STRONG SLOWING RING on the ground at a unit's feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a flat ellipse 18 squares wide and 6 tall: a thin pink-violet light ring with 6 gold sparkle squares on it at mirrored places; each frame the sparkles move round the ring and the ring brightens and dims.\nLayout: one horizontal row of 4 equal 20:8 cells, image size 1280x128 (each cell 320x128, 16 px a square); centered across, the ellipse's bottom on the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      20,
+      8
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "q_eslow"
+  },
+  {
+    "file": "yuumi_fx_e_hit.png",
+    "binding": "view_effects `league_yuumi_e_hit`（跟随，画在人物上面 z 2；左右对称）",
+    "size": "28 × 36",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210) and a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488).\nEffect: A SHIELD-AND-SPEED BURST round an ally, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side) (an upright champion 16 squares wide and 36 tall stands in the middle, not drawn): 1 a thin gold shield outline (an upright oval 22 squares wide and 32 tall, only its rim, 1-2 squares thick) appearing; 2 the rim bright with white highlight squares and 4 gold and pink-violet speed streaks (6-8 squares long) flashing up at its left and right; 3 the rim pulsing, the streaks higher; 4 the rim breaking into gold sparkles; 5 only sparkles drifting up.\nLayout: one horizontal row of 5 equal 28:36 cells, image size 2240x576 (each cell 448x576, 16 px a square); centered across, the cell's bottom on the ground. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 5,
+    "cell_1x": [
+      28,
+      36
+    ],
+    "cols": 3,
+    "rows": 2,
+    "key": "e_hit"
+  },
+  {
+    "file": "yuumi_fx_e_haste.png",
+    "binding": "view_buffs `league_yuumi_e_haste`（跟随，画在人物下面 z -1；左右对称；循环）",
+    "size": "26 × 8",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210) and a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488).\nEffect: A SPEED SWIRL on the ground at a unit's feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a flat ellipse 24 squares wide and 6 tall drawn only as short curved streaks (2-4 squares long) of gold and pink-violet light, mirrored, with a few white sparkle squares; each frame the streaks move round the ellipse.\nLayout: one horizontal row of 4 equal 26:8 cells, image size 1664x128 (each cell 416x128, 16 px a square); centered across, the ellipse's bottom on the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      26,
+      8
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "e_haste"
+  },
+  {
+    "file": "yuumi_fx_w_heal.png",
+    "binding": "view_effects `league_yuumi_w_heal`（跟随，画在人物上面 z 2；左右对称）",
+    "size": "16 × 18",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink heart ramp (#FFFFFF, #FFE4EE, #FF9EC4, #F0628E, #C03A6A, #6E1E3E) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: SMALL HEALING HEARTS on an ally, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 one pink heart 3 squares wide at the middle; 2 two hearts rising at mirrored places, two gold sparkles; 3 the hearts higher, a third small heart; 4 the hearts fading at the top, sparkles twinkling out.\nLayout: one horizontal row of 4 equal 16:18 cells, image size 1024x288 (each cell 256x288, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      18
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "w_heal"
+  },
+  {
+    "file": "yuumi_fx_w_jump.png",
+    "binding": "view_effects `league_yuumi_w_jump`（不跟随，画在人物下面 z 2；左右对称）",
+    "size": "18 × 14",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A SPARKLE PUFF where a small unit leaps away, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a pink-white flash 8 squares across low over the ground; 2 a puff of pink-violet glow 14 across with 6 gold sparkles; 3 the sparkles drifting up and out, the glow thinner; 4 only a few sparkles high up.\nLayout: one horizontal row of 4 equal 18:14 cells, image size 1152x224 (each cell 288x224, 16 px a square); centered across, the puff's bottom 1 square above the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      14
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "w_jump"
+  },
+  {
+    "file": "yuumi_fx_w_land.png",
+    "binding": "view_effects `league_yuumi_w_land`（不跟随，画在人物下面 z 2；左右对称）",
+    "size": "20 × 12",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210) and a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488).\nEffect: A LANDING SPARKLE on the ground, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a flat white-gold flash 10 squares wide and 3 tall on the ground; 2 a flat pink-violet ring 16 wide and 4 tall, 6 gold sparkles splashing out to the left and right; 3 the ring 20 wide and fainter, the sparkles further out; 4 only a few sparkles.\nLayout: one horizontal row of 4 equal 20:12 cells, image size 1280x192 (each cell 320x192, 16 px a square); centered across, the ring's bottom on the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      20,
+      12
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "w_land"
+  },
+  {
+    "file": "yuumi_fx_r_cast.png",
+    "binding": "view_effects `league_yuumi_r_cast`（跟随，画在人物下面 z -1；左右对称；大图表）",
+    "size": "40 × 20",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488), a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210) and a pink heart ramp (#FFFFFF, #FFE4EE, #FF9EC4, #F0628E, #C03A6A, #6E1E3E).\nEffect: A MAGIC CIRCLE OPENING on the ground under a small caster, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side) (the small cat in her book stands in the middle, not drawn: 24 squares from the top of her antenna to the ground, about 22 squares wide): 1 a small gold ring on the ground (an ellipse 12 wide and 4 tall); 2 the circle 28 wide and 9 tall, a gold rim with an inner ring of pink-violet scroll-work; 3 the circle 36 wide and 12 tall, small pink heart and spiral glyphs on it at mirrored places, 4 glowing cream page shapes (3x4 squares) rising above it at mirrored places; 4 the same, the pages higher; 5 the circle shrinking to 22 wide; 6 only a thin fading ring and a few sparkles.\nLayout: one horizontal row of 6 equal 40:20 cells, image size 3840x320 (each cell 640x320, 16 px a square); centered across, the ellipse's middle 6 squares above the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 6,
+    "cell_1x": [
+      40,
+      20
+    ],
+    "cols": 3,
+    "rows": 2,
+    "key": "r_cast"
+  },
+  {
+    "file": "yuumi_fx_r_wave.png",
+    "binding": "view_projectiles `league_yuumi_r_wave`（跟着弹道转向；上下对称；大图表）",
+    "size": "18 × 30",
+    "symmetry": "top-bottom",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A MAGIC WAVE, 4 frames, a seamless loop, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): a tall crescent of light 26 squares tall and 6 thick, bulging to the RIGHT (the way it flies), its body pink-violet, its leading (right) edge a bright gold-white line, 4-5 gold sparkle squares and 2 small glowing page flecks trailing behind it on the left at mirrored places; each frame the gold edge shimmers and the sparkles drift back.\nLayout: one horizontal row of 4 equal 18:30 cells, image size 1152x480 (each cell 288x480, 16 px a square); the crescent's middle on the cell's middle row, its gold edge 2 squares from the cell's right edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      30
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "r_wave"
+  },
+  {
+    "file": "yuumi_fx_r_hit.png",
+    "binding": "view_effects `league_yuumi_r_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "size": "16 × 16",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A WAVE HIT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a pink-white flash 7 squares across; 2 the flash 11 across with 4 glowing cream page flecks (2x3 squares) flying out at mirrored places; 3 the flecks further out with gold sparkles; 4 only fading sparkles.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "r_hit"
+  },
+  {
+    "file": "yuumi_fx_r_heal.png",
+    "binding": "view_effects `league_yuumi_r_heal`（跟随目标，画在人物上面 z 2；左右对称）",
+    "size": "14 × 16",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink heart ramp (#FFFFFF, #FFE4EE, #FF9EC4, #F0628E, #C03A6A, #6E1E3E) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A HEALING HEART on an ally, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a pink glow 6 squares across; 2 a pink heart 6 squares wide inside it, 4 gold sparkles round it; 3 the heart rising 3 squares, the sparkles further out; 4 the heart fading at the top.\nLayout: one horizontal row of 4 equal 14:16 cells, image size 896x256 (each cell 224x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      16
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "r_heal"
+  },
+  {
+    "file": "yuumi_fx_r_root.png",
+    "binding": "view_buffs `league_yuumi_r_root`（跟随，画在人物上面 z 1；左右对称；循环）",
+    "size": "22 × 14",
+    "symmetry": "left-right",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, sparkles, hearts, waves, rings or magic circles, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pink-violet magic ramp (#FFFFFF, #FFE0F6, #FFA3DE, #E070D8, #A848C8, #5E2488) and a gold starlight ramp (#FFFFFF, #FFF4C8, #FFDC6E, #F5B33A, #C97A1C, #7A4210).\nEffect: A BINDING OF GLOWING PAGE-RIBBONS round a unit's feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): two flat ellipse loops (18 squares wide, 4 tall, one 2 squares above the other) of pink-violet ribbon 1-2 squares thick with a gold edge, wrapped round the space where the legs are (the middle left open), small cream page flecks on them; each frame a bright white-gold glint runs along the ribbons (mirrored).\nLayout: one horizontal row of 4 equal 22:14 cells, image size 1408x224 (each cell 352x224, 16 px a square); centered across, the lower loop's bottom on the cell's bottom row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "frames": 4,
+    "cell_1x": [
+      22,
+      14
+    ],
+    "cols": 2,
+    "rows": 2,
+    "key": "r_root"
+  }
+]
