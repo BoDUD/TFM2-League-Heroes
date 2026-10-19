@@ -36,15 +36,15 @@ def lp(path):
     return pre + path if os.name == "nt" and not path.startswith(pre) else path
 
 
-def body_height(d):
+def body_height(d, half=14):
     """Crown tip to soles: the staff is the column with the longest opaque run; the crown the first row with figure
-    pixels away from it."""
+    pixels more than `half` columns from it (its crimson collar sticks out)."""
     op = d[..., 3] > 0
     runs = [max((len(s) for s in "".join("1" if v else "0" for v in op[:, x]).split("0")), default=0)
             for x in range(op.shape[1])]
     sx = int(np.argmax(runs))
     away = op.copy()
-    away[:, max(0, sx - 8):sx + 9] = False
+    away[:, max(0, sx - half):sx + half + 1] = False
     rows = np.nonzero(away.any(axis=1))[0]
     return op.shape[0] - rows.min()
 
