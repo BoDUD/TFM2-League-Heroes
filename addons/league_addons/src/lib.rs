@@ -219,13 +219,11 @@ mod akshan;
 #[path = "../../league_poppy/src/lib.rs"]
 mod poppy;
 #[allow(dead_code)] // items public in the add-on's own crate
-<<<<<<< HEAD
 #[path = "../../league_volibear/src/lib.rs"]
 mod volibear;
-=======
+#[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_rammus/src/lib.rs"]
 mod rammus;
->>>>>>> origin/main
 
 pub const ID: &str = "league_addons";
 
@@ -318,11 +316,8 @@ fn init(host: &StableHost) -> StableMod {
     cassiopeia::register(host, &mut module);
     akshan::register(host, &mut module);
     poppy::register(host, &mut module);
-<<<<<<< HEAD
     volibear::register(host, &mut module);
-=======
     rammus::register(host, &mut module);
->>>>>>> origin/main
     module.set_map_customizer(MapReaders);
     host.log(
         LogLevel::Info,
