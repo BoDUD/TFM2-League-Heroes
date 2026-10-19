@@ -28,7 +28,10 @@ TFM2 has three slots, so Q is folded into the attack:
   ult     R Transcend One's Self (定圣诀): a `Targeting` cast on `EnemyChampion` (r_range), only in a fight: two or more
           enemy champions within r_count, or an enemy champion in CC within r_range (else the cooldown comes back:
           ult_cooldown_mult 4900). r_t ticks: Q on for the whole time (no Unleash needed), W the laser, E the dash, and a
-          3-tick skill_cooldown_mult 400 brings W and E to at most 20% of their cooldown (League's 80% on W).
+          3-tick skill_cooldown_mult 400 brings W and E to at most 20% of their cooldown (League's 80% on W); the same
+          buff carries ult_cooldown_mult -400, since the ult's cap adds both fields: without it R's own fresh cooldown
+          was capped at 4200 x 100 / 500 = 840 ticks and she transcended again as soon as the form ran out (the user's
+          match log, 2026-10-19: three transcendences in 46 s).
 """
 import argparse
 import json
@@ -47,6 +50,10 @@ BIG = "asset/league/effects/league_yunara_big"
 # on seeds 13-24 (+1.61 over 24); y4 Q 35% + W 60 +1.43 / +0.80. Timed to the strips (W's bead from a guarded Delayed,
 # R a 3-tick gate) y3 fell to +1.32 / +1.32 (t1); atk 103 +1.49 / +0.93, Q 45% AS +1.57 / +1.05, W 85 + laser 180
 # +0.99 / +2.55 (noise); hp 1000 + atk 103 +1.52 / +1.35 (t4, +1.44 over 24 seeds, here: Aphelios +1.45).
+# 2026-10-19, R's cooldown fixed (the transcendence's W / E cap no longer caps R itself: ult_cooldown_mult -400): seeds
+# 1-12 +1.52 -> +1.44 (noise, the classic AI seldom pressed R again within 14 s); traced 24 games each: R fires 2.67 ->
+# 1.92 a game, gaps between fires under 4200 ticks 25 (min 889) -> 1 (2811, an item's haste), W back early after a
+# fire 37 of 52 -> 22 of 34 (the cap on W / E kept). Numbers unchanged.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Yunara: 575 range,
     # 55 AD, 590 +110 hp, 25 armour, 325 move, attack speed 0.65
@@ -305,7 +312,7 @@ def build(p):
     count = around(p["r_count"], "EnemyChampion", [sw("r_n1", flag("r_n2", 1), flag("r_n1", 1))])
     in_cc = pick(p["r_range"], "EnemyChampionInCC", flag("r_cc", 1))
     fire = combine(refresh("r_on", p["r_t"]), q_start(p["r_t"]), *rm(*us, "u_half"),
-                   flag("r_cdr", 3, skill_cooldown_mult=400), anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
+                   flag("r_cdr", 3, skill_cooldown_mult=400, ult_cooldown_mult=-400), anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
                    cview("r_burst"))
     refund = flag("r_refund", 3, ult_cooldown_mult=4900)
     # a 3-tick action (an empty try costs 3 ticks of the idle, league_kalista's gate); the fire plays the ult strip

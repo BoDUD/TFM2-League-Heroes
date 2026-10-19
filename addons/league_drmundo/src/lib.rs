@@ -17,7 +17,8 @@
 //! - **心脏电击器**：开启后受到的伤害存 `w_store`% 成灰色生命；结束时数据的电击打中英雄（`w_full`）全回，只打中小兵野怪
 //!   （`w_half`）回一半，没打中不回。
 //! - **极限剂量**（「看好时机」）：AI 要放 R 时，他生命低于 `r_low`%，或 1 秒内掉了 `r_burst`% 以上，并且身边有敌方英雄才放；
-//!   否则改成普攻。放出时回复已损生命的 `r_miss`%。
+//!   否则改成普攻。放出时回复已损生命的 `r_miss`%。0.1.3（用户 2026-10-19：「蒙多开大次数也挺少的」）：60% / 15%（原来
+//!   40% / 25%：日志里多数比赛一次都没放——打架时一直在 68–85% 留着，或者到 0% 才放）。
 //!
 //! 状态按模拟分开记（同一局同时跑几份模拟，实体编号一样）：被动出生时给他挂 `league_drmundo_sim:<编号>`（塔姆、莫德凯撒、
 //! 蛮王附加包的做法）。
@@ -264,7 +265,7 @@ pub struct Params {
 impl Default for Params {
     fn default() -> Self {
         Params { p_cd: 2400, q_dmg: 140, q_pct: 20, e_dmg: 80, e_ad: 60, e_miss: 100, e_bonus: 25, hp: 1350, hp_g: 125,
-                 w_store: 75, r_low: 40, r_burst: 25, r_miss: 25 }
+                 w_store: 75, r_low: 60, r_burst: 15, r_miss: 25 }
     }
 }
 
@@ -904,7 +905,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        let p = parse_params(r#"{"e_ad":60,"e_bonus":25,"e_dmg":80,"e_miss":100,"hp":1350,"hp_g":125,"p_cd":2400,"q_dmg":140,"q_pct":20,"r_burst":25,"r_low":40,"r_miss":25,"w_store":75}"#);
+        let p = parse_params(r#"{"e_ad":60,"e_bonus":25,"e_dmg":80,"e_miss":100,"hp":1350,"hp_g":125,"p_cd":2400,"q_dmg":140,"q_pct":20,"r_burst":15,"r_low":60,"r_miss":25,"w_store":75}"#);
         assert_eq!(p, Params::default());
     }
 

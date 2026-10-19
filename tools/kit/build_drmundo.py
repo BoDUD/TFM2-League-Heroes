@@ -41,6 +41,8 @@ with fixed numbers, maximum-health shares and his own hit count, and the add-on 
           no gap of h_hold ticks, the danger the data can see. It heals r_heal + r_heal_ad% AD at once and for r_t ticks gives r_hp maximum
           health, r_regen health a second and r_ms% move speed. An unused window caps the cooldown at 60 ticks.
           With native=1 the add-on fires it by his real health (below r_low% or r_burst% lost within a second) and
+          (r_low 60 / r_burst 15 since 2026-10-19, the user: 「蒙多开大次数也挺少的」 - at 40 / 25 most games had no R at
+          all: held at 68-85% while he took a fight, or cast as he died) and
           heals r_miss% of his missing health.
 """
 import argparse
@@ -86,7 +88,7 @@ P = {
     "h_sens": 150, "h_hold": 300, "r_need": 3,
     # R Maximum Dosage (League: 20-30% missing hp at once, 20-40% max hp over 10 s, 15-35% move speed; cd 110-80 s)
     "r_cd": 4800, "r_range": 50000, "r_arm": 900, "r_anim": 30, "r_n": 40000, "r_t": 600,
-    "r_heal": 200, "r_heal_ad": 100, "r_hp": 200, "r_regen": 40, "r_ms": 25, "r_low": 40, "r_burst": 25, "r_miss": 25,
+    "r_heal": 200, "r_heal_ad": 100, "r_hp": 200, "r_regen": 40, "r_ms": 25, "r_low": 60, "r_burst": 15, "r_miss": 25,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_drmundo: real current / missing / bonus health
