@@ -1861,6 +1861,10 @@
                                                 "type": "Teleport"
                                               },
                                               {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_zoe_r_portal_out"
+                                              },
+                                              {
                                                 "type": "CasterAnimation",
                                                 "name": "ult_back",
                                                 "tick": 18
@@ -2557,7 +2561,7 @@
     {
       "type": "Animation",
       "name": "league_zoe_e_trap",
-      "anim": "asset/league/effects/league_zoe_big",
+      "anim": "asset/league/effects/league_zoe_fx",
       "tag": "e_trap",
       "z": -1,
       "is_follow": false
@@ -2575,7 +2579,7 @@
       "name": "league_zoe_r_portal_in",
       "anim": "asset/league/effects/league_zoe_big",
       "tag": "r_portal_in",
-      "z": 3,
+      "z": -1,
       "is_follow": false
     },
     {
@@ -2583,15 +2587,15 @@
       "name": "league_zoe_r_portal_out",
       "anim": "asset/league/effects/league_zoe_big",
       "tag": "r_portal_out",
-      "z": 3,
+      "z": -1,
       "is_follow": false
     },
     {
       "type": "Animation",
       "name": "league_zoe_r_portal_back",
       "anim": "asset/league/effects/league_zoe_big",
-      "tag": "r_portal_back",
-      "z": 3,
+      "tag": "r_portal_in",
+      "z": -1,
       "is_follow": false
     }
   ],

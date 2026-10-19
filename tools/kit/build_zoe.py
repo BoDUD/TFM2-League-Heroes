@@ -268,7 +268,7 @@ def build(p):
                                               refresh("w_haste", p["w_ms_t"], move_speed_mult=p["w_ms"]))))
     jump = line("r_jump", p["r_jspeed"], p["r_jump"], p["r_stop"], "EnemyChampion", [],
                 end=[{"type": "Teleport"}, cview("r_portal_out")], y=5000)
-    back = sw("r_on", combine(*rm("r_on"), cview("r_portal_back"), {"type": "Teleport"},
+    back = sw("r_on", combine(*rm("r_on"), cview("r_portal_back"), {"type": "Teleport"}, cview("r_portal_out"),
                               anim("ult_back", p["r_back_dur"]), sfx("r_back")))
     leave = sw("r_on", anim("ult_exit", p["r_exit"]))      # she springs up out of the far end first
     anchor = line("r_anchor", 1, 1, 1000, "EnemyChampion", [], end=[delayed(p["r_back"] - 1 - p["r_exit"], alive(leave)),
@@ -287,9 +287,11 @@ def build(p):
                                            "repeat": True, "z": 2}
     # a projectile's picture is turned with its flight: stars, the bubble and the missiles are round
     views_p = [Pj("a_star"), Pj("p_star"), Pj("q_star"), Pj("r_star", "q_star"), Pj("e_bubble"), Pj("w_missile")]
-    views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("e_hit"), E("e_wake"), E("e_trap", BIG, -1, False),
-               E("w_hit"), E("r_portal_in", BIG, 3, False), E("r_portal_out", BIG, 3, False),
-               E("r_portal_back", BIG, 3, False)]
+    # the portal she leaves through (at the cast and again at the far end when she goes back) and the one she comes
+    # out of (at the far end and back home): two pictures, three bindings
+    portal_back = dict(E("r_portal_back", BIG, -1, False), tag="r_portal_in")
+    views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("e_hit"), E("e_wake"), E("e_trap", FX, -1, False),
+               E("w_hit"), E("r_portal_in", BIG, -1, False), E("r_portal_out", BIG, -1, False), portal_back]
     views_b = [B_("e_drowsy", FX, 3), B_("e_zz", FX, 3), B_("w_haste", FX, -1)]
     extra = {}
     if native:
