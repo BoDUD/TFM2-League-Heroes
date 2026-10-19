@@ -44,10 +44,13 @@ BIG = "asset/league/effects/league_gragas_big"
 # Timings from the strips (assets/source/gragas/codex_strips2, gragas_cells.json): the punch lands on frame 3 (tick 8 of
 # 24), the barrel leaves the hand on frame 3 (tick 9 of 25), the charge starts on tick 4 of skill2 and slams on frame 3
 # (tick 8), the drink is frames 5-7 (from tick 17 of 44), the cask is hurled on frame 3 (tick 10 of 28).
+# 2026-10-19 after the ult-cooldown fix (#389: E's refund no longer capped R) he fell to -0.01 / -0.18 (seeds 1-8 /
+# 9-16; the user: 「古加拉斯偏弱你得顺应的加强吧」); of r_cd 2700 (+0.13), Q 105 + E 95 (+0.25), r_cd 2700 + Q 100 (+0.16)
+# and hp 1200 + R 240: +1.00 / +0.28 (+0.64 over 16 seeds) - taken.
 P = {
     # stats (Melee tank: attack 80 +6, hp 1100 +120, defence 40, mr 30); League's Gragas: 640 +115 hp, 64 AD +3.5,
     # 38 armour, 32 mr, 330 move, 125 range - an AP tank jungler like league_amumu and league_malphite
-    "hp": 1150, "hp_g": 120, "atk": 72, "atk_g": 6, "mp": 30, "mp_g": 15, "def": 40, "def_g": 9, "mr": 30, "mr_g": 5,
+    "hp": 1200, "hp_g": 120, "atk": 72, "atk_g": 6, "mp": 30, "mp_g": 15, "def": 40, "def_g": 9, "mr": 30, "mr_g": 5,
     "ms": 1000, "ms_g": 10,
     # attack: a punch
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 70, "a_st": 8,
@@ -63,7 +66,7 @@ P = {
     "w_at": 17, "w_dr": 20, "w_dr_t": 150, "w_t": 300, "w_r": 17000, "w_dmg": 55, "w_ratio": 50, "w_hp": 6,
     # R Explosive Cask (League: 1000 range, radius 350, 200-400 + 80% AP, knock-back 900, cd 100-70 s)
     "r_cd": 3000, "r_range": 70000, "r_dur": 28, "r_at": 10, "r_fly": 16,
-    "r_r": 26000, "r_dmg": 200, "r_ratio": 80, "r_grab": 3000, "r_grab_t": 12,
+    "r_r": 26000, "r_dmg": 240, "r_ratio": 80, "r_grab": 3000, "r_grab_t": 12,
     
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
