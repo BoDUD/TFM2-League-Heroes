@@ -1,0 +1,38 @@
+{
+  "rammus-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "opaque_bbox": [
+      98,
+      81,
+      1156,
+      1196
+    ]
+  },
+  "rammus-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "opaque_bbox": [
+      85,
+      82,
+      1192,
+      1164
+    ]
+  }
+}

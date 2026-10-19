@@ -91,11 +91,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // raised gun above; 「用 A，游戏里 38 像素高，PPU 1.5」), the aim arm and the walk from Codex on the same grid, so no SIZES row
     ("league_akshan", 1.2, include_str!("../../../league/champions/league_akshan#anim.fanim")),
     // Poppy: posed by tools/art/rig_poppy.py at the user's 1.3 squares a game pixel (36 game rows pigtails to soles, the
-    // hammer's haft above: 「游戏里 36 像素高，PPU 1.3」), so no SIZES row
+    // hammer's haft above: 「游戏里 36 像素高，PPU 1.3」); 85 % (SIZES, the user: 「波比在游戏里体型也太大 需要缩小」 - 44 px
+    // with the standing hammer against the yordles' 32-40), her frames lowered 2 squares by the restyle (RESTYLE poppy lift_sq)
     ("league_poppy", 1.2, include_str!("../../../league/champions/league_poppy#anim.fanim")),
     // Volibear: posed by tools/art/rig_volibear.py at the user's 1.2 squares a game pixel (44 game rows ear top to soles:
     // 「44 像素，PPU 1.2」), the arm poses, the walk and Q from Codex on the same grid, so no SIZES row
     ("league_volibear", 1.2, include_str!("../../../league/champions/league_volibear#anim.fanim")),
+    // Rammus: posed by tools/art/rig_rammus.py from Codex's step-1 takes at the user's 1.2 squares a game pixel (36 game rows
+    // spike tips to soles: 「36 像素」「PPU 1.2」; the ball b_* and curl c_* tags the add-on swaps in), so no SIZES row
+    ("league_rammus", 1.2, include_str!("../../../league/champions/league_rammus#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
@@ -175,7 +179,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
-                                    ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90)];
+                                    ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
+                                    ("league_poppy", 0.85)];
 
 pub const PREFIX: &str = "hd_";
 

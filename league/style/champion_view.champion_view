@@ -1680,14 +1680,24 @@
     },
     "league_poppy": {
       "face": {
-        "x": 5,
-        "y": -22
+        "x": 4,
+        "y": -17
       },
       "center": {
         "x": 0,
         "y": -14
       },
       "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_rammus": {
+      "face": {
+        "x": 5,
+        "y": -19
+      },
+      "center": {
         "x": 0,
         "y": -12
       }

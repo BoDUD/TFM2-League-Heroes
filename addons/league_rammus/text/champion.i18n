@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_rammus": {
+        "attack": "【扩展包】翻身撞击。<#ff9028ff>锥刺甲壳<>：普攻多造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#a974ffff>15%<>魔法伤害。<#ff9028ff>尖刺防御<>：敌方英雄靠近时蜷起来，<#ffb900ff>7秒<>内双抗+60%，反弹25%受到的伤害。",
+        "skill": "【扩展包】缩成球滚动，越滚越快（移速+30%到+100%，最多<#ffb900ff>4秒<>），撞上第一个敌人时对周围造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>魔法伤害，<#ef5350ff>击退<>并<#ef5350ff>减速40%<><#ffb900ff>1秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_rammus": {
+        "attack": "【擴充包】翻身撞擊。<#ff9028ff>錐刺甲殼<>：普攻多造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#a974ffff>15%<>魔法傷害。<#ff9028ff>尖刺防禦<>：敵方英雄靠近時蜷起來，<#ffb900ff>7秒<>內雙抗+60%，反彈25%受到的傷害。",
+        "skill": "【擴充包】縮成球滾動，越滾越快（移速+30%到+100%，最多<#ffb900ff>4秒<>），撞上第一個敵人時對周圍造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>魔法傷害，<#ef5350ff>擊退<>並<#ef5350ff>緩速40%<><#ffb900ff>1秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_rammus": {
+        "attack": "[Add-on] A tumbling slam. <#ff9028ff>Spiked Shell<>: attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#a974ffff>15%<> <#a974ffff>magic damage<> more. <#ff9028ff>Defensive Ball Curl<>: with an enemy champion close he curls up: for <#ffb900ff>7s<> +60% armour and magic resist, and 25% of the damage he takes is returned.",
+        "skill": "[Add-on] Curls into a ball and rolls, faster and faster (+30% to +100% move speed, up to <#ffb900ff>4s<>); the first enemy he meets: nearby enemies take <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<> <#a974ffff>magic damage<>, are <#ef5350ff>knocked back<> and <#ef5350ff>slowed 40%<> for <#ffb900ff>1s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_rammus": {
+        "attack": "[확장] 몸통 박치기. <#ff9028ff>가시박힌 껍질<>: 기본 공격이 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#a974ffff>15%<> 마법 피해 추가. <#ff9028ff>몸 말아 웅크리기<>: 적 챔피언이 가까우면 웅크려 <#ffb900ff>7초<> 동안 방어력·마법 저항력 +60%, 받은 피해의 25% 반사.",
+        "skill": "[확장] 몸을 말아 점점 빠르게 굴러가고(이동 속도 +30%에서 +100%, 최대 <#ffb900ff>4초<>) 처음 만난 적에게 부딪히면 주변 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<> 마법 피해, <#ef5350ff>밀쳐내기<>, <#ffb900ff>1초<> <#ef5350ff>40% 둔화<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_rammus": {
+        "attack": "【拡張】体当たり。<#ff9028ff>トゲトゲ<>：通常攻撃に<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#a974ffff>15%<>の魔法ダメージ追加。<#ff9028ff>かたくなる<>：敵チャンピオンが近いと丸まり、<#ffb900ff>7秒<>物防・魔防+60%、受けたダメージの25%を反射。",
+        "skill": "【拡張】丸まって転がり、だんだん速くなる（移動速度+30%から+100%、最大<#ffb900ff>4秒<>）。最初の敵にぶつかると周りの敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>の魔法ダメージ、<#ef5350ff>ノックバック<>と<#ffb900ff>1秒<>の<#ef5350ff>40%スロウ<>。"
+      }
+    }
+  }
+}
