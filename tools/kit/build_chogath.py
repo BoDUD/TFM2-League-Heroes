@@ -65,6 +65,9 @@ P = {
     # E Vorpal Spikes (in the attack)
     "e_cd": 360, "e_n": 3, "e_t": 360, "e_dur": 30, "e_hit": 14, "e_len": 50000, "e_w": 17000, "e_dmg": 20, "e_ap": 20,
     "e_hp": 2, "e_slow": 35, "e_slow_t": 90,
+    # the picture-only lines (Vorpal Spikes' volley, Feral Scream's cone) last as long as their pictures play
+    # (tools/art/import_chogath_fx.py: e_pic 4 frames, 250 ms; w_wave 5 frames, 400 ms)
+    "e_pic_t": 15, "w_pic_t": 24,
     # Q Rupture
     "q_cd": 540, "q_range": 90000, "q_dur": 36, "q_rel": 5, "q_delay": 36, "q_r": 25000, "q_dmg": 50, "q_ap": 60,
     "q_up": 45, "q_slow": 60, "q_slow_t": 90,
@@ -235,7 +238,7 @@ def build(p):
     champ = [true(0, hp=p["e_hp"])]
     spikes = combine(sfx("e_spikes"), line("e_line", p["e_len"], p["e_w"], "EnemyWithoutTower", spiked),
                      line("e_champ", p["e_len"], p["e_w"], "EnemyChampion", champ),
-                     line("e_pic", p["e_len"], p["e_w"], "Ally", []))
+                     line("e_pic", p["e_len"], p["e_w"], "Ally", [], delay=p["e_pic_t"]))
     # the charge used is taken from the top (e3 .. e1), the attack strip chosen as the attack starts
     spend = NONE
     for c in charges:                         # built inside out: the outermost switch asks for the highest charge
@@ -262,7 +265,7 @@ def build(p):
               view("w_hit"), tsfx("w_hit")]
     skill2 = action("skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
                     combine(voice("vo_w", p),
-                            delayed(p["w_rel"] - 1, sfx("w"), line("w_wave", p["w_cone"], 30000, "Ally", []),
+                            delayed(p["w_rel"] - 1, sfx("w"), line("w_wave", p["w_cone"], 30000, "Ally", [], delay=p["w_pic_t"]),
                                     cone(p["w_cone"], p["w_cos"], "EnemyWithoutTower", scream))))
 
     # ------------------------------------------------------------------ ult: R Feast

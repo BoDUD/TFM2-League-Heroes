@@ -436,7 +436,7 @@
                         "name": "league_chogath_e_pic",
                         "width": 17000,
                         "length": 50000,
-                        "delay": 2,
+                        "delay": 15,
                         "apply": 1,
                         "applied_target": "Ally",
                         "applied_effects": []
@@ -800,7 +800,7 @@
               "name": "league_chogath_w_wave",
               "width": 30000,
               "length": 55000,
-              "delay": 2,
+              "delay": 24,
               "apply": 1,
               "applied_target": "Ally",
               "applied_effects": []
