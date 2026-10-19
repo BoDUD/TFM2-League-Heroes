@@ -9,29 +9,13 @@
 //! 图里的 `c_idle` …（tools/art 导入时放进同一张图）。新名字用游戏同一个堆（GetProcessHeap）分配，旧的照游戏的做法释放。
 //! 阵亡时 buff 清掉：尸体按倒下前那一帧的形态画（复活后没有 buff，是人形，和英雄联盟一样）。
 
-use std::ffi::c_void;
-use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Mutex, Once};
 
 use super::{wlog, FORM};
+use game_places::hook::{Ent, VALUE, NAME_PTR, NAME_LEN_AT, ANIM_CAP, ANIM_PTR, ANIM_LEN, BUFFS_PTR, BUFFS_LEN, BUFF_SIZE};
 
 /// 显示更新函数和它的槽：游戏版本不同地址不同，由 game_places::display() 在加载时找（2026-10-20，以前写死 0.6.4 的
 /// rva 0x23312a0 / 0x3c82db8 和函数开头 24 个字节）。
-/// 显示世界：实体表（hashbrown：控制字节指针、掩码、元素数）。
-const TABLE: usize = 0x138;
-const TABLE_MASK: usize = 0x140;
-const TABLE_ITEMS: usize = 0x150;
-const ELEM: usize = 0x1d0;
-/// 值在元素里的位置（键是 8 字节的实体号）和值里的字段。
-const VALUE: usize = 8;
-const NAME_PTR: usize = 0x40;
-const NAME_LEN_AT: usize = 0x48;
-const ANIM_CAP: usize = 0x68;
-const ANIM_PTR: usize = 0x70;
-const ANIM_LEN: usize = 0x78;
-const BUFFS_PTR: usize = 0xb8;
-const BUFFS_LEN: usize = 0xc0;
-const BUFF_SIZE: usize = 0x28;
 
 /// 奈德丽在画面实体里的名字。
 pub const NAME: &[u8] = b"league_nidalee";
@@ -87,39 +71,13 @@ struct Stats {
 
 static STATS: Mutex<Stats> = Mutex::new(Stats { calls: 0, seen: 0, writes: 0, last: None, looks: Vec::new() });
 static FORMS: Mutex<Forms> = Mutex::new(Forms { seen: Vec::new() });
-static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
 #[link(name = "kernel32")]
 extern "system" {
-    fn ReadProcessMemory(h: isize, base: *const c_void, buf: *mut c_void, size: usize, read: *mut usize) -> i32;
-    fn GetCurrentProcess() -> isize;
-    fn GetModuleHandleW(name: *const u16) -> usize;
-    fn VirtualProtect(addr: *mut c_void, size: usize, new: u32, old: *mut u32) -> i32;
     fn GetProcessHeap() -> isize;
     fn HeapAlloc(heap: isize, flags: u32, bytes: usize) -> *mut u8;
     fn HeapFree(heap: isize, flags: u32, mem: *mut u8) -> i32;
-}
-
-fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
-    let mut buf = vec![0u8; len];
-    let mut got = 0usize;
-    let ok = unsafe {
-        ReadProcessMemory(GetCurrentProcess(), addr as *const c_void, buf.as_mut_ptr() as *mut c_void, len, &mut got)
-    };
-    (ok != 0 && got == len).then_some(buf)
-}
-
-type Update = unsafe extern "system" fn(usize, usize, usize, f32);
-
-/// 槽里换上的函数：先做原来的事，再给奈德丽换动作。
-unsafe extern "system" fn update(this: usize, a2: usize, world: usize, dt: f32) {
-    let prev = PREV.load(Ordering::Acquire);
-    if prev != 0 {
-        let f: Update = std::mem::transmute(prev);
-        f(this, a2, world, dt);
-    }
-    let _ = std::panic::catch_unwind(|| unsafe { dress(world) });
 }
 
 unsafe fn q(addr: usize) -> usize {
@@ -131,16 +89,7 @@ fn plausible(p: usize) -> bool {
 }
 
 /// 显示世界里每个奈德丽：按身上的形态 buff 换正在播的动画名。
-unsafe fn dress(world: usize) {
-    if !plausible(world) {
-        return;
-    }
-    let ctrl = q(world + TABLE);
-    let mask = q(world + TABLE_MASK);
-    let items = q(world + TABLE_ITEMS);
-    if items == 0 || !plausible(ctrl) || mask >= 1 << 16 || (mask + 1) & mask != 0 || items > mask + 1 {
-        return;
-    }
+unsafe fn dress(world: usize, ents: &[Ent]) {
     let Ok(mut forms) = FORMS.try_lock() else { return };
     let Ok(mut st) = STATS.try_lock() else { return };
     st.calls += 1;
@@ -155,11 +104,8 @@ unsafe fn dress(world: usize) {
         st.seen = 0;
         st.writes = 0;
     }
-    for i in 0..=mask {
-        if *(ctrl as *const u8).add(i) & 0x80 != 0 {
-            continue; // empty or deleted
-        }
-        let elem = ctrl - (i + 1) * ELEM;
+    for e in ents {
+        let elem = e.elem;
         let v = elem + VALUE;
         if q(v + NAME_LEN_AT) != NAME.len() {
             continue;
@@ -210,35 +156,13 @@ unsafe fn dress(world: usize) {
     }
 }
 
-fn install() -> Result<(usize, usize), String> {
-    let module = unsafe { GetModuleHandleW(std::ptr::null()) };
-    if module == 0 {
-        return Err("no module handle".into());
-    }
-    // the display handler and its slot, found by game_places (shared with league.dll and the other add-ons)
-    let (_func, slot) = game_places::display()?;
-    let cur = read(slot, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).ok_or("the slot is unreadable")?;
-    if !plausible(cur) {
-        return Err(format!("the slot holds {cur:#x}"));
-    }
-    PREV.store(cur, Ordering::Release);
-    let mut old = 0u32;
-    if unsafe { VirtualProtect(slot as *mut c_void, 8, 0x04, &mut old) } == 0 {
-        return Err("VirtualProtect failed".into());
-    }
-    unsafe { std::ptr::write_volatile(slot as *mut usize, update as Update as usize) };
-    let mut tmp = 0u32;
-    unsafe { VirtualProtect(slot as *mut c_void, 8, old, &mut tmp) };
-    Ok((slot, cur))
-}
-
 /// 加载时换槽（一个进程只换一次）。
 pub fn install_once() {
     HOOK.call_once(|| {
-        match install() {
+        match game_places::hook::add("league_nidalee", dress) {
             Ok((slot, prev)) => wlog(format!(
                 "whole-body cougar on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x})",
-                if game_places::display().is_ok_and(|d| prev == d.0) { "the game's own handler" } else { "another mod's handler (chained)" }
+                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
             )),
             Err(e) => wlog(format!("whole-body cougar off ({e}): only her casts show the cougar")),
         }

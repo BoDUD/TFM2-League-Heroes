@@ -18,6 +18,7 @@
 
 use std::collections::{HashMap, HashSet};
 
+pub mod hook;
 pub mod sigs;
 
 /// 一段特征码：`mask` 为 0 的字节不比。
