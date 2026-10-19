@@ -1,0 +1,122 @@
+[
+  {
+    "file": "vex-A.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha_levels": [
+      0,
+      255
+    ],
+    "pixel_grid": 11,
+    "bbox": [
+      374,
+      473,
+      1111,
+      1386
+    ],
+    "source_bbox": [
+      284,
+      325,
+      1020,
+      1234
+    ],
+    "logical_figure_size": [
+      67,
+      83
+    ],
+    "note": "Uniform-grid production export from generated artwork; not a game-ready animation sheet."
+  },
+  {
+    "file": "vex-B.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha_levels": [
+      0,
+      255
+    ],
+    "pixel_grid": 11,
+    "bbox": [
+      132,
+      715,
+      1166,
+      1386
+    ],
+    "source_bbox": [
+      93,
+      550,
+      1132,
+      1227
+    ],
+    "logical_figure_size": [
+      94,
+      61
+    ],
+    "note": "Uniform-grid production export from generated artwork; not a game-ready animation sheet."
+  },
+  {
+    "file": "vex-SA.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha_levels": [
+      0,
+      255
+    ],
+    "pixel_grid": 11,
+    "bbox": [
+      396,
+      473,
+      1111,
+      1386
+    ],
+    "source_bbox": [
+      287,
+      332,
+      981,
+      1225
+    ],
+    "logical_figure_size": [
+      65,
+      83
+    ],
+    "note": "Uniform-grid production export from generated artwork; not a game-ready animation sheet."
+  },
+  {
+    "file": "vex-SB.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha_levels": [
+      0,
+      255
+    ],
+    "pixel_grid": 11,
+    "bbox": [
+      132,
+      715,
+      1012,
+      1386
+    ],
+    "source_bbox": [
+      89,
+      540,
+      982,
+      1225
+    ],
+    "logical_figure_size": [
+      80,
+      61
+    ],
+    "note": "Uniform-grid production export from generated artwork; not a game-ready animation sheet."
+  }
+]
