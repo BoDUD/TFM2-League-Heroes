@@ -94,6 +94,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // hammer's haft above: 「游戏里 36 像素高，PPU 1.3」); 85 % (SIZES, the user: 「波比在游戏里体型也太大 需要缩小」 - 44 px
     // with the standing hammer against the yordles' 32-40), her frames lowered 2 squares by the restyle (RESTYLE poppy lift_sq)
     ("league_poppy", 1.2, include_str!("../../../league/champions/league_poppy#anim.fanim")),
+    // Volibear: posed by tools/art/rig_volibear.py at the user's 1.2 squares a game pixel (44 game rows ear top to soles:
+    // 「44 像素，PPU 1.2」), the arm poses, the walk and Q from Codex on the same grid, so no SIZES row
+    ("league_volibear", 1.2, include_str!("../../../league/champions/league_volibear#anim.fanim")),
     // Rammus: posed by tools/art/rig_rammus.py from Codex's step-1 takes at the user's 1.2 squares a game pixel (36 game rows
     // spike tips to soles: 「36 像素」「PPU 1.2」; the ball b_* and curl c_* tags the add-on swaps in), so no SIZES row
     ("league_rammus", 1.2, include_str!("../../../league/champions/league_rammus#anim.fanim")),
@@ -249,9 +252,59 @@ pub fn heroes() -> Vec<Hero> {
         .collect()
 }
 
+/// The registered heroes, found by id with one hash lookup. The hooks ask for every resource the game looks up by name
+/// and every entity on the battlefield each frame; a walk down the list compared up to 55 names, twice for each lookup
+/// (2026-10-19 profile: league.dll's own time on the render thread was mostly that walk).
+pub struct Heroes {
+    pub list: Vec<Hero>,
+    by_id: std::collections::HashMap<&'static str, usize>,
+}
+
+impl Heroes {
+    pub fn new() -> Self {
+        let list = heroes();
+        let by_id = list.iter().enumerate().map(|(k, h)| (h.id, k)).collect();
+        Heroes { list, by_id }
+    }
+
+    pub fn get(&self, id: &str) -> Option<&Hero> {
+        // every registered id starts with league_: the base heroes, effects and UI names go without hashing
+        if !id.starts_with("league_") {
+            return None;
+        }
+        self.by_id.get(id).map(|&k| &self.list[k])
+    }
+
+    /// The hero a resource name is of: `.../league_yasuo#anim` (or the bare id) -> league_yasuo.
+    pub fn of_name(&self, name: &str) -> Option<&Hero> {
+        self.get(name.rsplit('/').next()?.split('#').next()?)
+    }
+}
+
+impl Default for Heroes {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn heroes_are_found_by_id_and_resource_name() {
+        let h = Heroes::new();
+        assert_eq!(h.list.len(), HEROES.len());
+        for &(id, ..) in HEROES {
+            assert_eq!(h.get(id).map(|x| x.id), Some(id));
+            assert_eq!(h.of_name(&format!("asset/league/champions/{id}#anim")).map(|x| x.id), Some(id));
+            assert_eq!(h.of_name(&format!("asset/base/aseprite_resources/champions/{id}#sheet")).map(|x| x.id), Some(id));
+        }
+        assert!(h.get("league_lux").is_none());
+        assert!(h.of_name("asset/base/aseprite_resources/champions/alchemist#anim").is_none());
+        assert!(h.of_name("asset/league/champions/league_ashe_fx#sheet").is_none());
+        assert!(h.of_name("").is_none());
+    }
 
     #[test]
     fn every_registered_sheet_has_hd_tags_for_all_its_tags() {

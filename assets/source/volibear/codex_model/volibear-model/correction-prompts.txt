@@ -1,0 +1,14 @@
+extra-grid-correction
+References:
+C:/Users/OWNER/Documents/Codex/2026-10-19/new-chat-2/work/volibear-model/2_target.png
+C:/Users/OWNER/Documents/Codex/2026-10-19/new-chat-2/work/volibear-model/style/9_style_wukong.png
+Actual prompt:
+Repaint image1 as a clean 53-PIXEL-TALL sprite at its existing coarse scale. IMPORTANT: all squares must remain as BIG as in image1. Do not increase resolution! Image2 is STYLE ONLY, its bold sparse pixel clusters. Bear character has white iceblue upper fur, purple-gray lower fur, two white braids in dark bands, cyan rune marks and claws. 3/4 facing right, arms straight down. Face has two cyan eye pixels at same height, a black nose, white teeth. Fix noisy face and runes in image1 using few clear squares. Every step exactly21px; only53 steps tall, roughly48wide. 1254x1254, ears y84, soles y1197. Transparent background with alpha only0/255. One sprite, no text, no grid, no effects. This is intentionally coarse 1990s game pixel art, not high-detail pixel illustration.
+
+extra-side-grid-correction
+References:
+C:/Users/OWNER/.codex/generated_images/01a151af-ebb8-7ec0-b930-f63c992184c6/exec-8e471a90-98f7-4687-ab72-a2af8c04894d.png
+C:/Users/OWNER/Documents/Codex/2026-10-19/new-chat-2/work/volibear-model/5_side_ref.png
+C:/Users/OWNER/Documents/Codex/2026-10-19/new-chat-2/work/volibear-model/6_side_layout.png
+Actual prompt:
+Create ONE SIDE-BODY version of the bear sprite in image1, keeping its EXACT huge21px pixel-block size, low53-row resolution, colors and head. Repaint only using whole large squares, no smaller details. Image2 defines body profile anatomy, NOT shading/detail. Image3 side layout defines size only; do not include lines. Body side-on facing RIGHT: thick chest/belly project right, back at left, NEAR arm hangs vertically in front center-right, FAR arm hidden. Near leg forward right, far leg behind left; both feet point RIGHT and soles level. Head stays3/4 front-right with TWO cyan eyes equal height, black nose, white snarling teeth, round ears and blue jewel. White iceblue upper fur, slatepurple lowerfur, cyan runes and claws, white braid in dark rune bands down chest front, far braid partlyhidden. One-block dark outline,3 flat shades/material. ONLY53 large square rows from ears to soles. Canvas1254square, ear top84, sole1197, eyes252, body width35-40blocks. Genuine transparent alpha0/255 background. No grid, text, shadow, effects, scene, fine texture, gradients or antialiasing. This is a lowresolution 1990s game sprite, not a detailed illustration.

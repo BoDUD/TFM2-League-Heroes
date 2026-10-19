@@ -1,0 +1,66 @@
+[
+  {
+    "file": "volibear-model-B-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 655462,
+    "opaque": 3199,
+    "partial": 913855,
+    "visible_bbox": [
+      85,
+      84,
+      1189,
+      1238
+    ]
+  },
+  {
+    "file": "volibear-model-B-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 769657,
+    "opaque": 3473,
+    "partial": 799386,
+    "visible_bbox": [
+      92,
+      85,
+      1156,
+      1211
+    ]
+  },
+  {
+    "file": "volibear-model-side-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 913937,
+    "opaque": 2121,
+    "partial": 656458,
+    "visible_bbox": [
+      257,
+      74,
+      980,
+      1237
+    ]
+  },
+  {
+    "file": "volibear-model-side-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1032629,
+    "opaque": 2660,
+    "partial": 537227,
+    "visible_bbox": [
+      305,
+      86,
+      988,
+      1211
+    ]
+  }
+]
