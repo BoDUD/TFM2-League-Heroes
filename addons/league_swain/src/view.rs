@@ -15,12 +15,8 @@ use std::sync::{Mutex, Once};
 
 use super::{wlog, FORM};
 
-/// 显示处理表里的更新函数（0.6.4）和存它的槽。
-const FN_RVA: usize = 0x23312a0;
-const SLOT_RVA: usize = 0x3c82db8;
-/// push r15; push r14; push r13; push r12; push rsi; push rdi; push rbp; push rbx; sub rsp, 0x88; movdqa [rsp+..], xmm7
-const FN_HEAD: [u8; 24] = [0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x55, 0x53, 0x48, 0x81, 0xec, 0x88,
-    0x00, 0x00, 0x00, 0x66, 0x0f, 0x7f, 0x7c, 0x24];
+/// 显示更新函数和它的槽：游戏版本不同地址不同，由 game_places::display() 在加载时找（2026-10-20，以前写死 0.6.4 的
+/// rva 0x23312a0 / 0x3c82db8 和函数开头 24 个字节）。
 /// 显示世界：实体表（hashbrown：控制字节指针、掩码、元素数）。
 const TABLE: usize = 0x138;
 const TABLE_MASK: usize = 0x140;
@@ -217,11 +213,8 @@ fn install() -> Result<(usize, usize), String> {
     if module == 0 {
         return Err("no module handle".into());
     }
-    let func = module + FN_RVA;
-    if read(func, FN_HEAD.len()).as_deref() != Some(&FN_HEAD[..]) {
-        return Err("not game 0.6.4 (the display handler differs)".into());
-    }
-    let slot = module + SLOT_RVA;
+    // the display handler and its slot, found by game_places (shared with league.dll and the other add-ons)
+    let (_func, slot) = game_places::display()?;
     let cur = read(slot, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).ok_or("the slot is unreadable")?;
     if !plausible(cur) {
         return Err(format!("the slot holds {cur:#x}"));
@@ -240,11 +233,10 @@ fn install() -> Result<(usize, usize), String> {
 /// 加载时换槽（一个进程只换一次）。
 pub fn install_once() {
     HOOK.call_once(|| {
-        let module = unsafe { GetModuleHandleW(std::ptr::null()) };
         match install() {
             Ok((slot, prev)) => wlog(format!(
                 "FORM whole-body demon on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x})",
-                if prev == module + FN_RVA { "the game's own handler" } else { "another mod's handler (chained)" }
+                if game_places::display().is_ok_and(|d| prev == d.0) { "the game's own handler" } else { "another mod's handler (chained)" }
             )),
             Err(e) => wlog(format!("FORM whole-body demon off ({e}): between casts he stays Swain on screen (the main pack's look)")),
         }
