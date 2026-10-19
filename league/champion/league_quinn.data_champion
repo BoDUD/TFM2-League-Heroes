@@ -13,7 +13,7 @@
     "asset/league/icons/league_quinn_ult"
   ],
   "stat": {
-    "attack": 106,
+    "attack": 110,
     "magic_power": 0,
     "hp": 1000,
     "defence": 24,
@@ -636,7 +636,7 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "Attack",
-                            "damage": 80,
+                            "damage": 90,
                             "attack_ratio": 110,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
@@ -1301,7 +1301,7 @@
                                 "effects": [
                                   {
                                     "type": "Attack",
-                                    "damage": 150,
+                                    "damage": 170,
                                     "attack_ratio": 100,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
@@ -1496,7 +1496,7 @@
       "anim": "asset/league/effects/league_quinn_fx",
       "tag": "e_slow",
       "repeat": true,
-      "z": 3
+      "z": -1
     },
     {
       "type": "Animated",

@@ -935,9 +935,9 @@
       "league_quinn": {
         "name": "奎因",
         "attack": "<#ff9028ff>侵扰<>：每<#ffb900ff>8秒<>华洛标记一次（技能也会标记），下次攻击额外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害。<#ff9028ff>敏锐感知<>：之后<#ffb900ff>2秒<>攻速+35%、移速+25%。",
-        "skill": "华洛飞出，在第一个敌人处爆开，周围敌人受<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理伤害；被打中的英雄<#ef5350ff>缴械0.75秒<>并被标记。",
+        "skill": "华洛飞出，在第一个敌人处爆开，周围敌人受<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理伤害；被打中的英雄<#ef5350ff>缴械0.75秒<>并被标记。",
         "skill2": "冲向敌人，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害、<#ef5350ff>打断并减速50%<>，然后向后空翻拉开距离；目标被标记。",
-        "ult": "召来华洛骑上，高速冲向敌方英雄，落地施放<#ff9028ff>鹰翼天翔<>：周围敌人受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害并被标记。"
+        "ult": "召来华洛骑上，高速冲向敌方英雄，落地施放<#ff9028ff>鹰翼天翔<>：周围敌人受<#ff9028ff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害并被标记。"
       }
     },
     "skill_name": {
@@ -2549,9 +2549,9 @@
       "league_quinn": {
         "name": "葵恩",
         "attack": "<#ff9028ff>追獵印記<>：每<#ffb900ff>8秒<>威洛標記一次（技能也會標記），下次攻擊額外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害。<#ff9028ff>強化感知<>：之後<#ffb900ff>2秒<>攻速+35%、移速+25%。",
-        "skill": "威洛飛出，在第一個敵人處爆開，周圍敵人受<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理傷害；被擊中的英雄<#ef5350ff>繳械0.75秒<>並被標記。",
+        "skill": "威洛飛出，在第一個敵人處爆開，周圍敵人受<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理傷害；被擊中的英雄<#ef5350ff>繳械0.75秒<>並被標記。",
         "skill2": "衝向敵人，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害、<#ef5350ff>打斷並緩速50%<>，然後向後空翻拉開距離；目標被標記。",
-        "ult": "召來威洛騎上，高速衝向敵方英雄，落地施放<#ff9028ff>天空強襲<>：周圍敵人受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害並被標記。"
+        "ult": "召來威洛騎上，高速衝向敵方英雄，落地施放<#ff9028ff>天空強襲<>：周圍敵人受<#ff9028ff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害並被標記。"
       }
     },
     "skill_name": {
@@ -4163,9 +4163,9 @@
       "league_quinn": {
         "name": "Quinn",
         "attack": "<#ff9028ff>Harrier<>: every <#ffb900ff>8s<> Valor marks her target (her spells mark too); her next attack deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> bonus physical damage. <#ff9028ff>Heightened Senses<>: then for <#ffb900ff>2s<> she has +35% attack speed and +25% move speed.",
-        "skill": "Valor flies out and bursts on the first enemy: enemies around take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> physical damage; a champion hit is <#ef5350ff>disarmed 0.75s<> and marked.",
+        "skill": "Valor flies out and bursts on the first enemy: enemies around take <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> physical damage; a champion hit is <#ef5350ff>disarmed 0.75s<> and marked.",
         "skill2": "Dashes to an enemy for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage, <#ef5350ff>interrupting and slowing it 50%<>, then flips back off it; the target is marked.",
-        "ult": "Calls Valor down, rides him at an enemy champion and lands with <#ff9028ff>Skystrike<>: enemies around take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage and are marked."
+        "ult": "Calls Valor down, rides him at an enemy champion and lands with <#ff9028ff>Skystrike<>: enemies around take <#ff9028ff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage and are marked."
       }
     },
     "skill_name": {
@@ -5777,9 +5777,9 @@
       "league_quinn": {
         "name": "퀸",
         "attack": "<#ff9028ff>매사냥<>: <#ffb900ff>8초<>마다 발러가 표식(스킬도 표식); 다음 공격이 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가 물리 피해. <#ff9028ff>예리한 감각<>: 이후 <#ffb900ff>2초<> 동안 공격 속도 +35%, 이동 속도 +25%.",
-        "skill": "발러가 날아가 첫 적에게서 폭발해 주변 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> 물리 피해; 맞은 챔피언은 <#ef5350ff>0.75초 무장 해제<>되고 표식.",
+        "skill": "발러가 날아가 첫 적에게서 폭발해 주변 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> 물리 피해; 맞은 챔피언은 <#ef5350ff>0.75초 무장 해제<>되고 표식.",
         "skill2": "적에게 돌진해 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해와 <#ef5350ff>방해, 50% 둔화<>를 주고 뒤로 공중제비; 대상은 표식.",
-        "ult": "발러를 불러 타고 적 챔피언에게 날아가 착지하며 <#ff9028ff>공중 강습<>: 주변 적에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해와 표식."
+        "ult": "발러를 불러 타고 적 챔피언에게 날아가 착지하며 <#ff9028ff>공중 강습<>: 주변 적에게 <#ff9028ff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해와 표식."
       }
     },
     "skill_name": {
@@ -7391,9 +7391,9 @@
       "league_quinn": {
         "name": "クイン",
         "attack": "<#ff9028ff>鷲匠<>：<#ffb900ff>8秒<>ごとにヴァロールがマーク（スキルでもマーク）；次の攻撃が<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の追加物理ダメージ。<#ff9028ff>鷲の眼<>：その後<#ffb900ff>2秒<>攻撃速度+35%、移動速度+25%。",
-        "skill": "ヴァロールが飛び最初の敵で炸裂し、周りの敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の物理ダメージ；当たったチャンピオンは<#ef5350ff>0.75秒攻撃不能<>でマーク。",
+        "skill": "ヴァロールが飛び最初の敵で炸裂し、周りの敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の物理ダメージ；当たったチャンピオンは<#ef5350ff>0.75秒攻撃不能<>でマーク。",
         "skill2": "敵へ突進して<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージと<#ef5350ff>妨害、50%スロウ<>、宙返りで離れる；対象はマーク。",
-        "ult": "ヴァロールに乗って敵チャンピオンへ飛び、着地で<#ff9028ff>空中強襲<>：周りの敵に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージとマーク。"
+        "ult": "ヴァロールに乗って敵チャンピオンへ飛び、着地で<#ff9028ff>空中強襲<>：周りの敵に<#ff9028ff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージとマーク。"
       }
     },
     "skill_name": {
