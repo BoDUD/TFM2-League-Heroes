@@ -1,0 +1,90 @@
+[
+  {
+    "file": "vex-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 620821,
+    "solid_bbox": [
+      221,
+      105,
+      1050,
+      1201
+    ],
+    "occupied_17px_cells": 2857,
+    "nonuniform_17px_cells": 2857,
+    "exact_17px_grid_pass": false,
+    "hard_alpha_pass": false,
+    "sha256": "1f1eb10526f78b56dae8dc3eed514fee51fa8d968fc368f7b5c5c8acf8f36aa1",
+    "raw_identical": true
+  },
+  {
+    "file": "vex-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 766688,
+    "solid_bbox": [
+      147,
+      52,
+      1110,
+      1239
+    ],
+    "occupied_17px_cells": 3291,
+    "nonuniform_17px_cells": 3291,
+    "exact_17px_grid_pass": false,
+    "hard_alpha_pass": false,
+    "sha256": "a3e93f8da52a61243382bc0a8ea2693e1c06f88c4591872fec54129cd9d9981f",
+    "raw_identical": true
+  },
+  {
+    "file": "vex-model-SA-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 686984,
+    "solid_bbox": [
+      170,
+      81,
+      1076,
+      1210
+    ],
+    "occupied_17px_cells": 3185,
+    "nonuniform_17px_cells": 3185,
+    "exact_17px_grid_pass": false,
+    "hard_alpha_pass": false,
+    "sha256": "1036b4e0cc3900d20cb8056dae8928d4f3c0f0fd2ffbfc0c0749f2b1b9271382",
+    "raw_identical": true
+  },
+  {
+    "file": "vex-model-SA-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 690311,
+    "solid_bbox": [
+      171,
+      80,
+      1099,
+      1218
+    ],
+    "occupied_17px_cells": 3360,
+    "nonuniform_17px_cells": 3360,
+    "exact_17px_grid_pass": false,
+    "hard_alpha_pass": false,
+    "sha256": "e55c78d7c7d2a139ca520dc0a60f2e5fa128662bedf61312e14769ded8a21292",
+    "raw_identical": true
+  }
+]
