@@ -31,7 +31,9 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "powder", "codex_model", "powder-model")
 OUT = os.path.join(ROOT, "assets", "source", "powder", "hd")
 ROWS, K = 53, 24
-PICKS = {"idle": "A-1", "side": "S-1"}   # placeholder until the user picks
+PICKS = {"idle": "A-2", "side": "S-2"}   # the user's picks, 2026-10-19
+SCALED = {"S-2"}    # brought to the count whole (PD.pixelate votes), then snapped to the pair's palette: a face-kept row
+                    # cut squashed the side drafts' bodies, and every side frame carries the idle's head anyway
 # name -> (Codex's square px, rows wanted, face rows, face columns) on its own read-back
 DRAFTS = {
     "A-1": (22.0, ROWS, None, None),
@@ -186,7 +188,17 @@ def main():
         return
     os.makedirs(lp(OUT), exist_ok=True)
     col = joint(list(PICKS.values()))
+    pal = next(iter(col.values()))[1]
     for part, name in PICKS.items():
+        if name in SCALED:
+            fig = voted(name)
+            op = fig[..., 3] > 0
+            d = ((fig[..., None, :3].astype(int) - pal[None, None].astype(int)) ** 2).sum(-1)
+            fig[op, :3] = pal[d.argmin(-1)][op]
+            print(part, name, fig.shape[1], "x", fig.shape[0], "scaled whole")
+            Image.fromarray(fig).save(lp(os.path.join(OUT, f"{part}.png")))
+            Image.fromarray(np.repeat(np.repeat(fig, 4, 0), 4, 1)).save(lp(os.path.join(OUT, f"{part}_4x.png")))
+            continue
         fig, rows, cols = cut(name, col[name])
         Image.fromarray(fig).save(lp(os.path.join(OUT, f"{part}.png")))
         Image.fromarray(np.repeat(np.repeat(fig, 4, 0), 4, 1)).save(lp(os.path.join(OUT, f"{part}_4x.png")))
