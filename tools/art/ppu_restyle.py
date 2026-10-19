@@ -88,7 +88,7 @@ RESTYLE = {
     "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-1,
                         stride={"run": (165, {0: 25, 2: 40})},
                         crisp=dict(contrast=1.0, keep="teal"),
-                        face_to=(1, -30)),
+                        face_to=(-1, -42)),   # helmet and eyes ((1, -30) cropped his chest, 2026-10-20)
     # 「飞机像泽丽那样变大点」
     "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}, face_to=(3, -33)),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
@@ -292,7 +292,7 @@ RESTYLE = {
     # proportion or density change here; the outer outline grown a square like the others; Q's flash, the W trails and
     # the cast flashes baked into her frames (orig/leblanc_<tag>.over/.under.png) laid on after the outline (fx); the face
     # point at her crown's tip as before
-    "leblanc": dict(ppu=2.0, edge=1, face_to=(-1, -37), fx=True),
+    "leblanc": dict(ppu=2.0, edge=1, face_to=(0, -31), fx=True),
     # Darius (2026-10-18): Codex's design picture read back on its own 17.2 x 16.45-px squares (56 x 61, nothing cut),
     # PPU 1.45 at his old 42 rows (「用 PPU 1.45，和现在一样高」), posed after League's own clips by
     # tools/art/rig_darius_hd.py - the axe hand and the axe turned losslessly, the legs as drawn, moved whole in the run;

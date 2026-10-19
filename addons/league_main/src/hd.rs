@@ -300,7 +300,9 @@ pub struct Hero {
     pub tags: Vec<String>,
     /// the sheet has lo_ frames for every tag (the UI draws those)
     pub lo: bool,
-    /// what the UI divides a lo_ frame's pixels by: [`UI_PPU`] / its [`UI_SIZES`] size
+    /// what the whole-body UI (the pick slot, the BP grid, the pick moment) divides a lo_ frame's pixels by:
+    /// [`UI_PPU`] / its [`UI_SIZES`] size; the encyclopedia / face icons and the scoreboard divide by [`UI_PPU`]
+    /// ([`Hero::ui_for`])
     pub ui: f32,
 }
 
@@ -308,6 +310,13 @@ impl Hero {
     /// What a dense frame's pixels are divided by to give its shown size: PPU / size.
     pub fn shown(&self) -> f32 {
         self.ppu / self.size
+    }
+
+    /// The UI's divisor for a caller: `sized` (a whole-body drawer, src/build.rs ui_sized_*) takes the UI_SIZES size,
+    /// the face crops (encyclopedia / face icons, scoreboard portraits) the plain [`UI_PPU`] - their face point is
+    /// measured on the hero at that size (2026-10-20: Galio's and Mordekaiser's icons showed a crown / a belly).
+    pub fn ui_for(&self, sized: bool) -> f32 {
+        if sized { self.ui } else { UI_PPU }
     }
 }
 
@@ -416,6 +425,10 @@ mod tests {
             assert!((hero.ui - UI_PPU / size).abs() < 1e-6);
         }
         assert_eq!(h.get("league_zoe").map(|x| x.ui), Some(UI_PPU));
+        // the face crops keep the plain UI size, so a hero's face point holds there too
+        let galio = h.get("league_galio").unwrap();
+        assert_eq!(galio.ui_for(false), UI_PPU);
+        assert!(galio.ui_for(true) > UI_PPU);
     }
 
     #[test]
