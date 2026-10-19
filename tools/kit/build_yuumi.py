@@ -43,29 +43,37 @@ FX = "asset/league/effects/league_yuumi_fx"
 BIG = "asset/league/effects/league_yuumi_big"
 
 # League units x 100 = ours (attack range 425 -> 50000, a step under the pack's 53000-60000 supports); radii count
-# the unit's collision radius (~15000) on top. Release ticks are drafts until the strips exist (tools/art/rig_yuumi.py).
+# the unit's collision radius (~15000) on top. Timings from the strips (tools/art/rig_yuumi.py MS): the attack's reach
+# frame 3 from 130 ms (atk_st 8, 480 ms in all), Q's flick frame 3 from 130 ms (q_st 8, 460 ms), W's leap away in frame 4
+# from 180 ms (w_st 11: the jump-on lands then, 300 ms), the jump off 320 ms (w_off 19), R's book standing in frame 3
+# from 140 ms (r_st 9, 500 ms). Numbers = the 10-min classic-SDK simulations (support lane 4 against priest, monk, bard,
+# pythoness and spirit_caller, three lineups, both sides, 8 seeds, 2026-10-19): the draft (hp 880, Q 70 + 40% /
+# 110 + 60%, W heal 15 + 6% a second, E 70 + 40%, R 60 + 25% a wave, attach 4 s every 10 s) -3.11 (league_milio -0.56
+# the same batch); W heal 30 + 10%, E 100 + 50%, attack speed 35% -2.73; + Q 90 / 140, R 80, wave heal 40, hp 950
+# -1.96; + W every 7 s -1.16; + W heal 45 + 15%, E 130 + 60%, every 6 s, hp 1000 -0.86; + Q 110 + 50% / 170 + 70%,
+# R 110 + 35% heal 60, atk 82, passive 50 / heal 60 -0.36 / +0.27 (seeds 9-16; league_milio -1.74) = P.
 P = {
     # stats (the pack's ranged supports: hp 880-950 +80-95, atk 75-85 +6, ap 30 +15, def 20-24, mr 20-24; League's
     # Yuumi: 500 +69 hp, 25 armour, 25 mr, 330 move, 425 range - the frailest champion, safe on her ally)
     "hp": 1000, "hp_g": 85, "atk": 82, "atk_g": 5, "ap": 35, "ap_g": 18, "def": 18, "def_g": 6, "mr": 22, "mr_g": 4,
     "ms": 980, "ms_g": 10,
-    "atk_range": 50000, "atk_dur": 26, "atk_cd": 90, "atk_st": 12, "a_speed": 4000, "a_y": -2000,
+    "atk_range": 50000, "atk_dur": 29, "atk_cd": 90, "atk_st": 8, "a_speed": 4000, "a_y": -2000,
     # passive Feline Friendship (League: every ~6 s an attack or spell on a champion: 20-110 +15% AP, heals 15-100 +25%
     # AP her and her next ally)
     "p_cd": 360, "p_dmg": 50, "p_ap": 25, "p_heal": 60, "p_hap": 20,
     # Q Prowling Projectile (League: 1150, 60-235 +20% AP, empowered after 1.35 s: 80-355 +30% AP, slow 20% / 47-65%,
     # missile 650 -> 950, cd 6.5)
-    "q_cd": 420, "q_range": 80000, "q_dur": 26, "q_st": 12, "q_speed": 2500, "q_len": 100000, "q_w": 5000,
+    "q_cd": 420, "q_range": 80000, "q_dur": 28, "q_st": 8, "q_speed": 2500, "q_len": 100000, "q_w": 5000,
     "q_y": -3000, "q_t1": 20, "q_dmg": 110, "q_ap": 50, "q_slow": 20, "q_slow_t": 60,
     "q_edmg": 170, "q_eap": 70, "q_eslow": 50, "q_eslow_t": 120,
     # W You and Me! (League: 700 range dash, untargetable while attached, heal & shield power to the ally) + E
     # Zoomies (League: shield 75-225 +40% AP, attack speed 25-37.5%, move speed 20% decaying over 3 s, cd 10-7.5 s)
-    "w_cd": 360, "e_range": 75000, "w_dur": 18, "w_st": 10, "w_near": 30000, "w_ally_r": 70000, "w_t": 240,
-    "w_step": 6, "w_p": 60, "w_heal": 45, "w_hap": 15, "w_off": 12,
+    "w_cd": 360, "e_range": 75000, "w_dur": 18, "w_st": 11, "w_near": 30000, "w_ally_r": 70000, "w_t": 240,
+    "w_step": 6, "w_p": 60, "w_heal": 45, "w_hap": 15, "w_off": 19,
     "e_sh": 130, "e_ap": 60, "e_t": 180, "e_as": 35, "e_ms": 20,
     # R Final Chapter (League: 1100 long, 5 waves 0.75 s apart over 3.5 s, 60-300 +20% AP each (one wave per enemy at
     # full, -25% for more), slow 20-50%, root 1.25 s on three hits; heals allies 35-130 +12.5% AP a wave; cd 120-100 s)
-    "r_cd": 2700, "r_range": 80000, "r_dur": 30, "r_st": 14, "r_n": 5, "r_gap": 45, "r_speed": 3000, "r_len": 100000,
+    "r_cd": 2700, "r_range": 80000, "r_dur": 30, "r_st": 9, "r_n": 5, "r_gap": 45, "r_speed": 3000, "r_len": 100000,
     "r_w": 12000, "r_y": -3000, "r_dmg": 110, "r_ap": 35, "r_slow": 20, "r_slow_t": 45, "r_root_k": 3, "r_root": 75,
     "r_heal": 60, "r_hap": 10,
     "vo_gap": 600,
