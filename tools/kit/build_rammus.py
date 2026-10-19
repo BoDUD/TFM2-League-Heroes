@@ -43,8 +43,10 @@ ID = "league_rammus"
 FX = "asset/league/effects/league_rammus_fx"
 BIG = "asset/league/effects/league_rammus_big"
 
-# League units x 100 = ours for skill ranges (the pack's melee attack is 25000 against League's 125). Release ticks will
-# come from the strips (tools/art/rig_rammus.py MS). League's Rammus (V25): 675 +105 hp, 55 +3.5 AD, 35 +4.3 armour,
+# League units x 100 = ours for skill ranges (the pack's melee attack is 25000 against League's 125). Ticks from the
+# strips (tools/art/rig_rammus.py MS): the tumble lands upside down on frame 3 at 180 ms (a_hit 11), Q curls in 200 ms
+# (q_curl 12) and uncurls in 233 (q_end 14), E rears up on frame 2 at 70 ms (e_rel 5), W curls in 267 (w_dur 16), R's
+# leap is 600 ms (r_dur 36) and its landing 233 (r_end 14). League's Rammus (V25): 675 +105 hp, 55 +3.5 AD, 35 +4.3 armour,
 # 32 +2.05 MR, 335 move, attack speed 0.656.
 # Numbers = the 10-min classic-SDK simulations (jungle lane 1 against demon, circus_blade, hunter, inquisitor and ninja,
 # three lineups, both sides, seeds 1-8 and 9-16, 2026-10-19; league_jarvaniv +2.57 on seeds 1-8): the draft (hp 1100,
@@ -55,7 +57,7 @@ P = {
     # stats (base tanks: attack 80 +6, hp 1100 +120, defence 40 +10, mr 30 +5; his armour is his trademark)
     "hp": 1250, "hp_g": 120, "atk": 84, "atk_g": 6, "mp": 30, "mp_g": 15, "def": 44, "def_g": 11, "mr": 30, "mr_g": 5,
     "ms": 1000, "ms_g": 11,
-    "atk_range": 25000, "atk_dur": 24, "atk_cd": 70, "a_hit": 9, "f_t": 180,
+    "atk_range": 25000, "atk_dur": 28, "atk_cd": 70, "a_hit": 11, "f_t": 180,
     # passive Spiked Shell (League: 10 + 15% armour magic on every attack)
     "p_dmg": 15, "p_ap": 30, "p_hp": 2,
     # W Defensive Ball Curl (League: +22-52 armour +22.5-67.5% bonus armour, the same in MR, 7 s, returns 15 + 10% armour
@@ -66,7 +68,7 @@ P = {
     "q_cd": 420, "q_range": 45000, "q_curl": 12, "q_speed": 4000, "q_roll": 120, "q_end": 14, "q_r": 18000,
     "q_dmg": 110, "q_ap": 110, "q_slow": 40, "q_slow_t": 60, "q_kb_speed": 2500, "q_kb_t": 5,
     # E Frenzying Taunt (League: 325 range, taunt 1.2-2.0 s, cast 0.25 s, cd 12)
-    "e_cd": 720, "e_range": 32500, "e_dur": 20, "e_rel": 8, "e_taunt": 90,
+    "e_cd": 720, "e_range": 32500, "e_dur": 20, "e_rel": 5, "e_taunt": 90,
     # R Soaring Slam (League: 800 range (+ move speed), 100-300 + 60% AP r 400, slow 40-80% 1.5 s, 3 aftershocks over
     # 3.5 s; during Powerball the centre r 200 takes Q's damage and is knocked up 0.75 s; cd 120-90)
     "r_cd": 3600, "r_range": 60000, "r_dur": 36, "r_speed": 4000, "r_end": 14, "r_r": 36000, "r_c": 18000,
@@ -251,7 +253,7 @@ def build(p):
         # the add-on rolls him (the ball while he walks) and runs q_hit itself through a 1-tick `q_go` flag it lays
         roll = [refresh("q_ball", p["q_roll"] * 3)]
     else:
-        roll = [refresh("q_ball", p["q_roll"]), anim("skill_roll", p["q_roll"]), sfx("q_roll"),
+        roll = [refresh("q_ball", p["q_roll"]), anim("skill_roll", p["q_roll"]), sfx("q_roll"), cview("q_dust"),
                 {"type": "MoveToTarget", "speed": p["q_speed"], "range": p["q_range"] + 60000, "end_effects": q_hit}]
     skill = action("skill", p["q_curl"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(life, refresh("busy", p["q_curl"] + 10), sfx("q"), voice("vo_q", p),
@@ -283,7 +285,7 @@ def build(p):
                                                    "z": z, "is_follow": follow}
     B_ = lambda name, anim_=FX, z=3: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_e = [E("a_hit"), E("q_hit"), E("q_burst", BIG, -1), E("e_hit"), E("w_cast", BIG, 2),
+    views_e = [E("a_hit"), E("q_dust", FX, -1), E("q_hit"), E("q_burst", BIG, -1), E("e_hit"), E("w_cast", BIG, 2),
                E("r_land", BIG, -1, False), E("r_shock", BIG, -1, False), E("r_hit")]
     views_b = [B_("w_on", FX, 3), B_("e_taunt", FX, 3), B_("q_slow", FX, 3), B_("r_slow", FX, 3)]
     extra = {}

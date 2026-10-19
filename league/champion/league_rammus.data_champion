@@ -40,7 +40,7 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_rammus.attack",
-    "duration": 24,
+    "duration": 28,
     "cooltime": 70,
     "start_timing": 1,
     "cancelable": true,
@@ -234,7 +234,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 8,
+          "tick": 10,
           "effects": [
             {
               "type": "Combine",
@@ -640,6 +640,10 @@
                         "name": "league_rammus_q_roll"
                       },
                       {
+                        "type": "CasterViewEffect",
+                        "name": "league_rammus_q_dust"
+                      },
+                      {
                         "type": "MoveToTarget",
                         "speed": 4000,
                         "range": 105000,
@@ -1026,7 +1030,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 7,
+          "tick": 4,
           "effects": [
             {
               "type": "Combine",
@@ -1633,6 +1637,14 @@
       "anim": "asset/league/effects/league_rammus_fx",
       "tag": "a_hit",
       "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_rammus_q_dust",
+      "anim": "asset/league/effects/league_rammus_fx",
+      "tag": "q_dust",
+      "z": -1,
       "is_follow": true
     },
     {
