@@ -341,7 +341,10 @@ RESTYLE = {
     # league_poppy (#130): posed from the design's own squares at the user's 1.3 squares a game pixel (「用 B（锤子竖着），
     # 游戏里 36 像素高，PPU 1.3」: Codex's step-1 take B-2 cut to 47 rows pigtails to soles) by tools/art/rig_poppy.py, so no
     # proportion or density change here; the outer outline grown a square like the others; the face point between her eyes
-    "poppy": dict(ppu=1.2, edge=1, face_to=(5, -22)),
+    # 2026-10-19 the user: 「波比在游戏里体型也太大 需要缩小」 -> drawn 85 % by league.dll (hd.rs SIZES) round the frame's
+    # centre (44 game px with the standing hammer against the yordles' 32-40), so every frame lowered
+    # 11.5 x 1.2 x (1 / 0.85 - 1) = 2.4 -> 2 squares (league_aphelios's way); the face point (5, -22) taken with it
+    "poppy": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(4, -17)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
