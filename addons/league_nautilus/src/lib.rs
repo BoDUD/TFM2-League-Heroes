@@ -8,7 +8,7 @@
 //!   钩住他；先碰到墙（引擎的碰撞墙，5v5 地图野区的 90 格，卡蜜尔附加包的 `maps.rs`）就按锚飞到墙的时间排一个 `pull`。
 //! - `pull`：锚咬在墙上：他被拉到墙边（强制位移，速度 `q_dash`，停在离墙 `GAP` 处），播主包的 skill_pull 动作、钩墙音效和
 //!   钩中的水花，Q 冷却返还一半（`skill_cooldown_mult` +100 的 3 tick buff：剩下的冷却封顶到冷却时间的一半；W+E 若剩得更多
-//!   也一起封顶，引擎没有只给一个技能的字段）。之后每 tick 看一次（`watch`），宿主没挪他就逐 tick 自己走一步。
+//!   也一起封顶，引擎没有只给一个技能的字段；`ult_cooldown_mult` -100 让大招不跟着封顶，0.1.2）。之后每 tick 看一次（`watch`），宿主没挪他就逐 tick 自己走一步。
 //! - 被硬控、死了就不拉。比 `HOOK_MIN` 近的墙不钩（拉不出样子）。
 //!
 //! 数字从英雄数据的 `passive.params` 来不了（这一招没有被动），所以和主包 P 表的值写在这里（`Q_*`），主包改了这里一起改
@@ -314,6 +314,7 @@ fn pull(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     sim.apply_cc(caster, &mv);
     let mut refund = BuffV1::timed(&nt("q_refund"), REFUND_T);
     refund.skill_cooldown_mult = REFUND;
+    refund.ult_cooldown_mult = -REFUND;   // the engine caps R with skill + ult: the refund is Q's (and W+E's) only
     sim.entity_remove_buff(caster, &nt("q_refund"));
     sim.add_buff(caster, &refund);
     let at_wall = InputTargetV1::pos(to.0.round().max(0.0) as u64, to.1.round().max(0.0) as u64);

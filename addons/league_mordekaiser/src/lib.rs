@@ -18,6 +18,13 @@
 //!   最大生命的 `w_cap`%，脱战 `DECAY_AFTER` tick 后慢慢掉。被动在每次命中 / 受伤时攒，W 放出时整份变成护盾（至少最大生命
 //!   的 `W_BASE`%，持续 `w_t`），`w_heal_at` tick 后按护盾还剩多少回复 `w_heal`%。
 //!
+//!
+//! 0.1.1（2026-10-19，日志：每次「R WON」后 `R OUT: league_mordekaiser STILL BANISHED`，今天 95 次 + 上一次 43 次，对手
+//! 提前出来却是 0 tick）：游戏 0.6.4 解不开他自己身上那份带漩涡的 `R_T` tick 放逐——赢了以后他还隐身、选不中，直到 7 秒
+//! 满。现在他的放逐不带画面、一次只给 `R_STEP` tick，单挑还在就每 `R_RENEW` tick 续上（最后一段截到领域结束）；漩涡
+//! `league_mordekaiser_r_realm` 单独播在他出手的地方。提前结束时他最多再放逐 `R_STEP` tick。对方的放逐照旧一次给满
+//! （他先死时对方 0 tick 就出来了）。
+//!
 //! 数字：参数从英雄数据来；R / W 的效果在被动之外运行，用到的数字写在这里（`R_*`、`W_*`），`tests::the_numbers_match_the_kit`
 //! 读主包的参数表核对。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_mordekaiser.log`，每次启动游戏重写。
@@ -33,7 +40,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_mordekaiser";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 /// 主包莫德凯撒的名字（buff、画面都以它开头）。
 fn mk(x: &str) -> String {
@@ -52,6 +59,9 @@ fn show(sim: &mut StableSim<'_>, x: &str, me: usize) {
 /// 大招：射程（r_range）、持续（r_t）、偷多少 %（r_steal）、嘲讽（r_taunt）。
 pub const R_RANGE: f64 = 48_000.0;
 pub const R_T: usize = 420;
+/// 他自己的放逐一段多长、多久续一次（0.6.4 解不开一份长放逐，见文件开头 0.1.1）。
+pub const R_STEP: usize = 24;
+pub const R_RENEW: usize = 12;
 pub const R_STEAL: usize = 10;
 /// 领域里：莫德的普攻带 A_AP% 法强（a_ap），满层光环每 P_PER tick P_DMG + P_AP% 法强 + P_HP% 最大生命（p_per, p_dmg, p_ap,
 /// p_hp）；对方每次出手带 FOE_AP% 法强（代替技能）；读不到攻击间隔时用 SWING。
@@ -241,6 +251,8 @@ pub fn parse_params(json: &str) -> Params {
 struct Realm {
     target: usize,
     until: usize,
+    /// the tick his own banish is renewed next (R_STEP ticks at a time)
+    renew: usize,
     steal: Steal,
     /// the next tick each side swings (him, the cursed one) and his aura's next pulse
     mine: usize,
@@ -405,6 +417,14 @@ impl Revenant {
             }
             (Some((ms, max, mi)), Some((ts, ti))) => {
                 let mut r = r;
+                if t >= r.renew {
+                    // his banish in short steps, so that an early end lets him out (0.6.4 holds a long one)
+                    let ok = sim.entity_banish(me, me, realm_step(t, r.until), "", "");
+                    if !ok {
+                        wlog(format!("{} R: renewing his banish was refused at t={t}", head(sim, me)));
+                    }
+                    r.renew = t + R_RENEW;
+                }
                 if t >= r.mine {
                     sim.deal_damage(me, r.target, ms.attack, ms.magic_power * A_AP / 100, AttackTypeV1::BaseAttack);
                     r.mine = t + if mi > 0 { mi } else { SWING };
@@ -513,16 +533,26 @@ fn realm(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     sim.add_buff(target, &steal_buff(&mk("r_curse"), R_T, steal, -1));
     sim.entity_remove_buff(caster, &mk("r_steal"));
     sim.add_buff(caster, &steal_buff(&mk("r_steal"), R_T, steal, 1));
-    let into_me = sim.entity_banish(caster, caster, R_T, &mk("r_realm"), "");
-    let into_it = sim.entity_banish(caster, target, R_T, "", "");
     let t = sim.tick();
+    // his own banish in R_STEP steps (renewed by the passive) and no picture on it; the vortex on its own, where he stood
+    if let Some((x, y)) = sim.get_entity(caster).map(|e| e.pos()) {
+        sim.play_view_effect(&mk("r_realm"), caster, &InputTargetV1::pos(x, y), 0, 0, 0);
+    }
+    let into_me = sim.entity_banish(caster, caster, realm_step(t, t + R_T), "", "");
+    let into_it = sim.entity_banish(caster, target, R_T, "", "");
     with_state(sim, caster, |s| {
-        s.realm = Some(Realm { target, until: t + R_T, steal, mine: t + 1, theirs: t + 1, aura: t + 1, swings: (0, 0) });
+        s.realm = Some(Realm { target, until: t + R_T, renew: t + R_RENEW, steal, mine: t + 1, theirs: t + 1,
+                               aura: t + 1, swings: (0, 0) });
     });
     let swapped = asked.is_some_and(|a| a != target);
     wlog(format!("{} R REALM with {}{}: steals {:?}, both banished {R_T} ticks{}", head(sim, caster),
                  who(sim, target), if swapped { format!(" (the AI asked for {})", who(sim, asked.unwrap())) } else {
                      String::new() }, steal, if into_me && into_it { "" } else { " (entity_banish refused)" }));
+}
+
+/// His next banish step at tick `t`: R_STEP ticks, cut at the realm's end.
+pub fn realm_step(t: usize, until: usize) -> usize {
+    until.saturating_sub(t).clamp(1, R_STEP)
 }
 
 struct RealmEffect;
@@ -598,6 +628,14 @@ mod tests {
     fn stat(attack: usize, ap: usize, def: usize, mr: usize) -> StatV1 {
         StatV1 { attack, magic_power: ap, hp: 0, defence: def, magic_resistance: mr, move_speed: 0, hp_regen: 0,
                  stack: 0, crit_chance: 0 }
+    }
+
+    #[test]
+    fn his_banish_comes_in_steps_cut_at_the_realms_end() {
+        assert_eq!(realm_step(100, 100 + R_T), R_STEP);
+        assert_eq!(realm_step(500, 510), 10);
+        assert_eq!(realm_step(520, 520), 1);
+        assert!(R_RENEW < R_STEP); // renewed before a step runs out: no tick seen in between
     }
 
     #[test]

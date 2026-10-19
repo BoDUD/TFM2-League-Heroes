@@ -19,7 +19,7 @@
   "stat": {
     "attack": 72,
     "magic_power": 30,
-    "hp": 1150,
+    "hp": 1200,
     "defence": 40,
     "magic_resistance": 30,
     "move_speed": 1000,
@@ -922,7 +922,7 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 200,
+                        "damage": 240,
                         "attack_ratio": 80,
                         "hp_ratio": 0,
                         "can_crit": false,
