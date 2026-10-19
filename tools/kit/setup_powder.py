@@ -40,8 +40,9 @@ O = "<#ff9028ff>"      # names, physical damage
 A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: placeholder until the sprite exists (tfm2_ase.py face)
-VIEW = {"face": {"x": 0, "y": -24}, "center": {"x": 0, "y": -12}}
+# champion_view: the face point between her eyes, 10 px under the crown (tfm2_ase.py face: crown 35 px up; lint_mod allows
+# 10 under the crown); her idle's top is 23.5 px over the pivot: the ban/pick card fits it, no banpick_center
+VIEW = {"face": {"x": 0, "y": -25}, "center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):

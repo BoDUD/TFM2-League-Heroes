@@ -363,7 +363,7 @@ RESTYLE = {
     # tools/art/rig_powder.py at 1.5 squares a game pixel (53 rows, 「35」「PPU 1.5」); shown at 90 % (the user:
     # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the
     # soles on the ground; the face point between her eyes
-    "powder": dict(ppu=1.5, edge=1, lift_sq=-2, face_to=(1, -24)),
+    "powder": dict(ppu=1.5, edge=1, lift_sq=-2, face_to=(0, -25)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

@@ -2,8 +2,8 @@
   "entries": {
     "tft_powder": {
       "face": {
-        "x": 1,
-        "y": -24
+        "x": 0,
+        "y": -25
       },
       "center": {
         "x": 0,
