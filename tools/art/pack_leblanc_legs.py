@@ -10,7 +10,10 @@ run-legs-caitlyn-way, codex-legs-need-skeletons; tools/art/pack_quinn_legs2.py):
 along red / blue skeleton lines (hip - knee - ankle - toe) whose thigh and shin are the design's own lengths, and here
 the gown below the waist, parted by the stride; everything above the waist, the staff arm and the cape hanging at her
 back (left of CAPE_X) stay the design's squares. The staff is left out (the rig holds it level behind her in the run).
-Writes <out>/ (and <out>.zip): LEG_PROMPTS.md; 1_run_body.png / 1_run_guide.png (eight cells: the body with the gown's
+Round 2 (--prompts LEG_PROMPTS_2.md): round 1 came back with sheer brown stockings and brown heels, long and thin -
+not her standing legs (「腿有点变形啊 待机的腿和走路的腿不一样？」; round 1's prompt itself said "stockings"): the
+legs drawn as the idle's, bare pale thighs with the strap and navy gold-trimmed knee boots, the gown slit only in front.
+Writes <out>/ (and <out>.zip): the prompts; 1_run_body.png / 1_run_guide.png (eight cells: the body with the gown's
 lower part and the legs taken away, and the same with the skeletons), 2_lower_sample.png (the design's gown and legs
 below the waist, 8x: the drawing to repeat), 3_run_lol.png (League's run, Riot's model, kept local).
 """
@@ -133,6 +136,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="C:/t/lb_legs")
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol")
+    ap.add_argument("--prompts", default="LEG_PROMPTS.md", help="LEG_PROMPTS_2.md: round 2, the legs as the idle's")
     a = ap.parse_args()
     out = a.out
     if os.path.isdir(out):
@@ -156,7 +160,7 @@ def main():
     subprocess.run(cmd, check=True, capture_output=True)
     png = [f for f in os.listdir(work) if f.lower().endswith(".png")][0]
     shutil.copyfile(os.path.join(work, png), os.path.join(out, "3_run_lol.png"))
-    shutil.copyfile(R.lp(os.path.join(SRC, "LEG_PROMPTS.md")), os.path.join(out, "LEG_PROMPTS.md"))
+    shutil.copyfile(R.lp(os.path.join(SRC, a.prompts)), os.path.join(out, a.prompts))
     print(shutil.make_archive(out, "zip", out))
     for k, (bob, n, f) in enumerate(Rf):
         print(k, "bob", bob, "near", [tuple(round(v, 1) for v in p) for p in n], "far", [tuple(round(v, 1) for v in p) for p in f])
