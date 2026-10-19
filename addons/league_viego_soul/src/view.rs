@@ -23,28 +23,16 @@
 //! （和画面实体的 key 是同一个号）和 tick；屏幕上这个佛耶戈每开始一次附身（播附身动作 `possess`，或 shape buff 出现），就取
 //! 那场模拟里记给他的下一条。
 
-use std::ffi::c_void;
-use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Mutex, Once};
 
 use super::{souls, wlog, HERO, LOOK};
 use mod_api_stable::{StableClient, StableExtension};
+use game_places::hook::{Ent, VALUE, NAME_PTR, NAME_LEN_AT, ANIM_CAP, BUFFS_PTR, BUFFS_LEN, BUFF_SIZE};
 
 /// 显示更新函数和它的槽：游戏版本不同地址不同，由 game_places::display() 在加载时找（2026-10-20，以前写死 0.6.4 的
 /// rva 0x23312a0 / 0x3c82db8 和函数开头 24 个字节）。
-const TABLE: usize = 0x138;
-const TABLE_MASK: usize = 0x140;
-const TABLE_ITEMS: usize = 0x150;
-const ELEM: usize = 0x1d0;
-const VALUE: usize = 8;
-const NAME_PTR: usize = 0x40;
-const NAME_LEN_AT: usize = 0x48;
 /// Strings {cap, ptr, len}: the body's resource name at +0x50 / +0x58 / +0x60, the playing animation at +0x68 / +0x70 / +0x78.
 const RES_CAP: usize = 0x50;
-const ANIM_CAP: usize = 0x68;
-const BUFFS_PTR: usize = 0xb8;
-const BUFFS_LEN: usize = 0xc0;
-const BUFF_SIZE: usize = 0x28;
 
 /// 被附身英雄的图里没有正在播的这个名字时换成哪个（按顺序找第一个他有的）。
 pub fn anim_for(cur: &str, tags: &[&str]) -> Option<&'static str> {
@@ -261,38 +249,13 @@ static TRACKS: Mutex<Vec<Track>> = Mutex::new(Vec::new());
 static STATS: Mutex<Stats> = Mutex::new(Stats { calls: 0, viegos: 0, writes: 0, last: None, looks: Vec::new(),
     buffsets: Vec::new(), buff_lines: 0 });
 static ORIG: Mutex<Originals> = Mutex::new(Originals { seen: Vec::new() });
-static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
 #[link(name = "kernel32")]
 extern "system" {
-    fn ReadProcessMemory(h: isize, base: *const c_void, buf: *mut c_void, size: usize, read: *mut usize) -> i32;
-    fn GetCurrentProcess() -> isize;
-    fn GetModuleHandleW(name: *const u16) -> usize;
-    fn VirtualProtect(addr: *mut c_void, size: usize, new: u32, old: *mut u32) -> i32;
     fn GetProcessHeap() -> isize;
     fn HeapAlloc(heap: isize, flags: u32, bytes: usize) -> *mut u8;
     fn HeapFree(heap: isize, flags: u32, mem: *mut u8) -> i32;
-}
-
-fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
-    let mut buf = vec![0u8; len];
-    let mut got = 0usize;
-    let ok = unsafe {
-        ReadProcessMemory(GetCurrentProcess(), addr as *const c_void, buf.as_mut_ptr() as *mut c_void, len, &mut got)
-    };
-    (ok != 0 && got == len).then_some(buf)
-}
-
-type Update = unsafe extern "system" fn(usize, usize, usize, f32);
-
-unsafe extern "system" fn update(this: usize, a2: usize, world: usize, dt: f32) {
-    let prev = PREV.load(Ordering::Acquire);
-    if prev != 0 {
-        let f: Update = std::mem::transmute(prev);
-        f(this, a2, world, dt);
-    }
-    let _ = std::panic::catch_unwind(|| unsafe { dress_viego(world) });
 }
 
 unsafe fn q(addr: usize) -> usize {
@@ -327,16 +290,7 @@ unsafe fn put_string(at: usize, want: &[u8]) -> bool {
     true
 }
 
-unsafe fn dress_viego(world: usize) {
-    if !plausible(world) {
-        return;
-    }
-    let ctrl = q(world + TABLE);
-    let mask = q(world + TABLE_MASK);
-    let items = q(world + TABLE_ITEMS);
-    if items == 0 || !plausible(ctrl) || mask >= 1 << 16 || (mask + 1) & mask != 0 || items > mask + 1 {
-        return;
-    }
+unsafe fn dress_viego(world: usize, ents: &[Ent]) {
     let (Ok(mut orig), Ok(mut st)) = (ORIG.try_lock(), STATS.try_lock()) else { return };
     st.calls += 1;
     let now = std::time::Instant::now();
@@ -352,11 +306,8 @@ unsafe fn dress_viego(world: usize) {
     }
     // every record: (key, value address, champion id)
     let mut recs: Vec<(u64, usize, &[u8])> = Vec::new();
-    for i in 0..=mask {
-        if *(ctrl as *const u8).add(i) & 0x80 != 0 {
-            continue;
-        }
-        let elem = ctrl - (i + 1) * ELEM;
+    for e in ents {
+        let elem = e.elem;
         let v = elem + VALUE;
         let n = q(v + NAME_LEN_AT);
         let p = q(v + NAME_PTR);
@@ -504,35 +455,13 @@ unsafe fn dress_viego(world: usize) {
     }
 }
 
-fn install() -> Result<(usize, usize), String> {
-    let module = unsafe { GetModuleHandleW(std::ptr::null()) };
-    if module == 0 {
-        return Err("no module handle".into());
-    }
-    // the display handler and its slot, found by game_places (shared with league.dll and the other add-ons)
-    let (_func, slot) = game_places::display()?;
-    let cur = read(slot, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).ok_or("the slot is unreadable")?;
-    if !plausible(cur) {
-        return Err(format!("the slot holds {cur:#x}"));
-    }
-    PREV.store(cur, Ordering::Release);
-    let mut old = 0u32;
-    if unsafe { VirtualProtect(slot as *mut c_void, 8, 0x04, &mut old) } == 0 {
-        return Err("VirtualProtect failed".into());
-    }
-    unsafe { std::ptr::write_volatile(slot as *mut usize, update as Update as usize) };
-    let mut tmp = 0u32;
-    unsafe { VirtualProtect(slot as *mut c_void, 8, old, &mut tmp) };
-    Ok((slot, cur))
-}
-
 /// 加载时换槽（一个进程只换一次）。
 pub fn install_once() {
     HOOK.call_once(|| {
-        match install() {
+        match game_places::hook::add("league_viego_soul", dress_viego) {
             Ok((slot, prev)) => wlog(format!(
                 "whole-body possession on: display slot {slot:#x} now calls this add-on, then {} ({prev:#x})",
-                if game_places::display().is_ok_and(|d| prev == d.0) { "the game's own handler" } else { "another mod's handler (chained)" }
+                if game_places::hook::chained_to_game(prev) { "the game's own handler" } else { "another mod's handler (chained)" }
             )),
             Err(e) => wlog(format!("whole-body possession off ({e}): the possession shows only the data's mist")),
         }
