@@ -63,7 +63,7 @@ RIDE = "asset/league/effects/league_yuumi_ride"
 # R 110 + 35% heal 60, atk 82, passive 50 / heal 60 -0.36 / +0.27 (seeds 9-16; league_milio -1.74); timed to the strips
 # -0.28 / -0.10; casting Q / R while riding (the chunked banish, the user's 「能放」) -0.85 / -0.73 (league_milio -0.56):
 # out between two chunks she dealt 2190 a game (2600 before); the whole ride immune -0.68 / +0.18 (deals 3140 a game,
-# K/D/A 0.8/2.2/4.5) = P.
+# K/D/A 0.8/2.2/4.5); after the first game Zoomies 20% / 10% instead of 35% / 20% -0.54 / -0.55 = P.
 P = {
     # stats (the pack's ranged supports: hp 880-950 +80-95, atk 75-85 +6, ap 30 +15, def 20-24, mr 20-24; League's
     # Yuumi: 500 +69 hp, 25 armour, 25 mr, 330 move, 425 range - the frailest champion, safe on her ally)
