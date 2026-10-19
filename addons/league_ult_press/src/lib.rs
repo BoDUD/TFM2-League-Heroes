@@ -37,7 +37,11 @@
 //!   - 远处引导的（泽拉斯 R、烬 R）：身边 `CHANNEL_SAFE` 内没有敌方英雄、生命不低于 `CHANNEL_HP`，射程内生命不到
 //!     `CHANNEL_LOW` 的或我方有人贴着在打的，挑生命比例最低的。辛德拉 R：目标生命不到 `SYNDRA_LOW`、被控住，或射程内
 //!     两个以上（主包再按法球数和控制决定立刻放还是待命）。
-//!   - 备好式的（凯尔、卡尔玛、伊芙琳、奥莉安娜的 R：主包待命一段时间等时机，没用上退还冷却）：`*_NEAR` 内有敌方英雄就按。
+//!   - 备好式的（凯尔、卡尔玛、伊芙琳、奥莉安娜、斯维因的 R：主包待命一段时间等时机，没用上退还冷却）：`*_NEAR` 内有敌方英雄就按。
+//!     斯维因（用户 2026-10-19：「乌鸦开大时机挺烂的 一局开不了几次」）：主包的 R 只开 360 tick 的待命窗口，窗口里身边 60000
+//!     内有两个敌方英雄、或有敌方英雄（被控住的在 55000 内）而身边有队友才变身（有队友那条是同一天按用户的选择加的），没用上冷却只剩 1 秒；游戏的 AI 难得按一次，那天看的
+//!     一局整局只按开过一次（变身时身边已经没有敌方英雄），后台模拟的另一局隔 1–2 分钟一次。本包在 R 好了、`SWAIN_R_NEAR`
+//!     内有敌方英雄时按，窗口在打架时一直开着，什么时候变身还是主包判断。
 //!     瑞兹 R（也是备好式，主包判断追还是逃）：生命不到 `RYZE_FLEE` 而 `RYZE_THREAT` 内有敌方英雄，或照崔斯特的规则。
 //!   - 迦娜 R：她或身边 `JANNA_R_RANGE` 内的队友生命不到 `JANNA_SAVE` 而 `JANNA_THREAT` 内有敌方英雄，或两人以上生命不到
 //!     `JANNA_TEAM` 而她身边有敌方英雄。娑娜 W：她或 `SONA_HEAL_R` 内的队友生命不到 `SONA_HURT`。
@@ -140,6 +144,7 @@ pub const FIDDLESTICKS: &str = "league_fiddlesticks";
 pub const RYZE: &str = "league_ryze";
 pub const APHELIOS: &str = "league_aphelios";
 pub const VLADIMIR: &str = "league_vladimir";
+pub const SWAIN: &str = "league_swain";
 /// 冲上去的技能：他生命不低于这个才冲；目标在敌方塔下也冲的残血线。
 pub const ENGAGE_HP: f64 = 0.4;
 pub const DIVE_HP: f64 = 0.25;
@@ -195,6 +200,9 @@ pub const JHIN_R_REACH: f64 = 140_000.0;
 pub const KAYLE_R_NEAR: f64 = 50_000.0;
 pub const KARMA_R_NEAR: f64 = 70_000.0;
 pub const EVELYNN_R_NEAR: f64 = 45_000.0;
+/// 斯维因 R（备好式，`Targeting EnemyChampion` 55000：主包待命 360 tick，身边 60000 内两个敌方英雄、或有敌方英雄且 45000 内
+/// 有队友才变身，没用上冷却只剩 60 tick）：射程内有敌方英雄就按。
+pub const SWAIN_R_NEAR: f64 = 55_000.0;
 /// 备好式大招按下后看这么久：冷却一下掉了很多就是退还了，没掉就是用掉了（最长的凯尔待命 900 tick）。
 pub const ARM_WATCH: usize = 960;
 /// 费德提克 R（`Position` 80000，引导 1 秒后传过去，鸦群打 45000 内的敌人）。
@@ -865,6 +873,7 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
         KARMA if r => push("R", Ult, s.by_distance(KARMA_R_NEAR), "mantra", false),
         EVELYNN if r => push("R", Ult, s.by_distance(EVELYNN_R_NEAR), "arm", false),
         APHELIOS if r => push("R", Ult, s.by_distance(APHELIOS_R_NEAR), "arm", false),
+        SWAIN if r => push("R", Ult, s.by_distance(SWAIN_R_NEAR), "arm the demon", false),
         VLADIMIR if r => push("R", Ult, vladimir_r(s), "hemoplague", false),
         RYZE if r => {
             if let Some((t, why)) = ryze_r(s) {
@@ -885,7 +894,7 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
 
 /// 备好式的大招（主包待命一段时间等时机，没用上退还冷却）：按下以后看它退没退。
 pub fn is_armed_ult(name: &str) -> bool {
-    matches!(name, ORIANNA | SYNDRA | KAYLE | KARMA | EVELYNN | RYZE | APHELIOS)
+    matches!(name, ORIANNA | SYNDRA | KAYLE | KARMA | EVELYNN | RYZE | APHELIOS | SWAIN)
 }
 
 /// 放不出技能的控制。
@@ -948,7 +957,7 @@ const P_W1: PressSlot = PressSlot { slot: SkillSlotV1::Skill, key: "W" };
 pub fn slots_of(name: &str) -> &'static [PressSlot] {
     match name {
         SAMIRA | TF | KOGMAW | JANNA | SYNDRA | XERATH | KAYLE | JHIN | KARMA | EVELYNN | FIDDLESTICKS | RYZE | APHELIOS
-        | VLADIMIR => &[P_R],
+        | VLADIMIR | SWAIN => &[P_R],
         CAMILLE | GWEN | VIEGO | SIVIR | ZILEAN | KALISTA => &[P_E2],
         ORIANNA => &[P_R, P_E2],
         KATARINA => &[P_R, P_W2],
@@ -1652,7 +1661,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (presses for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E, Zed W, Gwen E, Viego E, Katarina W and R, Orianna E and R, Sivir E, Sona W, Zilean E, Kalista E, the R of Janna, Syndra, Xerath, Kayle, Jhin, Karma, Evelynn, Fiddlesticks, Ryze, Aphelios and Vladimir; held champions attack: all {} League champions, the {} melee within {}, the ranged within their own attack range; nothing while casting or moved) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (presses for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E, Zed W, Gwen E, Viego E, Katarina W and R, Orianna E and R, Sivir E, Sona W, Zilean E, Kalista E, the R of Janna, Syndra, Xerath, Kayle, Jhin, Karma, Evelynn, Fiddlesticks, Ryze, Aphelios, Vladimir and Swain; held champions attack: all {} League champions, the {} melee within {}, the ranged within their own attack range; nothing while casting or moved) loaded: game {}.{}.{} abi {} log={} ===",
         ATTACK_RANGE.len(),
         ATTACK_RANGE.iter().filter(|(_, r)| *r <= MELEE_RANGE).count(),
         HOLD_REACH,
@@ -2009,6 +2018,10 @@ mod tests {
         assert_eq!(keys(plan(EVELYNN, &scene(0.8, &[], &[u(1, 40_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false, false))).len(), 1);
         assert!(plan(KARMA, &s, [true, true, true, false], &marks(false, false)).is_empty());
         assert_eq!(keys(plan(APHELIOS, &s, all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        // Swain arms the demon on anyone within the slot's range; not beyond it, not with R down
+        assert_eq!(keys(plan(SWAIN, &s, all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        assert!(plan(SWAIN, &scene(0.8, &[], &[u(1, 60_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false, false)).is_empty());
+        assert!(plan(SWAIN, &s, [true, true, true, false], &marks(false, false)).is_empty());
         let low = [u(1, 40_000.0, 0.0, 0.4)];
         assert_eq!(keys(plan(VLADIMIR, &scene(0.8, &[], &low, &[], &[]), all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
         assert!(plan(VLADIMIR, &s, all, &marks(false, false)).is_empty()); // one at half health, alone: not yet
@@ -2026,14 +2039,14 @@ mod tests {
         assert_eq!(slots_of(ZED), &[PressSlot { slot: SkillSlotV1::Skill, key: "W" }]);
         assert_eq!(slots_of(ORIANNA).len(), 2);
         assert_eq!(slots_of(KATARINA).iter().map(|p| p.slot).collect::<Vec<_>>(), vec![SkillSlotV1::Ult, SkillSlotV1::Skill2]);
-        for h in [SAMIRA, TF, KOGMAW, JANNA, SYNDRA, XERATH, KAYLE, JHIN, KARMA, EVELYNN, FIDDLESTICKS, RYZE, APHELIOS, VLADIMIR] {
+        for h in [SAMIRA, TF, KOGMAW, JANNA, SYNDRA, XERATH, KAYLE, JHIN, KARMA, EVELYNN, FIDDLESTICKS, RYZE, APHELIOS, VLADIMIR, SWAIN] {
             assert_eq!(slots_of(h), &[P_R], "{h}");
         }
         for h in [CAMILLE, GWEN, VIEGO, SIVIR, ZILEAN, KALISTA] {
             assert_eq!(slots_of(h), &[P_E2], "{h}");
         }
         assert!(slots_of("league_garen").is_empty());
-        assert!(is_armed_ult(KAYLE) && is_armed_ult(APHELIOS) && !is_armed_ult(JANNA) && !is_armed_ult(VLADIMIR));
+        assert!(is_armed_ult(KAYLE) && is_armed_ult(APHELIOS) && is_armed_ult(SWAIN) && !is_armed_ult(JANNA) && !is_armed_ult(VLADIMIR));
     }
 
     /// The action-level `"range"` of a slot in the main pack's data (four spaces in, like `melee_list_matches_the_data`).
@@ -2066,6 +2079,7 @@ mod tests {
             (SYNDRA, "ult", SYNDRA_R_RANGE),
             (FIDDLESTICKS, "ult", FIDDLE_R_RANGE),
             (VLADIMIR, "ult", VLAD_R_RANGE),
+            (SWAIN, "ult", SWAIN_R_NEAR),
         ] {
             assert_eq!(data_range(hero, slot) as f64, range, "{hero} {slot}");
         }

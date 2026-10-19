@@ -30,7 +30,8 @@ TFM2 has three active slots: Death's Hand is `skill`, Nevermove `skill2`, Demoni
   ult     R Demonic Ascension (恶魔升华): the slot (a 3-tick `Targeting` on `EnemyChampion` within r_range) only arms
           the ult for r_arm ticks (league_orianna's R); the watch raises the demon once the moment is right (the user:
           「是乌鸦看情况开大吧」): two enemy champions within r_r of him, or an enemy champion in CC within r_range while
-          an allied champion stands within r_ally (`r_ok`). Unused, the window ends with the cooldown capped at 60
+          an allied champion stands within r_ally, or (2026-10-19, the user's pick: 「乌鸦改成身边 1 个敌人且附近有队友也变身」)
+          any enemy champion within r_r while an allied champion stands within r_ally (`r_ok`). Unused, the window ends with the cooldown capped at 60
           ticks (`r_retry`, league_tahmkench's way), so a press at the wrong moment never wastes the ult (the classic
           AI pressed the old 30-tick slot whenever a champion stood in range: half its casts were empty, 2026-10-17).
           He rises as the demon (`ult`, a CasterAnimation, `r_on` for r_t0 ticks); every
@@ -311,9 +312,10 @@ def build(p):
                     around(p["r_r"], "EnemyChampion", [sw("c_e1", flag("c_e2", 3), flag("c_e1", 3))]),
                     around(p["r_ally"], "AllyChampion", [sw("c_a1", flag("c_a2", 3), flag("c_a1", 3))]),
                     pick(p["r_range"], "EnemyChampionInCC", flag("c_cc", 3)))
-    # r_ok: two enemy champions close, or an ally with him on a champion in CC; with the window open the demon rises
+    # r_ok: two enemy champions close, or an ally with him on a champion in CC or on any champion close (the classic sim,
+    # 12 games: 1.83 -> 3.92 rises a game; 240 games: +2.04 -> +2.10); with the window open the demon rises
     ok = combine(refresh("r_ok", tick + 2), sw("r_arm", flag("r_go", 1)))
-    arm = sw("c_e2", ok, sw("c_cc", sw("c_a2", ok)))
+    arm = sw("c_e2", ok, sw("c_cc", sw("c_a2", ok), sw("c_e1", sw("c_a2", ok))))
     fire = sw("r_go", combine(*rm("r_go", "r_arm"), rise))
     cast_w = sw("w_cd", NONE, pick(p["w_range"], "EnemyChampionRecentlyAttacked", vision))
     watch = on_me(casted(1000000, tick, count, delayed(1, arm, fire, cast_w)))
