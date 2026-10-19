@@ -11,8 +11,9 @@
                              star-and-heart hit, her hearts); Prowling Projectile flying across the lane, empowered on
                              arrival (the big hit, the slow ring); You and Me! - she leaps onto Jinx (the puff where she
                              was), Zoomies' shield and speed swirl on Jinx, the cat on her book riding Jinx's head, the
-                             healing hearts every second, the jump off; Final Chapter - the magic circle under her, five
-                             waves flying across, the third rooting Darius, the waves healing Jinx as they pass; 3x
+                             healing hearts every second; riding, Final Chapter from Jinx (the magic circle, five waves
+                             flying across, the third rooting Darius, Jinx healed as each leaves) and an empowered
+                             Prowling Projectile; the jump off; 3x
 """
 import argparse
 import os
@@ -154,8 +155,7 @@ def showcase(out, z=3):
     c.under_unit("q_eslow", hit, d, until=hit + tick(P["q_eslow_t"]))
     c.a("skill", tick(P["q_dur"]))
     c.wait(500)
-    # W You and Me!: the leap onto Jinx, Zoomies on her, the ride, the heals, the jump off
-    leave = c.t + tick(P["w_st"])
+    # W You and Me!: the leap onto Jinx, Zoomies on her, the ride, the heals every second
     c.at_spot("w_jump", c.t + tick(4), x0, gy)
     c.a("skill2", tick(P["w_st"]))
     on = c.t
@@ -168,27 +168,33 @@ def showcase(out, z=3):
         c.over.append(OnFoe(frames_of(ride, "idle"), on, ally, until=on + tick(P["w_t"])))
     for k in range(P["w_p"], P["w_t"] + 1, P["w_p"]):
         c.on("w_heal", on + tick(k), unit=ally)
-    c.hidden(tick(P["w_t"]))
-    off = c.t
+    c.hidden(tick(P["w_chunk"] + P["w_free"]))           # riding: banished for a chunk
+    # R Final Chapter from Jinx's head (the main pack draws her at Jinx's feet while she casts): the magic circle, five
+    # waves at Darius, the third rooting him, Jinx healed by every wave as it leaves her
+    start = c.t
+    c.on_me("r_cast", start + tick(P["r_st"] - 1), sheet=big, under=True)
+    c.a("ult", tick(P["r_dur"]))
+    for k in range(P["r_n"]):
+        rel = start + tick(P["r_st"] - 1 + k * P["r_gap"])
+        hit = c.shot("r_wave", "r_hit", rel, P["r_speed"], sheet=big, y=-10)
+        c.on("r_heal", rel + tick(1), unit=ally)
+        if k + 1 == P["r_root_k"]:
+            c.under_unit("r_root", hit, d, until=hit + tick(P["r_root"]))
+    c.hidden(tick(P["w_chunk"] + P["w_free"]))
+    # Prowling Projectile from Jinx's head too, long enough in the air to be empowered
+    rel = c.t + tick(P["q_st"] - 1)
+    hit = c.shot("q_missile", "q_ehit", rel, P["q_speed"])
+    c.under_unit("q_eslow", hit, d, until=hit + tick(P["q_eslow_t"]))
+    c.a("skill", tick(P["q_dur"]))
+    off = on + tick(P["w_t"])
+    c.hidden(max(0, off - c.t))
+    # the jump off beside Jinx and back to her place
     c.at_spot("w_land", off, ax, gy)
     c.a("w_off", tick(P["w_off"]))
     me.moves.append((c.t, c.t + 300, ax, x0))
     c.a("run", 300, loop=True)
-    c.wait(300)
-    # R Final Chapter: the magic circle, five waves at him, the third rooting him, Jinx healed as they pass
-    start = c.t
-    c.on_me("r_cast", start, sheet=big, under=True)
-    c.a("ult", tick(P["r_dur"]))
-    for k in range(P["r_n"]):
-        rel = start + tick(P["r_st"] + k * P["r_gap"])
-        hit = c.shot("r_wave", "r_hit", rel, P["r_speed"], sheet=big, y=-10)
-        x_ally = ally.pos(rel)[0]
-        passed = rel + tick(max(0, x_ally - me.pos(rel)[0]) * 1000.0 / P["r_speed"])
-        c.on("r_heal", passed, unit=ally)
-        if k + 1 == P["r_root_k"]:
-            c.under_unit("r_root", hit, d, until=hit + tick(P["r_root"]))
-    last = start + tick(P["r_st"] + (P["r_n"] - 1) * P["r_gap"])
-    c.wait(last + 600 - c.t)
+    last = start + tick(P["r_st"] - 1 + (P["r_n"] - 1) * P["r_gap"])
+    c.wait(max(300, last + 600 - c.t))
     d.death = c.t
     end = d.death + 1400
     c.wait(end - c.t)

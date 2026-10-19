@@ -200,7 +200,7 @@
     "description": "#asset/base/text/champion?description.league_yuumi.skill",
     "duration": 28,
     "cooltime": 420,
-    "start_timing": 8,
+    "start_timing": 1,
     "cancelable": false,
     "range": 80000,
     "casting_type": "Targeting",
@@ -210,20 +210,87 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "RemoveCasterBuff",
-          "name": "league_yuumi_q_near"
-        },
-        {
           "type": "AddCasterBuff",
           "buff_state": {
-            "name": "league_yuumi_q_near",
+            "name": "league_yuumi_x",
             "duration": {
               "Time": {
-                "tick": 20
+                "tick": 1
               }
             }
           },
           "only_to_enemy": false
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_yuumi_x",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_yuumi_x"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "ApAttack",
+            "damage": 110,
+            "attack_ratio": 50,
+            "hp_ratio": 0,
+            "can_crit": false
+          }
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_yuumi_x"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_yuumi_q_cdf"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_yuumi_q_cdf",
+            "duration": {
+              "Time": {
+                "tick": 420
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_yuumi_w_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_yuumi_w_act"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_yuumi_w_act",
+                  "duration": {
+                    "Time": {
+                      "tick": 30
+                    }
+                  },
+                  "damaged_reduce": 100,
+                  "cc_immune": true
+                },
+                "only_to_enemy": false
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
         },
         {
           "type": "Sfx",
@@ -259,187 +326,217 @@
           }
         },
         {
-          "type": "LinearProjectile",
-          "name": "league_yuumi_q_missile",
-          "penetrate": false,
-          "applied_target": "EnemyWithoutTower",
-          "applied_effects": [
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
             {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_yuumi_q_near",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "ApAttack",
-                      "damage": 110,
-                      "attack_ratio": 50,
-                      "hp_ratio": 0,
-                      "can_crit": false
-                    },
-                    {
-                      "type": "AddBuff",
-                      "buff_state": {
-                        "name": "league_yuumi_q_slow",
-                        "duration": {
-                          "Time": {
-                            "tick": 60
-                          }
-                        },
-                        "move_speed_mult": -20
-                      }
-                    },
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_yuumi_q_hit"
-                    },
-                    {
-                      "type": "TargetSfx",
-                      "name": "league_yuumi_q_hit"
-                    }
-                  ]
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_yuumi_q_near"
                 },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "ApAttack",
-                      "damage": 170,
-                      "attack_ratio": 70,
-                      "hp_ratio": 0,
-                      "can_crit": false
-                    },
-                    {
-                      "type": "AddBuff",
-                      "buff_state": {
-                        "name": "league_yuumi_q_eslow",
-                        "duration": {
-                          "Time": {
-                            "tick": 120
-                          }
-                        },
-                        "move_speed_mult": -50
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_yuumi_q_near",
+                    "duration": {
+                      "Time": {
+                        "tick": 20
                       }
-                    },
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_yuumi_q_ehit"
-                    },
-                    {
-                      "type": "TargetSfx",
-                      "name": "league_yuumi_q_ehit"
                     }
-                  ]
-                }
-              }
-            }
-          ],
-          "end_effects": [],
-          "speed": 2500,
-          "range": 100000,
-          "shape": {
-            "Circle": {
-              "radius": 5000
-            }
-          },
-          "y_offset": -3000
-        },
-        {
-          "type": "LinearProjectile",
-          "name": "league_yuumi_q_twin",
-          "penetrate": false,
-          "applied_target": "EnemyChampion",
-          "applied_effects": [
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_yuumi_p_cd",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
+                  },
+                  "only_to_enemy": false
                 },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": [
+                {
+                  "type": "LinearProjectile",
+                  "name": "league_yuumi_q_missile",
+                  "penetrate": false,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_yuumi_p_cd",
-                        "duration": {
-                          "Time": {
-                            "tick": 360
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_yuumi_p_carry"
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_yuumi_p_carry",
-                        "duration": "Permanent"
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "ApAttack",
-                      "damage": 50,
-                      "attack_ratio": 25,
-                      "hp_ratio": 0,
-                      "can_crit": false
-                    },
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_yuumi_p_hit"
-                    },
-                    {
-                      "type": "TargetSfx",
-                      "name": "league_yuumi_p_hit"
-                    },
-                    {
-                      "type": "RangeEffect",
-                      "shape": {
-                        "Circle": {
-                          "radius": 1000
-                        }
-                      },
-                      "target": "AllyOnlySelf",
-                      "apply_type": "AroundCaster",
-                      "effects": [
-                        {
-                          "type": "Heal",
-                          "amount": 60,
-                          "attack_ratio": 0,
-                          "ap_ratio": 20,
-                          "heal_type": "Ally"
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_yuumi_q_near",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "ApAttack",
+                              "damage": 110,
+                              "attack_ratio": 50,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_yuumi_q_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": -20
+                              }
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_yuumi_q_hit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_yuumi_q_hit"
+                            }
+                          ]
                         },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_yuumi_p_heal"
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "ApAttack",
+                              "damage": 170,
+                              "attack_ratio": 70,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            },
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_yuumi_q_eslow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 120
+                                  }
+                                },
+                                "move_speed_mult": -50
+                              }
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_yuumi_q_ehit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_yuumi_q_ehit"
+                            }
+                          ]
                         }
-                      ]
+                      }
                     }
-                  ]
+                  ],
+                  "end_effects": [],
+                  "speed": 2500,
+                  "range": 100000,
+                  "shape": {
+                    "Circle": {
+                      "radius": 5000
+                    }
+                  },
+                  "y_offset": -3000
+                },
+                {
+                  "type": "LinearProjectile",
+                  "name": "league_yuumi_q_twin",
+                  "penetrate": false,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_yuumi_p_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_yuumi_p_cd",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_yuumi_p_carry"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_yuumi_p_carry",
+                                "duration": "Permanent"
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "ApAttack",
+                              "damage": 50,
+                              "attack_ratio": 25,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_yuumi_p_hit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_yuumi_p_hit"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Heal",
+                                  "amount": 60,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 20,
+                                  "heal_type": "Ally"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_yuumi_p_heal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "end_effects": [],
+                  "speed": 2500,
+                  "range": 100000,
+                  "shape": {
+                    "Circle": {
+                      "radius": 5000
+                    }
+                  },
+                  "y_offset": 2000
                 }
-              }
+              ]
             }
-          ],
-          "end_effects": [],
-          "speed": 2500,
-          "range": 100000,
-          "shape": {
-            "Circle": {
-              "radius": 5000
-            }
-          },
-          "y_offset": 2000
+          ]
         }
       ]
     }
@@ -611,13 +708,6 @@
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "Combine",
-                                "effects": []
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
                                 "type": "Shield",
                                 "amount": 130,
                                 "attack_ratio": 0,
@@ -770,13 +860,6 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "Teleport"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "Combine",
-                            "effects": []
                           }
                         },
                         {
@@ -962,7 +1045,7 @@
     "description": "#asset/base/text/champion?description.league_yuumi.ult",
     "duration": 30,
     "cooltime": 2700,
-    "start_timing": 9,
+    "start_timing": 1,
     "cancelable": false,
     "range": 80000,
     "casting_type": "Targeting",
@@ -971,6 +1054,89 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_yuumi_x",
+            "duration": {
+              "Time": {
+                "tick": 1
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_yuumi_x",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_yuumi_x"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "ApAttack",
+            "damage": 110,
+            "attack_ratio": 35,
+            "hp_ratio": 0,
+            "can_crit": false
+          }
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_yuumi_x"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_yuumi_r_cdf"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_yuumi_r_cdf",
+            "duration": {
+              "Time": {
+                "tick": 2700
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_yuumi_w_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_yuumi_w_act"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_yuumi_w_act",
+                  "duration": {
+                    "Time": {
+                      "tick": 32
+                    }
+                  },
+                  "damaged_reduce": 100,
+                  "cc_immune": true
+                },
+                "only_to_enemy": false
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
         {
           "type": "Sfx",
           "name": "league_yuumi_r"
@@ -1005,697 +1171,1369 @@
           }
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_yuumi_r_cast"
+          "type": "Delayed",
+          "tick": 8,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_yuumi_r_cast"
+            }
+          ]
         },
         {
           "type": "Delayed",
-          "tick": 0,
+          "tick": 8,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_wave",
-                  "penetrate": true,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ApAttack",
-                        "damage": 110,
-                        "attack_ratio": 35,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_yuumi_r_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 45
-                            }
-                          },
-                          "move_speed_mult": -20
+              "type": "SwitchByBuff",
+              "buff_name": "league_yuumi_w_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
                         }
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_hit"
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_hit"
-                      }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
+                    "y_offset": -3000
                   },
-                  "y_offset": -3000
-                },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_mend",
-                  "penetrate": true,
-                  "applied_target": "AllyNotSelf",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": 2000
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
                         "type": "Heal",
                         "amount": 60,
                         "attack_ratio": 0,
                         "ap_ratio": 10,
                         "heal_type": "Ally"
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_heal"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_heal"
-                      }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
-                  },
-                  "y_offset": 2000
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_yuumi_r_wave"
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
-                  },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "Heal",
-                      "amount": 60,
-                      "attack_ratio": 0,
-                      "ap_ratio": 10,
-                      "heal_type": "Ally"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Delayed",
-          "tick": 45,
-          "effects": [
-            {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_wave",
-                  "penetrate": true,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ApAttack",
-                        "damage": 110,
-                        "attack_ratio": 35,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_yuumi_r_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 45
-                            }
-                          },
-                          "move_speed_mult": -20
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
                         }
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_hit"
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_hit"
-                      }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
+                    "y_offset": -3000
                   },
-                  "y_offset": -3000
-                },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_mend",
-                  "penetrate": true,
-                  "applied_target": "AllyNotSelf",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": 2000
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
                         "type": "Heal",
                         "amount": 60,
                         "attack_ratio": 0,
                         "ap_ratio": 10,
                         "heal_type": "Ally"
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_heal"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_heal"
-                      }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
-                  },
-                  "y_offset": 2000
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_yuumi_r_wave"
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
-                  },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "Heal",
-                      "amount": 60,
-                      "attack_ratio": 0,
-                      "ap_ratio": 10,
-                      "heal_type": "Ally"
-                    }
-                  ]
-                }
-              ]
+                    ]
+                  }
+                ]
+              }
             }
           ]
         },
         {
           "type": "Delayed",
-          "tick": 90,
+          "tick": 53,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_wave",
-                  "penetrate": true,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ApAttack",
-                        "damage": 110,
-                        "attack_ratio": 35,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_yuumi_r_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 45
-                            }
-                          },
-                          "move_speed_mult": -20
+              "type": "SwitchByBuff",
+              "buff_name": "league_yuumi_w_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
                         }
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_hit"
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_hit"
+                    "y_offset": -3000
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Bind",
-                        "duration": 75
+                    "y_offset": 2000
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_yuumi_r_root",
-                          "duration": {
-                            "Time": {
-                              "tick": 75
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 60,
+                        "attack_ratio": 0,
+                        "ap_ratio": 10,
+                        "heal_type": "Ally"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": -3000
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": 2000
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 60,
+                        "attack_ratio": 0,
+                        "ap_ratio": 10,
+                        "heal_type": "Ally"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 98,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_yuumi_w_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Bind",
+                          "duration": 75
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_root",
+                            "duration": {
+                              "Time": {
+                                "tick": 75
+                              }
                             }
                           }
                         }
                       }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": -3000
                   },
-                  "y_offset": -3000
-                },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_mend",
-                  "penetrate": true,
-                  "applied_target": "AllyNotSelf",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": 2000
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
                         "type": "Heal",
                         "amount": 60,
                         "attack_ratio": 0,
                         "ap_ratio": 10,
                         "heal_type": "Ally"
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_heal"
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Bind",
+                          "duration": 75
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_root",
+                            "duration": {
+                              "Time": {
+                                "tick": 75
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_heal"
+                    "y_offset": -3000
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
                       }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": 2000
                   },
-                  "y_offset": 2000
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_yuumi_r_wave"
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
                   },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "Heal",
-                      "amount": 60,
-                      "attack_ratio": 0,
-                      "ap_ratio": 10,
-                      "heal_type": "Ally"
-                    }
-                  ]
-                }
-              ]
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 60,
+                        "attack_ratio": 0,
+                        "ap_ratio": 10,
+                        "heal_type": "Ally"
+                      }
+                    ]
+                  }
+                ]
+              }
             }
           ]
         },
         {
           "type": "Delayed",
-          "tick": 135,
+          "tick": 143,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_wave",
-                  "penetrate": true,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ApAttack",
-                        "damage": 110,
-                        "attack_ratio": 35,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_yuumi_r_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 45
-                            }
-                          },
-                          "move_speed_mult": -20
+              "type": "SwitchByBuff",
+              "buff_name": "league_yuumi_w_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
                         }
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_hit"
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_hit"
-                      }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
+                    "y_offset": -3000
                   },
-                  "y_offset": -3000
-                },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_mend",
-                  "penetrate": true,
-                  "applied_target": "AllyNotSelf",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": 2000
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
                         "type": "Heal",
                         "amount": 60,
                         "attack_ratio": 0,
                         "ap_ratio": 10,
                         "heal_type": "Ally"
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_heal"
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_heal"
+                    "y_offset": -3000
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
                       }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": 2000
                   },
-                  "y_offset": 2000
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_yuumi_r_wave"
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
                   },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "Heal",
-                      "amount": 60,
-                      "attack_ratio": 0,
-                      "ap_ratio": 10,
-                      "heal_type": "Ally"
-                    }
-                  ]
-                }
-              ]
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 60,
+                        "attack_ratio": 0,
+                        "ap_ratio": 10,
+                        "heal_type": "Ally"
+                      }
+                    ]
+                  }
+                ]
+              }
             }
           ]
         },
         {
           "type": "Delayed",
-          "tick": 180,
+          "tick": 188,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_wave",
-                  "penetrate": true,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ApAttack",
-                        "damage": 110,
-                        "attack_ratio": 35,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_yuumi_r_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 45
-                            }
-                          },
-                          "move_speed_mult": -20
+              "type": "SwitchByBuff",
+              "buff_name": "league_yuumi_w_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
                         }
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_hit"
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_hit"
-                      }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
+                    "y_offset": -3000
                   },
-                  "y_offset": -3000
-                },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_yuumi_r_mend",
-                  "penetrate": true,
-                  "applied_target": "AllyNotSelf",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": 2000
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
                         "type": "Heal",
                         "amount": 60,
                         "attack_ratio": 0,
                         "ap_ratio": 10,
                         "heal_type": "Ally"
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_yuumi_r_heal"
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 110,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_yuumi_r_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 45
+                              }
+                            },
+                            "move_speed_mult": -20
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_hit"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_yuumi_r_heal"
+                    "y_offset": -3000
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_yuumi_r_mend",
+                    "penetrate": true,
+                    "applied_target": "AllyNotSelf",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Heal",
+                          "amount": 60,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_yuumi_r_heal"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_yuumi_r_heal"
+                        }
                       }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 3000,
-                  "range": 100000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
+                    ],
+                    "end_effects": [],
+                    "speed": 3000,
+                    "range": 100000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 12000
+                      }
+                    },
+                    "y_offset": 2000
                   },
-                  "y_offset": 2000
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_yuumi_r_wave"
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
+                  {
+                    "type": "Sfx",
+                    "name": "league_yuumi_r_wave"
                   },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "Heal",
-                      "amount": 60,
-                      "attack_ratio": 0,
-                      "ap_ratio": 10,
-                      "heal_type": "Ally"
-                    }
-                  ]
-                }
-              ]
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 60,
+                        "attack_ratio": 0,
+                        "ap_ratio": 10,
+                        "heal_type": "Ally"
+                      }
+                    ]
+                  }
+                ]
+              }
             }
           ]
         }

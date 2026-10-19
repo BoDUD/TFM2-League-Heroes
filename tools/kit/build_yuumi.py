@@ -18,10 +18,14 @@ Final Chapter (R) the `ult`.
           shield cast on an ally goes out on cooldown otherwise - champion-data section 3). The host: first an ally
           within w_near of that enemy champion (the one being hit: a hidden lob onto the enemy looks round him), else
           one within w_ally_r of her, else nobody - then Zoomies on herself only. On the host: Zoomies (a shield of
-          e_sh + e_ap% AP for e_t ticks, e_as% attack speed and e_ms% move speed for e_t), and she attaches: she
-          teleports onto him and banishes herself for w_t ticks (nobody can pick or see her; she cannot act), a
-          Teleport onto him every w_step ticks keeps her on him, the cat lying on her book rides his head (`w_ride`, a
-          buff picture) and he heals w_heal + w_hap% AP every w_p ticks (+ the passive's kept heal on the jump).
+          e_sh + e_ap% AP for e_t ticks, e_as% attack speed and e_ms% move speed for e_t), and she attaches for w_t ticks:
+          a check on him every tick puts her on him (Teleport) and banishes her w_chunk ticks at a time (nobody can pick or
+          see her); a banish cannot be lengthened while it lasts, so between two chunks she is out - w_free ticks while
+          her Q or R may be ready (q_cdf / r_cdf: the slots' cooldowns as flags), a tick while both cool down - and the
+          AI starts a Q or an R from his head (the user: 「附体在别人身上不能放大招？」 -> 主包「能放」); casting she stays out
+          (w_act, immune: damaged_reduce 100, cc_immune) and R's waves go on once she is banished again. The cat lying
+          on her book rides his head (`w_ride`, the sheet league_yuumi_ride) and he heals w_heal + w_hap% AP every w_p
+          ticks (+ the passive's kept heal on the jump).
           After w_t she jumps off beside him (`w_off`).
   ult     R Final Chapter (魔典终章), `Targeting` on `EnemyChampion` (r_range): she opens the book (`ult`, r_dur ticks)
           and r_n waves leave her every r_gap ticks toward the target (penetrating lines, r_w wide): each enemy hit
@@ -56,7 +60,10 @@ RIDE = "asset/league/effects/league_yuumi_ride"
 # 110 + 60%, W heal 15 + 6% a second, E 70 + 40%, R 60 + 25% a wave, attach 4 s every 10 s) -3.11 (league_milio -0.56
 # the same batch); W heal 30 + 10%, E 100 + 50%, attack speed 35% -2.73; + Q 90 / 140, R 80, wave heal 40, hp 950
 # -1.96; + W every 7 s -1.16; + W heal 45 + 15%, E 130 + 60%, every 6 s, hp 1000 -0.86; + Q 110 + 50% / 170 + 70%,
-# R 110 + 35% heal 60, atk 82, passive 50 / heal 60 -0.36 / +0.27 (seeds 9-16; league_milio -1.74) = P.
+# R 110 + 35% heal 60, atk 82, passive 50 / heal 60 -0.36 / +0.27 (seeds 9-16; league_milio -1.74); timed to the strips
+# -0.28 / -0.10; casting Q / R while riding (the chunked banish, the user's 「能放」) -0.85 / -0.73 (league_milio -0.56):
+# out between two chunks she dealt 2190 a game (2600 before); the whole ride immune -0.68 / +0.18 (deals 3140 a game,
+# K/D/A 0.8/2.2/4.5) = P.
 P = {
     # stats (the pack's ranged supports: hp 880-950 +80-95, atk 75-85 +6, ap 30 +15, def 20-24, mr 20-24; League's
     # Yuumi: 500 +69 hp, 25 armour, 25 mr, 330 move, 425 range - the frailest champion, safe on her ally)
@@ -74,7 +81,7 @@ P = {
     # W You and Me! (League: 700 range dash, untargetable while attached, heal & shield power to the ally) + E
     # Zoomies (League: shield 75-225 +40% AP, attack speed 25-37.5%, move speed 20% decaying over 3 s, cd 10-7.5 s)
     "w_cd": 360, "e_range": 75000, "w_dur": 18, "w_st": 11, "w_near": 30000, "w_ally_r": 70000, "w_t": 240,
-    "w_step": 6, "w_p": 60, "w_heal": 45, "w_hap": 15, "w_off": 19,
+    "w_p": 60, "w_heal": 45, "w_hap": 15, "w_off": 19, "w_free": 5,
     "e_sh": 130, "e_ap": 60, "e_t": 180, "e_as": 35, "e_ms": 20,
     # R Final Chapter (League: 1100 long, 5 waves 0.75 s apart over 3.5 s, 60-300 +20% AP each (one wave per enemy at
     # full, -25% for more), slow 20-50%, root 1.25 s on three hits; heals allies 35-130 +12.5% AP a wave; cd 120-100 s)
@@ -246,6 +253,13 @@ def lob(name, travel, target, *end):
             "shape": circle(1000), "applied_target": target, "applied_effects": [], "end_effects": list(end)}
 
 
+def decoy(dmg, ratio):
+    """The damage the game's AI reads for an action whose hit sits in a Delayed (its estimate reads the tree with the
+    flags she has while it reads; league_zoe's decoy): a flag she never has while it reads; on the cast the flag is up
+    and the hit is skipped."""
+    return combine(flag("x", 1), sw("x", combine(*rm("x")), magic(dmg, ratio)), *rm("x"))
+
+
 def voice(name, p):
     """Her spoken line, at most one every vo_gap ticks."""
     return sw("vo_cd", NONE, combine(flag("vo_cd", p["vo_gap"]), sfx(name)))
@@ -269,6 +283,12 @@ def build(p):
         sfx("a"), homing("a_bolt", p["a_speed"], p["a_y"], "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
         twin)), atype="BaseAttack", cancel=True)
 
+    def casting(dur, cd_flag, cd):
+        """Riding (w_on): she is casting for the action's length - the banish checker on the ally leaves her out, and she
+        takes no damage and no crowd control meanwhile. And the slot's cooldown, as a flag the checker reads (while Q and
+        R are both cooling down there is nothing to come out for)."""
+        return combine(refresh(cd_flag, cd), sw("w_on", refresh("w_act", dur + 2, damaged_reduce=100, cc_immune=True)))
+
     # ------------------------------------------------------------------ skill: Q Prowling Projectile
     near = [magic(p["q_dmg"], p["q_ap"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]), view("q_hit"),
             tsfx("q_hit")]
@@ -279,22 +299,38 @@ def build(p):
     # the add-on's copy: a champion-only twin carries Feline Friendship (League: an attack OR an ability on a champion;
     # riding an ally she never attacks)
     q_twin = line("q_twin", p["q_speed"], p["q_len"], p["q_w"], p["q_y"] + 5000, "EnemyChampion", False, [friend])
-    skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Targeting", "EnemyWithoutTower", flat(combine(
-        refresh("q_near", p["q_t1"]), sfx("q"), voice("vo_q", p), missile, *([q_twin] if native else []))))
+    # riding an ally (w_on) a cast keeps her out of the next banish chunk while it plays (w_act), immune: so the action
+    # starts on tick 1 and its missile leaves in a Delayed at the release
+    skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower", flat(combine(
+        decoy(p["q_dmg"], p["q_ap"]), casting(p["q_dur"], "q_cdf", p["q_cd"]), sfx("q"), voice("vo_q", p),
+        delayed(p["q_st"] - 1, alive(refresh("q_near", p["q_t1"]), missile, *([q_twin] if native else []))))))
 
     # ------------------------------------------------------------------ skill2: W You and Me! + E Zoomies
     zoomies = [shield(p["e_sh"], p["e_ap"], p["e_t"]), buff("e_on", "WithShield"),
                buff("e_haste", p["e_t"], move_speed_mult=p["e_ms"], attack_speed_mult=p["e_as"]), view("e_hit"),
                tsfx("e_hit")]
+    # a banish chunk: w_chunk ticks; w_ban holds the next one back - a banish cannot be lengthened while it lasts (a fresh
+    # one takes only once it has run out: the SDK simulation, 2026-10-19), so between two chunks she is out for a tick:
+    # w_free ticks while her Q or R may be ready (q_cdf / r_cdf off), long enough for the AI to start it (it took 2 ticks
+    # in the simulation, the cast's w_act 1 more; a chunk 2 ticks after the free one cut her Q off), so she casts it from
+    # the ally's head (the user: 主包附身时「能放」); 1 tick while both are cooling down
+    def chunk(free):
+        return combine(on_me({"type": "Banish", "duration": p["w_chunk"]}), refresh("w_ban", p["w_chunk"] + free))
+    next_chunk = sw("q_cdf", sw("r_cdf", chunk(1), chunk(p["w_free"])), chunk(p["w_free"]))
     if native:          # the add-on keeps her on the host until it drops her; the slot jumps on and gives Zoomies
         stay = [buff("w_host", 3)]
+        ride = []
     else:
-        # on the host for w_t: a Teleport onto him every w_step ticks, his heal every w_p (periodic casts on him)
-        follow = casted(p["w_t"], p["w_step"], {"type": "Teleport"})
+        # on the host for w_t, a check on him every tick: a Teleport onto him, and a new banish chunk once the last ran out
+        # unless she is casting (w_act); his heal every w_p (periodic casts on him)
+        check = casted(p["w_t"], 1, {"type": "Teleport"}, sw("w_act", NONE, sw("w_ban", NONE, next_chunk)))
         mend = casted(p["w_t"], p["w_p"], heal_ally(p["w_heal"], p["w_hap"]), view("w_heal"))
-        stay = [buff("w_ride", p["w_t"]), follow, mend,
+        stay = [buff("w_ride", p["w_t"]), check, mend,
                 delayed(p["w_t"], {"type": "Teleport"}, on_me(anim("w_off", p["w_off"])), cview("w_land"), sfx("w_off"))]
-    attach = [{"type": "Teleport"}, on_me({"type": "Banish", "duration": p["w_t"]}) if not native else NONE,
+        # riding she takes no damage and no crowd control (League: untargetable on the ally), also in the ticks between
+        # two chunks (the simulation: -0.85 / -0.73 without it, -0.68 / +0.18 with it)
+        ride = [refresh("w_on", p["w_t"], damaged_reduce=100, cc_immune=True), next_chunk]
+    attach = [{"type": "Teleport"}, *ride,
               *zoomies, sw("p_carry", combine(*rm("p_carry"), heal_ally(p["p_heal"], p["p_hap"]), view("p_heal"))),
               sfx("w_on"), *stay]
 
@@ -318,9 +354,13 @@ def build(p):
         foes = line("r_wave", p["r_speed"], p["r_len"], p["r_w"], p["r_y"], "EnemyWithoutTower", True, hit)
         friends = line("r_mend", p["r_speed"], p["r_len"], p["r_w"], p["r_y"] + 5000, "AllyNotSelf", True,
                        [heal_ally(p["r_heal"], p["r_hap"]), view("r_heal"), tsfx("r_heal")])
-        return delayed(k * p["r_gap"], alive(foes, friends, sfx("r_wave"), on_me(heal_ally(p["r_heal"], p["r_hap"]))))
-    ult = action("ult", p["r_dur"], p["r_cd"], p["r_st"], p["r_range"], "Targeting", "EnemyChampion", flat(combine(
-        sfx("r"), voice("vo_r", p), cview("r_cast"), *[wave(k) for k in range(p["r_n"])])))
+        body = [foes, friends, sfx("r_wave"), on_me(heal_ally(p["r_heal"], p["r_hap"]))]
+        # riding, she is banished again once the book is back down: the waves go on (the search alive() makes finds no
+        # banished caster; she cannot die riding)
+        return delayed(p["r_st"] - 1 + k * p["r_gap"], sw("w_on", combine(*body), alive(*body)))
+    ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", flat(combine(
+        decoy(p["r_dmg"], p["r_ap"]), casting(p["r_dur"], "r_cdf", p["r_cd"]), sfx("r"), voice("vo_r", p),
+        delayed(p["r_st"] - 1, cview("r_cast")), *[wave(k) for k in range(p["r_n"])])))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
