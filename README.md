@@ -712,6 +712,7 @@ python tools/art/preview_teemo.py
 | 特效 | 普攻斩光、双重打击 X 斩、无极剑道真伤金星、阿尔法突袭 X 闪斩和消失残影、无极剑道金色剑气、冥想莲花和上升光环、高原血统开启爆发和脚下加速光环 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 8 条技能音效和 3 条中文语音（Q、冥想、R；无极剑道没有语音）。不提交到仓库，按下面的命令在本地生成 |
+| 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。高原血统期间 Q 和技能 2 冷却加快 40%，大招自己的冷却也被压到 71%。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +1.27 → +1.62（误差），每局开大 3.3 → 3.1 次 |
 
 ```bash
 python tools/lol/extract_masteryi.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -1429,6 +1430,7 @@ python tools/art/preview_akali.py    # 逐帧图、特效图、演示和连招�
 | 特效 | 银色弩箭、翻滚后的强化箭（裹着银光、拖着夜紫色烟尾）、恶魔审判的重箭（猩红箭尖）；普攻火花、强化箭的四角星和烟团、重箭的冲击波；圣银弩箭目标胸口的第 1 环、第 2 环和第 3 下的收拢爆开（猩红碎片）；翻滚留在原地的烟；落地撞击的尘土和头顶的眩晕星；终极时刻发动时身后的四角星光芒和飞散的蝙蝠、脚下的四角星地纹和两侧上升的银光点（持续 8 秒）、击杀刷新时的猩红光环 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 13 条技能音效和 2 条中文语音（E、R）。不提交到仓库，按下面的命令在本地生成 |
+| 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。终极时刻期间两个技能冷却缩短 50%，大招自己的冷却也被压到一半。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +2.49 → +2.13，每局开大 2.8 → 2.4 次 |
 
 ```bash
 python tools/lol/extract_vayne.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -1743,6 +1745,7 @@ python tools/art/preview_tristana.py
 | 特效 | 普攻的银白斜刺光，夺命连刺第一下的蓝色刺光和冰晶、第二下的金白 X 形暴击，破空斩的星形刺击和出发点的尘土风痕，破绽的蓝色菱形纹章和刺中时的蓝色玫瑰碎裂，刺中后脚下的速度线，劳伦特心眼刀身前的月牙剑光（招架）、直线剑气、命中、减速寒气和头顶的眩晕星，无双挑战的金环和剩下的破绽（4、3、2、1 枚）、金色玫瑰碎裂和胜利之地（金色光圈，冒着绿色和金色的光点），夺命连刺好了时绕身的蓝白光线 |
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 17 条技能音效和 3 条中文语音（Q 刺中时的喊声，W、R 的台词），合成 16 个游戏音效。不提交到仓库，按下面的命令在本地生成 |
+| 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。无双挑战刺中破绽时把 Q、W 剩下的冷却压到一半，大招自己的冷却也被一起压了。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +1.03 → +1.28，每局开大 4.3 → 3.8 次 |
 
 ```bash
 python tools/lol/extract_fiora.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -2102,6 +2105,7 @@ python tools/art/preview_leblanc.py
 | 高清帧（PPU 1.45） | 2026-10-18 用 PPU 重做，还是 Q 版（用户：「接下来可以重做卡莎 还是按赵兴的步骤 让codex生成一下」），按赵信的做法：Codex 只画一张设计图（提示词包 [`tools/art/pack_kaisa_ppu.py`](tools/art/pack_kaisa_ppu.py) / [`assets/source/kaisa/PICTURE_PROMPT_PPU.md`](assets/source/kaisa/PICTURE_PROMPT_PPU.md)，交付在 `assets/source/kaisa/hd/`）。它自己导出的 44 × 63 是按格子中心取样的（脸和宝石碎成点），不用；原始生成图 `raw/generation-02.png` 按它自己 19.3 px 的格子读回，42 × 61、40 色，眼睛逐格改（[`tools/art/design_kaisa_hd.py`](tools/art/design_kaisa_hd.py)），用户：「设计可以，用 PPU 1.45（和现在一样高）」。动作照英雄联盟每帧的骨骼摆（[`tools/art/rig_kaisa_hd.py`](tools/art/rig_kaisa_hd.py)，关节是 45° 侧身的 `poses_hd.json`）：手臂只做无损的原样 / 镜像 / 直角转，身体不转；上身最多偏离髋部 1 格（她的髋甲下面是空的，偏多了大腿和髋甲之间露缝）；R 先蹲（上身下沉最多 2 行）、整个人顺时针转 90° 头朝前横飞（拖尾对齐到身体）、落地蹲住再站起；死亡最后整个人躺下。移动：用设计的腿平移、裁行抬脚、逐行斜摆都被用户否了（「走路腿变形啊」「看起来像平移」「没有前后换腿交叉步的感觉」「有点变形啊」），最后让 Codex 只重画腿（[`tools/art/pack_kaisa_walk.py`](tools/art/pack_kaisa_walk.py) / [`WALK_PROMPT_PPU.md`](assets/source/kaisa/WALK_PROMPT_PPU.md)：模板是摆好的 8 帧，每格 6 px），[`tools/art/import_kaisa_walk.py`](tools/art/import_kaisa_walk.py) 按模板的格子读回、颜色归到设计腿上的颜色，只取髋甲以下，上身和手臂用设计原样：弯膝、后脚跟踢起、前后交叉换腿。普攻、Q、W、R 的特效照旧画在帧里（`assets/source/native/kaisa_bake.json`）。头像点 (1, −36) 在头发顶（`tfm2_ase.py face` 把翼舱尖当成头顶），选人卡 −8（`bp_card_audit.py` 的规则）。league.dll 0.7.40，主包 0.147.0 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_kaisa.py`）：电浆弹、命中、引爆、极限超载、进化、Q 发射和每发命中、W 蓄力 / 开火 / 命中、R 起跳 / 冲刺 / 护盾；Q、W、R 带中文配音（E 的台词 4 秒长，不用） |
 | 修正（0.124.2） | 玩家：「kaisa doesn't auto for some reason she just spams abilities」。等级探针（Q 在攻击力 200、E 9 级、W 12 级进化前的自测）放在 Q 的技能树里，每个探针给自己套一个 1 tick 的 1000000 护盾吃掉自测伤害（0.50.x「卡莎的q有点bug」那次加的）；游戏 0.6.x 读技能树估值时护盾按全额算（champion-data 第 8 节），Q 在它眼里值一百万。[`tools/fix/hide_probes.py`](tools/fix/hide_probes.py) 把探针包进维克托那样的 `unseen`（同一下立标记、读、去掉，两个 tick 之间永远不在），Q 的估值回到 161（只剩伤害）；探针照常工作（模拟里 Q / E / W 照样进化）。经典模拟 96 局：+2.42 → +3.50（误差内），施法次数不变。是不是就是这个原因要看游戏里的观察日志确认；崔丝塔娜、凯尔的探针是同一种写法，没收到反馈，没改 |
+| 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。进化后虚空索敌打中英雄返还 75% 冷却时，大招冷却也被压到四分之一。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） 不变（+1.63：10 分钟里很少进化） |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -2488,6 +2492,7 @@ python tools/art/preview_sivir.py
 | 数值 | 攻击 85（+8）、法强 40（+20）、生命 920（+100）、护甲 24（+7）、魔抗 22（+3）、移速 920（+10）。数值是自己设计的，用 SDK 对战模拟调：中路，对 5 个原版法师（`pyromancer`、`ice_mage`、`lightning_mage`、`wind_mage`、`white_mage`），每批两边各 12 局。第一版 −3.2（Q 只有 15% 打到英雄，金牌扔到小兵身上，R 传进去送死）；Q 先锁定附近的英雄、金牌只留给英雄、红牌只在成群时选：−1.3；Q 120 + 100%、冷却 4 秒，牌和 E 加强：+0.6；R 落在战场 25 格外、冷却 90 秒（之前每局因为传送多死 0.9 次）：+0.4；再加生命和护甲、金牌眩晕加长、W 冷却 5 秒：三批 +1.36 / +1.85 / +1.30，和包里的中单持平（瑞兹 +1.50、安妮 +2.03），定下这版。亚索和他同队时，大招每局对英雄放 1.23 次（阿狸 1.27），亚索不用改 |
 | 精灵图 | 10 个动作 51 帧：待机、移动、普攻、Q、W、R 命运、R 传送引导、R 落地、受击、死亡。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机，三色牌扇拿在腰间），Codex 的生图草稿按自己的格子读回、删到 40 行（`design_twistedfate.py`，用户：「4 原稿删到40行」）；每个动作都用造型自己的部件摆出（`rig_twistedfate.py`）。24 × 41 px，21 色；待机 6 帧同一张（不呼吸）；待机最高点 −29，`banpick_center` 设 −10；头像截取点 (−4, −40) |
 | 音效 | 英雄联盟的音效和语音（`tools/lol/extract_twistedfate.py`）：扔牌和命中、E、Q、W 翻牌，锁定蓝 / 红 / 金牌（带语音），三色牌扔出和命中，R 施放和传送（带语音），落地，骰子 |
+| 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。蓝牌返还 Q、W 冷却时把 90 秒的大招冷却也压到一半。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +0.60 → +1.41（误差），每局按大 5.6 → 5.4 次 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -2694,6 +2699,7 @@ python tools/art/preview_lissandra.py
 | 特效 | Codex 生图的 24 张（`import_varus.py` 缩成游戏像素）：`league_varus_fx` 普攻的箭、放箭闪光、命中，枯萎 1/2/3 层标记和引爆，枯萎之箭的红光和爆发，Q 的蓄力光（快速出手用前 3 帧）、放箭爆闪、穿刺之箭（快速出手同一张）、命中，E 朝天射的闪光、命中、腐化地面上的减速重伤标记，R 甩出、触须、命中、扩散命中、禁锢的触须，被动的攻速光环；`league_varus_big` 箭雨、腐化地面、锁链扩散、被动爆发 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_varus.py`）：普攻放箭、飞出、命中，枯萎引爆和枯萎之箭，Q 拉弓、蓄力、放箭、飞出、命中，E 出手、箭雨落地、命中，R 出手、飞出、命中、扩散，被动；Q、E、R 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
+| 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。引爆枯萎每层返还 13% 基础技能冷却时，大招冷却也被一起压了。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +0.70 → +0.65，每局开大 4.5 → 4.4 次 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -4165,6 +4171,7 @@ python tools/art/preview_irelia.py         # 预览和演示 GIF（她按游戏�
 | 特效 | Codex 生图的 16 张（游戏尺寸版逐格切，`import_gragas.py`；红色方的对称逐格检查：两只飞出去的酒桶上下对称，其余左右对称；偶数宽的图在正中间补一列，绕站位点也对称）：`league_gragas_fx` 拳头打中、Q 飞出的小酒桶 / 落地冒泡 / 炸中 / 脚下的酒滩（减速）、E 起步的尘土 / 撞中 / 头顶的金星（眩晕）、W 喝酒冒的酒泡 / 狂暴的红橙热气、被动喝一口的绿金光点、R 炸中；`league_gragas_big` W 强化拳炸开的酒浪、Q 的酒桶爆炸、R 飞出的大酒桶和大爆炸。颜色照英雄联盟：金黄的酒和白沫、木头和铁箍、R 的火光 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_gragas.py`）：出拳 / 打中、被动喝一口、Q 扔出 / 爆炸、W 喝酒 / 强化拳打中、E 冲出 / 撞上、R 扔出 / 爆炸；Q、W、E、R 的配音（片段名 `league_gragas_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q 滚动酒桶 / E 肉弹冲击 / R 爆破酒桶），从本地客户端提取，缩到 64×64 |
+| 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。肉弹冲击打中英雄返还冷却时（Q 也跟着，原本就写明），大招冷却也被压了。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +0.42 → −0.01，每局开大 6.1 → 5.7 次 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -4208,6 +4215,7 @@ python addons/league_gragas/make_override.py   # 智能落点附加包的副本�
 | 特效 | Codex 只交了两张缩小拼在一起的总览图（`assets/source/kassadin/codex_fx/`，webp），用户：「直接用这两张图」「有问题的地方你修复」「还有别少特效 少的话你补」「然后蓝色红色方技能不要颠倒」——`tools/art/import_kassadin.py` 把 12 张逐帧切出来，每张一个比例缩到游戏格子（小特效比提示词稍大：太小时细光线和法球的环会断），每格对齐提示词色板、保留白芯；红色方：法球和 E 的扇形（跟着施法方向转）上下对称，其余逐格左右对称（只画了半边的 R 落地第 5、6 帧用完整的那半边镜像补齐），去掉孤立的暗色杂点；E 的六组波纹按提示词铺成一张从他身前到 42 格外的图。`league_kassadin_fx` 普攻星光、W 虚空刃 X 刀光、Q 法球 / 打中 / 自身护盾 / 沉默符印、E 打中 / 脚下虚空涟漪、R 打中；`league_kassadin_big` E 扇形冲击波、R 消失的裂缝和落地的裂缝 + 冲击环。颜色照英雄联盟：虚空紫光（白芯）、品红火星、深紫近黑的虚空 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_kassadin.py`）：爪击 / 打中、Q 发出 / 打中、W 虚空刃出鞘 / 砍中、E 推出 / 打中、R 消失 / 出现；他的技能没有专门的配音，Q、W、E、R 各用一句战斗台词（片段名 `league_kassadin_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q 虚无法球 / E 能量脉冲 / R 虚空行走；W 和被动的也一起提取），从本地客户端提取，缩到 64×64 |
+| 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。放 Q、R 给能量脉冲充能时（Q 也跟着，原本就写明），大招自己的冷却也被压到 83%。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +1.18 → +1.51（误差），每局开大 7.6 → 7.3 次 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -5284,6 +5292,7 @@ python addons/league_renata/make_override.py         # 附加包的副本（主�
 | 特效 | 第 3 步 11 张特效（[`tools/art/pack_nasus_fx.py`](tools/art/pack_nasus_fx.py)，颜色照英雄联盟：汲魂痛击、灵魂烈焰、枯萎是紫色的灵魂之火带白芯，灵魂烈焰的地面符文是蓝紫色，死神降临是金黄沙尘加紫色能量，减护甲是英雄联盟的金色裂盾），Codex 画并读回成游戏大小（`assets/source/nasus/codex_fx`）。没有飞行的画面（打击都是隐形的），所以全部左右对称（游戏不镜像特效图）。Codex 的读回把吸魂压扁了 5 倍、把枯萎的两肩紫气挤成目标两边的竖条，这两张由 [`tools/art/readback_nasus_fx.py`](tools/art/readback_nasus_fx.py) 从它的生图原稿按原比例重新读回。[`tools/art/import_nasus_fx.py`](tools/art/import_nasus_fx.py)：打中的在身上，裂盾在头顶，枯萎符文和紫气跟着中招的英雄 5 秒，灵魂烈焰的火圈在落点地上（3–6 帧循环铺满 5 秒），沙暴在他脚下和身后。写成 `league_nasus_fx` 和 `league_nasus_big`。用户：「特效通过」 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_nasus.py`](tools/lol/extract_nasus.py)，16 段）：普攻挥杖 / 打中、汲魂痛击出手 / 打中 / 吸魂、枯萎出手 / 打中、灵魂烈焰出手 / 爆发 / 燃烧、死神降临变身 / 沙暴，配音是他的 Q / W / E / R 台词（中文） |
 | 图标 | 官方技能图标（汲魂痛击、灵魂烈焰、死神降临，另有枯萎和被动），从本地客户端取 |
+| 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。死神降临期间 Q（和 E）冷却减半，大招自己的冷却也被减半。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +1.55 → +1.20，每局按大 5.8 → 4.7 次 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
