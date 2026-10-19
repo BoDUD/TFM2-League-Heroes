@@ -102,6 +102,22 @@ def table(league):
         print("%-14s %5s %5s %7.1f %8.1f  %s" % (hid[7:], now, rule, top, gap, " ".join(flag)))
 
 
+def legs(league, least=0.0):
+    """Per hero: how much of the idle hides under the canvas (behind the name bar), 1x px - bottom + y."""
+    sizes = ui_sizes(league)
+    print("%-14s %5s %6s %7s %7s %7s" % ("hero", "now", "size", "top", "bottom", "hidden"))
+    for hid, v in sorted(heroes(league).items()):
+        frs, div = frames(league, hid)
+        if not frs:
+            continue
+        top = min(reach(f, div)[0] for f in frs)
+        bot = max(reach(f, div)[1] for f in frs)
+        now = v.get("banpick_center", {}).get("y")
+        hidden = bot + (-12 if now is None else now)
+        if hidden >= least:
+            print("%-14s %5s %6s %7.1f %7.1f %7.1f" % (hid[7:], now, sizes.get(hid, ""), top, bot, hidden))
+
+
 def mock(league, out, specs, cols=5):
     items = [(h, ys.split(",")) for h, ys in (s.split("=") for s in specs)]
     pw, th = CW * 2 + 6, CH + 40
@@ -124,10 +140,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--league", default=LEAGUE)
     ap.add_argument("--mock", help="write before/after cards for hero=y1,y2 ... (n = no value)")
+    ap.add_argument("--legs", nargs="?", type=float, const=0.0, help="rows hidden under the canvas (only those >= N)")
     ap.add_argument("specs", nargs="*")
     a = ap.parse_args()
     if a.mock:
         mock(a.league, a.mock, a.specs)
+    elif a.legs is not None:
+        legs(a.league, a.legs)
     else:
         table(a.league)
 
