@@ -189,6 +189,14 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75)];
 
+/// Effect sheets drawn dense like a hero's sheet (tags `idle` / `hd_idle` only, PPU squares a game pixel, hd_idle PPU times
+/// as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
+/// for the 14-px picture; tools/art/import_yuumi_fx.py). Looked up like the heroes (src/lookup.rs); the battlefield's
+/// entity scale (src/view.rs) never meets them - they are no entity's body.
+pub const EFFECTS: &[(&str, f32, &str)] = &[
+    ("league_yuumi_ride", 1.5, include_str!("../../../league/effects/league_yuumi_ride#anim.fanim")),
+];
+
 pub const PREFIX: &str = "hd_";
 
 /// `lo_<tag>`: the same frames at [`UI_PPU`] squares a displayed game pixel (tools/art/ppu_hd.py add_lo) - what the BP
@@ -249,6 +257,7 @@ impl Hero {
 pub fn heroes() -> Vec<Hero> {
     HEROES
         .iter()
+        .chain(EFFECTS.iter())
         .map(|&(id, ppu, fanim)| Hero {
             id,
             ppu,
@@ -301,7 +310,7 @@ mod tests {
     #[test]
     fn heroes_are_found_by_id_and_resource_name() {
         let h = Heroes::new();
-        assert_eq!(h.list.len(), HEROES.len());
+        assert_eq!(h.list.len(), HEROES.len() + EFFECTS.len());
         for &(id, ..) in HEROES {
             assert_eq!(h.get(id).map(|x| x.id), Some(id));
             assert_eq!(h.of_name(&format!("asset/league/champions/{id}#anim")).map(|x| x.id), Some(id));
@@ -333,6 +342,19 @@ mod tests {
                     assert!(lo.contains(&want), "{id}: no {want} (python tools/art/ppu_hd.py --hero ...)");
                 }
             }
+        }
+    }
+
+    #[test]
+    fn effect_sheets_have_a_dense_idle() {
+        let h = Heroes::new();
+        for &(id, ppu, fanim) in EFFECTS {
+            assert!(ppu > 1.0);
+            assert_eq!(hd_tags(fanim), vec![format!("{PREFIX}idle")], "{id}: only idle / hd_idle (src/lookup.rs densify_table)");
+            assert!(fanim.contains("\"idle\""), "{id}: no idle");
+            assert!(lo_tags(fanim).is_empty(), "{id}: no UI frames for an effect");
+            assert_eq!(h.of_name(&format!("asset/league/effects/{id}#anim")).map(|x| x.id), Some(id));
+            assert_eq!(h.get(id).map(|x| x.size), Some(1.0), "{id}: an effect is never resized");
         }
     }
 

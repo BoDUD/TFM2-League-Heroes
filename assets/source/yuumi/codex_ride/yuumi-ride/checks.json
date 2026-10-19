@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "drafts": [
+    {
+      "draft": 1,
+      "canvas": [
+        1254,
+        1254
+      ],
+      "pixel_1x": [
+        24,
+        21
+      ],
+      "cell": 50,
+      "binary_alpha": true,
+      "cells_single_color": true,
+      "exact_big_small_match": true,
+      "top_y": 100,
+      "bottom_y_exclusive": 1150,
+      "transparent_remainder_px": 4,
+      "eyes": [
+        {
+          "rect": [
+            14,
+            10,
+            2,
+            2
+          ],
+          "white_highlights": 1,
+          "blue_pixels": 3
+        },
+        {
+          "rect": [
+            19,
+            10,
+            2,
+            2
+          ],
+          "white_highlights": 1,
+          "blue_pixels": 3
+        }
+      ],
+      "colors_used": 15
+    },
+    {
+      "draft": 2,
+      "canvas": [
+        1254,
+        1254
+      ],
+      "pixel_1x": [
+        24,
+        21
+      ],
+      "cell": 50,
+      "binary_alpha": true,
+      "cells_single_color": true,
+      "exact_big_small_match": true,
+      "top_y": 100,
+      "bottom_y_exclusive": 1150,
+      "transparent_remainder_px": 4,
+      "eyes": [
+        {
+          "rect": [
+            15,
+            9,
+            2,
+            2
+          ],
+          "white_highlights": 1,
+          "blue_pixels": 2
+        },
+        {
+          "rect": [
+            19,
+            9,
+            2,
+            2
+          ],
+          "white_highlights": 1,
+          "blue_pixels": 2
+        }
+      ],
+      "colors_used": 15
+    }
+  ]
+}
