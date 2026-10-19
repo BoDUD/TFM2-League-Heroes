@@ -243,12 +243,12 @@ class Form:
             for y in range(src.shape[0]):
                 dy = y - P
                 ref = max(dy, HEAD_LOW)
-                sh = (QL.CUT_ROW - ref) // per if ref < QL.CUT_ROW else 0
+                sh = int((QL.CUT_ROW - ref) // per) if ref < QL.CUT_ROW else 0
                 if sh:
                     out[y, sh:] = src[y, :-sh]
                 else:
                     out[y] = src[y]
-            self._cache[key] = (out, (QL.CUT_ROW - SHOULDER_ROW) // per)
+            self._cache[key] = (out, int((QL.CUT_ROW - SHOULDER_ROW) // per))
         return self._cache[key]
 
     def drawn(self, j, ref=None, arm=(0, 0), arm_rot=0, air=False, lunge=0.5, shift=(0, 0), swing=1.0, lean=0,
@@ -432,16 +432,14 @@ def frames_all(F):
     out["skill"] = [dr(T["skill"][0], lunge=0.7, air=True, **UP)] + [dr(j, lunge=0.7, lean=k) for j, k in
                                                          zip(T["skill"][1:], (4, 3, 3, 4))]
     # E Vault (Quinn_spell3_dash: flying at the target leant far forward, the legs trailing, the cape flying back)
-    out["skill2"] = [dr(j, air=True, lunge=0.5, lean=2, cape=(-3, -3)) for j in T["skill2"]]
+    out["skill2"] = [dr(j, air=True, lunge=0.5, lean=1.5, cape=(-3, -3)) for j in T["skill2"]]
     # Quinn_spell3_flip: she kicks off and somersaults back (the kick-off frame turned whole a quarter at a time,
     # counter-clockwise), lands (League's landing frame), stands
     kick_off = dr(T["e_flip"][0])
     tumble = lambda k, dx, up: shift(R.lie(rig, kick_off, k, dx=dx, sink=0), 0, -up)
-    out["e_flip"] = [tumble(1, 0, 6), tumble(2, -1, 10), tumble(3, -2, 7), dr(T["e_flip"][4], shift=(-2, 0)), p()]
-    # R Behind Enemy Lines (Quinn_Spell4_Channel: she sinks, springs up with the crossbow raised to call Valor down,
-    # mounts him)
-    # (League: aimed, the crossbow let down to her hip, standing tall aiming again, down on one knee with the crossbow
-    # raised as Valor comes down; she is on his back from ult_ride on)
+    out["e_flip"] = [tumble(1, 0, 8), tumble(2, -1, 14), tumble(3, -2, 9), dr(T["e_flip"][4], shift=(-2, 0)), p()]
+    # R Behind Enemy Lines (Quinn_Spell4_Channel: aimed, the crossbow let down to her hip, standing tall aiming again,
+    # down on one knee with the crossbow raised as Valor comes down; she is on his back from ult_ride on)
     out["ult"] = [dr(T["ult"][0]), dr(T["ult"][1], hold=LOW_HOLD), dr(T["ult"][2], air=True), dr(T["ult"][3], **UP)]
     # the ride (quinnvalor_run_glide): gliding, the whole group rising and falling
     out["ult_ride"] = [F.whole("ride", dy=-d) for d in (4, 5, 6, 5)]
