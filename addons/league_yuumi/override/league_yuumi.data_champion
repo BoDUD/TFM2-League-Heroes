@@ -591,8 +591,8 @@
                       "tick": 180
                     }
                   },
-                  "move_speed_mult": 20,
-                  "attack_speed_mult": 35
+                  "move_speed_mult": 10,
+                  "attack_speed_mult": 20
                 }
               },
               {
@@ -736,8 +736,8 @@
                                       "tick": 180
                                     }
                                   },
-                                  "move_speed_mult": 20,
-                                  "attack_speed_mult": 35
+                                  "move_speed_mult": 10,
+                                  "attack_speed_mult": 20
                                 }
                               }
                             },
@@ -893,8 +893,8 @@
                                   "tick": 180
                                 }
                               },
-                              "move_speed_mult": 20,
-                              "attack_speed_mult": 35
+                              "move_speed_mult": 10,
+                              "attack_speed_mult": 20
                             }
                           }
                         },
@@ -1009,8 +1009,8 @@
                             "tick": 180
                           }
                         },
-                        "move_speed_mult": 20,
-                        "attack_speed_mult": 35
+                        "move_speed_mult": 10,
+                        "attack_speed_mult": 20
                       }
                     },
                     {

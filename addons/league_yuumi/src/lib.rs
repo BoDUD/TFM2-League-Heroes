@@ -308,6 +308,16 @@ struct Bond {
     heals: usize,
     healed: usize,
     next_report: usize,
+    /// Riding ticks, and those of them she was out (targetable) with no window open - a banish that did not hold.
+    ridden: usize,
+    out: usize,
+    /// `entity_banish` refusals (it respects cc_immune: the data's `w_act` / the window's `w_safe`).
+    refused: usize,
+    /// The host's position last tick and his steps since the last report (a push shows as steps over his move speed).
+    host_at: Option<(u64, u64)>,
+    steps: usize,
+    step_sum: f64,
+    step_max: f64,
 }
 
 impl Bond {
@@ -325,8 +335,20 @@ impl Bond {
 
     fn banish(&mut self, sim: &mut StableSim<'_>, me: usize, tick: usize) {
         let n = self.p.w_chunk;
-        sim.entity_banish(me, me, n, "", "");
-        self.banished_until = tick + n;
+        // a banish is refused while she is crowd-control immune (the data's casting flag `w_act` outlasts the window
+        // by a tick, the window's `w_safe`): both go first. A refused one is tried again the next tick - it used to
+        // count as taken, and she stood on the ally, out and hittable, until the next chunk (2026-10-19 in game:
+        // 「附身后ADC非常的强 移速又快」)
+        sim.entity_remove_buff(me, &yu("w_safe"));
+        sim.entity_remove_buff(me, &yu("w_act"));
+        if sim.entity_banish(me, me, n, "", "") {
+            self.banished_until = tick + n;
+        } else {
+            self.refused += 1;
+            if let Some(k) = counted("refused") {
+                wlog(format!("{} BANISH #{k} refused", head(sim, me)));
+            }
+        }
     }
 
     fn attach(&mut self, sim: &mut StableSim<'_>, me: usize, host: usize, tick: usize) {
@@ -355,6 +377,7 @@ impl Bond {
         let Some(host) = self.host.take() else { return };
         sim.entity_remove_buff(me, RIDING);
         sim.entity_remove_buff(me, &yu("w_safe"));
+        self.host_at = None;
         if sim.get_entity(host).is_some() {
             sim.entity_remove_buff(host, &yu("w_ride"));
         }
@@ -384,6 +407,14 @@ impl Bond {
             return;
         }
         sim.entity_set_pos(me, at.0, at.1);
+        self.ridden += 1;
+        if let Some(last) = self.host_at {
+            let d = dist(last, at);
+            self.steps += 1;
+            self.step_sum += d;
+            self.step_max = self.step_max.max(d);
+        }
+        self.host_at = Some(at);
         let ap = sim.get_entity(me).map_or(0, |e| e.stat().magic_power);
         if tick >= self.next_heal {
             self.next_heal = tick + self.p.w_p;
@@ -416,8 +447,16 @@ impl Bond {
                                      head(sim, me), kind_name(kind), free_at - tick, foes.iter().filter(|f| dist(at, f.1)
                                          <= self.p.r_range.max(self.p.q_range) as f64).count(), who(sim, host)));
                     }
-                } else if tick + OVERLAP >= self.banished_until {
-                    self.banish(sim, me, tick);
+                } else {
+                    // out with no window open: the last chunk ran out early or a re-banish given while it lasted did not
+                    // lengthen it (the data's Banish ignores one in the SDK) - banish her again at once
+                    let out = sim.get_entity(me).is_some_and(|e| e.is_targetable());
+                    if out {
+                        self.out += 1;
+                    }
+                    if out || tick + OVERLAP >= self.banished_until {
+                        self.banish(sim, me, tick);
+                    }
                 }
             }
             Some(mut w) => {
@@ -506,9 +545,22 @@ impl StablePassive for Bond {
         if tick >= self.next_report {
             self.next_report = tick + REPORT;
             if tick > 0 {
-                wlog(format!("{} WATCH: attached {} times ({}), windows {}, casts from the head {}, heals {} ({} hp)",
+                // the host now: his move speed and attack speed (percent, 100 unbuffed), and his steps while ridden
+                let host_now = self.host.and_then(|h| sim.get_entity(h)).map_or(String::new(), |e| {
+                    format!(", host move speed {} attack speed {}%", e.stat().move_speed, e.attack_speed_mult())
+                });
+                let steps = if self.steps > 0 {
+                    format!(", host steps avg {:.0} max {:.0}", self.step_sum / self.steps as f64, self.step_max)
+                } else {
+                    String::new()
+                };
+                wlog(format!("{} WATCH: attached {} times ({}), windows {}, casts from the head {}, heals {} ({} hp), \
+                              out {}/{} riding ticks, banish refused {}{steps}{host_now}",
                              head(sim, me), self.attaches, self.host.map_or("free".to_string(), |h| format!("on {}", who(sim, h))),
-                             self.windows, self.casts, self.heals, self.healed));
+                             self.windows, self.casts, self.heals, self.healed, self.out, self.ridden, self.refused));
+                self.steps = 0;
+                self.step_sum = 0.0;
+                self.step_max = 0.0;
             }
         }
     }

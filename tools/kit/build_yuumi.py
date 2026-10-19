@@ -82,7 +82,9 @@ P = {
     # Zoomies (League: shield 75-225 +40% AP, attack speed 25-37.5%, move speed 20% decaying over 3 s, cd 10-7.5 s)
     "w_cd": 360, "e_range": 75000, "w_dur": 18, "w_st": 11, "w_near": 30000, "w_ally_r": 70000, "w_t": 240,
     "w_p": 60, "w_heal": 45, "w_hap": 15, "w_off": 19, "w_free": 5,
-    "e_sh": 130, "e_ap": 60, "e_t": 180, "e_as": 35, "e_ms": 20,
+    # Zoomies' speed: 35% attack speed / 20% move speed until the first game (2026-10-19, the user: 「w附身上去属性加的太多了吧」
+    # -> 「队友攻速/移速」, 「附身后ADC非常的强 移速又快」)
+    "e_sh": 130, "e_ap": 60, "e_t": 180, "e_as": 20, "e_ms": 10,
     # R Final Chapter (League: 1100 long, 5 waves 0.75 s apart over 3.5 s, 60-300 +20% AP each (one wave per enemy at
     # full, -25% for more), slow 20-50%, root 1.25 s on three hits; heals allies 35-130 +12.5% AP a wave; cd 120-100 s)
     "r_cd": 2700, "r_range": 80000, "r_dur": 30, "r_st": 9, "r_n": 5, "r_gap": 45, "r_speed": 3000, "r_len": 100000,
