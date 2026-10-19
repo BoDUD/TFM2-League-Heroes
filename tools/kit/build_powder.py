@@ -214,7 +214,7 @@ def build(p):
     # a projectile's picture is turned with its flight: the firecracker, the monkey and the bag tumble (any turn reads)
     views_p = [Pj("a_pop"), Pj("q_monkey"), Pj("r_bag")]
     views_e = [E("a_hit"), E("q_blast", BIG, 2, False), E("q_hit"), E("e_smoke", BIG, 2), E("e_blind"),
-               E("r_cast", FX, 3), E("r_warn", BIG, -2, False), E("r_fuse", BIG, -1, False),
+               E("r_cast", FX, 3), E("r_warn", BIG, -2, False), E("r_fuse", FX, -1, False),
                E("r_blast", BIG, 2, False), E("r_hit")]
     views_b = [B_("q_wound", FX, 3)]
     return {

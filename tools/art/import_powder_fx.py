@@ -69,7 +69,7 @@ FX = {
     "q_wound": ("core", loop(4, 110), [BODY]),
     "e_smoke": (("feet", 0), seq(range(6), [40, 60, 80, 100, 110, 120]), [SOLES]),
     "e_blind": ("core", seq(range(4), [70, 80, 80, 90]), [EYES]),
-    "r_cast": ("core", seq(range(3), [50, 70, 90]), [(4, -20)]),
+    "r_cast": ("core", seq(range(3), [50, 70, 90]), [(0, -20)]),   # centred: a caster picture is never mirrored
     "r_warn": (("feet", 0), loop(4, WARN_MS / 4), [SOLES]),
     "r_fuse": (("feet", 0), loop(4, FUSE_MS / 4), [SOLES]),
     "r_blast": (("feet", 0), seq(range(6), [40, 70, 90, 110, 120, 130]), [SOLES]),

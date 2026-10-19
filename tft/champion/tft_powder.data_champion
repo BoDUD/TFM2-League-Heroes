@@ -655,7 +655,7 @@
     {
       "type": "Animation",
       "name": "tft_powder_r_fuse",
-      "anim": "asset/tft/effects/tft_powder_big",
+      "anim": "asset/tft/effects/tft_powder_fx",
       "tag": "r_fuse",
       "z": -1,
       "is_follow": false
