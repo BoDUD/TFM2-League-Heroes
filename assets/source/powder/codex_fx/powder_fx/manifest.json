@@ -1,0 +1,159 @@
+{
+ "effects": [
+  {
+   "name": "a_pop",
+   "file": "powder_fx_a_pop.png",
+   "frames": 4,
+   "cell_1x": [
+    10,
+    10
+   ],
+   "symmetry": "tumbling",
+   "source": "gemini 00.jpg"
+  },
+  {
+   "name": "a_hit",
+   "file": "powder_fx_a_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    12,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 01.jpg"
+  },
+  {
+   "name": "q_monkey",
+   "file": "powder_fx_q_monkey.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "symmetry": "tumbling",
+   "source": "gemini 02.jpg"
+  },
+  {
+   "name": "q_blast",
+   "file": "powder_fx_q_blast.png",
+   "frames": 6,
+   "cell_1x": [
+    30,
+    34
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 03.jpg"
+  },
+  {
+   "name": "q_hit",
+   "file": "powder_fx_q_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 04.jpg"
+  },
+  {
+   "name": "q_wound",
+   "file": "powder_fx_q_wound.png",
+   "frames": 4,
+   "cell_1x": [
+    12,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 05.jpg"
+  },
+  {
+   "name": "e_smoke",
+   "file": "powder_fx_e_smoke.png",
+   "frames": 6,
+   "cell_1x": [
+    40,
+    24
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 06.jpg"
+  },
+  {
+   "name": "e_blind",
+   "file": "powder_fx_e_blind.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    9
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 07.jpg"
+  },
+  {
+   "name": "r_cast",
+   "file": "powder_fx_r_cast.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    13
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 08.jpg"
+  },
+  {
+   "name": "r_bag",
+   "file": "powder_fx_r_bag.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    15
+   ],
+   "symmetry": "tumbling",
+   "source": "gemini 09.jpg"
+  },
+  {
+   "name": "r_warn",
+   "file": "powder_fx_r_warn.png",
+   "frames": 4,
+   "cell_1x": [
+    44,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 10.jpg"
+  },
+  {
+   "name": "r_fuse",
+   "file": "powder_fx_r_fuse.png",
+   "frames": 4,
+   "cell_1x": [
+    15,
+    18
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 11.jpg"
+  },
+  {
+   "name": "r_blast",
+   "file": "powder_fx_r_blast.png",
+   "frames": 6,
+   "cell_1x": [
+    52,
+    39
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 12.jpg"
+  },
+  {
+   "name": "r_hit",
+   "file": "powder_fx_r_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 13.jpg"
+  }
+ ],
+ "made_by": "Gemini (the user's images), processed by tools/art/process_powder_fx.py"
+}

@@ -1,0 +1,14 @@
+{
+  "author": "BoDUD",
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    }
+  ],
+  "description": "Teamfight Tactics units that League of Legends does not have, for Teamfight Manager 2: Powder. Kits are our own designs, drawn from TFT and Arcane. Sharper frames when the League of Legends Heroes pack (league) is also enabled. Non-commercial fan project; Teamfight Tactics and Arcane (c) Riot Games.",
+  "last_updated": "2026-10-19",
+  "mod_id": "tft",
+  "name": "Teamfight Tactics Heroes",
+  "version": "0.1.0"
+}

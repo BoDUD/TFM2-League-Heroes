@@ -42,6 +42,22 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 MOD = os.path.join(ROOT, "league")
+# heroes of another pack in this repo (the tft pack, mod_id tft: Teamfight Tactics' own units): hero -> the pack's
+# folder and id prefix; every other hero is league_<hero> in league/
+PACKS = {"powder": "tft"}
+
+
+def hero_id(hero):
+    return f"{PACKS.get(hero, 'league')}_{hero}"
+
+
+def mod_dir(hero):
+    return os.path.join(ROOT, PACKS.get(hero, "league"))
+
+
+def stem_of(hero):
+    """The hero's sheet without #sheet.png / #anim.fanim."""
+    return os.path.join(mod_dir(hero), "champions", hero_id(hero))
 SRC = os.path.join(ROOT, "assets", "source", "ppu")
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import strips as G  # noqa: E402
@@ -52,7 +68,7 @@ import strips as G  # noqa: E402
 # his PPU design by tools/art/rig_kassadin.py (134 design rows / 37 game rows); vladimir, karma, ashe,
 # yasuo: Codex's strips read back by tools/art/import_ppu_strips.py; corki: tools/art/rig_corki_hd.py; braum: Codex's
 # strips (tools/art/import_braum_strips.py) brought to the sheets by tools/art/rig_braum.py, 121 rows / 42 (all in assets/source/ppu)
-PPU = {"yasuo": 2.2, "gragas": 1.45, "zeri": 3, "vladimir": 1.8, "karma": 2.2, "ashe": 2.2, "irelia": 2, "kassadin": 2.42, "corki": 2.2, "garen": 1.9, "braum": 1.98, "mordekaiser": 2.0, "soraka": 2.2, "nidalee": 2.2, "galio": 1.65, "nilah": 1.98, "kindred": 2.2, "malzahar": 1.38, "smolder": 1.5, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5, "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "reksai": 1.2, "urgot": 1.2, "morgana": 1.5, "nami": 1.5, "janna": 1.5, "jax": 1.5, "xinzhao": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "yunara": 1.5, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.2, "maokai": 1.3, "gangplank": 1.5, "wukong": 1.2, "cassiopeia": 1.2, "akshan": 1.2, "poppy": 1.2, "volibear": 1.2, "rammus": 1.2, "zoe": 1.5, "quinn": 2.0, "riven": 1.5}
+PPU = {"yasuo": 2.2, "gragas": 1.45, "zeri": 3, "vladimir": 1.8, "karma": 2.2, "ashe": 2.2, "irelia": 2, "kassadin": 2.42, "corki": 2.2, "garen": 1.9, "braum": 1.98, "mordekaiser": 2.0, "soraka": 2.2, "nidalee": 2.2, "galio": 1.65, "nilah": 1.98, "kindred": 2.2, "malzahar": 1.38, "smolder": 1.5, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5, "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "reksai": 1.2, "urgot": 1.2, "morgana": 1.5, "nami": 1.5, "janna": 1.5, "jax": 1.5, "xinzhao": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "yunara": 1.5, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.2, "maokai": 1.3, "gangplank": 1.5, "wukong": 1.2, "cassiopeia": 1.2, "akshan": 1.2, "poppy": 1.2, "volibear": 1.2, "rammus": 1.2, "zoe": 1.5, "quinn": 2.0, "riven": 1.5, "powder": 1.75}
 PREFIX = "hd_"
 # lo_<tag>: the same frames at UI_PPU squares a displayed game pixel - what the BP grid, the encyclopedia, the pick
 # slots and the pick moment draw (league.dll's UI table; the user, 2026-10-13: 「BP界面里看英雄还是太清晰」, picked the
@@ -602,19 +618,19 @@ def main():
     for hero in a.hero or sorted(PPU):
         if hero not in PPU:
             sys.exit(f"{hero}: not in PPU (tools/art/ppu_hd.py and addons/league_main/src/hd.rs)")
-        stem = os.path.join(MOD, "champions", f"league_{hero}")
+        stem = stem_of(hero)
         sheet = read_sheet(stem)
         if not a.check:
             made = add_hd(hero, sheet)
             w, h = G.write_sheet(stem, sheet)
-            print(f"league/champions/league_{hero}#sheet.png {w}x{h}: hd_ tags at PPU {PPU[hero]} - drawn: "
+            print(f"{hero_id(hero)}#sheet.png {w}x{h}: hd_ tags at PPU {PPU[hero]} - drawn: "
                   f"{', '.join(made['drawn']) or 'none'}; scaled: {', '.join(made['scaled']) or 'none'}; head in "
                   + (", ".join(f"{t} {' '.join(v)}" for t, v in made["head"].items()) or "none"))
         if a.review:
             review(hero, sheet, a.review)
         problems = check(hero, sheet) + strays(hero, sheet) + outside_head(hero, sheet)
         for p in problems:
-            print(f"league_{hero}: {p}")
+            print(f"{hero_id(hero)}: {p}")
         bad += len(problems)
     sys.exit(1 if bad else 0)
 

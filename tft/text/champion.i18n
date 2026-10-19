@@ -1,0 +1,92 @@
+{
+  "zh-hans": {
+    "description": {
+      "tft_powder": {
+        "name": "爆爆",
+        "attack": "扔出自制小鞭炮，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>伏击者<>：技能炸弹可以暴击（<#ffb900ff>25%<>几率，伤害翻倍）。",
+        "skill": "把上了发条的猴子炸弹丢到目标脚下，范围内敌人受到<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害，中心再受一次；被炸到的敌人<#ef5350ff>灼烧<><#ffb900ff>3秒<>，并<#ef5350ff>重伤<><#ffb900ff>4秒<>（受到治疗-40%）。",
+        "skill2": "敌方英雄靠近时摔下闪光烟雾弹：周围敌人受到<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害并<#ef5350ff>致盲<><#ffb900ff>1秒<>（无法普攻），自己向后跳开。",
+        "ult": "把装着海克斯水晶的包丢向敌方英雄，引线烧完<#ffb900ff>0.9秒<>后蓝光大爆炸：范围内敌人受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并<#ef5350ff>击飞<><#ffb900ff>0.75秒<>。"
+      }
+    },
+    "skill_name": {
+      "tft_powder": {
+        "skill1": "猴子炸弹",
+        "skill2": "快跑，爆爆！",
+        "ult": "海克斯水晶炸弹"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "tft_powder": {
+        "name": "爆爆",
+        "attack": "扔出自製小鞭炮，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>伏擊者<>：技能炸彈可以暴擊（<#ffb900ff>25%<>機率，傷害加倍）。",
+        "skill": "把上了發條的猴子炸彈丟到目標腳下，範圍內敵人受到<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害，中心再受一次；被炸到的敵人<#ef5350ff>燃燒<><#ffb900ff>3秒<>，並<#ef5350ff>重傷<><#ffb900ff>4秒<>（受到治療-40%）。",
+        "skill2": "敵方英雄靠近時摔下閃光煙霧彈：周圍敵人受到<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害並<#ef5350ff>致盲<><#ffb900ff>1秒<>（無法普攻），自己向後跳開。",
+        "ult": "把裝著海克斯水晶的包丟向敵方英雄，引線燒完<#ffb900ff>0.9秒<>後藍光大爆炸：範圍內敵人受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並<#ef5350ff>擊飛<><#ffb900ff>0.75秒<>。"
+      }
+    },
+    "skill_name": {
+      "tft_powder": {
+        "skill1": "猴子炸彈",
+        "skill2": "快跑，爆爆！",
+        "ult": "海克斯水晶炸彈"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "tft_powder": {
+        "name": "Powder",
+        "attack": "Throws a homemade firecracker for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Ambusher<>: her skill bombs can crit (<#ffb900ff>25%<> chance, double damage).",
+        "skill": "Lobs her wind-up monkey bomb at the target's feet: enemies in the blast take <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> <#a974ffff>magic damage<>, those in the middle take it twice. Everyone hit <#ef5350ff>burns<> for <#ffb900ff>3s<> and is <#ef5350ff>wounded<> for <#ffb900ff>4s<> (healing -40%).",
+        "skill2": "When an enemy champion comes close, smashes a flash-smoke bomb: enemies around her take <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and are <#ef5350ff>blinded<> for <#ffb900ff>1s<> (no basic attacks), and she hops back.",
+        "ult": "Lobs the bag with the hex crystal at an enemy champion. After a <#ffb900ff>0.9s<> fuse it bursts in blue: enemies in the blast take <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> and are <#ef5350ff>knocked up<> for <#ffb900ff>0.75s<>."
+      }
+    },
+    "skill_name": {
+      "tft_powder": {
+        "skill1": "Monkey Bomb",
+        "skill2": "Run, Powder!",
+        "ult": "Hex Crystal Bomb"
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "tft_powder": {
+        "name": "파우더",
+        "attack": "직접 만든 폭죽을 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>매복자<>: 스킬 폭탄이 치명타로 터질 수 있다(<#ffb900ff>25%<>, 피해 2배).",
+        "skill": "태엽 원숭이 폭탄을 대상의 발밑에 던져 폭발 범위의 적에게 <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해, 중심은 한 번 더. 맞은 적은 <#ffb900ff>3초<> <#ef5350ff>불태움<>, <#ffb900ff>4초<> <#ef5350ff>상처<>(받는 회복 -40%).",
+        "skill2": "적 챔피언이 다가오면 섬광 연막탄을 터뜨려 주변 적에게 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해와 <#ffb900ff>1초<> <#ef5350ff>실명<>(기본 공격 불가), 자신은 뒤로 뛴다.",
+        "ult": "마법공학 수정이 든 가방을 적 챔피언에게 던진다. <#ffb900ff>0.9초<> 뒤 푸른 폭발: 범위의 적에게 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해와 <#ffb900ff>0.75초<> <#ef5350ff>공중에 띄움<>."
+      }
+    },
+    "skill_name": {
+      "tft_powder": {
+        "skill1": "원숭이 폭탄",
+        "skill2": "도망쳐, 파우더!",
+        "ult": "마법공학 수정 폭탄"
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "tft_powder": {
+        "name": "パウダー",
+        "attack": "手作りの爆竹を投げ、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>アンブッシャー<>：スキルの爆弾がクリティカルする（<#ffb900ff>25%<>、ダメージ2倍）。",
+        "skill": "ぜんまい仕掛けのモンキーボムを対象の足元に投げ、範囲の敵に<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>の魔法ダメージ、中心はもう一度。当たった敵は<#ffb900ff>3秒<><#ef5350ff>炎上<>、<#ffb900ff>4秒<><#ef5350ff>重傷<>（回復-40%）。",
+        "skill2": "敵チャンピオンが近づくと閃光煙幕弾を叩きつけ、周りの敵に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>ブラインド<>（通常攻撃不可）、自分は後ろへ跳ぶ。",
+        "ult": "ヘクスクリスタル入りの鞄を敵チャンピオンへ投げる。<#ffb900ff>0.9秒<>後に青く大爆発：範囲の敵に<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと<#ffb900ff>0.75秒<><#ef5350ff>ノックアップ<>。"
+      }
+    },
+    "skill_name": {
+      "tft_powder": {
+        "skill1": "モンキーボム",
+        "skill2": "逃げて、パウダー！",
+        "ult": "ヘクスクリスタル爆弾"
+      }
+    }
+  }
+}

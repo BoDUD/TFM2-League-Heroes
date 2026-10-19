@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "alchemist_attack_cast_resource",
+      "volume": 0.35
+    }
+  ]
+}

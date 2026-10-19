@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "powder": 1.75}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -365,6 +365,11 @@ RESTYLE = {
     # so no proportion or density change here; the outer outline grown a square like the others; the face point between
     # her eyes
     "quinn": dict(ppu=2.0, edge=1, face_to=(3, -31)),
+    # tft_powder (the tft pack): the idle design (A-2) and Codex's skeleton poses with the one clean head, posed by
+    # tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊」 -> 1.75); shown at 90 % (the user:
+    # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the
+    # soles on the ground; the face point between her eyes
+    "powder": dict(ppu=1.75, edge=1, lift_sq=-2, face_to=(0, -25)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
@@ -386,7 +391,7 @@ FRAMES = {
 # ----------------------------------------------------------------------------------------------- frames in and out
 def read_orig(hero):
     """{tag: [(dense frame, ms)]} - the frames this tool starts from (saved from the sheet on the first run)."""
-    sheet = P.read_sheet(os.path.join(MOD, "champions", f"league_{hero}"))
+    sheet = P.read_sheet(P.stem_of(hero))
     tags = [t for t in sheet if P.plain(t)]
     os.makedirs(ORIG, exist_ok=True)
     out = {}
@@ -952,9 +957,9 @@ def framed(hero, out, sheet, new_ppu):
 def moved_face(hero, spec, frames, ppu):
     """The champion_view face point (1x pixels from the pivot) where the idle's first frame's warp and growth send it
     (None when nothing moves)."""
-    path = os.path.join(MOD, "style", "champion_view.champion_view")
+    path = os.path.join(P.mod_dir(hero), "style", "champion_view.champion_view")
     cv = json.loads(open(path, "rb").read().decode("utf-8-sig"))
-    entry = cv["entries"].get(f"league_{hero}")
+    entry = cv["entries"].get(P.hero_id(hero))
     if not entry or "face" not in entry:
         return None
     keep = os.path.join(ORIG, f"{hero}_face.json")        # the face point before any restyle (reruns start there)
@@ -1005,7 +1010,7 @@ def write_hero(hero, res, sheet, pad, new_ppu):
     if pad:
         plain = {t: v for t, v in sheet.items() if P.plain(t)}
         plain["idle"] = [(np.pad(a, ((0, 0), (pad, pad), (0, 0))), ms) for a, ms in plain["idle"]]
-        G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), plain)
+        G.write_sheet(P.stem_of(hero), plain)
 
 
 # ----------------------------------------------------------------------------------------------- previews

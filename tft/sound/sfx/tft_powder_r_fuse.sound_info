@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "bomber_trap_on_resource",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.3,
+      "clip": "alchemist_skill_loop_resource",
+      "volume": 0.3
+    }
+  ]
+}

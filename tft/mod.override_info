@@ -1,0 +1,58 @@
+{
+  "asset/base/text/champion": {
+    "remapping": "asset/tft/text/champion",
+    "type": "merge"
+  },
+  "asset/base/style/champion_view": {
+    "remapping": "asset/tft/style/champion_view",
+    "type": "merge"
+  },
+  "asset/base/sound/sfx/tft_powder_a": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_q": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_q_blast": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_q_blast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_e": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_e_pop": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_e_pop",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_e_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_r": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_r_fuse": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_r_fuse",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_r_blast": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_r_blast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_powder_r_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_powder_r_hit",
+    "type": "override"
+  }
+}

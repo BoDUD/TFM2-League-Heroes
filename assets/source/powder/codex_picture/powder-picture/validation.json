@@ -1,0 +1,64 @@
+{
+  "A": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_alpha_threshold_bbox": [
+      402,
+      400,
+      937,
+      1225
+    ],
+    "logical_grid": [
+      39,
+      60
+    ],
+    "cell_size": 11,
+    "canvas": [
+      1536,
+      1536
+    ],
+    "final_bbox": [
+      559,
+      730,
+      988,
+      1390
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "B": {
+    "raw_size": [
+      1024,
+      1536
+    ],
+    "raw_alpha_threshold_bbox": [
+      296,
+      509,
+      744,
+      1461
+    ],
+    "logical_grid": [
+      28,
+      60
+    ],
+    "cell_size": 11,
+    "canvas": [
+      1536,
+      1536
+    ],
+    "final_bbox": [
+      614,
+      730,
+      922,
+      1390
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  }
+}
