@@ -63,6 +63,8 @@
      handler (chained)` 是变身前置之类先装了，一起用；`off (…)` 就是游戏版本不对，只有出招是形态的）；
    - `world … Kayn #24: Darkin (playing idle; buffs [...])`：凯隐的样子变了（形态、墙里）；`form remembered` 是阵亡后按记下的形态画；
    - `display handler: … calls, … animation names swapped in 10 s`：每 10 秒一行，显示处理调用了多少次、换了多少次动画名；
+   - `world … Kayn #24: Darkin plays "stun" with no form frames (drawn as plain Kayn)`（0.3.2）：有形态时游戏播了一个形态没有
+     自己一套的动作，这一段身体画成原样（用户：「凯隐变身的时候中途有一段突然变回去」）；每个凯隐每个名字一行；
    - `shadow step through the wall: (…) -> (…), 34 ticks`：掠影步穿墙。
 
 ## 开发
