@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "strongman_ult_throw_resource",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.05,
+      "clip": "magic_knight_skill2_resource1",
+      "volume": 0.35
+    }
+  ]
+}

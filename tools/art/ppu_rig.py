@@ -532,7 +532,8 @@ def tidy(a, outline, most_hole=6, speck=5):
 
 # ------------------------------------------------------------------------------------------------- the game's frames
 def sheet_of(hero):
-    stem = os.path.join(MOD, "champions", f"league_{hero}")
+    import ppu_hd
+    stem = ppu_hd.stem_of(hero)
     with open(lp(stem + "#anim.fanim"), encoding="utf-8-sig") as f:
         anims = json.load(f)["anims"]
     px = np.asarray(Image.open(lp(stem + "#sheet.png")).convert("RGBA"))
@@ -688,8 +689,9 @@ class Rig:
                 Image.fromarray(strip).save(path)
             with open(lp(os.path.join(ORIG, f"{hero}_{tag}.json")), "w", encoding="utf-8", newline="\n") as f:
                 json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds], "ppu": ppu}, f)
-        w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
-        print(f"league/champions/league_{hero}#sheet.png {w}x{h}: " + ", ".join(f"{t} {len(f)}" for t, f in sheet.items()))
+        import ppu_hd
+        w, h = G.write_sheet(ppu_hd.stem_of(hero), sheet)
+        print(f"{ppu_hd.hero_id(hero)}#sheet.png {w}x{h}: " + ", ".join(f"{t} {len(f)}" for t, f in sheet.items()))
 
     def bake(self, frames, hero=None):
         """assets/source/native/<hero>_bake.json applied to the rig's frames the way tools/art/import_native.bake

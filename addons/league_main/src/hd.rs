@@ -103,6 +103,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Zoe: posed by tools/art/rig_zoe.py from Codex's step-1 takes at the user's 1.5 squares a game pixel (35 game rows
     // crown to soles: 「35 像素」「PPU 1.5」; skill_w / ult_exit / ult_back the kit's CasterAnimations), so no SIZES row
     ("league_zoe", 1.5, include_str!("../../../league/champions/league_zoe#anim.fanim")),
+    // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
+    // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
+    // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
+    ("tft_powder", 1.75, include_str!("../../../tft/champions/tft_powder#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
@@ -179,11 +183,13 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// ready stance like every action and he is 100 % again (「局内模型为什么变这么小了」: running 32-36 px against Darius's 41).
 /// Malzahar: 115 % from the size sheet (all actions from the 3/4 front), drawn at PPU 2.2 first, then 「像素有点高 降低点需要」 ->
 /// PPU 1.38 (1.2 squares a game pixel at 115 %); he floats, his frames lifted by the restyle (RESTYLE malzahar lift).
+/// Powder (tft_powder): 90 % (the user, 2026-10-19: 「人物模型太大 缩小一点」), her frames 2 squares lower (RESTYLE powder lift).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
-                                    ("league_poppy", 0.85)];
+                                    ("league_poppy", 0.85),
+                                    ("tft_powder", 0.90)];
 
 pub const PREFIX: &str = "hd_";
 
@@ -271,8 +277,9 @@ impl Heroes {
     }
 
     pub fn get(&self, id: &str) -> Option<&Hero> {
-        // every registered id starts with league_: the base heroes, effects and UI names go without hashing
-        if !id.starts_with("league_") {
+        // every registered id starts with league_ or tft_ (the tft pack's heroes): the base heroes, effects and UI names
+        // go without hashing
+        if !id.starts_with("league_") && !id.starts_with("tft_") {
             return None;
         }
         self.by_id.get(id).map(|&k| &self.list[k])
@@ -304,6 +311,8 @@ mod tests {
             assert_eq!(h.of_name(&format!("asset/base/aseprite_resources/champions/{id}#sheet")).map(|x| x.id), Some(id));
         }
         assert!(h.get("league_lux").is_none());
+        assert_eq!(h.get("tft_powder").map(|x| (x.id, x.size)), Some(("tft_powder", 0.90)));
+        assert!(h.get("tft_nobody").is_none());
         assert!(h.of_name("asset/base/aseprite_resources/champions/alchemist#anim").is_none());
         assert!(h.of_name("asset/league/champions/league_ashe_fx#sheet").is_none());
         assert!(h.of_name("").is_none());

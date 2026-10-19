@@ -1,0 +1,690 @@
+{
+  "id": "tft_powder",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range"
+  ],
+  "sprite": "asset/tft/champions/tft_powder",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_powder_skill",
+    "asset/tft/icons/tft_powder_skill2",
+    "asset/tft/icons/tft_powder_ult"
+  ],
+  "stat": {
+    "attack": 76,
+    "magic_power": 40,
+    "hp": 860,
+    "defence": 18,
+    "magic_resistance": 20,
+    "move_speed": 930,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 20,
+    "hp": 95,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_powder.attack",
+    "duration": 24,
+    "cooltime": 90,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Delayed",
+      "tick": 10,
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_powder_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "tft_powder_a_pop",
+          "speed": 4000,
+          "y_offset": 0,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "tft_powder_a_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "tft_powder_a_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_powder.skill",
+    "duration": 29,
+    "cooltime": 330,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_powder_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "tft_powder_q_monkey",
+              "travel_time": 30,
+              "range": 400000,
+              "range_effect_name": "",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_powder_q_blast"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_powder_q_blast"
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "tft_powder_q_ring",
+                  "shape": {
+                    "Circle": {
+                      "radius": 32000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "tft_powder_crit"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "tft_powder_crit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              },
+                              "crit_chance": 25
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 36,
+                        "attack_ratio": 28,
+                        "hp_ratio": 0,
+                        "can_crit": true
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddCasted",
+                        "casted_type": "Fire",
+                        "duration": 180,
+                        "period": 30,
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 5,
+                            "attack_ratio": 5,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "tft_powder_q_wound",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          },
+                          "heal_reduce": 40
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "tft_powder_q_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "tft_powder_q_hit"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "tft_powder_q_core",
+                  "shape": {
+                    "Circle": {
+                      "radius": 16000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "tft_powder_crit"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "tft_powder_crit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              },
+                              "crit_chance": 25
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 36,
+                        "attack_ratio": 28,
+                        "hp_ratio": 0,
+                        "can_crit": true
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_powder.skill2",
+    "duration": 24,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 24000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_powder_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 4,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_powder_e_smoke"
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_powder_e_pop"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 28000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "tft_powder_crit"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_powder_crit",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        },
+                        "crit_chance": 25
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "ApAttack",
+                  "damage": 45,
+                  "attack_ratio": 30,
+                  "hp_ratio": 0,
+                  "can_crit": true
+                },
+                {
+                  "type": "BlockAttack",
+                  "tick": 60
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_powder_e_blind"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_powder_e_hit"
+                }
+              ]
+            },
+            {
+              "type": "MoveBack",
+              "speed": 4000,
+              "tick": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_powder.ult",
+    "duration": 37,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_powder_r"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_powder_r_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "tft_powder_r_bag",
+              "travel_time": 36,
+              "range": 400000,
+              "range_effect_name": "tft_powder_r_warn",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyChampion",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_powder_r_fuse"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_powder_r_fuse"
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 9,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_powder_r_fuse"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 18,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_powder_r_fuse"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 27,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_powder_r_fuse"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 36,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_powder_r_fuse"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 45,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_powder_r_fuse"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 54,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_powder_r_blast"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "tft_powder_r_blast"
+                    },
+                    {
+                      "type": "RangeProjectile",
+                      "name": "tft_powder_r_blast",
+                      "shape": {
+                        "Circle": {
+                          "radius": 42000
+                        }
+                      },
+                      "delay": 1,
+                      "apply": 1,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_powder_crit"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "tft_powder_crit",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  },
+                                  "crit_chance": 25
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ApAttack",
+                            "damage": 170,
+                            "attack_ratio": 65,
+                            "hp_ratio": 0,
+                            "can_crit": true
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Airborne",
+                            "duration": 45
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "tft_powder_r_hit"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "tft_powder_r_hit"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_powder_a_pop",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "a_pop",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_powder_q_monkey",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "q_monkey",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_powder_r_bag",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "r_bag",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_powder_a_hit",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_powder_q_blast",
+      "anim": "asset/tft/effects/tft_powder_big",
+      "tag": "q_blast",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_powder_q_hit",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_powder_e_smoke",
+      "anim": "asset/tft/effects/tft_powder_big",
+      "tag": "e_smoke",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_powder_e_blind",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "e_blind",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_powder_r_cast",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "r_cast",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_powder_r_warn",
+      "anim": "asset/tft/effects/tft_powder_big",
+      "tag": "r_warn",
+      "z": -2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_powder_r_fuse",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "r_fuse",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_powder_r_blast",
+      "anim": "asset/tft/effects/tft_powder_big",
+      "tag": "r_blast",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_powder_r_hit",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_powder_q_wound",
+      "anim": "asset/tft/effects/tft_powder_fx",
+      "tag": "q_wound",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

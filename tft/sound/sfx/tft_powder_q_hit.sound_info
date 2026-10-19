@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "alchemist_skill2_hit_resource",
+      "volume": 0.25
+    }
+  ]
+}

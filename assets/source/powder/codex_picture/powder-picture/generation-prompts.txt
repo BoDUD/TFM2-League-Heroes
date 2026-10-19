@@ -1,0 +1,18 @@
+Mode: built-in image_gen; transparent_background=true
+
+A references: refs/1_powder_idle.png; refs/3_powder_head.png; refs/4_powder_back.png; style/11_style_zoe.png; style/12_style_poppy.png
+
+A prompt:
+Use case: stylized-concept. Generate ONE single full body pixel art character sprite of Powder as a small chibi girl, not a 3D render. Five reference images in order: 1 idle full body identity/costume/pose; 2 head identity, 3 back hair and braids; 4 Zoe and 5 Poppy pixel STYLE ONLY. Match their chunky low-resolution grid, flat palette and near-black 2-cell silhouette outline.
+1536x1536 square PNG, genuine transparent alpha background. Place character horizontally centered with crown at y730 and bottom of soles y1390 (660px total, exactly 60 cells of 11px). Huge empty transparent area ABOVE character is intentional. All square pixels must be precisely 11x11 px on one aligned grid. Use approximately 60 pixel rows for the whole figure, head including hair 20 rows, short torso and short slim legs. No finer subpixel detail, no antialiasing, no gradients, no dithering, no shadows, no floor, no checkerboard.
+Identity: child girl, bright saturated blue short messy bob with spiky tufts in 3-4 blue shades, TWO thin short braids hanging behind shoulders; TWO big distinct GOLD X-shaped crossed-bolt hairclips (one each side). Round light warm skin face, TWO BIG BLUE-GREY eyes equal size/equal height, both clearly visible, each at least 2x3 grid cells with one WHITE highlight; thin dark eyebrows, tiny mouth and pink cheeks, shy clever look.
+Costume consistent with references: TEAL tunic with short skirt-like hem over thighs, short pink striped undersleeves, dark brown fingerless forearm wraps, brown belt and brown hip pouch on image left containing small saturated blue bombs WITHOUT halos; purple striped tights, brown laced ankle boots. Every material 3-4 flat palette shades, broad clean pixel clusters. No items in hands, no weapon, no monkey, no particles, no text.
+POSE A: three-quarter FRONT facing image right, BOTH eyes visible. One hand raised just in front of chin thinking; other forearm extends towards IMAGE RIGHT with EMPTY open palm UP. Legs slightly apart, near leg image left full tone, far leg image right a shade darker; both soles at same y. Preserve childhood chibi proportions and reference pixel art style. Produce only A.
+
+B references: generated A; refs/1_powder_idle.png; refs/4_powder_back.png; style/11_style_zoe.png; style/12_style_poppy.png
+
+B prompt:
+undefined
+
+Delivery conversion: threshold alpha at 128; crop visible sprite; nearest-neighbor sampling to a 60-row logical grid; nearest-neighbor enlargement by 11; paste on 1536x1536 transparent canvas at y=730. Original generated files preserved unchanged in raw/.
+
