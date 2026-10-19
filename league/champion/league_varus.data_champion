@@ -741,7 +741,8 @@
                                                       "tick": 2
                                                     }
                                                   },
-                                                  "skill_cooldown_mult": 64
+                                                  "skill_cooldown_mult": 64,
+                                                  "ult_cooldown_mult": -64
                                                 },
                                                 "only_to_enemy": false
                                               }
@@ -777,7 +778,8 @@
                                                         "tick": 2
                                                       }
                                                     },
-                                                    "skill_cooldown_mult": 35
+                                                    "skill_cooldown_mult": 35,
+                                                    "ult_cooldown_mult": -35
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -813,7 +815,8 @@
                                                           "tick": 2
                                                         }
                                                       },
-                                                      "skill_cooldown_mult": 15
+                                                      "skill_cooldown_mult": 15,
+                                                      "ult_cooldown_mult": -15
                                                     },
                                                     "only_to_enemy": false
                                                   }
@@ -1177,7 +1180,8 @@
                                                     "tick": 2
                                                   }
                                                 },
-                                                "skill_cooldown_mult": 64
+                                                "skill_cooldown_mult": 64,
+                                                "ult_cooldown_mult": -64
                                               },
                                               "only_to_enemy": false
                                             }
@@ -1213,7 +1217,8 @@
                                                       "tick": 2
                                                     }
                                                   },
-                                                  "skill_cooldown_mult": 35
+                                                  "skill_cooldown_mult": 35,
+                                                  "ult_cooldown_mult": -35
                                                 },
                                                 "only_to_enemy": false
                                               }
@@ -1249,7 +1254,8 @@
                                                         "tick": 2
                                                       }
                                                     },
-                                                    "skill_cooldown_mult": 15
+                                                    "skill_cooldown_mult": 15,
+                                                    "ult_cooldown_mult": -15
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -1661,7 +1667,8 @@
                                                       "tick": 2
                                                     }
                                                   },
-                                                  "skill_cooldown_mult": 64
+                                                  "skill_cooldown_mult": 64,
+                                                  "ult_cooldown_mult": -64
                                                 },
                                                 "only_to_enemy": false
                                               }
@@ -1697,7 +1704,8 @@
                                                         "tick": 2
                                                       }
                                                     },
-                                                    "skill_cooldown_mult": 35
+                                                    "skill_cooldown_mult": 35,
+                                                    "ult_cooldown_mult": -35
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -1733,7 +1741,8 @@
                                                           "tick": 2
                                                         }
                                                       },
-                                                      "skill_cooldown_mult": 15
+                                                      "skill_cooldown_mult": 15,
+                                                      "ult_cooldown_mult": -15
                                                     },
                                                     "only_to_enemy": false
                                                   }
@@ -2057,7 +2066,8 @@
                                                     "tick": 2
                                                   }
                                                 },
-                                                "skill_cooldown_mult": 64
+                                                "skill_cooldown_mult": 64,
+                                                "ult_cooldown_mult": -64
                                               },
                                               "only_to_enemy": false
                                             }
@@ -2093,7 +2103,8 @@
                                                       "tick": 2
                                                     }
                                                   },
-                                                  "skill_cooldown_mult": 35
+                                                  "skill_cooldown_mult": 35,
+                                                  "ult_cooldown_mult": -35
                                                 },
                                                 "only_to_enemy": false
                                               }
@@ -2129,7 +2140,8 @@
                                                         "tick": 2
                                                       }
                                                     },
-                                                    "skill_cooldown_mult": 15
+                                                    "skill_cooldown_mult": 15,
+                                                    "ult_cooldown_mult": -15
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -2411,7 +2423,8 @@
                                 "tick": 2
                               }
                             },
-                            "skill_cooldown_mult": 64
+                            "skill_cooldown_mult": 64,
+                            "ult_cooldown_mult": -64
                           },
                           "only_to_enemy": false
                         }
@@ -2447,7 +2460,8 @@
                                   "tick": 2
                                 }
                               },
-                              "skill_cooldown_mult": 35
+                              "skill_cooldown_mult": 35,
+                              "ult_cooldown_mult": -35
                             },
                             "only_to_enemy": false
                           }
@@ -2483,7 +2497,8 @@
                                     "tick": 2
                                   }
                                 },
-                                "skill_cooldown_mult": 15
+                                "skill_cooldown_mult": 15,
+                                "ult_cooldown_mult": -15
                               },
                               "only_to_enemy": false
                             }

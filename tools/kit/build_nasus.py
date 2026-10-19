@@ -26,7 +26,8 @@ has no slot - the watch casts it on its own (league_swain's W the same way).
           champion within r_cnt. Unused,
           the window ends with the cooldown capped at 60 ticks (`r_retry`). r_t ticks of `r_on`: +r_hp health (and as
           much healed), +r_def armour and magic resistance, +r_rng attack range, skill_cooldown_mult 100 (Q's
-          cooldown halved; data can't pick one slot, so E's too - the add-on halves only Q), and every r_p ticks
+          cooldown halved; data can't pick one slot, so E's too - the add-on halves only Q; not R's own: the same buff's
+          ult_cooldown_mult -100 offsets it, 2026-10-19), and every r_p ticks
           r_pct% of each enemy's max health within r_r (FixedAttack: ApAttack has no target share). While `r_on` lasts
           his attack, Q and E play the big body's strips (b_attack, b_skill, b_skill2); idle / run / hit can't change
           in data - the add-on swaps the whole body; the sandstorm (`r_on`'s view) follows him.
@@ -249,7 +250,7 @@ def build(p):
     rise = combine(anim("ult", p["r_dur"]), cview("r_cast"), sfx("r"), voice("vo_r", p),
                    delayed(p["r_on_at"] - 1, sfx("r_storm"),
                            refresh("r_on", p["r_t"], hp=p["r_hp"], defence=p["r_def"], magic_resistance=p["r_def"],
-                                   range=p["r_rng"], **({} if native else {"skill_cooldown_mult": 100})),
+                                   range=p["r_rng"], **({} if native else {"skill_cooldown_mult": 100, "ult_cooldown_mult": -100})),
                            heal(p["r_hp"]), on_me(casted(p["r_t"], p["r_p"], storm))))
 
     # ------------------------------------------------------------------ the watch (R's moment, W)

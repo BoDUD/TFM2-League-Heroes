@@ -17,7 +17,7 @@ skill2, R behind the target, the passive in the main pack, the pros' combos, a n
   skill2  E Body Slam (肉弹冲击): a `Targeting` cast on `EnemyWithoutTower` (e_range): he charges at the target
           (`RushTime`, e_speed a tick for at most e_tick ticks) and stops on the first enemy in his way: every enemy
           within e_r takes e_dmg + e_ratio% AP and is stunned e_stun ticks; a hit takes e_refund% off the cooldown
-          (`skill_cooldown_mult`, Q too), a champion hit opens e_combo. Then W Drunken Rage (醉酒狂暴): he drinks
+          (`skill_cooldown_mult`, Q too; R not: the same flag's ult_cooldown_mult offsets it, 2026-10-19), a champion hit opens e_combo. Then W Drunken Rage (醉酒狂暴): he drinks
           (the strip's drink frames): w_dr% less damage for w_dr_t ticks and w_on (w_t ticks) on his next punch.
   ult     R Explosive Cask (爆破酒桶): a `Targeting` cast on `EnemyChampion` (r_range): the cask is lobbed (r_fly ticks)
           to where the champion stood and blows up: every enemy within r_r takes r_dmg + r_ratio% AP and is flung
@@ -244,7 +244,7 @@ def build(p):
                 *([around(p["e_r"], "EnemyChampion", [on_me(refresh("e_combo", p["e_combo"]))])]
                   if open_combo else [])]
     slam = rush(p["e_speed"], p["e_tick"], "EnemyWithoutTower",
-                [*slam_hits(True), on_me(flag("e_refund", 2, skill_cooldown_mult=p["e_refund"]))])
+                [*slam_hits(True), on_me(flag("e_refund", 2, skill_cooldown_mult=p["e_refund"], ult_cooldown_mult=-p["e_refund"]))])
     drink = delayed(p["w_at"], alive(sfx("w"), voice("vo_w", p), cview("w_drink"), refresh("w_on", p["w_t"]),
                                      refresh("w_dr", p["w_dr_t"], damaged_reduce=p["w_dr"])))
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
