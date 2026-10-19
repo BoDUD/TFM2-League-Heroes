@@ -92,6 +92,8 @@ class Form:
         self.rig = R.Rig(D, pad=rig_pad)
         self.L = {k: pad(D.layer(k)) for k in D.order}
         self.other = {n: self.placed(load(f"{n}.png")) for n in ("idle",)}
+        for n, foot in POSES.items():
+            self.other[n] = self.by_foot(load(f"pose_{n}.png"), foot)
 
     def placed(self, d):
         """Another design in a padded layer of the side design's size, standing on the same point and ground."""
@@ -100,6 +102,17 @@ class Form:
         top = P + self.D.ground - (ys.max() + 1)
         left = P + self.D.px - stand_col(d)
         lay[top:top + d.shape[0], left:left + d.shape[1]] = d
+        return lay
+
+    def by_foot(self, d, foot):
+        """A Codex pose in a padded layer of the side design's size: its near hind foot (column `foot`) on the side
+        design's (SIDE_FOOT), its lowest row on the ground (every pose has a foot, a claw or the lying body there)."""
+        lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
+        ys = np.nonzero((d[..., 3] > 0).any(1))[0]
+        top = P + self.D.ground - (ys.max() + 1)
+        left = P + SIDE_FOOT - foot
+        y0, x0 = max(0, top), max(0, left)
+        lay[y0:top + d.shape[0], x0:left + d.shape[1]] = d[y0 - top:, x0 - left:]
         return lay
 
     def pose(self, whole=(0, 0), body=(0, 0), legs=None, fill=True):
@@ -129,6 +142,22 @@ class Form:
     ref_holes = None
     close_holes = _Form.close_holes                   # small enclosed holes the side lacks, filled (league_wukong)
     MOST = _Form.MOST
+
+
+def eye_point(d):
+    """The middle of the topmost cyan squares (the eyes; the tongue's cyan lies lower): (row, column)."""
+    a = d.astype(int)
+    cy = (a[..., 2] > 180) & (a[..., 1] > 170) & (a[..., 0] < 140) & (a[..., 3] > 0)
+    yy, xx = np.nonzero(cy)
+    top = yy <= yy.min() + 2
+    return yy[top].mean(), xx[top].mean()
+
+
+# Codex's poses (tools/art/design_chogath_poses.py -> hd/pose_<name>.png) stand on the side design's hind feet (League:
+# rearing, slamming and biting he pivots on his planted hind legs): each pose's near hind foot column (the middle of its
+# talons on the ground; slam's hind legs kick back in the air - its hips' column less the side design's hip-to-foot 3)
+SIDE_FOOT = 24
+POSES = {"crouch": 26, "rise": 36, "rear": 35, "slam": 17, "lunge": 19, "fall": 31, "lie": 37}
 
 
 def shift(can, dx, dy):
@@ -166,7 +195,11 @@ def walk(F):
 
 # ------------------------------------------------------------------------------------------------- the actions
 # ms per frame; the kit's ticks (tools/kit/build_chogath.py) come from these
-MS = {"idle": [150] * 8, "run": [90] * 8, "hit": [100, 100]}
+MS = {"idle": [150] * 8, "run": [90] * 8,
+      "attack": [70, 70, 90, 90, 80, 100], "attack_e": [70, 80, 90, 90, 80, 90],
+      "skill": [80, 80, 100, 120, 100, 100], "skill2": [80, 80, 120, 200, 200, 120, 100],
+      "ult": [80, 100, 100, 150, 150, 100],
+      "hit": [100, 100], "dead": [120, 100, 120, 100, 150, 60, 100, 500]}
 IDLE_LEG_ROW = 38                     # the idle design's legs: rows from here down stay while the body breathes
 
 
@@ -186,6 +219,23 @@ def frames_all(F):
         return R.compose(rig, [(legs, dict(dy=0)), (top, dict(dy=c))])
     out["idle"] = [breathe(c) for c in (0, 0, 0, 1, 1, 1, 1, 0)]
     out["hit"] = [F.whole("idle", dx=-2, flash=True), F.whole("idle", dx=-1)]
+    w = F.whole
+    # auto attack (League's chogath_attack1 / attack2: he crouches, rears up on his hind legs with the scythes high and
+    # slams down onto all fours, the claws and the maw striking - the hit on frame 4)
+    out["attack"] = [w("crouch"), w("rise"), w("rear"), w("slam"), w("slam", dx=1), w("crouch")]
+    # E's spiked attack (League's chogath_crit: the same rear and slam, deeper - the spikes leave on frame 4)
+    out["attack_e"] = [w("crouch", dx=-1), w("rise", dx=-1), w("rear", dx=-1), w("slam", dx=1), w("slam", dx=2),
+                       w("crouch")]
+    # Q Rupture (League's chogath_spell4: he rises, twists up and stamps down - the ground cracks on frame 4)
+    out["skill"] = [w("crouch"), w("rise"), w("rear"), w("slam"), w("slam"), w("crouch")]
+    # W Feral Scream (League's chogath_spell1: he rears up, the head thrown back, and screams - frames 3-5 the scream)
+    out["skill2"] = [w("crouch"), w("rise"), w("rear"), w("rear", dy=-1), w("rear"), w("rise"), w("crouch")]
+    # R Feast (League's chogath_spell2: he lunges and bites, rears up swallowing it whole, comes down - the bite frame 2)
+    out["ult"] = [w("crouch"), w("lunge"), w("lunge", dx=1), w("rear"), w("rear", dy=-1), w("crouch")]
+
+    # the death (League's chogath_death: he rears up, twists and collapses onto his side): rearing, half down,
+    # collapsing, down, on his side, a bounce, lying
+    out["dead"] = [w("rear"), w("rise"), w("fall"), w("fall", dy=1), w("lie"), w("lie", dy=-1), w("lie"), w("lie")]
     return out
 
 

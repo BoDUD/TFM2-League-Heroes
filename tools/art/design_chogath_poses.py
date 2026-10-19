@@ -87,11 +87,93 @@ def finish(fig):
     return pad[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
+# ------------------------------------------------------------------------------------------------- the hind legs
+# Codex drew the hind legs of rise, rear and slam thin and long (3-4 squares thick, 14-17 rows; the side design's are
+# 5-6 thick and 9-12 rows) - the user, 2026-10-19, picked round 1's slim bodies with the legs mended here: its legs are
+# cut away and the side design's own hind legs (lossless pieces, below) put on, the near one in front of the body and the
+# far one behind it, a step to the right and two rows higher as on the side design (its far foot is lifted).
+# The side design's hind legs (hd/side.png rows, columns): the near leg with its hip plate and its big talon foot, the far
+# leg with its own talons.
+NEAR_LEG = (33, 44, 16, 30)
+FAR_LEG = (34, 42, 31, 41)
+# per pose: cut = boxes (rows r0-r1, columns c0-c1, inclusive) whose squares are Codex's legs; keep = boxes of squares
+# that stay where they are (rear's tail lying on the ground); drop = rows the rest of the body comes down onto the new
+# legs; near = the near leg piece's left column on the pose (its feet on the ground row, the far piece placed from it as
+# on the side design). Slam keeps Codex's legs: they kick back in the air 5-7 squares thick and 12-15 long, about the
+# side design's own (the side design's legs turned a quarter there read as two lumps).
+LEGFIX = {
+    "rise": dict(cut=[(54, 64, 23, 63), (53, 56, 60, 70)], keep=[], drop=0, near=28),
+    # the tail lies on the ground from the left leg's root: its root (rows 57-63) and the rest of it stay where they
+    # are, the leg's shaft right of them and both feet go; the new near leg covers the shaft's last columns
+    "rear": dict(cut=[(54, 69, 35, 42), (64, 69, 29, 34), (57, 69, 43, 62)], keep=[(57, 63, 0, 34), (64, 69, 0, 28)],
+                 drop=3, near=27),
+}
+
+
+def leg_piece(side, box):
+    r0, r1, c0, c1 = box
+    return side[r0:r1 + 1, c0:c1 + 1].copy()
+
+
+def put(can, piece, y, x, under=False):
+    """piece's opaque squares onto can at (y, x) (clipped); under: only where can is clear."""
+    h, w = piece.shape[:2]
+    y0, x0 = max(0, y), max(0, x)
+    y1, x1 = min(can.shape[0], y + h), min(can.shape[1], x + w)
+    if y1 <= y0 or x1 <= x0:
+        return
+    sub = piece[y0 - y:y1 - y, x0 - x:x1 - x]
+    m = sub[..., 3] > 0
+    if under:
+        m &= can[y0:y1, x0:x1, 3] == 0
+    can[y0:y1, x0:x1][m] = sub[m]
+
+
+def fix_legs(name, fig, side):
+    """The pose with Codex's hind legs replaced by the side design's (LEGFIX)."""
+    fx = LEGFIX[name]
+    H, W = fig.shape[:2]
+    cut = np.zeros((H, W), bool)
+    for r0, r1, c0, c1 in fx["cut"]:
+        cut[r0:r1 + 1, c0:c1 + 1] = True
+    keep = np.zeros((H, W), bool)
+    for r0, r1, c0, c1 in fx["keep"]:
+        keep[r0:r1 + 1, c0:c1 + 1] = True
+    op = fig[..., 3] > 0
+    fixed = op & keep & ~cut
+    body = op & ~cut & ~keep
+    pad = 16
+    can = np.zeros((H + 2 * pad, W + 2 * pad, 4), np.uint8)
+    near, far = leg_piece(side, NEAR_LEG), leg_piece(side, FAR_LEG)
+    ground = pad + H - 1                                         # the pose's ground row on the canvas
+    nx = pad + fx["near"]
+    ny = ground - near.shape[0] + 1
+    fxx = nx + (FAR_LEG[2] - NEAR_LEG[2])
+    fy = ny + (FAR_LEG[0] - NEAR_LEG[0])
+    put(can, far, fy, fxx)
+    # the fixed part (on the ground), then the body brought down onto the legs
+    lay = np.zeros_like(can)
+    lay[pad:pad + H, pad:pad + W][fixed] = fig[fixed]
+    m = lay[..., 3] > 0
+    can[m] = lay[m]
+    lay = np.zeros_like(can)
+    d = fx["drop"]
+    lay[pad + d:pad + d + H, pad:pad + W][body] = fig[body]
+    m = lay[..., 3] > 0
+    can[m] = lay[m]
+    put(can, near, ny, nx)
+    ys, xs = np.nonzero(can[..., 3] > 0)
+    return can[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
+
 def build(name, side, idle):
     a = np.asarray(Image.open(lp(os.path.join(SRC, f"chogath-pose-{name}.png"))).convert("RGBA"))
     s = area_scale(a, side)
     fig = snap(sample(a, s), side)
-    fig = finish(with_head(fig, idle))
+    fig = with_head(fig, idle)
+    if name in LEGFIX:
+        fig = fix_legs(name, finish(fig), side)
+    fig = finish(fig)
     return fig, s
 
 
