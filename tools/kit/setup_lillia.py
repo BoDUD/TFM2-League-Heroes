@@ -38,7 +38,7 @@ Wh = "<#ffffffff>"     # move speed
 E = "<>"
 # champion_view: placeholder until the sprite is in (tfm2_ase.py face)
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> 0: the bud stood ~14 px over the card (the rule's +2 is positive)
-VIEW = {"face": {"x": 2, "y": -41}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": 0}}   # 10-09 grid design: the hair crown 42 over the hooves (the bud above it), the idle top -41
+VIEW = {"face": {"x": 2, "y": -41}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -6}}   # 10-09 grid design: the hair crown 42 over the hooves (the bud above it), the idle top -41
 
 
 def mag(d, r):

@@ -215,6 +215,29 @@ pub const PREFIX: &str = "hd_";
 pub const LO_PREFIX: &str = "lo_";
 pub const UI_PPU: f32 = 1.5;
 
+/// Tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): the card's canvas holds
+/// about 40 game px at 2.2x and these idles are 45-58 px from the head to the feet, so the knees and feet hid behind
+/// the name bar (the user, 2026-10-19: 「烈娜塔在BP格位置调一下吧 一半的腿 还有其他英雄也有这情况」, picked the
+/// whole-body mock). Size = 39 / the idle's height, every HD hero whose card hid 6 px or more
+/// (tools/art/bp_card_audit.py --legs); their banpick_center y set for that size. 1x heroes have no lo_ frames: not here.
+pub const UI_SIZES: &[(&str, f32)] = &[
+    ("league_camille", 0.82),
+    ("league_cassiopeia", 0.85),
+    ("league_drmundo", 0.87),
+    ("league_elise", 0.80),
+    ("league_galio", 0.67),
+    ("league_janna", 0.81),
+    ("league_jayce", 0.78),
+    ("league_mordekaiser", 0.74),
+    ("league_morgana", 0.84),
+    ("league_nami", 0.76),
+    ("league_nasus", 0.85),
+    ("league_nidalee", 0.87),
+    ("league_rell", 0.85),
+    ("league_renata", 0.78),
+    ("league_tahmkench", 0.87),
+];
+
 /// The `"lo_..."` animation names of a .fanim.
 pub fn lo_tags(fanim: &str) -> Vec<String> {
     keys_with(fanim, LO_PREFIX)
@@ -255,6 +278,8 @@ pub struct Hero {
     pub tags: Vec<String>,
     /// the sheet has lo_ frames for every tag (the UI draws those)
     pub lo: bool,
+    /// what the UI divides a lo_ frame's pixels by: [`UI_PPU`] / its [`UI_SIZES`] size
+    pub ui: f32,
 }
 
 impl Hero {
@@ -274,6 +299,7 @@ pub fn heroes() -> Vec<Hero> {
             size: SIZES.iter().find(|s| s.0 == id).map_or(1.0, |s| s.1),
             tags: hd_tags(fanim).into_iter().map(|t| t[PREFIX.len()..].to_string()).collect(),
             lo: !lo_tags(fanim).is_empty(),
+            ui: UI_PPU / UI_SIZES.iter().find(|s| s.0 == id).map_or(1.0, |s| s.1),
         })
         .collect()
 }
@@ -356,6 +382,18 @@ mod tests {
                 }
             }
         }
+    }
+
+    #[test]
+    fn ui_sizes_shrink_heroes_with_lo_frames() {
+        let h = Heroes::new();
+        for &(id, size) in UI_SIZES {
+            let hero = h.get(id).unwrap_or_else(|| panic!("{id}: not a registered hero"));
+            assert!(hero.lo, "{id}: no lo_ frames - the UI draws its 1x frames, a UI size would not reach them");
+            assert!(size > 0.5 && size < 1.0, "{id}: {size}");
+            assert!((hero.ui - UI_PPU / size).abs() < 1e-6);
+        }
+        assert_eq!(h.get("league_zoe").map(|x| x.ui), Some(UI_PPU));
     }
 
     #[test]
