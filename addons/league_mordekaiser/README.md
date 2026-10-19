@@ -23,8 +23,17 @@
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_mordekaiser.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `R REALM with Jinx#12 (the AI asked for Leona#14): steals Steal { attack: 22, .. }, both banished 420 ticks`：拖进领域；
    - `R WON: Jinx#12 died in the realm (6 swings vs 5) -> +190 hp`、`R LOST`、`R END: both out`：领域的结果；
+   - `R OUT: league_mordekaiser#.. targetable again 12 ticks after the realm ended early`：提前结束后他回到战场（0.1.1 起
+     最多 24 tick）；`STILL BANISHED` 或 `R: renewing his banish was refused` 就是没出来，告诉我；
    - `W SHIELD 412 (stored 412, max hp 2650)` / `W HEAL #3: 230 of 412 shield left -> +92`：护盾和回血；
    - 行尾有 `(entity_banish refused)` / `(entity_add_shield refused)`：游戏没接受，告诉我。
+
+## 0.1.1（2026-10-19）：赢了以后不再一直隐身
+
+日志里每次「R WON」后都是 `R OUT: league_mordekaiser STILL BANISHED`（一天 95 次 + 上一次启动 43 次），而他先死时对手 0 tick
+就出来了：游戏 0.6.4 解不开他自己身上那份带漩涡、7 秒的放逐，对手提前死了他还隐身、选不中到 7 秒满。现在他的放逐不带画面、
+一次只给 24 tick，单挑还在就每 12 tick 续上（最后一段截到领域结束），漩涡单独播在他出手的地方；提前结束时他最多再放逐
+24 tick（0.4 秒）。对方的放逐照旧一次给满 7 秒。
 
 ## 开发
 

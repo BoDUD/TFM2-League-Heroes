@@ -4337,6 +4337,7 @@ python addons/league_braum/make_override.py    # 附加包的副本（主包的�
 | 特效 | Codex 生图的 17 张（用户贴来的总览图，下载文件夹里的 10 张无损 PNG，[`tools/art/import_mordekaiser.py`](tools/art/import_mordekaiser.py) 按卡萨丁的做法切格：每个特效一个缩放、颜色贴回灵魂青绿 / 黑烟 / 铁色 / 碎石四套配色；红色方的对称逐格检查：Q 的地裂和 E 的鬼爪上下对称、从他脚下往前铺，其余左右对称；贴地的画面按底边对齐）：`league_mordekaiser_fx` 锤击打中、光环烧到、Q 砸中 / 孤立重击、E 抓中、W 护盾 / 回血、R 诅咒印记 / 拉回 / 领域击杀 / 头顶诅咒冠；`league_mordekaiser_big` 被动光环、Q 地裂 / 砸地冲击、E 鬼爪、R 开大漩涡、领域入口（附加包放逐时播放，循环 7 秒）。Q 的地裂和 E 的鬼爪各是一条只带画面的直线（伤害线只活 2–3 tick，看不见） |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_mordekaiser.py`）：锤击 / 打中、被动叠满、Q 砸地 / 砸中、E 甩出 / 抓中、W 护盾 / 回血、R 开大 / 领域击杀；Q、E、W、R 各用他自己的技能台词（片段名 `league_mordekaiser_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q 破灭之锤 / E 断魂一扼 / R 轮回绝境，另有 W 不坏之身、被动），从本地客户端提取，缩到 64×64 |
+| 修正（附加包 0.1.1） | 用户让查游戏日志时发现：领域里对手先死后，莫德凯撒自己还隐身、选不中到 7 秒满（日志每次「R WON」后都是 `STILL BANISHED`，一天 95 次；他先死时对手 0 tick 就出来）——游戏 0.6.4 解不开他身上那份带漩涡的长放逐。现在他的放逐一次 24 tick、单挑还在就每 12 tick 续上，漩涡单独播；提前结束最多再放逐 0.4 秒（[`addons/league_mordekaiser`](addons/league_mordekaiser)） |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
