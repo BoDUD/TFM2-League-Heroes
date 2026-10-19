@@ -2,6 +2,7 @@
 
     python tools/art/bp_card_audit.py                          # a table: every hero's card value, the rule's, the head's gap
     python tools/art/bp_card_audit.py --mock out.png janna=-2,-3 galio=n,0 ...   # cards side by side (n = no value)
+    python tools/art/bp_card_audit.py --legs                   # how much of each hero hides under the canvas (1x px)
 
 The grid card's top 131 x 88 px is a canvas: the idle frame's CENTRE goes to the canvas's bottom middle
 + 2.2 * banpick_center (game px, up negative), drawn 2.2x its size; HD heroes (lo_ frames) draw lo_idle at 2.2 / 1.5.
@@ -17,6 +18,7 @@ import argparse
 import json
 import math
 import os
+import re
 
 from PIL import Image, ImageDraw
 
@@ -32,13 +34,23 @@ def lp(path):
     return pre + path if os.name == "nt" and not path.startswith(pre) else path
 
 
+def ui_sizes(league):
+    """league.dll's UI_SIZES (addons/league_main/src/hd.rs): tall HD heroes drawn smaller in the UI."""
+    rs = os.path.join(os.path.dirname(league), "addons", "league_main", "src", "hd.rs")
+    src = open(lp(rs), encoding="utf-8").read()
+    body = src[src.index("pub const UI_SIZES"):]
+    body = body[:body.index("];")]
+    return {h: float(k) for h, k in re.findall(r'\("(\w+)", ([0-9.]+)\)', body)}
+
+
 def frames(league, hid):
-    """The idle frames the card draws and their scale to 1x (lo_idle / 1.5 for HD heroes)."""
+    """The idle frames the card draws and their scale to 1x (lo_idle / 1.5 for HD heroes, / 1.5 / UI_SIZES size for
+    the tall ones league.dll draws smaller)."""
     fa = os.path.join(league, "champions", hid + "#anim.fanim")
     if not os.path.exists(lp(fa)):
         return None, None
     d = json.load(open(lp(fa), encoding="utf-8-sig"))["anims"]
-    tag, div = ("lo_idle", 1.5) if "lo_idle" in d else ("idle", 1.0)
+    tag, div = ("lo_idle", 1.5 / ui_sizes(league).get(hid, 1.0)) if "lo_idle" in d else ("idle", 1.0)
     sheet = Image.open(lp(os.path.join(league, "champions", hid + "#sheet.png"))).convert("RGBA")
     out = []
     for f in d[tag]["frames"]:

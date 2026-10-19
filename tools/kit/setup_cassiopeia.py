@@ -38,7 +38,7 @@ G = "<#66bb6aff>"      # healing
 E = "<>"
 # champion_view: the face point between her eyes (ppu_restyle face_to); banpick_center -6 by the card rule
 # (tools/art/bp_card_audit.py: her idle's crest tops 33.3 game px over the frame centre: -39 + 33.3)
-VIEW = {"face": {"x": 2, "y": -29}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -6}}
+VIEW = {"face": {"x": 2, "y": -29}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -11}}
 
 
 def mag(d, r):

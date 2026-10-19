@@ -39,7 +39,7 @@ G = "<#7dd87dff>"      # heals
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): none -> -6: the spear tip stood ~5 px over the card
-VIEW = {"face": {"x": 3, "y": -36}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -6}}   # moved with the head by tools/art/ppu_restyle.py
+VIEW = {"face": {"x": 3, "y": -36}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -10}}   # moved with the head by tools/art/ppu_restyle.py
 
 
 def mag(k):
