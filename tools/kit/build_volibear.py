@@ -257,7 +257,7 @@ def build(p):
                    combine(refresh("q_ms", p["q_t"], move_speed_mult=p["q_ms"]), anim("skill_run", p["q_run"]),
                            sfx("q"), voice("vo_q", p),
                            {"type": "MoveToTarget", "speed": p["q_speed"], "range": p["q_range"] + 40000,
-                            "end_effects": reach}))
+                            "end_effects": reach}), key="skill")
 
     # ------------------------------------------------------------------ skill2: E Sky Splitter
     struck = [ap(p["e_dmg"], p["e_ap"]), buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]), view("e_hit"),

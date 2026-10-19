@@ -1075,7 +1075,7 @@
   },
   "skill": {
     "action_name": "skill_run",
-    "description": "#asset/base/text/champion?description.league_volibear.skill_run",
+    "description": "#asset/base/text/champion?description.league_volibear.skill",
     "duration": 3,
     "cooltime": 720,
     "start_timing": 1,

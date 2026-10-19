@@ -910,6 +910,13 @@
         "skill": "锤击地面，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害（英雄另受6%最大生命），地面<#ef5350ff>减速25%<>，<#ffb900ff>1秒<>后再炸一次。",
         "skill2": "冲向敌方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并推着他走，结束时<#ef5350ff>眩晕0.75秒<>。",
         "ult": "身边有2个以上敌方英雄时砸地：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害并<#ef5350ff>击飞1秒<>；否则蓄力抡锤推出冲击波，打中的英雄受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害并<#ef5350ff>被打飞到远处<>。"
+      },
+      "league_volibear": {
+        "name": "沃利贝尔",
+        "attack": "<#ff9028ff>狂雷渐起<>：攻击和技能叠攻速（每层6%，5层）；满层后攻击放出闪电，<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害。<#ff9028ff>暴怒撕咬<>：每<#ffb900ff>5秒<>攻击变成撕咬，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理伤害并标记英雄，再咬时伤害+50%并回复<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>生命。",
+        "skill": "移速+40%冲向敌方英雄，扑上去造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>物理伤害并<#ef5350ff>眩晕1秒<>。",
+        "skill2": "召雷劈向目标区域，<#ffb900ff>1.5秒<>后造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害（英雄另受6%最大生命），<#ef5350ff>减速40%<>；自己在范围内时得到<#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>75%<>护盾。",
+        "ult": "跃向敌方英雄砸地，周围敌人受<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理伤害并<#ef5350ff>减速50%<>；之后<#ffb900ff>12秒<>内生命+350、攻击距离增加。"
       }
     },
     "skill_name": {
@@ -1562,6 +1569,11 @@
         "skill1": "圣锤猛击",
         "skill2": "英勇冲锋",
         "ult": "持卫的裁决"
+      },
+      "league_volibear": {
+        "skill1": "擂首一击",
+        "skill2": "霹天雳地",
+        "ult": "天声震落"
       }
     }
   },
@@ -2476,6 +2488,13 @@
         "skill": "錘擊地面，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害（英雄另受6%最大生命），地面<#ef5350ff>緩速25%<>，<#ffb900ff>1秒<>後再炸一次。",
         "skill2": "衝向敵方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並推著他走，結束時<#ef5350ff>暈眩0.75秒<>。",
         "ult": "身邊有2個以上敵方英雄時砸地：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害並<#ef5350ff>擊飛1秒<>；否則蓄力掄錘推出衝擊波，打中的英雄受<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害並<#ef5350ff>被打飛到遠處<>。"
+      },
+      "league_volibear": {
+        "name": "弗力貝爾",
+        "attack": "<#ff9028ff>無情風暴<>：攻擊和技能疊攻速（每層6%，5層）；滿層後攻擊放出閃電，<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害。<#ff9028ff>狂熊撕咬<>：每<#ffb900ff>5秒<>攻擊變成撕咬，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理傷害並標記英雄，再咬時傷害+50%並回復<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>生命。",
+        "skill": "移速+40%衝向敵方英雄，撲上去造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>物理傷害並<#ef5350ff>暈眩1秒<>。",
+        "skill2": "召雷劈向目標區域，<#ffb900ff>1.5秒<>後造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害（英雄另受6%最大生命），<#ef5350ff>緩速40%<>；自己在範圍內時得到<#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>75%<>護盾。",
+        "ult": "躍向敵方英雄砸地，周圍敵人受<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理傷害並<#ef5350ff>緩速50%<>；之後<#ffb900ff>12秒<>內生命+350、攻擊距離增加。"
       }
     },
     "skill_name": {
@@ -3128,6 +3147,11 @@
         "skill1": "戰槌衝擊",
         "skill2": "英勇衝鋒",
         "ult": "守護者裁決"
+      },
+      "league_volibear": {
+        "skill1": "雷霆貫擊",
+        "skill2": "蒼穹裂隙",
+        "ult": "風暴使者"
       }
     }
   },
@@ -4042,6 +4066,13 @@
         "skill": "Slams the ground for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage (+6% max health to champions); the ground <#ef5350ff>slows 25%<> and ruptures again after <#ffb900ff>1s<>.",
         "skill2": "Charges an enemy champion for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and carries them; at the end they are <#ef5350ff>stunned 0.75s<>.",
         "ult": "With 2+ enemy champions close she slams the ground: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage and <#ef5350ff>knock-up 1s<>. Otherwise she charges and swings a shockwave: champions hit take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage and are <#ef5350ff>knocked far away<>."
+      },
+      "league_volibear": {
+        "name": "Volibear",
+        "attack": "<#ff9028ff>The Relentless Storm<>: attacks and spells stack attack speed (6% each, 5); at 5 his attacks loose lightning for <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>. <#ff9028ff>Frenzied Maul<>: every <#ffb900ff>5s<> an attack becomes a maul for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> physical damage and marks a champion; mauling a marked one deals 50% more and heals <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>.",
+        "skill": "Rushes at an enemy champion with 40% move speed and pounces for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> physical damage, <#ef5350ff>stunning 1s<>.",
+        "skill2": "Calls lightning on an area: after <#ffb900ff>1.5s<> it deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage (+6% max health to champions) and <#ef5350ff>slows 40%<>; standing in it shields him for <#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>75%<>.",
+        "ult": "Leaps onto an enemy champion: enemies around take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> physical damage and are <#ef5350ff>slowed 50%<>; for <#ffb900ff>12s<> he has +350 health and more attack range."
       }
     },
     "skill_name": {
@@ -4694,6 +4725,11 @@
         "skill1": "Hammer Shock",
         "skill2": "Heroic Charge",
         "ult": "Keeper's Verdict"
+      },
+      "league_volibear": {
+        "skill1": "Thundering Smash",
+        "skill2": "Sky Splitter",
+        "ult": "Stormbringer"
       }
     }
   },
@@ -5608,6 +5644,13 @@
         "skill": "땅을 내리쳐 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해(챔피언은 최대 체력 6% 추가), 땅이 <#ef5350ff>25% 둔화<>, <#ffb900ff>1초<> 뒤 다시 폭발.",
         "skill2": "적 챔피언에게 돌진해 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해를 주고 밀고 나가며, 끝에 <#ef5350ff>0.75초 기절<>.",
         "ult": "주변에 적 챔피언 2명 이상이면 땅을 내리쳐 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해와 <#ef5350ff>1초 에어본<>; 아니면 모았다 휘둘러 충격파: 맞은 챔피언은 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해를 입고 <#ef5350ff>멀리 날아감<>."
+      },
+      "league_volibear": {
+        "name": "볼리베어",
+        "attack": "<#ff9028ff>무자비한 폭풍<>: 공격과 스킬이 공격 속도 중첩(중첩당 6%, 5회); 5회면 공격이 번개를 내뿜어 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해. <#ff9028ff>광란의 상처<>: <#ffb900ff>5초<>마다 공격이 할퀴기로 바뀌어 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해와 표식; 표식 대상에게는 피해 50% 증가, <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<> 회복.",
+        "skill": "이동 속도 +40%로 적 챔피언에게 돌진해 덮쳐 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> 물리 피해와 <#ef5350ff>1초 기절<>.",
+        "skill2": "지역에 번개를 불러 <#ffb900ff>1.5초<> 뒤 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해(챔피언은 최대 체력 6% 추가)와 <#ef5350ff>40% 둔화<>; 범위 안에 있으면 <#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>75%<> 보호막.",
+        "ult": "적 챔피언에게 도약해 주변 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> 물리 피해와 <#ef5350ff>50% 둔화<>; <#ffb900ff>12초<> 동안 체력 +350, 사거리 증가."
       }
     },
     "skill_name": {
@@ -6260,6 +6303,11 @@
         "skill1": "망치 강타",
         "skill2": "용감한 돌진",
         "ult": "수호자의 심판"
+      },
+      "league_volibear": {
+        "skill1": "번개 강타",
+        "skill2": "천공 분열",
+        "ult": "폭풍을 부르는 자"
       }
     }
   },
@@ -7174,6 +7222,13 @@
         "skill": "地面を叩き<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージ（チャンピオンは最大体力の6%追加）、地面は<#ef5350ff>25%スロウ<>、<#ffb900ff>1秒<>後に再び爆発。",
         "skill2": "敵チャンピオンへ突進し<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージを与えて押し運び、最後に<#ef5350ff>0.75秒スタン<>。",
         "ult": "近くに敵チャンピオン2体以上なら地面を叩き<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージと<#ef5350ff>1秒ノックアップ<>；そうでなければ溜めて衝撃波：当たったチャンピオンは<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージで<#ef5350ff>遠くへ吹き飛ぶ<>。"
+      },
+      "league_volibear": {
+        "name": "ボリベア",
+        "attack": "<#ff9028ff>無慈悲の嵐<>：攻撃とスキルで攻撃速度スタック（1つ6%、5つ）；5つで攻撃が稲妻を放ち<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ。<#ff9028ff>激昂の斬撃<>：<#ffb900ff>5秒<>ごとに攻撃が噛みつきになり<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージとマーク；マーク中は50%増し、<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>回復。",
+        "skill": "移動速度+40%で敵チャンピオンへ突進し、飛びかかって<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の物理ダメージと<#ef5350ff>1秒スタン<>。",
+        "skill2": "範囲に雷を呼び<#ffb900ff>1.5秒<>後に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ（チャンピオンは最大体力の6%追加）と<#ef5350ff>40%スロウ<>；範囲内にいると<#66bb6aff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>75%<>のシールド。",
+        "ult": "敵チャンピオンへ跳びかかり周りの敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の物理ダメージと<#ef5350ff>50%スロウ<>；<#ffb900ff>12秒<>体力+350、射程増加。"
       }
     },
     "skill_name": {
@@ -7826,6 +7881,11 @@
         "skill1": "ハンマーショック",
         "skill2": "ヒロイックチャージ",
         "ult": "守護者の鉄鎚"
+      },
+      "league_volibear": {
+        "skill1": "稲妻の猛攻",
+        "skill2": "天破の一撃",
+        "ult": "嵐を起こす者"
       }
     }
   }

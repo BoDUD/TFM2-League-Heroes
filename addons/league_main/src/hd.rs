@@ -93,6 +93,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Poppy: posed by tools/art/rig_poppy.py at the user's 1.3 squares a game pixel (36 game rows pigtails to soles, the
     // hammer's haft above: 「游戏里 36 像素高，PPU 1.3」), so no SIZES row
     ("league_poppy", 1.2, include_str!("../../../league/champions/league_poppy#anim.fanim")),
+    // Volibear: posed by tools/art/rig_volibear.py at the user's 1.2 squares a game pixel (44 game rows ear top to soles:
+    // 「44 像素，PPU 1.2」), the arm poses, the walk and Q from Codex on the same grid, so no SIZES row
+    ("league_volibear", 1.2, include_str!("../../../league/champions/league_volibear#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

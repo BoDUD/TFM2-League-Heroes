@@ -37,8 +37,9 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing
 E = "<>"
-# champion_view: the face point between his eyes (ppu_restyle face_to); banpick_center: the card rule (-39 - top)
-VIEW = {"face": {"x": 6, "y": -26}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -12}}
+# champion_view: the face point between his eyes (38 game px above his feet, 6 right of the stand: tfm2_ase.py face puts
+# the crown at 43); banpick_center -7: the card rule (-39 - top: the ears 31.5 over the pivot, the soles 11.5 under it)
+VIEW = {"face": {"x": 6, "y": -38}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -7}}
 
 
 def mag(d, r):
