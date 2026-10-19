@@ -26,7 +26,7 @@ from build_quinn import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_quinn"
-VERSION = "0.166.0"   # bumped at the PR, after asking the other sessions (main 0.165.0; Yuumi #135 0.167.0)
+VERSION = "0.167.0"   # bumped at the PR, after asking the other sessions (main 0.166.0 with Powder #381; Yuumi #135 0.168.0)
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names, physical damage

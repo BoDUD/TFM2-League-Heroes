@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.166.0"
+      "version": ">=0.167.0"
     }
   ],
   "description": "Test build of Quinn as in League (needs League of Legends Heroes): replaces the main pack's Quinn so Behind Enemy Lines mounts her on Valor for a few seconds at full speed and her next attack, Q or E - or the ride running out - lands with Skystrike (the main pack: one ride straight at the target), and on screen she rides Valor while it lasts. Other champions are untouched. Writes a log for testing.",
