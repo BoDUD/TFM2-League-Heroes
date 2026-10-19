@@ -253,10 +253,14 @@ def frames_all(F):
     def breathe(c):
         return R.compose(rig, [(legs, dict(dy=0)), (top, dict(dy=c))])
     out["idle"] = [breathe(c) for c in (0, 0, 0, 1, 1, 1, 1, 0)]
-    # auto attack (League's rammus_attack1: he rears back, then lunges and swipes): drawn back, the lunge with the arm
-    # swung forward (the blow, frame 3), held, back
-    out["attack"] = [p(whole=(-2, 0), **BACK), p(crouch=1, whole=(-1, 0), **BACK), p(whole=(3, 0), **FWD),
-                     p(whole=(4, 0), **FWD), p(whole=(2, 0)), p()]
+    # auto attack (League's rammus_attack1: he tucks in and throws himself forward head over heels, the shell slamming
+    # into the target, and lands back on his feet; the user: 「普攻和英雄联盟不一样吧？」 - it was an arm swipe): crouched,
+    # the whole figure a quarter turn forward (clockwise) in the air, upside down on the target (the blow, frame 3),
+    # three quarters round, back on his feet, standing
+    def tumble(k, dx, up):
+        return shift(R.lie(rig, p(), k, dx=dx, sink=0), 0, -up)
+    out["attack"] = [p(crouch=2, whole=(-1, 0)), tumble(3, 3, 4), tumble(2, 6, 3), tumble(1, 5, 1), p(whole=(2, 0)),
+                     p()]
     # Q Powerball (League's rammus_spell1_windup: he tucks in and curls up into the ball): crouched, curled, the ball
     out["skill"] = [p(crouch=2), F.whole("curl"), F.ball()]
     # the roll: the ball a quarter turn clockwise each frame (rolling to the right)
