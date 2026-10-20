@@ -16,6 +16,11 @@
 //! - **结束**：时间到、他阵亡、或数据的大招拿掉了 `league_viego_p_on`（英雄联盟：放 R 回到本体）——拿掉外形和类别 buff，
 //!   挂 `league_viego_p_off` 让数据播回到本体的雾。
 //!
+//! - **破败之雾**（0.2.0，用户 2026-10-20：「佛耶哥的二技能被ai当成点控用了，没法利用破败之雾抓人。把开雾写成一个有内置cd的
+//!   靠近敌方英雄一定范围自动触发的隐身技能」）：副本的 W 只剩千载幽咽（冲刺吐魂眩晕），黑雾由被动自己升起——看得见的敌方
+//!   英雄进到 `e_trig` 以内、离上次 `e_cd` tick 以上、没在附身：`league_viego_e_on`（e_t tick，移速 +e_ms%、攻速 +e_as%，
+//!   同数据原来的雾）、隐身 e_hide tick（`entity_set_invisible`）、黑雾的画面和声音（`league_viego_e_zone`、`_e`、`_e_mist`）。
+//!
 //! 原生代码只做判断和 buff；画面、伤害在数据里。整身外形只在游戏 0.6.4 上（显示钩子核对函数开头），别的版本只有数据的黑雾。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_viego_soul.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
@@ -190,13 +195,21 @@ pub struct Params {
     pub soul_t: u32,
     pub s_range: u32,
     pub soul_dash: u32,
+    /// the mist (0.2.0): its buff's ticks, move / attack speed %, the pause between two, the reach that raises it,
+    /// the ticks hidden
+    pub e_t: u32,
+    pub e_ms: u32,
+    pub e_as: u32,
+    pub e_cd: u32,
+    pub e_trig: u32,
+    pub e_hide: u32,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Params { p_t: 600, p_inv: 60, p_heal: 60, p_heal_ratio: 50, p_ad: 25, p_as: 30, p_ms: 15, p_skill: 10000,
                  p_ult: 0, p_win: 180, soul_r: 35000, soul_t: 480, s_range: 25000,
-                 soul_dash: 90000 }
+                 soul_dash: 90000, e_t: 300, e_ms: 30, e_as: 40, e_cd: 600, e_trig: 90000, e_hide: 120 }
     }
 }
 
@@ -231,9 +244,50 @@ pub struct Possess {
     pub seen: (bool, bool),
     /// This sim's number (`SIM_TAG`), drawn at the first update.
     pub sim_no: u64,
+    /// The mist may rise again from this tick (0.2.0), and how many times it rose.
+    pub mist_at: usize,
+    pub mists: usize,
+}
+
+/// 破败之雾升不升：没在附身、冷却过了、最近的看得见的敌方英雄在 `trig` 以内（`nearest` = 距离）。
+pub fn mist_due(possessed: bool, now: usize, mist_at: usize, nearest: Option<u64>, trig: u64) -> bool {
+    !possessed && now >= mist_at && nearest.is_some_and(|d| d <= trig)
 }
 
 impl Possess {
+    /// 破败之雾（0.2.0）：敌方英雄靠近就自己升起，每 e_cd tick 最多一次。
+    fn mist(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, mpos: (u64, u64)) {
+        let now = sim.tick();
+        let nearest = (0..sim.champion_count())
+            .filter_map(|i| sim.get_entity(sim.champion_id_at(i)))
+            .filter(|c| c.team() != team && c.is_alive() && c.is_targetable() && sim.is_visible(team, c.id()))
+            .map(|c| dist(c.pos(), mpos))
+            .min();
+        if !mist_due(self.on.is_some(), now, self.mist_at, nearest, self.p.e_trig as u64) {
+            return;
+        }
+        let p = self.p.clone();
+        let mut on = timed("league_viego_e_on", p.e_t);
+        on.move_speed_mult = p.e_ms as i32;
+        on.attack_speed_mult = p.e_as as i32;
+        sim.entity_remove_buff(me, "league_viego_e_on");
+        sim.add_buff(me, &on);
+        let hidden = sim.entity_set_invisible(me, p.e_hide as usize);
+        let here = InputTargetV1::pos(mpos.0, mpos.1);
+        sim.play_view_effect("league_viego_e_zone", me, &here, 0, 0, 0);
+        let on_me = InputTargetV1::target(me);
+        for s in ["league_viego_e", "league_viego_e_mist", "league_viego_vo_e"] {
+            sim.play_sfx(s, me, &on_me);
+        }
+        self.mist_at = now + p.e_cd as usize;
+        self.mists += 1;
+        if self.mists <= 40 || self.mists % 25 == 0 {
+            wlog(format!("{} MIST #{}: an enemy champion {} away (reach {}), +{}% move / +{}% attack speed {} ticks, hidden {} ticks{}",
+                head(sim, me), self.mists, nearest.unwrap_or(0), p.e_trig, p.e_ms, p.e_as, p.e_t, p.e_hide,
+                if hidden { "" } else { " (entity_set_invisible refused)" }));
+        }
+    }
+
     /// 一个有标记的敌方英雄阵亡（`died` tick，最后一次看到标记在 `seen`）：算不算他的功劳。
     pub fn credited(&self, seen: usize, died: usize) -> bool {
         died <= seen + 3 || died - seen <= self.p.p_win as usize
@@ -336,6 +390,12 @@ impl StablePassive for Possess {
             soul_t: g("soul_t", d.soul_t),
             s_range: g("s_range", d.s_range),
             soul_dash: g("soul_dash", d.soul_dash),
+            e_t: g("e_t", d.e_t),
+            e_ms: g("e_ms", d.e_ms),
+            e_as: g("e_as", d.e_as),
+            e_cd: g("e_cd", d.e_cd),
+            e_trig: g("e_trig", d.e_trig),
+            e_hide: g("e_hide", d.e_hide),
         };
     }
 
@@ -441,6 +501,7 @@ impl StablePassive for Possess {
                 let s = self.souls.remove(i);
                 self.possess(sim, me, s);
             }
+            self.mist(sim, me, team, mpos);
         }
     }
 }
@@ -453,7 +514,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.4) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.4; the mist rises by itself near enemy champions) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -482,6 +543,27 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_mist_rises_near_an_enemy_champion_once_a_pause() {
+        assert!(mist_due(false, 1000, 0, Some(60000), 90000));
+        assert!(!mist_due(false, 1000, 0, Some(95000), 90000)); // too far
+        assert!(!mist_due(false, 1000, 0, None, 90000)); // nobody in sight
+        assert!(!mist_due(false, 1000, 1200, Some(60000), 90000)); // its pause
+        assert!(!mist_due(true, 1000, 0, Some(60000), 90000)); // possessed: the soul's own mist
+        let mut p = Possess::default();
+        p.configure(r#"{"e_cd":480,"e_trig":80000,"e_hide":90}"#);
+        assert_eq!((p.p.e_cd, p.p.e_trig, p.p.e_hide, p.p.e_ms), (480, 80000, 90, 30));
+    }
+
+    #[test]
+    fn the_copy_hands_the_mist_to_the_add_on() {
+        let copy = include_str!("../override/league_viego.data_champion");
+        for k in ["\"e_cd\"", "\"e_trig\"", "\"e_hide\""] {
+            assert!(copy.contains(k), "{k} missing from the copy's passive params");
+        }
+        assert!(copy.contains("description.league_viego_soul.skill2"));
+    }
 
     #[test]
     fn params_are_read_from_the_passive_json() {

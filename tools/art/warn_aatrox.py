@@ -8,7 +8,8 @@ cells in aatrox_fx_anchors.json; also World Ender's fear ring (aatrox_fx_r_fear_
 League (wiki, The Darkin Blade): Q1 a 625 x 180 rectangle from him, the sweet spot at the far edge; Q2 a trapezoid from
 100 behind him to 475 ahead, 300 -> 500 wide, the sweet spot at the far edge; Q3 a 300-radius circle 200 ahead with a
 180-radius sweet spot inside. The angle is fixed for the 0.6 s wind-up and the shape shows on the ground meanwhile.
-Here: Q1 45 x 13 px, Q2 42 px long (7 behind) and 22 -> 36 across, Q3 a 22-px circle with a 13-px middle.
+Here (x RANGE 1.1 since 2026-10-20): Q1 50 x 14 px, Q2 46 px long (8 behind) and 24 -> 40 across, Q3 a 24-px circle
+with a 14-px middle (before: 45 x 13, 42 and 22 -> 36, 22 / 13).
 
 One frame every STEP ticks from the cast to the blow (BLOW, build_aatrox.py q_hit_t): frame k is the wind-up after
 (k + 1) x STEP ticks, the fill reaching that share of the shape from his side (Q1, Q2) or from the middle (Q3, from a
@@ -51,9 +52,12 @@ N = BLOW // STEP                        # frames over the wind-up
 
 DARK, RED, BRIGHT, ORANGE, GOLD = "8F0E2B", "B8102A", "E0202E", "FF5A2A", "FFB347"
 
-Q1 = dict(length=45, half=6.5, sweet=9)                       # 625 x 180, the far 125
-Q2 = dict(back=7, front=34.5, half0=11, half1=18, sweet=7)     # -100..475, 300 -> 500, the far 100
-Q3 = dict(r=22, sweet=13)                                      # 300, 180
+# every Q shape 10% bigger since 2026-10-20 (tools/fix/aatrox_q_tune.py RANGE; the user: 「要是能稍微增加一点技能范围
+#就更好了」): League's sizes x 72.7 x RANGE
+RANGE = 1.1
+Q1 = dict(length=int(round(45 * RANGE)), half=6.5 * RANGE, sweet=9 * RANGE)        # 625 x 180, the far 125
+Q2 = dict(back=7 * RANGE, front=34.5 * RANGE, half0=11 * RANGE, half1=18 * RANGE, sweet=7 * RANGE)  # -100..475, 300 -> 500
+Q3 = dict(r=int(round(22 * RANGE)), sweet=13 * RANGE)                              # 300, 180
 Q3_MIN = 2.6                    # the first frames' disc (r 1.2 / 2.4 were a 5-square plus alone in the circle)
 SHADE = ("1A0A22", "34163F", "5A2E6E", "8E5BA8", "C9A6D8")    # import_aatrox.RAMPS["SHADE"]
 FEAR_RX, FEAR_RY = 10.5, 4.5    # the fear ring's half axes (px): 21 x 9, out past a minion's or a champion's feet

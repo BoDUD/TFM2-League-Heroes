@@ -45,6 +45,21 @@ TEXT = {
           "憑依：その体になり系統（ファイター・射手・メイジ・サポート・アサシン）の技を使う。" + R + "{p_inv}秒無敵" + E + "、攻撃力+{p_ad}%・攻撃速度+{p_as}%、QとWのクールダウン半減。",
 }
 
+# W in the copy (0.2.0): the mist rises by itself near enemy champions, W is the maw alone - setup_viego's W text with
+# its mist clause rewritten: (old, new) per language, each once in setup_viego.TEXT[lang]["skill2"]
+W_SWAP = {
+    "zh-hans": [("：黑雾升起，", "（附加包）：敌方英雄进到附近时黑雾自己升起（每{e_cd}秒最多一次），"),
+                ("站在黑雾里（留{e_zs}秒）时隐身。随后冲刺并吐出亡魂", "隐身{e_hide}秒。W 千载幽咽：冲刺并吐出亡魂")],
+    "zh-hant": [("：黑霧升起，", "（擴充包）：敵方英雄靠近時黑霧自己升起（每{e_cd}秒最多一次），"),
+                ("站在黑霧裡（留{e_zs}秒）時隱身。隨後衝刺並吐出亡魂", "隱身{e_hide}秒。W 冥魂之噬：衝刺並吐出亡魂")],
+    "en": [(": mist rises - ", " (add-on): the mist rises by itself when an enemy champion comes near (once every {e_cd}s) - "),
+           ("hidden while in the mist ({e_zs}s). Then he dashes", "hidden {e_hide}s. W Spectral Maw: he dashes")],
+    "ko": [(": 안개가 일어 ", "(확장팩): 적 챔피언이 가까이 오면 안개가 저절로 일어 ({e_cd}초마다 최대 1번) "),
+           ("안개 속({e_zs}초)에서는 은신. 이어서 돌진하며", "{e_hide}초 은신. W 망령의 나락: 돌진하며")],
+    "ja": [("：霧が立ちのぼり", "（拡張）：敵チャンピオンが近づくと霧が自然に立ちのぼり（{e_cd}秒に1回まで）"),
+           ("霧の中（{e_zs}秒）では透明。続けて突進し", "{e_hide}秒透明。W 亡霊の嘆き：突進し")],
+}
+
 
 def lp(path):
     """Windows long-path form: the repo can sit deep under the user's profile."""
@@ -111,6 +126,7 @@ def main():
         if name not in json.dumps(champion):
             sys.exit(f"{name} is gone from the copy: update src/lib.rs")
     champion["attack"]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.attack"
+    champion["skill2"]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.skill2"
     table = souls(a.game)
 
     v = {k: p[k] for k in ("p_ad", "p_as")}
@@ -120,6 +136,21 @@ def main():
             if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
+    w_src = {}
+    for lang, pairs in W_SWAP.items():
+        src = setup.TEXT[lang]["skill2"]
+        for old, new in pairs:
+            if src.count(old) != 1:
+                sys.exit(f"{lang}.skill2: {old!r} is not once in setup_viego.TEXT")
+            src = src.replace(old, new)
+        w_src[lang] = src
+    wv = setup.values(p)
+    wv.update({k: setup.secs(p[k]) for k in ("e_cd", "e_hide")})
+    w_texts = {lang: t.format(**wv) for lang, t in w_src.items()}
+    long = {lang: setup.shown_length(t) for lang, t in w_texts.items()
+            if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
+    if long:
+        sys.exit("W tooltip too long for the details panel: %s" % long)
     main_text = load(os.path.join(ROOT, "league", "text", "champion.i18n"))
     missing = set(main_text) - set(texts)
     if missing:
@@ -132,7 +163,8 @@ def main():
     out_text = os.path.join(ADDON, "text", "champion.i18n")
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
-        f.write(json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang]}}} for lang in main_text},
+        f.write(json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang], "skill2": w_texts[lang]}}}
+                            for lang in main_text},
                            ensure_ascii=False, indent=2) + "\n")
     with open(lp(os.path.join(ADDON, "src", "souls.rs")), "w", encoding="utf-8", newline="\n") as f:
         f.write(souls_rs(table))
@@ -142,6 +174,7 @@ def main():
     print("wrote", os.path.relpath(out, ROOT), os.path.relpath(out_text, ROOT), "src/souls.rs -", len(table),
           "champions", cats)
     print("tooltip lengths", {lang: f"{setup.shown_length(TEXT[lang])}/{setup.TOOLTIP_MAX[lang]}" for lang in TEXT})
+    print("W tooltip lengths", {lang: f"{setup.shown_length(t)}/{setup.TOOLTIP_MAX[lang]}" for lang, t in w_texts.items()})
 
 
 if __name__ == "__main__":

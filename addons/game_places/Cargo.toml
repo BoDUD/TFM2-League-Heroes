@@ -1,0 +1,10 @@
+[package]
+name = "game_places"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Finds league.dll's and the whole-body add-ons' places in the game EXE at run time (byte patterns made offline by
+# tools/re/make_sigs.py), so a game update that keeps the code's shape needs no new addresses. Linked into league.dll
+# (league_main) and every add-on with a display hook.
+[dependencies]

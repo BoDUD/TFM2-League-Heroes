@@ -1760,10 +1760,24 @@
         "y": -10
       }
     },
+    "league_karthus": {
+      "face": {
+        "x": 1,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
     "league_vex": {
       "face": {
         "x": 1,
-        "y": -24
+        "y": -17
       },
       "center": {
         "x": 0,

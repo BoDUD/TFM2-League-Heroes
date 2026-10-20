@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_karthus_spirit": {
+        "attack": "【附加包】<#ff9028ff>痛苦之墙<>：每<#ffb900ff>12秒<>，身边有敌方英雄时，攻击在那名英雄脚下立起一道墙（<#ffb900ff>5秒<>），墙里的敌人<#ef5350ff>减速40%<>，魔抗-20%（<#ffb900ff>4秒<>）。<#ff9028ff>死亡契约<>：受到致命伤害时化为灵体<#ffb900ff>7秒<>，敌人选不中、不受伤害，照常放技能，之后倒下。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_karthus_spirit": {
+        "attack": "【附加包】<#ff9028ff>痛苦之牆<>：每<#ffb900ff>12秒<>，身邊有敵方英雄時，攻擊在那名英雄腳下立起一道牆（<#ffb900ff>5秒<>），牆裡的敵人<#ef5350ff>緩速40%<>，魔抗-20%（<#ffb900ff>4秒<>）。<#ff9028ff>無視死亡！<>：受到致命傷害時化為靈體<#ffb900ff>7秒<>，敵人選不中、不受傷害，照常施放技能，之後倒下。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_karthus_spirit": {
+        "attack": "[Add-on] <#ff9028ff>Wall of Pain<>: every <#ffb900ff>12s<>, with an enemy champion near, his attack raises a wall at that champion for <#ffb900ff>5s<>: enemies in it are <#ef5350ff>slowed 40%<> and lose 20% magic resist for <#ffb900ff>4s<>.<#ff9028ff>Death Defied<>: a lethal blow turns him into a spirit for <#ffb900ff>7s<> - untargetable, taking no damage, still casting - before he falls."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_karthus_spirit": {
+        "attack": "[애드온] <#ff9028ff>고통의 벽<>: <#ffb900ff>12초<>마다 근처에 적 챔피언이 있으면 공격이 그 챔피언 위치에 <#ffb900ff>5초<> 동안 벽을 세움. 벽 안의 적은 <#ef5350ff>40% 둔화<>, 마법 저항력 -20% (<#ffb900ff>4초<>).<#ff9028ff>죽음 극복<>: 치명상을 입으면 <#ffb900ff>7초<> 동안 영혼이 되어 대상 지정 불가, 피해 없음, 스킬 사용 가능. 이후 쓰러짐."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_karthus_spirit": {
+        "attack": "【アドオン】<#ff9028ff>嘆きの壁<>：<#ffb900ff>12秒<>ごとに、近くに敵チャンピオンがいると通常攻撃でその位置に壁を<#ffb900ff>5秒<>立てる。壁の中の敵は<#ef5350ff>40%スロウ<>、魔法防御-20%（<#ffb900ff>4秒<>）。<#ff9028ff>怨嗟の叫び<>：致命傷を受けると<#ffb900ff>7秒<>霊体になり、対象指定不可・ダメージ無効でスキルを使い続け、その後倒れる。"
+      }
+    }
+  }
+}

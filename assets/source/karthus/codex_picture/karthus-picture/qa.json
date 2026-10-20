@@ -1,0 +1,74 @@
+[
+  {
+    "file": "karthus-A.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "alpha": "0/255 only",
+    "bbox": [
+      530,
+      587,
+      980,
+      1390
+    ],
+    "crown_to_soles_px": 704,
+    "sole_y_exclusive": 1390,
+    "raw": "exec-4de70238-fbbc-4207-94a0-6ee34ef82cd1.png",
+    "scale": 0.6672985781990521
+  },
+  {
+    "file": "karthus-B.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "alpha": "0/255 only",
+    "bbox": [
+      510,
+      686,
+      974,
+      1390
+    ],
+    "crown_to_soles_px": 704,
+    "sole_y_exclusive": 1390,
+    "raw": "exec-8d186c81-3139-42ad-8cc7-ac1553609cac.png",
+    "scale": 0.7257731958762886
+  },
+  {
+    "file": "karthus-SA.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "alpha": "0/255 only",
+    "bbox": [
+      479,
+      505,
+      950,
+      1390
+    ],
+    "crown_to_soles_px": 704,
+    "sole_y_exclusive": 1390,
+    "raw": "exec-a88da707-f3e3-49ea-a9a5-096937a70bf4.png",
+    "scale": 0.7465535524920467
+  },
+  {
+    "file": "karthus-SB.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "alpha": "0/255 only",
+    "bbox": [
+      486,
+      686,
+      946,
+      1390
+    ],
+    "crown_to_soles_px": 704,
+    "sole_y_exclusive": 1390,
+    "raw": "exec-054d724f-02ea-4409-86d1-1264bfc6e46c.png",
+    "scale": 0.7250257466529351
+  }
+]

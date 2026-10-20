@@ -361,7 +361,7 @@
       "league_aatrox": {
         "name": "亚托克斯",
         "attack": "被动 <#ff9028ff>赐死剑气<>：每<#ffb900ff>10秒<>强化一次普攻，额外造成<#ffb900ff>25<>和英雄<#ffb900ff>6%<>最大生命值的伤害并<#4caf50ff>回血<>；命中英雄冷却-2秒，剑刃边缘-4秒。对英雄的伤害<#4caf50ff>回复18%<>。",
-        "skill": "可连放三段，形状各异，每段+<#ffb900ff>25%<>，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>物理伤害；剑刃边缘命中再+<#ffb900ff>60%<>并<#ef5350ff>击飞<>。<#ff9028ff>暗影冲决<>就绪时先冲刺，把敌人送到剑刃边缘。",
+        "skill": "可连放三段，形状各异，每段+<#ffb900ff>25%<>，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>176%<>物理伤害；剑刃边缘命中再+<#ffb900ff>60%<>并<#ef5350ff>击飞<>。<#ff9028ff>暗影冲决<>就绪时先冲刺，把敌人送到剑刃边缘。",
         "skill2": "甩出锁链，第一个敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害；被锁住的英雄<#ffb900ff>1.5秒<>后被<#ef5350ff>拖回<>再受一次伤害。",
         "ult": "显现恶魔形态<#ffb900ff>10秒<>：<#ef5350ff>恐惧<>附近小兵和野怪，攻击力+<#ffb900ff>25%<>，自我治疗+<#4caf50ff>50%<>，移速+<#ffb900ff>45%<>并逐渐衰减。击杀英雄会刷新持续时间。"
       },
@@ -952,6 +952,13 @@
         "skill": "地面破裂，<#ffb900ff>0.6秒<>后尖刺冲出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害，<#ef5350ff>击飞0.75秒<>并<#ef5350ff>减速60%<>。",
         "skill2": "向前方锥形区域尖叫，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并<#ef5350ff>沉默1.8秒<>。",
         "ult": "吞噬受伤的敌方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真实伤害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>无视魔抗的魔法伤害；吃掉则叠一层：最大生命+70、体型变大（不封顶，死亡清空）。"
+      },
+      "league_karthus": {
+        "name": "卡尔萨斯",
+        "attack": "<#ff9028ff>痛苦之墙<>：每<#ffb900ff>12秒<>，身边有敌方英雄时，攻击在那名英雄脚下立起一道墙（<#ffb900ff>5秒<>），墙里的敌人<#ef5350ff>减速40%<>，魔抗-20%（<#ffb900ff>4秒<>）。",
+        "skill": "目标处<#ffb900ff>0.53秒<>后爆炸，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害；只炸到一个敌人时伤害翻倍。",
+        "skill2": "<#ffb900ff>5秒<>内灵魂环绕自身，每<#ffb900ff>0.25秒<>对身边敌人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>魔法伤害。",
+        "ult": "引导<#ffb900ff>3秒<>（被控制会打断），然后对全图所有敌方英雄造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>魔法伤害。"
       },
       "league_vex": {
         "name": "薇古丝",
@@ -1642,6 +1649,11 @@
         "skill2": "野性尖叫",
         "ult": "盛宴"
       },
+      "league_karthus": {
+        "skill1": "荒芜",
+        "skill2": "亵渎",
+        "ult": "安魂曲"
+      },
       "league_vex": {
         "skill1": "寒心波云",
         "skill2": "溟濛渐染",
@@ -2011,7 +2023,7 @@
       "league_aatrox": {
         "name": "厄薩斯",
         "attack": "被動 <#ff9028ff>冥使劍姿<>：每<#ffb900ff>10秒<>強化一次普攻，額外造成<#ffb900ff>25<>和英雄<#ffb900ff>6%<>最大生命值的傷害並<#4caf50ff>回血<>；命中英雄冷卻-2秒，劍刃邊緣-4秒。對英雄的傷害<#4caf50ff>回復18%<>。",
-        "skill": "可連放三段，形狀各異，每段+<#ffb900ff>25%<>，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>物理傷害；劍刃邊緣命中再+<#ffb900ff>60%<>並<#ef5350ff>擊飛<>。<#ff9028ff>冥影衝鋒<>就緒時先衝刺，把敵人送到劍刃邊緣。",
+        "skill": "可連放三段，形狀各異，每段+<#ffb900ff>25%<>，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>176%<>物理傷害；劍刃邊緣命中再+<#ffb900ff>60%<>並<#ef5350ff>擊飛<>。<#ff9028ff>冥影衝鋒<>就緒時先衝刺，把敵人送到劍刃邊緣。",
         "skill2": "甩出鎖鏈，第一個敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害；被鎖住的英雄<#ffb900ff>1.5秒<>後被<#ef5350ff>拖回<>再受一次傷害。",
         "ult": "顯現惡魔形態<#ffb900ff>10秒<>：<#ef5350ff>恐懼<>附近小兵和野怪，攻擊力+<#ffb900ff>25%<>，自我治療+<#4caf50ff>50%<>，移速+<#ffb900ff>45%<>並逐漸衰減。擊殺英雄會刷新持續時間。"
       },
@@ -2602,6 +2614,13 @@
         "skill": "地面破裂，<#ffb900ff>0.6秒<>後尖刺衝出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害，<#ef5350ff>擊飛0.75秒<>並<#ef5350ff>緩速60%<>。",
         "skill2": "向前方錐形區域尖嘯，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並<#ef5350ff>沉默1.8秒<>。",
         "ult": "吞噬受傷的敵方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真實傷害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>無視魔抗的魔法傷害；吃掉則疊一層：最大生命+70、體型變大（不封頂，死亡清空）。"
+      },
+      "league_karthus": {
+        "name": "卡爾瑟斯",
+        "attack": "<#ff9028ff>痛苦之牆<>：每<#ffb900ff>12秒<>，身邊有敵方英雄時，攻擊在那名英雄腳下立起一道牆（<#ffb900ff>5秒<>），牆裡的敵人<#ef5350ff>緩速40%<>，魔抗-20%（<#ffb900ff>4秒<>）。",
+        "skill": "目標處<#ffb900ff>0.53秒<>後爆炸，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害；只炸到一個敵人時傷害翻倍。",
+        "skill2": "<#ffb900ff>5秒<>內靈魂環繞自身，每<#ffb900ff>0.25秒<>對身邊敵人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>魔法傷害。",
+        "ult": "引導<#ffb900ff>3秒<>（被控制會打斷），然後對全圖所有敵方英雄造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>魔法傷害。"
       },
       "league_vex": {
         "name": "薇可絲",
@@ -3292,6 +3311,11 @@
         "skill2": "野性尖嘯",
         "ult": "饗宴"
       },
+      "league_karthus": {
+        "skill1": "荒蕪",
+        "skill2": "汙染",
+        "ult": "安魂曲"
+      },
       "league_vex": {
         "skill1": "冷酷暗箭",
         "skill2": "闇黑迫近",
@@ -3661,7 +3685,7 @@
       "league_aatrox": {
         "name": "Aatrox",
         "attack": "Passive <#ff9028ff>Deathbringer Stance<>: every <#ffb900ff>10s<> an attack deals <#ffb900ff>25<> more and <#ffb900ff>6%<> of a champion's max health and <#4caf50ff>heals<> him; each hit on a champion takes 2s off the wait, an edge hit 4s. He <#4caf50ff>heals 18%<> of the damage he deals to champions.",
-        "skill": "Aatrox slams his greatsword up to three times, each with a new shape and +<#ffb900ff>25%<> damage: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<>; enemies hit by the edge take <#ffb900ff>60%<> more and are <#ef5350ff>knocked up<>. With <#ff9028ff>Umbral Dash<> ready he first dashes to put a champion on the edge.",
+        "skill": "Aatrox slams his greatsword up to three times, each with a new shape and +<#ffb900ff>25%<> damage: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>176%<> <#ff9028ff>physical damage<>; enemies hit by the edge take <#ffb900ff>60%<> more and are <#ef5350ff>knocked up<>. With <#ff9028ff>Umbral Dash<> ready he first dashes to put a champion on the edge.",
         "skill2": "Aatrox fires a chain: the first enemy hit takes <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>; a champion it hits is chained: <#ffb900ff>1.5s<> later it is <#ef5350ff>pulled back<> and hit again.",
         "ult": "Aatrox reveals his demonic form for <#ffb900ff>10s<>: nearby minions and monsters are <#ef5350ff>feared<>, he gains <#ffb900ff>25%<> attack damage, <#4caf50ff>50%<> more self-healing and <#ffb900ff>45%<> move speed that decays. Champion kills refresh it."
       },
@@ -4252,6 +4276,13 @@
         "skill": "Ruptures the ground: after <#ffb900ff>0.6s<> spikes burst out for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage, <#ef5350ff>knocking up 0.75s<> and <#ef5350ff>slowing 60%<>.",
         "skill2": "Screams in a cone ahead: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and <#ef5350ff>silence 1.8s<>.",
         "ult": "Devours a wounded enemy champion: <#ff9028ff>300<> + 5% of his max health as true damage and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage through all magic resist. A kill is a stack: +70 max health and a bigger body (no cap; lost on death)."
+      },
+      "league_karthus": {
+        "name": "Karthus",
+        "attack": "<#ff9028ff>Wall of Pain<>: every <#ffb900ff>12s<>, with an enemy champion near, his attack raises a wall at that champion for <#ffb900ff>5s<>: enemies in it are <#ef5350ff>slowed 40%<> and lose 20% magic resist for <#ffb900ff>4s<>.",
+        "skill": "After <#ffb900ff>0.53s<> the target spot blasts for <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage, doubled when it hits a single enemy.",
+        "skill2": "For <#ffb900ff>5s<> souls whirl round him, dealing <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<> magic damage to nearby enemies every <#ffb900ff>0.25s<>.",
+        "ult": "Channels <#ffb900ff>3s<> (crowd control breaks it), then deals <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> magic damage to every enemy champion on the map."
       },
       "league_vex": {
         "name": "Vex",
@@ -4942,6 +4973,11 @@
         "skill2": "Feral Scream",
         "ult": "Feast"
       },
+      "league_karthus": {
+        "skill1": "Lay Waste",
+        "skill2": "Defile",
+        "ult": "Requiem"
+      },
       "league_vex": {
         "skill1": "Mistral Bolt",
         "skill2": "Looming Darkness",
@@ -5311,7 +5347,7 @@
       "league_aatrox": {
         "name": "아트록스",
         "attack": "기본 지속 효과 <#ff9028ff>사신 태세<>: <#ffb900ff>10초<>마다 기본 공격이 <#ffb900ff>25<> 추가 피해와 챔피언 최대 체력의 <#ffb900ff>6%<> 피해를 입히고 <#4caf50ff>체력을 회복<>합니다. 챔피언 적중 시 -2초, 검날 끝 적중 시 -4초. 챔피언에게 입힌 피해의 <#4caf50ff>18%<> 회복.",
-        "skill": "대검을 최대 세 번 내리치며 매번 모양이 바뀌고 피해 +<#ffb900ff>25%<>: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>물리 피해<>. 검날 끝에 맞으면 <#ffb900ff>60%<> 추가 피해와 <#ef5350ff>에어본<>. <#ff9028ff>파멸의 돌진<>이 준비되면 먼저 돌진해 챔피언을 검날 끝에 둡니다.",
+        "skill": "대검을 최대 세 번 내리치며 매번 모양이 바뀌고 피해 +<#ffb900ff>25%<>: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>176%<> <#ff9028ff>물리 피해<>. 검날 끝에 맞으면 <#ffb900ff>60%<> 추가 피해와 <#ef5350ff>에어본<>. <#ff9028ff>파멸의 돌진<>이 준비되면 먼저 돌진해 챔피언을 검날 끝에 둡니다.",
         "skill2": "사슬을 던져 처음 맞은 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>물리 피해<>를 줍니다. 사슬에 묶인 챔피언은 <#ffb900ff>1.5초<> 뒤 <#ef5350ff>끌려와<> 다시 피해를 입습니다.",
         "ult": "<#ffb900ff>10초<> 동안 악마 형태: 주변 미니언과 몬스터 <#ef5350ff>공포<>, 공격력 +<#ffb900ff>25%<>, 자가 회복 +<#4caf50ff>50%<>, 이동 속도 +<#ffb900ff>45%<>(점차 감소). 챔피언 처치 시 지속 시간 초기화."
       },
@@ -5902,6 +5938,13 @@
         "skill": "땅을 갈라 <#ffb900ff>0.6초<> 뒤 가시가 솟아 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해, <#ef5350ff>0.75초 에어본<>, <#ef5350ff>60% 둔화<>.",
         "skill2": "전방 원뿔에 울부짖어 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해와 <#ef5350ff>1.8초 침묵<>.",
         "ult": "부상당한 적 챔피언을 삼켜 <#ff9028ff>300<> + 5% (자신의 최대 체력) 고정 피해와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +70, 몸집 증가(제한 없음, 사망 시 초기화)."
+      },
+      "league_karthus": {
+        "name": "카서스",
+        "attack": "<#ff9028ff>고통의 벽<>: <#ffb900ff>12초<>마다 근처에 적 챔피언이 있으면 공격이 그 챔피언 위치에 <#ffb900ff>5초<> 동안 벽을 세움. 벽 안의 적은 <#ef5350ff>40% 둔화<>, 마법 저항력 -20% (<#ffb900ff>4초<>).",
+        "skill": "<#ffb900ff>0.53초<> 뒤 대상 위치가 폭발해 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해. 적 하나만 맞으면 피해 2배.",
+        "skill2": "<#ffb900ff>5초<> 동안 영혼이 주위를 돌며 <#ffb900ff>0.25초<>마다 근처 적에게 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<> 마법 피해.",
+        "ult": "<#ffb900ff>3초<> 정신 집중(군중 제어에 끊김) 후 맵의 모든 적 챔피언에게 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> 마법 피해."
       },
       "league_vex": {
         "name": "벡스",
@@ -6592,6 +6635,11 @@
         "skill2": "흉포한 울부짖음",
         "ult": "포식"
       },
+      "league_karthus": {
+        "skill1": "황폐화",
+        "skill2": "부패",
+        "ult": "진혼곡"
+      },
       "league_vex": {
         "skill1": "안개 화살",
         "skill2": "커지는 어둠",
@@ -6961,7 +7009,7 @@
       "league_aatrox": {
         "name": "エイトロックス",
         "attack": "パッシブ <#ff9028ff>死兆の構え<>：<#ffb900ff>10秒<>ごとに通常攻撃が<#ffb900ff>25<>と最大体力の<#ffb900ff>6%<>を追加し<#4caf50ff>回復<>。チャンピオン命中で-2秒、剣先命中で-4秒。チャンピオンへのダメージの<#4caf50ff>18%<>を回復。",
-        "skill": "大剣を最大3回振り下ろし、毎回形が変わりダメージ+<#ffb900ff>25%<>：<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>。剣先に当たると<#ffb900ff>60%<>追加し<#ef5350ff>ノックアップ<>。<#ff9028ff>影進撃<>が使えれば先に突進し剣先を合わせる。",
+        "skill": "大剣を最大3回振り下ろし、毎回形が変わりダメージ+<#ffb900ff>25%<>：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>176%<>の<#ff9028ff>物理ダメージ<>。剣先に当たると<#ffb900ff>60%<>追加し<#ef5350ff>ノックアップ<>。<#ff9028ff>影進撃<>が使えれば先に突進し剣先を合わせる。",
         "skill2": "鎖を放ち最初の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>。鎖に繋がれたチャンピオンは<#ffb900ff>1.5秒<>後に<#ef5350ff>引き戻され<>再びダメージ。",
         "ult": "<#ffb900ff>10秒<>魔の姿：周囲のミニオンとモンスターを<#ef5350ff>恐怖<>、攻撃力+<#ffb900ff>25%<>、自己回復+<#4caf50ff>50%<>、移動速度+<#ffb900ff>45%<>（減衰）。キルで効果時間リセット。"
       },
@@ -7552,6 +7600,13 @@
         "skill": "地面を割り<#ffb900ff>0.6秒<>後に棘が突き出て<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ、<#ef5350ff>0.75秒打ち上げ<>と<#ef5350ff>60%スロウ<>。",
         "skill2": "前方の扇状範囲に叫び<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ef5350ff>1.8秒サイレンス<>。",
         "ult": "傷ついた敵チャンピオンを捕食し<#ff9028ff>300<> + 5%（自身の最大体力）の確定ダメージと<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+70、体が大きくなる（上限なし、死亡で消える）。"
+      },
+      "league_karthus": {
+        "name": "カーサス",
+        "attack": "<#ff9028ff>嘆きの壁<>：<#ffb900ff>12秒<>ごとに、近くに敵チャンピオンがいると通常攻撃でその位置に壁を<#ffb900ff>5秒<>立てる。壁の中の敵は<#ef5350ff>40%スロウ<>、魔法防御-20%（<#ffb900ff>4秒<>）。",
+        "skill": "<#ffb900ff>0.53秒<>後に対象地点が爆発し<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ。敵1体だけに当たると2倍。",
+        "skill2": "<#ffb900ff>5秒<>間、魂が周囲を巡り<#ffb900ff>0.25秒<>ごとに近くの敵へ<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>の魔法ダメージ。",
+        "ult": "<#ffb900ff>3秒<>詠唱（行動妨害で中断）した後、マップ上のすべての敵チャンピオンに<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の魔法ダメージ。"
       },
       "league_vex": {
         "name": "ヴェックス",
@@ -8241,6 +8296,11 @@
         "skill1": "ラプチャー",
         "skill2": "スクリーム",
         "ult": "捕食"
+      },
+      "league_karthus": {
+        "skill1": "根絶やし",
+        "skill2": "冒涜",
+        "ult": "鎮魂歌"
       },
       "league_vex": {
         "skill1": "無気力ショット",

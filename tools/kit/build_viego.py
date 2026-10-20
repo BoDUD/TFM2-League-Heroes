@@ -66,6 +66,11 @@ P = {
     # the mist stays where it rose for e_zt ticks (radius e_r, its picture looped): inside it he is hidden (checked
     # every e_period ticks) - 「看不到迷雾隐身效果」「迷雾是一点看不到」: the 1.4 s puff played while he was hidden
     "e_zt": 150, "e_r": 30000, "e_period": 6,   # 2.5 s: 4 s added 0.6 kills a game (sim s25: +2.40 vs +1.81), 2.5 s +1.86
+    # the add-on's copy only (native=1; 2026-10-20, the user: 「佛耶哥的二技能被ai当成点控用了，没法利用破败之雾抓人。把开雾
+    # 写成一个有内置cd的靠近敌方英雄一定范围自动触发的隐身技能」): W is the maw alone and the add-on's passive raises the
+    # mist itself - an enemy champion in sight within e_trig, at most once every e_cd ticks: e_t ticks of e_ms% / e_as%,
+    # hidden e_hide ticks (League's E: cd 14-6 s, camouflage in the mist)
+    "e_cd": 600, "e_trig": 90000, "e_hide": 120,
     # then W Spectral Maw (League: charge to 1 s, dash 300, missile 500-900, 25-355 + 100% AP, stun 0.25-1.25 s; cd 8 s)
     "w_wind": 24, "w_dash": 18000, "w_dspeed": 3000, "w_len": 42000, "w_speed": 4000, "w_rad": 6000, "w_y": 4000,
     "w_dmg": 90, "w_ratio": 70, "w_stun": 66,
@@ -384,7 +389,8 @@ def build(p):
     mist = combine(refresh("e_on", p["e_t"], move_speed_mult=p["e_ms"], attack_speed_mult=p["e_as"]),
                    {"type": "CasterInvisible", "tick": p["e_inv"]}, cview("e_zone"), anchor, sfx("e"), sfx("e_mist"),
                    voice("vo_e", p))
-    w_own = combine(anim("skill2", p["w_dur"]), mist, sfx("w_charge"), delayed(p["w_wind"] - 1, maw))
+    # the add-on's copy: the mist is the add-on's (raised by itself near enemy champions), W only the maw
+    w_own = combine(anim("skill2", p["w_dur"]), NONE if native else mist, sfx("w_charge"), delayed(p["w_wind"] - 1, maw))
     if native:
         w_own = combine(take, by_soul(kits, 2, w_own))
     skill2 = action("skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion", w_own)
@@ -422,7 +428,8 @@ def build(p):
         views_b += [B_("s_slow", FX, 3), B_("s_heal", FX, 3), B_("s_haste", FX, 3)]
         extra["passive"] = {"passive_ref": "league_viego_soul:possess",
                             "params": {k: p[k] for k in ("p_t", "p_inv", "p_heal", "p_heal_ratio", "p_ad", "p_as", "p_ms",
-                                                         "p_skill", "p_ult", "p_win", "soul_r", "soul_t", "s_range")}}
+                                                         "p_skill", "p_ult", "p_win", "soul_r", "soul_t", "s_range",
+                                                         "e_t", "e_ms", "e_as", "e_cd", "e_trig", "e_hide")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC", "Heal"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
