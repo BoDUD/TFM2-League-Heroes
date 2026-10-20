@@ -1,0 +1,115 @@
+{
+ "effects": [
+  {
+   "name": "a_hit",
+   "file": "warwick_fx_a_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    16,
+    20
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "q_hit",
+   "file": "warwick_fx_q_hit.png",
+   "frames": 5,
+   "cell_1x": [
+    22,
+    22
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g01.jpg"
+  },
+  {
+   "name": "q_heal",
+   "file": "warwick_fx_q_heal.png",
+   "frames": 5,
+   "cell_1x": [
+    44,
+    48
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g02.jpg"
+  },
+  {
+   "name": "e_guard",
+   "file": "warwick_fx_e_guard.png",
+   "frames": 4,
+   "cell_1x": [
+    64,
+    54
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g03.jpg"
+  },
+  {
+   "name": "e_howl",
+   "file": "warwick_fx_e_howl.png",
+   "frames": 6,
+   "cell_1x": [
+    88,
+    32
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g04.jpg"
+  },
+  {
+   "name": "e_roar",
+   "file": "warwick_fx_e_roar.png",
+   "frames": 6,
+   "cell_1x": [
+    36,
+    26
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g05.jpg"
+  },
+  {
+   "name": "e_fear",
+   "file": "warwick_fx_e_fear.png",
+   "frames": 6,
+   "cell_1x": [
+    16,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g06.jpg"
+  },
+  {
+   "name": "r_bind",
+   "file": "warwick_fx_r_bind.png",
+   "frames": 8,
+   "cell_1x": [
+    28,
+    28
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g07.jpg"
+  },
+  {
+   "name": "r_hit",
+   "file": "warwick_fx_r_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    24,
+    23
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g08.jpg"
+  },
+  {
+   "name": "w_hunt",
+   "file": "warwick_fx_w_hunt.png",
+   "frames": 4,
+   "cell_1x": [
+    52,
+    22
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g09.jpg"
+  }
+ ],
+ "made_by": "Gemini (the user's images), processed by tools/art/process_warwick_fx.py"
+}

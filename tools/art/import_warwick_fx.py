@@ -4,8 +4,8 @@ league_warwick_big.
 
     python tools/art/import_warwick_fx.py [--review out.png]
 
-The source is Codex's step-3 delivery (assets/source/warwick/codex_fx/warwick_fx: pixel_1x/warwick_fx_<name>.png, one
-row of equal frames each at game size, frame sizes in manifest.json's entries (cell_1x); alpha 0 / 255; every picture
+The source is the step-3 delivery (assets/source/warwick/codex_fx/warwick_fx: Gemini's ten pictures brought to the
+game's size by tools/art/process_warwick_fx.py - pixel_1x/warwick_fx_<name>.png, one row of equal frames each at game size, frame sizes in manifest.json's entries (cell_1x); alpha 0 / 255; every picture
 symmetric left to right - checked again here). Each frame is cut by the manifest's frame size and placed as the kit
 plays it (import_zoe_fx.py's way): spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it,
 a point's ground too. Warwick's own pictures sit a little ahead of his standing point (his hunched body is: HIM_X).
@@ -63,7 +63,7 @@ FX = {
     "e_guard": (("feet", 0), loop(4, 120), [(HIM_X, 11)]),
     # the howl's ring: its ellipse middle 3 squares over the cell's middle - 18.5 rows over the bottom row of its 32
     "e_howl": (("feet", 18.5), seq(range(6), [50, 60, 70, 80, 90, 100]), [(HIM_X, 11)]),
-    "e_roar": (("feet", 0), seq(range(5), [60, 70, 80, 90, 100]), [HIS_HEAD]),
+    "e_roar": (("feet", 0), seq(range(6), [50, 60, 60, 70, 80, 80]), [HIS_HEAD]),
     # the fear lasts e_fear ticks: six frames over it
     "e_fear": ("core", loop(6, round(P["e_fear"] * MS / 6)), [OVERHEAD]),
     # the suppression lasts r_sup ticks: eight frames over it; the shackle's cell bottom on the champion's soles
