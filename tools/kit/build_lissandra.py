@@ -47,7 +47,7 @@ BIG = "asset/league/effects/league_lissandra_big"
 P = {
     # stats (Magician base: attack 80 +6, ability power 40 +20, hp 900 +100, defence 20 +7, mr 20 +3, move 900, range
     # 60000, attack interval 90); League's Lissandra: 550 range, a battle mage who stands in the fight
-    "hp": 920, "hp_g": 100, "atk": 80, "atk_g": 6, "mp": 40, "mp_g": 20, "def": 22, "def_g": 7, "mr": 22, "mr_g": 3,
+    "hp": 975, "hp_g": 106, "atk": 85, "atk_g": 6, "mp": 42, "mp_g": 21, "def": 22, "def_g": 7, "mr": 22, "mr_g": 3,
     "ms": 900, "ms_g": 10,
     # attack: the bolt leaves the hand on atk_st
     "atk_range": 55000, "atk_dur": 26, "atk_cd": 85, "atk_st": 13, "bolt_speed": 5000, "bolt_y": -8000,

@@ -15,9 +15,9 @@
     "asset/league/icons/league_nami_ult"
   ],
   "stat": {
-    "attack": 80,
-    "magic_power": 30,
-    "hp": 880,
+    "attack": 82,
+    "magic_power": 31,
+    "hp": 906,
     "defence": 20,
     "magic_resistance": 22,
     "move_speed": 1000,
@@ -28,7 +28,7 @@
   "growth": {
     "attack": 6,
     "magic_power": 15,
-    "hp": 85,
+    "hp": 88,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 10,

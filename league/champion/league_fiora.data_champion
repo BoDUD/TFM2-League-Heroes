@@ -15,9 +15,9 @@
     "asset/league/icons/league_fiora_ult"
   ],
   "stat": {
-    "attack": 88,
+    "attack": 91,
     "magic_power": 0,
-    "hp": 980,
+    "hp": 1009,
     "defence": 30,
     "magic_resistance": 28,
     "move_speed": 1050,
@@ -26,9 +26,9 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 18,
+    "attack": 19,
     "magic_power": 0,
-    "hp": 100,
+    "hp": 103,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 10,

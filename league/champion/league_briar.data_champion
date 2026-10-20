@@ -16,9 +16,9 @@
     "asset/league/icons/league_briar_ult"
   ],
   "stat": {
-    "attack": 90,
+    "attack": 94,
     "magic_power": 0,
-    "hp": 880,
+    "hp": 924,
     "defence": 28,
     "magic_resistance": 18,
     "move_speed": 1100,
@@ -27,9 +27,9 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 18,
+    "attack": 19,
     "magic_power": 0,
-    "hp": 95,
+    "hp": 100,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 12,

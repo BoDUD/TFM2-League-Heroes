@@ -14,9 +14,9 @@
     "asset/league/icons/league_xerath_ult"
   ],
   "stat": {
-    "attack": 78,
-    "magic_power": 42,
-    "hp": 860,
+    "attack": 83,
+    "magic_power": 45,
+    "hp": 912,
     "defence": 18,
     "magic_resistance": 20,
     "move_speed": 900,
@@ -26,8 +26,8 @@
   },
   "growth": {
     "attack": 6,
-    "magic_power": 21,
-    "hp": 95,
+    "magic_power": 22,
+    "hp": 101,
     "defence": 7,
     "magic_resistance": 4,
     "move_speed": 9,

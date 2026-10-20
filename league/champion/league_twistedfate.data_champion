@@ -14,9 +14,9 @@
     "asset/league/icons/league_twistedfate_ult"
   ],
   "stat": {
-    "attack": 85,
-    "magic_power": 40,
-    "hp": 920,
+    "attack": 90,
+    "magic_power": 42,
+    "hp": 975,
     "defence": 24,
     "magic_resistance": 22,
     "move_speed": 920,
@@ -26,8 +26,8 @@
   },
   "growth": {
     "attack": 8,
-    "magic_power": 20,
-    "hp": 100,
+    "magic_power": 21,
+    "hp": 106,
     "defence": 7,
     "magic_resistance": 3,
     "move_speed": 10,

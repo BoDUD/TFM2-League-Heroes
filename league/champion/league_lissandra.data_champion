@@ -14,9 +14,9 @@
     "asset/league/icons/league_lissandra_ult"
   ],
   "stat": {
-    "attack": 80,
-    "magic_power": 40,
-    "hp": 920,
+    "attack": 85,
+    "magic_power": 42,
+    "hp": 975,
     "defence": 22,
     "magic_resistance": 22,
     "move_speed": 900,
@@ -26,8 +26,8 @@
   },
   "growth": {
     "attack": 6,
-    "magic_power": 20,
-    "hp": 100,
+    "magic_power": 21,
+    "hp": 106,
     "defence": 7,
     "magic_resistance": 3,
     "move_speed": 10,

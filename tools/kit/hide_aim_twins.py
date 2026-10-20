@@ -16,6 +16,12 @@ longer a bare RandomTarget beside its fallback.
 
 The build scripts of these heroes call hide() before writing (tools/kit/build_<id>.py); the others' data files are
 patched in place here. Then every add-on copy of them is regenerated (its make_override.py), and league_sylas's.
+Balance after it (10-min classic-SDK simulations, 8 seeds, each lane against its five base heroes; before -> after):
+Fiora +1.28 -> +0.21, Briar +1.48 -> +0.23, Twisted Fate +2.24 -> +0.97, Xerath +2.16 -> +1.20, Lissandra +1.20 -> +0.64,
+Nami +1.65 -> +0.97 (the AI, seeing half the damage, engaged less); the rest moved within the noise (Garen -0.49 -> +0.02,
+Diana, Evelynn, Ahri, LeBlanc, Syndra, Akshan, Ezreal, Jhin, Tristana, Varus, Xayah, Morgana, Pyke, Taric). Brought
+back by attack, AP and health (base and growth): Fiora +3% (+1.71), Briar +5% (+3%: +0.40, +6%: +2.27), Nami +3%,
+Twisted Fate +6% (+1.61), Xerath +6% (+1.05), Lissandra +6% (+1.15).
 """
 import argparse
 import copy
