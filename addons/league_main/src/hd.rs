@@ -132,8 +132,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_graves", 1.5, include_str!("../../../league/champions/league_graves#anim.fanim")),
     // Warwick: posed by tools/art/rig_warwick.py on Codex's step-1 take A-1 at the user's 1.5 squares a game pixel (69 game
     // rows spike top to soles: 「选大一号的那个」「PPU 1.5」; every action on the 3/4 design: 「不做侧面 只做四分之三的侧面」;
-    // skill_bite / skill2_howl / ult_dash / ult_hold the kit's CasterAnimations), so no SIZES row
-    ("league_warwick", 1.5, include_str!("../../../league/champions/league_warwick#anim.fanim")),
+    // skill_bite / skill2_howl / ult_dash / ult_hold the kit's CasterAnimations), brought down to 1.2 by ppu_restyle
+    // (「太高清了 降点像素」), so no SIZES row
+    ("league_warwick", 1.2, include_str!("../../../league/champions/league_warwick#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

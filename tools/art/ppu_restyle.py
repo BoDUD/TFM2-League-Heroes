@@ -408,10 +408,11 @@ RESTYLE = {
     "graves": dict(ppu=1.5, edge=1, face_to=(1, -31), fx=True),
     # league_warwick (#142): posed by tools/art/rig_warwick.py on Codex's step-1 take A-1, drawn at the count (the user:
     # 「选大一号的那个」 46 game px spike top to soles, 「PPU 1.5」: 69 rows; 「不做侧面 只做四分之三的侧面」「动作帧按照英雄联盟的自己做」:
-    # every action posed from the 3/4 design's own squares), so no proportion or density change here; the outer outline
-    # grown a square like the others; the face point between his eyes (11 game px ahead of his standing point: the
-    # hunched head is pushed out over his far foot)
-    "warwick": dict(ppu=1.5, edge=1, face_to=(11, -28)),
+    # posed by rig_warwick.py on the design and Codex's skeleton poses at 1.5), brought down to 1.2 squares a game pixel
+    # (the user on the review: 「太高清了 降点像素」 - the beasts' density, league_volibear / league_nasus); the outer
+    # outline grown a square like the others; the face point between his eyes (11 game px ahead of his standing point:
+    # the hunched head is pushed out over his far foot)
+    "warwick": dict(ppu=1.2, edge=1, face_to=(11, -28)),
     # tft_powder (the tft pack): the idle design (A-2) and Codex's skeleton poses with the one clean head, posed by
     # tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊」 -> 1.75); shown at 90 % (the user:
     # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the

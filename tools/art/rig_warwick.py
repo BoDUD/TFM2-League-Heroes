@@ -321,12 +321,76 @@ def export(F, acts):
         R.one_of = _ONE_OF
 
 
+def strip_frames(path, sizes):
+    a = np.asarray(Image.open(lp(path)).convert("RGBA")).copy()
+    out, x = [], 0
+    for w, h in sizes:
+        out.append(a[:h, x:x + w].copy())
+        x += w + 1
+    return a, out
+
+
+def restyled_eyes():
+    """His two yellow eyes put back into the restyled frames (ppu_restyle brings the 1.5 frames down to 1.2 by the
+    commonest colour of each square and the eyes, one square wide inside the outline, were outvoted - 「太高清了 降点像素」
+    left some frames with one eye or none). Each restyled frame is laid over its 1.5 frame shrunk 1.2 / 1.5 about its
+    middle, at the whole-square offset (within 3) where their silhouettes agree most; every restyled square over an eye
+    square of the 1.5 frame takes the eye's colour. Run after ppu_restyle.py, before ppu_hd.py."""
+    import json
+    import ppu_restyle
+    new_ppu = ppu_restyle.RESTYLE[HERO]["ppu"]
+    k = new_ppu / PPU
+    src = os.path.join(R.ROOT, "assets", "source", "ppu")
+    fixed = 0
+    for fn in sorted(os.listdir(lp(os.path.join(src, "orig")))):
+        if not (fn.startswith(HERO + "_") and fn.endswith(".json")):
+            continue
+        tag = fn[len(HERO) + 1:-5]
+        o_meta = json.load(open(lp(os.path.join(src, "orig", fn)), encoding="utf-8"))
+        n_path = os.path.join(src, f"{HERO}_{tag}.json")
+        if not os.path.isfile(lp(n_path)):
+            continue
+        n_meta = json.load(open(lp(n_path), encoding="utf-8"))
+        _, olds = strip_frames(os.path.join(src, "orig", f"{HERO}_{tag}.png"), o_meta["sizes"])
+        whole, news = strip_frames(os.path.join(src, f"{HERO}_{tag}.png"), n_meta["sizes"])
+        x = 0
+        for o, n in zip(olds, news):
+            h, w = n.shape[:2]
+            oy, ox = np.nonzero(o[..., 3] > 0)
+            ty = np.floor((oy + 0.5 - o.shape[0] / 2) * k + h / 2).astype(int)
+            tx = np.floor((ox + 0.5 - o.shape[1] / 2) * k + w / 2).astype(int)
+            nop = n[..., 3] > 0
+            best, bd = -1, (0, 0)
+            for dy in range(-3, 4):
+                for dx in range(-3, 4):
+                    yy, xx = ty + dy, tx + dx
+                    ok = (yy >= 0) & (yy < h) & (xx >= 0) & (xx < w)
+                    sc = int(nop[yy[ok], xx[ok]].sum())
+                    if sc > best:
+                        best, bd = sc, (dy, dx)
+            eye = (o[..., 3] > 0) & (o[..., :3] == EYE).all(-1)
+            ey, ex = np.nonzero(eye)
+            yy = np.floor((ey + 0.5 - o.shape[0] / 2) * k + h / 2).astype(int) + bd[0]
+            xx = np.floor((ex + 0.5 - o.shape[1] / 2) * k + w / 2).astype(int) + bd[1]
+            for y_, x_ in zip(yy, xx):
+                if 0 <= y_ < h and 0 <= x_ < w and n[y_, x_, 3] > 0 and not (n[y_, x_, :3] == EYE).all():
+                    whole[y_, x + x_] = (*EYE, 255)
+                    fixed += 1
+            x += w + 1
+        Image.fromarray(whole).save(lp(os.path.join(src, f"{HERO}_{tag}.png")))
+    print(f"{HERO}: {fixed} eye squares put back in the restyled frames")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--parts")
     ap.add_argument("--review")
     ap.add_argument("--audit")
+    ap.add_argument("--eyes", action="store_true", help="after ppu_restyle.py: the eyes put back (restyled_eyes)")
     a = ap.parse_args()
+    if a.eyes:
+        restyled_eyes()
+        return
     if a.parts:
         os.makedirs(a.parts, exist_ok=True)
         D = design()
