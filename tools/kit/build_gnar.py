@@ -56,32 +56,41 @@ BIG = "asset/league/effects/league_gnar_big"
 # 140% AD, slow 30-50%, pick-up -70% cd; cd 16-10. W Hyper: third hit 0-40 + 6-14% max hp; Wallop 25-145 + 100% AD,
 # stun 1.25 s, cd 7. E Hop 50-190 + 6% max hp, slow 80% 0.5 s, 475 range, cd 22-12; Crunch the same round him. R GNAR!
 # 200-400 + 50% bonus AD + 100% AP, 590 round him, slow 60%; into a wall stun 1.25-1.75 s and 150% damage; cd 90-30.
-# Ticks are a draft until the frames exist.
+# Ticks from the frames (tools/art/rig_gnar.py MS, every action as long as its frames): Mini's attack 400 ms, the
+# boomerang leaves on frame 3 (150 ms, a_rel 10); Mega's punch 500 ms, the fist lands on frame 4 (240 ms, m_rel 15); the
+# transform 450 ms, the turn back 430 ms; Boomerang Throw 570 ms, the throw on frame 4 (230 ms, q_rel 15); Boulder Toss
+# 550 ms, the throw on frame 4 (280 ms, q2_rel 18); Hop 520 ms, off on frame 2 (60 ms, e_go 4); Crunch 580 ms, off on
+# frame 2 (70 ms, c_go 5), the landing slam on frame 6 (370 ms, c_land 22); Wallop 550 ms, the smash on frame 4 (270 ms,
+# w_at 17); GNAR! 510 ms, the throw on frame 3 (160 ms, r_at 11).
+# Numbers = the 10-min classic-SDK simulations (top lane 0 against fighter, executioner, lancer, pole_warrior, knight and
+# berserker, three lineups, both sides, 2026-10-20; C:/t/gn_sim): the draft g0 +1.19 / +1.62 (seeds 1-8 / 9-16; base
+# knight +0.39); on the frames' timings +1.22 / +0.11; Mega's attack +22% (was +15) +0.88 / +1.24 = P (Boomerang 38,
+# Boulder 72, Crunch 72 instead: +0.62 / +0.33; attack +20% with Boomerang 36, Boulder 68: +1.29 / +0.40).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, def 30, mr 25, move 1000, range 25000, attack cd 65)
     "hp": 960, "hp_g": 98, "atk": 86, "atk_g": 17, "mp": 0, "mp_g": 0, "def": 26, "def_g": 8, "mr": 22, "mr_g": 4,
     "ms": 1050, "ms_g": 12,
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 58, "a_rel": 10, "a_speed": 5000,
     # the forms
-    "mini_add": 17000, "mega_t": 900, "mg_hp": 30, "mg_def": 40, "mg_mr": 40, "mg_atk": 15, "lock_t": 480,
-    "tf_dur": 30, "m_atk_dur": 26, "m_rel": 12,
+    "mini_add": 17000, "mega_t": 900, "mg_hp": 30, "mg_def": 40, "mg_mr": 40, "mg_atk": 22, "lock_t": 480,
+    "tf_dur": 27, "rv_dur": 26, "m_atk_dur": 30, "m_rel": 15,
     # Rage Gene
     "rage_t": 420,
     # W Hyper (every third throw)
     "w_dmg": 20, "w_hp": 5, "w_ms": 25, "w_ms_t": 90, "hy_t": 210,
     # Q Boomerang Throw / Boulder Toss
-    "q_cd": 540, "q_range": 70000, "q_dur": 30, "q_rel": 12, "q_speed": 3500, "q_w": 6000,
+    "q_cd": 540, "q_range": 70000, "q_dur": 34, "q_rel": 15, "q_speed": 3500, "q_w": 6000,
     "q_dmg": 30, "q_ratio": 70, "q_slow": 25, "q_slow_t": 120, "q_catch": 240,
-    "q2_range": 65000, "q2_dur": 30, "q2_rel": 12, "q2_speed": 4000, "q2_w": 7000, "q2_r": 16000,
+    "q2_range": 65000, "q2_dur": 33, "q2_rel": 18, "q2_speed": 4000, "q2_w": 7000, "q2_r": 16000,
     "q2_dmg": 60, "q2_ratio": 120, "q2_slow": 40, "q2_slow_t": 120, "pick_t": 180, "pick_r": 9000, "q_pick": 120,
     # E Hop / Crunch, W Wallop
-    "s2_cd": 60, "e_cd": 660, "e_range": 45000, "e_dur": 30, "e_go": 6, "e_speed": 3500,
+    "s2_cd": 60, "e_cd": 660, "e_range": 45000, "e_dur": 31, "e_go": 4, "e_speed": 3500,
     "e_dmg": 40, "e_hp": 4, "e_slow": 60, "e_slow_t": 30,
-    "c_dur": 30, "c_go": 6, "c_speed": 3500, "c_r": 18000, "c_dmg": 60, "c_hp": 6, "c_slow": 60, "c_slow_t": 40,
-    "w_cd": 420, "w_reach": 26000, "w_dur": 28, "w_at": 14, "w_off": 12000, "w_rad": 14000,
+    "c_dur": 35, "c_go": 5, "c_land": 22, "c_speed": 3000, "c_r": 18000, "c_dmg": 60, "c_hp": 6, "c_slow": 60, "c_slow_t": 40,
+    "w_cd": 420, "w_reach": 26000, "w_dur": 33, "w_at": 17, "w_off": 12000, "w_rad": 14000,
     "w2_dmg": 40, "w2_ratio": 100, "w2_stun": 72,
     # R GNAR!
-    "r_cd": 2700, "r_range": 26000, "r_dur": 30, "r_at": 12, "r_r": 30000, "r_dmg": 170, "r_ratio": 60,
+    "r_cd": 2700, "r_range": 26000, "r_dur": 31, "r_at": 11, "r_r": 30000, "r_dmg": 170, "r_ratio": 60,
     "r_kb": 1500, "r_kb_t": 8, "r_stun": 70, "r_slow": 50, "r_slow_t": 90, "r_wall": 150,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -244,7 +253,7 @@ def build(p):
                                                      sw("was_mg", combine(*rm("was_mg"), flag("rl", p["lock_t"]),
                                                                           flag("rv", 1), cview("tf_mini"),
                                                                           sfx("tf_mini"))))))
-    revert = combine(*rm("rv"), anim("revert", p["tf_dur"]))
+    revert = combine(*rm("rv"), anim("revert", p["rv_dur"]))
     # a spell at full Rage: he turns first and the same run casts the Mega spell (to_mega lays `mg` before it is read)
     rage_turn = sw("mg", NONE, sw("full", to_mega))
 
@@ -313,9 +322,11 @@ def build(p):
                           [attack(p["c_dmg"], 0, hp=p["c_hp"]), slow("c_slow", p["c_slow"], p["c_slow_t"]),
                            view("c_hit"), tsfx("c_hit")]),
                    cview("c_slam"), sfx("c_land"), sw("w_cd", NONE, wallop(0))]
+    # the leap carries him onto the target; the slam comes on the frames' landing (c_land), wherever the leap ended
     crunch = combine(refresh("e_cd", p["e_cd"]), anim("m_skill2", p["c_dur"]), sfx("c"), voice("vo_big", p),
                      delayed(p["c_go"] - 1, {"type": "MoveToTarget", "speed": p["c_speed"],
-                                             "range": p["e_range"] + 30000, "end_effects": crunch_land}))
+                                             "range": p["e_range"] + 30000, "end_effects": []}),
+                     delayed(p["c_land"] - 1, *crunch_land))
     mega_s2 = sw("e_cd", sw("w_cd", NONE, wallop(0)), crunch)
     skill2 = action("idle", 3, p["s2_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(restore, rage_turn, sw("mg", mega_s2, sw("e_cd", NONE, hop))), key="skill2")
