@@ -9,11 +9,9 @@ Codex's squares (asked 16 px; regrid's own estimate): A-1 8 px (149 rows: drawn 
 A-3 17 px (65 rows: the count as asked). Each read back with regrid at its own size (alpha >= 128); then Zoe's way: K
 colours (design_varus.kmeans), whole rows then columns dropped to the count (keep_axis: least loss, never the face's
 rows / columns), strips.complete_outline with the face kept. Codex's own faces are kept as drawn (memory vex-session:
-my square redraws were worse) - except where the readback breaks them: A-3's face (the user's pick) is redrawn on the
-grid (FACE): Codex drew the eyes and the lips on half squares, and read back both eyes came out grey and white specks
-and the lips one dark stroke down the jaw (the user: 「脸部细节都没了 调整一下」) - now Quinn's approved way: the lash
-row dark (apart over the nose bridge), each eye a white square, a dark pupil and a dark brown iris with bright amber
-under it, a small two-square wine mouth inside the face, her gold cheek lines and the nose's shadow back.
+my square redraws were worse). A-3's face was redrawn on the grid once (eyes, lashes, a small mouth, the gold cheek
+lines; the user had said 「脸部细节都没了 调整一下」) and the user went back to Codex's own: 「不用重画了…之前的 直接做动作帧吧」
+(2026-10-20).
 """
 import argparse
 import os
@@ -43,32 +41,6 @@ DRAFTS = {
     "A-2": (12.0, None, None),
     "A-3": (17.0, None, None),
 }
-
-
-# A-3's face redrawn, columns 34-42 from row 16 down ('=' keeps the readback's square): K outline, k skin, W the eye
-# white, o the iris (dark brown) over i (bright amber), y and A the lips (wine), l her gold cheek lines (from the eyes'
-# outer corners down, as in Codex's picture), j the nose's shadow
-FACE_AT = (34, 16)
-FACE = ["= = = = k k = = =",
-        "= = = = = = K = =",
-        "= = W K o = W K =",
-        "= = k i i = k i =",
-        "= l = = = = j l =",
-        "= l = = = k = = =",
-        "= = = = y A = = ="]
-FACE_COLOURS = dict(K=(5, 0, 12), k=(188, 89, 66), W=(251, 249, 244), o=(90, 45, 36), i=(232, 136, 26),
-                    y=(163, 40, 58), A=(111, 0, 31), l=(253, 211, 90), j=(162, 72, 54))
-
-
-def face(fig):
-    """A copy of the design with FACE painted from FACE_AT (column, row) on."""
-    fig = fig.copy()
-    x0, y0 = FACE_AT
-    for j, row in enumerate(FACE):
-        for i, ch in enumerate(row.split()):
-            if ch != "=":
-                fig[y0 + j, x0 + i] = (*FACE_COLOURS[ch], 255)
-    return fig
 
 
 def lp(path):
@@ -211,7 +183,7 @@ def main():
     written = {}
     for part, name in PICKS.items():
         fig, rows, cols = cut(name, col[name])
-        written[part] = face(fig) if name == "A-3" else fig
+        written[part] = fig
     for part, fig in written.items():
         Image.fromarray(fig).save(lp(os.path.join(OUT, f"{part}.png")))
         Image.fromarray(np.repeat(np.repeat(fig, 4, 0), 4, 1)).save(lp(os.path.join(OUT, f"{part}_4x.png")))
