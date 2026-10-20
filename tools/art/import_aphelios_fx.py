@@ -26,6 +26,10 @@ FEET, the rest comes in by a tenth).
 The bullets stay unseen until they pass the muzzle (flight's lead ticks at the attack's projectile speed); their views
 are repeat false (build_aphelios.py), the last frame held a second. Severum's Onslaught bolts and Infernum's splash
 show the attacks' pictures under tags of their own (q_s_bolt, a_inf_s): they fly faster or start at the target.
+Every cell goes through clean() first (the user, 2026-10-20: 「厄斐琉斯的特效 调的清晰点」, picked "fewer specks, more
+contrast" over redrawing them dense): loose dim specks of 1-3 squares off, the dim rim round a light (its soft halo)
+off except on the rings drawn in the ramp's dark steps, pinholes filled, every colour's saturation x1.25 and value
+pushed apart ((v - .45) x 1.3 + .5, the brightest a touch whiter), then the pack's symmetry put back exactly.
 """
 import argparse
 import json
@@ -35,8 +39,11 @@ import re
 import shutil
 import sys
 
+import colorsys
+
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -158,6 +165,106 @@ FX = {
 BALL = 1
 
 
+N8 = np.ones((3, 3), bool)
+
+
+def lum(c):
+    return c[..., 0] * 0.299 + c[..., 1] * 0.587 + c[..., 2] * 0.114
+
+
+def mirror_fix(c, mirror):
+    """The drawn box made exactly symmetric again (the fuller half onto the other)."""
+    al = c[..., 3] > 0
+    if not al.any():
+        return c
+    ys, xs = np.nonzero(al)
+    y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+    t = c[y0:y1, x0:x1].copy()
+    if mirror in ("lr", "ud"):
+        ax = 1 if mirror == "lr" else 0
+        n = t.shape[ax]
+        h = n // 2
+        a = t[:, :h] if ax == 1 else t[:h]
+        b = t[:, n - h:] if ax == 1 else t[n - h:]
+        if (a[..., 3] > 0).sum() >= (b[..., 3] > 0).sum():
+            if ax == 1:
+                t[:, n - h:] = a[:, ::-1]
+            else:
+                t[n - h:] = a[::-1]
+        else:
+            if ax == 1:
+                t[:, :h] = b[:, ::-1]
+            else:
+                t[:h] = b[::-1]
+    elif mirror == "pt":
+        flat = t.reshape(-1, 4)
+        n = len(flat)
+        flat[n - n // 2:] = flat[:n // 2][::-1]
+        t = flat.reshape(t.shape)
+    out = c.copy()
+    out[y0:y1, x0:x1] = t
+    return out
+
+
+def clean(c, mirror, halo=True):
+    """Specks off, pinholes filled, colours a step crisper; symmetric as before."""
+    c = c.copy()
+    op = c[..., 3] > 0
+    if not op.any():
+        return c
+    L = lum(c[..., :3].astype(float))
+    bright = np.percentile(L[op], 80)
+    # 1. loose specks: pieces of 1-2 squares, unless they are among the brightest (a sparkle meant to be there)
+    lbl, n = ndimage.label(op, structure=N8)
+    sizes = ndimage.sum(op, lbl, range(1, n + 1))
+    peak = ndimage.maximum(L, lbl, range(1, n + 1))
+    for i in range(n):
+        if sizes[i] <= 3 and peak[i] < bright:
+            c[lbl == i + 1] = 0
+    op = c[..., 3] > 0
+    # 1b. dim fringe: the darkest squares on the drawing's rim (a soft halo that blurs a light on a dark field), and
+    # dim squares with at most one drawn neighbour (dust between the shapes)
+    V = c[..., :3].max(-1).astype(float) / 255
+    vmax = V[op].max()
+    rim = op & ~ndimage.binary_erosion(op, structure=np.ones((3, 3), bool), border_value=0)
+    nbrs = ndimage.convolve(op.astype(int), np.ones((3, 3), int), mode="constant") - op
+    lit = ndimage.binary_dilation(op & (V > 0.7 * vmax), structure=np.ones((3, 3), bool))
+    gone = rim & (V < 0.42 * vmax) & lit if halo else np.zeros_like(op)
+    gone |= op & (nbrs == 0) & (L < bright)
+    c[gone] = 0
+    op = c[..., 3] > 0
+    # 2. pinholes: an empty square with drawn squares on all four sides takes their commonest colour
+    up, dn = np.roll(op, 1, 0), np.roll(op, -1, 0)
+    lf, rt = np.roll(op, 1, 1), np.roll(op, -1, 1)
+    hole = ~op & up & dn & lf & rt
+    hole[0] = hole[-1] = False
+    hole[:, 0] = hole[:, -1] = False
+    for y, x in zip(*np.nonzero(hole)):
+        nb = [tuple(c[y + dy, x + dx]) for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))]
+        best = max(set(nb), key=lambda v: (nb.count(v), lum(np.array(v[:3], float))))
+        c[y, x] = best
+    op = c[..., 3] > 0
+    # 3. crisper colours: saturation and value pushed apart (each colour on its own, so the palette stays small)
+    cols = {tuple(v) for v in c[op][:, :3]}
+    m = {}
+    for col in cols:
+        h, s, v = colorsys.rgb_to_hsv(*(x / 255 for x in col))
+        s2 = min(1.0, s * 1.25)
+        v2 = min(1.0, max(0.0, (v - 0.45) * 1.3 + 0.5))
+        if v > 0.88:                              # the cores a touch whiter
+            s2 *= 0.8
+        m[col] = tuple(int(round(x * 255)) for x in colorsys.hsv_to_rgb(h, s2, v2))
+    px = c[op][:, :3]
+    c[op, :3] = np.array([m[tuple(v)] for v in px], np.uint8)
+    return mirror_fix(c, mirror)
+
+
+def halo(tag):
+    """The dim rim is a halo on a light, except on the rings drawn in the ramp's dark steps (the weapon auras, the
+    buff rings, the chakrams)."""
+    return not (tag.startswith("mw_") or tag in ("q_s_on", "g_slow", "q_s_haste", "cre"))
+
+
 def load(path):
     a = np.asarray(Image.open(path).convert("RGBA")).copy()
     a[a[..., 3] < 128] = 0
@@ -253,6 +360,7 @@ def placed(tag):
     cells = strips_of(pic)[k]
     if w:
         cells = [recolour(c, w) for c in cells]
+    cells = [clean(c, mirror, halo(tag)) for c in cells]
     x0, x1, y0, y1 = box(cells)
     H = cells[0].shape[0]
     if anchor == "front":

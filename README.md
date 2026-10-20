@@ -5088,7 +5088,7 @@ python tools/art/rig_aphelios.py                   # 1 倍帧和 1.5 的原帧�
 python tools/art/ppu_restyle.py --hero aphelios    # 描边、下移 2 格（不要加 --preview）
 python tools/art/ppu_hd.py --hero aphelios         # hd_ / lo_ 帧
 python tools/art/read_aphelios_gemini.py           # 用户 Gemini 画的特效读回成游戏大小
-python tools/art/import_aphelios_fx.py             # 特效
+python tools/art/import_aphelios_fx.py             # 特效（每格先去噪点、加对比：用户「厄斐琉斯的特效 调的清晰点」）
 python tools/art/preview_aphelios.py               # 预览和演示 GIF
 python addons/league_aphelios/make_override.py     # 附加包的副本（主包的厄斐琉斯改了就重跑）
 ```
