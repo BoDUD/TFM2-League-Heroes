@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_graves_sfx_a_open",
+      "volume": 0.35
+    },
+    {
+      "delay": 0.55,
+      "clip": "league_graves_sfx_a_close",
+      "volume": 0.35
+    }
+  ]
+}

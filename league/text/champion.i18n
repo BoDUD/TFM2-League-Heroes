@@ -959,6 +959,13 @@
         "skill": "目标处<#ffb900ff>0.53秒<>后爆炸，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害；只炸到一个敌人时伤害翻倍。",
         "skill2": "<#ffb900ff>5秒<>内灵魂环绕自身，每<#ffb900ff>0.25秒<>对身边敌人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>魔法伤害。",
         "ult": "引导<#ffb900ff>3秒<>（被控制会打断），然后对全图所有敌方英雄造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>魔法伤害。"
+      },
+      "league_graves": {
+        "name": "格雷福斯",
+        "attack": "霰弹枪每次朝前方一扇开火：目标<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>，扇形里的其他敌人30%攻击；两发后装弹<#ffb900ff>1.33秒<>。<#ff9028ff>烟幕弹<>：每<#ffb900ff>12秒<>朝英雄扔一颗，<#a974ffff>60<>魔法伤害、<#ef5350ff>减速50%、致盲<><#ffb900ff>0.5秒<>。",
+        "skill": "射出榴弹，穿过的敌人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害；榴弹落地<#ffb900ff>1秒<>后爆炸，再造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害。",
+        "skill2": "冲刺一段（身边有敌方英雄时往后翻滚），得到一层<#ff9028ff>纯爷们<>（附近有敌方英雄时两层，最多4层）：每层护甲+7、魔抗+5，<#ffb900ff>4秒<>，普攻打中刷新。",
+        "ult": "后坐力把自己往后推，射出爆弹，对第一个敌方英雄造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害并爆炸，周围敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害。"
       }
     },
     "skill_name": {
@@ -1646,6 +1653,11 @@
         "skill1": "荒芜",
         "skill2": "亵渎",
         "ult": "安魂曲"
+      },
+      "league_graves": {
+        "skill1": "穷途末路",
+        "skill2": "快速拔枪",
+        "ult": "终极爆弹"
       }
     }
   },
@@ -2609,6 +2621,13 @@
         "skill": "目標處<#ffb900ff>0.53秒<>後爆炸，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害；只炸到一個敵人時傷害翻倍。",
         "skill2": "<#ffb900ff>5秒<>內靈魂環繞自身，每<#ffb900ff>0.25秒<>對身邊敵人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>魔法傷害。",
         "ult": "引導<#ffb900ff>3秒<>（被控制會打斷），然後對全圖所有敵方英雄造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>魔法傷害。"
+      },
+      "league_graves": {
+        "name": "葛雷夫",
+        "attack": "散彈槍每次朝前方一扇開火：目標<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>，扇形裡的其他敵人30%攻擊；兩發後裝彈<#ffb900ff>1.33秒<>。<#ff9028ff>隻手遮天<>：每<#ffb900ff>12秒<>朝英雄丟一顆，<#a974ffff>60<>魔法傷害、<#ef5350ff>緩速50%、致盲<><#ffb900ff>0.5秒<>。",
+        "skill": "射出榴彈，穿過的敵人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害；榴彈落地<#ffb900ff>1秒<>後爆炸，再造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害。",
+        "skill2": "衝刺一段（身邊有敵方英雄時往後翻滾），獲得一層增益（附近有敵方英雄時兩層，最多4層）：每層護甲+7、魔抗+5，<#ffb900ff>4秒<>，普攻打中刷新。",
+        "ult": "後座力把自己往後推，射出爆彈，對第一個敵方英雄造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害並爆炸，周圍敵人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害。"
       }
     },
     "skill_name": {
@@ -3296,6 +3315,11 @@
         "skill1": "荒蕪",
         "skill2": "汙染",
         "ult": "安魂曲"
+      },
+      "league_graves": {
+        "skill1": "人在江湖",
+        "skill2": "猛龍過江",
+        "ult": "龍爭虎鬥"
       }
     }
   },
@@ -4259,6 +4283,13 @@
         "skill": "After <#ffb900ff>0.53s<> the target spot blasts for <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage, doubled when it hits a single enemy.",
         "skill2": "For <#ffb900ff>5s<> souls whirl round him, dealing <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<> magic damage to nearby enemies every <#ffb900ff>0.25s<>.",
         "ult": "Channels <#ffb900ff>3s<> (crowd control breaks it), then deals <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> magic damage to every enemy champion on the map."
+      },
+      "league_graves": {
+        "name": "Graves",
+        "attack": "His shotgun fires a spread: the target takes <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>, other enemies in the cone 30% AD; after two shells he reloads for <#ffb900ff>1.33s<>. <#ff9028ff>Smoke Screen<>: every <#ffb900ff>12s<> he also throws a canister at a champion: <#a974ffff>60<> magic damage, <#ef5350ff>50% slow and blind<> for <#ffb900ff>0.5s<>.",
+        "skill": "Fires a shell dealing <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage to enemies it passes; it lies where it stops and blows up after <#ffb900ff>1s<> for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage.",
+        "skill2": "Dashes (rolls back when an enemy champion is close) and gains a stack of <#ff9028ff>True Grit<> (two with an enemy champion near, up to 4): +7 armour and +5 magic resist each for <#ffb900ff>4s<>, refreshed by his attack hits.",
+        "ult": "The recoil knocks him back as he fires a shell that deals <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage to the first enemy champion and explodes, dealing <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage around it."
       }
     },
     "skill_name": {
@@ -4946,6 +4977,11 @@
         "skill1": "Lay Waste",
         "skill2": "Defile",
         "ult": "Requiem"
+      },
+      "league_graves": {
+        "skill1": "End of the Line",
+        "skill2": "Quickdraw",
+        "ult": "Collateral Damage"
       }
     }
   },
@@ -5909,6 +5945,13 @@
         "skill": "<#ffb900ff>0.53초<> 뒤 대상 위치가 폭발해 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해. 적 하나만 맞으면 피해 2배.",
         "skill2": "<#ffb900ff>5초<> 동안 영혼이 주위를 돌며 <#ffb900ff>0.25초<>마다 근처 적에게 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<> 마법 피해.",
         "ult": "<#ffb900ff>3초<> 정신 집중(군중 제어에 끊김) 후 맵의 모든 적 챔피언에게 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> 마법 피해."
+      },
+      "league_graves": {
+        "name": "그레이브즈",
+        "attack": "산탄총이 부채꼴로 발사: 대상 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>, 부채꼴 안 다른 적 공격력 30%. 두 발 뒤 <#ffb900ff>1.33초<> 재장전. <#ff9028ff>연막탄<>: <#ffb900ff>12초<>마다 챔피언에게 던져 <#a974ffff>60<> 마법 피해, <#ef5350ff>50% 둔화, <><#ffb900ff>0.5초<> 실명.",
+        "skill": "포탄을 쏴 지나간 적에게 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해. 멈춘 자리에서 <#ffb900ff>1초<> 뒤 폭발해 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해.",
+        "skill2": "돌진(가까이 적 챔피언이 있으면 뒤로 구름)하고 1중첩(근처 적 챔피언이 있으면 2, 최대 4): 중첩당 방어력 +7, 마법 저항력 +5, <#ffb900ff>4초<>. 기본 공격 적중 시 갱신.",
+        "ult": "반동으로 뒤로 밀리며 폭발탄 발사. 첫 적 챔피언에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해 후 폭발해 주변 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해."
       }
     },
     "skill_name": {
@@ -6596,6 +6639,11 @@
         "skill1": "황폐화",
         "skill2": "부패",
         "ult": "진혼곡"
+      },
+      "league_graves": {
+        "skill1": "화약 역류",
+        "skill2": "빨리 뽑기",
+        "ult": "무고한 희생자"
       }
     }
   },
@@ -7559,6 +7607,13 @@
         "skill": "<#ffb900ff>0.53秒<>後に対象地点が爆発し<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ。敵1体だけに当たると2倍。",
         "skill2": "<#ffb900ff>5秒<>間、魂が周囲を巡り<#ffb900ff>0.25秒<>ごとに近くの敵へ<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>の魔法ダメージ。",
         "ult": "<#ffb900ff>3秒<>詠唱（行動妨害で中断）した後、マップ上のすべての敵チャンピオンに<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の魔法ダメージ。"
+      },
+      "league_graves": {
+        "name": "グレイブス",
+        "attack": "ショットガンは扇状に撃つ：対象<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>、扇内の他の敵は攻撃力30%。2発撃つと<#ffb900ff>1.33秒<>リロード。<#ff9028ff>スモークスクリーン<>：<#ffb900ff>12秒<>ごとにチャンピオンへ投げ、<#a974ffff>60<>の魔法ダメージ、<#ef5350ff>50%スロウ、<><#ffb900ff>0.5秒<>ブラインド。",
+        "skill": "砲弾を撃ち、通過した敵に<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ。止まった地点で<#ffb900ff>1秒<>後に爆発し<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージ。",
+        "skill2": "ダッシュ（近くに敵チャンピオンがいれば後ろへ転がる）し、スタックを1つ（敵チャンピオンが近くにいれば2、最大4）：スタックごとに物理防御+7、魔法防御+5、<#ffb900ff>4秒<>。通常攻撃で更新。",
+        "ult": "反動で後ろへ下がりつつ爆裂弾を撃ち、最初の敵チャンピオンに<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージ、爆発で周囲の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ。"
       }
     },
     "skill_name": {
@@ -8246,6 +8301,11 @@
         "skill1": "根絶やし",
         "skill2": "冒涜",
         "ult": "鎮魂歌"
+      },
+      "league_graves": {
+        "skill1": "エンドライン",
+        "skill2": "クイックドロー",
+        "ult": "コラテラルダメージ"
       }
     }
   }
