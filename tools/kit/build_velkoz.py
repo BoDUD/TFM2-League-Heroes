@@ -64,7 +64,7 @@ BIG = "asset/league/effects/league_velkoz_big"
 # white_mage, three lineups, both sides, 16 seeds a batch, C:/t/vk_sim, 2026-10-20): the draft v0 -0.47 / -0.34 (zyra
 # +2.12 / +1.47 in the same batches), R as a Targeting cast following its target, everything up (r1) +2.07 / +1.63, half
 # way (r2: Q 85 + 65%, split 45 + 35%, E 75 + 40%, rift 35 + 20% / 55 + 30%, R 320 + 105%, passive 45 + 45%, attack every
-# 86 ticks) +1.22 / +1.31 = P (then on the frames' timings and heights, below).
+# 86 ticks) +1.22 / +1.31; the same on the frames' timings and his eye's heights (t1) +1.26 / +1.35 = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Vel'Koz:
     # 590 +102 hp, 22 armour, 30 mr, 340 move, 525 range, attack speed 0.643
