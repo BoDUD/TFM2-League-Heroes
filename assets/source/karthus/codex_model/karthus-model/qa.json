@@ -1,0 +1,78 @@
+[
+  {
+    "file": "karthus-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "soft_alpha_pixels": 401474,
+    "opaque_bbox_threshold128": [
+      351,
+      100,
+      985,
+      1208
+    ],
+    "grid_strict_pass": false,
+    "origin_aligned_16px_grid": "not established; visible irregular subcell details",
+    "imagegen_original_bytes": true
+  },
+  {
+    "file": "karthus-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "soft_alpha_pixels": 493763,
+    "opaque_bbox_threshold128": [
+      313,
+      29,
+      1031,
+      1242
+    ],
+    "grid_strict_pass": false,
+    "origin_aligned_16px_grid": "not established; visible irregular subcell details",
+    "imagegen_original_bytes": true
+  },
+  {
+    "file": "karthus-model-side-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "soft_alpha_pixels": 422605,
+    "opaque_bbox_threshold128": [
+      289,
+      42,
+      991,
+      1238
+    ],
+    "grid_strict_pass": false,
+    "origin_aligned_16px_grid": "not established; visible irregular subcell details",
+    "imagegen_original_bytes": true
+  },
+  {
+    "file": "karthus-model-side-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "soft_alpha_pixels": 454444,
+    "opaque_bbox_threshold128": [
+      273,
+      31,
+      1005,
+      1242
+    ],
+    "grid_strict_pass": false,
+    "origin_aligned_16px_grid": "not established; visible irregular subcell details",
+    "imagegen_original_bytes": true
+  }
+]

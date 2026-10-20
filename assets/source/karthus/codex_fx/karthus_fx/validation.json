@@ -1,0 +1,133 @@
+{
+  "effects": 14,
+  "frames": 60,
+  "checks": [
+    {
+      "name": "a_bolt",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "608fe1102c6d54d135481f6fb2bb5e2592f22703d4990b84240c0fcbf592927d"
+    },
+    {
+      "name": "a_hit",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "bb76a30962f288a47e0ac75a8e03cc03386b0a0e3c8a7556f9cac920bf8ebe7d"
+    },
+    {
+      "name": "q_mark",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "632aff89c9e03c05b3aafa3db52975c76f9951a298165f00aa432e3976133085"
+    },
+    {
+      "name": "q_boom",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "0e4f4eb814a24d1309fe0f4a0b6467c20d28d57a122434e6e74bfd26db97cea2"
+    },
+    {
+      "name": "q_hit",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "c149a9039d3c19aafd51a0fb54b032aa406ccde0261d0a092fe5a2d4c4ed91cc"
+    },
+    {
+      "name": "q_lone",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "95d2e2208d34f5ecb7f0fb845ee76bf91d0798f243ca23b2bd01a29f316ac3fc"
+    },
+    {
+      "name": "e_on",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "f74b2cad62442d6dd092e02995bac4de1c669f8f4b0ef4a0488b85619fd99332"
+    },
+    {
+      "name": "e_hit",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "338c0f94b8173d4a47b04a0549e1a3e0f3a9d9fca0a2ee83cb0faab087abbd7e"
+    },
+    {
+      "name": "w_wall",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "e6301ddf02345254e44581b4e1d17dfd788c92e53d4855697787cc3981c5f8fc"
+    },
+    {
+      "name": "w_slow",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "32149f1257b085b7c9f05e6ad39f5a04eadb326274b3dd51e7207e93327ffbf2"
+    },
+    {
+      "name": "w_shred",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "1b813dd91a48003bf24d740dc5a8bf05b1fd8e6d64e5b2dc54840011f3c437c1"
+    },
+    {
+      "name": "r_cast",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "bc432781dcf1240ed8b152edc3e29915430b05d02a562bd8d4b090a8d6255cae"
+    },
+    {
+      "name": "r_hit",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "13c21579b2872097b6fb636ce66b0af3d1f681dce88251642f29cfca2edf3858"
+    },
+    {
+      "name": "p_spirit",
+      "dimensions": "pass",
+      "exact_8x": "pass",
+      "symmetry": "pass",
+      "hard_alpha": "pass",
+      "nonstatic": "pass",
+      "source_sha256": "e7ac8af5790191fe76107622edecca00b4a450b9420f13a9563dc15d638aa1d3"
+    }
+  ],
+  "runtime_tested": false
+}
