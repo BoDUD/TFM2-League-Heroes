@@ -1,0 +1,560 @@
+[
+  {
+    "file": "mel_fx_a_bolt.png",
+    "frames": 3,
+    "cell_1x": [
+      12,
+      7
+    ],
+    "sheet_1x": [
+      36,
+      7
+    ],
+    "preview_scale": 8,
+    "symmetry": "none (a projectile, turned by the game)",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      3,
+      1
+    ],
+    "binding": "view_projectiles `league_mel_a_bolt`（弹道：游戏会把它转到飞行方向；附加包反弹回去的光弹也用这张）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "ec4108ac4ee4ebf44072d5a1c03c3a37fef8bf97137f132ee9929a9d120a1764"
+  },
+  {
+    "file": "mel_fx_p_bolt.png",
+    "frames": 3,
+    "cell_1x": [
+      8,
+      5
+    ],
+    "sheet_1x": [
+      24,
+      5
+    ],
+    "preview_scale": 8,
+    "symmetry": "none (a projectile, turned by the game)",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      3,
+      1
+    ],
+    "binding": "view_projectiles `league_mel_p_bolt`（弹道，游戏会转到飞行方向）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "e0adc102654c9772f6840933a514ea2101d996eff07cb8801c5c499fa4e3ba63"
+  },
+  {
+    "file": "mel_fx_a_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "sheet_1x": [
+      64,
+      16
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "binding": "view_effects `league_mel_a_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "64041b0188ea4cd94e00047cdc374887e49873575e8d62d139d33e9e80fa2e00"
+  },
+  {
+    "file": "mel_fx_p_hit.png",
+    "frames": 3,
+    "cell_1x": [
+      10,
+      10
+    ],
+    "sheet_1x": [
+      30,
+      10
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      3,
+      1
+    ],
+    "binding": "view_effects `league_mel_p_hit`（跟随目标，z 2；左右对称）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "1dae03caa4bfed25405c09f365799090879a9fba187602b8a704c82540e638e6"
+  },
+  {
+    "file": "mel_fx_p_3.png",
+    "frames": 4,
+    "cell_1x": [
+      44,
+      14
+    ],
+    "sheet_1x": [
+      176,
+      14
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "binding": "view_buffs `league_mel_p_3`（跟随她，z 2；左右对称；循环）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "4227c16a7714ba68a776f3eb84594fac79cc0e767b62b6cef25f3aae81957a66"
+  },
+  {
+    "file": "mel_fx_p_6.png",
+    "frames": 4,
+    "cell_1x": [
+      48,
+      18
+    ],
+    "sheet_1x": [
+      192,
+      18
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "binding": "view_buffs `league_mel_p_6`（跟随她，z 2；左右对称；循环）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "8e0d7e0ef44bd54f1014c146ea6cc21633efa6936b0816e002793b377b3426b9"
+  },
+  {
+    "file": "mel_fx_p_9.png",
+    "frames": 4,
+    "cell_1x": [
+      52,
+      22
+    ],
+    "sheet_1x": [
+      208,
+      22
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "binding": "view_buffs `league_mel_p_9`（跟随她，z 2；左右对称；循环）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "ca451589cb4ccac1401757643ed18ea3d558c24d294d6de830c5d3adf74abcdb"
+  },
+  {
+    "file": "mel_fx_q_volley.png",
+    "frames": 8,
+    "cell_1x": [
+      48,
+      56
+    ],
+    "sheet_1x": [
+      384,
+      56
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      4,
+      2
+    ],
+    "binding": "view_effects `league_mel_q_volley`（放在落点上，不跟随，画在人物上面 z 3；左右对称；大图表）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "62fa29ecfaaa4bba81011cc53aa52df143043a6e41f7ab2d84174a85a8cc35cb"
+  },
+  {
+    "file": "mel_fx_q_hit.png",
+    "frames": 3,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "sheet_1x": [
+      42,
+      14
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      3,
+      1
+    ],
+    "binding": "view_effects `league_mel_q_hit`（跟随目标，z 2；左右对称）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "bd3c71de10c3d5415f44b902bd4f80073531592595814bda3da5110dde02a38d"
+  },
+  {
+    "file": "mel_fx_e_orb.png",
+    "frames": 4,
+    "cell_1x": [
+      28,
+      28
+    ],
+    "sheet_1x": [
+      112,
+      28
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right and top-bottom",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "binding": "view_projectiles `league_mel_e_orb`（弹道，游戏会转到飞行方向；大图表）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "44a16bd6ba63a1b2c52fdcbdd4d8cb3e01c19a147ff1c85e7fcb4a7cd64711f9"
+  },
+  {
+    "file": "mel_fx_e_bound.png",
+    "frames": 4,
+    "cell_1x": [
+      26,
+      30
+    ],
+    "sheet_1x": [
+      104,
+      30
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "binding": "view_buffs `league_mel_e_bound`（跟随目标，z 3；左右对称；循环）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "082a45d8d7e7b709b1714fcc9acc3c34cc67211ad66dbe5114214e3d8f76e61c"
+  },
+  {
+    "file": "mel_fx_e_slow.png",
+    "frames": 4,
+    "cell_1x": [
+      26,
+      10
+    ],
+    "sheet_1x": [
+      104,
+      10
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "binding": "view_buffs `league_mel_e_slow`（跟随目标，画在人物下面 z -1；左右对称；循环）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "aeee3f16895ca384ef9c0010a799b4d5454ed683a85d84ffd85168ad06cbb138"
+  },
+  {
+    "file": "mel_fx_e_burn.png",
+    "frames": 3,
+    "cell_1x": [
+      12,
+      14
+    ],
+    "sheet_1x": [
+      36,
+      14
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      3,
+      1
+    ],
+    "binding": "view_effects `league_mel_e_burn`（跟随目标，z 2；左右对称）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "867ac33130365a483ac7b3b78db33ac9080ea1ae2e68913befa0c9e66c5bba5a"
+  },
+  {
+    "file": "mel_fx_r_cast.png",
+    "frames": 8,
+    "cell_1x": [
+      64,
+      80
+    ],
+    "sheet_1x": [
+      512,
+      80
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      4,
+      2
+    ],
+    "binding": "view_effects `league_mel_r_cast`（跟随她，画在人物上面 z 2；左右对称；大图表）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "0ee28ade5610f9f2cdbb4de9b3bc440c90a8a904a88db8612655fb45c73dfebe"
+  },
+  {
+    "file": "mel_fx_r_hit.png",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      60
+    ],
+    "sheet_1x": [
+      144,
+      60
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      3,
+      2
+    ],
+    "binding": "view_effects `league_mel_r_hit`（跟随目标，z 2；左右对称；大图表）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "6194d71dbd9d1a3974516576460c87895d52a65e419a6a6cd813b30a48c1d120"
+  },
+  {
+    "file": "mel_fx_w_on.png",
+    "frames": 4,
+    "cell_1x": [
+      60,
+      64
+    ],
+    "sheet_1x": [
+      240,
+      64
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "binding": "view_buffs `league_mel_w_on`（跟随她，画在人物上面 z 3；左右对称；循环；大图表）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "7d14db462aca11e52200f7b73dcec815ec727fec51c0aca1facddddde9fdbeb6"
+  },
+  {
+    "file": "mel_fx_m_mark.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      12
+    ],
+    "sheet_1x": [
+      56,
+      12
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "binding": "view_buffs `league_mel_m_mark`（附加包；跟随目标，z 3；左右对称；循环）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "af4109dfdda2d56c69584f82bc124f2bfa431a43d8149fe456ecbefe49e49474"
+  },
+  {
+    "file": "mel_fx_x_hit.png",
+    "frames": 6,
+    "cell_1x": [
+      40,
+      48
+    ],
+    "sheet_1x": [
+      240,
+      48
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right",
+    "hard_alpha": true,
+    "palette_restricted": true,
+    "empty_frames": [],
+    "source_grid": [
+      3,
+      2
+    ],
+    "binding": "view_effects `league_mel_x_hit`（附加包；跟随目标，z 2；左右对称；大图表）",
+    "status": "file checks passed; contact sheet visually reviewed; runtime integration not tested",
+    "sampling": {
+      "source_alpha_min": 240,
+      "foreground_coverage_min": 0.1,
+      "color_rule": "majority among palette-quantized foreground pixels",
+      "grid_rule": "source contact cell normalized to cell_1x",
+      "symmetry_rule": "left half mirrored to right; e_orb also upper half to lower"
+    },
+    "sha256_pixel_1x": "45c0262e599bb1a88a85e97085995a253fa62aa427bfc959e36950610d379ccb"
+  }
+]

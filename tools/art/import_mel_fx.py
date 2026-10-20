@@ -92,12 +92,28 @@ def cells(name, meta):
     if a.shape[1] != w * meta["frames"] or a.shape[0] != h:
         sys.exit(f"{name}: sheet {a.shape[1]}x{a.shape[0]} is not {meta['frames']} cells of {w}x{h}")
     out = [a[:h, k * w:(k + 1) * w].copy() for k in range(meta["frames"])]
+    if name in TB:
+        out = [fold(c) for c in out]
     for k, c in enumerate(out):
         mirror = c[::-1] if name in TB else c[:, ::-1]
         if not (c == mirror).all():
             sys.exit(f"{name} frame {k + 1} is not symmetric {'top to bottom' if name in TB else 'left to right'}")
         if not c[..., 3].any():
             sys.exit(f"{name} frame {k + 1} is empty")
+    return out
+
+
+def fold(c):
+    """A projectile made symmetric top to bottom (the game turns it to its flight, so flying left it is drawn upside
+    down): each row and its mirror row both get the squares either one has (the upper row's where both have one).
+    Codex drew the bolts pointing right but not mirrored (2026-10-20)."""
+    out = c.copy()
+    h = c.shape[0]
+    for y in range(h // 2 + 1):
+        m = h - 1 - y
+        row = np.where(c[y][:, 3:] > 0, c[y], c[m])
+        out[y] = row
+        out[m] = row
     return out
 
 
@@ -114,7 +130,7 @@ def main():
     a = ap.parse_args()
     man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
     meta = {}
-    for e in man.get("effects") or man["entries"]:
+    for e in (man if isinstance(man, list) else man.get("effects") or man["entries"]):
         # the delivery's manifest: "effects" (or "entries"), each with file (mel_fx_<name>.png), frames and cell_1x
         name = e.get("name") or e.get("id") or os.path.basename(e["file"])[len("mel_fx_"):-len(".png")]
         meta[name] = dict(e, pixel_1x=os.path.join(SRC, "pixel_1x", os.path.basename(e["file"])))
