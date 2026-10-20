@@ -493,7 +493,7 @@
   },
   "skill": {
     "action_name": "skill",
-    "description": "#asset/base/text/champion?description.league_graves.skill",
+    "description": "#asset/base/text/champion?description.league_graves_addon.skill",
     "duration": 27,
     "cooltime": 540,
     "start_timing": 1,
@@ -523,105 +523,8 @@
           "tick": 8,
           "effects": [
             {
-              "type": "LinearProjectile",
-              "name": "league_graves_q_shell",
-              "penetrate": true,
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Attack",
-                    "damage": 45,
-                    "attack_ratio": 60,
-                    "hp_ratio": 0,
-                    "target_hp_ratio": 0,
-                    "attack_effect_type": "Target"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_graves_q_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "TargetSfx",
-                    "name": "league_graves_q_hit"
-                  }
-                }
-              ],
-              "end_effects": [
-                {
-                  "type": "ViewEffect",
-                  "name": "league_graves_q_blast"
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_graves_q_fuse"
-                },
-                {
-                  "type": "Delayed",
-                  "tick": 60,
-                  "effects": [
-                    {
-                      "type": "Sfx",
-                      "name": "league_graves_q_boom"
-                    }
-                  ]
-                },
-                {
-                  "type": "RangePeriodProjectile",
-                  "name": "league_graves_q_boom",
-                  "tick": 62,
-                  "period": 1000,
-                  "first_delay": 60,
-                  "shape": {
-                    "Circle": {
-                      "radius": 24000
-                    }
-                  },
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Attack",
-                        "damage": 60,
-                        "attack_ratio": 80,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_graves_q_hit2"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_graves_q_hit2"
-                      }
-                    }
-                  ],
-                  "end_effects": []
-                }
-              ],
-              "speed": 5000,
-              "range": 70000,
-              "shape": {
-                "Circle": {
-                  "radius": 8000
-                }
-              }
+              "type": "Native",
+              "effect_ref": "league_graves:q"
             }
           ]
         }
@@ -1199,6 +1102,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_graves_q_blast_w",
+      "anim": "asset/league/effects/league_graves_big",
+      "tag": "q_blast_w",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_graves_w_smoke",
       "anim": "asset/league/effects/league_graves_big",
       "tag": "w_smoke",
@@ -1276,7 +1187,17 @@
       "r_range": 110000,
       "r_w": 12000,
       "r_dmg": 120,
-      "r_ratio": 90
+      "r_ratio": 90,
+      "q_dmg": 45,
+      "q_ratio": 60,
+      "q2_dmg": 60,
+      "q2_ratio": 80,
+      "q_range": 70000,
+      "q_speed": 5000,
+      "q_w": 8000,
+      "q_r": 24000,
+      "q_fuse": 60,
+      "q_wall": 15
     }
   }
 }

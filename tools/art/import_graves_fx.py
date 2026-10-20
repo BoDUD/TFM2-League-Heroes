@@ -42,7 +42,7 @@ def lp(p):
     return p if os.name != "nt" or p.startswith(PRE) else PRE + p
 
 
-BIG = {"q_blast", "w_smoke", "r_blast"}
+BIG = {"q_blast", "q_blast_w", "w_smoke", "r_blast"}
 FLYING = {"a_shot", "q_shell", "r_shell"}       # turned with their flight: drawn going right, symmetric top to bottom
 BOTH = {"w_can"}                                # a tumbling canister: symmetric both ways
 BAKED = {"a_flash", "q_flash", "r_flash"}       # drawn into his own frames by rig_graves.py (pointing right)
@@ -94,7 +94,10 @@ FX = {
     "q_flash": ("muzzle", seq(range(4), [40, 50, 60, 70]), [MUZZLE]),
     "q_shell": ("core", loop(2, 60), [FLIGHT]),
     "q_hit": ("core", seq(range(3), [50, 60, 70]), [HIT]),
-    "q_blast": (("feet", 6), bomb_frames(), [SOLES]),
+    "q_blast": (("feet", 1), bomb_frames(), [SOLES]),      # the cells are cropped to the drawing: the bomb on the ground
+    # the add-on's bomb stopped by a wall (addons/league_graves shell.rs): its light once for q_wall, then the blast
+    "q_blast_w": (("feet", 1), list(zip(range(1), [round(ticks_ms(P["q_wall"]))])) + list(zip(range(5, 9), [60, 90, 120, 150])),
+                  [SOLES]),
     # Smoke Screen: the canister (a lob's picture, looped), the cloud on the point (w_cloud), the slowed (a buff)
     "w_can": ("core", loop(2, 70), [FLIGHT]),
     "w_smoke": (("feet", 0), smoke_frames(), [SOLES]),
@@ -106,8 +109,10 @@ FX = {
     "r_flash": ("muzzle", seq(range(4), [40, 50, 60, 70]), [MUZZLE]),
     "r_shell": ("core", loop(2, 60), [FLIGHT]),
     "r_hit": ("core", seq(range(4), [50, 60, 70, 80]), [HIT]),
-    "r_blast": (("feet", 6), seq(range(5), [60, 80, 100, 120, 140]), [SOLES]),
+    "r_blast": (("feet", 2), seq(range(5), [60, 80, 100, 120, 140]), [SOLES]),
 }
+# tags drawn from another effect's cells
+ALIAS = {"q_blast_w": "q_blast"}
 # the pictures that must last as long as something in the kit: tag -> (frames counted, ticks)
 LASTS = {"q_blast": (5, P["q_fuse"]), "w_smoke": (None, P["w_cloud"])}
 STRAY = {}
@@ -170,9 +175,10 @@ def main():
         if abs(ms - ticks_ms(t)) > 1:
             sys.exit(f"{tag} plays {ms} ms, the kit holds it {t} ticks ({ticks_ms(t):.0f} ms)")
     meta = manifest(a.src)
-    if set(meta) != set(FX):
+    if set(meta) != set(FX) - set(ALIAS):
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
-    allc = {n: cells(n, meta[n], a.src) for n in FX}
+    allc = {n: cells(n, meta[n], a.src) for n in FX if n not in ALIAS}
+    allc.update({n: allc[src] for n, src in ALIAS.items()})
     tables = {"league_graves_fx": {}, "league_graves_big": {}}
     for name, (kind, frames, spots) in FX.items():
         cs = allc[name]

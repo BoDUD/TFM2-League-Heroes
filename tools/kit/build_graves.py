@@ -76,6 +76,8 @@ P = {
     # attack), the knockback of a monster or minion the pellet and the spread both hit (League: struck by several
     # pellets), R's cone behind the champion hit (r_len long, r_dot = cos of its half angle x 1000)
     "e_cut": 30, "e_cuts": 4, "kb_speed": 1500, "kb_t": 4, "r_len": 55000, "r_dot": 866,
+    # the add-on's Q (League: the shell stops on terrain and blows up 0.25 s later, the blast flying back along its path)
+    "q_wall": 15,
 }
 
 
@@ -252,8 +254,10 @@ def build(p, native=False):
     shell_q = line("q_shell", p["q_speed"], p["q_range"], p["q_w"], "EnemyWithoutTower",
                    [attack(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")],
                    end=[view("q_blast"), sfx("q_fuse"), delayed(p["q_fuse"], sfx("q_boom")), boom])
+    # the add-on's copy: the shell fired by league_graves:q (stopped by walls, flying back after the blast)
+    shot_q = {"type": "Native", "effect_ref": "league_graves:q"} if native else shell_q
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_cast"], "Direction", "EnemyWithoutTower", combine(
-        anim("skill", p["q_dur"]), sfx("q_cast"), sfx("vo_q"), delayed(p["q_at"], shell_q)))
+        anim("skill", p["q_dur"]), sfx("q_cast"), sfx("vo_q"), delayed(p["q_at"], shot_q)))
 
     # ------------------------------------------------------------------ skill2: E Quickdraw
     t = p["e_t_move"]
@@ -290,7 +294,7 @@ def build(p, native=False):
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 1}
     views_e = [E("a_hit"), E("a_spread", tag="a_hit"), E("q_hit"), E("q_hit2", tag="a_hit"),
-               E("q_blast", BIG, 1, **LATE), E("w_smoke", BIG, 1, **LATE), E("e_dust", FX, -1, **LATE),
+               E("q_blast", BIG, 1, **LATE), E("q_blast_w", BIG, 1, **LATE), E("w_smoke", BIG, 1, **LATE), E("e_dust", FX, -1, **LATE),
                E("r_hit"), E("r_hit2", tag="q_hit"), E("r_blast", BIG, 2, **LATE)]
     views_p = [Pj("a_shot"), Pj("q_shell"), Pj("r_shell"), Pj("w_can")]
     views_b = [{"type": "Animated", "name": n(g), "anim": FX, "tag": "e_grit", "repeat": True, "z": -1}
@@ -312,7 +316,8 @@ def build(p, native=False):
                           "params": {k: int(p[k]) for k in ("e_cut", "e_cuts", "kb_speed", "kb_t", "r2_dmg", "r2_ratio",
                                                             "r_len", "r_dot", "a_hit", "a_keep", "atk_range",
                                                             "e_range", "e_near", "r_cast", "r_range", "r_w", "r_dmg",
-                                                            "r_ratio")}}
+                                                            "r_ratio", "q_dmg", "q_ratio", "q2_dmg", "q2_ratio",
+                                                            "q_range", "q_speed", "q_w", "q_r", "q_fuse", "q_wall")}}
     return kit
 
 

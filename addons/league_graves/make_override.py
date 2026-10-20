@@ -36,6 +36,13 @@ MORE = {
         "ko": " 탄환 두 발에 맞은 미니언과 몬스터는 밀려남.",
         "ja": "弾丸2発を受けたミニオンとモンスターはノックバック。",
     },
+    "skill": {
+        "zh-hans": "炮弹撞到墙就停在墙边，" + A + "{q_wall}秒" + E + "后就爆炸；炸完炮弹沿原路飞回，沿途再打一次。",
+        "zh-hant": "砲彈撞到牆就停在牆邊，" + A + "{q_wall}秒" + E + "後就爆炸；炸完砲彈沿原路飛回，沿途再打一次。",
+        "en": " The shell stops at a wall and blows up " + A + "{q_wall}s" + E + " later; then it flies back along its path, striking again.",
+        "ko": " 포탄이 벽에 닿으면 멈추고 " + A + "{q_wall}초" + E + " 뒤 폭발함. 폭발 후 포탄이 왔던 길로 되돌아오며 다시 피해를 줌.",
+        "ja": "砲弾は壁に当たると止まり" + A + "{q_wall}秒" + E + "後に爆発。爆発後、砲弾は来た道を戻り、再びダメージ。",
+    },
     "skill2": {
         "zh-hans": "普攻每打中一下，冷却缩短" + A + "{e_cut}秒" + E + "（每次普攻最多{e_cuts}下）。",
         "zh-hant": "普攻每打中一下，冷卻縮短" + A + "{e_cut}秒" + E + "（每次普攻最多{e_cuts}下）。",
@@ -78,6 +85,7 @@ def main():
     v = setup.values(p)
     v["e_cut"] = setup.secs(p["e_cut"])
     v["e_cuts"] = p["e_cuts"]
+    v["q_wall"] = setup.secs(p["q_wall"])
     texts = {}
     for lang in LEAD:
         d = {}

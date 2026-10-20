@@ -1213,6 +1213,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_graves_q_blast_w",
+      "anim": "asset/league/effects/league_graves_big",
+      "tag": "q_blast_w",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_graves_w_smoke",
       "anim": "asset/league/effects/league_graves_big",
       "tag": "w_smoke",

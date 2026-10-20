@@ -12,6 +12,8 @@
 //!   格雷福斯到那名英雄的方向，在那名英雄身后 `r_len` 内、偏离不到 acos(`r_dot`/1000) 的敌方单位（塔除外，不含那名英雄）
 //!   受到 `r2_dmg` + `r2_ratio`% 攻击力的物理伤害。
 //!
+//! - **穷途末路撞墙**（0.2.0，用户：「还有Q技能碰到墙会马上弹回来吗 和英雄联盟一样」；`shell.rs`）：副本的 Q 由本包发射——
+//!   炮弹撞到墙就停在墙边，`q_wall` tick 后就炸（没撞墙照旧 `q_fuse`），炸完炮弹沿原路飞回出手的地方、沿途再打一次。
 //! - **连招**（0.2.0，用户：「有连招的话一起做了」；`combo.rs`）：AI 钩子 `league_graves:combo` 替游戏的 AI 决定 E、R
 //!   什么时候按——E 留到第一发打出去之后再按（装回一发，一轮换弹打三枪：普攻 → E → 普攻 → 普攻），弹匣满着或已经在换弹时
 //!   AI 按的 E 改成普攻（逃命、追残血、够不着敌人时照放）；R 只在打得死路上第一个英雄、或他身后锥形里还有英雄、或自己残血
@@ -21,7 +23,7 @@
 //! tick 打中，正面那颗弹丸飞到目标最多几 tick）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_graves.log`，每次启动游戏重写：`CUT` / `KNOCK` / `CONE`
-//! （上面三件事），`E PRESS` / `E VETO` / `R PRESS` / `R VETO`（连招），都限了条数。
+//! （上面三件事），`Q` / `Q BOOM` / `Q BACK`（撞墙的炮弹），`E PRESS` / `E VETO` / `R PRESS` / `R VETO`（连招），都限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -32,6 +34,11 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod combo;
+pub mod shell;
+
+#[allow(dead_code)]
+#[path = "../../league_camille_wall/src/maps.rs"]
+mod maps;
 
 const ID: &str = "league_graves";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
@@ -133,13 +140,25 @@ pub struct Params {
     pub r_w: usize,
     pub r_dmg: usize,
     pub r_ratio: usize,
+    // Q's shell stopped by walls (shell.rs): the shell, the bomb, the fuse (a wall's)
+    pub q_dmg: usize,
+    pub q_ratio: usize,
+    pub q2_dmg: usize,
+    pub q2_ratio: usize,
+    pub q_range: usize,
+    pub q_speed: usize,
+    pub q_w: usize,
+    pub q_r: usize,
+    pub q_fuse: usize,
+    pub q_wall: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Params { e_cut: 30, e_cuts: 4, kb_speed: 1500, kb_t: 4, r2_dmg: 80, r2_ratio: 60, r_len: 55000, r_dot: 866,
                  a_hit: 8, a_keep: 300, atk_range: 46000, e_range: 60000, e_near: 22000, r_cast: 100000,
-                 r_range: 110000, r_w: 12000, r_dmg: 120, r_ratio: 90 }
+                 r_range: 110000, r_w: 12000, r_dmg: 120, r_ratio: 90, q_dmg: 45, q_ratio: 60, q2_dmg: 60,
+                 q2_ratio: 80, q_range: 70000, q_speed: 5000, q_w: 8000, q_r: 24000, q_fuse: 60, q_wall: 15 }
     }
 }
 
@@ -169,6 +188,16 @@ pub fn parse_params(json: &str) -> Params {
             "r_w" => p.r_w = v,
             "r_dmg" => p.r_dmg = v,
             "r_ratio" => p.r_ratio = v,
+            "q_dmg" => p.q_dmg = v,
+            "q_ratio" => p.q_ratio = v,
+            "q2_dmg" => p.q2_dmg = v,
+            "q2_ratio" => p.q2_ratio = v,
+            "q_range" => p.q_range = v,
+            "q_speed" => p.q_speed = v,
+            "q_w" => p.q_w = v,
+            "q_r" => p.q_r = v,
+            "q_fuse" => p.q_fuse = v,
+            "q_wall" => p.q_wall = v,
             _ => {}
         }
     }
@@ -369,6 +398,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:cone"), ConeFx);
     module.add_native_passive(format!("{ID}:grit"), Grit::default());
     module.add_player_input_ai(combo::Combo);
+    shell::register(module);
     host.log(LogLevel::Info, "league_graves loaded (Quickdraw's cooldown, knockback, Collateral Damage's cone, the combos).");
 }
 
@@ -411,7 +441,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        assert_eq!(parse_params(r#"{"a_hit":8,"e_cut":30,"e_cuts":4,"kb_speed":1500,"kb_t":4,"r2_dmg":80,"r2_ratio":60,"r_dot":866,"r_len":55000,"a_keep":300,"atk_range":46000,"e_range":60000,"e_near":22000,"r_cast":100000,"r_range":110000,"r_w":12000,"r_dmg":120,"r_ratio":90}"#), Params::default());
+        assert_eq!(parse_params(r#"{"a_hit":8,"e_cut":30,"e_cuts":4,"kb_speed":1500,"kb_t":4,"r2_dmg":80,"r2_ratio":60,"r_dot":866,"r_len":55000,"a_keep":300,"atk_range":46000,"e_range":60000,"e_near":22000,"r_cast":100000,"r_range":110000,"r_w":12000,"r_dmg":120,"r_ratio":90,"q_dmg":45,"q_ratio":60,"q2_dmg":60,"q2_ratio":80,"q_range":70000,"q_speed":5000,"q_w":8000,"q_r":24000,"q_fuse":60,"q_wall":15}"#), Params::default());
         assert_eq!(parse_params(r#"{"e_cut":20}"#).e_cut, 20);
     }
 
@@ -424,14 +454,16 @@ mod tests {
                        ("r2_dmg", d.r2_dmg), ("r2_ratio", d.r2_ratio), ("r_len", d.r_len), ("r_dot", d.r_dot),
                        ("a_hit", d.a_hit), ("a_keep", d.a_keep), ("atk_range", d.atk_range), ("e_range", d.e_range),
                        ("e_near", d.e_near), ("r_cast", d.r_cast), ("r_range", d.r_range), ("r_w", d.r_w),
-                       ("r_dmg", d.r_dmg), ("r_ratio", d.r_ratio)] {
+                       ("r_dmg", d.r_dmg), ("r_ratio", d.r_ratio), ("q_dmg", d.q_dmg), ("q_ratio", d.q_ratio),
+                       ("q2_dmg", d.q2_dmg), ("q2_ratio", d.q2_ratio), ("q_range", d.q_range), ("q_speed", d.q_speed),
+                       ("q_w", d.q_w), ("q_r", d.q_r), ("q_fuse", d.q_fuse), ("q_wall", d.q_wall)] {
             assert!(src.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in build_graves.P");
         }
     }
 
     #[test]
     fn the_names_fit() {
-        for x in ["r_hit2", "a_1"] {
+        for x in ["r_hit2", "a_1", "q_blast_w", "q_shell"] {
             assert!(sn(x).len() <= BUFF_NAME_CAP);
         }
     }
