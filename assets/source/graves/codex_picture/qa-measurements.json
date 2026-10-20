@@ -1,0 +1,82 @@
+[
+  {
+    "file": "graves-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1149314,
+    "opaque_pixels": 1700,
+    "semi_transparent_pixels": 421502,
+    "visible_bbox_alpha128": [
+      188,
+      401,
+      1185,
+      1236
+    ],
+    "visible_height_alpha128": 835,
+    "sha256": "210d87a6b9f4668f9a02ba825722dad53aaa9b0db374c10fb0049fccc4d75804"
+  },
+  {
+    "file": "graves-B.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1179486,
+    "opaque_pixels": 1414,
+    "semi_transparent_pixels": 391616,
+    "visible_bbox_alpha128": [
+      188,
+      401,
+      951,
+      1236
+    ],
+    "visible_height_alpha128": 835,
+    "sha256": "fc18043e34a53dcad775bc223ee59db4fcca6c4a463a5ca8acf83ea6b3cc5d0f"
+  },
+  {
+    "file": "graves-SA.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1202945,
+    "opaque_pixels": 1322,
+    "semi_transparent_pixels": 368249,
+    "visible_bbox_alpha128": [
+      147,
+      409,
+      1213,
+      1209
+    ],
+    "visible_height_alpha128": 800,
+    "sha256": "d6aadb972829cb59e181c583050ce729fdf0b763b6e7585bdad2824f534af902"
+  },
+  {
+    "file": "graves-SB.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1225918,
+    "opaque_pixels": 1525,
+    "semi_transparent_pixels": 345073,
+    "visible_bbox_alpha128": [
+      146,
+      407,
+      994,
+      1211
+    ],
+    "visible_height_alpha128": 804,
+    "sha256": "4da051f2c0ffeccbdb19bd22ef5379b56d2ab18dc54173c6b721762a7128cde4"
+  }
+]
