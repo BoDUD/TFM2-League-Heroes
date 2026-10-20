@@ -1085,6 +1085,18 @@
                     "type": "CasterAnimation",
                     "name": "q_pull",
                     "tick": 18
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_amumu_q_combo",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
                   }
                 ]
               }
@@ -1100,7 +1112,7 @@
     "description": "#asset/base/text/champion?description.league_amumu.skill2",
     "duration": 32,
     "cooltime": 270,
-    "start_timing": 20,
+    "start_timing": 1,
     "cancelable": false,
     "range": 28000,
     "casting_type": "None",
@@ -1110,555 +1122,9 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "Sfx",
-          "name": "league_amumu_e"
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_amumu_despair",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_amumu_despair",
-                  "duration": {
-                    "Time": {
-                      "tick": 240
-                    }
-                  }
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_amumu_cry_cd",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_amumu_cry_cd",
-                        "duration": {
-                          "Time": {
-                            "tick": 600
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_amumu_w"
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "Delayed",
-                "tick": 0,
-                "effects": [
-                  {
-                    "type": "RandomTarget",
-                    "range": 1,
-                    "casting_target": "AllyOnlySelf",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_amumu_despair",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "CasterViewEffect",
-                              "name": "league_amumu_despair"
-                            },
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_amumu_r_window",
-                              "effect_buff": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 25000
-                                  }
-                                },
-                                "target": "EnemyWithoutTower",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "ApAttack",
-                                    "damage": 10,
-                                    "attack_ratio": 10
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 25000
-                                  }
-                                },
-                                "target": "EnemyWithoutTower",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "ApAttack",
-                                    "damage": 10,
-                                    "attack_ratio": 10
-                                  },
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_amumu_curse",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 60
-                                        }
-                                      },
-                                      "damaged_amplify": 10
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "type": "RangeEffect",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 25000
-                                }
-                              },
-                              "target": "EnemyChampion",
-                              "apply_type": "AroundCaster",
-                              "effects": [
-                                {
-                                  "type": "FixedAttack",
-                                  "damage": 0,
-                                  "attack_ratio": 0,
-                                  "target_hp_ratio": 1
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 60,
-                "effects": [
-                  {
-                    "type": "RandomTarget",
-                    "range": 1,
-                    "casting_target": "AllyOnlySelf",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_amumu_despair",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "CasterViewEffect",
-                              "name": "league_amumu_despair"
-                            },
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_amumu_r_window",
-                              "effect_buff": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 25000
-                                  }
-                                },
-                                "target": "EnemyWithoutTower",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "ApAttack",
-                                    "damage": 10,
-                                    "attack_ratio": 10
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 25000
-                                  }
-                                },
-                                "target": "EnemyWithoutTower",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "ApAttack",
-                                    "damage": 10,
-                                    "attack_ratio": 10
-                                  },
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_amumu_curse",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 60
-                                        }
-                                      },
-                                      "damaged_amplify": 10
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "type": "RangeEffect",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 25000
-                                }
-                              },
-                              "target": "EnemyChampion",
-                              "apply_type": "AroundCaster",
-                              "effects": [
-                                {
-                                  "type": "FixedAttack",
-                                  "damage": 0,
-                                  "attack_ratio": 0,
-                                  "target_hp_ratio": 1
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 120,
-                "effects": [
-                  {
-                    "type": "RandomTarget",
-                    "range": 1,
-                    "casting_target": "AllyOnlySelf",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_amumu_despair",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "CasterViewEffect",
-                              "name": "league_amumu_despair"
-                            },
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_amumu_r_window",
-                              "effect_buff": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 25000
-                                  }
-                                },
-                                "target": "EnemyWithoutTower",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "ApAttack",
-                                    "damage": 10,
-                                    "attack_ratio": 10
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 25000
-                                  }
-                                },
-                                "target": "EnemyWithoutTower",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "ApAttack",
-                                    "damage": 10,
-                                    "attack_ratio": 10
-                                  },
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_amumu_curse",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 60
-                                        }
-                                      },
-                                      "damaged_amplify": 10
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "type": "RangeEffect",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 25000
-                                }
-                              },
-                              "target": "EnemyChampion",
-                              "apply_type": "AroundCaster",
-                              "effects": [
-                                {
-                                  "type": "FixedAttack",
-                                  "damage": 0,
-                                  "attack_ratio": 0,
-                                  "target_hp_ratio": 1
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 180,
-                "effects": [
-                  {
-                    "type": "RandomTarget",
-                    "range": 1,
-                    "casting_target": "AllyOnlySelf",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_amumu_despair",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "CasterViewEffect",
-                              "name": "league_amumu_despair"
-                            },
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_amumu_r_window",
-                              "effect_buff": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 25000
-                                  }
-                                },
-                                "target": "EnemyWithoutTower",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "ApAttack",
-                                    "damage": 10,
-                                    "attack_ratio": 10
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 25000
-                                  }
-                                },
-                                "target": "EnemyWithoutTower",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "ApAttack",
-                                    "damage": 10,
-                                    "attack_ratio": 10
-                                  },
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_amumu_curse",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 60
-                                        }
-                                      },
-                                      "damaged_amplify": 10
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "type": "RangeEffect",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 25000
-                                }
-                              },
-                              "target": "EnemyChampion",
-                              "apply_type": "AroundCaster",
-                              "effects": [
-                                {
-                                  "type": "FixedAttack",
-                                  "damage": 0,
-                                  "attack_ratio": 0,
-                                  "target_hp_ratio": 1
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_amumu_tantrum",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "AddCasterBuff",
-            "buff_state": {
-              "name": "league_amumu_tantrum",
-              "duration": "Permanent",
-              "base_attack_damaged_reduce": 10
-            },
-            "only_to_enemy": false
-          }
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_amumu_e_tantrum"
-        },
-        {
-          "type": "RangeEffect",
-          "shape": {
-            "Circle": {
-              "radius": 28000
-            }
-          },
-          "target": "EnemyWithoutTower",
-          "apply_type": "AroundCaster",
-          "effects": [
-            {
-              "type": "ApAttack",
-              "damage": 60,
-              "attack_ratio": 50
-            },
-            {
-              "type": "TargetSfx",
-              "name": "league_amumu_e_hit"
-            }
-          ]
-        }
-      ]
-    }
-  },
-  "ult": {
-    "action_name": "ult",
-    "description": "#asset/base/text/champion?description.league_amumu.ult",
-    "duration": 46,
-    "cooltime": 3600,
-    "start_timing": 2,
-    "cancelable": false,
-    "range": 30000,
-    "casting_type": "None",
-    "casting_target": "EnemyChampion",
-    "attack_type": "Skill",
-    "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "Sfx",
-          "name": "league_amumu_r_cast"
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_amumu_tantrum",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "AddCasterBuff",
-            "buff_state": {
-              "name": "league_amumu_tantrum",
-              "duration": "Permanent",
-              "base_attack_damaged_reduce": 10
-            },
-            "only_to_enemy": false
-          }
-        },
-        {
           "type": "Delayed",
-          "tick": 16,
+          "tick": 19,
           "effects": [
-            {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_amumu_r_window",
-                "duration": {
-                  "Time": {
-                    "tick": 180
-                  }
-                }
-              },
-              "only_to_enemy": false
-            },
             {
               "type": "SwitchByBuff",
               "buff_name": "league_amumu_despair",
@@ -2110,45 +1576,709 @@
               }
             },
             {
-              "type": "RangeEffect",
-              "shape": {
-                "Circle": {
-                  "radius": 42000
-                }
+              "type": "SwitchByBuff",
+              "buff_name": "league_amumu_tantrum",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
               },
-              "target": "EnemyWithoutTower",
-              "apply_type": "AroundCaster",
-              "effects": [
-                {
-                  "type": "ApAttack",
-                  "damage": 150,
-                  "attack_ratio": 80
+              "effect_none": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_amumu_tantrum",
+                  "duration": "Permanent",
+                  "base_attack_damaged_reduce": 10
                 },
-                {
-                  "type": "Stun",
-                  "duration": 90
-                },
-                {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_amumu_r_curse",
-                    "duration": {
-                      "Time": {
-                        "tick": 180
-                      }
-                    },
-                    "damaged_amplify": 10
+                "only_to_enemy": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_amumu_q_combo",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_amumu_e"
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_amumu_e_tantrum"
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 28000
                   }
                 },
-                {
-                  "type": "ViewEffect",
-                  "name": "league_amumu_r_wrap"
+                "target": "EnemyWithoutTower",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 60,
+                    "attack_ratio": 50
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_amumu_e_hit"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 19,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_amumu_e"
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_amumu_e_tantrum"
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 28000
+                  }
                 },
-                {
-                  "type": "TargetSfx",
-                  "name": "league_amumu_r_hit"
-                }
-              ]
+                "target": "EnemyWithoutTower",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 60,
+                    "attack_ratio": 50
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_amumu_e_hit"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_amumu.ult",
+    "duration": 46,
+    "cooltime": 3600,
+    "start_timing": 2,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_amumu_r_cast"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_amumu_tantrum",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "league_amumu_tantrum",
+              "duration": "Permanent",
+              "base_attack_damaged_reduce": 10
+            },
+            "only_to_enemy": false
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_amumu_q_combo",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_amumu_r_window",
+                  "duration": {
+                    "Time": {
+                      "tick": 180
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 42000
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 150,
+                    "attack_ratio": 80
+                  },
+                  {
+                    "type": "Stun",
+                    "duration": 90
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_amumu_r_curse",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "damaged_amplify": 10
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_amumu_r_wrap"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_amumu_r_hit"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 16,
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_amumu_r_window",
+                  "duration": {
+                    "Time": {
+                      "tick": 180
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 42000
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 150,
+                    "attack_ratio": 80
+                  },
+                  {
+                    "type": "Stun",
+                    "duration": 90
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_amumu_r_curse",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "damaged_amplify": 10
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_amumu_r_wrap"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_amumu_r_hit"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 16,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_amumu_despair",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_amumu_despair",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_amumu_cry_cd",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_amumu_cry_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 600
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_amumu_w"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 0,
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_amumu_despair",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_amumu_despair"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_amumu_r_window",
+                                  "effect_buff": {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 25000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 10,
+                                        "attack_ratio": 10
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 25000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 10,
+                                        "attack_ratio": 10
+                                      },
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_amumu_curse",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 60
+                                            }
+                                          },
+                                          "damaged_amplify": 10
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 25000
+                                    }
+                                  },
+                                  "target": "EnemyChampion",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "FixedAttack",
+                                      "damage": 0,
+                                      "attack_ratio": 0,
+                                      "target_hp_ratio": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 60,
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_amumu_despair",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_amumu_despair"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_amumu_r_window",
+                                  "effect_buff": {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 25000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 10,
+                                        "attack_ratio": 10
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 25000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 10,
+                                        "attack_ratio": 10
+                                      },
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_amumu_curse",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 60
+                                            }
+                                          },
+                                          "damaged_amplify": 10
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 25000
+                                    }
+                                  },
+                                  "target": "EnemyChampion",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "FixedAttack",
+                                      "damage": 0,
+                                      "attack_ratio": 0,
+                                      "target_hp_ratio": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 120,
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_amumu_despair",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_amumu_despair"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_amumu_r_window",
+                                  "effect_buff": {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 25000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 10,
+                                        "attack_ratio": 10
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 25000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 10,
+                                        "attack_ratio": 10
+                                      },
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_amumu_curse",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 60
+                                            }
+                                          },
+                                          "damaged_amplify": 10
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 25000
+                                    }
+                                  },
+                                  "target": "EnemyChampion",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "FixedAttack",
+                                      "damage": 0,
+                                      "attack_ratio": 0,
+                                      "target_hp_ratio": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 180,
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_amumu_despair",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_amumu_despair"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_amumu_r_window",
+                                  "effect_buff": {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 25000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 10,
+                                        "attack_ratio": 10
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 25000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 10,
+                                        "attack_ratio": 10
+                                      },
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_amumu_curse",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 60
+                                            }
+                                          },
+                                          "damaged_amplify": 10
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 25000
+                                    }
+                                  },
+                                  "target": "EnemyChampion",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "FixedAttack",
+                                      "damage": 0,
+                                      "attack_ratio": 0,
+                                      "target_hp_ratio": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
             }
           ]
         }
