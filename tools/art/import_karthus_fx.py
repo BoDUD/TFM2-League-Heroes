@@ -46,6 +46,11 @@ HIT = (0, -14)                  # a hit on the upper body of a 34-46 px unit
 SOLES = (0, 11)                 # on the ground under a unit or a point
 OVERHEAD = (0, -31)             # over a unit's head (the mark 38-46 px over its soles)
 FLIGHT = (0, 0)                 # a projectile's own point
+# Requiem's souls round him as he hovers: his body (the staff left out) spans 19 px behind his standing point to 8 in
+# front and 9-55 px over the ground in the ult's hover frames (its middle 5 back and 32 up); the oval's middle in its
+# cell is 36 up, so the cell goes 5 back and 4 down (the user, 2026-10-20: 「这个盾没对齐啊」 - centred on his standing
+# point it covered his staff and left his claw and book outside)
+R_CAST = (-5, 15)
 seq = J.seq
 
 
@@ -101,7 +106,7 @@ FX = {
     "w_slow": (("feet", 1), loop(2, 150), [SOLES]),
     "w_shred": ("core", loop(2, 150), [OVERHEAD]),
     # Requiem: the souls round him for the channel (r_ch), the beam on each enemy champion
-    "r_cast": (("feet", 0), channel_frames(), [SOLES]),
+    "r_cast": (("feet", 0), channel_frames(), [R_CAST]),
     "r_hit": (("feet", 0), seq(range(6), [60, 70, 80, 90, 100, 100]), [SOLES]),
     # the add-on's Death Defied: the spirit's glow (a buff, looped)
     "p_spirit": (("feet", 0), loop(4, 150), [SOLES]),
