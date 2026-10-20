@@ -144,7 +144,7 @@ impl Default for Params {
             pl_lo: 20,
             pl_hi: 100,
             pl_ratio: 12,
-            r_r: 32000,
+            r_r: 44000,
             r_rage: 300,
         }
     }

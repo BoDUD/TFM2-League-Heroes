@@ -36,6 +36,7 @@ LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_zyra")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_zyra_fx", "league_zyra_big")}
 DARIUS = os.path.join(LEAGUE, "champions", "league_darius")
+THICKET = os.path.join(LEAGUE, "effects", "league_zyra_thicket")     # dense: hd_idle at PPU 2 (league.dll hd.rs EFFECTS)
 WALK = 0.9                      # Darius's walk, game px a tick
 SEED_LEAD = 4                   # ticks the seed is hidden (import_zyra_fx.py): it shows past her whip's tip
 SEED_UP = (5000 - P["a_y"]) / 1000.0
@@ -165,6 +166,16 @@ class Clip:
         return len(frames), round(end / 1000.0, 1)
 
 
+def dense_fx(sp, z, ppu=2):
+    """A dense effect sheet's hd_idle frames for a clip at zoom z, drawn as league.dll draws them (put() centres them)."""
+    out = []
+    for (a, _), (b, ms) in zip(frames_of(sp, "idle"), frames_of(sp, "hd_idle")):
+        f = b.resize((round(b.width * z / ppu), round(b.height * z / ppu)), Image.NEAREST)
+        f.info["one"] = (a.width, a.height)
+        out.append((f, ms))
+    return out
+
+
 def showcase(out, z=3):
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_zyra_fx"], fx["league_zyra_big"]
@@ -173,7 +184,7 @@ def showcase(out, z=3):
     x0 = 44
     xa = x0 + 80                                        # Darius at Q's reach, then walking in
     xb = xa - 24
-    xc = xb - 16
+    xc = xb - 8                                         # out of the Lasher, R's ring short of her
     d = Walker(load(DARIUS), xa, gy)
     me = Me(x0, gy)
     c = Clip(load(CHAMP), d, me, small, big)
@@ -209,7 +220,7 @@ def showcase(out, z=3):
     c.wait(w1 + 200 - c.t)
     # R Stranglethorns: the thicket bursts round him, snaps shut r_knock ticks later and knocks him up
     land = c.t + tick(P["r_rel"] - 1 + 1)
-    c.at_spot("r_thicket", land, xc, gy)
+    c.under.append(Anim(dense_fx(load(THICKET), z), land, xc, gy))
     c.on("r_hit", land)
     d.flinches.append(land)
     snap = land + tick(P["r_knock"])
@@ -237,9 +248,9 @@ def main():
         print("frames", contact(dense_rows(s), os.path.join(args.out, "league_zyra_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
-        for name, path in FX.items():
+        for name, path in list(FX.items()) + [("league_zyra_thicket", THICKET)]:
             sp = load(path)
-            rows += [(sp, t["name"], f"{name[12:]}:{t['name']}") for t in sp.tags]
+            rows += [(sp, t["name"], f"{name[12:]}:{t['name']}") for t in sp.tags if t["name"] != "hd_idle"]
         print("effects", fx_contact(rows, os.path.join(args.out, "league_zyra_effects.png")))
     if args.only in (None, "showcase"):
         print("showcase frames/seconds", showcase(os.path.join(args.out, "league_zyra_showcase.gif")))

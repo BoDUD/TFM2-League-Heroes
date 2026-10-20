@@ -5,7 +5,7 @@ league_zyra_big.
     python tools/art/import_zyra_fx.py [--review out.png]
 
 The source is Codex's step-3 delivery (assets/source/zyra/codex_fx/zyra_fx: pixel_1x/zyra_fx_<name>.png, one row of
-equal frames each at game size, frame sizes in manifest.json's entries (cell_1x); alpha 0 / 255; the projectiles
+equal frames each at game size, frame sizes in manifest.json's assets (cell_1x); alpha 0 / 255; the projectiles
 symmetric top to bottom, the hits / ground / buff pictures left to right - checked again here; the plants' sway frames
 are left alone). Each frame is cut by the manifest's frame size and placed as the kit plays it (import_vex_fx.py's
 way): spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it, a point's ground too. Times
@@ -16,6 +16,11 @@ from the kit (build_zyra.P, 60 ticks a second):
   * the thicket (r_thicket) writhes (its three loop frames) until the knock-up r_knock ticks after it appears, closes
     like a cage on that tick and falls apart;
   * the add-on's seed (s_seed) is as long as the add-on replays it (s_show ticks).
+The thicket gets a sheet of its own, league_zyra_thicket, drawn 1.5 times as big as Codex drew it (R's radius 32000 ->
+44000, the user: 「R技能范围做大点」「不用重画啊 你调整一下不就行了吗」): tag hd_idle = Codex's squares 3 x 3 at PPU 2
+(league.dll's hd.rs EFFECTS: every square 1.5 game px, all alike), tag idle = the same at 1x (every other one of those
+pixels: Codex's squares 1 or 2 game px) for a game without league.dll; its ring (58 squares, 87 game px) on R's 88. Its
+frames 5 and 6 came 6 rows higher than the others with bits of the next row's frames under them (cleared, moved down).
 """
 import argparse
 import json
@@ -45,7 +50,11 @@ def lp(p):
 
 
 TB = {"a_seed", "t_spit", "e_roots"}            # turned with their flight: drawn going right
-BIG = {"q_burst", "t_plant", "v_plant", "r_thicket"}
+BIG = {"q_burst", "t_plant", "v_plant"}
+THICKET = "league_zyra_thicket"         # r_thicket's own dense sheet
+THICKET_PPU = 2                         # Codex's squares 3 x 3 at PPU 2: 1.5 game px each
+THICKET_FIX = {4: 6, 5: 6}              # frames 5 and 6 (0-based 4, 5): rows from 39 down cleared, then moved down 6
+THICKET_RING = (34.5, 30.5)             # the ring's middle in Codex's cell (frame 1's leftmost / rightmost squares)
 FRONT = {"t_plant", "v_plant"}                   # drawn from the front, swaying left and right: not mirrored
 HIT = (0, -14)                  # a hit on the upper body of a 32-46 px unit
 SOLES = (0, 11)                 # on the ground under a unit or a point
@@ -109,7 +118,7 @@ FX = {
     "v_hit": ("core", seq(range(3), [40, 60, 70]), [HIT]),
     "e_bound": (("feet", 0), loop(4, 120), [SOLES]),
     "v_slow": (("feet", 0), loop(4, 100), [SOLES]),
-    "r_thicket": (("feet", 10), thicket(), [SOLES]),
+    "r_thicket": ("ring", thicket(), [SOLES]),         # its own sheet: thicket_tags
     "r_hit": ("core", seq(range(4), [40, 60, 80, 100]), [HIT]),
     "r_knock": (("feet", 0), seq(range(4), [60, 80, 100, 120]), [SOLES]),
     "s_seed": (("feet", 0), loop(4, P["s_show"] * MS / 4), [SOLES]),
@@ -124,6 +133,11 @@ def cells(name, meta):
     if a.shape[1] != w * meta["frames"] or a.shape[0] != h:
         sys.exit(f"{name}: sheet {a.shape[1]}x{a.shape[0]} is not {meta['frames']} cells of {w}x{h}")
     out = [a[:h, k * w:(k + 1) * w].copy() for k in range(meta["frames"])]
+    if name == "r_thicket":
+        for k, dy in THICKET_FIX.items():
+            c = out[k]
+            c[39:] = 0
+            out[k] = np.roll(c, dy, axis=0)
     for k, c in enumerate(out):
         if not c[..., 3].any():
             sys.exit(f"{name} frame {k + 1} is empty")
@@ -136,6 +150,26 @@ def cells(name, meta):
             sys.exit(f"{name} frame {k + 1} is not symmetric {'top to bottom' if name in TB else 'left to right'}"
                      f" ({off} squares)")
     return out
+
+
+def thicket_tags(cs, frames):
+    """league_zyra_thicket's idle / hd_idle: each frame Codex's cell 3 x 3 (hd_idle, PPU 2) with the ring's middle on the
+    ground (SOLES), on a canvas centred on the pivot; idle the same canvas halved (every other pixel)."""
+    k3 = 3
+    h, w = cs[0].shape[:2]
+    ax, ay = (THICKET_RING[0] + 0.5) * k3 - 0.5, (THICKET_RING[1] + 0.5) * k3 - 0.5
+    py = ay - SOLES[1] * THICKET_PPU                      # the pivot's row in the 3 x cell
+    W, H = w * k3, int(2 * round(max(py, h * k3 - 1 - py)) + 2)
+    assert W % 2 == 0 and abs((W - 1) / 2 - ax) < 1e-6, "the ring is not in the cell's middle"
+    top = int(round((H - 1) / 2 - py))
+    hd, one = {}, {}
+    for k, c in enumerate(cs):
+        big = np.repeat(np.repeat(c, k3, 0), k3, 1)
+        canvas = np.zeros((H, W, 4), np.uint8)
+        canvas[top:top + big.shape[0]] = big
+        hd[k] = canvas
+        one[k] = canvas[::THICKET_PPU, ::THICKET_PPU].copy()
+    return {"idle": [(one[k], ms) for k, ms in frames], "hd_idle": [(hd[k], ms) for k, ms in frames]}
 
 
 def anchor(cell, kind):
@@ -151,7 +185,7 @@ def main():
     a = ap.parse_args()
     man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
     meta = {}
-    for e in man.get("effects") or man["entries"]:
+    for e in man.get("effects") or man.get("assets") or man["entries"]:
         name = e.get("name") or e.get("id") or e["file"][len("zyra_fx_"):-len(".png")]
         meta[name] = dict(e, pixel_1x=os.path.join(SRC, "pixel_1x", e["file"]))
     if set(meta) != set(FX):
@@ -159,10 +193,13 @@ def main():
     allc = {n: cells(n, meta[n]) for n in FX}
     tables = {"league_zyra_fx": {}, "league_zyra_big": {}}
     for name, (kind, frames, spots) in FX.items():
+        if name == "r_thicket":
+            continue
         cs = allc[name]
         anc = anchor(cs[0], kind)
         out = [(np.zeros((3, 3, 4), np.uint8) if k == J.EMPTY else J.place(cs[k], anc, spots), ms) for k, ms in frames]
         tables["league_zyra_big" if name in BIG else "league_zyra_fx"][name] = out
+    tables[THICKET] = thicket_tags(allc["r_thicket"], FX["r_thicket"][1])
     for sheet, tags in tables.items():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tags, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(

@@ -981,7 +981,7 @@
                             "name": "league_zyra_r_burst",
                             "shape": {
                               "Circle": {
-                                "radius": 32000
+                                "radius": 44000
                               }
                             },
                             "delay": 1,
@@ -1020,7 +1020,7 @@
                                 "name": "league_zyra_r_snap",
                                 "shape": {
                                   "Circle": {
-                                    "radius": 32000
+                                    "radius": 44000
                                   }
                                 },
                                 "delay": 1,
@@ -1143,8 +1143,8 @@
     {
       "type": "Animation",
       "name": "league_zyra_r_thicket",
-      "anim": "asset/league/effects/league_zyra_big",
-      "tag": "r_thicket",
+      "anim": "asset/league/effects/league_zyra_thicket",
+      "tag": "idle",
       "z": -1,
       "is_follow": false
     },
