@@ -45,12 +45,14 @@ BIG = "asset/league/effects/league_zyra_big"
 # the attack's throw at 160 ms (a_rel 10), Q's fling 160 ms (q_rel 10), E's slam 160 ms (e_rel 10), R's summon 170 ms
 # (r_rel 10); each action as long as its frames (27 / 33 / 33 / 37 ticks). Heights (a projectile starts 5000 - y_offset
 # above the pivot, 1000 a game px): the seed leaves the whip's tip, 9 px over the pivot on the attack's release frame
-# (a_y); Grasping Roots run level on the pivots' line (e_y 5000: from her pivot, not 5 px over it and sloping down). Numbers = the 10-min classic-SDK simulations (mid lane 2 against
-# pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both sides, 2026-10-20): the draft (plants
-# 25 + 15% for 6 s, Q 90 + 60%, E 80 + 50%) +2.10 (8 seeds); single nerfs (plants 18 + 12%, Q / E -15, plants 4 s, hp 820
-# with R 150 + 60%) +1.95..+2.56 and a shorter root +2.99 - inside the noise (about +-0.7 a batch); all the damage and the
-# plants cut together (plants 18 + 12% for 4 s, Q 75 + 50%, E 65 + 40%) +0.65 / +0.78 (8 / 16 seeds); plants 20 + 12%
-# for 5 s, Q 80 + 55%, E 70 + 45% +1.09 (16 seeds; with Q 85 +2.40 - the noise again) = P.
+# (a_y); Grasping Roots run level on the pivots' line (e_y 5000: from her pivot, not 5 px over it and sloping down).
+# Numbers = the 10-min classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and
+# white_mage, three lineups, both sides, 2026-10-20): the draft (plants 25 + 15% for 6 s, Q 90 + 60%, E 80 + 50%)
+# +2.10 (8 seeds); single nerfs (plants 18 + 12%, Q / E -15, plants 4 s, hp 820 with R 150 + 60%) +1.95..+2.56 and a
+# shorter root +2.99 - inside the noise (about +-0.7 a batch); all the damage and the plants cut together (plants 18 +
+# 12% for 4 s, Q 75 + 50%, E 65 + 40%) +0.65 / +0.78 (8 / 16 seeds); plants 20 + 12% for 5 s, Q 80 + 55%, E 70 + 45%
+# +1.09 (16 seeds; with Q 85 +2.40 - the noise again); the same on the frames' timings (a_rel / q_rel / e_rel / r_rel)
+# +1.07 / +1.62 (seeds 1-16 / 17-32), the roots level on the pivots' line (e_y) +1.30 / +1.52 = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Zyra:
     # 574 +93 hp, 29 armour, 30 mr, 340 move, 575 range, attack speed 0.681
