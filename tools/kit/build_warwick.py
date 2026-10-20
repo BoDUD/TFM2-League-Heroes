@@ -216,7 +216,7 @@ def build(p, native=False):
 
     # ------------------------------------------------------------------ skill2's howl (E, or Q's bite under the guard)
     def howl():
-        return combine(*rm("e_on"), anim("skill2_howl", p["e_howl"]), sfx("e_howl"), cview("e_howl"),
+        return combine(*rm("e_on"), anim("skill2_howl", p["e_howl"]), sfx("e_howl"), cview("e_howl"), cview("e_roar"),
                        around(p["e_r"], "EnemyWithoutTower", [{"type": "Fear", "tick": p["e_fear"]}, view("e_fear")]))
 
     # ------------------------------------------------------------------ skill: Q Jaws of the Beast
@@ -251,7 +251,8 @@ def build(p, native=False):
     # ------------------------------------------------------------------ views (tools/art/pack_warwick_fx.py)
     E = lambda name, anim_=FX, z=2, follow=True, tag=None: {"type": "Animation", "name": n(name), "anim": anim_,
                                                             "tag": tag or name, "z": z, "is_follow": follow}
-    views_e = [E("a_hit"), E("q_hit"), E("q_heal"), E("e_howl", BIG, -1), E("e_fear"), E("r_bind"), E("r_hit")]
+    views_e = [E("a_hit"), E("q_hit"), E("q_heal"), E("e_howl", BIG, -1), E("e_roar", FX, 3), E("e_fear", FX, 3),
+               E("r_bind"), E("r_hit")]
     views_p = []
     views_b = [{"type": "Animated", "name": n("e_on"), "anim": FX, "tag": "e_guard", "repeat": True, "z": 2},
                {"type": "Animated", "name": n("w_hunt"), "anim": FX, "tag": "w_hunt", "repeat": True, "z": -1}]

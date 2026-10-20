@@ -293,6 +293,10 @@
                               "name": "league_warwick_e_howl"
                             },
                             {
+                              "type": "CasterViewEffect",
+                              "name": "league_warwick_e_roar"
+                            },
+                            {
                               "type": "RangeEffect",
                               "shape": {
                                 "Circle": {
@@ -447,6 +451,10 @@
                             {
                               "type": "CasterViewEffect",
                               "name": "league_warwick_e_howl"
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_warwick_e_roar"
                             },
                             {
                               "type": "RangeEffect",
@@ -785,10 +793,18 @@
     },
     {
       "type": "Animation",
+      "name": "league_warwick_e_roar",
+      "anim": "asset/league/effects/league_warwick_fx",
+      "tag": "e_roar",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
       "name": "league_warwick_e_fear",
       "anim": "asset/league/effects/league_warwick_fx",
       "tag": "e_fear",
-      "z": 2,
+      "z": 3,
       "is_follow": true
     },
     {
