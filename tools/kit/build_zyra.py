@@ -53,7 +53,8 @@ THICKET = "asset/league/effects/league_zyra_thicket"    # R's thicket 1.5 x as b
 # shorter root +2.99 - inside the noise (about +-0.7 a batch); all the damage and the plants cut together (plants 18 +
 # 12% for 4 s, Q 75 + 50%, E 65 + 40%) +0.65 / +0.78 (8 / 16 seeds); plants 20 + 12% for 5 s, Q 80 + 55%, E 70 + 45%
 # +1.09 (16 seeds; with Q 85 +2.40 - the noise again); the same on the frames' timings (a_rel / q_rel / e_rel / r_rel)
-# +1.07 / +1.62 (seeds 1-16 / 17-32), the roots level on the pivots' line (e_y) +1.30 / +1.52 = P.
+# +1.07 / +1.62 (seeds 1-16 / 17-32), the roots level on the pivots' line (e_y) +1.30 / +1.52, R's radius 44000
+# +1.46 / +1.56 = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Zyra:
     # 574 +93 hp, 29 armour, 30 mr, 340 move, 575 range, attack speed 0.681
