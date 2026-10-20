@@ -4,7 +4,7 @@
       "league_vex": {
         "attack": "【扩展包】射出暗影弹。<#ff9028ff>终焉暮气<>：每<#ffb900ff>15秒<>下一个技能<#ef5350ff>恐惧<>命中的敌人<#ffb900ff>0.75秒<>；她身边突进的敌方英雄被施加<#ff9028ff>暮气<>。<#ff9028ff>生人勿近<>：敌方英雄靠近时改为获得<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾并震伤周围<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>。",
         "skill2": "【扩展包】影子飞到目标处扩散，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害、减速35%，并施加<#ff9028ff>暮气<>：她再打中带暮气的敌人就引爆，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害，终焉的等待缩短25%。",
-        "ult": "【扩展包】射出飞弹标记一名敌方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害，随后冲向他再造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害。被标记的英雄<#ffb900ff>6秒<>内阵亡就刷新愁煞。"
+        "ult": "【扩展包】射出飞弹标记一名敌方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害，随后冲向他再造成<#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害。被标记的英雄<#ffb900ff>6秒<>内阵亡就刷新愁煞。"
       }
     }
   },
@@ -13,7 +13,7 @@
       "league_vex": {
         "attack": "【擴充包】射出暗影彈。<#ff9028ff>無望厄障<>：每<#ffb900ff>15秒<>下一個技能<#ef5350ff>恐懼<>命中的敵人<#ffb900ff>0.75秒<>；她身邊突進的敵方英雄被施加<#ff9028ff>陰霾<>。<#ff9028ff>個人舒適圈<>：敵方英雄靠近時改為獲得<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾並震傷周圍<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>。",
         "skill2": "【擴充包】影子飛到目標處擴散，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害、緩速35%，並施加<#ff9028ff>陰霾<>：她再打中帶陰霾的敵人就引爆，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害，無望的等待縮短25%。",
-        "ult": "【擴充包】射出飛彈標記一名敵方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害，隨後衝向他再造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害。被標記的英雄<#ffb900ff>6秒<>內陣亡就刷新飛影急襲。"
+        "ult": "【擴充包】射出飛彈標記一名敵方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害，隨後衝向他再造成<#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害。被標記的英雄<#ffb900ff>6秒<>內陣亡就刷新飛影急襲。"
       }
     }
   },
@@ -22,7 +22,7 @@
       "league_vex": {
         "attack": "[Add-on] Fires a shadow bolt. <#ff9028ff>Doom<>: every <#ffb900ff>15s<> her next spell <#ef5350ff>fears<> the enemies hit for <#ffb900ff>0.75s<>; enemy champions dashing near her get <#ff9028ff>Gloom<>. <#ff9028ff>Personal Space<>: with an enemy champion close, she instead gains a <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> shield and blasts the enemies around her for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>.",
         "skill2": "[Add-on] Her Shadow flies to the target and spreads: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, slowed 35%, and <#ff9028ff>Gloom<>: her next hit on a Gloomed enemy pops it for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and takes 25% off Doom's wait.",
-        "ult": "[Add-on] Fires a missile that marks an enemy champion for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>, then surges toward it for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> more. If the champion dies within <#ffb900ff>6s<>, Shadow Surge is ready again."
+        "ult": "[Add-on] Fires a missile that marks an enemy champion for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>, then surges toward it for <#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> more. If the champion dies within <#ffb900ff>6s<>, Shadow Surge is ready again."
       }
     }
   },
@@ -31,7 +31,7 @@
       "league_vex": {
         "attack": "[확장] 그림자 탄을 쏜다. <#ff9028ff>파멸<>: <#ffb900ff>15초<>마다 다음 스킬이 맞힌 적을 <#ffb900ff>0.75초<> <#ef5350ff>공포<>; 근처에서 돌진한 적 챔피언에게 <#ff9028ff>우울<>. <#ff9028ff>거리 두기<>: 적 챔피언이 가까우면 대신 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> 보호막을 얻고 주변에 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해.",
         "skill2": "[확장] 그림자가 대상 위치로 날아가 퍼지며 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해, 35% 둔화, <#ff9028ff>우울<> 부여: 우울한 적을 다시 맞히면 터져 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해, 파멸 대기 25% 단축.",
-        "ult": "[확장] 투사체로 적 챔피언을 표식해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해, 이어서 돌진해 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해. 표식된 챔피언이 <#ffb900ff>6초<> 안에 죽으면 그림자 파동 재사용 가능."
+        "ult": "[확장] 투사체로 적 챔피언을 표식해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해, 이어서 돌진해 <#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해. 표식된 챔피언이 <#ffb900ff>6초<> 안에 죽으면 그림자 파동 재사용 가능."
       }
     }
   },
@@ -40,7 +40,7 @@
       "league_vex": {
         "attack": "【拡張】影の弾を撃つ。<#ff9028ff>フコウ<>：<#ffb900ff>15秒<>ごとに次のスキルが当たった敵を<#ffb900ff>0.75秒<><#ef5350ff>恐怖<>；近くでダッシュした敵チャンピオンに<#ff9028ff>ユーウツ<>。<#ff9028ff>パーソナルスペース<>：敵チャンピオンが近いと代わりに<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>のシールドを得て周囲に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>。",
         "skill2": "【拡張】影が目標地点へ飛んで広がり、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ、35%スロウ、<#ff9028ff>ユーウツ<>付与：ユーウツの敵に再び当てると弾けて<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ、フコウの待ちが25%短縮。",
-        "ult": "【拡張】弾で敵チャンピオンにマークをつけ<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ、続いて突進して<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ。マークされたチャンピオンが<#ffb900ff>6秒<>以内に倒れると影法師が再使用可能。"
+        "ult": "【拡張】弾で敵チャンピオンにマークをつけ<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ、続いて突進して<#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ。マークされたチャンピオンが<#ffb900ff>6秒<>以内に倒れると影法師が再使用可能。"
       }
     }
   }

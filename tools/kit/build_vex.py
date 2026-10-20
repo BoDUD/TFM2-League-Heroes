@@ -52,7 +52,9 @@ BIG = "asset/league/effects/league_vex_big"
 # surge -1.56, R only on champions hit lately -4.01). R landing with Personal Space and Q 95 + 70%, E 80 + 60%, the
 # surge 200 + 70%, hp 960 -1.47 (no surge +0.48); the surge stopping r_stop short of the champion (league_zoe R's
 # jump) 40000 +0.36, 48000 +0.77; + Gloom 60 + 30%, E every 10 s +0.65 / -0.02 (seeds 1-8 / 9-16); + R every 35 s
-# +1.44 / +0.97 (about +1.2, league_zoe +1.17, league_volibear +1.39) = P.
+# +1.44 / +0.97 (about +1.2, league_zoe +1.17, league_volibear +1.39). Timed to the strips (the releases earlier, W's
+# burst on its slam frame) +0.40 / +0.87; Q 105 +1.29 / +0.48, + the surge 230 +1.85 / +1.73, 215 +0.73 / +1.02, 225
+# +0.97 / +1.17 (about +1.1) = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Vex:
     # 590 +104 hp, 23 armour, 28 mr, 335 move, 550 range, attack speed 0.669
@@ -66,13 +68,13 @@ P = {
     "w_sh_t": 150,
     # Q Mistral Bolt (League: 1200 range, 60-240 +60% AP, cd 8-4)
     "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 10, "q_speed": 4000, "q_len": 95000, "q_w": 8000,
-    "q_dmg": 95, "q_ratio": 70,
+    "q_dmg": 105, "q_ratio": 70,
     # E Looming Darkness (League: 800 range, 50-170 +40-60% AP, slow 30-50% for 2 s, cd 13)
     "e_cd": 600, "e_range": 70000, "e_dur": 30, "e_rel": 6, "e_fly": 18, "e_r": 22000, "e_dmg": 80, "e_ratio": 60,
     "e_slow": 35, "e_slow_t": 120,
     # R Shadow Surge (League: 2000-3000 range, 75-175 +20% AP mark, 150-350 +50% AP surge, cd 140-100)
     "r_cd": 2100, "r_range": 110000, "r_dur": 27, "r_rel": 10, "r_speed": 5000, "r_dmg": 80, "r_ratio": 20,
-    "r_wait": 8, "r_dash": 4500, "r_dash_anim": 24, "r2_dmg": 200, "r2_ratio": 70, "r_hit_dur": 24,
+    "r_wait": 8, "r_dash": 4500, "r_dash_anim": 24, "r2_dmg": 225, "r2_ratio": 70, "r_hit_dur": 24,
     "r_surge": 1, "r_recent": 0, "r_w": 1, "r_stop": 48000, "r_jspeed": 6000,
     "vo_gap": 600,
     # the add-on (addons/league_vex): Gloom on enemies who dash within p_dash_r, Doom's wait cut by g_cut% per Gloom
@@ -281,7 +283,7 @@ def build(p):
         land = [view("e_land"), sfx("e_land"), zone("e_zone", p["e_r"], hit)]
         if not native:
             land.append(zone("e_gloom", p["e_r"], [refresh("g_win", p["g_t"])], "EnemyChampion"))
-        return combine(view("e_cast"), lob("e_fly", p["e_fly"], land))
+        return combine(cview("e_cast"), lob("e_fly", p["e_fly"], land))
 
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(decoy(p["e_dmg"], p["e_ratio"], ap), sfx("e"), voice("vo_e", p),
