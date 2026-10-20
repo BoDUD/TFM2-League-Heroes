@@ -146,6 +146,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Mel: posed by tools/art/rig_mel.py on Codex's step-1 take A-3 at the user's 1.5 squares a game pixel (65 game rows bun
     // top to soles: 「44」「PPU 1.5」; every action on the 3/4 design after League's clips), so no SIZES row
     ("league_mel", 1.5, include_str!("../../../league/champions/league_mel#anim.fanim")),
+    // Vel'Koz: posed by tools/art/rig_velkoz.py on Codex's step-1 take A-2 at the user's 1.5 squares a game pixel (54 game
+    // rows crest top to the lowest tentacle: 「36」「PPU 1.5」; 3/4 only, every action after League's clips; ult_loop the
+    // kit's channel CasterAnimation), so no SIZES row
+    ("league_velkoz", 1.5, include_str!("../../../league/champions/league_velkoz#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

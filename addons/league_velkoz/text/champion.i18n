@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_velkoz": {
+        "attack": "【扩展包】发射虚空能量。每第3次普攻打开<#ff9028ff>虚空裂隙<>，造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害，随后爆炸再造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有机体解构<>：技能命中英雄时在他身上叠层，3层时造成<#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<><#f5f5f5ff>真实伤害<>。",
+        "skill": "【扩展包】发射一束等离子，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并减速50%。命中后向左右两边分裂，分裂弹造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害和减速。",
+        "ult": "【扩展包】引导一束射线<#ffb900ff>2.5秒<>，共造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法伤害。被他<#ff9028ff>有机体解构<>研究过的英雄受到<#f5f5f5ff>真实伤害<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_velkoz": {
+        "attack": "【擴充包】發射虛空能量。每第3次普攻打開<#ff9028ff>虛空裂痕<>，造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害，隨後爆炸再造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>結構毀滅<>：技能命中英雄時在他身上疊層，3層時造成<#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<><#f5f5f5ff>真實傷害<>。",
+        "skill": "【擴充包】發射一束電漿，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並緩速50%。命中後向左右兩邊分裂，分裂彈造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害和緩速。",
+        "ult": "【擴充包】引導一道射線<#ffb900ff>2.5秒<>，共造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法傷害。被他<#ff9028ff>結構毀滅<>研究過的英雄受到<#f5f5f5ff>真實傷害<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_velkoz": {
+        "attack": "[Add-on] Fires void energy. Every third attack opens a <#ff9028ff>Void Rift<>: <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>, then <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> as it detonates. <#ff9028ff>Organic Deconstruction<>: spell hits stack on the champion hit; the third deals <#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<> <#f5f5f5ff>true damage<>.",
+        "skill": "[Add-on] Shoots a bolt of plasma for <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> and a 50% slow. On hit it splits into two bolts flying off to the sides, each dealing <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and the slow.",
+        "ult": "[Add-on] Channels a beam for <#ffb900ff>2.5s<> that deals <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> <#a974ffff>magic damage<> in total. Champions he has researched with <#ff9028ff>Organic Deconstruction<> take <#f5f5f5ff>true damage<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_velkoz": {
+        "attack": "[확장] 공허 에너지를 발사한다. 3번째 공격마다 <#ff9028ff>공허 균열<>을 열어 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해, 폭발하며 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>. <#ff9028ff>유기물 분해<>: 스킬이 적중한 챔피언에게 중첩, 3회 중첩 시 <#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<> <#f5f5f5ff>고정 피해<>.",
+        "skill": "[확장] 플라즈마를 발사해 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해와 50% 둔화. 적중하면 양옆으로 분열해 각각 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해와 둔화.",
+        "ult": "[확장] <#ffb900ff>2.5초<> 동안 광선을 정신 집중해 총 <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> 마법 피해. <#ff9028ff>유기물 분해<>로 연구한 챔피언은 <#f5f5f5ff>고정 피해<>를 입는다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_velkoz": {
+        "attack": "【拡張】ヴォイドのエネルギーを放つ。3回目の通常攻撃ごとに<#ff9028ff>ヴォイドの裂谷<>を開き<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ、爆発で<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有機分解<>：スキルが当たったチャンピオンにスタック、3スタックで<#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<>の<#f5f5f5ff>確定ダメージ<>。",
+        "skill": "【拡張】電離弾を放ち<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと50%スロウ。命中すると左右に分裂し、それぞれ<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージとスロウ。",
+        "ult": "【拡張】<#ffb900ff>2.5秒<>光線を照射し合計<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>の魔法ダメージ。<#ff9028ff>有機分解<>で研究したチャンピオンには<#f5f5f5ff>確定ダメージ<>。"
+      }
+    }
+  }
+}
