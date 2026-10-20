@@ -229,6 +229,38 @@
           "name": "league_annie_q_cast"
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_annie_r_hold"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_annie_r_open",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_annie_r_cd",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_annie_r_hold",
+                "duration": {
+                  "Time": {
+                    "tick": 6
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
           "type": "SwitchByBuff",
           "buff_name": "league_annie_pyro_ready",
           "effect_buff": {
@@ -284,49 +316,57 @@
                 ]
               },
               {
-                "type": "TargetProjectile",
-                "name": "league_annie_q_stun",
-                "speed": 5000,
-                "y_offset": 1200,
-                "applied_target": "EnemyChampion",
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Stun",
-                      "duration": 45
+                "type": "SwitchByBuff",
+                "buff_name": "league_annie_r_hold",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "TargetProjectile",
+                  "name": "league_annie_q_stun",
+                  "speed": 5000,
+                  "y_offset": 1200,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Stun",
+                        "duration": 45
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_annie_stun"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "WithSelf",
+                        "effects": [
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_annie_pyro_ready"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_annie_pyro_glow"
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_annie_stun"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "WithSelf",
-                      "effects": [
-                        {
-                          "type": "Delayed",
-                          "tick": 1,
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_annie_pyro_ready"
-                            },
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_annie_pyro_glow"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
+                  ]
+                }
               }
             ]
           },
@@ -527,6 +567,38 @@
           "applied_effects": []
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_annie_r_hold"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_annie_r_open",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_annie_r_cd",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_annie_r_hold",
+                "duration": {
+                  "Time": {
+                    "tick": 6
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
           "type": "SwitchByBuff",
           "buff_name": "league_annie_pyro_ready",
           "effect_buff": {
@@ -585,48 +657,56 @@
                     ]
                   },
                   {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 56000,
-                        "range": 906
-                      }
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_annie_r_hold",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
                     },
-                    "target": "EnemyChampion",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
-                    "effects": [
-                      {
-                        "type": "Stun",
-                        "duration": 45
+                    "effect_none": {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "DirDot": {
+                          "radius": 56000,
+                          "range": 906
+                        }
                       },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_annie_stun"
+                      "target": "EnemyChampion",
+                      "apply_type": {
+                        "Forward": {
+                          "offset": 1000
+                        }
                       },
-                      {
-                        "type": "WithSelf",
-                        "effects": [
-                          {
-                            "type": "Delayed",
-                            "tick": 1,
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_annie_pyro_ready"
-                              },
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_annie_pyro_glow"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
+                      "effects": [
+                        {
+                          "type": "Stun",
+                          "duration": 45
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_annie_stun"
+                        },
+                        {
+                          "type": "WithSelf",
+                          "effects": [
+                            {
+                              "type": "Delayed",
+                              "tick": 1,
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_annie_pyro_ready"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_annie_pyro_glow"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
                   }
                 ]
               }
@@ -918,6 +998,38 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_annie_r_cd"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_annie_r_cd",
+            "duration": {
+              "Time": {
+                "tick": 3600
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_annie_r_open"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_annie_r_open",
+            "duration": {
+              "Time": {
+                "tick": 4200
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
         {
           "type": "SwitchByBuff",
           "buff_name": "league_annie_pyro_init",

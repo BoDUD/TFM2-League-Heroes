@@ -2840,6 +2840,28 @@
                               }
                             }
                           }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kaisa_w_combo"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_kaisa_w_combo",
+                              "duration": {
+                                "Time": {
+                                  "tick": 240
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
                         }
                       ],
                       "end_effects": [],
@@ -2890,66 +2912,135 @@
           "name": "league_kaisa_r_cast"
         },
         {
-          "type": "Delayed",
-          "tick": 7,
-          "effects": [
-            {
-              "type": "CasterViewEffect",
-              "name": "league_kaisa_r_launch"
-            },
-            {
-              "type": "CasterAnimation",
-              "name": "ult_dash",
-              "tick": 22
-            },
-            {
-              "type": "MoveToTarget",
-              "speed": 6000,
-              "range": 120000,
-              "end_effects": [
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult_dash"
-                },
-                {
-                  "type": "CasterAnimation",
-                  "name": "ult_land",
-                  "tick": 14
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_kaisa_r_land"
-                },
-                {
-                  "type": "CasterViewEffect",
-                  "name": "league_kaisa_r_land"
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
+          "type": "SwitchByBuff",
+          "buff_name": "league_kaisa_w_combo",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_kaisa_w_combo"
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_kaisa_r_launch"
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "ult_dash",
+                "tick": 22
+              },
+              {
+                "type": "MoveToTarget",
+                "speed": 6000,
+                "range": 120000,
+                "end_effects": [
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult_dash"
                   },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "Shield",
-                      "amount": 220,
-                      "attack_ratio": 180,
-                      "ap_ratio": 0,
-                      "tick": 120
-                    }
-                  ]
-                },
-                {
-                  "type": "CasterViewEffect",
-                  "name": "league_kaisa_r_shield"
-                }
-              ]
-            }
-          ]
+                  {
+                    "type": "CasterAnimation",
+                    "name": "ult_land",
+                    "tick": 14
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_kaisa_r_land"
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_kaisa_r_land"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Shield",
+                        "amount": 220,
+                        "attack_ratio": 180,
+                        "ap_ratio": 0,
+                        "tick": 120
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_kaisa_r_shield"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 7,
+            "effects": [
+              {
+                "type": "CasterViewEffect",
+                "name": "league_kaisa_r_launch"
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "ult_dash",
+                "tick": 22
+              },
+              {
+                "type": "MoveToTarget",
+                "speed": 6000,
+                "range": 120000,
+                "end_effects": [
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult_dash"
+                  },
+                  {
+                    "type": "CasterAnimation",
+                    "name": "ult_land",
+                    "tick": 14
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_kaisa_r_land"
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_kaisa_r_land"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Shield",
+                        "amount": 220,
+                        "attack_ratio": 180,
+                        "ap_ratio": 0,
+                        "tick": 120
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_kaisa_r_shield"
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }

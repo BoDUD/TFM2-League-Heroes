@@ -1390,6 +1390,10 @@
                       }
                     }
                   }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_volibear_w_cd"
                 }
               ]
             }

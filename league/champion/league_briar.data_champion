@@ -799,7 +799,7 @@
                         "name": "league_briar_snack_wait",
                         "duration": {
                           "Time": {
-                            "tick": 120
+                            "tick": 6
                           }
                         }
                       },

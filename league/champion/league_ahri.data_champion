@@ -1713,77 +1713,56 @@
           }
         },
         {
-          "type": "LinearProjectile",
-          "name": "league_ahri_q_out",
-          "speed": 4000,
-          "range": 75000,
-          "penetrate": true,
-          "shape": {
-            "Circle": {
-              "radius": 9000
-            }
-          },
-          "applied_target": "EnemyWithoutTower",
-          "applied_effects": [
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Combine",
-                "effects": [
+          "type": "SwitchByBuff",
+          "buff_name": "league_ahri_e_combo",
+          "effect_buff": {
+            "type": "RandomTarget",
+            "range": 70000,
+            "casting_target": "EnemyChampionInCC",
+            "from_projectile": false,
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_ahri_q_aim",
+                  "duration": {
+                    "Time": {
+                      "tick": 1
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "LinearProjectile",
+                "name": "league_ahri_q_out",
+                "speed": 4000,
+                "range": 75000,
+                "penetrate": true,
+                "shape": {
+                  "Circle": {
+                    "radius": 9000
+                  }
+                },
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
                   {
-                    "type": "ApAttack",
-                    "damage": 70,
-                    "attack_ratio": 55
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_ahri_q_hit"
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_ahri_q_sfx_out",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": []
-                    },
-                    "effect_none": {
+                    "casting_type": "Targeting",
+                    "effect": {
                       "type": "Combine",
                       "effects": [
                         {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_ahri_q_sfx_out",
-                            "duration": {
-                              "Time": {
-                                "tick": 30
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
+                          "type": "ApAttack",
+                          "damage": 70,
+                          "attack_ratio": 55
                         },
                         {
-                          "type": "TargetSfx",
+                          "type": "ViewEffect",
                           "name": "league_ahri_q_hit"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_ahri_et_heal",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "Heal",
-                          "amount": 15,
-                          "attack_ratio": 0,
-                          "ap_ratio": 8,
-                          "heal_type": "Caster"
                         },
                         {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_ahri_et_heal_lock",
+                          "buff_name": "league_ahri_q_sfx_out",
                           "effect_buff": {
                             "type": "Combine",
                             "effects": []
@@ -1794,188 +1773,188 @@
                               {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_ahri_et_heal_lock",
+                                  "name": "league_ahri_q_sfx_out",
                                   "duration": {
                                     "Time": {
-                                      "tick": 20
+                                      "tick": 30
                                     }
                                   }
                                 },
                                 "only_to_enemy": false
                               },
                               {
-                                "type": "CasterViewEffect",
-                                "name": "league_ahri_heal"
-                              },
-                              {
-                                "type": "Sfx",
-                                "name": "league_ahri_heal"
+                                "type": "TargetSfx",
+                                "name": "league_ahri_q_hit"
                               }
                             ]
                           }
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_ahri_et_lock_q",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": []
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_ahri_et_lock_q",
-                              "duration": {
-                                "Time": {
-                                  "tick": 60
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ahri_et_heal",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Heal",
+                                "amount": 15,
+                                "attack_ratio": 0,
+                                "ap_ratio": 8,
+                                "heal_type": "Caster"
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_ahri_et_heal_lock",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ahri_et_heal_lock",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 20
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_ahri_heal"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_ahri_heal"
+                                    }
+                                  ]
                                 }
                               }
-                            },
-                            "only_to_enemy": false
+                            ]
                           },
-                          {
+                          "effect_none": {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_ahri_et2",
+                            "buff_name": "league_ahri_et_lock_q",
                             "effect_buff": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_ahri_et_ready",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": []
-                              },
-                              "effect_none": {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_ahri_et_ready",
-                                  "duration": "Permanent"
-                                },
-                                "only_to_enemy": false
-                              }
+                              "type": "Combine",
+                              "effects": []
                             },
                             "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_ahri_et1",
-                              "effect_buff": {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_ahri_et2",
-                                  "duration": "Permanent"
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ahri_et_lock_q",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
                                 },
-                                "only_to_enemy": false
-                              },
-                              "effect_none": {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_ahri_et1",
-                                  "duration": "Permanent"
-                                },
-                                "only_to_enemy": false
-                              }
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_ahri_et2",
+                                  "effect_buff": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_ahri_et_ready",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ahri_et_ready",
+                                        "duration": "Permanent"
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_ahri_et1",
+                                    "effect_buff": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ahri_et2",
+                                        "duration": "Permanent"
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    "effect_none": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ahri_et1",
+                                        "duration": "Permanent"
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  }
+                                }
+                              ]
                             }
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
                   }
-                ]
-              }
-            }
-          ],
-          "end_effects": [
-            {
-              "type": "Sfx",
-              "name": "league_ahri_q_return"
-            },
-            {
-              "type": "BackToCasterLinearProjectile",
-              "name": "league_ahri_q_back",
-              "speed": 4500,
-              "range": 400000,
-              "penetrate": true,
-              "shape": {
-                "Circle": {
-                  "radius": 9000
-                }
-              },
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Combine",
-                    "effects": [
+                ],
+                "end_effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "league_ahri_q_return"
+                  },
+                  {
+                    "type": "BackToCasterLinearProjectile",
+                    "name": "league_ahri_q_back",
+                    "speed": 4500,
+                    "range": 400000,
+                    "penetrate": true,
+                    "shape": {
+                      "Circle": {
+                        "radius": 9000
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
                       {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_ahri_q_true",
-                          "duration": {
-                            "Time": {
-                              "tick": 1
-                            }
-                          },
-                          "magic_resistance_penetration": 100
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "ApAttack",
-                        "damage": 70,
-                        "attack_ratio": 55
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_ahri_q_true_hit"
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_ahri_q_sfx_back",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
+                        "casting_type": "Targeting",
+                        "effect": {
                           "type": "Combine",
                           "effects": [
                             {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_ahri_q_sfx_back",
+                                "name": "league_ahri_q_true",
                                 "duration": {
                                   "Time": {
-                                    "tick": 30
+                                    "tick": 1
                                   }
-                                }
+                                },
+                                "magic_resistance_penetration": 100
                               },
                               "only_to_enemy": false
                             },
                             {
-                              "type": "TargetSfx",
-                              "name": "league_ahri_q_true"
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_ahri_et_heal",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
+                              "type": "ApAttack",
+                              "damage": 70,
+                              "attack_ratio": 55
+                            },
                             {
-                              "type": "Heal",
-                              "amount": 15,
-                              "attack_ratio": 0,
-                              "ap_ratio": 8,
-                              "heal_type": "Caster"
+                              "type": "ViewEffect",
+                              "name": "league_ahri_q_true_hit"
                             },
                             {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_ahri_et_heal_lock",
+                              "buff_name": "league_ahri_q_sfx_back",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": []
@@ -1986,31 +1965,380 @@
                                   {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_ahri_et_heal_lock",
+                                      "name": "league_ahri_q_sfx_back",
                                       "duration": {
                                         "Time": {
-                                          "tick": 20
+                                          "tick": 30
                                         }
                                       }
                                     },
                                     "only_to_enemy": false
                                   },
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_ahri_heal"
-                                  },
-                                  {
-                                    "type": "Sfx",
-                                    "name": "league_ahri_heal"
+                                    "type": "TargetSfx",
+                                    "name": "league_ahri_q_true"
                                   }
                                 ]
                               }
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_ahri_et_heal",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Heal",
+                                    "amount": 15,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 8,
+                                    "heal_type": "Caster"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_ahri_et_heal_lock",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ahri_et_heal_lock",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 20
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_ahri_heal"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_ahri_heal"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_ahri_et_lock_q",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ahri_et_lock_q",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 60
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_ahri_et2",
+                                      "effect_buff": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_ahri_et_ready",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ahri_et_ready",
+                                            "duration": "Permanent"
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_ahri_et1",
+                                        "effect_buff": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ahri_et2",
+                                            "duration": "Permanent"
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        "effect_none": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ahri_et1",
+                                            "duration": "Permanent"
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
                             }
                           ]
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_ahri_q_aim",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "LinearProjectile",
+            "name": "league_ahri_q_out",
+            "speed": 4000,
+            "range": 75000,
+            "penetrate": true,
+            "shape": {
+              "Circle": {
+                "radius": 9000
+              }
+            },
+            "applied_target": "EnemyWithoutTower",
+            "applied_effects": [
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "ApAttack",
+                      "damage": 70,
+                      "attack_ratio": 55
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_ahri_q_hit"
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_ahri_q_sfx_out",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_ahri_q_sfx_out",
+                              "duration": {
+                                "Time": {
+                                  "tick": 30
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_ahri_q_hit"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_ahri_et_heal",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 15,
+                            "attack_ratio": 0,
+                            "ap_ratio": 8,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_ahri_et_heal_lock",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ahri_et_heal_lock",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 20
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_ahri_heal"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_ahri_heal"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ahri_et_lock_q",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
                         },
                         "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_ahri_et_lock_q",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_ahri_et2",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_ahri_et_ready",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ahri_et_ready",
+                                    "duration": "Permanent"
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_ahri_et1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ahri_et2",
+                                    "duration": "Permanent"
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ahri_et1",
+                                    "duration": "Permanent"
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "end_effects": [
+              {
+                "type": "Sfx",
+                "name": "league_ahri_q_return"
+              },
+              {
+                "type": "BackToCasterLinearProjectile",
+                "name": "league_ahri_q_back",
+                "speed": 4500,
+                "range": 400000,
+                "penetrate": true,
+                "shape": {
+                  "Circle": {
+                    "radius": 9000
+                  }
+                },
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_ahri_q_true",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            },
+                            "magic_resistance_penetration": 100
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "ApAttack",
+                          "damage": 70,
+                          "attack_ratio": 55
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_ahri_q_true_hit"
+                        },
+                        {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_ahri_et_lock_q",
+                          "buff_name": "league_ahri_q_sfx_back",
                           "effect_buff": {
                             "type": "Combine",
                             "effects": []
@@ -2021,66 +2349,144 @@
                               {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_ahri_et_lock_q",
+                                  "name": "league_ahri_q_sfx_back",
                                   "duration": {
                                     "Time": {
-                                      "tick": 60
+                                      "tick": 30
                                     }
                                   }
                                 },
                                 "only_to_enemy": false
                               },
                               {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ahri_et2",
-                                "effect_buff": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_ahri_et_ready",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_ahri_et_ready",
-                                      "duration": "Permanent"
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_ahri_et1",
-                                  "effect_buff": {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_ahri_et2",
-                                      "duration": "Permanent"
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  "effect_none": {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_ahri_et1",
-                                      "duration": "Permanent"
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                }
+                                "type": "TargetSfx",
+                                "name": "league_ahri_q_true"
                               }
                             ]
                           }
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ahri_et_heal",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Heal",
+                                "amount": 15,
+                                "attack_ratio": 0,
+                                "ap_ratio": 8,
+                                "heal_type": "Caster"
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_ahri_et_heal_lock",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ahri_et_heal_lock",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 20
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_ahri_heal"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_ahri_heal"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_ahri_et_lock_q",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ahri_et_lock_q",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_ahri_et2",
+                                  "effect_buff": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_ahri_et_ready",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ahri_et_ready",
+                                        "duration": "Permanent"
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_ahri_et1",
+                                    "effect_buff": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ahri_et2",
+                                        "duration": "Permanent"
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    "effect_none": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ahri_et1",
+                                        "duration": "Permanent"
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
-                }
-              ],
-              "end_effects": []
-            }
-          ]
+                ],
+                "end_effects": []
+              }
+            ]
+          }
         }
       ]
     }
@@ -2302,6 +2708,21 @@
                     }
                   }
                 ]
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_ahri_e_combo",
+                  "duration": {
+                    "Time": {
+                      "tick": 75
+                    }
+                  }
+                },
+                "only_to_enemy": false
               }
             }
           ],

@@ -3001,6 +3001,33 @@
                   }
                 ]
               }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Delayed",
+                "tick": 1,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_varus_r_refund"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_varus_r_refund",
+                      "duration": {
+                        "Time": {
+                          "tick": 2
+                        }
+                      },
+                      "skill_cooldown_mult": 10000,
+                      "ult_cooldown_mult": -10000
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
             }
           ],
           "end_effects": [

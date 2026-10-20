@@ -72,7 +72,7 @@
     "description": "#asset/base/text/champion?description.league_leona.skill",
     "duration": 26,
     "cooltime": 300,
-    "start_timing": 1,
+    "start_timing": 11,
     "cancelable": false,
     "range": 26000,
     "casting_type": "Targeting",
@@ -82,95 +82,42 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_leona_e_combo",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "Sfx",
-                "name": "league_leona_q_cast"
-              },
-              {
-                "type": "Attack",
-                "damage": 0,
-                "attack_ratio": 100
-              },
-              {
-                "type": "ApAttack",
-                "damage": 40,
-                "attack_ratio": 40
-              },
-              {
-                "type": "Stun",
-                "duration": 60
-              },
-              {
-                "type": "AddBuff",
-                "buff_state": {
-                  "name": "league_leona_sunlight",
-                  "duration": {
-                    "Time": {
-                      "tick": 90
-                    }
-                  },
-                  "damaged_amplify": 10
-                }
-              },
-              {
-                "type": "ViewEffect",
-                "name": "league_leona_q_hit"
-              },
-              {
-                "type": "TargetSfx",
-                "name": "league_leona_q_hit"
+          "type": "Sfx",
+          "name": "league_leona_q_cast"
+        },
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100
+        },
+        {
+          "type": "ApAttack",
+          "damage": 40,
+          "attack_ratio": 40
+        },
+        {
+          "type": "Stun",
+          "duration": 60
+        },
+        {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "league_leona_sunlight",
+            "duration": {
+              "Time": {
+                "tick": 90
               }
-            ]
-          },
-          "effect_none": {
-            "type": "Delayed",
-            "tick": 10,
-            "effects": [
-              {
-                "type": "Sfx",
-                "name": "league_leona_q_cast"
-              },
-              {
-                "type": "Attack",
-                "damage": 0,
-                "attack_ratio": 100
-              },
-              {
-                "type": "ApAttack",
-                "damage": 40,
-                "attack_ratio": 40
-              },
-              {
-                "type": "Stun",
-                "duration": 60
-              },
-              {
-                "type": "AddBuff",
-                "buff_state": {
-                  "name": "league_leona_sunlight",
-                  "duration": {
-                    "Time": {
-                      "tick": 90
-                    }
-                  },
-                  "damaged_amplify": 10
-                }
-              },
-              {
-                "type": "ViewEffect",
-                "name": "league_leona_q_hit"
-              },
-              {
-                "type": "TargetSfx",
-                "name": "league_leona_q_hit"
-              }
-            ]
+            },
+            "damaged_amplify": 10
           }
+        },
+        {
+          "type": "ViewEffect",
+          "name": "league_leona_q_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "league_leona_q_hit"
         }
       ]
     }
@@ -312,21 +259,6 @@
                 "type": "CasterAnimation",
                 "name": "e_dash",
                 "tick": 16
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_leona_e_combo",
-                  "duration": {
-                    "Time": {
-                      "tick": 90
-                    }
-                  }
-                },
-                "only_to_enemy": false
               }
             }
           ],
