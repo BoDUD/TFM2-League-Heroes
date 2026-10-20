@@ -48,6 +48,11 @@ pub const W_HASTE: &str = "league_akshan_w_haste";
 // sounds of the main pack (league/sound/sfx) the add-on plays
 const SFX_MARK: &str = "league_akshan_w_mark";
 const SFX_REVIVE: &str = "league_akshan_w_revive";
+/// The revive's golden beam (tools/art/fx_akshan_revive.py): on Akshan as the Scoundrel falls, on each ally the tick he
+/// stands again at his fountain - the revive showed nothing before (the user: 「我一直在游戏里看不出什么效果」).
+const VIEW_REVIVE: &str = "league_akshan_w_revive";
+/// How long a revived ally is watched for his return (the revive's REVIVE_T and some).
+const BACK_WAIT: usize = 240;
 const SFX_GOLD: &str = "league_akshan_w_gold";
 
 // ---- 数字（和 build_akshan.P 一致：make_override.py 把 P 写进副本的 passive.params，测试核对）
@@ -633,6 +638,8 @@ struct Rogue {
     seen: usize,
     /// 恶徒：敌方玩家编号 -> 标记。
     marks: BTreeMap<usize, Scoundrel>,
+    /// 刚复活的队友（玩家编号, 等到第几 tick）：他站起来的那一 tick 在他身上放复活的光。
+    back: Vec<(usize, usize)>,
 }
 
 /// 击杀记录里的“位置”就是分路（LaneV1 的编号）：按队伍和分路找玩家编号。
@@ -714,6 +721,8 @@ impl Rogue {
                         match shorten_respawn(sim, v, REVIVE_T) {
                             Ok((was, now_)) => {
                                 sim.play_sfx(SFX_REVIVE, me, &InputTargetV1::target(me));
+                                sim.play_view_effect(VIEW_REVIVE, me, &InputTargetV1::target(me), 0, 0, 0);
+                                self.back.push((v, now + BACK_WAIT));
                                 wlog(format!(
                                     "{} REVIVE player {v}: Scoundrel {victim} down, respawn {was} -> {now_} ticks",
                                     head(sim, me)
@@ -727,6 +736,20 @@ impl Rogue {
         }
         // marks run out
         self.marks.retain(|_, m| m.until > now);
+        // a revived ally standing again: the beam on him
+        let mut left = Vec::new();
+        for (v, until) in std::mem::take(&mut self.back) {
+            match sim.get_player(v).filter(|p| p.is_alive()).and_then(|p| p.champion()).map(|e| e.id()) {
+                Some(e) => {
+                    sim.play_view_effect(VIEW_REVIVE, e, &InputTargetV1::target(e), 0, 0, 0);
+                    sim.play_sfx(SFX_REVIVE, e, &InputTargetV1::target(e));
+                    wlog(format!("{} BACK player {v}: the revive's beam on him", head(sim, me)));
+                }
+                None if now < until => left.push((v, until)),
+                None => {}
+            }
+        }
+        self.back = left;
     }
 
     /// Moving toward the Scoundrels: move speed while one lives within HASTE_R (League: +80-120 toward them).

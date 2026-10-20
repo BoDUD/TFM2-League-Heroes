@@ -44,6 +44,7 @@ OUT = os.path.join(REPO, "league", "champion", "league_akshan.data_champion")
 ID = "league_akshan"
 FX = "asset/league/effects/league_akshan_fx"
 BIG = "asset/league/effects/league_akshan_big"
+RV = "asset/league/effects/league_akshan_rv"     # the revive beam (tools/art/fx_akshan_revive.py), played by the add-on
 
 # Numbers = the 10-min classic-SDK simulations (bottom against archer, gunner, boomerang_hunter, poison_dart_hunter and
 # bomber, three lineups, both sides, seeds 1-8, 2026-10-18, placeholder timings): the draft (attack 92, Q 70%, E 15 +30%,
@@ -337,7 +338,7 @@ def build(p, native=False):
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 1}
     views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("q_catch"), E("e_hit", tag="a_hit"), E("r_hit"),
-               E("w_camo", BIG, 2, **LATE), E("r_lock", BIG, 2, **LATE)]
+               E("w_camo", BIG, 2, **LATE), E("r_lock", BIG, 2, **LATE), E("w_revive", RV, 3)]
     views_p = [Pj("a_shot"), Pj("a_shot2", "a_shot"), Pj("q_out", "q_rang"), Pj("q_back", "q_rang"),
                Pj("e_shot", "a_shot"), Pj("r_bullet"), Pj("e_rope")]
     views_b = [{"type": "Animated", "name": n("p_sh"), "anim": FX, "tag": "p_sh", "repeat": True, "z": 2},

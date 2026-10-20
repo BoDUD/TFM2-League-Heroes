@@ -4302,6 +4302,14 @@
       "tag": "r_lock",
       "z": 2,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_akshan_w_revive",
+      "anim": "asset/league/effects/league_akshan_rv",
+      "tag": "w_revive",
+      "z": 3,
+      "is_follow": true
     }
   ],
   "view_buffs": [
