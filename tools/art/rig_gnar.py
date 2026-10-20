@@ -23,6 +23,7 @@ How the poses are made:
     flashes and Mini's death plays on.
 """
 import argparse
+import json
 import math
 import os
 import sys
@@ -532,6 +533,38 @@ def grounded(C, can):
     return out
 
 
+POSES = os.path.join(SRC, "poses")
+_POSE = {}
+
+
+def pose(C, name, lift=0, dx=0, flash=False):
+    """One of Codex's key poses (tools/art/read_gnar_poses.py: on the design's squares, its head the design's) as a
+    frame: the lowest square on the ground row (lift rows over it); across, Mega by the drawing's middle of mass on the
+    side design's (the body stays over his standing point), Mini by his head on the design's (one face in all frames)."""
+    if name not in _POSE:
+        a = np.asarray(Image.open(lp(os.path.join(POSES, f"{name}.png"))).convert("RGBA")).copy()
+        _POSE[name] = a
+    a = _POSE[name]
+    f = C.mega if name.startswith("m_") else C.mini
+    ox, oy = C.origin(f)
+    if f is C.mini:                                          # Mini: the head where the design's is (his tail and the
+        if "fit" not in _POSE:                               # boomerang reach far out behind him in the poses)
+            with open(lp(os.path.join(POSES, "pose_fit.json")), encoding="utf-8") as fh:
+                _POSE["fit"] = json.load(fh)
+        x0 = ox + 6 - _POSE["fit"][name]["head_at"][0] + dx  # the 3/4 head's box starts at the design's column 6
+    else:
+        fx = np.nonzero(f.d[..., 3] > 0)[1].mean() + ox        # Mega: the design's middle of mass on the canvas
+        px = np.nonzero(a[..., 3] > 0)[1].mean()
+        x0 = int(round(fx - px)) + dx
+    y0 = C.rig.GY - a.shape[0] - lift
+    can = C.blank()
+    big = np.zeros(can.shape, np.uint8)
+    big[y0:y0 + a.shape[0], x0:x0 + a.shape[1]] = a
+    R.put(can, big)
+    can = seal(C.finish(can), C.outline)
+    return R.flash(can) if flash else can
+
+
 def seal(can, outline, speck=8):
     """Cracks a turned part leaves against the untouched ones closed: a clear square with drawn squares on both sides
     of it (left and right, or above and below, within 2) inside the figure takes its neighbours' colour (not the
@@ -636,15 +669,15 @@ def frames_all(C):
     out["run"] = run
     # attack (League's Gnar_Attack1: the boomerang held across him, drawn back behind as he gathers, flung with a little
     # hop - it leaves on frame 3 - and he lands)
-    out["attack"] = [mini(C, arm="swing"), mini(C, lean=-1, lift=2),
-                     mini(C, arm="front", lean=1, lift=6, tail_dy=-1, boomerang=False),
-                     mini(C, arm="front", lean=1, lift=3, boomerang=False), mini(C)]
+    # Codex's key poses (POSE_PROMPTS.md, the user: 「感觉大小纳尔少了点动作帧啊 要不要codex补啊」): the wind-up behind
+    # him, the fling with the hand empty (frame 3, the boomerang's release)
+    out["attack"] = [mini(C), pose(C, "a_windup"), pose(C, "a_throw", lift=2), pose(C, "a_throw"), mini(C)]
     # Q Boomerang Throw (League's Gnar_Spell1: across him, drawn back deep, the throw on frame 4 and a hop after it)
-    out["skill"] = [mini(C, arm="swing"), mini(C, lean=-1), mini(C, lean=-1),
-                    mini(C, arm="front", lean=1, lift=3, tail_dy=-1, boomerang=False),
-                    mini(C, arm="front", lift=7, tail_dy=-1, boomerang=False), mini(C, lift=3, boomerang=False), mini(C)]
-    out["skill2"] = [mini(C), mini(C, lift=4), mini(C, lift=9), mini(C, lift=11), mini(C, lift=9), mini(C, lift=4),
-                     mini(C), mini(C)]
+    out["skill"] = [mini(C, arm="swing"), pose(C, "a_windup"), pose(C, "a_windup", dx=-1), pose(C, "a_throw", lift=3),
+                    pose(C, "a_throw", lift=6), mini(C, lift=3, boomerang=False), mini(C)]
+    # Hop: a crouch, tucked up in the air, the landing crouch
+    out["skill2"] = [pose(C, "a_crouch"), pose(C, "a_hop", lift=4), pose(C, "a_hop", lift=9), pose(C, "a_hop", lift=11),
+                     pose(C, "a_hop", lift=9), pose(C, "a_hop", lift=4), pose(C, "a_crouch"), mini(C)]
     out["hit"] = [mini(C, dx=-2, flash=True), mini(C, dx=-1)]
     # dead (League's Gnar_Death: hit, eyes shut, the boomerang flies off, he drops flat on the ground)
     out["dead"] = [mini(C, dx=-1, eyes_closed=True), mini(C, dx=-2, lift=2, boomerang=False, eyes_closed=True),
@@ -671,24 +704,27 @@ def frames_all(C):
     # onto all fours swings the fist up and down by itself.
     # attack (League's GnarBig_Attack1: up on the hind legs, claws high - then down onto all fours, the fist slamming
     # the ground ahead on frame 4)
-    out["m_attack"] = [mega(C, theta=10), mega(C, theta=30), mega(C, theta=38), mega(C, theta=-6, dx=2),
-                       mega(C, theta=-4, dx=2), mega(C, theta=-2, dx=1)]
+    # Codex's key poses take the moves the body turn alone could not (the arms): the fist lifted behind the head, the
+    # slam onto both fists, the boulder overhead, the leap, the rear-up, the lunge
+    out["m_attack"] = [mega(C, theta=10), pose(C, "m_swing"), pose(C, "m_swing", dx=1), pose(C, "m_slam"),
+                       pose(C, "m_slam"), mega(C, theta=-2, dx=1)]
     # Q Boulder Toss (League's GnarBig_Spell1: down to scoop the boulder, up on the hind legs with it held high, hurled
     # down and forward as he drops onto all fours on frame 4)
-    out["m_skill"] = [mega(C, theta=-6), mega(C, theta=20), mega(C, theta=40), mega(C, theta=8, dx=1),
+    out["m_skill"] = [pose(C, "m_crouch"), pose(C, "m_lift"), pose(C, "m_lift", dx=-1), pose(C, "m_lunge"),
                       mega(C, theta=3, dx=1), mega(C)]
     # E Crunch (League's GnarBig_Spell3: a crouch, a leap high up - nose up rising, level at the top, nose down falling -
     # and the landing slam on frame 6)
-    out["m_skill2"] = [mega(C, theta=-6), mega(C, theta=14, lift=14), mega(C, theta=8, lift=30), mega(C, lift=38),
-                       mega(C, theta=-14, lift=22), mega(C, theta=-6, dx=1), mega(C, theta=-3), mega(C)]
+    out["m_skill2"] = [pose(C, "m_crouch"), pose(C, "m_leap", lift=12), pose(C, "m_leap", lift=26),
+                       pose(C, "m_leap", lift=32), pose(C, "m_leap", lift=16), pose(C, "m_slam"), pose(C, "m_slam"),
+                       mega(C)]
     # W Wallop (League's GnarBig_Spell2: right up on the hind legs, then the whole body thrown forward and down, the
     # fist smashing the ground ahead on frame 4)
-    out["m_wallop"] = [mega(C, theta=30), mega(C, theta=50), mega(C, theta=60), mega(C, theta=-8, dx=4),
-                       mega(C, theta=-6, dx=4), mega(C, theta=-2, dx=1)]
+    out["m_wallop"] = [mega(C, theta=20), pose(C, "m_rear"), pose(C, "m_rear"), pose(C, "m_slam", dx=2),
+                       pose(C, "m_slam", dx=2), mega(C, theta=-2, dx=1)]
     # R GNAR! (League's GnarBig_Spell4: a crouch, a low lunge, then up on the hind legs flinging everything away - the
     # throw on frame 3)
-    out["ult"] = [mega(C, theta=-8, dx=-2), mega(C, theta=-5, dx=4), mega(C, theta=34, dx=6), mega(C, theta=38, dx=6),
-                  mega(C, theta=12, dx=3), mega(C, dx=1)]
+    out["ult"] = [pose(C, "m_crouch", dx=-2), pose(C, "m_rear", dx=2), pose(C, "m_lunge", dx=4),
+                  pose(C, "m_lunge", dx=5), mega(C, theta=12, dx=3), mega(C, dx=1)]
     return out
 
 

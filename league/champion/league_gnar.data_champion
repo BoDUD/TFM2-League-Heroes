@@ -16,9 +16,9 @@
     "asset/league/icons/league_gnar_ult"
   ],
   "stat": {
-    "attack": 86,
+    "attack": 90,
     "magic_power": 0,
-    "hp": 960,
+    "hp": 1000,
     "defence": 26,
     "magic_resistance": 22,
     "move_speed": 1050,

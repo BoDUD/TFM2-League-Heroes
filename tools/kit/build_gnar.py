@@ -40,8 +40,10 @@ Mini's Hyper (W) rides the attack. The forms work like league_nidalee's: every a
           champion (the pros' R -> W -> Q).
   combos  E -> W (猛踏接痛殴), R -> W -> Q (大招接痛殴接顽石), Q catch (接回力标) and the boulder pick-up (捡石头), the
           transform spell (满怒放技能直接变身放巨型技能).
-The add-on copy (--native, addons/league_gnar): R's stun and its extra damage only on a wall (league_gnar:wall), the
-whole body Mega while `mg` holds (its view code).
+The add-on copy (--native, addons/league_gnar): GNAR! throws everyone the same way, r_push far - the way that slams
+most of them into a wall (league_gnar:wall) - and only those that hit a wall are stunned r_stun ticks and take r_wall% of
+R's damage in all (its passive league_gnar:slam, the moment they arrive); the whole body Mega while `mg` holds (its view
+code).
 """
 import argparse
 import json
@@ -71,11 +73,12 @@ BIG = "asset/league/effects/league_gnar_big"
 # Boulder 72, Crunch 72 instead: +0.62 / +0.33; attack +20% with Boomerang 36, Boulder 68: +1.29 / +0.40)). GNAR! made Mega's alone
 # as in League (the user: 「放大招是攒满怒气吗 要和英雄联盟一样」): -0.22 / -0.09; Mini's empty cast waiting 10 s, armed
 # on the turn: -0.53 / -0.31; Rage locked 4 s (was 8) +0.02 avg; with Mega's attack +30%: +0.64 / -0.05; Mega's attack
-# +30% and health +40%: +0.88 / -0.17; all three = P: +0.24 / +0.22 (attack +34%: +0.04 / +0.08; R 210: -0.01 / +0.34;
-# base attack 90: -0.33 / +0.34).
+# +30% and health +40%: +0.88 / -0.17; all three: +0.24 / +0.22 (attack +34%: +0.04 / +0.08; R 210: -0.01 / +0.34;
+# base attack 90: -0.33 / +0.34); on those, base attack 90 and health 1000 (was 86 / 960) = P: +0.77 / +0.90 (Mega 18 s:
+# +0.61 / +0.51; Mega's armour and magic resist +55%: +0.96 / +0.10).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, def 30, mr 25, move 1000, range 25000, attack cd 65)
-    "hp": 960, "hp_g": 98, "atk": 86, "atk_g": 17, "mp": 0, "mp_g": 0, "def": 26, "def_g": 8, "mr": 22, "mr_g": 4,
+    "hp": 1000, "hp_g": 98, "atk": 90, "atk_g": 17, "mp": 0, "mp_g": 0, "def": 26, "def_g": 8, "mr": 22, "mr_g": 4,
     "ms": 1050, "ms_g": 12,
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 58, "a_rel": 10, "a_speed": 5000,
     # the forms
@@ -99,6 +102,8 @@ P = {
     # R GNAR!
     "r_cd": 2700, "r_range": 26000, "r_dur": 31, "r_at": 11, "r_r": 30000, "r_dmg": 170, "r_ratio": 60,
     "r_kb": 1500, "r_kb_t": 8, "r_stun": 70, "r_slow": 50, "r_slow_t": 90, "r_wall": 150,
+    # the add-on's throw: everyone the same way (the way that slams most of them into a wall), r_push far at r_push_v
+    "r_push": 30000, "r_push_v": 3000,
     # Mini short of full Rage: the empty cast's cooldown cut to r_wait ticks; turning Mega within them makes the ult
     # ready at once (r_arm: ult_cooldown_mult r_arm_mult for 2 ticks caps the cooldown left at a tick)
     "r_wait": 600, "r_arm_mult": 270000,
@@ -375,8 +380,13 @@ def build(p):
                E("q_rest", FX, -1, False), E("q_pick", FX, 3), E("e_hit"), E("c_slam", BIG, -1, False), E("c_hit"),
                E("w_quake", BIG, -1), E("w_hit"), E("r_wave", BIG, -1, False), E("r_hit"), E("tf_mega", BIG, 3), E("tf_mini", BIG, 3)]
     views_b = [B_("full", FX, 3), B_("hyper", FX, -1), B_("q_slow", FX, 3), B_("q2_slow", FX, 3)]
+    # the add-on's copy: its passive lands the wall slams (stun and the extra damage the moment a thrown enemy arrives)
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": f"{ID}:slam", "params": {
+            k: p[k] for k in ("r_dmg", "r_ratio", "r_stun", "r_wall", "r_r", "r_push", "r_push_v")}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Range", "Tank", "CC"],
+        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Range", "Tank", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],

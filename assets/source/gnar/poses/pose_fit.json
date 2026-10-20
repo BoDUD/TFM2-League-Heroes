@@ -1,0 +1,189 @@
+{
+ "m_crouch": {
+  "score": 0.909,
+  "square_px": 8.67,
+  "head_square_px": 8.0,
+  "phase": [
+   6.67,
+   4.0
+  ],
+  "head_at": [
+   86,
+   12
+  ],
+  "box": [
+   117,
+   60
+  ]
+ },
+ "m_swing": {
+  "score": 0.839,
+  "square_px": 9.08,
+  "head_square_px": 7.0,
+  "phase": [
+   1.17,
+   0.0
+  ],
+  "head_at": [
+   71,
+   30
+  ],
+  "box": [
+   101,
+   84
+  ]
+ },
+ "m_rear": {
+  "score": 0.753,
+  "square_px": 10.23,
+  "head_square_px": 8.0,
+  "phase": [
+   6.67,
+   4.0
+  ],
+  "head_at": [
+   62,
+   28
+  ],
+  "box": [
+   92,
+   89
+  ]
+ },
+ "m_slam": {
+  "score": 0.902,
+  "square_px": 11.37,
+  "head_square_px": 11.0,
+  "phase": [
+   1.83,
+   0.0
+  ],
+  "head_at": [
+   76,
+   37
+  ],
+  "box": [
+   106,
+   88
+  ]
+ },
+ "m_lunge": {
+  "score": 0.825,
+  "square_px": 10.2,
+  "head_square_px": 8.75,
+  "phase": [
+   4.38,
+   4.38
+  ],
+  "head_at": [
+   70,
+   25
+  ],
+  "box": [
+   100,
+   77
+  ]
+ },
+ "m_leap": {
+  "score": 0.892,
+  "square_px": 10.34,
+  "head_square_px": 9.5,
+  "phase": [
+   3.17,
+   6.33
+  ],
+  "head_at": [
+   72,
+   12
+  ],
+  "box": [
+   102,
+   71
+  ]
+ },
+ "m_lift": {
+  "score": 0.666,
+  "square_px": 10.29,
+  "head_square_px": 9.0,
+  "phase": [
+   1.5,
+   3.0
+  ],
+  "head_at": [
+   75,
+   51
+  ],
+  "box": [
+   105,
+   104
+  ]
+ },
+ "a_windup": {
+  "score": 0.706,
+  "square_px": 21.0,
+  "head_square_px": 21.0,
+  "phase": [
+   7.0,
+   3.5
+  ],
+  "head_at": [
+   17,
+   0
+  ],
+  "box": [
+   58,
+   48
+  ]
+ },
+ "a_throw": {
+  "score": 0.904,
+  "square_px": 21.5,
+  "head_square_px": 21.5,
+  "phase": [
+   0.0,
+   3.58
+  ],
+  "head_at": [
+   15,
+   0
+  ],
+  "box": [
+   56,
+   48
+  ]
+ },
+ "a_hop": {
+  "score": 0.635,
+  "square_px": 20.0,
+  "head_square_px": 20.0,
+  "phase": [
+   0.0,
+   16.67
+  ],
+  "head_at": [
+   20,
+   0
+  ],
+  "box": [
+   60,
+   48
+  ]
+ },
+ "a_crouch": {
+  "score": 0.853,
+  "square_px": 22.5,
+  "head_square_px": 22.5,
+  "phase": [
+   3.75,
+   3.75
+  ],
+  "head_at": [
+   14,
+   0
+  ],
+  "box": [
+   54,
+   42
+  ]
+ }
+}
