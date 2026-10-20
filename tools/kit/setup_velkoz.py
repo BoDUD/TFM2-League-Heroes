@@ -35,8 +35,9 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 W = "<#f5f5f5ff>"      # true damage
 E = "<>"
-# champion_view: provisional until the sprite (tfm2_ase.py face)
-VIEW = {"face": {"x": 1, "y": -30}, "center": {"x": 0, "y": -15}}
+# champion_view: the face point on his big eye (ppu_restyle face_to), the body centre on the middle of his shell (he
+# floats 4 squares up: hits and the health bar anchor there)
+VIEW = {"face": {"x": 7, "y": -21}, "center": {"x": 0, "y": -18}}
 
 
 def mag(d, r):

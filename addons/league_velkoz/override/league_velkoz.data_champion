@@ -11,10 +11,10 @@
     "passive_ref": "league_velkoz:research",
     "params": {
       "p_keep": 420,
-      "p_dmg": 40,
-      "p_ratio": 40,
-      "q_sdmg": 40,
-      "q_sratio": 30,
+      "p_dmg": 45,
+      "p_ratio": 45,
+      "q_sdmg": 45,
+      "q_sratio": 35,
       "q_slow": 50,
       "q_slow_t": 75,
       "q_cw": 90,
@@ -29,8 +29,8 @@
       "r_range": 95000,
       "r_len": 120000,
       "r_w": 10000,
-      "r_dmg": 300,
-      "r_ratio": 100,
+      "r_dmg": 320,
+      "r_ratio": 105,
       "r_t": 150,
       "r_p": 15,
       "r_mark": 3
@@ -69,7 +69,7 @@
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_velkoz.attack",
     "duration": 27,
-    "cooltime": 90,
+    "cooltime": 86,
     "start_timing": 1,
     "cancelable": true,
     "range": 55000,
@@ -154,7 +154,7 @@
                     "type": "TargetProjectile",
                     "name": "league_velkoz_a_bolt",
                     "speed": 4500,
-                    "y_offset": 0,
+                    "y_offset": -4500,
                     "applied_target": "Enemy",
                     "applied_effects": [
                       {
@@ -374,8 +374,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 30,
-                                "attack_ratio": 15,
+                                "damage": 35,
+                                "attack_ratio": 20,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               }
@@ -427,7 +427,7 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 45,
+                                "damage": 55,
                                 "attack_ratio": 25,
                                 "hp_ratio": 0,
                                 "can_crit": false
@@ -527,8 +527,8 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 30,
-                                            "attack_ratio": 15,
+                                            "damage": 35,
+                                            "attack_ratio": 20,
                                             "hp_ratio": 0,
                                             "can_crit": false
                                           }
@@ -580,7 +580,7 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 45,
+                                            "damage": 55,
                                             "attack_ratio": 25,
                                             "hp_ratio": 0,
                                             "can_crit": false
@@ -709,8 +709,8 @@
           },
           "effect_none": {
             "type": "ApAttack",
-            "damage": 80,
-            "attack_ratio": 60,
+            "damage": 85,
+            "attack_ratio": 65,
             "hp_ratio": 0,
             "can_crit": false
           }
@@ -816,7 +816,7 @@
                           "name": "league_velkoz_q_bolt_f",
                           "speed": 4000,
                           "range": 105000,
-                          "y_offset": 0,
+                          "y_offset": -4500,
                           "penetrate": false,
                           "shape": {
                             "Circle": {
@@ -829,8 +829,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 80,
-                                "attack_ratio": 60,
+                                "damage": 85,
+                                "attack_ratio": 65,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               }
@@ -963,7 +963,7 @@
                       "name": "league_velkoz_q_bolt",
                       "speed": 2200,
                       "range": 105000,
-                      "y_offset": 0,
+                      "y_offset": -4500,
                       "penetrate": false,
                       "shape": {
                         "Circle": {
@@ -976,8 +976,8 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "ApAttack",
-                            "damage": 80,
-                            "attack_ratio": 60,
+                            "damage": 85,
+                            "attack_ratio": 65,
                             "hp_ratio": 0,
                             "can_crit": false
                           }
@@ -1152,8 +1152,8 @@
           },
           "effect_none": {
             "type": "ApAttack",
-            "damage": 70,
-            "attack_ratio": 30,
+            "damage": 75,
+            "attack_ratio": 40,
             "hp_ratio": 0,
             "can_crit": false
           }
@@ -1197,7 +1197,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 9,
+          "tick": 10,
           "effects": [
             {
               "type": "RandomTarget",
@@ -1263,8 +1263,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 70,
-                              "attack_ratio": 30,
+                              "damage": 75,
+                              "attack_ratio": 40,
                               "hp_ratio": 0,
                               "can_crit": false
                             }
@@ -1358,7 +1358,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_velkoz.ult",
-    "duration": 12,
+    "duration": 13,
     "cooltime": 2100,
     "start_timing": 1,
     "cancelable": false,
@@ -1398,8 +1398,8 @@
             },
             "effect_none": {
               "type": "ApAttack",
-              "damage": 300,
-              "attack_ratio": 100,
+              "damage": 320,
+              "attack_ratio": 105,
               "hp_ratio": 0,
               "can_crit": false
             }
@@ -1418,7 +1418,7 @@
               "name": "league_velkoz_r_ch",
               "duration": {
                 "Time": {
-                  "tick": 160
+                  "tick": 161
                 }
               }
             },
@@ -1472,7 +1472,7 @@
                 "effect_buff": {
                   "type": "CasterAnimation",
                   "name": "ult_loop",
-                  "tick": 144
+                  "tick": 145
                 },
                 "effect_none": {
                   "type": "Combine",
@@ -1523,7 +1523,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 9,
+            "tick": 10,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -1578,7 +1578,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 9,
+            "tick": 10,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -1620,7 +1620,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -1646,7 +1646,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 24,
+            "tick": 25,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -1688,7 +1688,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -1714,7 +1714,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 39,
+            "tick": 40,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -1756,7 +1756,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -1782,7 +1782,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 54,
+            "tick": 55,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -1824,7 +1824,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -1850,7 +1850,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 69,
+            "tick": 70,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -1892,7 +1892,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -1918,7 +1918,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 84,
+            "tick": 85,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -1960,7 +1960,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -1986,7 +1986,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 99,
+            "tick": 100,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -2028,7 +2028,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -2054,7 +2054,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 114,
+            "tick": 115,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -2096,7 +2096,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -2122,7 +2122,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 129,
+            "tick": 130,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -2164,7 +2164,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -2190,7 +2190,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 144,
+            "tick": 145,
             "effects": [
               {
                 "type": "RandomTarget",
@@ -2232,7 +2232,7 @@
                             "type": "TargetProjectile",
                             "name": "league_velkoz_r_beam",
                             "speed": 1000,
-                            "y_offset": -17000,
+                            "y_offset": -5500,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -2258,7 +2258,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 159,
+            "tick": 160,
             "effects": [
               {
                 "type": "SwitchByBuff",
@@ -2331,7 +2331,7 @@
       "type": "Animated",
       "name": "league_velkoz_q_split_bolt",
       "anim": "asset/league/effects/league_velkoz_fx",
-      "tag": "q_split_bolt",
+      "tag": "q_bolt",
       "repeat": true,
       "z": 2
     }

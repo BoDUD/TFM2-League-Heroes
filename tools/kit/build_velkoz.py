@@ -54,33 +54,42 @@ FX = "asset/league/effects/league_velkoz_fx"
 BIG = "asset/league/effects/league_velkoz_big"
 
 # League units x 100 = ours (attack range 525 -> 55000 like every mid); radii count the unit's collision radius
-# (~15000) on top. Timings provisional until the frames (tools/art/rig_velkoz.py): every action releases on a_rel /
-# q_rel / e_rel / r_rel ticks.
+# (~15000) on top. Timings from the frames (tools/art/rig_velkoz.py MS): the attack's bolt and Q's plasma leave on frame
+# 3 at 160 ms (a_rel / q_rel 10), E's slam on frame 3 at 180 ms (e_rel 11: the ground cracks there and erupts e_delay
+# ticks later), R's beam from the wind-up's last frame at 180 ms (r_rel 11; the wind-up 270 ms = r_anim 16); each action
+# as long as its frames (27 / 30 / 30 ticks). Heights (a projectile starts 5000 - y_offset above the pivot, 1000 a game
+# px; the pivot is 11.5 px over the ground line): his big eye is 9.5 px over the pivot on the attack's and Q's release
+# frames (a_y / q_y -4500) and 10.5 in the channel (r_by -5500: the figure a row or two up).
+# Numbers = the 10-min classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and
+# white_mage, three lineups, both sides, 16 seeds a batch, C:/t/vk_sim, 2026-10-20): the draft v0 -0.47 / -0.34 (zyra
+# +2.12 / +1.47 in the same batches), R as a Targeting cast following its target, everything up (r1) +2.07 / +1.63, half
+# way (r2: Q 85 + 65%, split 45 + 35%, E 75 + 40%, rift 35 + 20% / 55 + 30%, R 320 + 105%, passive 45 + 45%, attack every
+# 86 ticks) +1.22 / +1.31 = P (then on the frames' timings and heights, below).
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Vel'Koz:
     # 590 +102 hp, 22 armour, 30 mr, 340 move, 525 range, attack speed 0.643
     "hp": 880, "hp_g": 92, "atk": 72, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 27, "atk_cd": 90, "a_rel": 10, "a_speed": 4500, "a_y": 0, "a_keep": 600,
+    "atk_range": 55000, "atk_dur": 27, "atk_cd": 86, "a_rel": 10, "a_speed": 4500, "a_y": -4500, "a_keep": 600,
     # passive (League: 33-170 by level + 50% AP true damage, stacks 7 s)
-    "p_keep": 420, "p_dmg": 40, "p_ratio": 40,
+    "p_keep": 420, "p_dmg": 45, "p_ratio": 45,
     # W Void Rift (League: 1050 long, 30-150 + 15% AP, then 45-225 + 25% AP after 0.25 s, two charges)
-    "w_len": 75000, "w_w": 9000, "w_ap1": 4, "w_det": 19, "w_life": 34, "w_dmg": 30, "w_ratio": 15, "w_dmg2": 45,
+    "w_len": 75000, "w_w": 9000, "w_ap1": 4, "w_det": 19, "w_life": 34, "w_dmg": 35, "w_ratio": 20, "w_dmg2": 55,
     "w_ratio2": 25, "w_gap": 18,
     # Q Plasma Fission (League: 1050 range, 80-240 + 90% AP, 70% slow fading over 1.25 s, speed 1300, the split 1100)
     "q_cd": 420, "q_range": 85000, "q_dur": 30, "q_rel": 10, "q_speed": 2200, "q_fspeed": 4000, "q_rad": 5000,
-    "q_len": 105000, "q_y": 0, "q_dmg": 80, "q_ratio": 60, "q_slow": 50, "q_slow_t": 75, "q_sr": 26000,
-    "q_sdmg": 40, "q_sratio": 30, "q_cw": 90,
+    "q_len": 105000, "q_y": -4500, "q_dmg": 85, "q_ratio": 65, "q_slow": 50, "q_slow_t": 75, "q_sr": 26000,
+    "q_sdmg": 45, "q_sratio": 35, "q_cw": 90,
     # the add-on's split bolts (League: 1100 each way): from q_soff beside the struck spot, q_slen long
     "q_slen": 55000, "q_soff": 12000,
     # E Tectonic Disruption (League: 810 range, radius 235, 70-230 + 30% AP, knock-up 0.75 s after a 0.55 s delay)
-    "e_cd": 660, "e_range": 75000, "e_dur": 30, "e_rel": 10, "e_delay": 33, "e_r": 22000, "e_dmg": 70, "e_ratio": 30,
+    "e_cd": 660, "e_range": 75000, "e_dur": 30, "e_rel": 11, "e_delay": 33, "e_r": 22000, "e_dmg": 75, "e_ratio": 40,
     "e_air": 45, "e_cw": 75,
     # R Life Form Disintegration Ray (League: 1550 long, 450-800 + 125% AP over 2.5 s, true on researched champions)
-    "r_cd": 2100, "r_range": 95000, "r_len": 120000, "r_w": 10000, "r_t": 150, "r_p": 15, "r_anim": 16, "r_rel": 10,
-    "r_dmg": 300, "r_ratio": 100, "r_brk": 5, "r_mark": 3,
+    "r_cd": 2100, "r_range": 95000, "r_len": 120000, "r_w": 10000, "r_t": 150, "r_p": 15, "r_anim": 16, "r_rel": 11,
+    "r_dmg": 320, "r_ratio": 105, "r_brk": 5, "r_mark": 3,
     # the beam's picture: a homing projectile at 1 px a tick lifted to his eye (5000 - r_by over the pivot)
-    "r_bspeed": 1000, "r_by": -17000,
+    "r_bspeed": 1000, "r_by": -5500,
     "vo_gap": 600,
     "native": 0,
 }
@@ -378,7 +387,7 @@ def build(p):
     Pj = lambda name, tag=None, anim_=FX, rep=True: {"type": "Animated", "name": n(name), "anim": anim_,
                                                      "tag": tag or name, "repeat": rep, "z": 2}
     views_p = [Pj("a_bolt"), Pj("q_bolt"), Pj("q_bolt_f", "q_bolt"), Pj("w_rift", anim_=BIG, rep=False),
-               Pj("r_beam", anim_=BIG, rep=False)] + ([Pj("q_split_bolt")] if native else [])
+               Pj("r_beam", anim_=BIG, rep=False)] + ([Pj("q_split_bolt", "q_bolt")] if native else [])
     views_e = [E("a_hit"), E("q_hit"), E("q_split", BIG, 2, False), E("q_split_hit"), E("w_hit"),
                E("e_mark", BIG, -1, False), E("e_boom", BIG, 2, False), E("e_hit"), E("r_hit"),
                E("p_s1"), E("p_s2"), E("p_full")]

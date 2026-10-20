@@ -997,10 +997,10 @@
       },
       "league_velkoz": {
         "name": "维克兹",
-        "attack": "发射虚空能量。每第3次普攻打开<#ff9028ff>虚空裂隙<>，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害，随后爆炸再造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有机体解构<>：技能命中英雄叠层，3层时造成<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<><#f5f5f5ff>真实伤害<>。",
-        "skill": "发射一束等离子，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害并减速50%，持续<#ffb900ff>1.25秒<>。命中后一分为二，对周围敌人造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害和减速。",
-        "skill2": "让目标区域爆炸，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害并<#ef5350ff>击飞<>敌人<#ffb900ff>0.75秒<>。",
-        "ult": "引导一束射线<#ffb900ff>2.5秒<>，共造成<#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法伤害。对被<#ff9028ff>有机体解构<>研究过的英雄改为<#f5f5f5ff>真实伤害<>。"
+        "attack": "发射虚空能量。每第3次普攻打开<#ff9028ff>虚空裂隙<>，造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害，随后爆炸再造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有机体解构<>：技能命中英雄叠层，3层时造成<#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<><#f5f5f5ff>真实伤害<>。",
+        "skill": "发射一束等离子，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并减速50%，持续<#ffb900ff>1.25秒<>。命中后一分为二，对周围敌人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害和减速。",
+        "skill2": "让目标区域爆炸，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害并<#ef5350ff>击飞<>敌人<#ffb900ff>0.75秒<>。",
+        "ult": "引导一束射线<#ffb900ff>2.5秒<>，共造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法伤害。对被<#ff9028ff>有机体解构<>研究过的英雄改为<#f5f5f5ff>真实伤害<>。"
       }
     },
     "skill_name": {
@@ -2719,10 +2719,10 @@
       },
       "league_velkoz": {
         "name": "威寇茲",
-        "attack": "發射虛空能量。每第3次普攻打開<#ff9028ff>虛空裂痕<>，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害，隨後爆炸再造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>結構毀滅<>：技能命中英雄疊層，3層時造成<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<><#f5f5f5ff>真實傷害<>。",
-        "skill": "發射一束電漿，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害並緩速50%，持續<#ffb900ff>1.25秒<>。命中後一分為二，對周圍敵人造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害和緩速。",
-        "skill2": "讓目標區域爆炸，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害並<#ef5350ff>擊飛<>敵人<#ffb900ff>0.75秒<>。",
-        "ult": "引導一道射線<#ffb900ff>2.5秒<>，共造成<#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法傷害。對被<#ff9028ff>結構毀滅<>研究過的英雄改為<#f5f5f5ff>真實傷害<>。"
+        "attack": "發射虛空能量。每第3次普攻打開<#ff9028ff>虛空裂痕<>，造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害，隨後爆炸再造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>結構毀滅<>：技能命中英雄疊層，3層時造成<#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<><#f5f5f5ff>真實傷害<>。",
+        "skill": "發射一束電漿，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並緩速50%，持續<#ffb900ff>1.25秒<>。命中後一分為二，對周圍敵人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害和緩速。",
+        "skill2": "讓目標區域爆炸，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害並<#ef5350ff>擊飛<>敵人<#ffb900ff>0.75秒<>。",
+        "ult": "引導一道射線<#ffb900ff>2.5秒<>，共造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法傷害。對被<#ff9028ff>結構毀滅<>研究過的英雄改為<#f5f5f5ff>真實傷害<>。"
       }
     },
     "skill_name": {
@@ -4441,10 +4441,10 @@
       },
       "league_velkoz": {
         "name": "Vel'Koz",
-        "attack": "Fires void energy. Every third attack opens a <#ff9028ff>Void Rift<>: <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<>, then it detonates for <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>. <#ff9028ff>Organic Deconstruction<>: spell hits on champions stack; the third deals <#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<> <#f5f5f5ff>true damage<>.",
-        "skill": "Shoots a bolt of plasma that deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and slows by 50% for <#ffb900ff>1.25s<>. On hit it splits in two, dealing <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and the slow to nearby enemies.",
-        "skill2": "Causes an area to explode, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and <#ef5350ff>knocking up<> enemies for <#ffb900ff>0.75s<>.",
-        "ult": "Channels a beam for <#ffb900ff>2.5s<> that deals <#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<> in total. Champions researched by <#ff9028ff>Organic Deconstruction<> take <#f5f5f5ff>true damage<> instead."
+        "attack": "Fires void energy. Every third attack opens a <#ff9028ff>Void Rift<>: <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>, then it detonates for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>. <#ff9028ff>Organic Deconstruction<>: spell hits on champions stack; the third deals <#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<> <#f5f5f5ff>true damage<>.",
+        "skill": "Shoots a bolt of plasma that deals <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> and slows by 50% for <#ffb900ff>1.25s<>. On hit it splits in two, dealing <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and the slow to nearby enemies.",
+        "skill2": "Causes an area to explode, dealing <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<> and <#ef5350ff>knocking up<> enemies for <#ffb900ff>0.75s<>.",
+        "ult": "Channels a beam for <#ffb900ff>2.5s<> that deals <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> <#a974ffff>magic damage<> in total. Champions researched by <#ff9028ff>Organic Deconstruction<> take <#f5f5f5ff>true damage<> instead."
       }
     },
     "skill_name": {
@@ -6163,10 +6163,10 @@
       },
       "league_velkoz": {
         "name": "벨코즈",
-        "attack": "공허 에너지를 발사한다. 3번째 공격마다 <#ff9028ff>공허 균열<>을 열어 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해, 이어서 폭발해 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>. <#ff9028ff>유기물 분해<>: 스킬이 챔피언에게 적중하면 중첩, 3회 중첩 시 <#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<> <#f5f5f5ff>고정 피해<>.",
-        "skill": "플라즈마를 발사해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해를 입히고 <#ffb900ff>1.25초<> 동안 50% 둔화. 적중하면 둘로 분열해 주변 적에게 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해와 둔화.",
-        "skill2": "지역을 폭발시켜 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해를 입히고 적을 <#ffb900ff>0.75초<> <#ef5350ff>에어본<>.",
-        "ult": "<#ffb900ff>2.5초<> 동안 광선을 정신 집중해 총 <#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> 마법 피해. <#ff9028ff>유기물 분해<>로 연구된 챔피언은 <#f5f5f5ff>고정 피해<>를 입는다."
+        "attack": "공허 에너지를 발사한다. 3번째 공격마다 <#ff9028ff>공허 균열<>을 열어 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해, 이어서 폭발해 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>. <#ff9028ff>유기물 분해<>: 스킬이 챔피언에게 적중하면 중첩, 3회 중첩 시 <#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<> <#f5f5f5ff>고정 피해<>.",
+        "skill": "플라즈마를 발사해 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해를 입히고 <#ffb900ff>1.25초<> 동안 50% 둔화. 적중하면 둘로 분열해 주변 적에게 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해와 둔화.",
+        "skill2": "지역을 폭발시켜 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해를 입히고 적을 <#ffb900ff>0.75초<> <#ef5350ff>에어본<>.",
+        "ult": "<#ffb900ff>2.5초<> 동안 광선을 정신 집중해 총 <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> 마법 피해. <#ff9028ff>유기물 분해<>로 연구된 챔피언은 <#f5f5f5ff>고정 피해<>를 입는다."
       }
     },
     "skill_name": {
@@ -7885,10 +7885,10 @@
       },
       "league_velkoz": {
         "name": "ヴェル＝コズ",
-        "attack": "ヴォイドのエネルギーを放つ。3回目の通常攻撃ごとに<#ff9028ff>ヴォイドの裂谷<>を開き<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の魔法ダメージ、続いて爆発し<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有機分解<>：スキルがチャンピオンに命中するとスタック、3スタックで<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<>の<#f5f5f5ff>確定ダメージ<>。",
-        "skill": "電離弾を放ち<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージと<#ffb900ff>1.25秒<>の50%スロウ。命中すると二つに分裂し、周囲の敵に<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージとスロウ。",
-        "skill2": "範囲を爆発させ<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージを与え、敵を<#ffb900ff>0.75秒<><#ef5350ff>打ち上げ<>。",
-        "ult": "<#ffb900ff>2.5秒<>光線を照射し合計<#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の魔法ダメージ。<#ff9028ff>有機分解<>で研究済みのチャンピオンには<#f5f5f5ff>確定ダメージ<>。"
+        "attack": "ヴォイドのエネルギーを放つ。3回目の通常攻撃ごとに<#ff9028ff>ヴォイドの裂谷<>を開き<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ、続いて爆発し<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有機分解<>：スキルがチャンピオンに命中するとスタック、3スタックで<#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<>の<#f5f5f5ff>確定ダメージ<>。",
+        "skill": "電離弾を放ち<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと<#ffb900ff>1.25秒<>の50%スロウ。命中すると二つに分裂し、周囲の敵に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージとスロウ。",
+        "skill2": "範囲を爆発させ<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージを与え、敵を<#ffb900ff>0.75秒<><#ef5350ff>打ち上げ<>。",
+        "ult": "<#ffb900ff>2.5秒<>光線を照射し合計<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>の魔法ダメージ。<#ff9028ff>有機分解<>で研究済みのチャンピオンには<#f5f5f5ff>確定ダメージ<>。"
       }
     },
     "skill_name": {
