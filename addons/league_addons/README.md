@@ -71,3 +71,10 @@ AI 钩子在大招解锁（5 级）前按 R、技能 2 解锁（3 级）前按�
 技能 2 / 大招的格子还锁着（`CooldownV1::unlocked` 为 false）就改成普攻输入点的那个敌方单位，打不了就原地站一下，
 每次记进 `league_unlock_guard.log`（`GUARD` 行，正常对局里一行都不该有）。以后哪个钩子忘了上面的规矩，最多让英雄站一下，
 不会再卡死过日；规矩照旧要守，它只是兜底。
+
+显示钩子的规矩（2026-10-20）：整身变身的附加包不再自己换槽，用 `game_places::hook::add("<附加包>", dress)` 登记：每个 DLL（合集，
+或单独装的附加包）只换一次显示更新槽（函数和槽由 `game_places::display()` 按特征码找，放进进程环境变量 `LEAGUE_DISPLAY_PLACES`
+给后面的 DLL 用），每帧把显示世界的实体表走一遍，把实体列表交给每个登记的 `dress(world, &[Ent])`（各自 `catch_unwind`）。显示
+世界和实体值的偏移只在 `game_places::hook`（`VALUE`、`NAME_PTR`、`ANIM_*`、`BUFFS_*` ……），不要再写死 rva 或抄偏移。合成一个前
+15 个附加包各自换槽、各自每帧走一遍表：合成后每帧约 10.6 µs，原来 13.3 µs（100 个实体的假表，`game_places` 的
+`one_walk_against_fifteen`），主要省的是维护。

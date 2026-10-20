@@ -3,7 +3,7 @@
 # (the add-on bundle players subscribe to, league_addons/README.md). The stable mod API is vendored
 # once in vendor/mod-api-stable (the game's mod-sdk-stable, ABI level 9).
 [workspace]
-members = ["league_*"]
+members = ["league_*", "game_places"]
 resolver = "2"
 
 [profile.release]

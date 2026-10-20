@@ -136,6 +136,30 @@ pub static BUILDS: &[Build] = &[Build {
     ],
 }];
 
+/// A build found at run time (game_places::resolve, 2026-10-20: 「想个方法做个动态寻地址的 后面游戏更新了我们维护压力小一点」):
+/// when no listed build's fingerprints hold, league.dll looks for the same places by the patterns made from the listed
+/// one; found, they are kept for the process (leaked: one Build per load).
+pub fn from_places(p: game_places::Places, name: String) -> &'static Build {
+    let keep = |v: Vec<usize>| -> &'static [usize] { Box::leak(v.into_boxed_slice()) };
+    Box::leak(Box::new(Build {
+        name: Box::leak(name.into_boxed_str()),
+        anim: p.anim,
+        sheet: p.sheet,
+        hash: p.hash,
+        display_fn: p.display_fn,
+        display_slot: p.display_slot,
+        battle_anim_ret: keep(p.battle_anim_ret),
+        battle_size_ret: keep(p.battle_size_ret),
+        ui_anim_ret: keep(p.ui_anim_ret),
+        ui_size_ret: keep(p.ui_size_ret),
+        ui_sized_anim_ret: keep(p.ui_sized_anim_ret),
+        ui_sized_size_ret: keep(p.ui_sized_size_ret),
+        body_draw: p.body_draw,
+        cmd_grow: p.cmd_grow,
+        sigs: &[],
+    }))
+}
+
 /// The known build whose every fingerprint `read(rva, len)` matches, else None (and why the first one failed).
 pub fn detect(read: impl Fn(usize, usize) -> Option<Vec<u8>>) -> Result<&'static Build, String> {
     let mut why = String::from("no builds listed");
@@ -170,6 +194,31 @@ mod tests {
                 assert!(b.ui_sized_size_ret[4 * k..4 * k + 4].iter().all(|r| *r > *a && *r - *a < 0x1000), "{a:#x}");
             }
         }
+    }
+
+    /// The run-time finder (game_places::resolve) on the game's EXE on disk must find exactly the listed places (skipped
+    /// when the game is not installed at the usual path or is another build).
+    #[test]
+    fn the_run_time_finder_finds_the_listed_build() {
+        let path = std::env::var("TFM2_EXE")
+            .unwrap_or_else(|_| r"D:/steam/steamapps/common/Teamfight Manager2/TeamfightManager2.exe".into());
+        let Ok(data) = std::fs::read(&path) else { return };
+        let img = game_places::Image::from_file(&data).unwrap();
+        let b = &BUILDS[0];
+        if detect(|rva, n| img.read(rva, n).map(|x| x.to_vec())).is_err() {
+            return; // another build: nothing to compare with
+        }
+        let t0 = std::time::Instant::now();
+        let p = game_places::resolve(&img).unwrap();
+        eprintln!("resolved in {:?}: {:?}", t0.elapsed(), p.notes);
+        assert_eq!((p.anim, p.sheet, p.hash, p.display_fn, p.display_slot, p.body_draw, p.cmd_grow),
+                   (b.anim, b.sheet, b.hash, b.display_fn, b.display_slot, b.body_draw, b.cmd_grow));
+        assert_eq!(p.battle_anim_ret, b.battle_anim_ret);
+        assert_eq!(p.battle_size_ret, b.battle_size_ret);
+        assert_eq!(p.ui_anim_ret, b.ui_anim_ret);
+        assert_eq!(p.ui_size_ret, b.ui_size_ret);
+        assert_eq!(p.ui_sized_anim_ret, b.ui_sized_anim_ret);
+        assert_eq!(p.ui_sized_size_ret, b.ui_sized_size_ret);
     }
 
     #[test]

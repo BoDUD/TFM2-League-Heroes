@@ -150,6 +150,11 @@ extern "system" {
 }
 
 /// `len` bytes of the game EXE at `rva` (None when unreadable).
+/// The game EXE's base in this process.
+pub fn module_base() -> usize {
+    unsafe { GetModuleHandleW(std::ptr::null()) }
+}
+
 pub fn read_rva(rva: usize, len: usize) -> Option<Vec<u8>> {
     let module = unsafe { GetModuleHandleW(std::ptr::null()) };
     if module == 0 {
