@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_zyra": {
+    "remapping": "asset/league_zyra/override/league_zyra",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_zyra/text/champion",
+    "type": "merge"
+  }
+}

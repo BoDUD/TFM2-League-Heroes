@@ -23,7 +23,11 @@ Thorn Spitter and each E a Vine Lasher where it lands.
   ult     R Stranglethorns (绞杀之藤), `Targeting` on `EnemyChampion` (r_range): a thicket bursts on the champion's
           spot (radius r_r): r_dmg + r_ratio% AP; r_knock ticks later it snaps shut and knocks up (`Airborne`
           r_air ticks) every enemy still in it. Her plants are enraged for r_rage ticks.
-The add-on copy (--native, addons/league_zyra): see the add-on's README.
+The add-on copy (--native, addons/league_zyra): the passive league_zyra:garden drops seeds on the ground near her (one
+every s_cd ticks, s_max at most, s_life ticks each; one at once on a takedown); Q's and E's landing (a 2-tick q_aim /
+e_aim mark on the target as the lob leaves her) grows a native plant on every seed within s_r of it (E: of the vines'
+line) that strikes the nearest enemy champion first (else the nearest unit) every t_per ticks for pl_lo..pl_hi (by her
+level) + pl_ratio% AP, the Thorn Spitter with a visible spit (t_spit); R's mark (r_aim) enrages those within r_r.
 """
 import argparse
 import json
@@ -65,6 +69,10 @@ P = {
     "r_cd": 2100, "r_range": 70000, "r_dur": 37, "r_rel": 10, "r_r": 32000, "r_dmg": 180, "r_ratio": 70,
     "r_knock": 120, "r_air": 60, "r_rage": 300,
     "vo_gap": 600,
+    # the add-on (addons/league_zyra): seeds on the ground and the plants they grow (League: seeds every 13-9 s by level,
+    # 60 s each, plants 20-100 by level + 15% AP a strike)
+    "s_cd": 600, "s_life": 1800, "s_max": 4, "s_near": 30000, "s_seek": 90000, "s_r": 24000, "s_show": 60,
+    "e_over": 20000, "spit_speed": 3000, "pl_lo": 20, "pl_hi": 100, "pl_ratio": 12,
     "native": 0,
 }
 
@@ -232,9 +240,11 @@ def build(p):
     # ------------------------------------------------------------------ skill: Q Deadly Spines + a Thorn Spitter
     burst = [view("q_burst"), sfx("q_burst"),
              zone("q_spines", p["q_r"], [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")]), *spitter]
+    # the add-on's copy: a 2-tick mark on the target as the lob leaves her - where the add-on grows its seeds
+    aim = (lambda name: [buff(name, 2)]) if native else (lambda name: [])
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(decoy(p["q_dmg"], p["q_ratio"], ap), sfx("q"), voice("vo_q", p),
-                           delayed(p["q_rel"] - 1, alive(lob("q_seed", p["q_delay"], burst)))))
+                           delayed(p["q_rel"] - 1, alive(*aim("q_aim"), lob("q_seed", p["q_delay"], burst)))))
 
     # ------------------------------------------------------------------ skill2: E Grasping Roots + a Vine Lasher
     rooted = [ap(p["e_dmg"], p["e_ratio"]), {"type": "Bind", "duration": p["e_root"]},
@@ -242,6 +252,7 @@ def build(p):
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(decoy(p["e_dmg"], p["e_ratio"], ap), sfx("e"), voice("vo_e", p),
                             delayed(p["e_rel"] - 1, alive(
+                                *aim("e_aim"),
                                 line("e_roots", p["e_speed"], p["e_len"], p["e_w"], "EnemyWithoutTower", rooted,
                                      penetrate=True),
                                 lob("e_seed", p["e_grow"], lasher)))))
@@ -253,7 +264,8 @@ def build(p):
                        zone("r_snap", p["r_r"], [{"type": "Airborne", "duration": p["r_air"]}, view("r_knock")]))]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(decoy(p["r_dmg"], p["r_ratio"], ap), sfx("r"), voice("vo_r", p),
-                         delayed(p["r_rel"] - 1, alive(refresh("rage", p["r_rage"]), sfx("r_rage"), lob("r_seed", 1, thicket)))))
+                         delayed(p["r_rel"] - 1, alive(*aim("r_aim"), refresh("rage", p["r_rage"]), sfx("r_rage"),
+                                                       lob("r_seed", 1, thicket)))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -262,11 +274,17 @@ def build(p):
                                       "z": z}
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 2}
-    views_p = [Pj("a_seed"), Pj("e_roots")]
+    views_p = [Pj("a_seed"), Pj("e_roots")] + ([Pj("t_spit")] if native else [])
     views_e = [E("a_hit"), E("q_burst", BIG, -1, False), E("q_hit"), E("t_plant", BIG, 0, False), E("t_hit"),
                E("v_plant", BIG, 0, False), E("v_hit"), E("r_thicket", BIG, -1, False), E("r_hit"), E("r_knock")]
     views_b = [B_("e_bound", FX, 3), B_("v_slow", FX, -1)]
     extra = {}
+    if native:
+        views_e.append(E("s_seed", FX, 0, False))
+        extra["passive"] = {"passive_ref": "league_zyra:garden", "params": {
+            k: p[k] for k in ("s_cd", "s_life", "s_max", "s_near", "s_seek", "s_r", "s_show", "e_over", "t_life", "t_per",
+                              "t_r", "v_r", "spit_speed", "v_slow", "v_slow_t", "pl_lo", "pl_hi", "pl_ratio", "r_r",
+                              "r_rage")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

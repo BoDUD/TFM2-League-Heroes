@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_zyra": {
+        "attack": "【扩展包】甩出一颗荆棘种子。<#ff9028ff>荆棘花园<>：每<#ffb900ff>10秒<>在身边掉一颗种子（留<#ffb900ff>30秒<>），参与击杀时马上掉一颗；Q、E 落在种子旁边会让种子长成植物，植物先打英雄，伤害随等级成长。",
+        "skill": "【扩展包】地面炸出棘刺，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害。落点和旁边的种子长成<#ff9028ff>荆棘喷射者<>，向敌人吐刺。",
+        "skill2": "【扩展包】贯穿地面的藤蔓造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害并<#ef5350ff>禁锢<><#ffb900ff>1.25秒<>。落点和藤蔓经过的种子长成<#ff9028ff>藤蔓鞭击者<>，抽打并减速。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_zyra": {
+        "attack": "【擴充包】甩出一顆荊棘種子。<#ff9028ff>荊棘花園<>：每<#ffb900ff>10秒<>在身邊掉一顆種子（留<#ffb900ff>30秒<>），參與擊殺時馬上掉一顆；Q、E 落在種子旁邊會讓種子長成植物，植物先打英雄，傷害隨等級成長。",
+        "skill": "【擴充包】地面炸出棘刺，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害。落點和旁邊的種子長成<#ff9028ff>棘刺噴吐草<>，向敵人吐刺。",
+        "skill2": "【擴充包】貫穿地面的藤蔓造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害並<#ef5350ff>定身<><#ffb900ff>1.25秒<>。落點和藤蔓經過的種子長成<#ff9028ff>棘蔓鞭笞草<>，抽打並緩速。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_zyra": {
+        "attack": "[Add-on] Flings a thorn seed. <#ff9028ff>Garden of Thorns<>: a seed falls near her every <#ffb900ff>10s<> (it lasts <#ffb900ff>30s<>) and one at once on a takedown; Q and E landing near seeds grow them into plants that strike champions first, harder with her level.",
+        "skill": "[Add-on] Spines burst from the ground for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<>. The seed there and the seeds near it grow <#ff9028ff>Thorn Spitters<> that spit at enemies.",
+        "skill2": "[Add-on] Vines run through the ground for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<>, <#ef5350ff>rooting<> for <#ffb900ff>1.25s<>. The seeds on their way grow <#ff9028ff>Vine Lashers<> that lash and slow."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_zyra": {
+        "attack": "[확장] 가시 씨앗을 던진다. <#ff9028ff>가시 정원<>: <#ffb900ff>10초<>마다 주변에 씨앗이 떨어지고(<#ffb900ff>30초<> 유지) 처치 관여 시 즉시 하나; Q와 E가 씨앗 근처에 떨어지면 식물로 자라 챔피언을 먼저 공격하며 레벨에 따라 강해진다.",
+        "skill": "[확장] 지면에서 가시가 폭발해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해. 그 자리와 근처의 씨앗이 <#ff9028ff>가시 발사 꽃<>으로 자라 적에게 가시를 쏜다.",
+        "skill2": "[확장] 지면을 뚫는 덩굴로 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해와 <#ffb900ff>1.25초<> <#ef5350ff>속박<>. 지나간 자리의 씨앗이 <#ff9028ff>덩굴 채찍손<>으로 자라 공격하며 둔화시킨다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_zyra": {
+        "attack": "【拡張】トゲの種を投げる。<#ff9028ff>茨の楽園<>：<#ffb900ff>10秒<>ごとに近くに種が落ち（<#ffb900ff>30秒<>残る）、キル関与で即座に1つ；QとEが種の近くに当たると植物に育ち、チャンピオンを優先して攻撃し、レベルで強くなる。",
+        "skill": "【拡張】地面からトゲが弾け<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージ。その場と近くの種が<#ff9028ff>棘吹草<>に育ち、敵にトゲを吐く。",
+        "skill2": "【拡張】地中を伸びるツタが<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージと<#ffb900ff>1.25秒<><#ef5350ff>移動不能<>。通り道の種が<#ff9028ff>棘鞭草<>に育ち、攻撃してスロウを与える。"
+      }
+    }
+  }
+}

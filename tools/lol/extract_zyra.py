@@ -55,6 +55,7 @@ CLIPS = {
     C + "r_land": ([P + "ZyraRSplash_OnMissileLaunch"], None, 2.0, -12),
     C + "r_knock": ([P + "ZyraRKnockUp_hit"], None, 1.6, -11),
     C + "r_rage": ([P + "ZyraPlantEnrage_OnBuffActivate", P + "ZyraW_OnBuffActivate"], None, 1.4, -14),
+    C + "s_drop": ([P + "ZyraW_OnCast3", P + "ZyraW_OnCast"], None, 1.0, -15),   # the add-on's seed falling (League's W)
     C + "vo_q": ([V + "ZyraQ_cast3D"], None, 2.0, -6),
     C + "vo_e": ([V + "ZyraE_cast3D"], None, 2.0, -6),
     C + "vo_r": ([V + "ZyraR_cast3D"], None, 2.0, -6),

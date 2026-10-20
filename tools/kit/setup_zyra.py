@@ -117,7 +117,7 @@ C = "league_zyra_sfx_"   # clip names differ from the sound names: a clip named 
 SOUNDS = {f"league_zyra_{k}": [(C + k, v, 0.0)] for k, v in (
     ("a", 0.3), ("a_hit", 0.35), ("q", 0.4), ("q_burst", 0.5), ("q_hit", 0.35), ("t_grow", 0.4), ("t_hit", 0.3),
     ("e", 0.4), ("e_hit", 0.45), ("v_grow", 0.4), ("v_hit", 0.3), ("r", 0.45), ("r_land", 0.55), ("r_knock", 0.55),
-    ("r_rage", 0.4), ("vo_q", 0.85), ("vo_e", 0.85), ("vo_r", 0.9))}
+    ("r_rage", 0.4), ("s_drop", 0.35), ("vo_q", 0.85), ("vo_e", 0.85), ("vo_r", 0.9))}
 CLIPS = sorted({c for plays in SOUNDS.values() for c, _, _ in plays})
 
 

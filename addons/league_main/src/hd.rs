@@ -270,6 +270,8 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     ("league_rell", 0.85),
     ("league_renata", 0.78),
     ("league_tahmkench", 0.87),
+    // Zyra (#140): 43.5 game rows hair to soles at PPU 1.7 - 12.7 px of her legs hid under the card's canvas
+    ("league_zyra", 0.89),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.
