@@ -16,7 +16,7 @@
 
 ## 在游戏里测
 
-1. 主包（League of Legends Heroes 0.182 以上）要装着并启用。
+1. 主包（League of Legends Heroes 0.183 以上）要装着并启用。
 2. 用附加包合集 `league_addons`（里面已经包含本包），或者把整个 `league_mel` 文件夹放进 `<游戏目录>\mods\`（要有 `league_mel.dll`、`mod.mod_info`、`mod.override_info`、`override\`、`text\`）。
 3. 进游戏，在 MOD 菜单里启用它（含代码的 mod 会弹一次确认），确认排在主包后面，重启游戏。
 4. 看梅尔的普攻说明：开头是「【附加包】」就说明换上了。

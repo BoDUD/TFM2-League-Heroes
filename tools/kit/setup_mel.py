@@ -27,7 +27,7 @@ from build_mel import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_mel"
-VERSION = "0.182.0"     # the next free number above main 0.181.0 (Gnar #415, 2026-10-20); retaken at PR and merge time
+VERSION = "0.183.0"     # the next free number above main 0.182.0 (Sylas #416, 2026-10-20); retaken at PR and merge time
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names
