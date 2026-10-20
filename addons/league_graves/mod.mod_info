@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.177.0"
+    }
+  ],
+  "description": "Test build of Graves as in League (needs League of Legends Heroes): replaces the main pack's Graves so every shotgun pellet hit cuts Quickdraw's cooldown, monsters and minions hit by several pellets are knocked back, and Collateral Damage explodes in a cone behind the champion it hits. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-20",
+  "mod_id": "league_graves",
+  "mod_type": "native",
+  "name": "League Heroes: Graves's shotgun (test)",
+  "version": "0.1.0"
+}

@@ -18,7 +18,8 @@ Kit (the user's picks, 2026-10-20: layout A - Q / E / R, W in the attack -, jung
   skill   Q End of the Line (穷途末路): a `Direction` cast on `EnemyWithoutTower` (q_cast; camps and waves too). The shell
           flies q_range through everything (q_dmg + q_ratio% AD) and lies where it stops; q_fuse ticks later it blows
           up (q_r round: q2_dmg + q2_ratio% AD; a zone whose period outlasts its life, league_lux E).
-  skill2  E Quickdraw (快速拔枪): a `Targeting` cast on `EnemyWithoutTower` (e_range). An enemy champion within e_near ->
+  skill2  E Quickdraw (快速拔枪): a `Targeting` cast on `EnemyWithoutTower` (e_range); it reloads a shell (`a_1` off: two
+          shots before the next reload, unless the reload has begun). An enemy champion within e_near ->
           a roll straight away from it (`MoveBack`, the pros' kite), else a dash e_dash toward the target (`RushTime`).
           True Grit: one stack (two when an enemy champion is within e_range), at most four, each e_def defence and
           e_mr magic resistance for e_t ticks; his attack hits refresh them all.
@@ -63,6 +64,10 @@ P = {
     # +120% bonus AD; recoil 400; cd 100-60 s)
     "r_cd": 3000, "r_cast": 100000, "r_dur": 30, "r_at": 10, "r_range": 110000, "r_speed": 9000, "r_w": 12000,
     "r_dmg": 120, "r_ratio": 90, "r_r": 32000, "r2_dmg": 80, "r2_ratio": 60, "r_back": 3000, "r_back_t": 5,
+    # the add-on (addons/league_graves): E's cooldown cut per shotgun hit (League 0.5 s a pellet, at most e_cuts an
+    # attack), the knockback of a monster or minion the pellet and the spread both hit (League: struck by several
+    # pellets), R's cone behind the champion hit (r_len long, r_dot = cos of its half angle x 1000)
+    "e_cut": 30, "e_cuts": 4, "kb_speed": 1500, "kb_t": 4, "r_len": 55000, "r_dot": 866,
 }
 
 
@@ -220,12 +225,13 @@ def build(p, native=False):
                               delayed(p["a_hit"] + 1, on_me({"type": "BlockAttack", "tick": p["a_reload"]}),
                                       sfx("a_reload"))),
                flag("a_1", p["a_keep"]))
+    hit = [{"type": "Native", "effect_ref": "league_graves:hit"}] if native else []
     pellet = homing("a_shot", p["a_speed"], p["a_y"], "Enemy",
-                    [attack(0, p["a_ratio"]), view("a_hit"), tsfx("a_hit"), refresh,
+                    [attack(0, p["a_ratio"]), view("a_hit"), tsfx("a_hit"), *hit, refresh,
                      is_champ(sw("w_cd", NONE, smoke))])
     cone = {"type": "RangeEffect", "shape": {"DirDot": {"radius": p["a_cone_r"], "range": p["a_cone_dot"]}},
             "target": "EnemyWithoutTower", "apply_type": {"Forward": {"offset": 1000}},
-            "effects": [attack(0, p["a_cone"]), view("a_spread")]}
+            "effects": [attack(0, p["a_cone"]), view("a_spread"), *hit]}
     root = combine(shell, delayed(p["a_hit"], sfx("a_shot"), pellet, cone))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy", root,
                       atype="BaseAttack", cancel=True)
@@ -251,14 +257,18 @@ def build(p, native=False):
     stacks = combine(*rm("e_ch"), pick(p["e_range"], "EnemyChampion", flag("e_ch", 1)),
                      one_more, sw("e_ch", one_more), *rm("e_ch"))
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower", combine(
-        anim("skill2", p["e_dur"]), sfx("e_cast"), sfx("vo_e"), delayed(p["e_at"], move, cview("e_dust")), stacks))
+        anim("skill2", p["e_dur"]), sfx("e_cast"), sfx("vo_e"), *rm("a_1"), delayed(p["e_at"], move, cview("e_dust")),
+        stacks))
 
     # ------------------------------------------------------------------ ult: R Collateral Damage
-    blast = lob("r_drop", 1, "EnemyWithoutTower",
-                [view("r_blast"), sfx("r_boom"),
-                 burst("r_cone", p["r_r"], "EnemyWithoutTower", [attack(p["r2_dmg"], p["r2_ratio"]), view("r_hit2")])])
+    # the blast round the champion hit; the add-on's copy blows a cone out behind it instead (league_graves:cone, from
+    # the shell's hit: it knows where he stands and where the champion is)
+    ring = [] if native else [burst("r_cone", p["r_r"], "EnemyWithoutTower",
+                                    [attack(p["r2_dmg"], p["r2_ratio"]), view("r_hit2")])]
+    blast = lob("r_drop", 1, "EnemyWithoutTower", [view("r_blast"), sfx("r_boom"), *ring])
+    cone_r = [{"type": "Native", "effect_ref": "league_graves:cone"}] if native else []
     shell_r = line("r_shell", p["r_speed"], p["r_range"], p["r_w"], "EnemyChampion",
-                   [attack(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit"), delayed(1, blast)],
+                   [attack(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit"), *cone_r, delayed(1, blast)],
                    penetrate=False)
     recoil = pick(p["r_cast"] + 20000, "EnemyChampion", {"type": "MoveBack", "speed": p["r_back"], "tick": p["r_back_t"]})
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_cast"], "Direction", "EnemyChampion", combine(
@@ -289,6 +299,10 @@ def build(p, native=False):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    if native:
+        kit["passive"] = {"passive_ref": "league_graves:grit",
+                          "params": {k: int(p[k]) for k in ("e_cut", "e_cuts", "kb_speed", "kb_t", "r2_dmg", "r2_ratio",
+                                                            "r_len", "r_dot", "a_hit")}}
     return kit
 
 

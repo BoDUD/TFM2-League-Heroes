@@ -645,6 +645,10 @@
           "name": "league_graves_vo_e"
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_graves_a_1"
+        },
+        {
           "type": "Delayed",
           "tick": 3,
           "effects": [

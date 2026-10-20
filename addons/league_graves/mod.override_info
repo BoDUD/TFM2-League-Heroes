@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_graves": {
+    "remapping": "asset/league_graves/override/league_graves",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_graves/text/champion",
+    "type": "merge"
+  }
+}
