@@ -97,6 +97,22 @@ def cells(name, meta):
     return out
 
 
+# R's ring and blast were drawn for a 40000 radius (84 px across); the user then 「炸弹人的大招范围要调大点吧」 (2026-10-21):
+# r_r 55000 (League's 525 and the target's body), so both are drawn r_r / 40000 times as big - nearest, each half
+# mirrored from the left so they stay symmetric, their ground rows grown alike
+GROW = {"r_warn": P["r_r"] / 40000, "r_boom": P["r_r"] / 40000}
+
+
+def grow(cell, k):
+    h, w = cell.shape[:2]
+    W = int(round(w * k)) | (w & 1)              # the same parity: the centre column stays a column
+    H = int(round(h * k))
+    big = np.asarray(Image.fromarray(cell).resize((W, H), Image.NEAREST)).copy()
+    half = W // 2
+    big[:, W - half:] = big[:, :half][:, ::-1]
+    return big
+
+
 def anchor(cell, kind):
     h, w = cell.shape[:2]
     if kind == "core":
@@ -120,6 +136,10 @@ def main():
     tables = {"league_ziggs_fx": {}, "league_ziggs_big": {}}
     for name, (kind, frames, spots) in FX.items():
         cs = allc[name]
+        if name in GROW:
+            k = GROW[name]
+            cs = [grow(c, k) for c in cs]
+            kind = kind if kind == "core" else ("feet", int(round(kind[1] * k)))
         anc = anchor(cs[0], kind)
         out = []
         for k, ms in frames:

@@ -412,6 +412,19 @@ pub fn is_holder(name: &str) -> bool {
 }
 
 /// 被停住时打多远内的敌方英雄、盯住以后走出多远就不追：近战 `HOLD_REACH` / `HOLD_KEEP`；远程是自己的普攻距离、再加 `RANGED_KEEP`。
+/// [`hold_reach`] with the attack range her buffs add (`range`: league_kayle's Ascension +27500 at rank 5, +10000 at
+/// rank 12): the AI stands her at the stretched reach, and with the table's melee 25000 she was never seen held
+/// there - the user, 2026-10-21: 「凯尔…攻击英雄判断会占在升阶范围外毫无作用只用技能拉扯，只有当敌方到达默认攻击范围才
+/// 会进行攻击」.
+pub fn hold_reach_with(name: &str, extra: f64) -> (f64, f64) {
+    if extra <= 0.0 {
+        return hold_reach(name);
+    }
+    let r = attack_range(name).unwrap_or(0) as f64 + extra;
+    let base = hold_reach(name);
+    (base.0.max(r), base.1.max(r + RANGED_KEEP))
+}
+
 pub fn hold_reach(name: &str) -> (f64, f64) {
     match attack_range(name) {
         Some(r) if r > MELEE_RANGE => (r as f64, r as f64 + RANGED_KEEP),
@@ -929,6 +942,11 @@ const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
 
 fn busy(e: &StableEntity<'_, '_>) -> bool {
     (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| BUSY.iter().any(|k| k.code() == c.kind)))
+}
+
+/// The attack range her buffs add.
+fn buff_range(e: &StableEntity<'_, '_>) -> f64 {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.range as f64).sum()
 }
 
 fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
@@ -1485,7 +1503,7 @@ impl UltPress {
                 .collect();
             if holder && atk_ready {
                 let engaged = self.engage.filter(|&(_, until)| tick <= until).map(|(t, _)| t);
-                let reach = hold_reach(&name);
+                let reach = hold_reach_with(&name, buff_range(&me));
                 // walking with an enemy champion in reach and not away from him (Kha'Zix follows and never attacks)
                 let near = nearest_in(my_at, reach.0, &enemies).and_then(|t| enemies.iter().find(|u| u.id == t)).map(|u| u.at);
                 let walking = match (base, near) {
@@ -1710,6 +1728,13 @@ mod tests {
 
     fn u(id: usize, x: f64, y: f64, hp: f64) -> Unit {
         Unit { id, at: (x, y), hp }
+    }
+
+    #[test]
+    fn the_hold_reach_follows_her_range_buffs() {
+        assert_eq!(hold_reach_with(KAYLE, 0.0), hold_reach(KAYLE));
+        assert_eq!(hold_reach_with(KAYLE, 27_500.0), (52_500.0, 62_500.0));
+        assert_eq!(hold_reach_with(KAYLE, 37_500.0), (62_500.0, 72_500.0));
     }
 
     #[test]
