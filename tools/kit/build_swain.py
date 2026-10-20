@@ -78,8 +78,10 @@ P = {
     # passive: Ravenous Flock (League: +15 max health a fragment, heal 6% max health; fragments from W, E2, deaths)
     "p_hp": 15, "p_heal": 80, "p_heal_ap": 30, "p_win": 180,
     # skill: Q Death's Hand (League: 725 range, 32 deg, 5 bolts, 60-180 + 45% AP, +25% a further bolt up to 2x, cd 7-3)
+    # q_speed only moves the fan's picture (the hits are cones on the release tick): 9000 until 2026-10-20, then 4500 so
+    # the fan (drawn 2x since, import_swain_fx.SCALE) stays 0.23 s - the user: 「乌鸦的q是没特效吗」
     "q_cd": 240, "q_range": 55000, "q_dur": 24, "q_rel": 9, "q_len": 62000, "q_dot": 940, "q_near": 32000,
-    "q_dmg": 120, "q_ap": 80, "q_dmg2": 60, "q_ap2": 45, "q_speed": 9000, "q_flash": 5,
+    "q_dmg": 120, "q_ap": 80, "q_dmg2": 60, "q_ap2": 45, "q_speed": 4500, "q_flash": 5,
     # skill2: E Nevermove (League: 850 range, out 1125-1800, back 2000-2800, 90-250 + 70% AP, root 1.5 s, recast pull
     # 290 + fragment, cd 12-10)
     "e_cd": 600, "e_range": 65000, "e_dur": 26, "e_rel": 9, "e_len": 70000, "e_out": 4000, "e_back": 5000,
