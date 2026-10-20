@@ -38,7 +38,8 @@ TEXT = {
         "skill2": "【扩展包】踢出气泡，打中敌方英雄造成" + mag("e_dmg", "e_ratio") + "魔法伤害，" + R + "困倦" + E + "（减速{e_slow}%）" + A +
                   "{e_drowsy}秒" + E + "后" + R + "昏睡" + E + A + "{e_sleep_n}秒" + E + "；受到任何伤害就醒，那一下多受一次真实伤害（有封顶）。",
         "ult": "【扩展包】跳进传送门闪向敌方英雄，掷出飞星造成" + mag("r_dmg", "r_ratio") + "魔法伤害，再射{w_n}颗飞弹。" + O + "窃法巧手" + E +
-               "：敌方英雄放大招时掉下法术碎片，她捡起来就射{w_n}颗飞弹，每颗" + mag("w_dmg", "w_ratio") + "，并加速{w_ms}%。",
+               "：每次先按局面放一个召唤师技能（闪现、点燃、虚弱、治疗、屏障、疾步、净化），飞弹每颗" + mag("w_dmg", "w_ratio") +
+               "，加速{w_ms}%；敌方放大招掉碎片，捡起再来一次。",
     },
     "zh-hant": {
         "skill": "【擴充包】擲出一顆飛星，打中第一個敵人造成" + mag("q_dmg", "q_ratio") + "魔法傷害；按真實飛行距離越遠越高，最遠" + A +
@@ -46,7 +47,8 @@ TEXT = {
         "skill2": "【擴充包】踢出泡泡，打中敵方英雄造成" + mag("e_dmg", "e_ratio") + "魔法傷害，" + R + "睏倦" + E + "（緩速{e_slow}%）" + A +
                   "{e_drowsy}秒" + E + "後" + R + "沉睡" + E + A + "{e_sleep_n}秒" + E + "；受到任何傷害就醒，那一下多受一次真實傷害（有上限）。",
         "ult": "【擴充包】跳進傳送門閃向敵方英雄，擲出飛星造成" + mag("r_dmg", "r_ratio") + "魔法傷害，再射{w_n}顆飛彈。" + O + "法術竊盜" + E +
-               "：敵方英雄放大招時掉下法術碎片，她撿起來就射{w_n}顆飛彈，每顆" + mag("w_dmg", "w_ratio") + "，並加速{w_ms}%。",
+               "：每次先按局面放一個召喚師技能（閃現、點燃、虛弱、治療、屏障、疾步、淨化），飛彈每顆" + mag("w_dmg", "w_ratio") +
+               "，加速{w_ms}%；敵方放大招掉碎片，撿起再來一次。",
     },
     "en": {
         "skill": "[Add-on] Throws a star at the first enemy hit for " + mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E +
@@ -55,8 +57,9 @@ TEXT = {
                   ", turns " + R + "drowsy" + E + " (slowed {e_slow}%) for " + A + "{e_drowsy}s" + E + ", then falls " + R + "asleep" +
                   E + " for " + A + "{e_sleep_n}s" + E + ". Any damage wakes him, and that hit lands again as true damage (capped).",
         "ult": "[Add-on] Jumps through a portal toward an enemy champion, throws a star for " + mag("r_dmg", "r_ratio") + " " + M +
-               "magic damage" + E + " and {w_n} missiles. " + O + "Spell Thief" + E + ": an enemy champion's ult drops a spell shard; "
-               "picking it up she throws {w_n} missiles, " + mag("w_dmg", "w_ratio") + " each, and gains {w_ms}% move speed.",
+               "magic damage" + E + " and {w_n} missiles. " + O + "Spell Thief" + E + ": first a summoner spell picked by the fight "
+               "(Flash, Ignite, Exhaust, Heal, Barrier, Ghost, Cleanse), missiles " + mag("w_dmg", "w_ratio") + " each, "
+               "+{w_ms}% move speed; an enemy ult drops a shard: picked up, again.",
     },
     "ko": {
         "skill": "[확장] 별을 던져 처음 맞힌 적에게 " + mag("q_dmg", "q_ratio") + " 마법 피해. 실제로 멀리 날아갈수록 피해가 커져 최대 " + A +
@@ -65,8 +68,8 @@ TEXT = {
                   "졸음" + E + "({e_slow}% 둔화) 뒤 " + A + "{e_sleep_n}초" + E + " " + R + "수면" + E + ". 어떤 피해든 맞으면 깨어나고 그 피해를 "
                   "고정 피해로 한 번 더(상한 있음).",
         "ult": "[확장] 차원문을 넘어 적 챔피언 쪽으로 이동해 별을 던져 " + mag("r_dmg", "r_ratio") + " 마법 피해, 투사체 {w_n}개. " + O + "주문도둑" +
-               E + ": 적 챔피언이 궁극기를 쓰면 주문 파편이 떨어지고, 주우면 투사체 {w_n}개(개당 " + mag("w_dmg", "w_ratio") +
-               ")와 이동 속도 +{w_ms}%.",
+               E + ": 먼저 상황에 맞는 소환사 주문(점멸·점화·탈진·회복·방어막·유체화·정화), 투사체 개당 " + mag("w_dmg", "w_ratio") +
+               ", 이동 속도 +{w_ms}%. 적 궁극기는 파편을 떨구고, 주우면 한 번 더.",
     },
     "ja": {
         "skill": "【拡張】星を投げ、最初に当たった敵に" + mag("q_dmg", "q_ratio") + "の魔法ダメージ。実際に遠くまで飛ぶほど強く、最大" + A +
@@ -75,8 +78,8 @@ TEXT = {
                   "まどろみ" + E + "（{e_slow}%スロウ）の後" + A + "{e_sleep_n}秒" + E + R + "睡眠" + E + "。どんなダメージでも目覚め、その一撃を"
                   "確定ダメージでもう一度（上限あり）。",
         "ult": "【拡張】ポータルを抜けて敵チャンピオンの方へ跳び、星を投げて" + mag("r_dmg", "r_ratio") + "の魔法ダメージ、弾{w_n}発。" + O +
-               "スペルシーフ" + E + "：敵チャンピオンがアルティメットを使うと呪文の欠片が落ち、拾うと弾{w_n}発（1発" +
-               mag("w_dmg", "w_ratio") + "）と移動速度+{w_ms}%。",
+               "スペルシーフ" + E + "：まず状況に合うサモナースペルを1つ、弾1発" +
+               mag("w_dmg", "w_ratio") + "、移動速度+{w_ms}%。敵のアルティメットで欠片が落ち、拾うともう一度。",
     },
 }
 
