@@ -10,9 +10,9 @@ symmetric top to bottom, the hits / ground / buff pictures left to right - check
 are left alone). Each frame is cut by the manifest's frame size and placed as the kit plays it (import_vex_fx.py's
 way): spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it, a point's ground too. Times
 from the kit (build_zyra.P, 60 ticks a second):
-  * the plants (t_plant, v_plant) are one tag as long as the plant lives (t_life / v_life): it grows in GROW_MS (its first
-    strike comes t_first ticks after it appears), then one cycle a strike period - the strike frame, then the four sway
-    frames - and wilts in its last frames;
+  * the plants (t_plant, v_plant) are one tag as long as the plant lives (t_life / v_life): it grows until its first
+    strike t_first ticks after it appears, then one cycle a strike period - the strike frame, then the four sway frames
+    - and wilts in its last frames;
   * the thicket (r_thicket) writhes (its three loop frames) until the knock-up r_knock ticks after it appears, closes
     like a cage on that tick and falls apart;
   * the add-on's seed (s_seed) is as long as the add-on replays it (s_show ticks).
@@ -82,8 +82,8 @@ def plant(life, first, period):
 
 
 def thicket():
-    """The thicket's 10 frames over its life: the ring, the vines, the thicket rising, writhing (frames 4-6 looped) until
-    the knock-up, the cage closing on its tick, falling apart."""
+    """The thicket's 10 frames over its life: the ring, the vines, the thicket rising, writhing (frames 4-6 looped)
+    until the knock-up, the cage closing on its tick, falling apart."""
     knock = P["r_knock"] * MS
     head = [(0, 80), (1, 80), (2, 100)]
     close = [(6, 100), (7, 100)]
@@ -96,7 +96,7 @@ def thicket():
 
 # effect -> (anchor: "core" or ("feet", rows above the cell's bottom row), frames with ms, spots)
 FX = {
-    # the seed hidden its first 4 ticks (18 px at 4.5 a tick): it leaves the whip's tip, 22 px ahead on the release frame
+    # the seed hidden its first 4 ticks (18 px at 4.5 a tick): it leaves the whip's tip, 22 px ahead when released
     "a_seed": ("core", flight(4, 60, SEED_MS, lead=4), [(0, 0)]),
     "e_roots": ("core", flight(4, 60, E_MS, lead=1), [(0, 0)]),
     "t_spit": ("core", flight(2, 60, SPIT_MS, lead=1), [(0, 0)]),

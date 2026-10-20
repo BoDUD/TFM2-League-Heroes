@@ -102,8 +102,8 @@ class Clip:
         step = P["a_speed"] / 1000.0
         hit = rel + tick((x1 - x0) / step)
         show = rel + tick(SEED_LEAD)
-        self.fly("a_seed", show, hit, x0 + SEED_LEAD * step, x1, self.me.y - SEED_UP * (1 - SEED_LEAD * step / (x1 - x0)),
-                 self.d.y)
+        lift = SEED_UP * (1 - SEED_LEAD * step / (x1 - x0))          # where it shows on its way down to his pivot
+        self.fly("a_seed", show, hit, x0 + SEED_LEAD * step, x1, self.me.y - lift, self.d.y)
         self.on("a_hit", hit)
         self.d.flinches.append(hit)
         self.a("attack", tick(P["atk_dur"]))
