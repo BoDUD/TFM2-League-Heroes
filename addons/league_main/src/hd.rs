@@ -130,6 +130,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Graves: posed by tools/art/rig_graves.py at the user's 1.5 squares a game pixel (57 game rows hair to soles: 「38 像素」
     // 「PPU 1.5」; Codex's seven poses on skeletons, attack2 the second shell's reload), so no SIZES row
     ("league_graves", 1.5, include_str!("../../../league/champions/league_graves#anim.fanim")),
+    // Warwick: posed by tools/art/rig_warwick.py on Codex's step-1 take A-1 at the user's 1.5 squares a game pixel (69 game
+    // rows spike top to soles: 「选大一号的那个」「PPU 1.5」; every action on the 3/4 design: 「不做侧面 只做四分之三的侧面」;
+    // skill_bite / skill2_howl / ult_dash / ult_hold the kit's CasterAnimations), brought down to 1.2 by ppu_restyle
+    // (「太高清了 降点像素」), so no SIZES row
+    ("league_warwick", 1.2, include_str!("../../../league/champions/league_warwick#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
@@ -213,12 +218,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// ready stance like every action and he is 100 % again (「局内模型为什么变这么小了」: running 32-36 px against Darius's 41).
 /// Malzahar: 115 % from the size sheet (all actions from the 3/4 front), drawn at PPU 2.2 first, then 「像素有点高 降低点需要」 ->
 /// PPU 1.38 (1.2 squares a game pixel at 115 %); he floats, his frames lifted by the restyle (RESTYLE malzahar lift).
+/// Wukong: 「猴子现在太小了」 (2026-10-20, 36 game px against Lee Sin's / Pantheon's / Garen's 41) -> 115 % from a
+/// true-scale sheet (41 game px), his frames lifted 2 squares by the restyle (RESTYLE wukong lift_sq).
 /// Powder (tft_powder): 90 % (the user, 2026-10-19: 「人物模型太大 缩小一点」), her frames 2 squares lower (RESTYLE powder lift).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
-                                    ("league_poppy", 0.85), ("league_yuumi", 0.75),
+                                    ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
                                     ("tft_powder", 0.90)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
@@ -278,6 +285,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     ("league_tahmkench", 0.87),
     // Zyra (#140): 43.5 game rows hair to soles at PPU 1.7 - 12.7 px of her legs hid under the card's canvas
     ("league_zyra", 0.89),
+    // Warwick (#142): 63 game px wide with his raised tail (94 squares at PPU 1.5) - the tail's tip and the far claws ran
+    // past the card's 59.5 px canvas
+    ("league_warwick", 0.88),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

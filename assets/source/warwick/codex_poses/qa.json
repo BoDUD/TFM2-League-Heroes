@@ -1,0 +1,191 @@
+[
+  {
+    "pose": "crouch",
+    "filename": "warwick-pose-crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      58,
+      360,
+      1245,
+      1214
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 522895,
+    "touches_canvas_alpha128": false,
+    "hard_alpha_pass": false,
+    "strict_12px_grid_pass": false,
+    "sha256": "945c91c35ef959aaad28b56fc74843646839cc03564c6329f1020fd356edc0bf"
+  },
+  {
+    "pose": "rear",
+    "filename": "warwick-pose-rear.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      30,
+      127,
+      1196,
+      1195
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 626388,
+    "touches_canvas_alpha128": false,
+    "hard_alpha_pass": false,
+    "strict_12px_grid_pass": false,
+    "sha256": "272014b1f2fefcf31ab4686c27dc4aa94a5c477a8b03b381dec9862f4e357655"
+  },
+  {
+    "pose": "leap",
+    "filename": "warwick-pose-leap.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      25,
+      125,
+      1245,
+      1096
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 571940,
+    "touches_canvas_alpha128": false,
+    "hard_alpha_pass": false,
+    "strict_12px_grid_pass": false,
+    "sha256": "c70738634993cdb90911774f82f43f329f216f683d27fbb7f6072e1c5a4d4691"
+  },
+  {
+    "pose": "bite",
+    "filename": "warwick-pose-bite.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      30,
+      352,
+      1245,
+      1176
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 547071,
+    "touches_canvas_alpha128": false,
+    "hard_alpha_pass": false,
+    "strict_12px_grid_pass": false,
+    "sha256": "5f5aaba7f4a7eac2a8bf3a2a9c604b4eed3294154931800fb0071aa408f6c33d"
+  },
+  {
+    "pose": "howl",
+    "filename": "warwick-pose-howl.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      65,
+      151,
+      1172,
+      1225
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 636671,
+    "touches_canvas_alpha128": false,
+    "hard_alpha_pass": false,
+    "strict_12px_grid_pass": false,
+    "sha256": "627bef139cb61d9abb0b73c5125f81c59073b871a2fcf9099054ad4d41a25d29"
+  },
+  {
+    "pose": "strike",
+    "filename": "warwick-pose-strike.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      59,
+      256,
+      1235,
+      1167
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 494444,
+    "touches_canvas_alpha128": false,
+    "hard_alpha_pass": false,
+    "strict_12px_grid_pass": false,
+    "sha256": "09ba377c28884ee54f48db2ddd1db516b9326de21307b4b97ff2fe39e7c3989d"
+  },
+  {
+    "pose": "raise",
+    "filename": "warwick-pose-raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      79,
+      41,
+      1167,
+      1244
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 562800,
+    "touches_canvas_alpha128": false,
+    "hard_alpha_pass": false,
+    "strict_12px_grid_pass": false,
+    "sha256": "6a439c3aa1ae87a01ff9c68f7aff44819167b2b6872c95b21619dde09ec67698"
+  },
+  {
+    "pose": "stagger",
+    "filename": "warwick-pose-stagger.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      30,
+      196,
+      1226,
+      1206
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 606668,
+    "touches_canvas_alpha128": false,
+    "hard_alpha_pass": false,
+    "strict_12px_grid_pass": false,
+    "sha256": "badd62319d90a28d489541a19d9b8c23cf0bc8bdbbc0a867a740a7899dac145b"
+  },
+  {
+    "pose": "lie",
+    "filename": "warwick-pose-lie.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      22,
+      824,
+      1238,
+      1200
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 239151,
+    "touches_canvas_alpha128": false,
+    "hard_alpha_pass": false,
+    "strict_12px_grid_pass": false,
+    "sha256": "6288bac2980b38e5ddaf20acc436701e26bc877bf517dd6b3645807e94723785"
+  }
+]

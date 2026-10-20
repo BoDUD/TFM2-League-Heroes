@@ -1639,7 +1639,7 @@
     "league_wukong": {
       "face": {
         "x": 3,
-        "y": -27
+        "y": -33
       },
       "center": {
         "x": 0,
@@ -1647,7 +1647,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -12
+        "y": -8
       }
     },
     "league_cassiopeia": {
@@ -1806,6 +1806,20 @@
       "center": {
         "x": 0,
         "y": -14
+      }
+    },
+    "league_warwick": {
+      "face": {
+        "x": 11,
+        "y": -28
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
       }
     }
   }

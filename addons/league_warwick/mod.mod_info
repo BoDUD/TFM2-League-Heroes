@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.180.0"
+    }
+  ],
+  "description": "Test build of Warwick as in League (needs League of Legends Heroes): replaces the main pack's Warwick so Eternal Hunger heals only below half health (three times below a quarter) and Blood Hunt speeds him up near wounded enemy champions; the AI plays his combos (Primal Howl before Jaws of the Beast, Jaws after Infinite Duress, Infinite Duress at a champion under a quarter). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-20",
+  "mod_id": "league_warwick",
+  "mod_type": "native",
+  "name": "League Heroes: Warwick's hunger (test)",
+  "version": "0.1.0"
+}
