@@ -418,15 +418,18 @@ def frames_all(F):
 
 
 # ------------------------------------------------------------------------------------------------- the glide
-# League's karthus_run: he floats on bent forward, the rags streaming back, the near claw held out in front, the staff
-# carried upright ahead of him; no steps. The upper body leant forward (one square every LEAN rows), the near arm
-# forward, the whole figure bobbing a row, the hem trailing back two or three columns and fluttering.
+# League's karthus_run: he floats on bent forward, off the ground with his toes hanging, bobbing, the rags streaming
+# back, the near claw held out in front, the staff carried upright ahead of him; no steps. The upper body leant forward
+# (one square every LEAN rows), the near arm forward, the whole figure LIFT rows off the ground (his shadow stays on
+# it: the user, 2026-10-20, 「死歌是飘着走路的吧 我们现在不是」 - the first glide only bobbed a row, his feet on the
+# ground) and bobbing a row, the hem trailing back two or three columns and fluttering.
 LEAN = 6
+LIFT = 6
 GLIDE = dict(bob=[0, 0, -1, -1, -1, -1, 0, 0], hem=[-2, -3, -3, -2, -2, -3, -3, -2])
 
 
 def run(F):
-    return [F.pose(whole=(0, b), hem=h, lean=LEAN, near_rot=1) for b, h in zip(GLIDE["bob"], GLIDE["hem"])]
+    return [F.pose(whole=(0, b - LIFT), hem=h, lean=LEAN, near_rot=1) for b, h in zip(GLIDE["bob"], GLIDE["hem"])]
 
 
 def frames(F):

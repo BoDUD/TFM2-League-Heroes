@@ -80,6 +80,7 @@ def main():
     ap.add_argument("--z", type=int, default=4)
     ap.add_argument("--tags")
     ap.add_argument("--sheet", action="store_true", help="the exported sheet's hd_ frames instead of the rig's")
+    ap.add_argument("--ground", action="store_true", help="draw the ground line and the shadow under his standing point")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     F = Z.form()
@@ -98,6 +99,11 @@ def main():
         for (can, ms), ref in zip(fr, lol):
             f = F.rig.finish(can)[y0:y1, x0:x1]
             bg = Image.new("RGBA", (f.shape[1], f.shape[0]), BG + (255,))
+            if a.ground:              # the ground line and the unit's shadow under his standing point (it stays on
+                gd = ImageDraw.Draw(bg)  # the ground when he floats)
+                gx, gy = F.rig.CX - x0, F.rig.GY - y0
+                gd.line([(0, gy), (f.shape[1], gy)], fill=(70, 80, 70, 255))
+                gd.ellipse([gx - 9, gy - 3, gx + 9, gy + 2], fill=(52, 62, 52, 255))
             bg.alpha_composite(Image.fromarray(f))
             ours = bg.convert("RGB").resize((f.shape[1] * a.z, f.shape[0] * a.z), Image.NEAREST)
             k = ours.height / ref.height
