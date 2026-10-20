@@ -23,6 +23,11 @@ TFM2 has three active slots: Death's Hand is `skill`, Nevermove `skill2`, Demoni
           BackToCasterLinearProjectile from its end): every enemy it meets takes e_dmg + e_ap% AP and is rooted e_root
           ticks (Bind). A champion rooted is pulled e_pull_d toward him e_pull_at ticks later (a Grab, League's
           recast) and gives a fragment. Dodgeable: the out-flight is aimed once.
+  combo   E -> Q (League's root into Death's Hand; the user: 「有连招要做连招」「都要帮我补」): a champion rooted by the
+          return opens the caster flag e_combo for e_root ticks; Death's Hand cast in it fires its bolts at once
+          instead of on q_rel (league_leona's E -> Q window: no damage or cooldown changes, Q always fires). W stays
+          the watch's: it goes out the moment it is ready, so it is almost never ready when E lands, and holding it
+          for E would change its rate.
   W       Vision of Empire (帝国视界), automatic: every w_cd ticks the watch picks an enemy champion recently in a fight
           (`EnemyChampionRecentlyAttacked`) within w_range and opens the eye at its feet (a hidden lob lands there):
           w_delay ticks later the eye bursts (w_r): w_dmg + w_ap% AP, w_slow% slow for w_slow_t ticks; each champion
@@ -86,6 +91,8 @@ P = {
     # 290 + fragment, cd 12-10)
     "e_cd": 600, "e_range": 65000, "e_dur": 26, "e_rel": 9, "e_len": 70000, "e_out": 4000, "e_back": 5000,
     "e_rad": 9000, "e_dmg": 110, "e_ap": 80, "e_root": 90, "e_pull_at": 30, "e_pull_d": 29000, "e_pull_v": 1500,
+    # the E -> Q combo (the user: 「有连招要做连招」「都要帮我补」): a champion rooted by the hand's return opens e_combo
+    # for the root's e_root ticks; Death's Hand cast in it fires at once (else on q_rel)
     # W Vision of Empire (League: 1.5 s fuse, 325 radius, 70-250 + 60% AP, 50% slow 1.5 s, fragment, cd 20-16)
     "w_cd": 960, "w_range": 100000, "w_travel": 15, "w_delay": 90, "w_r": 30000, "w_dmg": 90, "w_ap": 60,
     "w_slow": 50, "w_slow_t": 90,
@@ -342,14 +349,16 @@ def build(p):
                   cone(p["q_len"], p["q_dot"], "EnemyWithoutTower", q_hit),
                   cone(p["q_near"], p["q_dot"], "EnemyWithoutTower", q_more),
                   cone(p["q_len"], p["q_dot"], "EnemyChampion", [track()]))
+    # E -> Q: inside e_combo (a champion rooted by Nevermove) the bolts leave at once, else on q_rel as before
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(sw("r_on", anim("r_skill", p["q_dur"]), anim("skill", p["q_dur"])), sfx("q"),
-                           voice("vo_q", p), delayed(p["q_rel"] - 1, fan)))
+                           voice("vo_q", p), sw("e_combo", fan, delayed(p["q_rel"] - 1, fan))))
 
     # ------------------------------------------------------------------ skill2: E Nevermove
     pull = {"type": "Grab", "speed": p["e_pull_v"], "tick": p["e_pull_d"] // p["e_pull_v"]}
     e_hit = [ap(p["e_dmg"], p["e_ap"]), {"type": "Bind", "duration": p["e_root"]}, view("e_hit"), tsfx("e_hit")]
-    e_champ = [track(), delayed(p["e_pull_at"], pull, view("e_pull"), tsfx("e_pull"), frag())]
+    e_champ = [track(), delayed(p["e_pull_at"], pull, view("e_pull"), tsfx("e_pull"), frag()),
+               refresh("e_combo", p["e_root"])]
     hand_back = [sfx("e_back"), back("e_back", p["e_back"], p["e_len"] + 20000, p["e_rad"], "EnemyWithoutTower", e_hit),
                  back("e_twin", p["e_back"], p["e_len"] + 20000, p["e_rad"], "EnemyChampion", e_champ)]
     hand = line("e_out", p["e_out"], p["e_len"], 1, -2000, "Enemy", True, [], end=hand_back)

@@ -947,6 +947,22 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_nocturne_e_cd"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_nocturne_e_cd",
+            "duration": {
+              "Time": {
+                "tick": 660
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
           "type": "Sfx",
           "name": "league_nocturne_e_cast"
         },
@@ -1488,6 +1504,47 @@
                         "tick": 20
                       }
                     }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 1,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_e_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_nocturne_e_cd"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_nocturne_r_refund"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nocturne_r_refund",
+                          "duration": {
+                            "Time": {
+                              "tick": 2
+                            }
+                          },
+                          "skill_cooldown_mult": 10000,
+                          "ult_cooldown_mult": -10000
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
                 }
               ]

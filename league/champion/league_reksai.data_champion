@@ -1622,43 +1622,120 @@
                     "only_to_enemy": false
                   },
                   {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_reksai_q_fast"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_reksai_w_combo",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "TargetSplashProjectile",
+                          "name": "league_reksai_q_splash",
+                          "speed": 100000,
+                          "range": 16000,
+                          "y_offset": 0,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Attack",
+                                "damage": 15,
+                                "attack_ratio": 140,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_reksai_q_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_reksai_q_hit"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_reksai_q_fast",
+                            "duration": {
+                              "Time": {
+                                "tick": 10
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
                     "type": "Delayed",
                     "tick": 9,
                     "effects": [
                       {
-                        "type": "TargetSplashProjectile",
-                        "name": "league_reksai_q_splash",
-                        "speed": 100000,
-                        "range": 16000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Attack",
-                              "damage": 15,
-                              "attack_ratio": 140,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_reksai_q_fast",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_reksai_q_fast"
                             }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_reksai_q_hit"
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "TargetSplashProjectile",
+                          "name": "league_reksai_q_splash",
+                          "speed": 100000,
+                          "range": 16000,
+                          "y_offset": 0,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Attack",
+                                "damage": 15,
+                                "attack_ratio": 140,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_reksai_q_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_reksai_q_hit"
+                              }
                             }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "league_reksai_q_hit"
-                            }
-                          }
-                        ]
+                          ]
+                        }
                       },
                       {
                         "type": "SwitchByBuff",
@@ -2606,6 +2683,48 @@
                                 }
                               }
                             }
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_reksai_w_combo"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_reksai_w_combo",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 90
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_reksai_r_ok"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_reksai_r_ok",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 14
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
                           }
                         ]
                       },

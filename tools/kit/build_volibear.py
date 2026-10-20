@@ -17,6 +17,9 @@ League's four buttons: Thundering Smash is `skill`, Sky Splitter `skill2`, Storm
   skill   Q Thundering Smash (擂首一击), `Targeting` on `EnemyChampion` (q_range): q_ms% move speed for q_t ticks and he
           charges on all fours (`skill_run`, MoveToTarget q_speed); on reaching the champion the smash (`skill`, the hit
           q_rel ticks in): his blow + q_dmg + q_ratio% AD and a q_stun-tick stun.
+          Combo Q -> W (the user: 「有连招要做连招」「都要帮我补」; League's Volibear bites the champion he has just
+          stunned): the smash also takes the maul's cooldown flag w_cd off, so his next attack - started on the
+          stunned champion while the stun holds - is Frenzied Maul from its first tick (the bite on w_st).
   skill2  E Sky Splitter (霹天雳地), `Position` on `EnemyWithoutTower` (e_range): a storm mark on the point, e_delay
           ticks later the bolt (radius e_r): e_dmg + e_ap% AP magic, e_hp% of a champion's max health (true: ApAttack
           has no target-health field), e_slow% slow for e_slow_t; standing in it shields him e_sh + e_sh_ap% AP for
@@ -250,8 +253,9 @@ def build(p):
                       sw("w_cd", delayed(p["atk_st"] - 1, blow, storm), maul), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Thundering Smash
+    # the Q -> W combo: the smash takes w_cd off, so his next attack - on the stunned champion - is the maul
     smash = [attack(p["q_dmg"], 100 + p["q_ratio"]), {"type": "Stun", "duration": p["q_stun"]},
-             buff("q_stun", p["q_stun"]), view("q_hit"), tsfx("q_hit"), stack]
+             buff("q_stun", p["q_stun"]), view("q_hit"), tsfx("q_hit"), stack, *rm("w_cd")]
     reach = [anim("skill", p["q_dur"]), sfx("q_smash"), delayed(p["q_rel"], *smash)]
     skill = action("skill_run", 3, p["q_cd"], 1, p["q_range"], "Targeting", "EnemyChampion",
                    combine(refresh("q_ms", p["q_t"], move_speed_mult=p["q_ms"]), anim("skill_run", p["q_run"]),

@@ -1347,6 +1347,99 @@
           "range": 100000,
           "end_effects": [
             {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jax_e_on",
+              "effect_buff": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_e_on"
+                      },
+                      {
+                        "type": "CasterAnimation",
+                        "name": "skill2_burst",
+                        "tick": 26
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 4,
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_jax_e_burst"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_jax_e_burst"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 32000
+                              }
+                            },
+                            "target": "EnemyWithoutTower",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "ApAttack",
+                                "damage": 60,
+                                "attack_ratio": 100,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "Stun",
+                                "duration": 60
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_jax_stun"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 32000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "FixedAttack",
+                                "damage": 0,
+                                "attack_ratio": 0,
+                                "target_hp_ratio": 4,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_jax_e_hit"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
               "type": "Attack",
               "damage": 70,
               "attack_ratio": 110,

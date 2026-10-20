@@ -495,7 +495,7 @@
     "description": "#asset/base/text/champion?description.league_malphite.skill2",
     "duration": 26,
     "cooltime": 420,
-    "start_timing": 11,
+    "start_timing": 1,
     "cancelable": false,
     "range": 30000,
     "casting_type": "None",
@@ -645,63 +645,152 @@
           }
         },
         {
-          "type": "Sfx",
-          "name": "league_malphite_e_cast"
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_malphite_e_slam"
-        },
-        {
-          "type": "RangeEffect",
-          "shape": {
-            "Circle": {
-              "radius": 36000
-            }
+          "type": "SwitchByBuff",
+          "buff_name": "league_malphite_r_combo",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_malphite_r_combo"
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "ult_slam",
+                "tick": 26
+              },
+              {
+                "type": "Delayed",
+                "tick": 3,
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "league_malphite_e_cast"
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_malphite_e_slam"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 36000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 50,
+                        "attack_ratio": 40,
+                        "hp_ratio": 2,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_malphite_e_sap",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          },
+                          "attack_speed_mult": -20
+                        }
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_malphite_e_hit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_malphite_thunder"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_malphite_thunder",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            ]
           },
-          "target": "EnemyWithoutTower",
-          "apply_type": "AroundCaster",
-          "effects": [
-            {
-              "type": "ApAttack",
-              "damage": 50,
-              "attack_ratio": 40,
-              "hp_ratio": 2,
-              "attack_effect_type": "Target"
-            },
-            {
-              "type": "AddBuff",
-              "buff_state": {
-                "name": "league_malphite_e_sap",
-                "duration": {
-                  "Time": {
-                    "tick": 180
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 10,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_malphite_e_cast"
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_malphite_e_slam"
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 36000
                   }
                 },
-                "attack_speed_mult": -20
+                "target": "EnemyWithoutTower",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 50,
+                    "attack_ratio": 40,
+                    "hp_ratio": 2,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_malphite_e_sap",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "attack_speed_mult": -20
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_malphite_e_hit"
+                  }
+                ]
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_malphite_thunder"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_malphite_thunder",
+                  "duration": {
+                    "Time": {
+                      "tick": 240
+                    }
+                  }
+                },
+                "only_to_enemy": false
               }
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_malphite_e_hit"
-            }
-          ]
-        },
-        {
-          "type": "RemoveCasterBuff",
-          "name": "league_malphite_thunder"
-        },
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_malphite_thunder",
-            "duration": {
-              "Time": {
-                "tick": 240
-              }
-            }
-          },
-          "only_to_enemy": false
+            ]
+          }
         }
       ]
     }
@@ -928,6 +1017,52 @@
                     {
                       "type": "ViewEffect",
                       "name": "league_malphite_r_knockup"
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 30000
+                    }
+                  },
+                  "target": "EnemyChampion",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_malphite_r_combo"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_malphite_r_combo",
+                        "duration": {
+                          "Time": {
+                            "tick": 75
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_malphite_r_refund"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_malphite_r_refund",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        },
+                        "skill_cooldown_mult": 4900,
+                        "ult_cooldown_mult": -4900
+                      },
+                      "only_to_enemy": false
                     }
                   ]
                 }

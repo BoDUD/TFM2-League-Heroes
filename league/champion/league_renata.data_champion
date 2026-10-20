@@ -809,6 +809,66 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_renata_q_combo"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_renata_q_combo",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 105
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_renata_q_cd",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_renata_q_cd"
+                                                                      },
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_renata_q_refund"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_renata_q_refund",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 2
+                                                                            }
+                                                                          },
+                                                                          "skill_cooldown_mult": 10000,
+                                                                          "ult_cooldown_mult": -10000
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
                                                                   "type": "AddCasted",
                                                                   "casted_type": "Bleed",
                                                                   "duration": 105,
@@ -973,6 +1033,66 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_renata_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_renata_q_combo"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_renata_q_combo",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 105
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_renata_q_cd",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_renata_q_cd"
+                                                                        },
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_renata_q_refund"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_renata_q_refund",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 2
+                                                                              }
+                                                                            },
+                                                                            "skill_cooldown_mult": 10000,
+                                                                            "ult_cooldown_mult": -10000
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 },
                                                                 {
@@ -1178,6 +1298,66 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_renata_q_combo"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_renata_q_combo",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 105
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_renata_q_cd",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_renata_q_cd"
+                                                                      },
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_renata_q_refund"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_renata_q_refund",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 2
+                                                                            }
+                                                                          },
+                                                                          "skill_cooldown_mult": 10000,
+                                                                          "ult_cooldown_mult": -10000
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
                                                                   "type": "AddCasted",
                                                                   "casted_type": "Bleed",
                                                                   "duration": 105,
@@ -1342,6 +1522,66 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_renata_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_renata_q_combo"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_renata_q_combo",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 105
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_renata_q_cd",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_renata_q_cd"
+                                                                        },
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_renata_q_refund"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_renata_q_refund",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 2
+                                                                              }
+                                                                            },
+                                                                            "skill_cooldown_mult": 10000,
+                                                                            "ult_cooldown_mult": -10000
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 },
                                                                 {
@@ -1862,6 +2102,42 @@
                                 ]
                               },
                               {
+                                "type": "RangeProjectile",
+                                "name": "league_renata_e_champ",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 12000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_renata_q_combo"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_renata_q_combo",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 120
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  }
+                                ]
+                              },
+                              {
                                 "type": "ViewEffect",
                                 "name": "league_renata_e_boom"
                               },
@@ -2047,6 +2323,42 @@
                                 ]
                               },
                               {
+                                "type": "RangeProjectile",
+                                "name": "league_renata_e_champ",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 12000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_renata_q_combo"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_renata_q_combo",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 120
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  }
+                                ]
+                              },
+                              {
                                 "type": "ViewEffect",
                                 "name": "league_renata_e_boom"
                               },
@@ -2137,548 +2449,804 @@
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
-      "type": "Delayed",
-      "tick": 3,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Combine",
-          "effects": [
-            {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "league_renata_live",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
+          "type": "RemoveCasterBuff",
+          "name": "league_renata_q_cd"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_renata_q_cd",
+            "duration": {
+              "Time": {
+                "tick": 930
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_renata_q_combo",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_renata_q"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_renata_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_renata_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_renata_vo_q"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "LinearProjectile",
+                "name": "league_renata_q_hand",
+                "penetrate": false,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ApAttack",
+                      "damage": 95,
+                      "attack_ratio": 85,
+                      "hp_ratio": 0,
+                      "can_crit": false
                     }
                   },
-                  "only_to_enemy": false
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_renata_live",
-              "effect_buff": {
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Bind",
+                      "duration": 50
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_renata_q_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_renata_q_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "RandomTarget",
+                      "range": 1000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": true,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_renata_q_champ",
+                            "duration": {
+                              "Time": {
+                                "tick": 68
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddCasted",
+                      "casted_type": "Bleed",
+                      "duration": 50,
+                      "period": 50,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Pull",
+                              "speed": 3000,
+                              "tick": 12
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_renata_q_fling"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_renata_q_fling"
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "skill2_fling",
+                              "tick": 24
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddCasted",
+                      "casted_type": "Bleed",
+                      "duration": 62,
+                      "period": 62,
+                      "effects": [
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_renata_q_land",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "range_effect_name": "",
+                          "applied_target": "Enemy",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "RangeProjectile",
+                              "name": "league_renata_q_crash",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 14000
+                                }
+                              },
+                              "delay": 1,
+                              "apply": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 75,
+                                    "attack_ratio": 50,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_renata_q_champ",
+                                    "effect_buff": {
+                                      "type": "Stun",
+                                      "duration": 30
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_renata_q_crash_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_renata_q_crash"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_renata_q_land"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "end_effects": [],
+                "speed": 4500,
+                "range": 90000,
+                "shape": {
+                  "Circle": {
+                    "radius": 5000
+                  }
+                },
+                "y_offset": -5500
+              },
+              {
+                "type": "Sfx",
+                "name": "league_renata_q_fly"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 3,
+            "effects": [
+              {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "Combine",
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Sfx",
-                        "name": "league_renata_q"
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_renata_vo_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_renata_vo_cd",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 600
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_renata_vo_q"
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_renata_live",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
                             }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "league_renata_q_aim",
-                        "travel_time": 8,
-                        "range": 400000,
-                        "shape": {
-                          "Circle": {
-                            "radius": 1000
                           }
                         },
-                        "range_effect_name": "",
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_renata_q_hand",
-                            "penetrate": false,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 95,
-                                  "attack_ratio": 85,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "Bind",
-                                  "duration": 50
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ViewEffect",
-                                  "name": "league_renata_q_hit"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "TargetSfx",
-                                  "name": "league_renata_q_hit"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "RandomTarget",
-                                  "range": 1000,
-                                  "casting_target": "EnemyChampion",
-                                  "from_projectile": true,
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_renata_q_champ",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 68
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddCasted",
-                                  "casted_type": "Bleed",
-                                  "duration": 50,
-                                  "period": 50,
-                                  "effects": [
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Pull",
-                                          "speed": 3000,
-                                          "tick": 12
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_renata_q_fling"
-                                        },
-                                        {
-                                          "type": "TargetSfx",
-                                          "name": "league_renata_q_fling"
-                                        },
-                                        {
-                                          "type": "CasterAnimation",
-                                          "name": "skill2_fling",
-                                          "tick": 24
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddCasted",
-                                  "casted_type": "Bleed",
-                                  "duration": 62,
-                                  "period": 62,
-                                  "effects": [
-                                    {
-                                      "type": "ParabolicProjectile",
-                                      "name": "league_renata_q_land",
-                                      "travel_time": 1,
-                                      "range": 400000,
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "range_effect_name": "",
-                                      "applied_target": "Enemy",
-                                      "applied_effects": [],
-                                      "end_effects": [
-                                        {
-                                          "type": "RangeProjectile",
-                                          "name": "league_renata_q_crash",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 14000
-                                            }
-                                          },
-                                          "delay": 1,
-                                          "apply": 1,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ApAttack",
-                                                "damage": 75,
-                                                "attack_ratio": 50,
-                                                "hp_ratio": 0,
-                                                "can_crit": false
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_renata_q_champ",
-                                                "effect_buff": {
-                                                  "type": "Stun",
-                                                  "duration": 30
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                }
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_renata_q_crash_hit"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_renata_q_crash"
-                                              }
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_renata_q_land"
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            ],
-                            "end_effects": [],
-                            "speed": 4500,
-                            "range": 90000,
-                            "shape": {
-                              "Circle": {
-                                "radius": 5000
-                              }
-                            },
-                            "y_offset": -5500
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_renata_q_fly"
-                          }
-                        ]
+                        "only_to_enemy": false
                       }
                     ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyOnlySelf",
-                "from_projectile": false,
-                "effects": [
+                  },
                   {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "Sfx",
-                        "name": "league_renata_q"
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_renata_vo_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_renata_live",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
                           "type": "Combine",
                           "effects": [
                             {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_renata_vo_cd",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 600
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
+                              "type": "Sfx",
+                              "name": "league_renata_q"
                             },
                             {
-                              "type": "Sfx",
-                              "name": "league_renata_vo_q"
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "league_renata_q_aim",
-                        "travel_time": 8,
-                        "range": 400000,
-                        "shape": {
-                          "Circle": {
-                            "radius": 1000
-                          }
-                        },
-                        "range_effect_name": "",
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_renata_q_hand",
-                            "penetrate": false,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 95,
-                                  "attack_ratio": 85,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
-                                }
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_renata_vo_cd",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
                               },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "Bind",
-                                  "duration": 50
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ViewEffect",
-                                  "name": "league_renata_q_hit"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "TargetSfx",
-                                  "name": "league_renata_q_hit"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "RandomTarget",
-                                  "range": 1000,
-                                  "casting_target": "EnemyChampion",
-                                  "from_projectile": true,
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_renata_q_champ",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 68
-                                          }
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_renata_vo_cd",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 600
                                         }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_renata_vo_q"
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "type": "ParabolicProjectile",
+                              "name": "league_renata_q_aim",
+                              "travel_time": 8,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
                                 }
                               },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddCasted",
-                                  "casted_type": "Bleed",
-                                  "duration": 50,
-                                  "period": 50,
-                                  "effects": [
+                              "range_effect_name": "",
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "LinearProjectile",
+                                  "name": "league_renata_q_hand",
+                                  "penetrate": false,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
                                     {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Pull",
-                                          "speed": 3000,
-                                          "tick": 12
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_renata_q_fling"
-                                        },
-                                        {
-                                          "type": "TargetSfx",
-                                          "name": "league_renata_q_fling"
-                                        },
-                                        {
-                                          "type": "CasterAnimation",
-                                          "name": "skill2_fling",
-                                          "tick": 24
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddCasted",
-                                  "casted_type": "Bleed",
-                                  "duration": 62,
-                                  "period": 62,
-                                  "effects": [
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ApAttack",
+                                        "damage": 95,
+                                        "attack_ratio": 85,
+                                        "hp_ratio": 0,
+                                        "can_crit": false
+                                      }
+                                    },
                                     {
-                                      "type": "ParabolicProjectile",
-                                      "name": "league_renata_q_land",
-                                      "travel_time": 1,
-                                      "range": 400000,
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "range_effect_name": "",
-                                      "applied_target": "Enemy",
-                                      "applied_effects": [],
-                                      "end_effects": [
-                                        {
-                                          "type": "RangeProjectile",
-                                          "name": "league_renata_q_crash",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 14000
-                                            }
-                                          },
-                                          "delay": 1,
-                                          "apply": 1,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ApAttack",
-                                                "damage": 75,
-                                                "attack_ratio": 50,
-                                                "hp_ratio": 0,
-                                                "can_crit": false
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_renata_q_champ",
-                                                "effect_buff": {
-                                                  "type": "Stun",
-                                                  "duration": 30
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": []
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Bind",
+                                        "duration": 50
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_renata_q_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_renata_q_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "RandomTarget",
+                                        "range": 1000,
+                                        "casting_target": "EnemyChampion",
+                                        "from_projectile": true,
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_renata_q_champ",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 68
                                                 }
                                               }
                                             },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddCasted",
+                                        "casted_type": "Bleed",
+                                        "duration": 50,
+                                        "period": 50,
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "Pull",
+                                                "speed": 3000,
+                                                "tick": 12
+                                              },
+                                              {
                                                 "type": "ViewEffect",
-                                                "name": "league_renata_q_crash_hit"
+                                                "name": "league_renata_q_fling"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_renata_q_fling"
+                                              },
+                                              {
+                                                "type": "CasterAnimation",
+                                                "name": "skill2_fling",
+                                                "tick": 24
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddCasted",
+                                        "casted_type": "Bleed",
+                                        "duration": 62,
+                                        "period": 62,
+                                        "effects": [
+                                          {
+                                            "type": "ParabolicProjectile",
+                                            "name": "league_renata_q_land",
+                                            "travel_time": 1,
+                                            "range": 400000,
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
                                               }
                                             },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_renata_q_crash"
+                                            "range_effect_name": "",
+                                            "applied_target": "Enemy",
+                                            "applied_effects": [],
+                                            "end_effects": [
+                                              {
+                                                "type": "RangeProjectile",
+                                                "name": "league_renata_q_crash",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 14000
+                                                  }
+                                                },
+                                                "delay": 1,
+                                                "apply": 1,
+                                                "applied_target": "EnemyWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ApAttack",
+                                                      "damage": 75,
+                                                      "attack_ratio": 50,
+                                                      "hp_ratio": 0,
+                                                      "can_crit": false
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_renata_q_champ",
+                                                      "effect_buff": {
+                                                        "type": "Stun",
+                                                        "duration": 30
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_renata_q_crash_hit"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_renata_q_crash"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_renata_q_land"
                                               }
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_renata_q_land"
-                                        }
-                                      ]
+                                            ]
+                                          }
+                                        ]
+                                      }
                                     }
-                                  ]
+                                  ],
+                                  "end_effects": [],
+                                  "speed": 4500,
+                                  "range": 90000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 5000
+                                    }
+                                  },
+                                  "y_offset": -5500
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_renata_q_fly"
                                 }
-                              }
-                            ],
-                            "end_effects": [],
-                            "speed": 4500,
-                            "range": 90000,
-                            "shape": {
-                              "Circle": {
-                                "radius": 5000
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "league_renata_q"
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_renata_vo_cd",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_renata_vo_cd",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 600
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_renata_vo_q"
+                                  }
+                                ]
                               }
                             },
-                            "y_offset": -5500
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_renata_q_fly"
-                          }
-                        ]
-                      }
-                    ]
+                            {
+                              "type": "ParabolicProjectile",
+                              "name": "league_renata_q_aim",
+                              "travel_time": 8,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "range_effect_name": "",
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "LinearProjectile",
+                                  "name": "league_renata_q_hand",
+                                  "penetrate": false,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ApAttack",
+                                        "damage": 95,
+                                        "attack_ratio": 85,
+                                        "hp_ratio": 0,
+                                        "can_crit": false
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Bind",
+                                        "duration": 50
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_renata_q_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_renata_q_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "RandomTarget",
+                                        "range": 1000,
+                                        "casting_target": "EnemyChampion",
+                                        "from_projectile": true,
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_renata_q_champ",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 68
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddCasted",
+                                        "casted_type": "Bleed",
+                                        "duration": 50,
+                                        "period": 50,
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "Pull",
+                                                "speed": 3000,
+                                                "tick": 12
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_renata_q_fling"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_renata_q_fling"
+                                              },
+                                              {
+                                                "type": "CasterAnimation",
+                                                "name": "skill2_fling",
+                                                "tick": 24
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddCasted",
+                                        "casted_type": "Bleed",
+                                        "duration": 62,
+                                        "period": 62,
+                                        "effects": [
+                                          {
+                                            "type": "ParabolicProjectile",
+                                            "name": "league_renata_q_land",
+                                            "travel_time": 1,
+                                            "range": 400000,
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "range_effect_name": "",
+                                            "applied_target": "Enemy",
+                                            "applied_effects": [],
+                                            "end_effects": [
+                                              {
+                                                "type": "RangeProjectile",
+                                                "name": "league_renata_q_crash",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 14000
+                                                  }
+                                                },
+                                                "delay": 1,
+                                                "apply": 1,
+                                                "applied_target": "EnemyWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ApAttack",
+                                                      "damage": 75,
+                                                      "attack_ratio": 50,
+                                                      "hp_ratio": 0,
+                                                      "can_crit": false
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_renata_q_champ",
+                                                      "effect_buff": {
+                                                        "type": "Stun",
+                                                        "duration": 30
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_renata_q_crash_hit"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_renata_q_crash"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_renata_q_land"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  "end_effects": [],
+                                  "speed": 4500,
+                                  "range": 90000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 5000
+                                    }
+                                  },
+                                  "y_offset": -5500
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_renata_q_fly"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_renata_live"
                   }
                 ]
               }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "league_renata_live"
-            }
-          ]
+            ]
+          }
         }
       ]
     }
@@ -3456,6 +4024,66 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_renata_q_combo"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_renata_q_combo",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 105
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_renata_q_cd",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_renata_q_cd"
+                                                                      },
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_renata_q_refund"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_renata_q_refund",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 2
+                                                                            }
+                                                                          },
+                                                                          "skill_cooldown_mult": 10000,
+                                                                          "ult_cooldown_mult": -10000
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
                                                                   "type": "AddCasted",
                                                                   "casted_type": "Bleed",
                                                                   "duration": 105,
@@ -3620,6 +4248,66 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_renata_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_renata_q_combo"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_renata_q_combo",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 105
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_renata_q_cd",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_renata_q_cd"
+                                                                        },
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_renata_q_refund"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_renata_q_refund",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 2
+                                                                              }
+                                                                            },
+                                                                            "skill_cooldown_mult": 10000,
+                                                                            "ult_cooldown_mult": -10000
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 },
                                                                 {
@@ -3825,6 +4513,66 @@
                                                               {
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_renata_q_combo"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_renata_q_combo",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 105
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_renata_q_cd",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_renata_q_cd"
+                                                                      },
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_renata_q_refund"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_renata_q_refund",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 2
+                                                                            }
+                                                                          },
+                                                                          "skill_cooldown_mult": 10000,
+                                                                          "ult_cooldown_mult": -10000
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
                                                                   "type": "AddCasted",
                                                                   "casted_type": "Bleed",
                                                                   "duration": 105,
@@ -3989,6 +4737,66 @@
                                                                   "effect": {
                                                                     "type": "TargetSfx",
                                                                     "name": "league_renata_r_hit"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_renata_q_combo"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_renata_q_combo",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 105
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_renata_q_cd",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_renata_q_cd"
+                                                                        },
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_renata_q_refund"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_renata_q_refund",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 2
+                                                                              }
+                                                                            },
+                                                                            "skill_cooldown_mult": 10000,
+                                                                            "ult_cooldown_mult": -10000
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 },
                                                                 {

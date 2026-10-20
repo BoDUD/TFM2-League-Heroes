@@ -253,6 +253,43 @@
           "tick": 180
         },
         {
+          "type": "SwitchByBuff",
+          "buff_name": "league_garen_decisive",
+          "effect_buff": {
+            "type": "RandomTarget",
+            "range": 25000,
+            "casting_target": "EnemyChampion",
+            "from_projectile": false,
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_garen_decisive"
+              },
+              {
+                "type": "Attack",
+                "damage": 40,
+                "attack_ratio": 150
+              },
+              {
+                "type": "BlockSkill",
+                "tick": 90
+              },
+              {
+                "type": "TargetSfx",
+                "name": "league_garen_q_hit"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "league_garen_q_hit"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
           "type": "Delayed",
           "tick": 0,
           "effects": [

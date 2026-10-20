@@ -21,6 +21,10 @@ League's four buttons, so Steadfast Presence's active rides in her other casts (
           on contact e_dmg + e_ratio% AD and she carries the target (Knockback e_kb_speed x e_kb_t, her dash after
           it). Data cannot see walls: the main pack stuns e_stun_m ticks at the end of every carry; the add-on stops
           the carry at a wall and stuns e_stun with the damage again (League), nothing without a wall.
+  combo   E -> Q (League's charge into Hammer Shock; the user: 「有连招要做连招」「都要帮我补」): the carry's end (e_kb_t
+          ticks after the contact, the stun's tick) opens the caster flag e_combo for e_combo ticks; a Q cast in it
+          drops the hammer at once instead of on q_rel (league_leona's E -> Q window: no damage, stun or cooldown
+          changes, Q always lands).
   ult     R Keeper's Verdict (持卫的裁决), `Direction` on `EnemyChampion` (r_range): League's hold-to-charge as a
           smart choice (league_varus Q): two or more enemy champions within r_tap_r -> the quick slam (r_tap_dmg,
           a ring round her, airborne r_up); else she charges r_ch ticks (slowed, aim locked) and the swing sends a
@@ -71,6 +75,9 @@ P = {
     # cd 14-10)
     "e_cd": 660, "e_range": 50000, "e_speed": 3500, "e_dmg": 70, "e_ratio": 80, "e_kb_speed": 2500, "e_kb_t": 12,
     "e_stun_m": 45, "e_stun": 105, "e_anim": 16,
+    # the E -> Q combo (the user: 「有连招要做连招」「都要帮我补」): the carry's end opens e_combo for this long (the main
+    # pack's stun e_stun_m and a little after); a Q cast in it drops the hammer at once (else on q_rel)
+    "e_combo": 60,
     # R Keeper's Verdict (League: tap 100-200 +45% knock-up 1 s r 180; charged 200-400 +90%, 850-1200 range,
     # knock-back up to 3400 toward their fountain; channel up to 4 s, 15% slow; cd 140-100)
     "r_cd": 3600, "r_range": 55000, "r_tap_r": 28000, "r_tap_dmg": 80, "r_tap_ratio": 40, "r_up": 60, "r_tap_t": 20,
@@ -273,15 +280,19 @@ def build(p):
                   [buff("q_slow", p["q_p"] + 2, move_speed_mult=-p["q_slow"])], first=0)
     cracks = [delayed(k, view("q_crack")) for k in range(0, p["q_t"], 15)]
     q_land = [*shock("q_slam"), crack, *cracks, delayed(p["q_t"], *shock("q_burst"))]
+    # E -> Q (League's wall stun into Hammer Shock): inside e_combo (opened where the charge's carry ends, on the
+    # stunned champion's spot) the hammer drops at once; otherwise on q_rel as before
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Position", "EnemyWithoutTower",
                    combine(w_check, sfx("q"), voice("vo_q", p),
-                           delayed(p["q_rel"] - 1, lob("q_drop", 1, q_land))))
+                           sw("e_combo", lob("q_drop", 1, q_land), delayed(p["q_rel"] - 1, lob("q_drop", 1, q_land)))))
 
     # ------------------------------------------------------------------ skill2: E Heroic Charge
     wall = [native("charge")] if nat else [delayed(p["e_kb_t"], {"type": "Stun", "duration": p["e_stun_m"]},
                                                    buff("e_stun", p["e_stun_m"]))]
     push = [] if nat else [{"type": "Knockback", "speed": p["e_kb_speed"], "tick": p["e_kb_t"]}]
-    contact = [attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit"), *push, *wall]
+    # the carry's end (where the main pack stuns, the add-on checks the wall) opens the E -> Q window on her
+    combo = on_me(delayed(p["e_kb_t"], refresh("e_combo", p["e_combo"])))
+    contact = [attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit"), *push, *wall, combo]
     follow = {"type": "MoveToTarget", "speed": p["e_kb_speed"], "range": p["e_kb_speed"] * p["e_kb_t"] + 20000,
               "end_effects": []}
     charge = {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 40000,

@@ -10,6 +10,11 @@ Kit (the user's picks, 2026-10-08: A - W and E in one cast; the polymorph drawn 
           bolt (a penetrating LinearProjectile) deals q_dmg + q_ap% AP to every enemy on the line and slows it: q_s1%
           for q_t1 ticks on top of q_s2% for q_t2 ticks (League: 80% decaying over 2 s). Pix's bolt flies beside it,
           higher (y_offset), as a picture: League lets an enemy take only one bolt's damage.
+          Combo W -> Q (the user: 「有连招要做连招」「都要帮我补」; League's Lulu follows the polymorph with Glitterlance
+          while he cannot answer): the polymorph's hit on a champion opens `wq` for wq_t ticks (the polymorph's own
+          length); Q cast in it fires at once (its whole effect: the sound, both lances) and spends the window,
+          otherwise the same effects wait in a `Delayed` q_st - 1 as before. The armed R check runs on tick q_st in
+          both (a `Delayed` outside the branch: not copied twice).
   skill2  W Whimsy + E Help, Pix! (one cast, `Targeting` on `EnemyChampion`): a homing bolt polymorphs the champion -
           w_t ticks of BlockAttack + BlockSkill and w_slow% slower (League: silenced, disarmed, slowed; 1.2-2 s) and
           e_dmg + e_ap% AP magic damage (Pix hampers him). The puff and the critter are a buff picture drawn over him
@@ -57,6 +62,8 @@ P = {
     "w_cd": 540, "w_range": 55000, "w_dur": 20, "w_st": 10, "w_speed": 5000, "w_y": -4000, "w_t": 105, "w_slow": 30,
     "e_dmg": 70, "e_ap": 40, "e_r1": 30000, "e_r2": 60000, "e_speed": 4500, "e_sh": 110, "e_ap2": 50, "e_t": 150,
     "w_ms": 25, "w_as": 25, "w_ht": 210,
+    # combo W -> Q: the window the polymorph's hit opens (ticks; = w_t, the polymorph)
+    "wq_t": 105,
     # ult: R Wild Growth (League: 900 range; +300-500 health, knock-up 1 s in 400 units, slow aura 30-40% for 7 s;
     # cd 120-80 s)
     "r_cd": 3600, "r_arm": 900, "r_arm_range": 70000, "r_range": 50000, "r_near": 25000, "r_need": 1,
@@ -256,8 +263,11 @@ def build(p):
                  [magic(p["q_dmg"], p["q_ap"]), buff("q_slow1", p["q_t1"], move_speed_mult=-p["q_s1"]),
                   buff("q_slow2", p["q_t2"], move_speed_mult=-p["q_s2"]), view("q_hit"), tsfx("q_hit")])
     pix_lance = line("q_pix", p["q_speed"], p["q_reach"], p["q_rad"], p["q_pix_y"], "EnemyWithoutTower", True, [])
-    skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Direction", "EnemyWithoutTower",
-                   flat(combine(r_check, sfx("q_cast"), lance, pix_lance)))
+    # combo W -> Q: inside `wq` (the polymorph's hit on a champion) the lances leave at once, else on tick q_st
+    skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Direction", "EnemyWithoutTower",
+                   flat(combine(delayed(p["q_st"] - 1, r_check),
+                                sw("wq", combine(*rm("wq"), sfx("q_cast"), lance, pix_lance),
+                                   delayed(p["q_st"] - 1, sfx("q_cast"), lance, pix_lance)))))
 
     # ------------------------------------------------------------------ skill2: W Whimsy + E Help, Pix!
     def help_on(target_effects):
@@ -275,7 +285,7 @@ def build(p):
     poly = homing("w_bolt", p["w_speed"], p["w_y"], "EnemyChampion",
                   [{"type": "BlockAttack", "tick": p["w_t"]}, {"type": "BlockSkill", "tick": p["w_t"]},
                    buff("w_poly", p["w_t"], move_speed_mult=-p["w_slow"]), magic(p["e_dmg"], p["e_ap"]),
-                   tsfx("w_hit")])
+                   tsfx("w_hit"), *rm("wq"), flag("wq", p["wq_t"])])
     skill2 = action("skill2", p["w_dur"], p["w_cd"], p["w_st"], p["w_range"], "Targeting", "EnemyChampion",
                     flat(combine(r_check, sfx("w_cast"), poly, e_rings)))
 
