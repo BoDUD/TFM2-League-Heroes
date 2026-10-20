@@ -32,7 +32,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "graves", "codex_model")
 OUT = os.path.join(ROOT, "assets", "source", "graves", "hd")
 BODY, K = 57, 32            # hair top to soles; colours
-PICKS = {"idle": "A-1", "side": "side-2"}   # provisional until the user picks
+PICKS = {"idle": "A-1", "side": "side-2"}   # the user, 2026-10-20
 # name -> (Codex's square px, face rows, face columns) on its own read-back
 DRAFTS = {
     "A-1": (15.0, range(8, 19), range(25, 39)),
@@ -42,107 +42,59 @@ DRAFTS = {
 }
 
 
-# the faces redrawn on the grid (memory codex-face-half-squares: the cut read back a muddy skull, dark teal eyes):
-# K outline, A / B / C / D the skin's four greens light to dark, E the eyes' cyan, F their pale centre, W the teeth,
-# "." left as cut. (first row, first column, rows) in the written design's squares.
-INK = {"K": (6, 1, 10), "A": (218, 218, 184), "B": (167, 166, 127), "C": (134, 134, 106), "D": (66, 68, 57),
-       "E": (7, 234, 247), "F": (180, 250, 252), "W": (245, 251, 252)}
-FACES = {
-    # 3/4: both eyes two squares at one height (near 16-17, far 19-20), the open jaw: teeth, mouth, teeth
-    "idle": (19, 15, ["BAAABK",
-                      "CEFDFE",
-                      "CDBDBK",
-                      "BKWKWK",
-                      "BKKKKK",
-                      "BKWKWK",
-                      "CBAABK",
-                      "KCBCK."]),
-    # side: the same face (its head stays the 3/4 one), a square wider
-    "side": (28, 24, ["CEFDFEK",
-                      "CABDBAK",
-                      "BAABAAK",
-                      "BKWKWWK",
-                      "BKKKKKK",
-                      "BKWKWK.",
-                      "CBAABK.",
-                      "KCBBK.."]),
-}
-# the side's staff as long as the idle's: its head (rows 0..STAFF_HEAD of the columns from STAFF_COL) set STAFF_DOWN
-# rows lower over the shaft, the empty rows over it dropped (Codex drew it 13 rows over the crown, the idle 6); the
-# head's collar reaches column HEAD_COL, the crown's edge column 32 from row 12 down, so the shaft is cleared from STAFF_COL
-STAFF_COL, HEAD_COL, STAFF_HEAD, STAFF_DOWN = 33, 30, 11, 7
+# the faces redrawn on the grid (memory codex-face-half-squares), filled in once the cut's faces are checked at 12x
+FACES = {}
 
 
 def redraw_face(fig, part):
-    y0, x0, rows = FACES[part]
-    out = fig.copy()
-    for j, row in enumerate(rows):
-        for i, ch in enumerate(row):
-            if ch != ".":
-                out[y0 + j, x0 + i, :3] = INK[ch]
-                out[y0 + j, x0 + i, 3] = 255
-    return out
+    return fig
 
 
-def shorter_staff(fig):
-    out = fig.copy()
-    head = fig[:STAFF_HEAD + 1, HEAD_COL:].copy()
-    out[:STAFF_HEAD + 1, HEAD_COL:] = 0
-    out[STAFF_HEAD + 1:STAFF_HEAD + 1 + STAFF_DOWN, STAFF_COL:] = 0
-    m = head[..., 3] > 0
-    out[STAFF_DOWN:STAFF_DOWN + STAFF_HEAD + 1, HEAD_COL:][m] = head[m]
-    ys = np.nonzero((out[..., 3] > 0).any(1))[0]
-    return out[ys.min():]
+# one head in every frame (memory one-face-all-frames): the side's own head (Codex drew another face there) is cleared
+# and the idle's laid on it, its near eye on the side's (idle (30, 11) -> side (39, 11): HEAD_OFF). The idle's head:
+# rows to IDLE_NECK in columns IDLE_HEAD_COLS, below them to IDLE_CHIN the beard in IDLE_JAW_COLS - never the scarf's
+# reds or the pauldron's golds. The side's head cleared the same way in SIDE_HEAD_COLS / SIDE_JAW_COLS.
+HEAD_OFF = (9, 0)
+IDLE_NECK, IDLE_CHIN, IDLE_HEAD_COLS, IDLE_JAW_COLS = 12, 16, (18, 38), (24, 35)
+SIDE_NECK, SIDE_CHIN, SIDE_HEAD_COLS, SIDE_JAW_COLS = 12, 17, (24, 47), (28, 46)
 
 
-# one head in every frame (memory one-face-all-frames): the side's own head (Codex drew it bigger: the crown 3 columns
-# wider, 4 rows taller) is cleared and the idle's laid on it, its near eye on the side's (idle (16, 20) -> side (25, 21)
-# once the side's staff has moved). The idle's head: rows to IDLE_NECK in columns IDLE_HEAD_COLS, below them down to
-# IDLE_CHIN the jaw and the hair in IDLE_JAW_COLS. The side's head cleared: rows to SIDE_NECK in SIDE_HEAD_COLS, never the
-# staff (columns from 34, and its collar's rows 9-11 from column 32).
-HEAD_OFF = (9, 1)
-IDLE_NECK, IDLE_CHIN, IDLE_HEAD_COLS, IDLE_JAW_COLS = 23, 27, (9, 26), (14, 21)
-SIDE_NECK, SIDE_HEAD_COLS = 23, (14, 33)
+def warm(a):
+    """The scarf's reds and the pauldron's golds (kept off the head masks)."""
+    rgb = a[..., :3].astype(int)
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    red = (r > 100) & (g < 40) & (b < 60)
+    gold = (r > 150) & (g > 100) & (b < 60)
+    return red | gold
+
+
+def head_mask(a, neck, chin, cols, jaw):
+    H, W = a.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    m = (((yy <= neck) & (xx >= cols[0]) & (xx <= cols[1])) |
+         ((yy > neck) & (yy <= chin) & (xx >= jaw[0]) & (xx <= jaw[1])))
+    return m & (a[..., 3] > 0) & ~warm(a)
 
 
 def same_head(side, idle):
     out = side.copy()
-    H, W = out.shape[:2]
-    yy, xx = np.mgrid[0:H, 0:W]
-    staff = (xx >= 34) | ((yy >= 9) & (yy <= 11) & (xx >= 32))
-    clear = (yy <= SIDE_NECK) & (xx >= SIDE_HEAD_COLS[0]) & (xx <= SIDE_HEAD_COLS[1]) & ~staff
-    out[clear] = 0
-    iy, ix = np.mgrid[0:idle.shape[0], 0:idle.shape[1]]
-    head = (((iy <= IDLE_NECK) & (ix >= IDLE_HEAD_COLS[0]) & (ix <= IDLE_HEAD_COLS[1])) |
-            ((iy > IDLE_NECK) & (iy <= IDLE_CHIN) & (ix >= IDLE_JAW_COLS[0]) & (ix <= IDLE_JAW_COLS[1])))
-    head &= (idle[..., 3] > 0) & (ix < 30)            # the idle's staff stands from column 31
-    ys, xs = np.nonzero(head)
-    out[ys + HEAD_OFF[1], xs + HEAD_OFF[0]] = idle[ys, xs]
-    return out
-
-
-# one staff in every frame: the idle's staff head (Codex drew a cross of spikes there, the side a round crystal over a
-# crimson bar) is the side's - rows to HEAD_ROWS of the side's columns from 31, moved STAFF_DX onto the idle's shaft
-# (its middle column 33, the side's 38), the idle's own cleared from column 26 in those rows (its crown ends at 24)
-HEAD_ROWS, STAFF_DX = 16, -5
-IDLE_HAND = (35, 39)                    # the idle's rows of the hand gripping the staff
-
-
-def same_staff(idle, side):
-    """... and the shaft below it too (the idle's had cyan runes, the side's is plain steel): every row but the hand's
-    (IDLE_HAND), columns 31-37 (the idle's robe ends at 30)."""
-    out = idle.copy()
-    out[:HEAD_ROWS + 1, 26:] = 0
-    src = side[:HEAD_ROWS + 1, 31:]
-    ys, xs = np.nonzero(src[..., 3] > 0)
-    out[ys, xs + 31 + STAFF_DX] = src[ys, xs]
-    for y in range(HEAD_ROWS + 1, min(idle.shape[0], side.shape[0])):
-        if IDLE_HAND[0] <= y <= IDLE_HAND[1]:
-            continue
-        out[y, 31:38] = 0
-        row = side[y, 31 - STAFF_DX:38 - STAFF_DX]
-        m = row[:, 3] > 0
-        out[y, 31:38][m] = row[m]
+    cleared = head_mask(side, SIDE_NECK, SIDE_CHIN, SIDE_HEAD_COLS, SIDE_JAW_COLS)
+    out[cleared] = 0
+    ys, xs = np.nonzero(head_mask(idle, IDLE_NECK, IDLE_CHIN, IDLE_HEAD_COLS, IDLE_JAW_COLS))
+    ty, tx = ys + HEAD_OFF[1], xs + HEAD_OFF[0]
+    ok = (tx < out.shape[1]) & (ty < out.shape[0])
+    out[ty[ok], tx[ok]] = idle[ys[ok], xs[ok]]
+    # the side's face reached further than the idle's in places: the gaps it leaves (cleared, not covered, below the
+    # hair: the jaw's rows) take the scarf behind the head - the nearest scarf red on the row (the side's own collar),
+    # else the outline; the hair's own gaps stay open (the outline pass closes them)
+    hole = cleared & (out[..., 3] == 0)
+    hole[:SIDE_NECK + 1] = False
+    ink = (*PD.edge_colour(side), 255)
+    red = warm(out) & (out[..., 3] > 0)
+    ys, xs = np.nonzero(hole)
+    for y, x in zip(ys, xs):
+        cand = np.nonzero(red[y])[0]
+        out[y, x] = out[y, cand[np.argmin(np.abs(cand - x))]] if len(cand) else ink
     return out
 
 
@@ -286,11 +238,10 @@ def main():
     written = {}
     for part, name in PICKS.items():
         fig, rows, cols = cut(name, col[name])
-        fig = redraw_face(fig, part)                  # FACES are in the cut's squares, before the staff moves
+        fig = redraw_face(fig, part)                  # FACES are in the cut's squares
         if part == "side":
-            fig = same_head(shorter_staff(fig), written["idle"])
+            fig = same_head(fig, written["idle"])
         written[part] = fig
-    written["idle"] = same_staff(written["idle"], written["side"])
     for part, fig in written.items():
         Image.fromarray(fig).save(lp(os.path.join(OUT, f"{part}.png")))
         Image.fromarray(np.repeat(np.repeat(fig, 4, 0), 4, 1)).save(lp(os.path.join(OUT, f"{part}_4x.png")))
