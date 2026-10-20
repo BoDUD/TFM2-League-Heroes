@@ -1300,15 +1300,12 @@
               "name": "league_lissandra_q_champ"
             },
             {
-              "type": "RandomTarget",
-              "range": 80000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
                   "type": "AddCasterBuff",
                   "buff_state": {
-                    "name": "league_lissandra_q_champ",
+                    "name": "league_lissandra_ai_hide",
                     "duration": {
                       "Time": {
                         "tick": 1
@@ -1318,228 +1315,265 @@
                   "only_to_enemy": false
                 },
                 {
-                  "type": "LinearProjectile",
-                  "name": "league_lissandra_q_shard",
-                  "penetrate": true,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ApAttack",
-                        "damage": 120,
-                        "attack_ratio": 100,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_lissandra_q_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 90
-                            }
-                          },
-                          "move_speed_mult": -25
-                        }
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_lissandra_q_hit"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_lissandra_q_hit"
-                      }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 5000,
-                  "range": 88000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 7000
-                    }
-                  },
-                  "y_offset": -15000
-                },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_lissandra_q_twin",
-                  "penetrate": true,
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Combine",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_lissandra_ai_hide",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 80000,
+                        "casting_target": "EnemyChampion",
+                        "from_projectile": false,
                         "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_lissandra_k_q"
-                          },
                           {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_lissandra_k_q",
+                              "name": "league_lissandra_q_champ",
                               "duration": {
                                 "Time": {
-                                  "tick": 40
+                                  "tick": 1
                                 }
                               }
                             },
                             "only_to_enemy": false
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddCasted",
-                        "casted_type": "Heal",
-                        "duration": 3,
-                        "period": 1,
-                        "effects": [
+                          },
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_lissandra_k_q"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 5000,
-                  "range": 88000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 7000
-                    }
-                  },
-                  "y_offset": -15000
-                },
-                {
-                  "type": "ParabolicProjectile",
-                  "name": "league_lissandra_q_spot",
-                  "travel_time": 1,
-                  "range": 400000,
-                  "range_effect_name": "",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1
-                    }
-                  },
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [],
-                  "end_effects": [
-                    {
-                      "type": "Delayed",
-                      "tick": 23,
-                      "effects": [
-                        {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_lissandra_k_q",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": [
+                            "type": "LinearProjectile",
+                            "name": "league_lissandra_q_shard",
+                            "penetrate": true,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
                               {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_lissandra_k_q"
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 120,
+                                  "attack_ratio": 100,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
                               },
                               {
-                                "type": "Combine",
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_lissandra_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 90
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_lissandra_q_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_lissandra_q_hit"
+                                }
+                              }
+                            ],
+                            "end_effects": [],
+                            "speed": 5000,
+                            "range": 88000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 7000
+                              }
+                            },
+                            "y_offset": -15000
+                          },
+                          {
+                            "type": "LinearProjectile",
+                            "name": "league_lissandra_q_twin",
+                            "penetrate": true,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_lissandra_k_q"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_lissandra_k_q",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddCasted",
+                                  "casted_type": "Heal",
+                                  "duration": 3,
+                                  "period": 1,
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_lissandra_k_q"
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "end_effects": [],
+                            "speed": 5000,
+                            "range": 88000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 7000
+                              }
+                            },
+                            "y_offset": -15000
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_lissandra_q_spot",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "Delayed",
+                                "tick": 23,
                                 "effects": [
                                   {
-                                    "type": "ViewEffect",
-                                    "name": "league_lissandra_p_thrall"
-                                  },
-                                  {
-                                    "type": "Sfx",
-                                    "name": "league_lissandra_p_rise"
-                                  },
-                                  {
-                                    "type": "Delayed",
-                                    "tick": 90,
-                                    "effects": [
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_lissandra_p_burst"
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_lissandra_p_burst"
-                                      },
-                                      {
-                                        "type": "RangeProjectile",
-                                        "name": "league_lissandra_p_area",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 25000
-                                          }
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_lissandra_k_q",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_lissandra_k_q"
                                         },
-                                        "delay": 1,
-                                        "apply": 1,
-                                        "applied_target": "EnemyWithoutTower",
-                                        "applied_effects": [
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "ApAttack",
-                                              "damage": 150,
-                                              "attack_ratio": 70,
-                                              "hp_ratio": 0,
-                                              "can_crit": false
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_lissandra_p_slow",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 90
-                                                  }
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_lissandra_p_thrall"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_lissandra_p_rise"
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 90,
+                                              "effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_lissandra_p_burst"
                                                 },
-                                                "move_speed_mult": -25
-                                              }
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_lissandra_p_burst"
+                                                },
+                                                {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_lissandra_p_area",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 25000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ApAttack",
+                                                        "damage": 150,
+                                                        "attack_ratio": 70,
+                                                        "hp_ratio": 0,
+                                                        "can_crit": false
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_lissandra_p_slow",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 90
+                                                            }
+                                                          },
+                                                          "move_speed_mult": -25
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_lissandra_p_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
                                             }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "TargetSfx",
-                                              "name": "league_lissandra_p_hit"
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    ]
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
                                   }
                                 ]
                               }
                             ]
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": []
                           }
-                        }
-                      ]
-                    }
-                  ]
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_lissandra_ai_hide"
                 }
               ]
             },
@@ -2838,15 +2872,12 @@
                       "type": "Combine",
                       "effects": [
                         {
-                          "type": "RandomTarget",
-                          "range": 85000,
-                          "casting_target": "EnemyChampion",
-                          "from_projectile": false,
+                          "type": "Combine",
                           "effects": [
                             {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_lissandra_e_any",
+                                "name": "league_lissandra_ai_hide",
                                 "duration": {
                                   "Time": {
                                     "tick": 1
@@ -2856,64 +2887,101 @@
                               "only_to_enemy": false
                             },
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "skill2_e",
-                                  "tick": 18
-                                },
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "skill2_e_fx2",
-                                  "tick": 18
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_lissandra_e_cast"
-                                },
-                                {
-                                  "type": "LinearProjectile",
-                                  "name": "league_lissandra_e_claw",
-                                  "penetrate": true,
-                                  "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": [
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "ApAttack",
-                                        "damage": 80,
-                                        "attack_ratio": 60,
-                                        "hp_ratio": 0,
-                                        "can_crit": false
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_lissandra_ai_hide",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 85000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_lissandra_e_any",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill2_e",
+                                            "tick": 18
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill2_e_fx2",
+                                            "tick": 18
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_lissandra_e_cast"
+                                          },
+                                          {
+                                            "type": "LinearProjectile",
+                                            "name": "league_lissandra_e_claw",
+                                            "penetrate": true,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ApAttack",
+                                                  "damage": 80,
+                                                  "attack_ratio": 60,
+                                                  "hp_ratio": 0,
+                                                  "can_crit": false
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_lissandra_e_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_lissandra_e_hit"
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": [],
+                                            "speed": 3500,
+                                            "range": 90000,
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 6000
+                                              }
+                                            },
+                                            "y_offset": -1000
+                                          }
+                                        ]
                                       }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "ViewEffect",
-                                        "name": "league_lissandra_e_hit"
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "TargetSfx",
-                                        "name": "league_lissandra_e_hit"
-                                      }
-                                    }
-                                  ],
-                                  "end_effects": [],
-                                  "speed": 3500,
-                                  "range": 90000,
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 6000
-                                    }
-                                  },
-                                  "y_offset": -1000
-                                }
-                              ]
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_lissandra_ai_hide"
                             }
                           ]
                         },

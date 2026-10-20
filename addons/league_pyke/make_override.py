@@ -25,6 +25,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 ADDON = os.path.join(ROOT, "addons", "league_pyke")
 sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 import build_pyke as kit  # noqa: E402
+import hide_aim_twins  # noqa: E402
 
 MOD_ID = "league_pyke"
 HERO = "league_pyke"
@@ -89,7 +90,7 @@ def main():
         sys.exit("src/lib.rs %s differs from build_pyke.P %s: update the constants" % (c, want))
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8-sig") as f:
         shipped = json.load(f)
-    champion = kit.build(p)
+    champion = hide_aim_twins.hide(kit.build(p))
     if json.loads(json.dumps(champion)) != shipped:
         sys.exit("the main pack's league_pyke differs from build_pyke.P: rebuild it first")
 

@@ -22,6 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 ADDON = os.path.join(ROOT, "addons", "league_akshan")
 sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 import build_akshan as kit  # noqa: E402
+import hide_aim_twins  # noqa: E402
 import setup_akshan as setup  # noqa: E402
 
 MOD_ID = "league_akshan"
@@ -94,9 +95,9 @@ def main():
     p = dict(kit.P)
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
         shipped = f.read()
-    if dumps_main(kit.build(p)) != shipped:
+    if dumps_main(hide_aim_twins.hide(kit.build(p))) != shipped:
         sys.exit("the main pack's league_akshan differs from build_akshan.P: rebuild it first")
-    champion = kit.build(p, native=True)
+    champion = hide_aim_twins.hide(kit.build(p, native=True))
     if champion.get("passive", {}).get("passive_ref") != MOD_ID + ":rogue":
         sys.exit("the copy has no league_akshan:rogue passive: update this script")
     for slot in SLOTS:

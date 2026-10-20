@@ -420,6 +420,8 @@ def main():
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
             print(f"{s:7s} {nodes(kit[s]['effect']):4d} nodes")
+    import hide_aim_twins                   # the champion-first halves of the aim pairs out of the AI's damage table
+    hide_aim_twins.hide(kit)
     text = json.dumps(kit, ensure_ascii=False, indent=2).replace("\n", "\r\n") + "\r\n"
     os.makedirs(os.path.dirname(lp(a.out)), exist_ok=True)
     with open(lp(a.out), "w", encoding="utf-8", newline="") as f:

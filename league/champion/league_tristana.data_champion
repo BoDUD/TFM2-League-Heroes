@@ -5438,15 +5438,12 @@
           "name": "league_tristana_r_cast"
         },
         {
-          "type": "RandomTarget",
-          "range": 30000,
-          "casting_target": "EnemyChampion",
-          "from_projectile": false,
+          "type": "Combine",
           "effects": [
             {
               "type": "AddCasterBuff",
               "buff_state": {
-                "name": "league_tristana_r_near",
+                "name": "league_tristana_ai_hide",
                 "duration": {
                   "Time": {
                     "tick": 1
@@ -5456,389 +5453,426 @@
               "only_to_enemy": false
             },
             {
-              "type": "TargetProjectile",
-              "name": "league_tristana_r_ball",
-              "speed": 7000,
-              "y_offset": 6000,
-              "applied_target": "EnemyChampion",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_tristana_r_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "TargetSfx",
-                    "name": "league_tristana_r_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Delayed",
-                    "tick": 1,
+              "type": "SwitchByBuff",
+              "buff_name": "league_tristana_ai_hide",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 30000,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "ParabolicProjectile",
-                        "name": "league_tristana_r_lob",
-                        "travel_time": 1,
-                        "range": 400000,
-                        "shape": {
-                          "Circle": {
-                            "radius": 1000
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_tristana_r_near",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
                           }
                         },
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [],
-                        "end_effects": [
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_tristana_r_ball",
+                        "speed": 7000,
+                        "y_offset": 6000,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
                           {
-                            "type": "ViewEffect",
-                            "name": "league_tristana_r_blast"
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_tristana_r_hit"
+                            }
                           },
                           {
-                            "type": "RangeProjectile",
-                            "name": "league_tristana_r_zone",
-                            "shape": {
-                              "Circle": {
-                                "radius": 20000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "Attack",
-                                  "damage": 200,
-                                  "attack_ratio": 120,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 0,
-                                  "attack_effect_type": "Target"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "Knockback",
-                                  "speed": 3000,
-                                  "tick": 10
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "Delayed",
-                                  "tick": 10,
-                                  "effects": [
-                                    {
-                                      "type": "Stun",
-                                      "duration": 30
-                                    },
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_tristana_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Delayed",
+                              "tick": 1,
+                              "effects": [
+                                {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_tristana_r_lob",
+                                  "travel_time": 1,
+                                  "range": 400000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [],
+                                  "end_effects": [
                                     {
                                       "type": "ViewEffect",
-                                      "name": "league_tristana_r_stun"
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_tristana_r_stk",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_tristana_r_stk",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 3
-                                            }
+                                      "name": "league_tristana_r_blast"
+                                    },
+                                    {
+                                      "type": "RangeProjectile",
+                                      "name": "league_tristana_r_zone",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 20000
+                                        }
+                                      },
+                                      "delay": 1,
+                                      "apply": 1,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Attack",
+                                            "damage": 200,
+                                            "attack_ratio": 120,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
                                           }
                                         },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_tristana_e_live",
-                                        "effect_buff": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_tristana_e_3",
-                                          "effect_buff": {
-                                            "type": "Combine",
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Knockback",
+                                            "speed": 3000,
+                                            "tick": 10
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Delayed",
+                                            "tick": 10,
                                             "effects": [
                                               {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_tristana_e_1"
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_tristana_e_2"
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_tristana_e_3"
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_tristana_e_live"
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_tristana_e_timer"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_tristana_e_boom",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 4
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
+                                                "type": "Stun",
+                                                "duration": 30
                                               },
                                               {
                                                 "type": "ViewEffect",
-                                                "name": "league_tristana_e_stack"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_tristana_e_stack"
+                                                "name": "league_tristana_r_stun"
                                               }
                                             ]
-                                          },
-                                          "effect_none": {
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_tristana_e_2",
+                                            "buff_name": "league_tristana_r_stk",
                                             "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
                                               "type": "Combine",
                                               "effects": [
                                                 {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_tristana_e_2"
-                                                },
-                                                {
                                                   "type": "AddCasterBuff",
                                                   "buff_state": {
-                                                    "name": "league_tristana_e_3",
+                                                    "name": "league_tristana_r_stk",
                                                     "duration": {
                                                       "Time": {
-                                                        "tick": 250
+                                                        "tick": 3
                                                       }
                                                     }
                                                   },
                                                   "only_to_enemy": false
                                                 },
                                                 {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_tristana_e_2",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 250
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_tristana_e_live",
+                                                  "effect_buff": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_tristana_e_3",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_tristana_e_1"
+                                                        },
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_tristana_e_2"
+                                                        },
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_tristana_e_3"
+                                                        },
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_tristana_e_live"
+                                                        },
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_tristana_e_timer"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_tristana_e_boom",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 4
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_tristana_e_stack"
+                                                        },
+                                                        {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_tristana_e_stack"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_tristana_e_2",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_tristana_e_2"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_tristana_e_3",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 250
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_tristana_e_2",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 250
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_tristana_e_stack"
+                                                          },
+                                                          {
+                                                            "type": "TargetSfx",
+                                                            "name": "league_tristana_e_stack"
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_tristana_e_1",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_tristana_e_1"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_tristana_e_2",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 250
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_tristana_e_stack"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_tristana_e_stack"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_tristana_e_1",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 250
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_tristana_e_stack"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_tristana_e_stack"
+                                                            }
+                                                          ]
+                                                        }
                                                       }
                                                     }
                                                   },
-                                                  "only_to_enemy": false
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_tristana_e_stack"
-                                                },
-                                                {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_tristana_e_stack"
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  }
                                                 }
                                               ]
-                                            },
-                                            "effect_none": {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_tristana_e_1",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_tristana_e_1"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_tristana_e_2",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 250
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  },
-                                                  {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_tristana_e_stack"
-                                                  },
-                                                  {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_tristana_e_stack"
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_tristana_e_1",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 250
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  },
-                                                  {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_tristana_e_stack"
-                                                  },
-                                                  {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_tristana_e_stack"
-                                                  }
-                                                ]
-                                              }
                                             }
                                           }
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
                                         }
-                                      }
-                                    ]
-                                  }
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            "type": "RangeProjectile",
-                            "name": "league_tristana_r_zone_c",
-                            "shape": {
-                              "Circle": {
-                                "radius": 20000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_tristana_kc_r",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 7
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "AddCasted",
-                                  "casted_type": "Poison",
-                                  "duration": 3,
-                                  "period": 1,
-                                  "effects": [
+                                      ]
+                                    },
                                     {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_tristana_kc_r"
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "WithSelf",
-                                  "effects": [
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 4,
-                                      "effects": [
+                                      "type": "RangeProjectile",
+                                      "name": "league_tristana_r_zone_c",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 20000
+                                        }
+                                      },
+                                      "delay": 1,
+                                      "apply": 1,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
                                         {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_tristana_kc_r",
-                                          "effect_buff": {
-                                            "type": "Combine",
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_tristana_kc_r",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 7
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddCasted",
+                                            "casted_type": "Poison",
+                                            "duration": 3,
+                                            "period": 1,
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
                                                 "name": "league_tristana_kc_r"
-                                              },
-                                              {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_tristana_w_cd",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_tristana_w_cd"
-                                                    },
-                                                    {
-                                                      "type": "CasterViewEffect",
-                                                      "name": "league_tristana_w_ready"
-                                                    }
-                                                  ]
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                }
                                               }
                                             ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "WithSelf",
+                                            "effects": [
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 4,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_tristana_kc_r",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_tristana_kc_r"
+                                                        },
+                                                        {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_tristana_w_cd",
+                                                          "effect_buff": {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_tristana_w_cd"
+                                                              },
+                                                              {
+                                                                "type": "CasterViewEffect",
+                                                                "name": "league_tristana_w_ready"
+                                                              }
+                                                            ]
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "Combine",
+                                                            "effects": []
+                                                          }
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ]
                                           }
                                         }
                                       ]
                                     }
                                   ]
                                 }
-                              }
-                            ]
+                              ]
+                            }
                           }
                         ]
                       }
                     ]
                   }
-                }
-              ]
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_tristana_ai_hide"
             }
           ]
         },

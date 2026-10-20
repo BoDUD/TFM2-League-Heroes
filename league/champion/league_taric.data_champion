@@ -1225,15 +1225,12 @@
           "only_to_enemy": false
         },
         {
-          "type": "RandomTarget",
-          "range": 60000,
-          "casting_target": "EnemyChampion",
-          "from_projectile": false,
+          "type": "Combine",
           "effects": [
             {
               "type": "AddCasterBuff",
               "buff_state": {
-                "name": "league_taric_e_aim",
+                "name": "league_taric_ai_hide",
                 "duration": {
                   "Time": {
                     "tick": 1
@@ -1243,45 +1240,82 @@
               "only_to_enemy": false
             },
             {
-              "type": "LineRangeProjectile",
-              "name": "league_taric_e_beam",
-              "width": 18000,
-              "length": 80000,
-              "delay": 57,
-              "apply": 45,
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ApAttack",
-                    "damage": 95,
-                    "attack_ratio": 60,
-                    "hp_ratio": 2
+              "type": "SwitchByBuff",
+              "buff_name": "league_taric_ai_hide",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 60000,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_taric_e_aim",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "league_taric_e_beam",
+                        "width": 18000,
+                        "length": 80000,
+                        "delay": 57,
+                        "apply": 45,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 95,
+                              "attack_ratio": 60,
+                              "hp_ratio": 2
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 75
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_taric_e_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_taric_e_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Stun",
-                    "duration": 75
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_taric_e_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "TargetSfx",
-                    "name": "league_taric_e_hit"
-                  }
-                }
-              ]
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_taric_ai_hide"
             }
           ]
         },
