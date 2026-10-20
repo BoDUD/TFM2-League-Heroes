@@ -66,11 +66,17 @@ JOINTS = {
     "nami": dict(pelvis="Pelvis", chest="Spine3", head="Head", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
                  l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", weapon="Weapon",
                  weapon_head="Buffbone_Cstm_Weapon_1", tail1="Tail1", tail2="Tail2", tail3="Tail3", tail4="Tail4", tail5="Tail5", tail6="Tail6"),
+    "zyra": dict(pelvis="Pelvis", chest="Chest", head="Head", l_hip="L_Hip", l_knee="L_Knee", l_foot="L_Foot",
+                 r_hip="R_Hip", r_knee="R_Knee", r_foot="R_Foot", l_shoulder="L_UpArm", l_elbow="L_ForeArm",
+                 l_hand="L_Hand", r_shoulder="R_UpArm", r_elbow="R_ForeArm", r_hand="R_Hand", l_vine="L_Vine_4",
+                 l_vine_tip="L_Vine_8", r_vine="R_Vine_4", r_vine_tip="R_Vine_8",
+                 **{f"{s}_v{i}": f"{s.upper()}_Vine_{i}" for s in "lr" for i in range(1, 9)}),
 }
 BONES = [("pelvis", "chest"), ("chest", "head"), ("l_hip", "l_knee"), ("l_knee", "l_foot"), ("r_hip", "r_knee"),
          ("r_knee", "r_foot"), ("l_shoulder", "l_elbow"), ("l_elbow", "l_hand"), ("r_shoulder", "r_elbow"),
          ("r_elbow", "r_hand"), ("weapon_a", "weapon_b"), ("tail1", "tail2"), ("tail2", "tail3"), ("tail3", "tail4"),
-         ("tail4", "tail5"), ("tail5", "tail6"), ("shield", "shield_top")]
+         ("tail4", "tail5"), ("tail5", "tail6"), ("shield", "shield_top"), ("l_hand", "l_vine"), ("l_vine", "l_vine_tip"),
+         ("r_hand", "r_vine"), ("r_vine", "r_vine_tip")]
 
 
 def load(spec_path, lol):

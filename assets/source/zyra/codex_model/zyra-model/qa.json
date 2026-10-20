@@ -1,0 +1,198 @@
+[
+  {
+    "file": "zyra-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 498734,
+    "opaque_bbox": [
+      31,
+      79,
+      1239,
+      1224
+    ],
+    "common_quantized_horizontal_runs": [
+      [
+        15,
+        458
+      ],
+      [
+        14,
+        333
+      ],
+      [
+        16,
+        314
+      ],
+      [
+        3,
+        222
+      ],
+      [
+        13,
+        206
+      ],
+      [
+        4,
+        178
+      ],
+      [
+        5,
+        173
+      ],
+      [
+        12,
+        159
+      ]
+    ]
+  },
+  {
+    "file": "zyra-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 466544,
+    "opaque_bbox": [
+      41,
+      98,
+      1236,
+      1207
+    ],
+    "common_quantized_horizontal_runs": [
+      [
+        14,
+        627
+      ],
+      [
+        13,
+        401
+      ],
+      [
+        15,
+        253
+      ],
+      [
+        4,
+        227
+      ],
+      [
+        3,
+        224
+      ],
+      [
+        12,
+        196
+      ],
+      [
+        5,
+        195
+      ],
+      [
+        11,
+        168
+      ]
+    ]
+  },
+  {
+    "file": "zyra-model-SA-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 341119,
+    "opaque_bbox": [
+      257,
+      69,
+      967,
+      1199
+    ],
+    "common_quantized_horizontal_runs": [
+      [
+        12,
+        334
+      ],
+      [
+        11,
+        312
+      ],
+      [
+        3,
+        221
+      ],
+      [
+        10,
+        216
+      ],
+      [
+        4,
+        187
+      ],
+      [
+        5,
+        167
+      ],
+      [
+        9,
+        156
+      ],
+      [
+        6,
+        129
+      ]
+    ]
+  },
+  {
+    "file": "zyra-model-SA-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 356798,
+    "opaque_bbox": [
+      264,
+      96,
+      973,
+      1189
+    ],
+    "common_quantized_horizontal_runs": [
+      [
+        10,
+        376
+      ],
+      [
+        9,
+        343
+      ],
+      [
+        11,
+        286
+      ],
+      [
+        8,
+        259
+      ],
+      [
+        3,
+        244
+      ],
+      [
+        4,
+        210
+      ],
+      [
+        5,
+        205
+      ],
+      [
+        7,
+        185
+      ]
+    ]
+  }
+]

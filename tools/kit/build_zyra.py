@@ -37,25 +37,32 @@ FX = "asset/league/effects/league_zyra_fx"
 BIG = "asset/league/effects/league_zyra_big"
 
 # League units x 100 = ours (attack range 575 -> 55000 like every mid); radii count the unit's collision radius
-# (~15000) on top. Timings provisional until the strips.
+# (~15000) on top. Timings from the frames (tools/art/rig_zyra.py, poses.json): every action releases on its frame 3 -
+# the attack's throw at 160 ms (a_rel 10), Q's fling 160 ms (q_rel 10), E's slam 160 ms (e_rel 10), R's summon 170 ms
+# (r_rel 10); each action as long as its frames (27 / 33 / 33 / 37 ticks). Numbers = the 10-min classic-SDK simulations (mid lane 2 against
+# pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both sides, 2026-10-20): the draft (plants
+# 25 + 15% for 6 s, Q 90 + 60%, E 80 + 50%) +2.10 (8 seeds); single nerfs (plants 18 + 12%, Q / E -15, plants 4 s, hp 820
+# with R 150 + 60%) +1.95..+2.56 and a shorter root +2.99 - inside the noise (about +-0.7 a batch); all the damage and the
+# plants cut together (plants 18 + 12% for 4 s, Q 75 + 50%, E 65 + 40%) +0.65 / +0.78 (8 / 16 seeds); plants 20 + 12%
+# for 5 s, Q 80 + 55%, E 70 + 45% +1.09 (16 seeds; with Q 85 +2.40 - the noise again) = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Zyra:
     # 574 +93 hp, 29 armour, 30 mr, 340 move, 575 range, attack speed 0.681
     "hp": 900, "hp_g": 95, "atk": 70, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 27, "atk_cd": 86, "a_rel": 6, "a_speed": 4500,
+    "atk_range": 55000, "atk_dur": 27, "atk_cd": 86, "a_rel": 10, "a_speed": 4500,
     # plants (League: Thorn Spitter 575 range, Vine Lasher 400 range with a 30% slow for 2 s; 20-100 by level
     # + 15% AP a strike, ~1 strike a second, 8 s)
-    "t_life": 360, "t_per": 60, "t_first": 20, "t_r": 50000, "t_dmg": 25, "t_ratio": 15,
-    "v_life": 360, "v_per": 60, "v_first": 20, "v_r": 32000, "v_dmg": 25, "v_ratio": 15, "v_slow": 30, "v_slow_t": 60,
+    "t_life": 300, "t_per": 60, "t_first": 20, "t_r": 50000, "t_dmg": 20, "t_ratio": 12,
+    "v_life": 300, "v_per": 60, "v_first": 20, "v_r": 32000, "v_dmg": 20, "v_ratio": 12, "v_slow": 30, "v_slow_t": 60,
     "rage": 150,
     # Q Deadly Spines (League: 800 range, 60-200 +60% AP, burst after 0.625 s, cd 7-5)
-    "q_cd": 420, "q_range": 80000, "q_dur": 30, "q_rel": 10, "q_delay": 30, "q_r": 22000, "q_dmg": 90, "q_ratio": 60,
+    "q_cd": 420, "q_range": 80000, "q_dur": 33, "q_rel": 10, "q_delay": 30, "q_r": 22000, "q_dmg": 80, "q_ratio": 55,
     # E Grasping Roots (League: 1100 range, 60-200 +50% AP, root 1-2 s, speed 1150, cd 12)
-    "e_cd": 660, "e_range": 90000, "e_dur": 30, "e_rel": 10, "e_speed": 2000, "e_len": 105000, "e_w": 7000,
-    "e_dmg": 80, "e_ratio": 50, "e_root": 75, "e_grow": 25,
+    "e_cd": 660, "e_range": 90000, "e_dur": 33, "e_rel": 10, "e_speed": 2000, "e_len": 105000, "e_w": 7000,
+    "e_dmg": 70, "e_ratio": 45, "e_root": 75, "e_grow": 25,
     # R Stranglethorns (League: 700 range, radius 575, 180-350 +70% AP, knock-up 1 s after 2 s, cd 110-90)
-    "r_cd": 2100, "r_range": 70000, "r_dur": 30, "r_rel": 12, "r_r": 32000, "r_dmg": 180, "r_ratio": 70,
+    "r_cd": 2100, "r_range": 70000, "r_dur": 37, "r_rel": 10, "r_r": 32000, "r_dmg": 180, "r_ratio": 70,
     "r_knock": 120, "r_air": 60, "r_rage": 300,
     "vo_gap": 600,
     "native": 0,
