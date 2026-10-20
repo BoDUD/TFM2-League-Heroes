@@ -1,0 +1,4 @@
+﻿Raw A=1254x1254; Raw B=1254x1254; shared nearest-neighbor scale=0.885207100591716
+C:\Users\OWNER\Documents\Codex\2026-10-20\new-chat-8\outputs\sylas-picture\sylas-A.png | 1536x1536 | bbox={X=243,Y=642,Width=1050,Height=748} | alpha0=1994237 alpha255=365059 partial=0
+C:\Users\OWNER\Documents\Codex\2026-10-20\new-chat-8\outputs\sylas-picture\sylas-B.png | 1536x1536 | bbox={X=488,Y=640,Width=704,Height=748} | alpha0=2087721 alpha255=271575 partial=0
+
