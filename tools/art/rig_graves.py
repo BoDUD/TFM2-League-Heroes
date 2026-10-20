@@ -139,6 +139,15 @@ class Form:
         lay[y0:y1, x0:x1] = d[y0 - top:y1 - top, x0 - left:x1 - left]
         return R.compose(self.rig, [(lay, dict(dx=whole[0], dy=whole[1]))])
 
+    def run_frame(self, k):
+        """Codex's run frame k (hd/run_<k>.png: the design's upper body over its legs, set on the ground) where the side
+        design stands."""
+        d = load(f"run_{k}.png")
+        lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
+        y0, x0 = P - RUN_PAD, P - RUN_PAD
+        lay[y0:y0 + d.shape[0], x0:x0 + d.shape[1]] = d
+        return R.compose(self.rig, [(lay, {})])
+
     def lying(self, name, dx=0):
         """A pose lying on the ground (lie): its lowest row on the ground, centred dx squares from the standing point."""
         d = load(f"pose_{name}.png")
@@ -199,6 +208,15 @@ MS = {"idle": [160] * 8, "run": [115] * 8,
 WALK = [((0, 0, 2), (0, 0, 0), 1), ((2, 0, 3), (0, 0, 0), 1), ((2, 0, 1), (0, 0, 0), 0), ((2, 0, 0), (0, 0, 0), 0),
         ((0, 0, 0), (0, 0, 2), 1), ((0, 0, 0), (2, 0, 3), 1), ((0, 0, 0), (2, 0, 1), 0), ((0, 0, 0), (2, 0, 0), 0)]
 HOP = 6                        # R's hop: rows off the ground at its top
+# the run: Codex's leg redraw under the design's upper body (tools/art/import_graves_run.py -> hd/run_<n>.png). Codex drew
+# its eight frames in four kinds of pose - C a wide stride, both feet down (raws 1, 4); A the front leg planted, the
+# back one kicked up behind (2, 3, 5, 6); B the back leg planted under the hips, the front one swinging forward with the
+# knee up (7: the cross step); D the front leg reaching forward to land, the back one planted behind (8) - so a stride
+# is C A B D and the loop plays two of them (the second with the other C and A drawn): each leg lands ahead, carries
+# him under the body, is kicked up behind, swings forward past the other and lands again. The two legs are drawn alike
+# side-on (the same khaki and grey), so the second stride needs no shade swap (league_milio's raws did).
+RUN_ORDER = [1, 3, 7, 8, 4, 6, 7, 8]
+RUN_PAD = 6                    # import_graves_run.PAD
 
 
 def frames_all(F):
@@ -206,7 +224,7 @@ def frames_all(F):
     out = {}
     # idle (League's graves_idle1: a slow breath, the gun still at the hip): the 3/4 design's body sets down a row
     out["idle"] = [F.front(crouch=c) for c in (0, 0, 0, 1, 1, 1, 1, 0)]
-    out["run"] = [p(whole=(0, -r), back=b, front=f) for b, f, r in WALK]
+    out["run"] = [F.run_frame(k) for k in RUN_ORDER]
     # auto attack (League's graves_attack1, frame by frame 2026-10-20: the shot from the level gun at ~0 ms, the gun
     # kicked up about 30 degrees by ~190 ms and pumped, level again by ~1100 ms): aimed, the shot as frame 3 starts
     # (130 ms = tick 8: the flash at the muzzle; his whole figure kicked back two squares), the pump (Codex's tilt on the
